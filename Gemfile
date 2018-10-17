@@ -5,4 +5,3 @@ gem 'xcode-install'
 gem 'fastlane'
 gem 'slather'
 gem 'xcov'
-
