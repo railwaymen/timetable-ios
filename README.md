@@ -9,3 +9,9 @@ Check out our [TimeTable Ruby on Rails project](https://github.com/railwaymen/ti
 ## Installation
 * `bundler install`
 * Open `*.xcodeproj` in Xcode
+
+## Unit tests
+* `bundle exec fastlane unit_test`
+
+## Fastlane
+[Details about available lanes](fastlane/README.md)

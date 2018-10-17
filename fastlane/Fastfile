@@ -1,0 +1,22 @@
+default_platform(:ios)
+
+platform :ios do
+
+  before_all do
+    xcversion(version: "10.0")
+  end
+
+  after_all do |lane|
+  end
+
+  error do |lane, exception|
+  end
+
+  #PUBLIC LANES
+  desc "Run unit tests"
+  lane :tests do
+    scan
+    xcov(scheme: "TimeTable", json_report: true, markdown_report: true, output_directory: "output/coverage/xcov", skip_slack: true)
+    slather(scheme: "TimeTable", proj:"TimeTable.xcodeproj", html: true, output_directory: "output/tests/coverage/slather")
+  end
+end
