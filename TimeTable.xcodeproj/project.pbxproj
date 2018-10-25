@@ -16,6 +16,9 @@
 		C1249C772181AAE4005DB2A5 /* StoryboardsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */; };
 		C1249C7A2181AC49005DB2A5 /* StoryboardsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C792181AC49005DB2A5 /* StoryboardsManagerTests.swift */; };
 		C1249C7C2181AEB0005DB2A5 /* AppCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C7B2181AEB0005DB2A5 /* AppCoordinatorTests.swift */; };
+		C1249C802181B4FC005DB2A5 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C7F2181B4FC005DB2A5 /* ErrorHandler.swift */; };
+		C1249C822181B547005DB2A5 /* ErrorHandlerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C812181B547005DB2A5 /* ErrorHandlerType.swift */; };
+		C1249C852181B567005DB2A5 /* ErrorHanlderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C842181B567005DB2A5 /* ErrorHanlderTests.swift */; };
 		C1A10AB821772DB100A83651 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB521772DB100A83651 /* Debug.xcconfig */; };
 		C1A10AB921772DB100A83651 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB621772DB100A83651 /* Release.xcconfig */; };
 		C1A10ABA21772DB100A83651 /* Stage.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB721772DB100A83651 /* Stage.xcconfig */; };
@@ -46,6 +49,9 @@
 		C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardsManager.swift; sourceTree = "<group>"; };
 		C1249C792181AC49005DB2A5 /* StoryboardsManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardsManagerTests.swift; sourceTree = "<group>"; };
 		C1249C7B2181AEB0005DB2A5 /* AppCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorTests.swift; sourceTree = "<group>"; };
+		C1249C7F2181B4FC005DB2A5 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
+		C1249C812181B547005DB2A5 /* ErrorHandlerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandlerType.swift; sourceTree = "<group>"; };
+		C1249C842181B567005DB2A5 /* ErrorHanlderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHanlderTests.swift; sourceTree = "<group>"; };
 		C1A10AB521772DB100A83651 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Configuration/Debug.xcconfig; sourceTree = SOURCE_ROOT; };
 		C1A10AB621772DB100A83651 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Configuration/Release.xcconfig; sourceTree = SOURCE_ROOT; };
 		C1A10AB721772DB100A83651 /* Stage.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Stage.xcconfig; path = Configuration/Stage.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -160,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */,
+				C1249C7D2181B4CF005DB2A5 /* Errors */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -167,9 +174,27 @@
 		C1249C782181AC35005DB2A5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C1249C832181B556005DB2A5 /* Errors */,
 				C1249C792181AC49005DB2A5 /* StoryboardsManagerTests.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		C1249C7D2181B4CF005DB2A5 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				C1249C7F2181B4FC005DB2A5 /* ErrorHandler.swift */,
+				C1249C812181B547005DB2A5 /* ErrorHandlerType.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
+		C1249C832181B556005DB2A5 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				C1249C842181B567005DB2A5 /* ErrorHanlderTests.swift */,
+			);
+			path = Errors;
 			sourceTree = "<group>";
 		};
 		C1A10AB421772DA400A83651 /* Configuration */ = {
@@ -331,7 +356,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1B5136F21772D1200C3727C /* ViewController.swift in Sources */,
+				C1249C802181B4FC005DB2A5 /* ErrorHandler.swift in Sources */,
 				C1249C652181A1B7005DB2A5 /* BaseCoordinator.swift in Sources */,
+				C1249C822181B547005DB2A5 /* ErrorHandlerType.swift in Sources */,
 				C1249C772181AAE4005DB2A5 /* StoryboardsManager.swift in Sources */,
 				C1249C742181A3D0005DB2A5 /* AppCoordinator.swift in Sources */,
 				C1249C682181A1E7005DB2A5 /* CoordinatorType.swift in Sources */,
@@ -344,6 +371,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1249C7C2181AEB0005DB2A5 /* AppCoordinatorTests.swift in Sources */,
+				C1249C852181B567005DB2A5 /* ErrorHanlderTests.swift in Sources */,
 				C1249C6E2181A265005DB2A5 /* Optional+Unwrap.swift in Sources */,
 				C1249C6C2181A23A005DB2A5 /* Error+String.swift in Sources */,
 				C1249C7A2181AC49005DB2A5 /* StoryboardsManagerTests.swift in Sources */,
