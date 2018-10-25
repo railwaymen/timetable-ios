@@ -46,7 +46,4 @@ fastlane/screenshots/
 *.orig
 
 # Configuration temp directory
-/Configuration/
 /Configuration/*.xcconfig
-
-

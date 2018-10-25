@@ -1,0 +1,49 @@
+stages:
+  - prepare
+  - build
+
+cache:
+  key: "bundle_dependencies"
+  paths:
+  - vendor
+
+prepare_proj:
+  stage: prepare
+  script:
+    - mkdir -p Configuration
+    - envsubst '$DEBUG_APP_NAME $DEBUG_APP_BUNDLE_ID $APP_TEST_BUNDLE_ID $DEVELOPMENT_TEAM_ID' < Configuration/env_debug.xcconfig.tpl > Configuration/Debug.xcconfig
+    - envsubst '$STAGE_APP_NAME $STAGE_APP_BUNDLE_ID $APP_TEST_BUNDLE_ID $DEVELOPMENT_TEAM_ID' < Configuration/env_stage.xcconfig.tpl > Configuration/Stage.xcconfig
+    - envsubst '$RELEASE_APP_NAME $RELEASE_APP_BUNDLE_ID $APP_TEST_BUNDLE_ID $DEVELOPMENT_TEAM_ID' < Configuration/env_release.xcconfig.tpl > Configuration/Release.xcconfig
+    - bundle install --path vendor/bundle
+    - export
+  artifacts:
+    name: "Bundle_${CI_BUILD_NAME}_${CI_BUILD_REF_NAME}_${CI_BUILD_ID}"
+    expire_in: 1 day
+    paths:
+      - vendor/*
+      - Pods/*
+      - Configuration/*
+      - TimeTable.xcodeproj
+  when: on_success
+  tags:
+    - ios
+
+test_project:
+  stage: build
+  before_script:
+    - killall "Simulator" || true
+  script:
+    - export
+    - bundle exec fastlane tests
+  after_script:
+    - killall "Simulator" || true
+  artifacts:
+    name: "Tests_${CI_BUILD_NAME}_${CI_BUILD_REF_NAME}_${CI_BUILD_ID}"
+    expire_in: 1 week
+    paths:
+    - output/tests/*
+    - output/coverage/*
+    - output/lint/*
+    when: on_success
+  tags:
+    - ios_simulator
