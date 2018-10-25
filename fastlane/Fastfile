@@ -27,7 +27,7 @@ platform :ios do
   lane :tests do
     check_style
     scan
-    xcov(scheme: "TimeTable", json_report: true, markdown_report: true, output_directory: "output/coverage/xcov", skip_slack: true)
-    slather(scheme: "TimeTable", proj:"TimeTable.xcodeproj", html: true, output_directory: "output/tests/coverage/slather")
+    xcov(scheme: "TimeTable", workspace: "TimeTable.xcworkspace", json_report: true, markdown_report: true, output_directory: "output/coverage/xcov", skip_slack: true)
+    slather(scheme: "TimeTable", workspace:"TimeTable.xcworkspace", proj:"TimeTable.xcodeproj", html: true, output_directory: "output/tests/coverage/slather")
   end
 end
