@@ -12,6 +12,7 @@
 		C1249C6C2181A23A005DB2A5 /* Error+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C6B2181A23A005DB2A5 /* Error+String.swift */; };
 		C1249C6E2181A265005DB2A5 /* Optional+Unwrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C6D2181A265005DB2A5 /* Optional+Unwrap.swift */; };
 		C1249C712181A282005DB2A5 /* BaseCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C702181A282005DB2A5 /* BaseCoordinatorTests.swift */; };
+		C1249C742181A3D0005DB2A5 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C732181A3D0005DB2A5 /* AppCoordinator.swift */; };
 		C1A10AB821772DB100A83651 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB521772DB100A83651 /* Debug.xcconfig */; };
 		C1A10AB921772DB100A83651 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB621772DB100A83651 /* Release.xcconfig */; };
 		C1A10ABA21772DB100A83651 /* Stage.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB721772DB100A83651 /* Stage.xcconfig */; };
@@ -38,6 +39,7 @@
 		C1249C6B2181A23A005DB2A5 /* Error+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+String.swift"; sourceTree = "<group>"; };
 		C1249C6D2181A265005DB2A5 /* Optional+Unwrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Unwrap.swift"; sourceTree = "<group>"; };
 		C1249C702181A282005DB2A5 /* BaseCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinatorTests.swift; sourceTree = "<group>"; };
+		C1249C732181A3D0005DB2A5 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		C1A10AB521772DB100A83651 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Configuration/Debug.xcconfig; sourceTree = SOURCE_ROOT; };
 		C1A10AB621772DB100A83651 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Configuration/Release.xcconfig; sourceTree = SOURCE_ROOT; };
 		C1A10AB721772DB100A83651 /* Stage.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Stage.xcconfig; path = Configuration/Stage.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -115,6 +117,7 @@
 		C1249C632181A198005DB2A5 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				C1249C732181A3D0005DB2A5 /* AppCoordinator.swift */,
 				C1249C642181A1B7005DB2A5 /* BaseCoordinator.swift */,
 				C1249C662181A1CF005DB2A5 /* Protocols */,
 			);
@@ -304,6 +307,7 @@
 			files = (
 				C1B5136F21772D1200C3727C /* ViewController.swift in Sources */,
 				C1249C652181A1B7005DB2A5 /* BaseCoordinator.swift in Sources */,
+				C1249C742181A3D0005DB2A5 /* AppCoordinator.swift in Sources */,
 				C1249C682181A1E7005DB2A5 /* CoordinatorType.swift in Sources */,
 				C1B5136D21772D1200C3727C /* AppDelegate.swift in Sources */,
 			);
@@ -416,7 +420,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
+				DEVELOPMENT_TEAM = 78CQWFZKPC;
 				INFOPLIST_FILE = TimeTable/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -578,7 +582,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
+				DEVELOPMENT_TEAM = 78CQWFZKPC;
 				INFOPLIST_FILE = TimeTable/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -586,7 +590,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(TT_APP_BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = TimeTableDevelopment;
+				PROVISIONING_PROFILE_SPECIFIER = TimeTableDebugDevelopment;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
