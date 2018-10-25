@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C1249C652181A1B7005DB2A5 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C642181A1B7005DB2A5 /* BaseCoordinator.swift */; };
+		C1249C682181A1E7005DB2A5 /* CoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C672181A1E7005DB2A5 /* CoordinatorType.swift */; };
+		C1249C6C2181A23A005DB2A5 /* Error+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C6B2181A23A005DB2A5 /* Error+String.swift */; };
+		C1249C6E2181A265005DB2A5 /* Optional+Unwrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C6D2181A265005DB2A5 /* Optional+Unwrap.swift */; };
+		C1249C712181A282005DB2A5 /* BaseCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C702181A282005DB2A5 /* BaseCoordinatorTests.swift */; };
+		C1249C742181A3D0005DB2A5 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C732181A3D0005DB2A5 /* AppCoordinator.swift */; };
 		C1A10AB821772DB100A83651 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB521772DB100A83651 /* Debug.xcconfig */; };
 		C1A10AB921772DB100A83651 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB621772DB100A83651 /* Release.xcconfig */; };
 		C1A10ABA21772DB100A83651 /* Stage.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB721772DB100A83651 /* Stage.xcconfig */; };
@@ -15,7 +21,6 @@
 		C1B5137221772D1200C3727C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1B5137021772D1200C3727C /* Main.storyboard */; };
 		C1B5137421772D1400C3727C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1B5137321772D1400C3727C /* Assets.xcassets */; };
 		C1B5137721772D1400C3727C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1B5137521772D1400C3727C /* LaunchScreen.storyboard */; };
-		C1B5138221772D1400C3727C /* TimeTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B5138121772D1400C3727C /* TimeTableTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +34,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C1249C642181A1B7005DB2A5 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
+		C1249C672181A1E7005DB2A5 /* CoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorType.swift; sourceTree = "<group>"; };
+		C1249C6B2181A23A005DB2A5 /* Error+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+String.swift"; sourceTree = "<group>"; };
+		C1249C6D2181A265005DB2A5 /* Optional+Unwrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Unwrap.swift"; sourceTree = "<group>"; };
+		C1249C702181A282005DB2A5 /* BaseCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinatorTests.swift; sourceTree = "<group>"; };
+		C1249C732181A3D0005DB2A5 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		C1A10AB521772DB100A83651 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Configuration/Debug.xcconfig; sourceTree = SOURCE_ROOT; };
 		C1A10AB621772DB100A83651 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Configuration/Release.xcconfig; sourceTree = SOURCE_ROOT; };
 		C1A10AB721772DB100A83651 /* Stage.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Stage.xcconfig; path = Configuration/Stage.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -40,7 +51,6 @@
 		C1B5137621772D1400C3727C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C1B5137821772D1400C3727C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1B5137D21772D1400C3727C /* TimeTableTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeTableTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C1B5138121772D1400C3727C /* TimeTableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableTests.swift; sourceTree = "<group>"; };
 		C1B5138321772D1400C3727C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,6 +72,83 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C1249C5E21819E16005DB2A5 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				C1B5137021772D1200C3727C /* Main.storyboard */,
+				C1B5137521772D1400C3727C /* LaunchScreen.storyboard */,
+				C1B5136E21772D1200C3727C /* ViewController.swift */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		C1249C5F21819E2C005DB2A5 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				C1B5137321772D1400C3727C /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		C1249C6021819E33005DB2A5 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				C1B5136C21772D1200C3727C /* AppDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		C1249C6121819E40005DB2A5 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				C1B5137821772D1400C3727C /* Info.plist */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		C1249C6221819EF7005DB2A5 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				C1B5138321772D1400C3727C /* Info.plist */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		C1249C632181A198005DB2A5 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				C1249C732181A3D0005DB2A5 /* AppCoordinator.swift */,
+				C1249C642181A1B7005DB2A5 /* BaseCoordinator.swift */,
+				C1249C662181A1CF005DB2A5 /* Protocols */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		C1249C662181A1CF005DB2A5 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				C1249C672181A1E7005DB2A5 /* CoordinatorType.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		C1249C692181A21B005DB2A5 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				C1249C6B2181A23A005DB2A5 /* Error+String.swift */,
+				C1249C6D2181A265005DB2A5 /* Optional+Unwrap.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		C1249C6F2181A27A005DB2A5 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				C1249C702181A282005DB2A5 /* BaseCoordinatorTests.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
 		C1A10AB421772DA400A83651 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -93,13 +180,12 @@
 		C1B5136B21772D1200C3727C /* TimeTable */ = {
 			isa = PBXGroup;
 			children = (
+				C1249C5F21819E2C005DB2A5 /* Assets */,
+				C1249C5E21819E16005DB2A5 /* Categories */,
 				C1A10AB421772DA400A83651 /* Configuration */,
-				C1B5136C21772D1200C3727C /* AppDelegate.swift */,
-				C1B5136E21772D1200C3727C /* ViewController.swift */,
-				C1B5137021772D1200C3727C /* Main.storyboard */,
-				C1B5137321772D1400C3727C /* Assets.xcassets */,
-				C1B5137521772D1400C3727C /* LaunchScreen.storyboard */,
-				C1B5137821772D1400C3727C /* Info.plist */,
+				C1249C632181A198005DB2A5 /* Coordinators */,
+				C1249C6021819E33005DB2A5 /* Delegates */,
+				C1249C6121819E40005DB2A5 /* SupportingFiles */,
 			);
 			path = TimeTable;
 			sourceTree = "<group>";
@@ -107,8 +193,9 @@
 		C1B5138021772D1400C3727C /* TimeTableTests */ = {
 			isa = PBXGroup;
 			children = (
-				C1B5138121772D1400C3727C /* TimeTableTests.swift */,
-				C1B5138321772D1400C3727C /* Info.plist */,
+				C1249C692181A21B005DB2A5 /* Common */,
+				C1249C6F2181A27A005DB2A5 /* Coordinators */,
+				C1249C6221819EF7005DB2A5 /* SupportingFiles */,
 			);
 			path = TimeTableTests;
 			sourceTree = "<group>";
@@ -166,6 +253,7 @@
 					};
 					C1B5137C21772D1400C3727C = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1000;
 						TestTargetID = C1B5136821772D1200C3727C;
 					};
 				};
@@ -218,6 +306,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1B5136F21772D1200C3727C /* ViewController.swift in Sources */,
+				C1249C652181A1B7005DB2A5 /* BaseCoordinator.swift in Sources */,
+				C1249C742181A3D0005DB2A5 /* AppCoordinator.swift in Sources */,
+				C1249C682181A1E7005DB2A5 /* CoordinatorType.swift in Sources */,
 				C1B5136D21772D1200C3727C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,7 +317,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1B5138221772D1400C3727C /* TimeTableTests.swift in Sources */,
+				C1249C6E2181A265005DB2A5 /* Optional+Unwrap.swift in Sources */,
+				C1249C6C2181A23A005DB2A5 /* Error+String.swift in Sources */,
+				C1249C712181A282005DB2A5 /* BaseCoordinatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,8 +420,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
-				INFOPLIST_FILE = TimeTable/Info.plist;
+				DEVELOPMENT_TEAM = 78CQWFZKPC;
+				INFOPLIST_FILE = TimeTable/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -346,10 +439,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
-				INFOPLIST_FILE = TimeTableTests/Info.plist;
+				INFOPLIST_FILE = TimeTableTests/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -358,6 +452,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(TT_TEST_BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TimeTable.app/TimeTable";
@@ -487,15 +582,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
-				INFOPLIST_FILE = TimeTable/Info.plist;
+				DEVELOPMENT_TEAM = 78CQWFZKPC;
+				INFOPLIST_FILE = TimeTable/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(TT_APP_BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = TimeTableDevelopment;
+				PROVISIONING_PROFILE_SPECIFIER = TimeTableDebugDevelopment;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -507,7 +602,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
-				INFOPLIST_FILE = TimeTable/Info.plist;
+				INFOPLIST_FILE = TimeTable/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -525,10 +620,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
-				INFOPLIST_FILE = TimeTableTests/Info.plist;
+				INFOPLIST_FILE = TimeTableTests/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -537,6 +633,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(TT_TEST_BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TimeTable.app/TimeTable";
@@ -548,10 +645,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
-				INFOPLIST_FILE = TimeTableTests/Info.plist;
+				INFOPLIST_FILE = TimeTableTests/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
