@@ -11,11 +11,13 @@ import UIKit
 class AppCoordinator: Coordinator {
     
     var navigationController: UINavigationController
+    private var storyboardsManager: StoryboardsManagerType
     
     //MARK: - Initialization
-    override init(window: UIWindow?) {
+    init(window: UIWindow?, storyboardsManager: StoryboardsManagerType) {
         self.navigationController = UINavigationController()
         window?.rootViewController = navigationController
+        self.storyboardsManager = storyboardsManager
         super.init(window: window)
         navigationController.interactivePopGestureRecognizer?.delegate = nil
     }
@@ -30,9 +32,7 @@ class AppCoordinator: Coordinator {
     
     //MARK: - Private
     private func runMainFlow() {
-        guard let controller = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as? ViewController else {
-            return
-        }
+        guard let controller: ViewController = storyboardsManager.controller(storyboard: .main, controllerIdentifier: .initial) else { return }
         navigationController.setViewControllers([controller], animated: false)
     }
 }
