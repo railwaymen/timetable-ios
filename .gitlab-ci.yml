@@ -15,6 +15,7 @@ prepare_proj:
     - envsubst '$STAGE_APP_NAME $STAGE_APP_BUNDLE_ID $APP_TEST_BUNDLE_ID $DEVELOPMENT_TEAM_ID' < Configuration/env_stage.xcconfig.tpl > Configuration/Stage.xcconfig
     - envsubst '$RELEASE_APP_NAME $RELEASE_APP_BUNDLE_ID $APP_TEST_BUNDLE_ID $DEVELOPMENT_TEAM_ID' < Configuration/env_release.xcconfig.tpl > Configuration/Release.xcconfig
     - bundle install --path vendor/bundle
+    - bundle exec pod install || bundle exec pod install --repo-update
     - export
   artifacts:
     name: "Bundle_${CI_BUILD_NAME}_${CI_BUILD_REF_NAME}_${CI_BUILD_ID}"
@@ -23,7 +24,7 @@ prepare_proj:
       - vendor/*
       - Pods/*
       - Configuration/*
-      - TimeTable.xcodeproj
+      - TimeTable.xcworkspace
   when: on_success
   tags:
     - ios
