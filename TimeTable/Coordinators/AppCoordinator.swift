@@ -13,11 +13,21 @@ class AppCoordinator: Coordinator {
     var navigationController: UINavigationController
     private var storyboardsManager: StoryboardsManagerType
     
+    private let parentErrorHandler: ErrorHandlerType
+    
+    private var errorHandler: ErrorHandlerType {
+        return parentErrorHandler.catchingError(action: { error in
+            //Handle error
+            print(error)
+        })
+    }
+    
     //MARK: - Initialization
-    init(window: UIWindow?, storyboardsManager: StoryboardsManagerType) {
+    init(window: UIWindow?, storyboardsManager: StoryboardsManagerType, errorHandler: ErrorHandlerType) {
         self.navigationController = UINavigationController()
         window?.rootViewController = navigationController
         self.storyboardsManager = storyboardsManager
+        self.parentErrorHandler = errorHandler
         super.init(window: window)
         navigationController.interactivePopGestureRecognizer?.delegate = nil
     }

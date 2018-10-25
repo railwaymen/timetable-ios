@@ -12,24 +12,38 @@ import XCTest
 class AppCoordinatorTests: XCTestCase {
     
     private var window: UIWindow?
-    private var storyboardsManager: StoryboardsManagerMock!
+    private var storyboardsManagerMock: StoryboardsManagerMock!
+    private var errorHandlerMock: ErrorHandlerMock!
     
     override func setUp() {
         self.window = UIWindow(frame: CGRect.zero)
-        self.storyboardsManager = StoryboardsManagerMock()
+        self.storyboardsManagerMock = StoryboardsManagerMock()
+        self.errorHandlerMock = ErrorHandlerMock()
         super.setUp()
     }
     
-    func testStartFailsWhileControllerIsNull() {
+    func testStart_appCoorinatorDoNotContainChildControllers() {
         
         //Arrange
-        let appCoordinator = AppCoordinator(window: window, storyboardsManager: storyboardsManager)
+        let appCoordinator = AppCoordinator(window: window, storyboardsManager: storyboardsManagerMock, errorHandler: errorHandlerMock)
         
         //Act
         appCoordinator.start()
         
         //Assert
         XCTAssertTrue(appCoordinator.navigationController.children.isEmpty)
+    }
+    
+    func testStart_appCoorinatorContainsChildControllers() {
+        
+        //Arrange
+        let appCoordinator = AppCoordinator(window: window, storyboardsManager: storyboardsManagerMock, errorHandler: errorHandlerMock)
+        storyboardsManagerMock.controller = ViewController()
+        //Act
+        appCoordinator.start()
+        
+        //Assert
+        XCTAssertEqual(appCoordinator.navigationController.children.count, 1)
     }
 }
 
@@ -38,4 +52,12 @@ private class StoryboardsManagerMock: StoryboardsManagerType {
     func controller<T>(storyboard: StoryboardsManager.StoryboardName, controllerIdentifier: StoryboardsManager.ControllerIdentifier) -> T? {
         return controller as? T
     }
+}
+
+private class ErrorHandlerMock: ErrorHandlerType {
+    func catchingError(action: @escaping (Error) throws -> ()) -> ErrorHandlerType {
+        return ErrorHandler(action: action)
+    }
+    
+    func throwing(error: Error, finally: @escaping (Bool) -> Void) {}
 }

@@ -14,7 +14,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     private lazy var appCoordinator: AppCoordinator = {
-        return AppCoordinator(window: window, storyboardsManager: StoryboardsManager.shared)
+        return AppCoordinator(window: window, storyboardsManager: StoryboardsManager.shared, errorHandler: errorHandler)
+    }()
+    
+    private lazy var errorHandler: ErrorHandlerType = {
+        return ErrorHandler()
     }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
