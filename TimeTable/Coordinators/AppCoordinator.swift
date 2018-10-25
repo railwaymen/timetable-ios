@@ -17,7 +17,7 @@ class AppCoordinator: Coordinator {
         self.navigationController = UINavigationController()
         window?.rootViewController = navigationController
         super.init(window: window)
-        navigationController.interactivePopGestureRecognizer?.delegate = nil;
+        navigationController.interactivePopGestureRecognizer?.delegate = nil
     }
     
     //MARK: - CoordinatorType
@@ -29,7 +29,7 @@ class AppCoordinator: Coordinator {
     }
     
     //MARK: - Private
-    func runMainFlow() {
+    private func runMainFlow() {
         guard let controller = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as? ViewController else {
             return
         }
