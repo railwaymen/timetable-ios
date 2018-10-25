@@ -16,3 +16,9 @@ Check out our [TimeTable Ruby on Rails project](https://github.com/railwaymen/ti
 
 ## Fastlane
 [Details about available lanes](fastlane/README.md)
+
+## Swiftlint
+[Swift lint rules](.swiftlint.yml)
+
+## Git Hooks
+* Pre-commit installation - `sh runScript.sh`
