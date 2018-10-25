@@ -1,0 +1,19 @@
+disabled_rules:
+  - trailing_whitespace
+  - xctfail_message
+
+nesting:
+  type_level:
+    warning: 3
+  statement_level:
+    warning: 10
+
+line_length:
+  warning: 145
+  error: 200
+
+warning_threshold: 5
+
+excluded:
+  - Pods
+  - vendor

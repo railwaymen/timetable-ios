@@ -8,9 +8,9 @@
 
 import Foundation
 
-public typealias HandleAction<T> = (T) throws -> ()
+public typealias HandleAction<T> = (T) throws -> Void
 
 public protocol ErrorHandlerType: class {
-    func throwing(error: Error, finally: @escaping (Bool)->Void)
+    func throwing(error: Error, finally: @escaping (Bool) -> Void)
     func catchingError(action: @escaping HandleAction<Error>) -> ErrorHandlerType
 }

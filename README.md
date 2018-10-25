@@ -8,10 +8,17 @@ Check out our [TimeTable Ruby on Rails project](https://github.com/railwaymen/ti
 
 ## Installation
 * `bundler install`
-* Open `*.xcodeproj` in Xcode
+* `bundle exec pod install`
+* Open `*.xcworkspace` in Xcode
 
 ## Unit tests
 * `bundle exec fastlane unit_test`
 
 ## Fastlane
 [Details about available lanes](fastlane/README.md)
+
+## Swiftlint
+[Swift lint rules](.swiftlint.yml)
+
+## Git Hooks
+* Pre-commit installation - `sh runScript.sh`

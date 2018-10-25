@@ -10,9 +10,9 @@ import XCTest
 @testable import TimeTable
 
 class StoryboardsManagerTests: XCTestCase {
-    
+
     func testIfMainStoryboardExists() {
-        
+
         //Arrange
         let manager = StoryboardsManager.shared
         
