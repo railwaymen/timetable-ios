@@ -13,6 +13,9 @@
 		C1249C6E2181A265005DB2A5 /* Optional+Unwrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C6D2181A265005DB2A5 /* Optional+Unwrap.swift */; };
 		C1249C712181A282005DB2A5 /* BaseCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C702181A282005DB2A5 /* BaseCoordinatorTests.swift */; };
 		C1249C742181A3D0005DB2A5 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C732181A3D0005DB2A5 /* AppCoordinator.swift */; };
+		C1249C772181AAE4005DB2A5 /* StoryboardsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */; };
+		C1249C7A2181AC49005DB2A5 /* StoryboardsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C792181AC49005DB2A5 /* StoryboardsManagerTests.swift */; };
+		C1249C7C2181AEB0005DB2A5 /* AppCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C7B2181AEB0005DB2A5 /* AppCoordinatorTests.swift */; };
 		C1A10AB821772DB100A83651 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB521772DB100A83651 /* Debug.xcconfig */; };
 		C1A10AB921772DB100A83651 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB621772DB100A83651 /* Release.xcconfig */; };
 		C1A10ABA21772DB100A83651 /* Stage.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB721772DB100A83651 /* Stage.xcconfig */; };
@@ -40,6 +43,9 @@
 		C1249C6D2181A265005DB2A5 /* Optional+Unwrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Unwrap.swift"; sourceTree = "<group>"; };
 		C1249C702181A282005DB2A5 /* BaseCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinatorTests.swift; sourceTree = "<group>"; };
 		C1249C732181A3D0005DB2A5 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardsManager.swift; sourceTree = "<group>"; };
+		C1249C792181AC49005DB2A5 /* StoryboardsManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardsManagerTests.swift; sourceTree = "<group>"; };
+		C1249C7B2181AEB0005DB2A5 /* AppCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorTests.swift; sourceTree = "<group>"; };
 		C1A10AB521772DB100A83651 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Configuration/Debug.xcconfig; sourceTree = SOURCE_ROOT; };
 		C1A10AB621772DB100A83651 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Configuration/Release.xcconfig; sourceTree = SOURCE_ROOT; };
 		C1A10AB721772DB100A83651 /* Stage.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Stage.xcconfig; path = Configuration/Stage.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -145,8 +151,25 @@
 			isa = PBXGroup;
 			children = (
 				C1249C702181A282005DB2A5 /* BaseCoordinatorTests.swift */,
+				C1249C7B2181AEB0005DB2A5 /* AppCoordinatorTests.swift */,
 			);
 			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		C1249C752181AAD2005DB2A5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C1249C782181AC35005DB2A5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C1249C792181AC49005DB2A5 /* StoryboardsManagerTests.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		C1A10AB421772DA400A83651 /* Configuration */ = {
@@ -185,6 +208,7 @@
 				C1A10AB421772DA400A83651 /* Configuration */,
 				C1249C632181A198005DB2A5 /* Coordinators */,
 				C1249C6021819E33005DB2A5 /* Delegates */,
+				C1249C752181AAD2005DB2A5 /* Models */,
 				C1249C6121819E40005DB2A5 /* SupportingFiles */,
 			);
 			path = TimeTable;
@@ -195,6 +219,7 @@
 			children = (
 				C1249C692181A21B005DB2A5 /* Common */,
 				C1249C6F2181A27A005DB2A5 /* Coordinators */,
+				C1249C782181AC35005DB2A5 /* Models */,
 				C1249C6221819EF7005DB2A5 /* SupportingFiles */,
 			);
 			path = TimeTableTests;
@@ -307,6 +332,7 @@
 			files = (
 				C1B5136F21772D1200C3727C /* ViewController.swift in Sources */,
 				C1249C652181A1B7005DB2A5 /* BaseCoordinator.swift in Sources */,
+				C1249C772181AAE4005DB2A5 /* StoryboardsManager.swift in Sources */,
 				C1249C742181A3D0005DB2A5 /* AppCoordinator.swift in Sources */,
 				C1249C682181A1E7005DB2A5 /* CoordinatorType.swift in Sources */,
 				C1B5136D21772D1200C3727C /* AppDelegate.swift in Sources */,
@@ -317,8 +343,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1249C7C2181AEB0005DB2A5 /* AppCoordinatorTests.swift in Sources */,
 				C1249C6E2181A265005DB2A5 /* Optional+Unwrap.swift in Sources */,
 				C1249C6C2181A23A005DB2A5 /* Error+String.swift in Sources */,
+				C1249C7A2181AC49005DB2A5 /* StoryboardsManagerTests.swift in Sources */,
 				C1249C712181A282005DB2A5 /* BaseCoordinatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
