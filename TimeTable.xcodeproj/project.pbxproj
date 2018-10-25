@@ -299,6 +299,7 @@
 				C1B5136721772D1200C3727C /* Resources */,
 				E7F8FC399274A4FFA26264A9 /* [CP] Embed Pods Frameworks */,
 				8D59EC219820241EAD27DD9D /* [CP] Copy Pods Resources */,
+				C1249C862181D0F6005DB2A5 /* Swiftlint */,
 			);
 			buildRules = (
 			);
@@ -449,6 +450,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TimeTable/Pods-TimeTable-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		C1249C862181D0F6005DB2A5 /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 		E5CA50E7C20EDD52CEBEBB27 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

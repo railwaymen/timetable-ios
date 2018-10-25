@@ -11,7 +11,7 @@ import XCTest
 
 class BaseCoordinatorTests: XCTestCase {
     
-    //MARK: - CoordinatorType
+    // MARK: - CoordinatorType
     func testCoordinatorTypeExtension_normalStartRunsMethodStartFinishCompletionSucceed() {
         
         //Arrange
@@ -25,7 +25,7 @@ class BaseCoordinatorTests: XCTestCase {
         XCTAssertNil(coordinator.finishCompletion)
     }
     
-    //MARK: - Coordinator
+    // MARK: - Coordinator
     func testCoordinator_startWithFinishCompletionSucceed() {
         
         //Arrange

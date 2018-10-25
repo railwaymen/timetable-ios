@@ -12,9 +12,20 @@ platform :ios do
   error do |lane, exception|
   end
 
+  #PRIVATE LANES
+  private_lane :check_style do
+		output_path="output/lint"
+		output_file="#{output_path}/swiftlint.txt"
+
+		sh("cd .. && mkdir -p #{output_path}")
+		ENV["PATH"] = ["Pods/SwiftLint", ENV["PATH"]].join(":")
+		swiftlint(output_file:output_file, reporter: "emoji")
+	end
+
   #PUBLIC LANES
   desc "Run unit tests"
   lane :tests do
+    check_style
     scan
     xcov(scheme: "TimeTable", json_report: true, markdown_report: true, output_directory: "output/coverage/xcov", skip_slack: true)
     slather(scheme: "TimeTable", proj:"TimeTable.xcodeproj", html: true, output_directory: "output/tests/coverage/slather")

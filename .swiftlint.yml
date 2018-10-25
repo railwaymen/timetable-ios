@@ -1,3 +1,7 @@
+disabled_rules:
+  - trailing_whitespace
+  - xctfail_message
+
 nesting:
   type_level:
     warning: 3
@@ -7,6 +11,8 @@ nesting:
 line_length:
   warning: 145
   error: 200
+
+warning_threshold: 5
 
 excluded:
   - Pods

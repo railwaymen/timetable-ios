@@ -22,7 +22,7 @@ class AppCoordinator: Coordinator {
         })
     }
     
-    //MARK: - Initialization
+    // MARK: - Initialization
     init(window: UIWindow?, storyboardsManager: StoryboardsManagerType, errorHandler: ErrorHandlerType) {
         self.navigationController = UINavigationController()
         window?.rootViewController = navigationController
@@ -32,7 +32,7 @@ class AppCoordinator: Coordinator {
         navigationController.interactivePopGestureRecognizer?.delegate = nil
     }
     
-    //MARK: - CoordinatorType
+    // MARK: - CoordinatorType
     func start() {
         defer {
             super.start()
@@ -40,7 +40,7 @@ class AppCoordinator: Coordinator {
         self.runMainFlow()
     }
     
-    //MARK: - Private
+    // MARK: - Private
     private func runMainFlow() {
         guard let controller: ViewController = storyboardsManager.controller(storyboard: .main, controllerIdentifier: .initial) else { return }
         navigationController.setViewControllers([controller], animated: false)

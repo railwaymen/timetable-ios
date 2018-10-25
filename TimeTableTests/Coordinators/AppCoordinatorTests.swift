@@ -55,7 +55,7 @@ private class StoryboardsManagerMock: StoryboardsManagerType {
 }
 
 private class ErrorHandlerMock: ErrorHandlerType {
-    func catchingError(action: @escaping (Error) throws -> ()) -> ErrorHandlerType {
+    func catchingError(action: @escaping (Error) throws -> Void) -> ErrorHandlerType {
         return ErrorHandler(action: action)
     }
     

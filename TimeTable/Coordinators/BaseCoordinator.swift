@@ -15,16 +15,14 @@ class Coordinator: CoordinatorType {
     var window: UIWindow?
     var finishCompletion: (() -> Void)?
     
-    //MARK: - Initialization
-    
+    // MARK: - Initialization
     init(window: UIWindow?) {
         self.identifier = UUID()
         self.children = [:]
         self.window = window
     }
     
-    //MARK: - CoordinatorType
-    
+    // MARK: - CoordinatorType
     func start(finishCompletion: (() -> Void)?) {
         self.finishCompletion = finishCompletion
     }
