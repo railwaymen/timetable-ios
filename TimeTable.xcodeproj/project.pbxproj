@@ -62,6 +62,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C1249C5E21819E16005DB2A5 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				C1B5137021772D1200C3727C /* Main.storyboard */,
+				C1B5137521772D1400C3727C /* LaunchScreen.storyboard */,
+				C1B5136E21772D1200C3727C /* ViewController.swift */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		C1249C5F21819E2C005DB2A5 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				C1B5137321772D1400C3727C /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		C1249C6021819E33005DB2A5 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				C1B5136C21772D1200C3727C /* AppDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		C1249C6121819E40005DB2A5 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				C1B5137821772D1400C3727C /* Info.plist */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		C1249C6221819EF7005DB2A5 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				C1B5138321772D1400C3727C /* Info.plist */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
 		C1A10AB421772DA400A83651 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -93,13 +135,11 @@
 		C1B5136B21772D1200C3727C /* TimeTable */ = {
 			isa = PBXGroup;
 			children = (
+				C1249C5F21819E2C005DB2A5 /* Assets */,
+				C1249C5E21819E16005DB2A5 /* Categories */,
 				C1A10AB421772DA400A83651 /* Configuration */,
-				C1B5136C21772D1200C3727C /* AppDelegate.swift */,
-				C1B5136E21772D1200C3727C /* ViewController.swift */,
-				C1B5137021772D1200C3727C /* Main.storyboard */,
-				C1B5137321772D1400C3727C /* Assets.xcassets */,
-				C1B5137521772D1400C3727C /* LaunchScreen.storyboard */,
-				C1B5137821772D1400C3727C /* Info.plist */,
+				C1249C6021819E33005DB2A5 /* Delegates */,
+				C1249C6121819E40005DB2A5 /* SupportingFiles */,
 			);
 			path = TimeTable;
 			sourceTree = "<group>";
@@ -108,7 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				C1B5138121772D1400C3727C /* TimeTableTests.swift */,
-				C1B5138321772D1400C3727C /* Info.plist */,
+				C1249C6221819EF7005DB2A5 /* SupportingFiles */,
 			);
 			path = TimeTableTests;
 			sourceTree = "<group>";
@@ -328,7 +368,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
-				INFOPLIST_FILE = TimeTable/Info.plist;
+				INFOPLIST_FILE = TimeTable/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -349,7 +389,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
-				INFOPLIST_FILE = TimeTableTests/Info.plist;
+				INFOPLIST_FILE = TimeTableTests/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -488,7 +528,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
-				INFOPLIST_FILE = TimeTable/Info.plist;
+				INFOPLIST_FILE = TimeTable/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -507,7 +547,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
-				INFOPLIST_FILE = TimeTable/Info.plist;
+				INFOPLIST_FILE = TimeTable/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -528,7 +568,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
-				INFOPLIST_FILE = TimeTableTests/Info.plist;
+				INFOPLIST_FILE = TimeTableTests/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -551,7 +591,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
-				INFOPLIST_FILE = TimeTableTests/Info.plist;
+				INFOPLIST_FILE = TimeTableTests/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
