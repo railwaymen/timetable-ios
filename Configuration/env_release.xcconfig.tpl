@@ -1,5 +1,5 @@
 //
-//  Debug.xcconfig
+//  Release.xcconfig
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 02/10/2018.
