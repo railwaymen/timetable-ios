@@ -45,6 +45,15 @@ class AppCoordinatorTests: XCTestCase {
         //Assert
         XCTAssertEqual(appCoordinator.navigationController.children.count, 1)
     }
+    
+    func testCoordinatorDoesNotPresentAlertController() {
+        //Arrange
+        let appCoordinator = AppCoordinator(window: window, storyboardsManager: storyboardsManagerMock, errorHandler: errorHandlerMock)
+        storyboardsManagerMock.controller = ServerSettingsViewController()
+        appCoordinator.start()
+        //Act
+        //Assert
+    }
 }
 
 private class StoryboardsManagerMock: StoryboardsManagerType {

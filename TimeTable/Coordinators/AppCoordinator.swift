@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AppCoordinator: Coordinator {
+class AppCoordinator: BaseCoordinator {
     
     var navigationController: UINavigationController
     private var storyboardsManager: StoryboardsManagerType
@@ -47,17 +47,5 @@ class AppCoordinator: Coordinator {
         let viewModel = ServerSettingsViewModel(userInterface: serverSettingsViewController, errorHandler: errorHandler)
         controller?.configure(viewModel: viewModel, notificationCenter: NotificationCenter.default)
         navigationController.setViewControllers([serverSettingsViewController], animated: false)
-    }
-    
-    private func present(error: Error) {
-        
-        if let uiError = error as? UIError {
-            let alert = UIAlertController(title: "", message: uiError.localizedDescription, preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .default) { [unowned alert] _ in
-                alert.dismiss(animated: true)
-            }
-            alert.addAction(action)
-            window?.rootViewController?.present(alert, animated: true)
-        }
     }
 }

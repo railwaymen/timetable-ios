@@ -29,7 +29,7 @@ class BaseCoordinatorTests: XCTestCase {
     func testCoordinator_startWithFinishCompletionSucceed() {
         
         //Arrange
-        let coordinator = Coordinator(window: nil)
+        let coordinator = BaseCoordinator(window: nil)
         
         //Act
         coordinator.start(finishCompletion: { Void() })
@@ -54,7 +54,7 @@ class BaseCoordinatorTests: XCTestCase {
     func testCoordinator_addChildCoordinatorMethod() {
         
         //Arrange
-        let coordinator = Coordinator(window: nil)
+        let coordinator = BaseCoordinator(window: nil)
         let childCoordinator = ChildCoordinator(window: nil)
         
         //Act
@@ -67,7 +67,7 @@ class BaseCoordinatorTests: XCTestCase {
     func testCoordinator_addTwiceThisSameChildCoordinator() {
         
         //Arrange
-        let coordinator = Coordinator(window: nil)
+        let coordinator = BaseCoordinator(window: nil)
         let childCoordinator = ChildCoordinator(window: nil)
         
         //Act
@@ -81,7 +81,7 @@ class BaseCoordinatorTests: XCTestCase {
     func testCoordinator_removeChildCoordinator() throws {
         
         //Arrange
-        let coordinator = Coordinator(window: nil)
+        let coordinator = BaseCoordinator(window: nil)
         let childCoordinator = ChildCoordinator(window: nil)
         
         coordinator.addChildCoordinator(child: childCoordinator)
@@ -95,9 +95,36 @@ class BaseCoordinatorTests: XCTestCase {
         //Assert
         XCTAssertEqual(coordinator.children.count, 0)
     }
+    
+    func testPresentErrorDoesNotPresentAlertController() {
+        //Arrange
+        let coordinator = ChildCoordinator(window: nil)
+        coordinator.start()
+        let error = TestError(messsage: "error_message")
+        //Act
+        coordinator.present(error: error)
+        //Assert
+        XCTAssertNil(coordinator.window?.rootViewController?.children)
+    }
+    
+    func testPresentErrorPresentAlertController() throws {
+        //Arrange
+        let window = UIWindow()
+        let navigationController = UINavigationController(rootViewController: UIViewController())
+        window.rootViewController = navigationController
+        window.makeKeyAndVisible()
+        let coordinator = ChildCoordinator(window: window)
+        coordinator.start()
+        let error = UIError.invalidFormat(.serverAddressTextField)
+        //Act
+        coordinator.present(error: error)
+        //Assert
+        let childController = try navigationController.children.first.unwrap()
+        XCTAssertNotNil(childController.presentedViewController as? UIAlertController)
+    }
 }
 
-private class ChildCoordinator: Coordinator {
+private class ChildCoordinator: BaseCoordinator {
     
     private(set) var startWithFinishCompletionCalled: Bool = false
     private(set) var finishCalled: Bool = false
@@ -111,5 +138,15 @@ private class ChildCoordinator: Coordinator {
     override func finish() {
         finishCalled = true
         super.finish()
+    }
+}
+
+private struct TestError: Error {
+    let messsage: String
+}
+
+extension TestError: Equatable {
+    static func == (lhs: TestError, rhs: TestError) -> Bool {
+        return lhs.messsage == rhs.messsage
     }
 }

@@ -29,7 +29,12 @@ class ServerSettingsViewModel: ServerSettingsViewModelType {
     private weak var userInterface: ServerSettingsViewModelOutput?
     private let errorHandler: ErrorHandlerType
     
-    private var serverAddress: String?
+    private var serverAddress: String? {
+        didSet {
+            guard let host = serverAddress else { return }
+            userInterface?.continueButtonEnabledState(URL(string: host) != nil)
+        }
+    }
     
     // MARK: - Initialization
     init(userInterface: ServerSettingsViewModelOutput, errorHandler: ErrorHandlerType) {
@@ -60,9 +65,6 @@ class ServerSettingsViewModel: ServerSettingsViewModelType {
     
     func serverAddressDidChange(text: String?) {
         serverAddress = text
-        if let host = text {
-            userInterface?.continueButtonEnabledState(URL(string: host) != nil)
-        }
     }
     
     func serverAddressTextFieldDidRequestForReturn() -> Bool {
