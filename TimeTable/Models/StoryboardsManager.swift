@@ -18,6 +18,7 @@ class StoryboardsManager: StoryboardsManagerType {
     
     enum StoryboardName: String {
         case main = "Main"
+        case serverSettings = "ServerSettings"
     }
     
     enum ControllerIdentifier: String {

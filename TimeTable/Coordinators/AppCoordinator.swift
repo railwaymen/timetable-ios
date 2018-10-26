@@ -42,7 +42,7 @@ class AppCoordinator: Coordinator {
     
     // MARK: - Private
     private func runMainFlow() {
-        guard let controller: ViewController = storyboardsManager.controller(storyboard: .main, controllerIdentifier: .initial) else { return }
+        guard let controller: ServerSettingsViewController = storyboardsManager.controller(storyboard: .serverSettings, controllerIdentifier: .initial) else { return }
         navigationController.setViewControllers([controller], animated: false)
     }
 }
