@@ -21,6 +21,15 @@
 		C1249C802181B4FC005DB2A5 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C7F2181B4FC005DB2A5 /* ErrorHandler.swift */; };
 		C1249C822181B547005DB2A5 /* ErrorHandlerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C812181B547005DB2A5 /* ErrorHandlerType.swift */; };
 		C1249C852181B567005DB2A5 /* ErrorHanlderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C842181B567005DB2A5 /* ErrorHanlderTests.swift */; };
+		C153AC4A2182EE9F007A35BB /* UILabel+Extension .swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC492182EE9F007A35BB /* UILabel+Extension .swift */; };
+		C153AC4C2182EF40007A35BB /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC4B2182EF40007A35BB /* String+Extension.swift */; };
+		C153AC4E2182EF82007A35BB /* UIElementLocalizedType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC4D2182EF82007A35BB /* UIElementLocalizedType.swift */; };
+		C153AC512182EFEC007A35BB /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC502182EFEC007A35BB /* UIButton+Extension.swift */; };
+		C153AC532182F1E3007A35BB /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC522182F1E3007A35BB /* UITextField+Extension.swift */; };
+		C153AC592182F7BB007A35BB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C153AC5B2182F7BB007A35BB /* Localizable.strings */; };
+		C153AC5E2182FA64007A35BB /* UIButtonExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC5D2182FA64007A35BB /* UIButtonExtensionTests.swift */; };
+		C153AC602182FC4B007A35BB /* UITextFieldExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC5F2182FC4B007A35BB /* UITextFieldExtensionTests.swift */; };
+		C153AC622182FCB7007A35BB /* UILabelExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC612182FCB7007A35BB /* UILabelExtensionTests.swift */; };
 		C1A10AB821772DB100A83651 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB521772DB100A83651 /* Debug.xcconfig */; };
 		C1A10AB921772DB100A83651 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB621772DB100A83651 /* Release.xcconfig */; };
 		C1A10ABA21772DB100A83651 /* Stage.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB721772DB100A83651 /* Stage.xcconfig */; };
@@ -61,6 +70,18 @@
 		C1249C7F2181B4FC005DB2A5 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		C1249C812181B547005DB2A5 /* ErrorHandlerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandlerType.swift; sourceTree = "<group>"; };
 		C1249C842181B567005DB2A5 /* ErrorHanlderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHanlderTests.swift; sourceTree = "<group>"; };
+		C153AC492182EE9F007A35BB /* UILabel+Extension .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension .swift"; sourceTree = "<group>"; };
+		C153AC4B2182EF40007A35BB /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		C153AC4D2182EF82007A35BB /* UIElementLocalizedType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIElementLocalizedType.swift; sourceTree = "<group>"; };
+		C153AC502182EFEC007A35BB /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		C153AC522182F1E3007A35BB /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		C153AC552182F77C007A35BB /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Main.strings; sourceTree = "<group>"; };
+		C153AC562182F77C007A35BB /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C153AC5A2182F7BB007A35BB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C153AC5C2182F7BD007A35BB /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C153AC5D2182FA64007A35BB /* UIButtonExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtensionTests.swift; sourceTree = "<group>"; };
+		C153AC5F2182FC4B007A35BB /* UITextFieldExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtensionTests.swift; sourceTree = "<group>"; };
+		C153AC612182FCB7007A35BB /* UILabelExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtensionTests.swift; sourceTree = "<group>"; };
 		C1A10AB521772DB100A83651 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Configuration/Debug.xcconfig; sourceTree = SOURCE_ROOT; };
 		C1A10AB621772DB100A83651 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Configuration/Release.xcconfig; sourceTree = SOURCE_ROOT; };
 		C1A10AB721772DB100A83651 /* Stage.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Stage.xcconfig; path = Configuration/Stage.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -139,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				C1B5137821772D1400C3727C /* Info.plist */,
+				C153AC5B2182F7BB007A35BB /* Localizable.strings */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -222,6 +244,36 @@
 			path = Errors;
 			sourceTree = "<group>";
 		};
+		C153AC482182EE78007A35BB /* Extensions  */ = {
+			isa = PBXGroup;
+			children = (
+				C153AC4B2182EF40007A35BB /* String+Extension.swift */,
+				C153AC502182EFEC007A35BB /* UIButton+Extension.swift */,
+				C153AC522182F1E3007A35BB /* UITextField+Extension.swift */,
+				C153AC492182EE9F007A35BB /* UILabel+Extension .swift */,
+				C153AC4F2182EFB5007A35BB /* Protocols */,
+			);
+			path = "Extensions ";
+			sourceTree = "<group>";
+		};
+		C153AC4F2182EFB5007A35BB /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				C153AC4D2182EF82007A35BB /* UIElementLocalizedType.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		C153AC542182F3A6007A35BB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C153AC5D2182FA64007A35BB /* UIButtonExtensionTests.swift */,
+				C153AC5F2182FC4B007A35BB /* UITextFieldExtensionTests.swift */,
+				C153AC612182FCB7007A35BB /* UILabelExtensionTests.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		C1A10AB421772DA400A83651 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,6 +312,7 @@
 				C1A10AB421772DA400A83651 /* Configuration */,
 				C1249C632181A198005DB2A5 /* Coordinators */,
 				C1249C6021819E33005DB2A5 /* Delegates */,
+				C153AC482182EE78007A35BB /* Extensions  */,
 				C1249C752181AAD2005DB2A5 /* Models */,
 				C1249C6121819E40005DB2A5 /* SupportingFiles */,
 			);
@@ -271,6 +324,7 @@
 			children = (
 				C1249C692181A21B005DB2A5 /* Common */,
 				C1249C6F2181A27A005DB2A5 /* Coordinators */,
+				C153AC542182F3A6007A35BB /* Extensions */,
 				C1249C782181AC35005DB2A5 /* Models */,
 				C1249C6221819EF7005DB2A5 /* SupportingFiles */,
 			);
@@ -358,6 +412,7 @@
 			knownRegions = (
 				en,
 				Base,
+				pl,
 			);
 			mainGroup = C1B5136021772D1200C3727C;
 			productRefGroup = C1B5136A21772D1200C3727C /* Products */;
@@ -378,6 +433,7 @@
 				C1A10AB821772DB100A83651 /* Debug.xcconfig in Resources */,
 				C1B5137721772D1400C3727C /* LaunchScreen.storyboard in Resources */,
 				C1B5137421772D1400C3727C /* Assets.xcassets in Resources */,
+				C153AC592182F7BB007A35BB /* Localizable.strings in Resources */,
 				C1B5137221772D1200C3727C /* Main.storyboard in Resources */,
 				C1A10ABA21772DB100A83651 /* Stage.xcconfig in Resources */,
 				C1A10AB921772DB100A83651 /* Release.xcconfig in Resources */,
@@ -533,13 +589,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C153AC4E2182EF82007A35BB /* UIElementLocalizedType.swift in Sources */,
 				C1B5136F21772D1200C3727C /* ViewController.swift in Sources */,
 				C1249C802181B4FC005DB2A5 /* ErrorHandler.swift in Sources */,
 				C1249C652181A1B7005DB2A5 /* BaseCoordinator.swift in Sources */,
+				C153AC4A2182EE9F007A35BB /* UILabel+Extension .swift in Sources */,
 				C1249C822181B547005DB2A5 /* ErrorHandlerType.swift in Sources */,
 				C1249C772181AAE4005DB2A5 /* StoryboardsManager.swift in Sources */,
+				C153AC512182EFEC007A35BB /* UIButton+Extension.swift in Sources */,
 				C1249C742181A3D0005DB2A5 /* AppCoordinator.swift in Sources */,
 				C1249C682181A1E7005DB2A5 /* CoordinatorType.swift in Sources */,
+				C153AC532182F1E3007A35BB /* UITextField+Extension.swift in Sources */,
+				C153AC4C2182EF40007A35BB /* String+Extension.swift in Sources */,
 				C1B5136D21772D1200C3727C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -549,9 +610,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1249C7C2181AEB0005DB2A5 /* AppCoordinatorTests.swift in Sources */,
+				C153AC602182FC4B007A35BB /* UITextFieldExtensionTests.swift in Sources */,
 				C1249C852181B567005DB2A5 /* ErrorHanlderTests.swift in Sources */,
 				C1249C6E2181A265005DB2A5 /* Optional+Unwrap.swift in Sources */,
+				C153AC622182FCB7007A35BB /* UILabelExtensionTests.swift in Sources */,
 				C1249C6C2181A23A005DB2A5 /* Error+String.swift in Sources */,
+				C153AC5E2182FA64007A35BB /* UIButtonExtensionTests.swift in Sources */,
 				C1249C7A2181AC49005DB2A5 /* StoryboardsManagerTests.swift in Sources */,
 				C1249C712181A282005DB2A5 /* BaseCoordinatorTests.swift in Sources */,
 			);
@@ -568,10 +632,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		C153AC5B2182F7BB007A35BB /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C153AC5A2182F7BB007A35BB /* en */,
+				C153AC5C2182F7BD007A35BB /* pl */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		C1B5137021772D1200C3727C /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				C1B5137121772D1200C3727C /* Base */,
+				C153AC552182F77C007A35BB /* pl */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -580,6 +654,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				C1B5137621772D1400C3727C /* Base */,
+				C153AC562182F77C007A35BB /* pl */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -592,6 +667,7 @@
 			baseConfigurationReference = C1A10AB721772DB100A83651 /* Stage.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -700,6 +776,7 @@
 			baseConfigurationReference = C1A10AB521772DB100A83651 /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -762,6 +839,7 @@
 			baseConfigurationReference = C1A10AB721772DB100A83651 /* Stage.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
