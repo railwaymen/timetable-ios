@@ -9,7 +9,7 @@ nesting:
     warning: 10
 
 line_length:
-  warning: 145
+  warning: 160
   error: 200
 
 warning_threshold: 5

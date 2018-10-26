@@ -21,6 +21,8 @@
 		C1249C802181B4FC005DB2A5 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C7F2181B4FC005DB2A5 /* ErrorHandler.swift */; };
 		C1249C822181B547005DB2A5 /* ErrorHandlerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C812181B547005DB2A5 /* ErrorHandlerType.swift */; };
 		C1249C852181B567005DB2A5 /* ErrorHanlderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C842181B567005DB2A5 /* ErrorHanlderTests.swift */; };
+		C153AC452181E4E7007A35BB /* ServerSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C153AC442181E4E7007A35BB /* ServerSettings.storyboard */; };
+		C153AC472182EBC1007A35BB /* ServerSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC462182EBC1007A35BB /* ServerSettingsViewController.swift */; };
 		C153AC4A2182EE9F007A35BB /* UILabel+Extension .swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC492182EE9F007A35BB /* UILabel+Extension .swift */; };
 		C153AC4C2182EF40007A35BB /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC4B2182EF40007A35BB /* String+Extension.swift */; };
 		C153AC4E2182EF82007A35BB /* UIElementLocalizedType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC4D2182EF82007A35BB /* UIElementLocalizedType.swift */; };
@@ -30,8 +32,8 @@
 		C153AC5E2182FA64007A35BB /* UIButtonExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC5D2182FA64007A35BB /* UIButtonExtensionTests.swift */; };
 		C153AC602182FC4B007A35BB /* UITextFieldExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC5F2182FC4B007A35BB /* UITextFieldExtensionTests.swift */; };
 		C153AC622182FCB7007A35BB /* UILabelExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC612182FCB7007A35BB /* UILabelExtensionTests.swift */; };
-		C153AC452181E4E7007A35BB /* ServerSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C153AC442181E4E7007A35BB /* ServerSettings.storyboard */; };
-		C153AC472182EBC1007A35BB /* ServerSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC462182EBC1007A35BB /* ServerSettingsViewController.swift */; };
+		C153AC6421830AFE007A35BB /* ServerSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6321830AFE007A35BB /* ServerSettingsViewModel.swift */; };
+		C153AC6621831499007A35BB /* NotificationCenter+Extenison.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6521831499007A35BB /* NotificationCenter+Extenison.swift */; };
 		C1A10AB821772DB100A83651 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB521772DB100A83651 /* Debug.xcconfig */; };
 		C1A10AB921772DB100A83651 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB621772DB100A83651 /* Release.xcconfig */; };
 		C1A10ABA21772DB100A83651 /* Stage.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB721772DB100A83651 /* Stage.xcconfig */; };
@@ -72,6 +74,8 @@
 		C1249C7F2181B4FC005DB2A5 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		C1249C812181B547005DB2A5 /* ErrorHandlerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandlerType.swift; sourceTree = "<group>"; };
 		C1249C842181B567005DB2A5 /* ErrorHanlderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHanlderTests.swift; sourceTree = "<group>"; };
+		C153AC442181E4E7007A35BB /* ServerSettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ServerSettings.storyboard; sourceTree = "<group>"; };
+		C153AC462182EBC1007A35BB /* ServerSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSettingsViewController.swift; sourceTree = "<group>"; };
 		C153AC492182EE9F007A35BB /* UILabel+Extension .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension .swift"; sourceTree = "<group>"; };
 		C153AC4B2182EF40007A35BB /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		C153AC4D2182EF82007A35BB /* UIElementLocalizedType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIElementLocalizedType.swift; sourceTree = "<group>"; };
@@ -84,8 +88,8 @@
 		C153AC5D2182FA64007A35BB /* UIButtonExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtensionTests.swift; sourceTree = "<group>"; };
 		C153AC5F2182FC4B007A35BB /* UITextFieldExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtensionTests.swift; sourceTree = "<group>"; };
 		C153AC612182FCB7007A35BB /* UILabelExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtensionTests.swift; sourceTree = "<group>"; };
-		C153AC442181E4E7007A35BB /* ServerSettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ServerSettings.storyboard; sourceTree = "<group>"; };
-		C153AC462182EBC1007A35BB /* ServerSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSettingsViewController.swift; sourceTree = "<group>"; };
+		C153AC6321830AFE007A35BB /* ServerSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSettingsViewModel.swift; sourceTree = "<group>"; };
+		C153AC6521831499007A35BB /* NotificationCenter+Extenison.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extenison.swift"; sourceTree = "<group>"; };
 		C1A10AB521772DB100A83651 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Configuration/Debug.xcconfig; sourceTree = SOURCE_ROOT; };
 		C1A10AB621772DB100A83651 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Configuration/Release.xcconfig; sourceTree = SOURCE_ROOT; };
 		C1A10AB721772DB100A83651 /* Stage.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Stage.xcconfig; path = Configuration/Stage.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -249,13 +253,24 @@
 			path = Errors;
 			sourceTree = "<group>";
 		};
+		C153AC432181E4CC007A35BB /* ServerSettings */ = {
+			isa = PBXGroup;
+			children = (
+				C153AC442181E4E7007A35BB /* ServerSettings.storyboard */,
+				C153AC462182EBC1007A35BB /* ServerSettingsViewController.swift */,
+				C153AC6321830AFE007A35BB /* ServerSettingsViewModel.swift */,
+			);
+			path = ServerSettings;
+			sourceTree = "<group>";
+		};
 		C153AC482182EE78007A35BB /* Extensions  */ = {
 			isa = PBXGroup;
 			children = (
+				C153AC6521831499007A35BB /* NotificationCenter+Extenison.swift */,
 				C153AC4B2182EF40007A35BB /* String+Extension.swift */,
 				C153AC502182EFEC007A35BB /* UIButton+Extension.swift */,
-				C153AC522182F1E3007A35BB /* UITextField+Extension.swift */,
 				C153AC492182EE9F007A35BB /* UILabel+Extension .swift */,
+				C153AC522182F1E3007A35BB /* UITextField+Extension.swift */,
 				C153AC4F2182EFB5007A35BB /* Protocols */,
 			);
 			path = "Extensions ";
@@ -277,15 +292,6 @@
 				C153AC612182FCB7007A35BB /* UILabelExtensionTests.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		C153AC432181E4CC007A35BB /* ServerSettings */ = {
-			isa = PBXGroup;
-			children = (
-				C153AC442181E4E7007A35BB /* ServerSettings.storyboard */,
-				C153AC462182EBC1007A35BB /* ServerSettingsViewController.swift */,
-			);
-			path = ServerSettings;
 			sourceTree = "<group>";
 		};
 		C1A10AB421772DA400A83651 /* Configuration */ = {
@@ -605,12 +611,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C153AC4E2182EF82007A35BB /* UIElementLocalizedType.swift in Sources */,
+				C153AC6621831499007A35BB /* NotificationCenter+Extenison.swift in Sources */,
 				C1B5136F21772D1200C3727C /* ViewController.swift in Sources */,
 				C1249C802181B4FC005DB2A5 /* ErrorHandler.swift in Sources */,
 				C1249C652181A1B7005DB2A5 /* BaseCoordinator.swift in Sources */,
 				C153AC4A2182EE9F007A35BB /* UILabel+Extension .swift in Sources */,
 				C1249C822181B547005DB2A5 /* ErrorHandlerType.swift in Sources */,
 				C1249C772181AAE4005DB2A5 /* StoryboardsManager.swift in Sources */,
+				C153AC6421830AFE007A35BB /* ServerSettingsViewModel.swift in Sources */,
 				C153AC512182EFEC007A35BB /* UIButton+Extension.swift in Sources */,
 				C1249C742181A3D0005DB2A5 /* AppCoordinator.swift in Sources */,
 				C153AC472182EBC1007A35BB /* ServerSettingsViewController.swift in Sources */,

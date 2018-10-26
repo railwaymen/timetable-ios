@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="keO-oL-LbZ">
-    <device id="ipad12_9" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,33 +15,33 @@
             <objects>
                 <viewController id="keO-oL-LbZ" customClass="ServerSettingsViewController" customModule="TimeTable" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jj8-cY-Ged">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aDX-gO-HPG">
-                                <rect key="frame" x="0.0" y="20" width="1024" height="1346"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W9j-ad-kav" userLabel="Supporting View">
-                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" id="yMb-AS-i87"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HXu-JY-Jb6">
-                                        <rect key="frame" x="337" y="573" width="350" height="200"/>
+                                        <rect key="frame" x="20" y="223.5" width="335" height="200"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C9N-tx-cqr" userLabel="Titles View">
-                                                <rect key="frame" x="20" y="20" width="310" height="46.5"/>
+                                                <rect key="frame" x="20" y="20" width="295" height="46.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sing in to your TimeTable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yuz-hv-YZ5">
-                                                        <rect key="frame" x="47.5" y="0.0" width="215" height="22"/>
+                                                        <rect key="frame" x="40" y="0.0" width="215" height="22"/>
                                                         <fontDescription key="fontDescription" name="Kailasa-Bold" family="Kailasa" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your TimeTable server URL." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ODv-LO-Jdj">
-                                                        <rect key="frame" x="0.0" y="27" width="310" height="19.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your TimeTable server URL." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="ODv-LO-Jdj">
+                                                        <rect key="frame" x="0.0" y="27" width="295" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -58,10 +58,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1j5-YS-lF0" userLabel="Action View">
-                                                <rect key="frame" x="20" y="86.5" width="310" height="93.5"/>
+                                                <rect key="frame" x="20" y="86.5" width="295" height="93.5"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="your-server-address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WmV-vW-bPs">
-                                                        <rect key="frame" x="0.0" y="0.0" width="310" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="295" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
@@ -70,7 +70,7 @@
                                                         </connections>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hXY-9V-ABP">
-                                                        <rect key="frame" x="0.0" y="46" width="310" height="47.5"/>
+                                                        <rect key="frame" x="0.0" y="46" width="295" height="47.5"/>
                                                         <state key="normal" title="Button"/>
                                                         <connections>
                                                             <action selector="continueButtonTapped:" destination="keO-oL-LbZ" eventType="touchUpInside" id="3xc-QE-3EU"/>
@@ -119,7 +119,7 @@
                                     <constraint firstItem="W9j-ad-kav" firstAttribute="top" secondItem="aDX-gO-HPG" secondAttribute="top" id="1vu-RY-y6H"/>
                                     <constraint firstItem="HXu-JY-Jb6" firstAttribute="centerY" secondItem="aDX-gO-HPG" secondAttribute="centerY" id="3gr-b6-Nzb"/>
                                     <constraint firstItem="W9j-ad-kav" firstAttribute="leading" secondItem="aDX-gO-HPG" secondAttribute="leading" id="6og-pZ-JMU"/>
-                                    <constraint firstAttribute="bottom" secondItem="HXu-JY-Jb6" secondAttribute="bottom" priority="999" constant="20" id="8f8-BX-TLO"/>
+                                    <constraint firstAttribute="bottom" secondItem="HXu-JY-Jb6" secondAttribute="bottom" constant="20" id="8f8-BX-TLO"/>
                                     <constraint firstItem="HXu-JY-Jb6" firstAttribute="top" secondItem="W9j-ad-kav" secondAttribute="bottom" priority="999" constant="20" id="8za-ts-Gkh"/>
                                     <constraint firstAttribute="trailing" secondItem="HXu-JY-Jb6" secondAttribute="trailing" constant="20" id="Gfd-Uj-Qng"/>
                                     <constraint firstItem="HXu-JY-Jb6" firstAttribute="centerX" secondItem="aDX-gO-HPG" secondAttribute="centerX" id="UsQ-0n-iZa"/>
@@ -158,14 +158,23 @@
                             <constraint firstItem="aDX-gO-HPG" firstAttribute="leading" secondItem="sc3-FQ-clT" secondAttribute="leading" id="uZm-b6-vFe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="sc3-FQ-clT"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Pji-Xy-gbH" appends="YES" id="d2F-vh-7bt"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="continueButton" destination="hXY-9V-ABP" id="VV5-qj-8Yd"/>
+                        <outlet property="scrollViewBottomLayoutConstraint" destination="Dty-jX-Ycn" id="gHO-dE-4ZY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b3h-MC-lgy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Pji-Xy-gbH">
+                    <connections>
+                        <action selector="viewTapped:" destination="keO-oL-LbZ" id="XCc-KQ-UGv"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="45.535714285714285" y="-191.30434782608697"/>
+            <point key="canvasLocation" x="44" y="-192.05397301349328"/>
         </scene>
     </scenes>
 </document>
