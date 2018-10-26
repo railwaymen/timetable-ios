@@ -17,7 +17,7 @@ class StoryboardsManagerTests: XCTestCase {
         let manager = StoryboardsManager.shared
         
         //Act
-        let controller: ViewController? = manager.controller(storyboard: .main, controllerIdentifier: .initial)
+        let controller: ServerSettingsViewController? = manager.controller(storyboard: .serverSettings, controllerIdentifier: .initial)
         
         //Assert
         XCTAssertNotNil(controller)

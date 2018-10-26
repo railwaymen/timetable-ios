@@ -38,7 +38,7 @@ class AppCoordinatorTests: XCTestCase {
         
         //Arrange
         let appCoordinator = AppCoordinator(window: window, storyboardsManager: storyboardsManagerMock, errorHandler: errorHandlerMock)
-        storyboardsManagerMock.controller = ViewController()
+        storyboardsManagerMock.controller = ServerSettingsViewController()
         //Act
         appCoordinator.start()
         
