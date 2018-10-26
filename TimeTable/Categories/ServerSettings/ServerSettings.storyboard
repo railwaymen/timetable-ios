@@ -28,7 +28,7 @@
                                             <constraint firstAttribute="height" id="yMb-AS-i87"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HXu-JY-Jb6">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HXu-JY-Jb6" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
                                         <rect key="frame" x="20" y="223.5" width="335" height="200"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C9N-tx-cqr" userLabel="Titles View">
@@ -39,12 +39,18 @@
                                                         <fontDescription key="fontDescription" name="Kailasa-Bold" family="Kailasa" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="server_settings.label.title"/>
+                                                        </userDefinedRuntimeAttributes>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your TimeTable server URL." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="ODv-LO-Jdj">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your TimeTable server URL." textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="ODv-LO-Jdj">
                                                         <rect key="frame" x="0.0" y="27" width="295" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="server_settings.label.explanation"/>
+                                                        </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -65,13 +71,26 @@
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="server_settings.text_field.address"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="serverAddressTextFieldDidChange:" destination="keO-oL-LbZ" eventType="editingChanged" id="1BY-1O-gDz"/>
+                                                            <outlet property="delegate" destination="keO-oL-LbZ" id="Gq5-Pp-W5D"/>
                                                         </connections>
                                                     </textField>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hXY-9V-ABP">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hXY-9V-ABP" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="46" width="295" height="47.5"/>
-                                                        <state key="normal" title="Button"/>
+                                                        <color key="backgroundColor" red="0.1764705882352941" green="0.72156862745098038" blue="0.29411764705882354" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <state key="normal" title="Button">
+                                                            <color key="titleColor" red="0.93230950339999996" green="0.96789383559999997" blue="0.96992722600000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="server_settings.button.continue"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="continueButtonTapped:" destination="keO-oL-LbZ" eventType="touchUpInside" id="3xc-QE-3EU"/>
                                                         </connections>
@@ -103,6 +122,17 @@
                                             <constraint firstAttribute="height" constant="200" id="vjA-vM-yDi"/>
                                             <constraint firstItem="C9N-tx-cqr" firstAttribute="leading" secondItem="HXu-JY-Jb6" secondAttribute="leading" constant="20" id="zLa-Mn-fVP"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="mp7-g7-xBs"/>
@@ -165,6 +195,7 @@
                     <connections>
                         <outlet property="continueButton" destination="hXY-9V-ABP" id="VV5-qj-8Yd"/>
                         <outlet property="scrollViewBottomLayoutConstraint" destination="Dty-jX-Ycn" id="gHO-dE-4ZY"/>
+                        <outlet property="serverAddressTextField" destination="WmV-vW-bPs" id="sCT-Rr-UK6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b3h-MC-lgy" userLabel="First Responder" sceneMemberID="firstResponder"/>

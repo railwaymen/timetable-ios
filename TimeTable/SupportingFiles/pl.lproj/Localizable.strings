@@ -1,1 +1,12 @@
-"key.hello" = "Cześć";
+// UIElements
+"element.text_field.server_address" = "Adres serwera";
+
+// UIControls
+"server_settings.label.title" = "Zaloguj się do TimeTable";
+"server_settings.label.explanation" = "Wprowadź adres serwera TimeTable.";
+"server_settings.text_field.address" = "Adres serwera";
+"server_settings.button.continue" = "Dalej";
+
+// UIErros
+"ui.error.cannot_be_empty" = "- pole nie może być puste.";
+"ui.error.invalid_format" = "niepoprawny format.";

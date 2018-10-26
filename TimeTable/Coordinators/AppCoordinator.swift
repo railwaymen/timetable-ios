@@ -16,9 +16,8 @@ class AppCoordinator: Coordinator {
     private let parentErrorHandler: ErrorHandlerType
     
     private var errorHandler: ErrorHandlerType {
-        return parentErrorHandler.catchingError(action: { error in
-            //Handle error
-            print(error)
+        return parentErrorHandler.catchingError(action: { [weak self] error in
+            self?.present(error: error)
         })
     }
     
@@ -30,6 +29,7 @@ class AppCoordinator: Coordinator {
         self.parentErrorHandler = errorHandler
         super.init(window: window)
         navigationController.interactivePopGestureRecognizer?.delegate = nil
+        navigationController.setNavigationBarHidden(true, animated: false)
     }
     
     // MARK: - CoordinatorType
@@ -44,8 +44,20 @@ class AppCoordinator: Coordinator {
     private func runMainFlow() {
         let controller: ServerSettingsViewController? = storyboardsManager.controller(storyboard: .serverSettings, controllerIdentifier: .initial)
         guard let serverSettingsViewController = controller else { return }
-        let viewModel = ServerSettingsViewModel(userInterface: serverSettingsViewController)
+        let viewModel = ServerSettingsViewModel(userInterface: serverSettingsViewController, errorHandler: errorHandler)
         controller?.configure(viewModel: viewModel, notificationCenter: NotificationCenter.default)
         navigationController.setViewControllers([serverSettingsViewController], animated: false)
+    }
+    
+    private func present(error: Error) {
+        
+        if let uiError = error as? UIError {
+            let alert = UIAlertController(title: "", message: uiError.localizedDescription, preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default) { [unowned alert] _ in
+                alert.dismiss(animated: true)
+            }
+            alert.addAction(action)
+            window?.rootViewController?.present(alert, animated: true)
+        }
     }
 }

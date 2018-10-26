@@ -16,6 +16,7 @@ class ServerSettingsViewController: UIViewController {
  
     @IBOutlet private var scrollViewBottomLayoutConstraint: NSLayoutConstraint!
     @IBOutlet private var continueButton: UIButton!
+    @IBOutlet private var serverAddressTextField: UITextField!
     
     private var viewModel: ServerSettingsViewModelType?
     private var notificationCenter: NotificationCenterType?
@@ -65,6 +66,15 @@ class ServerSettingsViewController: UIViewController {
     }
 }
 
+extension ServerSettingsViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if serverAddressTextField == textField {
+            return viewModel?.serverAddressTextFieldDidRequestForReturn() ?? false
+        }
+        return false
+    }
+}
+
 extension ServerSettingsViewController: ServerSettingsViewControllerType {
     func configure(viewModel: ServerSettingsViewModelType, notificationCenter: NotificationCenterType) {
         self.notificationCenter = notificationCenter
@@ -76,12 +86,18 @@ extension ServerSettingsViewController: ServerSettingsViewModelOutput {
     func setupView() {
         notificationCenter?.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter?.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        continueButton.isEnabled = false
     }
     
     func tearDown() {
         notificationCenter?.removeObserver(self)
     }
     
+    func continueButtonEnabledState(_ isEnabled: Bool) {
+        continueButton.isEnabled = isEnabled
+    }
+
     func dissmissKeyboard() {
         view.endEditing(true)
     }

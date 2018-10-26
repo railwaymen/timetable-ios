@@ -1,1 +1,12 @@
-"key.hello" = "Hello";
+// UIElements
+"element.text_field.server_address" = "Server address";
+
+// UIControls
+"server_settings.label.title" = "Sing in to your TimeTable";
+"server_settings.label.explanation" = "Enter you TimeTable server URL.";
+"server_settings.text_field.address" = "Server address";
+"server_settings.button.continue" = "Continue";
+
+// UIErros
+"ui.error.cannot_be_empty" = "- cannot be empty.";
+"ui.error.invalid_format" = "invalid format.";

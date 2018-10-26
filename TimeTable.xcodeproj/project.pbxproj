@@ -34,6 +34,9 @@
 		C153AC622182FCB7007A35BB /* UILabelExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC612182FCB7007A35BB /* UILabelExtensionTests.swift */; };
 		C153AC6421830AFE007A35BB /* ServerSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6321830AFE007A35BB /* ServerSettingsViewModel.swift */; };
 		C153AC6621831499007A35BB /* NotificationCenter+Extenison.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6521831499007A35BB /* NotificationCenter+Extenison.swift */; };
+		C153AC6921832073007A35BB /* AttributedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6821832073007A35BB /* AttributedView.swift */; };
+		C153AC6B218324DB007A35BB /* UIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6A218324DB007A35BB /* UIError.swift */; };
+		C153AC6D21833BDC007A35BB /* AttributedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6C21833BDC007A35BB /* AttributedButton.swift */; };
 		C1A10AB821772DB100A83651 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB521772DB100A83651 /* Debug.xcconfig */; };
 		C1A10AB921772DB100A83651 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB621772DB100A83651 /* Release.xcconfig */; };
 		C1A10ABA21772DB100A83651 /* Stage.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB721772DB100A83651 /* Stage.xcconfig */; };
@@ -90,6 +93,9 @@
 		C153AC612182FCB7007A35BB /* UILabelExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtensionTests.swift; sourceTree = "<group>"; };
 		C153AC6321830AFE007A35BB /* ServerSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSettingsViewModel.swift; sourceTree = "<group>"; };
 		C153AC6521831499007A35BB /* NotificationCenter+Extenison.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extenison.swift"; sourceTree = "<group>"; };
+		C153AC6821832073007A35BB /* AttributedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedView.swift; sourceTree = "<group>"; };
+		C153AC6A218324DB007A35BB /* UIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIError.swift; sourceTree = "<group>"; };
+		C153AC6C21833BDC007A35BB /* AttributedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedButton.swift; sourceTree = "<group>"; };
 		C1A10AB521772DB100A83651 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Configuration/Debug.xcconfig; sourceTree = SOURCE_ROOT; };
 		C1A10AB621772DB100A83651 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Configuration/Release.xcconfig; sourceTree = SOURCE_ROOT; };
 		C1A10AB721772DB100A83651 /* Stage.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Stage.xcconfig; path = Configuration/Stage.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -241,6 +247,7 @@
 			children = (
 				C1249C7F2181B4FC005DB2A5 /* ErrorHandler.swift */,
 				C1249C812181B547005DB2A5 /* ErrorHandlerType.swift */,
+				C153AC6A218324DB007A35BB /* UIError.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -294,6 +301,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		C153AC6721832057007A35BB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C153AC6821832073007A35BB /* AttributedView.swift */,
+				C153AC6C21833BDC007A35BB /* AttributedButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		C1A10AB421772DA400A83651 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -335,6 +351,7 @@
 				C153AC482182EE78007A35BB /* Extensions  */,
 				C1249C752181AAD2005DB2A5 /* Models */,
 				C1249C6121819E40005DB2A5 /* SupportingFiles */,
+				C153AC6721832057007A35BB /* Views */,
 			);
 			path = TimeTable;
 			sourceTree = "<group>";
@@ -610,14 +627,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C153AC6D21833BDC007A35BB /* AttributedButton.swift in Sources */,
 				C153AC4E2182EF82007A35BB /* UIElementLocalizedType.swift in Sources */,
 				C153AC6621831499007A35BB /* NotificationCenter+Extenison.swift in Sources */,
 				C1B5136F21772D1200C3727C /* ViewController.swift in Sources */,
 				C1249C802181B4FC005DB2A5 /* ErrorHandler.swift in Sources */,
 				C1249C652181A1B7005DB2A5 /* BaseCoordinator.swift in Sources */,
 				C153AC4A2182EE9F007A35BB /* UILabel+Extension .swift in Sources */,
+				C153AC6B218324DB007A35BB /* UIError.swift in Sources */,
 				C1249C822181B547005DB2A5 /* ErrorHandlerType.swift in Sources */,
 				C1249C772181AAE4005DB2A5 /* StoryboardsManager.swift in Sources */,
+				C153AC6921832073007A35BB /* AttributedView.swift in Sources */,
 				C153AC6421830AFE007A35BB /* ServerSettingsViewModel.swift in Sources */,
 				C153AC512182EFEC007A35BB /* UIButton+Extension.swift in Sources */,
 				C1249C742181A3D0005DB2A5 /* AppCoordinator.swift in Sources */,
