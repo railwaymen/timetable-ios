@@ -14,3 +14,10 @@ public protocol ErrorHandlerType: class {
     func throwing(error: Error, finally: @escaping (Bool) -> Void)
     func catchingError(action: @escaping HandleAction<Error>) -> ErrorHandlerType
 }
+
+extension ErrorHandlerType {
+    
+    func throwing(error: Error) {
+        throwing(error: error, finally: { _ in })
+    }
+}

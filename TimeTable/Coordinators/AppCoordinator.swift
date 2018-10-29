@@ -8,7 +8,11 @@
 
 import UIKit
 
-class AppCoordinator: Coordinator {
+protocol ServerConfigurationCoordinatorDelagete: class {
+    func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration)
+}
+
+class AppCoordinator: BaseCoordinator {
     
     var navigationController: UINavigationController
     private var storyboardsManager: StoryboardsManagerType
@@ -16,9 +20,8 @@ class AppCoordinator: Coordinator {
     private let parentErrorHandler: ErrorHandlerType
     
     private var errorHandler: ErrorHandlerType {
-        return parentErrorHandler.catchingError(action: { error in
-            //Handle error
-            print(error)
+        return parentErrorHandler.catchingError(action: { [weak self] error in
+            self?.present(error: error)
         })
     }
     
@@ -30,6 +33,7 @@ class AppCoordinator: Coordinator {
         self.parentErrorHandler = errorHandler
         super.init(window: window)
         navigationController.interactivePopGestureRecognizer?.delegate = nil
+        navigationController.setNavigationBarHidden(true, animated: false)
     }
     
     // MARK: - CoordinatorType
@@ -42,7 +46,16 @@ class AppCoordinator: Coordinator {
     
     // MARK: - Private
     private func runMainFlow() {
-        guard let controller: ViewController = storyboardsManager.controller(storyboard: .main, controllerIdentifier: .initial) else { return }
-        navigationController.setViewControllers([controller], animated: false)
+        let controller: ServerConfigurationViewController? = storyboardsManager.controller(storyboard: .serverConfiguration, controllerIdentifier: .initial)
+        guard let serverSettingsViewController = controller else { return }
+        let viewModel = ServerConfigurationViewModel(userInterface: serverSettingsViewController, coordinator: self, errorHandler: errorHandler)
+        controller?.configure(viewModel: viewModel, notificationCenter: NotificationCenter.default)
+        navigationController.setViewControllers([serverSettingsViewController], animated: false)
+    }
+}
+
+extension AppCoordinator: ServerConfigurationCoordinatorDelagete {
+    func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration) {
+        
     }
 }

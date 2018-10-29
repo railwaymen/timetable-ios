@@ -38,12 +38,21 @@ class AppCoordinatorTests: XCTestCase {
         
         //Arrange
         let appCoordinator = AppCoordinator(window: window, storyboardsManager: storyboardsManagerMock, errorHandler: errorHandlerMock)
-        storyboardsManagerMock.controller = ViewController()
+        storyboardsManagerMock.controller = ServerConfigurationViewController()
         //Act
         appCoordinator.start()
         
         //Assert
         XCTAssertEqual(appCoordinator.navigationController.children.count, 1)
+    }
+    
+    func testCoordinatorDoesNotPresentAlertController() {
+        //Arrange
+        let appCoordinator = AppCoordinator(window: window, storyboardsManager: storyboardsManagerMock, errorHandler: errorHandlerMock)
+        storyboardsManagerMock.controller = ServerConfigurationViewController()
+        appCoordinator.start()
+        //Act
+        //Assert
     }
 }
 

@@ -8,10 +8,10 @@
 
 import UIKit
 
-class Coordinator: CoordinatorType {
+class BaseCoordinator: CoordinatorType, CoordinatorErrorPresenterType {
     
     var identifier: UUID = UUID()
-    var children: [Coordinator: Any]
+    var children: [BaseCoordinator: Any]
     var window: UIWindow?
     var finishCompletion: (() -> Void)?
     
@@ -21,7 +21,7 @@ class Coordinator: CoordinatorType {
         self.children = [:]
         self.window = window
     }
-    
+
     // MARK: - CoordinatorType
     func start(finishCompletion: (() -> Void)?) {
         self.finishCompletion = finishCompletion
@@ -31,11 +31,23 @@ class Coordinator: CoordinatorType {
         finishCompletion?()
     }
     
-    func addChildCoordinator(child: Coordinator) {
+    func addChildCoordinator(child: BaseCoordinator) {
         children[child] = child
     }
     
-    func removeChildCoordinator(child: Coordinator) {
+    func removeChildCoordinator(child: BaseCoordinator) {
         children[child] = nil
+    }
+    
+    // MARK: - CoordinatorErrorPresenterType
+    func present(error: Error) {
+        if let uiError = error as? UIError {
+            let alert = UIAlertController(title: "", message: uiError.localizedDescription, preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default) { [unowned alert] _ in
+                alert.dismiss(animated: true)
+            }
+            alert.addAction(action)
+            window?.rootViewController?.present(alert, animated: true)
+        }
     }
 }
