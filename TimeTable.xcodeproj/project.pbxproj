@@ -25,8 +25,8 @@
 		C125C4D52186F76500FBA0DD /* CoordinatorErrorPresenterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C125C4D42186F76500FBA0DD /* CoordinatorErrorPresenterType.swift */; };
 		C125C4D72187086C00FBA0DD /* CheckBoxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C125C4D62187086C00FBA0DD /* CheckBoxButton.swift */; };
 		C125C4DB21871C7A00FBA0DD /* ServerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C125C4DA21871C7A00FBA0DD /* ServerConfiguration.swift */; };
-		C153AC452181E4E7007A35BB /* ServerSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C153AC442181E4E7007A35BB /* ServerSettings.storyboard */; };
-		C153AC472182EBC1007A35BB /* ServerSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC462182EBC1007A35BB /* ServerSettingsViewController.swift */; };
+		C153AC452181E4E7007A35BB /* ServerConfiguration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C153AC442181E4E7007A35BB /* ServerConfiguration.storyboard */; };
+		C153AC472182EBC1007A35BB /* ServerConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC462182EBC1007A35BB /* ServerConfigurationViewController.swift */; };
 		C153AC4A2182EE9F007A35BB /* UILabel+Extension .swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC492182EE9F007A35BB /* UILabel+Extension .swift */; };
 		C153AC4C2182EF40007A35BB /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC4B2182EF40007A35BB /* String+Extension.swift */; };
 		C153AC4E2182EF82007A35BB /* UIElementLocalizedType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC4D2182EF82007A35BB /* UIElementLocalizedType.swift */; };
@@ -36,13 +36,13 @@
 		C153AC5E2182FA64007A35BB /* UIButtonExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC5D2182FA64007A35BB /* UIButtonExtensionTests.swift */; };
 		C153AC602182FC4B007A35BB /* UITextFieldExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC5F2182FC4B007A35BB /* UITextFieldExtensionTests.swift */; };
 		C153AC622182FCB7007A35BB /* UILabelExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC612182FCB7007A35BB /* UILabelExtensionTests.swift */; };
-		C153AC6421830AFE007A35BB /* ServerSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6321830AFE007A35BB /* ServerSettingsViewModel.swift */; };
+		C153AC6421830AFE007A35BB /* ServerConfiguartionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6321830AFE007A35BB /* ServerConfiguartionViewModel.swift */; };
 		C153AC6621831499007A35BB /* NotificationCenter+Extenison.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6521831499007A35BB /* NotificationCenter+Extenison.swift */; };
 		C153AC6921832073007A35BB /* AttributedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6821832073007A35BB /* AttributedView.swift */; };
 		C153AC6B218324DB007A35BB /* UIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6A218324DB007A35BB /* UIError.swift */; };
 		C153AC6D21833BDC007A35BB /* AttributedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6C21833BDC007A35BB /* AttributedButton.swift */; };
 		C153AC6F218342F6007A35BB /* UIErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6E218342F6007A35BB /* UIErrorTests.swift */; };
-		C153AC7321834F22007A35BB /* ServerSettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC7221834F22007A35BB /* ServerSettingsViewModelTests.swift */; };
+		C153AC7321834F22007A35BB /* ServerConfigurationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC7221834F22007A35BB /* ServerConfigurationViewModelTests.swift */; };
 		C1B5136D21772D1200C3727C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B5136C21772D1200C3727C /* AppDelegate.swift */; };
 		C1B5137421772D1400C3727C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1B5137321772D1400C3727C /* Assets.xcassets */; };
 		C1B5137721772D1400C3727C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1B5137521772D1400C3727C /* LaunchScreen.storyboard */; };
@@ -82,8 +82,8 @@
 		C125C4D42186F76500FBA0DD /* CoordinatorErrorPresenterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorErrorPresenterType.swift; sourceTree = "<group>"; };
 		C125C4D62187086C00FBA0DD /* CheckBoxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxButton.swift; sourceTree = "<group>"; };
 		C125C4DA21871C7A00FBA0DD /* ServerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfiguration.swift; sourceTree = "<group>"; };
-		C153AC442181E4E7007A35BB /* ServerSettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ServerSettings.storyboard; sourceTree = "<group>"; };
-		C153AC462182EBC1007A35BB /* ServerSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSettingsViewController.swift; sourceTree = "<group>"; };
+		C153AC442181E4E7007A35BB /* ServerConfiguration.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ServerConfiguration.storyboard; sourceTree = "<group>"; };
+		C153AC462182EBC1007A35BB /* ServerConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationViewController.swift; sourceTree = "<group>"; };
 		C153AC492182EE9F007A35BB /* UILabel+Extension .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension .swift"; sourceTree = "<group>"; };
 		C153AC4B2182EF40007A35BB /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		C153AC4D2182EF82007A35BB /* UIElementLocalizedType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIElementLocalizedType.swift; sourceTree = "<group>"; };
@@ -95,13 +95,13 @@
 		C153AC5D2182FA64007A35BB /* UIButtonExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtensionTests.swift; sourceTree = "<group>"; };
 		C153AC5F2182FC4B007A35BB /* UITextFieldExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtensionTests.swift; sourceTree = "<group>"; };
 		C153AC612182FCB7007A35BB /* UILabelExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtensionTests.swift; sourceTree = "<group>"; };
-		C153AC6321830AFE007A35BB /* ServerSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSettingsViewModel.swift; sourceTree = "<group>"; };
+		C153AC6321830AFE007A35BB /* ServerConfiguartionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfiguartionViewModel.swift; sourceTree = "<group>"; };
 		C153AC6521831499007A35BB /* NotificationCenter+Extenison.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extenison.swift"; sourceTree = "<group>"; };
 		C153AC6821832073007A35BB /* AttributedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedView.swift; sourceTree = "<group>"; };
 		C153AC6A218324DB007A35BB /* UIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIError.swift; sourceTree = "<group>"; };
 		C153AC6C21833BDC007A35BB /* AttributedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedButton.swift; sourceTree = "<group>"; };
 		C153AC6E218342F6007A35BB /* UIErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIErrorTests.swift; sourceTree = "<group>"; };
-		C153AC7221834F22007A35BB /* ServerSettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSettingsViewModelTests.swift; sourceTree = "<group>"; };
+		C153AC7221834F22007A35BB /* ServerConfigurationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationViewModelTests.swift; sourceTree = "<group>"; };
 		C1A10AB521772DB100A83651 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Configuration/Debug.xcconfig; sourceTree = SOURCE_ROOT; };
 		C1A10AB621772DB100A83651 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Configuration/Release.xcconfig; sourceTree = SOURCE_ROOT; };
 		C1A10AB721772DB100A83651 /* Stage.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Stage.xcconfig; path = Configuration/Stage.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -152,7 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				C1B5137521772D1400C3727C /* LaunchScreen.storyboard */,
-				C153AC432181E4CC007A35BB /* ServerSettings */,
+				C153AC432181E4CC007A35BB /* ServerConfiguration */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -266,14 +266,14 @@
 			path = Errors;
 			sourceTree = "<group>";
 		};
-		C153AC432181E4CC007A35BB /* ServerSettings */ = {
+		C153AC432181E4CC007A35BB /* ServerConfiguration */ = {
 			isa = PBXGroup;
 			children = (
-				C153AC442181E4E7007A35BB /* ServerSettings.storyboard */,
-				C153AC462182EBC1007A35BB /* ServerSettingsViewController.swift */,
-				C153AC6321830AFE007A35BB /* ServerSettingsViewModel.swift */,
+				C153AC442181E4E7007A35BB /* ServerConfiguration.storyboard */,
+				C153AC462182EBC1007A35BB /* ServerConfigurationViewController.swift */,
+				C153AC6321830AFE007A35BB /* ServerConfiguartionViewModel.swift */,
 			);
-			path = ServerSettings;
+			path = ServerConfiguration;
 			sourceTree = "<group>";
 		};
 		C153AC482182EE78007A35BB /* Extensions  */ = {
@@ -320,17 +320,17 @@
 		C153AC7021834F08007A35BB /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				C153AC7121834F13007A35BB /* ServerSettings */,
+				C153AC7121834F13007A35BB /* ServerConfiguration */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
 		};
-		C153AC7121834F13007A35BB /* ServerSettings */ = {
+		C153AC7121834F13007A35BB /* ServerConfiguration */ = {
 			isa = PBXGroup;
 			children = (
-				C153AC7221834F22007A35BB /* ServerSettingsViewModelTests.swift */,
+				C153AC7221834F22007A35BB /* ServerConfigurationViewModelTests.swift */,
 			);
-			path = ServerSettings;
+			path = ServerConfiguration;
 			sourceTree = "<group>";
 		};
 		C1A10AB421772DA400A83651 /* Configuration */ = {
@@ -492,7 +492,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1B5137721772D1400C3727C /* LaunchScreen.storyboard in Resources */,
-				C153AC452181E4E7007A35BB /* ServerSettings.storyboard in Resources */,
+				C153AC452181E4E7007A35BB /* ServerConfiguration.storyboard in Resources */,
 				C1B5137421772D1400C3727C /* Assets.xcassets in Resources */,
 				C153AC592182F7BB007A35BB /* Localizable.strings in Resources */,
 			);
@@ -660,10 +660,10 @@
 				C1249C772181AAE4005DB2A5 /* StoryboardsManager.swift in Sources */,
 				C125C4D52186F76500FBA0DD /* CoordinatorErrorPresenterType.swift in Sources */,
 				C153AC6921832073007A35BB /* AttributedView.swift in Sources */,
-				C153AC6421830AFE007A35BB /* ServerSettingsViewModel.swift in Sources */,
+				C153AC6421830AFE007A35BB /* ServerConfiguartionViewModel.swift in Sources */,
 				C153AC512182EFEC007A35BB /* UIButton+Extension.swift in Sources */,
 				C1249C742181A3D0005DB2A5 /* AppCoordinator.swift in Sources */,
-				C153AC472182EBC1007A35BB /* ServerSettingsViewController.swift in Sources */,
+				C153AC472182EBC1007A35BB /* ServerConfigurationViewController.swift in Sources */,
 				C1249C682181A1E7005DB2A5 /* CoordinatorType.swift in Sources */,
 				C153AC532182F1E3007A35BB /* UITextField+Extension.swift in Sources */,
 				C153AC4C2182EF40007A35BB /* String+Extension.swift in Sources */,
@@ -675,7 +675,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C153AC7321834F22007A35BB /* ServerSettingsViewModelTests.swift in Sources */,
+				C153AC7321834F22007A35BB /* ServerConfigurationViewModelTests.swift in Sources */,
 				C153AC6F218342F6007A35BB /* UIErrorTests.swift in Sources */,
 				C1249C7C2181AEB0005DB2A5 /* AppCoordinatorTests.swift in Sources */,
 				C153AC602182FC4B007A35BB /* UITextFieldExtensionTests.swift in Sources */,

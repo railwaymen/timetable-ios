@@ -1,5 +1,5 @@
 //
-//  ServerSettingsViewController.swift
+//  ServerConfigurationViewController.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 26/10/2018.
@@ -8,18 +8,18 @@
 
 import UIKit
 
-protocol ServerSettingsViewControllerType: class {
-    func configure(viewModel: ServerSettingsViewModelType, notificationCenter: NotificationCenterType)
+protocol ServerConfigurationViewControllerType: class {
+    func configure(viewModel: ServerConfigurationViewModelType, notificationCenter: NotificationCenterType)
 }
 
-class ServerSettingsViewController: UIViewController {
+class ServerConfigurationViewController: UIViewController {
  
     @IBOutlet private var scrollViewBottomLayoutConstraint: NSLayoutConstraint!
     @IBOutlet private var continueButton: UIButton!
     @IBOutlet private var serverAddressTextField: UITextField!
     @IBOutlet private var checkBoxButton: CheckBoxButton!
     
-    private var viewModel: ServerSettingsViewModelType?
+    private var viewModel: ServerConfigurationViewModelType?
     private var notificationCenter: NotificationCenterType?
     
     // MARK: - Life Cycle
@@ -71,7 +71,7 @@ class ServerSettingsViewController: UIViewController {
     }
 }
 
-extension ServerSettingsViewController: UITextFieldDelegate {
+extension ServerConfigurationViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if serverAddressTextField == textField {
             return viewModel?.serverAddressTextFieldDidRequestForReturn() ?? false
@@ -80,14 +80,14 @@ extension ServerSettingsViewController: UITextFieldDelegate {
     }
 }
 
-extension ServerSettingsViewController: ServerSettingsViewControllerType {
-    func configure(viewModel: ServerSettingsViewModelType, notificationCenter: NotificationCenterType) {
+extension ServerConfigurationViewController: ServerConfigurationViewControllerType {
+    func configure(viewModel: ServerConfigurationViewModelType, notificationCenter: NotificationCenterType) {
         self.notificationCenter = notificationCenter
         self.viewModel = viewModel
     }
 }
 
-extension ServerSettingsViewController: ServerSettingsViewModelOutput {
+extension ServerConfigurationViewController: ServerConfigurationViewModelOutput {
     func setupView(checkBoxIsActive: Bool) {
         notificationCenter?.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter?.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)

@@ -38,7 +38,7 @@ class AppCoordinatorTests: XCTestCase {
         
         //Arrange
         let appCoordinator = AppCoordinator(window: window, storyboardsManager: storyboardsManagerMock, errorHandler: errorHandlerMock)
-        storyboardsManagerMock.controller = ServerSettingsViewController()
+        storyboardsManagerMock.controller = ServerConfigurationViewController()
         //Act
         appCoordinator.start()
         
@@ -49,7 +49,7 @@ class AppCoordinatorTests: XCTestCase {
     func testCoordinatorDoesNotPresentAlertController() {
         //Arrange
         let appCoordinator = AppCoordinator(window: window, storyboardsManager: storyboardsManagerMock, errorHandler: errorHandlerMock)
-        storyboardsManagerMock.controller = ServerSettingsViewController()
+        storyboardsManagerMock.controller = ServerConfigurationViewController()
         appCoordinator.start()
         //Act
         //Assert

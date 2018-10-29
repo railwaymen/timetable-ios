@@ -8,8 +8,8 @@
 
 import UIKit
 
-protocol ServerSettingsCoordinatorDelagete: class {
-    func serverSettingsDidFinish(with serverConfiguration: ServerConfiguration)
+protocol ServerConfigurationCoordinatorDelagete: class {
+    func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration)
 }
 
 class AppCoordinator: BaseCoordinator {
@@ -46,16 +46,16 @@ class AppCoordinator: BaseCoordinator {
     
     // MARK: - Private
     private func runMainFlow() {
-        let controller: ServerSettingsViewController? = storyboardsManager.controller(storyboard: .serverSettings, controllerIdentifier: .initial)
+        let controller: ServerConfigurationViewController? = storyboardsManager.controller(storyboard: .serverConfiguration, controllerIdentifier: .initial)
         guard let serverSettingsViewController = controller else { return }
-        let viewModel = ServerSettingsViewModel(userInterface: serverSettingsViewController, coordinator: self, errorHandler: errorHandler)
+        let viewModel = ServerConfigurationViewModel(userInterface: serverSettingsViewController, coordinator: self, errorHandler: errorHandler)
         controller?.configure(viewModel: viewModel, notificationCenter: NotificationCenter.default)
         navigationController.setViewControllers([serverSettingsViewController], animated: false)
     }
 }
 
-extension AppCoordinator: ServerSettingsCoordinatorDelagete {
-    func serverSettingsDidFinish(with serverConfiguration: ServerConfiguration) {
+extension AppCoordinator: ServerConfigurationCoordinatorDelagete {
+    func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration) {
         
     }
 }

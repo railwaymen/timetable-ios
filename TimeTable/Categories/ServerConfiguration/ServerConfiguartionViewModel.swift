@@ -1,5 +1,5 @@
 //
-//  ServerSettingsViewModel.swift
+//  ServerConfigurationViewModel.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 26/10/2018.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ServerSettingsViewModelOutput: class {
+protocol ServerConfigurationViewModelOutput: class {
     func setupView(checkBoxIsActive: Bool)
     func tearDown()
     func continueButtonEnabledState(_ isEnabled: Bool)
@@ -16,7 +16,7 @@ protocol ServerSettingsViewModelOutput: class {
     func dissmissKeyboard()
 }
 
-protocol ServerSettingsViewModelType: class {
+protocol ServerConfigurationViewModelType: class {
     func viewDidLoad()
     func viewWillDisappear()
     func viewRequestedToContinue()
@@ -26,17 +26,17 @@ protocol ServerSettingsViewModelType: class {
     func viewHasBeenTapped()
 }
 
-class ServerSettingsViewModel: ServerSettingsViewModelType {
+class ServerConfigurationViewModel: ServerConfigurationViewModelType {
     
-    private weak var userInterface: ServerSettingsViewModelOutput?
-    private let coordinator: ServerSettingsCoordinatorDelagete
+    private weak var userInterface: ServerConfigurationViewModelOutput?
+    private let coordinator: ServerConfigurationCoordinatorDelagete
     private let errorHandler: ErrorHandlerType
     
     private var serverAddress: String?
     private var staySignedIn: Bool = true
     
     // MARK: - Initialization
-    init(userInterface: ServerSettingsViewModelOutput, coordinator: ServerSettingsCoordinatorDelagete, errorHandler: ErrorHandlerType) {
+    init(userInterface: ServerConfigurationViewModelOutput, coordinator: ServerConfigurationCoordinatorDelagete, errorHandler: ErrorHandlerType) {
         self.userInterface = userInterface
         self.coordinator = coordinator
         self.errorHandler = errorHandler
@@ -61,7 +61,7 @@ class ServerSettingsViewModel: ServerSettingsViewModelType {
             return
         }
         let configuration = ServerConfiguration(host: hostURL, staySignedIn: staySignedIn)
-        coordinator.serverSettingsDidFinish(with: configuration)
+        coordinator.serverConfigurationDidFinish(with: configuration)
     }
     
     func serverAddressDidChange(text: String?) {

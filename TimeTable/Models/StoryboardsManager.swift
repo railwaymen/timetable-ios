@@ -17,7 +17,7 @@ class StoryboardsManager: StoryboardsManagerType {
     static var shared: StoryboardsManagerType = StoryboardsManager()
     
     enum StoryboardName: String {
-        case serverSettings = "ServerSettings"
+        case serverConfiguration = "ServerConfiguration"
     }
     
     enum ControllerIdentifier: String {
