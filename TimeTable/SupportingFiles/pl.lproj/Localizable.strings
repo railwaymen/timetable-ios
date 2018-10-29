@@ -6,6 +6,7 @@
 "server_settings.label.explanation" = "Wprowadź adres serwera TimeTable.";
 "server_settings.text_field.address" = "Adres serwera";
 "server_settings.button.continue" = "Dalej";
+"server_settings.label.stay_signed_in" = "Pozostań zalogowany";
 
 // UIErros
 "ui.error.cannot_be_empty" = "- pole nie może być puste.";

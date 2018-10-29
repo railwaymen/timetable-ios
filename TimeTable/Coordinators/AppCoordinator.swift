@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ServerSettingsCoordinatorDelagete: class {
+    func serverSettingsDidFinish(with serverConfiguration: ServerConfiguration)
+}
+
 class AppCoordinator: BaseCoordinator {
     
     var navigationController: UINavigationController
@@ -44,8 +48,14 @@ class AppCoordinator: BaseCoordinator {
     private func runMainFlow() {
         let controller: ServerSettingsViewController? = storyboardsManager.controller(storyboard: .serverSettings, controllerIdentifier: .initial)
         guard let serverSettingsViewController = controller else { return }
-        let viewModel = ServerSettingsViewModel(userInterface: serverSettingsViewController, errorHandler: errorHandler)
+        let viewModel = ServerSettingsViewModel(userInterface: serverSettingsViewController, coordinator: self, errorHandler: errorHandler)
         controller?.configure(viewModel: viewModel, notificationCenter: NotificationCenter.default)
         navigationController.setViewControllers([serverSettingsViewController], animated: false)
+    }
+}
+
+extension AppCoordinator: ServerSettingsCoordinatorDelagete {
+    func serverSettingsDidFinish(with serverConfiguration: ServerConfiguration) {
+        
     }
 }

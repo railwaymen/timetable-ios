@@ -23,6 +23,8 @@
 		C1249C852181B567005DB2A5 /* ErrorHanlderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C842181B567005DB2A5 /* ErrorHanlderTests.swift */; };
 		C125C4D32186F4D800FBA0DD /* ErrorHandlerTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C125C4D22186F4D800FBA0DD /* ErrorHandlerTypeTests.swift */; };
 		C125C4D52186F76500FBA0DD /* CoordinatorErrorPresenterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C125C4D42186F76500FBA0DD /* CoordinatorErrorPresenterType.swift */; };
+		C125C4D72187086C00FBA0DD /* CheckBoxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C125C4D62187086C00FBA0DD /* CheckBoxButton.swift */; };
+		C125C4DB21871C7A00FBA0DD /* ServerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C125C4DA21871C7A00FBA0DD /* ServerConfiguration.swift */; };
 		C153AC452181E4E7007A35BB /* ServerSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C153AC442181E4E7007A35BB /* ServerSettings.storyboard */; };
 		C153AC472182EBC1007A35BB /* ServerSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC462182EBC1007A35BB /* ServerSettingsViewController.swift */; };
 		C153AC4A2182EE9F007A35BB /* UILabel+Extension .swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC492182EE9F007A35BB /* UILabel+Extension .swift */; };
@@ -41,9 +43,6 @@
 		C153AC6D21833BDC007A35BB /* AttributedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6C21833BDC007A35BB /* AttributedButton.swift */; };
 		C153AC6F218342F6007A35BB /* UIErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6E218342F6007A35BB /* UIErrorTests.swift */; };
 		C153AC7321834F22007A35BB /* ServerSettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC7221834F22007A35BB /* ServerSettingsViewModelTests.swift */; };
-		C1A10AB821772DB100A83651 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB521772DB100A83651 /* Debug.xcconfig */; };
-		C1A10AB921772DB100A83651 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB621772DB100A83651 /* Release.xcconfig */; };
-		C1A10ABA21772DB100A83651 /* Stage.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1A10AB721772DB100A83651 /* Stage.xcconfig */; };
 		C1B5136D21772D1200C3727C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B5136C21772D1200C3727C /* AppDelegate.swift */; };
 		C1B5137421772D1400C3727C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1B5137321772D1400C3727C /* Assets.xcassets */; };
 		C1B5137721772D1400C3727C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1B5137521772D1400C3727C /* LaunchScreen.storyboard */; };
@@ -81,6 +80,8 @@
 		C1249C842181B567005DB2A5 /* ErrorHanlderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHanlderTests.swift; sourceTree = "<group>"; };
 		C125C4D22186F4D800FBA0DD /* ErrorHandlerTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandlerTypeTests.swift; sourceTree = "<group>"; };
 		C125C4D42186F76500FBA0DD /* CoordinatorErrorPresenterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorErrorPresenterType.swift; sourceTree = "<group>"; };
+		C125C4D62187086C00FBA0DD /* CheckBoxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxButton.swift; sourceTree = "<group>"; };
+		C125C4DA21871C7A00FBA0DD /* ServerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfiguration.swift; sourceTree = "<group>"; };
 		C153AC442181E4E7007A35BB /* ServerSettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ServerSettings.storyboard; sourceTree = "<group>"; };
 		C153AC462182EBC1007A35BB /* ServerSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSettingsViewController.swift; sourceTree = "<group>"; };
 		C153AC492182EE9F007A35BB /* UILabel+Extension .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension .swift"; sourceTree = "<group>"; };
@@ -229,6 +230,7 @@
 		C1249C752181AAD2005DB2A5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C125C4DA21871C7A00FBA0DD /* ServerConfiguration.swift */,
 				C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */,
 				C1249C7D2181B4CF005DB2A5 /* Errors */,
 			);
@@ -310,6 +312,7 @@
 			children = (
 				C153AC6821832073007A35BB /* AttributedView.swift */,
 				C153AC6C21833BDC007A35BB /* AttributedButton.swift */,
+				C125C4D62187086C00FBA0DD /* CheckBoxButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -488,13 +491,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1A10AB821772DB100A83651 /* Debug.xcconfig in Resources */,
 				C1B5137721772D1400C3727C /* LaunchScreen.storyboard in Resources */,
 				C153AC452181E4E7007A35BB /* ServerSettings.storyboard in Resources */,
 				C1B5137421772D1400C3727C /* Assets.xcassets in Resources */,
 				C153AC592182F7BB007A35BB /* Localizable.strings in Resources */,
-				C1A10ABA21772DB100A83651 /* Stage.xcconfig in Resources */,
-				C1A10AB921772DB100A83651 /* Release.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -649,12 +649,14 @@
 			files = (
 				C153AC6D21833BDC007A35BB /* AttributedButton.swift in Sources */,
 				C153AC4E2182EF82007A35BB /* UIElementLocalizedType.swift in Sources */,
+				C125C4D72187086C00FBA0DD /* CheckBoxButton.swift in Sources */,
 				C153AC6621831499007A35BB /* NotificationCenter+Extenison.swift in Sources */,
 				C1249C802181B4FC005DB2A5 /* ErrorHandler.swift in Sources */,
 				C1249C652181A1B7005DB2A5 /* BaseCoordinator.swift in Sources */,
 				C153AC4A2182EE9F007A35BB /* UILabel+Extension .swift in Sources */,
 				C153AC6B218324DB007A35BB /* UIError.swift in Sources */,
 				C1249C822181B547005DB2A5 /* ErrorHandlerType.swift in Sources */,
+				C125C4DB21871C7A00FBA0DD /* ServerConfiguration.swift in Sources */,
 				C1249C772181AAE4005DB2A5 /* StoryboardsManager.swift in Sources */,
 				C125C4D52186F76500FBA0DD /* CoordinatorErrorPresenterType.swift in Sources */,
 				C153AC6921832073007A35BB /* AttributedView.swift in Sources */,

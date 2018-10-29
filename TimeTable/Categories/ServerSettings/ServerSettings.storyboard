@@ -29,7 +29,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HXu-JY-Jb6" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="223.5" width="335" height="200"/>
+                                        <rect key="frame" x="20" y="213.5" width="335" height="220"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C9N-tx-cqr" userLabel="Titles View">
                                                 <rect key="frame" x="20" y="20" width="295" height="46.5"/>
@@ -64,7 +64,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1j5-YS-lF0" userLabel="Action View">
-                                                <rect key="frame" x="20" y="86.5" width="295" height="93.5"/>
+                                                <rect key="frame" x="20" y="86.5" width="295" height="113.5"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="your-server-address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WmV-vW-bPs">
                                                         <rect key="frame" x="0.0" y="0.0" width="295" height="30"/>
@@ -80,7 +80,7 @@
                                                         </connections>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hXY-9V-ABP" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="46" width="295" height="47.5"/>
+                                                        <rect key="frame" x="0.0" y="46" width="295" height="39.5"/>
                                                         <color key="backgroundColor" red="0.1764705882352941" green="0.72156862745098038" blue="0.29411764705882354" alpha="1" colorSpace="calibratedRGB"/>
                                                         <state key="normal" title="Button">
                                                             <color key="titleColor" red="0.93230950339999996" green="0.96789383559999997" blue="0.96992722600000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -95,16 +95,52 @@
                                                             <action selector="continueButtonTapped:" destination="keO-oL-LbZ" eventType="touchUpInside" id="3xc-QE-3EU"/>
                                                         </connections>
                                                     </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AKs-Nk-u9c" customClass="CheckBoxButton" customModule="TimeTable" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="93.5" width="20" height="20"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="20" id="CHs-Pu-Mz9"/>
+                                                            <constraint firstAttribute="height" constant="20" id="DHA-u1-5U2"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isActive" value="YES"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" red="0.62745098040000002" green="0.62745098040000002" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="checkBocButtonTapped:" destination="keO-oL-LbZ" eventType="touchUpInside" id="M20-Ar-AhE"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stay signed in" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="I0R-pN-SRa">
+                                                        <rect key="frame" x="25" y="95" width="262" height="17"/>
+                                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="13"/>
+                                                        <color key="textColor" red="0.62745098040000002" green="0.62745098040000002" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="server_settings.label.stay_signed_in"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="WmV-vW-bPs" firstAttribute="top" secondItem="1j5-YS-lF0" secondAttribute="top" id="1iu-QS-HpV"/>
                                                     <constraint firstItem="WmV-vW-bPs" firstAttribute="leading" secondItem="1j5-YS-lF0" secondAttribute="leading" id="5Cd-UM-ZZ5"/>
                                                     <constraint firstItem="hXY-9V-ABP" firstAttribute="trailing" secondItem="WmV-vW-bPs" secondAttribute="trailing" id="5b7-Qw-3Mx"/>
+                                                    <constraint firstItem="I0R-pN-SRa" firstAttribute="leading" secondItem="AKs-Nk-u9c" secondAttribute="trailing" constant="5" id="Gdj-hM-7hz"/>
+                                                    <constraint firstAttribute="bottom" secondItem="AKs-Nk-u9c" secondAttribute="bottom" id="PxJ-jE-arv"/>
+                                                    <constraint firstItem="AKs-Nk-u9c" firstAttribute="leading" secondItem="1j5-YS-lF0" secondAttribute="leading" id="aGD-N4-xha"/>
                                                     <constraint firstAttribute="trailing" secondItem="WmV-vW-bPs" secondAttribute="trailing" id="iQ3-IA-mw9"/>
                                                     <constraint firstItem="hXY-9V-ABP" firstAttribute="top" secondItem="WmV-vW-bPs" secondAttribute="bottom" constant="16" id="iq6-hJ-dJv"/>
-                                                    <constraint firstAttribute="bottom" secondItem="hXY-9V-ABP" secondAttribute="bottom" id="kfG-De-2d9"/>
+                                                    <constraint firstItem="I0R-pN-SRa" firstAttribute="centerY" secondItem="AKs-Nk-u9c" secondAttribute="centerY" id="rJh-e0-xrE"/>
                                                     <constraint firstItem="hXY-9V-ABP" firstAttribute="leading" secondItem="WmV-vW-bPs" secondAttribute="leading" id="vSj-Ad-nSy"/>
+                                                    <constraint firstItem="AKs-Nk-u9c" firstAttribute="top" secondItem="hXY-9V-ABP" secondAttribute="bottom" constant="8" id="yO9-XN-Lar"/>
+                                                    <constraint firstAttribute="trailing" secondItem="I0R-pN-SRa" secondAttribute="trailing" constant="8" id="zH7-97-1kT"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -119,7 +155,7 @@
                                             <constraint firstItem="1j5-YS-lF0" firstAttribute="leading" secondItem="HXu-JY-Jb6" secondAttribute="leading" constant="20" id="mie-P5-Nyh"/>
                                             <constraint firstAttribute="width" constant="350" id="mp7-g7-xBs"/>
                                             <constraint firstAttribute="trailing" secondItem="1j5-YS-lF0" secondAttribute="trailing" constant="20" id="qSS-mD-7pW"/>
-                                            <constraint firstAttribute="height" constant="200" id="vjA-vM-yDi"/>
+                                            <constraint firstAttribute="height" constant="220" id="vjA-vM-yDi"/>
                                             <constraint firstItem="C9N-tx-cqr" firstAttribute="leading" secondItem="HXu-JY-Jb6" secondAttribute="leading" constant="20" id="zLa-Mn-fVP"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
@@ -193,6 +229,7 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="checkBoxButton" destination="AKs-Nk-u9c" id="70b-Ep-SRU"/>
                         <outlet property="continueButton" destination="hXY-9V-ABP" id="VV5-qj-8Yd"/>
                         <outlet property="scrollViewBottomLayoutConstraint" destination="Dty-jX-Ycn" id="gHO-dE-4ZY"/>
                         <outlet property="serverAddressTextField" destination="WmV-vW-bPs" id="sCT-Rr-UK6"/>

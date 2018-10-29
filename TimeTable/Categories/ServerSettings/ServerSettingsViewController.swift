@@ -17,6 +17,7 @@ class ServerSettingsViewController: UIViewController {
     @IBOutlet private var scrollViewBottomLayoutConstraint: NSLayoutConstraint!
     @IBOutlet private var continueButton: UIButton!
     @IBOutlet private var serverAddressTextField: UITextField!
+    @IBOutlet private var checkBoxButton: CheckBoxButton!
     
     private var viewModel: ServerSettingsViewModelType?
     private var notificationCenter: NotificationCenterType?
@@ -43,6 +44,10 @@ class ServerSettingsViewController: UIViewController {
     
     @IBAction private func viewTapped(_ sender: UITapGestureRecognizer) {
         viewModel?.viewHasBeenTapped()
+    }
+    
+    @IBAction private func checkBocButtonTapped(_ sender: CheckBoxButton) {
+        viewModel?.staySinedInCheckBoxStatusDidChange(isActive: sender.isActive)
     }
     
     // MARK: - Internal
@@ -83,11 +88,12 @@ extension ServerSettingsViewController: ServerSettingsViewControllerType {
 }
 
 extension ServerSettingsViewController: ServerSettingsViewModelOutput {
-    func setupView() {
+    func setupView(checkBoxIsActive: Bool) {
         notificationCenter?.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter?.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         continueButton.isEnabled = false
+        checkBoxButton.isActive = checkBoxIsActive
     }
     
     func tearDown() {
@@ -96,6 +102,10 @@ extension ServerSettingsViewController: ServerSettingsViewModelOutput {
     
     func continueButtonEnabledState(_ isEnabled: Bool) {
         continueButton.isEnabled = isEnabled
+    }
+    
+    func checkBoxIsActiveState(_ isActive: Bool) {
+        checkBoxButton.isActive = isActive
     }
 
     func dissmissKeyboard() {

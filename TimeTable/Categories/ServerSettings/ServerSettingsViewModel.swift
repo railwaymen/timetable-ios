@@ -9,10 +9,11 @@
 import Foundation
 
 protocol ServerSettingsViewModelOutput: class {
-    func setupView()
+    func setupView(checkBoxIsActive: Bool)
     func tearDown()
-    func dissmissKeyboard()
     func continueButtonEnabledState(_ isEnabled: Bool)
+    func checkBoxIsActiveState(_ isActive: Bool)
+    func dissmissKeyboard()
 }
 
 protocol ServerSettingsViewModelType: class {
@@ -21,30 +22,29 @@ protocol ServerSettingsViewModelType: class {
     func viewRequestedToContinue()
     func serverAddressDidChange(text: String?)
     func serverAddressTextFieldDidRequestForReturn() -> Bool
+    func staySinedInCheckBoxStatusDidChange(isActive: Bool)
     func viewHasBeenTapped()
 }
 
 class ServerSettingsViewModel: ServerSettingsViewModelType {
     
     private weak var userInterface: ServerSettingsViewModelOutput?
+    private let coordinator: ServerSettingsCoordinatorDelagete
     private let errorHandler: ErrorHandlerType
     
-    private var serverAddress: String? {
-        didSet {
-            guard let host = serverAddress else { return }
-            userInterface?.continueButtonEnabledState(URL(string: host) != nil)
-        }
-    }
+    private var serverAddress: String?
+    private var staySignedIn: Bool = true
     
     // MARK: - Initialization
-    init(userInterface: ServerSettingsViewModelOutput, errorHandler: ErrorHandlerType) {
+    init(userInterface: ServerSettingsViewModelOutput, coordinator: ServerSettingsCoordinatorDelagete, errorHandler: ErrorHandlerType) {
         self.userInterface = userInterface
+        self.coordinator = coordinator
         self.errorHandler = errorHandler
     }
     
     // MARK: - ServerSettingsViewModelType
     func viewDidLoad() {
-        userInterface?.setupView()
+        userInterface?.setupView(checkBoxIsActive: staySignedIn)
     }
     
     func viewWillDisappear() {
@@ -60,16 +60,24 @@ class ServerSettingsViewModel: ServerSettingsViewModelType {
             errorHandler.throwing(error: UIError.invalidFormat(.serverAddressTextField))
             return
         }
-        print(hostURL)
+        let configuration = ServerConfiguration(host: hostURL, staySignedIn: staySignedIn)
+        coordinator.serverSettingsDidFinish(with: configuration)
     }
     
     func serverAddressDidChange(text: String?) {
         serverAddress = text
+        guard let host = serverAddress else { return }
+        userInterface?.continueButtonEnabledState(URL(string: host) != nil)
     }
     
     func serverAddressTextFieldDidRequestForReturn() -> Bool {
         userInterface?.dissmissKeyboard()
         return true
+    }
+    
+    func staySinedInCheckBoxStatusDidChange(isActive: Bool) {
+        staySignedIn = !isActive
+        userInterface?.checkBoxIsActiveState(!isActive)
     }
     
     func viewHasBeenTapped() {
