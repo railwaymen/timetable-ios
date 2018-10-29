@@ -112,6 +112,7 @@
 		C1B5137821772D1400C3727C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1B5137D21772D1400C3727C /* TimeTableTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeTableTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1B5138321772D1400C3727C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C1F926E221874FC60004A9BC /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		C606DDF3BB59C86E7F198617 /* Pods-TimeTableTests.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTableTests.stage.xcconfig"; path = "Pods/Target Support Files/Pods-TimeTableTests/Pods-TimeTableTests.stage.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				C1B5137521772D1400C3727C /* LaunchScreen.storyboard */,
+				C1F926E121874FB40004A9BC /* Login */,
 				C153AC432181E4CC007A35BB /* ServerConfiguration */,
 			);
 			path = Categories;
@@ -390,6 +392,14 @@
 				C1249C6221819EF7005DB2A5 /* SupportingFiles */,
 			);
 			path = TimeTableTests;
+			sourceTree = "<group>";
+		};
+		C1F926E121874FB40004A9BC /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				C1F926E221874FC60004A9BC /* Login.storyboard */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		DEEB3A255EF0DE2C5C26AE96 /* Frameworks */ = {

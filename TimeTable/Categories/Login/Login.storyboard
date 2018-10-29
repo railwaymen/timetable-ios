@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qLB-Ju-Cd3">
+    <device id="retina6_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Login View Controller-->
+        <scene sceneID="pc3-TT-5sR">
+            <objects>
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="qLB-Ju-Cd3" customClass="LoginViewController" customModule="TimeTable" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="T0D-FC-WI7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOj-ZZ-DCF">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fms-HM-7ky" userLabel="Supporting View">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" id="uPt-vS-lia"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HKF-fT-ugv" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="294" width="374" height="230"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X0g-sV-f2X">
+                                                <rect key="frame" x="15" y="15.000000000000004" width="344" height="47.333333333333343"/>
+                                                <fontDescription key="fontDescription" name="Kailasa-Bold" family="Kailasa" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="server_settings.label.title"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="qZr-gX-1Yh">
+                                                <rect key="frame" x="15" y="100" width="344" height="115"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9hu-iS-jxP">
+                                                        <rect key="frame" x="47" y="0.0" width="250" height="70"/>
+                                                        <subviews>
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zr7-hK-jhN">
+                                                                <rect key="frame" x="0.0" y="0.0" width="250" height="30"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" priority="999" constant="300" id="Yfz-dN-YQC"/>
+                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="999" constant="250" id="yy8-G9-udm"/>
+                                                                </constraints>
+                                                                <nil key="textColor"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                                <variation key="default">
+                                                                    <mask key="constraints">
+                                                                        <exclude reference="Yfz-dN-YQC"/>
+                                                                    </mask>
+                                                                </variation>
+                                                                <variation key="heightClass=compact-widthClass=regular">
+                                                                    <mask key="constraints">
+                                                                        <include reference="Yfz-dN-YQC"/>
+                                                                    </mask>
+                                                                </variation>
+                                                                <connections>
+                                                                    <action selector="loginTextFieldDidChange:" destination="qLB-Ju-Cd3" eventType="editingChanged" id="ezO-Uq-n7s"/>
+                                                                </connections>
+                                                            </textField>
+                                                            <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ofF-mV-S54">
+                                                                <rect key="frame" x="0.0" y="40" width="250" height="30"/>
+                                                                <nil key="textColor"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                                <connections>
+                                                                    <action selector="passwordTextFieldDidChange:" destination="qLB-Ju-Cd3" eventType="editingChanged" id="dfc-rn-OZj"/>
+                                                                </connections>
+                                                            </textField>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9PZ-MU-v5C" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
+                                                        <rect key="frame" x="63.666666666666686" y="85" width="217" height="30"/>
+                                                        <color key="backgroundColor" red="0.1764705882" green="0.72156862749999995" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <state key="normal" title="Button">
+                                                            <color key="titleColor" red="0.93230950339999996" green="0.96789383559999997" blue="0.96992722600000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="server_settings.button.continue"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="400" id="YVC-m7-YPZ"/>
+                                                </constraints>
+                                                <variation key="heightClass=compact-widthClass=compact" axis="horizontal">
+                                                    <mask key="constraints">
+                                                        <exclude reference="YVC-m7-YPZ"/>
+                                                    </mask>
+                                                </variation>
+                                                <variation key="heightClass=compact-widthClass=regular" axis="horizontal"/>
+                                                <variation key="heightClass=regular-widthClass=compact">
+                                                    <mask key="constraints">
+                                                        <exclude reference="YVC-m7-YPZ"/>
+                                                    </mask>
+                                                </variation>
+                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Enter your TimeTable server URL." textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Hpu-py-DGn">
+                                                <rect key="frame" x="15" y="70.333333333333314" width="344" height="19.666666666666671"/>
+                                                <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="server_settings.label.explanation"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="X0g-sV-f2X" secondAttribute="trailing" constant="15" id="1CR-5O-ToA"/>
+                                            <constraint firstAttribute="bottom" secondItem="qZr-gX-1Yh" secondAttribute="bottom" constant="15" id="8Qk-SG-6OG"/>
+                                            <constraint firstItem="qZr-gX-1Yh" firstAttribute="top" secondItem="Hpu-py-DGn" secondAttribute="bottom" constant="10" id="92h-2L-vmL"/>
+                                            <constraint firstItem="Hpu-py-DGn" firstAttribute="leading" secondItem="HKF-fT-ugv" secondAttribute="leading" constant="15" id="Og7-Ex-qwS"/>
+                                            <constraint firstAttribute="trailing" secondItem="Hpu-py-DGn" secondAttribute="trailing" constant="15" id="PNe-WM-dlz"/>
+                                            <constraint firstItem="X0g-sV-f2X" firstAttribute="leading" secondItem="HKF-fT-ugv" secondAttribute="leading" constant="15" id="Vmd-2A-Tmh"/>
+                                            <constraint firstAttribute="height" priority="999" constant="230" id="c2R-ck-W5D"/>
+                                            <constraint firstItem="qZr-gX-1Yh" firstAttribute="leading" secondItem="HKF-fT-ugv" secondAttribute="leading" constant="15" id="hTB-4N-qx1"/>
+                                            <constraint firstItem="Hpu-py-DGn" firstAttribute="top" secondItem="X0g-sV-f2X" secondAttribute="bottom" constant="8" id="haW-EQ-hea"/>
+                                            <constraint firstAttribute="trailing" secondItem="qZr-gX-1Yh" secondAttribute="trailing" constant="15" id="jj7-Be-1Nb"/>
+                                            <constraint firstItem="X0g-sV-f2X" firstAttribute="top" secondItem="HKF-fT-ugv" secondAttribute="top" constant="15" id="kv2-f9-58q"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="HKF-fT-ugv" firstAttribute="centerX" secondItem="oOj-ZZ-DCF" secondAttribute="centerX" id="2eF-om-q0p"/>
+                                    <constraint firstItem="Fms-HM-7ky" firstAttribute="top" secondItem="oOj-ZZ-DCF" secondAttribute="top" id="8hI-12-OnA"/>
+                                    <constraint firstItem="Fms-HM-7ky" firstAttribute="leading" secondItem="oOj-ZZ-DCF" secondAttribute="leading" id="Zpo-dG-LXa"/>
+                                    <constraint firstItem="HKF-fT-ugv" firstAttribute="centerY" secondItem="oOj-ZZ-DCF" secondAttribute="centerY" id="fY4-gG-TKm"/>
+                                    <constraint firstItem="HKF-fT-ugv" firstAttribute="leading" secondItem="oOj-ZZ-DCF" secondAttribute="leading" constant="20" id="l2W-rx-pgE">
+                                        <variation key="heightClass=compact-widthClass=compact" constant="10"/>
+                                    </constraint>
+                                    <constraint firstAttribute="bottom" secondItem="HKF-fT-ugv" secondAttribute="bottom" priority="999" constant="20" id="lYe-KL-UDr"/>
+                                    <constraint firstAttribute="trailing" secondItem="HKF-fT-ugv" secondAttribute="trailing" constant="20" id="nVG-PB-9oe">
+                                        <variation key="heightClass=compact-widthClass=compact" constant="10"/>
+                                    </constraint>
+                                    <constraint firstAttribute="trailing" secondItem="Fms-HM-7ky" secondAttribute="trailing" id="sJX-Cd-41I"/>
+                                    <constraint firstItem="HKF-fT-ugv" firstAttribute="top" secondItem="Fms-HM-7ky" secondAttribute="bottom" priority="999" constant="20" id="tL8-yG-IkF"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="2eF-om-q0p"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="2eF-om-q0p"/>
+                                        <exclude reference="l2W-rx-pgE"/>
+                                        <exclude reference="nVG-PB-9oe"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact-widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="2eF-om-q0p"/>
+                                        <exclude reference="l2W-rx-pgE"/>
+                                        <exclude reference="nVG-PB-9oe"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="2eF-om-q0p"/>
+                                        <exclude reference="l2W-rx-pgE"/>
+                                        <exclude reference="nVG-PB-9oe"/>
+                                    </mask>
+                                </variation>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93230950342465757" green="0.96789383561643838" blue="0.96992722602739723" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Fms-HM-7ky" firstAttribute="width" secondItem="T0D-FC-WI7" secondAttribute="width" id="LaT-RQ-RVz"/>
+                            <constraint firstItem="oOj-ZZ-DCF" firstAttribute="top" secondItem="4Wx-XV-q1p" secondAttribute="top" id="O4v-SU-Uqs"/>
+                            <constraint firstItem="4Wx-XV-q1p" firstAttribute="bottom" secondItem="oOj-ZZ-DCF" secondAttribute="bottom" id="PzA-RE-jaw"/>
+                            <constraint firstItem="4Wx-XV-q1p" firstAttribute="trailing" secondItem="oOj-ZZ-DCF" secondAttribute="trailing" id="wUn-md-GPH"/>
+                            <constraint firstItem="oOj-ZZ-DCF" firstAttribute="leading" secondItem="4Wx-XV-q1p" secondAttribute="leading" id="xDu-Fd-msM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4Wx-XV-q1p"/>
+                    </view>
+                    <connections>
+                        <outlet property="bottomLayoutConstraint" destination="PzA-RE-jaw" id="PFq-U2-gHO"/>
+                        <outlet property="loginTextField" destination="zr7-hK-jhN" id="omu-ct-ykU"/>
+                        <outlet property="passwordTextField" destination="ofF-mV-S54" id="Jur-Vq-Yaf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kLu-SZ-aU4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="139.13043478260872" y="22.098214285714285"/>
+        </scene>
+    </scenes>
+</document>
