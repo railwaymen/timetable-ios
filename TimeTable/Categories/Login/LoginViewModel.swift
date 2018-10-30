@@ -28,6 +28,8 @@ protocol LoginViewModelType: class {
 class LoginViewModel: LoginViewModelType {
     
     private weak var userInterface: LoginViewModelOutput?
+    private let coordinator: LoginCoordinatorDelegate
+
     private var loginCredentials: LoginCredentials
     
     private struct LoginCredentials {
@@ -42,8 +44,9 @@ class LoginViewModel: LoginViewModelType {
         }
     }
     
-    init(userInterface: LoginViewModelOutput) {
+    init(userInterface: LoginViewModelOutput, coordinator: LoginCoordinatorDelegate) {
         self.userInterface = userInterface
+        self.coordinator = coordinator
         self.loginCredentials = LoginCredentials(login: "", passowrd: "")
     }
     
@@ -54,6 +57,7 @@ class LoginViewModel: LoginViewModelType {
     
     func viewWillDisappear() {
         userInterface?.tearDown()
+        coordinator.loginDidfinish()
     }
     
     func loginInputValueDidChange(value: String?) {

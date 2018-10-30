@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol LoginCoordinatorDelegate: class {
+    func loginDidfinish()
+}
+
 class AuthenticationCoordinator: BaseCoordinator {
     
     var navigationController: UINavigationController
@@ -37,8 +41,14 @@ class AuthenticationCoordinator: BaseCoordinator {
     private func runMainFlow() {
         let controller: LoginViewController? = storyboardsManager.controller(storyboard: .login, controllerIdentifier: .initial)
         guard let loginViewController = controller else { return }
-        let viewModel = LoginViewModel(userInterface: loginViewController)
+        let viewModel = LoginViewModel(userInterface: loginViewController, coordinator: self)
         loginViewController.configure(notificationCenter: NotificationCenter.default, viewModel: viewModel)
         navigationController.pushViewController(loginViewController, animated: true)
+    }
+}
+
+extension AuthenticationCoordinator: LoginCoordinatorDelegate {
+    func loginDidfinish() {
+        finishCompletion?()
     }
 }

@@ -171,6 +171,7 @@ private class UserInterfaceMock: ServerConfigurationViewModelOutput {
     
     private(set) var setupViewStateValues: (called: Bool, checkBoxIsActive: Bool) = (false, false)
     private(set) var tearDownCalled = false
+    private(set) var hideNavigationBarCalled = false
     private(set) var dissmissKeyboardCalled = false
     private(set) var continueButtonEnabledStateValues: (called: Bool, isEnabled: Bool) = (false, false)
     private(set) var checkBoxIsActiveStateValues: (called: Bool, isActive: Bool) = (false, false)
@@ -181,6 +182,10 @@ private class UserInterfaceMock: ServerConfigurationViewModelOutput {
 
     func tearDown() {
         tearDownCalled = true
+    }
+    
+    func hideNavigationBar() {
+        hideNavigationBarCalled = true
     }
     
     func dissmissKeyboard() {
