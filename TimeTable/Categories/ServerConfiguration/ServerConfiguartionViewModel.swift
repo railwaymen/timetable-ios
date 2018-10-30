@@ -11,6 +11,7 @@ import Foundation
 protocol ServerConfigurationViewModelOutput: class {
     func setupView(checkBoxIsActive: Bool)
     func tearDown()
+    func hideNavigationBar()
     func continueButtonEnabledState(_ isEnabled: Bool)
     func checkBoxIsActiveState(_ isActive: Bool)
     func dissmissKeyboard()
@@ -18,6 +19,7 @@ protocol ServerConfigurationViewModelOutput: class {
 
 protocol ServerConfigurationViewModelType: class {
     func viewDidLoad()
+    func viewWillAppear()
     func viewWillDisappear()
     func viewRequestedToContinue()
     func serverAddressDidChange(text: String?)
@@ -35,7 +37,7 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
     private var serverAddress: String?
     private var staySignedIn: Bool = true
     
-    // MARK: - Initialization
+    // MARK: - Life Cycle
     init(userInterface: ServerConfigurationViewModelOutput, coordinator: ServerConfigurationCoordinatorDelagete, errorHandler: ErrorHandlerType) {
         self.userInterface = userInterface
         self.coordinator = coordinator
@@ -45,6 +47,10 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
     // MARK: - ServerSettingsViewModelType
     func viewDidLoad() {
         userInterface?.setupView(checkBoxIsActive: staySignedIn)
+    }
+    
+    func viewWillAppear() {
+        userInterface?.hideNavigationBar()
     }
     
     func viewWillDisappear() {

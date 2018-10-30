@@ -18,6 +18,7 @@ class StoryboardsManager: StoryboardsManagerType {
     
     enum StoryboardName: String {
         case serverConfiguration = "ServerConfiguration"
+        case login = "Login"
     }
     
     enum ControllerIdentifier: String {
@@ -30,8 +31,6 @@ class StoryboardsManager: StoryboardsManagerType {
         switch controllerIdentifier {
         case .initial:
             return storyboard.instantiateInitialViewController() as? T
-        default:
-            return storyboard.instantiateViewController(withIdentifier: controllerIdentifier.rawValue) as? T
         }
     }
 }

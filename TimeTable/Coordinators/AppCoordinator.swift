@@ -32,8 +32,8 @@ class AppCoordinator: BaseCoordinator {
         self.storyboardsManager = storyboardsManager
         self.parentErrorHandler = errorHandler
         super.init(window: window)
-        navigationController.interactivePopGestureRecognizer?.delegate = nil
-        navigationController.setNavigationBarHidden(true, animated: false)
+        self.navigationController.interactivePopGestureRecognizer?.delegate = nil
+        self.navigationController.setNavigationBarHidden(true, animated: true)
     }
     
     // MARK: - CoordinatorType
@@ -52,10 +52,21 @@ class AppCoordinator: BaseCoordinator {
         controller?.configure(viewModel: viewModel, notificationCenter: NotificationCenter.default)
         navigationController.setViewControllers([serverSettingsViewController], animated: false)
     }
+    
+    private func runAuthenticationFlow() {
+        let coordinator = AuthenticationCoordinator(navigationController: navigationController,
+                                                    storyboardsManager: storyboardsManager, errorHandler: errorHandler)
+        addChildCoordinator(child: coordinator)
+        coordinator.start { [weak self, weak coordinator] in
+            if let childCoordinator = coordinator {
+                self?.removeChildCoordinator(child: childCoordinator)
+            }
+        }
+    }
 }
 
 extension AppCoordinator: ServerConfigurationCoordinatorDelagete {
     func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration) {
-        
+        runAuthenticationFlow()
     }
 }
