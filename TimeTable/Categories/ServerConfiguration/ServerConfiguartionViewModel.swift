@@ -32,15 +32,18 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
     
     private weak var userInterface: ServerConfigurationViewModelOutput?
     private let coordinator: ServerConfigurationCoordinatorDelagete
+    private let serverConfigurationManager: ServerConfigurationManagerType
     private let errorHandler: ErrorHandlerType
     
     private var serverAddress: String?
     private var staySignedIn: Bool = true
     
     // MARK: - Life Cycle
-    init(userInterface: ServerConfigurationViewModelOutput, coordinator: ServerConfigurationCoordinatorDelagete, errorHandler: ErrorHandlerType) {
+    init(userInterface: ServerConfigurationViewModelOutput, coordinator: ServerConfigurationCoordinatorDelagete,
+         serverConfigurationManager: ServerConfigurationManagerType, errorHandler: ErrorHandlerType) {
         self.userInterface = userInterface
         self.coordinator = coordinator
+        self.serverConfigurationManager = serverConfigurationManager
         self.errorHandler = errorHandler
     }
     
@@ -67,7 +70,16 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
             return
         }
         let configuration = ServerConfiguration(host: hostURL, staySignedIn: staySignedIn)
-        coordinator.serverConfigurationDidFinish(with: configuration)
+        serverConfigurationManager.verify(configuration: configuration) { [weak self] result in
+            DispatchQueue.main.async { [weak self] in
+                switch result {
+                case .success:
+                    self?.coordinator.serverConfigurationDidFinish(with: configuration)
+                case .failure(let error):
+                    self?.errorHandler.throwing(error: error)
+                }
+            }
+        }
     }
     
     func serverAddressDidChange(text: String?) {

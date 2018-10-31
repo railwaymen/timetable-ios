@@ -42,12 +42,19 @@ class BaseCoordinator: CoordinatorType, CoordinatorErrorPresenterType {
     // MARK: - CoordinatorErrorPresenterType
     func present(error: Error) {
         if let uiError = error as? UIError {
-            let alert = UIAlertController(title: "", message: uiError.localizedDescription, preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .default) { [unowned alert] _ in
-                alert.dismiss(animated: true)
-            }
-            alert.addAction(action)
-            window?.rootViewController?.present(alert, animated: true)
+            presentAllertController(withMessage: uiError.localizedDescription)
+        } else if let apiError = error as? ApiError {
+            presentAllertController(withMessage: apiError.localizedDescription)
         }
+    }
+    
+    // MARK: - Private
+    private func presentAllertController(withMessage message: String) {
+        let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default) { [unowned alert] _ in
+            alert.dismiss(animated: true)
+        }
+        alert.addAction(action)
+        window?.rootViewController?.present(alert, animated: true)
     }
 }
