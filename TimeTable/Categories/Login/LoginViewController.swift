@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias LoginViewControllerable = (UIViewController & LoginViewControllerType & LoginViewModelOutput)
+
 protocol LoginViewControllerType: class {
     func configure(notificationCenter: NotificationCenterType, viewModel: LoginViewModelType)
 }
@@ -91,6 +93,10 @@ extension LoginViewController: LoginViewModelOutput {
     
     func loginButtonEnabledState(_ isEnabled: Bool) {
         loginButton.isEnabled = isEnabled
+    }
+    
+    func focusOnPasswordTextField() {
+        passwordTextField.becomeFirstResponder()
     }
 }
 

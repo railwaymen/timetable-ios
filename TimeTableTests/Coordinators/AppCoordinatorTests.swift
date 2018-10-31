@@ -38,7 +38,7 @@ class AppCoordinatorTests: XCTestCase {
         
         //Arrange
         let appCoordinator = AppCoordinator(window: window, storyboardsManager: storyboardsManagerMock, errorHandler: errorHandlerMock)
-        storyboardsManagerMock.controller = ServerConfigurationViewController()
+        storyboardsManagerMock.controller = ServerConfigurationViewControllerMock()
         //Act
         appCoordinator.start()
         
@@ -46,13 +46,35 @@ class AppCoordinatorTests: XCTestCase {
         XCTAssertEqual(appCoordinator.navigationController.children.count, 1)
     }
     
-    func testCoordinatorDoesNotPresentAlertController() {
+    func testRunAuthenticationFlowCreateChildCoordinator() throws {
         //Arrange
+        let serverConfiguration = ServerConfiguration(host: try URL(string: "www.example.com").unwrap(), staySignedIn: true)
         let appCoordinator = AppCoordinator(window: window, storyboardsManager: storyboardsManagerMock, errorHandler: errorHandlerMock)
-        storyboardsManagerMock.controller = ServerConfigurationViewController()
+        storyboardsManagerMock.controller = ServerConfigurationViewControllerMock()
         appCoordinator.start()
+        let controller = LoginViewControllerMock()
+        storyboardsManagerMock.controller = controller
         //Act
+        appCoordinator.serverConfigurationDidFinish(with: serverConfiguration)
         //Assert
+        XCTAssertEqual(appCoordinator.children.count, 1)
+    }
+
+    func testAuthenticationCoordinatorFinishBlock() throws {
+        //Arrange
+        let serverConfiguration = ServerConfiguration(host: try URL(string: "www.example.com").unwrap(), staySignedIn: true)
+        let appCoordinator = AppCoordinator(window: window, storyboardsManager: storyboardsManagerMock, errorHandler: errorHandlerMock)
+        storyboardsManagerMock.controller = ServerConfigurationViewControllerMock()
+        appCoordinator.start()
+        let controller = LoginViewControllerMock()
+        storyboardsManagerMock.controller = controller
+        appCoordinator.serverConfigurationDidFinish(with: serverConfiguration)
+        let authenticationCoordinator = try (appCoordinator.children.first?.key as? AuthenticationCoordinator).unwrap()
+        //Act
+        XCTAssertEqual(appCoordinator.children.count, 1)
+        authenticationCoordinator.finishCompletion?()
+        //Assert
+        XCTAssertEqual(appCoordinator.children.count, 0)
     }
 }
 
@@ -69,4 +91,23 @@ private class ErrorHandlerMock: ErrorHandlerType {
     }
     
     func throwing(error: Error, finally: @escaping (Bool) -> Void) {}
+}
+
+private class ServerConfigurationViewControllerMock: ServerConfigurationViewControlleralbe {
+    func configure(viewModel: ServerConfigurationViewModelType, notificationCenter: NotificationCenterType) {}
+    func setupView(checkBoxIsActive: Bool) {}
+    func tearDown() {}
+    func hideNavigationBar() {}
+    func continueButtonEnabledState(_ isEnabled: Bool) {}
+    func checkBoxIsActiveState(_ isActive: Bool) {}
+    func dissmissKeyboard() {}
+}
+
+private class LoginViewControllerMock: LoginViewControllerable {
+    func configure(notificationCenter: NotificationCenterType, viewModel: LoginViewModelType) {}
+    func setUpView() {}
+    func tearDown() {}
+    func passwordInputEnabledState(_ isEnabled: Bool) {}
+    func loginButtonEnabledState(_ isEnabled: Bool) {}
+    func focusOnPasswordTextField() {}
 }

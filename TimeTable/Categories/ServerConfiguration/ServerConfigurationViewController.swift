@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias ServerConfigurationViewControlleralbe = (UIViewController & ServerConfigurationViewControllerType & ServerConfigurationViewModelOutput)
+
 protocol ServerConfigurationViewControllerType: class {
     func configure(viewModel: ServerConfigurationViewModelType, notificationCenter: NotificationCenterType)
 }

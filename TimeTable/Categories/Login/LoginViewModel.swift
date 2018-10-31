@@ -13,6 +13,7 @@ protocol LoginViewModelOutput: class {
     func tearDown()
     func passwordInputEnabledState(_ isEnabled: Bool)
     func loginButtonEnabledState(_ isEnabled: Bool)
+    func focusOnPasswordTextField()
 }
 
 protocol LoginViewModelType: class {
@@ -67,7 +68,9 @@ class LoginViewModel: LoginViewModelType {
     }
     
     func loginTextFieldDidRequestForReturn() -> Bool {
-        return !loginCredentials.login.isEmpty
+        guard !loginCredentials.login.isEmpty else { return false }
+        userInterface?.focusOnPasswordTextField()
+        return true
     }
     
     func passwordInputValueDidChange(value: String?) {
@@ -77,7 +80,10 @@ class LoginViewModel: LoginViewModelType {
     }
     
     func passwordTextFieldDidRequestForReturn() -> Bool {
-        return !loginCredentials.passowrd.isEmpty
+        if loginCredentials.isCorrectCredentials {
+            viewRequestedToLogin()
+        }
+        return loginCredentials.isCorrectCredentials
     }
     
     func viewRequestedToLogin() {

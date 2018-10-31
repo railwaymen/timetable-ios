@@ -39,7 +39,7 @@ class AuthenticationCoordinator: BaseCoordinator {
     
     // MARL: - Private
     private func runMainFlow() {
-        let controller: LoginViewController? = storyboardsManager.controller(storyboard: .login, controllerIdentifier: .initial)
+        let controller: LoginViewControllerable? = storyboardsManager.controller(storyboard: .login, controllerIdentifier: .initial)
         guard let loginViewController = controller else { return }
         let viewModel = LoginViewModel(userInterface: loginViewController, coordinator: self)
         loginViewController.configure(notificationCenter: NotificationCenter.default, viewModel: viewModel)

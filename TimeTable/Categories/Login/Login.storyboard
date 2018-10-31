@@ -67,6 +67,7 @@
                                                                 </variation>
                                                                 <connections>
                                                                     <action selector="loginTextFieldDidChange:" destination="prJ-rF-eRP" eventType="editingChanged" id="Qm5-c9-Psy"/>
+                                                                    <outlet property="delegate" destination="prJ-rF-eRP" id="Pax-Gn-HpK"/>
                                                                 </connections>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zsz-ds-g8F">
@@ -76,12 +77,13 @@
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <connections>
                                                                     <action selector="passwordTextFieldDidChange:" destination="prJ-rF-eRP" eventType="editingChanged" id="IZ7-kt-I9N"/>
+                                                                    <outlet property="delegate" destination="prJ-rF-eRP" id="c4l-Iu-twB"/>
                                                                 </connections>
                                                             </textField>
                                                         </subviews>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i9V-Qh-o4R" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
-                                                        <rect key="frame" x="63.666666666666686" y="85" width="217" height="30"/>
+                                                        <rect key="frame" x="122" y="85" width="100" height="30"/>
                                                         <color key="backgroundColor" red="0.1764705882" green="0.72156862749999995" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="wqL-vz-WbN"/>
@@ -174,23 +176,23 @@
                                 </variation>
                                 <variation key="heightClass=compact-widthClass=compact">
                                     <mask key="constraints">
-                                        <include reference="z4H-CD-iNX"/>
-                                        <exclude reference="BSj-ff-obE"/>
                                         <exclude reference="4br-nV-C88"/>
+                                        <exclude reference="BSj-ff-obE"/>
+                                        <include reference="z4H-CD-iNX"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact-widthClass=regular">
                                     <mask key="constraints">
-                                        <include reference="z4H-CD-iNX"/>
-                                        <exclude reference="BSj-ff-obE"/>
                                         <exclude reference="4br-nV-C88"/>
+                                        <exclude reference="BSj-ff-obE"/>
+                                        <include reference="z4H-CD-iNX"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=regular">
                                     <mask key="constraints">
-                                        <include reference="z4H-CD-iNX"/>
-                                        <exclude reference="BSj-ff-obE"/>
                                         <exclude reference="4br-nV-C88"/>
+                                        <exclude reference="BSj-ff-obE"/>
+                                        <include reference="z4H-CD-iNX"/>
                                     </mask>
                                 </variation>
                             </scrollView>
