@@ -48,6 +48,9 @@
 		C153AC6D21833BDC007A35BB /* AttributedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6C21833BDC007A35BB /* AttributedButton.swift */; };
 		C153AC6F218342F6007A35BB /* UIErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6E218342F6007A35BB /* UIErrorTests.swift */; };
 		C153AC7321834F22007A35BB /* ServerConfigurationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC7221834F22007A35BB /* ServerConfigurationViewModelTests.swift */; };
+		C17EA3B82189E04400A3F0CD /* ServerConfigurationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3B72189E04400A3F0CD /* ServerConfigurationManagerTests.swift */; };
+		C17EA3BA2189E9BA00A3F0CD /* ApiErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3B92189E9BA00A3F0CD /* ApiErrorTests.swift */; };
+		C17EA3BC2189EC1700A3F0CD /* URLSessionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */; };
 		C1B5136D21772D1200C3727C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B5136C21772D1200C3727C /* AppDelegate.swift */; };
 		C1B5137421772D1400C3727C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1B5137321772D1400C3727C /* Assets.xcassets */; };
 		C1B5137721772D1400C3727C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1B5137521772D1400C3727C /* LaunchScreen.storyboard */; };
@@ -119,6 +122,9 @@
 		C153AC6C21833BDC007A35BB /* AttributedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedButton.swift; sourceTree = "<group>"; };
 		C153AC6E218342F6007A35BB /* UIErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIErrorTests.swift; sourceTree = "<group>"; };
 		C153AC7221834F22007A35BB /* ServerConfigurationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationViewModelTests.swift; sourceTree = "<group>"; };
+		C17EA3B72189E04400A3F0CD /* ServerConfigurationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationManagerTests.swift; sourceTree = "<group>"; };
+		C17EA3B92189E9BA00A3F0CD /* ApiErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiErrorTests.swift; sourceTree = "<group>"; };
+		C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionExtensionTests.swift; sourceTree = "<group>"; };
 		C1A10AB521772DB100A83651 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Configuration/Debug.xcconfig; sourceTree = SOURCE_ROOT; };
 		C1A10AB621772DB100A83651 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Configuration/Release.xcconfig; sourceTree = SOURCE_ROOT; };
 		C1A10AB721772DB100A83651 /* Stage.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Stage.xcconfig; path = Configuration/Stage.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -288,6 +294,7 @@
 			children = (
 				C1249C792181AC49005DB2A5 /* StoryboardsManagerTests.swift */,
 				C1249C832181B556005DB2A5 /* Errors */,
+				C17EA3B62189E01F00A3F0CD /* ServerConfiguration */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -306,6 +313,7 @@
 		C1249C832181B556005DB2A5 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
+				C17EA3B92189E9BA00A3F0CD /* ApiErrorTests.swift */,
 				C125C4D22186F4D800FBA0DD /* ErrorHandlerTypeTests.swift */,
 				C1249C842181B567005DB2A5 /* ErrorHanlderTests.swift */,
 				C153AC6E218342F6007A35BB /* UIErrorTests.swift */,
@@ -352,6 +360,7 @@
 				C153AC5D2182FA64007A35BB /* UIButtonExtensionTests.swift */,
 				C153AC5F2182FC4B007A35BB /* UITextFieldExtensionTests.swift */,
 				C153AC612182FCB7007A35BB /* UILabelExtensionTests.swift */,
+				C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -379,6 +388,14 @@
 			isa = PBXGroup;
 			children = (
 				C153AC7221834F22007A35BB /* ServerConfigurationViewModelTests.swift */,
+			);
+			path = ServerConfiguration;
+			sourceTree = "<group>";
+		};
+		C17EA3B62189E01F00A3F0CD /* ServerConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				C17EA3B72189E04400A3F0CD /* ServerConfigurationManagerTests.swift */,
 			);
 			path = ServerConfiguration;
 			sourceTree = "<group>";
@@ -746,9 +763,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C153AC7321834F22007A35BB /* ServerConfigurationViewModelTests.swift in Sources */,
+				C17EA3BC2189EC1700A3F0CD /* URLSessionExtensionTests.swift in Sources */,
 				C153AC6F218342F6007A35BB /* UIErrorTests.swift in Sources */,
 				C1249C7C2181AEB0005DB2A5 /* AppCoordinatorTests.swift in Sources */,
+				C17EA3B82189E04400A3F0CD /* ServerConfigurationManagerTests.swift in Sources */,
 				C153AC602182FC4B007A35BB /* UITextFieldExtensionTests.swift in Sources */,
+				C17EA3BA2189E9BA00A3F0CD /* ApiErrorTests.swift in Sources */,
 				C1249C852181B567005DB2A5 /* ErrorHanlderTests.swift in Sources */,
 				C1249C6E2181A265005DB2A5 /* Optional+Unwrap.swift in Sources */,
 				C12260172188927A007D64A3 /* AuthenticationCoordinatorTests.swift in Sources */,

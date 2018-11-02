@@ -25,7 +25,7 @@ class ServerConfigurationManager: ServerConfigurationManagerType {
     func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void>) -> Void)) {
         var request = URLRequest(url: configuration.host)
         request.httpMethod = HTTPMethods.HEAD.rawValue
-        let dataTask = urlSession.dataTask(with: request) { (data, response, error) in
+        let dataTask = urlSession.dataTask(with: request) { (_, response, error) in
             if let response = response as? HTTPURLResponse, error == nil, response.statusCode == 200 {
                 completion(.success(Void()))
             } else {

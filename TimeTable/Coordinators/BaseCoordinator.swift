@@ -55,6 +55,8 @@ class BaseCoordinator: CoordinatorType, CoordinatorErrorPresenterType {
             alert.dismiss(animated: true)
         }
         alert.addAction(action)
-        window?.rootViewController?.present(alert, animated: true)
+        DispatchQueue.main.async { [weak self] in
+            self?.window?.rootViewController?.present(alert, animated: true)
+        }
     }
 }
