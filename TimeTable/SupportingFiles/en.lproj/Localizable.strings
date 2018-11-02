@@ -11,3 +11,6 @@
 // UIErros
 "ui.error.cannot_be_empty" = "- cannot be empty.";
 "ui.error.invalid_format" = "invalid format.";
+
+// APiErrors
+"api.error.invalid_url" = "Given URL (%@) is invalid";

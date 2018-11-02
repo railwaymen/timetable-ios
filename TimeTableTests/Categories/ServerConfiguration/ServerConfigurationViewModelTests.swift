@@ -10,21 +10,27 @@ import XCTest
 @testable import TimeTable
 
 class ServerConfigurationViewModelTests: XCTestCase {
- 
+    private let timeout = 0.1
     private var userInterface: UserInterfaceMock!
     private var coordinatorMock: CoordinatorMock!
+    private var serverConfigurationManagerMock: ServerConfigurationManagerMock!
     private var errorHandler: ErrorHandlerMock!
+    private var viewModel: ServerConfigurationViewModel!
     
     override func setUp() {
         userInterface = UserInterfaceMock()
         errorHandler = ErrorHandlerMock()
         coordinatorMock = CoordinatorMock()
+        serverConfigurationManagerMock = ServerConfigurationManagerMock()
+        viewModel = ServerConfigurationViewModel(userInterface: userInterface,
+                                                 coordinator: coordinatorMock,
+                                                 serverConfigurationManager: serverConfigurationManagerMock,
+                                                 errorHandler: errorHandler)
         super.setUp()
     }
     
     func testViewDidLoadCallSetupViewOnTheUserInterface() {
         //Arrange
-        let viewModel = ServerConfigurationViewModel(userInterface: userInterface, coordinator: coordinatorMock, errorHandler: errorHandler)
         //Act
         viewModel.viewDidLoad()
         //Assert
@@ -34,7 +40,6 @@ class ServerConfigurationViewModelTests: XCTestCase {
     
     func testViewWillDesappearCallTearDownOnTheUserInterface() {
         //Arrange
-        let viewModel = ServerConfigurationViewModel(userInterface: userInterface, coordinator: coordinatorMock, errorHandler: errorHandler)
         //Act
         viewModel.viewWillDisappear()
         //Assert
@@ -43,7 +48,6 @@ class ServerConfigurationViewModelTests: XCTestCase {
     
     func testViewRequestedToContinueThrowErrorWhileServerAddressIsNull() {
         //Arrange
-        let viewModel = ServerConfigurationViewModel(userInterface: userInterface, coordinator: coordinatorMock, errorHandler: errorHandler)
         //Act
         viewModel.viewRequestedToContinue()
         //Assert
@@ -55,7 +59,6 @@ class ServerConfigurationViewModelTests: XCTestCase {
     
     func testViewRequestedToContinueThrowErrorWhileServerAddressIsInvalid() {
         //Arrange
-        let viewModel = ServerConfigurationViewModel(userInterface: userInterface, coordinator: coordinatorMock, errorHandler: errorHandler)
         viewModel.serverAddressDidChange(text: "##invalid_address")
         //Act
         viewModel.viewRequestedToContinue()
@@ -68,45 +71,97 @@ class ServerConfigurationViewModelTests: XCTestCase {
     
     func testViewRequestedToContinueCreateCorrectServerConfigurationWithDefaultValues() throws {
         //Arrange
+        let verifyExepectation = self.expectation(description: "verifyExepectation")
+        let mainQueueExpectation = self.expectation(description: "mainQueueExpectation")
         let hostString = "www.example.com"
-        let viewModel = ServerConfigurationViewModel(userInterface: userInterface, coordinator: coordinatorMock, errorHandler: errorHandler)
         viewModel.serverAddressDidChange(text: hostString)
+        serverConfigurationManagerMock.expectationHandler = verifyExepectation.fulfill
+        
         //Act
         viewModel.viewRequestedToContinue()
+        serverConfigurationManagerMock.verifyConfigurationCompletion?(.success(Void()))
+        wait(for: [verifyExepectation], timeout: timeout)
+        
         //Assert
-        let configuration = try coordinatorMock.serverConfigurationDidFinishValues.serverConfiguration.unwrap()
-        XCTAssertEqual(configuration.host, try URL(string: hostString).unwrap())
-        XCTAssertTrue(configuration.staySignedIn)
+        DispatchQueue.main.async {
+            do {
+                let configuration = try self.coordinatorMock.serverConfigurationDidFinishValues.serverConfiguration.unwrap()
+                XCTAssertEqual(configuration.host, try URL(string: hostString).unwrap())
+                XCTAssertTrue(configuration.staySignedIn)
+            } catch {
+                XCTFail()
+            }
+            mainQueueExpectation.fulfill()
+        }
+        wait(for: [mainQueueExpectation], timeout: timeout)
     }
     
     func testViewRequestedToContinueCreateCorrectServerConfigurationWithStaySigneInAsFalse() throws {
         //Arrange
+        let verifyExepectation = self.expectation(description: "verifyExepectation")
+        let mainQueueExpectation = self.expectation(description: "mainQueueExpectation")
         let hostString = "www.example.com"
-        let viewModel = ServerConfigurationViewModel(userInterface: userInterface, coordinator: coordinatorMock, errorHandler: errorHandler)
         viewModel.serverAddressDidChange(text: hostString)
         viewModel.staySinedInCheckBoxStatusDidChange(isActive: true)
+        serverConfigurationManagerMock.expectationHandler = verifyExepectation.fulfill
+        
         //Act
         viewModel.viewRequestedToContinue()
+        serverConfigurationManagerMock.verifyConfigurationCompletion?(.success(Void()))
+        wait(for: [verifyExepectation], timeout: timeout)
+
         //Assert
-        let configuration = try coordinatorMock.serverConfigurationDidFinishValues.serverConfiguration.unwrap()
-        XCTAssertEqual(configuration.host, try URL(string: hostString).unwrap())
-        XCTAssertFalse(configuration.staySignedIn)
+        DispatchQueue.main.async {
+            do {
+                let configuration = try self.coordinatorMock.serverConfigurationDidFinishValues.serverConfiguration.unwrap()
+                XCTAssertEqual(configuration.host, try URL(string: hostString).unwrap())
+                XCTAssertFalse(configuration.staySignedIn)
+            } catch {
+                XCTFail()
+            }
+            mainQueueExpectation.fulfill()
+        }
+        wait(for: [mainQueueExpectation], timeout: timeout)
     }
     
     func testViewRequestedToContinueWithCorrectServerConfigurationCallCoordinator() throws {
         //Arrange
+        let verifyExepectation = self.expectation(description: "verifyExepectation")
+        let mainQueueExpectation = self.expectation(description: "mainQueueExpectation")
         let hostString = "www.example.com"
-        let viewModel = ServerConfigurationViewModel(userInterface: userInterface, coordinator: coordinatorMock, errorHandler: errorHandler)
         viewModel.serverAddressDidChange(text: hostString)
+        serverConfigurationManagerMock.expectationHandler = verifyExepectation.fulfill
+        
         //Act
         viewModel.viewRequestedToContinue()
+        serverConfigurationManagerMock.verifyConfigurationCompletion?(.success(Void()))
+        wait(for: [verifyExepectation], timeout: timeout)
+
         //Assert
-        XCTAssertTrue(coordinatorMock.serverConfigurationDidFinishValues.called)
+        DispatchQueue.main.async {
+            XCTAssertTrue(self.coordinatorMock.serverConfigurationDidFinishValues.called)
+            mainQueueExpectation.fulfill()
+        }
+        wait(for: [mainQueueExpectation], timeout: timeout)
+    }
+    
+    func testViewRequestedToContinueWithInvalidServerConfigurationGetsAnError() throws {
+        //Arrange
+        let verifyExepectation = self.expectation(description: "")
+        let hostString = "com"
+        let url = try URL(string: hostString).unwrap()
+        viewModel.serverAddressDidChange(text: hostString)
+        serverConfigurationManagerMock.expectationHandler = verifyExepectation.fulfill
+        //Act
+        viewModel.viewRequestedToContinue()
+        serverConfigurationManagerMock.verifyConfigurationCompletion?(.failure(ApiError.invalidHost(url)))
+        wait(for: [verifyExepectation], timeout: timeout)
+        //Assert
+        XCTAssertNotNil(errorHandler.throwedError)
     }
     
     func testServerAddressDidChangePassedNilValue() {
         //Arrange
-        let viewModel = ServerConfigurationViewModel(userInterface: userInterface, coordinator: coordinatorMock, errorHandler: errorHandler)
         //Act
         viewModel.serverAddressDidChange(text: nil)
         //Assert
@@ -115,7 +170,6 @@ class ServerConfigurationViewModelTests: XCTestCase {
     
     func testServerAddressDidChangePassedCorrectHostName() {
         //Arrange
-        let viewModel = ServerConfigurationViewModel(userInterface: userInterface, coordinator: coordinatorMock, errorHandler: errorHandler)
         //Act
         viewModel.serverAddressDidChange(text: "www.example.com")
         //Assert
@@ -125,7 +179,6 @@ class ServerConfigurationViewModelTests: XCTestCase {
     
     func testServerAddressTextFieldDidRequestedForReturnDissmissKeyboard() {
         //Arrange
-        let viewModel = ServerConfigurationViewModel(userInterface: userInterface, coordinator: coordinatorMock, errorHandler: errorHandler)
         //Act
         _ = viewModel.serverAddressTextFieldDidRequestForReturn()
         //Assert
@@ -134,7 +187,6 @@ class ServerConfigurationViewModelTests: XCTestCase {
     
     func testServerAddressTextFieldDidRequestedForReturnReturnCorrectValue() {
         //Arrange
-        let viewModel = ServerConfigurationViewModel(userInterface: userInterface, coordinator: coordinatorMock, errorHandler: errorHandler)
         //Act
         let value = viewModel.serverAddressTextFieldDidRequestForReturn()
         //Assert
@@ -143,7 +195,6 @@ class ServerConfigurationViewModelTests: XCTestCase {
     
     func testViewHasBeenTappedCallDissmissKeyboardOnUserInteface() {
         //Arrange
-        let viewModel = ServerConfigurationViewModel(userInterface: userInterface, coordinator: coordinatorMock, errorHandler: errorHandler)
         //Act
         _ = viewModel.viewHasBeenTapped()
         //Assert
@@ -171,6 +222,7 @@ private class UserInterfaceMock: ServerConfigurationViewModelOutput {
     
     private(set) var setupViewStateValues: (called: Bool, checkBoxIsActive: Bool) = (false, false)
     private(set) var tearDownCalled = false
+    private(set) var hideNavigationBarCalled = false
     private(set) var dissmissKeyboardCalled = false
     private(set) var continueButtonEnabledStateValues: (called: Bool, isEnabled: Bool) = (false, false)
     private(set) var checkBoxIsActiveStateValues: (called: Bool, isActive: Bool) = (false, false)
@@ -181,6 +233,10 @@ private class UserInterfaceMock: ServerConfigurationViewModelOutput {
 
     func tearDown() {
         tearDownCalled = true
+    }
+    
+    func hideNavigationBar() {
+        hideNavigationBarCalled = true
     }
     
     func dissmissKeyboard() {
@@ -201,5 +257,18 @@ private class CoordinatorMock: ServerConfigurationCoordinatorDelagete {
     
     func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration) {
         serverConfigurationDidFinishValues = (true, serverConfiguration)
+    }
+}
+
+private class ServerConfigurationManagerMock: ServerConfigurationManagerType {
+
+    var expectationHandler: (() -> Void)?
+    var verifyConfigurationCompletion: ((Result<Void>) -> Void)?
+    private(set) var configuration: ServerConfiguration?
+    
+    func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void>) -> Void)) {
+        self.configuration = configuration
+        self.verifyConfigurationCompletion = completion
+        expectationHandler?()
     }
 }

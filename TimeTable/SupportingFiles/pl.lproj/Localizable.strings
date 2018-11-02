@@ -11,3 +11,6 @@
 // UIErros
 "ui.error.cannot_be_empty" = "- pole nie może być puste.";
 "ui.error.invalid_format" = "niepoprawny format.";
+
+// APiErrors
+"api.error.invalid_url" = "Podany adres (%@) jest niepoprawny";

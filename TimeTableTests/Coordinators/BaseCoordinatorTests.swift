@@ -11,6 +11,8 @@ import XCTest
 
 class BaseCoordinatorTests: XCTestCase {
     
+    private let timetout = 0.1
+    
     // MARK: - CoordinatorType
     func testCoordinatorTypeExtension_normalStartRunsMethodStartFinishCompletionSucceed() {
         
@@ -107,8 +109,9 @@ class BaseCoordinatorTests: XCTestCase {
         XCTAssertNil(coordinator.window?.rootViewController?.children)
     }
     
-    func testPresentErrorPresentAlertController() throws {
+    func testPresentUiErrorPresentAlertController() throws {
         //Arrange
+        let expectation = self.expectation(description: "")
         let window = UIWindow()
         let navigationController = UINavigationController(rootViewController: UIViewController())
         window.rootViewController = navigationController
@@ -120,7 +123,33 @@ class BaseCoordinatorTests: XCTestCase {
         coordinator.present(error: error)
         //Assert
         let childController = try navigationController.children.first.unwrap()
-        XCTAssertNotNil(childController.presentedViewController as? UIAlertController)
+        DispatchQueue.main.async {
+            XCTAssertNotNil(childController.presentedViewController as? UIAlertController)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: timetout)
+    }
+    
+    func testPresentApiErrorPresentAlertController() throws {
+        //Arrange
+        let expectation = self.expectation(description: "")
+        let window = UIWindow()
+        let navigationController = UINavigationController(rootViewController: UIViewController())
+        window.rootViewController = navigationController
+        window.makeKeyAndVisible()
+        let coordinator = ChildCoordinator(window: window)
+        coordinator.start()
+        let url = try URL(string: "www.example.com").unwrap()
+        let error = ApiError.invalidHost(url)
+        //Act
+        coordinator.present(error: error)
+        //Assert
+        let childController = try navigationController.children.first.unwrap()
+        DispatchQueue.main.async {
+            XCTAssertNotNil(childController.presentedViewController as? UIAlertController)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: timetout)
     }
 }
 

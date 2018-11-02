@@ -11,6 +11,7 @@ import Foundation
 protocol ServerConfigurationViewModelOutput: class {
     func setupView(checkBoxIsActive: Bool)
     func tearDown()
+    func hideNavigationBar()
     func continueButtonEnabledState(_ isEnabled: Bool)
     func checkBoxIsActiveState(_ isActive: Bool)
     func dissmissKeyboard()
@@ -18,6 +19,7 @@ protocol ServerConfigurationViewModelOutput: class {
 
 protocol ServerConfigurationViewModelType: class {
     func viewDidLoad()
+    func viewWillAppear()
     func viewWillDisappear()
     func viewRequestedToContinue()
     func serverAddressDidChange(text: String?)
@@ -30,21 +32,28 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
     
     private weak var userInterface: ServerConfigurationViewModelOutput?
     private let coordinator: ServerConfigurationCoordinatorDelagete
+    private let serverConfigurationManager: ServerConfigurationManagerType
     private let errorHandler: ErrorHandlerType
     
     private var serverAddress: String?
     private var staySignedIn: Bool = true
     
-    // MARK: - Initialization
-    init(userInterface: ServerConfigurationViewModelOutput, coordinator: ServerConfigurationCoordinatorDelagete, errorHandler: ErrorHandlerType) {
+    // MARK: - Life Cycle
+    init(userInterface: ServerConfigurationViewModelOutput, coordinator: ServerConfigurationCoordinatorDelagete,
+         serverConfigurationManager: ServerConfigurationManagerType, errorHandler: ErrorHandlerType) {
         self.userInterface = userInterface
         self.coordinator = coordinator
+        self.serverConfigurationManager = serverConfigurationManager
         self.errorHandler = errorHandler
     }
     
     // MARK: - ServerSettingsViewModelType
     func viewDidLoad() {
         userInterface?.setupView(checkBoxIsActive: staySignedIn)
+    }
+    
+    func viewWillAppear() {
+        userInterface?.hideNavigationBar()
     }
     
     func viewWillDisappear() {
@@ -61,7 +70,16 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
             return
         }
         let configuration = ServerConfiguration(host: hostURL, staySignedIn: staySignedIn)
-        coordinator.serverConfigurationDidFinish(with: configuration)
+        serverConfigurationManager.verify(configuration: configuration) { [weak self] result in
+            switch result {
+            case .success:
+                DispatchQueue.main.async { [weak self] in
+                    self?.coordinator.serverConfigurationDidFinish(with: configuration)
+                }
+            case .failure(let error):
+                self?.errorHandler.throwing(error: error)
+            }
+        }
     }
     
     func serverAddressDidChange(text: String?) {

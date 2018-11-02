@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias ServerConfigurationViewControlleralbe = (UIViewController & ServerConfigurationViewControllerType & ServerConfigurationViewModelOutput)
+
 protocol ServerConfigurationViewControllerType: class {
     func configure(viewModel: ServerConfigurationViewModelType, notificationCenter: NotificationCenterType)
 }
@@ -26,6 +28,11 @@ class ServerConfigurationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel?.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel?.viewWillAppear()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -98,6 +105,10 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
     
     func tearDown() {
         notificationCenter?.removeObserver(self)
+    }
+    
+    func hideNavigationBar() {
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     func continueButtonEnabledState(_ isEnabled: Bool) {
