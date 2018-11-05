@@ -9,7 +9,8 @@
 import UIKit
 
 protocol LoginCoordinatorDelegate: class {
-    func loginDidfinish()
+    func loginDidFinish()
+    func loginDidFinishWithSuccess()
 }
 
 class AuthenticationCoordinator: BaseCoordinator {
@@ -41,14 +42,19 @@ class AuthenticationCoordinator: BaseCoordinator {
     private func runMainFlow() {
         let controller: LoginViewControllerable? = storyboardsManager.controller(storyboard: .login, controllerIdentifier: .initial)
         guard let loginViewController = controller else { return }
-        let viewModel = LoginViewModel(userInterface: loginViewController, coordinator: self)
+        let contentProvider = LoginContentProvider()
+        let viewModel = LoginViewModel(userInterface: loginViewController, coordinator: self, contentProvider: contentProvider, errorHandler: errorHandler)
         loginViewController.configure(notificationCenter: NotificationCenter.default, viewModel: viewModel)
         navigationController.pushViewController(loginViewController, animated: true)
     }
 }
 
 extension AuthenticationCoordinator: LoginCoordinatorDelegate {
-    func loginDidfinish() {
+    func loginDidFinish() {
         finishCompletion?()
+    }
+    
+    func loginDidFinishWithSuccess() {
+        
     }
 }

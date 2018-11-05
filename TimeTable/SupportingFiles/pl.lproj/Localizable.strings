@@ -1,5 +1,7 @@
 // UIElements
 "element.text_field.server_address" = "Adres serwera";
+"element.text_field.login" = "Login";
+"element.text_field.password" = "Hasło";
 
 // UIControls
 "server_settings.label.title" = "Zaloguj się do TimeTable";

@@ -54,9 +54,17 @@
 		C1B5136D21772D1200C3727C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B5136C21772D1200C3727C /* AppDelegate.swift */; };
 		C1B5137421772D1400C3727C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1B5137321772D1400C3727C /* Assets.xcassets */; };
 		C1B5137721772D1400C3727C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1B5137521772D1400C3727C /* LaunchScreen.storyboard */; };
+		C1B8FA41218C91F3009D10B4 /* LoginCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8FA40218C91F3009D10B4 /* LoginCredentials.swift */; };
+		C1B8FA44218C929F009D10B4 /* SessionDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8FA43218C929F009D10B4 /* SessionDecoder.swift */; };
+		C1B8FA49218C963A009D10B4 /* LoginCredentialsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8FA48218C963A009D10B4 /* LoginCredentialsTests.swift */; };
+		C1B8FA4B218C964C009D10B4 /* SessionDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8FA4A218C964C009D10B4 /* SessionDecoderTests.swift */; };
+		C1B8FA4D218C9A04009D10B4 /* JSONFileResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8FA4C218C9A04009D10B4 /* JSONFileResource.swift */; };
+		C1B8FA51218C9A86009D10B4 /* singInRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B8FA50218C9A86009D10B4 /* singInRequest.json */; };
 		C1C4BA8F2189AD7700683F71 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C4BA8E2189AD7700683F71 /* Result.swift */; };
 		C1C4BA912189AE0900683F71 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C4BA902189AE0900683F71 /* ApiError.swift */; };
 		C1C4BA932189AF3300683F71 /* HTTPMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C4BA922189AF3300683F71 /* HTTPMethods.swift */; };
+		C1F69B2C21902FA5005D9114 /* singInResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F69B2B21902FA5005D9114 /* singInResponse.json */; };
+		C1F69B2E21903818005D9114 /* LoginContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F69B2D21903818005D9114 /* LoginContentProvider.swift */; };
 		C1F926E4218838720004A9BC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F926E3218838720004A9BC /* LoginViewController.swift */; };
 		C1F926E6218838B80004A9BC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F926E5218838B80004A9BC /* LoginViewModel.swift */; };
 		C1F926E8218839C00004A9BC /* AuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F926E7218839C00004A9BC /* AuthenticationCoordinator.swift */; };
@@ -135,9 +143,17 @@
 		C1B5137821772D1400C3727C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1B5137D21772D1400C3727C /* TimeTableTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeTableTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1B5138321772D1400C3727C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C1B8FA40218C91F3009D10B4 /* LoginCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCredentials.swift; sourceTree = "<group>"; };
+		C1B8FA43218C929F009D10B4 /* SessionDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDecoder.swift; sourceTree = "<group>"; };
+		C1B8FA48218C963A009D10B4 /* LoginCredentialsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCredentialsTests.swift; sourceTree = "<group>"; };
+		C1B8FA4A218C964C009D10B4 /* SessionDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDecoderTests.swift; sourceTree = "<group>"; };
+		C1B8FA4C218C9A04009D10B4 /* JSONFileResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONFileResource.swift; sourceTree = "<group>"; };
+		C1B8FA50218C9A86009D10B4 /* singInRequest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = singInRequest.json; sourceTree = "<group>"; };
 		C1C4BA8E2189AD7700683F71 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		C1C4BA902189AE0900683F71 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		C1C4BA922189AF3300683F71 /* HTTPMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethods.swift; sourceTree = "<group>"; };
+		C1F69B2B21902FA5005D9114 /* singInResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = singInResponse.json; sourceTree = "<group>"; };
+		C1F69B2D21903818005D9114 /* LoginContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginContentProvider.swift; sourceTree = "<group>"; };
 		C1F926E3218838720004A9BC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C1F926E5218838B80004A9BC /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C1F926E7218839C00004A9BC /* AuthenticationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinator.swift; sourceTree = "<group>"; };
@@ -263,6 +279,7 @@
 			children = (
 				C1249C6B2181A23A005DB2A5 /* Error+String.swift */,
 				C1249C6D2181A265005DB2A5 /* Optional+Unwrap.swift */,
+				C1B8FA4C218C9A04009D10B4 /* JSONFileResource.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -285,6 +302,7 @@
 				C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */,
 				C1249C7D2181B4CF005DB2A5 /* Errors */,
 				C122601D21899F0D007D64A3 /* ServerConfiguration */,
+				C1B8FA47218C9617009D10B4 /* Session */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -295,6 +313,7 @@
 				C1249C792181AC49005DB2A5 /* StoryboardsManagerTests.swift */,
 				C1249C832181B556005DB2A5 /* Errors */,
 				C17EA3B62189E01F00A3F0CD /* ServerConfiguration */,
+				C1B8FA46218C95D3009D10B4 /* Session */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -454,9 +473,45 @@
 				C1249C6F2181A27A005DB2A5 /* Coordinators */,
 				C153AC542182F3A6007A35BB /* Extensions */,
 				C1249C782181AC35005DB2A5 /* Models */,
+				C1B8FA4E218C9A5B009D10B4 /* Resources */,
 				C1249C6221819EF7005DB2A5 /* SupportingFiles */,
 			);
 			path = TimeTableTests;
+			sourceTree = "<group>";
+		};
+		C1B8FA46218C95D3009D10B4 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				C1B8FA48218C963A009D10B4 /* LoginCredentialsTests.swift */,
+				C1B8FA4A218C964C009D10B4 /* SessionDecoderTests.swift */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		C1B8FA47218C9617009D10B4 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				C1B8FA40218C91F3009D10B4 /* LoginCredentials.swift */,
+				C1B8FA43218C929F009D10B4 /* SessionDecoder.swift */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		C1B8FA4E218C9A5B009D10B4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C1B8FA4F218C9A64009D10B4 /* Session */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C1B8FA4F218C9A64009D10B4 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				C1B8FA50218C9A86009D10B4 /* singInRequest.json */,
+				C1F69B2B21902FA5005D9114 /* singInResponse.json */,
+			);
+			path = Session;
 			sourceTree = "<group>";
 		};
 		C1F926E121874FB40004A9BC /* Login */ = {
@@ -465,6 +520,7 @@
 				C1F926E9218846F80004A9BC /* Login.storyboard */,
 				C1F926E3218838720004A9BC /* LoginViewController.swift */,
 				C1F926E5218838B80004A9BC /* LoginViewModel.swift */,
+				C1F69B2D21903818005D9114 /* LoginContentProvider.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -580,6 +636,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1B8FA51218C9A86009D10B4 /* singInRequest.json in Resources */,
+				C1F69B2C21902FA5005D9114 /* singInResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -725,6 +783,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1B8FA41218C91F3009D10B4 /* LoginCredentials.swift in Sources */,
 				C1F926E6218838B80004A9BC /* LoginViewModel.swift in Sources */,
 				C153AC6D21833BDC007A35BB /* AttributedButton.swift in Sources */,
 				C153AC4E2182EF82007A35BB /* UIElementLocalizedType.swift in Sources */,
@@ -733,6 +792,7 @@
 				C1249C802181B4FC005DB2A5 /* ErrorHandler.swift in Sources */,
 				C1F926E8218839C00004A9BC /* AuthenticationCoordinator.swift in Sources */,
 				C1249C652181A1B7005DB2A5 /* BaseCoordinator.swift in Sources */,
+				C1B8FA44218C929F009D10B4 /* SessionDecoder.swift in Sources */,
 				C153AC4A2182EE9F007A35BB /* UILabel+Extension .swift in Sources */,
 				C153AC6B218324DB007A35BB /* UIError.swift in Sources */,
 				C1249C822181B547005DB2A5 /* ErrorHandlerType.swift in Sources */,
@@ -741,6 +801,7 @@
 				C122602121899F82007D64A3 /* URLSessionDataTask+Extension.swift in Sources */,
 				C1F926E4218838720004A9BC /* LoginViewController.swift in Sources */,
 				C122601F21899F44007D64A3 /* URLSession+Extension.swift in Sources */,
+				C1F69B2E21903818005D9114 /* LoginContentProvider.swift in Sources */,
 				C1C4BA912189AE0900683F71 /* ApiError.swift in Sources */,
 				C1249C772181AAE4005DB2A5 /* StoryboardsManager.swift in Sources */,
 				C125C4D52186F76500FBA0DD /* CoordinatorErrorPresenterType.swift in Sources */,
@@ -763,6 +824,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C153AC7321834F22007A35BB /* ServerConfigurationViewModelTests.swift in Sources */,
+				C1B8FA49218C963A009D10B4 /* LoginCredentialsTests.swift in Sources */,
 				C17EA3BC2189EC1700A3F0CD /* URLSessionExtensionTests.swift in Sources */,
 				C153AC6F218342F6007A35BB /* UIErrorTests.swift in Sources */,
 				C1249C7C2181AEB0005DB2A5 /* AppCoordinatorTests.swift in Sources */,
@@ -778,7 +840,9 @@
 				C153AC5E2182FA64007A35BB /* UIButtonExtensionTests.swift in Sources */,
 				C1249C7A2181AC49005DB2A5 /* StoryboardsManagerTests.swift in Sources */,
 				C122601A21898BD7007D64A3 /* LoginViewModelTests.swift in Sources */,
+				C1B8FA4B218C964C009D10B4 /* SessionDecoderTests.swift in Sources */,
 				C1249C712181A282005DB2A5 /* BaseCoordinatorTests.swift in Sources */,
+				C1B8FA4D218C9A04009D10B4 /* JSONFileResource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

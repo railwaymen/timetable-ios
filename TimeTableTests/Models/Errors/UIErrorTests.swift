@@ -30,4 +30,44 @@ class UIErrorTests: XCTestCase {
         //Assert
         XCTAssertEqual(localizedString, expectedResult)
     }
+    
+    func testEquatableForCannotBeEmptyWhileElementsAreEqual() {
+        //Arrange
+        let firstUIError = UIError.cannotBeEmpty(.loginTextField)
+        let secondUIError = UIError.cannotBeEmpty(.loginTextField)
+        //Assert
+        XCTAssertEqual(firstUIError, secondUIError)
+    }
+    
+    func testEquatableForCannotBeEmptyWhileElementsAreNotEqual() {
+        //Arrange
+        let firstUIError = UIError.cannotBeEmpty(.loginTextField)
+        let secondUIError = UIError.cannotBeEmpty(.passwordTextField)
+        //Assert
+        XCTAssertNotEqual(firstUIError, secondUIError)
+    }
+
+    func testEquatableForCannotBeEmptyAndInvalidFormantUIErrors() {
+        //Arrange
+        let firstUIError = UIError.cannotBeEmpty(.loginTextField)
+        let secondUIError = UIError.invalidFormat(.loginTextField)
+        //Assert
+        XCTAssertNotEqual(firstUIError, secondUIError)
+    }
+    
+    func testEquatableForInvalidFormatWhileElementsAreEqual() {
+        //Arrange
+        let firstUIError = UIError.invalidFormat(.loginTextField)
+        let secondUIError = UIError.invalidFormat(.loginTextField)
+        //Assert
+        XCTAssertEqual(firstUIError, secondUIError)
+    }
+    
+    func testEquatableForInvalidFormatWhileElementsAreNotEqual() {
+        //Arrange
+        let firstUIError = UIError.invalidFormat(.loginTextField)
+        let secondUIError = UIError.invalidFormat(.passwordTextField)
+        //Assert
+        XCTAssertNotEqual(firstUIError, secondUIError)
+    }
 }

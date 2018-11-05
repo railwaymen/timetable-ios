@@ -10,6 +10,8 @@ import Foundation
 
 enum UIElement: String {
     case serverAddressTextField = "element.text_field.server_address"
+    case loginTextField = "element.text_field.login"
+    case passwordTextField = "element.text_field.password"
 }
 
 enum UIError: Error {
@@ -23,6 +25,19 @@ enum UIError: Error {
             return "\(component.rawValue.localized) " + "ui.error.cannot_be_empty".localized
         case .invalidFormat(let component):
             return "\(component.rawValue.localized) " + "ui.error.invalid_format".localized
+        }
+    }
+}
+
+extension UIError: Equatable {
+    static func == (lhs: UIError, rhs: UIError) -> Bool {
+        switch (lhs, rhs) {
+        case (.cannotBeEmpty(let lhsElement), .cannotBeEmpty(let rhsElement)):
+            return lhsElement == rhsElement
+        case (.invalidFormat(let lhsElement), .invalidFormat(let rhsElement)):
+            return lhsElement == rhsElement
+        default:
+            return false
         }
     }
 }

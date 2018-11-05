@@ -30,25 +30,17 @@ class LoginViewModel: LoginViewModelType {
     
     private weak var userInterface: LoginViewModelOutput?
     private let coordinator: LoginCoordinatorDelegate
-
+    private let contentProvider: LoginContentProviderType
+    private let errorHandler: ErrorHandlerType
     private var loginCredentials: LoginCredentials
-    
-    private struct LoginCredentials {
-        var login: String
-        var passowrd: String
-        
-        var passwordIsEnabled: Bool {
-            return (!passowrd.isEmpty && login.isEmpty) || !login.isEmpty
-        }
-        var isCorrectCredentials: Bool {
-            return !login.isEmpty && !passowrd.isEmpty
-        }
-    }
-    
-    init(userInterface: LoginViewModelOutput, coordinator: LoginCoordinatorDelegate) {
+
+    init(userInterface: LoginViewModelOutput, coordinator: LoginCoordinatorDelegate,
+         contentProvider: LoginContentProviderType, errorHandler: ErrorHandlerType) {
         self.userInterface = userInterface
         self.coordinator = coordinator
-        self.loginCredentials = LoginCredentials(login: "", passowrd: "")
+        self.contentProvider = contentProvider
+        self.loginCredentials = LoginCredentials(email: "", password: "")
+        self.errorHandler = errorHandler
     }
     
     // MARK: - LoginViewModelOutput
@@ -58,41 +50,59 @@ class LoginViewModel: LoginViewModelType {
     
     func viewWillDisappear() {
         userInterface?.tearDown()
-        coordinator.loginDidfinish()
+        coordinator.loginDidFinish()
     }
     
     func loginInputValueDidChange(value: String?) {
         guard let loginValue = value else { return }
-        loginCredentials.login = loginValue
+        loginCredentials.email = loginValue
         updateView()
     }
     
     func loginTextFieldDidRequestForReturn() -> Bool {
-        guard !loginCredentials.login.isEmpty else { return false }
+        guard !loginCredentials.email.isEmpty else { return false }
         userInterface?.focusOnPasswordTextField()
         return true
     }
     
     func passwordInputValueDidChange(value: String?) {
         guard let passowrdValue = value else { return }
-        loginCredentials.passowrd = passowrdValue
+        loginCredentials.password = passowrdValue
         updateView()
     }
     
     func passwordTextFieldDidRequestForReturn() -> Bool {
-        if loginCredentials.isCorrectCredentials {
+        let isCorrect = !loginCredentials.email.isEmpty && !loginCredentials.password.isEmpty
+        if isCorrect {
             viewRequestedToLogin()
         }
-        return loginCredentials.isCorrectCredentials
+        return isCorrect
     }
     
     func viewRequestedToLogin() {
+        guard !loginCredentials.email.isEmpty else {
+            errorHandler.throwing(error: UIError.cannotBeEmpty(.loginTextField))
+            return
+        }
         
+        guard !loginCredentials.password.isEmpty else {
+            errorHandler.throwing(error: UIError.cannotBeEmpty(.passwordTextField))
+            return
+        }
+        
+        contentProvider.login(with: loginCredentials) { [weak self] result in
+            switch result {
+            case .success:
+                self?.coordinator.loginDidFinishWithSuccess()
+            case .failure(let error):
+                self?.errorHandler.throwing(error: error)
+            }
+        }
     }
     
     // MARK: - Private
     private func updateView() {
-        userInterface?.passwordInputEnabledState(loginCredentials.passwordIsEnabled)
-        userInterface?.loginButtonEnabledState(loginCredentials.isCorrectCredentials)
+        userInterface?.passwordInputEnabledState((!loginCredentials.password.isEmpty && loginCredentials.email.isEmpty) || !loginCredentials.email.isEmpty)
+        userInterface?.loginButtonEnabledState(!loginCredentials.email.isEmpty && !loginCredentials.password.isEmpty)
     }
 }

@@ -24,7 +24,7 @@ class LoginViewController: UIViewController {
     private var notificationCenter: NotificationCenterType!
     private var viewModel: LoginViewModelType!
     
-    // MARK: - Initialization
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.viewDidLoad()

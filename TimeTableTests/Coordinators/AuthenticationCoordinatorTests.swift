@@ -56,7 +56,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
             finishCompletionCalled = true
         })
         //Act
-        coordinator.loginDidfinish()
+        coordinator.loginDidFinish()
         //Assert
         XCTAssertTrue(finishCompletionCalled)
     }
