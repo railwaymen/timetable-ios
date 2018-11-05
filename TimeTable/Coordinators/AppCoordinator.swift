@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol ServerConfigurationCoordinatorDelagete: class {
-    func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration)
-}
-
 class AppCoordinator: BaseCoordinator {
     
     var navigationController: UINavigationController
@@ -41,20 +37,21 @@ class AppCoordinator: BaseCoordinator {
         defer {
             super.start()
         }
-        self.runMainFlow()
+        self.runServerConfigurationFlow()
     }
     
     // MARK: - Private
-    private func runMainFlow() {
-        let controller: ServerConfigurationViewControlleralbe? = storyboardsManager.controller(storyboard: .serverConfiguration, controllerIdentifier: .initial)
-        guard let serverSettingsViewController = controller else { return }
-        let serverConfigurationManager = ServerConfigurationManager(urlSession: URLSession.shared)
-        let viewModel = ServerConfigurationViewModel(userInterface: serverSettingsViewController,
-                                                     coordinator: self,
-                                                     serverConfigurationManager: serverConfigurationManager,
-                                                     errorHandler: errorHandler)
-        serverSettingsViewController.configure(viewModel: viewModel, notificationCenter: NotificationCenter.default)
-        navigationController.setViewControllers([serverSettingsViewController], animated: false)
+    private func runServerConfigurationFlow() {
+        let coordinator = ServerConfigurationCoordinator(navigationController: navigationController,
+                                                         storyboardsManager: storyboardsManager, errorHandler: errorHandler)
+        
+        addChildCoordinator(child: coordinator)
+        coordinator.start { [weak self, weak coordinator] in
+            if let childCoordinator = coordinator {
+                self?.removeChildCoordinator(child: childCoordinator)
+                self?.runAuthenticationFlow()
+            }
+        }
     }
     
     private func runAuthenticationFlow() {
@@ -66,11 +63,5 @@ class AppCoordinator: BaseCoordinator {
                 self?.removeChildCoordinator(child: childCoordinator)
             }
         }
-    }
-}
-
-extension AppCoordinator: ServerConfigurationCoordinatorDelagete {
-    func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration) {
-        runAuthenticationFlow()
     }
 }
