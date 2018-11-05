@@ -9,6 +9,12 @@
 import Foundation
 
 struct ServerConfiguration {
-    var host: URL
-    var staySignedIn: Bool
+    var host: URL?
+    var shouldRemeberHost: Bool
+}
+
+extension ServerConfiguration: Equatable {
+    static func == (lhs: ServerConfiguration, rhs: ServerConfiguration) -> Bool {
+        return lhs.host == rhs.host && lhs.shouldRemeberHost == rhs.shouldRemeberHost
+    }
 }

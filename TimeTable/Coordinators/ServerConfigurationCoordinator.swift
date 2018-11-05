@@ -16,12 +16,16 @@ class ServerConfigurationCoordinator: BaseCoordinator {
     var navigationController: UINavigationController
     private let storyboardsManager: StoryboardsManagerType
     private let errorHandler: ErrorHandlerType
+    private let serverConfigurationManager: ServerConfigurationManagerType
+    var customfinishCompletion: ((ServerConfiguration) -> Void)?
     
     // MARK: - Initialization
-    init(navigationController: UINavigationController, storyboardsManager: StoryboardsManagerType, errorHandler: ErrorHandlerType) {
+    init(navigationController: UINavigationController, storyboardsManager: StoryboardsManagerType,
+         errorHandler: ErrorHandlerType, serverConfigurationManager: ServerConfigurationManagerType) {
         self.navigationController = navigationController
         self.storyboardsManager = storyboardsManager
         self.errorHandler = errorHandler
+        self.serverConfigurationManager = serverConfigurationManager
         super.init(window: nil)
         self.navigationController.interactivePopGestureRecognizer?.delegate = nil
         self.navigationController.navigationItem.leftItemsSupplementBackButton = true
@@ -29,18 +33,15 @@ class ServerConfigurationCoordinator: BaseCoordinator {
     }
     
     // MARK: - CoordinatorType
-    override func start(finishCompletion: (() -> Void)?) {
-        defer {
-            super.start(finishCompletion: finishCompletion)
-        }
+    func start(finishCompletion: ((ServerConfiguration) -> Void)?) {
         runMainFlow()
+        self.customfinishCompletion = finishCompletion
     }
     
     // MARL: - Private
     private func runMainFlow() {
         let controller: ServerConfigurationViewControlleralbe? = storyboardsManager.controller(storyboard: .serverConfiguration, controllerIdentifier: .initial)
         guard let serverSettingsViewController = controller else { return }
-        let serverConfigurationManager = ServerConfigurationManager(urlSession: URLSession.shared)
         let viewModel = ServerConfigurationViewModel(userInterface: serverSettingsViewController,
                                                      coordinator: self,
                                                      serverConfigurationManager: serverConfigurationManager,
@@ -52,6 +53,6 @@ class ServerConfigurationCoordinator: BaseCoordinator {
 
 extension ServerConfigurationCoordinator: ServerConfigurationCoordinatorDelagete {
     func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration) {
-        finishCompletion?()
+        customfinishCompletion?(serverConfiguration)
     }
 }

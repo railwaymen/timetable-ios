@@ -15,14 +15,17 @@ class ServerConfigurationCoordinatorTests: XCTestCase {
     private var storyboardsManagerMock: StoryboardsManagerMock!
     private var errorHandlerMock: ErrorHandlerMock!
     private var coordinator: ServerConfigurationCoordinator!
+    private var serverConfigurationManagerMock: ServerConfigurationManagerMock!
     
     override func setUp() {
         self.navigationController = UINavigationController()
         self.storyboardsManagerMock = StoryboardsManagerMock()
         self.errorHandlerMock = ErrorHandlerMock()
+        self.serverConfigurationManagerMock = ServerConfigurationManagerMock()
         self.coordinator = ServerConfigurationCoordinator(navigationController: navigationController,
                                                           storyboardsManager: storyboardsManagerMock,
-                                                          errorHandler: errorHandlerMock)
+                                                          errorHandler: errorHandlerMock,
+                                                          serverConfigurationManager: serverConfigurationManagerMock)
         super.setUp()
     }
  
@@ -38,7 +41,7 @@ class ServerConfigurationCoordinatorTests: XCTestCase {
         //Arrange
         storyboardsManagerMock.controller = ServerConfigurationViewControllerMock()
         //Act
-        coordinator.start()
+        coordinator.start(finishCompletion: { _ in })
         //Assert
         XCTAssertEqual(coordinator.navigationController.children.count, 1)
     }
@@ -46,16 +49,22 @@ class ServerConfigurationCoordinatorTests: XCTestCase {
     func testFinishCompletionExecutedWhileLoginDidFinishDelegateCalled() throws {
         //Arrange
         var finishCompletionCalled = false
+        var expectedServerConfiguration: ServerConfiguration?
         storyboardsManagerMock.controller = ServerConfigurationViewControllerMock()
-        coordinator.start(finishCompletion: {
+        coordinator.start(finishCompletion: { configuration in
             finishCompletionCalled = true
+            expectedServerConfiguration = configuration
+        })
+        coordinator.start(finishCompletion: {
+            
         })
         let url = try URL(string: "www.example.com").unwrap()
-        let serverConfiguration = ServerConfiguration(host: url, staySignedIn: false)
+        let serverConfiguration = ServerConfiguration(host: url, shouldRemeberHost: false)
         //Act
         coordinator.serverConfigurationDidFinish(with: serverConfiguration)
         //Assert
         XCTAssertTrue(finishCompletionCalled)
+        XCTAssertEqual(expectedServerConfiguration, serverConfiguration)
     }
 }
 
@@ -74,9 +83,16 @@ private class ErrorHandlerMock: ErrorHandlerType {
     func throwing(error: Error, finally: @escaping (Bool) -> Void) {}
 }
 
+private class ServerConfigurationManagerMock: ServerConfigurationManagerType {
+    func getOldConfiguration() -> ServerConfiguration? {
+        return nil
+    }
+    func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void>) -> Void)) {}
+}
+
 private class ServerConfigurationViewControllerMock: ServerConfigurationViewControlleralbe {
     func configure(viewModel: ServerConfigurationViewModelType, notificationCenter: NotificationCenterType) {}
-    func setupView(checkBoxIsActive: Bool) {}
+    func setupView(checkBoxIsActive: Bool, serverAddress: String) {}
     func tearDown() {}
     func hideNavigationBar() {}
     func continueButtonEnabledState(_ isEnabled: Bool) {}

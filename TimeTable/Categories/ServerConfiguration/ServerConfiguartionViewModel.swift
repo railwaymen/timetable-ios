@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ServerConfigurationViewModelOutput: class {
-    func setupView(checkBoxIsActive: Bool)
+    func setupView(checkBoxIsActive: Bool, serverAddress: String)
     func tearDown()
     func hideNavigationBar()
     func continueButtonEnabledState(_ isEnabled: Bool)
@@ -24,7 +24,7 @@ protocol ServerConfigurationViewModelType: class {
     func viewRequestedToContinue()
     func serverAddressDidChange(text: String?)
     func serverAddressTextFieldDidRequestForReturn() -> Bool
-    func staySinedInCheckBoxStatusDidChange(isActive: Bool)
+    func shouldRemeberHostCheckBoxStatusDidChange(isActive: Bool)
     func viewHasBeenTapped()
 }
 
@@ -36,7 +36,7 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
     private let errorHandler: ErrorHandlerType
     
     private var serverAddress: String?
-    private var staySignedIn: Bool = true
+    private var shouldRemeberHost: Bool = true
     
     // MARK: - Life Cycle
     init(userInterface: ServerConfigurationViewModelOutput, coordinator: ServerConfigurationCoordinatorDelagete,
@@ -49,7 +49,10 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
     
     // MARK: - ServerSettingsViewModelType
     func viewDidLoad() {
-        userInterface?.setupView(checkBoxIsActive: staySignedIn)
+        let oldConfiguration = serverConfigurationManager.getOldConfiguration()
+        self.serverAddress = oldConfiguration?.host?.absoluteString
+        self.shouldRemeberHost = oldConfiguration?.shouldRemeberHost ?? true
+        userInterface?.setupView(checkBoxIsActive: shouldRemeberHost, serverAddress: serverAddress ?? "")
     }
     
     func viewWillAppear() {
@@ -69,7 +72,7 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
             errorHandler.throwing(error: UIError.invalidFormat(.serverAddressTextField))
             return
         }
-        let configuration = ServerConfiguration(host: hostURL, staySignedIn: staySignedIn)
+        let configuration = ServerConfiguration(host: hostURL, shouldRemeberHost: shouldRemeberHost)
         serverConfigurationManager.verify(configuration: configuration) { [weak self] result in
             switch result {
             case .success:
@@ -93,8 +96,8 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
         return true
     }
     
-    func staySinedInCheckBoxStatusDidChange(isActive: Bool) {
-        staySignedIn = !isActive
+    func shouldRemeberHostCheckBoxStatusDidChange(isActive: Bool) {
+        shouldRemeberHost = !isActive
         userInterface?.checkBoxIsActiveState(!isActive)
     }
     

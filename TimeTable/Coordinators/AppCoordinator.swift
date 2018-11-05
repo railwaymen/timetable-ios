@@ -12,7 +12,7 @@ class AppCoordinator: BaseCoordinator {
     
     var navigationController: UINavigationController
     private var storyboardsManager: StoryboardsManagerType
-    
+    private var serverConfigurationManager: ServerConfigurationManagerType
     private let parentErrorHandler: ErrorHandlerType
     
     private var errorHandler: ErrorHandlerType {
@@ -22,11 +22,13 @@ class AppCoordinator: BaseCoordinator {
     }
     
     // MARK: - Initialization
-    init(window: UIWindow?, storyboardsManager: StoryboardsManagerType, errorHandler: ErrorHandlerType) {
+    init(window: UIWindow?, storyboardsManager: StoryboardsManagerType,
+         errorHandler: ErrorHandlerType, serverConfigurationManager: ServerConfigurationManagerType) {
         self.navigationController = UINavigationController()
         window?.rootViewController = navigationController
         self.storyboardsManager = storyboardsManager
         self.parentErrorHandler = errorHandler
+        self.serverConfigurationManager = serverConfigurationManager
         super.init(window: window)
         self.navigationController.interactivePopGestureRecognizer?.delegate = nil
         self.navigationController.setNavigationBarHidden(true, animated: true)
@@ -37,24 +39,29 @@ class AppCoordinator: BaseCoordinator {
         defer {
             super.start()
         }
-        self.runServerConfigurationFlow()
+        if let configuration = serverConfigurationManager.getOldConfiguration(), configuration.shouldRemeberHost {
+            self.runAuthenticationFlow(configuration: configuration)
+        } else {
+            self.runServerConfigurationFlow()
+        }
     }
     
     // MARK: - Private
     private func runServerConfigurationFlow() {
         let coordinator = ServerConfigurationCoordinator(navigationController: navigationController,
-                                                         storyboardsManager: storyboardsManager, errorHandler: errorHandler)
-        
+                                                         storyboardsManager: storyboardsManager,
+                                                         errorHandler: errorHandler,
+                                                         serverConfigurationManager: serverConfigurationManager)
         addChildCoordinator(child: coordinator)
-        coordinator.start { [weak self, weak coordinator] in
+        coordinator.start { [weak self, weak coordinator] configuration in
             if let childCoordinator = coordinator {
                 self?.removeChildCoordinator(child: childCoordinator)
-                self?.runAuthenticationFlow()
+                self?.runAuthenticationFlow(configuration: configuration)
             }
         }
     }
     
-    private func runAuthenticationFlow() {
+    private func runAuthenticationFlow(configuration: ServerConfiguration) {
         let coordinator = AuthenticationCoordinator(navigationController: navigationController,
                                                     storyboardsManager: storyboardsManager, errorHandler: errorHandler)
         addChildCoordinator(child: coordinator)

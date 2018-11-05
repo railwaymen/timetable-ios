@@ -14,17 +14,22 @@ class AppCoordinatorTests: XCTestCase {
     private var window: UIWindow?
     private var storyboardsManagerMock: StoryboardsManagerMock!
     private var errorHandlerMock: ErrorHandlerMock!
+    private var serverConfigurationManagerMock: ServerConfigurationManagerMock!
+    private var appCoordinator: AppCoordinator!
     
     override func setUp() {
         self.window = UIWindow(frame: CGRect.zero)
         self.storyboardsManagerMock = StoryboardsManagerMock()
         self.errorHandlerMock = ErrorHandlerMock()
+        self.serverConfigurationManagerMock = ServerConfigurationManagerMock()
+        self.appCoordinator = AppCoordinator(window: window,
+                                             storyboardsManager: storyboardsManagerMock,
+                                             errorHandler: errorHandlerMock,
+                                             serverConfigurationManager: serverConfigurationManagerMock)
         super.setUp()
     }
     
     func testStart_appCoordinatorDoNotContainChildControllers() {
-        //Arrange
-        let appCoordinator = AppCoordinator(window: window, storyboardsManager: storyboardsManagerMock, errorHandler: errorHandlerMock)
         //Act
         appCoordinator.start()
         //Assert
@@ -33,7 +38,6 @@ class AppCoordinatorTests: XCTestCase {
     
     func testStart_appCoordinatorContainsChildControllers() {
         //Arrange
-        let appCoordinator = AppCoordinator(window: window, storyboardsManager: storyboardsManagerMock, errorHandler: errorHandlerMock)
         storyboardsManagerMock.controller = ServerConfigurationViewControllerMock()
         //Act
         appCoordinator.start()
@@ -42,8 +46,6 @@ class AppCoordinatorTests: XCTestCase {
     }
     
     func testStartAppCoordinatorContainsChildCoordinatorOnTheStart() {
-        //Arrange
-        let appCoordinator = AppCoordinator(window: window, storyboardsManager: storyboardsManagerMock, errorHandler: errorHandlerMock)
         //Act
         appCoordinator.start()
         //Assert
@@ -52,42 +54,53 @@ class AppCoordinatorTests: XCTestCase {
     
     func testStartAppCoordinatorContainsServerConfigurationCoordinatorOnTheStart() {
         //Arrange
-        let appCoordinator = AppCoordinator(window: window, storyboardsManager: storyboardsManagerMock, errorHandler: errorHandlerMock)
+        serverConfigurationManagerMock.oldConfiguration = nil
         //Act
         appCoordinator.start()
         //Assert
         XCTAssertNotNil(appCoordinator.children.first?.value as? ServerConfigurationCoordinator)
     }
     
-    func testAppCoordinator_ServerConfigurationCoordinatorDidFinishDoNotContainServerConfigurationCoordinatorAsChild() {
+    func testStartAppCoordinatorContainsServerConfigurationCoordinatorOnTheStartWhileConfigurationShouldNotRemeberHost() throws {
         //Arrange
-        let appCoordinator = AppCoordinator(window: window, storyboardsManager: storyboardsManagerMock, errorHandler: errorHandlerMock)
-        appCoordinator.start()
-        let serverConfigurationCoordinator = appCoordinator.children.first?.value as? ServerConfigurationCoordinator
+        let url = try URL(string: "www.example.com").unwrap()
+        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRemeberHost: false)
         //Act
-        serverConfigurationCoordinator?.finish()
+        appCoordinator.start()
         //Assert
-        XCTAssertEqual(appCoordinator.children.count, 1)
-        XCTAssertNil(appCoordinator.children.first?.value as? ServerConfigurationCoordinator)
+        XCTAssertNotNil(appCoordinator.children.first?.value as? ServerConfigurationCoordinator)
     }
     
-    func testAppCoordinator_ServerConfigurationCoordinatorDidFinishRunAuthenticationFlow() {
+    func testStartAppCoorinatorRunsAuthetincationFlow() throws {
         //Arrange
-        let appCoordinator = AppCoordinator(window: window, storyboardsManager: storyboardsManagerMock, errorHandler: errorHandlerMock)
-        appCoordinator.start()
-        let serverConfigurationCoordinator = appCoordinator.children.first?.value as? ServerConfigurationCoordinator
+        let url = try URL(string: "www.example.com").unwrap()
+        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRemeberHost: true)
         //Act
-        serverConfigurationCoordinator?.finish()
+        appCoordinator.start()
         //Assert
         XCTAssertNotNil(appCoordinator.children.first?.value as? AuthenticationCoordinator)
     }
     
-    func testAppCoordinator_AuthenticationCoordinatorDidFinishDoesNotContainChildCoordinators() {
+    func testServerConfigurationCoordinatorFinishBlockRunAuthenticatioFlow() throws {
         //Arrange
-        let appCoordinator = AppCoordinator(window: window, storyboardsManager: storyboardsManagerMock, errorHandler: errorHandlerMock)
+        serverConfigurationManagerMock.oldConfiguration = nil
         appCoordinator.start()
         let serverConfigurationCoordinator = appCoordinator.children.first?.value as? ServerConfigurationCoordinator
-        serverConfigurationCoordinator?.finish()
+        let url = try URL(string: "www.example.com").unwrap()
+        let serverConfiguration = ServerConfiguration(host: url, shouldRemeberHost: true)
+        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRemeberHost: true)
+        //Act
+        serverConfigurationCoordinator?.customfinishCompletion?(serverConfiguration)
+        //Assert
+        XCTAssertEqual(appCoordinator.children.count, 1)
+        XCTAssertNotNil(appCoordinator.children.first?.value as? AuthenticationCoordinator)
+    }
+    
+    func testAuthenticationCoordinatorFinishRemoveSelfFromAppCoordinatorChildren() throws {
+        //Arrange
+        let url = try URL(string: "www.example.com").unwrap()
+        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRemeberHost: true)
+        appCoordinator.start()
         let authenticationCoordinator = appCoordinator.children.first?.value as? AuthenticationCoordinator
         //Act
         authenticationCoordinator?.finish()
@@ -113,7 +126,7 @@ private class ErrorHandlerMock: ErrorHandlerType {
 
 private class ServerConfigurationViewControllerMock: ServerConfigurationViewControlleralbe {
     func configure(viewModel: ServerConfigurationViewModelType, notificationCenter: NotificationCenterType) {}
-    func setupView(checkBoxIsActive: Bool) {}
+    func setupView(checkBoxIsActive: Bool, serverAddress: String) {}
     func tearDown() {}
     func hideNavigationBar() {}
     func continueButtonEnabledState(_ isEnabled: Bool) {}
@@ -128,4 +141,21 @@ private class LoginViewControllerMock: LoginViewControllerable {
     func passwordInputEnabledState(_ isEnabled: Bool) {}
     func loginButtonEnabledState(_ isEnabled: Bool) {}
     func focusOnPasswordTextField() {}
+}
+
+private class ServerConfigurationManagerMock: ServerConfigurationManagerType {
+    var oldConfiguration: ServerConfiguration?
+    private(set) var oldConfigurationCalled = false
+    private(set) var verifyConfigurationValues: (called: Bool, configuration: ServerConfiguration?) = (false, nil)
+    private(set) var verifyConfigurationCompletion: ((Result<Void>) -> Void)?
+    
+    func getOldConfiguration() -> ServerConfiguration? {
+        oldConfigurationCalled = true
+        return oldConfiguration
+    }
+    
+    func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void>) -> Void)) {
+        verifyConfigurationValues = (true, configuration)
+        verifyConfigurationCompletion = completion
+    }
 }
