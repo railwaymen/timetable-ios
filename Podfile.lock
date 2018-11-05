@@ -1,12 +1,15 @@
 PODS:
+  - Networking (4.4.0)
   - SwiftLint (0.27.0)
 
 DEPENDENCIES:
+  - Networking (~> 4.4.0)
   - SwiftLint (~> 0.27.0)
 
 SPEC CHECKSUMS:
+  Networking: cbef47ab030af248248c26a696adb88989b52ef1
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
-PODFILE CHECKSUM: 735a859628aa3e5fe44debb35dfb19321144f4ff
+PODFILE CHECKSUM: 7b54c133adbe0bd9dcddaa146413f0b2d8d388c2
 
 COCOAPODS: 1.0.1
