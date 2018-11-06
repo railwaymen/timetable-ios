@@ -32,7 +32,7 @@ class ServerConfigurationCoordinatorTests: XCTestCase {
     func testStartServerConfigurationCoorinatorDoNotContainChildControllers() {
         //Arrange
         //Act
-        coordinator.start()
+        coordinator.start(finishCompletion: { _ in })
         //Assert
         XCTAssertTrue(coordinator.navigationController.children.isEmpty)
     }

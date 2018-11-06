@@ -17,7 +17,7 @@ class ServerConfigurationCoordinator: BaseCoordinator {
     private let storyboardsManager: StoryboardsManagerType
     private let errorHandler: ErrorHandlerType
     private let serverConfigurationManager: ServerConfigurationManagerType
-    var customfinishCompletion: ((ServerConfiguration) -> Void)?
+    var customFinishCompletion: ((ServerConfiguration) -> Void)?
     
     // MARK: - Initialization
     init(navigationController: UINavigationController, storyboardsManager: StoryboardsManagerType,
@@ -28,14 +28,18 @@ class ServerConfigurationCoordinator: BaseCoordinator {
         self.serverConfigurationManager = serverConfigurationManager
         super.init(window: nil)
         self.navigationController.interactivePopGestureRecognizer?.delegate = nil
-        self.navigationController.navigationItem.leftItemsSupplementBackButton = true
-        navigationController.setNavigationBarHidden(false, animated: false)
+        navigationController.setNavigationBarHidden(true, animated: false)
     }
-    
+
     // MARK: - CoordinatorType
     func start(finishCompletion: ((ServerConfiguration) -> Void)?) {
         runMainFlow()
-        self.customfinishCompletion = finishCompletion
+        self.customFinishCompletion = finishCompletion
+    }
+
+    func finish(with serverConfiguration: ServerConfiguration) {
+        customFinishCompletion?(serverConfiguration)
+        super.finish()
     }
     
     // MARL: - Private
@@ -47,12 +51,12 @@ class ServerConfigurationCoordinator: BaseCoordinator {
                                                      serverConfigurationManager: serverConfigurationManager,
                                                      errorHandler: errorHandler)
         serverSettingsViewController.configure(viewModel: viewModel, notificationCenter: NotificationCenter.default)
-        navigationController.setViewControllers([serverSettingsViewController], animated: false)
+        navigationController.setViewControllers([serverSettingsViewController], animated: true)
     }
 }
 
 extension ServerConfigurationCoordinator: ServerConfigurationCoordinatorDelagete {
     func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration) {
-        customfinishCompletion?(serverConfiguration)
+        finish(with: serverConfiguration)
     }
 }

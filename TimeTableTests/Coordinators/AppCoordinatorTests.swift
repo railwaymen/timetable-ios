@@ -90,22 +90,35 @@ class AppCoordinatorTests: XCTestCase {
         let serverConfiguration = ServerConfiguration(host: url, shouldRemeberHost: true)
         serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRemeberHost: true)
         //Act
-        serverConfigurationCoordinator?.customfinishCompletion?(serverConfiguration)
+        serverConfigurationCoordinator?.finish(with: serverConfiguration)
         //Assert
         XCTAssertEqual(appCoordinator.children.count, 1)
         XCTAssertNotNil(appCoordinator.children.first?.value as? AuthenticationCoordinator)
     }
     
-    func testAuthenticationCoordinatorFinishRemoveSelfFromAppCoordinatorChildren() throws {
+    func testAuthenticationCoordinatorFinishRemoveSelfFromAppCoordinatorChildrenForLoggedInCorrectlyState() throws {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
         serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRemeberHost: true)
         appCoordinator.start()
         let authenticationCoordinator = appCoordinator.children.first?.value as? AuthenticationCoordinator
         //Act
-        authenticationCoordinator?.finish()
+        authenticationCoordinator?.finish(with: .loggedInCorrectly)
         //Assert
         XCTAssertTrue(appCoordinator.children.isEmpty)
+    }
+    
+    func testAuthenticationCoordinatorFinishRemoveSelfFromAppCoordinatorChildrenForChangeAddressState() throws {
+        //Arrange
+        let url = try URL(string: "www.example.com").unwrap()
+        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRemeberHost: true)
+        appCoordinator.start()
+        let authenticationCoordinator = appCoordinator.children.first?.value as? AuthenticationCoordinator
+        //Act
+        authenticationCoordinator?.finish(with: .changeAddress)
+        //Assert
+        XCTAssertEqual(appCoordinator.children.count, 1)
+        XCTAssertNotNil(appCoordinator.children.first?.value as? ServerConfigurationCoordinator)
     }
 }
 

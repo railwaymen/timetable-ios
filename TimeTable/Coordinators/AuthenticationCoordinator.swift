@@ -9,8 +9,7 @@
 import UIKit
 
 protocol LoginCoordinatorDelegate: class {
-    func loginDidFinish()
-    func loginDidFinishWithSuccess()
+    func loginDidFinish(with state: AuthenticationCoordinator.State)
 }
 
 class AuthenticationCoordinator: BaseCoordinator {
@@ -19,23 +18,35 @@ class AuthenticationCoordinator: BaseCoordinator {
     private let storyboardsManager: StoryboardsManagerType
     private let errorHandler: ErrorHandlerType
 
+    var customFinishCompletion: ((State) -> Void)?
+    
+    enum State {
+        case changeAddress
+        case loggedInCorrectly
+    }
+    
     // MARK: - Initialization
-    init(navigationController: UINavigationController, storyboardsManager: StoryboardsManagerType, errorHandler: ErrorHandlerType) {
+    init(navigationController: UINavigationController, storyboardsManager: StoryboardsManagerType,
+         errorHandler: ErrorHandlerType) {
         self.navigationController = navigationController
         self.storyboardsManager = storyboardsManager
         self.errorHandler = errorHandler
         super.init(window: nil)
         self.navigationController.interactivePopGestureRecognizer?.delegate = nil
         self.navigationController.navigationItem.leftItemsSupplementBackButton = true
-        navigationController.setNavigationBarHidden(false, animated: false)
+    }
+
+    // MARK: - CoordinatorType
+    
+    func start(finishCompletion: ((State) -> Void)?) {
+        self.customFinishCompletion = finishCompletion
+        runMainFlow()
+        super.start()
     }
     
-    // MARK: - CoordinatorType
-    override func start(finishCompletion: (() -> Void)?) {
-        defer {
-            super.start(finishCompletion: finishCompletion)
-        }
-        runMainFlow()
+    func finish(with state: AuthenticationCoordinator.State) {
+        customFinishCompletion?(state)
+        super.finish()
     }
     
     // MARL: - Private
@@ -50,11 +61,7 @@ class AuthenticationCoordinator: BaseCoordinator {
 }
 
 extension AuthenticationCoordinator: LoginCoordinatorDelegate {
-    func loginDidFinish() {
-        finishCompletion?()
-    }
-    
-    func loginDidFinishWithSuccess() {
-        
+    func loginDidFinish(with state: AuthenticationCoordinator.State) {
+        finish(with: state)
     }
 }

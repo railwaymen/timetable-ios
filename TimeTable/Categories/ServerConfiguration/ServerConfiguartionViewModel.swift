@@ -11,7 +11,6 @@ import Foundation
 protocol ServerConfigurationViewModelOutput: class {
     func setupView(checkBoxIsActive: Bool, serverAddress: String)
     func tearDown()
-    func hideNavigationBar()
     func continueButtonEnabledState(_ isEnabled: Bool)
     func checkBoxIsActiveState(_ isActive: Bool)
     func dissmissKeyboard()
@@ -19,7 +18,6 @@ protocol ServerConfigurationViewModelOutput: class {
 
 protocol ServerConfigurationViewModelType: class {
     func viewDidLoad()
-    func viewWillAppear()
     func viewWillDisappear()
     func viewRequestedToContinue()
     func serverAddressDidChange(text: String?)
@@ -53,10 +51,6 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
         self.serverAddress = oldConfiguration?.host?.absoluteString
         self.shouldRemeberHost = oldConfiguration?.shouldRemeberHost ?? true
         userInterface?.setupView(checkBoxIsActive: shouldRemeberHost, serverAddress: serverAddress ?? "")
-    }
-    
-    func viewWillAppear() {
-        userInterface?.hideNavigationBar()
     }
     
     func viewWillDisappear() {

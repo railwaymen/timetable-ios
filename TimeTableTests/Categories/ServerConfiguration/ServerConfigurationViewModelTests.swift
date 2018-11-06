@@ -39,14 +39,6 @@ class ServerConfigurationViewModelTests: XCTestCase {
         XCTAssertTrue(userInterface.setupViewStateValues.checkBoxIsActive)
     }
     
-    func testViewWillAppearCallHideNavigationBarOnTheUserInterface() {
-        //Arrange
-        //Act
-        viewModel.viewWillAppear()
-        //Assert
-        XCTAssertTrue(userInterface.hideNavigationBarCalled)
-    }
-    
     func testViewWillDesappearCallTearDownOnTheUserInterface() {
         //Arrange
         //Act

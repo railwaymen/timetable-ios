@@ -18,12 +18,12 @@ protocol LoginViewModelOutput: class {
 
 protocol LoginViewModelType: class {
     func viewDidLoad()
-    func viewWillDisappear()
     func loginInputValueDidChange(value: String?)
     func loginTextFieldDidRequestForReturn() -> Bool
     func passwordInputValueDidChange(value: String?)
     func passwordTextFieldDidRequestForReturn() -> Bool
     func viewRequestedToLogin()
+    func viewRequestedToChangeServerAddress()
 }
 
 class LoginViewModel: LoginViewModelType {
@@ -46,11 +46,6 @@ class LoginViewModel: LoginViewModelType {
     // MARK: - LoginViewModelOutput
     func viewDidLoad() {
         userInterface?.setUpView()
-    }
-    
-    func viewWillDisappear() {
-        userInterface?.tearDown()
-        coordinator.loginDidFinish()
     }
     
     func loginInputValueDidChange(value: String?) {
@@ -93,11 +88,16 @@ class LoginViewModel: LoginViewModelType {
         contentProvider.login(with: loginCredentials) { [weak self] result in
             switch result {
             case .success:
-                self?.coordinator.loginDidFinishWithSuccess()
+                self?.coordinator.loginDidFinish(with: .loggedInCorrectly)
             case .failure(let error):
                 self?.errorHandler.throwing(error: error)
             }
         }
+    }
+    
+    func viewRequestedToChangeServerAddress() {
+        userInterface?.tearDown()
+        coordinator.loginDidFinish(with: .changeAddress)
     }
     
     // MARK: - Private

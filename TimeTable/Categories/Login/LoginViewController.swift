@@ -30,11 +30,6 @@ class LoginViewController: UIViewController {
         self.viewModel.viewDidLoad()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.viewModel.viewWillDisappear()
-    }
-    
     // MARK: - Action
     @IBAction private func loginTextFieldDidChange(_ sender: UITextField) {
         viewModel.loginInputValueDidChange(value: sender.text)
@@ -48,8 +43,11 @@ class LoginViewController: UIViewController {
         viewModel.viewRequestedToLogin()
     }
     
-    // MARK: - Internal
+    @IBAction private func changeServerAddressTapped(sender: UIButton) {
+        viewModel.viewRequestedToChangeServerAddress()
+    }
     
+    // MARK: - Internal
     @objc func keyboardWillShow(notification: NSNotification, offset: CGFloat = 0) {
         if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height {
             updateConstraints(with: keyboardHeight - offset)

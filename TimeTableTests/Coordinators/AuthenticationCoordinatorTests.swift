@@ -28,7 +28,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
                                                     storyboardsManager: storyboardsManagerMock,
                                                     errorHandler: errorHandlerMock)
         //Act
-        coordinator.start()
+        coordinator.start(finishCompletion: { _ in })
         //Assert
         XCTAssertTrue(coordinator.navigationController.children.isEmpty)
     }
@@ -40,7 +40,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
                                                     errorHandler: errorHandlerMock)
         storyboardsManagerMock.controller = LoginViewControllerMock()
         //Act
-        coordinator.start()
+        coordinator.start(finishCompletion: { _ in })
         //Assert
         XCTAssertEqual(coordinator.navigationController.children.count, 1)
     }
@@ -56,7 +56,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
             finishCompletionCalled = true
         })
         //Act
-        coordinator.loginDidFinish()
+        coordinator.loginDidFinish(with: .loggedInCorrectly)
         //Assert
         XCTAssertTrue(finishCompletionCalled)
     }

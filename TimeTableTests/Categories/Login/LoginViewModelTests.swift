@@ -34,18 +34,18 @@ class LoginViewModelTests: XCTestCase {
         XCTAssertTrue(userInterface.setUpViewCalled)
     }
     
-    func testViewWillDisappearCallsTearDownOnTheUserInerface() {
+    func testViewRequestedToChangeServerAddressCallsTearDownOnTheUserInerface() {
         //Arrange
         //Act
-        viewModel.viewWillDisappear()
+        viewModel.viewRequestedToChangeServerAddress()
         //Assert
         XCTAssertTrue(userInterface.tearDownCalled)
     }
     
-    func testViewWillDisappearCallsLoginDidFinishOnTheCoordinator() {
+    func testViewRequestedToChangeServerAddressCallsLoginDidFinishOnTheCoordinator() {
         //Arrange
         //Act
-        viewModel.viewWillDisappear()
+        viewModel.viewRequestedToChangeServerAddress()
         //Assert
         XCTAssertTrue(coordinatorMock.loginDidFinishCalled)
     }
@@ -189,7 +189,8 @@ class LoginViewModelTests: XCTestCase {
         viewModel.viewRequestedToLogin()
         contentProvider.completion?(.success(Void()))
         //Assert
-        XCTAssertTrue(coordinatorMock.loginDidFinishWithSuccessCalled)
+        XCTAssertTrue(coordinatorMock.loginDidFinishCalled)
+        XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly)
     }
     
     func testViewRequestedToLoginContentProviderReturnsAnError() throws {
@@ -236,14 +237,11 @@ private class LoginViewControllerMock: LoginViewModelOutput {
 
 private class LoginCoordinatorMock: LoginCoordinatorDelegate {
     private(set) var loginDidFinishCalled = false
-    private(set) var loginDidFinishWithSuccessCalled = false
+    private(set) var loginDidFinishWithState: AuthenticationCoordinator.State?
     
-    func loginDidFinish() {
+    func loginDidFinish(with state: AuthenticationCoordinator.State) {
         loginDidFinishCalled = true
-    }
-    
-    func loginDidFinishWithSuccess() {
-        loginDidFinishWithSuccessCalled = true
+        loginDidFinishWithState = state
     }
 }
 

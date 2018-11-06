@@ -26,7 +26,7 @@ class BaseCoordinator: CoordinatorType, CoordinatorErrorPresenterType {
     func start(finishCompletion: (() -> Void)?) {
         self.finishCompletion = finishCompletion
     }
-    
+
     func finish() {
         finishCompletion?()
     }

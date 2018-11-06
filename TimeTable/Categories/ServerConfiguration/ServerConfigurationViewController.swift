@@ -29,12 +29,7 @@ class ServerConfigurationViewController: UIViewController {
         super.viewDidLoad()
         viewModel?.viewDidLoad()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel?.viewWillAppear()
-    }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         viewModel?.viewWillDisappear()
@@ -106,10 +101,6 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
     
     func tearDown() {
         notificationCenter?.removeObserver(self)
-    }
-    
-    func hideNavigationBar() {
-        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     func continueButtonEnabledState(_ isEnabled: Bool) {

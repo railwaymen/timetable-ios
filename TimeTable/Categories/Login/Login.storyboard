@@ -29,10 +29,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="37f-hv-3Dy" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="294" width="374" height="230"/>
+                                        <rect key="frame" x="20" y="284" width="374" height="250"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RbS-IW-I5Q">
-                                                <rect key="frame" x="15" y="15.000000000000004" width="344" height="47.333333333333343"/>
+                                                <rect key="frame" x="15" y="15" width="344" height="22"/>
                                                 <fontDescription key="fontDescription" name="Kailasa-Bold" family="Kailasa" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -40,8 +40,17 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="server_settings.label.title"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Enter your TimeTable server URL." textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="OiT-o1-SxI">
+                                                <rect key="frame" x="15" y="45" width="344" height="19.666666666666671"/>
+                                                <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="server_settings.label.explanation"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="1la-8L-eIp">
-                                                <rect key="frame" x="15" y="100" width="344" height="115"/>
+                                                <rect key="frame" x="15" y="74.666666666666686" width="344" height="115"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Yct-ED-Kck">
                                                         <rect key="frame" x="22" y="0.0" width="300" height="70"/>
@@ -83,7 +92,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i9V-Qh-o4R" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
-                                                        <rect key="frame" x="122" y="85" width="100" height="30"/>
+                                                        <rect key="frame" x="63.666666666666686" y="85" width="217" height="30"/>
                                                         <color key="backgroundColor" red="0.1764705882" green="0.72156862749999995" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="wqL-vz-WbN"/>
@@ -117,29 +126,30 @@
                                                     </mask>
                                                 </variation>
                                             </stackView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Enter your TimeTable server URL." textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="OiT-o1-SxI">
-                                                <rect key="frame" x="15" y="70.333333333333314" width="344" height="19.666666666666671"/>
-                                                <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="15"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="server_settings.label.explanation"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A9f-Ib-OZV">
+                                                <rect key="frame" x="15" y="204.66666666666663" width="344" height="30.333333333333343"/>
+                                                <state key="normal" title="Would you like to change the server address?"/>
+                                                <connections>
+                                                    <action selector="changeServerAddressTappedWithSender:" destination="prJ-rF-eRP" eventType="touchUpInside" id="gzp-TL-Wou"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="OiT-o1-SxI" secondAttribute="trailing" constant="15" id="1X6-Ib-5nN"/>
                                             <constraint firstItem="RbS-IW-I5Q" firstAttribute="leading" secondItem="37f-hv-3Dy" secondAttribute="leading" constant="15" id="5f2-CB-Ea5"/>
-                                            <constraint firstAttribute="bottom" secondItem="1la-8L-eIp" secondAttribute="bottom" constant="15" id="7H9-ms-peB"/>
+                                            <constraint firstAttribute="trailing" secondItem="A9f-Ib-OZV" secondAttribute="trailing" constant="15" id="GWS-6s-4Km"/>
                                             <constraint firstItem="OiT-o1-SxI" firstAttribute="top" secondItem="RbS-IW-I5Q" secondAttribute="bottom" constant="8" id="LHR-4f-7dY"/>
                                             <constraint firstItem="1la-8L-eIp" firstAttribute="top" secondItem="OiT-o1-SxI" secondAttribute="bottom" constant="10" id="Nrc-PW-Ohq"/>
                                             <constraint firstItem="RbS-IW-I5Q" firstAttribute="top" secondItem="37f-hv-3Dy" secondAttribute="top" constant="15" id="QEW-we-SnE"/>
                                             <constraint firstItem="1la-8L-eIp" firstAttribute="leading" secondItem="37f-hv-3Dy" secondAttribute="leading" constant="15" id="Qlz-bM-MXQ"/>
+                                            <constraint firstItem="A9f-Ib-OZV" firstAttribute="leading" secondItem="37f-hv-3Dy" secondAttribute="leading" constant="15" id="TAX-Ch-awV"/>
                                             <constraint firstAttribute="trailing" secondItem="1la-8L-eIp" secondAttribute="trailing" constant="15" id="VgF-Xv-zn4"/>
                                             <constraint firstAttribute="trailing" secondItem="RbS-IW-I5Q" secondAttribute="trailing" constant="15" id="ZGr-7i-jZX"/>
+                                            <constraint firstItem="A9f-Ib-OZV" firstAttribute="top" secondItem="1la-8L-eIp" secondAttribute="bottom" constant="15" id="cA5-i8-Zm4"/>
                                             <constraint firstItem="OiT-o1-SxI" firstAttribute="leading" secondItem="37f-hv-3Dy" secondAttribute="leading" constant="15" id="d02-Zr-pT3"/>
-                                            <constraint firstAttribute="height" priority="999" constant="230" id="k1Z-QL-ZFK"/>
+                                            <constraint firstAttribute="height" priority="999" constant="250" id="k1Z-QL-ZFK"/>
+                                            <constraint firstAttribute="bottom" secondItem="A9f-Ib-OZV" secondAttribute="bottom" constant="15" id="s7Y-X1-1kC"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">

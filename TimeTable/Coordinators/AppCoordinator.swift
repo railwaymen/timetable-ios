@@ -33,7 +33,7 @@ class AppCoordinator: BaseCoordinator {
         self.navigationController.interactivePopGestureRecognizer?.delegate = nil
         self.navigationController.setNavigationBarHidden(true, animated: true)
     }
-    
+
     // MARK: - CoordinatorType
     func start() {
         defer {
@@ -63,11 +63,18 @@ class AppCoordinator: BaseCoordinator {
     
     private func runAuthenticationFlow(configuration: ServerConfiguration) {
         let coordinator = AuthenticationCoordinator(navigationController: navigationController,
-                                                    storyboardsManager: storyboardsManager, errorHandler: errorHandler)
+                                                    storyboardsManager: storyboardsManager,
+                                                    errorHandler: errorHandler)
         addChildCoordinator(child: coordinator)
-        coordinator.start { [weak self, weak coordinator] in
+        coordinator.start { [weak self, weak coordinator] (state) in
             if let childCoordinator = coordinator {
                 self?.removeChildCoordinator(child: childCoordinator)
+            }
+            switch state {
+            case .changeAddress:
+                self?.runServerConfigurationFlow()
+            case .loggedInCorrectly:
+                break
             }
         }
     }
