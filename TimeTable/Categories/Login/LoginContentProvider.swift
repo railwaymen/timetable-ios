@@ -13,8 +13,22 @@ protocol LoginContentProviderType: class {
 
 class LoginContentProvider: LoginContentProviderType {
 
+    private let apiClient: ApiClientSessionType
+    
+    // MARK: - Initialization
+    init(apiClient: ApiClientSessionType) {
+        self.apiClient = apiClient
+    }
+    
     // MARK: - LoginContentProviderType
     func login(with credentials: LoginCredentials, completion: @escaping ((Result<Void>) -> Void)) {
-        completion(.success(Void()))
+        apiClient.signIn(with: credentials) { result in
+            switch result {
+            case .success:
+                completion(.success(Void()))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }

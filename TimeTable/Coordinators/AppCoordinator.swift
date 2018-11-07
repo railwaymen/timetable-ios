@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Networking
 
 class AppCoordinator: BaseCoordinator {
     
@@ -14,6 +15,7 @@ class AppCoordinator: BaseCoordinator {
     private var storyboardsManager: StoryboardsManagerType
     private var serverConfigurationManager: ServerConfigurationManagerType
     private let parentErrorHandler: ErrorHandlerType
+    private var apiClient: ApiClientType?
     
     private var errorHandler: ErrorHandlerType {
         return parentErrorHandler.catchingError(action: { [weak self] error in
@@ -47,6 +49,20 @@ class AppCoordinator: BaseCoordinator {
     }
     
     // MARK: - Private
+    private func createApiClient(with configuration: ServerConfiguration) -> ApiClientType? {
+        guard let hostURL = configuration.host else { return nil }
+        let networking = Networking(baseURL: hostURL.absoluteString)
+        return ApiClient(networking: networking, buildEncoder: {
+            let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .iso8601
+            return RequestEncoder(encoder: encoder, serialization: CustomJSONSerialization())
+        }, buildDecoder: {
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            return decoder
+        })
+    }
+    
     private func runServerConfigurationFlow() {
         let coordinator = ServerConfigurationCoordinator(navigationController: navigationController,
                                                          storyboardsManager: storyboardsManager,
@@ -62,8 +78,12 @@ class AppCoordinator: BaseCoordinator {
     }
     
     private func runAuthenticationFlow(configuration: ServerConfiguration) {
+        self.apiClient = createApiClient(with: configuration)
+        guard let apiClient = self.apiClient else { return }
+        
         let coordinator = AuthenticationCoordinator(navigationController: navigationController,
                                                     storyboardsManager: storyboardsManager,
+                                                    apiClient: apiClient,
                                                     errorHandler: errorHandler)
         addChildCoordinator(child: coordinator)
         coordinator.start { [weak self, weak coordinator] (state) in

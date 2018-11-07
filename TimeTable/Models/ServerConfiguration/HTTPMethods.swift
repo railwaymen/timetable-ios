@@ -10,7 +10,4 @@ import Foundation
 
 enum HTTPMethods: String {
     case HEAD
-    case GET
-    case POST
-    case PUT
 }

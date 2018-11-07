@@ -16,6 +16,7 @@ class AuthenticationCoordinator: BaseCoordinator {
     
     var navigationController: UINavigationController
     private let storyboardsManager: StoryboardsManagerType
+    private let apiClient: ApiClientSessionType
     private let errorHandler: ErrorHandlerType
 
     var customFinishCompletion: ((State) -> Void)?
@@ -27,9 +28,10 @@ class AuthenticationCoordinator: BaseCoordinator {
     
     // MARK: - Initialization
     init(navigationController: UINavigationController, storyboardsManager: StoryboardsManagerType,
-         errorHandler: ErrorHandlerType) {
+         apiClient: ApiClientSessionType, errorHandler: ErrorHandlerType) {
         self.navigationController = navigationController
         self.storyboardsManager = storyboardsManager
+        self.apiClient = apiClient
         self.errorHandler = errorHandler
         super.init(window: nil)
         self.navigationController.interactivePopGestureRecognizer?.delegate = nil
@@ -53,7 +55,7 @@ class AuthenticationCoordinator: BaseCoordinator {
     private func runMainFlow() {
         let controller: LoginViewControllerable? = storyboardsManager.controller(storyboard: .login, controllerIdentifier: .initial)
         guard let loginViewController = controller else { return }
-        let contentProvider = LoginContentProvider()
+        let contentProvider = LoginContentProvider(apiClient: apiClient)
         let viewModel = LoginViewModel(userInterface: loginViewController, coordinator: self, contentProvider: contentProvider, errorHandler: errorHandler)
         loginViewController.configure(notificationCenter: NotificationCenter.default, viewModel: viewModel)
         navigationController.pushViewController(loginViewController, animated: true)
