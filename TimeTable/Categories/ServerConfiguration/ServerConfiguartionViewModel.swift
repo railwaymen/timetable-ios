@@ -62,7 +62,7 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
             errorHandler.throwing(error: UIError.cannotBeEmpty(.serverAddressTextField))
             return
         }
-        guard let hostURL = URL(string: host) else {
+        guard let hostURL = URL(string: host.apiSuffix().httpPrefix()) else {
             errorHandler.throwing(error: UIError.invalidFormat(.serverAddressTextField))
             return
         }
