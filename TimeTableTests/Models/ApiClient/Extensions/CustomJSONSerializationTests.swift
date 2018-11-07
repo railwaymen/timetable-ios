@@ -12,13 +12,13 @@ import XCTest
 class CustomJSONSerializationTests: XCTestCase {
     
     private enum SessionResponse: String, JSONFileResource {
-        case singInResponse
+        case signInResponse
     }
     private lazy var decoder = JSONDecoder()
     
     func testJsonObject() throws {
         //Arrange
-        let data = try self.json(from: SessionResponse.singInResponse)
+        let data = try self.json(from: SessionResponse.signInResponse)
         let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
         //Act
         let jsonData = try CustomJSONSerialization().jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]

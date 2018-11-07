@@ -15,7 +15,7 @@ class ApiClientTests: XCTestCase {
     private var jsonDecoderMock: JSONDecoderMock!
     
     private enum SessionResponse: String, JSONFileResource {
-        case singInResponse
+        case signInResponse
     }
     
     override func setUp() {
@@ -79,7 +79,7 @@ class ApiClientTests: XCTestCase {
         //Arrange
         var expectedDecoder: Decodable?
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
-        let data = try self.json(from: SessionResponse.singInResponse)
+        let data = try self.json(from: SessionResponse.signInResponse)
         let apiClient = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
             return requestEncoderMock
         }) { () -> JSONDecoderType in
@@ -137,7 +137,7 @@ class ApiClientTests: XCTestCase {
     // MARK: - ApiClientSessionType
     func testSignInSucced() throws {
         //Arrange
-        let data = try self.json(from: SessionResponse.singInResponse)
+        let data = try self.json(from: SessionResponse.signInResponse)
         let decoder = try JSONDecoder().decode(SessionDecoder.self, from: data)
         var expecdedSessionDecoder: SessionDecoder?
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")

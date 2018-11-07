@@ -12,14 +12,14 @@ import XCTest
 class SessionDecoderTests: XCTestCase {
  
     private enum SessionResponse: String, JSONFileResource {
-        case singInResponse
+        case signInResponse
     }
     
     private lazy var decoder = JSONDecoder()
     
-    func testParsingSingInResponse() throws {
+    func testParsingSignInResponse() throws {
         //Arrange
-        let data = try self.json(from: SessionResponse.singInResponse)
+        let data = try self.json(from: SessionResponse.signInResponse)
         //Act
         let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
         //Assert

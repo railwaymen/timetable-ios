@@ -12,7 +12,7 @@ import XCTest
 class LoginCredentialsTests: XCTestCase {
 
     private enum SessionRequest: String, JSONFileResource {
-        case singInRequest
+        case signInRequest
     }
     
     private var encoder: JSONEncoder = {
@@ -24,7 +24,7 @@ class LoginCredentialsTests: XCTestCase {
     func testCreatedSessionRequestIsCorrect() throws {
         //Arrange
         let sessionRequest = LoginCredentials(email: "user1@example.com", password: "password")
-        let sessionRequestSample = try json(from: SessionRequest.singInRequest)
+        let sessionRequestSample = try json(from: SessionRequest.signInRequest)
         let sampleDictionary = try JSONSerialization.jsonObject(with: sessionRequestSample, options: .allowFragments) as? [AnyHashable: Any]
         //Act
         let data = try encoder.encode(sessionRequest)
