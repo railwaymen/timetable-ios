@@ -8,6 +8,7 @@ end
 
 target 'TimeTable' do
   universal_pods
+  pod 'Networking', '~> 4.4.0'
 end
 
 target 'TimeTableTests' do

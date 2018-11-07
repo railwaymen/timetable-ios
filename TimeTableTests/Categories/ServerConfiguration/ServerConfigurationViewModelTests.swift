@@ -34,7 +34,8 @@ class ServerConfigurationViewModelTests: XCTestCase {
         //Act
         viewModel.viewDidLoad()
         //Assert
-        XCTAssertTrue(userInterface.setupViewStateValues.called)
+        XCTAssertTrue(userInterface.setupViewCalled)
+        XCTAssertEqual(userInterface.setupViewStateValues.serverAddress, "")
         XCTAssertTrue(userInterface.setupViewStateValues.checkBoxIsActive)
     }
     
@@ -86,8 +87,8 @@ class ServerConfigurationViewModelTests: XCTestCase {
         DispatchQueue.main.async {
             do {
                 let configuration = try self.coordinatorMock.serverConfigurationDidFinishValues.serverConfiguration.unwrap()
-                XCTAssertEqual(configuration.host, try URL(string: hostString).unwrap())
-                XCTAssertTrue(configuration.staySignedIn)
+                XCTAssertEqual(configuration.host, try URL(string: hostString.apiSuffix().httpPrefix()).unwrap())
+                XCTAssertTrue(configuration.shouldRemeberHost)
             } catch {
                 XCTFail()
             }
@@ -102,7 +103,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         let mainQueueExpectation = self.expectation(description: "mainQueueExpectation")
         let hostString = "www.example.com"
         viewModel.serverAddressDidChange(text: hostString)
-        viewModel.staySinedInCheckBoxStatusDidChange(isActive: true)
+        viewModel.shouldRemeberHostCheckBoxStatusDidChange(isActive: true)
         serverConfigurationManagerMock.expectationHandler = verifyExepectation.fulfill
         
         //Act
@@ -114,8 +115,8 @@ class ServerConfigurationViewModelTests: XCTestCase {
         DispatchQueue.main.async {
             do {
                 let configuration = try self.coordinatorMock.serverConfigurationDidFinishValues.serverConfiguration.unwrap()
-                XCTAssertEqual(configuration.host, try URL(string: hostString).unwrap())
-                XCTAssertFalse(configuration.staySignedIn)
+                XCTAssertEqual(configuration.host, try URL(string: hostString.apiSuffix().httpPrefix()).unwrap())
+                XCTAssertFalse(configuration.shouldRemeberHost)
             } catch {
                 XCTFail()
             }
@@ -219,16 +220,17 @@ private class ErrorHandlerMock: ErrorHandlerType {
 }
 
 private class UserInterfaceMock: ServerConfigurationViewModelOutput {
-    
-    private(set) var setupViewStateValues: (called: Bool, checkBoxIsActive: Bool) = (false, false)
+    private(set) var setupViewCalled = false
+    private(set) var setupViewStateValues: (checkBoxIsActive: Bool, serverAddress: String) = (false, "")
     private(set) var tearDownCalled = false
     private(set) var hideNavigationBarCalled = false
     private(set) var dissmissKeyboardCalled = false
     private(set) var continueButtonEnabledStateValues: (called: Bool, isEnabled: Bool) = (false, false)
     private(set) var checkBoxIsActiveStateValues: (called: Bool, isActive: Bool) = (false, false)
     
-    func setupView(checkBoxIsActive: Bool) {
-        setupViewStateValues = (true, checkBoxIsActive)
+    func setupView(checkBoxIsActive: Bool, serverAddress: String) {
+        setupViewCalled = true
+        setupViewStateValues = (checkBoxIsActive, serverAddress)
     }
 
     func tearDown() {
@@ -261,14 +263,21 @@ private class CoordinatorMock: ServerConfigurationCoordinatorDelagete {
 }
 
 private class ServerConfigurationManagerMock: ServerConfigurationManagerType {
-
+    
     var expectationHandler: (() -> Void)?
     var verifyConfigurationCompletion: ((Result<Void>) -> Void)?
     private(set) var configuration: ServerConfiguration?
+    var oldConfiguration: ServerConfiguration?
+    private(set) var getOldConfigurationCalled = false
     
     func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void>) -> Void)) {
         self.configuration = configuration
         self.verifyConfigurationCompletion = completion
         expectationHandler?()
+    }
+    
+    func getOldConfiguration() -> ServerConfiguration? {
+        getOldConfigurationCalled = true
+        return oldConfiguration
     }
 }

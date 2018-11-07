@@ -13,4 +13,24 @@ extension String {
     var localized: String {
         return NSLocalizedString(self, comment: "")
     }
+    
+    func apiSuffix() -> String {
+        let slashRegExp = try? NSRegularExpression(pattern: "/$", options: .caseInsensitive)
+        let apiRegExp = try? NSRegularExpression(pattern: "(?:^|\\W)api(?:$|\\W)", options: .caseInsensitive)
+        
+        if let regExp = apiRegExp, regExp.matches(in: self).count > 0, let firstPart = self.components(separatedBy: "api").first {
+            return firstPart.apiSuffix()
+        } else if let regExp = slashRegExp, regExp.matches(in: self).count > 0 {
+            return self + "api"
+        }
+        return (self + "/api").apiSuffix()
+    }
+    
+    func httpPrefix() -> String {
+        let httpRegExp = try? NSRegularExpression(pattern: "^(http|https)://", options: .caseInsensitive)
+        guard let regExp = httpRegExp, regExp.matches(in: self).count == 0 else {
+            return self
+        }
+        return "http://" + self
+    }
 }

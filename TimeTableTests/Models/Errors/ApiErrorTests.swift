@@ -21,4 +21,14 @@ class ApiErrorTests: XCTestCase {
         //Assert
         XCTAssertEqual(localizedString, expectedResult)
     }
+    
+    func testLocalizedDescriptionIfNilHostHasBeenGiven() {
+        //Arrange
+        let error = ApiError.invalidHost(nil)
+        let expectedResult = String(format: "api.error.invalid_url".localized, "")
+        //Act
+        let localizedString = error.localizedDescription
+        //Assert
+        XCTAssertEqual(localizedString, expectedResult)
+    }
 }

@@ -29,12 +29,7 @@ class ServerConfigurationViewController: UIViewController {
         super.viewDidLoad()
         viewModel?.viewDidLoad()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel?.viewWillAppear()
-    }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         viewModel?.viewWillDisappear()
@@ -54,7 +49,7 @@ class ServerConfigurationViewController: UIViewController {
     }
     
     @IBAction private func checkBocButtonTapped(_ sender: CheckBoxButton) {
-        viewModel?.staySinedInCheckBoxStatusDidChange(isActive: sender.isActive)
+        viewModel?.shouldRemeberHostCheckBoxStatusDidChange(isActive: sender.isActive)
     }
     
     // MARK: - Internal
@@ -95,20 +90,17 @@ extension ServerConfigurationViewController: ServerConfigurationViewControllerTy
 }
 
 extension ServerConfigurationViewController: ServerConfigurationViewModelOutput {
-    func setupView(checkBoxIsActive: Bool) {
+    func setupView(checkBoxIsActive: Bool, serverAddress: String) {
         notificationCenter?.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter?.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
-        continueButton.isEnabled = false
         checkBoxButton.isActive = checkBoxIsActive
+        serverAddressTextField.text = serverAddress
+        continueButton.isEnabled = !serverAddress.isEmpty
     }
     
     func tearDown() {
         notificationCenter?.removeObserver(self)
-    }
-    
-    func hideNavigationBar() {
-        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     func continueButtonEnabledState(_ isEnabled: Bool) {

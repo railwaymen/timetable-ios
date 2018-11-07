@@ -24,15 +24,10 @@ class LoginViewController: UIViewController {
     private var notificationCenter: NotificationCenterType!
     private var viewModel: LoginViewModelType!
     
-    // MARK: - Initialization
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.viewDidLoad()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.viewModel.viewWillDisappear()
     }
     
     // MARK: - Action
@@ -48,8 +43,11 @@ class LoginViewController: UIViewController {
         viewModel.viewRequestedToLogin()
     }
     
-    // MARK: - Internal
+    @IBAction private func changeServerAddressTapped(sender: UIButton) {
+        viewModel.viewRequestedToChangeServerAddress()
+    }
     
+    // MARK: - Internal
     @objc func keyboardWillShow(notification: NSNotification, offset: CGFloat = 0) {
         if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height {
             updateConstraints(with: keyboardHeight - offset)

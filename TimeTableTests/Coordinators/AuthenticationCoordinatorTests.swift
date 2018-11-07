@@ -14,11 +14,13 @@ class AuthenticationCoordinatorTests: XCTestCase {
     private var navigationController: UINavigationController!
     private var storyboardsManagerMock: StoryboardsManagerMock!
     private var errorHandlerMock: ErrorHandlerMock!
+    private var apiClientMock: ApiClientMock!
     
     override func setUp() {
         self.navigationController = UINavigationController()
         self.storyboardsManagerMock = StoryboardsManagerMock()
         self.errorHandlerMock = ErrorHandlerMock()
+        self.apiClientMock = ApiClientMock()
         super.setUp()
     }
     
@@ -26,9 +28,10 @@ class AuthenticationCoordinatorTests: XCTestCase {
         //Arrange
         let coordinator = AuthenticationCoordinator(navigationController: navigationController,
                                                     storyboardsManager: storyboardsManagerMock,
+                                                    apiClient: apiClientMock,
                                                     errorHandler: errorHandlerMock)
         //Act
-        coordinator.start()
+        coordinator.start(finishCompletion: { _ in })
         //Assert
         XCTAssertTrue(coordinator.navigationController.children.isEmpty)
     }
@@ -37,10 +40,11 @@ class AuthenticationCoordinatorTests: XCTestCase {
         //Arrange
         let coordinator = AuthenticationCoordinator(navigationController: navigationController,
                                                     storyboardsManager: storyboardsManagerMock,
+                                                    apiClient: apiClientMock,
                                                     errorHandler: errorHandlerMock)
         storyboardsManagerMock.controller = LoginViewControllerMock()
         //Act
-        coordinator.start()
+        coordinator.start(finishCompletion: { _ in })
         //Assert
         XCTAssertEqual(coordinator.navigationController.children.count, 1)
     }
@@ -50,13 +54,14 @@ class AuthenticationCoordinatorTests: XCTestCase {
         var finishCompletionCalled = false
         let coordinator = AuthenticationCoordinator(navigationController: navigationController,
                                                     storyboardsManager: storyboardsManagerMock,
+                                                    apiClient: apiClientMock,
                                                     errorHandler: errorHandlerMock)
         storyboardsManagerMock.controller = LoginViewControllerMock()
         coordinator.start(finishCompletion: {
             finishCompletionCalled = true
         })
         //Act
-        coordinator.loginDidfinish()
+        coordinator.loginDidFinish(with: .loggedInCorrectly)
         //Assert
         XCTAssertTrue(finishCompletionCalled)
     }
@@ -84,4 +89,15 @@ private class LoginViewControllerMock: LoginViewControllerable {
     func passwordInputEnabledState(_ isEnabled: Bool) {}
     func loginButtonEnabledState(_ isEnabled: Bool) {}
     func focusOnPasswordTextField() {}
+}
+
+private class ApiClientMock: ApiClientSessionType {
+    
+    private(set) var signInCredentials: LoginCredentials?
+    private(set) var signInCompletion: ((Result<SessionDecoder>) -> Void)?
+    
+    func signIn(with credentials: LoginCredentials, completion: @escaping ((Result<SessionDecoder>) -> Void)) {
+        signInCredentials = credentials
+        signInCompletion = completion
+    }
 }

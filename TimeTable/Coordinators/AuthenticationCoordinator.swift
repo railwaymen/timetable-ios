@@ -9,46 +9,61 @@
 import UIKit
 
 protocol LoginCoordinatorDelegate: class {
-    func loginDidfinish()
+    func loginDidFinish(with state: AuthenticationCoordinator.State)
 }
 
 class AuthenticationCoordinator: BaseCoordinator {
     
     var navigationController: UINavigationController
     private let storyboardsManager: StoryboardsManagerType
+    private let apiClient: ApiClientSessionType
     private let errorHandler: ErrorHandlerType
 
+    var customFinishCompletion: ((State) -> Void)?
+    
+    enum State {
+        case changeAddress
+        case loggedInCorrectly
+    }
+    
     // MARK: - Initialization
-    init(navigationController: UINavigationController, storyboardsManager: StoryboardsManagerType, errorHandler: ErrorHandlerType) {
+    init(navigationController: UINavigationController, storyboardsManager: StoryboardsManagerType,
+         apiClient: ApiClientSessionType, errorHandler: ErrorHandlerType) {
         self.navigationController = navigationController
         self.storyboardsManager = storyboardsManager
+        self.apiClient = apiClient
         self.errorHandler = errorHandler
         super.init(window: nil)
         self.navigationController.interactivePopGestureRecognizer?.delegate = nil
         self.navigationController.navigationItem.leftItemsSupplementBackButton = true
-        navigationController.setNavigationBarHidden(false, animated: false)
+    }
+
+    // MARK: - CoordinatorType
+    
+    func start(finishCompletion: ((State) -> Void)?) {
+        self.customFinishCompletion = finishCompletion
+        runMainFlow()
+        super.start()
     }
     
-    // MARK: - CoordinatorType
-    override func start(finishCompletion: (() -> Void)?) {
-        defer {
-            super.start(finishCompletion: finishCompletion)
-        }
-        runMainFlow()
+    func finish(with state: AuthenticationCoordinator.State) {
+        customFinishCompletion?(state)
+        super.finish()
     }
     
     // MARL: - Private
     private func runMainFlow() {
         let controller: LoginViewControllerable? = storyboardsManager.controller(storyboard: .login, controllerIdentifier: .initial)
         guard let loginViewController = controller else { return }
-        let viewModel = LoginViewModel(userInterface: loginViewController, coordinator: self)
+        let contentProvider = LoginContentProvider(apiClient: apiClient)
+        let viewModel = LoginViewModel(userInterface: loginViewController, coordinator: self, contentProvider: contentProvider, errorHandler: errorHandler)
         loginViewController.configure(notificationCenter: NotificationCenter.default, viewModel: viewModel)
         navigationController.pushViewController(loginViewController, animated: true)
     }
 }
 
 extension AuthenticationCoordinator: LoginCoordinatorDelegate {
-    func loginDidfinish() {
-        finishCompletion?()
+    func loginDidFinish(with state: AuthenticationCoordinator.State) {
+        finish(with: state)
     }
 }

@@ -9,13 +9,13 @@
 import Foundation
 
 enum ApiError: Error {
-    case invalidHost(URL)
+    case invalidHost(URL?)
     
     var localizedDescription: String {
         
         switch self {
         case .invalidHost(let url):
-            return String(format: "api.error.invalid_url".localized, url.absoluteString)
+            return String(format: "api.error.invalid_url".localized, url?.absoluteString ?? "")
         }
     }
 }
