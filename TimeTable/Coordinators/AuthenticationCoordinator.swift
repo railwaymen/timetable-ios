@@ -18,7 +18,8 @@ class AuthenticationCoordinator: BaseCoordinator {
     private let storyboardsManager: StoryboardsManagerType
     private let apiClient: ApiClientSessionType
     private let errorHandler: ErrorHandlerType
-
+    private let coreDataStack: CoreDataStackUserType
+    
     var customFinishCompletion: ((State) -> Void)?
     
     enum State {
@@ -28,11 +29,13 @@ class AuthenticationCoordinator: BaseCoordinator {
     
     // MARK: - Initialization
     init(navigationController: UINavigationController, storyboardsManager: StoryboardsManagerType,
-         apiClient: ApiClientSessionType, errorHandler: ErrorHandlerType) {
+         apiClient: ApiClientSessionType, errorHandler: ErrorHandlerType,
+         coreDataStack: CoreDataStackUserType) {
         self.navigationController = navigationController
         self.storyboardsManager = storyboardsManager
         self.apiClient = apiClient
         self.errorHandler = errorHandler
+        self.coreDataStack = coreDataStack
         super.init(window: nil)
         self.navigationController.interactivePopGestureRecognizer?.delegate = nil
         self.navigationController.navigationItem.leftItemsSupplementBackButton = true
@@ -55,7 +58,7 @@ class AuthenticationCoordinator: BaseCoordinator {
     private func runMainFlow() {
         let controller: LoginViewControllerable? = storyboardsManager.controller(storyboard: .login, controllerIdentifier: .initial)
         guard let loginViewController = controller else { return }
-        let contentProvider = LoginContentProvider(apiClient: apiClient)
+        let contentProvider = LoginContentProvider(apiClient: apiClient, coreDataStack: coreDataStack)
         let viewModel = LoginViewModel(userInterface: loginViewController, coordinator: self, contentProvider: contentProvider, errorHandler: errorHandler)
         loginViewController.configure(notificationCenter: NotificationCenter.default, viewModel: viewModel)
         navigationController.pushViewController(loginViewController, animated: true)

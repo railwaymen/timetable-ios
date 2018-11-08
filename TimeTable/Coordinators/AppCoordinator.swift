@@ -16,6 +16,7 @@ class AppCoordinator: BaseCoordinator {
     private var serverConfigurationManager: ServerConfigurationManagerType
     private let parentErrorHandler: ErrorHandlerType
     private var apiClient: ApiClientType?
+    private var coreDataStack: CoreDataStackType
     
     private var errorHandler: ErrorHandlerType {
         return parentErrorHandler.catchingError(action: { [weak self] error in
@@ -25,12 +26,14 @@ class AppCoordinator: BaseCoordinator {
     
     // MARK: - Initialization
     init(window: UIWindow?, storyboardsManager: StoryboardsManagerType,
-         errorHandler: ErrorHandlerType, serverConfigurationManager: ServerConfigurationManagerType) {
+         errorHandler: ErrorHandlerType, serverConfigurationManager: ServerConfigurationManagerType,
+         coreDataStack: CoreDataStackType) {
         self.navigationController = UINavigationController()
         window?.rootViewController = navigationController
         self.storyboardsManager = storyboardsManager
         self.parentErrorHandler = errorHandler
         self.serverConfigurationManager = serverConfigurationManager
+        self.coreDataStack = coreDataStack
         super.init(window: window)
         self.navigationController.interactivePopGestureRecognizer?.delegate = nil
         self.navigationController.setNavigationBarHidden(true, animated: true)
@@ -84,7 +87,8 @@ class AppCoordinator: BaseCoordinator {
         let coordinator = AuthenticationCoordinator(navigationController: navigationController,
                                                     storyboardsManager: storyboardsManager,
                                                     apiClient: apiClient,
-                                                    errorHandler: errorHandler)
+                                                    errorHandler: errorHandler,
+                                                    coreDataStack: coreDataStack)
         addChildCoordinator(child: coordinator)
         coordinator.start { [weak self, weak coordinator] (state) in
             if let childCoordinator = coordinator {

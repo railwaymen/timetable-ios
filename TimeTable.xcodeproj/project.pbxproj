@@ -89,6 +89,11 @@
 		C1F926E6218838B80004A9BC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F926E5218838B80004A9BC /* LoginViewModel.swift */; };
 		C1F926E8218839C00004A9BC /* AuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F926E7218839C00004A9BC /* AuthenticationCoordinator.swift */; };
 		C1F926EA218846F80004A9BC /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1F926E9218846F80004A9BC /* Login.storyboard */; };
+		C1FA05D3219413BF00BD8C9D /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA05D2219413BF00BD8C9D /* CoreDataStack.swift */; };
+		C1FA05D6219420FC00BD8C9D /* TimeTable.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C1FA05D4219420FC00BD8C9D /* TimeTable.xcdatamodeld */; };
+		C1FA05DB219423FC00BD8C9D /* UserEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA05DA219423FC00BD8C9D /* UserEntity.swift */; };
+		C1FA05DD2194288400BD8C9D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1FA05DC2194288400BD8C9D /* CoreData.framework */; };
+		C1FA05E221943E0700BD8C9D /* DataStackType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA05E121943E0700BD8C9D /* DataStackType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -198,6 +203,11 @@
 		C1F926E5218838B80004A9BC /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C1F926E7218839C00004A9BC /* AuthenticationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinator.swift; sourceTree = "<group>"; };
 		C1F926E9218846F80004A9BC /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		C1FA05D2219413BF00BD8C9D /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		C1FA05D5219420FC00BD8C9D /* TimeTable.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TimeTable.xcdatamodel; sourceTree = "<group>"; };
+		C1FA05DA219423FC00BD8C9D /* UserEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntity.swift; sourceTree = "<group>"; };
+		C1FA05DC2194288400BD8C9D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		C1FA05E121943E0700BD8C9D /* DataStackType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStackType.swift; sourceTree = "<group>"; };
 		C606DDF3BB59C86E7F198617 /* Pods-TimeTableTests.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTableTests.stage.xcconfig"; path = "Pods/Target Support Files/Pods-TimeTableTests/Pods-TimeTableTests.stage.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -206,6 +216,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1FA05DD2194288400BD8C9D /* CoreData.framework in Frameworks */,
 				0AF1DD403C2E47D3343C2878 /* Pods_TimeTable.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,6 +354,7 @@
 				C1C4BA8E2189AD7700683F71 /* Result.swift */,
 				C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */,
 				C1531F022191C52200602A0C /* ApiClient */,
+				C1FA05D12194108200BD8C9D /* CoreData */,
 				C1249C7D2181B4CF005DB2A5 /* Errors */,
 				C122601D21899F0D007D64A3 /* ServerConfiguration */,
 				C1B8FA47218C9617009D10B4 /* Session */,
@@ -625,9 +637,45 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		C1FA05D12194108200BD8C9D /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				C1FA05E021943DF700BD8C9D /* Protocols */,
+				C1FA05D2219413BF00BD8C9D /* CoreDataStack.swift */,
+				C1FA05D8219423CB00BD8C9D /* Entities */,
+				C1FA05D72194210A00BD8C9D /* xcDataModeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		C1FA05D72194210A00BD8C9D /* xcDataModeld */ = {
+			isa = PBXGroup;
+			children = (
+				C1FA05D4219420FC00BD8C9D /* TimeTable.xcdatamodeld */,
+			);
+			path = xcDataModeld;
+			sourceTree = "<group>";
+		};
+		C1FA05D8219423CB00BD8C9D /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				C1FA05DA219423FC00BD8C9D /* UserEntity.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		C1FA05E021943DF700BD8C9D /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				C1FA05E121943E0700BD8C9D /* DataStackType.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		DEEB3A255EF0DE2C5C26AE96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C1FA05DC2194288400BD8C9D /* CoreData.framework */,
 				88922A1AB918F19A04B07211 /* Pods_TimeTable.framework */,
 				15FE8C20AC7A1A64A549519E /* Pods_TimeTableTests.framework */,
 			);
@@ -899,7 +947,9 @@
 				C1ECF0A52192C37E006038C6 /* CustomJSONSerialization.swift in Sources */,
 				C153AC6B218324DB007A35BB /* UIError.swift in Sources */,
 				C1F7C2DE2190436B00F4FAF0 /* ServerConfigurationCoordinator.swift in Sources */,
+				C1FA05E221943E0700BD8C9D /* DataStackType.swift in Sources */,
 				C1F7C2E221904E0900F4FAF0 /* UserDefaults+Extension.swift in Sources */,
+				C1FA05DB219423FC00BD8C9D /* UserEntity.swift in Sources */,
 				C1249C822181B547005DB2A5 /* ErrorHandlerType.swift in Sources */,
 				C125C4DB21871C7A00FBA0DD /* ServerConfiguration.swift in Sources */,
 				C122601C21899B84007D64A3 /* ServerConfigurationManager.swift in Sources */,
@@ -913,6 +963,8 @@
 				C1249C772181AAE4005DB2A5 /* StoryboardsManager.swift in Sources */,
 				C125C4D52186F76500FBA0DD /* CoordinatorErrorPresenterType.swift in Sources */,
 				C1C4BA8F2189AD7700683F71 /* Result.swift in Sources */,
+				C1FA05D3219413BF00BD8C9D /* CoreDataStack.swift in Sources */,
+				C1FA05D6219420FC00BD8C9D /* TimeTable.xcdatamodeld in Sources */,
 				C1531F042191C58000602A0C /* Endpoints.swift in Sources */,
 				C1C4BA932189AF3300683F71 /* HTTPMethods.swift in Sources */,
 				C153AC6921832073007A35BB /* AttributedView.swift in Sources */,
@@ -1355,6 +1407,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C1FA05D4219420FC00BD8C9D /* TimeTable.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C1FA05D5219420FC00BD8C9D /* TimeTable.xcdatamodel */,
+			);
+			currentVersion = C1FA05D5219420FC00BD8C9D /* TimeTable.xcdatamodel */;
+			path = TimeTable.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C1B5136121772D1200C3727C /* Project object */;
 }

@@ -16,16 +16,19 @@ class AppCoordinatorTests: XCTestCase {
     private var errorHandlerMock: ErrorHandlerMock!
     private var serverConfigurationManagerMock: ServerConfigurationManagerMock!
     private var appCoordinator: AppCoordinator!
+    private var coreDataStackMock: CoreDataStackMock!
     
     override func setUp() {
         self.window = UIWindow(frame: CGRect.zero)
         self.storyboardsManagerMock = StoryboardsManagerMock()
         self.errorHandlerMock = ErrorHandlerMock()
         self.serverConfigurationManagerMock = ServerConfigurationManagerMock()
+        self.coreDataStackMock = CoreDataStackMock()
         self.appCoordinator = AppCoordinator(window: window,
                                              storyboardsManager: storyboardsManagerMock,
                                              errorHandler: errorHandlerMock,
-                                             serverConfigurationManager: serverConfigurationManagerMock)
+                                             serverConfigurationManager: serverConfigurationManagerMock,
+                                             coreDataStack: coreDataStackMock)
         super.setUp()
     }
     
@@ -171,4 +174,9 @@ private class ServerConfigurationManagerMock: ServerConfigurationManagerType {
         verifyConfigurationValues = (true, configuration)
         verifyConfigurationCompletion = completion
     }
+}
+
+private class CoreDataStackMock: CoreDataStackType {
+    func fetchUser(forIdentifier identifier: Int, completion: @escaping (Result<UserEntity>) -> Void) {}
+    func save(userDecoder: SessionDecoder, completion: @escaping (Result<Void>) -> Void) {}
 }

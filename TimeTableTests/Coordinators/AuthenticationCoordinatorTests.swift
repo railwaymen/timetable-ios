@@ -15,12 +15,14 @@ class AuthenticationCoordinatorTests: XCTestCase {
     private var storyboardsManagerMock: StoryboardsManagerMock!
     private var errorHandlerMock: ErrorHandlerMock!
     private var apiClientMock: ApiClientMock!
+    private var coreDataStackMock: CoreDataStackMock!
     
     override func setUp() {
         self.navigationController = UINavigationController()
         self.storyboardsManagerMock = StoryboardsManagerMock()
         self.errorHandlerMock = ErrorHandlerMock()
         self.apiClientMock = ApiClientMock()
+        self.coreDataStackMock = CoreDataStackMock()
         super.setUp()
     }
     
@@ -29,7 +31,8 @@ class AuthenticationCoordinatorTests: XCTestCase {
         let coordinator = AuthenticationCoordinator(navigationController: navigationController,
                                                     storyboardsManager: storyboardsManagerMock,
                                                     apiClient: apiClientMock,
-                                                    errorHandler: errorHandlerMock)
+                                                    errorHandler: errorHandlerMock,
+                                                    coreDataStack: coreDataStackMock)
         //Act
         coordinator.start(finishCompletion: { _ in })
         //Assert
@@ -41,7 +44,8 @@ class AuthenticationCoordinatorTests: XCTestCase {
         let coordinator = AuthenticationCoordinator(navigationController: navigationController,
                                                     storyboardsManager: storyboardsManagerMock,
                                                     apiClient: apiClientMock,
-                                                    errorHandler: errorHandlerMock)
+                                                    errorHandler: errorHandlerMock,
+                                                    coreDataStack: coreDataStackMock)
         storyboardsManagerMock.controller = LoginViewControllerMock()
         //Act
         coordinator.start(finishCompletion: { _ in })
@@ -55,7 +59,8 @@ class AuthenticationCoordinatorTests: XCTestCase {
         let coordinator = AuthenticationCoordinator(navigationController: navigationController,
                                                     storyboardsManager: storyboardsManagerMock,
                                                     apiClient: apiClientMock,
-                                                    errorHandler: errorHandlerMock)
+                                                    errorHandler: errorHandlerMock,
+                                                    coreDataStack: coreDataStackMock)
         storyboardsManagerMock.controller = LoginViewControllerMock()
         coordinator.start(finishCompletion: {
             finishCompletionCalled = true
@@ -100,4 +105,9 @@ private class ApiClientMock: ApiClientSessionType {
         signInCredentials = credentials
         signInCompletion = completion
     }
+}
+
+private class CoreDataStackMock: CoreDataStackType {
+    func fetchUser(forIdentifier identifier: Int, completion: @escaping (Result<UserEntity>) -> Void) {}
+    func save(userDecoder: SessionDecoder, completion: @escaping (Result<Void>) -> Void) {}
 }
