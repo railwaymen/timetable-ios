@@ -13,7 +13,9 @@ typealias CoreDataStackType = (CoreDataStackUserType)
 
 protocol CoreDataStackUserType: class {
     func fetchUser(forIdentifier identifier: Int, completion: @escaping (Result<UserEntity>) -> Void)
-    func save(userDecoder: SessionDecoder, completion: @escaping (Result<Void>) -> Void)
+    func save<CDT: NSManagedObject>(userDecoder: SessionDecoder,
+                                    coreDataTypeTranslation: @escaping ((AsynchronousDataTransactionType) -> CDT),
+                                    completion: @escaping (Result<CDT>) -> Void)
 }
 
 class CoreDataStack {
@@ -44,20 +46,13 @@ extension CoreDataStack: CoreDataStackUserType {
         completion(.success(user))
     }
     
-    func save(userDecoder: SessionDecoder, completion: @escaping (Result<Void>) -> Void) {
-        stack.perform(asynchronous: { transaction in
-            
-            transaction.deleteAll(From<UserEntity>())
-            
-            let user = transaction.create(Into<UserEntity>())
-            user.firstName = userDecoder.firstName
-            user.lastName = userDecoder.lastName
-            user.token = userDecoder.token
-            user.identifier = Int64(userDecoder.identifier)
-            
-        }, success: { result in
-            print(result)
-            completion(.success(Void()))
+    func save<CDT: NSManagedObject>(userDecoder: SessionDecoder,
+                                    coreDataTypeTranslation: @escaping ((AsynchronousDataTransactionType) -> CDT),
+                                    completion: @escaping (Result<CDT>) -> Void) {
+        stack.perform(asynchronousTask: { transaction in
+            return coreDataTypeTranslation(transaction)
+        }, success: { entity in
+            completion(.success(entity))
         }) { error in
             completion(.failure(error))
         }

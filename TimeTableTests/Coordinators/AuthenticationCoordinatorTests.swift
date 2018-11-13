@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import CoreData
 @testable import TimeTable
 
 class AuthenticationCoordinatorTests: XCTestCase {
@@ -108,6 +109,8 @@ private class ApiClientMock: ApiClientSessionType {
 }
 
 private class CoreDataStackMock: CoreDataStackType {
+    func save<CDT>(userDecoder: SessionDecoder,
+                   coreDataTypeTranslation: @escaping ((AsynchronousDataTransactionType) -> CDT),
+                   completion: @escaping (Result<CDT>) -> Void) where CDT: NSManagedObject {}
     func fetchUser(forIdentifier identifier: Int, completion: @escaping (Result<UserEntity>) -> Void) {}
-    func save(userDecoder: SessionDecoder, completion: @escaping (Result<Void>) -> Void) {}
 }

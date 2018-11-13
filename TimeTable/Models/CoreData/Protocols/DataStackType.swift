@@ -10,9 +10,19 @@ import Foundation
 import CoreStore
 
 protocol DataStackType {
+    // swiftlint:disable type_name
+    typealias T = NSManagedObject
+    
     func fetchAll<D>(_ from: From<D>, _ fetchClauses: FetchClause...) -> [D]?
-    func perform<T>(asynchronous task: @escaping (_ transaction: AsynchronousDataTransaction) throws -> T,
+    func perform<T>(asynchronousTask: @escaping (_ transaction: AsynchronousDataTransactionType) throws -> T,
                     success: @escaping (T) -> Void, failure: @escaping (CoreStoreError) -> Void)
+    
+    // swiftlint:enable type_name
 }
 
-extension DataStack: DataStackType {}
+extension DataStack: DataStackType {
+    func perform<T>(asynchronousTask: @escaping (AsynchronousDataTransactionType) throws -> T,
+                    success: @escaping (T) -> Void, failure: @escaping (CoreStoreError) -> Void) {
+        perform(asynchronous: asynchronousTask, success: success, failure: failure)
+    }
+}

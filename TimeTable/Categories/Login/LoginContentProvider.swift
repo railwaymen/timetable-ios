@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import CoreStore
+
 protocol LoginContentProviderType: class {
     func login(with credentials: LoginCredentials, completion: @escaping ((Result<Void>) -> Void))
 }
@@ -26,7 +28,14 @@ class LoginContentProvider: LoginContentProviderType {
         apiClient.signIn(with: credentials) { [weak self] result in
             switch result {
             case .success(let userDecoder):
-                self?.save(userDecoder: userDecoder, completion: completion)
+                self?.save(userDecoder: userDecoder, completion: { result in
+                    switch result {
+                    case .success:
+                        completion(.success(Void()))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                })
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -34,7 +43,17 @@ class LoginContentProvider: LoginContentProviderType {
     }
     
     // MARK: - Private
-    private func save(userDecoder: SessionDecoder, completion: @escaping ((Result<Void>) -> Void)) {
-        coreDataStack.save(userDecoder: userDecoder, completion: completion)
+    private func save(userDecoder: SessionDecoder, completion: @escaping ((Result<UserEntity>) -> Void)) {
+        coreDataStack.save(userDecoder: userDecoder, coreDataTypeTranslation: { (transaction: AsynchronousDataTransactionType) -> UserEntity in
+            _ = transaction.deleteAll(From<UserEntity>())
+            return UserEntity.createUser(from: userDecoder, transaction: transaction)
+        }) { result in
+            switch result {
+            case .success(let entity):
+                completion(.success(entity))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }
