@@ -17,6 +17,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
     private var errorHandlerMock: ErrorHandlerMock!
     private var apiClientMock: ApiClientMock!
     private var coreDataStackMock: CoreDataStackMock!
+    private var accessServiceMock: AccessServiceMock!
     
     override func setUp() {
         self.navigationController = UINavigationController()
@@ -24,6 +25,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
         self.errorHandlerMock = ErrorHandlerMock()
         self.apiClientMock = ApiClientMock()
         self.coreDataStackMock = CoreDataStackMock()
+        self.accessServiceMock = AccessServiceMock()
         super.setUp()
     }
     
@@ -31,6 +33,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
         //Arrange
         let coordinator = AuthenticationCoordinator(navigationController: navigationController,
                                                     storyboardsManager: storyboardsManagerMock,
+                                                    accessService: accessServiceMock,
                                                     apiClient: apiClientMock,
                                                     errorHandler: errorHandlerMock,
                                                     coreDataStack: coreDataStackMock)
@@ -44,6 +47,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
         //Arrange
         let coordinator = AuthenticationCoordinator(navigationController: navigationController,
                                                     storyboardsManager: storyboardsManagerMock,
+                                                    accessService: accessServiceMock,
                                                     apiClient: apiClientMock,
                                                     errorHandler: errorHandlerMock,
                                                     coreDataStack: coreDataStackMock)
@@ -59,6 +63,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
         var finishCompletionCalled = false
         let coordinator = AuthenticationCoordinator(navigationController: navigationController,
                                                     storyboardsManager: storyboardsManagerMock,
+                                                    accessService: accessServiceMock,
                                                     apiClient: apiClientMock,
                                                     errorHandler: errorHandlerMock,
                                                     coreDataStack: coreDataStackMock)
@@ -90,10 +95,12 @@ private class ErrorHandlerMock: ErrorHandlerType {
 
 private class LoginViewControllerMock: LoginViewControllerable {
     func configure(notificationCenter: NotificationCenterType, viewModel: LoginViewModelType) {}
-    func setUpView() {}
+    func setUpView(checkBoxIsActive: Bool) {}
+    func updateLoginFields(email: String, password: String) {}    
     func tearDown() {}
     func passwordInputEnabledState(_ isEnabled: Bool) {}
     func loginButtonEnabledState(_ isEnabled: Bool) {}
+    func checkBoxIsActiveState(_ isActive: Bool) {}
     func focusOnPasswordTextField() {}
 }
 
@@ -113,4 +120,11 @@ private class CoreDataStackMock: CoreDataStackType {
                    coreDataTypeTranslation: @escaping ((AsynchronousDataTransactionType) -> CDT),
                    completion: @escaping (Result<CDT>) -> Void) where CDT: NSManagedObject {}
     func fetchUser(forIdentifier identifier: Int, completion: @escaping (Result<UserEntity>) -> Void) {}
+}
+
+private class AccessServiceMock: AccessServiceLoginCredentialsType {
+    func saveUser(credentails: LoginCredentials) throws {}
+    func getUserCredentials() throws -> LoginCredentials {
+        return LoginCredentials(email: "", password: "")
+    }
 }

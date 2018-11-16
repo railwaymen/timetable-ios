@@ -18,6 +18,7 @@ class AppCoordinatorTests: XCTestCase {
     private var serverConfigurationManagerMock: ServerConfigurationManagerMock!
     private var appCoordinator: AppCoordinator!
     private var coreDataStackMock: CoreDataStackMock!
+    private var bundleMock: BundleMock!
     
     override func setUp() {
         self.window = UIWindow(frame: CGRect.zero)
@@ -25,11 +26,13 @@ class AppCoordinatorTests: XCTestCase {
         self.errorHandlerMock = ErrorHandlerMock()
         self.serverConfigurationManagerMock = ServerConfigurationManagerMock()
         self.coreDataStackMock = CoreDataStackMock()
+        self.bundleMock = BundleMock()
         self.appCoordinator = AppCoordinator(window: window,
                                              storyboardsManager: storyboardsManagerMock,
                                              errorHandler: errorHandlerMock,
                                              serverConfigurationManager: serverConfigurationManagerMock,
-                                             coreDataStack: coreDataStackMock)
+                                             coreDataStack: coreDataStackMock,
+                                             bundle: bundleMock)
         super.setUp()
     }
     
@@ -68,7 +71,7 @@ class AppCoordinatorTests: XCTestCase {
     func testStartAppCoordinatorContainsServerConfigurationCoordinatorOnTheStartWhileConfigurationShouldNotRemeberHost() throws {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
-        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRemeberHost: false)
+        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: false)
         //Act
         appCoordinator.start()
         //Assert
@@ -78,7 +81,7 @@ class AppCoordinatorTests: XCTestCase {
     func testStartAppCoorinatorRunsAuthetincationFlow() throws {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
-        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRemeberHost: true)
+        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
         appCoordinator.start()
         //Assert
@@ -91,8 +94,8 @@ class AppCoordinatorTests: XCTestCase {
         appCoordinator.start()
         let serverConfigurationCoordinator = appCoordinator.children.first?.value as? ServerConfigurationCoordinator
         let url = try URL(string: "www.example.com").unwrap()
-        let serverConfiguration = ServerConfiguration(host: url, shouldRemeberHost: true)
-        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRemeberHost: true)
+        let serverConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
         serverConfigurationCoordinator?.finish(with: serverConfiguration)
         //Assert
@@ -103,7 +106,7 @@ class AppCoordinatorTests: XCTestCase {
     func testAuthenticationCoordinatorFinishRemoveSelfFromAppCoordinatorChildrenForLoggedInCorrectlyState() throws {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
-        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRemeberHost: true)
+        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         appCoordinator.start()
         let authenticationCoordinator = appCoordinator.children.first?.value as? AuthenticationCoordinator
         //Act
@@ -115,7 +118,7 @@ class AppCoordinatorTests: XCTestCase {
     func testAuthenticationCoordinatorFinishRemoveSelfFromAppCoordinatorChildrenForChangeAddressState() throws {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
-        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRemeberHost: true)
+        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         appCoordinator.start()
         let authenticationCoordinator = appCoordinator.children.first?.value as? AuthenticationCoordinator
         //Act
@@ -153,10 +156,12 @@ private class ServerConfigurationViewControllerMock: ServerConfigurationViewCont
 
 private class LoginViewControllerMock: LoginViewControllerable {
     func configure(notificationCenter: NotificationCenterType, viewModel: LoginViewModelType) {}
-    func setUpView() {}
+    func setUpView(checkBoxIsActive: Bool) {}
+    func updateLoginFields(email: String, password: String) {}
     func tearDown() {}
     func passwordInputEnabledState(_ isEnabled: Bool) {}
     func loginButtonEnabledState(_ isEnabled: Bool) {}
+    func checkBoxIsActiveState(_ isActive: Bool) {}
     func focusOnPasswordTextField() {}
 }
 
@@ -182,4 +187,8 @@ private class CoreDataStackMock: CoreDataStackType {
                    coreDataTypeTranslation: @escaping ((AsynchronousDataTransactionType) -> CDT),
                    completion: @escaping (Result<CDT>) -> Void) where CDT: NSManagedObject {}
     func fetchUser(forIdentifier identifier: Int, completion: @escaping (Result<UserEntity>) -> Void) {}
+}
+
+private class BundleMock: BundleType {
+    var bundleIdentifier: String?
 }

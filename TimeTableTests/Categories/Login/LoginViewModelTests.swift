@@ -15,6 +15,7 @@ class LoginViewModelTests: XCTestCase {
     private var coordinatorMock: LoginCoordinatorMock!
     private var contentProvider: LoginContentProviderMock!
     private var errorHandler: ErrorHandlerMock!
+    private var accessService: AccessServiceMock!
     private var viewModel: LoginViewModel!
     
     override func setUp() {
@@ -22,7 +23,12 @@ class LoginViewModelTests: XCTestCase {
         coordinatorMock = LoginCoordinatorMock()
         contentProvider = LoginContentProviderMock()
         errorHandler = ErrorHandlerMock()
-        viewModel = LoginViewModel(userInterface: userInterface, coordinator: coordinatorMock, contentProvider: contentProvider, errorHandler: errorHandler)
+        accessService = AccessServiceMock()
+        viewModel = LoginViewModel(userInterface: userInterface,
+                                   coordinator: coordinatorMock,
+                                   accessService: accessService,
+                                   contentProvider: contentProvider,
+                                   errorHandler: errorHandler)
         super.setUp()
     }
     
@@ -208,14 +214,25 @@ class LoginViewModelTests: XCTestCase {
 }
 
 private class LoginViewControllerMock: LoginViewModelOutput {
+    
     private(set) var setUpViewCalled = false
+    private(set) var setUpCheckBoxIsActive: Bool?
+    private(set) var updateLoginFieldsCalled = false
+    private(set) var updateLoginFieldsData: (email: String?, passowrd: String?)
     private(set) var tearDownCalled = false
     private(set) var passwordInputEnabledStateValues: (called: Bool, isEnabled: Bool?) = (false, nil)
     private(set) var loginButtonEnabledStateValues: (called: Bool, isEnabled: Bool?) = (false, nil)
+    private(set) var checkBoxIsActiveStateCalled = false
     private(set) var focusOnPasswordTextFieldCalled = false
     
-    func setUpView() {
+    func setUpView(checkBoxIsActive: Bool) {
         setUpViewCalled = true
+        setUpCheckBoxIsActive = checkBoxIsActive
+    }
+    
+    func updateLoginFields(email: String, password: String) {
+        updateLoginFieldsCalled = true
+        updateLoginFieldsData = (email, password)
     }
     
     func tearDown() {
@@ -228,6 +245,10 @@ private class LoginViewControllerMock: LoginViewModelOutput {
     
     func loginButtonEnabledState(_ isEnabled: Bool) {
         loginButtonEnabledStateValues = (true, isEnabled)
+    }
+    
+    func checkBoxIsActiveState(_ isActive: Bool) {
+        checkBoxIsActiveStateCalled = true
     }
     
     func focusOnPasswordTextField() {
@@ -278,5 +299,12 @@ private struct TestError: Error {
 extension TestError: Equatable {
     static func == (lhs: TestError, rhs: TestError) -> Bool {
         return lhs.messsage == rhs.messsage
+    }
+}
+
+private class AccessServiceMock: AccessServiceLoginCredentialsType {
+    func saveUser(credentails: LoginCredentials) throws {}
+    func getUserCredentials() throws -> LoginCredentials {
+        return LoginCredentials(email: "", password: "")
     }
 }

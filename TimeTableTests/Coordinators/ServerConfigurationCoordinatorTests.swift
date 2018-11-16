@@ -59,7 +59,7 @@ class ServerConfigurationCoordinatorTests: XCTestCase {
             
         })
         let url = try URL(string: "www.example.com").unwrap()
-        let serverConfiguration = ServerConfiguration(host: url, shouldRemeberHost: false)
+        let serverConfiguration = ServerConfiguration(host: url, shouldRememberHost: false)
         //Act
         coordinator.serverConfigurationDidFinish(with: serverConfiguration)
         //Assert
