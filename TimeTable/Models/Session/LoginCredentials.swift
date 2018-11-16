@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct LoginCredentials: Encodable {
+struct LoginCredentials: Codable {
     var email: String
     var password: String
     

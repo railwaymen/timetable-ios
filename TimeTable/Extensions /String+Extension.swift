@@ -14,6 +14,18 @@ extension String {
         return NSLocalizedString(self, comment: "")
     }
     
+    var isHTTP: Bool {
+        let httpRegExp = try? NSRegularExpression(pattern: "^http://", options: .caseInsensitive)
+        guard let regExp = httpRegExp else { return false }
+        return regExp.matches(in: self).count == 0
+    }
+    
+    var isHTTPS: Bool {
+        let httpRegExp = try? NSRegularExpression(pattern: "^https://", options: .caseInsensitive)
+        guard let regExp = httpRegExp else { return false }
+        return regExp.matches(in: self).count == 0
+    }
+
     func apiSuffix() -> String {
         let slashRegExp = try? NSRegularExpression(pattern: "/$", options: .caseInsensitive)
         let apiRegExp = try? NSRegularExpression(pattern: "(?:^|\\W)api(?:$|\\W)", options: .caseInsensitive)

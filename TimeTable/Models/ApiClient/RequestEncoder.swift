@@ -8,12 +8,15 @@
 
 import Foundation
 
-protocol RequestEncoderType: class {
+protocol EncoderType: class {
     func encode<T: Encodable>(wrapper: T) throws -> Data
+}
+
+protocol RequestEncoderType: class {
     func encodeToDictionary<T: Encodable>(wrapper: T) throws -> [String: Any]
 }
 
-class RequestEncoder: RequestEncoderType {
+class RequestEncoder: RequestEncoderType, EncoderType {
     
     private let encoder: JSONEncoderType
     private let serialization: JSONSerializationType
@@ -23,12 +26,13 @@ class RequestEncoder: RequestEncoderType {
         self.encoder = encoder
         self.serialization = serialization
     }
-    
-    // MARK: - RequestEncoderType
+
+    // MARK: - EncoderType
     func encode<T: Encodable>(wrapper: T) throws -> Data {
         return try encoder.encode(wrapper)
     }
     
+    // MARK: - RequestEncoderType
     func encodeToDictionary<T: Encodable>(wrapper: T) throws -> [String: Any] {
         let data = try encode(wrapper: wrapper)
         let json = try serialization.jsonObject(with: data, options: .allowFragments)
