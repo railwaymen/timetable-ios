@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import KeychainAccess
 
 protocol AccessServiceLoginCredentialsType: class {
     func saveUser(credentails: LoginCredentials) throws

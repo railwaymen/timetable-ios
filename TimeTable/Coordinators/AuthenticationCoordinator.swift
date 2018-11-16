@@ -17,6 +17,7 @@ class AuthenticationCoordinator: BaseCoordinator {
     var navigationController: UINavigationController
     private let storyboardsManager: StoryboardsManagerType
     private let apiClient: ApiClientSessionType
+    private let accessService: AccessServiceLoginCredentialsType
     private let errorHandler: ErrorHandlerType
     private let coreDataStack: CoreDataStackUserType
     
@@ -28,11 +29,11 @@ class AuthenticationCoordinator: BaseCoordinator {
     }
     
     // MARK: - Initialization
-    init(navigationController: UINavigationController, storyboardsManager: StoryboardsManagerType,
-         apiClient: ApiClientSessionType, errorHandler: ErrorHandlerType,
-         coreDataStack: CoreDataStackUserType) {
+    init(navigationController: UINavigationController, storyboardsManager: StoryboardsManagerType, accessService: AccessServiceLoginCredentialsType,
+         apiClient: ApiClientSessionType, errorHandler: ErrorHandlerType, coreDataStack: CoreDataStackUserType) {
         self.navigationController = navigationController
         self.storyboardsManager = storyboardsManager
+        self.accessService = accessService
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.coreDataStack = coreDataStack
@@ -59,7 +60,8 @@ class AuthenticationCoordinator: BaseCoordinator {
         let controller: LoginViewControllerable? = storyboardsManager.controller(storyboard: .login, controllerIdentifier: .initial)
         guard let loginViewController = controller else { return }
         let contentProvider = LoginContentProvider(apiClient: apiClient, coreDataStack: coreDataStack)
-        let viewModel = LoginViewModel(userInterface: loginViewController, coordinator: self, contentProvider: contentProvider, errorHandler: errorHandler)
+        let viewModel = LoginViewModel(userInterface: loginViewController, coordinator: self,
+                                       accessService: accessService, contentProvider: contentProvider, errorHandler: errorHandler)
         loginViewController.configure(notificationCenter: NotificationCenter.default, viewModel: viewModel)
         navigationController.pushViewController(loginViewController, animated: true)
     }

@@ -1,5 +1,5 @@
 //
-//  BundleType.swift
+//  Bundle+Extension.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 16/11/2018.
@@ -7,3 +7,8 @@
 //
 
 import Foundation
+
+protocol BundleType {
+    var bundleIdentifier: String? { get }
+}
+extension Bundle: BundleType {}

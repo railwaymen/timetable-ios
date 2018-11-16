@@ -48,7 +48,7 @@ class ServerConfigurationViewController: UIViewController {
         viewModel?.viewHasBeenTapped()
     }
     
-    @IBAction private func checkBocButtonTapped(_ sender: CheckBoxButton) {
+    @IBAction private func checkBoxButtonTapped(_ sender: CheckBoxButton) {
         viewModel?.shouldRemeberHostCheckBoxStatusDidChange(isActive: sender.isActive)
     }
     

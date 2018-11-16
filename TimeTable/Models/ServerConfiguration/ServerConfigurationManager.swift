@@ -31,9 +31,9 @@ class ServerConfigurationManager: ServerConfigurationManagerType {
     
     // MARK: - ServerConfigurationManagerType
     func getOldConfiguration() -> ServerConfiguration? {
-        let shouldRemeberHost = userDefaults.bool(forKey: UserDefaultsKeys.shouldRemeberHostKey)
-        var configuration = ServerConfiguration(host: nil, shouldRemeberHost: shouldRemeberHost)
-        if shouldRemeberHost {
+        let shouldRememberHost = userDefaults.bool(forKey: UserDefaultsKeys.shouldRemeberHostKey)
+        var configuration = ServerConfiguration(host: nil, shouldRememberHost: shouldRememberHost)
+        if shouldRememberHost {
             guard let hostURLString = userDefaults.string(forKey: UserDefaultsKeys.hostURLKey) else { return nil }
             guard let hostURL = URL(string: hostURLString) else { return nil }
             configuration.host = hostURL
@@ -61,9 +61,9 @@ class ServerConfigurationManager: ServerConfigurationManagerType {
     
     // MARK: - Pirvate
     private func save(configuration: ServerConfiguration) {
-        if configuration.shouldRemeberHost, let hostURL = configuration.host {
+        if configuration.shouldRememberHost, let hostURL = configuration.host {
             userDefaults.set(hostURL.absoluteString, forKey: UserDefaultsKeys.hostURLKey)
         }
-        userDefaults.set(configuration.shouldRemeberHost, forKey: UserDefaultsKeys.shouldRemeberHostKey)
+        userDefaults.set(configuration.shouldRememberHost, forKey: UserDefaultsKeys.shouldRemeberHostKey)
     }
 }

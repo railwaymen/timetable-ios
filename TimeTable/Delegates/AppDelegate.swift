@@ -19,7 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                               storyboardsManager: StoryboardsManager.shared,
                               errorHandler: errorHandler,
                               serverConfigurationManager: serverConfigurationManager,
-                              coreDataStack: coreDataStack)
+                              coreDataStack: coreDataStack,
+                              bundle: Bundle.main)
     }()
     
     private lazy var errorHandler: ErrorHandlerType = {
