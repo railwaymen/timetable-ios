@@ -10,6 +10,7 @@ import Foundation
 
 protocol LoginViewModelOutput: class {
     func setUpView(checkBoxIsActive: Bool)
+    func updateLoginFields(email: String, password: String)
     func tearDown()
     func passwordInputEnabledState(_ isEnabled: Bool)
     func loginButtonEnabledState(_ isEnabled: Bool)
@@ -44,13 +45,19 @@ class LoginViewModel: LoginViewModelType {
         self.coordinator = coordinator
         self.accessService = accessService
         self.contentProvider = contentProvider
-        self.loginCredentials = LoginCredentials(email: "", password: "")
         self.errorHandler = errorHandler
+        do {
+            let user = try accessService.getUserCredentials()
+            self.loginCredentials = LoginCredentials(email: user.email, password: user.password)
+        } catch {
+            self.loginCredentials = LoginCredentials(email: "", password: "")
+        }
     }
     
     // MARK: - LoginViewModelOutput
     func viewDidLoad() {
         userInterface?.setUpView(checkBoxIsActive: shouldRememberLoginCredentilas)
+        self.userInterface?.updateLoginFields(email: loginCredentials.email, password: loginCredentials.password)
     }
     
     func loginInputValueDidChange(value: String?) {

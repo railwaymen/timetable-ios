@@ -79,12 +79,17 @@ extension LoginViewController: LoginViewModelOutput {
         notificationCenter.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         checkBoxButton.isActive = checkBoxIsActive
-        loginButton.isEnabled = false
-        passwordTextField.isEnabled = false
         passwordTextField.isSecureTextEntry = true
         
         loginTextField.delegate = self
         passwordTextField.delegate = self
+    }
+    
+    func updateLoginFields(email: String, password: String) {
+        loginTextField.text = email
+        passwordTextField.text = password
+        passwordTextField.isEnabled = !password.isEmpty
+        loginButton.isEnabled = !(email.isEmpty && password.isEmpty)
     }
     
     func tearDown() {
