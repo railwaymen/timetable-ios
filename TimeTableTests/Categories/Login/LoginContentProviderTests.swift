@@ -165,6 +165,7 @@ private class CoreDataStackUserMock: CoreDataStackUserType {
                    coreDataTypeTranslation: @escaping ((AsynchronousDataTransactionType) -> CDT),
                    completion: @escaping (Result<CDT>) -> Void) {
     
+        // swiftlint:disable force_cast
         saveUserDecoder = userDecoder
         saveUserCompletion = { result in
             switch result {
@@ -177,6 +178,7 @@ private class CoreDataStackUserMock: CoreDataStackUserType {
         saveCoreDataTypeTranslatior = { transaction in
             return coreDataTypeTranslation(transaction) as! UserEntity
         }
+        // swiftlint:enable force_cast
     }
 }
 
@@ -193,6 +195,8 @@ private class AsynchronousDataTransactionMock: AsynchronousDataTransactionType {
     
     func create<D>(_ into: Into<D>) -> D where D: DynamicObject {
         createCalled = true
+        // swiftlint:disable force_cast
         return user as! D
+        // swiftlint:enable force_cast
     }
 }

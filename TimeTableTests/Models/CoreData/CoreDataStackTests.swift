@@ -194,7 +194,7 @@ private class DataStackMock: DataStackType {
     
     func perform<T>(asynchronousTask: @escaping (_ transaction: AsynchronousDataTransactionType) throws -> T,
                     success: @escaping (T) -> Void, failure: @escaping (CoreStoreError) -> Void) {
-        
+        // swiftlint:disable force_cast
         performFailure = failure
         performSuccess = { value in
             success(value as! T)
@@ -202,6 +202,7 @@ private class DataStackMock: DataStackType {
         performTask = { transaction in
             return try asynchronousTask(transaction) as! UserEntity
         }
+        // swiftlint:enable force_cast
     }
 }
 
@@ -218,7 +219,9 @@ private class AsynchronousDataTransactionMock: AsynchronousDataTransactionType {
     
     func create<D>(_ into: Into<D>) -> D where D: DynamicObject {
         createCalled = true
+        // swiftlint:disable force_cast
         return user as! D
+        // swiftlint:enable force_cast
     }
 }
 

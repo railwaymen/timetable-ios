@@ -64,6 +64,8 @@ private class AsynchronousDataTransactionMock: AsynchronousDataTransactionType {
     
     func create<D>(_ into: Into<D>) -> D where D: DynamicObject {
         createCalled = true
+        // swiftlint:disable force_cast
         return user as! D
+        // swiftlint:enable force_cast
     }
 }
