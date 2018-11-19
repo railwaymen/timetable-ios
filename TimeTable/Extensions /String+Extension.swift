@@ -17,13 +17,13 @@ extension String {
     var isHTTP: Bool {
         let httpRegExp = try? NSRegularExpression(pattern: "^http://", options: .caseInsensitive)
         guard let regExp = httpRegExp else { return false }
-        return regExp.matches(in: self).count == 0
+        return regExp.matches(in: self).count == 1
     }
     
     var isHTTPS: Bool {
         let httpRegExp = try? NSRegularExpression(pattern: "^https://", options: .caseInsensitive)
         guard let regExp = httpRegExp else { return false }
-        return regExp.matches(in: self).count == 0
+        return regExp.matches(in: self).count == 1
     }
 
     func apiSuffix() -> String {
