@@ -10,6 +10,14 @@
 "server_settings.button.continue" = "Dalej";
 "server_settings.label.stay_signed_in" = "Pozostań zalogowany";
 
+"login.label.title" = "Zaloguj się";
+"login.label.explanation" = "Wprowadź adres email i hasło";
+"login.label.stay_signed_in" = "Pozostań zalogowanym";
+"login.text_feild.email" = "e-mail";
+"login.text_feild.password" = "Hasło";
+"login.button.log_in" = "Zaloguj";
+"login.button.change_server_address" = "Chcesz zmienić adres serwera?";
+
 // UIErros
 "ui.error.cannot_be_empty" = "- pole nie może być puste.";
 "ui.error.invalid_format" = "niepoprawny format.";

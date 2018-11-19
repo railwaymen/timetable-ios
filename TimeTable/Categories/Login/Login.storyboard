@@ -37,7 +37,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="server_settings.label.title"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.label.title"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Enter your TimeTable server URL." textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="OiT-o1-SxI">
@@ -46,7 +46,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="server_settings.label.explanation"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.label.explanation"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="1la-8L-eIp">
@@ -55,7 +55,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Yct-ED-Kck">
                                                         <rect key="frame" x="22" y="0.0" width="300" height="100"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z1B-zV-UZJ">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="login.text_feild.email" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z1B-zV-UZJ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="999" constant="300" id="3ng-Jz-Md6"/>
@@ -84,6 +84,9 @@
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.text_feild.password"/>
+                                                                </userDefinedRuntimeAttributes>
                                                                 <connections>
                                                                     <action selector="passwordTextFieldDidChange:" destination="prJ-rF-eRP" eventType="editingChanged" id="IZ7-kt-I9N"/>
                                                                     <outlet property="delegate" destination="prJ-rF-eRP" id="c4l-Iu-twB"/>
@@ -120,7 +123,7 @@
                                                                         <color key="textColor" red="0.62745098040000002" green="0.62745098040000002" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                         <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="server_settings.label.stay_signed_in"/>
+                                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.label.stay_signed_in"/>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </label>
                                                                 </subviews>
@@ -136,7 +139,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i9V-Qh-o4R" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
-                                                        <rect key="frame" x="63.666666666666686" y="115" width="217" height="30"/>
+                                                        <rect key="frame" x="108.66666666666666" y="115" width="127" height="30"/>
                                                         <color key="backgroundColor" red="0.1764705882" green="0.72156862749999995" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="wqL-vz-WbN"/>
@@ -145,7 +148,7 @@
                                                             <color key="titleColor" red="0.93230950339999996" green="0.96789383559999997" blue="0.96992722600000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="server_settings.button.continue"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.button.log_in"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                 <real key="value" value="5"/>
                                                             </userDefinedRuntimeAttribute>
@@ -173,6 +176,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A9f-Ib-OZV">
                                                 <rect key="frame" x="15" y="234.66666666666666" width="344" height="50.333333333333343"/>
                                                 <state key="normal" title="Would you like to change the server address?"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.button.change_server_address"/>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="changeServerAddressTappedWithSender:" destination="prJ-rF-eRP" eventType="touchUpInside" id="gzp-TL-Wou"/>
                                                 </connections>
