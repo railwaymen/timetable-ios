@@ -22,3 +22,9 @@ struct LoginCredentials: Codable {
         self.password = password
     }
 }
+
+extension LoginCredentials: Equatable {
+    static func == (lhs: LoginCredentials, rhs: LoginCredentials) -> Bool {
+        return lhs.email == rhs.email && lhs.password == rhs.password
+    }
+}
