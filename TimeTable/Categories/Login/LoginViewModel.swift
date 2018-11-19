@@ -102,19 +102,23 @@ class LoginViewModel: LoginViewModelType {
             return
         }
         
-        contentProvider.login(with: loginCredentials) { [weak self, credentials = self.loginCredentials,
-                                                        shouldSave = self.shouldRememberLoginCredentilas] result in
-            
+        contentProvider.login(with: loginCredentials, fetchCompletion: { [weak self] result in
             switch result {
             case .success:
-                if shouldSave {
-                    self?.save(credentials: credentials)
-                }
                 self?.coordinator.loginDidFinish(with: .loggedInCorrectly)
             case .failure(let error):
                 self?.errorHandler.throwing(error: error)
             }
-        }
+            }, saveCompletion: { [weak self, credentials = self.loginCredentials, shouldSave = self.shouldRememberLoginCredentilas] result in
+                if shouldSave {
+                    switch result {
+                    case .success:
+                        self?.save(credentials: credentials)
+                    case .failure(let error):
+                        self?.errorHandler.throwing(error: AppError.cannotRemeberUserCredentials(error: error))
+                    }
+                }
+        })
     }
     
     func viewRequestedToChangeServerAddress() {

@@ -17,7 +17,7 @@ class AppCoordinator: BaseCoordinator {
     private let serverConfigurationManager: ServerConfigurationManagerType
     private let parentErrorHandler: ErrorHandlerType
     private var apiClient: ApiClientType?
-    private var accessService: AccessServiceLoginCredentialsType?
+    private var accessService: AccessServiceLoginType?
     private let coreDataStack: CoreDataStackType
     private let bundle: BundleType
     
@@ -92,7 +92,7 @@ class AppCoordinator: BaseCoordinator {
         return Keychain(accessGroup: bundleIdentifier)
     }
     
-    private func createAccessService(with configuration: ServerConfiguration) -> AccessServiceLoginCredentialsType {
+    private func createAccessService(with configuration: ServerConfiguration) -> AccessServiceLoginType {
         let keychainAccess = createKeychain(with: configuration)
         return AccessService(userDefaults: UserDefaults.standard,
                              keychainAccess: keychainAccess,

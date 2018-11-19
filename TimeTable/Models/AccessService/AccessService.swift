@@ -8,9 +8,17 @@
 
 import Foundation
 
+typealias AccessServiceLoginType = (AccessServiceLoginCredentialsType & AccessServiceUserIDType)
+
 protocol AccessServiceLoginCredentialsType: class {
     func saveUser(credentails: LoginCredentials) throws
     func getUserCredentials() throws -> LoginCredentials
+    func removeLastLoggedInUserIdentifier()
+}
+
+protocol AccessServiceUserIDType: class {
+    func saveLastLoggedInUserIdentifier(_ id: Int64)
+    func getLastLoggedInUserIdentifier() -> Int64?
 }
 
 class AccessService {
@@ -26,6 +34,7 @@ class AccessService {
     
     private struct Keys {
         static let loginCredentialsKey = "key.time_table.login_credentials.key"
+        static let lastLoggedInUserIdentifier = "key.time_table.last_logged_user.id.key"
     }
     
     init(userDefaults: UserDefaultsType, keychainAccess: KeychainAccessType,
@@ -55,5 +64,22 @@ extension AccessService: AccessServiceLoginCredentialsType {
         } catch {
             throw Error.cannotFetchLoginCredentials
         }
+    }
+}
+
+// MARK: - AccessServiceUserIDType
+extension AccessService: AccessServiceUserIDType {
+    func saveLastLoggedInUserIdentifier(_ id: Int64) {
+        userDefaults.set(id, forKey: Keys.lastLoggedInUserIdentifier)
+    }
+    
+    func getLastLoggedInUserIdentifier() -> Int64? {
+        guard let identifierStringValue = userDefaults.string(forKey: Keys.lastLoggedInUserIdentifier) else { return nil }
+        guard let identifier = Int(identifierStringValue) else { return nil }
+        return Int64(identifier)
+    }
+    
+    func removeLastLoggedInUserIdentifier() {
+        userDefaults.removeObject(forKey: Keys.lastLoggedInUserIdentifier)
     }
 }
