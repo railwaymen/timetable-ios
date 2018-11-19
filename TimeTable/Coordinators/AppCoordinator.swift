@@ -134,8 +134,14 @@ class AppCoordinator: BaseCoordinator {
             case .changeAddress:
                 self?.runServerConfigurationFlow()
             case .loggedInCorrectly:
-                break
+                self?.runMainFlow()
             }
         }
+    }
+    
+    private func runMainFlow() {
+        let coordinator = TimeTableCoordinator(window: self.window)
+        coordinator.start(finishCompletion: {
+        })
     }
 }
