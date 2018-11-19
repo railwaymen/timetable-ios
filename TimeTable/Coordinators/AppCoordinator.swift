@@ -86,11 +86,10 @@ class AppCoordinator: BaseCoordinator {
                 return Keychain(server: host, protocolType: .https)
             }
         }
-        if let bundleIdentifier = bundle.bundleIdentifier {
-            return Keychain(accessGroup: bundleIdentifier)
-        } else {
+        guard let bundleIdentifier = bundle.bundleIdentifier else {
             return Keychain()
         }
+        return Keychain(accessGroup: bundleIdentifier)
     }
     
     private func createAccessService(with configuration: ServerConfiguration) -> AccessServiceLoginCredentialsType {
@@ -117,9 +116,9 @@ class AppCoordinator: BaseCoordinator {
     
     private func runAuthenticationFlow(configuration: ServerConfiguration) {
         self.apiClient = createApiClient(with: configuration)
-        self.accessService = createAccessService(with: configuration)
+        let accessService = createAccessService(with: configuration)
+        self.accessService = accessService
         guard let apiClient = self.apiClient else { return }
-        guard let accessService = self.accessService else { return }
         let coordinator = AuthenticationCoordinator(navigationController: navigationController,
                                                     storyboardsManager: storyboardsManager,
                                                     accessService: accessService,

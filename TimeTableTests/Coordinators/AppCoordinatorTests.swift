@@ -78,7 +78,7 @@ class AppCoordinatorTests: XCTestCase {
         XCTAssertNotNil(appCoordinator.children.first?.value as? ServerConfigurationCoordinator)
     }
     
-    func testStartAppCoorinatorRunsAuthetincationFlow() throws {
+    func testStartAppCoordinatorRunsAuthetincationFlow() throws {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
         serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
@@ -126,6 +126,55 @@ class AppCoordinatorTests: XCTestCase {
         //Assert
         XCTAssertEqual(appCoordinator.children.count, 1)
         XCTAssertNotNil(appCoordinator.children.first?.value as? ServerConfigurationCoordinator)
+    }
+    
+    func testStartAppCoordinatorDoesNotRunAuthenticationFlowWhileCreatingApiClientWhileHostIsNil() {
+        //Arrange
+        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: nil, shouldRememberHost: true)
+        //Act
+        appCoordinator.start()
+        //Assert
+        XCTAssertEqual(appCoordinator.children.count, 0)
+    }
+    
+    func testStartAppCoordinatorRunsAuthenticationFlowWithHTTPHost() throws {
+        //Arrange
+        let url = URL(string: "http://www.example.com")
+        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        //Act
+        appCoordinator.start()
+        //Assert
+        XCTAssertEqual(appCoordinator.children.count, 1)
+    }
+    
+    func testStartAppCoordinatorRunsAuthenticationFlowWithHTTPHosts() throws {
+        //Arrange
+        let url = URL(string: "https://www.example.com")
+        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        //Act
+        appCoordinator.start()
+        //Assert
+        XCTAssertEqual(appCoordinator.children.count, 1)
+    }
+    
+    func testStartAppCoordinatorDoesNotRunAuthenticationFlowWithBundleIdAndWithoutHostURL() throws {
+        //Arrange
+        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: nil, shouldRememberHost: true)
+        bundleMock.bundleIdentifier = "org.example.com"
+        //Act
+        appCoordinator.start()
+        //Assert
+        XCTAssertEqual(appCoordinator.children.count, 0)
+    }
+    
+    func testStartAppCoordinatorDoesNotRunAuthenticationFlowWithoutBundleIdAndWithoutHostURL() throws {
+        //Arrange
+        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: nil, shouldRememberHost: true)
+        bundleMock.bundleIdentifier = nil
+        //Act
+        appCoordinator.start()
+        //Assert
+        XCTAssertEqual(appCoordinator.children.count, 0)
     }
 }
 
