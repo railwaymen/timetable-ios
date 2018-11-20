@@ -88,7 +88,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
             do {
                 let configuration = try self.coordinatorMock.serverConfigurationDidFinishValues.serverConfiguration.unwrap()
                 XCTAssertEqual(configuration.host, try URL(string: hostString.apiSuffix().httpPrefix()).unwrap())
-                XCTAssertTrue(configuration.shouldRemeberHost)
+                XCTAssertTrue(configuration.shouldRememberHost)
             } catch {
                 XCTFail()
             }
@@ -116,7 +116,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
             do {
                 let configuration = try self.coordinatorMock.serverConfigurationDidFinishValues.serverConfiguration.unwrap()
                 XCTAssertEqual(configuration.host, try URL(string: hostString.apiSuffix().httpPrefix()).unwrap())
-                XCTAssertFalse(configuration.shouldRemeberHost)
+                XCTAssertFalse(configuration.shouldRememberHost)
             } catch {
                 XCTFail()
             }

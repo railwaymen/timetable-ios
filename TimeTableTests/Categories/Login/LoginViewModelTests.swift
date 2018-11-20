@@ -9,12 +9,14 @@
 import XCTest
 @testable import TimeTable
 
+// swiftlint:disable file_length
 class LoginViewModelTests: XCTestCase {
     
     private var userInterface: LoginViewControllerMock!
     private var coordinatorMock: LoginCoordinatorMock!
     private var contentProvider: LoginContentProviderMock!
     private var errorHandler: ErrorHandlerMock!
+    private var accessService: AccessServiceMock!
     private var viewModel: LoginViewModel!
     
     override func setUp() {
@@ -22,7 +24,9 @@ class LoginViewModelTests: XCTestCase {
         coordinatorMock = LoginCoordinatorMock()
         contentProvider = LoginContentProviderMock()
         errorHandler = ErrorHandlerMock()
-        viewModel = LoginViewModel(userInterface: userInterface, coordinator: coordinatorMock, contentProvider: contentProvider, errorHandler: errorHandler)
+        accessService = AccessServiceMock()
+        viewModel = LoginViewModel(userInterface: userInterface, coordinator: coordinatorMock, accessService: accessService,
+                                   contentProvider: contentProvider, errorHandler: errorHandler)
         super.setUp()
     }
     
@@ -31,7 +35,73 @@ class LoginViewModelTests: XCTestCase {
         //Act
         viewModel.viewDidLoad()
         //Assert
-        XCTAssertTrue(userInterface.setUpViewCalled)
+        XCTAssertTrue(userInterface.setUpViewCalledData.called)
+    }
+    
+    func testViewDidSetsUpViewWithDefaultValueForCheckBoxButton() throws {
+        //Arrange
+        //Act
+        viewModel.viewDidLoad()
+        //Assert
+        XCTAssertFalse(try userInterface.setUpViewCalledData.isActive.unwrap())
+    }
+    
+    func testViewDidLoadUpdatesLoginFiledsWithEmptyValues() {
+        //Arrange
+        accessService.getUserCredentialsReturnsError = true
+        let viewModel = LoginViewModel(userInterface: userInterface, coordinator: coordinatorMock, accessService: accessService,
+                                       contentProvider: contentProvider, errorHandler: errorHandler)
+        //Act
+        viewModel.viewDidLoad()
+        //Assert
+        XCTAssertEqual(userInterface.updateLoginFieldsData.email, "")
+        XCTAssertEqual(userInterface.updateLoginFieldsData.password, "")
+    }
+    
+    func testViewDidLoadUpdatesLoginFiledsWithFilledEmail() {
+        //Arrange
+        let email = "user@example.com"
+        accessService.userCredentials = LoginCredentials(email: email, password: "")
+        let viewModel = LoginViewModel(userInterface: userInterface, coordinator: coordinatorMock, accessService: accessService,
+                                       contentProvider: contentProvider, errorHandler: errorHandler)
+        //Act
+        viewModel.viewDidLoad()
+        //Assert
+        XCTAssertEqual(userInterface.updateLoginFieldsData.email, email)
+        XCTAssertEqual(userInterface.updateLoginFieldsData.password, "")
+    }
+    
+    func testViewDidLoadUpdatesLoginFiledsWithFilledPassword() {
+        //
+        let password = "password"
+        accessService.userCredentials = LoginCredentials(email: "", password: password)
+        let viewModel = LoginViewModel(userInterface: userInterface,
+                                       coordinator: coordinatorMock,
+                                       accessService: accessService,
+                                       contentProvider: contentProvider,
+                                       errorHandler: errorHandler)
+        //Act
+        viewModel.viewDidLoad()
+        //Assert
+        XCTAssertEqual(userInterface.updateLoginFieldsData.email, "")
+        XCTAssertEqual(userInterface.updateLoginFieldsData.password, password)
+    }
+    
+    func testViewDidLoadUpdatesLoginFiledsWithCorrectLoginCredentials() {
+        //Arrange
+        let email = "user@example.com"
+        let password = "password"
+        accessService.userCredentials = LoginCredentials(email: email, password: password)
+        let viewModel = LoginViewModel(userInterface: userInterface,
+                                       coordinator: coordinatorMock,
+                                       accessService: accessService,
+                                       contentProvider: contentProvider,
+                                       errorHandler: errorHandler)
+        //Act
+        viewModel.viewDidLoad()
+        //Assert
+        XCTAssertEqual(userInterface.updateLoginFieldsData.email, email)
+        XCTAssertEqual(userInterface.updateLoginFieldsData.password, password)
     }
     
     func testViewRequestedToChangeServerAddressCallsTearDownOnTheUserInerface() {
@@ -160,6 +230,24 @@ class LoginViewModelTests: XCTestCase {
         XCTAssertTrue(value)
     }
     
+    func testShouldRemeberUserBoxStatusDidChangeToFalse() throws {
+        //Arrange
+        //Act
+        viewModel.shouldRemeberUserBoxStatusDidChange(isActive: false)
+        //Assert
+        XCTAssertTrue(userInterface.checkBoxIsActiveStateValues.called)
+        XCTAssertTrue(try userInterface.checkBoxIsActiveStateValues.isActive.unwrap())
+    }
+    
+    func testShouldRemeberUserBoxStatusDidChangeToTrue() throws {
+        //Arrange
+        //Act
+        viewModel.shouldRemeberUserBoxStatusDidChange(isActive: false)
+        //Assert
+        XCTAssertTrue(userInterface.checkBoxIsActiveStateValues.called)
+        XCTAssertTrue(try userInterface.checkBoxIsActiveStateValues.isActive.unwrap())
+    }
+    
     func testViewRequestedToLoginWhileLoginIsEmpty() throws {
         //Arrange
         let expectedError = UIError.cannotBeEmpty(.loginTextField)
@@ -187,10 +275,61 @@ class LoginViewModelTests: XCTestCase {
         viewModel.passwordInputValueDidChange(value: "password")
         //Act
         viewModel.viewRequestedToLogin()
-        contentProvider.completion?(.success(Void()))
+        contentProvider.fetchCompletion?(.success(Void()))
         //Assert
         XCTAssertTrue(coordinatorMock.loginDidFinishCalled)
         XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly)
+    }
+    
+    func testViewRequestedToLoginFailsWhileSavingToDataBase() {
+        //Arrange
+        let expectedError = TestError(messsage: "")
+        viewModel.loginInputValueDidChange(value: "login")
+        viewModel.passwordInputValueDidChange(value: "password")
+        viewModel.shouldRemeberUserBoxStatusDidChange(isActive: false)
+        //Act
+        viewModel.viewRequestedToLogin()
+        contentProvider.fetchCompletion?(.success(Void()))
+        contentProvider.saveCompletion?(.failure(expectedError))
+        //Assert
+        switch errorHandler.throwedError as? AppError {
+        case .cannotRemeberUserCredentials(let error)?:
+               XCTAssertEqual(try (error as? TestError).unwrap(), expectedError)
+        default:
+            XCTFail()
+        }
+    }
+    
+    func testRequestedToLoginWithCorrectCredentialsAndShouldSaveUserCredenailsFails() throws {
+        //Arrange
+        viewModel.loginInputValueDidChange(value: "login")
+        viewModel.passwordInputValueDidChange(value: "password")
+        viewModel.shouldRemeberUserBoxStatusDidChange(isActive: false)
+        accessService.saveUserIsThrowingError = true
+        //Act
+        viewModel.viewRequestedToLogin()
+        contentProvider.fetchCompletion?(.success(Void()))
+        contentProvider.saveCompletion?(.success(Void()))
+        //Assert
+        XCTAssertTrue(coordinatorMock.loginDidFinishCalled)
+        XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly)
+        XCTAssertEqual(try (errorHandler.throwedError as? TestError).unwrap(), TestError(messsage: "save user"))
+    }
+    
+    func testRequestedToLoginWithCorrectCredentialsAndShouldSaveUserCredenailsSucceed() throws {
+        //Arrange
+        viewModel.loginInputValueDidChange(value: "login")
+        viewModel.passwordInputValueDidChange(value: "password")
+        viewModel.shouldRemeberUserBoxStatusDidChange(isActive: false)
+        accessService.saveUserIsThrowingError = false
+        //Act
+        viewModel.viewRequestedToLogin()
+        contentProvider.fetchCompletion?(.success(Void()))
+        contentProvider.saveCompletion?(.success(Void()))
+        //Assert
+        XCTAssertTrue(coordinatorMock.loginDidFinishCalled)
+        XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly)
+        XCTAssertTrue(accessService.saveUserCalled)
     }
     
     func testViewRequestedToLoginContentProviderReturnsAnError() throws {
@@ -200,7 +339,7 @@ class LoginViewModelTests: XCTestCase {
         viewModel.passwordInputValueDidChange(value: "password")
         //Act
         viewModel.viewRequestedToLogin()
-        contentProvider.completion?(.failure(expectedError))
+        contentProvider.fetchCompletion?(.failure(expectedError))
         //Assert
         let error = try (errorHandler.throwedError as? TestError).unwrap()
         XCTAssertEqual(error, expectedError)
@@ -208,14 +347,23 @@ class LoginViewModelTests: XCTestCase {
 }
 
 private class LoginViewControllerMock: LoginViewModelOutput {
-    private(set) var setUpViewCalled = false
+    
+    private(set) var setUpViewCalledData: (called: Bool, isActive: Bool?) = (false, nil)
+    private(set) var updateLoginFieldsCalled = false
+    private(set) var updateLoginFieldsData: (email: String?, password: String?)
     private(set) var tearDownCalled = false
     private(set) var passwordInputEnabledStateValues: (called: Bool, isEnabled: Bool?) = (false, nil)
     private(set) var loginButtonEnabledStateValues: (called: Bool, isEnabled: Bool?) = (false, nil)
+    private(set) var checkBoxIsActiveStateValues: (called: Bool, isActive: Bool?) = (false, nil)
     private(set) var focusOnPasswordTextFieldCalled = false
     
-    func setUpView() {
-        setUpViewCalled = true
+    func setUpView(checkBoxIsActive: Bool) {
+        setUpViewCalledData = (true, checkBoxIsActive)
+    }
+    
+    func updateLoginFields(email: String, password: String) {
+        updateLoginFieldsCalled = true
+        updateLoginFieldsData = (email, password)
     }
     
     func tearDown() {
@@ -228,6 +376,10 @@ private class LoginViewControllerMock: LoginViewModelOutput {
     
     func loginButtonEnabledState(_ isEnabled: Bool) {
         loginButtonEnabledStateValues = (true, isEnabled)
+    }
+    
+    func checkBoxIsActiveState(_ isActive: Bool) {
+        checkBoxIsActiveStateValues = (true, isActive)
     }
     
     func focusOnPasswordTextField() {
@@ -263,11 +415,13 @@ private class ErrorHandlerMock: ErrorHandlerType {
 
 private class LoginContentProviderMock: LoginContentProviderType {
     private(set) var loginCredentials: LoginCredentials?
-    private(set) var completion: ((Result<Void>) -> Void)?
+    private(set) var fetchCompletion: ((Result<Void>) -> Void)?
+    private(set) var saveCompletion: ((Result<Void>) -> Void)?
     
-    func login(with credentials: LoginCredentials, completion: @escaping ((Result<Void>) -> Void)) {
+    func login(with credentials: LoginCredentials, fetchCompletion: @escaping ((Result<Void>) -> Void), saveCompletion: @escaping ((Result<Void>) -> Void)) {
         self.loginCredentials = credentials
-        self.completion = completion
+        self.fetchCompletion = fetchCompletion
+        self.saveCompletion = saveCompletion
     }
 }
 
@@ -280,3 +434,32 @@ extension TestError: Equatable {
         return lhs.messsage == rhs.messsage
     }
 }
+
+private class AccessServiceMock: AccessServiceLoginCredentialsType {
+    var saveUserIsThrowingError = false
+    var userCredentials: LoginCredentials?
+    var getUserCredentialsReturnsError = false
+    
+    private(set) var saveUserCalled = false
+    
+    func saveUser(credentails: LoginCredentials) throws {
+        saveUserCalled = true
+        if saveUserIsThrowingError {
+            throw TestError(messsage: "save user")
+        }
+    }
+    
+    func getUserCredentials() throws -> LoginCredentials {
+        guard !getUserCredentialsReturnsError else {
+            throw TestError(messsage: "getUserCredentials error")
+        }
+        if let credentails = userCredentials {
+            return credentails
+        } else {
+            return LoginCredentials(email: "", password: "")
+        }
+    }
+    
+    func removeLastLoggedInUserIdentifier() {}
+}
+// swiftlint:enable file_length

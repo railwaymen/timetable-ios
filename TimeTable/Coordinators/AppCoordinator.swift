@@ -8,14 +8,30 @@
 
 import UIKit
 import Networking
+import KeychainAccess
 
 class AppCoordinator: BaseCoordinator {
     
     var navigationController: UINavigationController
-    private var storyboardsManager: StoryboardsManagerType
-    private var serverConfigurationManager: ServerConfigurationManagerType
+    private let storyboardsManager: StoryboardsManagerType
+    private let serverConfigurationManager: ServerConfigurationManagerType
     private let parentErrorHandler: ErrorHandlerType
     private var apiClient: ApiClientType?
+    private var accessService: AccessServiceLoginType?
+    private let coreDataStack: CoreDataStackType
+    private let bundle: BundleType
+    
+    private lazy var encoder: JSONEncoder = {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        return encoder
+    }()
+    
+    private lazy var decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
+    }()
     
     private var errorHandler: ErrorHandlerType {
         return parentErrorHandler.catchingError(action: { [weak self] error in
@@ -25,12 +41,15 @@ class AppCoordinator: BaseCoordinator {
     
     // MARK: - Initialization
     init(window: UIWindow?, storyboardsManager: StoryboardsManagerType,
-         errorHandler: ErrorHandlerType, serverConfigurationManager: ServerConfigurationManagerType) {
+         errorHandler: ErrorHandlerType, serverConfigurationManager: ServerConfigurationManagerType,
+         coreDataStack: CoreDataStackType, bundle: BundleType) {
         self.navigationController = UINavigationController()
         window?.rootViewController = navigationController
         self.storyboardsManager = storyboardsManager
         self.parentErrorHandler = errorHandler
         self.serverConfigurationManager = serverConfigurationManager
+        self.coreDataStack = coreDataStack
+        self.bundle = bundle
         super.init(window: window)
         self.navigationController.interactivePopGestureRecognizer?.delegate = nil
         self.navigationController.setNavigationBarHidden(true, animated: true)
@@ -41,8 +60,14 @@ class AppCoordinator: BaseCoordinator {
         defer {
             super.start()
         }
-        if let configuration = serverConfigurationManager.getOldConfiguration(), configuration.shouldRemeberHost {
-            self.runAuthenticationFlow(configuration: configuration)
+        if let configuration = serverConfigurationManager.getOldConfiguration(), configuration.shouldRememberHost {
+            let accessService = createAccessService(with: configuration)
+            do {
+                _ = try accessService.getUserCredentials()
+                self.runMainFlow()
+            } catch {
+                self.runAuthenticationFlow(configuration: configuration)
+            }
         } else {
             self.runServerConfigurationFlow()
         }
@@ -53,14 +78,32 @@ class AppCoordinator: BaseCoordinator {
         guard let hostURL = configuration.host else { return nil }
         let networking = Networking(baseURL: hostURL.absoluteString)
         return ApiClient(networking: networking, buildEncoder: {
-            let encoder = JSONEncoder()
-            encoder.dateEncodingStrategy = .iso8601
             return RequestEncoder(encoder: encoder, serialization: CustomJSONSerialization())
         }, buildDecoder: {
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .iso8601
             return decoder
         })
+    }
+    
+    private func createKeychain(with configuration: ServerConfiguration) -> Keychain {
+        if let host = configuration.host {
+            if host.isHTTP {
+                return Keychain(server: host, protocolType: .http)
+            } else if host.isHTTPS {
+                return Keychain(server: host, protocolType: .https)
+            }
+        }
+        guard let bundleIdentifier = bundle.bundleIdentifier else {
+            return Keychain()
+        }
+        return Keychain(accessGroup: bundleIdentifier)
+    }
+    
+    private func createAccessService(with configuration: ServerConfiguration) -> AccessServiceLoginType {
+        let keychainAccess = createKeychain(with: configuration)
+        return AccessService(userDefaults: UserDefaults.standard,
+                             keychainAccess: keychainAccess,
+                             buildEncoder: { return encoder },
+                             buildDecoder: { return decoder })
     }
     
     private func runServerConfigurationFlow() {
@@ -79,12 +122,15 @@ class AppCoordinator: BaseCoordinator {
     
     private func runAuthenticationFlow(configuration: ServerConfiguration) {
         self.apiClient = createApiClient(with: configuration)
+        let accessService = createAccessService(with: configuration)
+        self.accessService = accessService
         guard let apiClient = self.apiClient else { return }
-        
         let coordinator = AuthenticationCoordinator(navigationController: navigationController,
                                                     storyboardsManager: storyboardsManager,
+                                                    accessService: accessService,
                                                     apiClient: apiClient,
-                                                    errorHandler: errorHandler)
+                                                    errorHandler: errorHandler,
+                                                    coreDataStack: coreDataStack)
         addChildCoordinator(child: coordinator)
         coordinator.start { [weak self, weak coordinator] (state) in
             if let childCoordinator = coordinator {
@@ -94,8 +140,14 @@ class AppCoordinator: BaseCoordinator {
             case .changeAddress:
                 self?.runServerConfigurationFlow()
             case .loggedInCorrectly:
-                break
+                self?.runMainFlow()
             }
         }
+    }
+    
+    private func runMainFlow() {
+        let coordinator = TimeTableCoordinator(window: self.window)
+        coordinator.start(finishCompletion: {
+        })
     }
 }

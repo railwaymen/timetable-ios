@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct LoginCredentials: Encodable {
+struct LoginCredentials: Codable {
     var email: String
     var password: String
     
@@ -20,5 +20,11 @@ struct LoginCredentials: Encodable {
     init(email: String, password: String) {
         self.email = email
         self.password = password
+    }
+}
+
+extension LoginCredentials: Equatable {
+    static func == (lhs: LoginCredentials, rhs: LoginCredentials) -> Bool {
+        return lhs.email == rhs.email && lhs.password == rhs.password
     }
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="18B75" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="UserEntity" representedClassName="UserEntity" syncable="YES">
+        <attribute name="firstName" attributeType="String" syncable="YES"/>
+        <attribute name="identifier" attributeType="Integer 64" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="lastName" attributeType="String" syncable="YES"/>
+        <attribute name="token" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="UserEntity" positionX="-63" positionY="-18" width="128" height="105"/>
+    </elements>
+</model>

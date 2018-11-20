@@ -114,7 +114,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="checkBocButtonTapped:" destination="keO-oL-LbZ" eventType="touchUpInside" id="M20-Ar-AhE"/>
+                                                            <action selector="checkBoxButtonTapped:" destination="keO-oL-LbZ" eventType="touchUpInside" id="nVb-Jn-gBO"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stay signed in" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="I0R-pN-SRa">

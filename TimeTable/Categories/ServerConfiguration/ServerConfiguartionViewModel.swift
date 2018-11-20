@@ -34,7 +34,7 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
     private let errorHandler: ErrorHandlerType
     
     private var serverAddress: String?
-    private var shouldRemeberHost: Bool = true
+    private var shouldRememberHost: Bool = true
     
     // MARK: - Life Cycle
     init(userInterface: ServerConfigurationViewModelOutput, coordinator: ServerConfigurationCoordinatorDelagete,
@@ -49,8 +49,8 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
     func viewDidLoad() {
         let oldConfiguration = serverConfigurationManager.getOldConfiguration()
         self.serverAddress = oldConfiguration?.host?.absoluteString
-        self.shouldRemeberHost = oldConfiguration?.shouldRemeberHost ?? true
-        userInterface?.setupView(checkBoxIsActive: shouldRemeberHost, serverAddress: serverAddress ?? "")
+        self.shouldRememberHost = oldConfiguration?.shouldRememberHost ?? true
+        userInterface?.setupView(checkBoxIsActive: shouldRememberHost, serverAddress: serverAddress ?? "")
     }
     
     func viewWillDisappear() {
@@ -66,7 +66,7 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
             errorHandler.throwing(error: UIError.invalidFormat(.serverAddressTextField))
             return
         }
-        let configuration = ServerConfiguration(host: hostURL, shouldRemeberHost: shouldRemeberHost)
+        let configuration = ServerConfiguration(host: hostURL, shouldRememberHost: shouldRememberHost)
         serverConfigurationManager.verify(configuration: configuration) { [weak self] result in
             switch result {
             case .success:
@@ -91,7 +91,7 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
     }
     
     func shouldRemeberHostCheckBoxStatusDidChange(isActive: Bool) {
-        shouldRemeberHost = !isActive
+        shouldRememberHost = !isActive
         userInterface?.checkBoxIsActiveState(!isActive)
     }
     

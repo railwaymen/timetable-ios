@@ -29,7 +29,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="37f-hv-3Dy" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="284" width="374" height="250"/>
+                                        <rect key="frame" x="20" y="259" width="374" height="300"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RbS-IW-I5Q">
                                                 <rect key="frame" x="15" y="15" width="344" height="22"/>
@@ -37,7 +37,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="server_settings.label.title"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.label.title"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Enter your TimeTable server URL." textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="OiT-o1-SxI">
@@ -46,16 +46,16 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="server_settings.label.explanation"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.label.explanation"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="1la-8L-eIp">
-                                                <rect key="frame" x="15" y="74.666666666666686" width="344" height="115"/>
+                                                <rect key="frame" x="15" y="74.666666666666686" width="344" height="145"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Yct-ED-Kck">
-                                                        <rect key="frame" x="22" y="0.0" width="300" height="70"/>
+                                                        <rect key="frame" x="22" y="0.0" width="300" height="100"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z1B-zV-UZJ">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="login.text_feild.email" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z1B-zV-UZJ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="999" constant="300" id="3ng-Jz-Md6"/>
@@ -84,15 +84,62 @@
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.text_feild.password"/>
+                                                                </userDefinedRuntimeAttributes>
                                                                 <connections>
                                                                     <action selector="passwordTextFieldDidChange:" destination="prJ-rF-eRP" eventType="editingChanged" id="IZ7-kt-I9N"/>
                                                                     <outlet property="delegate" destination="prJ-rF-eRP" id="c4l-Iu-twB"/>
                                                                 </connections>
                                                             </textField>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IgD-qW-NvB">
+                                                                <rect key="frame" x="0.0" y="80" width="300" height="20"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Hy-Wy-5Er" customClass="CheckBoxButton" customModule="TimeTable" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="20" id="31S-Ci-8wP"/>
+                                                                            <constraint firstAttribute="width" constant="20" id="McI-om-0eN"/>
+                                                                        </constraints>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isActive" value="YES"/>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="1"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" red="0.62745098040000002" green="0.62745098040000002" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="checkBoxButtonTapped:" destination="prJ-rF-eRP" eventType="touchUpInside" id="v11-kF-ehv"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stay signed in" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="kAh-Lh-QUc">
+                                                                        <rect key="frame" x="28" y="1.6666666666666288" width="85" height="17"/>
+                                                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="13"/>
+                                                                        <color key="textColor" red="0.62745098040000002" green="0.62745098040000002" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.label.stay_signed_in"/>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="7Hy-Wy-5Er" firstAttribute="top" secondItem="IgD-qW-NvB" secondAttribute="top" id="SgO-Ib-reA"/>
+                                                                    <constraint firstItem="kAh-Lh-QUc" firstAttribute="leading" secondItem="7Hy-Wy-5Er" secondAttribute="trailing" constant="8" id="TjQ-TN-AhS"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="7Hy-Wy-5Er" secondAttribute="bottom" id="ai7-fq-9nS"/>
+                                                                    <constraint firstItem="7Hy-Wy-5Er" firstAttribute="leading" secondItem="IgD-qW-NvB" secondAttribute="leading" id="eDM-N6-hcv"/>
+                                                                    <constraint firstItem="kAh-Lh-QUc" firstAttribute="centerY" secondItem="7Hy-Wy-5Er" secondAttribute="centerY" id="zyf-tt-aEB"/>
+                                                                </constraints>
+                                                            </view>
                                                         </subviews>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i9V-Qh-o4R" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
-                                                        <rect key="frame" x="63.666666666666686" y="85" width="217" height="30"/>
+                                                        <rect key="frame" x="108.66666666666666" y="115" width="127" height="30"/>
                                                         <color key="backgroundColor" red="0.1764705882" green="0.72156862749999995" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="wqL-vz-WbN"/>
@@ -101,7 +148,7 @@
                                                             <color key="titleColor" red="0.93230950339999996" green="0.96789383559999997" blue="0.96992722600000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="server_settings.button.continue"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.button.log_in"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                 <real key="value" value="5"/>
                                                             </userDefinedRuntimeAttribute>
@@ -127,8 +174,11 @@
                                                 </variation>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A9f-Ib-OZV">
-                                                <rect key="frame" x="15" y="204.66666666666663" width="344" height="30.333333333333343"/>
+                                                <rect key="frame" x="15" y="234.66666666666666" width="344" height="50.333333333333343"/>
                                                 <state key="normal" title="Would you like to change the server address?"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.button.change_server_address"/>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="changeServerAddressTappedWithSender:" destination="prJ-rF-eRP" eventType="touchUpInside" id="gzp-TL-Wou"/>
                                                 </connections>
@@ -148,7 +198,7 @@
                                             <constraint firstAttribute="trailing" secondItem="RbS-IW-I5Q" secondAttribute="trailing" constant="15" id="ZGr-7i-jZX"/>
                                             <constraint firstItem="A9f-Ib-OZV" firstAttribute="top" secondItem="1la-8L-eIp" secondAttribute="bottom" constant="15" id="cA5-i8-Zm4"/>
                                             <constraint firstItem="OiT-o1-SxI" firstAttribute="leading" secondItem="37f-hv-3Dy" secondAttribute="leading" constant="15" id="d02-Zr-pT3"/>
-                                            <constraint firstAttribute="height" priority="999" constant="250" id="k1Z-QL-ZFK"/>
+                                            <constraint firstAttribute="height" priority="999" constant="300" id="k1Z-QL-ZFK"/>
                                             <constraint firstAttribute="bottom" secondItem="A9f-Ib-OZV" secondAttribute="bottom" constant="15" id="s7Y-X1-1kC"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
@@ -219,6 +269,7 @@
                     </view>
                     <connections>
                         <outlet property="bottomLayoutConstraint" destination="Ztm-38-il2" id="PI7-Bf-NY3"/>
+                        <outlet property="checkBoxButton" destination="7Hy-Wy-5Er" id="uwI-HS-1U7"/>
                         <outlet property="loginButton" destination="i9V-Qh-o4R" id="syc-04-fjs"/>
                         <outlet property="loginTextField" destination="Z1B-zV-UZJ" id="YHF-sk-owN"/>
                         <outlet property="passwordTextField" destination="zsz-ds-g8F" id="cUw-dS-I6q"/>

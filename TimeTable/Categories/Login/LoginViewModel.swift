@@ -9,11 +9,13 @@
 import Foundation
 
 protocol LoginViewModelOutput: class {
-    func setUpView()
+    func setUpView(checkBoxIsActive: Bool)
+    func updateLoginFields(email: String, password: String)
     func tearDown()
     func passwordInputEnabledState(_ isEnabled: Bool)
     func loginButtonEnabledState(_ isEnabled: Bool)
     func focusOnPasswordTextField()
+    func checkBoxIsActiveState(_ isActive: Bool)
 }
 
 protocol LoginViewModelType: class {
@@ -22,6 +24,7 @@ protocol LoginViewModelType: class {
     func loginTextFieldDidRequestForReturn() -> Bool
     func passwordInputValueDidChange(value: String?)
     func passwordTextFieldDidRequestForReturn() -> Bool
+    func shouldRemeberUserBoxStatusDidChange(isActive: Bool)
     func viewRequestedToLogin()
     func viewRequestedToChangeServerAddress()
 }
@@ -31,21 +34,29 @@ class LoginViewModel: LoginViewModelType {
     private weak var userInterface: LoginViewModelOutput?
     private let coordinator: LoginCoordinatorDelegate
     private let contentProvider: LoginContentProviderType
+    private let accessService: AccessServiceLoginCredentialsType
     private let errorHandler: ErrorHandlerType
     private var loginCredentials: LoginCredentials
+    private var shouldRememberLoginCredentilas: Bool = false
 
-    init(userInterface: LoginViewModelOutput, coordinator: LoginCoordinatorDelegate,
+    init(userInterface: LoginViewModelOutput, coordinator: LoginCoordinatorDelegate, accessService: AccessServiceLoginCredentialsType,
          contentProvider: LoginContentProviderType, errorHandler: ErrorHandlerType) {
         self.userInterface = userInterface
         self.coordinator = coordinator
+        self.accessService = accessService
         self.contentProvider = contentProvider
-        self.loginCredentials = LoginCredentials(email: "", password: "")
         self.errorHandler = errorHandler
+        do {
+            self.loginCredentials = try accessService.getUserCredentials()
+        } catch {
+            self.loginCredentials = LoginCredentials(email: "", password: "")
+        }
     }
     
     // MARK: - LoginViewModelOutput
     func viewDidLoad() {
-        userInterface?.setUpView()
+        userInterface?.setUpView(checkBoxIsActive: shouldRememberLoginCredentilas)
+        self.userInterface?.updateLoginFields(email: loginCredentials.email, password: loginCredentials.password)
     }
     
     func loginInputValueDidChange(value: String?) {
@@ -74,6 +85,11 @@ class LoginViewModel: LoginViewModelType {
         return isCorrect
     }
     
+    func shouldRemeberUserBoxStatusDidChange(isActive: Bool) {
+        shouldRememberLoginCredentilas = !isActive
+        userInterface?.checkBoxIsActiveState(!isActive)
+    }
+    
     func viewRequestedToLogin() {
         guard !loginCredentials.email.isEmpty else {
             errorHandler.throwing(error: UIError.cannotBeEmpty(.loginTextField))
@@ -85,14 +101,23 @@ class LoginViewModel: LoginViewModelType {
             return
         }
         
-        contentProvider.login(with: loginCredentials) { [weak self] result in
+        contentProvider.login(with: loginCredentials, fetchCompletion: { [weak self] result in
             switch result {
             case .success:
                 self?.coordinator.loginDidFinish(with: .loggedInCorrectly)
             case .failure(let error):
                 self?.errorHandler.throwing(error: error)
             }
-        }
+            }, saveCompletion: { [weak self, credentials = self.loginCredentials, shouldSave = self.shouldRememberLoginCredentilas] result in
+                if shouldSave {
+                    switch result {
+                    case .success:
+                        self?.save(credentials: credentials)
+                    case .failure(let error):
+                        self?.errorHandler.throwing(error: AppError.cannotRemeberUserCredentials(error: error))
+                    }
+                }
+        })
     }
     
     func viewRequestedToChangeServerAddress() {
@@ -104,5 +129,13 @@ class LoginViewModel: LoginViewModelType {
     private func updateView() {
         userInterface?.passwordInputEnabledState((!loginCredentials.password.isEmpty && loginCredentials.email.isEmpty) || !loginCredentials.email.isEmpty)
         userInterface?.loginButtonEnabledState(!loginCredentials.email.isEmpty && !loginCredentials.password.isEmpty)
+    }
+    
+    private func save(credentials: LoginCredentials) {
+        do {
+            try accessService.saveUser(credentails: credentials)
+        } catch {
+            errorHandler.throwing(error: error)
+        }
     }
 }

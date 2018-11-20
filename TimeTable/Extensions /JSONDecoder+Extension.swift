@@ -1,5 +1,5 @@
 //
-//  JSONDecoderType.swift
+//  JSONDecoder+Extension.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 07/11/2018.

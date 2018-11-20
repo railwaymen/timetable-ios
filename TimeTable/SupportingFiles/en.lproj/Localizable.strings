@@ -10,6 +10,14 @@
 "server_settings.button.continue" = "Continue";
 "server_settings.label.stay_signed_in" = "Stay signed in";
 
+"login.label.title" = "Sing in";
+"login.label.explanation" = "Please enter email and password";
+"login.label.stay_signed_in" = "Stay signed in";
+"login.text_feild.email" = "e-mail";
+"login.text_feild.password" = "Password";
+"login.button.log_in" = "Log in";
+"login.button.change_server_address" = "Would you like to change the server address?";
+
 // UIErros
 "ui.error.cannot_be_empty" = "- cannot be empty.";
 "ui.error.invalid_format" = "invalid format.";

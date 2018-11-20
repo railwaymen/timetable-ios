@@ -19,6 +19,7 @@ class LoginViewController: UIViewController {
     @IBOutlet private var bottomLayoutConstraint: NSLayoutConstraint!
     @IBOutlet private var loginTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
+    @IBOutlet private var checkBoxButton: CheckBoxButton!
     @IBOutlet private var loginButton: UIButton!
     
     private var notificationCenter: NotificationCenterType!
@@ -41,6 +42,10 @@ class LoginViewController: UIViewController {
     
     @IBAction private func loginButtonTapped(sender: UIButton) {
         viewModel.viewRequestedToLogin()
+    }
+    
+    @IBAction private func checkBoxButtonTapped(_ sender: CheckBoxButton) {
+        viewModel?.shouldRemeberUserBoxStatusDidChange(isActive: sender.isActive)
     }
     
     @IBAction private func changeServerAddressTapped(sender: UIButton) {
@@ -69,16 +74,22 @@ class LoginViewController: UIViewController {
 
 // MARK: - LoginViewModelOutput
 extension LoginViewController: LoginViewModelOutput {
-    func setUpView() {
+    func setUpView(checkBoxIsActive: Bool) {
         notificationCenter.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
-        loginButton.isEnabled = false
-        passwordTextField.isEnabled = false
+        checkBoxButton.isActive = checkBoxIsActive
         passwordTextField.isSecureTextEntry = true
         
         loginTextField.delegate = self
         passwordTextField.delegate = self
+    }
+    
+    func updateLoginFields(email: String, password: String) {
+        loginTextField.text = email
+        passwordTextField.text = password
+        passwordTextField.isEnabled = !password.isEmpty
+        loginButton.isEnabled = !(email.isEmpty && password.isEmpty)
     }
     
     func tearDown() {
@@ -95,6 +106,10 @@ extension LoginViewController: LoginViewModelOutput {
     
     func focusOnPasswordTextField() {
         passwordTextField.becomeFirstResponder()
+    }
+    
+    func checkBoxIsActiveState(_ isActive: Bool) {
+        checkBoxButton.isActive = isActive
     }
 }
 
