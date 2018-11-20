@@ -17,7 +17,7 @@ protocol AccessServiceLoginCredentialsType: class {
 }
 
 protocol AccessServiceUserIDType: class {
-    func saveLastLoggedInUserIdentifier(_ id: Int64)
+    func saveLastLoggedInUserIdentifier(_ identifer: Int64)
     func getLastLoggedInUserIdentifier() -> Int64?
 }
 
@@ -58,25 +58,20 @@ extension AccessService: AccessServiceLoginCredentialsType {
     }
     
     func getUserCredentials() throws -> LoginCredentials {
-        do {
-            guard let data = try keychainAccess.getData(Keys.loginCredentialsKey) else { throw Error.cannotFetchLoginCredentials }
-            return try decoder.decode(LoginCredentials.self, from: data)
-        } catch {
-            throw Error.cannotFetchLoginCredentials
-        }
+        guard let data = try keychainAccess.getData(Keys.loginCredentialsKey) else { throw Error.cannotFetchLoginCredentials }
+        return try decoder.decode(LoginCredentials.self, from: data)
     }
 }
 
 // MARK: - AccessServiceUserIDType
 extension AccessService: AccessServiceUserIDType {
-    func saveLastLoggedInUserIdentifier(_ id: Int64) {
-        userDefaults.set(id, forKey: Keys.lastLoggedInUserIdentifier)
+    func saveLastLoggedInUserIdentifier(_ identifer: Int64) {
+        userDefaults.set(identifer, forKey: Keys.lastLoggedInUserIdentifier)
     }
     
     func getLastLoggedInUserIdentifier() -> Int64? {
-        guard let identifierStringValue = userDefaults.string(forKey: Keys.lastLoggedInUserIdentifier) else { return nil }
-        guard let identifier = Int(identifierStringValue) else { return nil }
-        return Int64(identifier)
+        guard let identifier = userDefaults.object(forKey: Keys.lastLoggedInUserIdentifier) as? Int64 else { return nil }
+        return identifier
     }
     
     func removeLastLoggedInUserIdentifier() {

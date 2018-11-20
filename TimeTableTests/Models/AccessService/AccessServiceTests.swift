@@ -81,11 +81,7 @@ class AccessServiceTests: XCTestCase {
             _ = try accessService.getUserCredentials()
         } catch {
             //Assert
-            switch error as? AccessService.Error {
-            case .cannotFetchLoginCredentials?: break
-            default:
-                XCTFail()
-            }
+            XCTAssertEqual(try (error as? TestError).unwrap(), TestError(messsage: "set Data error"))
         }
     }
     
@@ -116,11 +112,7 @@ class AccessServiceTests: XCTestCase {
             _ = try accessService.getUserCredentials()
         } catch {
             //Assert
-            switch error as? AccessService.Error {
-            case .cannotFetchLoginCredentials?: break
-            default:
-                XCTFail()
-            }
+            XCTAssertEqual(try (error as? TestError).unwrap(), TestError(messsage: "decode error"))
         }
     }
 
@@ -138,19 +130,72 @@ class AccessServiceTests: XCTestCase {
             XCTFail()
         }
     }
+    
+    func testSaveLastLoggedInUserIdentifier() throws {
+        //Arrange
+        let identifier = Int64(2)
+        //Act
+        accessService.saveLastLoggedInUserIdentifier(identifier)
+        //Assert
+        XCTAssertEqual(try (userDefaultsMock.setAnyValue as? Int64).unwrap(), identifier)
+    }
+    
+    func testGetLastLoggedInUserIdentifierReturnsNilWhileUserDefaultsReturnsNil() {
+        //Arrange
+        //Act
+        let identifier = accessService.getLastLoggedInUserIdentifier()
+        //Assert
+        XCTAssertNil(identifier)
+    }
+    
+    func testGetLastLoggedInUserIdentifierReturnsNilWhileUserDefaultsReturnsNotAnInt64() {
+        //Arrange
+        userDefaultsMock.objectForKey = "TEST"
+        //Act
+        let identifier = accessService.getLastLoggedInUserIdentifier()
+        //Assert
+        XCTAssertNil(identifier)
+    }
+    
+    func testGetLastLoggedInUserIdentifierReturnsCorrectValue() {
+        //Arrange
+        let expectedIdentifier = Int64(3)
+        userDefaultsMock.objectForKey = expectedIdentifier
+        //Act
+        let identifier = accessService.getLastLoggedInUserIdentifier()
+        //Assert
+        XCTAssertEqual(identifier, expectedIdentifier)
+    }
+    
+    func testRemoveLastLoggedInUserIdentifier() {
+        //Arrange
+        //Act
+        accessService.removeLastLoggedInUserIdentifier()
+        //Assert
+        XCTAssertTrue(userDefaultsMock.removeObjectCalled)
+    }
 }
 
 private class UserDefaultsMock: UserDefaultsType {
-    func bool(forKey defaultName: String) -> Bool {
-        return false
+    private(set) var removeObjectCalled = false
+    private(set) var setAnyValue: Any?
+    var objectForKey: Any?
+    
+    func bool(forKey defaultName: String) -> Bool { return false }
+    
+    func removeObject(forKey defaultName: String) {
+        removeObjectCalled = true
     }
     
-    func removeObject(forKey defaultName: String) {}
-    func set(_ value: Any?, forKey defaultName: String) {}
-    func set(_ value: Bool, forKey defaultName: String) {}
+    func set(_ value: Any?, forKey defaultName: String) {
+        self.setAnyValue = value
+    }
     
-    func string(forKey defaultName: String) -> String? {
-        return nil
+    func set(_ value: Bool, forKey defaultName: String) {}
+    func string(forKey defaultName: String) -> String? { return nil }
+    
+    func object(forKey defaultName: String) -> Any? {
+        return objectForKey
     }
 }
 

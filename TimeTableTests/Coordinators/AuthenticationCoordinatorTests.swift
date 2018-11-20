@@ -122,9 +122,14 @@ private class CoreDataStackMock: CoreDataStackType {
     func fetchUser(forIdentifier identifier: Int, completion: @escaping (Result<UserEntity>) -> Void) {}
 }
 
-private class AccessServiceMock: AccessServiceLoginCredentialsType {
+private class AccessServiceMock: AccessServiceLoginType {
+    func saveLastLoggedInUserIdentifier(_ identifer: Int64) {}
+    func getLastLoggedInUserIdentifier() -> Int64? {
+        return nil
+    }
     func saveUser(credentails: LoginCredentials) throws {}
     func getUserCredentials() throws -> LoginCredentials {
         return LoginCredentials(email: "", password: "")
     }
+    func removeLastLoggedInUserIdentifier() {}
 }

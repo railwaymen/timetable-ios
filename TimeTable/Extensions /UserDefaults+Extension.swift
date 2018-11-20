@@ -14,6 +14,7 @@ protocol UserDefaultsType {
     func set(_ value: Any?, forKey defaultName: String)
     func set(_ value: Bool, forKey defaultName: String)
     func string(forKey defaultName: String) -> String?
+    func object(forKey defaultName: String) -> Any?
 }
 
 extension UserDefaults: UserDefaultsType {}

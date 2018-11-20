@@ -9,6 +9,7 @@
 import XCTest
 @testable import TimeTable
 
+// swiftlint:disable file_length
 class LoginViewModelTests: XCTestCase {
     
     private var userInterface: LoginViewControllerMock!
@@ -47,7 +48,7 @@ class LoginViewModelTests: XCTestCase {
     
     func testViewDidLoadUpdatesLoginFiledsWithEmptyValues() {
         //Arrange
-        accessService.userCredentials = LoginCredentials(email: "", password: "")
+        accessService.getUserCredentialsReturnsError = true
         let viewModel = LoginViewModel(userInterface: userInterface, coordinator: coordinatorMock, accessService: accessService,
                                        contentProvider: contentProvider, errorHandler: errorHandler)
         //Act
@@ -274,10 +275,29 @@ class LoginViewModelTests: XCTestCase {
         viewModel.passwordInputValueDidChange(value: "password")
         //Act
         viewModel.viewRequestedToLogin()
-        contentProvider.completion?(.success(Void()))
+        contentProvider.fetchCompletion?(.success(Void()))
         //Assert
         XCTAssertTrue(coordinatorMock.loginDidFinishCalled)
         XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly)
+    }
+    
+    func testViewRequestedToLoginFailsWhileSavingToDataBase() {
+        //Arrange
+        let expectedError = TestError(messsage: "")
+        viewModel.loginInputValueDidChange(value: "login")
+        viewModel.passwordInputValueDidChange(value: "password")
+        viewModel.shouldRemeberUserBoxStatusDidChange(isActive: false)
+        //Act
+        viewModel.viewRequestedToLogin()
+        contentProvider.fetchCompletion?(.success(Void()))
+        contentProvider.saveCompletion?(.failure(expectedError))
+        //Assert
+        switch errorHandler.throwedError as? AppError {
+        case .cannotRemeberUserCredentials(let error)?:
+               XCTAssertEqual(try (error as? TestError).unwrap(), expectedError)
+        default:
+            XCTFail()
+        }
     }
     
     func testRequestedToLoginWithCorrectCredentialsAndShouldSaveUserCredenailsFails() throws {
@@ -288,7 +308,8 @@ class LoginViewModelTests: XCTestCase {
         accessService.saveUserIsThrowingError = true
         //Act
         viewModel.viewRequestedToLogin()
-        contentProvider.completion?(.success(Void()))
+        contentProvider.fetchCompletion?(.success(Void()))
+        contentProvider.saveCompletion?(.success(Void()))
         //Assert
         XCTAssertTrue(coordinatorMock.loginDidFinishCalled)
         XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly)
@@ -303,7 +324,8 @@ class LoginViewModelTests: XCTestCase {
         accessService.saveUserIsThrowingError = false
         //Act
         viewModel.viewRequestedToLogin()
-        contentProvider.completion?(.success(Void()))
+        contentProvider.fetchCompletion?(.success(Void()))
+        contentProvider.saveCompletion?(.success(Void()))
         //Assert
         XCTAssertTrue(coordinatorMock.loginDidFinishCalled)
         XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly)
@@ -317,7 +339,7 @@ class LoginViewModelTests: XCTestCase {
         viewModel.passwordInputValueDidChange(value: "password")
         //Act
         viewModel.viewRequestedToLogin()
-        contentProvider.completion?(.failure(expectedError))
+        contentProvider.fetchCompletion?(.failure(expectedError))
         //Assert
         let error = try (errorHandler.throwedError as? TestError).unwrap()
         XCTAssertEqual(error, expectedError)
@@ -393,11 +415,13 @@ private class ErrorHandlerMock: ErrorHandlerType {
 
 private class LoginContentProviderMock: LoginContentProviderType {
     private(set) var loginCredentials: LoginCredentials?
-    private(set) var completion: ((Result<Void>) -> Void)?
+    private(set) var fetchCompletion: ((Result<Void>) -> Void)?
+    private(set) var saveCompletion: ((Result<Void>) -> Void)?
     
-    func login(with credentials: LoginCredentials, completion: @escaping ((Result<Void>) -> Void)) {
+    func login(with credentials: LoginCredentials, fetchCompletion: @escaping ((Result<Void>) -> Void), saveCompletion: @escaping ((Result<Void>) -> Void)) {
         self.loginCredentials = credentials
-        self.completion = completion
+        self.fetchCompletion = fetchCompletion
+        self.saveCompletion = saveCompletion
     }
 }
 
@@ -414,6 +438,8 @@ extension TestError: Equatable {
 private class AccessServiceMock: AccessServiceLoginCredentialsType {
     var saveUserIsThrowingError = false
     var userCredentials: LoginCredentials?
+    var getUserCredentialsReturnsError = false
+    
     private(set) var saveUserCalled = false
     
     func saveUser(credentails: LoginCredentials) throws {
@@ -424,10 +450,16 @@ private class AccessServiceMock: AccessServiceLoginCredentialsType {
     }
     
     func getUserCredentials() throws -> LoginCredentials {
+        guard !getUserCredentialsReturnsError else {
+            throw TestError(messsage: "getUserCredentials error")
+        }
         if let credentails = userCredentials {
             return credentails
         } else {
             return LoginCredentials(email: "", password: "")
         }
     }
+    
+    func removeLastLoggedInUserIdentifier() {}
 }
+// swiftlint:enable file_length

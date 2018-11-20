@@ -47,8 +47,7 @@ class LoginViewModel: LoginViewModelType {
         self.contentProvider = contentProvider
         self.errorHandler = errorHandler
         do {
-            let user = try accessService.getUserCredentials()
-            self.loginCredentials = LoginCredentials(email: user.email, password: user.password)
+            self.loginCredentials = try accessService.getUserCredentials()
         } catch {
             self.loginCredentials = LoginCredentials(email: "", password: "")
         }

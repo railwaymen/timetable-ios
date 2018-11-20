@@ -277,6 +277,8 @@ private class UserDefaultsMock: UserDefaultsType {
     func string(forKey defaultName: String) -> String? {
         return (setAnyValueDictionary[defaultName] as? String) ?? nil
     }
+    
+    func object(forKey defaultName: String) -> Any? { return nil }
 }
 
 private struct TestError: Error {
