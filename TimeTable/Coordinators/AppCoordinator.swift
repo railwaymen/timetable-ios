@@ -61,7 +61,13 @@ class AppCoordinator: BaseCoordinator {
             super.start()
         }
         if let configuration = serverConfigurationManager.getOldConfiguration(), configuration.shouldRememberHost {
-            self.runAuthenticationFlow(configuration: configuration)
+            let accessService = createAccessService(with: configuration)
+            do {
+                _ = try accessService.getUserCredentials()
+                self.runMainFlow()
+            } catch {
+                self.runAuthenticationFlow(configuration: configuration)
+            }
         } else {
             self.runServerConfigurationFlow()
         }
