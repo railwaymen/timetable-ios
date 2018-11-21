@@ -414,11 +414,10 @@
 				C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */,
 				C1E6B34A219EF02100019DC2 /* AccessService */,
 				C1531F022191C52200602A0C /* ApiClient */,
+				C12CA57821A58FA70082FEB7 /* BussinessModels */,
 				C1FA05D12194108200BD8C9D /* CoreData */,
 				C1249C7D2181B4CF005DB2A5 /* Errors */,
-				C12CA56621A5786E0082FEB7 /* Projects */,
 				C122601D21899F0D007D64A3 /* ServerConfiguration */,
-				C1B8FA47218C9617009D10B4 /* Session */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -429,11 +428,10 @@
 				C1249C792181AC49005DB2A5 /* StoryboardsManagerTests.swift */,
 				C1AFFFD721A2ACB100A7A632 /* AccessService */,
 				C1531F052191CD2800602A0C /* ApiClient */,
+				C12CA57921A58FD20082FEB7 /* BussinessModels */,
 				C1FA05E72194465900BD8C9D /* CoreData */,
 				C1249C832181B556005DB2A5 /* Errors */,
-				C12CA56D21A58BD70082FEB7 /* Projects */,
 				C17EA3B62189E01F00A3F0CD /* ServerConfiguration */,
-				C1B8FA46218C95D3009D10B4 /* Session */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -495,6 +493,32 @@
 				C12CA57521A58D2E0082FEB7 /* workTimesProjectMissingColorKeyResponse.json */,
 			);
 			path = Projects;
+			sourceTree = "<group>";
+		};
+		C12CA57721A58F860082FEB7 /* WorkTimes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WorkTimes;
+			sourceTree = "<group>";
+		};
+		C12CA57821A58FA70082FEB7 /* BussinessModels */ = {
+			isa = PBXGroup;
+			children = (
+				C12CA56621A5786E0082FEB7 /* Projects */,
+				C1B8FA47218C9617009D10B4 /* Session */,
+				C12CA57721A58F860082FEB7 /* WorkTimes */,
+			);
+			path = BussinessModels;
+			sourceTree = "<group>";
+		};
+		C12CA57921A58FD20082FEB7 /* BussinessModels */ = {
+			isa = PBXGroup;
+			children = (
+				C12CA56D21A58BD70082FEB7 /* Projects */,
+				C1B8FA46218C95D3009D10B4 /* Session */,
+			);
+			path = BussinessModels;
 			sourceTree = "<group>";
 		};
 		C1531F022191C52200602A0C /* ApiClient */ = {
