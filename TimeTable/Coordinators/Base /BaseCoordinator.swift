@@ -35,8 +35,9 @@ class BaseCoordinator: CoordinatorType, CoordinatorErrorPresenterType {
         children[child] = child
     }
     
-    func removeChildCoordinator(child: BaseCoordinator) {
-        children[child] = nil
+    func removeChildCoordinator(child: BaseCoordinator?) {
+        guard let coordinator = child else { return }
+        children[coordinator] = nil
     }
     
     // MARK: - CoordinatorErrorPresenterType

@@ -20,7 +20,7 @@ protocol CoordinatorType: class, Hashable {
     func start(finishCompletion: (() -> Void)?)
     func finish()
     func addChildCoordinator(child: Coordinator)
-    func removeChildCoordinator(child: Coordinator)
+    func removeChildCoordinator(child: Coordinator?)
 }
 
 extension CoordinatorType {

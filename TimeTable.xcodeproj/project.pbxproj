@@ -57,6 +57,12 @@
 		C17EA3BA2189E9BA00A3F0CD /* ApiErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3B92189E9BA00A3F0CD /* ApiErrorTests.swift */; };
 		C17EA3BC2189EC1700A3F0CD /* URLSessionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */; };
 		C19DDB1321A42043008C6FA3 /* URLExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19DDB1221A42043008C6FA3 /* URLExtensionTests.swift */; };
+		C1AACFCF21A4349B0023FD32 /* ProjectsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFCE21A4349B0023FD32 /* ProjectsCoordinator.swift */; };
+		C1AACFD221A4353B0023FD32 /* BaseNavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD121A4353B0023FD32 /* BaseNavigationCoordinator.swift */; };
+		C1AACFD421A435AD0023FD32 /* BaseTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD321A435AD0023FD32 /* BaseTabBarCoordinator.swift */; };
+		C1AACFD621A438660023FD32 /* UserCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD521A438660023FD32 /* UserCoordinator.swift */; };
+		C1AACFD821A4387F0023FD32 /* WorkTimeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD721A4387F0023FD32 /* WorkTimeCoordinator.swift */; };
+		C1AACFDA21A440650023FD32 /* BaseTabBarControllerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD921A440650023FD32 /* BaseTabBarControllerType.swift */; };
 		C1AFFFD921A2ACC100A7A632 /* AccessServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AFFFD821A2ACC100A7A632 /* AccessServiceTests.swift */; };
 		C1AFFFDB21A2CD2000A7A632 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AFFFDA21A2CD2000A7A632 /* AppError.swift */; };
 		C1AFFFE321A2D16F00A7A632 /* TimeTableCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AFFFE221A2D16F00A7A632 /* TimeTableCoordinator.swift */; };
@@ -181,6 +187,12 @@
 		C1A10AB521772DB100A83651 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Configuration/Debug.xcconfig; sourceTree = SOURCE_ROOT; };
 		C1A10AB621772DB100A83651 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Configuration/Release.xcconfig; sourceTree = SOURCE_ROOT; };
 		C1A10AB721772DB100A83651 /* Stage.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Stage.xcconfig; path = Configuration/Stage.xcconfig; sourceTree = SOURCE_ROOT; };
+		C1AACFCE21A4349B0023FD32 /* ProjectsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsCoordinator.swift; sourceTree = "<group>"; };
+		C1AACFD121A4353B0023FD32 /* BaseNavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationCoordinator.swift; sourceTree = "<group>"; };
+		C1AACFD321A435AD0023FD32 /* BaseTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarCoordinator.swift; sourceTree = "<group>"; };
+		C1AACFD521A438660023FD32 /* UserCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoordinator.swift; sourceTree = "<group>"; };
+		C1AACFD721A4387F0023FD32 /* WorkTimeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCoordinator.swift; sourceTree = "<group>"; };
+		C1AACFD921A440650023FD32 /* BaseTabBarControllerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarControllerType.swift; sourceTree = "<group>"; };
 		C1AFFFD821A2ACC100A7A632 /* AccessServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessServiceTests.swift; sourceTree = "<group>"; };
 		C1AFFFDA21A2CD2000A7A632 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		C1AFFFE221A2D16F00A7A632 /* TimeTableCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableCoordinator.swift; sourceTree = "<group>"; };
@@ -340,8 +352,8 @@
 			children = (
 				C1249C732181A3D0005DB2A5 /* AppCoordinator.swift */,
 				C1F926E7218839C00004A9BC /* AuthenticationCoordinator.swift */,
-				C1249C642181A1B7005DB2A5 /* BaseCoordinator.swift */,
 				C1F7C2DD2190436B00F4FAF0 /* ServerConfigurationCoordinator.swift */,
+				C1AACFD021A4352C0023FD32 /* Base  */,
 				C1249C662181A1CF005DB2A5 /* Protocols */,
 				C1AFFFE121A2D15C00A7A632 /* TimeTable */,
 			);
@@ -567,6 +579,40 @@
 			name = Configuration;
 			sourceTree = "<group>";
 		};
+		C1AACFCB21A4345C0023FD32 /* Projects */ = {
+			isa = PBXGroup;
+			children = (
+				C1AACFCE21A4349B0023FD32 /* ProjectsCoordinator.swift */,
+			);
+			path = Projects;
+			sourceTree = "<group>";
+		};
+		C1AACFCC21A434650023FD32 /* WorkTime */ = {
+			isa = PBXGroup;
+			children = (
+				C1AACFD721A4387F0023FD32 /* WorkTimeCoordinator.swift */,
+			);
+			path = WorkTime;
+			sourceTree = "<group>";
+		};
+		C1AACFCD21A434780023FD32 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				C1AACFD521A438660023FD32 /* UserCoordinator.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		C1AACFD021A4352C0023FD32 /* Base  */ = {
+			isa = PBXGroup;
+			children = (
+				C1249C642181A1B7005DB2A5 /* BaseCoordinator.swift */,
+				C1AACFD121A4353B0023FD32 /* BaseNavigationCoordinator.swift */,
+				C1AACFD321A435AD0023FD32 /* BaseTabBarCoordinator.swift */,
+			);
+			path = "Base ";
+			sourceTree = "<group>";
+		};
 		C1AFFFD721A2ACB100A7A632 /* AccessService */ = {
 			isa = PBXGroup;
 			children = (
@@ -578,7 +624,11 @@
 		C1AFFFE121A2D15C00A7A632 /* TimeTable */ = {
 			isa = PBXGroup;
 			children = (
+				C1AACFD921A440650023FD32 /* BaseTabBarControllerType.swift */,
 				C1AFFFE221A2D16F00A7A632 /* TimeTableCoordinator.swift */,
+				C1AACFCB21A4345C0023FD32 /* Projects */,
+				C1AACFCD21A434780023FD32 /* User */,
+				C1AACFCC21A434650023FD32 /* WorkTime */,
 			);
 			path = TimeTable;
 			sourceTree = "<group>";
@@ -1033,8 +1083,11 @@
 				C1249C802181B4FC005DB2A5 /* ErrorHandler.swift in Sources */,
 				C1F926E8218839C00004A9BC /* AuthenticationCoordinator.swift in Sources */,
 				C1249C652181A1B7005DB2A5 /* BaseCoordinator.swift in Sources */,
+				C1AACFD821A4387F0023FD32 /* WorkTimeCoordinator.swift in Sources */,
 				C1B8FA44218C929F009D10B4 /* SessionDecoder.swift in Sources */,
+				C1AACFD221A4353B0023FD32 /* BaseNavigationCoordinator.swift in Sources */,
 				C153AC4A2182EE9F007A35BB /* UILabel+Extension .swift in Sources */,
+				C1AACFCF21A4349B0023FD32 /* ProjectsCoordinator.swift in Sources */,
 				C1ECF0A52192C37E006038C6 /* CustomJSONSerialization.swift in Sources */,
 				C153AC6B218324DB007A35BB /* UIError.swift in Sources */,
 				C1F7C2DE2190436B00F4FAF0 /* ServerConfigurationCoordinator.swift in Sources */,
@@ -1057,7 +1110,9 @@
 				C1C4BA912189AE0900683F71 /* ApiError.swift in Sources */,
 				C1249C772181AAE4005DB2A5 /* StoryboardsManager.swift in Sources */,
 				C125C4D52186F76500FBA0DD /* CoordinatorErrorPresenterType.swift in Sources */,
+				C1AACFDA21A440650023FD32 /* BaseTabBarControllerType.swift in Sources */,
 				C1C4BA8F2189AD7700683F71 /* Result.swift in Sources */,
+				C1AACFD621A438660023FD32 /* UserCoordinator.swift in Sources */,
 				C1FA05D3219413BF00BD8C9D /* CoreDataStack.swift in Sources */,
 				C1E6B34C219EF08200019DC2 /* AccessService.swift in Sources */,
 				C1FA05D6219420FC00BD8C9D /* TimeTable.xcdatamodeld in Sources */,
@@ -1070,6 +1125,7 @@
 				C153AC512182EFEC007A35BB /* UIButton+Extension.swift in Sources */,
 				C1EF3A05219303A7000E3511 /* NSRegularExpression+Extension.swift in Sources */,
 				C1249C742181A3D0005DB2A5 /* AppCoordinator.swift in Sources */,
+				C1AACFD421A435AD0023FD32 /* BaseTabBarCoordinator.swift in Sources */,
 				C153AC472182EBC1007A35BB /* ServerConfigurationViewController.swift in Sources */,
 				C1249C682181A1E7005DB2A5 /* CoordinatorType.swift in Sources */,
 				C153AC532182F1E3007A35BB /* UITextField+Extension.swift in Sources */,
