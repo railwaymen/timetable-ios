@@ -12,6 +12,7 @@ class TimeTableTabCoordinator: BaseTabBarCoordinator {
 
     private let tabBarChildCoordinators: [BaseTabBarCordninatorType]
     
+    // MARK: - Initialization
     override init(window: UIWindow?) {
         let projectsCoordinator = ProjectsCoordinator(window: nil)
         let workTimeCoordinator = WorkTimeCoordinator(window: nil)
@@ -22,6 +23,7 @@ class TimeTableTabCoordinator: BaseTabBarCoordinator {
         self.tabBarChildCoordinators.forEach { $0.start() }
     }
     
+    // MARK: - Overriden
     override func start(finishCompletion: (() -> Void)?) {
         self.tabBarController.viewControllers = self.tabBarChildCoordinators.map { $0.root }
         super.start(finishCompletion: finishCompletion)

@@ -15,6 +15,7 @@ class UserCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType {
     }
     var tabBarItem: UITabBarItem
     
+    // MARK: - Initialization
     override init(window: UIWindow?) {
         self.tabBarItem = UITabBarItem(title: "User", image: nil, selectedImage: nil)
         super.init(window: window)

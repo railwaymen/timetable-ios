@@ -15,6 +15,7 @@ class ProjectsCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType 
     }
     var tabBarItem: UITabBarItem
     
+    // MARK: - Initialization
     override init(window: UIWindow?) {
         self.tabBarItem = UITabBarItem(title: "Projects", image: nil, selectedImage: nil)
         super.init(window: window)
