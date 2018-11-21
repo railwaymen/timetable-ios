@@ -149,8 +149,8 @@ class AppCoordinator: BaseNavigationCoordinator {
         let coordinator = TimeTableTabCoordinator(window: self.window)
         addChildCoordinator(child: coordinator)
         coordinator.start(finishCompletion: { [weak self, weak coordinator] in
-            self?.managedFlow()
             self?.removeChildCoordinator(child: coordinator)
+            self?.managedFlow()
         })
     }
 }
