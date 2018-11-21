@@ -22,13 +22,13 @@ class AppCoordinator: BaseNavigationCoordinator {
     
     private lazy var encoder: JSONEncoder = {
         let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .iso8601
+        encoder.dateEncodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
         return encoder
     }()
     
     private lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
+        decoder.dateDecodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
         return decoder
     }()
     
