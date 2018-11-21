@@ -12,9 +12,8 @@ protocol LoginCoordinatorDelegate: class {
     func loginDidFinish(with state: AuthenticationCoordinator.State)
 }
 
-class AuthenticationCoordinator: BaseCoordinator {
+class AuthenticationCoordinator: BaseNavigationCoordinator {
     
-    var navigationController: UINavigationController
     private let storyboardsManager: StoryboardsManagerType
     private let apiClient: ApiClientSessionType
     private let accessService: AccessServiceLoginType
@@ -31,15 +30,12 @@ class AuthenticationCoordinator: BaseCoordinator {
     // MARK: - Initialization
     init(navigationController: UINavigationController, storyboardsManager: StoryboardsManagerType, accessService: AccessServiceLoginType,
          apiClient: ApiClientSessionType, errorHandler: ErrorHandlerType, coreDataStack: CoreDataStackUserType) {
-        self.navigationController = navigationController
         self.storyboardsManager = storyboardsManager
         self.accessService = accessService
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.coreDataStack = coreDataStack
-        super.init(window: nil)
-        self.navigationController.interactivePopGestureRecognizer?.delegate = nil
-        self.navigationController.navigationItem.leftItemsSupplementBackButton = true
+        super.init(navigationController: navigationController)
     }
 
     // MARK: - CoordinatorType

@@ -1,5 +1,5 @@
 //
-//  TimeTableCoordinator.swift
+//  TimeTableTabCoordinator.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 19/11/2018.
@@ -8,17 +8,24 @@
 
 import UIKit
 
-class TimeTableCoordinator: BaseCoordinator {
+class TimeTableTabCoordinator: BaseTabBarCoordinator {
 
-    private let tabBarController: UITabBarController
-
+    private let tabBarChildCoordinators: [BaseTabBarCordninatorType]
+    
+    // MARK: - Initialization
     override init(window: UIWindow?) {
-        tabBarController = UITabBarController()
+        let projectsCoordinator = ProjectsCoordinator(window: nil)
+        let workTimeCoordinator = WorkTimeCoordinator(window: nil)
+        let userCoordinator = UserCoordinator(window: nil)
+        
+        self.tabBarChildCoordinators = [projectsCoordinator, workTimeCoordinator, userCoordinator]
         super.init(window: window)
+        self.tabBarChildCoordinators.forEach { $0.start() }
     }
     
-    override func start(finishCompletion: (() -> Void)?) {        
-        window?.rootViewController = tabBarController
+    // MARK: - Overriden
+    override func start(finishCompletion: (() -> Void)?) {
+        self.tabBarController.viewControllers = self.tabBarChildCoordinators.map { $0.root }
         super.start(finishCompletion: finishCompletion)
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import KeychainAccess
 import CoreData
 @testable import TimeTable
 
@@ -112,7 +113,8 @@ class AppCoordinatorTests: XCTestCase {
         //Act
         authenticationCoordinator?.finish(with: .loggedInCorrectly)
         //Assert
-        XCTAssertTrue(appCoordinator.children.isEmpty)
+        XCTAssertEqual(appCoordinator.children.count, 1)
+        XCTAssertNotNil(appCoordinator.children.first?.value as? TimeTableTabCoordinator)
     }
     
     func testAuthenticationCoordinatorFinishRemoveSelfFromAppCoordinatorChildrenForChangeAddressState() throws {
@@ -175,6 +177,45 @@ class AppCoordinatorTests: XCTestCase {
         appCoordinator.start()
         //Assert
         XCTAssertEqual(appCoordinator.children.count, 0)
+    }
+    
+    func testRunMainFlowFinishRemoveTimeTableTabCoordinatorFromChildrenAnRunsServerConfigurationFlow() throws {
+        //Arrange
+        let key = "key.time_table.login_credentials.key"
+        let url = try URL(string: "http://www.example.com").unwrap()
+        let keychain = Keychain(server: url, protocolType: .http)
+        let credentials = LoginCredentials(email: "user@example.com", password: "password")
+        let data = try JSONEncoder().encode(credentials)
+        try keychain.set(data, key: key)
+        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        appCoordinator.start()
+        let child = try (appCoordinator.children.first?.value as? TimeTableTabCoordinator).unwrap()
+        //Act
+        serverConfigurationManagerMock.oldConfiguration = nil
+        child.finishCompletion?()
+        //Assert
+        XCTAssertEqual(appCoordinator.children.count, 1)
+        XCTAssertNotNil(appCoordinator.children.first?.value as? ServerConfigurationCoordinator)
+    }
+    
+    func testRunMainFlowFinishRemoveTimeTableTabCoordinatorFromChildrenAnRunsServerAuthenticationFlow() throws {
+        //Arrange
+        let key = "key.time_table.login_credentials.key"
+        let url = try URL(string: "http://www.example.com").unwrap()
+        let keychain = Keychain(server: url, protocolType: .http)
+        let credentials = LoginCredentials(email: "user@example.com", password: "password")
+        let data = try JSONEncoder().encode(credentials)
+        try keychain.set(data, key: key)
+        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        appCoordinator.start()
+        let child = try (appCoordinator.children.first?.value as? TimeTableTabCoordinator).unwrap()
+        //Act
+        try keychain.remove("key.time_table.login_credentials.key")
+        child.finishCompletion?()
+        //Assert
+        XCTAssertEqual(appCoordinator.children.count, 1)
+        XCTAssertNotNil(appCoordinator.children.first?.value as? AuthenticationCoordinator
+        )
     }
 }
 

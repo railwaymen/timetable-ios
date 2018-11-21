@@ -10,9 +10,8 @@ import UIKit
 import Networking
 import KeychainAccess
 
-class AppCoordinator: BaseCoordinator {
+class AppCoordinator: BaseNavigationCoordinator {
     
-    var navigationController: UINavigationController
     private let storyboardsManager: StoryboardsManagerType
     private let serverConfigurationManager: ServerConfigurationManagerType
     private let parentErrorHandler: ErrorHandlerType
@@ -43,15 +42,12 @@ class AppCoordinator: BaseCoordinator {
     init(window: UIWindow?, storyboardsManager: StoryboardsManagerType,
          errorHandler: ErrorHandlerType, serverConfigurationManager: ServerConfigurationManagerType,
          coreDataStack: CoreDataStackType, bundle: BundleType) {
-        self.navigationController = UINavigationController()
-        window?.rootViewController = navigationController
         self.storyboardsManager = storyboardsManager
         self.parentErrorHandler = errorHandler
         self.serverConfigurationManager = serverConfigurationManager
         self.coreDataStack = coreDataStack
         self.bundle = bundle
         super.init(window: window)
-        self.navigationController.interactivePopGestureRecognizer?.delegate = nil
         self.navigationController.setNavigationBarHidden(true, animated: true)
     }
 
@@ -60,6 +56,11 @@ class AppCoordinator: BaseCoordinator {
         defer {
             super.start()
         }
+        managedFlow()
+    }
+    
+    // MARK: - Private
+    private func managedFlow() {
         if let configuration = serverConfigurationManager.getOldConfiguration(), configuration.shouldRememberHost {
             let accessService = createAccessService(with: configuration)
             do {
@@ -73,7 +74,6 @@ class AppCoordinator: BaseCoordinator {
         }
     }
     
-    // MARK: - Private
     private func createApiClient(with configuration: ServerConfiguration) -> ApiClientType? {
         guard let hostURL = configuration.host else { return nil }
         let networking = Networking(baseURL: hostURL.absoluteString)
@@ -146,8 +146,11 @@ class AppCoordinator: BaseCoordinator {
     }
     
     private func runMainFlow() {
-        let coordinator = TimeTableCoordinator(window: self.window)
-        coordinator.start(finishCompletion: {
+        let coordinator = TimeTableTabCoordinator(window: self.window)
+        addChildCoordinator(child: coordinator)
+        coordinator.start(finishCompletion: { [weak self, weak coordinator] in
+            self?.removeChildCoordinator(child: coordinator)
+            self?.managedFlow()
         })
     }
 }
