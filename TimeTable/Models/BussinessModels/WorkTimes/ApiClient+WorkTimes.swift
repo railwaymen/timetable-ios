@@ -9,11 +9,11 @@
 import Foundation
 
 protocol ApiClientWorkTimesType: class {
-    func fetchWorkTimes(parameters: WorkTimesPrameters, completion: @escaping ((Result<[WorkTimeDecoder]>) -> Void))
+    func fetchWorkTimes(parameters: WorkTimesParameters, completion: @escaping ((Result<[WorkTimeDecoder]>) -> Void))
 }
 
 extension ApiClient: ApiClientWorkTimesType {
-    func fetchWorkTimes(parameters: WorkTimesPrameters, completion: @escaping ((Result<[WorkTimeDecoder]>) -> Void)) {
+    func fetchWorkTimes(parameters: WorkTimesParameters, completion: @escaping ((Result<[WorkTimeDecoder]>) -> Void)) {
         get(.worktimes, parameters: parameters, completion: completion)
     }
 }

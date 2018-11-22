@@ -14,6 +14,10 @@ class WorkTimeDecoderTests: XCTestCase {
     private enum WorkTimesResponse: String, JSONFileResource {
         case workTimeResponse
         case workTimeInvalidDateFormatResponse
+        case workTimeNullTask
+        case workTimeMissingTaskKey
+        case workTimeNullTaskPreview
+        case workTimeMissingTaskPreviewKey
     }
     
     private lazy var decoder: JSONDecoder = {
@@ -59,5 +63,113 @@ class WorkTimeDecoderTests: XCTestCase {
             //Assert
             XCTAssertNotNil(error)
         }
+    }
+
+    func testWorkTimeNullTask() throws {
+        //Arrange
+        var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
+        let startsAt = try Calendar.current.date(from: components).unwrap()
+        components.hour = 16
+        let endsAt = try Calendar.current.date(from: components).unwrap()
+        components.hour = 0
+        let date = try Calendar.current.date(from: components).unwrap()
+        let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum", color: UIColor(string: "fe0404"), workTimesAllowsTask: false, isLunch: false)
+        let data = try self.json(from: WorkTimesResponse.workTimeNullTask)
+        //Act
+        let worksTime = try decoder.decode(WorkTimeDecoder.self, from: data)
+        //Assert
+        XCTAssertEqual(worksTime.identifier, 16239)
+        XCTAssertFalse(worksTime.updatedByAdmin)
+        XCTAssertEqual(worksTime.projectIdentifier, 3)
+        XCTAssertEqual(worksTime.startsAt, startsAt)
+        XCTAssertEqual(worksTime.endsAt, endsAt)
+        XCTAssertEqual(worksTime.duration, 3600)
+        XCTAssertEqual(worksTime.body, "Bracket - v2")
+        XCTAssertNil(worksTime.task)
+        XCTAssertEqual(worksTime.taskPreview, "task1")
+        XCTAssertEqual(worksTime.userIdentifier, 11)
+        XCTAssertEqual(worksTime.date, date)
+        XCTAssertEqual(worksTime.project, project)
+    }
+    
+    func testWorkTimeMissingTaskKey() throws {
+        //Arrange
+        var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
+        let startsAt = try Calendar.current.date(from: components).unwrap()
+        components.hour = 16
+        let endsAt = try Calendar.current.date(from: components).unwrap()
+        components.hour = 0
+        let date = try Calendar.current.date(from: components).unwrap()
+        let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum", color: UIColor(string: "fe0404"), workTimesAllowsTask: false, isLunch: false)
+        let data = try self.json(from: WorkTimesResponse.workTimeMissingTaskKey)
+        //Act
+        let worksTime = try decoder.decode(WorkTimeDecoder.self, from: data)
+        //Assert
+        XCTAssertEqual(worksTime.identifier, 16239)
+        XCTAssertFalse(worksTime.updatedByAdmin)
+        XCTAssertEqual(worksTime.projectIdentifier, 3)
+        XCTAssertEqual(worksTime.startsAt, startsAt)
+        XCTAssertEqual(worksTime.endsAt, endsAt)
+        XCTAssertEqual(worksTime.duration, 3600)
+        XCTAssertEqual(worksTime.body, "Bracket - v2")
+        XCTAssertNil(worksTime.task)
+        XCTAssertEqual(worksTime.taskPreview, "task1")
+        XCTAssertEqual(worksTime.userIdentifier, 11)
+        XCTAssertEqual(worksTime.date, date)
+        XCTAssertEqual(worksTime.project, project)
+    }
+
+    func testWorkTimeNullTaskPreview() throws {
+        //Arrange
+        var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
+        let startsAt = try Calendar.current.date(from: components).unwrap()
+        components.hour = 16
+        let endsAt = try Calendar.current.date(from: components).unwrap()
+        components.hour = 0
+        let date = try Calendar.current.date(from: components).unwrap()
+        let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum", color: UIColor(string: "fe0404"), workTimesAllowsTask: false, isLunch: false)
+        let data = try self.json(from: WorkTimesResponse.workTimeNullTaskPreview)
+        //Act
+        let worksTime = try decoder.decode(WorkTimeDecoder.self, from: data)
+        //Assert
+        XCTAssertEqual(worksTime.identifier, 16239)
+        XCTAssertFalse(worksTime.updatedByAdmin)
+        XCTAssertEqual(worksTime.projectIdentifier, 3)
+        XCTAssertEqual(worksTime.startsAt, startsAt)
+        XCTAssertEqual(worksTime.endsAt, endsAt)
+        XCTAssertEqual(worksTime.duration, 3600)
+        XCTAssertEqual(worksTime.body, "Bracket - v2")
+        XCTAssertEqual(worksTime.task, "https://www.example.com/task1")
+        XCTAssertNil(worksTime.taskPreview)
+        XCTAssertEqual(worksTime.userIdentifier, 11)
+        XCTAssertEqual(worksTime.date, date)
+        XCTAssertEqual(worksTime.project, project)
+    }
+    
+    func testWorkTimesMissingTaskPreviewKey() throws {
+        //Arrange
+        var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
+        let startsAt = try Calendar.current.date(from: components).unwrap()
+        components.hour = 16
+        let endsAt = try Calendar.current.date(from: components).unwrap()
+        components.hour = 0
+        let date = try Calendar.current.date(from: components).unwrap()
+        let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum", color: UIColor(string: "fe0404"), workTimesAllowsTask: false, isLunch: false)
+        let data = try self.json(from: WorkTimesResponse.workTimeMissingTaskPreviewKey)
+        //Act
+        let worksTime = try decoder.decode(WorkTimeDecoder.self, from: data)
+        //Assert
+        XCTAssertEqual(worksTime.identifier, 16239)
+        XCTAssertFalse(worksTime.updatedByAdmin)
+        XCTAssertEqual(worksTime.projectIdentifier, 3)
+        XCTAssertEqual(worksTime.startsAt, startsAt)
+        XCTAssertEqual(worksTime.endsAt, endsAt)
+        XCTAssertEqual(worksTime.duration, 3600)
+        XCTAssertEqual(worksTime.body, "Bracket - v2")
+        XCTAssertEqual(worksTime.task, "https://www.example.com/task1")
+        XCTAssertNil(worksTime.taskPreview)
+        XCTAssertEqual(worksTime.userIdentifier, 11)
+        XCTAssertEqual(worksTime.date, date)
+        XCTAssertEqual(worksTime.project, project)
     }
 }

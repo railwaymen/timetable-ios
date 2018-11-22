@@ -18,6 +18,16 @@ class ApiClientTests: XCTestCase {
         case signInResponse
     }
     
+    private enum WorkTimesResponse: String, JSONFileResource {
+        case workTimesResponse
+    }
+    
+    private lazy var decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
+        return decoder
+    }()
+    
     override func setUp() {
         self.networkingMock = NetworkingMock()
         self.requestEncoderMock = RequestEncoderMock()
@@ -127,6 +137,110 @@ class ApiClientTests: XCTestCase {
             }
         }
         networkingMock.shortPostCompletion?(.success(data))
+        //Assert
+        switch expectedError as? ApiClientError {
+        case .invalidResponse?: break
+        default: XCTFail()
+        }
+    }
+
+    func testGetReturnsAnErrorWhileGivenWrapperCannotBeEncodedToDictionary() {
+        //Arrange
+        var expectedError: Error?
+        let apiClient = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
+            return requestEncoderMock
+        }) { () -> JSONDecoderType in
+            return jsonDecoderMock
+        }
+        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
+        requestEncoderMock.isEncodeToDictionaryThrowingError = true
+        //Act
+        apiClient.get(Endpoints.worktimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
+            switch result {
+            case .success: XCTFail()
+            case .failure(let error):
+                expectedError = error
+            }
+        }
+        //Assert
+        switch expectedError as? ApiClientError {
+        case .invalidParameters?: break
+        default: XCTFail()
+        }
+    }
+
+    func testGetReturnsAnErrorWhileNetworkRequestFailed() throws {
+        //Arrange
+        var expectedError: Error?
+        let error = TestError(messsage: "500 - server internal error")
+        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
+        let apiClient = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
+            return requestEncoderMock
+        }) { () -> JSONDecoderType in
+            return jsonDecoderMock
+        }
+        //Act
+        apiClient.get(Endpoints.worktimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
+            switch result {
+            case .success: XCTFail()
+            case .failure(let error):
+                expectedError = error
+            }
+        }
+        networkingMock.getCompletion?(.failure(error))
+        //Assert
+        let testError = try (expectedError as? TestError).unwrap()
+        XCTAssertEqual(testError, error)
+    }
+    
+    func testGetRetrunsCorrectDecodableObject() throws {
+        //Arrange
+        var expectedDecoder: Decodable?
+        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
+        let data = try self.json(from: WorkTimesResponse.workTimesResponse)
+        let decoders = try self.decoder.decode([WorkTimeDecoder].self, from: data)
+        let apiClient = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
+            return requestEncoderMock
+        }) { () -> JSONDecoderType in
+            return jsonDecoderMock
+        }
+        //Act
+        apiClient.get(Endpoints.worktimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
+            switch result {
+            case .success(let decoder):
+                expectedDecoder = decoder
+            case .failure:
+                XCTFail()
+            }
+        }
+        networkingMock.getCompletion?(.success(data))
+        //Assert
+        let decoder = try (expectedDecoder as? [WorkTimeDecoder]).unwrap()
+        XCTAssertEqual(decoder[0], decoders[0])
+        XCTAssertEqual(decoder[1], decoders[1])
+    }
+    
+    func testGetReturnsAnErrorWhileResponseJSONIsInvalid() throws {
+        //Arrange
+        var expectedError: Error?
+        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
+        let data = try JSONSerialization.data(withJSONObject: ["test": "test"], options: .prettyPrinted)
+        let apiClient = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
+            return requestEncoderMock
+        }) { () -> JSONDecoderType in
+            return jsonDecoderMock
+        }
+        //Act
+        apiClient.get(Endpoints.worktimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
+            switch result {
+            case .success:
+                XCTFail()
+            case .failure(let error):
+                expectedError = error
+                
+            }
+        }
+        networkingMock.getCompletion?(.success(data))
         //Assert
         switch expectedError as? ApiClientError {
         case .invalidResponse?: break

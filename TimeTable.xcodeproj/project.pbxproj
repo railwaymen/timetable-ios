@@ -49,8 +49,8 @@
 		C134296321A693F400F4EA42 /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134296221A693F400F4EA42 /* TestError.swift */; };
 		C134296521A694F300F4EA42 /* ApiClientWorkTimesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134296421A694F300F4EA42 /* ApiClientWorkTimesTests.swift */; };
 		C134296721A6951C00F4EA42 /* ApiClient+WorkTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134296621A6951C00F4EA42 /* ApiClient+WorkTimes.swift */; };
-		C134296921A6964B00F4EA42 /* WorkTimesPrameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134296821A6964B00F4EA42 /* WorkTimesPrameters.swift */; };
-		C134296B21A6ABF200F4EA42 /* WorkTimesPrametersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134296A21A6ABF200F4EA42 /* WorkTimesPrametersTests.swift */; };
+		C134296921A6964B00F4EA42 /* WorkTimesParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134296821A6964B00F4EA42 /* WorkTimesParameters.swift */; };
+		C134296B21A6ABF200F4EA42 /* WorkTimesParametersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134296A21A6ABF200F4EA42 /* WorkTimesParametersTests.swift */; };
 		C134296D21A6BC8C00F4EA42 /* JSONDecoderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134296C21A6BC8C00F4EA42 /* JSONDecoderMock.swift */; };
 		C134296F21A6BCCD00F4EA42 /* RequestEncoderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134296E21A6BCCD00F4EA42 /* RequestEncoderMock.swift */; };
 		C134297121A6BDF100F4EA42 /* JSONEncoderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134297021A6BDF100F4EA42 /* JSONEncoderMock.swift */; };
@@ -75,6 +75,12 @@
 		C134299721A6D7F700F4EA42 /* BundleMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134299621A6D7F700F4EA42 /* BundleMock.swift */; };
 		C134299921A6D81600F4EA42 /* ApiClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134299821A6D81600F4EA42 /* ApiClientMock.swift */; };
 		C134299B21A6D87900F4EA42 /* CoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134299A21A6D87900F4EA42 /* CoordinatorMock.swift */; };
+		C134299D21A6DC6B00F4EA42 /* workTimeNullTask.json in Resources */ = {isa = PBXBuildFile; fileRef = C134299C21A6DC6B00F4EA42 /* workTimeNullTask.json */; };
+		C134299F21A6DC7600F4EA42 /* workTimeMissingTaskKey.json in Resources */ = {isa = PBXBuildFile; fileRef = C134299E21A6DC7600F4EA42 /* workTimeMissingTaskKey.json */; };
+		C13429A121A6DC9900F4EA42 /* workTimeNullTaskPreview.json in Resources */ = {isa = PBXBuildFile; fileRef = C13429A021A6DC9900F4EA42 /* workTimeNullTaskPreview.json */; };
+		C13429A321A6DCA300F4EA42 /* workTimeMissingTaskPreviewKey.json in Resources */ = {isa = PBXBuildFile; fileRef = C13429A221A6DCA300F4EA42 /* workTimeMissingTaskPreviewKey.json */; };
+		C13429A521A6DF1400F4EA42 /* workTimesResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C13429A421A6DF1400F4EA42 /* workTimesResponse.json */; };
+		C13429A721A6E73F00F4EA42 /* workTimeRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = C13429A621A6E73F00F4EA42 /* workTimeRequest.json */; };
 		C1531F002191BD6B00602A0C /* Networking+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1531EFF2191BD6B00602A0C /* Networking+Extension.swift */; };
 		C1531F042191C58000602A0C /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1531F032191C58000602A0C /* Endpoints.swift */; };
 		C1531F072191CD4B00602A0C /* ApiClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1531F062191CD4B00602A0C /* ApiClientTests.swift */; };
@@ -219,8 +225,8 @@
 		C134296221A693F400F4EA42 /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
 		C134296421A694F300F4EA42 /* ApiClientWorkTimesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientWorkTimesTests.swift; sourceTree = "<group>"; };
 		C134296621A6951C00F4EA42 /* ApiClient+WorkTimes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiClient+WorkTimes.swift"; sourceTree = "<group>"; };
-		C134296821A6964B00F4EA42 /* WorkTimesPrameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesPrameters.swift; sourceTree = "<group>"; };
-		C134296A21A6ABF200F4EA42 /* WorkTimesPrametersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesPrametersTests.swift; sourceTree = "<group>"; };
+		C134296821A6964B00F4EA42 /* WorkTimesParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesParameters.swift; sourceTree = "<group>"; };
+		C134296A21A6ABF200F4EA42 /* WorkTimesParametersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesParametersTests.swift; sourceTree = "<group>"; };
 		C134296C21A6BC8C00F4EA42 /* JSONDecoderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoderMock.swift; sourceTree = "<group>"; };
 		C134296E21A6BCCD00F4EA42 /* RequestEncoderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestEncoderMock.swift; sourceTree = "<group>"; };
 		C134297021A6BDF100F4EA42 /* JSONEncoderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONEncoderMock.swift; sourceTree = "<group>"; };
@@ -245,6 +251,12 @@
 		C134299621A6D7F700F4EA42 /* BundleMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleMock.swift; sourceTree = "<group>"; };
 		C134299821A6D81600F4EA42 /* ApiClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientMock.swift; sourceTree = "<group>"; };
 		C134299A21A6D87900F4EA42 /* CoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorMock.swift; sourceTree = "<group>"; };
+		C134299C21A6DC6B00F4EA42 /* workTimeNullTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimeNullTask.json; sourceTree = "<group>"; };
+		C134299E21A6DC7600F4EA42 /* workTimeMissingTaskKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimeMissingTaskKey.json; sourceTree = "<group>"; };
+		C13429A021A6DC9900F4EA42 /* workTimeNullTaskPreview.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimeNullTaskPreview.json; sourceTree = "<group>"; };
+		C13429A221A6DCA300F4EA42 /* workTimeMissingTaskPreviewKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimeMissingTaskPreviewKey.json; sourceTree = "<group>"; };
+		C13429A421A6DF1400F4EA42 /* workTimesResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimesResponse.json; sourceTree = "<group>"; };
+		C13429A621A6E73F00F4EA42 /* workTimeRequest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimeRequest.json; sourceTree = "<group>"; };
 		C1531EFF2191BD6B00602A0C /* Networking+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Networking+Extension.swift"; sourceTree = "<group>"; };
 		C1531F032191C58000602A0C /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		C1531F062191CD4B00602A0C /* ApiClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientTests.swift; sourceTree = "<group>"; };
@@ -574,7 +586,7 @@
 			children = (
 				C134296621A6951C00F4EA42 /* ApiClient+WorkTimes.swift */,
 				C12CA57A21A5900B0082FEB7 /* WorkTimeDecoder.swift */,
-				C134296821A6964B00F4EA42 /* WorkTimesPrameters.swift */,
+				C134296821A6964B00F4EA42 /* WorkTimesParameters.swift */,
 			);
 			path = WorkTimes;
 			sourceTree = "<group>";
@@ -602,7 +614,13 @@
 		C12CA57E21A599BE0082FEB7 /* WorkTimes */ = {
 			isa = PBXGroup;
 			children = (
+				C13429A621A6E73F00F4EA42 /* workTimeRequest.json */,
+				C13429A421A6DF1400F4EA42 /* workTimesResponse.json */,
 				C11F51F021A59DF300FD626A /* workTimeResponse.json */,
+				C134299C21A6DC6B00F4EA42 /* workTimeNullTask.json */,
+				C134299E21A6DC7600F4EA42 /* workTimeMissingTaskKey.json */,
+				C13429A021A6DC9900F4EA42 /* workTimeNullTaskPreview.json */,
+				C13429A221A6DCA300F4EA42 /* workTimeMissingTaskPreviewKey.json */,
 				C11F51F221A5AB9C00FD626A /* workTimeInvalidDateFormatResponse.json */,
 			);
 			path = WorkTimes;
@@ -613,7 +631,7 @@
 			children = (
 				C134296421A694F300F4EA42 /* ApiClientWorkTimesTests.swift */,
 				C12CA58121A599E60082FEB7 /* WorkTimeDecoderTests.swift */,
-				C134296A21A6ABF200F4EA42 /* WorkTimesPrametersTests.swift */,
+				C134296A21A6ABF200F4EA42 /* WorkTimesParametersTests.swift */,
 			);
 			path = WorkTimes;
 			sourceTree = "<group>";
@@ -1140,12 +1158,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				C11F51F121A59DF300FD626A /* workTimeResponse.json in Resources */,
+				C134299D21A6DC6B00F4EA42 /* workTimeNullTask.json in Resources */,
 				C12CA57221A58D020082FEB7 /* workTimesProjectResponse.json in Resources */,
 				C12CA57621A58D2E0082FEB7 /* workTimesProjectMissingColorKeyResponse.json in Resources */,
 				C1B8FA51218C9A86009D10B4 /* signInRequest.json in Resources */,
 				C1F69B2C21902FA5005D9114 /* signInResponse.json in Resources */,
 				C11F51F321A5AB9C00FD626A /* workTimeInvalidDateFormatResponse.json in Resources */,
+				C13429A321A6DCA300F4EA42 /* workTimeMissingTaskPreviewKey.json in Resources */,
 				C12CA57421A58D150082FEB7 /* workTimesProjectNullColorResponse.json in Resources */,
+				C13429A121A6DC9900F4EA42 /* workTimeNullTaskPreview.json in Resources */,
+				C13429A521A6DF1400F4EA42 /* workTimesResponse.json in Resources */,
+				C13429A721A6E73F00F4EA42 /* workTimeRequest.json in Resources */,
+				C134299F21A6DC7600F4EA42 /* workTimeMissingTaskKey.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1325,7 +1349,7 @@
 				C1F926E4218838720004A9BC /* LoginViewController.swift in Sources */,
 				C1E6B352219F014600019DC2 /* Bundle+Extension.swift in Sources */,
 				C1AFFFE321A2D16F00A7A632 /* TimeTableCoordinator.swift in Sources */,
-				C134296921A6964B00F4EA42 /* WorkTimesPrameters.swift in Sources */,
+				C134296921A6964B00F4EA42 /* WorkTimesParameters.swift in Sources */,
 				C122601F21899F44007D64A3 /* URLSession+Extension.swift in Sources */,
 				C1F7C2ED2191897A00F4FAF0 /* ApiClientError.swift in Sources */,
 				C12CA56821A578870082FEB7 /* ProjectDecoder.swift in Sources */,
@@ -1381,7 +1405,7 @@
 				C17EA3BC2189EC1700A3F0CD /* URLSessionExtensionTests.swift in Sources */,
 				C153AC6F218342F6007A35BB /* UIErrorTests.swift in Sources */,
 				C134297521A6BE6F00F4EA42 /* AccessServiceMock.swift in Sources */,
-				C134296B21A6ABF200F4EA42 /* WorkTimesPrametersTests.swift in Sources */,
+				C134296B21A6ABF200F4EA42 /* WorkTimesParametersTests.swift in Sources */,
 				C1ECF0A82192C427006038C6 /* CustomJSONSerializationTests.swift in Sources */,
 				C134297721A6BFEA00F4EA42 /* UserDefaultsMock.swift in Sources */,
 				C134297B21A6C27700F4EA42 /* KeychainAccessMock.swift in Sources */,
