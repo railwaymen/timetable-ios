@@ -67,35 +67,3 @@ class ServerConfigurationCoordinatorTests: XCTestCase {
         XCTAssertEqual(expectedServerConfiguration, serverConfiguration)
     }
 }
-
-private class StoryboardsManagerMock: StoryboardsManagerType {
-    var controller: UIViewController?
-    func controller<T>(storyboard: StoryboardsManager.StoryboardName, controllerIdentifier: StoryboardsManager.ControllerIdentifier) -> T? {
-        return controller as? T
-    }
-}
-
-private class ErrorHandlerMock: ErrorHandlerType {
-    func catchingError(action: @escaping (Error) throws -> Void) -> ErrorHandlerType {
-        return ErrorHandler(action: action)
-    }
-    
-    func throwing(error: Error, finally: @escaping (Bool) -> Void) {}
-}
-
-private class ServerConfigurationManagerMock: ServerConfigurationManagerType {
-    func getOldConfiguration() -> ServerConfiguration? {
-        return nil
-    }
-    func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void>) -> Void)) {}
-}
-
-private class ServerConfigurationViewControllerMock: ServerConfigurationViewControlleralbe {
-    func configure(viewModel: ServerConfigurationViewModelType, notificationCenter: NotificationCenterType) {}
-    func setupView(checkBoxIsActive: Bool, serverAddress: String) {}
-    func tearDown() {}
-    func hideNavigationBar() {}
-    func continueButtonEnabledState(_ isEnabled: Bool) {}
-    func checkBoxIsActiveState(_ isActive: Bool) {}
-    func dissmissKeyboard() {}
-}

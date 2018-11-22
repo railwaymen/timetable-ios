@@ -203,22 +203,6 @@ class ServerConfigurationViewModelTests: XCTestCase {
     }
 }
 
-private class ErrorHandlerMock: ErrorHandlerType {
-    private(set) var throwedError: Error?
-    private(set) var throwingFinallyBlock: ((Bool) -> Void)?
-    private(set) var catchingErrorActionBlock: ((Error) throws -> Void)?
-    
-    func throwing(error: Error, finally: @escaping (Bool) -> Void) {
-        throwedError = error
-        throwingFinallyBlock = finally
-    }
-    
-    func catchingError(action: @escaping (Error) throws -> Void) -> ErrorHandlerType {
-        catchingErrorActionBlock = action
-        return self
-    }
-}
-
 private class UserInterfaceMock: ServerConfigurationViewModelOutput {
     private(set) var setupViewCalled = false
     private(set) var setupViewStateValues: (checkBoxIsActive: Bool, serverAddress: String) = (false, "")
@@ -251,33 +235,5 @@ private class UserInterfaceMock: ServerConfigurationViewModelOutput {
     
     func checkBoxIsActiveState(_ isActive: Bool) {
         checkBoxIsActiveStateValues = (true, isActive)
-    }
-}
-
-private class CoordinatorMock: ServerConfigurationCoordinatorDelagete {
-    private(set) var serverConfigurationDidFinishValues: (called: Bool, serverConfiguration: ServerConfiguration?) = (false, nil)
-    
-    func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration) {
-        serverConfigurationDidFinishValues = (true, serverConfiguration)
-    }
-}
-
-private class ServerConfigurationManagerMock: ServerConfigurationManagerType {
-    
-    var expectationHandler: (() -> Void)?
-    var verifyConfigurationCompletion: ((Result<Void>) -> Void)?
-    private(set) var configuration: ServerConfiguration?
-    var oldConfiguration: ServerConfiguration?
-    private(set) var getOldConfigurationCalled = false
-    
-    func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void>) -> Void)) {
-        self.configuration = configuration
-        self.verifyConfigurationCompletion = completion
-        expectationHandler?()
-    }
-    
-    func getOldConfiguration() -> ServerConfiguration? {
-        getOldConfigurationCalled = true
-        return oldConfiguration
     }
 }

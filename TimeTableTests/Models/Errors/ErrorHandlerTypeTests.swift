@@ -24,13 +24,3 @@ class ErrorHandlerTypeTests: XCTestCase {
         parentErrorHandler.throwing(error: error)
     }
 }
-
-private struct TestError: Error {
-    let messsage: String
-}
-
-extension TestError: Equatable {
-    static func == (lhs: TestError, rhs: TestError) -> Bool {
-        return lhs.messsage == rhs.messsage
-    }
-}

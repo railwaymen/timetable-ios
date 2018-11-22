@@ -12,11 +12,7 @@ import Networking
 typealias ApiClientType = (ApiClientSessionType)
 
 protocol ApiClientNetworkingType: class {
-    func post<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E, completion: @escaping ((Result<D>) -> Void))
-}
-
-protocol ApiClientSessionType: class {
-    func signIn(with credentials: LoginCredentials, completion: @escaping ((Result<SessionDecoder>) -> Void))
+    func post<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void))
 }
 
 class ApiClient {
@@ -42,27 +38,35 @@ class ApiClient {
         }
     }
     
+    private func handle<D: Decodable>(response: Result<Data>, completion: @escaping ((Result<D>) -> Void)) {
+        switch response {
+        case .success(let data):
+            self.decode(data: data, completion: completion)
+        case .failure(let error):
+            completion(.failure(error))
+        }
+    }
+    
     // MARK: - ApiClientNetworkingType
-    func post<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E, completion: @escaping ((Result<D>) -> Void)) {
+    func post<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void)) {
         do {
             let parameters = try encoder.encodeToDictionary(wrapper: parameters)
             _ = networking.post(endpoint.rawValue, parameters: parameters) { [weak self] response in
-                switch response {
-                case .success(let data):
-                    self?.decode(data: data, completion: completion)
-                case .failure(let error):
-                    completion(.failure(error))
-                }
+                self?.handle(response: response, completion: completion)
             }
         } catch {
             completion(.failure(ApiClientError.invalidParameters))
         }
     }
-}
-
-// MARK: - ApiClientSessionType
-extension ApiClient: ApiClientSessionType {
-    func signIn(with credentials: LoginCredentials, completion: @escaping ((Result<SessionDecoder>) -> Void)) {
-        post(Endpoints.signIn, parameters: credentials, completion: completion)
+    
+    func get<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void)) {
+        do {
+            let parameters = try encoder.encodeToDictionary(wrapper: parameters)
+            networking.get(endpoint.rawValue, parameters: parameters, cachingLevel: .memory) { [weak self] response in
+                self?.handle(response: response, completion: completion)
+            }
+        } catch {
+            completion(.failure(ApiClientError.invalidParameters))
+        }
     }
 }
