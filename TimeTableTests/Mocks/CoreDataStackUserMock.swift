@@ -12,15 +12,17 @@ import Foundation
 class CoreDataStackUserMock: CoreDataStackUserType {
     
     typealias CDT = UserEntity
-    private(set) var fetchUserIdentifier: Int?
+    var fetchUserexpectationHandler: (() -> Void)?
+    private(set) var fetchUserIdentifier: Int64?
     private(set) var fetchUserCompletion: ((Result<UserEntity>) -> Void)?
     private(set) var saveUserDecoder: SessionDecoder?
     private(set) var saveUserCompletion: ((Result<UserEntity>) -> Void)?
     private(set) var saveCoreDataTypeTranslatior: ((AsynchronousDataTransactionType) -> UserEntity)?
     
-    func fetchUser(forIdentifier identifier: Int, completion: @escaping (Result<UserEntity>) -> Void) {
+    func fetchUser(forIdentifier identifier: Int64, completion: @escaping (Result<UserEntity>) -> Void) {
         fetchUserIdentifier = identifier
         fetchUserCompletion = completion
+        fetchUserexpectationHandler?()
     }
     
     func save<CDT>(userDecoder: SessionDecoder,

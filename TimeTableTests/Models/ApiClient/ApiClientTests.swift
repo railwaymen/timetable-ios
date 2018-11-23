@@ -64,7 +64,7 @@ class ApiClientTests: XCTestCase {
     func testPostReturnsAnErrorWhileNetworkRequestFailed() throws {
         //Arrange
         var expectedError: Error?
-        let error = TestError(messsage: "500 - server internal error")
+        let error = TestError(message: "500 - server internal error")
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
         let apiClient = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
             return requestEncoderMock
@@ -172,7 +172,7 @@ class ApiClientTests: XCTestCase {
     func testGetReturnsAnErrorWhileNetworkRequestFailed() throws {
         //Arrange
         var expectedError: Error?
-        let error = TestError(messsage: "500 - server internal error")
+        let error = TestError(message: "500 - server internal error")
         let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
         let apiClient = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
             return requestEncoderMock

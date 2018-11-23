@@ -18,6 +18,12 @@ class LoginViewModelTests: XCTestCase {
     private var accessService: AccessServiceMock!
     private var viewModel: LoginViewModel!
     
+    private enum SessionResponse: String, JSONFileResource {
+        case signInResponse
+    }
+    
+    private lazy var decoder = JSONDecoder()
+    
     override func setUp() {
         userInterface = LoginViewControllerMock()
         coordinatorMock = LoginCoordinatorMock()
@@ -268,27 +274,31 @@ class LoginViewModelTests: XCTestCase {
         XCTAssertEqual(error, expectedError)
     }
     
-    func testViewRequestedToLoginWithCorrectCredentials() {
+    func testViewRequestedToLoginWithCorrectCredentials() throws {
         //Arrange
         viewModel.loginInputValueDidChange(value: "login")
         viewModel.passwordInputValueDidChange(value: "password")
+        let data = try self.json(from: SessionResponse.signInResponse)
+        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
         //Act
         viewModel.viewRequestedToLogin()
-        contentProvider.fetchCompletion?(.success(Void()))
+        contentProvider.fetchCompletion?(.success(sessionReponse))
         //Assert
         XCTAssertTrue(coordinatorMock.loginDidFinishCalled)
-        XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly)
+        XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly(sessionReponse))
     }
     
-    func testViewRequestedToLoginFailsWhileSavingToDataBase() {
+    func testViewRequestedToLoginFailsWhileSavingToDataBase() throws {
         //Arrange
-        let expectedError = TestError(messsage: "")
+        let expectedError = TestError(message: "")
         viewModel.loginInputValueDidChange(value: "login")
         viewModel.passwordInputValueDidChange(value: "password")
         viewModel.shouldRemeberUserBoxStatusDidChange(isActive: false)
+        let data = try self.json(from: SessionResponse.signInResponse)
+        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
         //Act
         viewModel.viewRequestedToLogin()
-        contentProvider.fetchCompletion?(.success(Void()))
+        contentProvider.fetchCompletion?(.success(sessionReponse))
         contentProvider.saveCompletion?(.failure(expectedError))
         //Assert
         switch errorHandler.throwedError as? AppError {
@@ -305,14 +315,16 @@ class LoginViewModelTests: XCTestCase {
         viewModel.passwordInputValueDidChange(value: "password")
         viewModel.shouldRemeberUserBoxStatusDidChange(isActive: false)
         accessService.saveUserIsThrowingError = true
+        let data = try self.json(from: SessionResponse.signInResponse)
+        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
         //Act
         viewModel.viewRequestedToLogin()
-        contentProvider.fetchCompletion?(.success(Void()))
+        contentProvider.fetchCompletion?(.success(sessionReponse))
         contentProvider.saveCompletion?(.success(Void()))
         //Assert
         XCTAssertTrue(coordinatorMock.loginDidFinishCalled)
-        XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly)
-        XCTAssertEqual(try (errorHandler.throwedError as? TestError).unwrap(), TestError(messsage: "save user"))
+        XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly(sessionReponse))
+        XCTAssertEqual(try (errorHandler.throwedError as? TestError).unwrap(), TestError(message: "save user"))
     }
     
     func testRequestedToLoginWithCorrectCredentialsAndShouldSaveUserCredenailsSucceed() throws {
@@ -321,19 +333,21 @@ class LoginViewModelTests: XCTestCase {
         viewModel.passwordInputValueDidChange(value: "password")
         viewModel.shouldRemeberUserBoxStatusDidChange(isActive: false)
         accessService.saveUserIsThrowingError = false
+        let data = try self.json(from: SessionResponse.signInResponse)
+        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
         //Act
         viewModel.viewRequestedToLogin()
-        contentProvider.fetchCompletion?(.success(Void()))
+        contentProvider.fetchCompletion?(.success(sessionReponse))
         contentProvider.saveCompletion?(.success(Void()))
         //Assert
         XCTAssertTrue(coordinatorMock.loginDidFinishCalled)
-        XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly)
+        XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly(sessionReponse))
         XCTAssertTrue(accessService.saveUserCalled)
     }
     
     func testViewRequestedToLoginContentProviderReturnsAnError() throws {
         //Arrange
-        let expectedError = TestError(messsage: "errorOccured")
+        let expectedError = TestError(message: "errorOccured")
         viewModel.loginInputValueDidChange(value: "login")
         viewModel.passwordInputValueDidChange(value: "password")
         //Act

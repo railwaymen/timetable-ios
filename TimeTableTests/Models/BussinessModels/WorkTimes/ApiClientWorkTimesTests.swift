@@ -62,7 +62,7 @@ class ApiClientWorkTimesTests: XCTestCase {
     func testFetchFailed() throws {
         //Arrange
         var expecdedError: Error?
-        let error = TestError(messsage: "fetch failed")
+        let error = TestError(message: "fetch failed")
         let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
         let apiClient: ApiClientWorkTimesType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
             return requestEncoderMock

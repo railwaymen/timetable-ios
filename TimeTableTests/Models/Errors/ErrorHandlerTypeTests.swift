@@ -13,7 +13,7 @@ class ErrorHandlerTypeTests: XCTestCase {
 
     func testThrowingErrorWithoutHandlingFinallyBlock() {
         //Arrange
-        let error: TestError = TestError(messsage: "catching error")
+        let error: TestError = TestError(message: "catching error")
         let parentErrorHandler = ErrorHandler { newError in
             //Assert
             if let testError = newError as? TestError {

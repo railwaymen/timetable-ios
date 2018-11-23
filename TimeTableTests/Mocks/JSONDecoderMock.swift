@@ -27,7 +27,7 @@ class JSONDecoderMock: JSONDecoderType {
         decodeType = type
         decodeData = data
         if isThrowingError {
-            throw TestError(messsage: "decoder error")
+            throw TestError(message: "decoder error")
         } else {
             return try decoder.decode(T.self, from: data)
         }

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rEk-z6-2rw">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Work Times View Controller-->
+        <scene sceneID="fDV-Bn-Jtn">
+            <objects>
+                <viewController id="rEk-z6-2rw" customClass="WorkTimesViewController" customModule="TimeTable" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gSW-q8-FeV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SCa-Yp-ddD">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="Zxw-lh-rHo">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0yM-Ei-8B3">
+                                            <rect key="frame" x="8" y="5" width="49" height="34"/>
+                                            <fontDescription key="fontDescription" name="Kailasa-Bold" family="Kailasa" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.label.title"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" text="8:00" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="8Eh-YW-M22">
+                                            <rect key="frame" x="65" y="12" width="302" height="20"/>
+                                            <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="15"/>
+                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.label.explanation"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="0yM-Ei-8B3" secondAttribute="bottom" constant="5" id="7iT-Ny-6iN"/>
+                                        <constraint firstItem="0yM-Ei-8B3" firstAttribute="leading" secondItem="Zxw-lh-rHo" secondAttribute="leading" constant="8" id="JNp-PK-CFS"/>
+                                        <constraint firstItem="0yM-Ei-8B3" firstAttribute="top" secondItem="Zxw-lh-rHo" secondAttribute="top" constant="5" id="ViM-6c-r7x"/>
+                                        <constraint firstAttribute="trailing" secondItem="8Eh-YW-M22" secondAttribute="trailing" constant="8" id="mcf-oz-xB6"/>
+                                        <constraint firstItem="8Eh-YW-M22" firstAttribute="leading" secondItem="0yM-Ei-8B3" secondAttribute="trailing" constant="8" id="nRn-RI-3i5"/>
+                                        <constraint firstItem="8Eh-YW-M22" firstAttribute="centerY" secondItem="0yM-Ei-8B3" secondAttribute="centerY" id="p5Y-Pm-faO"/>
+                                    </constraints>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WorkTimeTableViewCellReuseIdentifier" rowHeight="110" id="bkm-70-40P" customClass="WorkTimeTableViewCell" customModule="TimeTable" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="72" width="375" height="110"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bkm-70-40P" id="Xj9-tv-Q2I">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="109.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" text="8:00" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="YdQ-en-KWM">
+                                                    <rect key="frame" x="15" y="11" width="29.5" height="20"/>
+                                                    <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="15"/>
+                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.label.explanation"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Task title" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="yh4-QC-XOf">
+                                                    <rect key="frame" x="15" y="39" width="219" height="20"/>
+                                                    <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.label.explanation"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="8:00 - 9:00" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="fhm-Rx-A5y">
+                                                    <rect key="frame" x="250.5" y="39" width="75.5" height="20"/>
+                                                    <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="15"/>
+                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.label.explanation"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XFX-6W-a8j">
+                                                    <rect key="frame" x="15" y="64" width="319" height="30"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <connections>
+                                                        <action selector="taskButtonTapped:" destination="bkm-70-40P" eventType="touchUpInside" id="y1S-NZ-eW6"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="fhm-Rx-A5y" firstAttribute="leading" secondItem="yh4-QC-XOf" secondAttribute="trailing" constant="16.5" id="0tk-3r-DyI"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="XFX-6W-a8j" secondAttribute="bottom" constant="5" id="3sX-HH-UcY"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="fhm-Rx-A5y" secondAttribute="trailing" constant="8" id="BbZ-fj-unH"/>
+                                                <constraint firstItem="XFX-6W-a8j" firstAttribute="top" secondItem="yh4-QC-XOf" secondAttribute="bottom" constant="5" id="Che-qv-ezc"/>
+                                                <constraint firstItem="XFX-6W-a8j" firstAttribute="leading" secondItem="Xj9-tv-Q2I" secondAttribute="leadingMargin" id="HUe-zS-eIZ"/>
+                                                <constraint firstItem="yh4-QC-XOf" firstAttribute="top" secondItem="YdQ-en-KWM" secondAttribute="bottom" constant="8" id="IZa-wH-jJ2"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="XFX-6W-a8j" secondAttribute="trailing" id="Yrd-io-pjh"/>
+                                                <constraint firstItem="YdQ-en-KWM" firstAttribute="leading" secondItem="Xj9-tv-Q2I" secondAttribute="leadingMargin" id="tBI-z2-q6O"/>
+                                                <constraint firstItem="fhm-Rx-A5y" firstAttribute="centerY" secondItem="yh4-QC-XOf" secondAttribute="centerY" id="tGO-Qy-4Ah"/>
+                                                <constraint firstItem="YdQ-en-KWM" firstAttribute="top" secondItem="Xj9-tv-Q2I" secondAttribute="topMargin" id="xSW-gh-Lo8"/>
+                                                <constraint firstItem="yh4-QC-XOf" firstAttribute="leading" secondItem="Xj9-tv-Q2I" secondAttribute="leadingMargin" id="xju-Yk-0ev"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="bodyLabel" destination="yh4-QC-XOf" id="2jv-h6-YVQ"/>
+                                            <outlet property="durationLabel" destination="YdQ-en-KWM" id="2wK-GN-bAH"/>
+                                            <outlet property="fromToDateLabel" destination="fhm-Rx-A5y" id="gDg-1X-Ukm"/>
+                                            <outlet property="taskButton" destination="XFX-6W-a8j" id="O5r-NE-UCC"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="SCa-Yp-ddD" firstAttribute="leading" secondItem="pV0-Kr-wuD" secondAttribute="leading" id="YLz-zY-hFP"/>
+                            <constraint firstItem="pV0-Kr-wuD" firstAttribute="bottom" secondItem="SCa-Yp-ddD" secondAttribute="bottom" id="ZlT-Eg-Luf"/>
+                            <constraint firstItem="pV0-Kr-wuD" firstAttribute="trailing" secondItem="SCa-Yp-ddD" secondAttribute="trailing" id="mHt-SS-Vcc"/>
+                            <constraint firstItem="SCa-Yp-ddD" firstAttribute="top" secondItem="pV0-Kr-wuD" secondAttribute="top" id="ofS-3L-8lE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="pV0-Kr-wuD"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="SCa-Yp-ddD" id="XMe-dB-XMK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3xt-eO-P6i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="200.80000000000001" y="292.80359820089956"/>
+        </scene>
+    </scenes>
+</document>

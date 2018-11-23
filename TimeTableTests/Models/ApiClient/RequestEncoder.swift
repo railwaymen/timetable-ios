@@ -43,7 +43,7 @@ class RequestEncoderTests: XCTestCase {
         } catch {
             //Assert
             let expecdedError = error as? TestError
-            XCTAssertEqual(expecdedError, TestError(messsage: "encode error"))
+            XCTAssertEqual(expecdedError, TestError(message: "encode error"))
         }
     }
     
@@ -58,7 +58,7 @@ class RequestEncoderTests: XCTestCase {
         } catch {
             //Assert
             let expecdedError = error as? TestError
-            XCTAssertEqual(expecdedError, TestError(messsage: "encode error"))
+            XCTAssertEqual(expecdedError, TestError(message: "encode error"))
         }
     }
     
@@ -73,7 +73,7 @@ class RequestEncoderTests: XCTestCase {
         } catch {
             //Assert
             let expecdedError = error as? TestError
-            XCTAssertEqual(expecdedError, TestError(messsage: "jsonObject error"))
+            XCTAssertEqual(expecdedError, TestError(message: "jsonObject error"))
         }
     }
     

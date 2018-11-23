@@ -15,7 +15,7 @@ class JSONSerializationMock: JSONSerializationType {
     
     func jsonObject(with data: Data, options opt: JSONSerialization.ReadingOptions) throws -> Any {
         if isThrowingError {
-            throw TestError(messsage: "jsonObject error")
+            throw TestError(message: "jsonObject error")
         } else if let object = customObject {
             return object
         } else {

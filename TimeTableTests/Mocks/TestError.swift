@@ -9,11 +9,11 @@
 import Foundation
 
 struct TestError: Error {
-    let messsage: String
+    let message: String
 }
 
 extension TestError: Equatable {
     static func == (lhs: TestError, rhs: TestError) -> Bool {
-        return lhs.messsage == rhs.messsage
+        return lhs.message == rhs.message
     }
 }

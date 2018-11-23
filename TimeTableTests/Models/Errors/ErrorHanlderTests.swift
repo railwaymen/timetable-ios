@@ -15,7 +15,7 @@ class ErrorHanlderTests: XCTestCase {
         
         //Arrange
         let parentErrorHandler = ErrorHandler()
-        let error: TestError = TestError(messsage: "catching error")
+        let error: TestError = TestError(message: "catching error")
         
         //Act
         parentErrorHandler.throwing(error: error, finally: { isActionExecuted in
@@ -27,7 +27,7 @@ class ErrorHanlderTests: XCTestCase {
     func testThrwoingErrorWhileActionHandlerIsSetUp() {
         
         //Arrange
-        let error: TestError = TestError(messsage: "catching error")
+        let error: TestError = TestError(message: "catching error")
         let parentErrorHandler = ErrorHandler { error in
             if (error as? TestError) == nil {
                 throw error
@@ -44,7 +44,7 @@ class ErrorHanlderTests: XCTestCase {
         
         //Arrange
         let parentErrorHandler = ErrorHandler()
-        let error: TestError = TestError(messsage: "catching error")
+        let error: TestError = TestError(message: "catching error")
         
         //Act
         var errorHandler: ErrorHandlerType {

@@ -8,14 +8,19 @@
 
 import UIKit
 
+typealias TimeTableTabApiClientType = (ApiClientWorkTimesType)
+
 class TimeTableTabCoordinator: BaseTabBarCoordinator {
 
     private let tabBarChildCoordinators: [BaseTabBarCordninatorType]
     
     // MARK: - Initialization
-    override init(window: UIWindow?) {
+    init(window: UIWindow?, storyboardsManager: StoryboardsManagerType, apiClient: TimeTableTabApiClientType, errorHandler: ErrorHandlerType) {
         let projectsCoordinator = ProjectsCoordinator(window: nil)
-        let workTimeCoordinator = WorkTimeCoordinator(window: nil)
+        let workTimeCoordinator = WorkTimeCoordinator(window: nil,
+                                                      storyboardsManager: storyboardsManager,
+                                                      apiClient: apiClient,
+                                                      errorHandler: errorHandler)
         let userCoordinator = UserCoordinator(window: nil)
         
         self.tabBarChildCoordinators = [projectsCoordinator, workTimeCoordinator, userCoordinator]

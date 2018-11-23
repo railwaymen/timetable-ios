@@ -118,7 +118,7 @@ class BaseCoordinatorTests: XCTestCase {
         //Arrange
         let coordinator = ChildCoordinator(window: nil)
         coordinator.start()
-        let error = TestError(messsage: "error_message")
+        let error = TestError(message: "error_message")
         //Act
         coordinator.present(error: error)
         //Assert

@@ -16,15 +16,21 @@ class AuthenticationCoordinatorTests: XCTestCase {
     private var storyboardsManagerMock: StoryboardsManagerMock!
     private var errorHandlerMock: ErrorHandlerMock!
     private var apiClientMock: ApiClientMock!
-    private var coreDataStackMock: CoreDataStackMock!
+    private var coreDataStackMock: CoreDataStackUserMock!
     private var accessServiceMock: AccessServiceMock!
+    
+    private enum SessionResponse: String, JSONFileResource {
+        case signInResponse
+    }
+    
+    private lazy var decoder = JSONDecoder()
     
     override func setUp() {
         self.navigationController = UINavigationController()
         self.storyboardsManagerMock = StoryboardsManagerMock()
         self.errorHandlerMock = ErrorHandlerMock()
         self.apiClientMock = ApiClientMock()
-        self.coreDataStackMock = CoreDataStackMock()
+        self.coreDataStackMock = CoreDataStackUserMock()
         self.accessServiceMock = AccessServiceMock()
         super.setUp()
     }
@@ -58,7 +64,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
         XCTAssertEqual(coordinator.navigationController.children.count, 1)
     }
     
-    func testFinishCompletionExecutedWhileLoginDidFinishDelegateCalled() {
+    func testFinishCompletionExecutedWhileLoginDidFinishDelegateCalled() throws {
         //Arrange
         var finishCompletionCalled = false
         let coordinator = AuthenticationCoordinator(navigationController: navigationController,
@@ -71,8 +77,10 @@ class AuthenticationCoordinatorTests: XCTestCase {
         coordinator.start(finishCompletion: {
             finishCompletionCalled = true
         })
+        let data = try self.json(from: SessionResponse.signInResponse)
+        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
         //Act
-        coordinator.loginDidFinish(with: .loggedInCorrectly)
+        coordinator.loginDidFinish(with: .loggedInCorrectly(sessionReponse))
         //Assert
         XCTAssertTrue(finishCompletionCalled)
     }

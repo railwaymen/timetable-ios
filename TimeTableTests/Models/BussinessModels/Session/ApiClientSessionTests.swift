@@ -54,7 +54,7 @@ class ApiClientSessionTests: XCTestCase {
     func testSignInFailed() throws {
         //Arrange
         var expecdedError: Error?
-        let error = TestError(messsage: "sign in failed")
+        let error = TestError(message: "sign in failed")
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
         let apiClient: ApiClientSessionType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
             return requestEncoderMock

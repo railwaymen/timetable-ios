@@ -62,7 +62,7 @@ class ServerConfigurationManagerTests: XCTestCase {
                 expectedError = error
             }
         }
-        urlSessionMock.completionHandler?(nil, fakeResponse, TestError(messsage: ""))
+        urlSessionMock.completionHandler?(nil, fakeResponse, TestError(message: ""))
         //Assert
         switch expectedError as? ApiError {
         case .invalidHost(let host)?:

@@ -33,7 +33,7 @@ class CoreDataStackTests: XCTestCase {
     
     func testInitializationThrowsAnError() {
         //Arrange
-        let testError = TestError(messsage: "error")
+        let testError = TestError(message: "error")
         //Act
         do {
             _ = try CoreDataStack { (_, _) -> DataStackType in throw testError }

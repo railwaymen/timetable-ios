@@ -10,7 +10,7 @@ import Foundation
 @testable import TimeTable
 
 class AccessServiceMock: AccessServiceLoginType {
-    
+
     private(set) var saveUserCalled = false
     private(set) var getUserCredentialsCalled = false
     private(set) var removeLastLoggedInUserIdentifierCalled = false
@@ -23,14 +23,14 @@ class AccessServiceMock: AccessServiceLoginType {
     func saveUser(credentails: LoginCredentials) throws {
         saveUserCalled = true
         if saveUserIsThrowingError {
-            throw TestError(messsage: "save user")
+            throw TestError(message: "save user")
         }
     }
     
     func getUserCredentials() throws -> LoginCredentials {
         getUserCredentialsCalled = true
         guard !getUserCredentialsReturnsError else {
-            throw TestError(messsage: "getUserCredentials error")
+            throw TestError(message: "getUserCredentials error")
         }
         if let credentails = userCredentials {
             return credentails
@@ -55,5 +55,13 @@ class AccessServiceMock: AccessServiceLoginType {
     func getLastLoggedInUserIdentifier() -> Int64? {
         getLastLoggedInUserIdentifierCalled = true
         return getLastLoggedInUserIdentifierValue
+    }
+    
+    // MARK: - AccessServiceSessionType
+    private(set) var getSessionCalled = false
+    var getSessionCompletion: ((Result<SessionDecoder>) -> Void)?
+    func getSession(completion: @escaping ((Result<SessionDecoder>) -> Void)) {
+        getSessionCalled = true
+        getSessionCompletion = completion
     }
 }

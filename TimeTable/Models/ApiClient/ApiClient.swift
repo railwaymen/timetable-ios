@@ -9,21 +9,24 @@
 import Foundation
 import Networking
 
-typealias ApiClientType = (ApiClientSessionType)
+typealias ApiClientType = (ApiClientNetworkingType & ApiClientSessionType & ApiClientWorkTimesType)
 
 protocol ApiClientNetworkingType: class {
+    var networking: NetworkingType { get set }
+    
     func post<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void))
+    func get<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void))
 }
 
-class ApiClient {
-    private var networking: NetworkingType
+class ApiClient: ApiClientNetworkingType {
+    internal var networking: NetworkingType
     private let encoder: RequestEncoderType
     private let decoder: JSONDecoderType
     
     // MARK: - Initialization
     init(networking: NetworkingType, buildEncoder: (() -> RequestEncoderType), buildDecoder: (() -> JSONDecoderType)) {
         self.networking = networking
-        self.networking.headerFields?["content-type"] = "application/json"
+        self.networking.headerFields = ["content-type": "application/json"]
         self.encoder = buildEncoder()
         self.decoder = buildDecoder()
     }
@@ -62,7 +65,7 @@ class ApiClient {
     func get<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void)) {
         do {
             let parameters = try encoder.encodeToDictionary(wrapper: parameters)
-            networking.get(endpoint.rawValue, parameters: parameters, cachingLevel: .memory) { [weak self] response in
+            networking.get(endpoint.rawValue, parameters: parameters, cachingLevel: .none) { [weak self] response in
                 self?.handle(response: response, completion: completion)
             }
         } catch {

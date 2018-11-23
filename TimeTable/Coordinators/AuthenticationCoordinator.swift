@@ -24,7 +24,7 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
     
     enum State {
         case changeAddress
-        case loggedInCorrectly
+        case loggedInCorrectly(SessionDecoder)
     }
     
     // MARK: - Initialization
@@ -39,7 +39,6 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
     }
 
     // MARK: - CoordinatorType
-    
     func start(finishCompletion: ((State) -> Void)?) {
         self.customFinishCompletion = finishCompletion
         runMainFlow()
@@ -66,5 +65,18 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
 extension AuthenticationCoordinator: LoginCoordinatorDelegate {
     func loginDidFinish(with state: AuthenticationCoordinator.State) {
         finish(with: state)
+    }
+}
+
+extension AuthenticationCoordinator.State: Equatable {
+    static func == (lhs: AuthenticationCoordinator.State, rhs: AuthenticationCoordinator.State) -> Bool {
+        switch (lhs, rhs) {
+        case (.changeAddress, .changeAddress):
+            return true
+        case (.loggedInCorrectly(let lhsSessionDecoder), .loggedInCorrectly(let rhsSessionDecoder)):
+            return lhsSessionDecoder == rhsSessionDecoder
+        default:
+            return false
+        }
     }
 }

@@ -16,14 +16,19 @@ class AccessServiceTests: XCTestCase {
     private var encoderMock: JSONEncoderMock!
     private var decoderMock: JSONDecoderMock!
     private var accessService: AccessService!
+    private var coreDataMock: CoreDataStackUserMock!
     
     override func setUp() {
         userDefaultsMock = UserDefaultsMock()
         keychainAccessMock = KeychainAccessMock()
+        coreDataMock = CoreDataStackUserMock()
         encoderMock = JSONEncoderMock()
         decoderMock = JSONDecoderMock()
-        accessService = AccessService(userDefaults: userDefaultsMock, keychainAccess: keychainAccessMock,
-                                      buildEncoder: { return self.encoderMock }, buildDecoder: { return self.decoderMock })
+        accessService = AccessService(userDefaults: userDefaultsMock,
+                                      keychainAccess: keychainAccessMock,
+                                      coreData: coreDataMock,
+                                      buildEncoder: { return self.encoderMock },
+                                      buildDecoder: { return self.decoderMock })
         super.setUp()
     }
     
@@ -81,7 +86,7 @@ class AccessServiceTests: XCTestCase {
             _ = try accessService.getUserCredentials()
         } catch {
             //Assert
-            XCTAssertEqual(try (error as? TestError).unwrap(), TestError(messsage: "set Data error"))
+            XCTAssertEqual(try (error as? TestError).unwrap(), TestError(message: "set Data error"))
         }
     }
     
@@ -112,7 +117,7 @@ class AccessServiceTests: XCTestCase {
             _ = try accessService.getUserCredentials()
         } catch {
             //Assert
-            XCTAssertEqual(try (error as? TestError).unwrap(), TestError(messsage: "decoder error"))
+            XCTAssertEqual(try (error as? TestError).unwrap(), TestError(message: "decoder error"))
         }
     }
 

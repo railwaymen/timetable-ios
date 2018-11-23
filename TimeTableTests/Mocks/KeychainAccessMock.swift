@@ -17,7 +17,7 @@ class KeychainAccessMock: KeychainAccessType {
     func get(_ key: String) throws -> String? {
         getStringValues = (true, key)
         if getStringIsThrowingError {
-            throw TestError(messsage: "set Data error")
+            throw TestError(message: "set Data error")
         } else {
             return getStringValue
         }
@@ -29,7 +29,7 @@ class KeychainAccessMock: KeychainAccessType {
     func getData(_ key: String) throws -> Data? {
         getDataValues = (true, key)
         if getDataIsThrowingError {
-            throw TestError(messsage: "set Data error")
+            throw TestError(message: "set Data error")
         } else {
             return getDataValue
         }
@@ -40,7 +40,7 @@ class KeychainAccessMock: KeychainAccessType {
     func set(_ value: String, key: String) throws {
         setStringValues = (true, value, key)
         if setStringIsThrowingError {
-            throw TestError(messsage: "set String error")
+            throw TestError(message: "set String error")
         }
     }
     
@@ -49,7 +49,7 @@ class KeychainAccessMock: KeychainAccessType {
     func set(_ value: Data, key: String) throws {
         setDataValues = (true, value, key)
         if setDataIsThrowingError {
-            throw TestError(messsage: "set Data error")
+            throw TestError(message: "set Data error")
         }
     }
 }
