@@ -18,12 +18,18 @@ protocol WorkTimesViewModelType: class {
     func numberOfRows(in section: Int) -> Int
     func viewDidLoad()
     func viewWillAppear()
-    func viewRequestedForCellModel(at index: IndexPath) -> WorkTimeCellViewModelType?
+    func viewRequestedForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType?
 }
 
-struct DailyWorkTime {
+class DailyWorkTime {
     let day: Date
     var workTimes: [WorkTimeDecoder]
+    
+    // MARK: - Initialization
+    init(day: Date, workTimes: [WorkTimeDecoder]) {
+        self.day = day
+        self.workTimes = workTimes
+    }
 }
 
 class WorkTimesViewModel: WorkTimesViewModelType {
@@ -60,9 +66,9 @@ class WorkTimesViewModel: WorkTimesViewModelType {
         fetchWorkTimes(for: parameters)
     }
     
-    func viewRequestedForCellModel(at index: IndexPath) -> WorkTimeCellViewModelType? {
+    func viewRequestedForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType? {
         let workTime = dailyWorkTimesArray[index.section].workTimes.sorted(by: { $0.startsAt > $1.startsAt })[index.row]
-        return WorkTimeCellViewModel(workTime: workTime)
+        return WorkTimeCellViewModel(workTime: workTime, userInterface: cell)
     }
     
     // MARK: - Private
@@ -72,7 +78,7 @@ class WorkTimesViewModel: WorkTimesViewModelType {
             case .success(let workTimes):
                 self?.dailyWorkTimesArray = workTimes.reduce([DailyWorkTime](), { (array, workTime) in
                     var newArray = array
-                    if var dailyWorkTimes = array.first(where: { $0.day == workTime.date }) {
+                    if let dailyWorkTimes = newArray.first(where: { $0.day == workTime.date }) {
                         dailyWorkTimes.workTimes.append(workTime)
                     } else {
                         let new = DailyWorkTime(day: workTime.date, workTimes: [workTime])
@@ -89,10 +95,11 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     
     private func getStartAndEndDate(for date: Date) -> (startOfMonth: Date?, endOfMonth: Date?) {
         let calendar = Calendar.autoupdatingCurrent
-        let startOfMonthComponents = calendar.dateComponents([.year, .month], from: date)
+        var startOfMonthComponents = calendar.dateComponents([.year, .month], from: date)
+        startOfMonthComponents.day = 1
         let startOfMonth = calendar.date(from: startOfMonthComponents)
         guard let date = startOfMonth else { return (startOfMonth, nil) }
-        let endOfMonthComponents = DateComponents(month: 1, day: -1)
+        let endOfMonthComponents = DateComponents(month: 1)
         let endOfMonth = calendar.date(byAdding: endOfMonthComponents, to: date)
         return (startOfMonth, endOfMonth)
     }

@@ -17,6 +17,7 @@ protocol WorkTimesViewControllerType {
 class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet private var tableView: UITableView!
     
+    private let tableViewEstimatedRowHeight: CGFloat = 90
     private let workTimeTableViewCellReuseIdentifier = "WorkTimeTableViewCellReuseIdentifier"
     private var viewModel: WorkTimesViewModelType!
     
@@ -43,7 +44,7 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: workTimeTableViewCellReuseIdentifier, for: indexPath)
         guard let workTimeCell = cell as? WorkTimeTableViewCell else { return UITableViewCell() }
-        guard let cellViewModel = viewModel.viewRequestedForCellModel(at: indexPath) else { return UITableViewCell() }
+        guard let cellViewModel = viewModel.viewRequestedForCellModel(at: indexPath, cell: workTimeCell) else { return UITableViewCell() }
         workTimeCell.configure(viewModel: cellViewModel)
         return workTimeCell
     }
@@ -58,6 +59,9 @@ extension WorkTimesViewController: WorkTimesViewModelOutput {
     func setUpView() {
         tableView.delegate = self
         tableView.dataSource = self
+        
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = tableViewEstimatedRowHeight
     }
     
     func updateView() {

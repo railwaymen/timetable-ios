@@ -15,7 +15,7 @@ struct WorkTimeDecoder: Decodable {
     let projectIdentifier: Int
     let startsAt: Date
     let endsAt: Date
-    let duration: Int
+    let duration: Int64
     let body: String?
     let task: String?
     let taskPreview: String?
@@ -50,7 +50,7 @@ struct WorkTimeDecoder: Decodable {
         self.projectIdentifier = try container.decode(Int.self, forKey: .projectIdentifier)
         self.startsAt = try container.decode(Date.self, forKey: .startsAt)
         self.endsAt = try container.decode(Date.self, forKey: .endsAt)
-        self.duration = try container.decode(Int.self, forKey: .duration)
+        self.duration = try container.decode(Int64.self, forKey: .duration)
         self.body = try? container.decode(String.self, forKey: .body)
         self.task = try? container.decode(String.self, forKey: .task)
         self.taskPreview = try? container.decode(String.self, forKey: .taskPreview)
