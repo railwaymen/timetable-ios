@@ -15,7 +15,7 @@ protocol WorkTimeTableViewCellType: class {
 }
 
 class WorkTimeTableViewCell: UITableViewCell {
-    
+
     @IBOutlet private var durationLabel: UILabel!
     @IBOutlet private var bodyLabel: UILabel!
     @IBOutlet private var taskButton: UIButton?
@@ -25,9 +25,11 @@ class WorkTimeTableViewCell: UITableViewCell {
     
     // MARK: - Overriden
     override func prepareForReuse() {
+        super.prepareForReuse()
         viewModel?.prepareForReuse()
     }
     
+    // MARK: - IBAction
     @IBAction private func taskButtonTapped(_ sender: UIButton) {
         viewModel?.viewRequestedForTaskPreview()
     }

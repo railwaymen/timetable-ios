@@ -18,7 +18,9 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet private var tableView: UITableView!
     
     private let tableViewEstimatedRowHeight: CGFloat = 90
+    private let heightForHeader: CGFloat = 50
     private let workTimeTableViewCellReuseIdentifier = "WorkTimeTableViewCellReuseIdentifier"
+    private let workTimesTableViewHeaderIdentifier = "WorkTimesTableViewHeaderIdentifier"
     private var viewModel: WorkTimesViewModelType!
     
     // MARK: - Life Cycle
@@ -44,7 +46,7 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: workTimeTableViewCellReuseIdentifier, for: indexPath)
         guard let workTimeCell = cell as? WorkTimeTableViewCell else { return UITableViewCell() }
-        guard let cellViewModel = viewModel.viewRequestedForCellModel(at: indexPath, cell: workTimeCell) else { return UITableViewCell() }
+        let cellViewModel = viewModel.viewRequestedForCellModel(at: indexPath, cell: workTimeCell)
         workTimeCell.configure(viewModel: cellViewModel)
         return workTimeCell
     }
@@ -52,6 +54,19 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
     // MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: workTimesTableViewHeaderIdentifier) as? WorkTimesTableViewHeaderable else {
+            return nil
+        }
+        let headerViewModel = viewModel.viewRequestedForHeaderModel(at: section, header: header)
+        header.configure(viewModel: headerViewModel)
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return heightForHeader
     }
 }
 
@@ -62,6 +77,9 @@ extension WorkTimesViewController: WorkTimesViewModelOutput {
         
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = tableViewEstimatedRowHeight
+        
+        let nib = UINib(nibName: WorkTimesTableViewHeader.className, bundle: nil)
+        tableView.register(nib, forHeaderFooterViewReuseIdentifier: workTimesTableViewHeaderIdentifier)
     }
     
     func updateView() {

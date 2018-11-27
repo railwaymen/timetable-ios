@@ -18,7 +18,8 @@ protocol WorkTimesViewModelType: class {
     func numberOfRows(in section: Int) -> Int
     func viewDidLoad()
     func viewWillAppear()
-    func viewRequestedForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType?
+    func viewRequestedForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType
+    func viewRequestedForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType
 }
 
 class DailyWorkTime {
@@ -66,9 +67,13 @@ class WorkTimesViewModel: WorkTimesViewModelType {
         fetchWorkTimes(for: parameters)
     }
     
-    func viewRequestedForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType? {
+    func viewRequestedForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType {
         let workTime = dailyWorkTimesArray[index.section].workTimes.sorted(by: { $0.startsAt > $1.startsAt })[index.row]
         return WorkTimeCellViewModel(workTime: workTime, userInterface: cell)
+    }
+    
+    func viewRequestedForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType {
+        return WorkTimesTableViewHeaderViewModel(userInterface: header, dailyWorkTime: dailyWorkTimesArray[section])
     }
     
     // MARK: - Private

@@ -21,47 +21,14 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SCa-Yp-ddD">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="Zxw-lh-rHo">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0yM-Ei-8B3">
-                                            <rect key="frame" x="8" y="5" width="49" height="34"/>
-                                            <fontDescription key="fontDescription" name="Kailasa-Bold" family="Kailasa" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.label.title"/>
-                                            </userDefinedRuntimeAttributes>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" text="8:00" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="8Eh-YW-M22">
-                                            <rect key="frame" x="65" y="12" width="302" height="20"/>
-                                            <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="15"/>
-                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.label.explanation"/>
-                                            </userDefinedRuntimeAttributes>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="0yM-Ei-8B3" secondAttribute="bottom" constant="5" id="7iT-Ny-6iN"/>
-                                        <constraint firstItem="0yM-Ei-8B3" firstAttribute="leading" secondItem="Zxw-lh-rHo" secondAttribute="leading" constant="8" id="JNp-PK-CFS"/>
-                                        <constraint firstItem="0yM-Ei-8B3" firstAttribute="top" secondItem="Zxw-lh-rHo" secondAttribute="top" constant="5" id="ViM-6c-r7x"/>
-                                        <constraint firstAttribute="trailing" secondItem="8Eh-YW-M22" secondAttribute="trailing" constant="8" id="mcf-oz-xB6"/>
-                                        <constraint firstItem="8Eh-YW-M22" firstAttribute="leading" secondItem="0yM-Ei-8B3" secondAttribute="trailing" constant="8" id="nRn-RI-3i5"/>
-                                        <constraint firstItem="8Eh-YW-M22" firstAttribute="centerY" secondItem="0yM-Ei-8B3" secondAttribute="centerY" id="p5Y-Pm-faO"/>
-                                    </constraints>
-                                </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="zlN-TH-8OR">
-                                    <rect key="frame" x="0.0" y="182" width="375" height="0.0"/>
+                                    <rect key="frame" x="0.0" y="138" width="375" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WorkTimeTableViewCellReuseIdentifier" rowHeight="110" id="bkm-70-40P" customClass="WorkTimeTableViewCell" customModule="TimeTable" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="375" height="110"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="110"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bkm-70-40P" id="Xj9-tv-Q2I">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="109.5"/>
