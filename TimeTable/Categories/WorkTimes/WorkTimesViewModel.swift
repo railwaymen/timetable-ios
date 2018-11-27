@@ -18,8 +18,8 @@ protocol WorkTimesViewModelType: class {
     func numberOfRows(in section: Int) -> Int
     func viewDidLoad()
     func viewWillAppear()
-    func viewRequestedForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType
-    func viewRequestedForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType
+    func viewRequestedForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType?
+    func viewRequestedForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType?
 }
 
 class DailyWorkTime {
@@ -37,14 +37,17 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     private weak var userInterface: WorkTimesViewModelOutput?
     private let apiClient: ApiClientWorkTimesType
     private let errorHandler: ErrorHandlerType
+    private let calendar: CalendarType
     
     private var dailyWorkTimesArray: [DailyWorkTime]
     
     // MARK: - Initialization
-    init(userInterface: WorkTimesViewModelOutput, apiClient: ApiClientWorkTimesType, errorHandler: ErrorHandlerType) {
+    init(userInterface: WorkTimesViewModelOutput, apiClient: ApiClientWorkTimesType,
+         errorHandler: ErrorHandlerType, calendar: CalendarType = Calendar.autoupdatingCurrent) {
         self.userInterface = userInterface
         self.apiClient = apiClient
         self.errorHandler = errorHandler
+        self.calendar = calendar
         self.dailyWorkTimesArray = []
     }
     
@@ -54,7 +57,7 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     }
     
     func numberOfRows(in section: Int) -> Int {
-        return dailyWorkTimesArray[section].workTimes.count
+        return (dailyWorkTimesArray.count > section) ? dailyWorkTimesArray[section].workTimes.count : 0
     }
     
     func viewDidLoad() {
@@ -67,12 +70,14 @@ class WorkTimesViewModel: WorkTimesViewModelType {
         fetchWorkTimes(for: parameters)
     }
     
-    func viewRequestedForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType {
+    func viewRequestedForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType? {
+        guard dailyWorkTimesArray.count > index.section else { return nil }
         let workTime = dailyWorkTimesArray[index.section].workTimes.sorted(by: { $0.startsAt > $1.startsAt })[index.row]
         return WorkTimeCellViewModel(workTime: workTime, userInterface: cell)
     }
     
-    func viewRequestedForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType {
+    func viewRequestedForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType? {
+        guard dailyWorkTimesArray.count > section else { return nil }
         return WorkTimesTableViewHeaderViewModel(userInterface: header, dailyWorkTime: dailyWorkTimesArray[section])
     }
     
@@ -99,7 +104,6 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     }
     
     private func getStartAndEndDate(for date: Date) -> (startOfMonth: Date?, endOfMonth: Date?) {
-        let calendar = Calendar.autoupdatingCurrent
         var startOfMonthComponents = calendar.dateComponents([.year, .month], from: date)
         startOfMonthComponents.day = 1
         let startOfMonth = calendar.date(from: startOfMonthComponents)

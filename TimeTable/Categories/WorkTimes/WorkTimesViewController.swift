@@ -46,7 +46,7 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: workTimeTableViewCellReuseIdentifier, for: indexPath)
         guard let workTimeCell = cell as? WorkTimeTableViewCell else { return UITableViewCell() }
-        let cellViewModel = viewModel.viewRequestedForCellModel(at: indexPath, cell: workTimeCell)
+        guard let cellViewModel = viewModel.viewRequestedForCellModel(at: indexPath, cell: workTimeCell) else { return UITableViewCell() }
         workTimeCell.configure(viewModel: cellViewModel)
         return workTimeCell
     }
@@ -60,7 +60,7 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: workTimesTableViewHeaderIdentifier) as? WorkTimesTableViewHeaderable else {
             return nil
         }
-        let headerViewModel = viewModel.viewRequestedForHeaderModel(at: section, header: header)
+        guard let headerViewModel = viewModel.viewRequestedForHeaderModel(at: section, header: header) else { return nil }
         header.configure(viewModel: headerViewModel)
         return header
     }
