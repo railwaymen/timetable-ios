@@ -18,7 +18,7 @@ protocol WorkTimesTableViewHeaderViewModelType: class {
 
 class WorkTimesTableViewHeaderViewModel: WorkTimesTableViewHeaderViewModelType {
     private weak var userInterface: WorkTimesTableViewHeaderViewModelOutput?
-    private let calendar: Calendar
+    private let calendar: CalendarType
     private let dailyWorkTime: DailyWorkTime
     
     private lazy var dateComponentsFormatter: DateComponentsFormatter = {
@@ -30,7 +30,7 @@ class WorkTimesTableViewHeaderViewModel: WorkTimesTableViewHeaderViewModelType {
     }()
     
     // MARK: - Initialization
-    init(userInterface: WorkTimesTableViewHeaderViewModelOutput, dailyWorkTime: DailyWorkTime, calendar: Calendar = Calendar.autoupdatingCurrent) {
+    init(userInterface: WorkTimesTableViewHeaderViewModelOutput, dailyWorkTime: DailyWorkTime, calendar: CalendarType = Calendar.autoupdatingCurrent) {
         self.userInterface = userInterface
         self.dailyWorkTime = dailyWorkTime
         self.calendar = calendar

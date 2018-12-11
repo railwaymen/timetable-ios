@@ -54,5 +54,19 @@ class CalendarMock: CalendarType {
         shortDateByAddingDataWithValueData = (component, value, date)
         return shortDateByAddingWithValueReturnValue
     }
+    
+    private(set) var isDateInTodayValues: (called: Bool, date: Date?) = (false, nil)
+    var isDateInTodayReturnValue = false
+    func isDateInToday(_ date: Date) -> Bool {
+        isDateInTodayValues = (true, date)
+        return isDateInTodayReturnValue
+    }
+    
+    private(set) var isDateInYesterdayValues: (called: Bool, date: Date?) = (false, nil)
+    var isDateInYesterdayReturnValue = false
+    func isDateInYesterday(_ date: Date) -> Bool {
+        isDateInYesterdayValues = (true, date)
+        return isDateInYesterdayReturnValue
+    }
 }
 // swiftlint:enable large_tuple

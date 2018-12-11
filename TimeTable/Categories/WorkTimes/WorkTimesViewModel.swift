@@ -106,9 +106,10 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     private func getStartAndEndDate(for date: Date) -> (startOfMonth: Date?, endOfMonth: Date?) {
         var startOfMonthComponents = calendar.dateComponents([.year, .month], from: date)
         startOfMonthComponents.day = 1
+        startOfMonthComponents.timeZone = TimeZone(secondsFromGMT: 0)
         let startOfMonth = calendar.date(from: startOfMonthComponents)
         guard let date = startOfMonth else { return (startOfMonth, nil) }
-        let endOfMonthComponents = DateComponents(month: 1)
+        let endOfMonthComponents = DateComponents(day: -1, hour: 23, minute: 59, second: 59, nanosecond: 59)
         let endOfMonth = calendar.date(byAdding: endOfMonthComponents, to: date)
         return (startOfMonth, endOfMonth)
     }
