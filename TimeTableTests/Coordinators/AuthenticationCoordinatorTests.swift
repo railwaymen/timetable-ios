@@ -84,4 +84,34 @@ class AuthenticationCoordinatorTests: XCTestCase {
         //Assert
         XCTAssertTrue(finishCompletionCalled)
     }
+    
+    func testAuthenticationCoordinatorStateEquatableChangeAddress() {
+        //Act
+        let firstState = AuthenticationCoordinator.State.changeAddress
+        let secoundState = AuthenticationCoordinator.State.changeAddress
+        //Assert
+        XCTAssertEqual(firstState, secoundState)
+    }
+    
+    func testAuthenticationCoordinatorStateNotEquatableChangeAddressAndLoggedInCorrectly() throws {
+        //Arrange
+        let data = try self.json(from: SessionResponse.signInResponse)
+        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
+        //Act
+        let firstState = AuthenticationCoordinator.State.changeAddress
+        let secoundState = AuthenticationCoordinator.State.loggedInCorrectly(sessionReponse)
+        //Assert
+        XCTAssertNotEqual(firstState, secoundState)
+    }
+    
+    func testAuthenticationCoordinatorStateEquatableLoggedInCorrectly() throws {
+        //Arrange
+        let data = try self.json(from: SessionResponse.signInResponse)
+        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
+        //Act
+        let firstState = AuthenticationCoordinator.State.loggedInCorrectly(sessionReponse)
+        let secoundState = AuthenticationCoordinator.State.loggedInCorrectly(sessionReponse)
+        //Assert
+        XCTAssertEqual(firstState, secoundState)
+    }
 }

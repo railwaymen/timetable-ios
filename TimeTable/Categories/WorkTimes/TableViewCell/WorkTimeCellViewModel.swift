@@ -46,9 +46,7 @@ class WorkTimeCellViewModel: WorkTimeCellViewModelType {
         self.updateView()
     }
     
-    func viewRequestedForTaskPreview() {
-        
-    }
+    func viewRequestedForTaskPreview() {}
     
     // MARK: - Private
     private func updateView() {
