@@ -15,6 +15,7 @@ protocol WorkTimesViewControllerType {
 }
 
 class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet private var dateLabel: UILabel!
     @IBOutlet private var tableView: UITableView!
     
     private let tableViewEstimatedRowHeight: CGFloat = 90
@@ -32,6 +33,15 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.viewWillAppear()
+    }
+    
+    // MARK: - Action
+    @IBAction func previousMonthButtonTapped(_ sender: UIButton) {
+        viewModel.viewRequestedForPreviousMonth()
+    }
+    
+    @IBAction func nextMonthButtonTapped(_ sender: Any) {
+        viewModel.viewRequestedForNextMonth()
     }
     
     // MARK: - UITableViewDataSource
@@ -71,7 +81,9 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
 }
 
 extension WorkTimesViewController: WorkTimesViewModelOutput {
-    func setUpView() {
+    
+    func setUpView(with dateString: String) {
+        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -80,12 +92,18 @@ extension WorkTimesViewController: WorkTimesViewModelOutput {
         
         let nib = UINib(nibName: WorkTimesTableViewHeader.className, bundle: nil)
         tableView.register(nib, forHeaderFooterViewReuseIdentifier: workTimesTableViewHeaderIdentifier)
+        
+        dateLabel.text = dateString
     }
     
     func updateView() {
         DispatchQueue.main.async { [weak self] in
             self?.tableView.reloadData()
         }
+    }
+    
+    func updateDateLabel(text: String) {
+        dateLabel.text = text
     }
 }
 

@@ -9,8 +9,9 @@
 import Foundation
 
 protocol WorkTimesViewModelOutput: class {
-    func setUpView()
+    func setUpView(with dateString: String)
     func updateView()
+    func updateDateLabel(text: String)
 }
 
 protocol WorkTimesViewModelType: class {
@@ -18,6 +19,8 @@ protocol WorkTimesViewModelType: class {
     func numberOfRows(in section: Int) -> Int
     func viewDidLoad()
     func viewWillAppear()
+    func viewRequestedForPreviousMonth()
+    func viewRequestedForNextMonth()
     func viewRequestedForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType?
     func viewRequestedForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType?
 }
@@ -38,7 +41,7 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     private let apiClient: ApiClientWorkTimesType
     private let errorHandler: ErrorHandlerType
     private let calendar: CalendarType
-    
+    private var selectedMonth: Date?
     private var dailyWorkTimesArray: [DailyWorkTime]
     
     // MARK: - Initialization
@@ -49,6 +52,8 @@ class WorkTimesViewModel: WorkTimesViewModelType {
         self.errorHandler = errorHandler
         self.calendar = calendar
         self.dailyWorkTimesArray = []
+        let components = Calendar.current.dateComponents([.month, .year], from: Date())
+        self.selectedMonth = calendar.date(from: components)
     }
     
     // MARK: - WorkTimesViewModelType
@@ -61,13 +66,20 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     }
     
     func viewDidLoad() {
-        userInterface?.setUpView()
+        let text = textForDateLabel()
+        userInterface?.setUpView(with: text)
     }
     
     func viewWillAppear() {
-        let dates = getStartAndEndDate(for: Date())
-        let parameters = WorkTimesParameters(fromDate: dates.startOfMonth, toDate: dates.endOfMonth, projectIdentifier: nil)
-        fetchWorkTimes(for: parameters)
+        fetchWorkTimes()
+    }
+    
+    func viewRequestedForPreviousMonth() {
+        fetchAndchangeSelectedMonth(with: DateComponents(month: -1))
+    }
+    
+    func viewRequestedForNextMonth() {
+        fetchAndchangeSelectedMonth(with: DateComponents(month: 1))
     }
     
     func viewRequestedForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType? {
@@ -82,7 +94,35 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     }
     
     // MARK: - Private
-    private func fetchWorkTimes(for parameters: WorkTimesParameters) {
+    private func fetchAndchangeSelectedMonth(with components: DateComponents) {
+        var newComponents = components
+        guard let date = selectedMonth else { return }
+        guard let month = calendar.dateComponents([.month], from: date).month else { return }
+        if let componentsMonth = components.month {
+            if month == 1 && componentsMonth == -1 {
+                newComponents.year = -1
+            } else if month == 12 && componentsMonth == 1 {
+                newComponents.year = 1
+            }
+        }
+        selectedMonth = calendar.date(byAdding: newComponents, to: date)
+        fetchWorkTimes()
+        let text = textForDateLabel()
+        userInterface?.updateDateLabel(text: text)
+    }
+    
+    private func textForDateLabel() -> String {
+        guard let date = selectedMonth else { return "" }
+        let components = calendar.dateComponents([.month, .year], from: date)
+        guard let month = components.month, let year = components.year else { return "" }
+        guard let monthSymbol = DateFormatter().shortMonthSymbols?[month - 1] else { return "" }
+        return "\(monthSymbol) \(year)"
+    }
+    
+    private func fetchWorkTimes() {
+        let dates = getStartAndEndDate(for: selectedMonth)
+        let parameters = WorkTimesParameters(fromDate: dates.startOfMonth, toDate: dates.endOfMonth, projectIdentifier: nil)
+        
         apiClient.fetchWorkTimes(parameters: parameters) { [weak self] result in
             switch result {
             case .success(let workTimes):
@@ -103,14 +143,15 @@ class WorkTimesViewModel: WorkTimesViewModelType {
         }
     }
     
-    private func getStartAndEndDate(for date: Date) -> (startOfMonth: Date?, endOfMonth: Date?) {
+    private func getStartAndEndDate(for date: Date?) -> (startOfMonth: Date?, endOfMonth: Date?) {
+        guard let date = date else { return (nil, nil) }
         var startOfMonthComponents = calendar.dateComponents([.year, .month], from: date)
         startOfMonthComponents.day = 1
         startOfMonthComponents.timeZone = TimeZone(secondsFromGMT: 0)
         let startOfMonth = calendar.date(from: startOfMonthComponents)
-        guard let date = startOfMonth else { return (startOfMonth, nil) }
+        guard let startDate = startOfMonth else { return (startOfMonth, nil) }
         let endOfMonthComponents = DateComponents(day: -1, hour: 23, minute: 59, second: 59, nanosecond: 59)
-        let endOfMonth = calendar.date(byAdding: endOfMonthComponents, to: date)
+        let endOfMonth = calendar.date(byAdding: endOfMonthComponents, to: startDate)
         return (startOfMonth, endOfMonth)
     }
 }

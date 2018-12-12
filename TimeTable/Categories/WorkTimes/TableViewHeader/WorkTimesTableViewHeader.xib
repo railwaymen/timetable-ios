@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,6 +16,10 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v6g-0m-cyk">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGw-4p-xFE">
                     <rect key="frame" x="16" y="8" width="49" height="44"/>
                     <fontDescription key="fontDescription" name="Kailasa-Bold" family="Kailasa" pointSize="17"/>
@@ -31,12 +35,16 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="v6g-0m-cyk" secondAttribute="bottom" id="0QH-ke-15y"/>
                 <constraint firstItem="zA8-8k-Ly2" firstAttribute="centerY" secondItem="eGw-4p-xFE" secondAttribute="centerY" id="S3V-1N-lD9"/>
                 <constraint firstItem="eGw-4p-xFE" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="XRd-w2-wnM"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="eGw-4p-xFE" secondAttribute="bottom" constant="8" id="XkE-bo-Re0"/>
                 <constraint firstItem="zA8-8k-Ly2" firstAttribute="leading" secondItem="eGw-4p-xFE" secondAttribute="trailing" constant="8" id="YlN-U0-dES"/>
+                <constraint firstItem="v6g-0m-cyk" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="dNE-uh-luU"/>
+                <constraint firstItem="v6g-0m-cyk" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="eHf-UG-XBR"/>
                 <constraint firstItem="eGw-4p-xFE" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="nSJ-n9-9JW"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="zA8-8k-Ly2" secondAttribute="trailing" constant="16" id="pZ7-sf-56o"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="v6g-0m-cyk" secondAttribute="trailing" id="xIU-fe-DEr"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -44,6 +52,7 @@
                 <outlet property="dayLabel" destination="eGw-4p-xFE" id="yxc-4G-jbm"/>
                 <outlet property="summaryLabel" destination="zA8-8k-Ly2" id="IAU-Sc-cEq"/>
             </connections>
+            <point key="canvasLocation" x="138.40000000000001" y="154.72263868065968"/>
         </view>
     </objects>
 </document>

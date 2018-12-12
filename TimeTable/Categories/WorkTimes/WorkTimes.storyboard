@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rEk-z6-2rw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rEk-z6-2rw">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SCa-Yp-ddD">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="105" width="375" height="562"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="zlN-TH-8OR">
                                     <rect key="frame" x="0.0" y="138" width="375" height="0.0"/>
@@ -93,17 +93,67 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="chj-g6-Xkk">
+                                <rect key="frame" x="0.0" y="20" width="375" height="85"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CLZ-ew-nA0">
+                                        <rect key="frame" x="82.5" y="35" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="WJs-VG-70B"/>
+                                            <constraint firstAttribute="height" constant="40" id="fRN-Ad-4Ru"/>
+                                        </constraints>
+                                        <state key="normal" image="icon-prev"/>
+                                        <connections>
+                                            <action selector="previousMonthButtonTapped:" destination="rEk-z6-2rw" eventType="touchUpInside" id="did-nJ-f1A"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bCs-XN-1kV">
+                                        <rect key="frame" x="252.5" y="35" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="3E6-d9-uiz"/>
+                                            <constraint firstAttribute="width" constant="40" id="HEA-Bx-D7R"/>
+                                        </constraints>
+                                        <state key="normal" image="icon-next"/>
+                                        <connections>
+                                            <action selector="nextMonthButtonTapped:" destination="rEk-z6-2rw" eventType="touchUpInside" id="IeF-zV-0bL"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="May 2018" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="jfa-xm-ux8">
+                                        <rect key="frame" x="132.5" y="41" width="110" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="110" id="RYA-SA-RrA"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="21"/>
+                                        <color key="textColor" red="0.3803921569" green="0.3803921569" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="bCs-XN-1kV" firstAttribute="top" secondItem="chj-g6-Xkk" secondAttribute="top" constant="35" id="3gh-5F-aQh"/>
+                                    <constraint firstItem="bCs-XN-1kV" firstAttribute="leading" secondItem="jfa-xm-ux8" secondAttribute="trailing" constant="10" id="BbO-VR-Tws"/>
+                                    <constraint firstItem="jfa-xm-ux8" firstAttribute="leading" secondItem="CLZ-ew-nA0" secondAttribute="trailing" constant="10" id="WlJ-fq-hT7"/>
+                                    <constraint firstItem="jfa-xm-ux8" firstAttribute="centerY" secondItem="CLZ-ew-nA0" secondAttribute="centerY" id="gP0-8A-jaO"/>
+                                    <constraint firstItem="jfa-xm-ux8" firstAttribute="centerX" secondItem="chj-g6-Xkk" secondAttribute="centerX" id="jko-1A-Jbd"/>
+                                    <constraint firstItem="CLZ-ew-nA0" firstAttribute="top" secondItem="chj-g6-Xkk" secondAttribute="top" constant="35" id="sT6-nc-58V"/>
+                                    <constraint firstAttribute="bottom" secondItem="CLZ-ew-nA0" secondAttribute="bottom" constant="10" id="zLx-B0-Wk9"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="pV0-Kr-wuD" firstAttribute="trailing" secondItem="chj-g6-Xkk" secondAttribute="trailing" id="Uut-Yo-ZJD"/>
+                            <constraint firstItem="SCa-Yp-ddD" firstAttribute="top" secondItem="chj-g6-Xkk" secondAttribute="bottom" id="Uvb-x6-t4f"/>
                             <constraint firstItem="SCa-Yp-ddD" firstAttribute="leading" secondItem="pV0-Kr-wuD" secondAttribute="leading" id="YLz-zY-hFP"/>
                             <constraint firstItem="pV0-Kr-wuD" firstAttribute="bottom" secondItem="SCa-Yp-ddD" secondAttribute="bottom" id="ZlT-Eg-Luf"/>
+                            <constraint firstItem="chj-g6-Xkk" firstAttribute="leading" secondItem="pV0-Kr-wuD" secondAttribute="leading" id="gpt-5r-hxf"/>
                             <constraint firstItem="pV0-Kr-wuD" firstAttribute="trailing" secondItem="SCa-Yp-ddD" secondAttribute="trailing" id="mHt-SS-Vcc"/>
-                            <constraint firstItem="SCa-Yp-ddD" firstAttribute="top" secondItem="pV0-Kr-wuD" secondAttribute="top" id="ofS-3L-8lE"/>
+                            <constraint firstItem="chj-g6-Xkk" firstAttribute="top" secondItem="pV0-Kr-wuD" secondAttribute="top" id="yIN-iM-ExL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pV0-Kr-wuD"/>
                     </view>
                     <connections>
+                        <outlet property="dateLabel" destination="jfa-xm-ux8" id="6hY-2r-jnx"/>
                         <outlet property="tableView" destination="SCa-Yp-ddD" id="XMe-dB-XMK"/>
                     </connections>
                 </viewController>
@@ -112,4 +162,8 @@
             <point key="canvasLocation" x="200.80000000000001" y="292.80359820089956"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icon-next" width="22" height="22"/>
+        <image name="icon-prev" width="22" height="22"/>
+    </resources>
 </document>
