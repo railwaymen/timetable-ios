@@ -63,9 +63,10 @@ class WorkTimeCellViewModelTests: XCTestCase {
 
 private class WorkTimeCellViewMock: WorkTimeCellViewModelOutput {
     // swiftlint:disable large_tuple
-    private(set) var updateViewData: (durationText: String?, bodyText: String?, taskText: String?, fromToDateText: String?) = (nil, nil, nil, nil)
+    private(set) var updateViewData: (durationText: String?, bodyText: String?,
+        taskText: String?, fromToDateText: String?, projectData: ProjectView.ProjectData?) = (nil, nil, nil, nil, nil)
     // swiftlint:enable large_tuple
-    func updateView(durationText: String?, bodyText: String?, taskText: String?, fromToDateText: String?) {
-        updateViewData = (durationText, bodyText, taskText, fromToDateText)
+    func updateView(durationText: String?, bodyText: String?, taskText: String?, fromToDateText: String?, projectData: ProjectView.ProjectData) {
+        updateViewData = (durationText, bodyText, taskText, fromToDateText, projectData)
     }
 }

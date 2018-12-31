@@ -6,10 +6,10 @@
 //  Copyright © 2018 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol WorkTimeCellViewModelOutput: class {
-    func updateView(durationText: String?, bodyText: String?, taskText: String?, fromToDateText: String?)
+    func updateView(durationText: String?, bodyText: String?, taskText: String?, fromToDateText: String?, projectData: ProjectView.ProjectData)
 }
 
 protocol WorkTimeCellViewModelType: class {
@@ -55,7 +55,12 @@ class WorkTimeCellViewModel: WorkTimeCellViewModelType {
         let startsAtText = DateFormatter.localizedString(from: workTime.startsAt, dateStyle: .none, timeStyle: .short)
         let endsAtText = DateFormatter.localizedString(from: workTime.endsAt, dateStyle: .none, timeStyle: .short)
         let fromToDateText = "\(startsAtText) - \(endsAtText)"
+        let projectData = ProjectView.ProjectData(title: workTime.project.name, color: workTime.project.color)
         
-        userInterface?.updateView(durationText: durationText, bodyText: workTime.body, taskText: workTime.taskPreview, fromToDateText: fromToDateText)
+        userInterface?.updateView(durationText: durationText,
+                                  bodyText: workTime.body,
+                                  taskText: workTime.taskPreview,
+                                  fromToDateText: fromToDateText,
+                                  projectData: projectData)
     }
 }

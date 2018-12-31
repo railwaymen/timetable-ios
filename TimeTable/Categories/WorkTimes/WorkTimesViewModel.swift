@@ -75,11 +75,11 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     }
     
     func viewRequestedForPreviousMonth() {
-        fetchAndchangeSelectedMonth(with: DateComponents(month: -1))
+        fetchAndChangeSelectedMonth(with: DateComponents(month: -1))
     }
     
     func viewRequestedForNextMonth() {
-        fetchAndchangeSelectedMonth(with: DateComponents(month: 1))
+        fetchAndChangeSelectedMonth(with: DateComponents(month: 1))
     }
     
     func viewRequestedForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType? {
@@ -94,7 +94,7 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     }
     
     // MARK: - Private
-    private func fetchAndchangeSelectedMonth(with components: DateComponents) {
+    private func fetchAndChangeSelectedMonth(with components: DateComponents) {
         var newComponents = components
         guard let date = selectedMonth else { return }
         guard let month = calendar.dateComponents([.month], from: date).month else { return }

@@ -109,6 +109,7 @@ class WorkTimesViewModelTests: XCTestCase {
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         calendarMock.dateComponentsReturnValue = DateComponents(year: 2018, month: 11)
         calendarMock.dateFromComponentsValue = Date()
+        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
         viewModel.viewWillAppear()
         apiClientMock.fetchWorkTimesCompletion?(.success(workTimes))
         //Act
@@ -126,6 +127,7 @@ class WorkTimesViewModelTests: XCTestCase {
         calendarMock.dateComponentsReturnValue = DateComponents(year: 2018, month: 11)
         calendarMock.dateFromComponentsValue = Date()
         calendarMock.shortDateByAddingReturnValue = Date()
+        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
         viewModel.viewWillAppear()
         apiClientMock.fetchWorkTimesCompletion?(.success(workTimes))
         //Act
@@ -143,6 +145,7 @@ class WorkTimesViewModelTests: XCTestCase {
         calendarMock.dateComponentsReturnValue = DateComponents(year: 2018, month: 11)
         calendarMock.dateFromComponentsValue = Date()
         calendarMock.shortDateByAddingReturnValue = Date()
+        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
         viewModel.viewWillAppear()
         apiClientMock.fetchWorkTimesCompletion?(.success(workTimes))
         //Act
@@ -230,10 +233,101 @@ class WorkTimesViewModelTests: XCTestCase {
         //Assert
         XCTAssertNotNil(headerViewModel)
     }
+    
+    func testViewRequestedForPreviousMonthWhileSelectedMonthIsNil() {
+        //Arrange
+        //Act
+        viewModel.viewRequestedForPreviousMonth()
+        //Assert
+        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.fromDate)
+        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.toDate)
+        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.projectIdentifier)
+    }
+    
+    func testViewRequestedForPreviousMonthWhileCalendarDateComonetsForMonthReturnedInvalidValue() {
+        //Arrange
+        calendarMock.dateFromComponentsValue = Date()
+        calendarMock.dateComponentsReturnValue = DateComponents(year: 2018)
+        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
+        //Act
+        viewModel.viewRequestedForPreviousMonth()
+        //Assert
+        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.fromDate)
+        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.toDate)
+        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.projectIdentifier)
+    }
+    
+    func testViewRequestedForPreviousMonthSucceed() throws {
+        //Arrange
+        var components = DateComponents(year: 2018, month: 12, day: 31)
+        let date = try Calendar.current.date(from: components).unwrap()
+        calendarMock.dateFromComponentsValue = date
+        calendarMock.dateComponentsReturnValue = DateComponents(year: 2018, month: 1)
+        components.month = 11
+        let dateByAddingReturnValue = try Calendar.current.date(from: components).unwrap()
+        calendarMock.shortDateByAddingReturnValue = dateByAddingReturnValue
+        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
+        //Act
+        viewModel.viewRequestedForPreviousMonth()
+        //Assert
+        XCTAssertNotNil(userInterfaceMock.updateDateLabelText)
+    }
+    
+    func testViewRequestedForNextMonthWhileSelectedMonthIsNil() {
+        //Arrange
+        //Act
+        viewModel.viewRequestedForNextMonth()
+        //Assert
+        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.fromDate)
+        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.toDate)
+        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.projectIdentifier)
+    }
+    
+    func testViewRequestedForNextMonthWhileCalendarDateComonetsForMonthReturnedInvalidValue() {
+        //Arrange
+        calendarMock.dateFromComponentsValue = Date()
+        calendarMock.dateComponentsReturnValue = DateComponents(year: 2018)
+        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
+        //Act
+        viewModel.viewRequestedForPreviousMonth()
+        //Assert
+        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.fromDate)
+        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.toDate)
+        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.projectIdentifier)
+    }
+    
+    func testViewRequestedForNextMonthForLastMonth() {
+        //Arrange
+        calendarMock.dateFromComponentsValue = Date()
+        calendarMock.dateComponentsReturnValue = DateComponents(month: 12)
+        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
+        //Act
+        viewModel.viewRequestedForNextMonth()
+        //Assert
+        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.fromDate)
+        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.toDate)
+        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.projectIdentifier)
+    }
+    
+    func testViewRequestedForNextMonthSucceed() throws {
+        //Arrange
+        var components = DateComponents(year: 2018, month: 12, day: 31)
+        let date = try Calendar.current.date(from: components).unwrap()
+        calendarMock.dateFromComponentsValue = date
+        calendarMock.dateComponentsReturnValue = DateComponents(year: 2018, month: 12)
+        components.month = 11
+        let dateByAddingReturnValue = try Calendar.current.date(from: components).unwrap()
+        calendarMock.shortDateByAddingReturnValue = dateByAddingReturnValue
+        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
+        //Act
+        viewModel.viewRequestedForNextMonth()
+        //Assert
+        XCTAssertNotNil(userInterfaceMock.updateDateLabelText)
+    }
 }
 
 private class WorkTimeCellViewMock: WorkTimeCellViewModelOutput {
-    func updateView(durationText: String?, bodyText: String?, taskText: String?, fromToDateText: String?) {}
+    func updateView(durationText: String?, bodyText: String?, taskText: String?, fromToDateText: String?, projectData: ProjectView.ProjectData) {}
 }
 
 private class WorkTimesTableViewHeaderViewMock: WorkTimesTableViewHeaderViewModelOutput {

@@ -20,6 +20,7 @@ class WorkTimeTableViewCell: UITableViewCell {
     @IBOutlet private var bodyLabel: UILabel!
     @IBOutlet private var taskButton: UIButton?
     @IBOutlet private var fromToDateLabel: UILabel!
+    @IBOutlet private var projectView: ProjectView!
     
     private weak var viewModel: WorkTimeCellViewModelType?
     
@@ -37,16 +38,16 @@ class WorkTimeTableViewCell: UITableViewCell {
 
 // MARK: - WorkTimeCellViewModelOutput
 extension WorkTimeTableViewCell: WorkTimeCellViewModelOutput {
-    func updateView(durationText: String?, bodyText: String?, taskText: String?, fromToDateText: String?) {
+    func updateView(durationText: String?, bodyText: String?, taskText: String?, fromToDateText: String?, projectData: ProjectView.ProjectData) {
         self.durationLabel.text = durationText
         self.bodyLabel.text = bodyText
         if let taskText = taskText {
-            self.taskButton = UIButton()
             self.taskButton?.setTitle(taskText, for: .normal)
         } else {
             self.taskButton?.removeFromSuperview()
         }
         fromToDateLabel.text = fromToDateText
+        projectView.setUp(data: projectData)
     }
 }
 
