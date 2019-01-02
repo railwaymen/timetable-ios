@@ -9,12 +9,13 @@
 import Foundation
 import Networking
 
-typealias ApiClientType = (ApiClientNetworkingType & ApiClientSessionType & ApiClientWorkTimesType)
+typealias ApiClientType = (ApiClientNetworkingType & ApiClientSessionType & ApiClientWorkTimesType & ApiClientProjectsType)
 
 protocol ApiClientNetworkingType: class {
     var networking: NetworkingType { get set }
     
     func post<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void))
+    func get<D: Decodable>(_ endpoint: Endpoints, completion: @escaping ((Result<D>) -> Void))
     func get<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void))
 }
 
@@ -59,6 +60,12 @@ class ApiClient: ApiClientNetworkingType {
             }
         } catch {
             completion(.failure(ApiClientError.invalidParameters))
+        }
+    }
+    
+    func get<D: Decodable>(_ endpoint: Endpoints, completion: @escaping ((Result<D>) -> Void)) {
+        networking.get(endpoint.rawValue, parameters: nil, cachingLevel: .none) { [weak self] response in
+            self?.handle(response: response, completion: completion)
         }
     }
     

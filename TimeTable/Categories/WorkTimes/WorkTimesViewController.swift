@@ -10,7 +10,7 @@ import UIKit
 
 typealias WorkTimesViewControlleralbe = (UIViewController & WorkTimesViewControllerType & WorkTimesViewModelOutput)
 
-protocol WorkTimesViewControllerType {
+protocol WorkTimesViewControllerType: class {
     func configure(viewModel: WorkTimesViewModelType)
 }
 
