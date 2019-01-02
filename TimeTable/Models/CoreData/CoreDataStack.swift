@@ -12,7 +12,7 @@ import CoreStore
 typealias CoreDataStackType = (CoreDataStackUserType)
 
 protocol CoreDataStackUserType: class {
-    func fetchUser(forIdentifier identifier: Int, completion: @escaping (Result<UserEntity>) -> Void)
+    func fetchUser(forIdentifier identifier: Int64, completion: @escaping (Result<UserEntity>) -> Void)
     func save<CDT: NSManagedObject>(userDecoder: SessionDecoder,
                                     coreDataTypeTranslation: @escaping ((AsynchronousDataTransactionType) -> CDT),
                                     completion: @escaping (Result<CDT>) -> Void)
@@ -35,7 +35,7 @@ class CoreDataStack {
 
 // MARK: - CoreDataStackUserType
 extension CoreDataStack: CoreDataStackUserType {
-    func fetchUser(forIdentifier identifier: Int, completion: @escaping (Result<UserEntity>) -> Void) {
+    func fetchUser(forIdentifier identifier: Int64, completion: @escaping (Result<UserEntity>) -> Void) {
         guard let user = stack.fetchAll(
             From<UserEntity>(),
             Where<UserEntity>("%K == %d", "identifier", identifier)

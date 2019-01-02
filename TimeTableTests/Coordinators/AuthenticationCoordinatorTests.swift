@@ -16,15 +16,21 @@ class AuthenticationCoordinatorTests: XCTestCase {
     private var storyboardsManagerMock: StoryboardsManagerMock!
     private var errorHandlerMock: ErrorHandlerMock!
     private var apiClientMock: ApiClientMock!
-    private var coreDataStackMock: CoreDataStackMock!
+    private var coreDataStackMock: CoreDataStackUserMock!
     private var accessServiceMock: AccessServiceMock!
+    
+    private enum SessionResponse: String, JSONFileResource {
+        case signInResponse
+    }
+    
+    private lazy var decoder = JSONDecoder()
     
     override func setUp() {
         self.navigationController = UINavigationController()
         self.storyboardsManagerMock = StoryboardsManagerMock()
         self.errorHandlerMock = ErrorHandlerMock()
         self.apiClientMock = ApiClientMock()
-        self.coreDataStackMock = CoreDataStackMock()
+        self.coreDataStackMock = CoreDataStackUserMock()
         self.accessServiceMock = AccessServiceMock()
         super.setUp()
     }
@@ -58,7 +64,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
         XCTAssertEqual(coordinator.navigationController.children.count, 1)
     }
     
-    func testFinishCompletionExecutedWhileLoginDidFinishDelegateCalled() {
+    func testFinishCompletionExecutedWhileLoginDidFinishDelegateCalled() throws {
         //Arrange
         var finishCompletionCalled = false
         let coordinator = AuthenticationCoordinator(navigationController: navigationController,
@@ -71,65 +77,41 @@ class AuthenticationCoordinatorTests: XCTestCase {
         coordinator.start(finishCompletion: {
             finishCompletionCalled = true
         })
+        let data = try self.json(from: SessionResponse.signInResponse)
+        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
         //Act
-        coordinator.loginDidFinish(with: .loggedInCorrectly)
+        coordinator.loginDidFinish(with: .loggedInCorrectly(sessionReponse))
         //Assert
         XCTAssertTrue(finishCompletionCalled)
     }
-}
-
-private class StoryboardsManagerMock: StoryboardsManagerType {
-    var controller: UIViewController?
-    func controller<T>(storyboard: StoryboardsManager.StoryboardName, controllerIdentifier: StoryboardsManager.ControllerIdentifier) -> T? {
-        return controller as? T
-    }
-}
-
-private class ErrorHandlerMock: ErrorHandlerType {
-    func catchingError(action: @escaping (Error) throws -> Void) -> ErrorHandlerType {
-        return ErrorHandler(action: action)
+    
+    func testAuthenticationCoordinatorStateEquatableChangeAddress() {
+        //Act
+        let firstState = AuthenticationCoordinator.State.changeAddress
+        let secoundState = AuthenticationCoordinator.State.changeAddress
+        //Assert
+        XCTAssertEqual(firstState, secoundState)
     }
     
-    func throwing(error: Error, finally: @escaping (Bool) -> Void) {}
-}
-
-private class LoginViewControllerMock: LoginViewControllerable {
-    func configure(notificationCenter: NotificationCenterType, viewModel: LoginViewModelType) {}
-    func setUpView(checkBoxIsActive: Bool) {}
-    func updateLoginFields(email: String, password: String) {}    
-    func tearDown() {}
-    func passwordInputEnabledState(_ isEnabled: Bool) {}
-    func loginButtonEnabledState(_ isEnabled: Bool) {}
-    func checkBoxIsActiveState(_ isActive: Bool) {}
-    func focusOnPasswordTextField() {}
-}
-
-private class ApiClientMock: ApiClientSessionType {
+    func testAuthenticationCoordinatorStateNotEquatableChangeAddressAndLoggedInCorrectly() throws {
+        //Arrange
+        let data = try self.json(from: SessionResponse.signInResponse)
+        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
+        //Act
+        let firstState = AuthenticationCoordinator.State.changeAddress
+        let secoundState = AuthenticationCoordinator.State.loggedInCorrectly(sessionReponse)
+        //Assert
+        XCTAssertNotEqual(firstState, secoundState)
+    }
     
-    private(set) var signInCredentials: LoginCredentials?
-    private(set) var signInCompletion: ((Result<SessionDecoder>) -> Void)?
-    
-    func signIn(with credentials: LoginCredentials, completion: @escaping ((Result<SessionDecoder>) -> Void)) {
-        signInCredentials = credentials
-        signInCompletion = completion
+    func testAuthenticationCoordinatorStateEquatableLoggedInCorrectly() throws {
+        //Arrange
+        let data = try self.json(from: SessionResponse.signInResponse)
+        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
+        //Act
+        let firstState = AuthenticationCoordinator.State.loggedInCorrectly(sessionReponse)
+        let secoundState = AuthenticationCoordinator.State.loggedInCorrectly(sessionReponse)
+        //Assert
+        XCTAssertEqual(firstState, secoundState)
     }
-}
-
-private class CoreDataStackMock: CoreDataStackType {
-    func save<CDT>(userDecoder: SessionDecoder,
-                   coreDataTypeTranslation: @escaping ((AsynchronousDataTransactionType) -> CDT),
-                   completion: @escaping (Result<CDT>) -> Void) where CDT: NSManagedObject {}
-    func fetchUser(forIdentifier identifier: Int, completion: @escaping (Result<UserEntity>) -> Void) {}
-}
-
-private class AccessServiceMock: AccessServiceLoginType {
-    func saveLastLoggedInUserIdentifier(_ identifer: Int64) {}
-    func getLastLoggedInUserIdentifier() -> Int64? {
-        return nil
-    }
-    func saveUser(credentails: LoginCredentials) throws {}
-    func getUserCredentials() throws -> LoginCredentials {
-        return LoginCredentials(email: "", password: "")
-    }
-    func removeLastLoggedInUserIdentifier() {}
 }

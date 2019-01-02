@@ -9,25 +9,24 @@
 import Foundation
 import Networking
 
-typealias ApiClientType = (ApiClientSessionType)
+typealias ApiClientType = (ApiClientNetworkingType & ApiClientSessionType & ApiClientWorkTimesType)
 
 protocol ApiClientNetworkingType: class {
-    func post<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E, completion: @escaping ((Result<D>) -> Void))
+    var networking: NetworkingType { get set }
+    
+    func post<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void))
+    func get<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void))
 }
 
-protocol ApiClientSessionType: class {
-    func signIn(with credentials: LoginCredentials, completion: @escaping ((Result<SessionDecoder>) -> Void))
-}
-
-class ApiClient {
-    private var networking: NetworkingType
+class ApiClient: ApiClientNetworkingType {
+    internal var networking: NetworkingType
     private let encoder: RequestEncoderType
     private let decoder: JSONDecoderType
     
     // MARK: - Initialization
     init(networking: NetworkingType, buildEncoder: (() -> RequestEncoderType), buildDecoder: (() -> JSONDecoderType)) {
         self.networking = networking
-        self.networking.headerFields?["content-type"] = "application/json"
+        self.networking.headerFields = ["content-type": "application/json"]
         self.encoder = buildEncoder()
         self.decoder = buildDecoder()
     }
@@ -42,27 +41,35 @@ class ApiClient {
         }
     }
     
+    private func handle<D: Decodable>(response: Result<Data>, completion: @escaping ((Result<D>) -> Void)) {
+        switch response {
+        case .success(let data):
+            self.decode(data: data, completion: completion)
+        case .failure(let error):
+            completion(.failure(error))
+        }
+    }
+    
     // MARK: - ApiClientNetworkingType
-    func post<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E, completion: @escaping ((Result<D>) -> Void)) {
+    func post<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void)) {
         do {
             let parameters = try encoder.encodeToDictionary(wrapper: parameters)
             _ = networking.post(endpoint.rawValue, parameters: parameters) { [weak self] response in
-                switch response {
-                case .success(let data):
-                    self?.decode(data: data, completion: completion)
-                case .failure(let error):
-                    completion(.failure(error))
-                }
+                self?.handle(response: response, completion: completion)
             }
         } catch {
             completion(.failure(ApiClientError.invalidParameters))
         }
     }
-}
-
-// MARK: - ApiClientSessionType
-extension ApiClient: ApiClientSessionType {
-    func signIn(with credentials: LoginCredentials, completion: @escaping ((Result<SessionDecoder>) -> Void)) {
-        post(Endpoints.signIn, parameters: credentials, completion: completion)
+    
+    func get<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void)) {
+        do {
+            let parameters = try encoder.encodeToDictionary(wrapper: parameters)
+            networking.get(endpoint.rawValue, parameters: parameters, cachingLevel: .none) { [weak self] response in
+                self?.handle(response: response, completion: completion)
+            }
+        } catch {
+            completion(.failure(ApiClientError.invalidParameters))
+        }
     }
 }

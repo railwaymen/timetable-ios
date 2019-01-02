@@ -33,7 +33,7 @@ class CoreDataStackTests: XCTestCase {
     
     func testInitializationThrowsAnError() {
         //Arrange
-        let testError = TestError(messsage: "error")
+        let testError = TestError(message: "error")
         //Act
         do {
             _ = try CoreDataStack { (_, _) -> DataStackType in throw testError }
@@ -178,59 +178,5 @@ class CoreDataStackTests: XCTestCase {
             return UserEntity.createUser(from: sessionReponse, transaction: transaction)
         }) { (_: (Result<UserEntity>)) in }
         _ = try dataStackMock.performTask?(asynchronousDataTransactionMock)
-    }
-}
-
-private class DataStackMock: DataStackType {
-    
-    var user: UserEntity?
-    func fetchAll<D>(_ from: From<D>, _ fetchClauses: FetchClause...) -> [D]? {
-        return [user] as? [D]
-    }
-
-    private(set) var performFailure: ((CoreStoreError) -> Void)?
-    private(set) var performSuccess: ((UserEntity) -> Void)?
-    private(set) var performTask: ((AsynchronousDataTransactionType) throws -> UserEntity)?
-    
-    func perform<T>(asynchronousTask: @escaping (_ transaction: AsynchronousDataTransactionType) throws -> T,
-                    success: @escaping (T) -> Void, failure: @escaping (CoreStoreError) -> Void) {
-        // swiftlint:disable force_cast
-        performFailure = failure
-        performSuccess = { value in
-            success(value as! T)
-        }
-        performTask = { transaction in
-            return try asynchronousTask(transaction) as! UserEntity
-        }
-        // swiftlint:enable force_cast
-    }
-}
-
-private class AsynchronousDataTransactionMock: AsynchronousDataTransactionType {
-    
-    private(set) var deleteAllCalled = false
-    private(set) var createCalled = false
-    var user: DynamicObject?
-    
-    func deleteAll<D>(_ from: From<D>, _ deleteClauses: DeleteClause...) -> Int? where D: DynamicObject {
-        deleteAllCalled = true
-        return nil
-    }
-    
-    func create<D>(_ into: Into<D>) -> D where D: DynamicObject {
-        createCalled = true
-        // swiftlint:disable force_cast
-        return user as! D
-        // swiftlint:enable force_cast
-    }
-}
-
-private struct TestError: Error {
-    let messsage: String
-}
-
-extension TestError: Equatable {
-    static func == (lhs: TestError, rhs: TestError) -> Bool {
-        return lhs.messsage == rhs.messsage
     }
 }

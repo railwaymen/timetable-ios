@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias AccessServiceLoginType = (AccessServiceLoginCredentialsType & AccessServiceUserIDType)
+typealias AccessServiceLoginType = (AccessServiceLoginCredentialsType & AccessServiceUserIDType & AccessServiceSessionType)
 
 protocol AccessServiceLoginCredentialsType: class {
     func saveUser(credentails: LoginCredentials) throws
@@ -21,13 +21,19 @@ protocol AccessServiceUserIDType: class {
     func getLastLoggedInUserIdentifier() -> Int64?
 }
 
+protocol AccessServiceSessionType: class {
+    func getSession(completion: @escaping ((Result<SessionDecoder>) -> Void))
+}
+
 class AccessService {
-    private var userDefaults: UserDefaultsType
-    private var keychainAccess: KeychainAccessType
-    private var encoder: JSONEncoderType
-    private var decoder: JSONDecoderType
+    private let userDefaults: UserDefaultsType
+    private let keychainAccess: KeychainAccessType
+    private let coreData: CoreDataStackUserType
+    private let encoder: JSONEncoderType
+    private let decoder: JSONDecoderType
     
     enum Error: Swift.Error {
+        case userNeverLoggedIn
         case cannotSaveLoginCredentials
         case cannotFetchLoginCredentials
     }
@@ -37,10 +43,11 @@ class AccessService {
         static let lastLoggedInUserIdentifier = "key.time_table.last_logged_user.id.key"
     }
     
-    init(userDefaults: UserDefaultsType, keychainAccess: KeychainAccessType,
+    init(userDefaults: UserDefaultsType, keychainAccess: KeychainAccessType, coreData: CoreDataStackUserType,
          buildEncoder: (() -> JSONEncoderType), buildDecoder: (() -> JSONDecoderType)) {
         self.userDefaults = userDefaults
         self.keychainAccess = keychainAccess
+        self.coreData = coreData
         self.encoder = buildEncoder()
         self.decoder = buildDecoder()
     }
@@ -76,5 +83,21 @@ extension AccessService: AccessServiceUserIDType {
     
     func removeLastLoggedInUserIdentifier() {
         userDefaults.removeObject(forKey: Keys.lastLoggedInUserIdentifier)
+    }
+}
+
+extension AccessService: AccessServiceSessionType {
+    func getSession(completion: @escaping ((Result<SessionDecoder>) -> Void)) {
+        guard let identifier = getLastLoggedInUserIdentifier() else {
+            return completion(.failure(Error.userNeverLoggedIn))
+        }
+        coreData.fetchUser(forIdentifier: identifier) { result in
+            switch result {
+            case .success(let entity):
+                completion(.success(SessionDecoder(entity: entity)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }

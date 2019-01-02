@@ -24,3 +24,7 @@
 
 // APiErrors
 "api.error.invalid_url" = "Given URL (%@) is invalid";
+
+// Static words
+"day.today" = "Today";
+"day.yesterday" = "Yesterday";

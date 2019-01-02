@@ -1,0 +1,42 @@
+[
+    {
+        "id": 16239,
+        "updated_by_admin": false,
+        "project_id": 3,
+        "starts_at": "2018-11-21T15:00:00.000+01:00",
+        "ends_at": "2018-11-21T16:00:00.000+01:00",
+        "duration": 3600,
+        "body": "Bracket - v2",
+        "task": "https://www.example.com/task1",
+        "task_preview": "task1",
+        "user_id": 11,
+        "project": {
+            "id": 3,
+            "name": "Lorem Ipsum",
+            "color": "fe0404",
+            "work_times_allows_task": false,
+            "lunch": false
+        },
+        "date": "2018-11-21"
+    },
+    {
+        "id": 16233,
+        "updated_by_admin": false,
+        "project_id": 3,
+        "starts_at": "2018-11-21T12:00:00.000+01:00",
+        "ends_at": "2018-11-21T14:00:00.000+01:00",
+        "duration": 7200,
+        "body": "Bracket - v3",
+        "task": "https://www.example.com/task1",
+        "task_preview": "task2",
+        "user_id": 11,
+        "project": {
+            "id": 3,
+            "name": "Lorem Ipsum",
+            "color": "fe0404",
+            "work_times_allows_task": false,
+            "lunch": false
+        },
+        "date": "2018-11-21"
+    }
+]

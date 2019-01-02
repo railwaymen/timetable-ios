@@ -62,7 +62,7 @@ class ServerConfigurationManagerTests: XCTestCase {
                 expectedError = error
             }
         }
-        urlSessionMock.completionHandler?(nil, fakeResponse, TestError(messsage: ""))
+        urlSessionMock.completionHandler?(nil, fakeResponse, TestError(message: ""))
         //Assert
         switch expectedError as? ApiError {
         case .invalidHost(let host)?:
@@ -231,62 +231,5 @@ class ServerConfigurationManagerTests: XCTestCase {
         XCTAssertFalse(userDefaultsMock.setBoolValueDictionary.isEmpty)
         let value = try userDefaultsMock.setBoolValueDictionary.first.unwrap().value
         XCTAssertFalse(value)
-    }
-}
-
-private class UrlSessionMock: URLSessionType {
-    var dataTask: URLSessionDataTaskMock!
-    private(set) var request: URLRequest?
-    private(set) var completionHandler: ((Data?, URLResponse?, Error?) -> Void)?
-    
-    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskType {
-        self.request = request
-        self.completionHandler = completionHandler
-        return dataTask
-    }
-}
-
-private class URLSessionDataTaskMock: URLSessionDataTaskType {
-    private(set) var resumeCalled = false
-    func resume() {
-        resumeCalled = true
-    }
-}
-
-private class UserDefaultsMock: UserDefaultsType {
-    var setAnyValueDictionary: [String: Any?] = [:]
-    var setBoolValueDictionary: [String: Bool] = [:]
-    
-    func bool(forKey defaultName: String) -> Bool {
-        return setBoolValueDictionary[defaultName] ?? false
-    }
-    
-    func removeObject(forKey defaultName: String) {
-        setAnyValueDictionary.removeValue(forKey: defaultName)
-        setBoolValueDictionary.removeValue(forKey: defaultName)
-    }
-    
-    func set(_ value: Any?, forKey defaultName: String) {
-        setAnyValueDictionary[defaultName] = value
-    }
-    
-    func set(_ value: Bool, forKey defaultName: String) {
-        setBoolValueDictionary[defaultName] = value
-    }
-    
-    func string(forKey defaultName: String) -> String? {
-        return (setAnyValueDictionary[defaultName] as? String) ?? nil
-    }
-    
-    func object(forKey defaultName: String) -> Any? { return nil }
-}
-
-private struct TestError: Error {
-    let messsage: String
-}
-
-extension TestError: Equatable {
-    static func == (lhs: TestError, rhs: TestError) -> Bool {
-        return lhs.messsage == rhs.messsage
     }
 }

@@ -103,8 +103,8 @@ class LoginViewModel: LoginViewModelType {
         
         contentProvider.login(with: loginCredentials, fetchCompletion: { [weak self] result in
             switch result {
-            case .success:
-                self?.coordinator.loginDidFinish(with: .loggedInCorrectly)
+            case .success(let session):
+                self?.coordinator.loginDidFinish(with: .loggedInCorrectly(session))
             case .failure(let error):
                 self?.errorHandler.throwing(error: error)
             }

@@ -118,7 +118,7 @@ class BaseCoordinatorTests: XCTestCase {
         //Arrange
         let coordinator = ChildCoordinator(window: nil)
         coordinator.start()
-        let error = TestError(messsage: "error_message")
+        let error = TestError(message: "error_message")
         //Act
         coordinator.present(error: error)
         //Assert
@@ -183,15 +183,5 @@ private class ChildCoordinator: BaseCoordinator {
     override func finish() {
         finishCalled = true
         super.finish()
-    }
-}
-
-private struct TestError: Error {
-    let messsage: String
-}
-
-extension TestError: Equatable {
-    static func == (lhs: TestError, rhs: TestError) -> Bool {
-        return lhs.messsage == rhs.messsage
     }
 }

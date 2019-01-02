@@ -12,29 +12,56 @@ import CoreData
 @testable import TimeTable
 
 class AppCoordinatorTests: XCTestCase {
-    
+
+    private let timeout = 0.1
+    private var memoryContext: NSManagedObjectContext!
     private var window: UIWindow?
     private var storyboardsManagerMock: StoryboardsManagerMock!
     private var errorHandlerMock: ErrorHandlerMock!
     private var serverConfigurationManagerMock: ServerConfigurationManagerMock!
     private var appCoordinator: AppCoordinator!
-    private var coreDataStackMock: CoreDataStackMock!
+    private var coreDataStackMock: CoreDataStackUserMock!
     private var bundleMock: BundleMock!
+    private var keychainAccessMock: KeychainAccessMock!
+    private var userDefaultsMock: UserDefaultsMock!
+    private var encoderMock: JSONEncoderMock!
+    private var decoderMock: JSONDecoderMock!
+    
+    private enum SessionResponse: String, JSONFileResource {
+        case signInResponse
+    }
+    
+    private lazy var decoder = JSONDecoder()
     
     override func setUp() {
         self.window = UIWindow(frame: CGRect.zero)
         self.storyboardsManagerMock = StoryboardsManagerMock()
         self.errorHandlerMock = ErrorHandlerMock()
         self.serverConfigurationManagerMock = ServerConfigurationManagerMock()
-        self.coreDataStackMock = CoreDataStackMock()
+        self.coreDataStackMock = CoreDataStackUserMock()
         self.bundleMock = BundleMock()
+        self.keychainAccessMock = KeychainAccessMock()
+        self.userDefaultsMock = UserDefaultsMock()
+        self.encoderMock = JSONEncoderMock()
+        self.decoderMock = JSONDecoderMock()
         self.appCoordinator = AppCoordinator(window: window,
                                              storyboardsManager: storyboardsManagerMock,
                                              errorHandler: errorHandlerMock,
                                              serverConfigurationManager: serverConfigurationManagerMock,
                                              coreDataStack: coreDataStackMock,
-                                             bundle: bundleMock)
+                                             accessServiceBuilder: { (_, _, _) in
+                                                return AccessService(userDefaults: self.userDefaultsMock,
+                                                                     keychainAccess: self.keychainAccessMock,
+                                                                     coreData: self.coreDataStackMock,
+                                                                     buildEncoder: { return self.encoderMock },
+                                                                     buildDecoder: { return self.decoderMock })
+        })
         super.setUp()
+        do {
+            memoryContext = try createInMemoryStorage()
+        } catch {
+            XCTFail()
+        }
     }
     
     func testStart_appCoordinatorDoNotContainChildControllers() {
@@ -83,6 +110,7 @@ class AppCoordinatorTests: XCTestCase {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
         serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        
         //Act
         appCoordinator.start()
         //Assert
@@ -110,8 +138,10 @@ class AppCoordinatorTests: XCTestCase {
         serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         appCoordinator.start()
         let authenticationCoordinator = appCoordinator.children.first?.value as? AuthenticationCoordinator
+        let data = try self.json(from: SessionResponse.signInResponse)
+        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
         //Act
-        authenticationCoordinator?.finish(with: .loggedInCorrectly)
+        authenticationCoordinator?.finish(with: .loggedInCorrectly(sessionReponse))
         //Assert
         XCTAssertEqual(appCoordinator.children.count, 1)
         XCTAssertNotNil(appCoordinator.children.first?.value as? TimeTableTabCoordinator)
@@ -181,14 +211,25 @@ class AppCoordinatorTests: XCTestCase {
     
     func testRunMainFlowFinishRemoveTimeTableTabCoordinatorFromChildrenAnRunsServerConfigurationFlow() throws {
         //Arrange
+        let fetchUserExpectation = self.expectation(description: "")
+        coreDataStackMock.fetchUserexpectationHandler = fetchUserExpectation.fulfill
         let key = "key.time_table.login_credentials.key"
         let url = try URL(string: "http://www.example.com").unwrap()
         let keychain = Keychain(server: url, protocolType: .http)
         let credentials = LoginCredentials(email: "user@example.com", password: "password")
         let data = try JSONEncoder().encode(credentials)
         try keychain.set(data, key: key)
+        userDefaultsMock.objectForKey = Int64(1)
+        let user = UserEntity(context: memoryContext)
+        user.identifier = 1
+        user.token = "token_abcd"
+        user.firstName = "John"
+        user.lastName = "Little"
+        
         serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         appCoordinator.start()
+        coreDataStackMock.fetchUserCompletion?(.success(user))
+        wait(for: [fetchUserExpectation], timeout: timeout)
         let child = try (appCoordinator.children.first?.value as? TimeTableTabCoordinator).unwrap()
         //Act
         serverConfigurationManagerMock.oldConfiguration = nil
@@ -198,87 +239,38 @@ class AppCoordinatorTests: XCTestCase {
         XCTAssertNotNil(appCoordinator.children.first?.value as? ServerConfigurationCoordinator)
     }
     
-    func testRunMainFlowFinishRemoveTimeTableTabCoordinatorFromChildrenAnRunsServerAuthenticationFlow() throws {
+    func testRunMainFlowFinishRemoveTimeTableTabCoordinatorFromChildrenAnRunsAuthenticationFlow() throws {
         //Arrange
+        let fetchUserExpectation = self.expectation(description: "")
+        let fetchFailUserExpectation = self.expectation(description: "")
+        coreDataStackMock.fetchUserexpectationHandler = fetchUserExpectation.fulfill
         let key = "key.time_table.login_credentials.key"
         let url = try URL(string: "http://www.example.com").unwrap()
         let keychain = Keychain(server: url, protocolType: .http)
         let credentials = LoginCredentials(email: "user@example.com", password: "password")
         let data = try JSONEncoder().encode(credentials)
         try keychain.set(data, key: key)
+        userDefaultsMock.objectForKey = Int64(1)
+        let user = UserEntity(context: memoryContext)
+        user.identifier = 1
+        user.token = "token_abcd"
+        user.firstName = "John"
+        user.lastName = "Little"
+        
         serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         appCoordinator.start()
+        coreDataStackMock.fetchUserCompletion?(.success(user))
+        wait(for: [fetchUserExpectation], timeout: timeout)
+        coreDataStackMock.fetchUserexpectationHandler = fetchFailUserExpectation.fulfill
         let child = try (appCoordinator.children.first?.value as? TimeTableTabCoordinator).unwrap()
         //Act
         try keychain.remove("key.time_table.login_credentials.key")
         child.finishCompletion?()
+        coreDataStackMock.fetchUserCompletion?(.failure(TestError(message: "Error")))
+        wait(for: [fetchFailUserExpectation], timeout: timeout)
         //Assert
         XCTAssertEqual(appCoordinator.children.count, 1)
         XCTAssertNotNil(appCoordinator.children.first?.value as? AuthenticationCoordinator
         )
     }
-}
-
-private class StoryboardsManagerMock: StoryboardsManagerType {
-    var controller: UIViewController?
-    func controller<T>(storyboard: StoryboardsManager.StoryboardName, controllerIdentifier: StoryboardsManager.ControllerIdentifier) -> T? {
-        return controller as? T
-    }
-}
-
-private class ErrorHandlerMock: ErrorHandlerType {
-    func catchingError(action: @escaping (Error) throws -> Void) -> ErrorHandlerType {
-        return ErrorHandler(action: action)
-    }
-    
-    func throwing(error: Error, finally: @escaping (Bool) -> Void) {}
-}
-
-private class ServerConfigurationViewControllerMock: ServerConfigurationViewControlleralbe {
-    func configure(viewModel: ServerConfigurationViewModelType, notificationCenter: NotificationCenterType) {}
-    func setupView(checkBoxIsActive: Bool, serverAddress: String) {}
-    func tearDown() {}
-    func hideNavigationBar() {}
-    func continueButtonEnabledState(_ isEnabled: Bool) {}
-    func checkBoxIsActiveState(_ isActive: Bool) {}
-    func dissmissKeyboard() {}
-}
-
-private class LoginViewControllerMock: LoginViewControllerable {
-    func configure(notificationCenter: NotificationCenterType, viewModel: LoginViewModelType) {}
-    func setUpView(checkBoxIsActive: Bool) {}
-    func updateLoginFields(email: String, password: String) {}
-    func tearDown() {}
-    func passwordInputEnabledState(_ isEnabled: Bool) {}
-    func loginButtonEnabledState(_ isEnabled: Bool) {}
-    func checkBoxIsActiveState(_ isActive: Bool) {}
-    func focusOnPasswordTextField() {}
-}
-
-private class ServerConfigurationManagerMock: ServerConfigurationManagerType {
-    var oldConfiguration: ServerConfiguration?
-    private(set) var oldConfigurationCalled = false
-    private(set) var verifyConfigurationValues: (called: Bool, configuration: ServerConfiguration?) = (false, nil)
-    private(set) var verifyConfigurationCompletion: ((Result<Void>) -> Void)?
-    
-    func getOldConfiguration() -> ServerConfiguration? {
-        oldConfigurationCalled = true
-        return oldConfiguration
-    }
-    
-    func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void>) -> Void)) {
-        verifyConfigurationValues = (true, configuration)
-        verifyConfigurationCompletion = completion
-    }
-}
-
-private class CoreDataStackMock: CoreDataStackType {
-    func save<CDT>(userDecoder: SessionDecoder,
-                   coreDataTypeTranslation: @escaping ((AsynchronousDataTransactionType) -> CDT),
-                   completion: @escaping (Result<CDT>) -> Void) where CDT: NSManagedObject {}
-    func fetchUser(forIdentifier identifier: Int, completion: @escaping (Result<UserEntity>) -> Void) {}
-}
-
-private class BundleMock: BundleType {
-    var bundleIdentifier: String?
 }

@@ -18,6 +18,16 @@ class ApiClientTests: XCTestCase {
         case signInResponse
     }
     
+    private enum WorkTimesResponse: String, JSONFileResource {
+        case workTimesResponse
+    }
+    
+    private lazy var decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
+        return decoder
+    }()
+    
     override func setUp() {
         self.networkingMock = NetworkingMock()
         self.requestEncoderMock = RequestEncoderMock()
@@ -54,7 +64,7 @@ class ApiClientTests: XCTestCase {
     func testPostReturnsAnErrorWhileNetworkRequestFailed() throws {
         //Arrange
         var expectedError: Error?
-        let error = TestError(messsage: "500 - server internal error")
+        let error = TestError(message: "500 - server internal error")
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
         let apiClient = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
             return requestEncoderMock
@@ -133,135 +143,108 @@ class ApiClientTests: XCTestCase {
         default: XCTFail()
         }
     }
-    
-    // MARK: - ApiClientSessionType
-    func testSignInSucced() throws {
+
+    func testGetReturnsAnErrorWhileGivenWrapperCannotBeEncodedToDictionary() {
         //Arrange
-        let data = try self.json(from: SessionResponse.signInResponse)
-        let decoder = try JSONDecoder().decode(SessionDecoder.self, from: data)
-        var expecdedSessionDecoder: SessionDecoder?
-        let parameters = LoginCredentials(email: "user1@example.com", password: "password")
-        let apiClient: ApiClientSessionType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
+        var expectedError: Error?
+        let apiClient = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
+            return requestEncoderMock
+        }) { () -> JSONDecoderType in
+            return jsonDecoderMock
+        }
+        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
+        requestEncoderMock.isEncodeToDictionaryThrowingError = true
+        //Act
+        apiClient.get(Endpoints.worktimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
+            switch result {
+            case .success: XCTFail()
+            case .failure(let error):
+                expectedError = error
+            }
+        }
+        //Assert
+        switch expectedError as? ApiClientError {
+        case .invalidParameters?: break
+        default: XCTFail()
+        }
+    }
+
+    func testGetReturnsAnErrorWhileNetworkRequestFailed() throws {
+        //Arrange
+        var expectedError: Error?
+        let error = TestError(message: "500 - server internal error")
+        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
+        let apiClient = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
             return requestEncoderMock
         }) { () -> JSONDecoderType in
             return jsonDecoderMock
         }
         //Act
-        apiClient.signIn(with: parameters) { result in
+        apiClient.get(Endpoints.worktimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
             switch result {
-            case .success(let sessionDecoder):
-                expecdedSessionDecoder = sessionDecoder
+            case .success: XCTFail()
+            case .failure(let error):
+                expectedError = error
+            }
+        }
+        networkingMock.getCompletion?(.failure(error))
+        //Assert
+        let testError = try (expectedError as? TestError).unwrap()
+        XCTAssertEqual(testError, error)
+    }
+    
+    func testGetRetrunsCorrectDecodableObject() throws {
+        //Arrange
+        var expectedDecoder: Decodable?
+        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
+        let data = try self.json(from: WorkTimesResponse.workTimesResponse)
+        let decoders = try self.decoder.decode([WorkTimeDecoder].self, from: data)
+        let apiClient = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
+            return requestEncoderMock
+        }) { () -> JSONDecoderType in
+            return jsonDecoderMock
+        }
+        //Act
+        apiClient.get(Endpoints.worktimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
+            switch result {
+            case .success(let decoder):
+                expectedDecoder = decoder
             case .failure:
                 XCTFail()
             }
         }
-        networkingMock.shortPostCompletion?(.success(data))
+        networkingMock.getCompletion?(.success(data))
         //Assert
-        XCTAssertEqual(try expecdedSessionDecoder.unwrap(), decoder)
+        let decoder = try (expectedDecoder as? [WorkTimeDecoder]).unwrap()
+        XCTAssertEqual(decoder[0], decoders[0])
+        XCTAssertEqual(decoder[1], decoders[1])
     }
     
-    func testSignInFailed() throws {
+    func testGetReturnsAnErrorWhileResponseJSONIsInvalid() throws {
         //Arrange
-        var expecdedError: Error?
-        let error = TestError(messsage: "sign in failed")
-        let parameters = LoginCredentials(email: "user1@example.com", password: "password")
-        let apiClient: ApiClientSessionType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
+        var expectedError: Error?
+        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
+        let data = try JSONSerialization.data(withJSONObject: ["test": "test"], options: .prettyPrinted)
+        let apiClient = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
             return requestEncoderMock
         }) { () -> JSONDecoderType in
             return jsonDecoderMock
         }
         //Act
-        apiClient.signIn(with: parameters) { result in
+        apiClient.get(Endpoints.worktimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
             switch result {
             case .success:
                 XCTFail()
             case .failure(let error):
-                expecdedError = error
+                expectedError = error
+                
             }
         }
-        networkingMock.shortPostCompletion?(.failure(error))
+        networkingMock.getCompletion?(.success(data))
         //Assert
-        let testError = try (expecdedError as? TestError).unwrap()
-        XCTAssertEqual(testError, error)
-    }
-}
-
-private class NetworkingMock: NetworkingType {
-    private(set) var shortPostValues: (path: String, parametres: Any?)?
-    private(set) var shortPostCompletion: ((TimeTable.Result<Data>) -> Void)?
-    
-    var headerFields: [String: String]?
-    
-    func post(_ path: String, parameters: Any?, completion: @escaping (_ result: TimeTable.Result<Data>) -> Void) -> String {
-        shortPostValues = (path, parameters)
-        shortPostCompletion = completion
-        return ""
-    }
-}
-
-private class RequestEncoderMock: RequestEncoderType {
-    private lazy var encoder: JSONEncoder = {
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        return encoder
-    }()
-    
-    private(set) var encodeWrapper: Encodable?
-    var isEncodeThrowingError = false
-
-    func encode<T>(wrapper: T) throws -> Data where T: Encodable {
-        self.encodeWrapper = wrapper
-        if isEncodeThrowingError {
-            throw TestError(messsage: "encode error")
-        } else {
-            return try encoder.encode(wrapper)
+        switch expectedError as? ApiClientError {
+        case .invalidResponse?: break
+        default: XCTFail()
         }
-    }
-    
-    private(set) var encodeToDictionaryWrapper: Encodable?
-    var isEncodeToDictionaryThrowingError = false
-    
-    func encodeToDictionary<T>(wrapper: T) throws -> [String: Any] where T: Encodable {
-        self.encodeToDictionaryWrapper = wrapper
-        if isEncodeToDictionaryThrowingError {
-            throw TestError(messsage: "encode to dictionary error")
-        } else {
-            let data = try encoder.encode(wrapper)
-            guard let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
-                throw TestError(messsage: "JSONSerialization.jsonObject error")
-            }
-            return json
-        }
-    }
-}
-
-private class JSONDecoderMock: JSONDecoderType {
-    
-    private lazy var decoder = JSONDecoder()
-    
-    var isDecodeThrowingError = false
-    private(set) var decodeType: Decodable.Type?
-    private(set) var decodeData: Data?
-    
-    var dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .iso8601
-    
-    func decode<T>(_ type: T.Type, from data: Data) throws -> T where T: Decodable {
-        decodeType = type
-        decodeData = data
-        if isDecodeThrowingError {
-            throw TestError(messsage: "decoder error")
-        } else {
-            return try decoder.decode(type, from: data)
-        }
-    }
-}
-
-private struct TestError: Error {
-    let messsage: String
-}
-
-extension TestError: Equatable {
-    static func == (lhs: TestError, rhs: TestError) -> Bool {
-        return lhs.messsage == rhs.messsage
     }
 }

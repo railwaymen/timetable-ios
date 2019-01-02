@@ -9,7 +9,6 @@
 import XCTest
 @testable import TimeTable
 
-// swiftlint:disable file_length
 class LoginViewModelTests: XCTestCase {
     
     private var userInterface: LoginViewControllerMock!
@@ -18,6 +17,12 @@ class LoginViewModelTests: XCTestCase {
     private var errorHandler: ErrorHandlerMock!
     private var accessService: AccessServiceMock!
     private var viewModel: LoginViewModel!
+    
+    private enum SessionResponse: String, JSONFileResource {
+        case signInResponse
+    }
+    
+    private lazy var decoder = JSONDecoder()
     
     override func setUp() {
         userInterface = LoginViewControllerMock()
@@ -269,27 +274,31 @@ class LoginViewModelTests: XCTestCase {
         XCTAssertEqual(error, expectedError)
     }
     
-    func testViewRequestedToLoginWithCorrectCredentials() {
+    func testViewRequestedToLoginWithCorrectCredentials() throws {
         //Arrange
         viewModel.loginInputValueDidChange(value: "login")
         viewModel.passwordInputValueDidChange(value: "password")
+        let data = try self.json(from: SessionResponse.signInResponse)
+        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
         //Act
         viewModel.viewRequestedToLogin()
-        contentProvider.fetchCompletion?(.success(Void()))
+        contentProvider.fetchCompletion?(.success(sessionReponse))
         //Assert
         XCTAssertTrue(coordinatorMock.loginDidFinishCalled)
-        XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly)
+        XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly(sessionReponse))
     }
     
-    func testViewRequestedToLoginFailsWhileSavingToDataBase() {
+    func testViewRequestedToLoginFailsWhileSavingToDataBase() throws {
         //Arrange
-        let expectedError = TestError(messsage: "")
+        let expectedError = TestError(message: "")
         viewModel.loginInputValueDidChange(value: "login")
         viewModel.passwordInputValueDidChange(value: "password")
         viewModel.shouldRemeberUserBoxStatusDidChange(isActive: false)
+        let data = try self.json(from: SessionResponse.signInResponse)
+        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
         //Act
         viewModel.viewRequestedToLogin()
-        contentProvider.fetchCompletion?(.success(Void()))
+        contentProvider.fetchCompletion?(.success(sessionReponse))
         contentProvider.saveCompletion?(.failure(expectedError))
         //Assert
         switch errorHandler.throwedError as? AppError {
@@ -306,14 +315,16 @@ class LoginViewModelTests: XCTestCase {
         viewModel.passwordInputValueDidChange(value: "password")
         viewModel.shouldRemeberUserBoxStatusDidChange(isActive: false)
         accessService.saveUserIsThrowingError = true
+        let data = try self.json(from: SessionResponse.signInResponse)
+        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
         //Act
         viewModel.viewRequestedToLogin()
-        contentProvider.fetchCompletion?(.success(Void()))
+        contentProvider.fetchCompletion?(.success(sessionReponse))
         contentProvider.saveCompletion?(.success(Void()))
         //Assert
         XCTAssertTrue(coordinatorMock.loginDidFinishCalled)
-        XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly)
-        XCTAssertEqual(try (errorHandler.throwedError as? TestError).unwrap(), TestError(messsage: "save user"))
+        XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly(sessionReponse))
+        XCTAssertEqual(try (errorHandler.throwedError as? TestError).unwrap(), TestError(message: "save user"))
     }
     
     func testRequestedToLoginWithCorrectCredentialsAndShouldSaveUserCredenailsSucceed() throws {
@@ -322,19 +333,21 @@ class LoginViewModelTests: XCTestCase {
         viewModel.passwordInputValueDidChange(value: "password")
         viewModel.shouldRemeberUserBoxStatusDidChange(isActive: false)
         accessService.saveUserIsThrowingError = false
+        let data = try self.json(from: SessionResponse.signInResponse)
+        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
         //Act
         viewModel.viewRequestedToLogin()
-        contentProvider.fetchCompletion?(.success(Void()))
+        contentProvider.fetchCompletion?(.success(sessionReponse))
         contentProvider.saveCompletion?(.success(Void()))
         //Assert
         XCTAssertTrue(coordinatorMock.loginDidFinishCalled)
-        XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly)
+        XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly(sessionReponse))
         XCTAssertTrue(accessService.saveUserCalled)
     }
     
     func testViewRequestedToLoginContentProviderReturnsAnError() throws {
         //Arrange
-        let expectedError = TestError(messsage: "errorOccured")
+        let expectedError = TestError(message: "errorOccured")
         viewModel.loginInputValueDidChange(value: "login")
         viewModel.passwordInputValueDidChange(value: "password")
         //Act
@@ -345,121 +358,3 @@ class LoginViewModelTests: XCTestCase {
         XCTAssertEqual(error, expectedError)
     }
 }
-
-private class LoginViewControllerMock: LoginViewModelOutput {
-    
-    private(set) var setUpViewCalledData: (called: Bool, isActive: Bool?) = (false, nil)
-    private(set) var updateLoginFieldsCalled = false
-    private(set) var updateLoginFieldsData: (email: String?, password: String?)
-    private(set) var tearDownCalled = false
-    private(set) var passwordInputEnabledStateValues: (called: Bool, isEnabled: Bool?) = (false, nil)
-    private(set) var loginButtonEnabledStateValues: (called: Bool, isEnabled: Bool?) = (false, nil)
-    private(set) var checkBoxIsActiveStateValues: (called: Bool, isActive: Bool?) = (false, nil)
-    private(set) var focusOnPasswordTextFieldCalled = false
-    
-    func setUpView(checkBoxIsActive: Bool) {
-        setUpViewCalledData = (true, checkBoxIsActive)
-    }
-    
-    func updateLoginFields(email: String, password: String) {
-        updateLoginFieldsCalled = true
-        updateLoginFieldsData = (email, password)
-    }
-    
-    func tearDown() {
-        tearDownCalled = true
-    }
-    
-    func passwordInputEnabledState(_ isEnabled: Bool) {
-        passwordInputEnabledStateValues = (true, isEnabled)
-    }
-    
-    func loginButtonEnabledState(_ isEnabled: Bool) {
-        loginButtonEnabledStateValues = (true, isEnabled)
-    }
-    
-    func checkBoxIsActiveState(_ isActive: Bool) {
-        checkBoxIsActiveStateValues = (true, isActive)
-    }
-    
-    func focusOnPasswordTextField() {
-        focusOnPasswordTextFieldCalled = true
-    }
-}
-
-private class LoginCoordinatorMock: LoginCoordinatorDelegate {
-    private(set) var loginDidFinishCalled = false
-    private(set) var loginDidFinishWithState: AuthenticationCoordinator.State?
-    
-    func loginDidFinish(with state: AuthenticationCoordinator.State) {
-        loginDidFinishCalled = true
-        loginDidFinishWithState = state
-    }
-}
-
-private class ErrorHandlerMock: ErrorHandlerType {
-    private(set) var throwedError: Error?
-    private(set) var throwingFinallyBlock: ((Bool) -> Void)?
-    private(set) var catchingErrorActionBlock: ((Error) throws -> Void)?
-    
-    func throwing(error: Error, finally: @escaping (Bool) -> Void) {
-        throwedError = error
-        throwingFinallyBlock = finally
-    }
-    
-    func catchingError(action: @escaping (Error) throws -> Void) -> ErrorHandlerType {
-        catchingErrorActionBlock = action
-        return self
-    }
-}
-
-private class LoginContentProviderMock: LoginContentProviderType {
-    private(set) var loginCredentials: LoginCredentials?
-    private(set) var fetchCompletion: ((Result<Void>) -> Void)?
-    private(set) var saveCompletion: ((Result<Void>) -> Void)?
-    
-    func login(with credentials: LoginCredentials, fetchCompletion: @escaping ((Result<Void>) -> Void), saveCompletion: @escaping ((Result<Void>) -> Void)) {
-        self.loginCredentials = credentials
-        self.fetchCompletion = fetchCompletion
-        self.saveCompletion = saveCompletion
-    }
-}
-
-private struct TestError: Error {
-    let messsage: String
-}
-
-extension TestError: Equatable {
-    static func == (lhs: TestError, rhs: TestError) -> Bool {
-        return lhs.messsage == rhs.messsage
-    }
-}
-
-private class AccessServiceMock: AccessServiceLoginCredentialsType {
-    var saveUserIsThrowingError = false
-    var userCredentials: LoginCredentials?
-    var getUserCredentialsReturnsError = false
-    
-    private(set) var saveUserCalled = false
-    
-    func saveUser(credentails: LoginCredentials) throws {
-        saveUserCalled = true
-        if saveUserIsThrowingError {
-            throw TestError(messsage: "save user")
-        }
-    }
-    
-    func getUserCredentials() throws -> LoginCredentials {
-        guard !getUserCredentialsReturnsError else {
-            throw TestError(messsage: "getUserCredentials error")
-        }
-        if let credentails = userCredentials {
-            return credentails
-        } else {
-            return LoginCredentials(email: "", password: "")
-        }
-    }
-    
-    func removeLastLoggedInUserIdentifier() {}
-}
-// swiftlint:enable file_length

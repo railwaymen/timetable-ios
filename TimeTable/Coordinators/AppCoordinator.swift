@@ -16,19 +16,18 @@ class AppCoordinator: BaseNavigationCoordinator {
     private let serverConfigurationManager: ServerConfigurationManagerType
     private let parentErrorHandler: ErrorHandlerType
     private var apiClient: ApiClientType?
-    private var accessService: AccessServiceLoginType?
     private let coreDataStack: CoreDataStackType
-    private let bundle: BundleType
+    private let accessServiceBuilder: ((ServerConfiguration, JSONEncoder, JSONDecoder) -> AccessServiceLoginType)
     
     private lazy var encoder: JSONEncoder = {
         let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .iso8601
+        encoder.dateEncodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
         return encoder
     }()
     
     private lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
+        decoder.dateDecodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
         return decoder
     }()
     
@@ -40,13 +39,14 @@ class AppCoordinator: BaseNavigationCoordinator {
     
     // MARK: - Initialization
     init(window: UIWindow?, storyboardsManager: StoryboardsManagerType,
-         errorHandler: ErrorHandlerType, serverConfigurationManager: ServerConfigurationManagerType,
-         coreDataStack: CoreDataStackType, bundle: BundleType) {
+         errorHandler: ErrorHandlerType, serverConfigurationManager: ServerConfigurationManagerType, coreDataStack: CoreDataStackType,
+         accessServiceBuilder: @escaping ((ServerConfiguration, JSONEncoderType, JSONDecoderType) -> AccessServiceLoginType)) {
+        
         self.storyboardsManager = storyboardsManager
         self.parentErrorHandler = errorHandler
         self.serverConfigurationManager = serverConfigurationManager
+        self.accessServiceBuilder = accessServiceBuilder
         self.coreDataStack = coreDataStack
-        self.bundle = bundle
         super.init(window: window)
         self.navigationController.setNavigationBarHidden(true, animated: true)
     }
@@ -58,16 +58,19 @@ class AppCoordinator: BaseNavigationCoordinator {
         }
         managedFlow()
     }
-    
+
     // MARK: - Private
     private func managedFlow() {
         if let configuration = serverConfigurationManager.getOldConfiguration(), configuration.shouldRememberHost {
-            let accessService = createAccessService(with: configuration)
-            do {
-                _ = try accessService.getUserCredentials()
-                self.runMainFlow()
-            } catch {
-                self.runAuthenticationFlow(configuration: configuration)
+            let accessService = accessServiceBuilder(configuration, encoder, decoder)
+            
+            accessService.getSession { [weak self] result in
+                switch result {
+                case .success(let session): 
+                    self?.runMainFlow(configuration: configuration, session: session)
+                case .failure:
+                    self?.runAuthenticationFlow(configuration: configuration)
+                }
             }
         } else {
             self.runServerConfigurationFlow()
@@ -82,28 +85,6 @@ class AppCoordinator: BaseNavigationCoordinator {
         }, buildDecoder: {
             return decoder
         })
-    }
-    
-    private func createKeychain(with configuration: ServerConfiguration) -> Keychain {
-        if let host = configuration.host {
-            if host.isHTTP {
-                return Keychain(server: host, protocolType: .http)
-            } else if host.isHTTPS {
-                return Keychain(server: host, protocolType: .https)
-            }
-        }
-        guard let bundleIdentifier = bundle.bundleIdentifier else {
-            return Keychain()
-        }
-        return Keychain(accessGroup: bundleIdentifier)
-    }
-    
-    private func createAccessService(with configuration: ServerConfiguration) -> AccessServiceLoginType {
-        let keychainAccess = createKeychain(with: configuration)
-        return AccessService(userDefaults: UserDefaults.standard,
-                             keychainAccess: keychainAccess,
-                             buildEncoder: { return encoder },
-                             buildDecoder: { return decoder })
     }
     
     private func runServerConfigurationFlow() {
@@ -122,8 +103,7 @@ class AppCoordinator: BaseNavigationCoordinator {
     
     private func runAuthenticationFlow(configuration: ServerConfiguration) {
         self.apiClient = createApiClient(with: configuration)
-        let accessService = createAccessService(with: configuration)
-        self.accessService = accessService
+        let accessService = accessServiceBuilder(configuration, encoder, decoder)
         guard let apiClient = self.apiClient else { return }
         let coordinator = AuthenticationCoordinator(navigationController: navigationController,
                                                     storyboardsManager: storyboardsManager,
@@ -139,14 +119,22 @@ class AppCoordinator: BaseNavigationCoordinator {
             switch state {
             case .changeAddress:
                 self?.runServerConfigurationFlow()
-            case .loggedInCorrectly:
-                self?.runMainFlow()
+            case .loggedInCorrectly(let session):
+                self?.runMainFlow(configuration: configuration, session: session)
             }
         }
     }
     
-    private func runMainFlow() {
-        let coordinator = TimeTableTabCoordinator(window: self.window)
+    private func runMainFlow(configuration: ServerConfiguration, session: SessionDecoder) {
+        if apiClient == nil {
+            self.apiClient = createApiClient(with: configuration)
+            self.apiClient?.networking.headerFields?["token"] = session.token
+        }
+        guard let apiClient = self.apiClient else { return }
+        let coordinator = TimeTableTabCoordinator(window: self.window,
+                                                  storyboardsManager: storyboardsManager,
+                                                  apiClient: apiClient,
+                                                  errorHandler: errorHandler)
         addChildCoordinator(child: coordinator)
         coordinator.start(finishCompletion: { [weak self, weak coordinator] in
             self?.removeChildCoordinator(child: coordinator)

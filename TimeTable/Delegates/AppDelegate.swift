@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KeychainAccess
 import CoreStore
 
 @UIApplicationMain
@@ -20,7 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                               errorHandler: errorHandler,
                               serverConfigurationManager: serverConfigurationManager,
                               coreDataStack: coreDataStack,
-                              bundle: Bundle.main)
+                              accessServiceBuilder: { (serverConfiguration, encoder, decoder) in
+                                return AccessService(userDefaults: UserDefaults.standard,
+                                                     keychainAccess: self.createKeychain(with: serverConfiguration),
+                                                     coreData: self.coreDataStack,
+                                                     buildEncoder: { return encoder },
+                                                     buildDecoder: { return decoder })
+        })
     }()
     
     private lazy var errorHandler: ErrorHandlerType = {
@@ -54,5 +61,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         appCoordinator.start()
         return true
+    }
+    
+    // MARK: - Private
+    private func createKeychain(with configuration: ServerConfiguration) -> Keychain {
+        if let host = configuration.host {
+            if host.isHTTP {
+                return Keychain(server: host, protocolType: .http)
+            } else if host.isHTTPS {
+                return Keychain(server: host, protocolType: .https)
+            }
+        }
+        guard let bundleIdentifier = Bundle.main.bundleIdentifier else {
+            return Keychain()
+        }
+        return Keychain(accessGroup: bundleIdentifier)
     }
 }

@@ -26,6 +26,16 @@ struct SessionDecoder: Decodable {
         case manager
         case token
     }
+    
+    init(entity: UserEntity) {
+        self.identifier = Int(entity.identifier)
+        self.firstName = entity.firstName
+        self.lastName = entity.lastName
+        self.isLeader = false
+        self.admin = false
+        self.manager = false
+        self.token = entity.token
+    }
 }
 
 extension SessionDecoder: Equatable {
