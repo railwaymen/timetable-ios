@@ -9,7 +9,8 @@
 import Foundation
 
 protocol ProjectsViewModelOutput: class {
-    
+    func setUpView()
+    func updateView()
 }
 
 protocol ProjectsViewModelType: class {
@@ -44,6 +45,7 @@ class ProjectsViewModel: ProjectsViewModelType {
     
     func viewDidLoad() {
         fetchProjects()
+        userInterface?.setUpView()
     }
     
     // MARK: - Private
@@ -54,6 +56,7 @@ class ProjectsViewModel: ProjectsViewModelType {
                 self?.errorHandler.throwing(error: error)
             case .success(let projectRecords):
                 self?.projects = self?.createProjects(from: projectRecords) ?? []
+                self?.userInterface?.updateView()
             }
         }
     }
@@ -62,7 +65,8 @@ class ProjectsViewModel: ProjectsViewModelType {
         return records.reduce(Set<Project>(), { result, new in
             var newResult = result
             if let project = newResult.first(where: { $0.identifier == new.projectIdentifier }), let newUser = new.user {
-                project.users.insert(Project.User(decoder: newUser))
+                project.users.append(Project.User(decoder: newUser))
+                project.users.sort(by: { $0.name > $1.name })
             } else {
                 newResult.insert(Project(decoder: new))
             }

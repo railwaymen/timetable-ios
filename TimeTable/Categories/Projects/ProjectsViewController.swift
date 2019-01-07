@@ -14,22 +14,21 @@ protocol ProjectsViewControllerType: class {
     func configure(viewModel: ProjectsViewModelType)
 }
 
-class ProjectsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ProjectsViewController: UIViewController, UICollectionViewDataSource {
     
     @IBOutlet private var collectionView: UICollectionView!
-    private let cellIdentifier = "ProjectCollectionViewCellReuseIdentifier"
     private var viewModel: ProjectsViewModelType!
-    
+
+    private let cellIdentifier = "ProjectCollectionViewCellReuseIdentifier"
+    private let contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+    private let projectCellTableViewHeight: CGFloat = 44
+    private let projectCellStaticHeaderHeight: CGFloat = 50
+
     override func viewDidLoad() {
         super.viewDidLoad()
-//        viewModel.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         viewModel.viewDidLoad()
     }
-    
+      
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.numberOfItems()
@@ -44,20 +43,33 @@ class ProjectsViewController: UIViewController, UICollectionViewDataSource, UICo
         cell.configure(viewModel: cellViewModel)
         return cell
     }
+}
+
+// MARK: - ProjectsViewModelOutput
+extension ProjectsViewController: ProjectsViewModelOutput {
     
-    // MARK: - UICollectionViewDelegateFlowLayout
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let itemSize = (collectionView.frame.width - (collectionView.contentInset.left + collectionView.contentInset.right + 10)) / 2
-        return CGSize(width: itemSize, height: itemSize)
+    func setUpView() {
+        collectionView.contentInset = self.contentInset
+        if let layout = collectionView.collectionViewLayout as? ProjectsCollectionViewLayout {
+            layout.delegate = self
+        }
+    }
+    
+    func updateView() {
+        collectionView.reloadData()
     }
 }
 
-extension ProjectsViewController: ProjectsViewModelOutput {
-    
-}
-
+// MARK: - ProjectsViewControllerType
 extension ProjectsViewController: ProjectsViewControllerType {
     func configure(viewModel: ProjectsViewModelType) {
         self.viewModel = viewModel
+    }
+}
+
+// MARK: - ProjectsCollectionViewLayoutDelegate
+extension ProjectsViewController: ProjectsCollectionViewLayoutDelegate {
+    func collectionView(_ collectionView: UICollectionView, heightForUsersTableViewAtIndexPath indexPath: IndexPath) -> CGFloat {
+        return CGFloat(viewModel.item(at: indexPath).users.count) * projectCellTableViewHeight + projectCellStaticHeaderHeight
     }
 }

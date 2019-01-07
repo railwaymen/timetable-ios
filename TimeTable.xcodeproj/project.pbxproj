@@ -168,6 +168,8 @@
 		C1EF3A05219303A7000E3511 /* NSRegularExpression+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EF3A04219303A7000E3511 /* NSRegularExpression+Extension.swift */; };
 		C1EF3A0721930409000E3511 /* NSRegularExpresionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EF3A0621930409000E3511 /* NSRegularExpresionExtensionTests.swift */; };
 		C1EF3A0921930722000E3511 /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EF3A0821930722000E3511 /* StringExtensionTests.swift */; };
+		C1F187B021E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F187AF21E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift */; };
+		C1F187B221E37C760037B8C2 /* ProjectsCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F187B121E37C760037B8C2 /* ProjectsCollectionViewLayout.swift */; };
 		C1F69B2C21902FA5005D9114 /* signInResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F69B2B21902FA5005D9114 /* signInResponse.json */; };
 		C1F69B2E21903818005D9114 /* LoginContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F69B2D21903818005D9114 /* LoginContentProvider.swift */; };
 		C1F7C2DE2190436B00F4FAF0 /* ServerConfigurationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F7C2DD2190436B00F4FAF0 /* ServerConfigurationCoordinator.swift */; };
@@ -381,6 +383,8 @@
 		C1EF3A04219303A7000E3511 /* NSRegularExpression+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSRegularExpression+Extension.swift"; sourceTree = "<group>"; };
 		C1EF3A0621930409000E3511 /* NSRegularExpresionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSRegularExpresionExtensionTests.swift; sourceTree = "<group>"; };
 		C1EF3A0821930722000E3511 /* StringExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionTests.swift; sourceTree = "<group>"; };
+		C1F187AF21E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUserViewTableViewCell.swift; sourceTree = "<group>"; };
+		C1F187B121E37C760037B8C2 /* ProjectsCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsCollectionViewLayout.swift; sourceTree = "<group>"; };
 		C1F69B2B21902FA5005D9114 /* signInResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInResponse.json; sourceTree = "<group>"; };
 		C1F69B2D21903818005D9114 /* LoginContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginContentProvider.swift; sourceTree = "<group>"; };
 		C1F7C2DD2190436B00F4FAF0 /* ServerConfigurationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationCoordinator.swift; sourceTree = "<group>"; };
@@ -612,6 +616,7 @@
 				C125F1B521DCCF4400594CDE /* ProjectsViewController.swift */,
 				C125F1B721DCCF5100594CDE /* ProjectsViewModel.swift */,
 				C125F1BF21DCDCCC00594CDE /* CollectionViewCell */,
+				C1F187AE21E34A570037B8C2 /* TableViewCell */,
 			);
 			path = Projects;
 			sourceTree = "<group>";
@@ -854,6 +859,7 @@
 				C153AC6C21833BDC007A35BB /* AttributedButton.swift */,
 				C125C4D62187086C00FBA0DD /* CheckBoxButton.swift */,
 				C1051B4021DA363E00FB3C3D /* ProjectView.swift */,
+				C1F187B121E37C760037B8C2 /* ProjectsCollectionViewLayout.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1121,6 +1127,14 @@
 				C1ECF0A72192C427006038C6 /* CustomJSONSerializationTests.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C1F187AE21E34A570037B8C2 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C1F187AF21E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift */,
+			);
+			path = TableViewCell;
 			sourceTree = "<group>";
 		};
 		C1F7C2E321908B3100F4FAF0 /* Views */ = {
@@ -1526,6 +1540,7 @@
 				C1FA05EB219475FF00BD8C9D /* AsynchronousDataTransactionType.swift in Sources */,
 				C122601C21899B84007D64A3 /* ServerConfigurationManager.swift in Sources */,
 				C122602121899F82007D64A3 /* URLSessionDataTask+Extension.swift in Sources */,
+				C1F187B221E37C760037B8C2 /* ProjectsCollectionViewLayout.swift in Sources */,
 				C1F926E4218838720004A9BC /* LoginViewController.swift in Sources */,
 				C1E6B352219F014600019DC2 /* Bundle+Extension.swift in Sources */,
 				C1AFFFE321A2D16F00A7A632 /* TimeTableCoordinator.swift in Sources */,
@@ -1542,6 +1557,7 @@
 				C1C4BA912189AE0900683F71 /* ApiError.swift in Sources */,
 				C1249C772181AAE4005DB2A5 /* StoryboardsManager.swift in Sources */,
 				C125C4D52186F76500FBA0DD /* CoordinatorErrorPresenterType.swift in Sources */,
+				C1F187B021E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift in Sources */,
 				C1AACFDA21A440650023FD32 /* BaseTabBarControllerType.swift in Sources */,
 				C1C4BA8F2189AD7700683F71 /* Result.swift in Sources */,
 				C125F1C121DCF17300594CDE /* ProjectCollectionViewCellModel.swift in Sources */,

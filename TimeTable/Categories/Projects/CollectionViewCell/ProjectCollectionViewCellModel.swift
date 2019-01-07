@@ -7,14 +7,17 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ProjectCollectionViewCellModelType: class {
-    func prepareForReuse()
+    func configure()
     func numberOfRows() -> Int
+    func userName(for indexPath: IndexPath) -> String
 }
 
 protocol ProjectCollectionViewCellModelOutput: class {
     func setupView()
+    func updateView(with projectName: String, leaderName: String, projectColor: UIColor)
 }
 
 class ProjectCollectionViewCellModel: ProjectCollectionViewCellModelType {
@@ -28,11 +31,16 @@ class ProjectCollectionViewCellModel: ProjectCollectionViewCellModelType {
     }
     
     // MARK: - ProjectCollectionViewCellModelType
-    func prepareForReuse() {
+    func configure() {
         userInterface?.setupView()
+        userInterface?.updateView(with: project.name, leaderName: project.leader?.name ?? "", projectColor: project.color)
     }
     
     func numberOfRows() -> Int {
         return project.users.count
+    }
+    
+    func userName(for indexPath: IndexPath) -> String {
+        return project.users[indexPath.row].name
     }
 }

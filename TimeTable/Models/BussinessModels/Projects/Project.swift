@@ -13,7 +13,7 @@ class Project: Hashable {
     let identifier: Int
     let name: String
     let color: UIColor
-    var users: Set<User>
+    var users: [User]
     let leader: User?
     
     struct User: Hashable {
@@ -21,14 +21,6 @@ class Project: Hashable {
         
         init(decoder: ProjectRecordDecoder.User) {
             name = decoder.name
-        }
-        
-        var hashValue: Int {
-            return name.hashValue
-        }
-        
-        static func == (lhs: User, rhs: User) -> Bool {
-            return lhs.name == rhs.name
         }
     }
     

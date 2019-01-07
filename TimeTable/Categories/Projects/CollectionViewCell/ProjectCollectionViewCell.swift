@@ -18,20 +18,22 @@ class ProjectCollectionViewCell: UICollectionViewCell, UITableViewDataSource {
     @IBOutlet private var projectColorView: AttributedView!
     @IBOutlet private var tableView: UITableView!
     
+    private let cellIdentifier = "ProjectUserTableViewCellReuseIdentifier"
+    
     private var viewModel: ProjectCollectionViewCellModelType!
     
-    // MARK: - Overriden
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        viewModel?.prepareForReuse()
-    }
-    
+    // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfRows()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ProjectUserViewTableViewCell else {
+            return UITableViewCell()
+        }
+        let name = viewModel.userName(for: indexPath)
+        cell.configure(withName: name)
+        return cell
     }
 }
 
@@ -39,10 +41,17 @@ extension ProjectCollectionViewCell: ProjectCollectionViewCellModelOutput {
     func setupView() {
         tableView.dataSource = self
     }
+    
+    func updateView(with projectName: String, leaderName: String, projectColor: UIColor) {
+        projectNameLabel.text = projectName
+        leaderNameLabel.text = leaderName
+        projectColorView.backgroundColor = projectColor
+    }
 }
 
 extension ProjectCollectionViewCell: ProjectCollectionViewCellType {
     func configure(viewModel: ProjectCollectionViewCellModelType) {
         self.viewModel = viewModel
+        self.viewModel?.configure()
     }
 }
