@@ -29,6 +29,7 @@ enum UIError: Error {
     }
 }
 
+// MARK: - Equatable
 extension UIError: Equatable {
     static func == (lhs: UIError, rhs: UIError) -> Bool {
         switch (lhs, rhs) {

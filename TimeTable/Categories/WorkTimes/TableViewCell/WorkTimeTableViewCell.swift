@@ -32,7 +32,7 @@ class WorkTimeTableViewCell: UITableViewCell {
     
     // MARK: - IBAction
     @IBAction private func taskButtonTapped(_ sender: UIButton) {
-        viewModel?.viewRequestedForTaskPreview()
+        // TO_DO: - redirect to task preview 
     }
 }
 

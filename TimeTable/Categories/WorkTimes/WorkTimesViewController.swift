@@ -10,7 +10,7 @@ import UIKit
 
 typealias WorkTimesViewControlleralbe = (UIViewController & WorkTimesViewControllerType & WorkTimesViewModelOutput)
 
-protocol WorkTimesViewControllerType {
+protocol WorkTimesViewControllerType: class {
     func configure(viewModel: WorkTimesViewModelType)
 }
 
@@ -36,11 +36,11 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     // MARK: - Action
-    @IBAction func previousMonthButtonTapped(_ sender: UIButton) {
+    @IBAction private func previousMonthButtonTapped(_ sender: UIButton) {
         viewModel.viewRequestedForPreviousMonth()
     }
     
-    @IBAction func nextMonthButtonTapped(_ sender: Any) {
+    @IBAction private func nextMonthButtonTapped(_ sender: Any) {
         viewModel.viewRequestedForNextMonth()
     }
     
@@ -80,6 +80,7 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 }
 
+// MARK: - WorkTimesViewModelOutput
 extension WorkTimesViewController: WorkTimesViewModelOutput {
     
     func setUpView(with dateString: String) {
@@ -107,6 +108,7 @@ extension WorkTimesViewController: WorkTimesViewModelOutput {
     }
 }
 
+// MARK: - WorkTimesViewControllerType
 extension WorkTimesViewController: WorkTimesViewControllerType {
     func configure(viewModel: WorkTimesViewModelType) {
         self.viewModel = viewModel

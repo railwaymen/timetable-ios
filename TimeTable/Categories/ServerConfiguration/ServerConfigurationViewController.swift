@@ -73,6 +73,7 @@ class ServerConfigurationViewController: UIViewController {
     }
 }
 
+// MARK: - UITextFieldDelegate
 extension ServerConfigurationViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if serverAddressTextField == textField {
@@ -82,6 +83,7 @@ extension ServerConfigurationViewController: UITextFieldDelegate {
     }
 }
 
+// MARK: - ServerConfigurationViewControllerType
 extension ServerConfigurationViewController: ServerConfigurationViewControllerType {
     func configure(viewModel: ServerConfigurationViewModelType, notificationCenter: NotificationCenterType) {
         self.notificationCenter = notificationCenter
@@ -89,6 +91,7 @@ extension ServerConfigurationViewController: ServerConfigurationViewControllerTy
     }
 }
 
+// MARK: - ServerConfigurationViewModelOutput
 extension ServerConfigurationViewController: ServerConfigurationViewModelOutput {
     func setupView(checkBoxIsActive: Bool, serverAddress: String) {
         notificationCenter?.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)

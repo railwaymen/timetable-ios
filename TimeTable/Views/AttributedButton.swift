@@ -11,9 +11,7 @@ import UIKit
 @IBDesignable class AttributedButton: UIButton {
     
     @IBInspectable var cornerRadius: CGFloat = 3 {
-        
         didSet {
-            
             layer.cornerRadius = cornerRadius
             layer.masksToBounds = true
         }

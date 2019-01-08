@@ -15,7 +15,6 @@ protocol WorkTimeCellViewModelOutput: class {
 protocol WorkTimeCellViewModelType: class {
     func viewConfigured()
     func prepareForReuse()
-    func viewRequestedForTaskPreview()
 }
 
 class WorkTimeCellViewModel: WorkTimeCellViewModelType {
@@ -45,8 +44,6 @@ class WorkTimeCellViewModel: WorkTimeCellViewModelType {
     func prepareForReuse() {
         self.updateView()
     }
-    
-    func viewRequestedForTaskPreview() {}
     
     // MARK: - Private
     private func updateView() {

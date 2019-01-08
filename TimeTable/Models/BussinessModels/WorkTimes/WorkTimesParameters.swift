@@ -20,6 +20,7 @@ struct WorkTimesParameters: Encodable {
     }
 }
 
+// MARK: - Equatable
 extension WorkTimesParameters: Equatable {
     static func == (lhs: WorkTimesParameters, rhs: WorkTimesParameters) -> Bool {
         return lhs.fromDate == rhs.fromDate && lhs.toDate == rhs.toDate && lhs.projectIdentifier == rhs.projectIdentifier

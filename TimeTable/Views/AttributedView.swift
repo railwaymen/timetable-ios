@@ -17,18 +17,14 @@ import UIKit
     }
     
     @IBInspectable var cornerRadius: CGFloat = 0 {
-        
         didSet {
-            
             layer.cornerRadius = cornerRadius
             layer.masksToBounds = cornerRadius > 0
         }
     }
     
     @IBInspectable var borderColor: UIColor? {
-        
         didSet {
-            
             layer.borderColor = borderColor?.cgColor
             layer.borderWidth = borderWidth
         }

@@ -12,6 +12,7 @@ protocol ApiClientWorkTimesType: class {
     func fetchWorkTimes(parameters: WorkTimesParameters, completion: @escaping ((Result<[WorkTimeDecoder]>) -> Void))
 }
 
+// MARK: - ApiClientWorkTimesType
 extension ApiClient: ApiClientWorkTimesType {
     func fetchWorkTimes(parameters: WorkTimesParameters, completion: @escaping ((Result<[WorkTimeDecoder]>) -> Void)) {
         get(.worktimes, parameters: parameters, completion: completion)
