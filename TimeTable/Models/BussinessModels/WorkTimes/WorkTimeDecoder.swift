@@ -66,6 +66,7 @@ struct WorkTimeDecoder: Decodable {
     }
 }
 
+// MARK: - Equatable
 extension WorkTimeDecoder: Equatable {
     static func == (lhs: WorkTimeDecoder, rhs: WorkTimeDecoder) -> Bool {
         return lhs.identifier == rhs.identifier && lhs.updatedByAdmin == rhs.updatedByAdmin

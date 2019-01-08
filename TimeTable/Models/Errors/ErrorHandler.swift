@@ -17,6 +17,7 @@ public class ErrorHandler: ErrorHandlerType {
     private var parent: ErrorHandler?
     private let action: HandleAction<Error>
     
+    // MARK: - Initialization
     convenience init(action: @escaping HandleAction<Error> = { throw $0 }) {
         self.init(action: action, parent: nil)
     }
@@ -26,6 +27,7 @@ public class ErrorHandler: ErrorHandlerType {
         self.parent = parent
     }
     
+    // MARK: - Public
     public func throwing(error: Error, finally: @escaping (Bool) -> Void) {
         throwing(error: error, previous: [], finally: finally)
     }
@@ -34,6 +36,7 @@ public class ErrorHandler: ErrorHandlerType {
         return ErrorHandler(action: action, parent: self)
     }
     
+    // MARK: - Private
     private func throwing(error: Error, previous: [ErrorHandler], finally: ((Bool) -> Void)? = nil) {
         if let parent = parent {
             parent.throwing(error: error, previous: previous + [self], finally: finally)

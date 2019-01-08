@@ -55,6 +55,7 @@ class ServerConfigurationCoordinator: BaseCoordinator {
     }
 }
 
+// MARK: - ServerConfigurationCoordinatorDelagete
 extension ServerConfigurationCoordinator: ServerConfigurationCoordinatorDelagete {
     func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration) {
         finish(with: serverConfiguration)

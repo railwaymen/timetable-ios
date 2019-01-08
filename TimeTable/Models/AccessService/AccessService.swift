@@ -43,6 +43,7 @@ class AccessService {
         static let lastLoggedInUserIdentifier = "key.time_table.last_logged_user.id.key"
     }
     
+    // MARK: - Initialization
     init(userDefaults: UserDefaultsType, keychainAccess: KeychainAccessType, coreData: CoreDataStackUserType,
          buildEncoder: (() -> JSONEncoderType), buildDecoder: (() -> JSONDecoderType)) {
         self.userDefaults = userDefaults
@@ -86,6 +87,7 @@ extension AccessService: AccessServiceUserIDType {
     }
 }
 
+// MARK: - AccessServiceSessionType
 extension AccessService: AccessServiceSessionType {
     func getSession(completion: @escaping ((Result<SessionDecoder>) -> Void)) {
         guard let identifier = getLastLoggedInUserIdentifier() else {

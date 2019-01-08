@@ -14,7 +14,6 @@ protocol ApiClientProjectsType: class {
 
 // MARK: - ApiClientSessionType
 extension ApiClient: ApiClientProjectsType {
-    
     func fetchAllProjects(completion: @escaping ((Result<[ProjectRecordDecoder]>) -> Void)) {
         get(Endpoints.projects, completion: completion)
     }

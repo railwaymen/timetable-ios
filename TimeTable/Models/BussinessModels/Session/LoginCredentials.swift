@@ -23,6 +23,7 @@ struct LoginCredentials: Codable {
     }
 }
 
+// MARK: - Equatable
 extension LoginCredentials: Equatable {
     static func == (lhs: LoginCredentials, rhs: LoginCredentials) -> Bool {
         return lhs.email == rhs.email && lhs.password == rhs.password

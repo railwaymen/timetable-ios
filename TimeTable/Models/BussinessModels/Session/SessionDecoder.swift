@@ -38,6 +38,7 @@ struct SessionDecoder: Decodable {
     }
 }
 
+// MARK: - Equatable
 extension SessionDecoder: Equatable {
     static func == (lhs: SessionDecoder, rhs: SessionDecoder) -> Bool {
         return lhs.identifier == rhs.identifier && lhs.firstName == rhs.firstName

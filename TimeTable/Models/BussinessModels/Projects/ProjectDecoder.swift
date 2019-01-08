@@ -46,9 +46,8 @@ struct ProjectDecoder: Decodable {
     }
 }
 
+// MARK: - Equatable
 extension ProjectDecoder: Equatable {
-    
-    // MARK: - Equatable
     public static func == (lhs: ProjectDecoder, rhs: ProjectDecoder) -> Bool {
         return lhs.identifier == rhs.identifier && lhs.name == rhs.name
             && lhs.color == rhs.color && lhs.workTimesAllowsTask == rhs.workTimesAllowsTask

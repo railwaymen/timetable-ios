@@ -25,6 +25,7 @@ class ProjectsCollectionViewLayout: UICollectionViewFlowLayout {
         return collectionView.bounds.width - (collectionView.contentInset.left + collectionView.contentInset.right)
     }
     
+    // MARK: - Overridden
     override var collectionViewContentSize: CGSize {
         return CGSize(width: contentWidth, height: contentHeight)
     }
@@ -46,6 +47,7 @@ class ProjectsCollectionViewLayout: UICollectionViewFlowLayout {
         resizeView()
     }
     
+    // MARK: - Private
     private func resizeView() {
         guard let collectionView = self.collectionView else { return }
         

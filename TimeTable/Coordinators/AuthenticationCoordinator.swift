@@ -62,12 +62,14 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
     }
 }
 
+// MARK: - LoginCoordinatorDelegate
 extension AuthenticationCoordinator: LoginCoordinatorDelegate {
     func loginDidFinish(with state: AuthenticationCoordinator.State) {
         finish(with: state)
     }
 }
 
+// MARK: - State Equatable
 extension AuthenticationCoordinator.State: Equatable {
     static func == (lhs: AuthenticationCoordinator.State, rhs: AuthenticationCoordinator.State) -> Bool {
         switch (lhs, rhs) {

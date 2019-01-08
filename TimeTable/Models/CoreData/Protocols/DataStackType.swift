@@ -16,10 +16,10 @@ protocol DataStackType {
     func fetchAll<D>(_ from: From<D>, _ fetchClauses: FetchClause...) -> [D]?
     func perform<T>(asynchronousTask: @escaping (_ transaction: AsynchronousDataTransactionType) throws -> T,
                     success: @escaping (T) -> Void, failure: @escaping (CoreStoreError) -> Void)
-    
     // swiftlint:enable type_name
 }
 
+// MARK: - DataStackType
 extension DataStack: DataStackType {
     func perform<T>(asynchronousTask: @escaping (AsynchronousDataTransactionType) throws -> T,
                     success: @escaping (T) -> Void, failure: @escaping (CoreStoreError) -> Void) {

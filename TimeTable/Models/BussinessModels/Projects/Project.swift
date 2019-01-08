@@ -28,6 +28,7 @@ class Project: Hashable {
         }
     }
     
+    // MARK: - Initialization
     init(decoder: ProjectRecordDecoder) {
         identifier = decoder.projectIdentifier
         name = decoder.name
@@ -44,10 +45,12 @@ class Project: Hashable {
         }
     }
     
+    // MARK: - Hashable
     var hashValue: Int {
         return identifier.hashValue
     }
     
+    // MARK: - Equatable
     static func == (lhs: Project, rhs: Project) -> Bool {
         return lhs.identifier == rhs.identifier && lhs.name == rhs.name
     }

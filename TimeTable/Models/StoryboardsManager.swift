@@ -27,6 +27,7 @@ class StoryboardsManager: StoryboardsManagerType {
         case initial
     }
     
+    // MARK: - Internal
     func controller<T>(storyboard: StoryboardsManager.StoryboardName, controllerIdentifier: ControllerIdentifier) -> T? {
         
         let storyboard = UIStoryboard(name: storyboard.rawValue, bundle: nil)

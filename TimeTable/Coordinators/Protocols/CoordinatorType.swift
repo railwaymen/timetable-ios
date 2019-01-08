@@ -23,6 +23,7 @@ protocol CoordinatorType: class, Hashable {
     func removeChildCoordinator(child: Coordinator?)
 }
 
+// MARK: - CoordinatorType
 extension CoordinatorType {
     func start() {
         start(finishCompletion: nil)

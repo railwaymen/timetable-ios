@@ -37,6 +37,7 @@ class ProjectCollectionViewCell: UICollectionViewCell, UITableViewDataSource {
     }
 }
 
+// MARK: - ProjectCollectionViewCellModelOutput
 extension ProjectCollectionViewCell: ProjectCollectionViewCellModelOutput {
     func setupView() {
         tableView.dataSource = self
@@ -49,6 +50,7 @@ extension ProjectCollectionViewCell: ProjectCollectionViewCellModelOutput {
     }
 }
 
+// MARK: - ProjectCollectionViewCellType
 extension ProjectCollectionViewCell: ProjectCollectionViewCellType {
     func configure(viewModel: ProjectCollectionViewCellModelType) {
         self.viewModel = viewModel
