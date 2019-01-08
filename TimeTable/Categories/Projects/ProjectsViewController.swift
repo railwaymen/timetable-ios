@@ -38,7 +38,7 @@ class ProjectsViewController: UIViewController, UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? ProjectCollectionViewCell else {
             return UICollectionViewCell()
         }
-        let project = viewModel.item(at: indexPath)
+        guard let project = viewModel.item(at: indexPath) else { return UICollectionViewCell() }
         let cellViewModel = ProjectCollectionViewCellModel(userInterface: cell, project: project)
         cell.configure(viewModel: cellViewModel)
         return cell
@@ -70,6 +70,6 @@ extension ProjectsViewController: ProjectsViewControllerType {
 // MARK: - ProjectsCollectionViewLayoutDelegate
 extension ProjectsViewController: ProjectsCollectionViewLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForUsersTableViewAtIndexPath indexPath: IndexPath) -> CGFloat {
-        return CGFloat(viewModel.item(at: indexPath).users.count) * projectCellTableViewHeight + projectCellStaticHeaderHeight
+        return CGFloat(viewModel.item(at: indexPath)?.users.count ?? 0) * projectCellTableViewHeight + projectCellStaticHeaderHeight
     }
 }

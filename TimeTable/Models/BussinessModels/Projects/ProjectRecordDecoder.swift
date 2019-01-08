@@ -18,11 +18,15 @@ struct ProjectRecordDecoder: Decodable {
     let user: User?
     let leader: User?
     
-    struct User: Decodable {
+    struct User: Decodable, Equatable {
         let name: String
         
         enum CodingKeys: String, CodingKey {
             case name
+        }
+        
+        static func == (lhs: User, rhs: User) -> Bool {
+            return lhs.name == rhs.name
         }
     }
     

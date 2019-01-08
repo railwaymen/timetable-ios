@@ -26,7 +26,7 @@ class ApiClientSessionTests: XCTestCase {
     }
     
     // MARK: - ApiClientSessionType
-    func testSignInSucced() throws {
+    func testSignInSucceed() throws {
         //Arrange
         let data = try self.json(from: SessionResponse.signInResponse)
         let decoder = try JSONDecoder().decode(SessionDecoder.self, from: data)

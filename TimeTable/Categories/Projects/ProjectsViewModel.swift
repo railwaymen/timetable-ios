@@ -15,7 +15,7 @@ protocol ProjectsViewModelOutput: class {
 
 protocol ProjectsViewModelType: class {
     func numberOfItems() -> Int
-    func item(at index: IndexPath) -> Project
+    func item(at index: IndexPath) -> Project?
     func viewDidLoad()
 }
 
@@ -39,7 +39,8 @@ class ProjectsViewModel: ProjectsViewModelType {
         return projects.count
     }
     
-    func item(at index: IndexPath) -> Project {
+    func item(at index: IndexPath) -> Project? {
+        guard projects.count > index.row else { return nil }
         return projects[index.row]
     }
     
@@ -55,14 +56,14 @@ class ProjectsViewModel: ProjectsViewModelType {
             case .failure(let error):
                 self?.errorHandler.throwing(error: error)
             case .success(let projectRecords):
-                self?.projects = self?.createProjects(from: projectRecords) ?? []
+                self?.createProjects(from: projectRecords)
                 self?.userInterface?.updateView()
             }
         }
     }
     
-    private func createProjects(from records: [ProjectRecordDecoder]) -> [Project] {
-        return records.reduce(Set<Project>(), { result, new in
+    private func createProjects(from records: [ProjectRecordDecoder]) {        
+        self.projects = records.reduce(Set<Project>(), { result, new in
             var newResult = result
             if let project = newResult.first(where: { $0.identifier == new.projectIdentifier }), let newUser = new.user {
                 project.users.append(Project.User(decoder: newUser))

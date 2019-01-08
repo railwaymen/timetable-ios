@@ -41,6 +41,7 @@ class ProjectCollectionViewCellModel: ProjectCollectionViewCellModelType {
     }
     
     func userName(for indexPath: IndexPath) -> String {
+        guard project.users.count > indexPath.row else { return "" }
         return project.users[indexPath.row].name
     }
 }

@@ -1,0 +1,38 @@
+[
+    {
+        "id": 16281,
+        "project_id": 11,
+        "name": "Test Name",
+        "color": "0c0c0c",
+        "user": {
+            "name": "Admin Admin"
+        },
+        "leader": {
+            "name": "Rosalind Auer"
+        }
+    },
+    {
+        "id": 16283,
+        "project_id": 11,
+        "name": "Test Name",
+        "color": "0c0c0c",
+        "user": {
+            "name": "User User"
+        },
+        "leader": {
+            "name": "Rosalind Auer"
+        }
+    },
+    {
+        "id": 16282,
+        "project_id": 12,
+        "name": "Test Test",
+        "color": "00000c",
+        "user": {
+            "name": "John Test"
+        },
+        "leader": {
+            "name": "Leader Leader"
+        }
+    }
+]

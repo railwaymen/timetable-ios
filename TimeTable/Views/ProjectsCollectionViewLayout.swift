@@ -35,15 +35,7 @@ class ProjectsCollectionViewLayout: UICollectionViewFlowLayout {
     }
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-
-        var visibleLayoutAttributes = [UICollectionViewLayoutAttributes]()
-        // Loop through the cache and look for items in the rect
-        for attributes in cache {
-            if attributes.frame.intersects(rect) {
-                visibleLayoutAttributes.append(attributes)
-            }
-        }
-        return visibleLayoutAttributes
+        return cache.reduce([UICollectionViewLayoutAttributes](), { $1.frame.intersects(rect) ? $0 + [$1] : $0 })
     }
     
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {

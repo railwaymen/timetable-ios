@@ -22,6 +22,10 @@ class Project: Hashable {
         init(decoder: ProjectRecordDecoder.User) {
             name = decoder.name
         }
+        
+        init(name: String) {
+            self.name = name
+        }
     }
     
     init(decoder: ProjectRecordDecoder) {
