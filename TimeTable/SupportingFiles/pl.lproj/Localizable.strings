@@ -18,6 +18,9 @@
 "login.button.log_in" = "Zaloguj";
 "login.button.change_server_address" = "Chcesz zmienić adres serwera?";
 
+"work_time.text_field.what_have_you_done" = "Nad czym pracowałeś?";
+"work_time.text_field.task_url" = "URL taska";
+
 // UIErros
 "ui.error.cannot_be_empty" = "- pole nie może być puste.";
 "ui.error.invalid_format" = "niepoprawny format.";

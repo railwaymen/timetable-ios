@@ -14,13 +14,13 @@ class WorkTimeCoordinatorTests: XCTestCase {
     private var storyboardsManagerMock: StoryboardsManagerMock!
     private var apiClientMock: ApiClientMock!
     private var errorHandlerMock: ErrorHandlerMock!
-    private var workTimeCoordinator: WorkTimeCoordinator!
+    private var workTimeCoordinator: WorkTimesCoordinator!
     
     override func setUp() {
         storyboardsManagerMock = StoryboardsManagerMock()
         apiClientMock = ApiClientMock()
         errorHandlerMock = ErrorHandlerMock()
-        workTimeCoordinator = WorkTimeCoordinator(window: nil,
+        workTimeCoordinator = WorkTimesCoordinator(window: nil,
                                                   storyboardsManager: storyboardsManagerMock,
                                                   apiClient: apiClientMock,
                                                   errorHandler: errorHandlerMock)

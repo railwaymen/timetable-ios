@@ -44,6 +44,10 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
         viewModel.viewRequestedForNextMonth()
     }
     
+    @objc private func addNewRecordTapped(_ sender: UIBarButtonItem) {
+        viewModel.viewRequestedForNewWorkTimeView(sourceView: sender)
+    }
+    
     // MARK: - UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.numberOfSections()
@@ -95,6 +99,8 @@ extension WorkTimesViewController: WorkTimesViewModelOutput {
         tableView.register(nib, forHeaderFooterViewReuseIdentifier: workTimesTableViewHeaderIdentifier)
         
         dateLabel.text = dateString
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewRecordTapped(_:)))
     }
     
     func updateView() {

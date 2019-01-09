@@ -19,6 +19,7 @@ class StoryboardsManager: StoryboardsManagerType {
     enum StoryboardName: String {
         case serverConfiguration = "ServerConfiguration"
         case login = "Login"
+        case workTime = "WorkTime"
         case workTimes = "WorkTimes"
         case projects = "Projects"
     }
