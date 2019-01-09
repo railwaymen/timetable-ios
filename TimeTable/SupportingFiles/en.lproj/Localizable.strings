@@ -2,6 +2,7 @@
 "element.text_field.server_address" = "Server address";
 "element.text_field.login" = "Login";
 "element.text_field.password" = "Password";
+"element.button.select_project" = "Select project";
 
 // UIControls
 "server_settings.label.title" = "Sing in to your TimeTable";

@@ -138,7 +138,6 @@
 		C16CA644219AA47900133358 /* UserEntity+SessionDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16CA643219AA47900133358 /* UserEntity+SessionDecoder.swift */; };
 		C16CA647219AB89C00133358 /* UserEntitySessionDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16CA646219AB89C00133358 /* UserEntitySessionDecoderTests.swift */; };
 		C1784DDD21E4E03600C83E2A /* WorkTime.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1784DDC21E4E03600C83E2A /* WorkTime.storyboard */; };
-		C1784DDF21E4E0BB00C83E2A /* ProjectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1784DDE21E4E0BB00C83E2A /* ProjectButton.swift */; };
 		C17EA3B82189E04400A3F0CD /* ServerConfigurationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3B72189E04400A3F0CD /* ServerConfigurationManagerTests.swift */; };
 		C17EA3BA2189E9BA00A3F0CD /* ApiErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3B92189E9BA00A3F0CD /* ApiErrorTests.swift */; };
 		C17EA3BC2189EC1700A3F0CD /* URLSessionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */; };
@@ -366,7 +365,6 @@
 		C16CA643219AA47900133358 /* UserEntity+SessionDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserEntity+SessionDecoder.swift"; sourceTree = "<group>"; };
 		C16CA646219AB89C00133358 /* UserEntitySessionDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntitySessionDecoderTests.swift; sourceTree = "<group>"; };
 		C1784DDC21E4E03600C83E2A /* WorkTime.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WorkTime.storyboard; sourceTree = "<group>"; };
-		C1784DDE21E4E0BB00C83E2A /* ProjectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectButton.swift; sourceTree = "<group>"; };
 		C17EA3B72189E04400A3F0CD /* ServerConfigurationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationManagerTests.swift; sourceTree = "<group>"; };
 		C17EA3B92189E9BA00A3F0CD /* ApiErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiErrorTests.swift; sourceTree = "<group>"; };
 		C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionExtensionTests.swift; sourceTree = "<group>"; };
@@ -938,7 +936,6 @@
 				C153AC6C21833BDC007A35BB /* AttributedButton.swift */,
 				C125C4D62187086C00FBA0DD /* CheckBoxButton.swift */,
 				C1051B4021DA363E00FB3C3D /* ProjectView.swift */,
-				C1784DDE21E4E0BB00C83E2A /* ProjectButton.swift */,
 				C1F187B121E37C760037B8C2 /* ProjectsCollectionViewLayout.swift */,
 			);
 			path = Views;
@@ -1674,7 +1671,6 @@
 				C1ECF09F2192C1AB006038C6 /* JSONDecoder+Extension.swift in Sources */,
 				C1ECF09D2192BB51006038C6 /* RequestEncoder.swift in Sources */,
 				C153AC512182EFEC007A35BB /* UIButton+Extension.swift in Sources */,
-				C1784DDF21E4E0BB00C83E2A /* ProjectButton.swift in Sources */,
 				C1EF3A05219303A7000E3511 /* NSRegularExpression+Extension.swift in Sources */,
 				C1249C742181A3D0005DB2A5 /* AppCoordinator.swift in Sources */,
 				C12CA56A21A57ADD0082FEB7 /* UIColor+Extension.swift in Sources */,

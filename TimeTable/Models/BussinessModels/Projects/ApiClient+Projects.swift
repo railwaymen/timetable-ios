@@ -10,11 +10,16 @@ import Foundation
 
 protocol ApiClientProjectsType: class {
     func fetchAllProjects(completion: @escaping ((Result<[ProjectRecordDecoder]>) -> Void))
+    func fetchSimpleListOfProjects(completion: @escaping ((Result<[ProjectDecoder]>) -> Void))
 }
 
 // MARK: - ApiClientSessionType
 extension ApiClient: ApiClientProjectsType {
     func fetchAllProjects(completion: @escaping ((Result<[ProjectRecordDecoder]>) -> Void)) {
-        get(Endpoints.projects, completion: completion)
+        get(.projects, completion: completion)
+    }
+    
+    func fetchSimpleListOfProjects(completion: @escaping ((Result<[ProjectDecoder]>) -> Void)) {
+        get(.projectsSimpleList, completion: completion)
     }
 }

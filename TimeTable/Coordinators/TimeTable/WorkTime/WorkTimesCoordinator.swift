@@ -8,13 +8,15 @@
 
 import UIKit
 
+typealias WorkTimesApiClient = (ApiClientProjectsType & ApiClientWorkTimesType)
+
 protocol WorkTimesCoordinatorDelegate: class {
     func workTimesRequestedForNewWorkTimeView(sourceView: UIBarButtonItem)
 }
 
 class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType {
     private let storyboardsManager: StoryboardsManagerType
-    private let apiClient: ApiClientWorkTimesType
+    private let apiClient: WorkTimesApiClient
     private let errorHandler: ErrorHandlerType
     
     var root: UIViewController {
@@ -23,7 +25,7 @@ class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType
     var tabBarItem: UITabBarItem
     
     // MARK: - Initialization
-    init(window: UIWindow?, storyboardsManager: StoryboardsManagerType, apiClient: ApiClientWorkTimesType, errorHandler: ErrorHandlerType) {
+    init(window: UIWindow?, storyboardsManager: StoryboardsManagerType, apiClient: WorkTimesApiClient, errorHandler: ErrorHandlerType) {
         self.storyboardsManager = storyboardsManager
         self.apiClient = apiClient
         self.errorHandler = errorHandler
@@ -52,7 +54,7 @@ class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType
 extension WorkTimesCoordinator: WorkTimesCoordinatorDelegate {
     func workTimesRequestedForNewWorkTimeView(sourceView: UIBarButtonItem) {
         let controller: WorkTimeViewControlleralbe? = storyboardsManager.controller(storyboard: .workTime, controllerIdentifier: .initial)
-        let viewModel = WorkTimeViewModel(userInterface: controller)
+        let viewModel = WorkTimeViewModel(userInterface: controller, apiClient: apiClient, errorHandler: errorHandler)
         controller?.configure(viewModel: viewModel)
         controller?.modalPresentationStyle = .popover
         controller?.preferredContentSize = CGSize(width: 300, height: 320)

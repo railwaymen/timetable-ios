@@ -10,6 +10,7 @@ import Foundation
 
 enum Endpoints: String {
     case projects = "/projects"
+    case projectsSimpleList = "/projects/simple"
     case signIn = "/users/sign_in"
     case worktimes = "/work_times"
 }
