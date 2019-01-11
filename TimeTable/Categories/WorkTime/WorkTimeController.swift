@@ -18,6 +18,8 @@ class WorkTimeController: UIViewController {
     @IBOutlet private var fromDateTextField: UITextField!
     @IBOutlet private var toDateTextField: UITextField!
     @IBOutlet private var projectTextField: UITextField!
+    @IBOutlet private var taskURLViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var taskURLView: UIView!
     @IBOutlet private var timeLabel: UILabel!
     
     private var projectPicker: UIPickerView!
@@ -99,7 +101,10 @@ extension WorkTimeController: WorkTimeViewModelOutput {
         projectPicker.reloadAllComponents()
     }
     
-    func setUp(currentProjectName: String) {
+    func setUp(currentProjectName: String, allowsTask: Bool) {
+        taskURLViewHeightConstraint.constant = allowsTask ? 40 : 0
+        taskURLView.isHidden = !allowsTask
+
         projectPicker = UIPickerView()
         projectPicker.delegate = self
         projectPicker.dataSource = self

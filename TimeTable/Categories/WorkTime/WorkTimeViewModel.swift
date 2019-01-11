@@ -9,7 +9,7 @@
 import Foundation
 
 protocol WorkTimeViewModelOutput: class {
-    func setUp(currentProjectName: String)
+    func setUp(currentProjectName: String, allowsTask: Bool)
     func dismissView()
     func reloadProjectPicker()
     func dissmissKeyboard()
@@ -60,6 +60,15 @@ class WorkTimeViewModel: WorkTimeViewModelType {
                     return "element.button.select_project".localized
                 case .some(let project):
                     return project.name
+                }
+            }
+            
+            var allowsTask: Bool {
+                switch self {
+                case .none:
+                    return true
+                case .some(let project):
+                    return project.workTimesAllowsTask
                 }
             }
         }
@@ -156,7 +165,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     
     // MARK: - Private
     private func updateViewWithCurrentSelectedProject() {
-        userInterface?.setUp(currentProjectName: task.project.title)
+        userInterface?.setUp(currentProjectName: task.project.title, allowsTask: task.project.allowsTask)
     }
     
     private func updateFromDateView(with date: Date) {
