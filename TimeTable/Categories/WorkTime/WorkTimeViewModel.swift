@@ -43,37 +43,6 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     private var projects: [ProjectDecoder]
     private var task: Task
     
-    struct Task {
-        var project: ProjectType
-        var title: String
-        var url: URL?
-        var fromDate: Date?
-        var toDate: Date?
-        
-        enum ProjectType {
-            case none
-            case some(ProjectDecoder)
-            
-            var title: String {
-                switch self {
-                case .none:
-                    return "element.button.select_project".localized
-                case .some(let project):
-                    return project.name
-                }
-            }
-            
-            var allowsTask: Bool {
-                switch self {
-                case .none:
-                    return true
-                case .some(let project):
-                    return project.workTimesAllowsTask
-                }
-            }
-        }
-    }
-    
     // MARK: - Initialization
     init(userInterface: WorkTimeViewModelOutput?, apiClient: ApiClientProjectsType, errorHandler: ErrorHandlerType) {
         self.userInterface = userInterface
@@ -171,6 +140,26 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     // MARK: - Private
     private func updateViewWithCurrentSelectedProject() {
         userInterface?.setUp(currentProjectName: task.project.title, allowsTask: task.project.allowsTask)
+        
+        guard let type = task.project.type else { return }
+        switch type {
+        case .fullDay(let timeInterval):
+            let calendar = Calendar.autoupdatingCurrent
+            let fromDate = calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
+            let toDate = fromDate.addingTimeInterval(timeInterval)
+            task.fromDate = fromDate
+            task.toDate = toDate
+            updateFromDateView(with: fromDate)
+            updateToDateView(with: toDate)
+        case .lunch(let timeInterval):
+            let fromDate = task.fromDate ?? Date()
+            let toDate = fromDate.addingTimeInterval(timeInterval)
+            task.fromDate = fromDate
+            task.toDate = toDate
+            updateFromDateView(with: fromDate)
+            updateToDateView(with: toDate)
+        case .standard: break
+        }
     }
     
     private func updateFromDateView(with date: Date) {
@@ -211,7 +200,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         apiClient.fetchSimpleListOfProjects { [weak self] result in
             switch result {
             case .success(let projects):
-                self?.projects = projects
+                self?.projects = projects.filter { $0.isActive ?? false }
                 self?.userInterface?.reloadProjectPicker()
             case .failure(let error):
                 self?.errorHandler.throwing(error: error)
