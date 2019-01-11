@@ -10,11 +10,16 @@ import Foundation
 
 protocol ApiClientWorkTimesType: class {
     func fetchWorkTimes(parameters: WorkTimesParameters, completion: @escaping ((Result<[WorkTimeDecoder]>) -> Void))
+    func addWorkTime(parameters: Task, completion: @escaping ((Result<Void>) -> Void))
 }
 
 // MARK: - ApiClientWorkTimesType
 extension ApiClient: ApiClientWorkTimesType {
     func fetchWorkTimes(parameters: WorkTimesParameters, completion: @escaping ((Result<[WorkTimeDecoder]>) -> Void)) {
-        get(.worktimes, parameters: parameters, completion: completion)
+        get(.workTimes, parameters: parameters, completion: completion)
+    }
+    
+    func addWorkTime(parameters: Task, completion: @escaping ((Result<Void>) -> Void)) {
+        post(.workTimes, parameters: parameters, completion: completion)
     }
 }

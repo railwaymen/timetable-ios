@@ -8,12 +8,35 @@
 
 import Foundation
 
-struct Task {
+struct Task: Encodable {
     var project: ProjectType
-    var title: String
+    var body: String
     var url: URL?
     var fromDate: Date?
     var toDate: Date?
+    
+    enum CodingKeys: String, CodingKey {
+        case projectId = "project_id"
+        case body
+        case task
+        case fromDate = "starts_at"
+        case toDate = "ends_at"
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        switch project {
+        case .none:
+            throw EncodingError.invalidValue(project, EncodingError.Context(codingPath: [CodingKeys.projectId], debugDescription: ""))
+        case .some(let project):
+            try container.encode(project.identifier, forKey: .projectId)
+            try container.encode(body, forKey: .body)
+            try container.encode(url, forKey: .task)
+            try container.encode(fromDate, forKey: .fromDate)
+            try container.encode(toDate, forKey: .toDate)
+        }
+    }
     
     private struct AutofillHours {
         private static let seconds = 60

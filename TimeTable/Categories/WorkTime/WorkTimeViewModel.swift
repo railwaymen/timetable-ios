@@ -38,18 +38,18 @@ protocol WorkTimeViewModelType: class {
 
 class WorkTimeViewModel: WorkTimeViewModelType {
     private weak var userInterface: WorkTimeViewModelOutput?
-    private let apiClient: ApiClientProjectsType
+    private let apiClient: TimeTableTabApiClientType
     private let errorHandler: ErrorHandlerType
     private var projects: [ProjectDecoder]
     private var task: Task
     
     // MARK: - Initialization
-    init(userInterface: WorkTimeViewModelOutput?, apiClient: ApiClientProjectsType, errorHandler: ErrorHandlerType) {
+    init(userInterface: WorkTimeViewModelOutput?, apiClient: TimeTableTabApiClientType, errorHandler: ErrorHandlerType) {
         self.userInterface = userInterface
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.projects = []
-        self.task = Task(project: .none, title: "", url: nil, fromDate: nil, toDate: nil)
+        self.task = Task(project: .none, body: "", url: nil, fromDate: nil, toDate: nil)
     }
     
     // MARK: - WorkTimeViewModelType
@@ -88,8 +88,8 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func taskNameDidChange(value: String?) {
-        guard let title = value else { return }
-        task.title = title
+        guard let body = value else { return }
+        task.body = body
     }
     
     func taskURLDidChange(value: String?) {
@@ -130,7 +130,14 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func viewRequesetdToSave() {
-        
+        apiClient.addWorkTime(parameters: task) { [weak self] result in
+            switch result {
+            case .success:
+                self?.userInterface?.dismissView()
+            case .failure(let error):
+                self?.errorHandler.throwing(error: error)
+            }
+        }
     }
     
     func viewHasBeenTapped() {
