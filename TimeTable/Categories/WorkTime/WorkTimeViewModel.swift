@@ -99,8 +99,13 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     
     func setDefaultTask() {
         guard !projects.isEmpty else { return }
-        task.project = .some(projects[0])
-        updateViewWithCurrentSelectedProject()
+        switch task.project {
+        case .none:
+            task.project = .some(projects[0])
+            updateViewWithCurrentSelectedProject()
+        case .some:
+            return
+        }
     }
     
     func viewSelectedProject(atRow row: Int) {
