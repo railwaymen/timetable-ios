@@ -44,8 +44,8 @@ class BaseCoordinator: CoordinatorType, CoordinatorErrorPresenterType {
     func present(error: Error) {
         if let uiError = error as? UIError {
             presentAllertController(withMessage: uiError.localizedDescription)
-        } else if let apiError = error as? ApiError {
-            presentAllertController(withMessage: apiError.localizedDescription)
+        } else if let apiError = error as? ApiClientError {
+            presentAllertController(withMessage: apiError.type.localizedDescription)
         }
     }
     
@@ -57,7 +57,11 @@ class BaseCoordinator: CoordinatorType, CoordinatorErrorPresenterType {
         }
         alert.addAction(action)
         DispatchQueue.main.async { [weak self] in
-            self?.window?.rootViewController?.present(alert, animated: true)
+            if let presentedViewController = self?.window?.rootViewController?.presentedViewController {
+                presentedViewController.present(alert, animated: true)
+            } else {
+                self?.window?.rootViewController?.present(alert, animated: true)
+            }
         }
     }
 }

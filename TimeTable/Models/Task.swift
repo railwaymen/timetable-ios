@@ -49,7 +49,7 @@ struct Task: Encodable {
         }
     }
     
-    enum ProjectType {
+    enum ProjectType: Equatable {
         case none
         case some(ProjectDecoder)
         
@@ -62,7 +62,7 @@ struct Task: Encodable {
         var title: String {
             switch self {
             case .none:
-                return "element.button.select_project".localized
+                return "work_time.text_field.select_project".localized
             case .some(let project):
                 return project.name
             }

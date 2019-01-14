@@ -39,7 +39,7 @@ class ApiClient: ApiClientNetworkingType {
             let decodedResponse = try decoder.decode(D.self, from: data)
             completion(.success(decodedResponse))
         } catch {
-            completion(.failure(ApiClientError.invalidResponse))
+            completion(.failure(ApiClientError(type: .invalidResponse)))
         }
     }
     
@@ -60,7 +60,7 @@ class ApiClient: ApiClientNetworkingType {
                 self?.handle(response: response, completion: completion)
             }
         } catch {
-            completion(.failure(ApiClientError.invalidParameters))
+            completion(.failure(ApiClientError(type: .invalidParameters)))
         }
     }
     
@@ -76,7 +76,7 @@ class ApiClient: ApiClientNetworkingType {
                 }
             }
         } catch {
-            completion(.failure(ApiClientError.invalidParameters))
+            completion(.failure(ApiClientError(type: .invalidParameters)))
         }
     }
     
@@ -93,7 +93,7 @@ class ApiClient: ApiClientNetworkingType {
                 self?.handle(response: response, completion: completion)
             }
         } catch {
-            completion(.failure(ApiClientError.invalidParameters))
+            completion(.failure(ApiClientError(type: .invalidParameters)))
         }
     }
 }

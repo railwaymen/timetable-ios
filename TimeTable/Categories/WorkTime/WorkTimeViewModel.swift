@@ -130,13 +130,18 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func viewRequesetdToSave() {
-        apiClient.addWorkTime(parameters: task) { [weak self] result in
-            switch result {
-            case .success:
-                self?.userInterface?.dismissView()
-            case .failure(let error):
-                self?.errorHandler.throwing(error: error)
+        do {
+            try validateInputs()
+            apiClient.addWorkTime(parameters: task) { [weak self] result in
+                switch result {
+                case .success:
+                    self?.userInterface?.dismissView()
+                case .failure(let error):
+                    self?.errorHandler.throwing(error: error)
+                }
             }
+        } catch {
+            self.errorHandler.throwing(error: error)
         }
     }
     
@@ -145,6 +150,17 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     // MARK: - Private
+    private func validateInputs() throws {
+        guard .none != task.project else { throw UIError.cannotBeEmpty(.projectTextField) }
+        guard !task.body.isEmpty else { throw UIError.cannotBeEmpty(.taskTextField) }
+        if task.project.allowsTask && task.url == nil {
+            throw UIError.cannotBeEmpty(.taskURLTextField)
+        }
+        guard let fromDate = task.fromDate else { throw UIError.cannotBeEmpty(.startsAtTextField) }
+        guard let toDate = task.toDate else { throw UIError.cannotBeEmpty(.endsAtTextField) }
+        guard fromDate > toDate else { throw UIError.timeGreaterThan }
+    }
+    
     private func updateViewWithCurrentSelectedProject() {
         userInterface?.setUp(currentProjectName: task.project.title, allowsTask: task.project.allowsTask)
         

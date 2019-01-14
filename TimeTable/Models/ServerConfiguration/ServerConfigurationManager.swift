@@ -43,7 +43,7 @@ class ServerConfigurationManager: ServerConfigurationManagerType {
     
     func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void>) -> Void)) {
         guard let hostURL = configuration.host else {
-            completion(.failure(ApiError.invalidHost(configuration.host)))
+            completion(.failure(ApiClientError(type: .invalidHost(configuration.host))))
             return
         }
         var request = URLRequest(url: hostURL)
@@ -53,7 +53,7 @@ class ServerConfigurationManager: ServerConfigurationManagerType {
                 self?.save(configuration: configuration)
                 completion(.success(Void()))
             } else {
-                completion(.failure(ApiError.invalidHost(hostURL)))
+                completion(.failure(ApiClientError(type: .invalidHost(hostURL))))
             }
         }
         dataTask.resume()

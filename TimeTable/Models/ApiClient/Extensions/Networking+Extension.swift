@@ -34,7 +34,11 @@ extension Networking: NetworkingType {
         case .success(let successResponse):
             completion(.success(successResponse.data))
         case .failure(let failureResponse):
-            completion(.failure(failureResponse.error))
+            if let apiClientError = ApiClientError(data: failureResponse.data) {
+                completion(.failure(apiClientError))
+            } else {
+                completion(.failure(failureResponse.error))
+            }
         }
     }
 }
