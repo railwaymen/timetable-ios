@@ -1,5 +1,5 @@
 //
-//  WorkTimeCoordinatorTests.swift
+//  WorkTimesCoordinatorTests.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 12/12/2018.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import TimeTable
 
-class WorkTimeCoordinatorTests: XCTestCase {
+class WorkTimesCoordinatorTests: XCTestCase {
  
     private var storyboardsManagerMock: StoryboardsManagerMock!
     private var apiClientMock: ApiClientMock!
@@ -44,4 +44,35 @@ class WorkTimeCoordinatorTests: XCTestCase {
         XCTAssertFalse(workTimeCoordinator.navigationController.children.isEmpty)
         XCTAssertNotNil(workTimeCoordinator.navigationController.children.first as? WorkTimesViewControlleralbe)
     }
+    
+    // MARK: - WorkTimesCoordinatorDelegate
+    func testWorkTimesRequestedForNewWorkTimeViewWhileStoryboardsManagerReturendNil() {
+        //Arrange
+        let button = UIBarButtonItem()
+        //Act
+        workTimeCoordinator.workTimesRequestedForNewWorkTimeView(sourceView: button)
+        //Assert
+        XCTAssertNil(workTimeCoordinator.root.children.last)
+    }
+    
+    func testWorkTimesRequestedForNewWorkTimeViewWhileStoryboardsManagerReturendInvalidController() {
+        //Arrange
+        let button = UIBarButtonItem()
+        storyboardsManagerMock.controller = UIViewController()
+        //Act
+        workTimeCoordinator.workTimesRequestedForNewWorkTimeView(sourceView: button)
+        //Assert
+        XCTAssertNil(workTimeCoordinator.root.children.last)
+    }
+
+    func testWorkTimesRequestedForNewWorkTimeViewSucceed() {
+        //Arrange
+        let button = UIBarButtonItem()
+        storyboardsManagerMock.controller = WorkTimeController()
+        //Act
+        workTimeCoordinator.workTimesRequestedForNewWorkTimeView(sourceView: button)
+        //Assert
+        XCTAssertNil(workTimeCoordinator.root.children.last)
+    }
+
 }
