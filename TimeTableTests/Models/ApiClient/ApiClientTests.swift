@@ -55,7 +55,7 @@ class ApiClientTests: XCTestCase {
             }
         }
         //Assert
-        switch expectedError as? ApiClientError {
+        switch (expectedError as? ApiClientError)?.type {
         case .invalidParameters?: break
         default: XCTFail()
         }
@@ -138,7 +138,7 @@ class ApiClientTests: XCTestCase {
         }
         networkingMock.shortPostCompletion?(.success(data))
         //Assert
-        switch expectedError as? ApiClientError {
+        switch (expectedError as? ApiClientError)?.type {
         case .invalidResponse?: break
         default: XCTFail()
         }
@@ -155,7 +155,7 @@ class ApiClientTests: XCTestCase {
         let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
         requestEncoderMock.isEncodeToDictionaryThrowingError = true
         //Act
-        apiClient.get(Endpoints.worktimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
+        apiClient.get(Endpoints.workTimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -163,7 +163,7 @@ class ApiClientTests: XCTestCase {
             }
         }
         //Assert
-        switch expectedError as? ApiClientError {
+        switch (expectedError as? ApiClientError)?.type {
         case .invalidParameters?: break
         default: XCTFail()
         }
@@ -180,7 +180,7 @@ class ApiClientTests: XCTestCase {
             return jsonDecoderMock
         }
         //Act
-        apiClient.get(Endpoints.worktimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
+        apiClient.get(Endpoints.workTimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -205,7 +205,7 @@ class ApiClientTests: XCTestCase {
             return jsonDecoderMock
         }
         //Act
-        apiClient.get(Endpoints.worktimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
+        apiClient.get(Endpoints.workTimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
             switch result {
             case .success(let decoder):
                 expectedDecoder = decoder
@@ -231,7 +231,7 @@ class ApiClientTests: XCTestCase {
             return jsonDecoderMock
         }
         //Act
-        apiClient.get(Endpoints.worktimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
+        apiClient.get(Endpoints.workTimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
             switch result {
             case .success:
                 XCTFail()
@@ -242,7 +242,7 @@ class ApiClientTests: XCTestCase {
         }
         networkingMock.getCompletion?(.success(data))
         //Assert
-        switch expectedError as? ApiClientError {
+        switch (expectedError as? ApiClientError)?.type {
         case .invalidResponse?: break
         default: XCTFail()
         }

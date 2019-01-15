@@ -155,7 +155,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         serverConfigurationManagerMock.expectationHandler = verifyExepectation.fulfill
         //Act
         viewModel.viewRequestedToContinue()
-        serverConfigurationManagerMock.verifyConfigurationCompletion?(.failure(ApiError.invalidHost(url)))
+        serverConfigurationManagerMock.verifyConfigurationCompletion?(.failure(ApiClientError(type: .invalidHost(url))))
         wait(for: [verifyExepectation], timeout: timeout)
         //Assert
         XCTAssertNotNil(errorHandler.throwedError)

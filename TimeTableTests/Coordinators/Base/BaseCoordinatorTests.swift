@@ -158,7 +158,7 @@ class BaseCoordinatorTests: XCTestCase {
         let coordinator = ChildCoordinator(window: window)
         coordinator.start()
         let url = try URL(string: "www.example.com").unwrap()
-        let error = ApiError.invalidHost(url)
+        let error = ApiClientError(type: .invalidHost(url))
         //Act
         coordinator.present(error: error)
         //Assert
