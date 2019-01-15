@@ -335,6 +335,15 @@ class WorkTimesViewModelTests: XCTestCase {
         //Assert
         XCTAssertNotNil(userInterfaceMock.updateDateLabelText)
     }
+    
+    func testViewRequestedForNewWorkTimeView() {
+        //Arrange
+        let button = UIBarButtonItem()
+        //Act
+        viewModel.viewRequestedForNewWorkTimeView(sourceView: button)
+        //Assert
+        XCTAssertEqual(coordinatorMock.requestedForNewWorkTimeViewSourceView, button)
+    }
 }
 
 private class WorkTimeCellViewMock: WorkTimeCellViewModelOutput {

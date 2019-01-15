@@ -31,6 +31,16 @@ class UIErrorTests: XCTestCase {
         XCTAssertEqual(localizedString, expectedResult)
     }
     
+    func testLocalizedDescriptionIfTimeGreaterThan() {
+        //Arrange
+        let error = UIError.timeGreaterThan
+        let expectedResult = "ui.error.time_greater_than".localized
+        //Act
+        let localizedString = error.localizedDescription
+        //Assert
+        XCTAssertEqual(localizedString, expectedResult)
+    }
+    
     func testEquatableForCannotBeEmptyWhileElementsAreEqual() {
         //Arrange
         let firstUIError = UIError.cannotBeEmpty(.loginTextField)
