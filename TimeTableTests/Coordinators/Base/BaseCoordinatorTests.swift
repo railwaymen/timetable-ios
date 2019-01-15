@@ -134,18 +134,16 @@ class BaseCoordinatorTests: XCTestCase {
         window.makeKeyAndVisible()
         let coordinator = ChildCoordinator(window: window)
         coordinator.start()
-        let error = UIError.invalidFormat(.serverAddressTextField)
-        var expectedChildController: UIViewController?
+        let error = UIError.cannotBeEmpty(.endsAtTextField)
         //Act
         coordinator.present(error: error)
         let childController = try navigationController.children.first.unwrap()
+        //Assert
         DispatchQueue.main.async {
-            expectedChildController = childController.presentedViewController
+            XCTAssertNotNil(childController.presentedViewController as? UIAlertController)
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: timetout)
-        //Assert
-        XCTAssertNotNil(expectedChildController as? UIAlertController)
     }
     
     func testPresentApiErrorPresentAlertController() throws {
