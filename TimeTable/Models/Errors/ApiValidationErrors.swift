@@ -37,8 +37,8 @@ struct ApiValidationErrors: Error, Decodable {
             if let duration = try? container.decode([String].self, forKey: .duration) {
                 self.keys += duration
             }
-            if let invalidEmailOrPassword = (try? container.decode(String.self, forKey: .invalidEmailOrPassword)) {
-                self.keys.append(invalidEmailOrPassword)
+            if let invalidEmailOrPassword = (try? container.decode([String].self, forKey: .invalidEmailOrPassword)) {
+                self.keys += invalidEmailOrPassword
             }
         }
     }

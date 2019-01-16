@@ -158,7 +158,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         }
         guard let fromDate = task.fromDate else { throw UIError.cannotBeEmpty(.startsAtTextField) }
         guard let toDate = task.toDate else { throw UIError.cannotBeEmpty(.endsAtTextField) }
-        guard fromDate > toDate else { throw UIError.timeGreaterThan }
+        guard fromDate < toDate else { throw UIError.timeGreaterThan }
     }
     
     private func updateViewWithCurrentSelectedProject() {

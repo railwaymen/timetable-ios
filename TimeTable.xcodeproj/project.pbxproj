@@ -177,6 +177,13 @@
 		C1B771EF21EF1EE000EFE06F /* simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771EE21EF1EE000EFE06F /* simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json */; };
 		C1B771F321EF2A2A00EFE06F /* simpleProjectArrayResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771F221EF2A2A00EFE06F /* simpleProjectArrayResponse.json */; };
 		C1B771F521EF2C5800EFE06F /* TaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B771F421EF2C5800EFE06F /* TaskTests.swift */; };
+		C1B771F721EF39FA00EFE06F /* ApiValidationErrorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B771F621EF39FA00EFE06F /* ApiValidationErrorsTests.swift */; };
+		C1B771FB21EF41C300EFE06F /* emptyErrosKeysResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771FA21EF41C300EFE06F /* emptyErrosKeysResponse.json */; };
+		C1B771FD21EF421900EFE06F /* baseErrorKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771FC21EF421900EFE06F /* baseErrorKeyResponse.json */; };
+		C1B771FF21EF422600EFE06F /* startAtErrorKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771FE21EF422600EFE06F /* startAtErrorKeyResponse.json */; };
+		C1B7720121EF423000EFE06F /* endsAtErrorKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B7720021EF423000EFE06F /* endsAtErrorKeyResponse.json */; };
+		C1B7720321EF423900EFE06F /* durationErrorKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B7720221EF423900EFE06F /* durationErrorKeyResponse.json */; };
+		C1B7720521EF424300EFE06F /* invalidEmailOrPasswordErrorKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B7720421EF424300EFE06F /* invalidEmailOrPasswordErrorKeyResponse.json */; };
 		C1B8FA41218C91F3009D10B4 /* LoginCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8FA40218C91F3009D10B4 /* LoginCredentials.swift */; };
 		C1B8FA44218C929F009D10B4 /* SessionDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8FA43218C929F009D10B4 /* SessionDecoder.swift */; };
 		C1B8FA49218C963A009D10B4 /* LoginCredentialsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8FA48218C963A009D10B4 /* LoginCredentialsTests.swift */; };
@@ -431,6 +438,13 @@
 		C1B771EE21EF1EE000EFE06F /* simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json; sourceTree = "<group>"; };
 		C1B771F221EF2A2A00EFE06F /* simpleProjectArrayResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectArrayResponse.json; sourceTree = "<group>"; };
 		C1B771F421EF2C5800EFE06F /* TaskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTests.swift; sourceTree = "<group>"; };
+		C1B771F621EF39FA00EFE06F /* ApiValidationErrorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiValidationErrorsTests.swift; sourceTree = "<group>"; };
+		C1B771FA21EF41C300EFE06F /* emptyErrosKeysResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = emptyErrosKeysResponse.json; sourceTree = "<group>"; };
+		C1B771FC21EF421900EFE06F /* baseErrorKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = baseErrorKeyResponse.json; sourceTree = "<group>"; };
+		C1B771FE21EF422600EFE06F /* startAtErrorKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = startAtErrorKeyResponse.json; sourceTree = "<group>"; };
+		C1B7720021EF423000EFE06F /* endsAtErrorKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = endsAtErrorKeyResponse.json; sourceTree = "<group>"; };
+		C1B7720221EF423900EFE06F /* durationErrorKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = durationErrorKeyResponse.json; sourceTree = "<group>"; };
+		C1B7720421EF424300EFE06F /* invalidEmailOrPasswordErrorKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = invalidEmailOrPasswordErrorKeyResponse.json; sourceTree = "<group>"; };
 		C1B8FA40218C91F3009D10B4 /* LoginCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCredentials.swift; sourceTree = "<group>"; };
 		C1B8FA43218C929F009D10B4 /* SessionDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDecoder.swift; sourceTree = "<group>"; };
 		C1B8FA48218C963A009D10B4 /* LoginCredentialsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCredentialsTests.swift; sourceTree = "<group>"; };
@@ -686,6 +700,7 @@
 			isa = PBXGroup;
 			children = (
 				C17EA3B92189E9BA00A3F0CD /* ApiErrorTests.swift */,
+				C1B771F621EF39FA00EFE06F /* ApiValidationErrorsTests.swift */,
 				C125C4D22186F4D800FBA0DD /* ErrorHandlerTypeTests.swift */,
 				C1249C842181B567005DB2A5 /* ErrorHanlderTests.swift */,
 				C153AC6E218342F6007A35BB /* UIErrorTests.swift */,
@@ -1219,6 +1234,26 @@
 			path = ProjectSimple;
 			sourceTree = "<group>";
 		};
+		C1B771F821EF415000EFE06F /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
+		C1B771F921EF415C00EFE06F /* ApiValidationErrors */ = {
+			isa = PBXGroup;
+			children = (
+				C1B771FA21EF41C300EFE06F /* emptyErrosKeysResponse.json */,
+				C1B771FC21EF421900EFE06F /* baseErrorKeyResponse.json */,
+				C1B771FE21EF422600EFE06F /* startAtErrorKeyResponse.json */,
+				C1B7720021EF423000EFE06F /* endsAtErrorKeyResponse.json */,
+				C1B7720221EF423900EFE06F /* durationErrorKeyResponse.json */,
+				C1B7720421EF424300EFE06F /* invalidEmailOrPasswordErrorKeyResponse.json */,
+			);
+			path = ApiValidationErrors;
+			sourceTree = "<group>";
+		};
 		C1B8FA46218C95D3009D10B4 /* Session */ = {
 			isa = PBXGroup;
 			children = (
@@ -1242,6 +1277,8 @@
 		C1B8FA4E218C9A5B009D10B4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C1B771F921EF415C00EFE06F /* ApiValidationErrors */,
+				C1B771F821EF415000EFE06F /* Errors */,
 				C12CA57021A58C6C0082FEB7 /* Projects */,
 				C1B8FA4F218C9A64009D10B4 /* Session */,
 				C12CA57E21A599BE0082FEB7 /* WorkTimes */,
@@ -1518,16 +1555,22 @@
 				C11F51F121A59DF300FD626A /* workTimeResponse.json in Resources */,
 				C1B771D921EF1DFF00EFE06F /* simpleProjectNullAutofillResponse.json in Resources */,
 				C1B771D721EF1DE100EFE06F /* simpleProjectMissingColorKeyResponse.json in Resources */,
+				C1B771FD21EF421900EFE06F /* baseErrorKeyResponse.json in Resources */,
 				C134299D21A6DC6B00F4EA42 /* workTimeNullTask.json in Resources */,
 				C12BD9B521E49D0800A6EAF0 /* projectRecordMissingLeaderKey.json in Resources */,
+				C1B7720321EF423900EFE06F /* durationErrorKeyResponse.json in Resources */,
 				C1B771D521EF1DD200EFE06F /* simpleProjectNullColorResponse.json in Resources */,
 				C12CA57221A58D020082FEB7 /* workTimesProjectResponse.json in Resources */,
 				C1B771E321EF1E6800EFE06F /* simpleProjectMissingCountDurationKeyResponse.json in Resources */,
+				C1B7720121EF423000EFE06F /* endsAtErrorKeyResponse.json in Resources */,
 				C1B771EB21EF1EB100EFE06F /* simpleProjectMissingLunchKeyResponse.json in Resources */,
 				C12CA57621A58D2E0082FEB7 /* workTimesProjectMissingColorKeyResponse.json in Resources */,
+				C1B7720521EF424300EFE06F /* invalidEmailOrPasswordErrorKeyResponse.json in Resources */,
 				C1B771E521EF1E7800EFE06F /* simpleProjectNullActiveResponse.json in Resources */,
 				C1B771F321EF2A2A00EFE06F /* simpleProjectArrayResponse.json in Resources */,
+				C1B771FB21EF41C300EFE06F /* emptyErrosKeysResponse.json in Resources */,
 				C1B771E921EF1EA200EFE06F /* simpleProjectNullLunchResponse.json in Resources */,
+				C1B771FF21EF422600EFE06F /* startAtErrorKeyResponse.json in Resources */,
 				C1B771E721EF1E9000EFE06F /* simpleProjectMissingActiveKeyResponse.json in Resources */,
 				C13429B621A8307200F4EA42 /* workTimeMissingBodyKey.json in Resources */,
 				C1B8FA51218C9A86009D10B4 /* signInRequest.json in Resources */,
@@ -1806,6 +1849,7 @@
 				C1B771F521EF2C5800EFE06F /* TaskTests.swift in Sources */,
 				C134298F21A6D39C00F4EA42 /* LoginViewControllerMock.swift in Sources */,
 				C1E1F05421AD5FD2007F9228 /* WorkTimesTableViewHeaderViewModelTests.swift in Sources */,
+				C1B771F721EF39FA00EFE06F /* ApiValidationErrorsTests.swift in Sources */,
 				C134298921A6C84F00F4EA42 /* ServerConfigurationViewControllerMock.swift in Sources */,
 				C1B8FA49218C963A009D10B4 /* LoginCredentialsTests.swift in Sources */,
 				C134298B21A6D33300F4EA42 /* LoginCoordinatorMock.swift in Sources */,
