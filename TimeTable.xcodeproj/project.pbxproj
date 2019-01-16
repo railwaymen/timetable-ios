@@ -160,6 +160,21 @@
 		C1B5136D21772D1200C3727C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B5136C21772D1200C3727C /* AppDelegate.swift */; };
 		C1B5137421772D1400C3727C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1B5137321772D1400C3727C /* Assets.xcassets */; };
 		C1B5137721772D1400C3727C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1B5137521772D1400C3727C /* LaunchScreen.storyboard */; };
+		C1B771D321EF1CB100EFE06F /* simpleProjectFullResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771D221EF1CB100EFE06F /* simpleProjectFullResponse.json */; };
+		C1B771D521EF1DD200EFE06F /* simpleProjectNullColorResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771D421EF1DD200EFE06F /* simpleProjectNullColorResponse.json */; };
+		C1B771D721EF1DE100EFE06F /* simpleProjectMissingColorKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771D621EF1DE100EFE06F /* simpleProjectMissingColorKeyResponse.json */; };
+		C1B771D921EF1DFF00EFE06F /* simpleProjectNullAutofillResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771D821EF1DFF00EFE06F /* simpleProjectNullAutofillResponse.json */; };
+		C1B771DB21EF1E1400EFE06F /* simpleProjectMissingAutofillKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771DA21EF1E1400EFE06F /* simpleProjectMissingAutofillKeyResponse.json */; };
+		C1B771DD21EF1E2800EFE06F /* simpleProjectNullInternalResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771DC21EF1E2800EFE06F /* simpleProjectNullInternalResponse.json */; };
+		C1B771DF21EF1E3E00EFE06F /* simpleProjectMissingInternalKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771DE21EF1E3E00EFE06F /* simpleProjectMissingInternalKeyResponse.json */; };
+		C1B771E121EF1E5100EFE06F /* simpleProjectNullCountDurationResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771E021EF1E5100EFE06F /* simpleProjectNullCountDurationResponse.json */; };
+		C1B771E321EF1E6800EFE06F /* simpleProjectMissingCountDurationKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771E221EF1E6800EFE06F /* simpleProjectMissingCountDurationKeyResponse.json */; };
+		C1B771E521EF1E7800EFE06F /* simpleProjectNullActiveResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771E421EF1E7800EFE06F /* simpleProjectNullActiveResponse.json */; };
+		C1B771E721EF1E9000EFE06F /* simpleProjectMissingActiveKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771E621EF1E9000EFE06F /* simpleProjectMissingActiveKeyResponse.json */; };
+		C1B771E921EF1EA200EFE06F /* simpleProjectNullLunchResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771E821EF1EA200EFE06F /* simpleProjectNullLunchResponse.json */; };
+		C1B771EB21EF1EB100EFE06F /* simpleProjectMissingLunchKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771EA21EF1EB100EFE06F /* simpleProjectMissingLunchKeyResponse.json */; };
+		C1B771ED21EF1EC300EFE06F /* simpleProjectNullWorkTimesAllowsTaskResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771EC21EF1EC300EFE06F /* simpleProjectNullWorkTimesAllowsTaskResponse.json */; };
+		C1B771EF21EF1EE000EFE06F /* simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771EE21EF1EE000EFE06F /* simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json */; };
 		C1B8FA41218C91F3009D10B4 /* LoginCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8FA40218C91F3009D10B4 /* LoginCredentials.swift */; };
 		C1B8FA44218C929F009D10B4 /* SessionDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8FA43218C929F009D10B4 /* SessionDecoder.swift */; };
 		C1B8FA49218C963A009D10B4 /* LoginCredentialsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8FA48218C963A009D10B4 /* LoginCredentialsTests.swift */; };
@@ -397,6 +412,21 @@
 		C1B5137821772D1400C3727C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1B5137D21772D1400C3727C /* TimeTableTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeTableTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1B5138321772D1400C3727C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C1B771D221EF1CB100EFE06F /* simpleProjectFullResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectFullResponse.json; sourceTree = "<group>"; };
+		C1B771D421EF1DD200EFE06F /* simpleProjectNullColorResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectNullColorResponse.json; sourceTree = "<group>"; };
+		C1B771D621EF1DE100EFE06F /* simpleProjectMissingColorKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectMissingColorKeyResponse.json; sourceTree = "<group>"; };
+		C1B771D821EF1DFF00EFE06F /* simpleProjectNullAutofillResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectNullAutofillResponse.json; sourceTree = "<group>"; };
+		C1B771DA21EF1E1400EFE06F /* simpleProjectMissingAutofillKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectMissingAutofillKeyResponse.json; sourceTree = "<group>"; };
+		C1B771DC21EF1E2800EFE06F /* simpleProjectNullInternalResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectNullInternalResponse.json; sourceTree = "<group>"; };
+		C1B771DE21EF1E3E00EFE06F /* simpleProjectMissingInternalKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectMissingInternalKeyResponse.json; sourceTree = "<group>"; };
+		C1B771E021EF1E5100EFE06F /* simpleProjectNullCountDurationResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectNullCountDurationResponse.json; sourceTree = "<group>"; };
+		C1B771E221EF1E6800EFE06F /* simpleProjectMissingCountDurationKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectMissingCountDurationKeyResponse.json; sourceTree = "<group>"; };
+		C1B771E421EF1E7800EFE06F /* simpleProjectNullActiveResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectNullActiveResponse.json; sourceTree = "<group>"; };
+		C1B771E621EF1E9000EFE06F /* simpleProjectMissingActiveKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectMissingActiveKeyResponse.json; sourceTree = "<group>"; };
+		C1B771E821EF1EA200EFE06F /* simpleProjectNullLunchResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectNullLunchResponse.json; sourceTree = "<group>"; };
+		C1B771EA21EF1EB100EFE06F /* simpleProjectMissingLunchKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectMissingLunchKeyResponse.json; sourceTree = "<group>"; };
+		C1B771EC21EF1EC300EFE06F /* simpleProjectNullWorkTimesAllowsTaskResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectNullWorkTimesAllowsTaskResponse.json; sourceTree = "<group>"; };
+		C1B771EE21EF1EE000EFE06F /* simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json; sourceTree = "<group>"; };
 		C1B8FA40218C91F3009D10B4 /* LoginCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCredentials.swift; sourceTree = "<group>"; };
 		C1B8FA43218C929F009D10B4 /* SessionDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDecoder.swift; sourceTree = "<group>"; };
 		C1B8FA48218C963A009D10B4 /* LoginCredentialsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCredentialsTests.swift; sourceTree = "<group>"; };
@@ -736,17 +766,9 @@
 		C12CA57021A58C6C0082FEB7 /* Projects */ = {
 			isa = PBXGroup;
 			children = (
-				C12CA57121A58D020082FEB7 /* workTimesProjectResponse.json */,
-				C12CA57321A58D150082FEB7 /* workTimesProjectNullColorResponse.json */,
-				C12CA57521A58D2E0082FEB7 /* workTimesProjectMissingColorKeyResponse.json */,
-				C12BD9A821E49C4600A6EAF0 /* projectRecordResponse.json */,
-				C12BD9B821E4B20400A6EAF0 /* projectsRecordsResponse.json */,
-				C12BD9AA21E49C8A00A6EAF0 /* projectRecordNullColorResponse.json */,
-				C12BD9AC21E49CAA00A6EAF0 /* projectRecordMissingColorKeyResponse.json */,
-				C12BD9AE21E49CC900A6EAF0 /* projectRecordNullUserResponse.json */,
-				C12BD9B021E49CDD00A6EAF0 /* projectRecordMissingUserKeyResponse.json */,
-				C12BD9B221E49CF100A6EAF0 /* projectRecordNullLeaderResponse.json */,
-				C12BD9B421E49D0800A6EAF0 /* projectRecordMissingLeaderKey.json */,
+				C1B771D121EF1C8100EFE06F /* ProjectSimple */,
+				C1B771D021EF1C4D00EFE06F /* ProjectWorkTimes */,
+				C1B771CF21EF1C4300EFE06F /* ProjectRecord */,
 			);
 			path = Projects;
 			sourceTree = "<group>";
@@ -1144,6 +1166,53 @@
 			path = TimeTableTests;
 			sourceTree = "<group>";
 		};
+		C1B771CF21EF1C4300EFE06F /* ProjectRecord */ = {
+			isa = PBXGroup;
+			children = (
+				C12BD9A821E49C4600A6EAF0 /* projectRecordResponse.json */,
+				C12BD9B821E4B20400A6EAF0 /* projectsRecordsResponse.json */,
+				C12BD9AA21E49C8A00A6EAF0 /* projectRecordNullColorResponse.json */,
+				C12BD9AC21E49CAA00A6EAF0 /* projectRecordMissingColorKeyResponse.json */,
+				C12BD9AE21E49CC900A6EAF0 /* projectRecordNullUserResponse.json */,
+				C12BD9B021E49CDD00A6EAF0 /* projectRecordMissingUserKeyResponse.json */,
+				C12BD9B221E49CF100A6EAF0 /* projectRecordNullLeaderResponse.json */,
+				C12BD9B421E49D0800A6EAF0 /* projectRecordMissingLeaderKey.json */,
+			);
+			path = ProjectRecord;
+			sourceTree = "<group>";
+		};
+		C1B771D021EF1C4D00EFE06F /* ProjectWorkTimes */ = {
+			isa = PBXGroup;
+			children = (
+				C12CA57121A58D020082FEB7 /* workTimesProjectResponse.json */,
+				C12CA57321A58D150082FEB7 /* workTimesProjectNullColorResponse.json */,
+				C12CA57521A58D2E0082FEB7 /* workTimesProjectMissingColorKeyResponse.json */,
+			);
+			path = ProjectWorkTimes;
+			sourceTree = "<group>";
+		};
+		C1B771D121EF1C8100EFE06F /* ProjectSimple */ = {
+			isa = PBXGroup;
+			children = (
+				C1B771D221EF1CB100EFE06F /* simpleProjectFullResponse.json */,
+				C1B771D421EF1DD200EFE06F /* simpleProjectNullColorResponse.json */,
+				C1B771D621EF1DE100EFE06F /* simpleProjectMissingColorKeyResponse.json */,
+				C1B771D821EF1DFF00EFE06F /* simpleProjectNullAutofillResponse.json */,
+				C1B771DA21EF1E1400EFE06F /* simpleProjectMissingAutofillKeyResponse.json */,
+				C1B771DC21EF1E2800EFE06F /* simpleProjectNullInternalResponse.json */,
+				C1B771DE21EF1E3E00EFE06F /* simpleProjectMissingInternalKeyResponse.json */,
+				C1B771E021EF1E5100EFE06F /* simpleProjectNullCountDurationResponse.json */,
+				C1B771E221EF1E6800EFE06F /* simpleProjectMissingCountDurationKeyResponse.json */,
+				C1B771E421EF1E7800EFE06F /* simpleProjectNullActiveResponse.json */,
+				C1B771E621EF1E9000EFE06F /* simpleProjectMissingActiveKeyResponse.json */,
+				C1B771E821EF1EA200EFE06F /* simpleProjectNullLunchResponse.json */,
+				C1B771EA21EF1EB100EFE06F /* simpleProjectMissingLunchKeyResponse.json */,
+				C1B771EC21EF1EC300EFE06F /* simpleProjectNullWorkTimesAllowsTaskResponse.json */,
+				C1B771EE21EF1EE000EFE06F /* simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json */,
+			);
+			path = ProjectSimple;
+			sourceTree = "<group>";
+		};
 		C1B8FA46218C95D3009D10B4 /* Session */ = {
 			isa = PBXGroup;
 			children = (
@@ -1437,23 +1506,38 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1B771ED21EF1EC300EFE06F /* simpleProjectNullWorkTimesAllowsTaskResponse.json in Resources */,
+				C1B771DD21EF1E2800EFE06F /* simpleProjectNullInternalResponse.json in Resources */,
+				C1B771DB21EF1E1400EFE06F /* simpleProjectMissingAutofillKeyResponse.json in Resources */,
 				C11F51F121A59DF300FD626A /* workTimeResponse.json in Resources */,
+				C1B771D921EF1DFF00EFE06F /* simpleProjectNullAutofillResponse.json in Resources */,
+				C1B771D721EF1DE100EFE06F /* simpleProjectMissingColorKeyResponse.json in Resources */,
 				C134299D21A6DC6B00F4EA42 /* workTimeNullTask.json in Resources */,
 				C12BD9B521E49D0800A6EAF0 /* projectRecordMissingLeaderKey.json in Resources */,
+				C1B771D521EF1DD200EFE06F /* simpleProjectNullColorResponse.json in Resources */,
 				C12CA57221A58D020082FEB7 /* workTimesProjectResponse.json in Resources */,
+				C1B771E321EF1E6800EFE06F /* simpleProjectMissingCountDurationKeyResponse.json in Resources */,
+				C1B771EB21EF1EB100EFE06F /* simpleProjectMissingLunchKeyResponse.json in Resources */,
 				C12CA57621A58D2E0082FEB7 /* workTimesProjectMissingColorKeyResponse.json in Resources */,
+				C1B771E521EF1E7800EFE06F /* simpleProjectNullActiveResponse.json in Resources */,
+				C1B771E921EF1EA200EFE06F /* simpleProjectNullLunchResponse.json in Resources */,
+				C1B771E721EF1E9000EFE06F /* simpleProjectMissingActiveKeyResponse.json in Resources */,
 				C13429B621A8307200F4EA42 /* workTimeMissingBodyKey.json in Resources */,
 				C1B8FA51218C9A86009D10B4 /* signInRequest.json in Resources */,
 				C1F69B2C21902FA5005D9114 /* signInResponse.json in Resources */,
+				C1B771E121EF1E5100EFE06F /* simpleProjectNullCountDurationResponse.json in Resources */,
 				C11F51F321A5AB9C00FD626A /* workTimeInvalidDateFormatResponse.json in Resources */,
 				C12BD9AB21E49C8A00A6EAF0 /* projectRecordNullColorResponse.json in Resources */,
 				C12BD9AF21E49CC900A6EAF0 /* projectRecordNullUserResponse.json in Resources */,
+				C1B771DF21EF1E3E00EFE06F /* simpleProjectMissingInternalKeyResponse.json in Resources */,
 				C13429A321A6DCA300F4EA42 /* workTimeMissingTaskPreviewKey.json in Resources */,
 				C12CA57421A58D150082FEB7 /* workTimesProjectNullColorResponse.json in Resources */,
+				C1B771D321EF1CB100EFE06F /* simpleProjectFullResponse.json in Resources */,
 				C13429A121A6DC9900F4EA42 /* workTimeNullTaskPreview.json in Resources */,
 				C12BD9B321E49CF100A6EAF0 /* projectRecordNullLeaderResponse.json in Resources */,
 				C13429A521A6DF1400F4EA42 /* workTimesResponse.json in Resources */,
 				C12BD9A921E49C4600A6EAF0 /* projectRecordResponse.json in Resources */,
+				C1B771EF21EF1EE000EFE06F /* simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json in Resources */,
 				C13429A721A6E73F00F4EA42 /* workTimeRequest.json in Resources */,
 				C1E1F04F21AD52BA007F9228 /* workTimesResponseNotSorted.json in Resources */,
 				C134299F21A6DC7600F4EA42 /* workTimeMissingTaskKey.json in Resources */,
