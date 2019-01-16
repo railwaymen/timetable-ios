@@ -13,6 +13,7 @@ class ApiClientErrorTests: XCTestCase {
     
     private enum ApiValidationResponse: String, JSONFileResource {
         case baseErrorKeyResponse
+        case serverErrorResponse
     }
     
     private var decoder: JSONDecoder = JSONDecoder()
@@ -77,5 +78,27 @@ class ApiClientErrorTests: XCTestCase {
         let localizedString = error.type.localizedDescription
         //Assert
         XCTAssertEqual(localizedString, "500 - Internal server error")
+    }
+    
+    func testInitFromDataForTypeOfApiValidationErrors() throws {
+        //Arrange
+        let data = try self.json(from: ApiValidationResponse.baseErrorKeyResponse)
+        let apiValidationErrors = try decoder.decode(ApiValidationErrors.self, from: data)
+        let expectedError = ApiClientError(type: .validationErrors(apiValidationErrors))
+        //Act
+        let error = ApiClientError(data: data)
+        //Assert
+        XCTAssertEqual(error, expectedError)
+    }
+    
+    func testInitFromDataForTypeOfServerError() throws {
+        //Arrange
+        let serverError = ServerError(error: "Internal Server Error", status: 500)
+        let expectedError = ApiClientError(type: .serverError(serverError))
+        let data = try self.json(from: ApiValidationResponse.serverErrorResponse)
+        //Act
+        let error = ApiClientError(data: data)
+        //Assert
+        XCTAssertEqual(error, expectedError)
     }
 }

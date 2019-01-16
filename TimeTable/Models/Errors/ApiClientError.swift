@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ApiClientError: Error {
+struct ApiClientError: Error, Equatable {
     
     let type: ErrorType
     
@@ -18,7 +18,7 @@ struct ApiClientError: Error {
         return decoder
     }()
     
-    enum ErrorType {
+    enum ErrorType: Equatable {
         case invalidHost(URL?)
         case invalidParameters
         case invalidResponse
@@ -39,8 +39,21 @@ struct ApiClientError: Error {
                 return  "\(serverError.status) - \(serverError.error)"
             }
         }
+        
+        // MARK: - Equatable
+        static func == (lhs: ErrorType, rhs: ErrorType) -> Bool {
+            switch (lhs, rhs) {
+            case (.invalidHost(let lhsURL), .invalidHost(let rhsURL)): return lhsURL == rhsURL
+            case (.invalidParameters, .invalidParameters): return true
+            case (.invalidResponse, .invalidResponse): return true
+            case (.validationErrors(let lhsError), .validationErrors(let rhsError)): return lhsError == rhsError
+            case (.serverError(let lhsError), .serverError(let rhsError)): return lhsError == rhsError
+            default: return false
+            }
+        }
     }
     
+    // MARK: - Initialization
     init(type: ErrorType) {
         self.type = type
     }
@@ -53,5 +66,10 @@ struct ApiClientError: Error {
         } else {
             return nil
         }
+    }
+    
+    // MARK: - Equatable
+    static func == (lhs: ApiClientError, rhs: ApiClientError) -> Bool {
+        return lhs.type == rhs.type
     }
 }

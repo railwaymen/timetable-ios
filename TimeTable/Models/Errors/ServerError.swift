@@ -8,12 +8,17 @@
 
 import Foundation
 
-struct ServerError: Error, Decodable {
+struct ServerError: Error, Decodable, Equatable {
     let error: String
     let status: Int
     
     enum CodingKeys: String, CodingKey {
         case error
         case status
+    }
+    
+    // MARK: - Equatable
+    static func == (lhs: ServerError, rhs: ServerError) -> Bool {
+        return lhs.error == rhs.error && lhs.status == rhs.status
     }
 }

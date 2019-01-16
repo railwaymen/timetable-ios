@@ -8,10 +8,10 @@
 
 import Foundation
 
-struct ApiValidationErrors: Error, Decodable {
+struct ApiValidationErrors: Error, Decodable, Equatable {
     let errors: Base
 
-    struct Base: Decodable {
+    struct Base: Decodable, Equatable {
         var keys: [String]
         
         enum CodingKeys: String, CodingKey {
@@ -41,9 +41,19 @@ struct ApiValidationErrors: Error, Decodable {
                 self.keys += invalidEmailOrPassword
             }
         }
+        
+        // MARK: - Equatable
+        static func == (lhs: Base, rhs: Base) -> Bool {
+            return lhs.keys == rhs.keys
+        }
     }
     
     enum CodingKeys: String, CodingKey {
         case errors
+    }
+    
+    // MARK: - Equatable
+    static func == (lhs: ApiValidationErrors, rhs: ApiValidationErrors) -> Bool {
+        return lhs.errors == rhs.errors
     }
 }
