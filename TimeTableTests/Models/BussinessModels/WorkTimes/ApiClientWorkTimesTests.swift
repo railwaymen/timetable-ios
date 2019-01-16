@@ -15,15 +15,19 @@ class ApiClientWorkTimesTests: XCTestCase {
     private var requestEncoderMock: RequestEncoderMock!
     private var jsonDecoderMock: JSONDecoderMock!
  
+    private enum WorkTimesResponse: String, JSONFileResource {
+        case workTimesResponse
+    }
+    
+    private enum SimpleProjectResponse: String, JSONFileResource {
+        case simpleProjectFullResponse
+    }
+    
     private lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
         return decoder
     }()
-    
-    private enum WorkTimesResponse: String, JSONFileResource {
-        case workTimesResponse
-    }
     
     override func setUp() {
         self.networkingMock = NetworkingMock()
@@ -33,7 +37,7 @@ class ApiClientWorkTimesTests: XCTestCase {
     }
 
     // MARK: - ApiClientWorkTimesType
-    func testFetchSucced() throws {
+    func testFetchSucceed() throws {
         //Arrange
         let data = try self.json(from: WorkTimesResponse.workTimesResponse)
         let decoders = try decoder.decode([WorkTimeDecoder].self, from: data)
@@ -79,6 +83,58 @@ class ApiClientWorkTimesTests: XCTestCase {
             }
         }
         networkingMock.getCompletion?(.failure(error))
+        //Assert
+        let testError = try (expecdedError as? TestError).unwrap()
+        XCTAssertEqual(testError, error)
+    }
+    
+    func testAddWorkTimeSucceed() throws {
+        //Arrange
+        var successCalled = false
+        let data = try self.json(from: SimpleProjectResponse.simpleProjectFullResponse)
+        let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
+        let task = Task(project: projectDecoder, body: "body", url: nil, fromDate: nil, toDate: nil)
+        let apiClient: ApiClientWorkTimesType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
+            return requestEncoderMock
+        }) { () -> JSONDecoderType in
+            return jsonDecoderMock
+        }
+        //Act
+        apiClient.addWorkTime(parameters: task) { result in
+            switch result {
+            case .success:
+                successCalled = true
+            case .failure:
+                XCTFail()
+            }
+        }
+        networkingMock.shortPostCompletion?(.success(data))
+        //Assert
+        XCTAssertTrue(successCalled)
+    }
+    
+    func testAddWorkTimeFailed() throws {
+        //Arrange
+        var expecdedError: Error?
+        let error = TestError(message: "fetch failed")
+        let data = try self.json(from: SimpleProjectResponse.simpleProjectFullResponse)
+        let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
+        let task = Task(project: projectDecoder, body: "body", url: nil, fromDate: nil, toDate: nil)
+        let apiClient: ApiClientWorkTimesType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
+            return requestEncoderMock
+        }) { () -> JSONDecoderType in
+            return jsonDecoderMock
+        }
+        //Act
+        apiClient.addWorkTime(parameters: task) { result in
+            switch result {
+            case .success:
+                XCTFail()
+            case .failure(let error):
+                expecdedError = error
+            }
+        }
+        networkingMock.shortPostCompletion?(.failure(error))
         //Assert
         let testError = try (expecdedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
