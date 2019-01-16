@@ -164,7 +164,7 @@ class ApiClientTests: XCTestCase {
         let data = try self.json(from: WorkTimesProjectResponse.workTimesProjectResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
-        let parameters = Task(project: Task.ProjectType.some(projectDecoder), body: "TEST", url: url, fromDate: startsAt, toDate: endsAt)
+        let parameters = Task(project: projectDecoder, body: "TEST", url: url, fromDate: startsAt, toDate: endsAt)
         requestEncoderMock.isEncodeToDictionaryThrowingError = true
         //Act
         apiClient.post(Endpoints.workTimes, parameters: parameters) { (result: TimeTable.Result<Void>) in
@@ -197,7 +197,7 @@ class ApiClientTests: XCTestCase {
         let data = try self.json(from: WorkTimesProjectResponse.workTimesProjectResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
-        let parameters = Task(project: Task.ProjectType.some(projectDecoder), body: "TEST", url: url, fromDate: startsAt, toDate: endsAt)
+        let parameters = Task(project: projectDecoder, body: "TEST", url: url, fromDate: startsAt, toDate: endsAt)
         //Act
         apiClient.post(Endpoints.workTimes, parameters: parameters) { (result: TimeTable.Result<Void>) in
             switch result {
@@ -227,7 +227,7 @@ class ApiClientTests: XCTestCase {
         let data = try self.json(from: WorkTimesProjectResponse.workTimesProjectResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
-        let parameters = Task(project: Task.ProjectType.some(projectDecoder), body: "TEST", url: url, fromDate: startsAt, toDate: endsAt)
+        let parameters = Task(project: projectDecoder, body: "TEST", url: url, fromDate: startsAt, toDate: endsAt)
         //Act
         apiClient.post(Endpoints.workTimes, parameters: parameters) { (result: TimeTable.Result<Void>) in
             switch result {

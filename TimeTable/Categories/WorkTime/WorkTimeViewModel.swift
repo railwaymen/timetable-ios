@@ -153,7 +153,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     private func validateInputs() throws {
         guard .none != task.project else { throw UIError.cannotBeEmpty(.projectTextField) }
         guard !task.body.isEmpty else { throw UIError.cannotBeEmpty(.taskTextField) }
-        if task.project.allowsTask && task.url == nil {
+        if task.allowsTask && task.url == nil {
             throw UIError.cannotBeEmpty(.taskURLTextField)
         }
         guard let fromDate = task.fromDate else { throw UIError.cannotBeEmpty(.startsAtTextField) }
@@ -162,9 +162,9 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     private func updateViewWithCurrentSelectedProject() {
-        userInterface?.setUp(currentProjectName: task.project.title, allowsTask: task.project.allowsTask)
+        userInterface?.setUp(currentProjectName: task.title, allowsTask: task.allowsTask)
         
-        guard let type = task.project.type else { return }
+        guard let type = task.type else { return }
         switch type {
         case .fullDay(let timeInterval):
             let calendar = Calendar.autoupdatingCurrent
