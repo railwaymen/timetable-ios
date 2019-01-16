@@ -1,0 +1,36 @@
+[
+    {
+        "id": 11,
+        "name": "asdsa",
+        "color": "0c0cOc",
+        "autofill": false,
+        "internal": false,
+        "count_duration": true,
+        "active": true,
+        "lunch": false,
+        "work_times_allows_task": true
+    },
+    {
+        "id": 12,
+        "name": "Lunch",
+        "color": "aaaaaa",
+        "autofill": false,
+        "internal": true,
+        "count_duration": false,
+        "active": true,
+        "lunch": true,
+        "work_times_allows_task": true
+    },
+    {
+        "id": 1,
+        "name": "Lorem",
+        "color": "0000Oc",
+        "autofill": false,
+        "internal": false,
+        "count_duration": true,
+        "active": true,
+        "lunch": false,
+        "work_times_allows_task": false
+    }
+
+]
