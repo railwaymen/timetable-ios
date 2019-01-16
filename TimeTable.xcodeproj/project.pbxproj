@@ -142,7 +142,7 @@
 		C16CA647219AB89C00133358 /* UserEntitySessionDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16CA646219AB89C00133358 /* UserEntitySessionDecoderTests.swift */; };
 		C1784DDD21E4E03600C83E2A /* WorkTime.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1784DDC21E4E03600C83E2A /* WorkTime.storyboard */; };
 		C17EA3B82189E04400A3F0CD /* ServerConfigurationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3B72189E04400A3F0CD /* ServerConfigurationManagerTests.swift */; };
-		C17EA3BA2189E9BA00A3F0CD /* ApiErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3B92189E9BA00A3F0CD /* ApiErrorTests.swift */; };
+		C17EA3BA2189E9BA00A3F0CD /* ApiClientErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3B92189E9BA00A3F0CD /* ApiClientErrorTests.swift */; };
 		C17EA3BC2189EC1700A3F0CD /* URLSessionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */; };
 		C19706DF21C13056007AFED4 /* WorkTimesCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19706DE21C13056007AFED4 /* WorkTimesCoordinatorTests.swift */; };
 		C19706E221C132C9007AFED4 /* WorkTimeCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19706E121C132C9007AFED4 /* WorkTimeCellViewModelTests.swift */; };
@@ -396,7 +396,7 @@
 		C16CA646219AB89C00133358 /* UserEntitySessionDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntitySessionDecoderTests.swift; sourceTree = "<group>"; };
 		C1784DDC21E4E03600C83E2A /* WorkTime.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WorkTime.storyboard; sourceTree = "<group>"; };
 		C17EA3B72189E04400A3F0CD /* ServerConfigurationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationManagerTests.swift; sourceTree = "<group>"; };
-		C17EA3B92189E9BA00A3F0CD /* ApiErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiErrorTests.swift; sourceTree = "<group>"; };
+		C17EA3B92189E9BA00A3F0CD /* ApiClientErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientErrorTests.swift; sourceTree = "<group>"; };
 		C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionExtensionTests.swift; sourceTree = "<group>"; };
 		C19706DE21C13056007AFED4 /* WorkTimesCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesCoordinatorTests.swift; sourceTree = "<group>"; };
 		C19706E121C132C9007AFED4 /* WorkTimeCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCellViewModelTests.swift; sourceTree = "<group>"; };
@@ -699,7 +699,7 @@
 		C1249C832181B556005DB2A5 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
-				C17EA3B92189E9BA00A3F0CD /* ApiErrorTests.swift */,
+				C17EA3B92189E9BA00A3F0CD /* ApiClientErrorTests.swift */,
 				C1B771F621EF39FA00EFE06F /* ApiValidationErrorsTests.swift */,
 				C125C4D22186F4D800FBA0DD /* ErrorHandlerTypeTests.swift */,
 				C1249C842181B567005DB2A5 /* ErrorHanlderTests.swift */,
@@ -1873,7 +1873,7 @@
 				C153AC602182FC4B007A35BB /* UITextFieldExtensionTests.swift in Sources */,
 				C12BD9B721E4A01700A6EAF0 /* ProjectTests.swift in Sources */,
 				C134297921A6C21900F4EA42 /* NetworkingMock.swift in Sources */,
-				C17EA3BA2189E9BA00A3F0CD /* ApiErrorTests.swift in Sources */,
+				C17EA3BA2189E9BA00A3F0CD /* ApiClientErrorTests.swift in Sources */,
 				C134298321A6C73000F4EA42 /* URLSessionDataTaskMock.swift in Sources */,
 				C19706E221C132C9007AFED4 /* WorkTimeCellViewModelTests.swift in Sources */,
 				C1FA05E4219440C700BD8C9D /* LoginContentProviderTests.swift in Sources */,
