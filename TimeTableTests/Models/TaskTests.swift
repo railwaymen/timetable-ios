@@ -13,6 +13,8 @@ class TaskTests: XCTestCase {
     
     private enum SimpleProjectResponse: String, JSONFileResource {
         case simpleProjectFullResponse
+        case simpleProjectWithAutofillTrueResponse
+        case simpleProjectWithALunchTrueResponse
     }
     
     private var decoder: JSONDecoder = JSONDecoder()
@@ -66,7 +68,7 @@ class TaskTests: XCTestCase {
         XCTAssertNil(type)
     }
     
-    func testTypeForProjectSomeType() throws {
+    func testTypeForProjectWithStandardType() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectFullResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
@@ -78,5 +80,57 @@ class TaskTests: XCTestCase {
         case .standard: break
         default: XCTFail()
         }
+    }
+    
+    func testTypeForProjectWithFullDayType() throws {
+        //Arrange
+        let data = try self.json(from: SimpleProjectResponse.simpleProjectWithAutofillTrueResponse)
+        let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
+        let task = Task(project: .some(projectDecoder), body: "body", url: nil, fromDate: nil, toDate: nil)
+        //Act
+        let type = try task.type.unwrap()
+        //Assert
+        switch type {
+        case .fullDay(let timeInterval):
+            XCTAssertEqual(timeInterval, TimeInterval(60  * 60 * 8))
+        default: XCTFail()
+        }
+    }
+    
+    func testTypeForProjectWithLunchType() throws {
+        //Arrange
+        let data = try self.json(from: SimpleProjectResponse.simpleProjectWithALunchTrueResponse)
+        let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
+        let task = Task(project: .some(projectDecoder), body: "body", url: nil, fromDate: nil, toDate: nil)
+        //Act
+        let type = try task.type.unwrap()
+        //Assert
+        switch type {
+        case .lunch(let timeInterval):
+            XCTAssertEqual(timeInterval, TimeInterval(60 * 30))
+        default: XCTFail()
+        }
+    }
+    
+    func testEcondeThrowsErrorWhileProjectIsNil() {
+        //Arrange
+        let encoder = JSONEncoder()
+        let task = Task(project: .none, body: "body", url: nil, fromDate: nil, toDate: nil)
+        //Act
+        let encodedTask = try? encoder.encode(task)
+        //Assert
+        XCTAssertNil(encodedTask)
+    }
+    
+    func testEcondeProject() throws {
+        //Arrange
+        let data = try self.json(from: SimpleProjectResponse.simpleProjectWithALunchTrueResponse)
+        let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
+        let task = Task(project: .some(projectDecoder), body: "body", url: nil, fromDate: nil, toDate: nil)
+        let encoder = JSONEncoder()
+        //Act
+        let encodedTask = try? encoder.encode(task)
+        //Assert
+        XCTAssertNotNil(encodedTask)
     }
 }
