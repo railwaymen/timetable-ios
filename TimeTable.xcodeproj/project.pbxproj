@@ -145,6 +145,7 @@
 		C17EA3B82189E04400A3F0CD /* ServerConfigurationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3B72189E04400A3F0CD /* ServerConfigurationManagerTests.swift */; };
 		C17EA3BA2189E9BA00A3F0CD /* ApiClientErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3B92189E9BA00A3F0CD /* ApiClientErrorTests.swift */; };
 		C17EA3BC2189EC1700A3F0CD /* URLSessionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */; };
+		C183F82A21F0A11E00B07AB8 /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C183F82921F0A11E00B07AB8 /* User.storyboard */; };
 		C18A189A21EF804900CB6E32 /* serverErrorResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189921EF804900CB6E32 /* serverErrorResponse.json */; };
 		C18A189C21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189B21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json */; };
 		C18A189E21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189D21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json */; };
@@ -404,6 +405,9 @@
 		C17EA3B72189E04400A3F0CD /* ServerConfigurationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationManagerTests.swift; sourceTree = "<group>"; };
 		C17EA3B92189E9BA00A3F0CD /* ApiClientErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientErrorTests.swift; sourceTree = "<group>"; };
 		C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionExtensionTests.swift; sourceTree = "<group>"; };
+		C183F82921F0A11E00B07AB8 /* User.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
+		C183F82C21F0A56700B07AB8 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
+		C183F82D21F0A57300B07AB8 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
 		C18A189921EF804900CB6E32 /* serverErrorResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = serverErrorResponse.json; sourceTree = "<group>"; };
 		C18A189B21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithAutofillTrueResponse.json; sourceTree = "<group>"; };
 		C18A189D21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithALunchTrueResponse.json; sourceTree = "<group>"; };
@@ -575,6 +579,7 @@
 				C1F926E121874FB40004A9BC /* Login */,
 				C125F1B421DCCF2F00594CDE /* Projects */,
 				C153AC432181E4CC007A35BB /* ServerConfiguration */,
+				C183F82821F0A0BE00B07AB8 /* User */,
 				C1784DDB21E4E01B00C83E2A /* WorkTime */,
 				C13429A821A7D9AC00F4EA42 /* WorkTimes */,
 			);
@@ -600,6 +605,7 @@
 		C1249C6121819E40005DB2A5 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				C183F82B21F0A56000B07AB8 /* Fonts */,
 				C1B5137821772D1400C3727C /* Info.plist */,
 				C153AC5B2182F7BB007A35BB /* Localizable.strings */,
 			);
@@ -1055,6 +1061,23 @@
 				C17EA3B72189E04400A3F0CD /* ServerConfigurationManagerTests.swift */,
 			);
 			path = ServerConfiguration;
+			sourceTree = "<group>";
+		};
+		C183F82821F0A0BE00B07AB8 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				C183F82921F0A11E00B07AB8 /* User.storyboard */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		C183F82B21F0A56000B07AB8 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C183F82D21F0A57300B07AB8 /* SF-Pro-Display-Regular.otf */,
+				C183F82C21F0A56700B07AB8 /* SF-Pro-Display-Bold.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		C18A189F21EF889B00CB6E32 /* WorkTime */ = {
@@ -1557,6 +1580,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1784DDD21E4E03600C83E2A /* WorkTime.storyboard in Resources */,
+				C183F82A21F0A11E00B07AB8 /* User.storyboard in Resources */,
 				C1B5137721772D1400C3727C /* LaunchScreen.storyboard in Resources */,
 				C153AC452181E4E7007A35BB /* ServerConfiguration.storyboard in Resources */,
 				C1B5137421772D1400C3727C /* Assets.xcassets in Resources */,
