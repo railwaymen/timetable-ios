@@ -13,6 +13,7 @@
 		C11F51F121A59DF300FD626A /* workTimeResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C11F51F021A59DF300FD626A /* workTimeResponse.json */; };
 		C11F51F321A5AB9C00FD626A /* workTimeInvalidDateFormatResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C11F51F221A5AB9C00FD626A /* workTimeInvalidDateFormatResponse.json */; };
 		C11F51F521A5AC5800FD626A /* DateFormatterExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11F51F421A5AC5800FD626A /* DateFormatterExtensionTests.swift */; };
+		C1204FBB21F0AE2B00B2C3AC /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1204FBA21F0AE2B00B2C3AC /* UserProfileViewController.swift */; };
 		C12260172188927A007D64A3 /* AuthenticationCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12260162188927A007D64A3 /* AuthenticationCoordinatorTests.swift */; };
 		C122601A21898BD7007D64A3 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C122601921898BD7007D64A3 /* LoginViewModelTests.swift */; };
 		C122601C21899B84007D64A3 /* ServerConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C122601B21899B84007D64A3 /* ServerConfigurationManager.swift */; };
@@ -271,6 +272,7 @@
 		C11F51F021A59DF300FD626A /* workTimeResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimeResponse.json; sourceTree = "<group>"; };
 		C11F51F221A5AB9C00FD626A /* workTimeInvalidDateFormatResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimeInvalidDateFormatResponse.json; sourceTree = "<group>"; };
 		C11F51F421A5AC5800FD626A /* DateFormatterExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterExtensionTests.swift; sourceTree = "<group>"; };
+		C1204FBA21F0AE2B00B2C3AC /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		C12260162188927A007D64A3 /* AuthenticationCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinatorTests.swift; sourceTree = "<group>"; };
 		C122601921898BD7007D64A3 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
 		C122601B21899B84007D64A3 /* ServerConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationManager.swift; sourceTree = "<group>"; };
@@ -1067,6 +1069,7 @@
 			isa = PBXGroup;
 			children = (
 				C183F82921F0A11E00B07AB8 /* User.storyboard */,
+				C1204FBA21F0AE2B00B2C3AC /* UserProfileViewController.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1863,6 +1866,7 @@
 				C1C4BA932189AF3300683F71 /* HTTPMethods.swift in Sources */,
 				C153AC6921832073007A35BB /* AttributedView.swift in Sources */,
 				C153AC6421830AFE007A35BB /* ServerConfiguartionViewModel.swift in Sources */,
+				C1204FBB21F0AE2B00B2C3AC /* UserProfileViewController.swift in Sources */,
 				C1ECF09F2192C1AB006038C6 /* JSONDecoder+Extension.swift in Sources */,
 				C1ECF09D2192BB51006038C6 /* RequestEncoder.swift in Sources */,
 				C153AC512182EFEC007A35BB /* UIButton+Extension.swift in Sources */,

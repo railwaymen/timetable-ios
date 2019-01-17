@@ -10,6 +10,7 @@ import XCTest
 @testable import TimeTable
 
 // swiftlint:disable type_body_length
+// swiftlint:disable identifier_name
 class ProjectDecoderTests: XCTestCase {
     
     private enum WorkTimesProjectResponse: String, JSONFileResource {
@@ -312,4 +313,5 @@ class ProjectDecoderTests: XCTestCase {
         XCTAssertNil(project)
     }
 }
+// swiftlint:enabled identifier_name
 // swiftlint:enabled type_body_length

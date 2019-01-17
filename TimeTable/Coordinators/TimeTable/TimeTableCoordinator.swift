@@ -24,10 +24,12 @@ class TimeTableTabCoordinator: BaseTabBarCoordinator {
                                                       storyboardsManager: storyboardsManager,
                                                       apiClient: apiClient,
                                                       errorHandler: errorHandler)
-        let userCoordinator = UserCoordinator(window: nil)
+        let userCoordinator = UserCoordinator(window: nil,
+                                              storyboardsManager: storyboardsManager)
         
         self.tabBarChildCoordinators = [projectsCoordinator, workTimeCoordinator, userCoordinator]
         super.init(window: window)
+        self.tabBarController.tabBar.tintColor = UIColor.crimson
         self.tabBarChildCoordinators.forEach { $0.start() }
     }
     

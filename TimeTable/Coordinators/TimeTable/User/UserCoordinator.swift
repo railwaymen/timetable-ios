@@ -9,6 +9,7 @@
 import UIKit
 
 class UserCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType {
+    private let storyboardsManager: StoryboardsManagerType
     
     var root: UIViewController {
         return self.navigationController
@@ -16,12 +17,25 @@ class UserCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType {
     var tabBarItem: UITabBarItem
     
     // MARK: - Initialization
-    override init(window: UIWindow?) {
-        self.tabBarItem = UITabBarItem(title: "User", image: nil, selectedImage: nil)
+    init(window: UIWindow?, storyboardsManager: StoryboardsManagerType) {
+        self.storyboardsManager = storyboardsManager
+        self.tabBarItem = UITabBarItem(title: "tabbar.title.profile".localized, image: nil, selectedImage: nil)
         super.init(window: window)
-        let controller = UIViewController()
-        controller.view.backgroundColor = UIColor.orange
-        navigationController.setViewControllers([controller], animated: false)
         self.root.tabBarItem = tabBarItem
+    }
+
+    // MARK: - CoordinatorType
+    func start() {
+        self.runMainFlow()
+        navigationController.setNavigationBarHidden(true, animated: false)
+        super.start()
+    }
+    
+    // MARK: - Private
+    private func runMainFlow() {
+        let controller: UserProfileViewController? = storyboardsManager.controller(storyboard: .user, controllerIdentifier: .initial)
+        if let controller = controller {
+            navigationController.pushViewController(controller, animated: false)
+        }
     }
 }

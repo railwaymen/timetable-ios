@@ -29,7 +29,7 @@ class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType
         self.storyboardsManager = storyboardsManager
         self.apiClient = apiClient
         self.errorHandler = errorHandler
-        self.tabBarItem = UITabBarItem(title: "Work Time", image: nil, selectedImage: nil)
+        self.tabBarItem = UITabBarItem(title: "tabbar.title.work_time".localized, image: nil, selectedImage: nil)
         super.init(window: window)
         self.root.tabBarItem = tabBarItem
     }
