@@ -51,9 +51,9 @@ class LoginContentProviderTests: XCTestCase {
                 expectedError = error
             }
         }, saveCompletion: { _ in })
-        apiClientSessionMock.signInCompletion?(.failure(ApiClientError.invalidParameters))
+        apiClientSessionMock.signInCompletion?(.failure(ApiClientError(type: .invalidParameters)))
         //Assert
-        switch expectedError as? ApiClientError {
+        switch (expectedError as? ApiClientError)?.type {
         case .invalidParameters?: break
         default: XCTFail()
         }

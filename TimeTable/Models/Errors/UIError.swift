@@ -12,11 +12,17 @@ enum UIElement: String {
     case serverAddressTextField = "element.text_field.server_address"
     case loginTextField = "element.text_field.login"
     case passwordTextField = "element.text_field.password"
+    case projectTextField = "element.text_field.project"
+    case taskTextField = "element.text_feild.task"
+    case taskURLTextField = "element.text_field.task_url"
+    case startsAtTextField = "element.text_field.starts_at"
+    case endsAtTextField = "element.text_field.ends_at"
 }
 
 enum UIError: Error {
     case cannotBeEmpty(UIElement)
     case invalidFormat(UIElement)
+    case timeGreaterThan
     
     var localizedDescription: String {
         
@@ -25,6 +31,8 @@ enum UIError: Error {
             return "\(component.rawValue.localized) " + "ui.error.cannot_be_empty".localized
         case .invalidFormat(let component):
             return "\(component.rawValue.localized) " + "ui.error.invalid_format".localized
+        case .timeGreaterThan:
+            return "ui.error.time_greater_than".localized
         }
     }
 }

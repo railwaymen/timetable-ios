@@ -87,7 +87,7 @@ class RequestEncoderTests: XCTestCase {
             _ = try requestEncoder.encodeToDictionary(wrapper: wrapper)
         } catch {
             //Assert
-            switch error as? ApiClientError {
+            switch (error as? ApiClientError)?.type {
             case .invalidParameters?: break
             default: XCTFail()
             }

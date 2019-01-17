@@ -37,7 +37,7 @@ class RequestEncoder: RequestEncoderType, EncoderType {
         let data = try encode(wrapper: wrapper)
         let json = try serialization.jsonObject(with: data, options: .allowFragments)
         guard let jsonDictionary = json as? [String: Any] else {
-            throw ApiClientError.invalidParameters
+            throw ApiClientError(type: .invalidParameters)
         }
         return jsonDictionary
     }

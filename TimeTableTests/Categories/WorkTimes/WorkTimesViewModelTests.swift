@@ -9,10 +9,11 @@
 import XCTest
 @testable import TimeTable
 
+// swiftlint:disable type_body_length
 class WorkTimesViewModelTests: XCTestCase {
-
     private var userInterfaceMock: WorkTimesViewControllerMock!
     private var apiClientMock: ApiClientMock!
+    private var coordinatorMock: WorkTimesCoordinatorMock!
     private var errorHandlerMock: ErrorHandlerMock!
     private var calendarMock: CalendarMock!
     private var viewModel: WorkTimesViewModel!
@@ -31,9 +32,11 @@ class WorkTimesViewModelTests: XCTestCase {
     override func setUp() {
         userInterfaceMock = WorkTimesViewControllerMock()
         apiClientMock = ApiClientMock()
+        coordinatorMock = WorkTimesCoordinatorMock()
         errorHandlerMock = ErrorHandlerMock()
         calendarMock = CalendarMock()
-        viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
+        viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
+                                       apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
         super.setUp()
     }
     
@@ -109,7 +112,8 @@ class WorkTimesViewModelTests: XCTestCase {
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         calendarMock.dateComponentsReturnValue = DateComponents(year: 2018, month: 11)
         calendarMock.dateFromComponentsValue = Date()
-        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
+        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
+                                           apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
         viewModel.viewWillAppear()
         apiClientMock.fetchWorkTimesCompletion?(.success(workTimes))
         //Act
@@ -127,7 +131,8 @@ class WorkTimesViewModelTests: XCTestCase {
         calendarMock.dateComponentsReturnValue = DateComponents(year: 2018, month: 11)
         calendarMock.dateFromComponentsValue = Date()
         calendarMock.shortDateByAddingReturnValue = Date()
-        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
+        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
+                                           apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
         viewModel.viewWillAppear()
         apiClientMock.fetchWorkTimesCompletion?(.success(workTimes))
         //Act
@@ -145,7 +150,8 @@ class WorkTimesViewModelTests: XCTestCase {
         calendarMock.dateComponentsReturnValue = DateComponents(year: 2018, month: 11)
         calendarMock.dateFromComponentsValue = Date()
         calendarMock.shortDateByAddingReturnValue = Date()
-        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
+        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
+                                           apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
         viewModel.viewWillAppear()
         apiClientMock.fetchWorkTimesCompletion?(.success(workTimes))
         //Act
@@ -248,7 +254,8 @@ class WorkTimesViewModelTests: XCTestCase {
         //Arrange
         calendarMock.dateFromComponentsValue = Date()
         calendarMock.dateComponentsReturnValue = DateComponents(year: 2018)
-        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
+        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
+                                           apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
         //Act
         viewModel.viewRequestedForPreviousMonth()
         //Assert
@@ -266,7 +273,8 @@ class WorkTimesViewModelTests: XCTestCase {
         components.month = 11
         let dateByAddingReturnValue = try Calendar.current.date(from: components).unwrap()
         calendarMock.shortDateByAddingReturnValue = dateByAddingReturnValue
-        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
+        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
+                                           apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
         //Act
         viewModel.viewRequestedForPreviousMonth()
         //Assert
@@ -287,7 +295,8 @@ class WorkTimesViewModelTests: XCTestCase {
         //Arrange
         calendarMock.dateFromComponentsValue = Date()
         calendarMock.dateComponentsReturnValue = DateComponents(year: 2018)
-        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
+        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
+                                           apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
         //Act
         viewModel.viewRequestedForPreviousMonth()
         //Assert
@@ -300,7 +309,8 @@ class WorkTimesViewModelTests: XCTestCase {
         //Arrange
         calendarMock.dateFromComponentsValue = Date()
         calendarMock.dateComponentsReturnValue = DateComponents(month: 12)
-        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
+        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
+                                           apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
         //Act
         viewModel.viewRequestedForNextMonth()
         //Assert
@@ -318,11 +328,21 @@ class WorkTimesViewModelTests: XCTestCase {
         components.month = 11
         let dateByAddingReturnValue = try Calendar.current.date(from: components).unwrap()
         calendarMock.shortDateByAddingReturnValue = dateByAddingReturnValue
-        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
+        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
+                                           apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
         //Act
         viewModel.viewRequestedForNextMonth()
         //Assert
         XCTAssertNotNil(userInterfaceMock.updateDateLabelText)
+    }
+    
+    func testViewRequestedForNewWorkTimeView() {
+        //Arrange
+        let button = UIBarButtonItem()
+        //Act
+        viewModel.viewRequestedForNewWorkTimeView(sourceView: button)
+        //Assert
+        XCTAssertEqual(coordinatorMock.requestedForNewWorkTimeViewSourceView, button)
     }
 }
 
@@ -333,3 +353,4 @@ private class WorkTimeCellViewMock: WorkTimeCellViewModelOutput {
 private class WorkTimesTableViewHeaderViewMock: WorkTimesTableViewHeaderViewModelOutput {
     func updateView(dayText: String?, durationText: String?) {}
 }
+// swiftlint:enabled type_body_length

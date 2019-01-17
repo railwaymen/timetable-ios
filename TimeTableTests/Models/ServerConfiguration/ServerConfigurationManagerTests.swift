@@ -39,7 +39,7 @@ class ServerConfigurationManagerTests: XCTestCase {
         }
         urlSessionMock.completionHandler?(nil, nil, nil)
         //Assert
-        switch expectedError as? ApiError {
+        switch (expectedError as? ApiClientError)?.type {
         case .invalidHost(let host)?:
             XCTAssertEqual(host, url)
         default: XCTFail()
@@ -64,7 +64,7 @@ class ServerConfigurationManagerTests: XCTestCase {
         }
         urlSessionMock.completionHandler?(nil, fakeResponse, TestError(message: ""))
         //Assert
-        switch expectedError as? ApiError {
+        switch (expectedError as? ApiClientError)?.type {
         case .invalidHost(let host)?:
             XCTAssertEqual(host, url)
         default: XCTFail()
@@ -149,7 +149,7 @@ class ServerConfigurationManagerTests: XCTestCase {
         }
         urlSessionMock.completionHandler?(nil, fakeResponse, nil)
         //Assert
-        switch expectedError as? ApiError {
+        switch (expectedError as? ApiClientError)?.type {
         case .invalidHost(let host)?:
             XCTAssertEqual(host, url)
         default: XCTFail()
@@ -170,7 +170,7 @@ class ServerConfigurationManagerTests: XCTestCase {
             }
         }
         //Asserta
-        switch expectedError as? ApiError {
+        switch (expectedError as? ApiClientError)?.type {
         case .invalidHost(let host)?:
             XCTAssertNil(host)
         default: XCTFail()

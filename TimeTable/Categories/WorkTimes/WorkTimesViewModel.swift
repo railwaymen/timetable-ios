@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol WorkTimesViewModelOutput: class {
     func setUpView(with dateString: String)
@@ -23,6 +24,7 @@ protocol WorkTimesViewModelType: class {
     func viewRequestedForNextMonth()
     func viewRequestedForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType?
     func viewRequestedForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType?
+    func viewRequestedForNewWorkTimeView(sourceView: UIBarButtonItem)
 }
 
 class DailyWorkTime {
@@ -38,6 +40,7 @@ class DailyWorkTime {
 
 class WorkTimesViewModel: WorkTimesViewModelType {
     private weak var userInterface: WorkTimesViewModelOutput?
+    private let coordinator: WorkTimesCoordinatorDelegate
     private let apiClient: ApiClientWorkTimesType
     private let errorHandler: ErrorHandlerType
     private let calendar: CalendarType
@@ -45,9 +48,10 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     private var dailyWorkTimesArray: [DailyWorkTime]
     
     // MARK: - Initialization
-    init(userInterface: WorkTimesViewModelOutput, apiClient: ApiClientWorkTimesType,
+    init(userInterface: WorkTimesViewModelOutput, coordinator: WorkTimesCoordinatorDelegate, apiClient: ApiClientWorkTimesType,
          errorHandler: ErrorHandlerType, calendar: CalendarType = Calendar.autoupdatingCurrent) {
         self.userInterface = userInterface
+        self.coordinator = coordinator
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.calendar = calendar
@@ -91,6 +95,10 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     func viewRequestedForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType? {
         guard dailyWorkTimesArray.count > section else { return nil }
         return WorkTimesTableViewHeaderViewModel(userInterface: header, dailyWorkTime: dailyWorkTimesArray[section])
+    }
+    
+    func viewRequestedForNewWorkTimeView(sourceView: UIBarButtonItem) {
+        coordinator.workTimesRequestedForNewWorkTimeView(sourceView: sourceView)
     }
     
     // MARK: - Private

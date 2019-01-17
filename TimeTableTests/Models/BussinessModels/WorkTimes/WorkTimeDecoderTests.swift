@@ -9,6 +9,7 @@
 import XCTest
 @testable import TimeTable
 
+// swiftlint:disable type_body_length
 class WorkTimeDecoderTests: XCTestCase {
 
     private enum WorkTimesResponse: String, JSONFileResource {
@@ -36,7 +37,12 @@ class WorkTimeDecoderTests: XCTestCase {
         let endsAt = try Calendar.current.date(from: components).unwrap()
         components.hour = 0
         let date = try Calendar.current.date(from: components).unwrap()
-        let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum", color: UIColor(string: "fe0404"), workTimesAllowsTask: false, isLunch: false)
+        
+        let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum",
+                                     color: UIColor(string: "fe0404"),
+                                     autofill: nil, countDuration: nil,
+                                     isActive: nil, isInternal: nil,
+                                     isLunch: false, workTimesAllowsTask: false)
         let data = try self.json(from: WorkTimesResponse.workTimeResponse)
         //Act
         let worksTime = try decoder.decode(WorkTimeDecoder.self, from: data)
@@ -75,7 +81,11 @@ class WorkTimeDecoderTests: XCTestCase {
         let endsAt = try Calendar.current.date(from: components).unwrap()
         components.hour = 0
         let date = try Calendar.current.date(from: components).unwrap()
-        let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum", color: UIColor(string: "fe0404"), workTimesAllowsTask: false, isLunch: false)
+        let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum",
+                                     color: UIColor(string: "fe0404"),
+                                     autofill: nil, countDuration: nil,
+                                     isActive: nil, isInternal: nil,
+                                     isLunch: false, workTimesAllowsTask: false)
         let data = try self.json(from: WorkTimesResponse.workTimeBodyNull)
         //Act
         let worksTime = try decoder.decode(WorkTimeDecoder.self, from: data)
@@ -102,7 +112,11 @@ class WorkTimeDecoderTests: XCTestCase {
         let endsAt = try Calendar.current.date(from: components).unwrap()
         components.hour = 0
         let date = try Calendar.current.date(from: components).unwrap()
-        let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum", color: UIColor(string: "fe0404"), workTimesAllowsTask: false, isLunch: false)
+        let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum",
+                                     color: UIColor(string: "fe0404"),
+                                     autofill: nil, countDuration: nil,
+                                     isActive: nil, isInternal: nil,
+                                     isLunch: false, workTimesAllowsTask: false)
         let data = try self.json(from: WorkTimesResponse.workTimeMissingBodyKey)
         //Act
         let worksTime = try decoder.decode(WorkTimeDecoder.self, from: data)
@@ -129,7 +143,11 @@ class WorkTimeDecoderTests: XCTestCase {
         let endsAt = try Calendar.current.date(from: components).unwrap()
         components.hour = 0
         let date = try Calendar.current.date(from: components).unwrap()
-        let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum", color: UIColor(string: "fe0404"), workTimesAllowsTask: false, isLunch: false)
+        let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum",
+                                     color: UIColor(string: "fe0404"),
+                                     autofill: nil, countDuration: nil,
+                                     isActive: nil, isInternal: nil,
+                                     isLunch: false, workTimesAllowsTask: false)
         let data = try self.json(from: WorkTimesResponse.workTimeNullTask)
         //Act
         let worksTime = try decoder.decode(WorkTimeDecoder.self, from: data)
@@ -156,7 +174,11 @@ class WorkTimeDecoderTests: XCTestCase {
         let endsAt = try Calendar.current.date(from: components).unwrap()
         components.hour = 0
         let date = try Calendar.current.date(from: components).unwrap()
-        let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum", color: UIColor(string: "fe0404"), workTimesAllowsTask: false, isLunch: false)
+        let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum",
+                                     color: UIColor(string: "fe0404"),
+                                     autofill: nil, countDuration: nil,
+                                     isActive: nil, isInternal: nil,
+                                     isLunch: false, workTimesAllowsTask: false)
         let data = try self.json(from: WorkTimesResponse.workTimeMissingTaskKey)
         //Act
         let worksTime = try decoder.decode(WorkTimeDecoder.self, from: data)
@@ -183,7 +205,11 @@ class WorkTimeDecoderTests: XCTestCase {
         let endsAt = try Calendar.current.date(from: components).unwrap()
         components.hour = 0
         let date = try Calendar.current.date(from: components).unwrap()
-        let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum", color: UIColor(string: "fe0404"), workTimesAllowsTask: false, isLunch: false)
+        let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum",
+                                     color: UIColor(string: "fe0404"),
+                                     autofill: nil, countDuration: nil,
+                                     isActive: nil, isInternal: nil,
+                                     isLunch: false, workTimesAllowsTask: false)
         let data = try self.json(from: WorkTimesResponse.workTimeNullTaskPreview)
         //Act
         let worksTime = try decoder.decode(WorkTimeDecoder.self, from: data)
@@ -210,7 +236,11 @@ class WorkTimeDecoderTests: XCTestCase {
         let endsAt = try Calendar.current.date(from: components).unwrap()
         components.hour = 0
         let date = try Calendar.current.date(from: components).unwrap()
-        let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum", color: UIColor(string: "fe0404"), workTimesAllowsTask: false, isLunch: false)
+        let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum",
+                                     color: UIColor(string: "fe0404"),
+                                     autofill: nil, countDuration: nil,
+                                     isActive: nil, isInternal: nil,
+                                     isLunch: false, workTimesAllowsTask: false)
         let data = try self.json(from: WorkTimesResponse.workTimeMissingTaskPreviewKey)
         //Act
         let worksTime = try decoder.decode(WorkTimeDecoder.self, from: data)
@@ -229,3 +259,4 @@ class WorkTimeDecoderTests: XCTestCase {
         XCTAssertEqual(worksTime.project, project)
     }
 }
+// swiftlint:enabled type_body_length

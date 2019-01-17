@@ -15,6 +15,7 @@ protocol ApiClientNetworkingType: class {
     var networking: NetworkingType { get set }
     
     func post<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void))
+    func post<E: Encodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<Void>) -> Void))
     func get<D: Decodable>(_ endpoint: Endpoints, completion: @escaping ((Result<D>) -> Void))
     func get<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void))
 }
@@ -38,7 +39,7 @@ class ApiClient: ApiClientNetworkingType {
             let decodedResponse = try decoder.decode(D.self, from: data)
             completion(.success(decodedResponse))
         } catch {
-            completion(.failure(ApiClientError.invalidResponse))
+            completion(.failure(ApiClientError(type: .invalidResponse)))
         }
     }
     
@@ -59,7 +60,23 @@ class ApiClient: ApiClientNetworkingType {
                 self?.handle(response: response, completion: completion)
             }
         } catch {
-            completion(.failure(ApiClientError.invalidParameters))
+            completion(.failure(ApiClientError(type: .invalidParameters)))
+        }
+    }
+    
+    func post<E: Encodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<Void>) -> Void)) {
+        do {
+            let parameters = try encoder.encodeToDictionary(wrapper: parameters)
+            _ = networking.post(endpoint.rawValue, parameters: parameters) { response in
+                switch response {
+                case .success:
+                    completion(.success(Void()))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        } catch {
+            completion(.failure(ApiClientError(type: .invalidParameters)))
         }
     }
     
@@ -76,7 +93,7 @@ class ApiClient: ApiClientNetworkingType {
                 self?.handle(response: response, completion: completion)
             }
         } catch {
-            completion(.failure(ApiClientError.invalidParameters))
+            completion(.failure(ApiClientError(type: .invalidParameters)))
         }
     }
 }
