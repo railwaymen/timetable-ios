@@ -51,7 +51,7 @@ class WorkTimeController: UIViewController {
     }
     
     @IBAction private func saveButtonTapped(_ sender: UIButton) {
-        viewModel.viewRequesetdToSave()
+        viewModel.viewRequestedToSave()
     }
     
     @IBAction private func viewTapped(_ sender: UITapGestureRecognizer) {
@@ -145,7 +145,7 @@ extension WorkTimeController: WorkTimeViewModelOutput {
         toDatePicker.date = date
     }
     
-    func updateTimeLable(withTitle title: String?) {
+    func updateTimeLabel(withTitle title: String?) {
         timeLabel.text = title
     }
 }

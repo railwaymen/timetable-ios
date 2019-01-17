@@ -45,7 +45,7 @@ class TaskTests: XCTestCase {
         //Act
         let allowsTask = task.allowsTask
         //Assert
-        XCTAssertFalse(allowsTask)
+        XCTAssertTrue(allowsTask)
     }
     
     func testAllowTaskForProjectSomeType() throws {

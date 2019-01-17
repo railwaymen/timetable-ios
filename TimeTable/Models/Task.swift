@@ -35,7 +35,7 @@ struct Task: Encodable {
     var allowsTask: Bool {
         switch project {
         case .none:
-            return false
+            return true
         case .some(let project):
             return project.workTimesAllowsTask
         }

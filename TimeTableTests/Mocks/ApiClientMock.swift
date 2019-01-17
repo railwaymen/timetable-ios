@@ -10,6 +10,9 @@ import Foundation
 @testable import TimeTable
 
 class ApiClientMock: ApiClientSessionType, ApiClientWorkTimesType, ApiClientProjectsType {
+    
+    var fetchSimpleListOfProjectsExpectation: (() -> Void)?
+    
     private(set) var signInCredentials: LoginCredentials?
     private(set) var signInCompletion: ((Result<SessionDecoder>) -> Void)?
     func signIn(with credentials: LoginCredentials, completion: @escaping ((Result<SessionDecoder>) -> Void)) {
@@ -39,5 +42,6 @@ class ApiClientMock: ApiClientSessionType, ApiClientWorkTimesType, ApiClientProj
     private(set) var fetchSimpleListOfProjectsCompletion: ((Result<[ProjectDecoder]>) -> Void)?
     func fetchSimpleListOfProjects(completion: @escaping ((Result<[ProjectDecoder]>) -> Void)) {
         fetchSimpleListOfProjectsCompletion = completion
+        fetchSimpleListOfProjectsExpectation?()
     }
 }

@@ -31,6 +31,27 @@
         "active": true,
         "lunch": false,
         "work_times_allows_task": false
+    },
+    {
+        "id": 2,
+        "name": "Lorem Ipsum",
+        "color": "0000Oc",
+        "autofill": false,
+        "internal": false,
+        "count_duration": true,
+        "active": null,
+        "lunch": false,
+        "work_times_allows_task": false
+    },
+    {
+        "id": 3,
+        "name": "Lorem Ipsum",
+        "color": "0000Oc",
+        "autofill": true,
+        "internal": true,
+        "count_duration": true,
+        "active": true,
+        "lunch": false,
+        "work_times_allows_task": false
     }
-
 ]

@@ -16,7 +16,7 @@ protocol WorkTimeViewModelOutput: class {
     func setMinimumDateForTypeToDate(minDate: Date)
     func updateFromDate(withDate date: Date, dateString: String)
     func updateToDate(withDate date: Date, dateString: String)
-    func updateTimeLable(withTitle title: String?)
+    func updateTimeLabel(withTitle title: String?)
 }
 
 protocol WorkTimeViewModelType: class {
@@ -31,7 +31,7 @@ protocol WorkTimeViewModelType: class {
     func viewChanged(fromDate date: Date)
     func setDefaultFromDate()
     func viewChanged(toDate date: Date)
-    func viewRequesetdToSave()
+    func viewRequestedToSave()
     func setDefaultToDate()
     func viewHasBeenTapped()
 }
@@ -129,7 +129,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         updateToDateView(with: date)
     }
     
-    func viewRequesetdToSave() {
+    func viewRequestedToSave() {
         do {
             try validateInputs()
             apiClient.addWorkTime(parameters: task) { [weak self] result in
@@ -145,7 +145,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         }
     }
     
-    func viewHasBeenTapped() {
+    func viewHasBeenTapped() { //
         userInterface?.dissmissKeyboard()
     }
     
@@ -211,11 +211,11 @@ class WorkTimeViewModel: WorkTimeViewModelType {
             formatter.allowedUnits = [.hour, .minute]
             formatter.unitsStyle = .abbreviated
             let title = "\(formatter.string(from: interval) ?? "") \(dateString)"
-            userInterface?.updateTimeLable(withTitle: title)
+            userInterface?.updateTimeLabel(withTitle: title)
         } else {
             let dateString = DateFormatter.localizedString(from: fromDate, dateStyle: .short, timeStyle: .none)
             let title = "00:00 \(dateString)"
-            userInterface?.updateTimeLable(withTitle: title)
+            userInterface?.updateTimeLabel(withTitle: title)
         }
     }
     
