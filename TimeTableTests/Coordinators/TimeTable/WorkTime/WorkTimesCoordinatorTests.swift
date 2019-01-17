@@ -74,5 +74,4 @@ class WorkTimesCoordinatorTests: XCTestCase {
         //Assert
         XCTAssertNil(workTimeCoordinator.root.children.last)
     }
-
 }

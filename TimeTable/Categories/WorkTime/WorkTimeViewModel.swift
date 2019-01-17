@@ -145,7 +145,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         }
     }
     
-    func viewHasBeenTapped() { //
+    func viewHasBeenTapped() {
         userInterface?.dissmissKeyboard()
     }
     

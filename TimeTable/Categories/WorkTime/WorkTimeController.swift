@@ -19,7 +19,7 @@ class WorkTimeController: UIViewController {
     @IBOutlet private var toDateTextField: UITextField!
     @IBOutlet private var projectTextField: UITextField!
     @IBOutlet private var taskURLViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var taskURLView: UIView!
+    @IBOutlet private var taskURLView: UIView!
     @IBOutlet private var timeLabel: UILabel!
     
     private var projectPicker: UIPickerView!
@@ -58,7 +58,7 @@ class WorkTimeController: UIViewController {
         viewModel?.viewHasBeenTapped()
     }
     
-    @IBAction func fromDateTextFieldDidBegin(_ sender: UITextField) {
+    @IBAction private func fromDateTextFieldDidBegin(_ sender: UITextField) {
         viewModel.setDefaultFromDate()
     }
 
@@ -66,7 +66,7 @@ class WorkTimeController: UIViewController {
         viewModel.viewChanged(fromDate: sender.date)
     }
     
-    @IBAction func toDateTextFieldDidBegin(_ sender: UITextField) {
+    @IBAction private func toDateTextFieldDidBegin(_ sender: UITextField) {
         viewModel.setDefaultToDate()
     }    
     
@@ -75,6 +75,7 @@ class WorkTimeController: UIViewController {
     }
 }
 
+// MARK - UIPickerViewDelegate
 extension WorkTimeController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return viewModel.viewRequestedForProjectTitle(atRow: row)
@@ -85,6 +86,7 @@ extension WorkTimeController: UIPickerViewDelegate {
     }
 }
 
+// MARK: - UIPickerViewDataSource
 extension WorkTimeController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
