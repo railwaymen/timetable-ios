@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AppCoordinator: BaseNavigationCoordinator {
+class AppCoordinator: BaseCoordinator {
     
     private let storyboardsManager: StoryboardsManagerType
     private let serverConfigurationManager: ServerConfigurationManagerType
@@ -46,7 +46,6 @@ class AppCoordinator: BaseNavigationCoordinator {
         self.accessServiceBuilder = accessServiceBuilder
         self.coreDataStack = coreDataStack
         super.init(window: window)
-        self.navigationController.setNavigationBarHidden(true, animated: true)
     }
 
     // MARK: - CoordinatorType
@@ -63,6 +62,7 @@ class AppCoordinator: BaseNavigationCoordinator {
                                                     decoder: decoder, encoder: encoder, accessServiceBuilder: accessServiceBuilder,
                                                     coreDataStack: coreDataStack,
                                                     errorHandler: errorHandler, serverConfigurationManager: serverConfigurationManager)
+        addChildCoordinator(child: coordinator)
         coordinator.start { [weak self] (configuration, apiClient) in
             defer {
                 self?.removeChildCoordinator(child: coordinator)
@@ -73,7 +73,7 @@ class AppCoordinator: BaseNavigationCoordinator {
     
     private func runMainFlow(configuration: ServerConfiguration, apiClient: ApiClientType) {
         let accessService = accessServiceBuilder(configuration, encoder, decoder)
-        let coordinator = TimeTableTabCoordinator(window: self.window,
+        let coordinator = TimeTableTabCoordinator(window: window,
                                                   storyboardsManager: storyboardsManager,
                                                   apiClient: apiClient,
                                                   accessService: accessService,

@@ -36,7 +36,7 @@ class ProjectsCoordinatorTests: XCTestCase {
     
     func testRunMainFlowRunsMainFlow() {
         //Arrange
-        storyboardsManagerMock.controller = ProjectsViewController()
+        storyboardsManagerMock.projectsController = ProjectsViewController()
         //Act
         projectsCoordinator.start()
         //Assert

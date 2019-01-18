@@ -13,12 +13,17 @@ import CoreStore
 class AsynchronousDataTransactionMock: AsynchronousDataTransactionType {
     
     private(set) var deleteAllCalled = false
+    private(set) var deleteCalled = false
     private(set) var createCalled = false
     var user: DynamicObject?
     
     func deleteAll<D>(_ from: From<D>, _ deleteClauses: DeleteClause...) -> Int? where D: DynamicObject {
         deleteAllCalled = true
         return nil
+    }
+    
+    func delete<D: DynamicObject>(_ object: D?) {
+        deleteCalled = true
     }
     
     func create<D>(_ into: Into<D>) -> D where D: DynamicObject {

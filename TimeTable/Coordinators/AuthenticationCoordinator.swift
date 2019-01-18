@@ -62,7 +62,6 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
             accessService.getSession { [weak self] result in
                 switch result {
                 case .success(let session):
-                    
                     self?.apiClient = self?.createApiClient(with: configuration)
                     self?.updateApiClient(with: session)
                     self?.finish()
@@ -78,11 +77,9 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
     }
     
     override func finish() {
-        
         if let configuration = self.serverConfiguration, let apiClient = self.apiClient {
             customFinishCompletion?(configuration, apiClient)
         }
-        
         super.finish()
     }
 

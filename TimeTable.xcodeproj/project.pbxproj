@@ -227,7 +227,6 @@
 		C1F69B2C21902FA5005D9114 /* signInResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F69B2B21902FA5005D9114 /* signInResponse.json */; };
 		C1F69B2E21903818005D9114 /* LoginContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F69B2D21903818005D9114 /* LoginContentProvider.swift */; };
 		C1F7C2DE2190436B00F4FAF0 /* AuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F7C2DD2190436B00F4FAF0 /* AuthenticationCoordinator.swift */; };
-		C1F7C2E021904A1B00F4FAF0 /* ServerConfigurationCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F7C2DF21904A1B00F4FAF0 /* ServerConfigurationCoordinatorTests.swift */; };
 		C1F7C2E221904E0900F4FAF0 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F7C2E121904E0900F4FAF0 /* UserDefaults+Extension.swift */; };
 		C1F7C2E521908B4100F4FAF0 /* AttributedViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F7C2E421908B4100F4FAF0 /* AttributedViewTests.swift */; };
 		C1F7C2E721908DD400F4FAF0 /* AttributedButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F7C2E621908DD400F4FAF0 /* AttributedButtonTests.swift */; };
@@ -497,7 +496,6 @@
 		C1F69B2B21902FA5005D9114 /* signInResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInResponse.json; sourceTree = "<group>"; };
 		C1F69B2D21903818005D9114 /* LoginContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginContentProvider.swift; sourceTree = "<group>"; };
 		C1F7C2DD2190436B00F4FAF0 /* AuthenticationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinator.swift; sourceTree = "<group>"; };
-		C1F7C2DF21904A1B00F4FAF0 /* ServerConfigurationCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationCoordinatorTests.swift; sourceTree = "<group>"; };
 		C1F7C2E121904E0900F4FAF0 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		C1F7C2E421908B4100F4FAF0 /* AttributedViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedViewTests.swift; sourceTree = "<group>"; };
 		C1F7C2E621908DD400F4FAF0 /* AttributedButtonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedButtonTests.swift; sourceTree = "<group>"; };
@@ -659,7 +657,6 @@
 			children = (
 				C1249C7B2181AEB0005DB2A5 /* AppCoordinatorTests.swift */,
 				C12260162188927A007D64A3 /* AuthenticationCoordinatorTests.swift */,
-				C1F7C2DF21904A1B00F4FAF0 /* ServerConfigurationCoordinatorTests.swift */,
 				C12CA56321A564860082FEB7 /* Base */,
 				C19706DC21C1303D007AFED4 /* TimeTable */,
 				C18A189F21EF889B00CB6E32 /* WorkTime */,
@@ -1943,7 +1940,6 @@
 				C12CA56F21A58BE70082FEB7 /* ProjectDecoderTests.swift in Sources */,
 				C134297321A6BE3800F4EA42 /* JSONSerializationMock.swift in Sources */,
 				C1EF3A0921930722000E3511 /* StringExtensionTests.swift in Sources */,
-				C1F7C2E021904A1B00F4FAF0 /* ServerConfigurationCoordinatorTests.swift in Sources */,
 				C134296F21A6BCCD00F4EA42 /* RequestEncoderMock.swift in Sources */,
 				C134299121A6D3BF00F4EA42 /* CoreDataStackUserMock.swift in Sources */,
 				C1531F072191CD4B00602A0C /* ApiClientTests.swift in Sources */,

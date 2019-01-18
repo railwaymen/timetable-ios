@@ -37,7 +37,7 @@ class WorkTimesCoordinatorTests: XCTestCase {
     
     func testRunMainFlowRunsMainFlow() {
         //Arrange
-        storyboardsManagerMock.controller = WorkTimesViewController()
+        storyboardsManagerMock.workTimesController = WorkTimesViewController()
         //Act
         workTimeCoordinator.start()
         //Assert
@@ -58,7 +58,7 @@ class WorkTimesCoordinatorTests: XCTestCase {
     func testWorkTimesRequestedForNewWorkTimeViewWhileStoryboardsManagerReturendInvalidController() {
         //Arrange
         let button = UIBarButtonItem()
-        storyboardsManagerMock.controller = UIViewController()
+        storyboardsManagerMock.workTimeController = UIViewController()
         //Act
         workTimeCoordinator.workTimesRequestedForNewWorkTimeView(sourceView: button)
         //Assert
@@ -68,7 +68,7 @@ class WorkTimesCoordinatorTests: XCTestCase {
     func testWorkTimesRequestedForNewWorkTimeViewSucceed() {
         //Arrange
         let button = UIBarButtonItem()
-        storyboardsManagerMock.controller = WorkTimeController()
+        storyboardsManagerMock.workTimeController = WorkTimeController()
         //Act
         workTimeCoordinator.workTimesRequestedForNewWorkTimeView(sourceView: button)
         //Assert
