@@ -8,9 +8,20 @@
 
 import Foundation
 
-enum Endpoints: String {
-    case projects = "/projects"
-    case projectsSimpleList = "/projects/simple"
-    case signIn = "/users/sign_in"
-    case workTimes = "/work_times"
+enum Endpoints {
+    case projects
+    case projectsSimpleList
+    case signIn
+    case workTimes
+    case user(Int64)
+    
+    var value: String {
+        switch self {
+        case .projects: return "/projects"
+        case .projectsSimpleList: return "/projects/simple"
+        case .signIn: return "/users/sign_in"
+        case .workTimes: return "/work_times"
+        case .user(let identifier): return "/users/\(identifier)"
+        }
+    }
 }

@@ -56,7 +56,7 @@ class ApiClient: ApiClientNetworkingType {
     func post<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void)) {
         do {
             let parameters = try encoder.encodeToDictionary(wrapper: parameters)
-            _ = networking.post(endpoint.rawValue, parameters: parameters) { [weak self] response in
+            _ = networking.post(endpoint.value, parameters: parameters) { [weak self] response in
                 self?.handle(response: response, completion: completion)
             }
         } catch {
@@ -67,7 +67,7 @@ class ApiClient: ApiClientNetworkingType {
     func post<E: Encodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<Void>) -> Void)) {
         do {
             let parameters = try encoder.encodeToDictionary(wrapper: parameters)
-            _ = networking.post(endpoint.rawValue, parameters: parameters) { response in
+            _ = networking.post(endpoint.value, parameters: parameters) { response in
                 switch response {
                 case .success:
                     completion(.success(Void()))
@@ -81,7 +81,7 @@ class ApiClient: ApiClientNetworkingType {
     }
     
     func get<D: Decodable>(_ endpoint: Endpoints, completion: @escaping ((Result<D>) -> Void)) {
-        networking.get(endpoint.rawValue, parameters: nil, cachingLevel: .none) { [weak self] response in
+        networking.get(endpoint.value, parameters: nil, cachingLevel: .none) { [weak self] response in
             self?.handle(response: response, completion: completion)
         }
     }
@@ -89,7 +89,7 @@ class ApiClient: ApiClientNetworkingType {
     func get<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void)) {
         do {
             let parameters = try encoder.encodeToDictionary(wrapper: parameters)
-            networking.get(endpoint.rawValue, parameters: parameters, cachingLevel: .none) { [weak self] response in
+            networking.get(endpoint.value, parameters: parameters, cachingLevel: .none) { [weak self] response in
                 self?.handle(response: response, completion: completion)
             }
         } catch {

@@ -10,6 +10,11 @@
 		0AF1DD403C2E47D3343C2878 /* Pods_TimeTable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88922A1AB918F19A04B07211 /* Pods_TimeTable.framework */; };
 		BFB4EF72FAE3D8CD21A09744 /* Pods_TimeTableTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FE8C20AC7A1A64A549519E /* Pods_TimeTableTests.framework */; };
 		C1051B4121DA363E00FB3C3D /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1051B4021DA363E00FB3C3D /* ProjectView.swift */; };
+		C10FD87F21F1EDA100A233C5 /* ApiClient+Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD87E21F1EDA100A233C5 /* ApiClient+Users.swift */; };
+		C10FD88121F1F15100A233C5 /* UserDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88021F1F15100A233C5 /* UserDecoder.swift */; };
+		C10FD88421F1F28200A233C5 /* UserDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88321F1F28200A233C5 /* UserDecoderTests.swift */; };
+		C10FD88721F1F30E00A233C5 /* userFullResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C10FD88621F1F30E00A233C5 /* userFullResponse.json */; };
+		C10FD88921F1F36300A233C5 /* ApiClientUsersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88821F1F36300A233C5 /* ApiClientUsersTests.swift */; };
 		C11F51F121A59DF300FD626A /* workTimeResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C11F51F021A59DF300FD626A /* workTimeResponse.json */; };
 		C11F51F321A5AB9C00FD626A /* workTimeInvalidDateFormatResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C11F51F221A5AB9C00FD626A /* workTimeInvalidDateFormatResponse.json */; };
 		C11F51F521A5AC5800FD626A /* DateFormatterExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11F51F421A5AC5800FD626A /* DateFormatterExtensionTests.swift */; };
@@ -268,6 +273,11 @@
 		709A006A1AEE2AB10E218C48 /* Pods-TimeTable.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTable.stage.xcconfig"; path = "Pods/Target Support Files/Pods-TimeTable/Pods-TimeTable.stage.xcconfig"; sourceTree = "<group>"; };
 		88922A1AB918F19A04B07211 /* Pods_TimeTable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeTable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1051B4021DA363E00FB3C3D /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
+		C10FD87E21F1EDA100A233C5 /* ApiClient+Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiClient+Users.swift"; sourceTree = "<group>"; };
+		C10FD88021F1F15100A233C5 /* UserDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDecoder.swift; sourceTree = "<group>"; };
+		C10FD88321F1F28200A233C5 /* UserDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDecoderTests.swift; sourceTree = "<group>"; };
+		C10FD88621F1F30E00A233C5 /* userFullResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = userFullResponse.json; sourceTree = "<group>"; };
+		C10FD88821F1F36300A233C5 /* ApiClientUsersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientUsersTests.swift; sourceTree = "<group>"; };
 		C11F51F021A59DF300FD626A /* workTimeResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimeResponse.json; sourceTree = "<group>"; };
 		C11F51F221A5AB9C00FD626A /* workTimeInvalidDateFormatResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimeInvalidDateFormatResponse.json; sourceTree = "<group>"; };
 		C11F51F421A5AC5800FD626A /* DateFormatterExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterExtensionTests.swift; sourceTree = "<group>"; };
@@ -553,6 +563,32 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C10FD87D21F1ED8300A233C5 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				C10FD87E21F1EDA100A233C5 /* ApiClient+Users.swift */,
+				C10FD88021F1F15100A233C5 /* UserDecoder.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		C10FD88221F1F27800A233C5 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				C10FD88821F1F36300A233C5 /* ApiClientUsersTests.swift */,
+				C10FD88321F1F28200A233C5 /* UserDecoderTests.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		C10FD88521F1F2FF00A233C5 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				C10FD88621F1F30E00A233C5 /* userFullResponse.json */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		C122601821898BC3007D64A3 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -823,6 +859,7 @@
 			children = (
 				C12CA56621A5786E0082FEB7 /* Projects */,
 				C1B8FA47218C9617009D10B4 /* Session */,
+				C10FD87D21F1ED8300A233C5 /* User */,
 				C12CA57721A58F860082FEB7 /* WorkTimes */,
 			);
 			path = BussinessModels;
@@ -833,6 +870,7 @@
 			children = (
 				C12CA56D21A58BD70082FEB7 /* Projects */,
 				C1B8FA46218C95D3009D10B4 /* Session */,
+				C10FD88221F1F27800A233C5 /* User */,
 				C12CA57F21A599CB0082FEB7 /* WorkTimes */,
 			);
 			path = BussinessModels;
@@ -1327,6 +1365,7 @@
 				C1B771F821EF415000EFE06F /* Errors */,
 				C12CA57021A58C6C0082FEB7 /* Projects */,
 				C1B8FA4F218C9A64009D10B4 /* Session */,
+				C10FD88521F1F2FF00A233C5 /* User */,
 				C12CA57E21A599BE0082FEB7 /* WorkTimes */,
 			);
 			path = Resources;
@@ -1620,6 +1659,7 @@
 				C1B771FB21EF41C300EFE06F /* emptyErrosKeysResponse.json in Resources */,
 				C1B771E921EF1EA200EFE06F /* simpleProjectNullLunchResponse.json in Resources */,
 				C1B771FF21EF422600EFE06F /* startAtErrorKeyResponse.json in Resources */,
+				C10FD88721F1F30E00A233C5 /* userFullResponse.json in Resources */,
 				C1B771E721EF1E9000EFE06F /* simpleProjectMissingActiveKeyResponse.json in Resources */,
 				C13429B621A8307200F4EA42 /* workTimeMissingBodyKey.json in Resources */,
 				C1B8FA51218C9A86009D10B4 /* signInRequest.json in Resources */,
@@ -1874,12 +1914,14 @@
 				C1249C682181A1E7005DB2A5 /* CoordinatorType.swift in Sources */,
 				C12CA57D21A593F20082FEB7 /* DateFormatter+Extension.swift in Sources */,
 				C1E1F04B21AD3DBE007F9228 /* Calendar+Extension.swift in Sources */,
+				C10FD87F21F1EDA100A233C5 /* ApiClient+Users.swift in Sources */,
 				C153AC532182F1E3007A35BB /* UITextField+Extension.swift in Sources */,
 				C1E1F04421AD2952007F9228 /* NSObject+Extension.swift in Sources */,
 				C153AC4C2182EF40007A35BB /* String+Extension.swift in Sources */,
 				C13C88E621E5EA8F00F68C6E /* WorkTimeController.swift in Sources */,
 				C1AFFFDB21A2CD2000A7A632 /* AppError.swift in Sources */,
 				C1B5136D21772D1200C3727C /* AppDelegate.swift in Sources */,
+				C10FD88121F1F15100A233C5 /* UserDecoder.swift in Sources */,
 				C16CA644219AA47900133358 /* UserEntity+SessionDecoder.swift in Sources */,
 				C1204FBD21F0BA6300B2C3AC /* UserProfileViewModel.swift in Sources */,
 			);
@@ -1896,8 +1938,10 @@
 				C134299321A6D73500F4EA42 /* ServerConfigurationManagerMock.swift in Sources */,
 				C153AC7321834F22007A35BB /* ServerConfigurationViewModelTests.swift in Sources */,
 				C134298121A6C71200F4EA42 /* UrlSessionMock.swift in Sources */,
+				C10FD88421F1F28200A233C5 /* UserDecoderTests.swift in Sources */,
 				C12CA58221A599E60082FEB7 /* WorkTimeDecoderTests.swift in Sources */,
 				C1B771F521EF2C5800EFE06F /* TaskTests.swift in Sources */,
+				C10FD88921F1F36300A233C5 /* ApiClientUsersTests.swift in Sources */,
 				C134298F21A6D39C00F4EA42 /* LoginViewControllerMock.swift in Sources */,
 				C1E1F05421AD5FD2007F9228 /* WorkTimesTableViewHeaderViewModelTests.swift in Sources */,
 				C1B771F721EF39FA00EFE06F /* ApiValidationErrorsTests.swift in Sources */,
