@@ -11,6 +11,7 @@ import CoreStore
 
 protocol AsynchronousDataTransactionType: class {
     func deleteAll<D>(_ from: From<D>, _ deleteClauses: DeleteClause...) -> Int?
+    func delete<D: DynamicObject>(_ object: D?)
     func create<D>(_ into: Into<D>) -> D
 }
 

@@ -20,8 +20,10 @@ class BaseNavigationCoordinator: BaseCoordinator {
         navigationController.interactivePopGestureRecognizer?.delegate = nil
     }
     
-    init(navigationController: UINavigationController) {
+    init(window: UIWindow?, navigationController: UINavigationController) {
         self.navigationController = navigationController
-        super.init(window: nil)
+        super.init(window: window)
+        window?.rootViewController = navigationController
+        navigationController.interactivePopGestureRecognizer?.delegate = nil
     }
 }

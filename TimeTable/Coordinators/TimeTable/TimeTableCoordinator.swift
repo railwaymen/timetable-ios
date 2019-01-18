@@ -15,7 +15,8 @@ class TimeTableTabCoordinator: BaseTabBarCoordinator {
     private let tabBarChildCoordinators: [BaseTabBarCordninatorType]
     
     // MARK: - Initialization
-    init(window: UIWindow?, storyboardsManager: StoryboardsManagerType, apiClient: TimeTableTabApiClientType, errorHandler: ErrorHandlerType) {
+    init(window: UIWindow?, storyboardsManager: StoryboardsManagerType, apiClient: TimeTableTabApiClientType,
+         accessService: AccessServiceUserIDType, coreDataStack: CoreDataStackUserType, errorHandler: ErrorHandlerType) {
         let projectsCoordinator = ProjectsCoordinator(window: nil,
                                                       storyboardsManager: storyboardsManager,
                                                       apiClient: apiClient,
@@ -25,17 +26,30 @@ class TimeTableTabCoordinator: BaseTabBarCoordinator {
                                                       apiClient: apiClient,
                                                       errorHandler: errorHandler)
         let userCoordinator = UserCoordinator(window: nil,
-                                              storyboardsManager: storyboardsManager)
+                                              storyboardsManager: storyboardsManager,
+                                              accessService: accessService,
+                                              coreDataStack: coreDataStack,
+                                              errorHandler: errorHandler)
         
         self.tabBarChildCoordinators = [projectsCoordinator, workTimeCoordinator, userCoordinator]
         super.init(window: window)
         self.tabBarController.tabBar.tintColor = UIColor.crimson
-        self.tabBarChildCoordinators.forEach { $0.start() }
+        
+        projectsCoordinator.start()
+        workTimeCoordinator.start()
+        userCoordinator.start { [weak self] in
+            self?.finishCompletion?()
+        }
     }
     
     // MARK: - Overriden
     override func start(finishCompletion: (() -> Void)?) {
         self.tabBarController.viewControllers = self.tabBarChildCoordinators.map { $0.root }
         super.start(finishCompletion: finishCompletion)
+    }
+    
+    override func finish() {
+        self.tabBarChildCoordinators.forEach { $0.finish() }
+        super.finish()
     }
 }

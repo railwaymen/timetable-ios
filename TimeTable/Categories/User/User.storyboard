@@ -100,6 +100,9 @@
                                                         <exclude reference="jnE-yi-oeh"/>
                                                     </mask>
                                                 </variation>
+                                                <connections>
+                                                    <action selector="logoutButtonTapped:" destination="Yqk-Ln-ggX" eventType="touchUpInside" id="Ob8-kT-UWq"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
