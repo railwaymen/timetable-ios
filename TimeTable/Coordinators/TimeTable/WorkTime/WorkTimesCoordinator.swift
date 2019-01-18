@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias WorkTimesApiClient = (ApiClientProjectsType & ApiClientWorkTimesType)
+typealias WorkTimesApiClient = (ApiClientProjectsType & ApiClientWorkTimesType & ApiClientUsersType)
 
 protocol WorkTimesCoordinatorDelegate: class {
     func workTimesRequestedForNewWorkTimeView(sourceView: UIBarButtonItem)

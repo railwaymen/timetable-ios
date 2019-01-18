@@ -37,7 +37,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ygC-2Z-X8d">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="341"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="395.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="air-cl-orj">
                                                 <rect key="frame" x="20" y="30" width="82.5" height="33"/>
@@ -45,34 +45,34 @@
                                                 <color key="textColor" red="0.62352941176470589" green="0.62352941176470589" blue="0.71764705882352942" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g4j-Pv-CAz">
-                                                <rect key="frame" x="20" y="113" width="77" height="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Name" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g4j-Pv-CAz">
+                                                <rect key="frame" x="20" y="113" width="282" height="20.5"/>
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
                                                 <color key="textColor" red="0.62352941179999999" green="0.62352941179999999" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ntu-qY-DGI" userLabel="First Name Seperator View">
-                                                <rect key="frame" x="20" y="145" width="280" height="1"/>
+                                                <rect key="frame" x="20" y="145.5" width="280" height="1"/>
                                                 <color key="backgroundColor" red="0.62352941176470589" green="0.62352941176470589" blue="0.71764705882352942" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="jtv-Lw-qeY"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zg4-CY-yfy" userLabel="Last Name">
-                                                <rect key="frame" x="20" y="186" width="77" height="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Name" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zg4-CY-yfy" userLabel="Last Name">
+                                                <rect key="frame" x="20" y="186.5" width="282" height="20.5"/>
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
                                                 <color key="textColor" red="0.62352941179999999" green="0.62352941179999999" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lD8-Lb-QxP" userLabel="Last Name Seperator View">
-                                                <rect key="frame" x="20" y="218" width="280" height="1"/>
+                                                <rect key="frame" x="20" y="219" width="280" height="1"/>
                                                 <color key="backgroundColor" red="0.62352941179999999" green="0.62352941179999999" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="QNE-dV-ni0"/>
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Pb-kl-5te" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
-                                                <rect key="frame" x="18" y="269" width="284" height="52"/>
+                                                <rect key="frame" x="18" y="323.5" width="284" height="52"/>
                                                 <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="52" id="gap-Q0-i35"/>
@@ -104,16 +104,32 @@
                                                     <action selector="logoutButtonTapped:" destination="Yqk-Ln-ggX" eventType="touchUpInside" id="Ob8-kT-UWq"/>
                                                 </connections>
                                             </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F39-De-UId" userLabel="Email Seperator View">
+                                                <rect key="frame" x="20" y="292.5" width="280" height="1"/>
+                                                <color key="backgroundColor" red="0.62352941179999999" green="0.62352941179999999" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="RvT-Xm-31a"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Name" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6VM-9V-GEz" userLabel="Email">
+                                                <rect key="frame" x="20" y="260" width="282" height="20.5"/>
+                                                <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
+                                                <color key="textColor" red="0.62352941179999999" green="0.62352941179999999" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="Zg4-CY-yfy" firstAttribute="top" secondItem="ntu-qY-DGI" secondAttribute="bottom" constant="40" id="5Nc-sG-x8Y"/>
-                                            <constraint firstItem="7Pb-kl-5te" firstAttribute="top" secondItem="lD8-Lb-QxP" secondAttribute="bottom" constant="50" id="7lf-cc-faF"/>
+                                            <constraint firstItem="F39-De-UId" firstAttribute="top" secondItem="6VM-9V-GEz" secondAttribute="bottom" constant="12" id="61m-pp-uBU"/>
+                                            <constraint firstItem="F39-De-UId" firstAttribute="trailing" secondItem="ntu-qY-DGI" secondAttribute="trailing" id="6Yh-ew-1rU"/>
                                             <constraint firstItem="air-cl-orj" firstAttribute="top" secondItem="ygC-2Z-X8d" secondAttribute="top" constant="30" id="8yV-WK-UI3">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                                             </constraint>
                                             <constraint firstAttribute="trailing" secondItem="ntu-qY-DGI" secondAttribute="trailing" constant="20" id="9QF-cn-kFe"/>
+                                            <constraint firstItem="F39-De-UId" firstAttribute="leading" secondItem="ntu-qY-DGI" secondAttribute="leading" id="9oH-8Z-RVa"/>
                                             <constraint firstItem="ntu-qY-DGI" firstAttribute="top" secondItem="g4j-Pv-CAz" secondAttribute="bottom" constant="12" id="DXb-gm-kns"/>
+                                            <constraint firstItem="6VM-9V-GEz" firstAttribute="top" secondItem="lD8-Lb-QxP" secondAttribute="bottom" constant="40" id="EUO-wn-Mq5"/>
                                             <constraint firstAttribute="bottom" secondItem="7Pb-kl-5te" secondAttribute="bottom" constant="20" id="FcS-mi-col"/>
                                             <constraint firstItem="air-cl-orj" firstAttribute="leading" secondItem="ygC-2Z-X8d" secondAttribute="leading" constant="20" id="Izf-Zc-KYt"/>
                                             <constraint firstAttribute="trailing" secondItem="7Pb-kl-5te" secondAttribute="trailing" constant="18" id="JwT-mS-p2G"/>
@@ -121,6 +137,7 @@
                                             <constraint firstItem="Zg4-CY-yfy" firstAttribute="trailing" secondItem="g4j-Pv-CAz" secondAttribute="trailing" id="Srj-cC-NFr"/>
                                             <constraint firstAttribute="width" constant="400" id="U4l-Af-RrE"/>
                                             <constraint firstItem="lD8-Lb-QxP" firstAttribute="trailing" secondItem="ntu-qY-DGI" secondAttribute="trailing" id="WvF-XU-GxC"/>
+                                            <constraint firstItem="7Pb-kl-5te" firstAttribute="top" secondItem="F39-De-UId" secondAttribute="bottom" constant="30" id="a2B-hU-f5A"/>
                                             <constraint firstItem="g4j-Pv-CAz" firstAttribute="leading" secondItem="air-cl-orj" secondAttribute="leading" id="aH8-xw-BfO"/>
                                             <constraint firstItem="g4j-Pv-CAz" firstAttribute="top" secondItem="air-cl-orj" secondAttribute="bottom" constant="50" id="bkg-I4-wGH"/>
                                             <constraint firstItem="7Pb-kl-5te" firstAttribute="centerX" secondItem="ygC-2Z-X8d" secondAttribute="centerX" id="cj0-HZ-p6x"/>
@@ -128,6 +145,9 @@
                                             <constraint firstItem="Zg4-CY-yfy" firstAttribute="leading" secondItem="g4j-Pv-CAz" secondAttribute="leading" id="icA-K0-sI6"/>
                                             <constraint firstItem="ntu-qY-DGI" firstAttribute="leading" secondItem="ygC-2Z-X8d" secondAttribute="leading" constant="20" id="lrq-Xo-TfG"/>
                                             <constraint firstItem="7Pb-kl-5te" firstAttribute="leading" secondItem="ygC-2Z-X8d" secondAttribute="leading" constant="18" id="q4e-tA-1rS"/>
+                                            <constraint firstItem="6VM-9V-GEz" firstAttribute="trailing" secondItem="g4j-Pv-CAz" secondAttribute="trailing" id="rNC-8h-YrJ"/>
+                                            <constraint firstItem="6VM-9V-GEz" firstAttribute="leading" secondItem="Zg4-CY-yfy" secondAttribute="leading" id="rrl-yk-hCc"/>
+                                            <constraint firstAttribute="trailing" secondItem="g4j-Pv-CAz" secondAttribute="trailing" constant="18" id="w7r-SF-evw"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -188,6 +208,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Kes-74-LQ1"/>
                     </view>
+                    <connections>
+                        <outlet property="emailLabel" destination="6VM-9V-GEz" id="jFO-FA-U5v"/>
+                        <outlet property="firstNameLabel" destination="g4j-Pv-CAz" id="WwP-zQ-gP2"/>
+                        <outlet property="lastNameLabel" destination="Zg4-CY-yfy" id="NpD-6F-pn4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MdM-pv-hYn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

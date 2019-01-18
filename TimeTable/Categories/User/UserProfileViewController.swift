@@ -15,6 +15,10 @@ protocol UserProfileViewControllerType: class {
 }
 
 class UserProfileViewController: UIViewController {
+    @IBOutlet private var firstNameLabel: UILabel!
+    @IBOutlet private var lastNameLabel: UILabel!
+    @IBOutlet private var emailLabel: UILabel!
+    
     private var viewModel: UserProfileViewModelType!
     
     // MARK: - Life Cycle
@@ -31,7 +35,17 @@ class UserProfileViewController: UIViewController {
 
 // MARK: - UserProfileViewModelOutput
 extension UserProfileViewController: UserProfileViewModelOutput {
+    func setUp() {
+        firstNameLabel.text = ""
+        lastNameLabel.text = ""
+        emailLabel.text = ""
+    }
     
+    func update(firstName: String, lastName: String, email: String) {
+        firstNameLabel.text = firstName
+        lastNameLabel.text = lastName
+        emailLabel.text = email
+    }
 }
 
 // MARK: - UserProfileViewControllerType

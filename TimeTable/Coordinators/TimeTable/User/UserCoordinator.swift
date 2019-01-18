@@ -14,6 +14,7 @@ protocol UserCoordinatorDelegate: class {
 
 class UserCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType {
     private let storyboardsManager: StoryboardsManagerType
+    private let apiClient: ApiClientUsersType
     private let accessService: AccessServiceUserIDType
     private let coreDataStack: CoreDataStackUserType
     private let errorHandler: ErrorHandlerType
@@ -24,9 +25,10 @@ class UserCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType {
     var tabBarItem: UITabBarItem
     
     // MARK: - Initialization
-    init(window: UIWindow?, storyboardsManager: StoryboardsManagerType, accessService: AccessServiceUserIDType,
-         coreDataStack: CoreDataStackUserType, errorHandler: ErrorHandlerType) {
+    init(window: UIWindow?, storyboardsManager: StoryboardsManagerType, apiClient: ApiClientUsersType,
+         accessService: AccessServiceUserIDType, coreDataStack: CoreDataStackUserType, errorHandler: ErrorHandlerType) {
         self.storyboardsManager = storyboardsManager
+        self.apiClient = apiClient
         self.accessService = accessService
         self.coreDataStack = coreDataStack
         self.errorHandler = errorHandler
@@ -47,6 +49,7 @@ class UserCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType {
         let controller: UserProfileViewControlleralbe? = storyboardsManager.controller(storyboard: .user, controllerIdentifier: .initial)
         let viewModel = UserProfileViewModel(userInterface: controller,
                                              coordinator: self,
+                                             apiClient: apiClient,
                                              accessService: accessService,
                                              coreDataStack: coreDataStack,
                                              errorHandler: errorHandler)

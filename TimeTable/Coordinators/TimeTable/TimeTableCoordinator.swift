@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias TimeTableTabApiClientType = (ApiClientWorkTimesType & ApiClientProjectsType)
+typealias TimeTableTabApiClientType = (ApiClientWorkTimesType & ApiClientProjectsType & ApiClientUsersType)
 
 class TimeTableTabCoordinator: BaseTabBarCoordinator {
 
@@ -27,6 +27,7 @@ class TimeTableTabCoordinator: BaseTabBarCoordinator {
                                                       errorHandler: errorHandler)
         let userCoordinator = UserCoordinator(window: nil,
                                               storyboardsManager: storyboardsManager,
+                                              apiClient: apiClient,
                                               accessService: accessService,
                                               coreDataStack: coreDataStack,
                                               errorHandler: errorHandler)
