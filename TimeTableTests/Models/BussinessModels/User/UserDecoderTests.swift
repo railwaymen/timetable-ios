@@ -21,10 +21,10 @@ class UserDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: UserResponse.userFullResponse)
         //Act
-        let sessionReponse = try decoder.decode(UserDecoder.self, from: data)
+        let userDecoder = try decoder.decode(UserDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sessionReponse.firstName, "John")
-        XCTAssertEqual(sessionReponse.lastName, "Little")
-        XCTAssertEqual(sessionReponse.email, "john.little@example.com")
+        XCTAssertEqual(userDecoder.firstName, "John")
+        XCTAssertEqual(userDecoder.lastName, "Little")
+        XCTAssertEqual(userDecoder.email, "john.little@example.com")
     }
 }

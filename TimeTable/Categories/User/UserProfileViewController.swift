@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias UserProfileViewControlleralbe = (UIViewController & UserProfileViewModelOutput & UserProfileViewControllerType)
+typealias UserProfileViewControllerable = (UIViewController & UserProfileViewModelOutput & UserProfileViewControllerType)
 
 protocol UserProfileViewControllerType: class {
     func configure(viewModel: UserProfileViewModelType)

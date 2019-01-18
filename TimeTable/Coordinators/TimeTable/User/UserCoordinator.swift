@@ -46,7 +46,7 @@ class UserCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType {
     
     // MARK: - Private
     private func runMainFlow() {
-        let controller: UserProfileViewControlleralbe? = storyboardsManager.controller(storyboard: .user, controllerIdentifier: .initial)
+        let controller: UserProfileViewControllerable? = storyboardsManager.controller(storyboard: .user, controllerIdentifier: .initial)
         let viewModel = UserProfileViewModel(userInterface: controller,
                                              coordinator: self,
                                              apiClient: apiClient,
