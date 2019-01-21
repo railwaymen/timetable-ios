@@ -211,6 +211,7 @@
 		C1C4BA8F2189AD7700683F71 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C4BA8E2189AD7700683F71 /* Result.swift */; };
 		C1C4BA912189AE0900683F71 /* ApiValidationErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C4BA902189AE0900683F71 /* ApiValidationErrors.swift */; };
 		C1C4BA932189AF3300683F71 /* HTTPMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C4BA922189AF3300683F71 /* HTTPMethods.swift */; };
+		C1CE041521F5E01200E80517 /* AttributedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CE041421F5E01200E80517 /* AttributedTextField.swift */; };
 		C1E1F04221AD2372007F9228 /* WorkTimesTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1E1F04121AD2372007F9228 /* WorkTimesTableViewHeader.xib */; };
 		C1E1F04421AD2952007F9228 /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E1F04321AD2952007F9228 /* NSObject+Extension.swift */; };
 		C1E1F04721AD36B3007F9228 /* WorkTimesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E1F04621AD36B3007F9228 /* WorkTimesViewModelTests.swift */; };
@@ -490,6 +491,7 @@
 		C1C4BA8E2189AD7700683F71 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		C1C4BA902189AE0900683F71 /* ApiValidationErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiValidationErrors.swift; sourceTree = "<group>"; };
 		C1C4BA922189AF3300683F71 /* HTTPMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethods.swift; sourceTree = "<group>"; };
+		C1CE041421F5E01200E80517 /* AttributedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextField.swift; sourceTree = "<group>"; };
 		C1E1F04121AD2372007F9228 /* WorkTimesTableViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkTimesTableViewHeader.xib; sourceTree = "<group>"; };
 		C1E1F04321AD2952007F9228 /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
 		C1E1F04621AD36B3007F9228 /* WorkTimesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesViewModelTests.swift; sourceTree = "<group>"; };
@@ -1063,6 +1065,7 @@
 				C125C4D62187086C00FBA0DD /* CheckBoxButton.swift */,
 				C1051B4021DA363E00FB3C3D /* ProjectView.swift */,
 				C1F187B121E37C760037B8C2 /* ProjectsCollectionViewLayout.swift */,
+				C1CE041421F5E01200E80517 /* AttributedTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1895,6 +1898,7 @@
 				C125F1B821DCCF5100594CDE /* ProjectsViewModel.swift in Sources */,
 				C134296721A6951C00F4EA42 /* ApiClient+WorkTimes.swift in Sources */,
 				C125C4DB21871C7A00FBA0DD /* ServerConfiguration.swift in Sources */,
+				C1CE041521F5E01200E80517 /* AttributedTextField.swift in Sources */,
 				C1FE49EA21AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift in Sources */,
 				C1E6B34E219EF30600019DC2 /* URL+Extension.swift in Sources */,
 				C13429AC21A7DDAB00F4EA42 /* WorkTimesViewController.swift in Sources */,

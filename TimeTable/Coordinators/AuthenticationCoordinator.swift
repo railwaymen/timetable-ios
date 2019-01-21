@@ -49,8 +49,7 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
         self.encoder = encoder
         self.decoder = decoder
         super.init(window: window)
-        self.navigationController.interactivePopGestureRecognizer?.delegate = nil
-        navigationController.setNavigationBarHidden(true, animated: false)
+        setNavigationBar()
     }
 
     // MARK: - CoordinatorType
@@ -84,6 +83,16 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
     }
 
     // MARL: - Private
+    private func setNavigationBar() {
+        navigationController.interactivePopGestureRecognizer?.delegate = nil
+        navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController.navigationBar.isTranslucent = true
+        navigationController.navigationBar.shadowImage = UIImage()
+        navigationController.view.backgroundColor = .clear
+        navigationController.navigationBar.backgroundColor = .clear
+        navigationController.navigationBar.tintColor = .white
+    }
+    
     private func runServerConfigurationFlow() {
         let controller: ServerConfigurationViewControlleralbe? = storyboardsManager.controller(storyboard: .serverConfiguration, controllerIdentifier: .initial)
         guard let serverSettingsViewController = controller else { return }
@@ -106,6 +115,7 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
                                        accessService: accessService, contentProvider: contentProvider, errorHandler: errorHandler)
         loginViewController.configure(notificationCenter: NotificationCenter.default, viewModel: viewModel)
         navigationController.pushViewController(loginViewController, animated: animated)
+        navigationController.navigationBar.backItem?.title = ""
     }
     
     private func createApiClient(with configuration: ServerConfiguration) -> ApiClientType? {

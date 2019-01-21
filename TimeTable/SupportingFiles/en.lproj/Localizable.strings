@@ -13,16 +13,16 @@
 "tabbar.title.work_time" = "Work Time";
 "tabbar.title.projects" = "Projects";
 
-"server_settings.label.title" = "Log in";
+"server_settings.label.title" = "Log In";
 "server_settings.label.explanation" = "Enter you TimeTable server URL.";
 "server_settings.label.address" = "Server address";
 "server_settings.button.continue" = "LOG IN";
 "server_settings.label.stay_signed_in" = "Stay signed in";
 
-"login.label.title" = "Sing in";
+"login.label.title" = "Log In";
 "login.label.explanation" = "Please enter email and password";
 "login.label.stay_signed_in" = "Stay signed in";
-"login.text_feild.email" = "e-mail";
+"login.text_feild.email" = "E-mail";
 "login.text_feild.password" = "Password";
 "login.button.log_in" = "Log in";
 "login.button.change_server_address" = "Would you like to change the server address?";
