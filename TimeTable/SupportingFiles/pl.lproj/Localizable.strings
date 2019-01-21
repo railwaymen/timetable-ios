@@ -13,10 +13,10 @@
 "tabbar.title.work_time" = "Godziny Pracy";
 "tabbar.title.projects" = "Projekty";
 
-"server_settings.label.title" = "Zaloguj się do TimeTable";
+"server_settings.label.title" = "Zaloguj się";
 "server_settings.label.explanation" = "Wprowadź adres serwera TimeTable.";
-"server_settings.text_field.address" = "Adres serwera";
-"server_settings.button.continue" = "Dalej";
+"server_settings.label.address" = "Adres serwera";
+"server_settings.button.continue" = "ZALOGUJ SIĘ";
 "server_settings.label.stay_signed_in" = "Pozostań zalogowany";
 
 "login.label.title" = "Zaloguj się";
