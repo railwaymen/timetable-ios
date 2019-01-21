@@ -44,4 +44,11 @@ class CoreDataStackUserMock: CoreDataStackUserType {
         }
         // swiftlint:enable force_cast
     }
+    
+    private(set) var deleteUserValues: (Bool, Int64?) = (false, nil)
+    private(set) var deleteUserCompletion: ((Result<Void>) -> Void)?
+    func deleteUser(forIdentifier identifier: Int64, completion: @escaping (Result<Void>) -> Void) {
+        deleteUserValues = (true, identifier)
+        deleteUserCompletion = completion
+    }
 }

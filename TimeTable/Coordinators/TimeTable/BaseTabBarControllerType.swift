@@ -13,4 +13,5 @@ protocol BaseTabBarCordninatorType: class {
     var tabBarItem: UITabBarItem { get }
     
     func start()
+    func finish()
 }

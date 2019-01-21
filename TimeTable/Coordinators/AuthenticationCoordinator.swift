@@ -2,11 +2,17 @@
 //  AuthenticationCoordinator.swift
 //  TimeTable
 //
-//  Created by Piotr Pawluś on 30/10/2018.
+//  Created by Piotr Pawluś on 05/11/2018.
 //  Copyright © 2018 Railwaymen. All rights reserved.
 //
 
 import UIKit
+import Networking
+import KeychainAccess
+
+protocol ServerConfigurationCoordinatorDelagete: class {
+    func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration)
+}
 
 protocol LoginCoordinatorDelegate: class {
     func loginDidFinish(with state: AuthenticationCoordinator.State)
@@ -15,12 +21,16 @@ protocol LoginCoordinatorDelegate: class {
 class AuthenticationCoordinator: BaseNavigationCoordinator {
     
     private let storyboardsManager: StoryboardsManagerType
-    private let apiClient: ApiClientSessionType
-    private let accessService: AccessServiceLoginType
-    private let errorHandler: ErrorHandlerType
+    private let accessServiceBuilder: ((ServerConfiguration, JSONEncoderType, JSONDecoderType) -> AccessServiceLoginType)
     private let coreDataStack: CoreDataStackUserType
+    private let errorHandler: ErrorHandlerType
+    private let serverConfigurationManager: ServerConfigurationManagerType
+    private let decoder: JSONDecoderType
+    private let encoder: JSONEncoderType
+    private var apiClient: ApiClientType?
+    private var serverConfiguration: ServerConfiguration?
     
-    var customFinishCompletion: ((State) -> Void)?
+    var customFinishCompletion: ((ServerConfiguration, ApiClientType) -> Void)?
     
     enum State {
         case changeAddress
@@ -28,44 +38,109 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
     }
     
     // MARK: - Initialization
-    init(navigationController: UINavigationController, storyboardsManager: StoryboardsManagerType, accessService: AccessServiceLoginType,
-         apiClient: ApiClientSessionType, errorHandler: ErrorHandlerType, coreDataStack: CoreDataStackUserType) {
+    init(window: UIWindow?, storyboardsManager: StoryboardsManagerType, decoder: JSONDecoderType, encoder: JSONEncoderType,
+         accessServiceBuilder: @escaping ((ServerConfiguration, JSONEncoderType, JSONDecoderType) -> AccessServiceLoginType),
+         coreDataStack: CoreDataStackUserType, errorHandler: ErrorHandlerType, serverConfigurationManager: ServerConfigurationManagerType) {
         self.storyboardsManager = storyboardsManager
-        self.accessService = accessService
-        self.apiClient = apiClient
+        self.accessServiceBuilder = accessServiceBuilder
         self.errorHandler = errorHandler
         self.coreDataStack = coreDataStack
-        super.init(navigationController: navigationController)
+        self.serverConfigurationManager = serverConfigurationManager
+        self.encoder = encoder
+        self.decoder = decoder
+        super.init(window: window)
+        self.navigationController.interactivePopGestureRecognizer?.delegate = nil
+        navigationController.setNavigationBarHidden(true, animated: false)
     }
 
     // MARK: - CoordinatorType
-    func start(finishCompletion: ((State) -> Void)?) {
+    func start(finishCompletion: ((ServerConfiguration, ApiClientType) -> Void)?) {
         self.customFinishCompletion = finishCompletion
-        runMainFlow()
+        if let configuration = serverConfigurationManager.getOldConfiguration(), configuration.shouldRememberHost {
+            self.serverConfiguration = configuration
+            let accessService = accessServiceBuilder(configuration, encoder, decoder)
+            accessService.getSession { [weak self] result in
+                switch result {
+                case .success(let session):
+                    self?.apiClient = self?.createApiClient(with: configuration)
+                    self?.updateApiClient(with: session)
+                    self?.finish()
+                case .failure:
+                    self?.runServerConfigurationFlow()
+                    self?.runAuthenticationFlow(with: configuration, animated: false)
+                }
+            }
+        } else {
+            self.runServerConfigurationFlow()
+        }
         super.start()
     }
     
-    func finish(with state: AuthenticationCoordinator.State) {
-        customFinishCompletion?(state)
+    override func finish() {
+        if let configuration = self.serverConfiguration, let apiClient = self.apiClient {
+            customFinishCompletion?(configuration, apiClient)
+        }
         super.finish()
     }
-    
+
     // MARL: - Private
-    private func runMainFlow() {
+    private func runServerConfigurationFlow() {
+        let controller: ServerConfigurationViewControlleralbe? = storyboardsManager.controller(storyboard: .serverConfiguration, controllerIdentifier: .initial)
+        guard let serverSettingsViewController = controller else { return }
+        let viewModel = ServerConfigurationViewModel(userInterface: serverSettingsViewController,
+                                                     coordinator: self,
+                                                     serverConfigurationManager: serverConfigurationManager,
+                                                     errorHandler: errorHandler)
+        serverSettingsViewController.configure(viewModel: viewModel, notificationCenter: NotificationCenter.default)
+        navigationController.setViewControllers([serverSettingsViewController], animated: true)
+    }
+    
+    private func runAuthenticationFlow(with configuration: ServerConfiguration, animated: Bool) {
+        let accessService = accessServiceBuilder(configuration, encoder, decoder)
         let controller: LoginViewControllerable? = storyboardsManager.controller(storyboard: .login, controllerIdentifier: .initial)
         guard let loginViewController = controller else { return }
+        guard let apiClient = createApiClient(with: configuration) else { return }
+        self.apiClient = apiClient
         let contentProvider = LoginContentProvider(apiClient: apiClient, coreDataStack: coreDataStack, accessService: accessService)
         let viewModel = LoginViewModel(userInterface: loginViewController, coordinator: self,
                                        accessService: accessService, contentProvider: contentProvider, errorHandler: errorHandler)
         loginViewController.configure(notificationCenter: NotificationCenter.default, viewModel: viewModel)
-        navigationController.pushViewController(loginViewController, animated: true)
+        navigationController.pushViewController(loginViewController, animated: animated)
+    }
+    
+    private func createApiClient(with configuration: ServerConfiguration) -> ApiClientType? {
+        guard let hostURL = configuration.host else { return nil }
+        let networking = Networking(baseURL: hostURL.absoluteString)
+        return ApiClient(networking: networking, buildEncoder: {
+            return RequestEncoder(encoder: encoder, serialization: CustomJSONSerialization())
+        }, buildDecoder: {
+            return decoder
+        })
+    }
+    
+    private func updateApiClient(with session: SessionDecoder) {
+        self.apiClient?.networking.headerFields?["token"] = session.token
+    }
+}
+
+// MARK: - ServerConfigurationCoordinatorDelagete
+extension AuthenticationCoordinator: ServerConfigurationCoordinatorDelagete {
+    func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration) {
+        self.serverConfiguration = serverConfiguration
+        runAuthenticationFlow(with: serverConfiguration, animated: true)
     }
 }
 
 // MARK: - LoginCoordinatorDelegate
 extension AuthenticationCoordinator: LoginCoordinatorDelegate {
     func loginDidFinish(with state: AuthenticationCoordinator.State) {
-        finish(with: state)
+        switch state {
+        case .changeAddress:
+            self.navigationController.popViewController(animated: true)
+        case .loggedInCorrectly(let session):
+            self.updateApiClient(with: session)
+            self.finish()
+        }
     }
 }
 

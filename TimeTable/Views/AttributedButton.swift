@@ -16,4 +16,17 @@ import UIKit
             layer.masksToBounds = true
         }
     }
+    
+    @IBInspectable var borderWidth: CGFloat = 1 {
+        didSet {
+            layer.borderWidth = borderWidth
+        }
+    }
+    
+    @IBInspectable var borderColor: UIColor? {
+        didSet {
+            layer.borderColor = borderColor?.cgColor
+            layer.borderWidth = borderWidth
+        }
+    }
 }

@@ -9,6 +9,11 @@
 import UIKit
 
 extension UIColor {
+    
+    static var crimson: UIColor {
+        return UIColor(red: 203/255.0, green: 20/255.0, blue: 42/255.0, alpha: 1)
+    }
+    
     // MARK: - Initialization
     convenience init(string: String) {
         

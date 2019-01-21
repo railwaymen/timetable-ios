@@ -22,6 +22,7 @@ class StoryboardsManager: StoryboardsManagerType {
         case workTime = "WorkTime"
         case workTimes = "WorkTimes"
         case projects = "Projects"
+        case user = "User"
     }
     
     enum ControllerIdentifier: String {

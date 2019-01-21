@@ -22,4 +22,26 @@ class AttributedButtonTests: XCTestCase {
         XCTAssertEqual(cornerRadius, 5)
         XCTAssertTrue(masksToBounds)
     }
+    
+    func testBorderWidth() {
+        //Arrange
+        let button = AttributedButton()
+        //Act
+        button.borderWidth = 2
+        let borderWidth = button.layer.borderWidth
+        //Assert
+        XCTAssertEqual(borderWidth, 2)
+    }
+    
+    func testBorderColor() {
+        //Arrange
+        let button = AttributedButton()
+        //Act
+        button.borderColor = .black
+        let borderWidth = button.layer.borderWidth
+        let borderColor = button.layer.borderColor
+        //Assert
+        XCTAssertEqual(borderWidth, 1)
+        XCTAssertEqual(borderColor, UIColor.black.cgColor)
+    }
 }

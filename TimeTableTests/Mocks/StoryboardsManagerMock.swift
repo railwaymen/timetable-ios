@@ -10,8 +10,21 @@ import UIKit
 @testable import TimeTable
 
 class StoryboardsManagerMock: StoryboardsManagerType {
-    var controller: UIViewController?
+    var loginController: UIViewController?
+    var projectsController: UIViewController?
+    var serverConfigurationController: UIViewController?
+    var userController: UIViewController?
+    var workTimeController: UIViewController?
+    var workTimesController: UIViewController?
+    
     func controller<T>(storyboard: StoryboardsManager.StoryboardName, controllerIdentifier: StoryboardsManager.ControllerIdentifier) -> T? {
-        return controller as? T
+        switch storyboard {
+        case .login: return loginController as? T
+        case .projects: return projectsController as? T
+        case .serverConfiguration: return serverConfigurationController as? T
+        case .user: return userController as? T
+        case .workTime: return workTimeController as? T
+        case .workTimes: return workTimesController as? T
+        }
     }
 }
