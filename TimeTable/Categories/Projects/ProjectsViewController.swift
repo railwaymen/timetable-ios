@@ -14,15 +14,15 @@ protocol ProjectsViewControllerType: class {
     func configure(viewModel: ProjectsViewModelType)
 }
 
-class ProjectsViewController: UIViewController, UICollectionViewDataSource {
+class ProjectsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     @IBOutlet private var collectionView: UICollectionView!
     private var viewModel: ProjectsViewModelType!
 
     private let cellIdentifier = "ProjectCollectionViewCellReuseIdentifier"
-    private let contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-    private let projectCellTableViewHeight: CGFloat = 44
-    private let projectCellStaticHeaderHeight: CGFloat = 50
+    private let contentInset = UIEdgeInsets(top: 30, left: 18, bottom: 30, right: 18)
+    private let projectCellTableViewHeight: CGFloat = 28
+    private let projectCellStaticHeaderHeight: CGFloat = 88
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +43,9 @@ class ProjectsViewController: UIViewController, UICollectionViewDataSource {
         cell.configure(viewModel: cellViewModel)
         return cell
     }
+    
+    // MARK: - UICollectionViewDelegate
+
 }
 
 // MARK: - ProjectsViewModelOutput
@@ -70,6 +73,7 @@ extension ProjectsViewController: ProjectsViewControllerType {
 // MARK: - ProjectsCollectionViewLayoutDelegate
 extension ProjectsViewController: ProjectsCollectionViewLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForUsersTableViewAtIndexPath indexPath: IndexPath) -> CGFloat {
-        return CGFloat(viewModel.item(at: indexPath)?.users.count ?? 0) * projectCellTableViewHeight + projectCellStaticHeaderHeight
+        guard let project = viewModel.item(at: indexPath) else { return 0 }
+        return CGFloat(project.users.count) * projectCellTableViewHeight + projectCellStaticHeaderHeight
     }
 }
