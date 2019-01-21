@@ -13,6 +13,8 @@ import UIKit
     @IBInspectable var isActive: Bool = false {
         didSet {
             setImage(isActive ? UIImage(named: "check") : nil, for: .normal)
+            backgroundColor = isActive ? .white : .crimson
+            tintColor = .crimson
         }
     }
 
