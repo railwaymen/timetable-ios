@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="prJ-rF-eRP">
-    <device id="retina6_5" orientation="portrait">
+    <device id="ipad12_9rounded" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -23,11 +23,11 @@
             <objects>
                 <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="prJ-rF-eRP" customClass="LoginViewController" customModule="TimeTable" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oPN-yH-xSv">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="time_table_background" translatesAutoresizingMaskIntoConstraints="NO" id="8ok-jl-LPk">
-                                <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+                                <rect key="frame" x="-15" y="0.0" width="400" height="400"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="CYg-em-sI3">
                                         <variation key="heightClass=regular-widthClass=regular" constant="400"/>
@@ -38,13 +38,13 @@
                                 </constraints>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mja-sZ-MsA">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1346"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="37f-hv-3Dy" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="120" width="374" height="350"/>
+                                        <rect key="frame" x="362" y="498" width="300" height="350"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RbS-IW-I5Q">
-                                                <rect key="frame" x="15" y="15" width="344" height="33"/>
+                                                <rect key="frame" x="15" y="15" width="270" height="33"/>
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="28"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -53,7 +53,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Enter your TimeTable server URL." lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="OiT-o1-SxI">
-                                                <rect key="frame" x="15" y="68" width="344" height="18"/>
+                                                <rect key="frame" x="15" y="68" width="270" height="18"/>
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -62,7 +62,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z1B-zV-UZJ" customClass="AttributedTextField" customModule="TimeTable" customModuleProvider="target">
-                                                <rect key="frame" x="15" y="116" width="344" height="21"/>
+                                                <rect key="frame" x="15" y="116" width="270" height="21"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
@@ -79,7 +79,7 @@
                                                 </connections>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Pp-Kd-Zld" userLabel="E-mail Seperator View">
-                                                <rect key="frame" x="15" y="145" width="344" height="1"/>
+                                                <rect key="frame" x="15" y="145" width="270" height="1"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="53e-h8-O6f"/>
@@ -87,7 +87,7 @@
                                                 </constraints>
                                             </view>
                                             <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="justified" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zsz-ds-g8F" customClass="AttributedTextField" customModule="TimeTable" customModuleProvider="target">
-                                                <rect key="frame" x="15" y="161" width="344" height="21"/>
+                                                <rect key="frame" x="15" y="161" width="270" height="21"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
@@ -104,14 +104,14 @@
                                                 </connections>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4z0-Hb-gpt" userLabel="Password Seperator View">
-                                                <rect key="frame" x="15" y="190" width="344" height="1"/>
+                                                <rect key="frame" x="15" y="190" width="270" height="1"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="eci-BX-PkV"/>
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i9V-Qh-o4R" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
-                                                <rect key="frame" x="15" y="256" width="344" height="50"/>
+                                                <rect key="frame" x="15" y="256" width="270" height="50"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="4Qg-ZN-nWs"/>
@@ -132,7 +132,7 @@
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IgD-qW-NvB">
-                                                <rect key="frame" x="15" y="211" width="344" height="25"/>
+                                                <rect key="frame" x="15" y="211" width="270" height="25"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Hy-Wy-5Er" customClass="CheckBoxButton" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
@@ -251,11 +251,12 @@
                             <constraint firstItem="Mja-sZ-MsA" firstAttribute="leading" secondItem="oPN-yH-xSv" secondAttribute="leading" id="S9V-Hi-WGp"/>
                             <constraint firstItem="8ok-jl-LPk" firstAttribute="top" secondItem="oPN-yH-xSv" secondAttribute="top" id="USH-Pc-NJA"/>
                             <constraint firstItem="ajj-cK-AHp" firstAttribute="trailing" secondItem="Mja-sZ-MsA" secondAttribute="trailing" id="mZZ-Ui-cms"/>
-                            <constraint firstItem="8ok-jl-LPk" firstAttribute="leading" secondItem="ajj-cK-AHp" secondAttribute="leading" id="q9O-Ee-oIX"/>
+                            <constraint firstItem="8ok-jl-LPk" firstAttribute="leading" secondItem="ajj-cK-AHp" secondAttribute="leading" constant="-15" id="q9O-Ee-oIX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ajj-cK-AHp"/>
                     </view>
                     <connections>
+                        <outlet property="bottomLayoutConstraint" destination="5S3-BX-bh3" id="H0R-bx-8x0"/>
                         <outlet property="checkBoxButton" destination="7Hy-Wy-5Er" id="uwI-HS-1U7"/>
                         <outlet property="loginButton" destination="i9V-Qh-o4R" id="syc-04-fjs"/>
                         <outlet property="loginTextField" destination="Z1B-zV-UZJ" id="YHF-sk-owN"/>
