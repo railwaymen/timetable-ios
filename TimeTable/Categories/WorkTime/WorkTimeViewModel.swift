@@ -40,14 +40,16 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     private weak var userInterface: WorkTimeViewModelOutput?
     private let apiClient: TimeTableTabApiClientType
     private let errorHandler: ErrorHandlerType
+    private let calendar: Calendar
     private var projects: [ProjectDecoder]
     private var task: Task
     
     // MARK: - Initialization
-    init(userInterface: WorkTimeViewModelOutput?, apiClient: TimeTableTabApiClientType, errorHandler: ErrorHandlerType) {
+    init(userInterface: WorkTimeViewModelOutput?, apiClient: TimeTableTabApiClientType, errorHandler: ErrorHandlerType, calendar: Calendar) {
         self.userInterface = userInterface
         self.apiClient = apiClient
         self.errorHandler = errorHandler
+        self.calendar = calendar
         self.projects = []
         self.task = Task(project: .none, body: "", url: nil, fromDate: nil, toDate: nil)
     }
@@ -98,32 +100,31 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func viewChanged(fromDate date: Date) {
-        task.fromDate = date
+        task.fromDate = calendar.date(bySetting: .second, value: 0, of: date)
         updateFromDateView(with: date)
     }
     
     func setDefaultFromDate() {
-        var date = Date()
+        var date = calendar.date(bySetting: .second, value: 0, of: Date()) ?? Date()
         if let fromDate = task.fromDate {
             date = fromDate
         } else {
-            date = Date()
             task.fromDate = date
         }
         updateFromDateView(with: date)
     }
     
     func viewChanged(toDate date: Date) {
-        task.toDate = date
+        task.toDate = calendar.date(bySetting: .second, value: 0, of: date)
         updateToDateView(with: date)
     }
     
     func setDefaultToDate() {
-        var date = Date()
+        var date = calendar.date(bySetting: .second, value: 0, of: Date()) ?? Date()
         if let toDate = task.toDate {
             date = toDate
         } else {
-            date = task.fromDate ?? Date()
+            date = task.fromDate ?? calendar.date(bySetting: .second, value: 0, of: Date()) ?? Date()
             task.toDate = date
         }
         updateToDateView(with: date)
@@ -167,7 +168,6 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         guard let type = task.type else { return }
         switch type {
         case .fullDay(let timeInterval):
-            let calendar = Calendar.autoupdatingCurrent
             let fromDate = calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
             let toDate = fromDate.addingTimeInterval(timeInterval)
             task.fromDate = fromDate
@@ -175,7 +175,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
             updateFromDateView(with: fromDate)
             updateToDateView(with: toDate)
         case .lunch(let timeInterval):
-            let fromDate = task.fromDate ?? Date()
+            let fromDate = task.fromDate ?? calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
             let toDate = fromDate.addingTimeInterval(timeInterval)
             task.fromDate = fromDate
             task.toDate = toDate

@@ -55,7 +55,7 @@ class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType
 extension WorkTimesCoordinator: WorkTimesCoordinatorDelegate {
     func workTimesRequestedForNewWorkTimeView(sourceView: UIButton) {
         let controller: WorkTimeViewControlleralbe? = storyboardsManager.controller(storyboard: .workTime, controllerIdentifier: .initial)
-        let viewModel = WorkTimeViewModel(userInterface: controller, apiClient: apiClient, errorHandler: errorHandler)
+        let viewModel = WorkTimeViewModel(userInterface: controller, apiClient: apiClient, errorHandler: errorHandler, calendar: Calendar.autoupdatingCurrent)
         controller?.configure(viewModel: viewModel)
         controller?.modalPresentationStyle = .popover
         controller?.preferredContentSize = CGSize(width: 300, height: 320)
