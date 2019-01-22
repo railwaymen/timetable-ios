@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 
 protocol WorkTimesViewModelOutput: class {
-    func setUpView(with dateString: String)
+    func setUpView()
     func updateView()
-    func updateDateLabel(text: String)
+    func updateDateSelector(currentDateString: String, previousDateString: String, nextDateString: String)
 }
 
 protocol WorkTimesViewModelType: class {
@@ -76,12 +76,12 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     }
     
     func viewDidLoad() {
-        let text = textForDateLabel()
-        userInterface?.setUpView(with: text)
+        userInterface?.setUpView()
+        updateDateSelectorView(withCurrentDate: selectedMonth)
     }
     
     func viewWillAppear() {
-        fetchWorkTimes()
+        fetchWorkTimes(forCurrentMonth: selectedMonth)
     }
     
     func viewRequestedForPreviousMonth() {
@@ -115,32 +115,48 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     
     // MARK: - Private
     private func fetchAndChangeSelectedMonth(with components: DateComponents) {
-        var newComponents = components
         guard let date = selectedMonth else { return }
-        guard let month = calendar.dateComponents([.month], from: date).month else { return }
-        if let componentsMonth = components.month {
+        let newComponents = newDateComponents(for: date, oldComponents: components)
+        let newSelectedMonth = calendar.date(byAdding: newComponents, to: date)
+        selectedMonth = newSelectedMonth
+        updateDateSelectorView(withCurrentDate: newSelectedMonth)
+        fetchWorkTimes(forCurrentMonth: newSelectedMonth)
+    }
+    
+    private func updateDateSelectorView(withCurrentDate date: Date?) {
+        guard let currentDate = date else { return }
+        let previousDateComponents = newDateComponents(for: currentDate, oldComponents: DateComponents(month: -1))
+        let nextDateComponents = newDateComponents(for: currentDate, oldComponents: DateComponents(month: 1))
+        guard let previousDate = calendar.date(byAdding: previousDateComponents, to: currentDate) else { return }
+        guard let nextDate = calendar.date(byAdding: nextDateComponents, to: currentDate) else { return }
+        let currentDateString = string(for: currentDate)
+        let previousDateString = string(for: previousDate)
+        let nextDateString = string(for: nextDate)
+        userInterface?.updateDateSelector(currentDateString: currentDateString, previousDateString: previousDateString, nextDateString: nextDateString)
+    }
+    
+    private func newDateComponents(for date: Date, oldComponents: DateComponents) -> DateComponents {
+        var newComponents = oldComponents
+        guard let month = calendar.dateComponents([.month], from: date).month else { return newComponents }
+        if let componentsMonth = oldComponents.month {
             if month == 1 && componentsMonth == -1 {
                 newComponents.year = -1
             } else if month == 12 && componentsMonth == 1 {
                 newComponents.year = 1
             }
         }
-        selectedMonth = calendar.date(byAdding: newComponents, to: date)
-        fetchWorkTimes()
-        let text = textForDateLabel()
-        userInterface?.updateDateLabel(text: text)
+        return newComponents
     }
     
-    private func textForDateLabel() -> String {
-        guard let date = selectedMonth else { return "" }
+    private func string(for date: Date) -> String {
         let components = calendar.dateComponents([.month, .year], from: date)
         guard let month = components.month, let year = components.year else { return "" }
         guard let monthSymbol = DateFormatter().shortMonthSymbols?[month - 1] else { return "" }
         return "\(monthSymbol) \(year)"
     }
     
-    private func fetchWorkTimes() {
-        let dates = getStartAndEndDate(for: selectedMonth)
+    private func fetchWorkTimes(forCurrentMonth date: Date?) {
+        let dates = getStartAndEndDate(for: date)
         let parameters = WorkTimesParameters(fromDate: dates.startOfMonth, toDate: dates.endOfMonth, projectIdentifier: nil)
         
         apiClient.fetchWorkTimes(parameters: parameters) { [weak self] result in

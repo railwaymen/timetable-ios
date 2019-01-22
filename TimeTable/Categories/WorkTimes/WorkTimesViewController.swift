@@ -15,7 +15,7 @@ protocol WorkTimesViewControllerType: class {
 }
 
 class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    @IBOutlet private var dateLabel: UILabel!
+    @IBOutlet private var dateSelectorView: DateSelectorView!
     @IBOutlet private var tableView: UITableView!
     
     private let tableViewEstimatedRowHeight: CGFloat = 150
@@ -37,14 +37,6 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     // MARK: - Action
-    @IBAction private func previousMonthButtonTapped(_ sender: UIButton) {
-        viewModel.viewRequestedForPreviousMonth()
-    }
-    
-    @IBAction private func nextMonthButtonTapped(_ sender: Any) {
-        viewModel.viewRequestedForNextMonth()
-    }
-    
     @IBAction private func addNewRecordTapped(_ sender: UIButton) {
         viewModel.viewRequestedForNewWorkTimeView(sourceView: sender)
     }
@@ -95,8 +87,7 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
 
 // MARK: - WorkTimesViewModelOutput
 extension WorkTimesViewController: WorkTimesViewModelOutput {
-    
-    func setUpView(with dateString: String) {
+    func setUpView() {
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -106,8 +97,8 @@ extension WorkTimesViewController: WorkTimesViewModelOutput {
         
         let nib = UINib(nibName: WorkTimesTableViewHeader.className, bundle: nil)
         tableView.register(nib, forHeaderFooterViewReuseIdentifier: workTimesTableViewHeaderIdentifier)
-        
-        dateLabel.text = dateString
+
+        dateSelectorView.delegate = self
     }
     
     func updateView() {
@@ -116,8 +107,8 @@ extension WorkTimesViewController: WorkTimesViewModelOutput {
         }
     }
     
-    func updateDateLabel(text: String) {
-        dateLabel.text = text
+    func updateDateSelector(currentDateString: String, previousDateString: String, nextDateString: String) {
+        dateSelectorView.update(currentDateString: currentDateString, previousDateString: previousDateString, nextDateString: nextDateString)
     }
 }
 
@@ -125,5 +116,16 @@ extension WorkTimesViewController: WorkTimesViewModelOutput {
 extension WorkTimesViewController: WorkTimesViewControllerType {
     func configure(viewModel: WorkTimesViewModelType) {
         self.viewModel = viewModel
+    }
+}
+
+// MARK: - DateSelectorViewDelegate
+extension WorkTimesViewController: DateSelectorViewDelegate {
+    func dateSelectorRequestedForPreviousDate() {
+         viewModel.viewRequestedForPreviousMonth()
+    }
+    
+    func dateSelectorRequestedForNextDate() {
+        viewModel.viewRequestedForNextMonth()
     }
 }

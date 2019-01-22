@@ -19,6 +19,7 @@
 		C10FD89021F1FE3800A233C5 /* UserCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88F21F1FE3800A233C5 /* UserCoordinatorMock.swift */; };
 		C11B3F3221F71A1C00C46BA2 /* WorkTimeStandardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B3F3121F71A1C00C46BA2 /* WorkTimeStandardTableViewCell.swift */; };
 		C11B3F3421F71A3000C46BA2 /* WorkTimeWitURLTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B3F3321F71A3000C46BA2 /* WorkTimeWitURLTableViewCell.swift */; };
+		C11B3F3621F7258C00C46BA2 /* DateSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B3F3521F7258C00C46BA2 /* DateSelectorView.swift */; };
 		C11F51F121A59DF300FD626A /* workTimeResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C11F51F021A59DF300FD626A /* workTimeResponse.json */; };
 		C11F51F321A5AB9C00FD626A /* workTimeInvalidDateFormatResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C11F51F221A5AB9C00FD626A /* workTimeInvalidDateFormatResponse.json */; };
 		C11F51F521A5AC5800FD626A /* DateFormatterExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11F51F421A5AC5800FD626A /* DateFormatterExtensionTests.swift */; };
@@ -290,6 +291,7 @@
 		C10FD88F21F1FE3800A233C5 /* UserCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoordinatorMock.swift; sourceTree = "<group>"; };
 		C11B3F3121F71A1C00C46BA2 /* WorkTimeStandardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeStandardTableViewCell.swift; sourceTree = "<group>"; };
 		C11B3F3321F71A3000C46BA2 /* WorkTimeWitURLTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeWitURLTableViewCell.swift; sourceTree = "<group>"; };
+		C11B3F3521F7258C00C46BA2 /* DateSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectorView.swift; sourceTree = "<group>"; };
 		C11F51F021A59DF300FD626A /* workTimeResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimeResponse.json; sourceTree = "<group>"; };
 		C11F51F221A5AB9C00FD626A /* workTimeInvalidDateFormatResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimeInvalidDateFormatResponse.json; sourceTree = "<group>"; };
 		C11F51F421A5AC5800FD626A /* DateFormatterExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterExtensionTests.swift; sourceTree = "<group>"; };
@@ -976,6 +978,7 @@
 				C13429AD21A7E48C00F4EA42 /* WorkTimesViewModel.swift */,
 				C1FE49E521AC457200E37E28 /* TableViewCell */,
 				C1FE49E621AC457D00E37E28 /* TableViewHeader */,
+				C11B3F3521F7258C00C46BA2 /* DateSelectorView.swift */,
 			);
 			path = WorkTimes;
 			sourceTree = "<group>";
@@ -1943,6 +1946,7 @@
 				C1531F042191C58000602A0C /* Endpoints.swift in Sources */,
 				C1C4BA932189AF3300683F71 /* HTTPMethods.swift in Sources */,
 				C153AC6921832073007A35BB /* AttributedView.swift in Sources */,
+				C11B3F3621F7258C00C46BA2 /* DateSelectorView.swift in Sources */,
 				C153AC6421830AFE007A35BB /* ServerConfiguartionViewModel.swift in Sources */,
 				C1204FBB21F0AE2B00B2C3AC /* UserProfileViewController.swift in Sources */,
 				C1ECF09F2192C1AB006038C6 /* JSONDecoder+Extension.swift in Sources */,

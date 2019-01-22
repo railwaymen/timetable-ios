@@ -166,7 +166,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="GT9-Vs-zfn" firstAttribute="top" secondItem="iNT-SD-i5D" secondAttribute="bottom" constant="30" id="2IK-rU-p8k"/>
                             <constraint firstItem="GT9-Vs-zfn" firstAttribute="bottom" secondItem="O0O-pG-awP" secondAttribute="bottom" id="3Kq-69-Tqi"/>
