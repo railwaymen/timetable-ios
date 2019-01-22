@@ -15,12 +15,11 @@ protocol WorkTimeTableViewCellType: class {
 }
 
 class WorkTimeTableViewCell: UITableViewCell {
-
-    @IBOutlet private var durationLabel: UILabel!
-    @IBOutlet private var bodyLabel: UILabel!
-    @IBOutlet private var taskButton: UIButton?
-    @IBOutlet private var fromToDateLabel: UILabel!
-    @IBOutlet private var projectView: ProjectView!
+    @IBOutlet internal var projectViews: [UIView]!
+    @IBOutlet internal var projectTitleLabel: UILabel!
+    @IBOutlet internal var durationLabel: UILabel!
+    @IBOutlet internal var bodyLabel: UILabel!
+    @IBOutlet internal var fromToDateLabel: UILabel!
     
     private weak var viewModel: WorkTimeCellViewModelType?
     
@@ -30,24 +29,12 @@ class WorkTimeTableViewCell: UITableViewCell {
         viewModel?.prepareForReuse()
     }
     
-    // MARK: - IBAction
-    @IBAction private func taskButtonTapped(_ sender: UIButton) {
-        // TO_DO: - redirect to task preview 
-    }
-}
-
-// MARK: - WorkTimeCellViewModelOutput
-extension WorkTimeTableViewCell: WorkTimeCellViewModelOutput {
-    func updateView(durationText: String?, bodyText: String?, taskText: String?, fromToDateText: String?, projectData: ProjectView.ProjectData) {
+    internal func update(durationText: String?, bodyText: String?, fromToDateText: String?, projectTitle: String?, projectColor: UIColor?) {
+        self.fromToDateLabel.text = fromToDateText
         self.durationLabel.text = durationText
         self.bodyLabel.text = bodyText
-        if let taskText = taskText {
-            self.taskButton?.setTitle(taskText, for: .normal)
-        } else {
-            self.taskButton?.removeFromSuperview()
-        }
-        fromToDateLabel.text = fromToDateText
-        projectView.setUp(data: projectData)
+        self.projectTitleLabel.text = projectTitle
+        self.projectViews.forEach { $0.backgroundColor = projectColor }
     }
 }
 

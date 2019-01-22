@@ -338,7 +338,7 @@ class WorkTimesViewModelTests: XCTestCase {
     
     func testViewRequestedForNewWorkTimeView() {
         //Arrange
-        let button = UIBarButtonItem()
+        let button = UIButton()
         //Act
         viewModel.viewRequestedForNewWorkTimeView(sourceView: button)
         //Assert
@@ -347,7 +347,7 @@ class WorkTimesViewModelTests: XCTestCase {
 }
 
 private class WorkTimeCellViewMock: WorkTimeCellViewModelOutput {
-    func updateView(durationText: String?, bodyText: String?, taskText: String?, fromToDateText: String?, projectData: ProjectView.ProjectData) {}
+    func updateView(durationText: String?, bodyText: String?, taskUrlText: String?, fromToDateText: String?, projectTitle: String?, projectColor: UIColor?) {}
 }
 
 private class WorkTimesTableViewHeaderViewMock: WorkTimesTableViewHeaderViewModelOutput {

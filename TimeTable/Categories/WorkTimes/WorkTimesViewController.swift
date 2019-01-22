@@ -18,9 +18,10 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet private var dateLabel: UILabel!
     @IBOutlet private var tableView: UITableView!
     
-    private let tableViewEstimatedRowHeight: CGFloat = 90
+    private let tableViewEstimatedRowHeight: CGFloat = 150
     private let heightForHeader: CGFloat = 50
-    private let workTimeTableViewCellReuseIdentifier = "WorkTimeTableViewCellReuseIdentifier"
+    private let workTimeStandardCellReuseIdentifier = "WorkTimeStandardTableViewCellReuseIdentifier"
+    private let workTimeWithURLCellReuseIdentifier = "WorkTimeWithUrlTableViewCellReuseIdentifier"
     private let workTimesTableViewHeaderIdentifier = "WorkTimesTableViewHeaderIdentifier"
     private var viewModel: WorkTimesViewModelType!
     
@@ -44,7 +45,7 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
         viewModel.viewRequestedForNextMonth()
     }
     
-    @objc private func addNewRecordTapped(_ sender: UIBarButtonItem) {
+    @IBAction private func addNewRecordTapped(_ sender: UIButton) {
         viewModel.viewRequestedForNewWorkTimeView(sourceView: sender)
     }
     
@@ -58,8 +59,16 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: workTimeTableViewCellReuseIdentifier, for: indexPath)
-        guard let workTimeCell = cell as? WorkTimeTableViewCell else { return UITableViewCell() }
+
+        let cellType = viewModel.viewRequestedForCellType(at: indexPath)
+        var cell: WorkTimeTableViewCellalbe?
+        switch cellType {
+        case .standard:
+            cell = tableView.dequeueReusableCell(withIdentifier: workTimeStandardCellReuseIdentifier, for: indexPath) as? WorkTimeTableViewCellalbe
+        case .taskURL:
+            cell = tableView.dequeueReusableCell(withIdentifier: workTimeWithURLCellReuseIdentifier, for: indexPath) as? WorkTimeTableViewCellalbe
+        }
+        guard let workTimeCell = cell else { return UITableViewCell() }
         guard let cellViewModel = viewModel.viewRequestedForCellModel(at: indexPath, cell: workTimeCell) else { return UITableViewCell() }
         workTimeCell.configure(viewModel: cellViewModel)
         return workTimeCell
@@ -99,8 +108,6 @@ extension WorkTimesViewController: WorkTimesViewModelOutput {
         tableView.register(nib, forHeaderFooterViewReuseIdentifier: workTimesTableViewHeaderIdentifier)
         
         dateLabel.text = dateString
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewRecordTapped(_:)))
     }
     
     func updateView() {

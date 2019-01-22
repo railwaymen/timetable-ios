@@ -27,6 +27,8 @@
 "login.button.log_in" = "Log in";
 "login.button.change_server_address" = "Would you like to change the server address?";
 
+"work_times.label.title" = "Timesheet";
+
 "work_time.text_field.what_have_you_done" = "What have you done?";
 "work_time.text_field.task_url" = "Task URL";
 "work_time.text_field.select_project" = "Select project";

@@ -22,9 +22,10 @@ protocol WorkTimesViewModelType: class {
     func viewWillAppear()
     func viewRequestedForPreviousMonth()
     func viewRequestedForNextMonth()
+    func viewRequestedForCellType(at index: IndexPath) -> WorkTimesViewModel.CellType
     func viewRequestedForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType?
     func viewRequestedForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType?
-    func viewRequestedForNewWorkTimeView(sourceView: UIBarButtonItem)
+    func viewRequestedForNewWorkTimeView(sourceView: UIButton)
 }
 
 class DailyWorkTime {
@@ -46,6 +47,11 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     private let calendar: CalendarType
     private var selectedMonth: Date?
     private var dailyWorkTimesArray: [DailyWorkTime]
+    
+    enum CellType {
+        case standard
+        case taskURL
+    }
     
     // MARK: - Initialization
     init(userInterface: WorkTimesViewModelOutput, coordinator: WorkTimesCoordinatorDelegate, apiClient: ApiClientWorkTimesType,
@@ -86,6 +92,12 @@ class WorkTimesViewModel: WorkTimesViewModelType {
         fetchAndChangeSelectedMonth(with: DateComponents(month: 1))
     }
     
+    func viewRequestedForCellType(at index: IndexPath) -> WorkTimesViewModel.CellType {
+        guard dailyWorkTimesArray.count > index.section else { return .standard }
+        let workTime = dailyWorkTimesArray[index.section].workTimes.sorted(by: { $0.startsAt > $1.startsAt })[index.row]
+        return workTime.taskPreview == nil ? .standard : .taskURL
+    }
+    
     func viewRequestedForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType? {
         guard dailyWorkTimesArray.count > index.section else { return nil }
         let workTime = dailyWorkTimesArray[index.section].workTimes.sorted(by: { $0.startsAt > $1.startsAt })[index.row]
@@ -97,7 +109,7 @@ class WorkTimesViewModel: WorkTimesViewModelType {
         return WorkTimesTableViewHeaderViewModel(userInterface: header, dailyWorkTime: dailyWorkTimesArray[section])
     }
     
-    func viewRequestedForNewWorkTimeView(sourceView: UIBarButtonItem) {
+    func viewRequestedForNewWorkTimeView(sourceView: UIButton) {
         coordinator.workTimesRequestedForNewWorkTimeView(sourceView: sourceView)
     }
     
