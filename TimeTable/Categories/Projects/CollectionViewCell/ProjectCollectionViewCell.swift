@@ -12,7 +12,7 @@ protocol ProjectCollectionViewCellType: class {
     func configure(viewModel: ProjectCollectionViewCellModelType)
 }
 
-class ProjectCollectionViewCell: UICollectionViewCell, UITableViewDataSource {
+class ProjectCollectionViewCell: UICollectionViewCell, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet private var projectNameLabel: UILabel!
     @IBOutlet private var leaderNameLabel: UILabel!
     @IBOutlet private var projectColorView: AttributedView!
@@ -35,12 +35,19 @@ class ProjectCollectionViewCell: UICollectionViewCell, UITableViewDataSource {
         cell.configure(withName: name)
         return cell
     }
+    
+    // MARK: - UITableViewDelegate
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 28
+    }
 }
 
 // MARK: - ProjectCollectionViewCellModelOutput
 extension ProjectCollectionViewCell: ProjectCollectionViewCellModelOutput {
     func setupView() {
         tableView.dataSource = self
+        tableView.delegate = self
+        tableView.reloadData()
     }
     
     func updateView(with projectName: String, leaderName: String, projectColor: UIColor) {

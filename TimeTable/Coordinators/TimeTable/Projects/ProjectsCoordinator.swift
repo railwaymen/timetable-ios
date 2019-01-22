@@ -25,6 +25,7 @@ class ProjectsCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType 
         self.errorHandler = errorHandler
         self.tabBarItem = UITabBarItem(title: "tabbar.title.projects".localized, image: nil, selectedImage: nil)
         super.init(window: window)
+        self.navigationController.setNavigationBarHidden(true, animated: false)
         self.root.tabBarItem = tabBarItem
     }
     
