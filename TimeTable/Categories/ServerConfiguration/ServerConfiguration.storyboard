@@ -93,7 +93,7 @@
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL" returnKeyType="done" textContentType="url"/>
                                                         <connections>
                                                             <action selector="serverAddressTextFieldDidChange:" destination="keO-oL-LbZ" eventType="editingChanged" id="1BY-1O-gDz"/>
                                                             <outlet property="delegate" destination="keO-oL-LbZ" id="Gq5-Pp-W5D"/>

@@ -15,8 +15,8 @@ protocol ProjectsCollectionViewLayoutDelegate: class {
 class ProjectsCollectionViewLayout: UICollectionViewFlowLayout {
     weak var delegate: ProjectsCollectionViewLayoutDelegate?
     
-    private let minWidthForCell: CGFloat = 250
-    private let cellPadding: CGFloat = 6
+    private let minWidthForCell: CGFloat = 300
+    private let cellPadding: CGFloat = 5
     
     private var cache = [UICollectionViewLayoutAttributes]()
     private var contentHeight: CGFloat = 0

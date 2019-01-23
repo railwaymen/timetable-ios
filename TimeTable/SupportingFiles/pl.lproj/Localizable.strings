@@ -27,6 +27,8 @@
 "login.button.log_in" = "Zaloguj";
 "login.button.change_server_address" = "Chcesz zmienić adres serwera?";
 
+"projects.lable.title" = "Projekty";
+
 "work_times.label.title" = "Czas Pracy";
 
 "work_time.text_field.what_have_you_done" = "Nad czym pracowałeś?";
