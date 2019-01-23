@@ -41,7 +41,7 @@ class WorkTimeCellViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(userInterface.updateViewData.durationText, "1:00")
         XCTAssertEqual(userInterface.updateViewData.bodyText, "Bracket - v2")
-        XCTAssertEqual(userInterface.updateViewData.taskText, "task1")
+        XCTAssertEqual(userInterface.updateViewData.taskUrlText, "task1")
         XCTAssertEqual(userInterface.updateViewData.fromToDateText, "3:00 PM - 4:00 PM")
     }
     
@@ -56,7 +56,7 @@ class WorkTimeCellViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(userInterface.updateViewData.durationText, "2:00")
         XCTAssertEqual(userInterface.updateViewData.bodyText, "Bracket - v3")
-        XCTAssertEqual(userInterface.updateViewData.taskText, "task2")
+        XCTAssertEqual(userInterface.updateViewData.taskUrlText, "task2")
         XCTAssertEqual(userInterface.updateViewData.fromToDateText, "12:00 PM - 2:00 PM")
     }
 }
@@ -64,9 +64,10 @@ class WorkTimeCellViewModelTests: XCTestCase {
 private class WorkTimeCellViewMock: WorkTimeCellViewModelOutput {
     // swiftlint:disable large_tuple
     private(set) var updateViewData: (durationText: String?, bodyText: String?,
-        taskText: String?, fromToDateText: String?, projectData: ProjectView.ProjectData?) = (nil, nil, nil, nil, nil)
+        taskUrlText: String?, fromToDateText: String?,
+        projectTitle: String?, projectColor: UIColor?) = (nil, nil, nil, nil, nil, nil)
     // swiftlint:enable large_tuple
-    func updateView(durationText: String?, bodyText: String?, taskText: String?, fromToDateText: String?, projectData: ProjectView.ProjectData) {
-        updateViewData = (durationText, bodyText, taskText, fromToDateText, projectData)
+    func updateView(durationText: String?, bodyText: String?, taskUrlText: String?, fromToDateText: String?, projectTitle: String?, projectColor: UIColor?) {
+        updateViewData = (durationText, bodyText, taskUrlText, fromToDateText, projectTitle, projectColor)
     }
 }

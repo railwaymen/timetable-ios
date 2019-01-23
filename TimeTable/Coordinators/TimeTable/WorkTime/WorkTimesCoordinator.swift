@@ -11,7 +11,7 @@ import UIKit
 typealias WorkTimesApiClient = (ApiClientProjectsType & ApiClientWorkTimesType & ApiClientUsersType)
 
 protocol WorkTimesCoordinatorDelegate: class {
-    func workTimesRequestedForNewWorkTimeView(sourceView: UIBarButtonItem)
+    func workTimesRequestedForNewWorkTimeView(sourceView: UIButton)
 }
 
 class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType {
@@ -31,6 +31,7 @@ class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType
         self.errorHandler = errorHandler
         self.tabBarItem = UITabBarItem(title: "tabbar.title.work_time".localized, image: nil, selectedImage: nil)
         super.init(window: window)
+        self.navigationController.setNavigationBarHidden(true, animated: false)
         self.root.tabBarItem = tabBarItem
     }
     
@@ -52,14 +53,15 @@ class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType
 
 // MARK: - WorkTimesCoordinatorDelegate
 extension WorkTimesCoordinator: WorkTimesCoordinatorDelegate {
-    func workTimesRequestedForNewWorkTimeView(sourceView: UIBarButtonItem) {
+    func workTimesRequestedForNewWorkTimeView(sourceView: UIButton) {
         let controller: WorkTimeViewControlleralbe? = storyboardsManager.controller(storyboard: .workTime, controllerIdentifier: .initial)
-        let viewModel = WorkTimeViewModel(userInterface: controller, apiClient: apiClient, errorHandler: errorHandler)
+        let viewModel = WorkTimeViewModel(userInterface: controller, apiClient: apiClient, errorHandler: errorHandler, calendar: Calendar.autoupdatingCurrent)
         controller?.configure(viewModel: viewModel)
         controller?.modalPresentationStyle = .popover
         controller?.preferredContentSize = CGSize(width: 300, height: 320)
-        controller?.popoverPresentationController?.permittedArrowDirections = .up
-        controller?.popoverPresentationController?.barButtonItem = sourceView
+        controller?.popoverPresentationController?.permittedArrowDirections = .right
+        controller?.popoverPresentationController?.sourceView = sourceView
+        controller?.popoverPresentationController?.sourceRect = CGRect(x: sourceView.bounds.minX, y: sourceView.bounds.midY, width: 0, height: 0)
         guard let workTimeViewController = controller else { return }
         root.children.last?.present(workTimeViewController, animated: true)
     }

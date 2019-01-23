@@ -278,7 +278,9 @@ class WorkTimesViewModelTests: XCTestCase {
         //Act
         viewModel.viewRequestedForPreviousMonth()
         //Assert
-        XCTAssertNotNil(userInterfaceMock.updateDateLabelText)
+        XCTAssertNotNil(userInterfaceMock.updateDateSelectorData.currentDateString)
+        XCTAssertNotNil(userInterfaceMock.updateDateSelectorData.nextDateString)
+        XCTAssertNotNil(userInterfaceMock.updateDateSelectorData.previousDateString)
     }
     
     func testViewRequestedForNextMonthWhileSelectedMonthIsNil() {
@@ -333,12 +335,14 @@ class WorkTimesViewModelTests: XCTestCase {
         //Act
         viewModel.viewRequestedForNextMonth()
         //Assert
-        XCTAssertNotNil(userInterfaceMock.updateDateLabelText)
+        XCTAssertNotNil(userInterfaceMock.updateDateSelectorData.currentDateString)
+        XCTAssertNotNil(userInterfaceMock.updateDateSelectorData.nextDateString)
+        XCTAssertNotNil(userInterfaceMock.updateDateSelectorData.previousDateString)
     }
     
     func testViewRequestedForNewWorkTimeView() {
         //Arrange
-        let button = UIBarButtonItem()
+        let button = UIButton()
         //Act
         viewModel.viewRequestedForNewWorkTimeView(sourceView: button)
         //Assert
@@ -347,7 +351,7 @@ class WorkTimesViewModelTests: XCTestCase {
 }
 
 private class WorkTimeCellViewMock: WorkTimeCellViewModelOutput {
-    func updateView(durationText: String?, bodyText: String?, taskText: String?, fromToDateText: String?, projectData: ProjectView.ProjectData) {}
+    func updateView(durationText: String?, bodyText: String?, taskUrlText: String?, fromToDateText: String?, projectTitle: String?, projectColor: UIColor?) {}
 }
 
 private class WorkTimesTableViewHeaderViewMock: WorkTimesTableViewHeaderViewModelOutput {

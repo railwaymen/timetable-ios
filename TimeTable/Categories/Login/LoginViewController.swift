@@ -78,9 +78,7 @@ extension LoginViewController: LoginViewModelOutput {
         notificationCenter.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
-        checkBoxButton.isActive = checkBoxIsActive
-        passwordTextField.isSecureTextEntry = true
-        
+        checkBoxButton.isActive = checkBoxIsActive        
         loginTextField.delegate = self
         passwordTextField.delegate = self
     }

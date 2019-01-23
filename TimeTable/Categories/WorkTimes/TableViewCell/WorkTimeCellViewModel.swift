@@ -9,7 +9,7 @@
 import UIKit
 
 protocol WorkTimeCellViewModelOutput: class {
-    func updateView(durationText: String?, bodyText: String?, taskText: String?, fromToDateText: String?, projectData: ProjectView.ProjectData)
+    func updateView(durationText: String?, bodyText: String?, taskUrlText: String?, fromToDateText: String?, projectTitle: String?, projectColor: UIColor?)
 }
 
 protocol WorkTimeCellViewModelType: class {
@@ -52,12 +52,11 @@ class WorkTimeCellViewModel: WorkTimeCellViewModelType {
         let startsAtText = DateFormatter.localizedString(from: workTime.startsAt, dateStyle: .none, timeStyle: .short)
         let endsAtText = DateFormatter.localizedString(from: workTime.endsAt, dateStyle: .none, timeStyle: .short)
         let fromToDateText = "\(startsAtText) - \(endsAtText)"
-        let projectData = ProjectView.ProjectData(title: workTime.project.name, color: workTime.project.color)
-        
         userInterface?.updateView(durationText: durationText,
                                   bodyText: workTime.body,
-                                  taskText: workTime.taskPreview,
+                                  taskUrlText: workTime.taskPreview,
                                   fromToDateText: fromToDateText,
-                                  projectData: projectData)
+                                  projectTitle: workTime.project.name,
+                                  projectColor: workTime.project.color)
     }
 }
