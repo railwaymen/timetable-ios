@@ -278,7 +278,9 @@ class WorkTimesViewModelTests: XCTestCase {
         //Act
         viewModel.viewRequestedForPreviousMonth()
         //Assert
-        XCTAssertNotNil(userInterfaceMock.updateDateLabelText)
+        XCTAssertNotNil(userInterfaceMock.updateDateSelectorData.currentDateString)
+        XCTAssertNotNil(userInterfaceMock.updateDateSelectorData.nextDateString)
+        XCTAssertNotNil(userInterfaceMock.updateDateSelectorData.previousDateString)
     }
     
     func testViewRequestedForNextMonthWhileSelectedMonthIsNil() {
@@ -333,7 +335,9 @@ class WorkTimesViewModelTests: XCTestCase {
         //Act
         viewModel.viewRequestedForNextMonth()
         //Assert
-        XCTAssertNotNil(userInterfaceMock.updateDateLabelText)
+        XCTAssertNotNil(userInterfaceMock.updateDateSelectorData.currentDateString)
+        XCTAssertNotNil(userInterfaceMock.updateDateSelectorData.nextDateString)
+        XCTAssertNotNil(userInterfaceMock.updateDateSelectorData.previousDateString)
     }
     
     func testViewRequestedForNewWorkTimeView() {

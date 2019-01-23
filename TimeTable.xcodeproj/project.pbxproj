@@ -721,7 +721,6 @@
 				C12260162188927A007D64A3 /* AuthenticationCoordinatorTests.swift */,
 				C12CA56321A564860082FEB7 /* Base */,
 				C19706DC21C1303D007AFED4 /* TimeTable */,
-				C18A189F21EF889B00CB6E32 /* WorkTime */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -1083,6 +1082,7 @@
 				C12BD99721E48D3D00A6EAF0 /* Projects */,
 				C153AC7121834F13007A35BB /* ServerConfiguration */,
 				C10FD88A21F1FB1700A233C5 /* User */,
+				C18A189F21EF889B00CB6E32 /* WorkTime */,
 				C1E1F04521AD36A0007F9228 /* WorkTimes */,
 			);
 			path = Categories;

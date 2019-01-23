@@ -40,12 +40,12 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     private weak var userInterface: WorkTimeViewModelOutput?
     private let apiClient: TimeTableTabApiClientType
     private let errorHandler: ErrorHandlerType
-    private let calendar: Calendar
+    private let calendar: CalendarType
     private var projects: [ProjectDecoder]
     private var task: Task
     
     // MARK: - Initialization
-    init(userInterface: WorkTimeViewModelOutput?, apiClient: TimeTableTabApiClientType, errorHandler: ErrorHandlerType, calendar: Calendar) {
+    init(userInterface: WorkTimeViewModelOutput?, apiClient: TimeTableTabApiClientType, errorHandler: ErrorHandlerType, calendar: CalendarType) {
         self.userInterface = userInterface
         self.apiClient = apiClient
         self.errorHandler = errorHandler

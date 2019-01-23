@@ -9,30 +9,28 @@
 import Foundation
 @testable import TimeTable
 
+// swiftlint:disable large_tuple
 class WorkTimesViewControllerMock: WorkTimesViewControlleralbe {
     
     private(set) var setUpViewCalled = false
-    private(set) var setUpViewDateString: String?
     private(set) var updateViewCalled = false
-    private(set) var updateDateLabelCalled = false
-    private(set) var updateDateLabelText: String?
+    private(set) var updateDateSelectorData: (currentDateString: String?, previousDateString: String?, nextDateString: String?) = (nil, nil, nil)
     private(set) var configureViewModelData: (called: Bool, viewModel: WorkTimesViewModelType?) = (false, nil)
     
-    func setUpView(with dateString: String) {
+    func setUpView() {
         setUpViewCalled = true
-        setUpViewDateString = dateString
     }
     
     func updateView() {
         updateViewCalled = true
     }
-
-    func updateDateLabel(text: String) {
-        updateDateLabelCalled = true
-        updateDateLabelText = text
+    
+    func updateDateSelector(currentDateString: String, previousDateString: String, nextDateString: String) {
+        updateDateSelectorData = (currentDateString, previousDateString, nextDateString)
     }
  
     func configure(viewModel: WorkTimesViewModelType) {
         configureViewModelData = (true, viewModel)
     }
 }
+// swiftlint:enable large_tuple

@@ -16,6 +16,7 @@ class WorkTimeViewModelTests: XCTestCase {
     private var userInterface: WorkTimeViewControllerMock!
     private var apiClient: ApiClientMock!
     private var errorHandlerMock: ErrorHandlerMock!
+    private var calendarMock: CalendarMock!
     private var viewModel: WorkTimeViewModel!
     
     private enum ProjectsRecordsResponse: String, JSONFileResource {
@@ -28,7 +29,8 @@ class WorkTimeViewModelTests: XCTestCase {
         userInterface = WorkTimeViewControllerMock()
         apiClient = ApiClientMock()
         errorHandlerMock = ErrorHandlerMock()
-        viewModel = WorkTimeViewModel(userInterface: userInterface, apiClient: apiClient, errorHandler: errorHandlerMock)
+        calendarMock = CalendarMock()
+        viewModel = WorkTimeViewModel(userInterface: userInterface, apiClient: apiClient, errorHandler: errorHandlerMock, calendar: calendarMock)
         super.setUp()
     }
     
@@ -280,6 +282,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let fromDate = try Calendar.current.date(from: components).unwrap()
+        calendarMock.dateBySettingReturnValue = fromDate
         try fetchProjects()
         viewModel.viewSelectedProject(atRow: 0)
         viewModel.taskNameDidChange(value: "body")
@@ -305,7 +308,9 @@ class WorkTimeViewModelTests: XCTestCase {
         viewModel.viewSelectedProject(atRow: 0)
         viewModel.taskNameDidChange(value: "body")
         viewModel.taskURLDidChange(value: "www.example.com")
+        calendarMock.dateBySettingReturnValue = fromDate
         viewModel.viewChanged(fromDate: fromDate)
+        calendarMock.dateBySettingReturnValue = toDate
         viewModel.viewChanged(toDate: toDate)
         //Act
         viewModel.viewRequestedToSave()
@@ -342,6 +347,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let fromDate = try Calendar.current.date(from: components).unwrap()
+        calendarMock.dateBySettingReturnValue = fromDate
         //Act
         viewModel.viewChanged(fromDate: fromDate)
         //Assert
@@ -355,7 +361,9 @@ class WorkTimeViewModelTests: XCTestCase {
         let fromDate = try Calendar.current.date(from: components).unwrap()
         components.day = 16
         let toDate = try Calendar.current.date(from: components).unwrap()
+        calendarMock.dateBySettingReturnValue = toDate
         viewModel.viewChanged(toDate: toDate)
+        calendarMock.dateBySettingReturnValue = fromDate
         //Act
         viewModel.viewChanged(fromDate: fromDate)
         //Assert
@@ -382,6 +390,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let fromDate = try Calendar.current.date(from: components).unwrap()
+        calendarMock.dateBySettingReturnValue = fromDate
         viewModel.viewChanged(fromDate: fromDate)
         //Act
         viewModel.setDefaultFromDate()
@@ -412,7 +421,9 @@ class WorkTimeViewModelTests: XCTestCase {
         let fromDate = try Calendar.current.date(from: components).unwrap()
         components.hour = 13
         let toDate = try Calendar.current.date(from: components).unwrap()
+        calendarMock.dateBySettingReturnValue = fromDate
         viewModel.viewChanged(fromDate: fromDate)
+        calendarMock.dateBySettingReturnValue = toDate
         //Act
         viewModel.viewChanged(toDate: toDate)
         //Assert
@@ -435,6 +446,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let toDate = try Calendar.current.date(from: components).unwrap()
+        calendarMock.dateBySettingReturnValue = toDate
         viewModel.viewChanged(toDate: toDate)
         //Act
         viewModel.setDefaultToDate()
@@ -449,6 +461,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let fromDate = try Calendar.current.date(from: components).unwrap()
+        calendarMock.dateBySettingReturnValue = fromDate
         viewModel.viewChanged(fromDate: fromDate)
         //Act
         viewModel.setDefaultToDate()
@@ -472,7 +485,9 @@ class WorkTimeViewModelTests: XCTestCase {
         viewModel.viewSelectedProject(atRow: 0)
         viewModel.taskNameDidChange(value: "body")
         viewModel.taskURLDidChange(value: "www.example.com")
+        calendarMock.dateBySettingReturnValue = fromDate
         viewModel.viewChanged(fromDate: fromDate)
+        calendarMock.dateBySettingReturnValue = toDate
         viewModel.viewChanged(toDate: toDate)
         //Act
         viewModel.viewRequestedToSave()
@@ -494,7 +509,9 @@ class WorkTimeViewModelTests: XCTestCase {
         viewModel.viewSelectedProject(atRow: 0)
         viewModel.taskNameDidChange(value: "body")
         viewModel.taskURLDidChange(value: "www.example.com")
+        calendarMock.dateBySettingReturnValue = fromDate
         viewModel.viewChanged(fromDate: fromDate)
+        calendarMock.dateBySettingReturnValue = toDate
         viewModel.viewChanged(toDate: toDate)
         //Act
         viewModel.viewRequestedToSave()
