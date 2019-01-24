@@ -88,7 +88,7 @@ class AppCoordinatorTests: XCTestCase {
         //Act
         appCoordinator.start()
         //Assert
-        XCTAssertNotNil(appCoordinator.children.first?.value as? AuthenticationCoordinator)
+        XCTAssertNotNil(appCoordinator.children.first as? AuthenticationCoordinator)
     }
     
     func testStartAppCoordinatorContainsServerConfigurationCoordinatorOnTheStartWhileConfigurationShouldNotRemeberHost() throws {
@@ -98,7 +98,7 @@ class AppCoordinatorTests: XCTestCase {
         //Act
         appCoordinator.start()
         //Assert
-        XCTAssertNotNil(appCoordinator.children.first?.value as? AuthenticationCoordinator)
+        XCTAssertNotNil(appCoordinator.children.first as? AuthenticationCoordinator)
     }
     
     func testStartAppCoordinatorRunsAuthetincationFlow() throws {
@@ -109,21 +109,21 @@ class AppCoordinatorTests: XCTestCase {
         //Act
         appCoordinator.start()
         //Assert
-        XCTAssertNotNil(appCoordinator.children.first?.value as? AuthenticationCoordinator)
+        XCTAssertNotNil(appCoordinator.children.first as? AuthenticationCoordinator)
     }
     
     func testServerConfigurationCoordinatorFinishBlockRunAuthenticatioFlow() throws {
         //Arrange
         serverConfigurationManagerMock.oldConfiguration = nil
         appCoordinator.start()
-        let serverConfigurationCoordinator = appCoordinator.children.first?.value as? AuthenticationCoordinator
+        let serverConfigurationCoordinator = appCoordinator.children.first as? AuthenticationCoordinator
         let url = try URL(string: "www.example.com").unwrap()
         serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
         serverConfigurationCoordinator?.finish()
         //Assert
         XCTAssertEqual(appCoordinator.children.count, 1)
-        XCTAssertNotNil(appCoordinator.children.first?.value as? AuthenticationCoordinator)
+        XCTAssertNotNil(appCoordinator.children.first as? AuthenticationCoordinator)
     }
 
     func testAuthenticationCoordinatorFinishRemoveSelfFromAppCoordinatorChildrenForChangeAddressState() throws {
@@ -131,12 +131,12 @@ class AppCoordinatorTests: XCTestCase {
         let url = try URL(string: "www.example.com").unwrap()
         serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         appCoordinator.start()
-        let authenticationCoordinator = appCoordinator.children.first?.value as? AuthenticationCoordinator
+        let authenticationCoordinator = appCoordinator.children.first as? AuthenticationCoordinator
         //Act
         authenticationCoordinator?.finish()
         //Assert
         XCTAssertEqual(appCoordinator.children.count, 1)
-        XCTAssertNotNil(appCoordinator.children.first?.value as? AuthenticationCoordinator)
+        XCTAssertNotNil(appCoordinator.children.first as? AuthenticationCoordinator)
     }
     
     func testStartAppCoordinatorRunsAuthenticationFlowWithHTTPHost() throws {
@@ -180,13 +180,13 @@ class AppCoordinatorTests: XCTestCase {
         appCoordinator.start()
         coreDataStackMock.fetchUserCompletion?(.success(user))
         wait(for: [fetchUserExpectation], timeout: timeout)
-        let child = try (appCoordinator.children.first?.value as? TimeTableTabCoordinator).unwrap()
+        let child = try (appCoordinator.children.first as? TimeTableTabCoordinator).unwrap()
         //Act
         serverConfigurationManagerMock.oldConfiguration = nil
         child.finishCompletion?()
         //Assert
         XCTAssertEqual(appCoordinator.children.count, 1)
-        XCTAssertNotNil(appCoordinator.children.first?.value as? AuthenticationCoordinator)
+        XCTAssertNotNil(appCoordinator.children.first as? AuthenticationCoordinator)
     }
     
     func testRunMainFlowFinishRemoveTimeTableTabCoordinatorFromChildrenAnRunsAuthenticationFlow() throws {
@@ -212,7 +212,7 @@ class AppCoordinatorTests: XCTestCase {
         coreDataStackMock.fetchUserCompletion?(.success(user))
         wait(for: [fetchUserExpectation], timeout: timeout)
         coreDataStackMock.fetchUserexpectationHandler = fetchFailUserExpectation.fulfill
-        let child = try (appCoordinator.children.first?.value as? TimeTableTabCoordinator).unwrap()
+        let child = try (appCoordinator.children.first as? TimeTableTabCoordinator).unwrap()
         //Act
         try keychain.remove("key.time_table.login_credentials.key")
         child.finishCompletion?()
@@ -220,7 +220,7 @@ class AppCoordinatorTests: XCTestCase {
         wait(for: [fetchFailUserExpectation], timeout: timeout)
         //Assert
         XCTAssertEqual(appCoordinator.children.count, 1)
-        XCTAssertNotNil(appCoordinator.children.first?.value as? AuthenticationCoordinator
+        XCTAssertNotNil(appCoordinator.children.first as? AuthenticationCoordinator
         )
     }
 }

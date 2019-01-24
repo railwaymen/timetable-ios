@@ -77,7 +77,7 @@ class BaseCoordinatorTests: XCTestCase {
         coordinator.addChildCoordinator(child: childCoordinator)
         
         //Assert
-        XCTAssertEqual(coordinator.children.count, 1)
+        XCTAssertEqual(coordinator.children.count, 2)
     }
     
     func testCoordinator_removeChildCoordinatorWhileGivenParametersIsNil() throws {
@@ -90,7 +90,7 @@ class BaseCoordinatorTests: XCTestCase {
         //Act
         XCTAssertEqual(coordinator.children.count, 1)
         let firstChildCoordinator = try coordinator.children.first.unwrap()
-        XCTAssertEqual(firstChildCoordinator.key, childCoordinator)
+        XCTAssertEqual(firstChildCoordinator, childCoordinator)
         
         coordinator.removeChildCoordinator(child: nil)
         //Assert
@@ -107,7 +107,7 @@ class BaseCoordinatorTests: XCTestCase {
         //Act
         XCTAssertEqual(coordinator.children.count, 1)
         let firstChildCoordinator = try coordinator.children.first.unwrap()
-        XCTAssertEqual(firstChildCoordinator.key, childCoordinator)
+        XCTAssertEqual(firstChildCoordinator, childCoordinator)
         
         coordinator.removeChildCoordinator(child: childCoordinator)
         //Assert

@@ -10,15 +10,13 @@ import UIKit
 
 class BaseCoordinator: CoordinatorType, CoordinatorErrorPresenterType {
     
-    var identifier: UUID = UUID()
-    var children: [BaseCoordinator: Any]
+    var children: [BaseCoordinator]
     var window: UIWindow?
     var finishCompletion: (() -> Void)?
     
     // MARK: - Initialization
     init(window: UIWindow?) {
-        self.identifier = UUID()
-        self.children = [:]
+        self.children = []
         self.window = window
     }
 
@@ -32,12 +30,12 @@ class BaseCoordinator: CoordinatorType, CoordinatorErrorPresenterType {
     }
     
     func addChildCoordinator(child: BaseCoordinator) {
-        children[child] = child
+        children.append(child)
     }
     
     func removeChildCoordinator(child: BaseCoordinator?) {
-        guard let coordinator = child else { return }
-        children[coordinator] = nil
+        guard let index = children.firstIndex(where: { $0 == child }) else { return }
+        children.remove(at: index)
     }
     
     // MARK: - CoordinatorErrorPresenterType

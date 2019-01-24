@@ -16,18 +16,18 @@ class WorkTimeViewControllerMock: WorkTimeViewControlleralbe {
     private(set) var reloadProjectPickerCalled = false
     private(set) var dissmissKeyboardCalled = false
     private(set) var setMinimumDateForTypeToDateValues: (called: Bool, minDate: Date?) = (false, nil)
-    private(set) var updateFromDateValues: (date: Date?, dateString: String?) = (nil, nil)
-    private(set) var updateToDateValues: (date: Date?, dateString: String?) = (nil, nil)
-    private(set) var updateTimeLabelValues: (called: Bool, title: String?) = (false, nil)
+    private(set) var updateDayValues: (date: Date?, dateString: String?) = (nil, nil)
+    private(set) var updateStartAtDateValues: (date: Date?, dateString: String?) = (nil, nil)
+    private(set) var updateEndAtDateValues: (date: Date?, dateString: String?) = (nil, nil)
     
     func configure(viewModel: WorkTimeViewModelType) {
         configureViewModelData = (true, viewModel)
     }
-    
+
     func setUp(currentProjectName: String, allowsTask: Bool) {
         setUpCurrentProjectName = (currentProjectName, allowsTask)
     }
-    
+
     func dismissView() {
         dismissViewCalled = true
     }
@@ -40,19 +40,19 @@ class WorkTimeViewControllerMock: WorkTimeViewControlleralbe {
         dissmissKeyboardCalled = true
     }
     
-    func setMinimumDateForTypeToDate(minDate: Date) {
+    func setMinimumDateForTypeEndAtDate(minDate: Date) {
         setMinimumDateForTypeToDateValues = (true, minDate)
     }
     
-    func updateFromDate(withDate date: Date, dateString: String) {
-        updateFromDateValues = (date, dateString)
+    func updateDay(with date: Date, dateString: String) {
+        updateDayValues = (date, dateString)
     }
     
-    func updateToDate(withDate date: Date, dateString: String) {
-        updateToDateValues = (date, dateString)
+    func updateStartAtDate(with date: Date, dateString: String) {
+        updateStartAtDateValues = (date, dateString)
     }
     
-    func updateTimeLabel(withTitle title: String?) {
-        updateTimeLabelValues = (true, title)
+    func updateEndAtDate(with date: Date, dateString: String) {
+        updateEndAtDateValues = (date, dateString)
     }
 }

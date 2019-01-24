@@ -12,15 +12,16 @@ struct Task: Encodable {
     var project: ProjectDecoder?
     var body: String
     var url: URL?
-    var fromDate: Date?
-    var toDate: Date?
+    var day: Date?
+    var startAt: Date?
+    var endAt: Date?
     
     enum CodingKeys: String, CodingKey {
         case projectId = "project_id"
         case body
         case task
-        case fromDate = "starts_at"
-        case toDate = "ends_at"
+        case startAt = "starts_at"
+        case endAt = "ends_at"
     }
     
     var title: String {
@@ -65,9 +66,27 @@ struct Task: Encodable {
             try container.encode(project.identifier, forKey: .projectId)
             try container.encode(body, forKey: .body)
             try container.encode(url, forKey: .task)
-            try container.encode(fromDate, forKey: .fromDate)
-            try container.encode(toDate, forKey: .toDate)
+            let startAtDate = combine(day: day, time: startAt)
+            try container.encode(startAtDate, forKey: .startAt)
+            let endAtDate = combine(day: day, time: endAt)
+            try container.encode(endAtDate, forKey: .endAt)
         }
+    }
+    
+    private func combine(day: Date?, time: Date?) -> Date? {
+        guard let day = day, let time = time else { return nil }
+        let calendar = Calendar.autoupdatingCurrent
+        let dateComponents = calendar.dateComponents([.year, .month, .day], from: day)
+        let timeComponents = calendar.dateComponents([.hour, .minute], from: time)
+        
+        var components = DateComponents()
+        components.year = dateComponents.year
+        components.month = dateComponents.month
+        components.day = dateComponents.day
+        components.hour = timeComponents.hour
+        components.minute = timeComponents.minute
+        components.second = 0
+        return calendar.date(from: components)
     }
     
     private struct AutofillHours {

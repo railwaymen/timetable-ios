@@ -340,6 +340,28 @@ class WorkTimesViewModelTests: XCTestCase {
         XCTAssertNotNil(userInterfaceMock.updateDateSelectorData.previousDateString)
     }
     
+    func testViewRequestedForCellTypeBeforeViewWillAppear() {
+        //Arrange
+        let indexPath = IndexPath(row: 0, section: 0)
+        //Act
+        let type = viewModel.viewRequestedForCellType(at: indexPath)
+        //Assert
+        XCTAssertEqual(type, .standard)
+    }
+    
+    func testViewRequestedForCellType() throws {
+        //Arrange
+        let indexPath = IndexPath(row: 0, section: 0)
+        let data = try self.json(from: WorkTimesResponse.workTimesResponse)
+        let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
+        viewModel.viewWillAppear()
+        apiClientMock.fetchWorkTimesCompletion?(.success(workTimes))
+        //Act
+        let type = viewModel.viewRequestedForCellType(at: indexPath)
+        //Assert
+        XCTAssertEqual(type, .taskURL)
+    }
+    
     func testViewRequestedForNewWorkTimeView() {
         //Arrange
         let button = UIButton()

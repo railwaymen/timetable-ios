@@ -161,13 +161,15 @@ class ApiClientTests: XCTestCase {
         let startsAt = try Calendar.current.date(from: components).unwrap()
         components.hour = 16
         let endsAt = try Calendar.current.date(from: components).unwrap()
+        components.day = 22
+        let day = try Calendar.current.date(from: components).unwrap()
         let data = try self.json(from: WorkTimesProjectResponse.workTimesProjectResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
-        let parameters = Task(project: projectDecoder, body: "TEST", url: url, fromDate: startsAt, toDate: endsAt)
+        let task = Task(project: projectDecoder, body: "TEST", url: url, day: day, startAt: startsAt, endAt: endsAt)
         requestEncoderMock.isEncodeToDictionaryThrowingError = true
         //Act
-        apiClient.post(Endpoints.workTimes, parameters: parameters) { (result: TimeTable.Result<Void>) in
+        apiClient.post(Endpoints.workTimes, parameters: task) { (result: TimeTable.Result<Void>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -194,12 +196,14 @@ class ApiClientTests: XCTestCase {
         let startsAt = try Calendar.current.date(from: components).unwrap()
         components.hour = 16
         let endsAt = try Calendar.current.date(from: components).unwrap()
+        components.day = 22
+        let day = try Calendar.current.date(from: components).unwrap()
         let data = try self.json(from: WorkTimesProjectResponse.workTimesProjectResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
-        let parameters = Task(project: projectDecoder, body: "TEST", url: url, fromDate: startsAt, toDate: endsAt)
+        let task = Task(project: projectDecoder, body: "TEST", url: url, day: day, startAt: startsAt, endAt: endsAt)
         //Act
-        apiClient.post(Endpoints.workTimes, parameters: parameters) { (result: TimeTable.Result<Void>) in
+        apiClient.post(Endpoints.workTimes, parameters: task) { (result: TimeTable.Result<Void>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -224,12 +228,14 @@ class ApiClientTests: XCTestCase {
         let startsAt = try Calendar.current.date(from: components).unwrap()
         components.hour = 16
         let endsAt = try Calendar.current.date(from: components).unwrap()
+        components.day = 22
+        let day = try Calendar.current.date(from: components).unwrap()
         let data = try self.json(from: WorkTimesProjectResponse.workTimesProjectResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
-        let parameters = Task(project: projectDecoder, body: "TEST", url: url, fromDate: startsAt, toDate: endsAt)
+        let task = Task(project: projectDecoder, body: "TEST", url: url, day: day, startAt: startsAt, endAt: endsAt)
         //Act
-        apiClient.post(Endpoints.workTimes, parameters: parameters) { (result: TimeTable.Result<Void>) in
+        apiClient.post(Endpoints.workTimes, parameters: task) { (result: TimeTable.Result<Void>) in
             switch result {
             case .success:
                 successCalled = true
