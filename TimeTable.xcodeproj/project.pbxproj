@@ -129,6 +129,7 @@
 		C13C88E621E5EA8F00F68C6E /* WorkTimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C88E521E5EA8F00F68C6E /* WorkTimeController.swift */; };
 		C13C88E821E5F7B600F68C6E /* WorkTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C88E721E5F7B600F68C6E /* WorkTimeViewModel.swift */; };
 		C147D1F721F5F96A00A818BD /* AttributedTextFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C147D1F621F5F96A00A818BD /* AttributedTextFieldTests.swift */; };
+		C14B10FB21F9C64D00A42587 /* TimeTableCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14B10FA21F9C64D00A42587 /* TimeTableCoordinatorTests.swift */; };
 		C152C22221E89CB8003ABD88 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = C152C22121E89CB8003ABD88 /* Task.swift */; };
 		C1531F002191BD6B00602A0C /* Networking+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1531EFF2191BD6B00602A0C /* Networking+Extension.swift */; };
 		C1531F042191C58000602A0C /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1531F032191C58000602A0C /* Endpoints.swift */; };
@@ -401,6 +402,7 @@
 		C13C88E521E5EA8F00F68C6E /* WorkTimeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeController.swift; sourceTree = "<group>"; };
 		C13C88E721E5F7B600F68C6E /* WorkTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeViewModel.swift; sourceTree = "<group>"; };
 		C147D1F621F5F96A00A818BD /* AttributedTextFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextFieldTests.swift; sourceTree = "<group>"; };
+		C14B10FA21F9C64D00A42587 /* TimeTableCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableCoordinatorTests.swift; sourceTree = "<group>"; };
 		C152C22121E89CB8003ABD88 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		C1531EFF2191BD6B00602A0C /* Networking+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Networking+Extension.swift"; sourceTree = "<group>"; };
 		C1531F032191C58000602A0C /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
@@ -1168,6 +1170,7 @@
 		C19706DC21C1303D007AFED4 /* TimeTable */ = {
 			isa = PBXGroup;
 			children = (
+				C14B10FA21F9C64D00A42587 /* TimeTableCoordinatorTests.swift */,
 				C12BD9BC21E4BC6800A6EAF0 /* Projects */,
 				C16B05CE21F213DE00BB63E6 /* User */,
 				C19706DD21C1304A007AFED4 /* WorkTime */,
@@ -2059,6 +2062,7 @@
 				C18A18A121EF88B300CB6E32 /* WorkTimeViewModelTests.swift in Sources */,
 				C1ECF0AA2192CC25006038C6 /* RequestEncoder.swift in Sources */,
 				C147D1F721F5F96A00A818BD /* AttributedTextFieldTests.swift in Sources */,
+				C14B10FB21F9C64D00A42587 /* TimeTableCoordinatorTests.swift in Sources */,
 				C134297D21A6C40000F4EA42 /* AsynchronousDataTransactionMock.swift in Sources */,
 				C1249C7A2181AC49005DB2A5 /* StoryboardsManagerTests.swift in Sources */,
 				C12BD9C321E4C48900A6EAF0 /* ProjectCollectionViewCellMock.swift in Sources */,

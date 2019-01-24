@@ -319,6 +319,39 @@ class WorkTimeViewModelTests: XCTestCase {
         }
     }
     
+    func testSetDefaultDayIfDayWasNotSet() {
+        //Act
+        viewModel.setDefaultDay()
+        //Assert
+        XCTAssertNotNil(userInterface.updateDayValues.date)
+        XCTAssertNotNil(userInterface.updateDayValues.dateString)
+    }
+    
+    func testSetDefaultDayNotSetCurrentDayIfWasSetBefore() throws {
+        //Arrange
+        let components = DateComponents(year: 2018, month: 1, day: 17)
+        let day = try Calendar.current.date(from: components).unwrap()
+        let dayString = DateFormatter.localizedString(from: day, dateStyle: .short, timeStyle: .none)
+        viewModel.viewChanged(day: day)
+        //Act
+        viewModel.setDefaultDay()
+        //Assert
+        XCTAssertEqual(userInterface.updateDayValues.date, day)
+        XCTAssertEqual(userInterface.updateDayValues.dateString, dayString)
+    }
+    
+    func testViewChangedDay() throws {
+        //Arrange
+        let components = DateComponents(year: 2018, month: 1, day: 17)
+        let day = try Calendar.current.date(from: components).unwrap()
+        let dayString = DateFormatter.localizedString(from: day, dateStyle: .short, timeStyle: .none)
+        //Act
+        viewModel.viewChanged(day: day)
+        //Assert
+        XCTAssertEqual(userInterface.updateDayValues.date, day)
+        XCTAssertEqual(userInterface.updateDayValues.dateString, dayString)
+    }
+    
     func testViewChangedFromDateUpdatesUpdateFromDateOnTheUserInterface() throws {
         //Arrange
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)

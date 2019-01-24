@@ -11,8 +11,6 @@ import UIKit
 typealias TimeTableTabApiClientType = (ApiClientWorkTimesType & ApiClientProjectsType & ApiClientUsersType)
 
 class TimeTableTabCoordinator: BaseTabBarCoordinator {
-
-    private let tabBarChildCoordinators: [BaseTabBarCordninatorType]
     
     // MARK: - Initialization
     init(window: UIWindow?, storyboardsManager: StoryboardsManagerType, apiClient: TimeTableTabApiClientType,
@@ -32,8 +30,9 @@ class TimeTableTabCoordinator: BaseTabBarCoordinator {
                                               coreDataStack: coreDataStack,
                                               errorHandler: errorHandler)
         
-        self.tabBarChildCoordinators = [projectsCoordinator, workTimeCoordinator, userCoordinator]
         super.init(window: window)
+        [projectsCoordinator, workTimeCoordinator, userCoordinator].forEach { self.addChildCoordinator(child: $0) }
+//        self.tabBarChildCoordinators = [projectsCoordinator, workTimeCoordinator, userCoordinator]
         self.tabBarController.tabBar.tintColor = UIColor.crimson
         
         projectsCoordinator.start()
@@ -41,16 +40,5 @@ class TimeTableTabCoordinator: BaseTabBarCoordinator {
         userCoordinator.start { [weak self] in
             self?.finishCompletion?()
         }
-    }
-    
-    // MARK: - Overriden
-    override func start(finishCompletion: (() -> Void)?) {
-        self.tabBarController.viewControllers = self.tabBarChildCoordinators.map { $0.root }
-        super.start(finishCompletion: finishCompletion)
-    }
-    
-    override func finish() {
-        self.tabBarChildCoordinators.forEach { $0.finish() }
-        super.finish()
     }
 }
