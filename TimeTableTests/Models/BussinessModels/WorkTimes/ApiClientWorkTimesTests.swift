@@ -93,7 +93,7 @@ class ApiClientWorkTimesTests: XCTestCase {
         var successCalled = false
         let data = try self.json(from: SimpleProjectResponse.simpleProjectFullResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
-        let task = Task(project: projectDecoder, body: "body", url: nil, fromDate: nil, toDate: nil)
+        let task = Task(project: projectDecoder, body: "body", url: nil, day: nil, startAt: nil, endAt: nil)
         let apiClient: ApiClientWorkTimesType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
             return requestEncoderMock
         }) { () -> JSONDecoderType in
@@ -119,7 +119,7 @@ class ApiClientWorkTimesTests: XCTestCase {
         let error = TestError(message: "fetch failed")
         let data = try self.json(from: SimpleProjectResponse.simpleProjectFullResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
-        let task = Task(project: projectDecoder, body: "body", url: nil, fromDate: nil, toDate: nil)
+        let task = Task(project: projectDecoder, body: "body", url: nil, day: nil, startAt: nil, endAt: nil)
         let apiClient: ApiClientWorkTimesType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
             return requestEncoderMock
         }) { () -> JSONDecoderType in

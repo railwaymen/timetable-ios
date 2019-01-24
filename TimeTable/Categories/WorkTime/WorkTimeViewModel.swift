@@ -13,10 +13,10 @@ protocol WorkTimeViewModelOutput: class {
     func dismissView()
     func reloadProjectPicker()
     func dissmissKeyboard()
-    func setMinimumDateForTypeToDate(minDate: Date)
-    func updateFromDate(withDate date: Date, dateString: String)
-    func updateToDate(withDate date: Date, dateString: String)
-    func updateTimeLabel(withTitle title: String?)
+    func setMinimumDateForTypeEndAtDate(minDate: Date)
+    func updateDay(with date: Date, dateString: String)
+    func updateStartAtDate(with date: Date, dateString: String)
+    func updateEndAtDate(with date: Date, dateString: String)
 }
 
 protocol WorkTimeViewModelType: class {
@@ -28,11 +28,13 @@ protocol WorkTimeViewModelType: class {
     func taskNameDidChange(value: String?)
     func setDefaultTask()
     func taskURLDidChange(value: String?)
-    func viewChanged(fromDate date: Date)
-    func setDefaultFromDate()
-    func viewChanged(toDate date: Date)
+    func viewChanged(startAtDate date: Date)
+    func setDefaultDay()
+    func viewChanged(day: Date)
+    func setDefaultStartAtDate()
+    func viewChanged(endAtDate date: Date)
     func viewRequestedToSave()
-    func setDefaultToDate()
+    func setDefaultEndAtDate()
     func viewHasBeenTapped()
 }
 
@@ -45,13 +47,14 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     private var task: Task
     
     // MARK: - Initialization
+    
     init(userInterface: WorkTimeViewModelOutput?, apiClient: TimeTableTabApiClientType, errorHandler: ErrorHandlerType, calendar: CalendarType) {
         self.userInterface = userInterface
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.calendar = calendar
         self.projects = []
-        self.task = Task(project: .none, body: "", url: nil, fromDate: nil, toDate: nil)
+        self.task = Task(project: .none, body: "", url: nil, day: Date(), startAt: nil, endAt: nil)
     }
     
     // MARK: - WorkTimeViewModelType
@@ -99,35 +102,48 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         task.url = url
     }
     
-    func viewChanged(fromDate date: Date) {
-        task.fromDate = calendar.date(bySetting: .second, value: 0, of: date)
-        updateFromDateView(with: date)
-    }
-    
-    func setDefaultFromDate() {
-        var date = calendar.date(bySetting: .second, value: 0, of: Date()) ?? Date()
-        if let fromDate = task.fromDate {
-            date = fromDate
-        } else {
-            task.fromDate = date
+    func setDefaultDay() {
+        var date = Date()
+        if let day = task.day {
+            date = day
         }
-        updateFromDateView(with: date)
+        task.day = date
+        updateDayView(with: date)
     }
     
-    func viewChanged(toDate date: Date) {
-        task.toDate = calendar.date(bySetting: .second, value: 0, of: date)
-        updateToDateView(with: date)
+    func viewChanged(day: Date) {
+        task.day = day
+        updateDayView(with: day)
     }
     
-    func setDefaultToDate() {
-        var date = calendar.date(bySetting: .second, value: 0, of: Date()) ?? Date()
-        if let toDate = task.toDate {
+    func viewChanged(startAtDate date: Date) {
+        task.startAt = date
+        updateStartAtDateView(with: date)
+    }
+    
+    func setDefaultStartAtDate() {
+        var date = Date()
+        if let startAt = task.startAt {
+            date = startAt
+        }
+        task.startAt = date
+        updateStartAtDateView(with: date)
+    }
+    
+    func viewChanged(endAtDate date: Date) {
+        task.endAt = date
+        updateEndAtDateView(with: date)
+    }
+    
+    func setDefaultEndAtDate() {
+        var date =  Date()
+        if let toDate = task.endAt {
             date = toDate
         } else {
-            date = task.fromDate ?? calendar.date(bySetting: .second, value: 0, of: Date()) ?? Date()
-            task.toDate = date
+            date = task.startAt ?? Date()
+            task.endAt = date
         }
-        updateToDateView(with: date)
+        updateEndAtDateView(with: date)
     }
     
     func viewRequestedToSave() {
@@ -157,8 +173,8 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         if task.allowsTask && task.url == nil {
             throw UIError.cannotBeEmpty(.taskURLTextField)
         }
-        guard let fromDate = task.fromDate else { throw UIError.cannotBeEmpty(.startsAtTextField) }
-        guard let toDate = task.toDate else { throw UIError.cannotBeEmpty(.endsAtTextField) }
+        guard let fromDate = task.startAt else { throw UIError.cannotBeEmpty(.startsAtTextField) }
+        guard let toDate = task.endAt else { throw UIError.cannotBeEmpty(.endsAtTextField) }
         guard fromDate < toDate else { throw UIError.timeGreaterThan }
     }
     
@@ -170,53 +186,38 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         case .fullDay(let timeInterval):
             let fromDate = calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
             let toDate = fromDate.addingTimeInterval(timeInterval)
-            task.fromDate = fromDate
-            task.toDate = toDate
-            updateFromDateView(with: fromDate)
-            updateToDateView(with: toDate)
+            task.startAt = fromDate
+            task.endAt = toDate
+            updateStartAtDateView(with: fromDate)
+            updateEndAtDateView(with: toDate)
         case .lunch(let timeInterval):
-            let fromDate = task.fromDate ?? calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
+            let fromDate = task.startAt ?? calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
             let toDate = fromDate.addingTimeInterval(timeInterval)
-            task.fromDate = fromDate
-            task.toDate = toDate
-            updateFromDateView(with: fromDate)
-            updateToDateView(with: toDate)
+            task.startAt = fromDate
+            task.endAt = toDate
+            updateStartAtDateView(with: fromDate)
+            updateEndAtDateView(with: toDate)
         case .standard: break
         }
     }
     
-    private func updateFromDateView(with date: Date) {
-        updateTimeLabel()
+    private func updateDayView(with date: Date) {
+        let dateString = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none)
+        userInterface?.updateDay(with: date, dateString: dateString)
+    }
+    
+    private func updateStartAtDateView(with date: Date) {
         let dateString = DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .short)
-        userInterface?.updateFromDate(withDate: date, dateString: dateString)
-        userInterface?.setMinimumDateForTypeToDate(minDate: date)
-        if let toDate = task.toDate, toDate < date {
-            task.toDate = date
-            updateToDateView(with: date)
+        userInterface?.updateStartAtDate(with: date, dateString: dateString)
+        userInterface?.setMinimumDateForTypeEndAtDate(minDate: date)
+        if let startAt = task.endAt, startAt < date {
+            task.endAt = date
+            updateEndAtDateView(with: date)
         }
     }
     
-    private func updateToDateView(with date: Date) {
-        updateTimeLabel()
-        userInterface?.updateToDate(withDate: date, dateString: DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .short))
-    }
-    
-    private func updateTimeLabel() {
-        guard let fromDate = task.fromDate else { return }
-        
-        if let toDate = task.toDate {
-            let dateString = DateFormatter.localizedString(from: fromDate, dateStyle: .short, timeStyle: .none)
-            let interval = toDate.timeIntervalSince(fromDate)
-            let formatter = DateComponentsFormatter()
-            formatter.allowedUnits = [.hour, .minute]
-            formatter.unitsStyle = .abbreviated
-            let title = "\(formatter.string(from: interval) ?? "") \(dateString)"
-            userInterface?.updateTimeLabel(withTitle: title)
-        } else {
-            let dateString = DateFormatter.localizedString(from: fromDate, dateStyle: .short, timeStyle: .none)
-            let title = "00:00 \(dateString)"
-            userInterface?.updateTimeLabel(withTitle: title)
-        }
+    private func updateEndAtDateView(with date: Date) {
+        userInterface?.updateEndAtDate(with: date, dateString: DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .short))
     }
     
     private func fetchProjectList() {

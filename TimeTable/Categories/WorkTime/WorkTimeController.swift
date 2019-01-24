@@ -15,16 +15,17 @@ protocol WorkTimeViewControllerType: class {
 }
 
 class WorkTimeController: UIViewController {
-    @IBOutlet private var fromDateTextField: UITextField!
-    @IBOutlet private var toDateTextField: UITextField!
+    @IBOutlet private var dayTextField: UITextField!
+    @IBOutlet private var startAtDateTextField: UITextField!
+    @IBOutlet private var endAtDateTextField: UITextField!
     @IBOutlet private var projectTextField: UITextField!
     @IBOutlet private var taskURLViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private var taskURLView: UIView!
-    @IBOutlet private var timeLabel: UILabel!
     
     private var projectPicker: UIPickerView!
-    private var fromDatePicker: UIDatePicker!
-    private var toDatePicker: UIDatePicker!
+    private var dayPicker: UIDatePicker!
+    private var startAtDatePicker: UIDatePicker!
+    private var endAtDatePicker: UIDatePicker!
     private var viewModel: WorkTimeViewModelType!
     
     // MARK: - Life Cycle
@@ -58,20 +59,28 @@ class WorkTimeController: UIViewController {
         viewModel?.viewHasBeenTapped()
     }
     
-    @IBAction private func fromDateTextFieldDidBegin(_ sender: UITextField) {
-        viewModel.setDefaultFromDate()
+    @IBAction private func dayTextFieldDidBegin(_ sender: UITextField) {
+        viewModel.setDefaultDay()
+    }
+    
+    @objc private func dayTextFieldDidChanged(_ sender: UIDatePicker) {
+        viewModel.viewChanged(day: sender.date)
+    }
+    
+    @IBAction private func startAtDateTextFieldDidBegin(_ sender: UITextField) {
+        viewModel.setDefaultStartAtDate()
     }
 
-    @objc private func fromDateTextFieldDidChanged(_ sender: UIDatePicker) {
-        viewModel.viewChanged(fromDate: sender.date)
+    @objc private func startAtDateTextFieldDidChanged(_ sender: UIDatePicker) {
+        viewModel.viewChanged(startAtDate: sender.date)
     }
     
-    @IBAction private func toDateTextFieldDidBegin(_ sender: UITextField) {
-        viewModel.setDefaultToDate()
+    @IBAction private func endAtDateTextFieldDidBegin(_ sender: UITextField) {
+        viewModel.setDefaultEndAtDate()
     }    
     
-    @objc private func toDateTextFieldDidChanged(_ sender: UIDatePicker) {
-        viewModel.viewChanged(toDate: sender.date)
+    @objc private func endAtDateTextFieldDidChanged(_ sender: UIDatePicker) {
+        viewModel.viewChanged(endAtDate: sender.date)
     }
 }
 
@@ -104,7 +113,7 @@ extension WorkTimeController: WorkTimeViewModelOutput {
     }
     
     func setUp(currentProjectName: String, allowsTask: Bool) {
-        taskURLViewHeightConstraint.constant = allowsTask ? 40 : 0
+        taskURLViewHeightConstraint.constant = allowsTask ? 80 : 0
         taskURLView.isHidden = !allowsTask
 
         projectPicker = UIPickerView()
@@ -114,15 +123,20 @@ extension WorkTimeController: WorkTimeViewModelOutput {
         projectTextField.inputView = projectPicker
         projectTextField.text = currentProjectName
         
-        fromDatePicker = UIDatePicker()
-        fromDatePicker.datePickerMode = .dateAndTime
-        fromDatePicker.addTarget(self, action: #selector(fromDateTextFieldDidChanged), for: .valueChanged)
-        fromDateTextField.inputView = fromDatePicker
+        dayPicker = UIDatePicker()
+        dayPicker.datePickerMode = .date
+        dayPicker.addTarget(self, action: #selector(dayTextFieldDidChanged), for: .valueChanged)
+        dayTextField.inputView = dayPicker
+        
+        startAtDatePicker = UIDatePicker()
+        startAtDatePicker.datePickerMode = .time
+        startAtDatePicker.addTarget(self, action: #selector(startAtDateTextFieldDidChanged), for: .valueChanged)
+        startAtDateTextField.inputView = startAtDatePicker
 
-        toDatePicker = UIDatePicker()
-        toDatePicker.datePickerMode = .dateAndTime
-        toDatePicker.addTarget(self, action: #selector(toDateTextFieldDidChanged), for: .valueChanged)
-        toDateTextField.inputView = toDatePicker
+        endAtDatePicker = UIDatePicker()
+        endAtDatePicker.datePickerMode = .time
+        endAtDatePicker.addTarget(self, action: #selector(endAtDateTextFieldDidChanged), for: .valueChanged)
+        endAtDateTextField.inputView = endAtDatePicker
     }
     
     func dismissView() {
@@ -133,22 +147,23 @@ extension WorkTimeController: WorkTimeViewModelOutput {
         view.endEditing(true)
     }
     
-    func setMinimumDateForTypeToDate(minDate: Date) {
-        toDatePicker.minimumDate = minDate
+    func setMinimumDateForTypeEndAtDate(minDate: Date) {
+        endAtDatePicker.minimumDate = minDate
     }
     
-    func updateFromDate(withDate date: Date, dateString: String) {
-        fromDateTextField.text = dateString
-        fromDatePicker.date = date
+    func updateDay(with date: Date, dateString: String) {
+        dayTextField.text = dateString
+        startAtDatePicker.date = date
     }
     
-    func updateToDate(withDate date: Date, dateString: String) {
-        toDateTextField.text = dateString
-        toDatePicker.date = date
+    func updateStartAtDate(with date: Date, dateString: String) {
+        startAtDateTextField.text = dateString
+        startAtDatePicker.date = date
     }
     
-    func updateTimeLabel(withTitle title: String?) {
-        timeLabel.text = title
+    func updateEndAtDate(with date: Date, dateString: String) {
+        endAtDateTextField.text = dateString
+        endAtDatePicker.date = date
     }
 }
 

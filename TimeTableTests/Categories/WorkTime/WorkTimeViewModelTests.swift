@@ -139,14 +139,12 @@ class WorkTimeViewModelTests: XCTestCase {
         //Act
         viewModel.setDefaultTask()
         //Assert
-        XCTAssertNotNil(userInterface.updateFromDateValues.date)
-        XCTAssertNotNil(userInterface.updateFromDateValues.dateString)
+        XCTAssertNotNil(userInterface.updateStartAtDateValues.date)
+        XCTAssertNotNil(userInterface.updateStartAtDateValues.dateString)
         XCTAssertTrue(userInterface.setMinimumDateForTypeToDateValues.called)
         XCTAssertNotNil(userInterface.setMinimumDateForTypeToDateValues.minDate)
-        XCTAssertNotNil(userInterface.updateToDateValues.date)
-        XCTAssertNotNil(userInterface.updateToDateValues.dateString)
-        XCTAssertTrue(userInterface.updateTimeLabelValues.called)
-        XCTAssertNotNil(userInterface.updateTimeLabelValues.title)
+        XCTAssertNotNil(userInterface.updateEndAtDateValues.date)
+        XCTAssertNotNil(userInterface.updateEndAtDateValues.dateString)
     }
     
     func testViewSelectedProjectBeforeViewDidLoad() {
@@ -287,7 +285,7 @@ class WorkTimeViewModelTests: XCTestCase {
         viewModel.viewSelectedProject(atRow: 0)
         viewModel.taskNameDidChange(value: "body")
         viewModel.taskURLDidChange(value: "www.example.com")
-        viewModel.viewChanged(fromDate: fromDate)
+        viewModel.viewChanged(startAtDate: fromDate)
         //Act
         viewModel.viewRequestedToSave()
         //Assert
@@ -309,9 +307,9 @@ class WorkTimeViewModelTests: XCTestCase {
         viewModel.taskNameDidChange(value: "body")
         viewModel.taskURLDidChange(value: "www.example.com")
         calendarMock.dateBySettingReturnValue = fromDate
-        viewModel.viewChanged(fromDate: fromDate)
+        viewModel.viewChanged(startAtDate: fromDate)
         calendarMock.dateBySettingReturnValue = toDate
-        viewModel.viewChanged(toDate: toDate)
+        viewModel.viewChanged(endAtDate: toDate)
         //Act
         viewModel.viewRequestedToSave()
         //Assert
@@ -326,10 +324,10 @@ class WorkTimeViewModelTests: XCTestCase {
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let fromDate = try Calendar.current.date(from: components).unwrap()
         //Act
-        viewModel.viewChanged(fromDate: fromDate)
+        viewModel.viewChanged(startAtDate: fromDate)
         //Assert
-        XCTAssertEqual(userInterface.updateFromDateValues.date, fromDate)
-        XCTAssertEqual(userInterface.updateFromDateValues.dateString, "12:02 PM")
+        XCTAssertEqual(userInterface.updateStartAtDateValues.date, fromDate)
+        XCTAssertEqual(userInterface.updateStartAtDateValues.dateString, "12:02 PM")
     }
     
     func testViewChangedFromDateUpdatesSetsMinimumDateForTypeToDateOnTheUserInterface() throws {
@@ -337,22 +335,10 @@ class WorkTimeViewModelTests: XCTestCase {
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let fromDate = try Calendar.current.date(from: components).unwrap()
         //Act
-        viewModel.viewChanged(fromDate: fromDate)
+        viewModel.viewChanged(startAtDate: fromDate)
         //Assert
         XCTAssertTrue(userInterface.setMinimumDateForTypeToDateValues.called)
         XCTAssertEqual(userInterface.setMinimumDateForTypeToDateValues.minDate, fromDate)
-    }
-    
-    func testViewChangedFromDateUpdatesUpdatesTimeLabelOnTheUserInterface() throws {
-        //Arrange
-        let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let fromDate = try Calendar.current.date(from: components).unwrap()
-        calendarMock.dateBySettingReturnValue = fromDate
-        //Act
-        viewModel.viewChanged(fromDate: fromDate)
-        //Assert
-        XCTAssertTrue(userInterface.updateTimeLabelValues.called)
-        XCTAssertEqual(userInterface.updateTimeLabelValues.title, "00:00 1/17/18")
     }
     
     func testViewChangedFromDateWhileToDateWasSet() throws {
@@ -362,28 +348,23 @@ class WorkTimeViewModelTests: XCTestCase {
         components.day = 16
         let toDate = try Calendar.current.date(from: components).unwrap()
         calendarMock.dateBySettingReturnValue = toDate
-        viewModel.viewChanged(toDate: toDate)
+        viewModel.viewChanged(endAtDate: toDate)
         calendarMock.dateBySettingReturnValue = fromDate
         //Act
-        viewModel.viewChanged(fromDate: fromDate)
+        viewModel.viewChanged(startAtDate: fromDate)
         //Assert
-        XCTAssertTrue(userInterface.updateTimeLabelValues.called)
-        XCTAssertEqual(userInterface.updateTimeLabelValues.title, "0m 1/17/18")
-        
-        XCTAssertEqual(userInterface.updateToDateValues.date, fromDate)
-        XCTAssertEqual(userInterface.updateToDateValues.dateString, "12:02 PM")
+        XCTAssertEqual(userInterface.updateEndAtDateValues.date, fromDate)
+        XCTAssertEqual(userInterface.updateEndAtDateValues.dateString, "12:02 PM")
     }
     
     func testSetDefaultFromDateWhileFromDateWasNotSet() {
         //Act
-        viewModel.setDefaultFromDate()
+        viewModel.setDefaultStartAtDate()
         //Assert
-        XCTAssertNotNil(userInterface.updateFromDateValues.date)
-        XCTAssertNotNil(userInterface.updateFromDateValues.dateString)
+        XCTAssertNotNil(userInterface.updateStartAtDateValues.date)
+        XCTAssertNotNil(userInterface.updateStartAtDateValues.dateString)
         XCTAssertTrue(userInterface.setMinimumDateForTypeToDateValues.called)
         XCTAssertNotNil(userInterface.setMinimumDateForTypeToDateValues.minDate)
-        XCTAssertTrue(userInterface.updateTimeLabelValues.called)
-        XCTAssertNotNil(userInterface.updateTimeLabelValues.title)
     }
     
     func testSetDefaultFromDateWhileFromDateWasSet() throws {
@@ -391,16 +372,14 @@ class WorkTimeViewModelTests: XCTestCase {
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let fromDate = try Calendar.current.date(from: components).unwrap()
         calendarMock.dateBySettingReturnValue = fromDate
-        viewModel.viewChanged(fromDate: fromDate)
+        viewModel.viewChanged(startAtDate: fromDate)
         //Act
-        viewModel.setDefaultFromDate()
+        viewModel.setDefaultStartAtDate()
         //Assert
-        XCTAssertEqual(userInterface.updateFromDateValues.date, fromDate)
-        XCTAssertEqual(userInterface.updateFromDateValues.dateString, "12:02 PM")
+        XCTAssertEqual(userInterface.updateStartAtDateValues.date, fromDate)
+        XCTAssertEqual(userInterface.updateStartAtDateValues.dateString, "12:02 PM")
         XCTAssertTrue(userInterface.setMinimumDateForTypeToDateValues.called)
         XCTAssertEqual(userInterface.setMinimumDateForTypeToDateValues.minDate, fromDate)
-        XCTAssertTrue(userInterface.updateTimeLabelValues.called)
-        XCTAssertEqual(userInterface.updateTimeLabelValues.title, "00:00 1/17/18")
     }
     
     func testViewChangedToDate() throws {
@@ -408,11 +387,10 @@ class WorkTimeViewModelTests: XCTestCase {
         let components = DateComponents(year: 2018, month: 1, day: 16, hour: 12, minute: 2, second: 1)
         let toDate = try Calendar.current.date(from: components).unwrap()
         //Act
-        viewModel.viewChanged(toDate: toDate)
+        viewModel.viewChanged(endAtDate: toDate)
         //Assert
-        XCTAssertEqual(userInterface.updateToDateValues.date, toDate)
-        XCTAssertEqual(userInterface.updateToDateValues.dateString, "12:02 PM")
-        XCTAssertFalse(userInterface.updateTimeLabelValues.called)
+        XCTAssertEqual(userInterface.updateEndAtDateValues.date, toDate)
+        XCTAssertEqual(userInterface.updateEndAtDateValues.dateString, "12:02 PM")
     }
     
     func testViewChangedToDateWhileFromDateSet() throws {
@@ -422,24 +400,21 @@ class WorkTimeViewModelTests: XCTestCase {
         components.hour = 13
         let toDate = try Calendar.current.date(from: components).unwrap()
         calendarMock.dateBySettingReturnValue = fromDate
-        viewModel.viewChanged(fromDate: fromDate)
+        viewModel.viewChanged(startAtDate: fromDate)
         calendarMock.dateBySettingReturnValue = toDate
         //Act
-        viewModel.viewChanged(toDate: toDate)
+        viewModel.viewChanged(endAtDate: toDate)
         //Assert
-        XCTAssertEqual(userInterface.updateToDateValues.date, toDate)
-        XCTAssertEqual(userInterface.updateToDateValues.dateString, "1:02 PM")
-        XCTAssertTrue(userInterface.updateTimeLabelValues.called)
-        XCTAssertEqual(userInterface.updateTimeLabelValues.title, "1h 1/17/18")
+        XCTAssertEqual(userInterface.updateEndAtDateValues.date, toDate)
+        XCTAssertEqual(userInterface.updateEndAtDateValues.dateString, "1:02 PM")
     }
     
     func testSetDefaultToDate() {
         //Act
-        viewModel.setDefaultToDate()
+        viewModel.setDefaultEndAtDate()
         //Assert
-        XCTAssertNotNil(userInterface.updateToDateValues.date)
-        XCTAssertNotNil(userInterface.updateToDateValues.dateString)
-        XCTAssertFalse(userInterface.updateTimeLabelValues.called)
+        XCTAssertNotNil(userInterface.updateEndAtDateValues.date)
+        XCTAssertNotNil(userInterface.updateEndAtDateValues.dateString)
     }
     
     func testSetDefaultToDateWhileToDateWasSet() throws {
@@ -447,14 +422,12 @@ class WorkTimeViewModelTests: XCTestCase {
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let toDate = try Calendar.current.date(from: components).unwrap()
         calendarMock.dateBySettingReturnValue = toDate
-        viewModel.viewChanged(toDate: toDate)
+        viewModel.viewChanged(endAtDate: toDate)
         //Act
-        viewModel.setDefaultToDate()
+        viewModel.setDefaultEndAtDate()
         //Assert
-        XCTAssertEqual(userInterface.updateToDateValues.date, toDate)
-        XCTAssertEqual(userInterface.updateToDateValues.dateString, "12:02 PM")
-        XCTAssertFalse(userInterface.updateTimeLabelValues.called)
-        XCTAssertNil(userInterface.updateTimeLabelValues.title)
+        XCTAssertEqual(userInterface.updateEndAtDateValues.date, toDate)
+        XCTAssertEqual(userInterface.updateEndAtDateValues.dateString, "12:02 PM")
     }
     
     func testSetDefaultToDateWhileFromDateWasSet() throws {
@@ -462,16 +435,14 @@ class WorkTimeViewModelTests: XCTestCase {
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let fromDate = try Calendar.current.date(from: components).unwrap()
         calendarMock.dateBySettingReturnValue = fromDate
-        viewModel.viewChanged(fromDate: fromDate)
+        viewModel.viewChanged(startAtDate: fromDate)
         //Act
-        viewModel.setDefaultToDate()
+        viewModel.setDefaultEndAtDate()
         //Assert
-        XCTAssertEqual(userInterface.updateFromDateValues.date, fromDate)
-        XCTAssertEqual(userInterface.updateFromDateValues.dateString, "12:02 PM")
+        XCTAssertEqual(userInterface.updateStartAtDateValues.date, fromDate)
+        XCTAssertEqual(userInterface.updateStartAtDateValues.dateString, "12:02 PM")
         XCTAssertTrue(userInterface.setMinimumDateForTypeToDateValues.called)
         XCTAssertEqual(userInterface.setMinimumDateForTypeToDateValues.minDate, fromDate)
-        XCTAssertTrue(userInterface.updateTimeLabelValues.called)
-        XCTAssertEqual(userInterface.updateTimeLabelValues.title, "0m 1/17/18")
     }
     
     func testViewRequestedToSaveAplClientThrowsError() throws {
@@ -486,9 +457,9 @@ class WorkTimeViewModelTests: XCTestCase {
         viewModel.taskNameDidChange(value: "body")
         viewModel.taskURLDidChange(value: "www.example.com")
         calendarMock.dateBySettingReturnValue = fromDate
-        viewModel.viewChanged(fromDate: fromDate)
+        viewModel.viewChanged(startAtDate: fromDate)
         calendarMock.dateBySettingReturnValue = toDate
-        viewModel.viewChanged(toDate: toDate)
+        viewModel.viewChanged(endAtDate: toDate)
         //Act
         viewModel.viewRequestedToSave()
         apiClient.addWorkTimeComletion?(.failure(error))
@@ -510,9 +481,9 @@ class WorkTimeViewModelTests: XCTestCase {
         viewModel.taskNameDidChange(value: "body")
         viewModel.taskURLDidChange(value: "www.example.com")
         calendarMock.dateBySettingReturnValue = fromDate
-        viewModel.viewChanged(fromDate: fromDate)
+        viewModel.viewChanged(startAtDate: fromDate)
         calendarMock.dateBySettingReturnValue = toDate
-        viewModel.viewChanged(toDate: toDate)
+        viewModel.viewChanged(endAtDate: toDate)
         //Act
         viewModel.viewRequestedToSave()
         apiClient.addWorkTimeComletion?(.success(Void()))
