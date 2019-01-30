@@ -13,6 +13,7 @@ protocol WorkTimesViewModelOutput: class {
     func setUpView()
     func updateView()
     func updateDateSelector(currentDateString: String, previousDateString: String, nextDateString: String)
+    func updateMatchingFullTimeLabels(workedHours: String, shouldWorkHours: String, duration: String)
 }
 
 protocol WorkTimesViewModelType: class {
@@ -39,10 +40,12 @@ class DailyWorkTime {
     }
 }
 
+typealias WorkTimesApiClientType = (ApiClientWorkTimesType & ApiClientMatchingFullTimeType)
+
 class WorkTimesViewModel: WorkTimesViewModelType {
     private weak var userInterface: WorkTimesViewModelOutput?
     private let coordinator: WorkTimesCoordinatorDelegate
-    private let apiClient: ApiClientWorkTimesType
+    private let contentProvider: WorkTimesContentProviderType
     private let errorHandler: ErrorHandlerType
     private let calendar: CalendarType
     private var selectedMonth: Date?
@@ -54,11 +57,11 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     }
     
     // MARK: - Initialization
-    init(userInterface: WorkTimesViewModelOutput, coordinator: WorkTimesCoordinatorDelegate, apiClient: ApiClientWorkTimesType,
+    init(userInterface: WorkTimesViewModelOutput, coordinator: WorkTimesCoordinatorDelegate, contentProvider: WorkTimesContentProviderType,
          errorHandler: ErrorHandlerType, calendar: CalendarType = Calendar.autoupdatingCurrent) {
         self.userInterface = userInterface
         self.coordinator = coordinator
-        self.apiClient = apiClient
+        self.contentProvider = contentProvider
         self.errorHandler = errorHandler
         self.calendar = calendar
         self.dailyWorkTimesArray = []
@@ -81,7 +84,7 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     }
     
     func viewWillAppear() {
-        fetchWorkTimes(forCurrentMonth: selectedMonth)
+        fetchWorkTimesData(forCurrentMonth: selectedMonth)
     }
     
     func viewRequestedForPreviousMonth() {
@@ -114,13 +117,41 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     }
     
     // MARK: - Private
+    private func fetchWorkTimesData(forCurrentMonth date: Date?) {
+        contentProvider.fetchWorkTimesData(for: date) { [weak self] result in
+            switch result {
+            case .success(let data):
+                self?.dailyWorkTimesArray = data.0
+                
+                let formatter = DateComponentsFormatter()
+                formatter.allowedUnits = [.hour, .minute]
+                formatter.unitsStyle = .abbreviated
+                let defaultValue = "00:00"
+                var time: (workedHours: String, shouldWorkHours: String, duration: String) = (defaultValue, defaultValue, defaultValue)
+                if let countedDuration = data.1?.period?.countedDuration {
+                    time.workedHours = formatter.string(from: countedDuration ) ?? defaultValue
+                }
+                if let shouldWorked = data.1?.shouldWorked {
+                    time.shouldWorkHours = formatter.string(from: shouldWorked) ?? defaultValue
+                }
+                if let duration = data.1?.period?.duration {
+                    time.duration = formatter.string(from: duration) ?? defaultValue
+                }
+                self?.userInterface?.updateMatchingFullTimeLabels(workedHours: time.workedHours, shouldWorkHours: time.shouldWorkHours, duration: time.duration)
+                self?.userInterface?.updateView()
+            case .failure(let error):
+                self?.errorHandler.throwing(error: error)
+            }
+        }
+    }
+    
     private func fetchAndChangeSelectedMonth(with components: DateComponents) {
         guard let date = selectedMonth else { return }
         let newComponents = newDateComponents(for: date, oldComponents: components)
         let newSelectedMonth = calendar.date(byAdding: newComponents, to: date)
         selectedMonth = newSelectedMonth
         updateDateSelectorView(withCurrentDate: newSelectedMonth)
-        fetchWorkTimes(forCurrentMonth: newSelectedMonth)
+        fetchWorkTimesData(forCurrentMonth: newSelectedMonth)
     }
     
     private func updateDateSelectorView(withCurrentDate date: Date?) {
@@ -153,41 +184,5 @@ class WorkTimesViewModel: WorkTimesViewModelType {
         guard let month = components.month, let year = components.year else { return "" }
         guard let monthSymbol = DateFormatter().shortMonthSymbols?[month - 1] else { return "" }
         return "\(monthSymbol) \(year)"
-    }
-    
-    private func fetchWorkTimes(forCurrentMonth date: Date?) {
-        let dates = getStartAndEndDate(for: date)
-        let parameters = WorkTimesParameters(fromDate: dates.startOfMonth, toDate: dates.endOfMonth, projectIdentifier: nil)
-        
-        apiClient.fetchWorkTimes(parameters: parameters) { [weak self] result in
-            switch result {
-            case .success(let workTimes):
-                self?.dailyWorkTimesArray = workTimes.reduce([DailyWorkTime](), { (array, workTime) in
-                    var newArray = array
-                    if let dailyWorkTimes = newArray.first(where: { $0.day == workTime.date }) {
-                        dailyWorkTimes.workTimes.append(workTime)
-                    } else {
-                        let new = DailyWorkTime(day: workTime.date, workTimes: [workTime])
-                        newArray.append(new)
-                    }
-                    return newArray
-                }).sorted(by: { $0.day > $1.day })
-                self?.userInterface?.updateView()
-            case .failure(let error):
-                self?.errorHandler.throwing(error: error)
-            }
-        }
-    }
-    
-    private func getStartAndEndDate(for date: Date?) -> (startOfMonth: Date?, endOfMonth: Date?) {
-        guard let date = date else { return (nil, nil) }
-        var startOfMonthComponents = calendar.dateComponents([.year, .month], from: date)
-        startOfMonthComponents.day = 1
-        startOfMonthComponents.timeZone = TimeZone(secondsFromGMT: 0)
-        let startOfMonth = calendar.date(from: startOfMonthComponents)
-        guard let startDate = startOfMonth else { return (startOfMonth, nil) }
-        let endOfMonthComponents = DateComponents(day: -1, hour: 23, minute: 59, second: 59, nanosecond: 59)
-        let endOfMonth = calendar.date(byAdding: endOfMonthComponents, to: startDate)
-        return (startOfMonth, endOfMonth)
     }
 }
