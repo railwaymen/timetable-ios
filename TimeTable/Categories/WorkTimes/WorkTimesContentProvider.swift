@@ -9,7 +9,7 @@
 import Foundation
 
 protocol WorkTimesContentProviderType: class {
-    func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder?)>) -> Void)
+    func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder)>) -> Void)
 }
 
 class WorkTimesContentProvider: WorkTimesContentProviderType {
@@ -25,10 +25,10 @@ class WorkTimesContentProvider: WorkTimesContentProviderType {
     }
 
     // MARK: - WorkTimesContentProviderType
-    func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder?)>) -> Void) {
+    func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder)>) -> Void) {
         var dailyWorkTimes: [DailyWorkTime] = []
         var matchingFullTime: MatchingFullTimeDecoder?
-        
+        var fetchError: Error?
         let operationQueue = OperationQueue()
         operationQueue.maxConcurrentOperationCount = 2
         
@@ -45,7 +45,8 @@ class WorkTimesContentProvider: WorkTimesContentProviderType {
                 case .success(let workTimes):
                     dailyWorkTimes = workTimes
                     workTimesSemaphore.signal()
-                case .failure:
+                case .failure(let error):
+                    fetchError = error
                     matchingFullTimeBlockOperation?.cancel()
                     workTimesSemaphore.signal()
                 }
@@ -61,7 +62,7 @@ class WorkTimesContentProvider: WorkTimesContentProviderType {
                     matchingFullTime = time
                     matchingFullTimeSemaphore.signal()
                 case .failure(let error):
-                    print(error)
+                    fetchError = error
                     workTimesBlockOperation?.cancel()
                     matchingFullTimeSemaphore.signal()
                 }
@@ -73,7 +74,13 @@ class WorkTimesContentProvider: WorkTimesContentProviderType {
         let doneBlockOperation = BlockOperation()
         
         doneBlockOperation.addExecutionBlock {
-            completion(.success((dailyWorkTimes, matchingFullTime)))
+            if let error = fetchError {
+                completion(.failure(error))
+            } else if let matchingFullTime = matchingFullTime {
+                completion(.success((dailyWorkTimes, matchingFullTime)))
+            } else {
+                completion(.failure(ApiClientError(type: .invalidResponse)))
+            }
         }
         
         doneBlockOperation.addDependency(matchingFullTimeBlockOperation)

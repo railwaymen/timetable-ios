@@ -13,6 +13,7 @@ class ApiClientProjectsTests: XCTestCase {
     private var networkingMock: NetworkingMock!
     private var requestEncoderMock: RequestEncoderMock!
     private var jsonDecoderMock: JSONDecoderMock!
+    private var apiClient: ApiClientProjectsType!
     
     private enum ProjectsRecordsResponse: String, JSONFileResource {
         case projectsRecordsResponse
@@ -23,6 +24,11 @@ class ApiClientProjectsTests: XCTestCase {
         self.networkingMock = NetworkingMock()
         self.requestEncoderMock = RequestEncoderMock()
         self.jsonDecoderMock = JSONDecoderMock()
+        self.apiClient = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
+        return self.requestEncoderMock
+        }) { () -> JSONDecoderType in
+            return self.jsonDecoderMock
+        }
         super.setUp()
     }
     
@@ -31,17 +37,12 @@ class ApiClientProjectsTests: XCTestCase {
         //Arrange
         let data = try self.json(from: ProjectsRecordsResponse.projectsRecordsResponse)
         let decoder = try JSONDecoder().decode([ProjectRecordDecoder].self, from: data)
-        var expecdedProjectsRecordsDecoder: [ProjectRecordDecoder]?
-        let apiClient: ApiClientProjectsType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
-            return requestEncoderMock
-        }) { () -> JSONDecoderType in
-            return jsonDecoderMock
-        }
+        var expectedProjectsRecordsDecoder: [ProjectRecordDecoder]?
         //Act
         apiClient.fetchAllProjects { result in
             switch result {
             case .success(let projectsRecordsDecoder):
-                expecdedProjectsRecordsDecoder = projectsRecordsDecoder
+                expectedProjectsRecordsDecoder = projectsRecordsDecoder
             case .failure:
                 XCTFail()
             }
@@ -49,30 +50,25 @@ class ApiClientProjectsTests: XCTestCase {
 
         networkingMock.getCompletion?(.success(data))
         //Assert
-        XCTAssertEqual(expecdedProjectsRecordsDecoder?.count, decoder.count)
+        XCTAssertEqual(expectedProjectsRecordsDecoder?.count, decoder.count)
     }
     
     func testFetchAllProjectsFailed() throws {
         //Arrange
-        var expecdedError: Error?
+        var expectedError: Error?
         let error = TestError(message: "fetch projects failed")
-        let apiClient: ApiClientProjectsType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
-            return requestEncoderMock
-        }) { () -> JSONDecoderType in
-            return jsonDecoderMock
-        }
         //Act
         apiClient.fetchAllProjects { result in
             switch result {
             case .success:
                 XCTFail()
             case .failure(let error):
-                expecdedError = error
+                expectedError = error
             }
         }
         networkingMock.getCompletion?(.failure(error))
         //Assert
-        let testError = try (expecdedError as? TestError).unwrap()
+        let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
     }
     
@@ -80,47 +76,37 @@ class ApiClientProjectsTests: XCTestCase {
         //Arrange
         let data = try self.json(from: ProjectsRecordsResponse.simpleProjectArrayResponse)
         let decoder = try JSONDecoder().decode([ProjectDecoder].self, from: data)
-        var expecdedProjectsDecoder: [ProjectDecoder]?
-        let apiClient: ApiClientProjectsType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
-            return requestEncoderMock
-        }) { () -> JSONDecoderType in
-            return jsonDecoderMock
-        }
+        var expectedProjectsDecoder: [ProjectDecoder]?
         //Act
         apiClient.fetchSimpleListOfProjects { result in
             switch result {
             case .success(let projectsDecoder):
-                expecdedProjectsDecoder = projectsDecoder
+                expectedProjectsDecoder = projectsDecoder
             case .failure:
                 XCTFail()
             }
         }
         networkingMock.getCompletion?(.success(data))
         //Assert
-        XCTAssertEqual(expecdedProjectsDecoder?.count, decoder.count)
+        XCTAssertEqual(expectedProjectsDecoder?.count, decoder.count)
     }
     
     func testFetchSimpleProjectArrayResponseFailed() throws {
         //Arrange
-        var expecdedError: Error?
+        var expectedError: Error?
         let error = TestError(message: "fetch projects failed")
-        let apiClient: ApiClientProjectsType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
-            return requestEncoderMock
-        }) { () -> JSONDecoderType in
-            return jsonDecoderMock
-        }
         //Act
         apiClient.fetchSimpleListOfProjects { result in
             switch result {
             case .success:
                 XCTFail()
             case .failure(let error):
-                expecdedError = error
+                expectedError = error
             }
         }
         networkingMock.getCompletion?(.failure(error))
         //Assert
-        let testError = try (expecdedError as? TestError).unwrap()
+        let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
     }
 }

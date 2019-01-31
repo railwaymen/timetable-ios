@@ -29,3 +29,16 @@ struct MatchingFullTimeDecoder: Decodable {
         case shouldWorked = "should_worked"
     }
 }
+
+// MARK: - Equatable
+extension MatchingFullTimeDecoder: Equatable {
+    static func == (lhs: MatchingFullTimeDecoder, rhs: MatchingFullTimeDecoder) -> Bool {
+        return lhs.period == rhs.period && lhs.shouldWorked == rhs.shouldWorked
+    }
+}
+
+extension MatchingFullTimeDecoder.Period: Equatable {
+    static func == (lhs: MatchingFullTimeDecoder.Period, rhs: MatchingFullTimeDecoder.Period) -> Bool {
+        return lhs.identifier == rhs.identifier && lhs.countedDuration == rhs.countedDuration && lhs.duration == rhs.duration
+    }
+}

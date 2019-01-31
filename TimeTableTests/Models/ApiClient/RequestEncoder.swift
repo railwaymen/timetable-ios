@@ -42,8 +42,8 @@ class RequestEncoderTests: XCTestCase {
             _ = try requestEncoder.encode(wrapper: wrapper)
         } catch {
             //Assert
-            let expecdedError = error as? TestError
-            XCTAssertEqual(expecdedError, TestError(message: "encode error"))
+            let expectedError = error as? TestError
+            XCTAssertEqual(expectedError, TestError(message: "encode error"))
         }
     }
     
@@ -57,8 +57,8 @@ class RequestEncoderTests: XCTestCase {
             _ = try requestEncoder.encodeToDictionary(wrapper: wrapper)
         } catch {
             //Assert
-            let expecdedError = error as? TestError
-            XCTAssertEqual(expecdedError, TestError(message: "encode error"))
+            let expectedError = error as? TestError
+            XCTAssertEqual(expectedError, TestError(message: "encode error"))
         }
     }
     
@@ -72,8 +72,8 @@ class RequestEncoderTests: XCTestCase {
             _ = try requestEncoder.encodeToDictionary(wrapper: wrapper)
         } catch {
             //Assert
-            let expecdedError = error as? TestError
-            XCTAssertEqual(expecdedError, TestError(message: "jsonObject error"))
+            let expectedError = error as? TestError
+            XCTAssertEqual(expectedError, TestError(message: "jsonObject error"))
         }
     }
     

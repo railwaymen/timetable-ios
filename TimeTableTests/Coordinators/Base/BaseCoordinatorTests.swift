@@ -140,8 +140,8 @@ class BaseCoordinatorTests: XCTestCase {
         let childController = try navigationController.children.first.unwrap()
         //Assert
         DispatchQueue.main.async {
-            XCTAssertNotNil(childController.presentedViewController as? UIAlertController)
             expectation.fulfill()
+            XCTAssertNotNil(childController.presentedViewController as? UIAlertController)
         }
         wait(for: [expectation], timeout: timetout)
     }

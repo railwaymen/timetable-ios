@@ -30,7 +30,7 @@ class ApiClientSessionTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SessionResponse.signInResponse)
         let decoder = try JSONDecoder().decode(SessionDecoder.self, from: data)
-        var expecdedSessionDecoder: SessionDecoder?
+        var expectedSessionDecoder: SessionDecoder?
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
         let apiClient: ApiClientSessionType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
             return requestEncoderMock
@@ -41,19 +41,19 @@ class ApiClientSessionTests: XCTestCase {
         apiClient.signIn(with: parameters) { result in
             switch result {
             case .success(let sessionDecoder):
-                expecdedSessionDecoder = sessionDecoder
+                expectedSessionDecoder = sessionDecoder
             case .failure:
                 XCTFail()
             }
         }
         networkingMock.shortPostCompletion?(.success(data))
         //Assert
-        XCTAssertEqual(try expecdedSessionDecoder.unwrap(), decoder)
+        XCTAssertEqual(try expectedSessionDecoder.unwrap(), decoder)
     }
     
     func testSignInFailed() throws {
         //Arrange
-        var expecdedError: Error?
+        var expectedError: Error?
         let error = TestError(message: "sign in failed")
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
         let apiClient: ApiClientSessionType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
@@ -67,12 +67,12 @@ class ApiClientSessionTests: XCTestCase {
             case .success:
                 XCTFail()
             case .failure(let error):
-                expecdedError = error
+                expectedError = error
             }
         }
         networkingMock.shortPostCompletion?(.failure(error))
         //Assert
-        let testError = try (expecdedError as? TestError).unwrap()
+        let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
     }
 }

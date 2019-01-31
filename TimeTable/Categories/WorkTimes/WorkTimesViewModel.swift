@@ -65,7 +65,7 @@ class WorkTimesViewModel: WorkTimesViewModelType {
         self.errorHandler = errorHandler
         self.calendar = calendar
         self.dailyWorkTimesArray = []
-        let components = Calendar.current.dateComponents([.month, .year], from: Date())
+        let components = calendar.dateComponents([.month, .year], from: Date())
         self.selectedMonth = calendar.date(from: components)
     }
     
@@ -120,24 +120,25 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     private func fetchWorkTimesData(forCurrentMonth date: Date?) {
         contentProvider.fetchWorkTimesData(for: date) { [weak self] result in
             switch result {
-            case .success(let data):
-                self?.dailyWorkTimesArray = data.0
-                
+            case .success(let dailyWorkTimes, let matchingFullTime):
+                self?.dailyWorkTimesArray = dailyWorkTimes
                 let formatter = DateComponentsFormatter()
                 formatter.allowedUnits = [.hour, .minute]
                 formatter.unitsStyle = .abbreviated
                 let defaultValue = "00:00"
                 var time: (workedHours: String, shouldWorkHours: String, duration: String) = (defaultValue, defaultValue, defaultValue)
-                if let countedDuration = data.1?.period?.countedDuration {
+                if let countedDuration = matchingFullTime.period?.countedDuration {
                     time.workedHours = formatter.string(from: countedDuration ) ?? defaultValue
                 }
-                if let shouldWorked = data.1?.shouldWorked {
+                if let shouldWorked = matchingFullTime.shouldWorked {
                     time.shouldWorkHours = formatter.string(from: shouldWorked) ?? defaultValue
                 }
-                if let duration = data.1?.period?.duration {
+                if let duration = matchingFullTime.period?.duration {
                     time.duration = formatter.string(from: duration) ?? defaultValue
                 }
-                self?.userInterface?.updateMatchingFullTimeLabels(workedHours: time.workedHours, shouldWorkHours: time.shouldWorkHours, duration: time.duration)
+                self?.userInterface?.updateMatchingFullTimeLabels(workedHours: time.workedHours,
+                                                                  shouldWorkHours: time.shouldWorkHours,
+                                                                  duration: time.duration)
                 self?.userInterface?.updateView()
             case .failure(let error):
                 self?.errorHandler.throwing(error: error)

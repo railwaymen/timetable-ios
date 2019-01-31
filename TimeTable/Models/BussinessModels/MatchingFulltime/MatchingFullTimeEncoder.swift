@@ -25,11 +25,18 @@ struct MatchingFullTimeEncoder: Encodable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         guard let date = self.date else {
-            throw EncodingError.invalidValue(MatchingFullTimeEncoder.self, EncodingError.Context(codingPath: [CodingKeys.date], debugDescription: "date"))
+            throw EncodingError.invalidValue(MatchingFullTimeEncoder.self,
+                                             EncodingError.Context(codingPath: [CodingKeys.date],
+                                                                   debugDescription: "date"))
         }
         
         let dateString =  MatchingFullTimeEncoder.dateFormatter.string(from: date)
         try container.encode(dateString, forKey: .date)
-        try container.encode(userIdentifier, forKey: .userIdentifier)
+        guard let identifier = userIdentifier else {
+            throw EncodingError.invalidValue(MatchingFullTimeEncoder.self,
+                                             EncodingError.Context(codingPath: [CodingKeys.userIdentifier],
+                                                                   debugDescription: "user_id"))
+        }
+        try container.encode(identifier, forKey: .userIdentifier)
     }
 }

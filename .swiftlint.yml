@@ -16,6 +16,9 @@ line_length:
   warning: 160
   error: 200
 
+function_body_length:
+  warning: 50
+
 warning_threshold: 5
 
 excluded:
