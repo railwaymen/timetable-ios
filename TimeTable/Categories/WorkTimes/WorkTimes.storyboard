@@ -141,10 +141,14 @@
                                     <constraint firstItem="hFZ-05-2OL" firstAttribute="leading" secondItem="chj-g6-Xkk" secondAttribute="leading" constant="18" id="lf7-OV-3AM">
                                         <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                                     </constraint>
-                                    <constraint firstAttribute="bottom" secondItem="hFZ-05-2OL" secondAttribute="bottom" constant="30" id="qPI-4M-qSc"/>
+                                    <constraint firstAttribute="bottom" secondItem="hFZ-05-2OL" secondAttribute="bottom" constant="30" id="qPI-4M-qSc">
+                                        <variation key="heightClass=compact-widthClass=regular" constant="10"/>
+                                    </constraint>
                                     <constraint firstItem="KTO-4j-KGE" firstAttribute="top" secondItem="chj-g6-Xkk" secondAttribute="top" constant="10" id="vTN-JP-JJy"/>
                                     <constraint firstAttribute="trailing" secondItem="KTO-4j-KGE" secondAttribute="trailing" constant="18" id="wlx-0s-b3A"/>
-                                    <constraint firstItem="hFZ-05-2OL" firstAttribute="top" secondItem="KTO-4j-KGE" secondAttribute="bottom" constant="30" id="zDd-JT-7g0"/>
+                                    <constraint firstItem="hFZ-05-2OL" firstAttribute="top" secondItem="KTO-4j-KGE" secondAttribute="bottom" constant="30" id="zDd-JT-7g0">
+                                        <variation key="heightClass=compact-widthClass=regular" constant="10"/>
+                                    </constraint>
                                 </constraints>
                                 <variation key="heightClass=compact-widthClass=compact">
                                     <mask key="constraints">
@@ -202,32 +206,32 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1wd-Th-rB2" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
-                                                    <rect key="frame" x="18" y="10" width="284" height="140"/>
+                                                    <rect key="frame" x="18" y="10" width="772" height="140"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a0g-Wr-vfk">
-                                                            <rect key="frame" x="280" y="0.0" width="4" height="140"/>
+                                                            <rect key="frame" x="768" y="0.0" width="4" height="140"/>
                                                             <color key="backgroundColor" red="0.5" green="0.024894343440000001" blue="0.12416041329999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="4" id="DyP-4i-cfb"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBV-5c-Jhx">
-                                                            <rect key="frame" x="0.0" y="18" width="280" height="59"/>
+                                                            <rect key="frame" x="0.0" y="18" width="768" height="59"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Swoppt" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebv-KY-IyL">
-                                                                    <rect key="frame" x="19" y="16" width="168.66666666666666" height="27"/>
+                                                                    <rect key="frame" x="19" y="16" width="656.66666666666663" height="27"/>
                                                                     <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="18"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:10 h" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lak-az-VGi">
-                                                                    <rect key="frame" x="229" y="9" width="40" height="18"/>
+                                                                    <rect key="frame" x="717" y="9" width="40" height="18"/>
                                                                     <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="8:00 - 8:10" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jr4-IC-trM">
-                                                                    <rect key="frame" x="196.66666666666666" y="32" width="72.333333333333343" height="18"/>
+                                                                    <rect key="frame" x="684.66666666666663" y="32" width="72.333333333333371" height="18"/>
                                                                     <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
@@ -248,7 +252,7 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Swoppt" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sd9-lE-4Kj">
-                                                            <rect key="frame" x="18" y="92" width="253" height="30"/>
+                                                            <rect key="frame" x="18" y="92" width="741" height="30"/>
                                                             <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
                                                             <color key="textColor" red="0.30588235294117649" green="0.30588235294117649" blue="0.41960784313725491" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -303,32 +307,32 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yvi-54-qcM" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
-                                                    <rect key="frame" x="18" y="10" width="284" height="170"/>
+                                                    <rect key="frame" x="18" y="10" width="772" height="169.66666666666666"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dAN-Bt-UEs">
-                                                            <rect key="frame" x="280" y="0.0" width="4" height="170"/>
+                                                            <rect key="frame" x="768" y="0.0" width="4" height="169.66666666666666"/>
                                                             <color key="backgroundColor" red="0.5" green="0.024894343440000001" blue="0.12416041329999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="4" id="kNR-GH-aeb"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gXz-0G-Tmb">
-                                                            <rect key="frame" x="0.0" y="18" width="280" height="59"/>
+                                                            <rect key="frame" x="0.0" y="18" width="768" height="59"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Swoppt" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jj4-Uj-OxS">
-                                                                    <rect key="frame" x="19" y="16" width="168.66666666666666" height="27"/>
+                                                                    <rect key="frame" x="19" y="16" width="656.66666666666663" height="27"/>
                                                                     <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="18"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:10 h" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mrO-F2-lNw">
-                                                                    <rect key="frame" x="229" y="9" width="40" height="18"/>
+                                                                    <rect key="frame" x="717" y="9" width="40" height="18"/>
                                                                     <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="8:00 - 8:10" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H4j-TL-Hum">
-                                                                    <rect key="frame" x="196.66666666666666" y="32" width="72.333333333333343" height="18"/>
+                                                                    <rect key="frame" x="684.66666666666663" y="32" width="72.333333333333371" height="18"/>
                                                                     <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
@@ -349,13 +353,13 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Swoppt" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZA7-0n-Xl3">
-                                                            <rect key="frame" x="18" y="92" width="253" height="22"/>
+                                                            <rect key="frame" x="18" y="92" width="741" height="21.666666666666671"/>
                                                             <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
                                                             <color key="textColor" red="0.30588235289999999" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBh-u2-HEH">
-                                                            <rect key="frame" x="18" y="122" width="253" height="30"/>
+                                                            <rect key="frame" x="18" y="121.66666666666666" width="741" height="30"/>
                                                             <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
                                                             <state key="normal" title="TimeTable - add new work time">
                                                                 <color key="titleColor" red="0.30588235289999999" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
