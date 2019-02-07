@@ -13,6 +13,7 @@ enum Endpoints {
     case projects
     case projectsSimpleList
     case signIn
+    case workTime(Int64)
     case workTimes
     case user(Int64)
     
@@ -22,6 +23,7 @@ enum Endpoints {
         case .projects: return "/projects"
         case .projectsSimpleList: return "/projects/simple"
         case .signIn: return "/users/sign_in"
+        case .workTime(let identifier): return "/work_times/\(identifier)"
         case .workTimes: return "/work_times"
         case .user(let identifier): return "/users/\(identifier)"
         }

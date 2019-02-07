@@ -22,4 +22,8 @@ extension ApiClient: ApiClientWorkTimesType {
     func addWorkTime(parameters: Task, completion: @escaping ((Result<Void>) -> Void)) {
         post(.workTimes, parameters: parameters, completion: completion)
     }
+    
+    func deleteWorkTime(identifier: Int, completion: @escaping ((Result<Void>) -> Void)) {
+        
+    }
 }
