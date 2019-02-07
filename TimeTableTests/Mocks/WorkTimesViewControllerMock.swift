@@ -16,6 +16,7 @@ class WorkTimesViewControllerMock: WorkTimesViewControlleralbe {
     private(set) var updateViewCalled = false
     private(set) var updateDateSelectorData: (currentDateString: String?, previousDateString: String?, nextDateString: String?) = (nil, nil, nil)
     private(set) var configureViewModelData: (called: Bool, viewModel: WorkTimesViewModelType?) = (false, nil)
+    private(set) var updateMatchingFullTimeLabelsData: (workedHours: String?, shouldWorkHours: String?, duration: String?) = (nil, nil, nil)
     
     func setUpView() {
         setUpViewCalled = true
@@ -31,6 +32,10 @@ class WorkTimesViewControllerMock: WorkTimesViewControlleralbe {
  
     func configure(viewModel: WorkTimesViewModelType) {
         configureViewModelData = (true, viewModel)
+    }
+    
+    func updateMatchingFullTimeLabels(workedHours: String, shouldWorkHours: String, duration: String) {
+        updateMatchingFullTimeLabelsData = (workedHours, shouldWorkHours, duration)
     }
 }
 // swiftlint:enable large_tuple

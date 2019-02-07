@@ -41,7 +41,7 @@ class ApiClientWorkTimesTests: XCTestCase {
         //Arrange
         let data = try self.json(from: WorkTimesResponse.workTimesResponse)
         let decoders = try decoder.decode([WorkTimeDecoder].self, from: data)
-        var expecdedWorkTimes: [WorkTimeDecoder]?
+        var expectedWorkTimes: [WorkTimeDecoder]?
         let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
         let apiClient: ApiClientWorkTimesType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
             return requestEncoderMock
@@ -52,20 +52,20 @@ class ApiClientWorkTimesTests: XCTestCase {
         apiClient.fetchWorkTimes(parameters: parameters) { result in
             switch result {
             case .success(let workTimeDecoder):
-                expecdedWorkTimes = workTimeDecoder
+                expectedWorkTimes = workTimeDecoder
             case .failure:
                 XCTFail()
             }
         }
         networkingMock.getCompletion?(.success(data))
         //Assert
-        XCTAssertEqual(try (expecdedWorkTimes?[0]).unwrap(), decoders[0])
-        XCTAssertEqual(try (expecdedWorkTimes?[1]).unwrap(), decoders[1])
+        XCTAssertEqual(try (expectedWorkTimes?[0]).unwrap(), decoders[0])
+        XCTAssertEqual(try (expectedWorkTimes?[1]).unwrap(), decoders[1])
     }
     
     func testFetchFailed() throws {
         //Arrange
-        var expecdedError: Error?
+        var expectedError: Error?
         let error = TestError(message: "fetch failed")
         let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
         let apiClient: ApiClientWorkTimesType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
@@ -79,12 +79,12 @@ class ApiClientWorkTimesTests: XCTestCase {
             case .success:
                 XCTFail()
             case .failure(let error):
-                expecdedError = error
+                expectedError = error
             }
         }
         networkingMock.getCompletion?(.failure(error))
         //Assert
-        let testError = try (expecdedError as? TestError).unwrap()
+        let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
     }
     
@@ -115,7 +115,7 @@ class ApiClientWorkTimesTests: XCTestCase {
     
     func testAddWorkTimeFailed() throws {
         //Arrange
-        var expecdedError: Error?
+        var expectedError: Error?
         let error = TestError(message: "fetch failed")
         let data = try self.json(from: SimpleProjectResponse.simpleProjectFullResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
@@ -131,12 +131,12 @@ class ApiClientWorkTimesTests: XCTestCase {
             case .success:
                 XCTFail()
             case .failure(let error):
-                expecdedError = error
+                expectedError = error
             }
         }
         networkingMock.shortPostCompletion?(.failure(error))
         //Assert
-        let testError = try (expecdedError as? TestError).unwrap()
+        let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
     }
 }

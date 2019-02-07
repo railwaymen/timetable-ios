@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias WorkTimesApiClient = (ApiClientProjectsType & ApiClientWorkTimesType & ApiClientUsersType)
+typealias WorkTimesApiClient = (ApiClientProjectsType & ApiClientWorkTimesType & ApiClientUsersType & ApiClientMatchingFullTimeType)
 
 protocol WorkTimesCoordinatorDelegate: class {
     func workTimesRequestedForNewWorkTimeView(sourceView: UIButton)
@@ -17,6 +17,7 @@ protocol WorkTimesCoordinatorDelegate: class {
 class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType {
     private let storyboardsManager: StoryboardsManagerType
     private let apiClient: WorkTimesApiClient
+    private let accessService: AccessServiceUserIDType
     private let errorHandler: ErrorHandlerType
     
     var root: UIViewController {
@@ -25,9 +26,11 @@ class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType
     var tabBarItem: UITabBarItem
     
     // MARK: - Initialization
-    init(window: UIWindow?, storyboardsManager: StoryboardsManagerType, apiClient: WorkTimesApiClient, errorHandler: ErrorHandlerType) {
+    init(window: UIWindow?, storyboardsManager: StoryboardsManagerType, apiClient: WorkTimesApiClient,
+         accessService: AccessServiceUserIDType, errorHandler: ErrorHandlerType) {
         self.storyboardsManager = storyboardsManager
         self.apiClient = apiClient
+        self.accessService = accessService
         self.errorHandler = errorHandler
         self.tabBarItem = UITabBarItem(title: "tabbar.title.work_time".localized, image: nil, selectedImage: nil)
         super.init(window: window)
@@ -45,7 +48,11 @@ class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType
     private func runMainFlow() {
         let controller: WorkTimesViewControlleralbe? = storyboardsManager.controller(storyboard: .workTimes, controllerIdentifier: .initial)
         guard let workTimesViewController = controller else { return }
-        let viewModel = WorkTimesViewModel(userInterface: workTimesViewController, coordinator: self, apiClient: apiClient, errorHandler: errorHandler)
+        let contentProvider = WorkTimesContentProvider(apiClient: apiClient, accessService: accessService)
+        let viewModel = WorkTimesViewModel(userInterface: workTimesViewController,
+                                           coordinator: self,
+                                           contentProvider: contentProvider,
+                                           errorHandler: errorHandler)
         controller?.configure(viewModel: viewModel)
         navigationController.pushViewController(workTimesViewController, animated: false)
     }

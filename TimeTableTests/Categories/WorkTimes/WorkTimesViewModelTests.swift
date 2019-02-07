@@ -9,18 +9,20 @@
 import XCTest
 @testable import TimeTable
 
-// swiftlint:disable type_body_length
 class WorkTimesViewModelTests: XCTestCase {
     private var userInterfaceMock: WorkTimesViewControllerMock!
-    private var apiClientMock: ApiClientMock!
     private var coordinatorMock: WorkTimesCoordinatorMock!
+    private var contentProvider: WorkTimesContentProviderMock!
     private var errorHandlerMock: ErrorHandlerMock!
     private var calendarMock: CalendarMock!
-    private var viewModel: WorkTimesViewModel!
     
     private enum WorkTimesResponse: String, JSONFileResource {
         case workTimesResponse
         case workTimesResponseNotSorted
+    }
+    
+    private enum MatchingFullTimeResponse: String, JSONFileResource {
+        case matchingFullTimeFullResponse
     }
     
     private lazy var decoder: JSONDecoder = {
@@ -31,17 +33,16 @@ class WorkTimesViewModelTests: XCTestCase {
     
     override func setUp() {
         userInterfaceMock = WorkTimesViewControllerMock()
-        apiClientMock = ApiClientMock()
         coordinatorMock = WorkTimesCoordinatorMock()
         errorHandlerMock = ErrorHandlerMock()
+        contentProvider = WorkTimesContentProviderMock()
         calendarMock = CalendarMock()
-        viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
-                                       apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
         super.setUp()
     }
     
     func testNumberOfSectionsOnInitialization() {
         //Arrange
+        let viewModel = buildViewModel()
         //Act
         let sections = viewModel.numberOfSections()
         //Assert
@@ -50,12 +51,17 @@ class WorkTimesViewModelTests: XCTestCase {
     
     func testNumberOfSectionsAfterFetchingWorkTimes() throws {
         //Arrange
-        //workTimesResponse
         let data = try self.json(from: WorkTimesResponse.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
-        calendarMock.dateComponentsReturnValue = DateComponents(year: 2018, month: 11)
+        let matchingFullTimeData = try self.json(from: MatchingFullTimeResponse.matchingFullTimeFullResponse)
+        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
+        let components = DateComponents(year: 2018, month: 11, day: 21)
+        let date = try Calendar.current.date(from: components).unwrap()
+        let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
+        
+        let viewModel = buildViewModel()
         viewModel.viewWillAppear()
-        apiClientMock.fetchWorkTimesCompletion?(.success(workTimes))
+        contentProvider.fetchWorkTimesDataCompletion?(.success(([dailyWorkTime], matchingFullTime)))
         //Act
         let sections = viewModel.numberOfSections()
         //Assert
@@ -64,6 +70,7 @@ class WorkTimesViewModelTests: XCTestCase {
     
     func testNumberOfRowsInSectionOnInitialization() {
         //Arrange
+        let viewModel = buildViewModel()
         //Act
         let rows = viewModel.numberOfRows(in: 0)
         //Assert
@@ -74,9 +81,14 @@ class WorkTimesViewModelTests: XCTestCase {
         //Arrange
         let data = try self.json(from: WorkTimesResponse.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
-        calendarMock.dateComponentsReturnValue = DateComponents(year: 2018, month: 11)
+        let matchingFullTimeData = try self.json(from: MatchingFullTimeResponse.matchingFullTimeFullResponse)
+        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
+        let components = DateComponents(year: 2018, month: 11, day: 21)
+        let date = try Calendar.current.date(from: components).unwrap()
+        let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
+        let viewModel = buildViewModel()
         viewModel.viewWillAppear()
-        apiClientMock.fetchWorkTimesCompletion?(.success(workTimes))
+        contentProvider.fetchWorkTimesDataCompletion?(.success(([dailyWorkTime], matchingFullTime)))
         //Act
         let rows = viewModel.numberOfRows(in: 0)
         //Assert
@@ -85,92 +97,25 @@ class WorkTimesViewModelTests: XCTestCase {
     
     func testViewDidLoad() {
         //Arrange
+        let viewModel = buildViewModel()
         //Act
         viewModel.viewDidLoad()
         //Assert
         XCTAssertTrue(userInterfaceMock.setUpViewCalled)
     }
-    
-    func testViewWillAppearRunsFetchWorkTimesWithNilDates() throws {
-        //Arrange
-        let data = try self.json(from: WorkTimesResponse.workTimesResponse)
-        let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
-        calendarMock.dateComponentsReturnValue = DateComponents(year: 2018, month: 11)
-        viewModel.viewWillAppear()
-        apiClientMock.fetchWorkTimesCompletion?(.success(workTimes))
-        //Act
-        viewModel.viewWillAppear()
-        //Assert
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.fromDate)
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.toDate)
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.projectIdentifier)
-    }
-    
-    func testViewWillAppearRunsFetchWorkTimesWithNotNilFromDate() throws {
-        //Arrange
-        let data = try self.json(from: WorkTimesResponse.workTimesResponse)
-        let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
-        calendarMock.dateComponentsReturnValue = DateComponents(year: 2018, month: 11)
-        calendarMock.dateFromComponentsValue = Date()
-        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
-                                           apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
-        viewModel.viewWillAppear()
-        apiClientMock.fetchWorkTimesCompletion?(.success(workTimes))
-        //Act
-        viewModel.viewWillAppear()
-        //Assert
-        XCTAssertNotNil(apiClientMock.fetchWorkTimesParameters?.fromDate)
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.toDate)
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.projectIdentifier)
-    }
-    
-    func testViewWillAppearRunsFetchWorkTimesWithNotNilDates() throws {
-        //Arrange
-        let data = try self.json(from: WorkTimesResponse.workTimesResponse)
-        let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
-        calendarMock.dateComponentsReturnValue = DateComponents(year: 2018, month: 11)
-        calendarMock.dateFromComponentsValue = Date()
-        calendarMock.shortDateByAddingReturnValue = Date()
-        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
-                                           apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
-        viewModel.viewWillAppear()
-        apiClientMock.fetchWorkTimesCompletion?(.success(workTimes))
-        //Act
-        viewModel.viewWillAppear()
-        //Assert
-        XCTAssertNotNil(apiClientMock.fetchWorkTimesParameters?.fromDate)
-        XCTAssertNotNil(apiClientMock.fetchWorkTimesParameters?.toDate)
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.projectIdentifier)
-    }
-    
-    func testViewWillAppearRunsFetchWorkTimesSortResponse() throws {
-        //Arrange
-        let data = try self.json(from: WorkTimesResponse.workTimesResponseNotSorted)
-        let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
-        calendarMock.dateComponentsReturnValue = DateComponents(year: 2018, month: 11)
-        calendarMock.dateFromComponentsValue = Date()
-        calendarMock.shortDateByAddingReturnValue = Date()
-        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
-                                           apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
-        viewModel.viewWillAppear()
-        apiClientMock.fetchWorkTimesCompletion?(.success(workTimes))
-        //Act
-        viewModel.viewWillAppear()
-        //Assert
-        XCTAssertNotNil(apiClientMock.fetchWorkTimesParameters?.fromDate)
-        XCTAssertNotNil(apiClientMock.fetchWorkTimesParameters?.toDate)
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.projectIdentifier)
-    }
-    
+
     func testViewWillAppearRunsFetchWorkTimesCallUpdateViewOnUserInterface() throws {
         //Arrange
         let data = try self.json(from: WorkTimesResponse.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
-        calendarMock.dateComponentsReturnValue = DateComponents(year: 2018, month: 11)
-        calendarMock.dateFromComponentsValue = Date()
-        calendarMock.shortDateByAddingReturnValue = Date()
+        let matchingFullTimeData = try self.json(from: MatchingFullTimeResponse.matchingFullTimeFullResponse)
+        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
+        let components = DateComponents(year: 2018, month: 11, day: 21)
+        let date = try Calendar.current.date(from: components).unwrap()
+        let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
+        let viewModel = buildViewModel()
         viewModel.viewWillAppear()
-        apiClientMock.fetchWorkTimesCompletion?(.success(workTimes))
+        contentProvider.fetchWorkTimesDataCompletion?(.success(([dailyWorkTime], matchingFullTime)))
         //Act
         viewModel.viewWillAppear()
         //Assert
@@ -180,11 +125,9 @@ class WorkTimesViewModelTests: XCTestCase {
     func testViewWillAppearRunsFetchWorkTimesFinishWithError() throws {
         //Arrange
         let expectedError = TestError(message: "Error")
-        calendarMock.dateComponentsReturnValue = DateComponents(year: 2018, month: 11)
-        calendarMock.dateFromComponentsValue = Date()
-        calendarMock.shortDateByAddingReturnValue = Date()
+        let viewModel = buildViewModel()
         viewModel.viewWillAppear()
-        apiClientMock.fetchWorkTimesCompletion?(.failure(expectedError))
+        contentProvider.fetchWorkTimesDataCompletion?(.failure(expectedError))
         //Act
         viewModel.viewWillAppear()
         //Assert
@@ -192,8 +135,59 @@ class WorkTimesViewModelTests: XCTestCase {
         XCTAssertEqual(error, expectedError)
     }
     
+    func testViewRequestedForPreviousMonthWhileSelectedMonthIsNilValue() {
+        //Act
+        let viewModel = buildViewModel(isSelecteDate: false)
+        viewModel.viewRequestedForPreviousMonth()
+        //Assert
+        XCTAssertNil(userInterfaceMock.updateMatchingFullTimeLabelsData.duration)
+        XCTAssertNil(userInterfaceMock.updateMatchingFullTimeLabelsData.shouldWorkHours)
+        XCTAssertNil(userInterfaceMock.updateMatchingFullTimeLabelsData.workedHours)
+    }
+    
+    func testViewRequestedForPreviousMonthWhileSelectedMonth() throws {
+        //Arrange
+        let viewModel = buildViewModel()
+        let components = DateComponents(year: 2019, month: 1, day: 1)
+        let date = Calendar.current.date(from: components)
+        calendarMock.shortDateByAddingReturnValue = date
+        calendarMock.dateComponentsReturnValue = DateComponents(year: 2019, month: 1)
+        //Act
+        viewModel.viewRequestedForPreviousMonth()
+        //Assert
+        XCTAssertEqual(userInterfaceMock.updateDateSelectorData.currentDateString, "Jan 2019")
+        XCTAssertEqual(userInterfaceMock.updateDateSelectorData.nextDateString, "Jan 2019")
+        XCTAssertEqual(userInterfaceMock.updateDateSelectorData.previousDateString, "Jan 2019")
+    }
+    
+    func testViewRequestedForNextMonthWhileSelectedMonthIsNilValue() {
+        //Act
+        let viewModel = buildViewModel(isSelecteDate: false)
+        viewModel.viewRequestedForPreviousMonth()
+        //Assert
+        XCTAssertNil(userInterfaceMock.updateMatchingFullTimeLabelsData.duration)
+        XCTAssertNil(userInterfaceMock.updateMatchingFullTimeLabelsData.shouldWorkHours)
+        XCTAssertNil(userInterfaceMock.updateMatchingFullTimeLabelsData.workedHours)
+    }
+    
+    func testViewRequestedForNextMonthWhileSelectedMonth() throws {
+        //Arrange
+        let viewModel = buildViewModel()
+        let components = DateComponents(year: 2019, month: 1, day: 1)
+        let date = Calendar.current.date(from: components)
+        calendarMock.shortDateByAddingReturnValue = date
+        calendarMock.dateComponentsReturnValue = DateComponents(year: 2019, month: 3)
+        //Act
+        viewModel.viewRequestedForNextMonth()
+        //Assert
+        XCTAssertEqual(userInterfaceMock.updateDateSelectorData.currentDateString, "Mar 2019")
+        XCTAssertEqual(userInterfaceMock.updateDateSelectorData.nextDateString, "Mar 2019")
+        XCTAssertEqual(userInterfaceMock.updateDateSelectorData.previousDateString, "Mar 2019")
+    }
+    
     func testViewRequestedForCellModelOnInitialization() {
         //Arrange
+        let viewModel = buildViewModel()
         let mockedCell = WorkTimeCellViewMock()
         //Act
         let cellViewModel = viewModel.viewRequestedForCellModel(at: IndexPath(row: 0, section: 0), cell: mockedCell)
@@ -206,10 +200,14 @@ class WorkTimesViewModelTests: XCTestCase {
         let mockedCell = WorkTimeCellViewMock()
         let data = try self.json(from: WorkTimesResponse.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
-        calendarMock.dateComponentsReturnValue = DateComponents(year: 2018, month: 11)
-        calendarMock.dateFromComponentsValue = Date()
+        let matchingFullTimeData = try self.json(from: MatchingFullTimeResponse.matchingFullTimeFullResponse)
+        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
+        let components = DateComponents(year: 2018, month: 11, day: 21)
+        let date = try Calendar.current.date(from: components).unwrap()
+        let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
+        let viewModel = buildViewModel()
         viewModel.viewWillAppear()
-        apiClientMock.fetchWorkTimesCompletion?(.success(workTimes))
+        contentProvider.fetchWorkTimesDataCompletion?(.success(([dailyWorkTime], matchingFullTime)))
         //Act
         let cellViewModel = viewModel.viewRequestedForCellModel(at: IndexPath(row: 0, section: 0), cell: mockedCell)
         //Assert
@@ -218,6 +216,7 @@ class WorkTimesViewModelTests: XCTestCase {
     
     func testViewRequestedForHeaderModelOnInitialization() {
         //Arrange
+        let viewModel = buildViewModel()
         let mockedHeader = WorkTimesTableViewHeaderViewMock()
         //Act
         let headerViewModel = viewModel.viewRequestedForHeaderModel(at: 0, header: mockedHeader)
@@ -230,119 +229,24 @@ class WorkTimesViewModelTests: XCTestCase {
         let mockedHeader = WorkTimesTableViewHeaderViewMock()
         let data = try self.json(from: WorkTimesResponse.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
-        calendarMock.dateComponentsReturnValue = DateComponents(year: 2018, month: 11)
-        calendarMock.dateFromComponentsValue = Date()
+        let matchingFullTimeData = try self.json(from: MatchingFullTimeResponse.matchingFullTimeFullResponse)
+        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
+        let components = DateComponents(year: 2018, month: 11, day: 21)
+        let date = try Calendar.current.date(from: components).unwrap()
+        let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
+        let viewModel = buildViewModel()
         viewModel.viewWillAppear()
-        apiClientMock.fetchWorkTimesCompletion?(.success(workTimes))
+        contentProvider.fetchWorkTimesDataCompletion?(.success(([dailyWorkTime], matchingFullTime)))
         //Act
         let headerViewModel = viewModel.viewRequestedForHeaderModel(at: 0, header: mockedHeader)
         //Assert
         XCTAssertNotNil(headerViewModel)
     }
-    
-    func testViewRequestedForPreviousMonthWhileSelectedMonthIsNil() {
-        //Arrange
-        //Act
-        viewModel.viewRequestedForPreviousMonth()
-        //Assert
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.fromDate)
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.toDate)
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.projectIdentifier)
-    }
-    
-    func testViewRequestedForPreviousMonthWhileCalendarDateComonetsForMonthReturnedInvalidValue() {
-        //Arrange
-        calendarMock.dateFromComponentsValue = Date()
-        calendarMock.dateComponentsReturnValue = DateComponents(year: 2018)
-        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
-                                           apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
-        //Act
-        viewModel.viewRequestedForPreviousMonth()
-        //Assert
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.fromDate)
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.toDate)
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.projectIdentifier)
-    }
-    
-    func testViewRequestedForPreviousMonthSucceed() throws {
-        //Arrange
-        var components = DateComponents(year: 2018, month: 12, day: 31)
-        let date = try Calendar.current.date(from: components).unwrap()
-        calendarMock.dateFromComponentsValue = date
-        calendarMock.dateComponentsReturnValue = DateComponents(year: 2018, month: 1)
-        components.month = 11
-        let dateByAddingReturnValue = try Calendar.current.date(from: components).unwrap()
-        calendarMock.shortDateByAddingReturnValue = dateByAddingReturnValue
-        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
-                                           apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
-        //Act
-        viewModel.viewRequestedForPreviousMonth()
-        //Assert
-        XCTAssertNotNil(userInterfaceMock.updateDateSelectorData.currentDateString)
-        XCTAssertNotNil(userInterfaceMock.updateDateSelectorData.nextDateString)
-        XCTAssertNotNil(userInterfaceMock.updateDateSelectorData.previousDateString)
-    }
-    
-    func testViewRequestedForNextMonthWhileSelectedMonthIsNil() {
-        //Arrange
-        //Act
-        viewModel.viewRequestedForNextMonth()
-        //Assert
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.fromDate)
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.toDate)
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.projectIdentifier)
-    }
-    
-    func testViewRequestedForNextMonthWhileCalendarDateComonetsForMonthReturnedInvalidValue() {
-        //Arrange
-        calendarMock.dateFromComponentsValue = Date()
-        calendarMock.dateComponentsReturnValue = DateComponents(year: 2018)
-        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
-                                           apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
-        //Act
-        viewModel.viewRequestedForPreviousMonth()
-        //Assert
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.fromDate)
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.toDate)
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.projectIdentifier)
-    }
-    
-    func testViewRequestedForNextMonthForLastMonth() {
-        //Arrange
-        calendarMock.dateFromComponentsValue = Date()
-        calendarMock.dateComponentsReturnValue = DateComponents(month: 12)
-        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
-                                           apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
-        //Act
-        viewModel.viewRequestedForNextMonth()
-        //Assert
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.fromDate)
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.toDate)
-        XCTAssertNil(apiClientMock.fetchWorkTimesParameters?.projectIdentifier)
-    }
-    
-    func testViewRequestedForNextMonthSucceed() throws {
-        //Arrange
-        var components = DateComponents(year: 2018, month: 12, day: 31)
-        let date = try Calendar.current.date(from: components).unwrap()
-        calendarMock.dateFromComponentsValue = date
-        calendarMock.dateComponentsReturnValue = DateComponents(year: 2018, month: 12)
-        components.month = 11
-        let dateByAddingReturnValue = try Calendar.current.date(from: components).unwrap()
-        calendarMock.shortDateByAddingReturnValue = dateByAddingReturnValue
-        let viewModel = WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
-                                           apiClient: apiClientMock, errorHandler: errorHandlerMock, calendar: calendarMock)
-        //Act
-        viewModel.viewRequestedForNextMonth()
-        //Assert
-        XCTAssertNotNil(userInterfaceMock.updateDateSelectorData.currentDateString)
-        XCTAssertNotNil(userInterfaceMock.updateDateSelectorData.nextDateString)
-        XCTAssertNotNil(userInterfaceMock.updateDateSelectorData.previousDateString)
-    }
-    
+
     func testViewRequestedForCellTypeBeforeViewWillAppear() {
         //Arrange
         let indexPath = IndexPath(row: 0, section: 0)
+        let viewModel = buildViewModel()
         //Act
         let type = viewModel.viewRequestedForCellType(at: indexPath)
         //Assert
@@ -354,8 +258,14 @@ class WorkTimesViewModelTests: XCTestCase {
         let indexPath = IndexPath(row: 0, section: 0)
         let data = try self.json(from: WorkTimesResponse.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
+        let matchingFullTimeData = try self.json(from: MatchingFullTimeResponse.matchingFullTimeFullResponse)
+        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
+        let components = DateComponents(year: 2018, month: 11, day: 21)
+        let date = try Calendar.current.date(from: components).unwrap()
+        let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
+        let viewModel = buildViewModel()
         viewModel.viewWillAppear()
-        apiClientMock.fetchWorkTimesCompletion?(.success(workTimes))
+        contentProvider.fetchWorkTimesDataCompletion?(.success(([dailyWorkTime], matchingFullTime)))
         //Act
         let type = viewModel.viewRequestedForCellType(at: indexPath)
         //Assert
@@ -365,10 +275,21 @@ class WorkTimesViewModelTests: XCTestCase {
     func testViewRequestedForNewWorkTimeView() {
         //Arrange
         let button = UIButton()
+        let viewModel = buildViewModel()
         //Act
         viewModel.viewRequestedForNewWorkTimeView(sourceView: button)
         //Assert
         XCTAssertEqual(coordinatorMock.requestedForNewWorkTimeViewSourceView, button)
+    }
+    
+    private func buildViewModel(isSelecteDate: Bool = true) -> WorkTimesViewModel {
+        let components = DateComponents(year: 2019, month: 2, day: 2)
+        calendarMock.dateComponentsReturnValue = components
+        if isSelecteDate {
+            calendarMock.dateFromComponentsValue = Calendar.current.date(from: components)
+        }
+        return WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
+                                           contentProvider: contentProvider, errorHandler: errorHandlerMock, calendar: calendarMock)
     }
 }
 
@@ -379,4 +300,3 @@ private class WorkTimeCellViewMock: WorkTimeCellViewModelOutput {
 private class WorkTimesTableViewHeaderViewMock: WorkTimesTableViewHeaderViewModelOutput {
     func updateView(dayText: String?, durationText: String?) {}
 }
-// swiftlint:enabled type_body_length

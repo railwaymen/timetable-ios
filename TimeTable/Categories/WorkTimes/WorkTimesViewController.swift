@@ -17,6 +17,9 @@ protocol WorkTimesViewControllerType: class {
 class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet private var dateSelectorView: DateSelectorView!
     @IBOutlet private var tableView: UITableView!
+    @IBOutlet private var workedHoursLabel: UILabel!
+    @IBOutlet private var shouldWorkHoursLabel: UILabel!
+    @IBOutlet private var durationLabel: UILabel!
     
     private let tableViewEstimatedRowHeight: CGFloat = 150
     private let heightForHeader: CGFloat = 50
@@ -109,6 +112,14 @@ extension WorkTimesViewController: WorkTimesViewModelOutput {
     
     func updateDateSelector(currentDateString: String, previousDateString: String, nextDateString: String) {
         dateSelectorView.update(currentDateString: currentDateString, previousDateString: previousDateString, nextDateString: nextDateString)
+    }
+    
+    func updateMatchingFullTimeLabels(workedHours: String, shouldWorkHours: String, duration: String) {
+        DispatchQueue.main.async { [weak self] in
+            self?.workedHoursLabel.text = workedHours + " /"
+            self?.shouldWorkHoursLabel.text = shouldWorkHours + " /"
+            self?.durationLabel.text = duration
+        }
     }
 }
 

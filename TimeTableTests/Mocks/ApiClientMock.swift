@@ -9,7 +9,7 @@
 import Foundation
 @testable import TimeTable
 
-class ApiClientMock: ApiClientSessionType, ApiClientWorkTimesType, ApiClientProjectsType, ApiClientUsersType {
+class ApiClientMock: ApiClientSessionType, ApiClientWorkTimesType, ApiClientProjectsType, ApiClientUsersType, ApiClientMatchingFullTimeType {
     
     var fetchSimpleListOfProjectsExpectation: (() -> Void)?
     
@@ -22,7 +22,9 @@ class ApiClientMock: ApiClientSessionType, ApiClientWorkTimesType, ApiClientProj
     
     private(set) var fetchWorkTimesParameters: WorkTimesParameters?
     private(set) var fetchWorkTimesCompletion: ((Result<[WorkTimeDecoder]>) -> Void)?
+    var fetchWorkTimesExpectation: (() -> Void)?
     func fetchWorkTimes(parameters: WorkTimesParameters, completion: @escaping ((Result<[WorkTimeDecoder]>) -> Void)) {
+        fetchWorkTimesExpectation?()
         fetchWorkTimesParameters = parameters
         fetchWorkTimesCompletion = completion
     }
@@ -50,5 +52,14 @@ class ApiClientMock: ApiClientSessionType, ApiClientWorkTimesType, ApiClientProj
     func fetchUserProfile(forIdetifier identifier: Int64, completion: @escaping ((Result<UserDecoder>) -> Void)) {
         fetchUserProfileIdentifier = identifier
         fetchUserProfileCompletion = completion
+    }
+    
+    private(set) var fetchMatchingFullTimeParameters: MatchingFullTimeEncoder?
+    private(set) var fetchMatchingFullTimeCompletion: ((Result<MatchingFullTimeDecoder>) -> Void)?
+    var fetchMatchingFullTimeExpectation: (() -> Void)?
+    func fetchMatchingFullTime(parameters: MatchingFullTimeEncoder, completion: @escaping ((Result<MatchingFullTimeDecoder>) -> Void)) {
+        fetchMatchingFullTimeExpectation?()
+        fetchMatchingFullTimeParameters = parameters
+        fetchMatchingFullTimeCompletion = completion
     }
 }

@@ -9,6 +9,7 @@
 import Foundation
 
 enum Endpoints {
+    case matchingFullTime
     case projects
     case projectsSimpleList
     case signIn
@@ -17,6 +18,7 @@ enum Endpoints {
     
     var value: String {
         switch self {
+        case .matchingFullTime: return "/accounting_periods/matching_fulltime"
         case .projects: return "/projects"
         case .projectsSimpleList: return "/projects/simple"
         case .signIn: return "/users/sign_in"

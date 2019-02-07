@@ -9,7 +9,8 @@
 import Foundation
 import Networking
 
-typealias ApiClientType = (ApiClientNetworkingType & ApiClientSessionType & ApiClientWorkTimesType & ApiClientProjectsType & ApiClientUsersType)
+typealias ApiClientType = (ApiClientNetworkingType & ApiClientSessionType & ApiClientWorkTimesType
+    & ApiClientProjectsType & ApiClientUsersType & ApiClientMatchingFullTimeType)
 
 protocol ApiClientNetworkingType: class {
     var networking: NetworkingType { get set }
