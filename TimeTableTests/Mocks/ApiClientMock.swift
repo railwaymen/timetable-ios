@@ -35,6 +35,13 @@ class ApiClientMock: ApiClientSessionType, ApiClientWorkTimesType, ApiClientProj
         addWorkTimeParameters = parameters
         addWorkTimeComletion = completion
     }
+    
+    private(set) var deleteWorkTimeIdentifier: Int64?
+    private(set) var deleteWorkTimeCompletion: ((Result<Void>) -> Void)?
+    func deleteWorkTime(identifier: Int64, completion: @escaping ((Result<Void>) -> Void)) {
+        deleteWorkTimeIdentifier = identifier
+        deleteWorkTimeCompletion = completion
+    }
 
     private(set) var fetchAllProjectsCompletion: ((Result<[ProjectRecordDecoder]>) -> Void)?
     func fetchAllProjects(completion: @escaping ((Result<[ProjectRecordDecoder]>) -> Void)) {

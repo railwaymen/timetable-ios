@@ -42,7 +42,7 @@ class ApiClientTests: XCTestCase {
 
     // MARK: - ApiClientNetworkingType
     func testPostRetunrsAnErrorWhileGivenWrapperCannotBeEncodedToDictionary() {
-        //Arrange
+        //ArrangeC
         var expectedError: Error?
         let apiClient = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
             return requestEncoderMock

@@ -69,9 +69,21 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
         return workTimeCell
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
     // MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+        case .delete:
+            viewModel.viewRequestedForDelete(at: indexPath)
+        default: break
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -119,6 +131,23 @@ extension WorkTimesViewController: WorkTimesViewModelOutput {
             self?.workedHoursLabel.text = workedHours + " /"
             self?.shouldWorkHoursLabel.text = shouldWorkHours + " /"
             self?.durationLabel.text = duration
+        }
+    }
+    
+    func deleteWorkTime(at indexPath: IndexPath) {
+        let numberOfItems = viewModel.numberOfRows(in: indexPath.section)
+        DispatchQueue.main.async { [weak self] in
+            if numberOfItems > 0 {
+                self?.tableView.deleteRows(at: [indexPath], with: .fade)
+            } else {
+                self?.tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+            }
+        }
+    }
+    
+    func reloadWorkTime(at indexPath: IndexPath) {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView?.reloadRows(at: [indexPath], with: .automatic)
         }
     }
 }
