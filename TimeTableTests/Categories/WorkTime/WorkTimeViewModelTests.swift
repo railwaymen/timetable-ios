@@ -193,8 +193,9 @@ class WorkTimeViewModelTests: XCTestCase {
         viewModel.viewRequestedToSave()
         //Assert
         switch errorHandlerMock.throwedError as? UIError {
-        case .cannotBeEmpty(let element)?:
-            XCTAssertEqual(element, UIElement.taskTextField)
+        case .cannotBeEmptyOr(let element1, let element2)?:
+            XCTAssertEqual(element1, UIElement.taskNameTextField)
+            XCTAssertEqual(element2, UIElement.taskUrlTextField)
         default: XCTFail()
         }
     }
@@ -207,8 +208,9 @@ class WorkTimeViewModelTests: XCTestCase {
         viewModel.viewRequestedToSave()
         //Assert
         switch errorHandlerMock.throwedError as? UIError {
-        case .cannotBeEmpty(let element)?:
-            XCTAssertEqual(element, UIElement.taskTextField)
+        case .cannotBeEmptyOr(let element1, let element2)?:
+            XCTAssertEqual(element1, UIElement.taskNameTextField)
+            XCTAssertEqual(element2, UIElement.taskUrlTextField)
         default: XCTFail()
         }
     }

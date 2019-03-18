@@ -3,8 +3,8 @@
 "element.text_field.login" = "Login";
 "element.text_field.password" = "Password";
 "element.text_field.project" = "Project";
-"element.text_feild.task" = "Task";
 "element.text_field.task_url" = "Task URL";
+"element.text_field.task_name" = "Task name";
 "element.text_field.starts_at" = "Start date";
 "element.text_field.ends_at" = "End date";
 
@@ -52,3 +52,5 @@
 // Static words
 "day.today" = "Today";
 "day.yesterday" = "Yesterday";
+
+"conjunction.or" = "or";

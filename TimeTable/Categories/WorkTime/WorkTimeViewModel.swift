@@ -169,7 +169,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     // MARK: - Private
     private func validateInputs() throws {
         guard .none != task.project else { throw UIError.cannotBeEmpty(.projectTextField) }
-        guard !task.body.isEmpty || (task.allowsTask && task.url != nil) else { throw UIError.cannotBeEmpty(.taskTextField) }
+        guard !task.body.isEmpty || (task.allowsTask && task.url != nil) else { throw UIError.cannotBeEmptyOr(.taskNameTextField, .taskUrlTextField) }
         guard let fromDate = task.startAt else { throw UIError.cannotBeEmpty(.startsAtTextField) }
         guard let toDate = task.endAt else { throw UIError.cannotBeEmpty(.endsAtTextField) }
         guard fromDate < toDate else { throw UIError.timeGreaterThan }
