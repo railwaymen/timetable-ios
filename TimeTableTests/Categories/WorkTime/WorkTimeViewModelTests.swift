@@ -193,8 +193,9 @@ class WorkTimeViewModelTests: XCTestCase {
         viewModel.viewRequestedToSave()
         //Assert
         switch errorHandlerMock.throwedError as? UIError {
-        case .cannotBeEmpty(let element)?:
-            XCTAssertEqual(element, UIElement.taskTextField)
+        case .cannotBeEmptyOr(let element1, let element2)?:
+            XCTAssertEqual(element1, UIElement.taskNameTextField)
+            XCTAssertEqual(element2, UIElement.taskUrlTextField)
         default: XCTFail()
         }
     }
@@ -207,10 +208,23 @@ class WorkTimeViewModelTests: XCTestCase {
         viewModel.viewRequestedToSave()
         //Assert
         switch errorHandlerMock.throwedError as? UIError {
-        case .cannotBeEmpty(let element)?:
-            XCTAssertEqual(element, UIElement.taskTextField)
+        case .cannotBeEmptyOr(let element1, let element2)?:
+            XCTAssertEqual(element1, UIElement.taskNameTextField)
+            XCTAssertEqual(element2, UIElement.taskUrlTextField)
         default: XCTFail()
         }
+    }
+    
+    func testViewRequestedToSaveWhileTaskBodyIsNilAndURLIsNot() throws {
+        //Arrange
+        try fetchProjects()
+        viewModel.viewSelectedProject(atRow: 1)
+        viewModel.taskNameDidChange(value: nil)
+        //Act
+        viewModel.taskURLDidChange(value: "www.example.com")
+        viewModel.viewRequestedToSave()
+        //Assert
+        XCTAssertNil(errorHandlerMock.throwedError as? UIError)
     }
     
     func testViewRequestedToSaveWhileTaskURLWasSetAsNil() throws {
@@ -222,11 +236,7 @@ class WorkTimeViewModelTests: XCTestCase {
         viewModel.taskURLDidChange(value: nil)
         viewModel.viewRequestedToSave()
         //Assert
-        switch errorHandlerMock.throwedError as? UIError {
-        case .cannotBeEmpty(let element)?:
-            XCTAssertEqual(element, UIElement.taskURLTextField)
-        default: XCTFail()
-        }
+        XCTAssertNil(errorHandlerMock.throwedError as? UIError)
     }
     
     func testViewRequestedToSaveWhileTaskURLWasSetAsInvalidURL() throws {
@@ -238,11 +248,7 @@ class WorkTimeViewModelTests: XCTestCase {
         viewModel.taskURLDidChange(value: "\\INVALID//")
         viewModel.viewRequestedToSave()
         //Assert
-        switch errorHandlerMock.throwedError as? UIError {
-        case .cannotBeEmpty(let element)?:
-            XCTAssertEqual(element, UIElement.taskURLTextField)
-        default: XCTFail()
-        }
+        XCTAssertNil(errorHandlerMock.throwedError as? UIError)
     }
     
     func testViewRequestedToSaveWhileTaskURLIsNil() throws {
@@ -253,11 +259,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Act
         viewModel.viewRequestedToSave()
         //Assert
-        switch errorHandlerMock.throwedError as? UIError {
-        case .cannotBeEmpty(let element)?:
-            XCTAssertEqual(element, UIElement.taskURLTextField)
-        default: XCTFail()
-        }
+        XCTAssertNil(errorHandlerMock.throwedError as? UIError)
     }
     
     func testViewRequestedToSaveWhileTaskFromDateIsNil() throws {
