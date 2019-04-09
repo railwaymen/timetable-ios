@@ -10,7 +10,7 @@ import Foundation
 @testable import TimeTable
 
 class WorkTimeViewControllerMock: WorkTimeViewControlleralbe {
-    private(set) var configureViewModelData: (called: Bool, viewModel: WorkTimeViewModelType?) = (false, nil)
+    private(set) var configureViewModelData: (called: Bool, viewModel: WorkTimeViewModelType?, notificationCenter: NotificationCenterType?) = (false, nil, nil)
     private(set) var setUpCurrentProjectName: (currentProjectName: String?, allowsTask: Bool?) = (nil, nil)
     private(set) var dismissViewCalled = false
     private(set) var reloadProjectPickerCalled = false
@@ -19,9 +19,9 @@ class WorkTimeViewControllerMock: WorkTimeViewControlleralbe {
     private(set) var updateDayValues: (date: Date?, dateString: String?) = (nil, nil)
     private(set) var updateStartAtDateValues: (date: Date?, dateString: String?) = (nil, nil)
     private(set) var updateEndAtDateValues: (date: Date?, dateString: String?) = (nil, nil)
-    
-    func configure(viewModel: WorkTimeViewModelType) {
-        configureViewModelData = (true, viewModel)
+
+    func configure(viewModel: WorkTimeViewModelType, notificationCenter: NotificationCenterType?) {
+        configureViewModelData = (true, viewModel, notificationCenter)
     }
 
     func setUp(currentProjectName: String, allowsTask: Bool) {
