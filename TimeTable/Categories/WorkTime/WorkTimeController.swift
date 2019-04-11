@@ -11,10 +11,11 @@ import UIKit
 typealias WorkTimeViewControlleralbe = (UIViewController & WorkTimeViewControllerType & WorkTimeViewModelOutput)
 
 protocol WorkTimeViewControllerType: class {
-    func configure(viewModel: WorkTimeViewModelType)
+    func configure(viewModel: WorkTimeViewModelType, notificationCenter: NotificationCenterType?)
 }
 
 class WorkTimeController: UIViewController {
+    @IBOutlet private var scrollView: UIScrollView!
     @IBOutlet private var dayTextField: UITextField!
     @IBOutlet private var startAtDateTextField: UITextField!
     @IBOutlet private var endAtDateTextField: UITextField!
@@ -27,6 +28,12 @@ class WorkTimeController: UIViewController {
     private var startAtDatePicker: UIDatePicker!
     private var endAtDatePicker: UIDatePicker!
     private var viewModel: WorkTimeViewModelType!
+    private var notificationCenter: NotificationCenterType?
+    
+    // MARK: - Deinitialization
+    deinit {
+        notificationCenter?.removeObserver(self)
+    }
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -82,6 +89,15 @@ class WorkTimeController: UIViewController {
     @objc private func endAtDateTextFieldDidChanged(_ sender: UIDatePicker) {
         viewModel.viewChanged(endAtDate: sender.date)
     }
+    
+    @objc private func keyboardFrameWillChange(_ notification: NSNotification) {
+        let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height ?? 0
+        scrollView.contentInset.bottom = keyboardHeight
+    }
+    
+    @objc private func keyboardWillHide(_ notification: NSNotification) {
+        scrollView.contentInset.bottom = 0
+    }
 }
 
 // MARK: - UIPickerViewDelegate 
@@ -113,6 +129,15 @@ extension WorkTimeController: WorkTimeViewModelOutput {
     }
     
     func setUp(currentProjectName: String, allowsTask: Bool) {
+        notificationCenter?.addObserver(self,
+                                        selector: #selector(self.keyboardFrameWillChange),
+                                        name: UIResponder.keyboardWillChangeFrameNotification,
+                                        object: nil)
+        notificationCenter?.addObserver(self,
+                                        selector: #selector(self.keyboardWillHide),
+                                        name: UIResponder.keyboardWillHideNotification,
+                                        object: nil)
+        
         taskURLViewHeightConstraint.constant = allowsTask ? 80 : 0
         taskURLView.isHidden = !allowsTask
 
@@ -169,7 +194,8 @@ extension WorkTimeController: WorkTimeViewModelOutput {
 
 // MARK: - WorkTimeViewControllerType
 extension WorkTimeController: WorkTimeViewControllerType {
-    func configure(viewModel: WorkTimeViewModelType) {
+    func configure(viewModel: WorkTimeViewModelType, notificationCenter: NotificationCenterType?) {
         self.viewModel = viewModel
+        self.notificationCenter = notificationCenter
     }
 }
