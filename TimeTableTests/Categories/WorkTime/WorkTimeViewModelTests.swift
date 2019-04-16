@@ -30,7 +30,7 @@ class WorkTimeViewModelTests: XCTestCase {
         apiClient = ApiClientMock()
         errorHandlerMock = ErrorHandlerMock()
         calendarMock = CalendarMock()
-        viewModel = WorkTimeViewModel(userInterface: userInterface, apiClient: apiClient, errorHandler: errorHandlerMock, calendar: calendarMock)
+        viewModel = WorkTimeViewModel(userInterface: userInterface, apiClient: apiClient, errorHandler: errorHandlerMock, calendar: calendarMock, lastTask: nil)
         super.setUp()
     }
     
@@ -69,6 +69,24 @@ class WorkTimeViewModelTests: XCTestCase {
         waitForExpectations(timeout: timeout)
         //Assert
         XCTAssertTrue(userInterface.reloadProjectPickerCalled)
+    }
+    
+    func testViewSelectedProjectStartAtTime() throws {
+        //Arrange
+        try fetchProjects()
+        //Act
+        viewModel.viewSelectedProject(atRow: 0)
+        //Assert
+        XCTAssertNotNil(userInterface.updateStartAtDateValues.date)
+    }
+    
+    func testViewSelectedProjectSetsEndAtTime() throws {
+        //Arrange
+        try fetchProjects()
+        //Act
+        viewModel.viewSelectedProject(atRow: 0)
+        //Assert
+        XCTAssertNotNil(userInterface.updateEndAtDateValues.date)
     }
     
     func testViewRequestedForNumberOfProjectsWithoutFetchingProjectList() {
@@ -262,42 +280,6 @@ class WorkTimeViewModelTests: XCTestCase {
         XCTAssertNil(errorHandlerMock.throwedError as? UIError)
     }
     
-    func testViewRequestedToSaveWhileTaskFromDateIsNil() throws {
-        //Arrange
-        try fetchProjects()
-        viewModel.viewSelectedProject(atRow: 0)
-        viewModel.taskNameDidChange(value: "body")
-        viewModel.taskURLDidChange(value: "www.example.com")
-        //Act
-        viewModel.viewRequestedToSave()
-        //Assert
-        switch errorHandlerMock.throwedError as? UIError {
-        case .cannotBeEmpty(let element)?:
-            XCTAssertEqual(element, UIElement.startsAtTextField)
-        default: XCTFail()
-        }
-    }
-    
-    func testViewRequestedToSaveWhileTaskToDateIsNil() throws {
-        //Arrange
-        let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let fromDate = try Calendar.current.date(from: components).unwrap()
-        calendarMock.dateBySettingReturnValue = fromDate
-        try fetchProjects()
-        viewModel.viewSelectedProject(atRow: 0)
-        viewModel.taskNameDidChange(value: "body")
-        viewModel.taskURLDidChange(value: "www.example.com")
-        viewModel.viewChanged(startAtDate: fromDate)
-        //Act
-        viewModel.viewRequestedToSave()
-        //Assert
-        switch errorHandlerMock.throwedError as? UIError {
-        case .cannotBeEmpty(let element)?:
-            XCTAssertEqual(element, UIElement.endsAtTextField)
-        default: XCTFail()
-        }
-    }
-    
     func testViewRequestedToSaveWhileTaskFromDateIsGreaterThanToDate() throws {
         //Arrange
         var components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
@@ -315,10 +297,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Act
         viewModel.viewRequestedToSave()
         //Assert
-        switch errorHandlerMock.throwedError as? UIError {
-        case .timeGreaterThan?: break
-        default: XCTFail()
-        }
+        XCTAssertEqual(errorHandlerMock.throwedError as? UIError, .timeGreaterThan)
     }
     
     func testSetDefaultDayIfDayWasNotSet() {

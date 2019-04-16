@@ -175,27 +175,29 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         userInterface?.setUp(currentProjectName: task.title, allowsTask: task.allowsTask)
         
         guard let type = task.type else { return }
+        let fromDate: Date
+        let toDate: Date
         switch type {
         case .fullDay(let timeInterval):
-            let fromDate = calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
-            let toDate = fromDate.addingTimeInterval(timeInterval)
+            fromDate = calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
+            toDate = fromDate.addingTimeInterval(timeInterval)
             task.startAt = fromDate
             task.endAt = toDate
-            updateStartAtDateView(with: fromDate)
-            updateEndAtDateView(with: toDate)
         case .lunch(let timeInterval):
-            let fromDate = task.startAt ?? Date()
-            let toDate = fromDate.addingTimeInterval(timeInterval)
+            fromDate = task.startAt ?? Date()
+            toDate = fromDate.addingTimeInterval(timeInterval)
             task.startAt = fromDate
             task.endAt = toDate
-            updateStartAtDateView(with: fromDate)
-            updateEndAtDateView(with: toDate)
         case .standard:
-            task.startAt = lastTask?.endAt ?? Date()
-            task.endAt = task.startAt
+            fromDate = lastTask?.endAt ?? Date()
+            toDate = fromDate
+            task.startAt = fromDate
+            task.endAt = toDate
             setDefaultStartAtDate()
             setDefaultEndAtDate()
         }
+        updateStartAtDateView(with: fromDate)
+        updateEndAtDateView(with: toDate)
     }
     
     private func updateDayView(with date: Date) {
