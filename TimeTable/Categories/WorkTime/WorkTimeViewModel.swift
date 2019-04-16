@@ -43,18 +43,20 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     private let apiClient: TimeTableTabApiClientType
     private let errorHandler: ErrorHandlerType
     private let calendar: CalendarType
+    private let lastTask: Task?
     private var projects: [ProjectDecoder]
     private var task: Task
     
     // MARK: - Initialization
-    
-    init(userInterface: WorkTimeViewModelOutput?, apiClient: TimeTableTabApiClientType, errorHandler: ErrorHandlerType, calendar: CalendarType) {
+    init(userInterface: WorkTimeViewModelOutput?, apiClient: TimeTableTabApiClientType, errorHandler: ErrorHandlerType, calendar: CalendarType,
+         lastTask: Task?) {
         self.userInterface = userInterface
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.calendar = calendar
+        self.lastTask = lastTask
         self.projects = []
-        self.task = Task(project: .none, body: "", url: nil, day: Date(), startAt: nil, endAt: nil)
+        self.task = Task(project: .none, body: "", url: nil, day: Date(), startAt: lastTask?.endAt, endAt: nil)
     }
     
     // MARK: - WorkTimeViewModelType
@@ -103,10 +105,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func setDefaultDay() {
-        var date = Date()
-        if let day = task.day {
-            date = day
-        }
+        let date = task.day ?? Date()
         task.day = date
         updateDayView(with: date)
     }
@@ -122,10 +121,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func setDefaultStartAtDate() {
-        var date = Date()
-        if let startAt = task.startAt {
-            date = startAt
-        }
+        let date = task.startAt ?? Date()
         task.startAt = date
         updateStartAtDateView(with: date)
     }
@@ -136,7 +132,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func setDefaultEndAtDate() {
-        var date =  Date()
+        var date = Date()
         if let toDate = task.endAt {
             date = toDate
         } else {
@@ -188,13 +184,17 @@ class WorkTimeViewModel: WorkTimeViewModelType {
             updateStartAtDateView(with: fromDate)
             updateEndAtDateView(with: toDate)
         case .lunch(let timeInterval):
-            let fromDate = task.startAt ?? calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
+            let fromDate = task.startAt ?? Date()
             let toDate = fromDate.addingTimeInterval(timeInterval)
             task.startAt = fromDate
             task.endAt = toDate
             updateStartAtDateView(with: fromDate)
             updateEndAtDateView(with: toDate)
-        case .standard: break
+        case .standard:
+            task.startAt = lastTask?.endAt ?? Date()
+            task.endAt = task.startAt
+            setDefaultStartAtDate()
+            setDefaultEndAtDate()
         }
     }
     

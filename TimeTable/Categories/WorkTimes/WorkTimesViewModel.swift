@@ -113,7 +113,16 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     }
     
     func viewRequestedForNewWorkTimeView(sourceView: UIButton) {
-        coordinator.workTimesRequestedForNewWorkTimeView(sourceView: sourceView)
+        let lastWorkTime = dailyWorkTimesArray.first?.workTimes.first
+        let lastTask = lastWorkTime == nil
+            ? nil
+            : Task(project: lastWorkTime?.project,
+                   body: lastWorkTime?.body ?? "",
+                   url: nil,
+                   day: dailyWorkTimesArray.first?.day,
+                   startAt: lastWorkTime?.startsAt,
+                   endAt: lastWorkTime?.endsAt)
+        coordinator.workTimesRequestedForNewWorkTimeView(sourceView: sourceView, lastTask: lastTask)
     }
     
     // MARK: - Private
