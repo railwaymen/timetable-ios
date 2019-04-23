@@ -54,9 +54,13 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.calendar = calendar
-        self.lastTask = lastTask
+        if let lastTaskEndAt = lastTask?.endAt, Calendar.current.isDateInToday(lastTaskEndAt) {
+            self.lastTask = lastTask
+        } else {
+            self.lastTask = nil
+        }
         self.projects = []
-        self.task = Task(project: .none, body: "", url: nil, day: Date(), startAt: lastTask?.endAt, endAt: nil)
+        self.task = Task(project: .none, body: "", url: nil, day: Date(), startAt: self.lastTask?.endAt, endAt: nil)
     }
     
     // MARK: - WorkTimeViewModelType
