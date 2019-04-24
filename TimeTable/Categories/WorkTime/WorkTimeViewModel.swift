@@ -17,6 +17,7 @@ protocol WorkTimeViewModelOutput: class {
     func updateDay(with date: Date, dateString: String)
     func updateStartAtDate(with date: Date, dateString: String)
     func updateEndAtDate(with date: Date, dateString: String)
+    func selectProjectPicker(row: Int)
 }
 
 protocol WorkTimeViewModelType: class {
@@ -88,8 +89,9 @@ class WorkTimeViewModel: WorkTimeViewModelType {
                 task.project = .some(projects[0])
             }
             updateViewWithCurrentSelectedProject()
-        case .some:
-            return
+        case .some(let project):
+            guard let index = projects.firstIndex(of: project) else { break }
+            userInterface?.selectProjectPicker(row: index)
         }
     }
     
