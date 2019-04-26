@@ -35,7 +35,7 @@ test_project:
     - killall "Simulator" || true
   script:
     - export
-    - bundle exec fastlane tests
+    - bundle exec fastlane test
   after_script:
     - killall "Simulator" || true
   artifacts:

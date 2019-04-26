@@ -32,7 +32,7 @@ Check out our [TimeTable Ruby on Rails project](https://github.com/railwaymen/ti
 
 ### Bundler
 * [Cocoapods](https://cocoapods.org) 1.6.1
-* [Fastlane](https://fastlane.tools) 2.121.0
+* [Fastlane](https://fastlane.tools) 2.121.1
 * [Slather](https://github.com/SlatherOrg/slather) 2.4.7
 * [xcode-install](https://github.com/xcpretty/xcode-install) 2.5.0
 * [xcov](https://github.com/nakiostudio/xcov) 1.5.0
