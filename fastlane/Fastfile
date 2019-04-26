@@ -3,7 +3,7 @@ default_platform(:ios)
 platform :ios do
 
   before_all do
-    xcversion(version: "10.0")
+    xcversion(version: "10.2")
   end
 
   after_all do |lane|
@@ -24,7 +24,7 @@ platform :ios do
 
   #PUBLIC LANES
   desc "Run unit tests"
-  lane :tests do
+  lane :test do
     check_style
     scan
     xcov(scheme: "TimeTable", workspace: "TimeTable.xcworkspace", json_report: true, markdown_report: true, output_directory: "output/coverage/xcov", skip_slack: true)
