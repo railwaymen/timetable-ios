@@ -35,7 +35,10 @@ test_project:
     - killall "Simulator" || true
   script:
     - export
-    - bundle exec fastlane tests
+    - export LC_ALL=en_US.UTF-8
+    - export LANG=en_US.UTF-8
+    - bundle install --path vendor/bundle
+    - bundle exec fastlane test
   after_script:
     - killall "Simulator" || true
   artifacts:
