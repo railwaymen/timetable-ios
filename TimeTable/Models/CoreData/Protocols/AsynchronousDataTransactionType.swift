@@ -10,7 +10,7 @@ import Foundation
 import CoreStore
 
 protocol AsynchronousDataTransactionType: class {
-    func deleteAll<D>(_ from: From<D>, _ deleteClauses: DeleteClause...) -> Int?
+    func deleteAll<D>(_ from: From<D>, _ deleteClauses: DeleteClause...) throws -> Int
     func delete<D: DynamicObject>(_ object: D?)
     func create<D>(_ into: Into<D>) -> D
 }

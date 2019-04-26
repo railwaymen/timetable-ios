@@ -13,8 +13,11 @@ import CoreStore
 class DataStackMock: DataStackType {
     
     var user: UserEntity?
-    func fetchAll<D>(_ from: From<D>, _ fetchClauses: FetchClause...) -> [D]? {
-        return [user] as? [D]
+    func fetchAll<D>(_ from: From<D>, _ fetchClauses: FetchClause...) throws -> [D] {
+        guard let returnType = [user] as? [D] else {
+            throw TestError(message: "Cast failed")
+        }
+        return returnType
     }
     
     private(set) var performFailure: ((CoreStoreError) -> Void)?

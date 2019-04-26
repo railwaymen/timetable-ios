@@ -2,10 +2,10 @@ platform :ios, '10.0'
 use_frameworks!
 
 def universal_pods
-  pod 'SwiftLint', '~> 0.27.0'
-  pod 'Networking', '~> 4.4.0'
-  pod 'CoreStore', '~> 5.0'
-  pod 'KeychainAccess', '~> 3.1'
+  pod 'SwiftLint', '~> 0.31.0'
+  pod 'Networking', '~> 5.0.0'
+  pod 'CoreStore', '~> 6.3'
+  pod 'KeychainAccess', '~> 3.2'
 end
 
 

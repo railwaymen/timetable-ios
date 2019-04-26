@@ -13,7 +13,7 @@ protocol DataStackType {
     // swiftlint:disable type_name
     typealias T = NSManagedObject
     
-    func fetchAll<D>(_ from: From<D>, _ fetchClauses: FetchClause...) -> [D]?
+    func fetchAll<D>(_ from: From<D>, _ fetchClauses: FetchClause...) throws -> [D]
     func perform<T>(asynchronousTask: @escaping (_ transaction: AsynchronousDataTransactionType) throws -> T,
                     success: @escaping (T) -> Void, failure: @escaping (CoreStoreError) -> Void)
     // swiftlint:enable type_name

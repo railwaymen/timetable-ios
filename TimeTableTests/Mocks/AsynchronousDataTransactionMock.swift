@@ -17,9 +17,9 @@ class AsynchronousDataTransactionMock: AsynchronousDataTransactionType {
     private(set) var createCalled = false
     var user: DynamicObject?
     
-    func deleteAll<D>(_ from: From<D>, _ deleteClauses: DeleteClause...) -> Int? where D: DynamicObject {
+    func deleteAll<D>(_ from: From<D>, _ deleteClauses: DeleteClause...) throws -> Int where D: DynamicObject {
         deleteAllCalled = true
-        return nil
+        return 0
     }
     
     func delete<D: DynamicObject>(_ object: D?) {

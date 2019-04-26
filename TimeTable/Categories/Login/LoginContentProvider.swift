@@ -45,7 +45,7 @@ class LoginContentProvider: LoginContentProviderType {
     // MARK: - Private
     private func save(userDecoder: SessionDecoder, completion: @escaping ((Result<Void>) -> Void)) {
         coreDataStack.save(userDecoder: userDecoder, coreDataTypeTranslation: { (transaction: AsynchronousDataTransactionType) -> UserEntity in
-            _ = transaction.deleteAll(From<UserEntity>())
+            _ = try? transaction.deleteAll(From<UserEntity>())
             return UserEntity.createUser(from: userDecoder, transaction: transaction)
         }) { [weak self] result in
             switch result {
