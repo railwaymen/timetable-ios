@@ -12,6 +12,7 @@ typealias WorkTimesApiClient = (ApiClientProjectsType & ApiClientWorkTimesType &
 
 protocol WorkTimesCoordinatorDelegate: class {
     func workTimesRequestedForNewWorkTimeView(sourceView: UIButton, lastTask: Task?)
+    func workTimesRequestedForEditWorkTimeView(sourceView: UIView, editedTask: Task)
 }
 
 class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType {
@@ -56,24 +57,40 @@ class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType
         controller?.configure(viewModel: viewModel)
         navigationController.pushViewController(workTimesViewController, animated: false)
     }
+    
+    private func showWorkTimeController(controller: UIViewController, sourceView: UIView) {
+        controller.modalPresentationStyle = .popover
+        controller.preferredContentSize = CGSize(width: 300, height: 320)
+        controller.popoverPresentationController?.permittedArrowDirections = .right
+        controller.popoverPresentationController?.sourceView = sourceView
+        controller.popoverPresentationController?.sourceRect = CGRect(x: sourceView.bounds.minX, y: sourceView.bounds.midY, width: 0, height: 0)
+        root.children.last?.present(controller, animated: true)
+    }
 }
 
 // MARK: - WorkTimesCoordinatorDelegate
 extension WorkTimesCoordinator: WorkTimesCoordinatorDelegate {
     func workTimesRequestedForNewWorkTimeView(sourceView: UIButton, lastTask: Task?) {
-        let controller: WorkTimeViewControlleralbe? = storyboardsManager.controller(storyboard: .workTime, controllerIdentifier: .initial)
+        guard let controller: WorkTimeViewControlleralbe = storyboardsManager.controller(storyboard: .workTime, controllerIdentifier: .initial) else { return }
         let viewModel = WorkTimeViewModel(userInterface: controller,
                                           apiClient: apiClient,
                                           errorHandler: errorHandler,
                                           calendar: Calendar.autoupdatingCurrent,
-                                          lastTask: lastTask)
-        controller?.configure(viewModel: viewModel, notificationCenter: NotificationCenter.default)
-        controller?.modalPresentationStyle = .popover
-        controller?.preferredContentSize = CGSize(width: 300, height: 320)
-        controller?.popoverPresentationController?.permittedArrowDirections = .right
-        controller?.popoverPresentationController?.sourceView = sourceView
-        controller?.popoverPresentationController?.sourceRect = CGRect(x: sourceView.bounds.minX, y: sourceView.bounds.midY, width: 0, height: 0)
-        guard let workTimeViewController = controller else { return }
-        root.children.last?.present(workTimeViewController, animated: true)
+                                          lastTask: lastTask,
+                                          editedTask: nil)
+        controller.configure(viewModel: viewModel, notificationCenter: NotificationCenter.default)
+        showWorkTimeController(controller: controller, sourceView: sourceView)
+    }
+    
+    func workTimesRequestedForEditWorkTimeView(sourceView: UIView, editedTask: Task) {
+        guard let controller: WorkTimeViewControlleralbe = storyboardsManager.controller(storyboard: .workTime, controllerIdentifier: .initial) else { return }
+        let viewModel = WorkTimeViewModel(userInterface: controller,
+                                          apiClient: apiClient,
+                                          errorHandler: errorHandler,
+                                          calendar: Calendar.autoupdatingCurrent,
+                                          lastTask: nil,
+                                          editedTask: editedTask)
+        controller.configure(viewModel: viewModel, notificationCenter: NotificationCenter.default)
+        showWorkTimeController(controller: controller, sourceView: sourceView)
     }
 }

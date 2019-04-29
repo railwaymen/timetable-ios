@@ -40,8 +40,8 @@ class WorkTimeViewModelTests: XCTestCase {
         viewModel.viewDidLoad()
         //Assert
         XCTAssertNotNil(userInterface.updateDayValues.date)
-        XCTAssertEqual(userInterface.setUpCurrentProjectName.currentProjectName, "Select project")
-        XCTAssertTrue(try userInterface.setUpCurrentProjectName.allowsTask.unwrap())
+        XCTAssertEqual(userInterface.setUpCurrentProjectName?.currentProjectName, "Select project")
+        XCTAssertTrue(try (userInterface.setUpCurrentProjectName?.allowsTask).unwrap())
     }
     
     func testViewDidLoadWithLastTaskSetsDateAndTime() throws {
@@ -54,8 +54,8 @@ class WorkTimeViewModelTests: XCTestCase {
         XCTAssertTrue(Calendar.current.isDateInToday(try userInterface.updateDayValues.date.unwrap()))
         XCTAssertEqual(userInterface.updateStartAtDateValues.date, lastTask.endAt)
         XCTAssertEqual(userInterface.updateEndAtDateValues.date, lastTask.endAt)
-        XCTAssertEqual(userInterface.setUpCurrentProjectName.currentProjectName, "Select project")
-        XCTAssertTrue(try userInterface.setUpCurrentProjectName.allowsTask.unwrap())
+        XCTAssertEqual(userInterface.setUpCurrentProjectName?.currentProjectName, "Select project")
+        XCTAssertTrue(try (userInterface.setUpCurrentProjectName?.allowsTask).unwrap())
     }
     
     func testViewDidLoadFetchSimpleListCallsErrorHandlerOnFetchFailure() throws {
@@ -84,7 +84,7 @@ class WorkTimeViewModelTests: XCTestCase {
         waitForExpectations(timeout: timeout)
         //Assert
         XCTAssertTrue(userInterface.reloadProjectPickerCalled)
-        XCTAssertEqual(userInterface.setUpCurrentProjectName.currentProjectName, "asdsa")
+        XCTAssertEqual(userInterface.setUpCurrentProjectName?.currentProjectName, "asdsa")
     }
     
     func testViewDidLoadFetchSimpleListWithLastTaskUpdatesUserInterface() throws {
@@ -100,7 +100,7 @@ class WorkTimeViewModelTests: XCTestCase {
         waitForExpectations(timeout: timeout)
         //Assert
         XCTAssertTrue(userInterface.reloadProjectPickerCalled)
-        XCTAssertEqual(userInterface.setUpCurrentProjectName.currentProjectName, "Lorem Ipsum")
+        XCTAssertEqual(userInterface.setUpCurrentProjectName?.currentProjectName, "Lorem Ipsum")
     }
     
     func testViewSelectedProjectStartAtTime() throws {
@@ -157,8 +157,8 @@ class WorkTimeViewModelTests: XCTestCase {
         //Act
         viewModel.setDefaultTask()
         //Assert
-        XCTAssertNil(userInterface.setUpCurrentProjectName.allowsTask)
-        XCTAssertNil(userInterface.setUpCurrentProjectName.currentProjectName)
+        XCTAssertNil(userInterface.setUpCurrentProjectName?.allowsTask)
+        XCTAssertNil(userInterface.setUpCurrentProjectName?.currentProjectName)
     }
     
     func testSetDefaultTaskWhileProjectAfterFetchingProjectsListAndProjectNotSelected() throws {
@@ -167,8 +167,8 @@ class WorkTimeViewModelTests: XCTestCase {
         //Act
         viewModel.setDefaultTask()
         //Assert
-        XCTAssertTrue(try userInterface.setUpCurrentProjectName.allowsTask.unwrap())
-        XCTAssertEqual(try userInterface.setUpCurrentProjectName.currentProjectName.unwrap(), "asdsa")
+        XCTAssertTrue(try (userInterface.setUpCurrentProjectName?.allowsTask).unwrap())
+        XCTAssertEqual(try (userInterface.setUpCurrentProjectName?.currentProjectName).unwrap(), "asdsa")
     }
     
     func testSetDefaultTaskWhileTaskWasSetPreviously() throws {
@@ -178,8 +178,8 @@ class WorkTimeViewModelTests: XCTestCase {
         //Act
         viewModel.setDefaultTask()
         //Assert
-        XCTAssertTrue(try userInterface.setUpCurrentProjectName.allowsTask.unwrap())
-        XCTAssertNotEqual(try userInterface.setUpCurrentProjectName.currentProjectName.unwrap(), "asdsa")
+        XCTAssertTrue(try (userInterface.setUpCurrentProjectName?.allowsTask).unwrap())
+        XCTAssertNotEqual(try (userInterface.setUpCurrentProjectName?.currentProjectName).unwrap(), "asdsa")
     }
     
     func testSetDefaultTaskWhileTaskIsFullDayOption() throws {
@@ -201,8 +201,8 @@ class WorkTimeViewModelTests: XCTestCase {
         //Act
         viewModel.viewSelectedProject(atRow: 0)
         //Assert
-        XCTAssertNil(userInterface.setUpCurrentProjectName.allowsTask)
-        XCTAssertNil(userInterface.setUpCurrentProjectName.currentProjectName)
+        XCTAssertNil(userInterface.setUpCurrentProjectName?.allowsTask)
+        XCTAssertNil(userInterface.setUpCurrentProjectName?.currentProjectName)
     }
     
     func testViewSelectedProjectAfterFetchingProjectList() throws {
@@ -211,8 +211,8 @@ class WorkTimeViewModelTests: XCTestCase {
         //Act
         viewModel.viewSelectedProject(atRow: 2)
         //Assert
-        XCTAssertFalse(try userInterface.setUpCurrentProjectName.allowsTask.unwrap())
-        XCTAssertNotEqual(try userInterface.setUpCurrentProjectName.currentProjectName.unwrap(), "asdsa")
+        XCTAssertFalse(try (userInterface.setUpCurrentProjectName?.allowsTask).unwrap())
+        XCTAssertNotEqual(try (userInterface.setUpCurrentProjectName?.currentProjectName).unwrap(), "asdsa")
     }
     
     func testViewRequestedToFinish() {
@@ -566,14 +566,20 @@ class WorkTimeViewModelTests: XCTestCase {
     }
     
     private func createViewModel(lastTask: Task?) -> WorkTimeViewModel {
-        return WorkTimeViewModel(userInterface: userInterface, apiClient: apiClient, errorHandler: errorHandlerMock, calendar: calendarMock, lastTask: lastTask)
+        return WorkTimeViewModel(userInterface: userInterface,
+                                 apiClient: apiClient,
+                                 errorHandler: errorHandlerMock,
+                                 calendar: calendarMock,
+                                 lastTask: lastTask,
+                                 editedTask: nil)
     }
     
     private func createLastTask() throws -> Task {
         let data = try self.json(from: ProjectsRecordsResponse.simpleProjectArrayResponse)
         let projectDecoders = try self.decoder.decode([ProjectDecoder].self, from: data)
         let project = projectDecoders[3]
-        return Task(project: project,
+        return Task(workTimeIdentifier: nil,
+                    project: project,
                     body: "Blah blah blah",
                     url: nil,
                     day: Date(),

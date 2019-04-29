@@ -18,4 +18,11 @@ class WorkTimesCoordinatorMock: WorkTimesCoordinatorDelegate {
         requestedForNewWorkTimeViewSourceView = sourceView
         requestedForNewWorkTimeViewLastTask = lastTask
     }
+    
+    // swiftlint:disable identifier_name
+    private(set) var workTimesRequestedForEditWorkTimeViewData: (sourceView: UIView, editedTask: Task)?
+    // swiftlint:enable identifier_name
+    func workTimesRequestedForEditWorkTimeView(sourceView: UIView, editedTask: Task) {
+        workTimesRequestedForEditWorkTimeViewData = (sourceView, editedTask)
+    }
 }

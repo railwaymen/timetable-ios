@@ -20,9 +20,11 @@ class WorkTimeController: UIViewController {
     @IBOutlet private var startAtDateTextField: UITextField!
     @IBOutlet private var endAtDateTextField: UITextField!
     @IBOutlet private var projectTextField: UITextField!
+    @IBOutlet private var bodyTextField: UITextField!
     @IBOutlet private var taskDescriptionViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private var taskDescriptionView: UIView!
     @IBOutlet private var taskURLViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private var taskURLTextField: UITextField!
     @IBOutlet private var taskURLView: UIView!
     
     private var projectPicker: UIPickerView!
@@ -130,7 +132,7 @@ extension WorkTimeController: WorkTimeViewModelOutput {
         projectPicker.reloadAllComponents()
     }
     
-    func setUp(currentProjectName: String, isLunch: Bool, allowsTask: Bool) {
+    func setUp(currentProjectName: String, isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?) {
         notificationCenter?.addObserver(self,
                                         selector: #selector(self.keyboardFrameWillChange),
                                         name: UIResponder.keyboardWillChangeFrameNotification,
@@ -142,9 +144,11 @@ extension WorkTimeController: WorkTimeViewModelOutput {
         
         taskDescriptionViewHeightConstraint.constant = isLunch ? 0 : 80
         taskDescriptionView.isHidden = isLunch
+        bodyTextField.text = body
         
         taskURLViewHeightConstraint.constant = allowsTask ? 80 : 0
         taskURLView.isHidden = !allowsTask
+        taskURLTextField.text = urlString
 
         projectPicker = UIPickerView()
         projectPicker.delegate = self
