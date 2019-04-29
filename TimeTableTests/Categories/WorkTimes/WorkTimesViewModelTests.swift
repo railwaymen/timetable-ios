@@ -138,7 +138,7 @@ class WorkTimesViewModelTests: XCTestCase {
     func testViewRequestedForPreviousMonthWhileSelectedMonthIsNilValue() {
         //Act
         let viewModel = buildViewModel(isSelecteDate: false)
-        viewModel.viewRequestedForPreviousMonth()
+        viewModel.viewRequestForPreviousMonth()
         //Assert
         XCTAssertNil(userInterfaceMock.updateMatchingFullTimeLabelsData.duration)
         XCTAssertNil(userInterfaceMock.updateMatchingFullTimeLabelsData.shouldWorkHours)
@@ -153,7 +153,7 @@ class WorkTimesViewModelTests: XCTestCase {
         calendarMock.shortDateByAddingReturnValue = date
         calendarMock.dateComponentsReturnValue = DateComponents(year: 2019, month: 1)
         //Act
-        viewModel.viewRequestedForPreviousMonth()
+        viewModel.viewRequestForPreviousMonth()
         //Assert
         XCTAssertEqual(userInterfaceMock.updateDateSelectorData.currentDateString, "Jan 2019")
         XCTAssertEqual(userInterfaceMock.updateDateSelectorData.nextDateString, "Jan 2019")
@@ -163,7 +163,7 @@ class WorkTimesViewModelTests: XCTestCase {
     func testViewRequestedForNextMonthWhileSelectedMonthIsNilValue() {
         //Act
         let viewModel = buildViewModel(isSelecteDate: false)
-        viewModel.viewRequestedForPreviousMonth()
+        viewModel.viewRequestForPreviousMonth()
         //Assert
         XCTAssertNil(userInterfaceMock.updateMatchingFullTimeLabelsData.duration)
         XCTAssertNil(userInterfaceMock.updateMatchingFullTimeLabelsData.shouldWorkHours)
@@ -178,7 +178,7 @@ class WorkTimesViewModelTests: XCTestCase {
         calendarMock.shortDateByAddingReturnValue = date
         calendarMock.dateComponentsReturnValue = DateComponents(year: 2019, month: 3)
         //Act
-        viewModel.viewRequestedForNextMonth()
+        viewModel.viewRequestForNextMonth()
         //Assert
         XCTAssertEqual(userInterfaceMock.updateDateSelectorData.currentDateString, "Mar 2019")
         XCTAssertEqual(userInterfaceMock.updateDateSelectorData.nextDateString, "Mar 2019")
@@ -190,7 +190,7 @@ class WorkTimesViewModelTests: XCTestCase {
         let viewModel = buildViewModel()
         let mockedCell = WorkTimeCellViewMock()
         //Act
-        let cellViewModel = viewModel.viewRequestedForCellModel(at: IndexPath(row: 0, section: 0), cell: mockedCell)
+        let cellViewModel = viewModel.viewRequestForCellModel(at: IndexPath(row: 0, section: 0), cell: mockedCell)
         //Assert
         XCTAssertNil(cellViewModel)
     }
@@ -209,7 +209,7 @@ class WorkTimesViewModelTests: XCTestCase {
         viewModel.viewWillAppear()
         contentProvider.fetchWorkTimesDataCompletion?(.success(([dailyWorkTime], matchingFullTime)))
         //Act
-        let cellViewModel = viewModel.viewRequestedForCellModel(at: IndexPath(row: 0, section: 0), cell: mockedCell)
+        let cellViewModel = viewModel.viewRequestForCellModel(at: IndexPath(row: 0, section: 0), cell: mockedCell)
         //Assert
         XCTAssertNotNil(cellViewModel)
     }
@@ -219,7 +219,7 @@ class WorkTimesViewModelTests: XCTestCase {
         let viewModel = buildViewModel()
         let mockedHeader = WorkTimesTableViewHeaderViewMock()
         //Act
-        let headerViewModel = viewModel.viewRequestedForHeaderModel(at: 0, header: mockedHeader)
+        let headerViewModel = viewModel.viewRequestForHeaderModel(at: 0, header: mockedHeader)
         //Assert
         XCTAssertNil(headerViewModel)
     }
@@ -238,7 +238,7 @@ class WorkTimesViewModelTests: XCTestCase {
         viewModel.viewWillAppear()
         contentProvider.fetchWorkTimesDataCompletion?(.success(([dailyWorkTime], matchingFullTime)))
         //Act
-        let headerViewModel = viewModel.viewRequestedForHeaderModel(at: 0, header: mockedHeader)
+        let headerViewModel = viewModel.viewRequestForHeaderModel(at: 0, header: mockedHeader)
         //Assert
         XCTAssertNotNil(headerViewModel)
     }
@@ -248,7 +248,7 @@ class WorkTimesViewModelTests: XCTestCase {
         let indexPath = IndexPath(row: 0, section: 0)
         let viewModel = buildViewModel()
         //Act
-        let type = viewModel.viewRequestedForCellType(at: indexPath)
+        let type = viewModel.viewRequestForCellType(at: indexPath)
         //Assert
         XCTAssertEqual(type, .standard)
     }
@@ -267,7 +267,7 @@ class WorkTimesViewModelTests: XCTestCase {
         viewModel.viewWillAppear()
         contentProvider.fetchWorkTimesDataCompletion?(.success(([dailyWorkTime], matchingFullTime)))
         //Act
-        let type = viewModel.viewRequestedForCellType(at: indexPath)
+        let type = viewModel.viewRequestForCellType(at: indexPath)
         //Assert
         XCTAssertEqual(type, .taskURL)
     }
@@ -277,7 +277,7 @@ class WorkTimesViewModelTests: XCTestCase {
         let button = UIButton()
         let viewModel = buildViewModel()
         //Act
-        viewModel.viewRequestedForNewWorkTimeView(sourceView: button)
+        viewModel.viewRequestForNewWorkTimeView(sourceView: button)
         //Assert
         XCTAssertEqual(coordinatorMock.requestedForNewWorkTimeViewSourceView, button)
     }
