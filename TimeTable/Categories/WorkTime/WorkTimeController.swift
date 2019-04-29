@@ -155,11 +155,13 @@ extension WorkTimeController: WorkTimeViewModelOutput {
         
         startAtDatePicker = UIDatePicker()
         startAtDatePicker.datePickerMode = .time
+        startAtDatePicker.minuteInterval = 5
         startAtDatePicker.addTarget(self, action: #selector(startAtDateTextFieldDidChanged), for: .valueChanged)
         startAtDateTextField.inputView = startAtDatePicker
 
         endAtDatePicker = UIDatePicker()
         endAtDatePicker.datePickerMode = .time
+        endAtDatePicker.minuteInterval = 5
         endAtDatePicker.addTarget(self, action: #selector(endAtDateTextFieldDidChanged), for: .valueChanged)
         endAtDateTextField.inputView = endAtDatePicker
     }
