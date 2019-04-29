@@ -19,6 +19,8 @@ protocol ApiClientNetworkingType: class {
     func post<E: Encodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<Void>) -> Void))
     func get<D: Decodable>(_ endpoint: Endpoints, completion: @escaping ((Result<D>) -> Void))
     func get<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void))
+    func put<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void))
+    func put<E: Encodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<Void>) -> Void))
 }
 
 class ApiClient: ApiClientNetworkingType {
@@ -100,5 +102,32 @@ class ApiClient: ApiClientNetworkingType {
     
     func delete(_ endpoint: Endpoints, completion: @escaping ((Result<Void>) -> Void)) {
         networking.delete(endpoint.value, completion: completion)
+    }
+    
+    func put<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void)) {
+        do {
+            let parameters = try encoder.encodeToDictionary(wrapper: parameters)
+            _ = networking.put(endpoint.value, parameters: parameters) { [weak self] response in
+                self?.handle(response: response, completion: completion)
+            }
+        } catch {
+            completion(.failure(ApiClientError(type: .invalidParameters)))
+        }
+    }
+    
+    func put<E: Encodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<Void>) -> Void)) {
+        do {
+            let parameters = try encoder.encodeToDictionary(wrapper: parameters)
+            _ = networking.put(endpoint.value, parameters: parameters) { response in
+                switch response {
+                case .success:
+                    completion(.success(Void()))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        } catch {
+            completion(.failure(ApiClientError(type: .invalidParameters)))
+        }
     }
 }

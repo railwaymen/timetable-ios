@@ -11,7 +11,8 @@ import Foundation
 protocol ApiClientWorkTimesType: class {
     func fetchWorkTimes(parameters: WorkTimesParameters, completion: @escaping ((Result<[WorkTimeDecoder]>) -> Void))
     func addWorkTime(parameters: Task, completion: @escaping ((Result<Void>) -> Void))
-    func deleteWorkTime(identifier: Int64, completion: @escaping ((Result<Void>) -> Void)) 
+    func deleteWorkTime(identifier: Int64, completion: @escaping ((Result<Void>) -> Void))
+    func updateWorkTime(identifier: Int64, parameters: Task, completion: @escaping ((Result<Void>) -> Void))
 }
 
 // MARK: - ApiClientWorkTimesType
@@ -26,5 +27,9 @@ extension ApiClient: ApiClientWorkTimesType {
     
     func deleteWorkTime(identifier: Int64, completion: @escaping ((Result<Void>) -> Void)) {
         delete(.workTime(identifier), completion: completion)
+    }
+    
+    func updateWorkTime(identifier: Int64, parameters: Task, completion: @escaping ((Result<Void>) -> Void)) {
+        put(.workTime(identifier), parameters: parameters, completion: completion)
     }
 }
