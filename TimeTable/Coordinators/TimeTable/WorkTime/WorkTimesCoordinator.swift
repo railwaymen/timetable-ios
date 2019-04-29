@@ -11,7 +11,7 @@ import UIKit
 typealias WorkTimesApiClient = (ApiClientProjectsType & ApiClientWorkTimesType & ApiClientUsersType & ApiClientMatchingFullTimeType)
 
 protocol WorkTimesCoordinatorDelegate: class {
-    func workTimesRequestedForNewWorkTimeView(sourceView: UIButton)
+    func workTimesRequestedForNewWorkTimeView(sourceView: UIButton, lastTask: Task?)
 }
 
 class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType {
@@ -60,9 +60,13 @@ class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType
 
 // MARK: - WorkTimesCoordinatorDelegate
 extension WorkTimesCoordinator: WorkTimesCoordinatorDelegate {
-    func workTimesRequestedForNewWorkTimeView(sourceView: UIButton) {
+    func workTimesRequestedForNewWorkTimeView(sourceView: UIButton, lastTask: Task?) {
         let controller: WorkTimeViewControlleralbe? = storyboardsManager.controller(storyboard: .workTime, controllerIdentifier: .initial)
-        let viewModel = WorkTimeViewModel(userInterface: controller, apiClient: apiClient, errorHandler: errorHandler, calendar: Calendar.autoupdatingCurrent)
+        let viewModel = WorkTimeViewModel(userInterface: controller,
+                                          apiClient: apiClient,
+                                          errorHandler: errorHandler,
+                                          calendar: Calendar.autoupdatingCurrent,
+                                          lastTask: lastTask)
         controller?.configure(viewModel: viewModel, notificationCenter: NotificationCenter.default)
         controller?.modalPresentationStyle = .popover
         controller?.preferredContentSize = CGSize(width: 300, height: 320)

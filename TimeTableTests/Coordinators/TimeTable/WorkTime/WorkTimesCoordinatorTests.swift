@@ -49,21 +49,21 @@ class WorkTimesCoordinatorTests: XCTestCase {
     }
     
     // MARK: - WorkTimesCoordinatorDelegate
-    func testWorkTimesRequestedForNewWorkTimeViewWhileStoryboardsManagerReturendNil() {
+    func testWorkTimesRequestedForNewWorkTimeViewWhileStoryboardsManagerReturnedNil() {
         //Arrange
         let button = UIButton()
         //Act
-        workTimeCoordinator.workTimesRequestedForNewWorkTimeView(sourceView: button)
+        workTimeCoordinator.workTimesRequestedForNewWorkTimeView(sourceView: button, lastTask: nil)
         //Assert
         XCTAssertNil(workTimeCoordinator.root.children.last)
     }
     
-    func testWorkTimesRequestedForNewWorkTimeViewWhileStoryboardsManagerReturendInvalidController() {
+    func testWorkTimesRequestedForNewWorkTimeViewWhileStoryboardsManagerReturnedInvalidController() {
         //Arrange
         let button = UIButton()
         storyboardsManagerMock.workTimeController = UIViewController()
         //Act
-        workTimeCoordinator.workTimesRequestedForNewWorkTimeView(sourceView: button)
+        workTimeCoordinator.workTimesRequestedForNewWorkTimeView(sourceView: button, lastTask: nil)
         //Assert
         XCTAssertNil(workTimeCoordinator.root.children.last)
     }
@@ -73,7 +73,7 @@ class WorkTimesCoordinatorTests: XCTestCase {
         let button = UIButton()
         storyboardsManagerMock.workTimeController = WorkTimeController()
         //Act
-        workTimeCoordinator.workTimesRequestedForNewWorkTimeView(sourceView: button)
+        workTimeCoordinator.workTimesRequestedForNewWorkTimeView(sourceView: button, lastTask: nil)
         //Assert
         XCTAssertNil(workTimeCoordinator.root.children.last)
     }

@@ -30,7 +30,7 @@ class WorkTimeViewModelTests: XCTestCase {
         apiClient = ApiClientMock()
         errorHandlerMock = ErrorHandlerMock()
         calendarMock = CalendarMock()
-        viewModel = WorkTimeViewModel(userInterface: userInterface, apiClient: apiClient, errorHandler: errorHandlerMock, calendar: calendarMock)
+        viewModel = self.createViewModel(lastTask: nil)
         super.setUp()
     }
     
@@ -39,6 +39,21 @@ class WorkTimeViewModelTests: XCTestCase {
         //Act
         viewModel.viewDidLoad()
         //Assert
+        XCTAssertNotNil(userInterface.updateDayValues.date)
+        XCTAssertEqual(userInterface.setUpCurrentProjectName.currentProjectName, "Select project")
+        XCTAssertTrue(try userInterface.setUpCurrentProjectName.allowsTask.unwrap())
+    }
+    
+    func testViewDidLoadWithLastTaskSetsDateAndTime() throws {
+        //Arrange
+        let lastTask = try createLastTask()
+        viewModel = createViewModel(lastTask: lastTask)
+        //Act
+        viewModel.viewDidLoad()
+        //Assert
+        XCTAssertTrue(Calendar.current.isDateInToday(try userInterface.updateDayValues.date.unwrap()))
+        XCTAssertEqual(userInterface.updateStartAtDateValues.date, lastTask.endAt)
+        XCTAssertEqual(userInterface.updateEndAtDateValues.date, lastTask.endAt)
         XCTAssertEqual(userInterface.setUpCurrentProjectName.currentProjectName, "Select project")
         XCTAssertTrue(try userInterface.setUpCurrentProjectName.allowsTask.unwrap())
     }
@@ -57,7 +72,7 @@ class WorkTimeViewModelTests: XCTestCase {
         XCTAssertEqual(throwedError, error)
     }
     
-    func testViewDidLoadFetchSimpleListCallsReloadProjectPickerOnTheUserInterface() throws {
+    func testViewDidLoadFetchSimpleListUpdatesUserInterface() throws {
         //Arrange
         let expectation = self.expectation(description: "")
         let data = try self.json(from: ProjectsRecordsResponse.simpleProjectArrayResponse)
@@ -69,6 +84,41 @@ class WorkTimeViewModelTests: XCTestCase {
         waitForExpectations(timeout: timeout)
         //Assert
         XCTAssertTrue(userInterface.reloadProjectPickerCalled)
+        XCTAssertEqual(userInterface.setUpCurrentProjectName.currentProjectName, "asdsa")
+    }
+    
+    func testViewDidLoadFetchSimpleListWithLastTaskUpdatesUserInterface() throws {
+        //Arrange
+        viewModel = createViewModel(lastTask: try createLastTask())
+        let expectation = self.expectation(description: "")
+        let data = try self.json(from: ProjectsRecordsResponse.simpleProjectArrayResponse)
+        let projectDecoders = try self.decoder.decode([ProjectDecoder].self, from: data)
+        apiClient.fetchSimpleListOfProjectsExpectation = expectation.fulfill
+        //Act
+        viewModel.viewDidLoad()
+        apiClient.fetchSimpleListOfProjectsCompletion?(.success(projectDecoders))
+        waitForExpectations(timeout: timeout)
+        //Assert
+        XCTAssertTrue(userInterface.reloadProjectPickerCalled)
+        XCTAssertEqual(userInterface.setUpCurrentProjectName.currentProjectName, "Lorem Ipsum")
+    }
+    
+    func testViewSelectedProjectStartAtTime() throws {
+        //Arrange
+        try fetchProjects()
+        //Act
+        viewModel.viewSelectedProject(atRow: 0)
+        //Assert
+        XCTAssertNotNil(userInterface.updateStartAtDateValues.date)
+    }
+    
+    func testViewSelectedProjectSetsEndAtTime() throws {
+        //Arrange
+        try fetchProjects()
+        //Act
+        viewModel.viewSelectedProject(atRow: 0)
+        //Assert
+        XCTAssertNotNil(userInterface.updateEndAtDateValues.date)
     }
     
     func testViewRequestedForNumberOfProjectsWithoutFetchingProjectList() {
@@ -262,42 +312,6 @@ class WorkTimeViewModelTests: XCTestCase {
         XCTAssertNil(errorHandlerMock.throwedError as? UIError)
     }
     
-    func testViewRequestedToSaveWhileTaskFromDateIsNil() throws {
-        //Arrange
-        try fetchProjects()
-        viewModel.viewSelectedProject(atRow: 0)
-        viewModel.taskNameDidChange(value: "body")
-        viewModel.taskURLDidChange(value: "www.example.com")
-        //Act
-        viewModel.viewRequestedToSave()
-        //Assert
-        switch errorHandlerMock.throwedError as? UIError {
-        case .cannotBeEmpty(let element)?:
-            XCTAssertEqual(element, UIElement.startsAtTextField)
-        default: XCTFail()
-        }
-    }
-    
-    func testViewRequestedToSaveWhileTaskToDateIsNil() throws {
-        //Arrange
-        let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let fromDate = try Calendar.current.date(from: components).unwrap()
-        calendarMock.dateBySettingReturnValue = fromDate
-        try fetchProjects()
-        viewModel.viewSelectedProject(atRow: 0)
-        viewModel.taskNameDidChange(value: "body")
-        viewModel.taskURLDidChange(value: "www.example.com")
-        viewModel.viewChanged(startAtDate: fromDate)
-        //Act
-        viewModel.viewRequestedToSave()
-        //Assert
-        switch errorHandlerMock.throwedError as? UIError {
-        case .cannotBeEmpty(let element)?:
-            XCTAssertEqual(element, UIElement.endsAtTextField)
-        default: XCTFail()
-        }
-    }
-    
     func testViewRequestedToSaveWhileTaskFromDateIsGreaterThanToDate() throws {
         //Arrange
         var components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
@@ -315,10 +329,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Act
         viewModel.viewRequestedToSave()
         //Assert
-        switch errorHandlerMock.throwedError as? UIError {
-        case .timeGreaterThan?: break
-        default: XCTFail()
-        }
+        XCTAssertEqual(errorHandlerMock.throwedError as? UIError, .timeGreaterThan)
     }
     
     func testSetDefaultDayIfDayWasNotSet() {
@@ -542,6 +553,26 @@ class WorkTimeViewModelTests: XCTestCase {
         viewModel.viewDidLoad()
         apiClient.fetchSimpleListOfProjectsCompletion?(.success(projectDecoders))
         waitForExpectations(timeout: timeout)
+    }
+    
+    private func createViewModel(lastTask: Task?) -> WorkTimeViewModel {
+        return WorkTimeViewModel(userInterface: userInterface, apiClient: apiClient, errorHandler: errorHandlerMock, calendar: calendarMock, lastTask: lastTask)
+    }
+    
+    private func createLastTask() throws -> Task {
+        let data = try self.json(from: ProjectsRecordsResponse.simpleProjectArrayResponse)
+        let projectDecoders = try self.decoder.decode([ProjectDecoder].self, from: data)
+        let project = projectDecoders[3]
+        return Task(project: project,
+                    body: "Blah blah blah",
+                    url: nil,
+                    day: Date(),
+                    startAt: try createTime(hours: 8, minutes: 0),
+                    endAt: try createTime(hours: 9, minutes: 30))
+    }
+    
+    private func createTime(hours: Int, minutes: Int) throws -> Date {
+        return try Calendar(identifier: .gregorian).date(bySettingHour: hours, minute: minutes, second: 0, of: Date()).unwrap()
     }
 }
 // swiftlint:enable type_body_length

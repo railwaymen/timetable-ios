@@ -43,22 +43,29 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     private let apiClient: TimeTableTabApiClientType
     private let errorHandler: ErrorHandlerType
     private let calendar: CalendarType
+    private let lastTask: Task?
     private var projects: [ProjectDecoder]
     private var task: Task
     
     // MARK: - Initialization
-    
-    init(userInterface: WorkTimeViewModelOutput?, apiClient: TimeTableTabApiClientType, errorHandler: ErrorHandlerType, calendar: CalendarType) {
+    init(userInterface: WorkTimeViewModelOutput?, apiClient: TimeTableTabApiClientType, errorHandler: ErrorHandlerType, calendar: CalendarType,
+         lastTask: Task?) {
         self.userInterface = userInterface
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.calendar = calendar
+        if let lastTaskEndAt = lastTask?.endAt, Calendar.current.isDateInToday(lastTaskEndAt) {
+            self.lastTask = lastTask
+        } else {
+            self.lastTask = nil
+        }
         self.projects = []
-        self.task = Task(project: .none, body: "", url: nil, day: Date(), startAt: nil, endAt: nil)
+        self.task = Task(project: .none, body: "", url: nil, day: Date(), startAt: self.lastTask?.endAt, endAt: nil)
     }
     
     // MARK: - WorkTimeViewModelType
     func viewDidLoad() {
+        setDefaultDay()
         updateViewWithCurrentSelectedProject()
         fetchProjectList()
     }
@@ -75,7 +82,11 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         guard !projects.isEmpty else { return }
         switch task.project {
         case .none:
-            task.project = .some(projects[0])
+            if let lastProject = lastTask?.project {
+                task.project = .some(lastProject)
+            } else {
+                task.project = .some(projects[0])
+            }
             updateViewWithCurrentSelectedProject()
         case .some:
             return
@@ -103,10 +114,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func setDefaultDay() {
-        var date = Date()
-        if let day = task.day {
-            date = day
-        }
+        let date = task.day ?? Date()
         task.day = date
         updateDayView(with: date)
     }
@@ -122,10 +130,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func setDefaultStartAtDate() {
-        var date = Date()
-        if let startAt = task.startAt {
-            date = startAt
-        }
+        let date = task.startAt ?? Date()
         task.startAt = date
         updateStartAtDateView(with: date)
     }
@@ -136,7 +141,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func setDefaultEndAtDate() {
-        var date =  Date()
+        var date = Date()
         if let toDate = task.endAt {
             date = toDate
         } else {
@@ -178,24 +183,29 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     private func updateViewWithCurrentSelectedProject() {
         userInterface?.setUp(currentProjectName: task.title, allowsTask: task.allowsTask)
         
-        guard let type = task.type else { return }
-        switch type {
-        case .fullDay(let timeInterval):
-            let fromDate = calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
-            let toDate = fromDate.addingTimeInterval(timeInterval)
+        let fromDate: Date
+        let toDate: Date
+        switch task.type {
+        case .fullDay(let timeInterval)?:
+            fromDate = calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
+            toDate = fromDate.addingTimeInterval(timeInterval)
             task.startAt = fromDate
             task.endAt = toDate
-            updateStartAtDateView(with: fromDate)
-            updateEndAtDateView(with: toDate)
-        case .lunch(let timeInterval):
-            let fromDate = task.startAt ?? calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
-            let toDate = fromDate.addingTimeInterval(timeInterval)
+        case .lunch(let timeInterval)?:
+            fromDate = task.startAt ?? Date()
+            toDate = fromDate.addingTimeInterval(timeInterval)
             task.startAt = fromDate
             task.endAt = toDate
-            updateStartAtDateView(with: fromDate)
-            updateEndAtDateView(with: toDate)
-        case .standard: break
+        case .standard?, .none:
+            fromDate = lastTask?.endAt ?? Date()
+            toDate = fromDate
+            task.startAt = fromDate
+            task.endAt = toDate
+            setDefaultStartAtDate()
+            setDefaultEndAtDate()
         }
+        updateStartAtDateView(with: fromDate)
+        updateEndAtDateView(with: toDate)
     }
     
     private func updateDayView(with date: Date) {
@@ -222,6 +232,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
             switch result {
             case .success(let projects):
                 self?.projects = projects.filter { $0.isActive ?? false }
+                self?.setDefaultTask()
                 self?.userInterface?.reloadProjectPicker()
             case .failure(let error):
                 self?.errorHandler.throwing(error: error)
