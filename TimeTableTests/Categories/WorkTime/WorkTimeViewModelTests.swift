@@ -312,6 +312,16 @@ class WorkTimeViewModelTests: XCTestCase {
         XCTAssertNil(errorHandlerMock.throwedError as? UIError)
     }
     
+    func testViewRequestedToSaveWhileProjectIsLunch() throws {
+        //Arrange
+        try fetchProjects()
+        viewModel.viewSelectedProject(atRow: 1)
+        //Act
+        viewModel.viewRequestedToSave()
+        //Assert
+        XCTAssertNil(errorHandlerMock.throwedError as? UIError)
+    }
+    
     func testViewRequestedToSaveWhileTaskFromDateIsGreaterThanToDate() throws {
         //Arrange
         var components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
