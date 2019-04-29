@@ -175,22 +175,22 @@ extension WorkTimeController: WorkTimeViewModelOutput {
     }
     
     func setMinimumDateForTypeEndAtDate(minDate: Date) {
-        endAtDatePicker.minimumDate = minDate
+        endAtDatePicker?.minimumDate = minDate
     }
     
     func updateDay(with date: Date, dateString: String) {
         dayTextField.text = dateString
-        startAtDatePicker.date = date
+        startAtDatePicker?.date = date
     }
     
     func updateStartAtDate(with date: Date, dateString: String) {
         startAtDateTextField.text = dateString
-        startAtDatePicker.date = date
+        startAtDatePicker?.date = date
     }
     
     func updateEndAtDate(with date: Date, dateString: String) {
         endAtDateTextField.text = dateString
-        endAtDatePicker.date = date
+        endAtDatePicker?.date = date
     }
 }
 

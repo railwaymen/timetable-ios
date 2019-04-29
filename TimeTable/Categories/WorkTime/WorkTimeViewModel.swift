@@ -65,6 +65,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     
     // MARK: - WorkTimeViewModelType
     func viewDidLoad() {
+        setDefaultDay()
         updateViewWithCurrentSelectedProject()
         fetchProjectList()
     }
@@ -81,7 +82,11 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         guard !projects.isEmpty else { return }
         switch task.project {
         case .none:
-            task.project = .some(projects[0])
+            if let lastProject = lastTask?.project {
+                task.project = .some(lastProject)
+            } else {
+                task.project = .some(projects[0])
+            }
             updateViewWithCurrentSelectedProject()
         case .some:
             return
@@ -178,21 +183,20 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     private func updateViewWithCurrentSelectedProject() {
         userInterface?.setUp(currentProjectName: task.title, allowsTask: task.allowsTask)
         
-        guard let type = task.type else { return }
         let fromDate: Date
         let toDate: Date
-        switch type {
-        case .fullDay(let timeInterval):
+        switch task.type {
+        case .fullDay(let timeInterval)?:
             fromDate = calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
             toDate = fromDate.addingTimeInterval(timeInterval)
             task.startAt = fromDate
             task.endAt = toDate
-        case .lunch(let timeInterval):
+        case .lunch(let timeInterval)?:
             fromDate = task.startAt ?? Date()
             toDate = fromDate.addingTimeInterval(timeInterval)
             task.startAt = fromDate
             task.endAt = toDate
-        case .standard:
+        case .standard?, .none:
             fromDate = lastTask?.endAt ?? Date()
             toDate = fromDate
             task.startAt = fromDate
@@ -228,6 +232,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
             switch result {
             case .success(let projects):
                 self?.projects = projects.filter { $0.isActive ?? false }
+                self?.setDefaultTask()
                 self?.userInterface?.reloadProjectPicker()
             case .failure(let error):
                 self?.errorHandler.throwing(error: error)
