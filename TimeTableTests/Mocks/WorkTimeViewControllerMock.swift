@@ -21,6 +21,7 @@ class WorkTimeViewControllerMock: WorkTimeViewControlleralbe {
     private(set) var updateDayValues: (date: Date?, dateString: String?) = (nil, nil)
     private(set) var updateStartAtDateValues: (date: Date?, dateString: String?) = (nil, nil)
     private(set) var updateEndAtDateValues: (date: Date?, dateString: String?) = (nil, nil)
+    private(set) var selectProjectPickerRow: Int?
 
     func configure(viewModel: WorkTimeViewModelType, notificationCenter: NotificationCenterType?) {
         configureViewModelData = (true, viewModel, notificationCenter)
@@ -56,5 +57,9 @@ class WorkTimeViewControllerMock: WorkTimeViewControlleralbe {
     
     func updateEndAtDate(with date: Date, dateString: String) {
         updateEndAtDateValues = (date, dateString)
+    }
+    
+    func selectProjectPicker(row: Int) {
+        selectProjectPickerRow = row
     }
 }

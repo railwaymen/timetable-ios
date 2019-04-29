@@ -192,6 +192,10 @@ extension WorkTimeController: WorkTimeViewModelOutput {
         endAtDateTextField.text = dateString
         endAtDatePicker?.date = date
     }
+    
+    func selectProjectPicker(row: Int) {
+        projectPicker.selectRow(row, inComponent: 0, animated: false)
+    }
 }
 
 // MARK: - WorkTimeViewControllerType
