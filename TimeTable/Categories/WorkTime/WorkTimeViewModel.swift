@@ -89,9 +89,8 @@ class WorkTimeViewModel: WorkTimeViewModelType {
                 task.project = .some(projects[0])
             }
             updateViewWithCurrentSelectedProject()
-        case .some(let project):
-            guard let index = projects.firstIndex(of: project) else { break }
-            userInterface?.selectProjectPicker(row: index)
+        case .some:
+            break
         }
     }
     
@@ -208,6 +207,10 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         }
         updateStartAtDateView(with: fromDate)
         updateEndAtDateView(with: toDate)
+        if let project = task.project,
+            let index = projects.firstIndex(of: project) {
+            userInterface?.selectProjectPicker(row: index)
+        }
     }
     
     private func updateDayView(with date: Date) {
