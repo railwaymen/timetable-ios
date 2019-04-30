@@ -45,6 +45,9 @@
                                         <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="28"/>
                                         <color key="textColor" red="0.62352941176470589" green="0.62352941176470589" blue="0.71764705882352942" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="work_time.label.new_record"/>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0TS-2R-0Rw" userLabel="Project Attributed View" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
                                         <rect key="frame" x="18" y="113.66666666666666" width="378" height="42"/>
@@ -68,6 +71,9 @@
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="15"/>
                                                 <color key="textColor" red="0.62352941176470589" green="0.62352941176470589" blue="0.71764705882352942" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="work_time.label.project"/>
+                                                </userDefinedRuntimeAttributes>
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
@@ -115,6 +121,9 @@
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="15"/>
                                                 <color key="textColor" red="0.62352941179999999" green="0.62352941179999999" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="work_time.label.date"/>
+                                                </userDefinedRuntimeAttributes>
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -148,6 +157,9 @@
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="15"/>
                                                 <color key="textColor" red="0.62352941179999999" green="0.62352941179999999" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="work_time.label.start_time"/>
+                                                </userDefinedRuntimeAttributes>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="08:00" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GPe-vx-7eJ">
                                                 <rect key="frame" x="58" y="0.0" width="116" height="42"/>
@@ -192,6 +204,9 @@
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="15"/>
                                                 <color key="textColor" red="0.62352941179999999" green="0.62352941179999999" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="work_time.label.end_time"/>
+                                                </userDefinedRuntimeAttributes>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="09:00" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pgu-1o-gtM">
                                                 <rect key="frame" x="50.666666666666679" y="0.0" width="123.33333333333331" height="42"/>
