@@ -64,7 +64,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.calendar = calendar
-        if let lastTaskEndAt = lastTask?.endAt, Calendar.current.isDateInToday(lastTaskEndAt) {
+        if let lastTaskEndAt = lastTask?.endAt, calendar.isDateInToday(lastTaskEndAt) {
             self.lastTask = lastTask
         } else {
             self.lastTask = nil
@@ -197,7 +197,11 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     private func updateViewWithCurrentSelectedProject() {
-        userInterface?.setUp(currentProjectName: task.title, isLunch: task.project?.isLunch ?? false, allowsTask: task.allowsTask, body: task.body, urlString: task.url?.absoluteString)
+        userInterface?.setUp(currentProjectName: task.title,
+                             isLunch: task.project?.isLunch ?? false,
+                             allowsTask: task.allowsTask,
+                             body: task.body,
+                             urlString: task.url?.absoluteString)
         
         let fromDate: Date
         let toDate: Date
@@ -252,8 +256,8 @@ class WorkTimeViewModel: WorkTimeViewModelType {
             switch result {
             case .success(let projects):
                 self?.projects = projects.filter { $0.isActive ?? false }
-                self?.setDefaultTask()
                 self?.userInterface?.reloadProjectPicker()
+                self?.setDefaultTask()
             case .failure(let error):
                 self?.errorHandler.throwing(error: error)
             }
