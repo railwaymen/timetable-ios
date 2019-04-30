@@ -51,14 +51,8 @@ class WorkTimesViewModelTests: XCTestCase {
     
     func testNumberOfSectionsAfterFetchingWorkTimes() throws {
         //Arrange
-        let data = try self.json(from: WorkTimesResponse.workTimesResponse)
-        let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
-        let matchingFullTimeData = try self.json(from: MatchingFullTimeResponse.matchingFullTimeFullResponse)
-        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
-        let components = DateComponents(year: 2018, month: 11, day: 21)
-        let date = try Calendar.current.date(from: components).unwrap()
-        let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
-        
+        let matchingFullTime = try self.buildMatchingFullTimeDecoder()
+        let dailyWorkTime = try self.buildDailyWorkTime()
         let viewModel = buildViewModel()
         viewModel.viewWillAppear()
         contentProvider.fetchWorkTimesDataCompletion?(.success(([dailyWorkTime], matchingFullTime)))
@@ -79,13 +73,8 @@ class WorkTimesViewModelTests: XCTestCase {
     
     func testNumberOfRowsInSectionAfterFetchingWorkTimes() throws {
         //Arrange
-        let data = try self.json(from: WorkTimesResponse.workTimesResponse)
-        let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
-        let matchingFullTimeData = try self.json(from: MatchingFullTimeResponse.matchingFullTimeFullResponse)
-        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
-        let components = DateComponents(year: 2018, month: 11, day: 21)
-        let date = try Calendar.current.date(from: components).unwrap()
-        let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
+        let matchingFullTime = try self.buildMatchingFullTimeDecoder()
+        let dailyWorkTime = try self.buildDailyWorkTime()
         let viewModel = buildViewModel()
         viewModel.viewWillAppear()
         contentProvider.fetchWorkTimesDataCompletion?(.success(([dailyWorkTime], matchingFullTime)))
@@ -106,13 +95,8 @@ class WorkTimesViewModelTests: XCTestCase {
 
     func testViewWillAppearRunsFetchWorkTimesCallUpdateViewOnUserInterface() throws {
         //Arrange
-        let data = try self.json(from: WorkTimesResponse.workTimesResponse)
-        let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
-        let matchingFullTimeData = try self.json(from: MatchingFullTimeResponse.matchingFullTimeFullResponse)
-        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
-        let components = DateComponents(year: 2018, month: 11, day: 21)
-        let date = try Calendar.current.date(from: components).unwrap()
-        let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
+        let matchingFullTime = try self.buildMatchingFullTimeDecoder()
+        let dailyWorkTime = try self.buildDailyWorkTime()
         let viewModel = buildViewModel()
         viewModel.viewWillAppear()
         contentProvider.fetchWorkTimesDataCompletion?(.success(([dailyWorkTime], matchingFullTime)))
@@ -198,13 +182,8 @@ class WorkTimesViewModelTests: XCTestCase {
     func testViewRequestedForCellModelAfterFetchingWorkTimes() throws {
         //Arrange
         let mockedCell = WorkTimeCellViewMock()
-        let data = try self.json(from: WorkTimesResponse.workTimesResponse)
-        let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
-        let matchingFullTimeData = try self.json(from: MatchingFullTimeResponse.matchingFullTimeFullResponse)
-        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
-        let components = DateComponents(year: 2018, month: 11, day: 21)
-        let date = try Calendar.current.date(from: components).unwrap()
-        let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
+        let matchingFullTime = try self.buildMatchingFullTimeDecoder()
+        let dailyWorkTime = try self.buildDailyWorkTime()
         let viewModel = buildViewModel()
         viewModel.viewWillAppear()
         contentProvider.fetchWorkTimesDataCompletion?(.success(([dailyWorkTime], matchingFullTime)))
@@ -227,13 +206,8 @@ class WorkTimesViewModelTests: XCTestCase {
     func testViewRequestedForHeaderModelAfterFetchingWorkTimes() throws {
         //Arrange
         let mockedHeader = WorkTimesTableViewHeaderViewMock()
-        let data = try self.json(from: WorkTimesResponse.workTimesResponse)
-        let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
-        let matchingFullTimeData = try self.json(from: MatchingFullTimeResponse.matchingFullTimeFullResponse)
-        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
-        let components = DateComponents(year: 2018, month: 11, day: 21)
-        let date = try Calendar.current.date(from: components).unwrap()
-        let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
+        let matchingFullTime = try self.buildMatchingFullTimeDecoder()
+        let dailyWorkTime = try self.buildDailyWorkTime()
         let viewModel = buildViewModel()
         viewModel.viewWillAppear()
         contentProvider.fetchWorkTimesDataCompletion?(.success(([dailyWorkTime], matchingFullTime)))
@@ -241,6 +215,47 @@ class WorkTimesViewModelTests: XCTestCase {
         let headerViewModel = viewModel.viewRequestForHeaderModel(at: 0, header: mockedHeader)
         //Assert
         XCTAssertNotNil(headerViewModel)
+    }
+    
+    func testViewRequestToDeleteWorkTime_invalidIndexPath() {
+        //Arrange
+        let viewModel = buildViewModel()
+        //Act
+        viewModel.viewRequestToDelete(at: IndexPath(row: 0, section: 0)) { completed in
+            //Assert
+            XCTAssertFalse(completed)
+        }
+    }
+    
+    func testViewRequestToDeleteWorkTime_errorResponse() throws {
+        //Arrange
+        let expectedError = TestError(message: "Error")
+        let matchingFullTime = try self.buildMatchingFullTimeDecoder()
+        let dailyWorkTime = try self.buildDailyWorkTime()
+        let viewModel = buildViewModel()
+        viewModel.viewWillAppear()
+        contentProvider.fetchWorkTimesDataCompletion?(.success(([dailyWorkTime], matchingFullTime)))
+        //Act
+        viewModel.viewRequestToDelete(at: IndexPath(row: 0, section: 0)) { completed in
+            //Assert
+            XCTAssertFalse(completed)
+        }
+        contentProvider.deleteWorkTimeCompletion?(.failure(expectedError))
+    }
+    
+    func testViewRequestToDeleteWorkTime_succeed() throws {
+        //Arrange
+        let matchingFullTime = try self.buildMatchingFullTimeDecoder()
+        let dailyWorkTime = try self.buildDailyWorkTime()
+        let viewModel = buildViewModel()
+        viewModel.viewWillAppear()
+        contentProvider.fetchWorkTimesDataCompletion?(.success(([dailyWorkTime], matchingFullTime)))
+        //Act
+        viewModel.viewRequestToDelete(at: IndexPath(row: 0, section: 0)) { completed in
+            //Assert
+            XCTAssertTrue(completed)
+        }
+        contentProvider.deleteWorkTimeCompletion?(.success(Void()))
     }
 
     func testViewRequestedForCellTypeBeforeViewWillAppear() {
@@ -290,6 +305,19 @@ class WorkTimesViewModelTests: XCTestCase {
         }
         return WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
                                            contentProvider: contentProvider, errorHandler: errorHandlerMock, calendar: calendarMock)
+    }
+    
+    private func buildMatchingFullTimeDecoder() throws -> MatchingFullTimeDecoder {
+        let matchingFullTimeData = try self.json(from: MatchingFullTimeResponse.matchingFullTimeFullResponse)
+        return try self.decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
+    }
+    
+    private func buildDailyWorkTime() throws -> DailyWorkTime {
+        let data = try self.json(from: WorkTimesResponse.workTimesResponse)
+        let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
+        let components = DateComponents(year: 2018, month: 11, day: 21)
+        let date = try Calendar.current.date(from: components).unwrap()
+        return DailyWorkTime(day: date, workTimes: workTimes)
     }
 }
 
