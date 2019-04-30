@@ -134,7 +134,7 @@ class WorkTimesContentProvider: WorkTimesContentProviderType {
         startOfMonthComponents.timeZone = TimeZone(secondsFromGMT: 0)
         let startOfMonth = calendar.date(from: startOfMonthComponents)
         guard let startDate = startOfMonth else { return (startOfMonth, nil) }
-        let endOfMonthComponents = DateComponents(day: -1, hour: 23, minute: 59, second: 59, nanosecond: 59)
+        let endOfMonthComponents = DateComponents(month: 1)
         let endOfMonth = calendar.date(byAdding: endOfMonthComponents, to: startDate)
         return (startOfMonth, endOfMonth)
     }
