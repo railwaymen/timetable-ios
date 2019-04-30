@@ -21,12 +21,13 @@ protocol WorkTimesViewModelType: class {
     func numberOfRows(in section: Int) -> Int
     func viewDidLoad()
     func viewWillAppear()
-    func viewRequestedForPreviousMonth()
-    func viewRequestedForNextMonth()
-    func viewRequestedForCellType(at index: IndexPath) -> WorkTimesViewModel.CellType
-    func viewRequestedForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType?
-    func viewRequestedForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType?
-    func viewRequestedForNewWorkTimeView(sourceView: UIButton)
+    func viewRequestForPreviousMonth()
+    func viewRequestForNextMonth()
+    func viewRequestForCellType(at index: IndexPath) -> WorkTimesViewModel.CellType
+    func viewRequestForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType?
+    func viewRequestForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType?
+    func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void)
+    func viewRequestForNewWorkTimeView(sourceView: UIButton)
 }
 
 class DailyWorkTime {
@@ -37,6 +38,12 @@ class DailyWorkTime {
     init(day: Date, workTimes: [WorkTimeDecoder]) {
         self.day = day
         self.workTimes = workTimes
+    }
+    
+    func remove(workTime: WorkTimeDecoder) -> Bool {
+        guard let index = workTimes.firstIndex(of: workTime) else { return false }
+        workTimes.remove(at: index)
+        return true
     }
 }
 
@@ -87,32 +94,46 @@ class WorkTimesViewModel: WorkTimesViewModelType {
         fetchWorkTimesData(forCurrentMonth: selectedMonth)
     }
     
-    func viewRequestedForPreviousMonth() {
+    func viewRequestForPreviousMonth() {
         fetchAndChangeSelectedMonth(with: DateComponents(month: -1))
     }
     
-    func viewRequestedForNextMonth() {
+    func viewRequestForNextMonth() {
         fetchAndChangeSelectedMonth(with: DateComponents(month: 1))
     }
     
-    func viewRequestedForCellType(at index: IndexPath) -> WorkTimesViewModel.CellType {
-        guard dailyWorkTimesArray.count > index.section else { return .standard }
-        let workTime = dailyWorkTimesArray[index.section].workTimes.sorted(by: { $0.startsAt > $1.startsAt })[index.row]
+    func viewRequestForCellType(at index: IndexPath) -> WorkTimesViewModel.CellType {
+        guard let workTime = workTime(for: index) else { return .standard }
         return workTime.taskPreview == nil ? .standard : .taskURL
     }
     
-    func viewRequestedForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType? {
-        guard dailyWorkTimesArray.count > index.section else { return nil }
-        let workTime = dailyWorkTimesArray[index.section].workTimes.sorted(by: { $0.startsAt > $1.startsAt })[index.row]
+    func viewRequestForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType? {
+        guard let workTime = workTime(for: index) else { return nil }
         return WorkTimeCellViewModel(workTime: workTime, userInterface: cell)
     }
     
-    func viewRequestedForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType? {
+    func viewRequestForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType? {
         guard dailyWorkTimesArray.count > section else { return nil }
         return WorkTimesTableViewHeaderViewModel(userInterface: header, dailyWorkTime: dailyWorkTimesArray[section])
     }
     
-    func viewRequestedForNewWorkTimeView(sourceView: UIButton) {
+    func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void) {
+        guard let workTime = workTime(for: index) else {
+            completion(false)
+            return
+        }
+        contentProvider.delete(workTime: workTime) { [weak self] result in
+            switch result {
+            case .success:
+                self?.removeDailyWorkTime(at: index, workTime: workTime, completion: completion)
+            case .failure(let error):
+                self?.errorHandler.throwing(error: error)
+                completion(false)
+            }
+        }
+    }
+    
+    func viewRequestForNewWorkTimeView(sourceView: UIButton) {
         let lastWorkTime = dailyWorkTimesArray.first?.workTimes.first
         let lastTask = lastWorkTime == nil
             ? nil
@@ -126,6 +147,24 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     }
     
     // MARK: - Private
+    private func workTime(for indexPath: IndexPath) -> WorkTimeDecoder? {
+        return dailyWorkTime(for: indexPath)?.workTimes.sorted(by: { $0.startsAt > $1.startsAt })[indexPath.row]
+    }
+    
+    private func dailyWorkTime(for indexPath: IndexPath) -> DailyWorkTime? {
+        guard dailyWorkTimesArray.count > indexPath.section else { return nil }
+        return dailyWorkTimesArray[indexPath.section]
+    }
+    
+    private func removeDailyWorkTime(at indexPath: IndexPath, workTime: WorkTimeDecoder, completion: @escaping (Bool) -> Void) {
+        guard let dailyWorkTime = self.dailyWorkTime(for: indexPath) else {
+            completion(false)
+            return
+        }
+        let deleted = dailyWorkTime.remove(workTime: workTime)
+        completion(deleted)
+    }
+    
     private func fetchWorkTimesData(forCurrentMonth date: Date?) {
         contentProvider.fetchWorkTimesData(for: date) { [weak self] result in
             switch result {

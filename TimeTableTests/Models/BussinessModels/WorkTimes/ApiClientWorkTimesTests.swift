@@ -14,7 +14,8 @@ class ApiClientWorkTimesTests: XCTestCase {
     private var networkingMock: NetworkingMock!
     private var requestEncoderMock: RequestEncoderMock!
     private var jsonDecoderMock: JSONDecoderMock!
- 
+    private var apiClient: ApiClientWorkTimesType!
+    
     private enum WorkTimesResponse: String, JSONFileResource {
         case workTimesResponse
     }
@@ -33,6 +34,11 @@ class ApiClientWorkTimesTests: XCTestCase {
         self.networkingMock = NetworkingMock()
         self.requestEncoderMock = RequestEncoderMock()
         self.jsonDecoderMock = JSONDecoderMock()
+        apiClient = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
+            return requestEncoderMock
+        }) { () -> JSONDecoderType in
+            return jsonDecoderMock
+        }
         super.setUp()
     }
 
@@ -43,11 +49,6 @@ class ApiClientWorkTimesTests: XCTestCase {
         let decoders = try decoder.decode([WorkTimeDecoder].self, from: data)
         var expectedWorkTimes: [WorkTimeDecoder]?
         let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
-        let apiClient: ApiClientWorkTimesType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
-            return requestEncoderMock
-        }) { () -> JSONDecoderType in
-            return jsonDecoderMock
-        }
         //Act
         apiClient.fetchWorkTimes(parameters: parameters) { result in
             switch result {
@@ -68,11 +69,6 @@ class ApiClientWorkTimesTests: XCTestCase {
         var expectedError: Error?
         let error = TestError(message: "fetch failed")
         let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
-        let apiClient: ApiClientWorkTimesType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
-            return requestEncoderMock
-        }) { () -> JSONDecoderType in
-            return jsonDecoderMock
-        }
         //Act
         apiClient.fetchWorkTimes(parameters: parameters) { result in
             switch result {
@@ -94,11 +90,6 @@ class ApiClientWorkTimesTests: XCTestCase {
         let data = try self.json(from: SimpleProjectResponse.simpleProjectFullResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
         let task = Task(project: projectDecoder, body: "body", url: nil, day: nil, startAt: nil, endAt: nil)
-        let apiClient: ApiClientWorkTimesType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
-            return requestEncoderMock
-        }) { () -> JSONDecoderType in
-            return jsonDecoderMock
-        }
         //Act
         apiClient.addWorkTime(parameters: task) { result in
             switch result {
@@ -120,11 +111,6 @@ class ApiClientWorkTimesTests: XCTestCase {
         let data = try self.json(from: SimpleProjectResponse.simpleProjectFullResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
         let task = Task(project: projectDecoder, body: "body", url: nil, day: nil, startAt: nil, endAt: nil)
-        let apiClient: ApiClientWorkTimesType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
-            return requestEncoderMock
-        }) { () -> JSONDecoderType in
-            return jsonDecoderMock
-        }
         //Act
         apiClient.addWorkTime(parameters: task) { result in
             switch result {
@@ -135,6 +121,42 @@ class ApiClientWorkTimesTests: XCTestCase {
             }
         }
         networkingMock.shortPostCompletion?(.failure(error))
+        //Assert
+        let testError = try (expectedError as? TestError).unwrap()
+        XCTAssertEqual(testError, error)
+    }
+    
+    func testDeleteWorkTimeSucceed() {
+        //Arrange
+        var successCalled = false
+        //Act
+        apiClient.deleteWorkTime(identifier: 2) { result in
+            switch result {
+            case .success:
+                successCalled = true
+            case .failure:
+                XCTFail()
+            }
+        }
+        networkingMock.deleteCompletion?(.success(Void()))
+        //Assert
+        XCTAssertTrue(successCalled)
+    }
+    
+    func testDeleteWorkTimeFailed() throws {
+        //Arrange
+        var expectedError: Error?
+        let error = TestError(message: "fetch failed")
+        //Act
+        apiClient.deleteWorkTime(identifier: 2) { result in
+            switch result {
+            case .success:
+                XCTFail()
+            case .failure(let error):
+                expectedError = error
+            }
+        }
+        networkingMock.deleteCompletion?(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)

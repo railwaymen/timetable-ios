@@ -10,7 +10,7 @@ import Foundation
 
 struct WorkTimeDecoder: Decodable {
     
-    let identifier: Int
+    let identifier: Int64
     let updatedByAdmin: Bool
     let projectIdentifier: Int
     let startsAt: Date
@@ -45,7 +45,7 @@ struct WorkTimeDecoder: Decodable {
     // MARK: - Initialization
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.identifier = try container.decode(Int.self, forKey: .identifier)
+        self.identifier = try container.decode(Int64.self, forKey: .identifier)
         self.updatedByAdmin = try container.decode(Bool.self, forKey: .updatedByAdmin)
         self.projectIdentifier = try container.decode(Int.self, forKey: .projectIdentifier)
         self.startsAt = try container.decode(Date.self, forKey: .startsAt)

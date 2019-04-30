@@ -10,6 +10,7 @@ import Foundation
 
 protocol WorkTimesContentProviderType: class {
     func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder)>) -> Void)
+    func delete(workTime: WorkTimeDecoder, completion: @escaping (Result<Void>) -> Void)
 }
 
 class WorkTimesContentProvider: WorkTimesContentProviderType {
@@ -89,6 +90,10 @@ class WorkTimesContentProvider: WorkTimesContentProviderType {
         operationQueue.addOperation(doneBlockOperation)
         operationQueue.addOperation(workTimesBlockOperation)
         operationQueue.addOperation(matchingFullTimeBlockOperation)
+    }
+    
+    func delete(workTime: WorkTimeDecoder, completion: @escaping (Result<Void>) -> Void) {
+        apiClient.deleteWorkTime(identifier: workTime.identifier, completion: completion)
     }
     
     // MARK: - Private

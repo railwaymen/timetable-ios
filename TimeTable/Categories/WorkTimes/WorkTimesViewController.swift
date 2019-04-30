@@ -41,7 +41,7 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     // MARK: - Action
     @IBAction private func addNewRecordTapped(_ sender: UIButton) {
-        viewModel.viewRequestedForNewWorkTimeView(sourceView: sender)
+        viewModel.viewRequestForNewWorkTimeView(sourceView: sender)
     }
     
     // MARK: - UITableViewDataSource
@@ -55,7 +55,7 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cellType = viewModel.viewRequestedForCellType(at: indexPath)
+        let cellType = viewModel.viewRequestForCellType(at: indexPath)
         var cell: WorkTimeTableViewCellalbe?
         switch cellType {
         case .standard:
@@ -64,9 +64,13 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
             cell = tableView.dequeueReusableCell(withIdentifier: workTimeWithURLCellReuseIdentifier, for: indexPath) as? WorkTimeTableViewCellalbe
         }
         guard let workTimeCell = cell else { return UITableViewCell() }
-        guard let cellViewModel = viewModel.viewRequestedForCellModel(at: indexPath, cell: workTimeCell) else { return UITableViewCell() }
+        guard let cellViewModel = viewModel.viewRequestForCellModel(at: indexPath, cell: workTimeCell) else { return UITableViewCell() }
         workTimeCell.configure(viewModel: cellViewModel)
         return workTimeCell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
     
     // MARK: - UITableViewDelegate
@@ -74,11 +78,29 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "") { (_, _, completion) in
+            self.viewModel.viewRequestToDelete(at: indexPath) { completed in
+                defer { completion(completed) }
+                guard completed else { return }
+                let numberOfItems = self.viewModel.numberOfRows(in: indexPath.section)
+                DispatchQueue.main.async { [weak self] in
+                    numberOfItems > 0
+                        ? self?.tableView.deleteRows(at: [indexPath], with: .fade)
+                        : self?.tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+                }
+            }
+        }
+        deleteAction.backgroundColor = .crimson
+        deleteAction.image = #imageLiteral(resourceName: "icon-trash")
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: workTimesTableViewHeaderIdentifier) as? WorkTimesTableViewHeaderable else {
             return nil
         }
-        guard let headerViewModel = viewModel.viewRequestedForHeaderModel(at: section, header: header) else { return nil }
+        guard let headerViewModel = viewModel.viewRequestForHeaderModel(at: section, header: header) else { return nil }
         header.configure(viewModel: headerViewModel)
         return header
     }
@@ -133,10 +155,10 @@ extension WorkTimesViewController: WorkTimesViewControllerType {
 // MARK: - DateSelectorViewDelegate
 extension WorkTimesViewController: DateSelectorViewDelegate {
     func dateSelectorRequestedForPreviousDate() {
-         viewModel.viewRequestedForPreviousMonth()
+         viewModel.viewRequestForPreviousMonth()
     }
     
     func dateSelectorRequestedForNextDate() {
-        viewModel.viewRequestedForNextMonth()
+        viewModel.viewRequestForNextMonth()
     }
 }

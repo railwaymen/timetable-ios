@@ -97,4 +97,8 @@ class ApiClient: ApiClientNetworkingType {
             completion(.failure(ApiClientError(type: .invalidParameters)))
         }
     }
+    
+    func delete(_ endpoint: Endpoints, completion: @escaping ((Result<Void>) -> Void)) {
+        networking.delete(endpoint.value, completion: completion)
+    }
 }

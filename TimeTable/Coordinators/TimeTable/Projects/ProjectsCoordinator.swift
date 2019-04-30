@@ -16,6 +16,7 @@ class ProjectsCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType 
     var root: UIViewController {
         return self.navigationController
     }
+    
     var tabBarItem: UITabBarItem
     
     // MARK: - Initialization

@@ -14,6 +14,8 @@ class WorkTimesViewControllerMock: WorkTimesViewControlleralbe {
     
     private(set) var setUpViewCalled = false
     private(set) var updateViewCalled = false
+    private(set) var deleteWorkTimeIndexPath: IndexPath?
+    private(set) var reloadWorkTimeIndexPath: IndexPath?
     private(set) var updateDateSelectorData: (currentDateString: String?, previousDateString: String?, nextDateString: String?) = (nil, nil, nil)
     private(set) var configureViewModelData: (called: Bool, viewModel: WorkTimesViewModelType?) = (false, nil)
     private(set) var updateMatchingFullTimeLabelsData: (workedHours: String?, shouldWorkHours: String?, duration: String?) = (nil, nil, nil)
@@ -28,6 +30,14 @@ class WorkTimesViewControllerMock: WorkTimesViewControlleralbe {
     
     func updateDateSelector(currentDateString: String, previousDateString: String, nextDateString: String) {
         updateDateSelectorData = (currentDateString, previousDateString, nextDateString)
+    }
+    
+    func deleteWorkTime(at indexPath: IndexPath) {
+        self.deleteWorkTimeIndexPath = indexPath
+    }
+    
+    func reloadWorkTime(at indexPath: IndexPath) {
+        self.reloadWorkTimeIndexPath = indexPath
     }
  
     func configure(viewModel: WorkTimesViewModelType) {

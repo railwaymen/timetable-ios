@@ -33,7 +33,6 @@ class TimeTableTabCoordinator: BaseTabBarCoordinator {
         
         super.init(window: window)
         [projectsCoordinator, workTimeCoordinator, userCoordinator].forEach { self.addChildCoordinator(child: $0) }
-//        self.tabBarChildCoordinators = [projectsCoordinator, workTimeCoordinator, userCoordinator]
         self.tabBarController.tabBar.tintColor = UIColor.crimson
         
         projectsCoordinator.start()

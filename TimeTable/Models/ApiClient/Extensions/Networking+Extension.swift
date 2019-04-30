@@ -13,6 +13,7 @@ protocol NetworkingType: class {
     var headerFields: [String: String]? { get set }
     func post(_ path: String, parameters: Any?, completion: @escaping (Result<Data>) -> Void)
     func get(_ path: String, parameters: Any?, cachingLevel: Networking.CachingLevel, completion: @escaping (Result<Data>) -> Void)
+    func delete(_ path: String, completion: @escaping ((Result<Void>) -> Void))
 }
 
 extension Networking: NetworkingType {
@@ -28,17 +29,31 @@ extension Networking: NetworkingType {
         })
     }
     
+    func delete(_ path: String, completion: @escaping ((Result<Void>) -> Void)) {
+        _ = self.delete(path, completion: { (result: JSONResult) in
+            switch result {
+            case .success:
+                completion(.success(Void()))
+            case .failure(let failureResponse):
+                let error = self.handle(failureResponse: failureResponse)
+                completion(.failure(error))
+            }
+        })
+    }
+    
     // MARK: - Private
     private func handleResponse(result: JSONResult, completion: (Result<Data>) -> Void) {
         switch result {
         case .success(let successResponse):
             completion(.success(successResponse.data))
         case .failure(let failureResponse):
-            if let apiClientError = ApiClientError(data: failureResponse.data) {
-                completion(.failure(apiClientError))
-            } else {
-                completion(.failure(failureResponse.error))
-            }
+            let error = handle(failureResponse: failureResponse)
+            completion(.failure(error))
         }
+    }
+    
+    private func handle(failureResponse: FailureJSONResponse) -> Error {
+        guard let apiClientError = ApiClientError(data: failureResponse.data) else { return failureResponse.error }
+        return apiClientError
     }
 }
