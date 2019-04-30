@@ -41,14 +41,14 @@ class BaseCoordinator: CoordinatorType, CoordinatorErrorPresenterType {
     // MARK: - CoordinatorErrorPresenterType
     func present(error: Error) {
         if let uiError = error as? UIError {
-            presentAllertController(withMessage: uiError.localizedDescription)
+            presentAlertController(withMessage: uiError.localizedDescription)
         } else if let apiError = error as? ApiClientError {
-            presentAllertController(withMessage: apiError.type.localizedDescription)
+            presentAlertController(withMessage: apiError.type.localizedDescription)
         }
     }
     
     // MARK: - Private
-    private func presentAllertController(withMessage message: String) {
+    private func presentAlertController(withMessage message: String) {
         let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default) { [unowned alert] _ in
             alert.dismiss(animated: true)
