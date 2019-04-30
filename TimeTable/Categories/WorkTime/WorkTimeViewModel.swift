@@ -9,7 +9,7 @@
 import Foundation
 
 protocol WorkTimeViewModelOutput: class {
-    func setUp(currentProjectName: String, allowsTask: Bool)
+    func setUp(currentProjectName: String, isLunch: Bool, allowsTask: Bool)
     func dismissView()
     func reloadProjectPicker()
     func dissmissKeyboard()
@@ -174,15 +174,16 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     
     // MARK: - Private
     private func validateInputs() throws {
-        guard .none != task.project else { throw UIError.cannotBeEmpty(.projectTextField) }
-        guard !task.body.isEmpty || (task.allowsTask && task.url != nil) else { throw UIError.cannotBeEmptyOr(.taskNameTextField, .taskUrlTextField) }
+        guard let project = task.project else { throw UIError.cannotBeEmpty(.projectTextField) }
+        guard !task.body.isEmpty || (task.allowsTask && task.url != nil) || project.isLunch
+            else { throw UIError.cannotBeEmptyOr(.taskNameTextField, .taskUrlTextField) }
         guard let fromDate = task.startAt else { throw UIError.cannotBeEmpty(.startsAtTextField) }
         guard let toDate = task.endAt else { throw UIError.cannotBeEmpty(.endsAtTextField) }
         guard fromDate < toDate else { throw UIError.timeGreaterThan }
     }
     
     private func updateViewWithCurrentSelectedProject() {
-        userInterface?.setUp(currentProjectName: task.title, allowsTask: task.allowsTask)
+        userInterface?.setUp(currentProjectName: task.title, isLunch: task.project?.isLunch ?? false, allowsTask: task.allowsTask)
         
         let fromDate: Date
         let toDate: Date

@@ -227,30 +227,46 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S7e-4t-jOr" userLabel="Task URL Seperator View">
-                                        <rect key="frame" x="18" y="376.66666666666669" width="378" height="1"/>
-                                        <color key="backgroundColor" red="0.62352941179999999" green="0.62352941179999999" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8NT-SY-xVj">
+                                        <rect key="frame" x="18" y="299.66666666666669" width="378" height="80"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g4e-sp-Azc">
+                                                <rect key="frame" x="0.0" y="39" width="378" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="4Er-7T-gau"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.62352941179999999" green="0.62352941179999999" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="done"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="work_time.text_field.what_have_you_done"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="taskTextFieldDidChange:" destination="vWa-gW-sZm" eventType="editingChanged" id="8U4-as-Wfz"/>
+                                                </connections>
+                                            </textField>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S7e-4t-jOr" userLabel="Task URL Seperator View">
+                                                <rect key="frame" x="0.0" y="79" width="378" height="1"/>
+                                                <color key="backgroundColor" red="0.62352941179999999" green="0.62352941179999999" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="a7K-rz-oQw"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="a7K-rz-oQw"/>
+                                            <constraint firstItem="g4e-sp-Azc" firstAttribute="leading" secondItem="8NT-SY-xVj" secondAttribute="leading" id="BdU-or-gDv"/>
+                                            <constraint firstAttribute="trailing" secondItem="g4e-sp-Azc" secondAttribute="trailing" id="KdZ-61-t5S"/>
+                                            <constraint firstItem="S7e-4t-jOr" firstAttribute="top" secondItem="g4e-sp-Azc" secondAttribute="bottom" id="NfQ-Wo-0Gb"/>
+                                            <constraint firstItem="S7e-4t-jOr" firstAttribute="leading" secondItem="8NT-SY-xVj" secondAttribute="leading" id="OaI-si-Dpi"/>
+                                            <constraint firstAttribute="bottom" secondItem="S7e-4t-jOr" secondAttribute="bottom" id="ci4-lf-Qbh"/>
+                                            <constraint firstItem="g4e-sp-Azc" firstAttribute="top" secondItem="8NT-SY-xVj" secondAttribute="top" priority="999" constant="30" id="iO9-s4-W6p"/>
+                                            <constraint firstAttribute="height" constant="80" id="wOK-iE-KCe"/>
+                                            <constraint firstAttribute="trailing" secondItem="S7e-4t-jOr" secondAttribute="trailing" id="zVD-tJ-mRe"/>
                                         </constraints>
                                     </view>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g4e-sp-Azc">
-                                        <rect key="frame" x="18" y="329.66666666666669" width="378" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="4Er-7T-gau"/>
-                                        </constraints>
-                                        <color key="textColor" red="0.62352941179999999" green="0.62352941179999999" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="done"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="work_time.text_field.what_have_you_done"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="taskTextFieldDidChange:" destination="vWa-gW-sZm" eventType="editingChanged" id="8U4-as-Wfz"/>
-                                        </connections>
-                                    </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aUV-20-WJh">
-                                        <rect key="frame" x="18" y="369.66666666666669" width="378" height="80"/>
+                                        <rect key="frame" x="18" y="379.66666666666669" width="378" height="80"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dYn-5C-xtg">
                                                 <rect key="frame" x="0.0" y="31" width="378" height="40"/>
@@ -288,7 +304,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TSS-Hb-MVA" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
-                                        <rect key="frame" x="18" y="494.66666666666663" width="378" height="50"/>
+                                        <rect key="frame" x="18" y="504.66666666666663" width="378" height="50"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.078431372549019607" blue="0.16862745098039217" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="Wjx-xj-X70"/>
@@ -318,11 +334,8 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="TSS-Hb-MVA" firstAttribute="leading" secondItem="bjN-hl-pu3" secondAttribute="leading" constant="18" id="1PX-7n-ZHe"/>
-                                    <constraint firstItem="aUV-20-WJh" firstAttribute="top" secondItem="g4e-sp-Azc" secondAttribute="bottom" id="3Mm-Zu-GUL"/>
                                     <constraint firstItem="LDJ-iN-FRc" firstAttribute="top" secondItem="bjN-hl-pu3" secondAttribute="top" constant="20" id="42I-BN-8od"/>
                                     <constraint firstAttribute="bottom" secondItem="TSS-Hb-MVA" secondAttribute="bottom" constant="20" id="8OC-cn-onQ"/>
-                                    <constraint firstItem="g4e-sp-Azc" firstAttribute="leading" secondItem="bjN-hl-pu3" secondAttribute="leading" constant="18" id="8qD-gj-JcN"/>
-                                    <constraint firstItem="S7e-4t-jOr" firstAttribute="bottom" secondItem="g4e-sp-Azc" secondAttribute="bottom" constant="8" id="8yt-IV-RIR"/>
                                     <constraint firstItem="0TS-2R-0Rw" firstAttribute="top" secondItem="LDJ-iN-FRc" secondAttribute="bottom" constant="60" id="BFJ-eZ-Xvn"/>
                                     <constraint firstAttribute="trailing" secondItem="aUV-20-WJh" secondAttribute="trailing" constant="18" id="BoD-J6-RdC"/>
                                     <constraint firstItem="XGt-eR-Gb5" firstAttribute="width" secondItem="B7O-OI-Xa0" secondAttribute="width" id="Gyr-98-6dn"/>
@@ -332,17 +345,17 @@
                                     <constraint firstAttribute="trailing" secondItem="0TS-2R-0Rw" secondAttribute="trailing" constant="18" id="RaH-da-8HR"/>
                                     <constraint firstItem="kkX-Mj-x8P" firstAttribute="leading" secondItem="bjN-hl-pu3" secondAttribute="leading" constant="18" id="SSO-e9-VdA"/>
                                     <constraint firstItem="hia-j9-CZf" firstAttribute="leading" secondItem="bjN-hl-pu3" secondAttribute="leading" id="Vk9-8V-OaY"/>
+                                    <constraint firstItem="8NT-SY-xVj" firstAttribute="leading" secondItem="bjN-hl-pu3" secondAttribute="leading" constant="18" id="XA6-65-xnF"/>
+                                    <constraint firstAttribute="trailing" secondItem="8NT-SY-xVj" secondAttribute="trailing" constant="18" id="Xq9-r9-wcj"/>
                                     <constraint firstAttribute="trailing" secondItem="hia-j9-CZf" secondAttribute="trailing" id="YCI-ka-WaL"/>
                                     <constraint firstItem="XGt-eR-Gb5" firstAttribute="leading" secondItem="B7O-OI-Xa0" secondAttribute="trailing" constant="30" id="aeW-00-ZlY"/>
                                     <constraint firstItem="hia-j9-CZf" firstAttribute="top" secondItem="bjN-hl-pu3" secondAttribute="top" id="aee-fF-I6e"/>
                                     <constraint firstItem="0TS-2R-0Rw" firstAttribute="leading" secondItem="bjN-hl-pu3" secondAttribute="leading" constant="18" id="bT6-0h-nID"/>
-                                    <constraint firstItem="S7e-4t-jOr" firstAttribute="leading" secondItem="g4e-sp-Azc" secondAttribute="leading" id="cTG-eW-7xd"/>
                                     <constraint firstItem="aUV-20-WJh" firstAttribute="leading" secondItem="bjN-hl-pu3" secondAttribute="leading" constant="18" id="dE4-Ei-Eiz"/>
                                     <constraint firstItem="LDJ-iN-FRc" firstAttribute="leading" secondItem="bjN-hl-pu3" secondAttribute="leading" constant="21" id="eoa-Rb-XcZ"/>
                                     <constraint firstAttribute="trailing" secondItem="XGt-eR-Gb5" secondAttribute="trailing" constant="18" id="gmm-DV-sez"/>
-                                    <constraint firstItem="S7e-4t-jOr" firstAttribute="trailing" secondItem="g4e-sp-Azc" secondAttribute="trailing" id="lar-6M-Fex"/>
-                                    <constraint firstAttribute="trailing" secondItem="g4e-sp-Azc" secondAttribute="trailing" constant="18" id="m4W-dE-Uv5"/>
-                                    <constraint firstItem="g4e-sp-Azc" firstAttribute="top" secondItem="B7O-OI-Xa0" secondAttribute="bottom" constant="30" id="sjp-8s-UtG"/>
+                                    <constraint firstItem="aUV-20-WJh" firstAttribute="top" secondItem="8NT-SY-xVj" secondAttribute="bottom" id="ljm-Rz-V5j"/>
+                                    <constraint firstItem="8NT-SY-xVj" firstAttribute="top" secondItem="XGt-eR-Gb5" secondAttribute="bottom" id="oxd-bY-MI9"/>
                                     <constraint firstItem="TSS-Hb-MVA" firstAttribute="top" secondItem="aUV-20-WJh" secondAttribute="bottom" constant="45" id="vod-TU-HhD"/>
                                     <constraint firstItem="XGt-eR-Gb5" firstAttribute="centerY" secondItem="B7O-OI-Xa0" secondAttribute="centerY" id="voq-wd-DLc"/>
                                     <constraint firstAttribute="trailing" secondItem="TSS-Hb-MVA" secondAttribute="trailing" constant="18" id="yE6-id-mle"/>
@@ -371,6 +384,8 @@
                         <outlet property="projectTextField" destination="5hq-3M-39r" id="7eC-ep-VxQ"/>
                         <outlet property="scrollView" destination="bjN-hl-pu3" id="3bW-4d-ap5"/>
                         <outlet property="startAtDateTextField" destination="GPe-vx-7eJ" id="T6d-7v-C73"/>
+                        <outlet property="taskDescriptionView" destination="8NT-SY-xVj" id="cqg-C2-F8p"/>
+                        <outlet property="taskDescriptionViewHeightConstraint" destination="wOK-iE-KCe" id="aqd-0O-ixq"/>
                         <outlet property="taskURLView" destination="aUV-20-WJh" id="mBf-mf-oBy"/>
                         <outlet property="taskURLViewHeightConstraint" destination="gCv-cM-adV" id="wLK-Za-pr4"/>
                     </connections>
