@@ -51,9 +51,9 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     private lazy var addUpdateCompletionHandler: (Result<Void>) -> Void = { [weak self] result in
         switch result {
         case .success:
-            self?.handleUpdateSuccess()
+            self?.userInterface?.dismissView()
         case .failure(let error):
-            self?.handleUpdateFailure(withError: error)
+            self?.errorHandler.throwing(error: error)
         }
     }
     
@@ -186,14 +186,6 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         guard let fromDate = task.startAt else { throw UIError.cannotBeEmpty(.startsAtTextField) }
         guard let toDate = task.endAt else { throw UIError.cannotBeEmpty(.endsAtTextField) }
         guard fromDate < toDate else { throw UIError.timeGreaterThan }
-    }
-    
-    private func handleUpdateSuccess() {
-        self.userInterface?.dismissView()
-    }
-    
-    private func handleUpdateFailure(withError error: Error) {
-        self.errorHandler.throwing(error: error)
     }
     
     private func updateViewWithCurrentSelectedProject() {

@@ -10,7 +10,6 @@ import XCTest
 @testable import TimeTable
 
 class WorkTimesCoordinatorTests: XCTestCase {
- 
     private var storyboardsManagerMock: StoryboardsManagerMock!
     private var apiClientMock: ApiClientMock!
     private var accessService: AccessServiceMock!
@@ -23,10 +22,10 @@ class WorkTimesCoordinatorTests: XCTestCase {
         accessService = AccessServiceMock()
         errorHandlerMock = ErrorHandlerMock()
         workTimeCoordinator = WorkTimesCoordinator(window: nil,
-                                                  storyboardsManager: storyboardsManagerMock,
-                                                  apiClient: apiClientMock,
-                                                  accessService: accessService,
-                                                  errorHandler: errorHandlerMock)
+                                                   storyboardsManager: storyboardsManagerMock,
+                                                   apiClient: apiClientMock,
+                                                   accessService: accessService,
+                                                   errorHandler: errorHandlerMock)
         super.setUp()
     }
     
@@ -40,7 +39,7 @@ class WorkTimesCoordinatorTests: XCTestCase {
     
     func testRunMainFlowRunsMainFlow() {
         //Arrange
-        storyboardsManagerMock.workTimesController = WorkTimesViewController()
+        storyboardsManagerMock.workTimesController = WorkTimesViewControllerMock()
         //Act
         workTimeCoordinator.start()
         //Assert
@@ -71,10 +70,52 @@ class WorkTimesCoordinatorTests: XCTestCase {
     func testWorkTimesRequestedForNewWorkTimeViewSucceed() {
         //Arrange
         let button = UIButton()
-        storyboardsManagerMock.workTimeController = WorkTimeController()
+        storyboardsManagerMock.workTimeController = WorkTimeViewControllerMock()
         //Act
         workTimeCoordinator.workTimesRequestedForNewWorkTimeView(sourceView: button, lastTask: nil)
         //Assert
         XCTAssertNil(workTimeCoordinator.root.children.last)
+    }
+    
+    func testWorkTimesRequestedForEditWorkTimeView_whileStoryboardsManagerReturnedNil() {
+        //Arrange
+        let view = UIView()
+        //Act
+        workTimeCoordinator.workTimesRequestedForEditWorkTimeView(sourceView: view, editedTask: createTask())        //Assert
+        XCTAssertNil(workTimeCoordinator.root.children.last)
+    }
+    
+    func testWorkTimesRequestedForEditWorkTimeView_whileStoryboardsManagerReturnedInvalidController() {
+        //Arrange
+        let view = UIView()
+        storyboardsManagerMock.workTimeController = UIViewController()
+        //Act
+        workTimeCoordinator.workTimesRequestedForEditWorkTimeView(sourceView: view, editedTask: createTask())
+        //Assert
+        XCTAssertNil(workTimeCoordinator.root.children.last)
+    }
+    
+    func testWorkTimesRequestedForEditWorkTimeView_succeed() {
+        //Arrange
+        let view = UIView()
+        let controllerMock = WorkTimeViewControllerMock()
+        storyboardsManagerMock.workTimeController = controllerMock
+        //Act
+        workTimeCoordinator.workTimesRequestedForEditWorkTimeView(sourceView: view, editedTask: createTask())
+        //Assert
+        XCTAssertNil(workTimeCoordinator.root.children.last)
+        XCTAssertTrue(controllerMock.configureViewModelData.called)
+        XCTAssertEqual(controllerMock.modalPresentationStyle, .popover)
+    }
+    
+    // MAKR: - Private
+    private func createTask() -> Task {
+        return Task(workTimeIdentifier: 1,
+                    project: nil,
+                    body: "body",
+                    url: nil,
+                    day: Date(),
+                    startAt: Date(),
+                    endAt: Date().addingTimeInterval(3600))
     }
 }

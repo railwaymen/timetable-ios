@@ -9,6 +9,7 @@
 import XCTest
 @testable import TimeTable
 
+// swiftlint:disable type_body_length
 class WorkTimesViewModelTests: XCTestCase {
     private var userInterfaceMock: WorkTimesViewControllerMock!
     private var coordinatorMock: WorkTimesCoordinatorMock!
@@ -119,7 +120,7 @@ class WorkTimesViewModelTests: XCTestCase {
         XCTAssertEqual(error, expectedError)
     }
     
-    func testViewRequestedForPreviousMonthWhileSelectedMonthIsNilValue() {
+    func testViewRequestForPreviousMonthWhileSelectedMonthIsNilValue() {
         //Act
         let viewModel = buildViewModel(isSelecteDate: false)
         viewModel.viewRequestForPreviousMonth()
@@ -129,7 +130,7 @@ class WorkTimesViewModelTests: XCTestCase {
         XCTAssertNil(userInterfaceMock.updateMatchingFullTimeLabelsData.workedHours)
     }
     
-    func testViewRequestedForPreviousMonthWhileSelectedMonth() throws {
+    func testViewRequestForPreviousMonthWhileSelectedMonth() throws {
         //Arrange
         let viewModel = buildViewModel()
         let components = DateComponents(year: 2019, month: 1, day: 1)
@@ -144,7 +145,7 @@ class WorkTimesViewModelTests: XCTestCase {
         XCTAssertEqual(userInterfaceMock.updateDateSelectorData.previousDateString, "Jan 2019")
     }
     
-    func testViewRequestedForNextMonthWhileSelectedMonthIsNilValue() {
+    func testViewRequestForNextMonthWhileSelectedMonthIsNilValue() {
         //Act
         let viewModel = buildViewModel(isSelecteDate: false)
         viewModel.viewRequestForPreviousMonth()
@@ -154,7 +155,7 @@ class WorkTimesViewModelTests: XCTestCase {
         XCTAssertNil(userInterfaceMock.updateMatchingFullTimeLabelsData.workedHours)
     }
     
-    func testViewRequestedForNextMonthWhileSelectedMonth() throws {
+    func testViewRequestForNextMonthWhileSelectedMonth() throws {
         //Arrange
         let viewModel = buildViewModel()
         let components = DateComponents(year: 2019, month: 1, day: 1)
@@ -169,7 +170,7 @@ class WorkTimesViewModelTests: XCTestCase {
         XCTAssertEqual(userInterfaceMock.updateDateSelectorData.previousDateString, "Mar 2019")
     }
     
-    func testViewRequestedForCellModelOnInitialization() {
+    func testViewRequestForCellModelOnInitialization() {
         //Arrange
         let viewModel = buildViewModel()
         let mockedCell = WorkTimeCellViewMock()
@@ -179,7 +180,7 @@ class WorkTimesViewModelTests: XCTestCase {
         XCTAssertNil(cellViewModel)
     }
     
-    func testViewRequestedForCellModelAfterFetchingWorkTimes() throws {
+    func testViewRequestForCellModelAfterFetchingWorkTimes() throws {
         //Arrange
         let mockedCell = WorkTimeCellViewMock()
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
@@ -193,7 +194,7 @@ class WorkTimesViewModelTests: XCTestCase {
         XCTAssertNotNil(cellViewModel)
     }
     
-    func testViewRequestedForHeaderModelOnInitialization() {
+    func testViewRequestForHeaderModelOnInitialization() {
         //Arrange
         let viewModel = buildViewModel()
         let mockedHeader = WorkTimesTableViewHeaderViewMock()
@@ -203,7 +204,7 @@ class WorkTimesViewModelTests: XCTestCase {
         XCTAssertNil(headerViewModel)
     }
     
-    func testViewRequestedForHeaderModelAfterFetchingWorkTimes() throws {
+    func testViewRequestForHeaderModelAfterFetchingWorkTimes() throws {
         //Arrange
         let mockedHeader = WorkTimesTableViewHeaderViewMock()
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
@@ -258,7 +259,7 @@ class WorkTimesViewModelTests: XCTestCase {
         contentProvider.deleteWorkTimeCompletion?(.success(Void()))
     }
 
-    func testViewRequestedForCellTypeBeforeViewWillAppear() {
+    func testViewRequestForCellTypeBeforeViewWillAppear() {
         //Arrange
         let indexPath = IndexPath(row: 0, section: 0)
         let viewModel = buildViewModel()
@@ -268,7 +269,7 @@ class WorkTimesViewModelTests: XCTestCase {
         XCTAssertEqual(type, .standard)
     }
     
-    func testViewRequestedForCellType() throws {
+    func testViewRequestForCellType() throws {
         //Arrange
         let indexPath = IndexPath(row: 0, section: 0)
         let data = try self.json(from: WorkTimesResponse.workTimesResponse)
@@ -287,7 +288,7 @@ class WorkTimesViewModelTests: XCTestCase {
         XCTAssertEqual(type, .taskURL)
     }
     
-    func testViewRequestedForNewWorkTimeView() {
+    func testViewRequestForNewWorkTimeView() {
         //Arrange
         let button = UIButton()
         let viewModel = buildViewModel()
@@ -297,6 +298,42 @@ class WorkTimesViewModelTests: XCTestCase {
         XCTAssertEqual(coordinatorMock.requestedForNewWorkTimeViewSourceView, button)
     }
     
+    func testViewRequestedForEditEntry_withoutDailyWorkTimes() {
+        //Arrange
+        let cell = UITableViewCell()
+        let viewModel = buildViewModel()
+        let indexPath = IndexPath(row: 0, section: 0)
+        //Act
+        viewModel.viewRequestedForEditEntry(sourceView: cell, at: indexPath)
+        //Assert
+        XCTAssertNil(coordinatorMock.workTimesRequestedForEditWorkTimeViewData)
+    }
+    
+    func testViewRequestedForEditEntry_withDailyWorkTimes() throws {
+        //Arrange
+        let indexPath = IndexPath(row: 0, section: 0)
+        let cell = UITableViewCell()
+        let matchingFullTime = try self.buildMatchingFullTimeDecoder()
+        let dailyWorkTime = try self.buildDailyWorkTime()
+        let workTime = try dailyWorkTime.workTimes.first.unwrap()
+        let viewModel = buildViewModel()
+        viewModel.viewWillAppear()
+        contentProvider.fetchWorkTimesDataCompletion?(.success(([dailyWorkTime], matchingFullTime)))
+        //Act
+        viewModel.viewRequestedForEditEntry(sourceView: cell, at: indexPath)
+        //Assert
+        let returnedData = try coordinatorMock.workTimesRequestedForEditWorkTimeViewData.unwrap()
+        XCTAssertEqual(returnedData.sourceView, cell)
+        XCTAssertEqual(returnedData.editedTask.workTimeIdentifier, workTime.identifier)
+        XCTAssertEqual(returnedData.editedTask.project, workTime.project)
+        XCTAssertEqual(returnedData.editedTask.body, workTime.body)
+        XCTAssertEqual(returnedData.editedTask.url?.absoluteString, workTime.task)
+        XCTAssertEqual(returnedData.editedTask.day, dailyWorkTime.day)
+        XCTAssertEqual(returnedData.editedTask.startAt, workTime.startsAt)
+        XCTAssertEqual(returnedData.editedTask.endAt, workTime.endsAt)
+    }
+    
+    // MARK: - Private
     private func buildViewModel(isSelecteDate: Bool = true) -> WorkTimesViewModel {
         let components = DateComponents(year: 2019, month: 2, day: 2)
         calendarMock.dateComponentsReturnValue = components
@@ -304,7 +341,7 @@ class WorkTimesViewModelTests: XCTestCase {
             calendarMock.dateFromComponentsValue = Calendar.current.date(from: components)
         }
         return WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
-                                           contentProvider: contentProvider, errorHandler: errorHandlerMock, calendar: calendarMock)
+                                  contentProvider: contentProvider, errorHandler: errorHandlerMock, calendar: calendarMock)
     }
     
     private func buildMatchingFullTimeDecoder() throws -> MatchingFullTimeDecoder {
@@ -321,6 +358,7 @@ class WorkTimesViewModelTests: XCTestCase {
     }
 }
 
+// MARK: -
 private class WorkTimeCellViewMock: WorkTimeCellViewModelOutput {
     func updateView(durationText: String?, bodyText: String?, taskUrlText: String?, fromToDateText: String?, projectTitle: String?, projectColor: UIColor?) {}
 }
@@ -328,3 +366,5 @@ private class WorkTimeCellViewMock: WorkTimeCellViewModelOutput {
 private class WorkTimesTableViewHeaderViewMock: WorkTimesTableViewHeaderViewModelOutput {
     func updateView(dayText: String?, durationText: String?) {}
 }
+
+// swiftlint:enable type_body_length
