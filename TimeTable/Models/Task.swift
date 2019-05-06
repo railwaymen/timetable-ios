@@ -9,6 +9,7 @@
 import Foundation
 
 struct Task: Encodable {
+    var workTimeIdentifier: Int64?
     var project: ProjectDecoder?
     var body: String
     var url: URL?

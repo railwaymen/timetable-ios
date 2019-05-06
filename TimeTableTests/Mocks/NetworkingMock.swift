@@ -34,5 +34,12 @@ class NetworkingMock: NetworkingType {
         deletePath = path
         deleteCompletion = completion
     }
+    
+    private(set) var putValues: (path: String, parameters: Any?)?
+    private(set) var putCompletion: ((TimeTable.Result<Data>) -> Void)?
+    func put(_ path: String, parameters: Any?, completion: @escaping (TimeTable.Result<Data>) -> Void) {
+        putValues = (path, parameters)
+        putCompletion = completion
+    }
 }
 // swiftlint:enable large_tuple

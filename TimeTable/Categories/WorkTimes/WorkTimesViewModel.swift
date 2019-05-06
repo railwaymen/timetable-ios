@@ -28,6 +28,7 @@ protocol WorkTimesViewModelType: class {
     func viewRequestForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType?
     func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void)
     func viewRequestForNewWorkTimeView(sourceView: UIButton)
+    func viewRequestedForEditEntry(sourceView: UITableViewCell, at indexPath: IndexPath)
 }
 
 class DailyWorkTime {
@@ -134,16 +135,13 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     }
     
     func viewRequestForNewWorkTimeView(sourceView: UIButton) {
-        let lastWorkTime = dailyWorkTimesArray.first?.workTimes.first
-        let lastTask = lastWorkTime == nil
-            ? nil
-            : Task(project: lastWorkTime?.project,
-                   body: lastWorkTime?.body ?? "",
-                   url: nil,
-                   day: dailyWorkTimesArray.first?.day,
-                   startAt: lastWorkTime?.startsAt,
-                   endAt: lastWorkTime?.endsAt)
+        let lastTask = createTask(for: IndexPath(row: 0, section: 0))
         coordinator.workTimesRequestedForNewWorkTimeView(sourceView: sourceView, lastTask: lastTask)
+    }
+    
+    func viewRequestedForEditEntry(sourceView: UITableViewCell, at indexPath: IndexPath) {
+        guard let task = createTask(for: indexPath) else { return }
+        coordinator.workTimesRequestedForEditWorkTimeView(sourceView: sourceView, editedTask: task)
     }
     
     // MARK: - Private
@@ -156,6 +154,24 @@ class WorkTimesViewModel: WorkTimesViewModelType {
         return dailyWorkTimesArray[indexPath.section]
     }
     
+    private func createTask(for indexPath: IndexPath) -> Task? {
+        guard let dailyWorkTime = dailyWorkTime(for: indexPath) else { return nil }
+        guard let workTime = workTime(for: indexPath) else { return nil }
+        let url: URL?
+        if let taskUrlString = workTime.task {
+            url = URL(string: taskUrlString)
+        } else {
+            url = nil
+        }
+        return Task(workTimeIdentifier: workTime.identifier,
+                    project: workTime.project,
+                    body: workTime.body ?? "",
+                    url: url,
+                    day: dailyWorkTime.day,
+                    startAt: workTime.startsAt,
+                    endAt: workTime.endsAt)
+    }
+        
     private func removeDailyWorkTime(at indexPath: IndexPath, workTime: WorkTimeDecoder, completion: @escaping (Bool) -> Void) {
         guard let dailyWorkTime = self.dailyWorkTime(for: indexPath) else {
             completion(false)

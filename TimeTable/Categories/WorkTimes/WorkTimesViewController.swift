@@ -75,7 +75,8 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     // MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        viewModel.viewRequestedForEditEntry(sourceView: cell, at: indexPath)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

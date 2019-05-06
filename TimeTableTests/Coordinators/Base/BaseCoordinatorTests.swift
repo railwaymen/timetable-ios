@@ -10,8 +10,7 @@ import XCTest
 @testable import TimeTable
 
 class BaseCoordinatorTests: XCTestCase {
-    
-    private let timetout = 0.1
+    private let timeout = 0.2
     
     // MARK: - CoordinatorType
     func testCoordinatorTypeExtension_normalStartRunsMethodStartFinishCompletionSucceed() {
@@ -137,13 +136,13 @@ class BaseCoordinatorTests: XCTestCase {
         let error = UIError.cannotBeEmpty(.endsAtTextField)
         //Act
         coordinator.present(error: error)
-        let childController = try navigationController.children.first.unwrap()
         //Assert
+        let childController = try navigationController.children.first.unwrap()
         DispatchQueue.main.async {
-            expectation.fulfill()
             XCTAssertNotNil(childController.presentedViewController as? UIAlertController)
+            expectation.fulfill()
         }
-        wait(for: [expectation], timeout: timetout)
+        wait(for: [expectation], timeout: timeout)
     }
     
     func testPresentApiErrorPresentAlertController() throws {
@@ -165,7 +164,7 @@ class BaseCoordinatorTests: XCTestCase {
             XCTAssertNotNil(childController.presentedViewController as? UIAlertController)
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: timetout)
+        wait(for: [expectation], timeout: timeout)
     }
 }
 

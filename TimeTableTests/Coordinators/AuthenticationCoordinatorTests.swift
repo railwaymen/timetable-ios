@@ -197,6 +197,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
     }
     
     func testLoginDidFinishWithStateLoggedInCorrectly() throws {
+        //ERROR: Completion handler needs multithreading
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
         storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()

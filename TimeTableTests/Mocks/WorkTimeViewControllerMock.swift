@@ -12,7 +12,7 @@ import Foundation
 class WorkTimeViewControllerMock: WorkTimeViewControlleralbe {
     // swiftlint:disable large_tuple
     private(set) var configureViewModelData: (called: Bool, viewModel: WorkTimeViewModelType?, notificationCenter: NotificationCenterType?) = (false, nil, nil)
-    private(set) var setUpCurrentProjectName: (currentProjectName: String?, isLunch: Bool?, allowsTask: Bool?) = (nil, nil, nil)
+    private(set) var setUpCurrentProjectName: (currentProjectName: String, isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?)?
     // swiftlint:enable large_tuple
     private(set) var dismissViewCalled = false
     private(set) var reloadProjectPickerCalled = false
@@ -26,9 +26,9 @@ class WorkTimeViewControllerMock: WorkTimeViewControlleralbe {
     func configure(viewModel: WorkTimeViewModelType, notificationCenter: NotificationCenterType?) {
         configureViewModelData = (true, viewModel, notificationCenter)
     }
-
-    func setUp(currentProjectName: String, isLunch: Bool, allowsTask: Bool) {
-        setUpCurrentProjectName = (currentProjectName, isLunch, allowsTask)
+    
+    func setUp(currentProjectName: String, isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?) {
+        setUpCurrentProjectName = (currentProjectName, isLunch, allowsTask, body, urlString)
     }
 
     func dismissView() {

@@ -69,4 +69,11 @@ class ApiClientMock: ApiClientSessionType, ApiClientWorkTimesType, ApiClientProj
         fetchMatchingFullTimeParameters = parameters
         fetchMatchingFullTimeCompletion = completion
     }
+    
+    private(set) var updateWorkTimeValues: (identifier: Int64, parameters: Task)?
+    private(set) var updateWorkTimeCompletion: ((Result<Void>) -> Void)?
+    func updateWorkTime(identifier: Int64, parameters: Task, completion: @escaping ((Result<Void>) -> Void)) {
+        updateWorkTimeValues = (identifier, parameters)
+        updateWorkTimeCompletion = completion
+    }
 }

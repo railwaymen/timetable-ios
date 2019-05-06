@@ -9,7 +9,7 @@
 import Foundation
 
 protocol WorkTimeViewModelOutput: class {
-    func setUp(currentProjectName: String, isLunch: Bool, allowsTask: Bool)
+    func setUp(currentProjectName: String, isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?)
     func dismissView()
     func reloadProjectPicker()
     func dissmissKeyboard()
@@ -48,20 +48,29 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     private var projects: [ProjectDecoder]
     private var task: Task
     
+    private lazy var addUpdateCompletionHandler: (Result<Void>) -> Void = { [weak self] result in
+        switch result {
+        case .success:
+            self?.userInterface?.dismissView()
+        case .failure(let error):
+            self?.errorHandler.throwing(error: error)
+        }
+    }
+    
     // MARK: - Initialization
     init(userInterface: WorkTimeViewModelOutput?, apiClient: TimeTableTabApiClientType, errorHandler: ErrorHandlerType, calendar: CalendarType,
-         lastTask: Task?) {
+         lastTask: Task?, editedTask: Task?) {
         self.userInterface = userInterface
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.calendar = calendar
-        if let lastTaskEndAt = lastTask?.endAt, Calendar.current.isDateInToday(lastTaskEndAt) {
+        if let lastTaskEndAt = lastTask?.endAt, calendar.isDateInToday(lastTaskEndAt) {
             self.lastTask = lastTask
         } else {
             self.lastTask = nil
         }
+        self.task = editedTask ?? Task(workTimeIdentifier: nil, project: .none, body: "", url: nil, day: Date(), startAt: lastTask?.endAt, endAt: nil)
         self.projects = []
-        self.task = Task(project: .none, body: "", url: nil, day: Date(), startAt: self.lastTask?.endAt, endAt: nil)
     }
     
     // MARK: - WorkTimeViewModelType
@@ -88,10 +97,10 @@ class WorkTimeViewModel: WorkTimeViewModelType {
             } else {
                 task.project = .some(projects[0])
             }
-            updateViewWithCurrentSelectedProject()
         case .some:
             break
         }
+        updateViewWithCurrentSelectedProject()
     }
     
     func viewSelectedProject(atRow row: Int) {
@@ -142,7 +151,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func setDefaultEndAtDate() {
-        var date = Date()
+        let date: Date
         if let toDate = task.endAt {
             date = toDate
         } else {
@@ -155,13 +164,10 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     func viewRequestedToSave() {
         do {
             try validateInputs()
-            apiClient.addWorkTime(parameters: task) { [weak self] result in
-                switch result {
-                case .success:
-                    self?.userInterface?.dismissView()
-                case .failure(let error):
-                    self?.errorHandler.throwing(error: error)
-                }
+            if let workTimeIdentifier = task.workTimeIdentifier {
+                apiClient.updateWorkTime(identifier: workTimeIdentifier, parameters: task, completion: self.addUpdateCompletionHandler)
+            } else {
+                apiClient.addWorkTime(parameters: task, completion: self.addUpdateCompletionHandler)
             }
         } catch {
             self.errorHandler.throwing(error: error)
@@ -183,7 +189,11 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     private func updateViewWithCurrentSelectedProject() {
-        userInterface?.setUp(currentProjectName: task.title, isLunch: task.project?.isLunch ?? false, allowsTask: task.allowsTask)
+        userInterface?.setUp(currentProjectName: task.title,
+                             isLunch: task.project?.isLunch ?? false,
+                             allowsTask: task.allowsTask,
+                             body: task.body,
+                             urlString: task.url?.absoluteString)
         
         let fromDate: Date
         let toDate: Date
@@ -199,8 +209,8 @@ class WorkTimeViewModel: WorkTimeViewModelType {
             task.startAt = fromDate
             task.endAt = toDate
         case .standard?, .none:
-            fromDate = lastTask?.endAt ?? Date()
-            toDate = fromDate
+            fromDate = lastTask?.endAt ?? task.startAt ?? Date()
+            toDate = task.endAt ?? fromDate
             task.startAt = fromDate
             task.endAt = toDate
             setDefaultStartAtDate()
@@ -238,8 +248,8 @@ class WorkTimeViewModel: WorkTimeViewModelType {
             switch result {
             case .success(let projects):
                 self?.projects = projects.filter { $0.isActive ?? false }
-                self?.setDefaultTask()
                 self?.userInterface?.reloadProjectPicker()
+                self?.setDefaultTask()
             case .failure(let error):
                 self?.errorHandler.throwing(error: error)
             }

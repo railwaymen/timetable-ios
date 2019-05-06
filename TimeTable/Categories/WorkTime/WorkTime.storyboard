@@ -394,11 +394,13 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="bodyTextField" destination="g4e-sp-Azc" id="91i-HX-eAQ"/>
                         <outlet property="dayTextField" destination="s85-fU-VBR" id="F63-Zq-OUV"/>
                         <outlet property="endAtDateTextField" destination="Pgu-1o-gtM" id="dZK-DO-5C1"/>
                         <outlet property="projectTextField" destination="5hq-3M-39r" id="7eC-ep-VxQ"/>
                         <outlet property="scrollView" destination="bjN-hl-pu3" id="3bW-4d-ap5"/>
                         <outlet property="startAtDateTextField" destination="GPe-vx-7eJ" id="T6d-7v-C73"/>
+                        <outlet property="taskURLTextField" destination="dYn-5C-xtg" id="qHZ-kE-zYM"/>
                         <outlet property="taskDescriptionView" destination="8NT-SY-xVj" id="cqg-C2-F8p"/>
                         <outlet property="taskDescriptionViewHeightConstraint" destination="wOK-iE-KCe" id="aqd-0O-ixq"/>
                         <outlet property="taskURLView" destination="aUV-20-WJh" id="mBf-mf-oBy"/>

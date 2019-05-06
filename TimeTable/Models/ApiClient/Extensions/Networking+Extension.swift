@@ -14,6 +14,7 @@ protocol NetworkingType: class {
     func post(_ path: String, parameters: Any?, completion: @escaping (Result<Data>) -> Void)
     func get(_ path: String, parameters: Any?, cachingLevel: Networking.CachingLevel, completion: @escaping (Result<Data>) -> Void)
     func delete(_ path: String, completion: @escaping ((Result<Void>) -> Void))
+    func put(_ path: String, parameters: Any?, completion: @escaping (Result<Data>) -> Void)
 }
 
 extension Networking: NetworkingType {
@@ -38,6 +39,12 @@ extension Networking: NetworkingType {
                 let error = self.handle(failureResponse: failureResponse)
                 completion(.failure(error))
             }
+        })
+    }
+    
+    func put(_ path: String, parameters: Any?, completion: @escaping (Result<Data>) -> Void) {
+        _ = self.put(path, parameterType: .json, parameters: parameters, completion: { result in
+            self.handleResponse(result: result, completion: completion)
         })
     }
     
