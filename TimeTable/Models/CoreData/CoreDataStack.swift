@@ -55,10 +55,10 @@ extension CoreDataStack: CoreDataStackUserType {
     }
     
     func fetchUser(forIdentifier identifier: Int64, completion: @escaping (Result<UserEntity>) -> Void) {
-        guard let user = stack.fetchAll(
+        guard let user = (try? stack.fetchAll(
             From<UserEntity>(),
             Where<UserEntity>("%K == %d", "identifier", identifier)
-        )?.first else {
+        ))?.first else {
             completion(.failure(Error.storageItemNotFound))
             return
         }

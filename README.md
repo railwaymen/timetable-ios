@@ -3,7 +3,7 @@
 Simple time tracking iOS application.
 Check out our [TimeTable Ruby on Rails project](https://github.com/railwaymen/timetable)!
 ## Requirements
-* [Bundler](https://bundler.io) 1.16.5
+* [Bundler](https://bundler.io) 2.0.1
 * [Xcode](https://developer.apple.com/xcode/) 10.2
 
 ## Installation
@@ -25,10 +25,10 @@ Check out our [TimeTable Ruby on Rails project](https://github.com/railwaymen/ti
 
 ## Dependencies
 ### Cocoapods
-* [CoreStore](https://cocoapods.org/pods/CoreStore) 5.3.1
-* [KeychainAccess](https://cocoapods.org/pods/KeychainAccess) 3.1.2
-* [Networking](https://cocoapods.org/pods/Networking) 4.4.0
-* [SwiftLint](https://cocoapods.org/pods/SwiftLint) 0.27.0
+* [CoreStore](https://cocoapods.org/pods/CoreStore) 6.3.1
+* [KeychainAccess](https://cocoapods.org/pods/KeychainAccess) 3.2.0
+* [Networking](https://cocoapods.org/pods/Networking) 5.0.0
+* [SwiftLint](https://cocoapods.org/pods/SwiftLint) 0.31.0
 
 ### Bundler
 * [Cocoapods](https://cocoapods.org) 1.6.1

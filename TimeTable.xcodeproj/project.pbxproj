@@ -289,12 +289,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		05D87566C0C83745F3DD8B1C /* Pods-TimeTableTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTableTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TimeTableTests/Pods-TimeTableTests.debug.xcconfig"; sourceTree = "<group>"; };
-		0FBF482875EDA8CC06F69C1C /* Pods-TimeTableTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTableTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TimeTableTests/Pods-TimeTableTests.release.xcconfig"; sourceTree = "<group>"; };
+		05D87566C0C83745F3DD8B1C /* Pods-TimeTableTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTableTests.debug.xcconfig"; path = "Target Support Files/Pods-TimeTableTests/Pods-TimeTableTests.debug.xcconfig"; sourceTree = "<group>"; };
+		0FBF482875EDA8CC06F69C1C /* Pods-TimeTableTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTableTests.release.xcconfig"; path = "Target Support Files/Pods-TimeTableTests/Pods-TimeTableTests.release.xcconfig"; sourceTree = "<group>"; };
 		15FE8C20AC7A1A64A549519E /* Pods_TimeTableTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeTableTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		66BDB567562F9CF7E9C0A94F /* Pods-TimeTable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTable.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TimeTable/Pods-TimeTable.debug.xcconfig"; sourceTree = "<group>"; };
-		6BD568DB1454D07112D32F1A /* Pods-TimeTable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTable.release.xcconfig"; path = "Pods/Target Support Files/Pods-TimeTable/Pods-TimeTable.release.xcconfig"; sourceTree = "<group>"; };
-		709A006A1AEE2AB10E218C48 /* Pods-TimeTable.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTable.stage.xcconfig"; path = "Pods/Target Support Files/Pods-TimeTable/Pods-TimeTable.stage.xcconfig"; sourceTree = "<group>"; };
+		66BDB567562F9CF7E9C0A94F /* Pods-TimeTable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTable.debug.xcconfig"; path = "Target Support Files/Pods-TimeTable/Pods-TimeTable.debug.xcconfig"; sourceTree = "<group>"; };
+		6BD568DB1454D07112D32F1A /* Pods-TimeTable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTable.release.xcconfig"; path = "Target Support Files/Pods-TimeTable/Pods-TimeTable.release.xcconfig"; sourceTree = "<group>"; };
+		709A006A1AEE2AB10E218C48 /* Pods-TimeTable.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTable.stage.xcconfig"; path = "Target Support Files/Pods-TimeTable/Pods-TimeTable.stage.xcconfig"; sourceTree = "<group>"; };
 		88922A1AB918F19A04B07211 /* Pods_TimeTable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeTable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C101603122003A9500DCE817 /* WorkTimesContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesContentProvider.swift; sourceTree = "<group>"; };
 		C101603322003D4000DCE817 /* MatchingFullTimeEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFullTimeEncoder.swift; sourceTree = "<group>"; };
@@ -574,7 +574,7 @@
 		C1FA05EA219475FF00BD8C9D /* AsynchronousDataTransactionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsynchronousDataTransactionType.swift; sourceTree = "<group>"; };
 		C1FE49E721AC458F00E37E28 /* WorkTimesTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesTableViewHeader.swift; sourceTree = "<group>"; };
 		C1FE49E921AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesTableViewHeaderViewModel.swift; sourceTree = "<group>"; };
-		C606DDF3BB59C86E7F198617 /* Pods-TimeTableTests.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTableTests.stage.xcconfig"; path = "Pods/Target Support Files/Pods-TimeTableTests/Pods-TimeTableTests.stage.xcconfig"; sourceTree = "<group>"; };
+		C606DDF3BB59C86E7F198617 /* Pods-TimeTableTests.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTableTests.stage.xcconfig"; path = "Target Support Files/Pods-TimeTableTests/Pods-TimeTableTests.stage.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -608,7 +608,7 @@
 				C606DDF3BB59C86E7F198617 /* Pods-TimeTableTests.stage.xcconfig */,
 				0FBF482875EDA8CC06F69C1C /* Pods-TimeTableTests.release.xcconfig */,
 			);
-			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		C10FD87D21F1ED8300A233C5 /* User */ = {
@@ -1695,10 +1695,11 @@
 				TargetAttributes = {
 					C1B5136821772D1200C3727C = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1020;
 					};
 					C1B5137C21772D1400C3727C = {
 						CreatedOnToolsVersion = 10.0;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						TestTargetID = C1B5136821772D1200C3727C;
 					};
 				};
@@ -2249,7 +2250,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(TT_APP_BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = TimeTableDevelopment;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Stage;
@@ -2274,7 +2275,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TimeTable.app/TimeTable";
 			};
@@ -2416,7 +2417,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(TT_APP_BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = TimeTableDebugDevelopment;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2437,7 +2438,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(TT_APP_BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = TimeTableDevelopment;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -2462,7 +2463,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TimeTable.app/TimeTable";
 			};
@@ -2487,7 +2488,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(TT_TEST_BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TimeTable.app/TimeTable";
 			};
