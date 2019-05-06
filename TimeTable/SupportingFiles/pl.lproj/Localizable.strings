@@ -27,17 +27,26 @@
 "login.button.log_in" = "Zaloguj";
 "login.button.change_server_address" = "Chcesz zmienić adres serwera?";
 
-"projects.lable.title" = "Projekty";
+"projects.label.title" = "Projekty";
 
 "work_times.label.title" = "Czas Pracy";
+"work_times.label.month_total" = "Suma w miesiącu";
 
+"work_time.label.new_record" = "Nowy wpis";
+"work_time.label.project" = "Projekt";
+"work_time.label.date" = "Dzień";
+"work_time.label.start_time" = "Początek";
+"work_time.label.end_time" = "Koniec";
 "work_time.text_field.what_have_you_done" = "Nad czym pracowałeś?";
 "work_time.text_field.task_url" = "URL taska";
 "work_time.text_field.select_project" = "Wybierz projekt";
 "work_time.text_field.select_day" = "Wybierz dzień";
 "work_time.button.save" = "Zapisz";
 
-// UIErros
+"profile.label.profile" = "Profil";
+"profile.button.logout" = "WYLOGUJ";
+
+// UIErrors
 "ui.error.cannot_be_empty" = "- pole nie może być puste.";
 "ui.error.invalid_format" = "niepoprawny format.";
 "ui.error.time_greater_than" = "Czas trwania musi być większy od zera";
@@ -50,7 +59,7 @@
 "invalid_email_or_password" = "Niepoprawny email lub hasło";
 
 // Static words
-"day.today" = "Today";
-"day.yesterday" = "Yesterday";
+"day.today" = "Dzisiaj";
+"day.yesterday" = "Wczoraj";
 
 "conjunction.or" = "lub";
