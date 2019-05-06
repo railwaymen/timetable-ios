@@ -20,12 +20,16 @@ class ProjectsCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType 
     var tabBarItem: UITabBarItem
     
     // MARK: - Initialization
-    init(window: UIWindow?, storyboardsManager: StoryboardsManagerType, apiClient: ApiClientProjectsType, errorHandler: ErrorHandlerType) {
+    init(window: UIWindow?,
+         messagePresenter: MessagePresenterType?,
+         storyboardsManager: StoryboardsManagerType,
+         apiClient: ApiClientProjectsType,
+         errorHandler: ErrorHandlerType) {
         self.storyboardsManager = storyboardsManager
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.tabBarItem = UITabBarItem(title: "tabbar.title.projects".localized, image: nil, selectedImage: nil)
-        super.init(window: window)
+        super.init(window: window, messagePresenter: messagePresenter)
         self.navigationController.setNavigationBarHidden(true, animated: false)
         self.root.tabBarItem = tabBarItem
     }

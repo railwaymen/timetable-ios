@@ -25,15 +25,20 @@ class UserCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType {
     var tabBarItem: UITabBarItem
     
     // MARK: - Initialization
-    init(window: UIWindow?, storyboardsManager: StoryboardsManagerType, apiClient: ApiClientUsersType,
-         accessService: AccessServiceUserIDType, coreDataStack: CoreDataStackUserType, errorHandler: ErrorHandlerType) {
+    init(window: UIWindow?,
+         messagePresenter: MessagePresenterType?,
+         storyboardsManager: StoryboardsManagerType,
+         apiClient: ApiClientUsersType,
+         accessService: AccessServiceUserIDType,
+         coreDataStack: CoreDataStackUserType,
+         errorHandler: ErrorHandlerType) {
         self.storyboardsManager = storyboardsManager
         self.apiClient = apiClient
         self.accessService = accessService
         self.coreDataStack = coreDataStack
         self.errorHandler = errorHandler
         self.tabBarItem = UITabBarItem(title: "tabbar.title.profile".localized, image: nil, selectedImage: nil)
-        super.init(window: window)
+        super.init(window: window, messagePresenter: messagePresenter)
         self.root.tabBarItem = tabBarItem
     }
 

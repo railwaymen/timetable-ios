@@ -10,12 +10,20 @@ import XCTest
 @testable import TimeTable
 
 class BaseNavigationCoordinatorTests: XCTestCase {
+    
+    private var messagePresenterMock: MessagePresenterMock!
+    
+    override func setUp() {
+        self.messagePresenterMock = MessagePresenterMock()
+        super.setUp()
+    }
 
     func testOverridenInitialization() {
         //Arrange
         let window = UIWindow(frame: .zero)
         //Act
-        let coordinator = BaseNavigationCoordinator(window: window)
+        let coordinator = BaseNavigationCoordinator(window: window,
+                                                    messagePresenter: self.messagePresenterMock)
         //Assert
         XCTAssertNotNil(window.rootViewController as? UINavigationController)
         XCTAssertNotNil(coordinator.navigationController)
@@ -26,7 +34,9 @@ class BaseNavigationCoordinatorTests: XCTestCase {
         let window = UIWindow(frame: .zero)
         let navigationController = UINavigationController()
         //Act
-        let coordiantor = BaseNavigationCoordinator(window: window, navigationController: navigationController)
+        let coordiantor = BaseNavigationCoordinator(window: window,
+                                                    navigationController: navigationController,
+                                                    messagePresenter: self.messagePresenterMock)
         //Assert
         XCTAssertEqual(window.rootViewController, navigationController)
         XCTAssertEqual(coordiantor.navigationController, navigationController)

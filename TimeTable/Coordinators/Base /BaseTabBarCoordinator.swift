@@ -11,12 +11,12 @@ import UIKit
 class BaseTabBarCoordinator: BaseCoordinator {
     
     internal let tabBarController: UITabBarController
-//    internal var tabBarChildCoordinators: [Int: BaseTabBarCordninatorType]
     
     // MARK: - Initialization
-    override init(window: UIWindow?) {
+    override init(window: UIWindow?,
+                  messagePresenter: MessagePresenterType?) {
         self.tabBarController = UITabBarController()
-        super.init(window: window)
+        super.init(window: window, messagePresenter: messagePresenter)
     }
     
     // MARK: - CoordinatorType
@@ -33,9 +33,7 @@ class BaseTabBarCoordinator: BaseCoordinator {
     }
     
     override func finish() {
-//        self.tabBarChildCoordinators.forEach { $0.finish() }
         self.children.forEach { self.removeChildCoordinator(child: $0) }
-//        self.tabBarChildCoordinators = []
         super.finish()
     }
 }

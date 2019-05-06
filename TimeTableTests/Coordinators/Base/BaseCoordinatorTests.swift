@@ -10,13 +10,20 @@ import XCTest
 @testable import TimeTable
 
 class BaseCoordinatorTests: XCTestCase {
-    private let timeout = 0.2
+    private let timetout = 0.1
+    private var messagePresenterMock: MessagePresenterMock!
+    
+    override func setUp() {
+        self.messagePresenterMock = MessagePresenterMock()
+        super.setUp()
+    }
     
     // MARK: - CoordinatorType
     func testCoordinatorTypeExtension_normalStartRunsMethodStartFinishCompletionSucceed() {
         
         //Arrange
-        let coordinator = ChildCoordinator(window: nil)
+        let coordinator = ChildCoordinator(window: nil,
+                                           messagePresenter: self.messagePresenterMock)
         
         //Act
         coordinator.start()
@@ -30,7 +37,8 @@ class BaseCoordinatorTests: XCTestCase {
     func testCoordinator_startWithFinishCompletionSucceed() {
         
         //Arrange
-        let coordinator = BaseCoordinator(window: nil)
+        let coordinator = BaseCoordinator(window: nil,
+                                          messagePresenter: self.messagePresenterMock)
         
         //Act
         coordinator.start(finishCompletion: { Void() })
@@ -42,7 +50,8 @@ class BaseCoordinatorTests: XCTestCase {
     func testCoordinator_finishMethod() {
         
         //Arrange
-        let coordinator = ChildCoordinator(window: nil)
+        let coordinator = ChildCoordinator(window: nil,
+                                           messagePresenter: self.messagePresenterMock)
         coordinator.start(finishCompletion: { Void() })
         
         //Act
@@ -55,8 +64,10 @@ class BaseCoordinatorTests: XCTestCase {
     func testCoordinator_addChildCoordinatorMethod() {
         
         //Arrange
-        let coordinator = BaseCoordinator(window: nil)
-        let childCoordinator = ChildCoordinator(window: nil)
+        let coordinator = BaseCoordinator(window: nil,
+                                          messagePresenter: self.messagePresenterMock)
+        let childCoordinator = ChildCoordinator(window: nil,
+                                                messagePresenter: self.messagePresenterMock)
         
         //Act
         coordinator.addChildCoordinator(child: childCoordinator)
@@ -68,8 +79,10 @@ class BaseCoordinatorTests: XCTestCase {
     func testCoordinator_addTwiceThisSameChildCoordinator() {
         
         //Arrange
-        let coordinator = BaseCoordinator(window: nil)
-        let childCoordinator = ChildCoordinator(window: nil)
+        let coordinator = BaseCoordinator(window: nil,
+                                          messagePresenter: self.messagePresenterMock)
+        let childCoordinator = ChildCoordinator(window: nil,
+                                                messagePresenter: self.messagePresenterMock)
         
         //Act
         coordinator.addChildCoordinator(child: childCoordinator)
@@ -81,8 +94,10 @@ class BaseCoordinatorTests: XCTestCase {
     
     func testCoordinator_removeChildCoordinatorWhileGivenParametersIsNil() throws {
         //Arrange
-        let coordinator = BaseCoordinator(window: nil)
-        let childCoordinator = ChildCoordinator(window: nil)
+        let coordinator = BaseCoordinator(window: nil,
+                                          messagePresenter: self.messagePresenterMock)
+        let childCoordinator = ChildCoordinator(window: nil,
+                                                messagePresenter: self.messagePresenterMock)
         
         coordinator.addChildCoordinator(child: childCoordinator)
         
@@ -98,8 +113,10 @@ class BaseCoordinatorTests: XCTestCase {
     
     func testCoordinator_removeChildCoordinator() throws {
         //Arrange
-        let coordinator = BaseCoordinator(window: nil)
-        let childCoordinator = ChildCoordinator(window: nil)
+        let coordinator = BaseCoordinator(window: nil,
+                                          messagePresenter: self.messagePresenterMock)
+        let childCoordinator = ChildCoordinator(window: nil,
+                                                messagePresenter: self.messagePresenterMock)
         
         coordinator.addChildCoordinator(child: childCoordinator)
         
@@ -115,7 +132,8 @@ class BaseCoordinatorTests: XCTestCase {
     
     func testPresentErrorDoesNotPresentAlertController() {
         //Arrange
-        let coordinator = ChildCoordinator(window: nil)
+        let coordinator = ChildCoordinator(window: nil,
+                                           messagePresenter: self.messagePresenterMock)
         coordinator.start()
         let error = TestError(message: "error_message")
         //Act
@@ -126,45 +144,35 @@ class BaseCoordinatorTests: XCTestCase {
     
     func testPresentUiErrorPresentAlertController() throws {
         //Arrange
-        let expectation = self.expectation(description: "")
         let window = UIWindow()
         let navigationController = UINavigationController(rootViewController: UIViewController())
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
-        let coordinator = ChildCoordinator(window: window)
+        let coordinator = ChildCoordinator(window: window,
+                                           messagePresenter: self.messagePresenterMock)
         coordinator.start()
         let error = UIError.cannotBeEmpty(.endsAtTextField)
         //Act
         coordinator.present(error: error)
         //Assert
-        let childController = try navigationController.children.first.unwrap()
-        DispatchQueue.main.async {
-            XCTAssertNotNil(childController.presentedViewController as? UIAlertController)
-            expectation.fulfill()
-        }
-        wait(for: [expectation], timeout: timeout)
+        XCTAssertEqual(self.messagePresenterMock.message, error.localizedDescription)
     }
     
     func testPresentApiErrorPresentAlertController() throws {
         //Arrange
-        let expectation = self.expectation(description: "")
         let window = UIWindow()
         let navigationController = UINavigationController(rootViewController: UIViewController())
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
-        let coordinator = ChildCoordinator(window: window)
+        let coordinator = ChildCoordinator(window: window,
+                                           messagePresenter: self.messagePresenterMock)
         coordinator.start()
         let url = try URL(string: "www.example.com").unwrap()
         let error = ApiClientError(type: .invalidHost(url))
         //Act
         coordinator.present(error: error)
         //Assert
-        let childController = try navigationController.children.first.unwrap()
-        DispatchQueue.main.async {
-            XCTAssertNotNil(childController.presentedViewController as? UIAlertController)
-            expectation.fulfill()
-        }
-        wait(for: [expectation], timeout: timeout)
+        XCTAssertEqual(self.messagePresenterMock.message, error.type.localizedDescription)
     }
 }
 

@@ -14,15 +14,18 @@ class ProjectsCoordinatorTests: XCTestCase {
     private var apiClientMock: ApiClientMock!
     private var errorHandlerMock: ErrorHandlerMock!
     private var projectsCoordinator: ProjectsCoordinator!
+    private var messagePresenterMock: MessagePresenterMock!
     
     override func setUp() {
-        storyboardsManagerMock = StoryboardsManagerMock()
-        apiClientMock = ApiClientMock()
-        errorHandlerMock = ErrorHandlerMock()
-        projectsCoordinator = ProjectsCoordinator(window: nil,
-                                                  storyboardsManager: storyboardsManagerMock,
-                                                  apiClient: apiClientMock,
-                                                  errorHandler: errorHandlerMock)
+        self.storyboardsManagerMock = StoryboardsManagerMock()
+        self.apiClientMock = ApiClientMock()
+        self.errorHandlerMock = ErrorHandlerMock()
+        self.messagePresenterMock = MessagePresenterMock()
+        self.projectsCoordinator = ProjectsCoordinator(window: nil,
+                                                       messagePresenter: self.messagePresenterMock,
+                                                       storyboardsManager: self.storyboardsManagerMock,
+                                                       apiClient: self.apiClientMock,
+                                                       errorHandler: self.errorHandlerMock)
         super.setUp() 
     }
     

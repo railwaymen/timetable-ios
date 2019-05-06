@@ -15,6 +15,7 @@ class AppCoordinator: BaseCoordinator {
     private let parentErrorHandler: ErrorHandlerType
     private var apiClient: ApiClientType?
     private let coreDataStack: CoreDataStackType
+    private weak var messagePresenter: MessagePresenterType?
     private let accessServiceBuilder: ((ServerConfiguration, JSONEncoderType, JSONDecoderType) -> AccessServiceLoginType)
     
     private lazy var encoder: JSONEncoderType = {
@@ -36,8 +37,12 @@ class AppCoordinator: BaseCoordinator {
     }
     
     // MARK: - Initialization
-    init(window: UIWindow?, storyboardsManager: StoryboardsManagerType,
-         errorHandler: ErrorHandlerType, serverConfigurationManager: ServerConfigurationManagerType, coreDataStack: CoreDataStackType,
+    init(window: UIWindow?,
+         messagePresenter: MessagePresenterType?,
+         storyboardsManager: StoryboardsManagerType,
+         errorHandler: ErrorHandlerType,
+         serverConfigurationManager: ServerConfigurationManagerType,
+         coreDataStack: CoreDataStackType,
          accessServiceBuilder: @escaping ((ServerConfiguration, JSONEncoderType, JSONDecoderType) -> AccessServiceLoginType)) {
         
         self.storyboardsManager = storyboardsManager
@@ -45,7 +50,7 @@ class AppCoordinator: BaseCoordinator {
         self.serverConfigurationManager = serverConfigurationManager
         self.accessServiceBuilder = accessServiceBuilder
         self.coreDataStack = coreDataStack
-        super.init(window: window)
+        super.init(window: window, messagePresenter: messagePresenter)
     }
 
     // MARK: - CoordinatorType
@@ -58,11 +63,16 @@ class AppCoordinator: BaseCoordinator {
 
     // MARK: - Privat
     private func runAuthenticationFlow() {
-        let coordinator = AuthenticationCoordinator(window: window, storyboardsManager: storyboardsManager,
-                                                    decoder: decoder, encoder: encoder, accessServiceBuilder: accessServiceBuilder,
-                                                    coreDataStack: coreDataStack,
-                                                    errorHandler: errorHandler, serverConfigurationManager: serverConfigurationManager)
-        addChildCoordinator(child: coordinator)
+        let coordinator = AuthenticationCoordinator(window: self.window,
+                                                    messagePresenter: self.messagePresenter,
+                                                    storyboardsManager: self.storyboardsManager,
+                                                    decoder: self.decoder,
+                                                    encoder: self.encoder,
+                                                    accessServiceBuilder: self.accessServiceBuilder,
+                                                    coreDataStack: self.coreDataStack,
+                                                    errorHandler: self.errorHandler,
+                                                    serverConfigurationManager: self.serverConfigurationManager)
+        self.addChildCoordinator(child: coordinator)
         coordinator.start { [weak self] (configuration, apiClient) in
             defer {
                 self?.removeChildCoordinator(child: coordinator)
@@ -72,14 +82,15 @@ class AppCoordinator: BaseCoordinator {
     }
     
     private func runMainFlow(configuration: ServerConfiguration, apiClient: ApiClientType) {
-        let accessService = accessServiceBuilder(configuration, encoder, decoder)
-        let coordinator = TimeTableTabCoordinator(window: window,
-                                                  storyboardsManager: storyboardsManager,
+        let accessService = self.accessServiceBuilder(configuration, self.encoder, self.decoder)
+        let coordinator = TimeTableTabCoordinator(window: self.window,
+                                                  messagePresenter: self.messagePresenter,
+                                                  storyboardsManager: self.storyboardsManager,
                                                   apiClient: apiClient,
                                                   accessService: accessService,
-                                                  coreDataStack: coreDataStack,
-                                                  errorHandler: errorHandler)
-        addChildCoordinator(child: coordinator)
+                                                  coreDataStack: self.coreDataStack,
+                                                  errorHandler: self.errorHandler)
+        self.addChildCoordinator(child: coordinator)
         coordinator.start(finishCompletion: { [weak self, weak coordinator] in
             self?.removeChildCoordinator(child: coordinator)
             self?.runAuthenticationFlow()
