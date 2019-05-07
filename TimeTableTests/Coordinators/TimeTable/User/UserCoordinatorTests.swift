@@ -16,22 +16,26 @@ class UserCoordinatorTests: XCTestCase {
     private var accessServiceMock: AccessServiceMock!
     private var coreDataStackMock: CoreDataStackUserMock!
     private var errorHandlerMock: ErrorHandlerMock!
+    private var messagePresenterMock: MessagePresenterMock!
     
     private var coordinator: UserCoordinator!
     
     override func setUp() {
-        window = UIWindow(frame: .zero)
-        storyboardsManagerMock = StoryboardsManagerMock()
-        apiClientMock = ApiClientMock()
-        accessServiceMock = AccessServiceMock()
-        coreDataStackMock = CoreDataStackUserMock()
-        errorHandlerMock = ErrorHandlerMock()
-        coordinator = UserCoordinator(window: window,
-                                      storyboardsManager: storyboardsManagerMock,
-                                      apiClient: apiClientMock,
-                                      accessService: accessServiceMock,
-                                      coreDataStack: coreDataStackMock,
-                                      errorHandler: errorHandlerMock)
+        self.window = UIWindow(frame: .zero)
+        self.storyboardsManagerMock = StoryboardsManagerMock()
+        self.apiClientMock = ApiClientMock()
+        self.accessServiceMock = AccessServiceMock()
+        self.coreDataStackMock = CoreDataStackUserMock()
+        self.errorHandlerMock = ErrorHandlerMock()
+        self.messagePresenterMock = MessagePresenterMock()
+        
+        self.coordinator = UserCoordinator(window: self.window,
+                                           messagePresenter: self.messagePresenterMock,
+                                           storyboardsManager: self.storyboardsManagerMock,
+                                           apiClient: self.apiClientMock,
+                                           accessService: self.accessServiceMock,
+                                           coreDataStack: self.coreDataStackMock,
+                                           errorHandler: self.errorHandlerMock)
         super.setUp()
     }
     

@@ -16,11 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     private lazy var appCoordinator: AppCoordinator = {
-        return AppCoordinator(window: window,
+        return AppCoordinator(window: self.window,
+                              messagePresenter: self.messagePresenter,
                               storyboardsManager: StoryboardsManager.shared,
-                              errorHandler: errorHandler,
-                              serverConfigurationManager: serverConfigurationManager,
-                              coreDataStack: coreDataStack,
+                              errorHandler: self.errorHandler,
+                              serverConfigurationManager: self.serverConfigurationManager,
+                              coreDataStack: self.coreDataStack,
                               accessServiceBuilder: { (serverConfiguration, encoder, decoder) in
                                 return AccessService(userDefaults: UserDefaults.standard,
                                                      keychainAccess: self.createKeychain(with: serverConfiguration),
@@ -28,6 +29,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                      buildEncoder: { return encoder },
                                                      buildDecoder: { return decoder })
         })
+    }()
+    
+    private lazy var messagePresenter: MessagePresenterType = {
+       return MessagePresenter(window: self.window)
     }()
     
     private lazy var errorHandler: ErrorHandlerType = {

@@ -13,25 +13,33 @@ typealias TimeTableTabApiClientType = (ApiClientWorkTimesType & ApiClientProject
 class TimeTableTabCoordinator: BaseTabBarCoordinator {
     
     // MARK: - Initialization
-    init(window: UIWindow?, storyboardsManager: StoryboardsManagerType, apiClient: TimeTableTabApiClientType,
-         accessService: AccessServiceUserIDType, coreDataStack: CoreDataStackUserType, errorHandler: ErrorHandlerType) {
+    init(window: UIWindow?,
+         messagePresenter: MessagePresenterType?,
+         storyboardsManager: StoryboardsManagerType,
+         apiClient: TimeTableTabApiClientType,
+         accessService: AccessServiceUserIDType,
+         coreDataStack: CoreDataStackUserType,
+         errorHandler: ErrorHandlerType) {
         let projectsCoordinator = ProjectsCoordinator(window: nil,
+                                                      messagePresenter: messagePresenter,
                                                       storyboardsManager: storyboardsManager,
                                                       apiClient: apiClient,
                                                       errorHandler: errorHandler)
         let workTimeCoordinator = WorkTimesCoordinator(window: nil,
-                                                      storyboardsManager: storyboardsManager,
-                                                      apiClient: apiClient,
-                                                      accessService: accessService,
-                                                      errorHandler: errorHandler)
+                                                       messagePresenter: messagePresenter,
+                                                       storyboardsManager: storyboardsManager,
+                                                       apiClient: apiClient,
+                                                       accessService: accessService,
+                                                       errorHandler: errorHandler)
         let userCoordinator = UserCoordinator(window: nil,
+                                              messagePresenter: messagePresenter,
                                               storyboardsManager: storyboardsManager,
                                               apiClient: apiClient,
                                               accessService: accessService,
                                               coreDataStack: coreDataStack,
                                               errorHandler: errorHandler)
         
-        super.init(window: window)
+        super.init(window: window, messagePresenter: messagePresenter)
         [projectsCoordinator, workTimeCoordinator, userCoordinator].forEach { self.addChildCoordinator(child: $0) }
         self.tabBarController.tabBar.tintColor = UIColor.crimson
         

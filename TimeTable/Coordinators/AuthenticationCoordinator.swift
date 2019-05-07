@@ -38,9 +38,15 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
     }
     
     // MARK: - Initialization
-    init(window: UIWindow?, storyboardsManager: StoryboardsManagerType, decoder: JSONDecoderType, encoder: JSONEncoderType,
+    init(window: UIWindow?,
+         messagePresenter: MessagePresenterType?,
+         storyboardsManager: StoryboardsManagerType,
+         decoder: JSONDecoderType,
+         encoder: JSONEncoderType,
          accessServiceBuilder: @escaping ((ServerConfiguration, JSONEncoderType, JSONDecoderType) -> AccessServiceLoginType),
-         coreDataStack: CoreDataStackUserType, errorHandler: ErrorHandlerType, serverConfigurationManager: ServerConfigurationManagerType) {
+         coreDataStack: CoreDataStackUserType,
+         errorHandler: ErrorHandlerType,
+         serverConfigurationManager: ServerConfigurationManagerType) {
         self.storyboardsManager = storyboardsManager
         self.accessServiceBuilder = accessServiceBuilder
         self.errorHandler = errorHandler
@@ -48,7 +54,7 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
         self.serverConfigurationManager = serverConfigurationManager
         self.encoder = encoder
         self.decoder = decoder
-        super.init(window: window)
+        super.init(window: window, messagePresenter: messagePresenter)
         setNavigationBar()
     }
 

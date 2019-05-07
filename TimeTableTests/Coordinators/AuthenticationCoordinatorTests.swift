@@ -25,6 +25,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
     private var encoderMock: JSONEncoderMock!
     private var decoderMock: JSONDecoderMock!
     private var coordinator: AuthenticationCoordinator!
+    private var messagePresenterMock: MessagePresenterMock!
     
     private enum SessionResponse: String, JSONFileResource {
         case signInResponse
@@ -45,14 +46,16 @@ class AuthenticationCoordinatorTests: XCTestCase {
         self.userDefaultsMock = UserDefaultsMock()
         self.encoderMock = JSONEncoderMock()
         self.decoderMock = JSONDecoderMock()
+        self.messagePresenterMock = MessagePresenterMock()
         self.coordinator = AuthenticationCoordinator(window: nil,
-                                                     storyboardsManager: storyboardsManagerMock,
-                                                     decoder: decoderMock,
-                                                     encoder: encoderMock,
+                                                     messagePresenter: self.messagePresenterMock,
+                                                     storyboardsManager: self.storyboardsManagerMock,
+                                                     decoder: self.decoderMock,
+                                                     encoder: self.encoderMock,
                                                      accessServiceBuilder: ({ (_, _, _) in return self.accessServiceMock }),
-                                                     coreDataStack: coreDataStackMock,
-                                                     errorHandler: errorHandlerMock,
-                                                     serverConfigurationManager: serverConfigurationManagerMock)
+                                                     coreDataStack: self.coreDataStackMock,
+                                                     errorHandler: self.errorHandlerMock,
+                                                     serverConfigurationManager: self.serverConfigurationManagerMock)
         super.setUp()
     }
     

@@ -26,6 +26,7 @@ class AppCoordinatorTests: XCTestCase {
     private var userDefaultsMock: UserDefaultsMock!
     private var encoderMock: JSONEncoderMock!
     private var decoderMock: JSONDecoderMock!
+    private var messagePresenter: MessagePresenterMock!
     
     private enum SessionResponse: String, JSONFileResource {
         case signInResponse
@@ -44,11 +45,13 @@ class AppCoordinatorTests: XCTestCase {
         self.userDefaultsMock = UserDefaultsMock()
         self.encoderMock = JSONEncoderMock()
         self.decoderMock = JSONDecoderMock()
-        self.appCoordinator = AppCoordinator(window: window,
-                                             storyboardsManager: storyboardsManagerMock,
-                                             errorHandler: errorHandlerMock,
-                                             serverConfigurationManager: serverConfigurationManagerMock,
-                                             coreDataStack: coreDataStackMock,
+        self.messagePresenter = MessagePresenterMock()
+        self.appCoordinator = AppCoordinator(window: self.window,
+                                             messagePresenter: self.messagePresenter,
+                                             storyboardsManager: self.storyboardsManagerMock,
+                                             errorHandler: self.errorHandlerMock,
+                                             serverConfigurationManager: self.serverConfigurationManagerMock,
+                                             coreDataStack: self.coreDataStackMock,
                                              accessServiceBuilder: { (_, _, _) in
                                                 return AccessService(userDefaults: self.userDefaultsMock,
                                                                      keychainAccess: self.keychainAccessMock,

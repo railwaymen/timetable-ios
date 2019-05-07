@@ -13,11 +13,14 @@ class BaseCoordinator: CoordinatorType, CoordinatorErrorPresenterType {
     var children: [BaseCoordinator]
     var window: UIWindow?
     var finishCompletion: (() -> Void)?
+    private weak var messagePresenter: MessagePresenterType?
     
     // MARK: - Initialization
-    init(window: UIWindow?) {
+    init(window: UIWindow?,
+         messagePresenter: MessagePresenterType?) {
         self.children = []
         self.window = window
+        self.messagePresenter = messagePresenter
     }
 
     // MARK: - CoordinatorType
@@ -49,17 +52,6 @@ class BaseCoordinator: CoordinatorType, CoordinatorErrorPresenterType {
     
     // MARK: - Private
     private func presentAlertController(withMessage message: String) {
-        let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default) { [unowned alert] _ in
-            alert.dismiss(animated: true)
-        }
-        alert.addAction(action)
-        DispatchQueue.main.async { [weak self] in
-            if let presentedViewController = self?.window?.rootViewController?.presentedViewController {
-                presentedViewController.present(alert, animated: true)
-            } else {
-                self?.window?.rootViewController?.present(alert, animated: true)
-            }
-        }
+        self.messagePresenter?.presentAlertController(withMessage: message)
     }
 }

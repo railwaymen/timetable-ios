@@ -18,21 +18,24 @@ class TimeTableCoordinatorTests: XCTestCase {
     private var coreDataStackMock: CoreDataStackUserMock!
     private var errorHandlerMock: ErrorHandlerMock!
     private var coordinator: TimeTableTabCoordinator!
+    private var messagePresenterMock: MessagePresenterMock!
     
     override func setUp() {
-        windowMock = UIWindow()
-        storyboardsManagerMock = StoryboardsManagerMock()
-        apiClientMock = ApiClientMock()
-        accessServiceMock = AccessServiceMock()
-        coreDataStackMock = CoreDataStackUserMock()
-        errorHandlerMock = ErrorHandlerMock()
+        self.windowMock = UIWindow()
+        self.storyboardsManagerMock = StoryboardsManagerMock()
+        self.apiClientMock = ApiClientMock()
+        self.accessServiceMock = AccessServiceMock()
+        self.coreDataStackMock = CoreDataStackUserMock()
+        self.errorHandlerMock = ErrorHandlerMock()
+        self.messagePresenterMock = MessagePresenterMock()
         
-        coordinator = TimeTableTabCoordinator(window: windowMock,
-                                              storyboardsManager: storyboardsManagerMock,
-                                              apiClient: apiClientMock,
-                                              accessService: accessServiceMock,
-                                              coreDataStack: coreDataStackMock,
-                                              errorHandler: errorHandlerMock)
+        self.coordinator = TimeTableTabCoordinator(window: self.windowMock,
+                                                   messagePresenter: self.messagePresenterMock,
+                                                   storyboardsManager: self.storyboardsManagerMock,
+                                                   apiClient: self.apiClientMock,
+                                                   accessService: self.accessServiceMock,
+                                                   coreDataStack: self.coreDataStackMock,
+                                                   errorHandler: self.errorHandlerMock)
         super.setUp()
     }
 
