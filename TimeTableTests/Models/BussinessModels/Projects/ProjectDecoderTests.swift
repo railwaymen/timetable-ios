@@ -47,7 +47,7 @@ class ProjectDecoderTests: XCTestCase {
         //Assert
         XCTAssertEqual(project.identifier, 3)
         XCTAssertEqual(project.name, "Lorem ipsum")
-        XCTAssertEqual(project.color, UIColor(string: "fe0404"))
+        XCTAssertEqual(project.color, UIColor(hexString: "fe0404"))
         XCTAssertNil(project.autofill)
         XCTAssertNil(project.countDuration)
         XCTAssertNil(project.isActive)
@@ -98,7 +98,7 @@ class ProjectDecoderTests: XCTestCase {
         //Assert
         XCTAssertEqual(project.identifier, 11)
         XCTAssertEqual(project.name, "asdsa")
-        XCTAssertEqual(project.color, UIColor(string: "0c0cOc"))
+        XCTAssertEqual(project.color, UIColor(hexString: "0c0cOc"))
         XCTAssertFalse(try project.autofill.unwrap())
         XCTAssertTrue(try project.countDuration.unwrap())
         XCTAssertTrue(try project.isActive.unwrap())
@@ -149,7 +149,7 @@ class ProjectDecoderTests: XCTestCase {
         //Assert
         XCTAssertEqual(project.identifier, 11)
         XCTAssertEqual(project.name, "asdsa")
-        XCTAssertEqual(project.color, UIColor(string: "0c0cOc"))
+        XCTAssertEqual(project.color, UIColor(hexString: "0c0cOc"))
         XCTAssertNil(project.autofill)
         XCTAssertTrue(try project.countDuration.unwrap())
         XCTAssertTrue(try project.isActive.unwrap())
@@ -166,7 +166,7 @@ class ProjectDecoderTests: XCTestCase {
         //Assert
         XCTAssertEqual(project.identifier, 11)
         XCTAssertEqual(project.name, "asdsa")
-        XCTAssertEqual(project.color, UIColor(string: "0c0cOc"))
+        XCTAssertEqual(project.color, UIColor(hexString: "0c0cOc"))
         XCTAssertNil(project.autofill)
         XCTAssertTrue(try project.countDuration.unwrap())
         XCTAssertTrue(try project.isActive.unwrap())
@@ -183,7 +183,7 @@ class ProjectDecoderTests: XCTestCase {
         //Assert
         XCTAssertEqual(project.identifier, 11)
         XCTAssertEqual(project.name, "asdsa")
-        XCTAssertEqual(project.color, UIColor(string: "0c0cOc"))
+        XCTAssertEqual(project.color, UIColor(hexString: "0c0cOc"))
         XCTAssertFalse(try project.autofill.unwrap())
         XCTAssertTrue(try project.countDuration.unwrap())
         XCTAssertTrue(try project.isActive.unwrap())
@@ -200,7 +200,7 @@ class ProjectDecoderTests: XCTestCase {
         //Assert
         XCTAssertEqual(project.identifier, 11)
         XCTAssertEqual(project.name, "asdsa")
-        XCTAssertEqual(project.color, UIColor(string: "0c0cOc"))
+        XCTAssertEqual(project.color, UIColor(hexString: "0c0cOc"))
         XCTAssertFalse(try project.autofill.unwrap())
         XCTAssertTrue(try project.countDuration.unwrap())
         XCTAssertTrue(try project.isActive.unwrap())
@@ -217,7 +217,7 @@ class ProjectDecoderTests: XCTestCase {
         //Assert
         XCTAssertEqual(project.identifier, 11)
         XCTAssertEqual(project.name, "asdsa")
-        XCTAssertEqual(project.color, UIColor(string: "0c0cOc"))
+        XCTAssertEqual(project.color, UIColor(hexString: "0c0cOc"))
         XCTAssertFalse(try project.autofill.unwrap())
         XCTAssertNil(project.countDuration)
         XCTAssertTrue(try project.isActive.unwrap())
@@ -234,7 +234,7 @@ class ProjectDecoderTests: XCTestCase {
         //Assert
         XCTAssertEqual(project.identifier, 11)
         XCTAssertEqual(project.name, "asdsa")
-        XCTAssertEqual(project.color, UIColor(string: "0c0cOc"))
+        XCTAssertEqual(project.color, UIColor(hexString: "0c0cOc"))
         XCTAssertFalse(try project.autofill.unwrap())
         XCTAssertNil(project.countDuration)
         XCTAssertTrue(try project.isActive.unwrap())
@@ -251,7 +251,7 @@ class ProjectDecoderTests: XCTestCase {
         //Assert
         XCTAssertEqual(project.identifier, 11)
         XCTAssertEqual(project.name, "asdsa")
-        XCTAssertEqual(project.color, UIColor(string: "0c0cOc"))
+        XCTAssertEqual(project.color, UIColor(hexString: "0c0cOc"))
         XCTAssertFalse(try project.autofill.unwrap())
         XCTAssertTrue(try project.countDuration.unwrap())
         XCTAssertNil(project.isActive)
@@ -268,7 +268,7 @@ class ProjectDecoderTests: XCTestCase {
         //Assert
         XCTAssertEqual(project.identifier, 11)
         XCTAssertEqual(project.name, "asdsa")
-        XCTAssertEqual(project.color, UIColor(string: "0c0cOc"))
+        XCTAssertEqual(project.color, UIColor(hexString: "0c0cOc"))
         XCTAssertFalse(try project.autofill.unwrap())
         XCTAssertTrue(try project.countDuration.unwrap())
         XCTAssertNil(project.isActive)

@@ -37,7 +37,7 @@ struct ProjectDecoder: Decodable {
         self.identifier = try container.decode(Int.self, forKey: .identifier)
         self.name = try container.decode(String.self, forKey: .name)
         if let colorHexString = try? container.decode(String.self, forKey: .color) {
-            self.color = UIColor(string: colorHexString)
+            self.color = UIColor(hexString: colorHexString)
         } else {
             self.color = nil
         }
@@ -49,12 +49,18 @@ struct ProjectDecoder: Decodable {
         self.workTimesAllowsTask = try container.decode(Bool.self, forKey: .workTimesAllowsTask)
     }
     
-    init(identifier: Int, name: String, color: UIColor?, autofill: Bool?, countDuration: Bool?,
-         isActive: Bool?, isInternal: Bool?, isLunch: Bool, workTimesAllowsTask: Bool) {
+    init(identifier: Int,
+         name: String,
+         color: UIColor?,
+         autofill: Bool?,
+         countDuration: Bool?,
+         isActive: Bool?,
+         isInternal: Bool?,
+         isLunch: Bool,
+         workTimesAllowsTask: Bool) {
         self.identifier = identifier
         self.name = name
         self.color = color
-        
         self.autofill = autofill
         self.countDuration = countDuration
         self.isActive = isActive

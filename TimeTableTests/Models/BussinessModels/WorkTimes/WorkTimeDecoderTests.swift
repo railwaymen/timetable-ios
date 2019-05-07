@@ -39,7 +39,7 @@ class WorkTimeDecoderTests: XCTestCase {
         let date = try Calendar.current.date(from: components).unwrap()
         
         let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum",
-                                     color: UIColor(string: "fe0404"),
+                                     color: UIColor(hexString: "fe0404"),
                                      autofill: nil, countDuration: nil,
                                      isActive: nil, isInternal: nil,
                                      isLunch: false, workTimesAllowsTask: false)
@@ -82,7 +82,7 @@ class WorkTimeDecoderTests: XCTestCase {
         components.hour = 0
         let date = try Calendar.current.date(from: components).unwrap()
         let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum",
-                                     color: UIColor(string: "fe0404"),
+                                     color: UIColor(hexString: "fe0404"),
                                      autofill: nil, countDuration: nil,
                                      isActive: nil, isInternal: nil,
                                      isLunch: false, workTimesAllowsTask: false)
@@ -113,7 +113,7 @@ class WorkTimeDecoderTests: XCTestCase {
         components.hour = 0
         let date = try Calendar.current.date(from: components).unwrap()
         let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum",
-                                     color: UIColor(string: "fe0404"),
+                                     color: UIColor(hexString: "fe0404"),
                                      autofill: nil, countDuration: nil,
                                      isActive: nil, isInternal: nil,
                                      isLunch: false, workTimesAllowsTask: false)
@@ -144,7 +144,7 @@ class WorkTimeDecoderTests: XCTestCase {
         components.hour = 0
         let date = try Calendar.current.date(from: components).unwrap()
         let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum",
-                                     color: UIColor(string: "fe0404"),
+                                     color: UIColor(hexString: "fe0404"),
                                      autofill: nil, countDuration: nil,
                                      isActive: nil, isInternal: nil,
                                      isLunch: false, workTimesAllowsTask: false)
@@ -175,7 +175,7 @@ class WorkTimeDecoderTests: XCTestCase {
         components.hour = 0
         let date = try Calendar.current.date(from: components).unwrap()
         let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum",
-                                     color: UIColor(string: "fe0404"),
+                                     color: UIColor(hexString: "fe0404"),
                                      autofill: nil, countDuration: nil,
                                      isActive: nil, isInternal: nil,
                                      isLunch: false, workTimesAllowsTask: false)
@@ -206,7 +206,7 @@ class WorkTimeDecoderTests: XCTestCase {
         components.hour = 0
         let date = try Calendar.current.date(from: components).unwrap()
         let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum",
-                                     color: UIColor(string: "fe0404"),
+                                     color: UIColor(hexString: "fe0404"),
                                      autofill: nil, countDuration: nil,
                                      isActive: nil, isInternal: nil,
                                      isLunch: false, workTimesAllowsTask: false)
@@ -237,7 +237,7 @@ class WorkTimeDecoderTests: XCTestCase {
         components.hour = 0
         let date = try Calendar.current.date(from: components).unwrap()
         let project = ProjectDecoder(identifier: 3, name: "Lorem Ipsum",
-                                     color: UIColor(string: "fe0404"),
+                                     color: UIColor(hexString: "fe0404"),
                                      autofill: nil, countDuration: nil,
                                      isActive: nil, isInternal: nil,
                                      isLunch: false, workTimesAllowsTask: false)

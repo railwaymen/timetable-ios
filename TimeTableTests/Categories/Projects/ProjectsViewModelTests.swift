@@ -59,7 +59,7 @@ class ProjectsViewModelTests: XCTestCase {
     
     func testItemAtIndexAfterViewDidLoadRetrunsProjectForFirstRow() throws {
         //Arrange
-        let color = UIColor(string: "00000c")
+        let color = UIColor(hexString: "00000c")
         let user = Project.User(name: "John Test")
         let leader = Project.User(name: "Leader Leader")
         let data = try self.json(from: ProjectsRecordsResponse.projectsRecordsResponse)
@@ -80,7 +80,7 @@ class ProjectsViewModelTests: XCTestCase {
     
     func testItemAtIndexAfterViewDidLoadRetrunsProjectForSecondRow() throws {
         //Arrange
-        let color = UIColor(string: "0c0c0c")
+        let color = UIColor(hexString: "0c0c0c")
         let firstUser = Project.User(name: "User User")
         let lastUser = Project.User(name: "Admin Admin")
         let leader = Project.User(name: "Rosalind Auer")
