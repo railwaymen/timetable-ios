@@ -15,18 +15,18 @@ extension UIColor {
     }
     
     // MARK: - Initialization
-    convenience init(string: String) {
-        
-        var uppercasedString = string.uppercased()
-        uppercasedString.remove(at: string.startIndex)
-        
-        var rgbValue: UInt32 = 0
-        Scanner(string: uppercasedString).scanHexInt32(&rgbValue)
-        
-        let red = CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0
-        let green = CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0
-        let blue = CGFloat(rgbValue & 0x0000FF) / 255.0
-        
-        self.init(red: red, green: green, blue: blue, alpha: 1)
+    convenience init(hexString: String, alpha: CGFloat = 1.0) {
+        let hexString: String = hexString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        let scanner = Scanner(string: hexString)
+        if hexString.hasPrefix("#") {
+            scanner.scanLocation = 1
+        }
+        var color: UInt32 = 0
+        scanner.scanHexInt32(&color)
+        let mask = 0x000000FF
+        let red   = CGFloat(Int(color >> 16) & mask) / 255.0
+        let green = CGFloat(Int(color >> 8) & mask) / 255.0
+        let blue  = CGFloat(Int(color) & mask) / 255.0
+        self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
 }

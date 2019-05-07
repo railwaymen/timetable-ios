@@ -25,7 +25,7 @@ class ProjectTests: XCTestCase {
     
     func testInitializationWithFullProjectRecord() throws {
         //Arrange
-        let color = UIColor(string: "0c0c0c")
+        let color = UIColor(hexString: "0c0c0c")
         let user = Project.User(name: "Admin Admin")
         let leader = Project.User(name: "Rosalind Auer")
         let data = try self.json(from: ProjectRecordResponse.projectRecordResponse)
@@ -77,7 +77,7 @@ class ProjectTests: XCTestCase {
 
     func testInitializationWithProjectRecordNullUserResponse() throws {
         //Arrange
-        let color = UIColor(string: "0c0c0c")
+        let color = UIColor(hexString: "0c0c0c")
         let leader = Project.User(name: "Rosalind Auer")
         let data = try self.json(from: ProjectRecordResponse.projectRecordNullUserResponse)
         let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
@@ -93,7 +93,7 @@ class ProjectTests: XCTestCase {
     
     func testInitializationWithProjectRecordMissingUserKeyResponse() throws {
         //Arrange
-        let color = UIColor(string: "0c0c0c")
+        let color = UIColor(hexString: "0c0c0c")
         let leader = Project.User(name: "Rosalind Auer")
         let data = try self.json(from: ProjectRecordResponse.projectRecordMissingUserKeyResponse)
         let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
@@ -109,7 +109,7 @@ class ProjectTests: XCTestCase {
     
     func testInitializationWithProjectRecordNullLeaderResponse() throws {
         //Arrange
-        let color = UIColor(string: "0c0c0c")
+        let color = UIColor(hexString: "0c0c0c")
         let user = Project.User(name: "Admin Admin")
         let data = try self.json(from: ProjectRecordResponse.projectRecordNullLeaderResponse)
         let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
@@ -126,7 +126,7 @@ class ProjectTests: XCTestCase {
     
     func testInitializationWithProjectRecordMissingLeaderKey() throws {
         //Arrange
-        let color = UIColor(string: "0c0c0c")
+        let color = UIColor(hexString: "0c0c0c")
         let user = Project.User(name: "Admin Admin")
         let data = try self.json(from: ProjectRecordResponse.projectRecordMissingLeaderKey)
         let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)

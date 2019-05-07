@@ -46,7 +46,7 @@ struct ProjectRecordDecoder: Decodable {
         self.projectIdentifier = try container.decode(Int.self, forKey: .projectIdentifier)
         self.name = try container.decode(String.self, forKey: .name)
         if let colorHexString = try? container.decode(String.self, forKey: .color) {
-            self.color = UIColor(string: colorHexString)
+            self.color = UIColor(hexString: colorHexString)
         } else {
             self.color = nil
         }

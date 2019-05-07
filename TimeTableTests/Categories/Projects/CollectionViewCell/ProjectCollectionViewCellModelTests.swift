@@ -45,7 +45,7 @@ class ProjectCollectionViewCellModelTests: XCTestCase {
     
     func testConfigureUpdateView() {
         //Arrange
-        let color = UIColor(string: "0c0c0c")
+        let color = UIColor(hexString: "0c0c0c")
         //Act
         viewModel.configure()
         //Assert
@@ -61,7 +61,7 @@ class ProjectCollectionViewCellModelTests: XCTestCase {
         let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
         let project = Project(decoder: projectRecord)
         let viewModel = ProjectCollectionViewCellModel(userInterface: userInterfaceMock, project: project)
-        let color = UIColor(string: "0c0c0c")
+        let color = UIColor(hexString: "0c0c0c")
         //Act
         viewModel.configure()
         //Assert

@@ -27,7 +27,7 @@ class ProjectRecordDecoderTests: XCTestCase {
         //Arrange
         let user = ProjectRecordDecoder.User(name: "Admin Admin")
         let leader = ProjectRecordDecoder.User(name: "Rosalind Auer")
-        let color = UIColor(string: "0c0c0c")
+        let color = UIColor(hexString: "0c0c0c")
         let data = try self.json(from: ProjectRecordResponse.projectRecordResponse)
         //Act
         let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
@@ -75,7 +75,7 @@ class ProjectRecordDecoderTests: XCTestCase {
     func testParsingProjectRecordNullUserResponseSucceed() throws {
         //Arrange
         let leader = ProjectRecordDecoder.User(name: "Rosalind Auer")
-        let color = UIColor(string: "0c0c0c")
+        let color = UIColor(hexString: "0c0c0c")
         let data = try self.json(from: ProjectRecordResponse.projectRecordNullUserResponse)
         //Act
         let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
@@ -91,7 +91,7 @@ class ProjectRecordDecoderTests: XCTestCase {
     func testParsingProjectRecordMissingUserKeyResponseSucceed() throws {
         //Arrange
         let leader = ProjectRecordDecoder.User(name: "Rosalind Auer")
-        let color = UIColor(string: "0c0c0c")
+        let color = UIColor(hexString: "0c0c0c")
         let data = try self.json(from: ProjectRecordResponse.projectRecordMissingUserKeyResponse)
         //Act
         let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
@@ -107,7 +107,7 @@ class ProjectRecordDecoderTests: XCTestCase {
     func testParsingProjectRecordNullLeaderResponseSucceed() throws {
         //Arrange
         let user = ProjectRecordDecoder.User(name: "Admin Admin")
-        let color = UIColor(string: "0c0c0c")
+        let color = UIColor(hexString: "0c0c0c")
         let data = try self.json(from: ProjectRecordResponse.projectRecordNullLeaderResponse)
         //Act
         let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
@@ -123,7 +123,7 @@ class ProjectRecordDecoderTests: XCTestCase {
     func testParsingProjectRecordMissingLeaderKeySucceed() throws {
         //Arrange
         let user = ProjectRecordDecoder.User(name: "Admin Admin")
-        let color = UIColor(string: "0c0c0c")
+        let color = UIColor(hexString: "0c0c0c")
         let data = try self.json(from: ProjectRecordResponse.projectRecordMissingLeaderKey)
         //Act
         let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)

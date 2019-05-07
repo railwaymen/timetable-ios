@@ -46,8 +46,8 @@ class Project: Hashable {
     }
     
     // MARK: - Hashable
-    var hashValue: Int {
-        return identifier.hashValue
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.identifier.hashValue)
     }
     
     // MARK: - Equatable
