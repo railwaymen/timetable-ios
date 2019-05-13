@@ -30,7 +30,7 @@ class WorkTimeViewModelTests: XCTestCase {
         apiClient = ApiClientMock()
         errorHandlerMock = ErrorHandlerMock()
         calendarMock = CalendarMock()
-        viewModel = self.createViewModel(lastTask: nil, editedTask: nil)
+        viewModel = self.createViewModel(lastTask: nil, editedTask: nil, duplicatedTask: nil)
         super.setUp()
     }
     
@@ -47,7 +47,7 @@ class WorkTimeViewModelTests: XCTestCase {
     func testViewDidLoadWithLastTaskSetsDateAndTime() throws {
         //Arrange
         let lastTask = try createTask(workTimeIdentifier: nil)
-        viewModel = createViewModel(lastTask: lastTask, editedTask: nil)
+        viewModel = createViewModel(lastTask: lastTask, editedTask: nil, duplicatedTask: nil)
         //Act
         viewModel.viewDidLoad()
         //Assert
@@ -56,6 +56,58 @@ class WorkTimeViewModelTests: XCTestCase {
         XCTAssertEqual(userInterface.updateEndAtDateValues.date, lastTask.endAt)
         XCTAssertEqual(userInterface.setUpCurrentProjectName?.currentProjectName, "Select project")
         XCTAssertTrue(try (userInterface.setUpCurrentProjectName?.allowsTask).unwrap())
+    }
+    
+    func testViewDidLoad_withEditedTask() throws {
+        //Arrange
+        let task = try createTask(workTimeIdentifier: 123)
+        viewModel = createViewModel(lastTask: nil, editedTask: task, duplicatedTask: nil)
+        //Act
+        viewModel.viewDidLoad()
+        //Assert
+        XCTAssertEqual(userInterface.updateDayValues.date, task.day)
+        XCTAssertEqual(userInterface.updateStartAtDateValues.date, task.startAt)
+        XCTAssertEqual(userInterface.updateEndAtDateValues.date, task.endAt)
+        XCTAssertEqual(userInterface.setUpCurrentProjectName?.currentProjectName, task.project?.name)
+        XCTAssertEqual(userInterface.setUpCurrentProjectName?.body, task.body)
+        XCTAssertNotNil(userInterface.setUpCurrentProjectName?.urlString)
+        XCTAssertEqual(userInterface.setUpCurrentProjectName?.urlString, task.url?.absoluteString)
+        XCTAssertEqual(try (userInterface.setUpCurrentProjectName?.allowsTask).unwrap(), task.allowsTask)
+    }
+    
+    func testViewDidLoad_withDuplicatedTaskWithoutLastTask() throws {
+        //Arrange
+        let task = try createTask(workTimeIdentifier: 123)
+        viewModel = createViewModel(lastTask: nil, editedTask: nil, duplicatedTask: task)
+        //Act
+        viewModel.viewDidLoad()
+        //Assert
+        XCTAssertNotEqual(userInterface.updateDayValues.date, task.day)
+        XCTAssertNotEqual(userInterface.updateStartAtDateValues.date, task.startAt)
+        XCTAssertNotEqual(userInterface.updateEndAtDateValues.date, task.endAt)
+        XCTAssertEqual(userInterface.setUpCurrentProjectName?.currentProjectName, task.project?.name)
+        XCTAssertEqual(userInterface.setUpCurrentProjectName?.body, task.body)
+        XCTAssertNotNil(userInterface.setUpCurrentProjectName?.urlString)
+        XCTAssertEqual(userInterface.setUpCurrentProjectName?.urlString, task.url?.absoluteString)
+        XCTAssertEqual(try (userInterface.setUpCurrentProjectName?.allowsTask).unwrap(), task.allowsTask)
+    }
+    
+    func testViewDidLoad_withDuplicatedTaskWithLastTask() throws {
+        //Arrange
+        let task = try createTask(workTimeIdentifier: 123, index: 3)
+        let lastTask = try createTask(workTimeIdentifier: 12, index: 2)
+        viewModel = createViewModel(lastTask: lastTask, editedTask: nil, duplicatedTask: task)
+        //Act
+        viewModel.viewDidLoad()
+        //Assert
+        XCTAssertTrue(Calendar.current.isDateInToday(try userInterface.updateDayValues.date.unwrap()))
+        XCTAssertEqual(userInterface.updateStartAtDateValues.date, lastTask.endAt)
+        XCTAssertEqual(userInterface.updateEndAtDateValues.date, lastTask.endAt)
+        XCTAssertEqual(userInterface.setUpCurrentProjectName?.currentProjectName, task.project?.name)
+        XCTAssertEqual(userInterface.setUpCurrentProjectName?.body, task.body)
+        XCTAssertNotNil(userInterface.setUpCurrentProjectName?.urlString)
+        XCTAssertEqual(userInterface.setUpCurrentProjectName?.urlString, task.url?.absoluteString)
+        XCTAssertEqual(try (userInterface.setUpCurrentProjectName?.allowsTask).unwrap(), task.allowsTask)
     }
     
     func testViewDidLoadFetchSimpleListCallsErrorHandlerOnFetchFailure() throws {
@@ -91,7 +143,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let lastTask = try createTask(workTimeIdentifier: 2)
         calendarMock.isDateInTodayReturnValue = true
-        viewModel = createViewModel(lastTask: lastTask, editedTask: nil)
+        viewModel = createViewModel(lastTask: lastTask, editedTask: nil, duplicatedTask: nil)
         //Act
         try fetchProjects()
         //Assert
@@ -527,7 +579,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         try fetchProjects()
         let task = try createTask(workTimeIdentifier: 1)
-        viewModel = createViewModel(lastTask: nil, editedTask: task)
+        viewModel = createViewModel(lastTask: nil, editedTask: task, duplicatedTask: nil)
         try fillAllDataInViewModel(task: task)
         //Act
         viewModel.viewRequestedToSave()
@@ -554,23 +606,24 @@ class WorkTimeViewModelTests: XCTestCase {
         waitForExpectations(timeout: timeout)
     }
     
-    private func createViewModel(lastTask: Task?, editedTask: Task?) -> WorkTimeViewModel {
+    private func createViewModel(lastTask: Task?, editedTask: Task?, duplicatedTask: Task?) -> WorkTimeViewModel {
         return WorkTimeViewModel(userInterface: userInterface,
                                  apiClient: apiClient,
                                  errorHandler: errorHandlerMock,
                                  calendar: calendarMock,
                                  lastTask: lastTask,
-                                 editedTask: editedTask)
+                                 editedTask: editedTask,
+                                 duplicatedTask: duplicatedTask)
     }
     
-    private func createTask(workTimeIdentifier: Int64?) throws -> Task {
+    private func createTask(workTimeIdentifier: Int64?, index: Int = 3) throws -> Task {
         let data = try self.json(from: ProjectsRecordsResponse.simpleProjectArrayResponse)
         let projectDecoders = try self.decoder.decode([ProjectDecoder].self, from: data)
-        let project = projectDecoders[3]
+        let project = projectDecoders[index]
         return Task(workTimeIdentifier: workTimeIdentifier,
                     project: project,
                     body: "Blah blah blah",
-                    url: nil,
+                    url: try URL(string: "http://example.com").unwrap(),
                     day: Date(),
                     startAt: try createTime(hours: 8, minutes: 0),
                     endAt: try createTime(hours: 9, minutes: 30))

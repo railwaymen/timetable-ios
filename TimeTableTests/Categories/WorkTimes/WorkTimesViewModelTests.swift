@@ -333,6 +333,39 @@ class WorkTimesViewModelTests: XCTestCase {
         XCTAssertEqual(returnedData.editedTask.endAt, workTime.endsAt)
     }
     
+    func testViewRequestToDuplicate() throws {
+        //Arrange
+        let indexPath = IndexPath(row: 1, section: 0)
+        let cell = UITableViewCell()
+        let matchingFullTime = try self.buildMatchingFullTimeDecoder()
+        let dailyWorkTime = try self.buildDailyWorkTime()
+        let duplicatedWorkTime = dailyWorkTime.workTimes[1]
+        let firstWorkTime = dailyWorkTime.workTimes[0]
+        let viewModel = self.buildViewModel()
+        viewModel.viewWillAppear()
+        self.contentProvider.fetchWorkTimesDataCompletion?(.success(([dailyWorkTime], matchingFullTime)))
+        //Act
+        viewModel.viewRequestToDuplicate(sourceView: cell, at: indexPath)
+        //Assert
+        let returnedData = try self.coordinatorMock.workTimesRequestedForDuplicateWorkTimeViewData.unwrap()
+        XCTAssertEqual(returnedData.sourceView, cell)
+        XCTAssertEqual(returnedData.duplicatedTask.workTimeIdentifier, duplicatedWorkTime.identifier)
+        XCTAssertEqual(returnedData.duplicatedTask.project, duplicatedWorkTime.project)
+        XCTAssertEqual(returnedData.duplicatedTask.body, duplicatedWorkTime.body)
+        XCTAssertEqual(returnedData.duplicatedTask.url?.absoluteString, duplicatedWorkTime.task)
+        XCTAssertEqual(returnedData.duplicatedTask.day, dailyWorkTime.day)
+        XCTAssertEqual(returnedData.duplicatedTask.startAt, duplicatedWorkTime.startsAt)
+        XCTAssertEqual(returnedData.duplicatedTask.endAt, duplicatedWorkTime.endsAt)
+        
+        XCTAssertEqual(returnedData.lastTask?.workTimeIdentifier, firstWorkTime.identifier)
+        XCTAssertEqual(returnedData.lastTask?.project, firstWorkTime.project)
+        XCTAssertEqual(returnedData.lastTask?.body, firstWorkTime.body)
+        XCTAssertEqual(returnedData.lastTask?.url?.absoluteString, firstWorkTime.task)
+        XCTAssertEqual(returnedData.lastTask?.day, dailyWorkTime.day)
+        XCTAssertEqual(returnedData.lastTask?.startAt, firstWorkTime.startsAt)
+        XCTAssertEqual(returnedData.lastTask?.endAt, firstWorkTime.endsAt)
+    }
+    
     // MARK: - Private
     private func buildViewModel(isSelecteDate: Bool = true) -> WorkTimesViewModel {
         let components = DateComponents(year: 2019, month: 2, day: 2)
