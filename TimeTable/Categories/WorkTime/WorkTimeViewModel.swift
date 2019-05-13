@@ -58,8 +58,13 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     // MARK: - Initialization
-    init(userInterface: WorkTimeViewModelOutput?, apiClient: TimeTableTabApiClientType, errorHandler: ErrorHandlerType, calendar: CalendarType,
-         lastTask: Task?, editedTask: Task?) {
+    init(userInterface: WorkTimeViewModelOutput?,
+         apiClient: TimeTableTabApiClientType,
+         errorHandler: ErrorHandlerType,
+         calendar: CalendarType,
+         lastTask: Task?,
+         editedTask: Task?,
+         duplicatedTask: Task?) {
         self.userInterface = userInterface
         self.apiClient = apiClient
         self.errorHandler = errorHandler
@@ -69,7 +74,14 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         } else {
             self.lastTask = nil
         }
-        self.task = editedTask ?? Task(workTimeIdentifier: nil, project: .none, body: "", url: nil, day: Date(), startAt: lastTask?.endAt, endAt: nil)
+        self.task = editedTask ?? Task(
+            workTimeIdentifier: nil,
+            project: duplicatedTask?.project,
+            body: duplicatedTask?.body ?? "",
+            url: duplicatedTask?.url,
+            day: Date(),
+            startAt: lastTask?.endAt,
+            endAt: nil)
         self.projects = []
     }
     

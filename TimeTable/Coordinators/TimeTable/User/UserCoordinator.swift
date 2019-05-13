@@ -12,7 +12,7 @@ protocol UserCoordinatorDelegate: class {
    func userProfileDidLogoutUser()
 }
 
-class UserCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType {
+class UserCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
     private let storyboardsManager: StoryboardsManagerType
     private let apiClient: ApiClientUsersType
     private let accessService: AccessServiceUserIDType

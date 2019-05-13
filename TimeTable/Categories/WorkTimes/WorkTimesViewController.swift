@@ -79,21 +79,13 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
         viewModel.viewRequestedForEditEntry(sourceView: cell, at: indexPath)
     }
     
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let duplicateAction = self.buildDuplicateContextualAction(indexPath: indexPath)
+        return UISwipeActionsConfiguration(actions: [duplicateAction])
+    }
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "") { (_, _, completion) in
-            self.viewModel.viewRequestToDelete(at: indexPath) { completed in
-                defer { completion(completed) }
-                guard completed else { return }
-                let numberOfItems = self.viewModel.numberOfRows(in: indexPath.section)
-                DispatchQueue.main.async { [weak self] in
-                    numberOfItems > 0
-                        ? self?.tableView.deleteRows(at: [indexPath], with: .fade)
-                        : self?.tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
-                }
-            }
-        }
-        deleteAction.backgroundColor = .crimson
-        deleteAction.image = #imageLiteral(resourceName: "icon-trash")
+        let deleteAction = self.buildDeleteContextualAction(indexPath: indexPath)
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     
@@ -109,12 +101,40 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return heightForHeader
     }
+    
+    // MARK: - Private
+    private func buildDeleteContextualAction(indexPath: IndexPath) -> UIContextualAction {
+        let deleteAction = UIContextualAction(style: .destructive, title: nil) { (_, _, completion) in
+            self.viewModel.viewRequestToDelete(at: indexPath) { completed in
+                defer { completion(completed) }
+                guard completed else { return }
+                let numberOfItems = self.viewModel.numberOfRows(in: indexPath.section)
+                DispatchQueue.main.async { [weak self] in
+                    numberOfItems > 0
+                        ? self?.tableView.deleteRows(at: [indexPath], with: .fade)
+                        : self?.tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+                }
+            }
+        }
+        deleteAction.backgroundColor = .crimson
+        deleteAction.image = #imageLiteral(resourceName: "icon-trash")
+        return deleteAction
+    }
+    
+    private func buildDuplicateContextualAction(indexPath: IndexPath) -> UIContextualAction {
+        let duplicateAction = UIContextualAction(style: .normal, title: nil) { (_, _, completion) in
+            guard let cell = self.tableView.cellForRow(at: indexPath) else { return }
+            self.viewModel.viewRequestToDuplicate(sourceView: cell, at: indexPath)
+            completion(true)
+        }
+        duplicateAction.backgroundColor = .blue
+        return duplicateAction
+    }
 }
 
 // MARK: - WorkTimesViewModelOutput
 extension WorkTimesViewController: WorkTimesViewModelOutput {
     func setUpView() {
-        
         tableView.delegate = self
         tableView.dataSource = self
         

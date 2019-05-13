@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol BaseTabBarCordninatorType: class {
+protocol BaseTabBarCoordinatorType: class {
     var root: UIViewController { get }
     var tabBarItem: UITabBarItem { get }
     
