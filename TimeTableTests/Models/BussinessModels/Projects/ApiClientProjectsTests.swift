@@ -75,20 +75,20 @@ class ApiClientProjectsTests: XCTestCase {
     func testFetchSimpleProjectArrayResponseSucceed() throws {
         //Arrange
         let data = try self.json(from: ProjectsRecordsResponse.simpleProjectArrayResponse)
-        let decoder = try JSONDecoder().decode([ProjectDecoder].self, from: data)
-        var expectedProjectsDecoder: [ProjectDecoder]?
+        let decoder = try JSONDecoder().decode(SimpleProjectDecoder.self, from: data)
+        var expectedSimpleProjectDecoder: SimpleProjectDecoder?
         //Act
         apiClient.fetchSimpleListOfProjects { result in
             switch result {
-            case .success(let projectsDecoder):
-                expectedProjectsDecoder = projectsDecoder
+            case .success(let simpleProjectDecoder):
+                expectedSimpleProjectDecoder = simpleProjectDecoder
             case .failure:
                 XCTFail()
             }
         }
         networkingMock.getCompletion?(.success(data))
         //Assert
-        XCTAssertEqual(expectedProjectsDecoder?.count, decoder.count)
+        XCTAssertEqual(expectedSimpleProjectDecoder?.projects.count, decoder.projects.count)
     }
     
     func testFetchSimpleProjectArrayResponseFailed() throws {

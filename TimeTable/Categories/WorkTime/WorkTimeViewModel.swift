@@ -246,8 +246,8 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     private func fetchProjectList() {
         apiClient.fetchSimpleListOfProjects { [weak self] result in
             switch result {
-            case .success(let projects):
-                self?.projects = projects.filter { $0.isActive ?? false }
+            case .success(let simpleProjectDecoder):
+                self?.projects = simpleProjectDecoder.projects.filter { $0.isActive ?? false }
                 self?.userInterface?.reloadProjectPicker()
                 self?.setDefaultTask()
             case .failure(let error):

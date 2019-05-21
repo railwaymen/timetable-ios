@@ -8,6 +8,14 @@
 
 import UIKit
 
+struct SimpleProjectDecoder: Decodable {
+    let projects: [ProjectDecoder]
+    
+    enum CodingKeys: String, CodingKey {
+        case projects
+    }
+}
+
 struct ProjectDecoder: Decodable {
     let identifier: Int
     let name: String
