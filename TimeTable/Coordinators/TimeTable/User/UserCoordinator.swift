@@ -37,7 +37,9 @@ class UserCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType {
         self.accessService = accessService
         self.coreDataStack = coreDataStack
         self.errorHandler = errorHandler
-        self.tabBarItem = UITabBarItem(title: "tabbar.title.profile".localized, image: nil, selectedImage: nil)
+        self.tabBarItem = UITabBarItem(title: "tabbar.title.profile".localized,
+                                       image: #imageLiteral(resourceName: "profile_icon"),
+                                       selectedImage: nil)
         super.init(window: window, messagePresenter: messagePresenter)
         self.root.tabBarItem = tabBarItem
     }

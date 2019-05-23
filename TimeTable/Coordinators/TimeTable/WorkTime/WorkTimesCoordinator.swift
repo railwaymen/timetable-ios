@@ -37,7 +37,9 @@ class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType
         self.apiClient = apiClient
         self.accessService = accessService
         self.errorHandler = errorHandler
-        self.tabBarItem = UITabBarItem(title: "tabbar.title.work_time".localized, image: nil, selectedImage: nil)
+        self.tabBarItem = UITabBarItem(title: "tabbar.title.work_time".localized,
+                                       image: #imageLiteral(resourceName: "work_times_icon"),
+                                       selectedImage: nil)
         super.init(window: window, messagePresenter: messagePresenter)
         self.navigationController.setNavigationBarHidden(true, animated: false)
         self.root.tabBarItem = tabBarItem
