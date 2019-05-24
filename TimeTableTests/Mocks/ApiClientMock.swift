@@ -48,8 +48,8 @@ class ApiClientMock: ApiClientSessionType, ApiClientWorkTimesType, ApiClientProj
         fetchAllProjectsCompletion = completion
     }
     
-    private(set) var fetchSimpleListOfProjectsCompletion: ((Result<[ProjectDecoder]>) -> Void)?
-    func fetchSimpleListOfProjects(completion: @escaping ((Result<[ProjectDecoder]>) -> Void)) {
+    private(set) var fetchSimpleListOfProjectsCompletion: ((Result<SimpleProjectDecoder>) -> Void)?
+    func fetchSimpleListOfProjects(completion: @escaping ((Result<SimpleProjectDecoder>) -> Void)) {
         fetchSimpleListOfProjectsCompletion = completion
         fetchSimpleListOfProjectsExpectation?()
     }
