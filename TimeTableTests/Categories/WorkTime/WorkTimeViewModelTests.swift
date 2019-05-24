@@ -128,7 +128,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let expectation = self.expectation(description: "")
         let data = try self.json(from: ProjectsRecordsResponse.simpleProjectArrayResponse)
-        let projectDecoders = try self.decoder.decode([ProjectDecoder].self, from: data)
+        let projectDecoders = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
         apiClient.fetchSimpleListOfProjectsExpectation = expectation.fulfill
         //Act
         viewModel.viewDidLoad()
@@ -599,7 +599,7 @@ class WorkTimeViewModelTests: XCTestCase {
     private func fetchProjects() throws {
         let expectation = self.expectation(description: "")
         let data = try self.json(from: ProjectsRecordsResponse.simpleProjectArrayResponse)
-        let projectDecoders = try self.decoder.decode([ProjectDecoder].self, from: data)
+        let projectDecoders = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
         apiClient.fetchSimpleListOfProjectsExpectation = expectation.fulfill
         viewModel.viewDidLoad()
         apiClient.fetchSimpleListOfProjectsCompletion?(.success(projectDecoders))
@@ -618,8 +618,8 @@ class WorkTimeViewModelTests: XCTestCase {
     
     private func createTask(workTimeIdentifier: Int64?, index: Int = 3) throws -> Task {
         let data = try self.json(from: ProjectsRecordsResponse.simpleProjectArrayResponse)
-        let projectDecoders = try self.decoder.decode([ProjectDecoder].self, from: data)
-        let project = projectDecoders[index]
+        let simpleProjectDecoder = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
+        let project = simpleProjectDecoder.projects[index]
         return Task(workTimeIdentifier: workTimeIdentifier,
                     project: project,
                     body: "Blah blah blah",
