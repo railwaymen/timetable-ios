@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProjectsCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType {
+class ProjectsCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
     private let storyboardsManager: StoryboardsManagerType
     private let apiClient: ApiClientProjectsType
     private let errorHandler: ErrorHandlerType

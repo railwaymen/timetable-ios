@@ -10,9 +10,7 @@ import UIKit
 
 extension UIColor {
     
-    static var crimson: UIColor {
-        return UIColor(red: 203/255.0, green: 20/255.0, blue: 42/255.0, alpha: 1)
-    }
+    static var crimson: UIColor = UIColor(hex6: 0xCB142A)
     
     // MARK: - Initialization
     convenience init(hexString: String, alpha: CGFloat = 1.0) {
@@ -27,6 +25,14 @@ extension UIColor {
         let red   = CGFloat(Int(color >> 16) & mask) / 255.0
         let green = CGFloat(Int(color >> 8) & mask) / 255.0
         let blue  = CGFloat(Int(color) & mask) / 255.0
+        self.init(red: red, green: green, blue: blue, alpha: alpha)
+    }
+    
+    convenience init(hex6: UInt32, alpha: CGFloat = 1.0) {
+        let divisor = CGFloat(255)
+        let red = CGFloat((hex6 & 0xFF0000) >> 16) / divisor
+        let green = CGFloat((hex6 & 0x00FF00) >> 8) / divisor
+        let blue = CGFloat(hex6 & 0x0000FF) / divisor
         self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
 }

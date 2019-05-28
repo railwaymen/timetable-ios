@@ -25,4 +25,10 @@ class WorkTimesCoordinatorMock: WorkTimesCoordinatorDelegate {
     func workTimesRequestedForEditWorkTimeView(sourceView: UIView, editedTask: Task) {
         workTimesRequestedForEditWorkTimeViewData = (sourceView, editedTask)
     }
+    // swiftlint:disable identifier_name large_tuple
+    private(set) var workTimesRequestedForDuplicateWorkTimeViewData: (sourceView: UIView, duplicatedTask: Task, lastTask: Task?)?
+    // swiftlint:enable identifier_name large_tuple
+    func workTimesRequestedForDuplicateWorkTimeView(sourceView: UIView, duplicatedTask: Task, lastTask: Task?) {
+        self.workTimesRequestedForDuplicateWorkTimeViewData = (sourceView, duplicatedTask, lastTask)
+    }
 }

@@ -13,9 +13,10 @@ typealias WorkTimesApiClient = (ApiClientProjectsType & ApiClientWorkTimesType &
 protocol WorkTimesCoordinatorDelegate: class {
     func workTimesRequestedForNewWorkTimeView(sourceView: UIButton, lastTask: Task?)
     func workTimesRequestedForEditWorkTimeView(sourceView: UIView, editedTask: Task)
+    func workTimesRequestedForDuplicateWorkTimeView(sourceView: UIView, duplicatedTask: Task, lastTask: Task?)
 }
 
-class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType {
+class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
     private let storyboardsManager: StoryboardsManagerType
     private let apiClient: WorkTimesApiClient
     private let accessService: AccessServiceUserIDType
@@ -64,6 +65,19 @@ class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType
         navigationController.pushViewController(workTimesViewController, animated: false)
     }
     
+    private func runWorkTimeFlow(sourceView: UIView, lastTask: Task?, editedTask: Task?, duplicatedTask: Task?) {
+        guard let controller: WorkTimeViewControlleralbe = storyboardsManager.controller(storyboard: .workTime, controllerIdentifier: .initial) else { return }
+        let viewModel = WorkTimeViewModel(userInterface: controller,
+                                          apiClient: apiClient,
+                                          errorHandler: errorHandler,
+                                          calendar: Calendar.autoupdatingCurrent,
+                                          lastTask: lastTask,
+                                          editedTask: editedTask,
+                                          duplicatedTask: duplicatedTask)
+        controller.configure(viewModel: viewModel, notificationCenter: NotificationCenter.default)
+        showWorkTimeController(controller: controller, sourceView: sourceView)
+    }
+    
     private func showWorkTimeController(controller: UIViewController, sourceView: UIView) {
         controller.modalPresentationStyle = .popover
         controller.preferredContentSize = CGSize(width: 300, height: 320)
@@ -77,26 +91,14 @@ class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCordninatorType
 // MARK: - WorkTimesCoordinatorDelegate
 extension WorkTimesCoordinator: WorkTimesCoordinatorDelegate {
     func workTimesRequestedForNewWorkTimeView(sourceView: UIButton, lastTask: Task?) {
-        guard let controller: WorkTimeViewControlleralbe = storyboardsManager.controller(storyboard: .workTime, controllerIdentifier: .initial) else { return }
-        let viewModel = WorkTimeViewModel(userInterface: controller,
-                                          apiClient: apiClient,
-                                          errorHandler: errorHandler,
-                                          calendar: Calendar.autoupdatingCurrent,
-                                          lastTask: lastTask,
-                                          editedTask: nil)
-        controller.configure(viewModel: viewModel, notificationCenter: NotificationCenter.default)
-        showWorkTimeController(controller: controller, sourceView: sourceView)
+        self.runWorkTimeFlow(sourceView: sourceView, lastTask: lastTask, editedTask: nil, duplicatedTask: nil)
     }
     
     func workTimesRequestedForEditWorkTimeView(sourceView: UIView, editedTask: Task) {
-        guard let controller: WorkTimeViewControlleralbe = storyboardsManager.controller(storyboard: .workTime, controllerIdentifier: .initial) else { return }
-        let viewModel = WorkTimeViewModel(userInterface: controller,
-                                          apiClient: apiClient,
-                                          errorHandler: errorHandler,
-                                          calendar: Calendar.autoupdatingCurrent,
-                                          lastTask: nil,
-                                          editedTask: editedTask)
-        controller.configure(viewModel: viewModel, notificationCenter: NotificationCenter.default)
-        showWorkTimeController(controller: controller, sourceView: sourceView)
+        self.runWorkTimeFlow(sourceView: sourceView, lastTask: nil, editedTask: editedTask, duplicatedTask: nil)
+    }
+    
+    func workTimesRequestedForDuplicateWorkTimeView(sourceView: UIView, duplicatedTask: Task, lastTask: Task?) {
+        self.runWorkTimeFlow(sourceView: sourceView, lastTask: lastTask, editedTask: nil, duplicatedTask: duplicatedTask)
     }
 }

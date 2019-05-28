@@ -84,7 +84,8 @@ class WorkTimesCoordinatorTests: XCTestCase {
         //Arrange
         let view = UIView()
         //Act
-        workTimeCoordinator.workTimesRequestedForEditWorkTimeView(sourceView: view, editedTask: createTask())        //Assert
+        workTimeCoordinator.workTimesRequestedForEditWorkTimeView(sourceView: view, editedTask: createTask())
+        //Assert
         XCTAssertNil(workTimeCoordinator.root.children.last)
     }
     
@@ -105,6 +106,20 @@ class WorkTimesCoordinatorTests: XCTestCase {
         storyboardsManagerMock.workTimeController = controllerMock
         //Act
         workTimeCoordinator.workTimesRequestedForEditWorkTimeView(sourceView: view, editedTask: createTask())
+        //Assert
+        XCTAssertNil(workTimeCoordinator.root.children.last)
+        XCTAssertTrue(controllerMock.configureViewModelData.called)
+        XCTAssertEqual(controllerMock.modalPresentationStyle, .popover)
+    }
+    
+    func testWorkTimesRequestedForDuplicateWorkTimeView_succeed() {
+        //Arrange
+        let task = createTask()
+        let view = UIView()
+        let controllerMock = WorkTimeViewControllerMock()
+        storyboardsManagerMock.workTimeController = controllerMock
+        //Act
+        workTimeCoordinator.workTimesRequestedForDuplicateWorkTimeView(sourceView: view, duplicatedTask: task, lastTask: task)
         //Assert
         XCTAssertNil(workTimeCoordinator.root.children.last)
         XCTAssertTrue(controllerMock.configureViewModelData.called)

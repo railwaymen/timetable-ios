@@ -26,6 +26,7 @@ protocol WorkTimesViewModelType: class {
     func viewRequestForCellType(at index: IndexPath) -> WorkTimesViewModel.CellType
     func viewRequestForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType?
     func viewRequestForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType?
+    func viewRequestToDuplicate(sourceView: UITableViewCell, at indexPath: IndexPath)
     func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void)
     func viewRequestForNewWorkTimeView(sourceView: UIButton)
     func viewRequestedForEditEntry(sourceView: UITableViewCell, at indexPath: IndexPath)
@@ -116,6 +117,12 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     func viewRequestForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType? {
         guard dailyWorkTimesArray.count > section else { return nil }
         return WorkTimesTableViewHeaderViewModel(userInterface: header, dailyWorkTime: dailyWorkTimesArray[section])
+    }
+    
+    func viewRequestToDuplicate(sourceView: UITableViewCell, at indexPath: IndexPath) {
+        guard let task = self.createTask(for: indexPath) else { return }
+        let lastTask = createTask(for: IndexPath(row: 0, section: 0))
+        self.coordinator.workTimesRequestedForDuplicateWorkTimeView(sourceView: sourceView, duplicatedTask: task, lastTask: lastTask)
     }
     
     func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void) {
