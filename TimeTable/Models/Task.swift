@@ -16,6 +16,7 @@ struct Task: Encodable {
     var day: Date?
     var startAt: Date?
     var endAt: Date?
+    var tag: ProjectTag = .development
     
     enum CodingKeys: String, CodingKey {
         case projectId = "project_id"
@@ -23,6 +24,7 @@ struct Task: Encodable {
         case task
         case startAt = "starts_at"
         case endAt = "ends_at"
+        case tag
     }
     
     var title: String {
@@ -71,6 +73,7 @@ struct Task: Encodable {
             try container.encode(startAtDate, forKey: .startAt)
             let endAtDate = combine(day: day, time: endAt)
             try container.encode(endAtDate, forKey: .endAt)
+            try? container.encode(tag.rawValue, forKey: .tag)
         }
     }
     

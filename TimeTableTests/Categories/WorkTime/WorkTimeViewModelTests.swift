@@ -626,7 +626,8 @@ class WorkTimeViewModelTests: XCTestCase {
                     url: try URL(string: "http://example.com").unwrap(),
                     day: Date(),
                     startAt: try createTime(hours: 8, minutes: 0),
-                    endAt: try createTime(hours: 9, minutes: 30))
+                    endAt: try createTime(hours: 9, minutes: 30),
+                    tag: .development)
     }
     
     private func createTime(hours: Int, minutes: Int) throws -> Date {

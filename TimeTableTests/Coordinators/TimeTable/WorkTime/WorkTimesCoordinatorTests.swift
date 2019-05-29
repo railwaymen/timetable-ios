@@ -134,6 +134,7 @@ class WorkTimesCoordinatorTests: XCTestCase {
                     url: nil,
                     day: Date(),
                     startAt: Date(),
-                    endAt: Date().addingTimeInterval(3600))
+                    endAt: Date().addingTimeInterval(3600),
+                    tag: .development)
     }
 }

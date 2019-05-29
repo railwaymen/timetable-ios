@@ -167,7 +167,14 @@ class ApiClientTests: XCTestCase {
         let data = try self.json(from: WorkTimesProjectResponse.workTimesProjectResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
-        let task = Task(workTimeIdentifier: nil, project: projectDecoder, body: "TEST", url: url, day: day, startAt: startsAt, endAt: endsAt)
+        let task = Task(workTimeIdentifier: nil,
+                        project: projectDecoder,
+                        body: "TEST",
+                        url: url,
+                        day: day,
+                        startAt: startsAt,
+                        endAt: endsAt,
+                        tag: .development)
         requestEncoderMock.isEncodeToDictionaryThrowingError = true
         //Act
         apiClient.post(Endpoints.workTimes, parameters: task) { (result: TimeTable.Result<Void>) in
@@ -202,7 +209,14 @@ class ApiClientTests: XCTestCase {
         let data = try self.json(from: WorkTimesProjectResponse.workTimesProjectResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
-        let task = Task(workTimeIdentifier: nil, project: projectDecoder, body: "TEST", url: url, day: day, startAt: startsAt, endAt: endsAt)
+        let task = Task(workTimeIdentifier: nil,
+                        project: projectDecoder,
+                        body: "TEST",
+                        url: url,
+                        day: day,
+                        startAt: startsAt,
+                        endAt: endsAt,
+                        tag: .development)
         //Act
         apiClient.post(Endpoints.workTimes, parameters: task) { (result: TimeTable.Result<Void>) in
             switch result {
@@ -234,7 +248,14 @@ class ApiClientTests: XCTestCase {
         let data = try self.json(from: WorkTimesProjectResponse.workTimesProjectResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
-        let task = Task(workTimeIdentifier: nil, project: projectDecoder, body: "TEST", url: url, day: day, startAt: startsAt, endAt: endsAt)
+        let task = Task(workTimeIdentifier: nil,
+                        project: projectDecoder,
+                        body: "TEST",
+                        url: url,
+                        day: day,
+                        startAt: startsAt,
+                        endAt: endsAt,
+                        tag: .development)
         //Act
         apiClient.post(Endpoints.workTimes, parameters: task) { (result: TimeTable.Result<Void>) in
             switch result {
@@ -477,7 +498,14 @@ class ApiClientTests: XCTestCase {
         let data = try self.json(from: WorkTimesProjectResponse.workTimesProjectResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
-        let task = Task(workTimeIdentifier: nil, project: projectDecoder, body: "TEST", url: url, day: day, startAt: startsAt, endAt: endsAt)
+        let task = Task(workTimeIdentifier: nil,
+                        project: projectDecoder,
+                        body: "TEST",
+                        url: url,
+                        day: day,
+                        startAt: startsAt,
+                        endAt: endsAt,
+                        tag: .development)
         requestEncoderMock.isEncodeToDictionaryThrowingError = true
         //Act
         apiClient.put(Endpoints.workTimes, parameters: task) { (result: TimeTable.Result<Void>) in
@@ -511,7 +539,14 @@ class ApiClientTests: XCTestCase {
         let data = try self.json(from: WorkTimesProjectResponse.workTimesProjectResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
-        let task = Task(workTimeIdentifier: nil, project: projectDecoder, body: "TEST", url: url, day: day, startAt: startsAt, endAt: endsAt)
+        let task = Task(workTimeIdentifier: nil,
+                        project: projectDecoder,
+                        body: "TEST",
+                        url: url,
+                        day: day,
+                        startAt: startsAt,
+                        endAt: endsAt,
+                        tag: .development)
         //Act
         apiClient.put(Endpoints.workTimes, parameters: task) { (result: TimeTable.Result<Void>) in
             switch result {
@@ -544,7 +579,14 @@ class ApiClientTests: XCTestCase {
         let data = try self.json(from: WorkTimesProjectResponse.workTimesProjectResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
-        let task = Task(workTimeIdentifier: nil, project: projectDecoder, body: "TEST", url: url, day: day, startAt: startsAt, endAt: endsAt)
+        let task = Task(workTimeIdentifier: nil,
+                        project: projectDecoder,
+                        body: "TEST",
+                        url: url,
+                        day: day,
+                        startAt: startsAt,
+                        endAt: endsAt,
+                        tag: .development)
         //Act
         apiClient.put(Endpoints.workTimes, parameters: task) { (result: TimeTable.Result<Void>) in
             switch result {

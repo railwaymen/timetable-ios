@@ -16,6 +16,7 @@ class WorkTimeViewControllerMock: WorkTimeViewControlleralbe {
     // swiftlint:enable large_tuple
     private(set) var dismissViewCalled = false
     private(set) var reloadProjectPickerCalled = false
+    private(set) var reloadTagsPickerCalled = false
     private(set) var dissmissKeyboardCalled = false
     private(set) var setMinimumDateForTypeToDateValues: (called: Bool, minDate: Date?) = (false, nil)
     private(set) var updateDayValues: (date: Date?, dateString: String?) = (nil, nil)
@@ -37,6 +38,10 @@ class WorkTimeViewControllerMock: WorkTimeViewControlleralbe {
     
     func reloadProjectPicker() {
         reloadProjectPickerCalled = true
+    }
+    
+    func reloadTagsView() {
+        reloadTagsPickerCalled = true
     }
     
     func dissmissKeyboard() {
