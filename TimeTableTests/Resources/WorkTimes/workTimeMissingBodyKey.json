@@ -8,6 +8,7 @@
     "task": "https://www.example.com/task1",
     "task_preview": "task1",
     "user_id": 11,
+    "tag": "dev",
     "project": {
         "id": 3,
         "name": "Lorem Ipsum",

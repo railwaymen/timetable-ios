@@ -22,6 +22,7 @@ struct WorkTimeDecoder: Decodable {
     let userIdentifier: Int
     let project: ProjectDecoder
     let date: Date
+    let tag: ProjectTag
     
     private static var simpleDateFormatter: DateFormatter {
         return DateFormatter(type: .simple)
@@ -40,6 +41,7 @@ struct WorkTimeDecoder: Decodable {
         case userIdentifier = "user_id"
         case project
         case date
+        case tag
     }
     
     // MARK: - Initialization
@@ -56,6 +58,7 @@ struct WorkTimeDecoder: Decodable {
         self.taskPreview = try? container.decode(String.self, forKey: .taskPreview)
         self.userIdentifier = try container.decode(Int.self, forKey: .userIdentifier)
         self.project = try container.decode(ProjectDecoder.self, forKey: .project)
+        self.tag = try container.decode(ProjectTag.self, forKey: .tag)
         
         let dateString = try container.decode(String.self, forKey: .date)
         if let date = WorkTimeDecoder.simpleDateFormatter.date(from: dateString) {

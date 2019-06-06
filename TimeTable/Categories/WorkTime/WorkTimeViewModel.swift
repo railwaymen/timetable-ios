@@ -12,6 +12,7 @@ protocol WorkTimeViewModelOutput: class {
     func setUp(currentProjectName: String, isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?)
     func dismissView()
     func reloadProjectPicker()
+    func reloadTagsView()
     func dissmissKeyboard()
     func setMinimumDateForTypeEndAtDate(minDate: Date)
     func updateDay(with date: Date, dateString: String)
@@ -24,7 +25,11 @@ protocol WorkTimeViewModelType: class {
     func viewDidLoad()
     func viewRequestedForNumberOfProjects() -> Int
     func viewRequestedForProjectTitle(atRow row: Int) -> String?
+    func viewRequestedForNumberOfTags() -> Int
+    func viewRequestedForTag(at index: IndexPath) -> ProjectTag?
     func viewSelectedProject(atRow row: Int)
+    func viewSelectedTag(at index: IndexPath)
+    func isTagSelected(at index: IndexPath) -> Bool
     func viewRequestedToFinish()
     func taskNameDidChange(value: String?)
     func setDefaultTask()
@@ -47,6 +52,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     private let lastTask: Task?
     private var projects: [ProjectDecoder]
     private var task: Task
+    private var tags: [ProjectTag]
     
     private lazy var addUpdateCompletionHandler: (Result<Void>) -> Void = { [weak self] result in
         switch result {
@@ -81,8 +87,10 @@ class WorkTimeViewModel: WorkTimeViewModelType {
             url: duplicatedTask?.url,
             day: Date(),
             startAt: lastTask?.endAt,
-            endAt: nil)
+            endAt: nil,
+            tag: duplicatedTask?.tag ?? .development)
         self.projects = []
+        self.tags = []
     }
     
     // MARK: - WorkTimeViewModelType
@@ -98,6 +106,19 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     
     func viewRequestedForProjectTitle(atRow row: Int) -> String? {
         return projects.count > row ? projects[row].name : nil
+    }
+    
+    func viewRequestedForNumberOfTags() -> Int {
+        return self.tags.count
+    }
+    
+    func viewRequestedForTag(at index: IndexPath) -> ProjectTag? {
+        return self.tags.count > index.row ? self.tags[index.row] : nil
+    }
+    
+    func isTagSelected(at index: IndexPath) -> Bool {
+        guard self.tags.count > index.row else { return false }
+        return self.tags[index.row] == self.task.tag
     }
     
     func setDefaultTask() {
@@ -119,6 +140,12 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         guard projects.count > row else { return }
         task.project = .some(projects[row])
         updateViewWithCurrentSelectedProject()
+    }
+    
+    func viewSelectedTag(at index: IndexPath) {
+        guard self.tags.count > index.row else { return }
+        self.task.tag = self.tags[index.row]
+        self.userInterface?.reloadTagsView()
     }
     
     func viewRequestedToFinish() {
@@ -260,7 +287,9 @@ class WorkTimeViewModel: WorkTimeViewModelType {
             switch result {
             case .success(let simpleProjectDecoder):
                 self?.projects = simpleProjectDecoder.projects.filter { $0.isActive ?? false }
+                self?.tags = simpleProjectDecoder.tags.filter { $0 != .development }
                 self?.userInterface?.reloadProjectPicker()
+                self?.userInterface?.reloadTagsView()
                 self?.setDefaultTask()
             case .failure(let error):
                 self?.errorHandler.throwing(error: error)

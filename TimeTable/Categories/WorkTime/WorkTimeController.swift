@@ -26,6 +26,7 @@ class WorkTimeController: UIViewController {
     @IBOutlet private var taskURLViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private var taskURLTextField: UITextField!
     @IBOutlet private var taskURLView: UIView!
+    @IBOutlet private var tagsCollectionView: UICollectionView!
     
     private var projectPicker: UIPickerView!
     private var dayPicker: UIDatePicker!
@@ -126,10 +127,43 @@ extension WorkTimeController: UIPickerViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegate
+extension WorkTimeController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.reuseIdentifier,
+                                                            for: indexPath) as? TagCollectionViewCell else {
+                                                                return UICollectionViewCell()
+        }
+        guard let tag = self.viewModel.viewRequestedForTag(at: indexPath) else { return UICollectionViewCell() }
+        let isSelected = self.viewModel.isTagSelected(at: indexPath)
+        let viewModel = TagCollectionCellViewModel(userInterface: cell,
+                                                   projectTag: tag,
+                                                   isSelected: isSelected)
+        cell.configure(viewModel: viewModel)
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.viewModel.viewSelectedTag(at: indexPath)
+    }
+}
+
+// MARK: - UICollectionViewDataSource
+extension WorkTimeController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.viewModel.viewRequestedForNumberOfTags()
+    }
+}
+
 // MARK: - WorkTimeViewModelOutput
 extension WorkTimeController: WorkTimeViewModelOutput {
     func reloadProjectPicker() {
         projectPicker.reloadAllComponents()
+    }
+    
+    func reloadTagsView() {
+        tagsCollectionView.reloadData()
     }
     
     func setUp(currentProjectName: String, isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?) {
@@ -173,6 +207,9 @@ extension WorkTimeController: WorkTimeViewModelOutput {
         endAtDatePicker.minuteInterval = 5
         endAtDatePicker.addTarget(self, action: #selector(endAtDateTextFieldDidChanged), for: .valueChanged)
         endAtDateTextField.inputView = endAtDatePicker
+        
+        tagsCollectionView.delegate = self
+        tagsCollectionView.dataSource = self
     }
     
     func dismissView() {

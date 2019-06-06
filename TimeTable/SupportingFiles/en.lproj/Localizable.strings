@@ -63,3 +63,8 @@
 "day.yesterday" = "Yesterday";
 
 "conjunction.or" = "or";
+
+// Tags
+"project_im" = "Internal meeting";
+"project_cc" = "Client comunication";
+"project_res" = "Research";

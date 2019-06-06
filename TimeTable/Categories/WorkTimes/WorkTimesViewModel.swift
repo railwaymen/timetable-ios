@@ -176,7 +176,8 @@ class WorkTimesViewModel: WorkTimesViewModelType {
                     url: url,
                     day: dailyWorkTime.day,
                     startAt: workTime.startsAt,
-                    endAt: workTime.endsAt)
+                    endAt: workTime.endsAt,
+                    tag: workTime.tag)
     }
         
     private func removeDailyWorkTime(at indexPath: IndexPath, workTime: WorkTimeDecoder, completion: @escaping (Bool) -> Void) {

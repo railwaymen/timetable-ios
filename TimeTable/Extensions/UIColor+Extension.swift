@@ -11,6 +11,9 @@ import UIKit
 extension UIColor {
     
     static var crimson: UIColor = UIColor(hex6: 0xCB142A)
+    static var anzac: UIColor = UIColor(hex6: 0xE0B73F)
+    static var rouge: UIColor = UIColor(hex6: 0xA54294)
+    static var conifier: UIColor = UIColor(hex6: 0x86D64A)
     
     // MARK: - Initialization
     convenience init(hexString: String, alpha: CGFloat = 1.0) {
