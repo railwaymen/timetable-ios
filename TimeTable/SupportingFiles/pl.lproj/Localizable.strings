@@ -65,6 +65,6 @@
 "conjunction.or" = "lub";
 
 // Tags
-"im" = "Spotkanie wewnętrzne";
-"cc" = "Rozmowa z klientem";
-"res" = "Poszukiwanie informacji";
+"project_im" = "Spotkanie wewnętrzne";
+"project_cc" = "Rozmowa z klientem";
+"project_res" = "Poszukiwanie informacji";

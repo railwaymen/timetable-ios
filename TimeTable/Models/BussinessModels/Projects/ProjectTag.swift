@@ -14,16 +14,16 @@ enum ProjectTag: String, Codable {
     case clientCommunication = "cc"
     case research = "res"
     
-    var lozalized: String {
-        return self.rawValue.localized
+    var localized: String {
+        return ("project_" + self.rawValue).localized
     }
     
     var color: UIColor {
         switch self {
+        case .development: return .white
         case .clientCommunication: return .rouge
         case .internalMeeting: return .anzac
         case .research: return .conifier
-        default: return .white
         }
     }
 }

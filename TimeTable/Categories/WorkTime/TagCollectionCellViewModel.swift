@@ -32,7 +32,7 @@ class TagCollectionCellViewModel: TagCollectionCellViewModelType {
     
     // MARK: - TagCollectionCellViewModelType
     func configure() {
-        self.userInterface?.setUp(title: self.projectTag.lozalized,
+        self.userInterface?.setUp(title: self.projectTag.localized,
                                   color: self.projectTag.color,
                                   isSelected: self.isSelected)
     }

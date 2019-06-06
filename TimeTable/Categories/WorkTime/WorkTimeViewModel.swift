@@ -29,7 +29,7 @@ protocol WorkTimeViewModelType: class {
     func viewRequestedForTag(at index: IndexPath) -> ProjectTag?
     func viewSelectedProject(atRow row: Int)
     func viewSelectedTag(at index: IndexPath)
-    func viewRequestIfTagIsSelected(at index: IndexPath) -> Bool
+    func isTagSelected(at index: IndexPath) -> Bool
     func viewRequestedToFinish()
     func taskNameDidChange(value: String?)
     func setDefaultTask()
@@ -116,7 +116,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         return self.tags.count > index.row ? self.tags[index.row] : nil
     }
     
-    func viewRequestIfTagIsSelected(at index: IndexPath) -> Bool {
+    func isTagSelected(at index: IndexPath) -> Bool {
         guard self.tags.count > index.row else { return false }
         return self.tags[index.row] == self.task.tag
     }

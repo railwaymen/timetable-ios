@@ -65,6 +65,6 @@
 "conjunction.or" = "or";
 
 // Tags
-"im" = "Internal meeting";
-"cc" = "Client comunication";
-"res" = "Research";
+"project_im" = "Internal meeting";
+"project_cc" = "Client comunication";
+"project_res" = "Research";

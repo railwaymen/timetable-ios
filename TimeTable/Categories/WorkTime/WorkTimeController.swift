@@ -127,7 +127,7 @@ extension WorkTimeController: UIPickerViewDataSource {
     }
 }
 
-// MARK: -
+// MARK: - UICollectionViewDelegate
 extension WorkTimeController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.reuseIdentifier,
@@ -135,7 +135,7 @@ extension WorkTimeController: UICollectionViewDelegate {
                                                                 return UICollectionViewCell()
         }
         guard let tag = self.viewModel.viewRequestedForTag(at: indexPath) else { return UICollectionViewCell() }
-        let isSelected = self.viewModel.viewRequestIfTagIsSelected(at: indexPath)
+        let isSelected = self.viewModel.isTagSelected(at: indexPath)
         let viewModel = TagCollectionCellViewModel(userInterface: cell,
                                                    projectTag: tag,
                                                    isSelected: isSelected)
@@ -149,6 +149,7 @@ extension WorkTimeController: UICollectionViewDelegate {
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension WorkTimeController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel.viewRequestedForNumberOfTags()
