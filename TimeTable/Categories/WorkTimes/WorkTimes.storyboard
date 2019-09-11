@@ -71,18 +71,13 @@
                                                     <rect key="frame" x="126" y="0.0" width="126" height="50"/>
                                                     <color key="backgroundColor" red="0.80000000000000004" green="0.078431372549019607" blue="0.16862745098039217" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="140" id="AcU-aE-un4"/>
+                                                        <constraint firstAttribute="width" priority="999" constant="140" id="AcU-aE-un4"/>
                                                         <constraint firstAttribute="height" constant="50" id="vxN-hN-ayA"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="18"/>
                                                     <state key="normal" title="Button">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
-                                                    <variation key="heightClass=regular-widthClass=compact">
-                                                        <mask key="constraints">
-                                                            <exclude reference="AcU-aE-un4"/>
-                                                        </mask>
-                                                    </variation>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DdI-8m-JGR">
                                                     <rect key="frame" x="252" y="0.0" width="126" height="50"/>
@@ -159,18 +154,18 @@
                                         <constraint firstAttribute="trailing" secondItem="zXQ-Am-GFA" secondAttribute="trailing" constant="18" id="4CQ-dj-3vm">
                                             <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                                         </constraint>
-                                        <constraint firstItem="KTO-4j-KGE" firstAttribute="leading" secondItem="chj-g6-Xkk" secondAttribute="leading" constant="18" id="Fm4-t9-xVN"/>
+                                        <constraint firstItem="KTO-4j-KGE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="chj-g6-Xkk" secondAttribute="leading" constant="18" id="Fm4-t9-xVN"/>
                                         <constraint firstItem="zXQ-Am-GFA" firstAttribute="centerY" secondItem="hFZ-05-2OL" secondAttribute="centerY" id="Fnv-mn-Yxj"/>
-                                        <constraint firstItem="KTO-4j-KGE" firstAttribute="centerX" secondItem="chj-g6-Xkk" secondAttribute="centerX" id="b3s-tO-oM1"/>
                                         <constraint firstItem="zXQ-Am-GFA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hFZ-05-2OL" secondAttribute="trailing" constant="5" id="hrP-5h-5rZ"/>
                                         <constraint firstItem="hFZ-05-2OL" firstAttribute="leading" secondItem="chj-g6-Xkk" secondAttribute="leading" constant="18" id="lf7-OV-3AM">
                                             <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                                         </constraint>
+                                        <constraint firstItem="KTO-4j-KGE" firstAttribute="centerX" secondItem="chj-g6-Xkk" secondAttribute="centerX" id="qOn-yz-3wQ"/>
                                         <constraint firstAttribute="bottom" secondItem="hFZ-05-2OL" secondAttribute="bottom" constant="30" id="qPI-4M-qSc">
                                             <variation key="heightClass=compact-widthClass=regular" constant="10"/>
                                         </constraint>
                                         <constraint firstItem="KTO-4j-KGE" firstAttribute="top" secondItem="chj-g6-Xkk" secondAttribute="top" constant="10" id="vTN-JP-JJy"/>
-                                        <constraint firstAttribute="trailing" secondItem="KTO-4j-KGE" secondAttribute="trailing" constant="18" id="wlx-0s-b3A"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="KTO-4j-KGE" secondAttribute="trailing" constant="18" id="wlx-0s-b3A"/>
                                         <constraint firstItem="hFZ-05-2OL" firstAttribute="top" secondItem="KTO-4j-KGE" secondAttribute="bottom" constant="30" id="zDd-JT-7g0">
                                             <variation key="heightClass=compact-widthClass=regular" constant="10"/>
                                         </constraint>
