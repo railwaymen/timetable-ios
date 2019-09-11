@@ -14,6 +14,8 @@ prepare_proj:
     - envsubst '$DEBUG_APP_NAME $DEBUG_APP_BUNDLE_ID $APP_TEST_BUNDLE_ID $DEVELOPMENT_TEAM_ID' < Configuration/env_debug.xcconfig.tpl > Configuration/Debug.xcconfig
     - envsubst '$STAGE_APP_NAME $STAGE_APP_BUNDLE_ID $APP_TEST_BUNDLE_ID $DEVELOPMENT_TEAM_ID' < Configuration/env_stage.xcconfig.tpl > Configuration/Stage.xcconfig
     - envsubst '$RELEASE_APP_NAME $RELEASE_APP_BUNDLE_ID $APP_TEST_BUNDLE_ID $DEVELOPMENT_TEAM_ID' < Configuration/env_release.xcconfig.tpl > Configuration/Release.xcconfig
+    - rvm --create use ruby-2.6.0@timetable-ios
+    - gem install bundler:2.0.2
     - bundle install --path vendor/bundle
     - bundle exec pod install || bundle exec pod install --repo-update
     - export
@@ -37,6 +39,8 @@ test_project:
     - export
     - export LC_ALL=en_US.UTF-8
     - export LANG=en_US.UTF-8
+    - rvm --create use ruby-2.6.0@timetable-ios
+    - gem install bundler:2.0.2
     - bundle install --path vendor/bundle
     - bundle exec fastlane test
   after_script:
