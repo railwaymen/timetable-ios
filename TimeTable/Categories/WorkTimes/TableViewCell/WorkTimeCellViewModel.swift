@@ -9,7 +9,7 @@
 import UIKit
 
 protocol WorkTimeCellViewModelOutput: class {
-    func updateView(durationText: String?, bodyText: String?, taskUrlText: String?, fromToDateText: String?, projectTitle: String?, projectColor: UIColor?)
+    func updateView(data: WorkTimeCellViewModel.ViewData)
 }
 
 protocol WorkTimeCellViewModelType: class {
@@ -52,11 +52,26 @@ class WorkTimeCellViewModel: WorkTimeCellViewModelType {
         let startsAtText = DateFormatter.localizedString(from: workTime.startsAt, dateStyle: .none, timeStyle: .short)
         let endsAtText = DateFormatter.localizedString(from: workTime.endsAt, dateStyle: .none, timeStyle: .short)
         let fromToDateText = "\(startsAtText) - \(endsAtText)"
-        userInterface?.updateView(durationText: durationText,
-                                  bodyText: workTime.body,
-                                  taskUrlText: workTime.taskPreview,
-                                  fromToDateText: fromToDateText,
-                                  projectTitle: workTime.project.name,
-                                  projectColor: workTime.project.color)
+        let data = WorkTimeCellViewModel.ViewData(durationText: durationText,
+                                                  bodyText: workTime.body,
+                                                  taskUrlText: workTime.taskPreview,
+                                                  fromToDateText: fromToDateText,
+                                                  projectTitle: workTime.project.name,
+                                                  projectColor: workTime.project.color,
+                                                  tagTitle: workTime.tag.localized,
+                                                  tagColor: workTime.tag.color)
+        userInterface?.updateView(data: data)
+    }
+    
+    // MARK: - Structures
+    struct ViewData {
+        let durationText: String?
+        let bodyText: String?
+        let taskUrlText: String?
+        let fromToDateText: String?
+        let projectTitle: String?
+        let projectColor: UIColor?
+        let tagTitle: String?
+        let tagColor: UIColor?
     }
 }

@@ -393,7 +393,7 @@ class WorkTimesViewModelTests: XCTestCase {
 
 // MARK: -
 private class WorkTimeCellViewMock: WorkTimeCellViewModelOutput {
-    func updateView(durationText: String?, bodyText: String?, taskUrlText: String?, fromToDateText: String?, projectTitle: String?, projectColor: UIColor?) {}
+    func updateView(data: WorkTimeCellViewModel.ViewData) {}
 }
 
 private class WorkTimesTableViewHeaderViewMock: WorkTimesTableViewHeaderViewModelOutput {

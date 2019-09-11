@@ -24,7 +24,6 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
     private let tableViewEstimatedRowHeight: CGFloat = 150
     private let heightForHeader: CGFloat = 50
     private let workTimeStandardCellReuseIdentifier = "WorkTimeStandardTableViewCellReuseIdentifier"
-    private let workTimeWithURLCellReuseIdentifier = "WorkTimeWithUrlTableViewCellReuseIdentifier"
     private let workTimesTableViewHeaderIdentifier = "WorkTimesTableViewHeaderIdentifier"
     private var viewModel: WorkTimesViewModelType!
     
@@ -54,15 +53,7 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let cellType = viewModel.viewRequestForCellType(at: indexPath)
-        var cell: WorkTimeTableViewCellalbe?
-        switch cellType {
-        case .standard:
-            cell = tableView.dequeueReusableCell(withIdentifier: workTimeStandardCellReuseIdentifier, for: indexPath) as? WorkTimeTableViewCellalbe
-        case .taskURL:
-            cell = tableView.dequeueReusableCell(withIdentifier: workTimeWithURLCellReuseIdentifier, for: indexPath) as? WorkTimeTableViewCellalbe
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: workTimeStandardCellReuseIdentifier, for: indexPath) as? WorkTimeTableViewCellalbe
         guard let workTimeCell = cell else { return UITableViewCell() }
         guard let cellViewModel = viewModel.viewRequestForCellModel(at: indexPath, cell: workTimeCell) else { return UITableViewCell() }
         workTimeCell.configure(viewModel: cellViewModel)

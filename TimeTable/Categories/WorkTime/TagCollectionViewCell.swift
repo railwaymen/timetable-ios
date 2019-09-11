@@ -31,7 +31,7 @@ extension TagCollectionViewCell: TagCollectionViewCellType {
 
 // MARK: - TagCollectionCellViewModelOutput
 extension TagCollectionViewCell: TagCollectionCellViewModelOutput {
-    func setUp(title: String, color: UIColor, isSelected: Bool) {
+    func setUp(title: String?, color: UIColor, isSelected: Bool) {
         self.titleLabel.text = title
         self.titleLabel.textColor = isSelected ? .white : color
         self.view.backgroundColor = isSelected ? color : .white

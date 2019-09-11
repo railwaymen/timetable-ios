@@ -88,7 +88,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
             day: Date(),
             startAt: lastTask?.endAt,
             endAt: nil,
-            tag: duplicatedTask?.tag ?? .development)
+            tag: duplicatedTask?.tag ?? .default)
         self.projects = []
         self.tags = []
     }

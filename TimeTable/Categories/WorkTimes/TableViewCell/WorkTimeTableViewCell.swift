@@ -15,26 +15,45 @@ protocol WorkTimeTableViewCellType: class {
 }
 
 class WorkTimeTableViewCell: UITableViewCell {
-    @IBOutlet internal var projectViews: [UIView]!
-    @IBOutlet internal var projectTitleLabel: UILabel!
-    @IBOutlet internal var durationLabel: UILabel!
-    @IBOutlet internal var bodyLabel: UILabel!
-    @IBOutlet internal var fromToDateLabel: UILabel!
+    @IBOutlet private var projectViews: [UIView]!
+    @IBOutlet private var projectTitleLabel: UILabel!
+    @IBOutlet private var durationLabel: UILabel!
+    @IBOutlet private var fromToDateLabel: UILabel!
+    @IBOutlet private var stackView: UIStackView!
+    @IBOutlet private var bodyLabel: UILabel!
+    @IBOutlet private var taskButton: UIButton!
+    @IBOutlet private var tagView: AttributedView!
+    @IBOutlet private var tagLabel: UILabel!
     
     private weak var viewModel: WorkTimeCellViewModelType?
     
     // MARK: - Overriden
     override func prepareForReuse() {
         super.prepareForReuse()
-        viewModel?.prepareForReuse()
+        self.viewModel?.prepareForReuse()
     }
     
-    internal func update(durationText: String?, bodyText: String?, fromToDateText: String?, projectTitle: String?, projectColor: UIColor?) {
-        self.fromToDateLabel.text = fromToDateText
-        self.durationLabel.text = durationText
-        self.bodyLabel.text = bodyText
-        self.projectTitleLabel.text = projectTitle
-        self.projectViews.forEach { $0.backgroundColor = projectColor }
+    // MARK: - IBAction
+    @IBAction private func taskButtonTapped(_ sender: UIButton) {
+        // TO_DO: - redirect to task preview
+    }
+}
+
+// MARK: - WorkTimeCellViewModelOutput
+extension WorkTimeTableViewCell: WorkTimeCellViewModelOutput {
+    func updateView(data: WorkTimeCellViewModel.ViewData) {
+        self.fromToDateLabel.text = data.fromToDateText
+        self.durationLabel.text = data.durationText
+        self.bodyLabel.text = data.bodyText
+        self.projectTitleLabel.text = data.projectTitle
+        self.projectViews.forEach { $0.backgroundColor = data.projectColor }
+        self.taskButton.isHidden = data.taskUrlText == nil
+        self.taskButton?.setTitle(data.taskUrlText, for: .normal)
+        self.tagView.isHidden = data.tagTitle == nil
+        self.tagLabel.text = data.tagTitle
+        self.tagView.backgroundColor = data.tagColor
+        self.stackView.setCustomSpacing(16, after: self.taskButton)
+        self.stackView.setCustomSpacing(self.taskButton.isHidden ? 16 : 8, after: self.bodyLabel)
     }
 }
 
