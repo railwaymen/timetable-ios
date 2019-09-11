@@ -144,7 +144,8 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     
     func viewSelectedTag(at index: IndexPath) {
         guard self.tags.count > index.row else { return }
-        self.task.tag = self.tags[index.row]
+        let selectedTag = self.tags[index.row]
+        self.task.tag = self.task.tag == selectedTag ? .development : selectedTag
         self.userInterface?.reloadTagsView()
     }
     
