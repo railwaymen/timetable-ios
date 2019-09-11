@@ -9,6 +9,7 @@
 import XCTest
 @testable import TimeTable
 
+// swiftlint:disable file_length
 // swiftlint:disable type_body_length
 class WorkTimesViewModelTests: XCTestCase {
     private var userInterfaceMock: WorkTimesViewControllerMock!
@@ -399,5 +400,5 @@ private class WorkTimeCellViewMock: WorkTimeCellViewModelOutput {
 private class WorkTimesTableViewHeaderViewMock: WorkTimesTableViewHeaderViewModelOutput {
     func updateView(dayText: String?, durationText: String?) {}
 }
-
 // swiftlint:enable type_body_length
+// swiftlint:enable file_length
