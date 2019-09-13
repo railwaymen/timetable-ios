@@ -33,8 +33,8 @@ class TagCollectionViewCellViewModelTests: XCTestCase {
     // MARK: - Private
     private func buildViewModel(tag: ProjectTag = .development, isSelected: Bool = false) -> TagCollectionViewCellViewModel {
         return TagCollectionViewCellViewModel(userInterface: self.userInterfaceMock,
-                                          projectTag: tag,
-                                          isSelected: isSelected
+                                              projectTag: tag,
+                                              isSelected: isSelected
         )
     }
 }
