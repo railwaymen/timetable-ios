@@ -19,15 +19,6 @@ extension DateFormatter {
     convenience init(type: DateType) {
         self.init() 
         dateFormat = type.rawValue
-        if #available(iOS 11.0, *) {
-            self.locale = Locale.autoupdatingCurrent
-        } else {
-            switch type {
-            case .dateAndTimeExtended:
-                self.locale = Locale(identifier: "en_US_POSIX")
-            default:
-                self.locale = Locale.autoupdatingCurrent
-            }
-        }
+        self.locale = Locale.autoupdatingCurrent
     }
 }

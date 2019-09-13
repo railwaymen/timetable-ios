@@ -3,6 +3,8 @@ disabled_rules:
   - xctfail_message
   - multiple_closures_with_trailing_closure
   - closure_parameter_position
+  - identifier_name
+
 nesting:
   type_level:
     warning: 3
