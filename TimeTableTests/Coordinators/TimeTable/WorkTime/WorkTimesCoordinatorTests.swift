@@ -135,6 +135,6 @@ class WorkTimesCoordinatorTests: XCTestCase {
                     day: Date(),
                     startAt: Date(),
                     endAt: Date().addingTimeInterval(3600),
-                    tag: .development)
+                    tag: .default)
     }
 }

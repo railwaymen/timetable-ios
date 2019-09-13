@@ -16,7 +16,7 @@ struct Task: Encodable {
     var day: Date?
     var startAt: Date?
     var endAt: Date?
-    var tag: ProjectTag = .development
+    var tag: ProjectTag = .default
     
     enum CodingKeys: String, CodingKey {
         case projectId = "project_id"

@@ -13,7 +13,7 @@ protocol TagCollectionCellViewModelType: class {
 }
 
 protocol TagCollectionCellViewModelOutput: class {
-    func setUp(title: String, color: UIColor, isSelected: Bool)
+    func setUp(title: String?, color: UIColor, isSelected: Bool)
 }
 
 class TagCollectionCellViewModel: TagCollectionCellViewModelType {

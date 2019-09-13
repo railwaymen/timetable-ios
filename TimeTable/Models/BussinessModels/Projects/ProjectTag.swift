@@ -14,7 +14,12 @@ enum ProjectTag: String, Codable {
     case clientCommunication = "cc"
     case research = "res"
     
-    var localized: String {
+    static var `default`: ProjectTag {
+        return .development
+    }
+    
+    var localized: String? {
+        guard self != .default else { return nil }
         return ("project_" + self.rawValue).localized
     }
     

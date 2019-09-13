@@ -19,8 +19,6 @@
 		C10FD88C21F1FB2800A233C5 /* UserProfileViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88B21F1FB2800A233C5 /* UserProfileViewModelTests.swift */; };
 		C10FD88E21F1FB6200A233C5 /* UserProfileViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88D21F1FB6200A233C5 /* UserProfileViewMock.swift */; };
 		C10FD89021F1FE3800A233C5 /* UserCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88F21F1FE3800A233C5 /* UserCoordinatorMock.swift */; };
-		C11B3F3221F71A1C00C46BA2 /* WorkTimeStandardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B3F3121F71A1C00C46BA2 /* WorkTimeStandardTableViewCell.swift */; };
-		C11B3F3421F71A3000C46BA2 /* WorkTimeWitURLTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B3F3321F71A3000C46BA2 /* WorkTimeWitURLTableViewCell.swift */; };
 		C11B3F3621F7258C00C46BA2 /* DateSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B3F3521F7258C00C46BA2 /* DateSelectorView.swift */; };
 		C11D0CF7220816D800066CA9 /* MatchingFullTimeEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11D0CF6220816D800066CA9 /* MatchingFullTimeEncoderTests.swift */; };
 		C11D0CF9220820BD00066CA9 /* ApiClientMatchingFullTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11D0CF8220820BD00066CA9 /* ApiClientMatchingFullTimeTests.swift */; };
@@ -312,8 +310,6 @@
 		C10FD88B21F1FB2800A233C5 /* UserProfileViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModelTests.swift; sourceTree = "<group>"; };
 		C10FD88D21F1FB6200A233C5 /* UserProfileViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewMock.swift; sourceTree = "<group>"; };
 		C10FD88F21F1FE3800A233C5 /* UserCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoordinatorMock.swift; sourceTree = "<group>"; };
-		C11B3F3121F71A1C00C46BA2 /* WorkTimeStandardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeStandardTableViewCell.swift; sourceTree = "<group>"; };
-		C11B3F3321F71A3000C46BA2 /* WorkTimeWitURLTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeWitURLTableViewCell.swift; sourceTree = "<group>"; };
 		C11B3F3521F7258C00C46BA2 /* DateSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectorView.swift; sourceTree = "<group>"; };
 		C11D0CF6220816D800066CA9 /* MatchingFullTimeEncoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFullTimeEncoderTests.swift; sourceTree = "<group>"; };
 		C11D0CF8220820BD00066CA9 /* ApiClientMatchingFullTimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientMatchingFullTimeTests.swift; sourceTree = "<group>"; };
@@ -1632,8 +1628,6 @@
 			children = (
 				C13429B121A7F9F400F4EA42 /* WorkTimeCellViewModel.swift */,
 				C13429B321A7FB1B00F4EA42 /* WorkTimeTableViewCell.swift */,
-				C11B3F3121F71A1C00C46BA2 /* WorkTimeStandardTableViewCell.swift */,
-				C11B3F3321F71A3000C46BA2 /* WorkTimeWitURLTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -1932,7 +1926,6 @@
 				C125F1B321DCCBE700594CDE /* ApiClient+Projects.swift in Sources */,
 				C13429B421A7FB1B00F4EA42 /* WorkTimeTableViewCell.swift in Sources */,
 				C1B8FA41218C91F3009D10B4 /* LoginCredentials.swift in Sources */,
-				C11B3F3221F71A1C00C46BA2 /* WorkTimeStandardTableViewCell.swift in Sources */,
 				C1F926E6218838B80004A9BC /* LoginViewModel.swift in Sources */,
 				C1E6B350219EF52000019DC2 /* KeyChainType.swift in Sources */,
 				C134295E21A6934C00F4EA42 /* ApiClient+Session.swift in Sources */,
@@ -1951,7 +1944,6 @@
 				C125F1B621DCCF4400594CDE /* ProjectsViewController.swift in Sources */,
 				C125F1AF21DCC95200594CDE /* ProjectRecordDecoder.swift in Sources */,
 				C16B3A75229E6A0700B6E9E6 /* ProjectTag.swift in Sources */,
-				C11B3F3421F71A3000C46BA2 /* WorkTimeWitURLTableViewCell.swift in Sources */,
 				C1AACFCF21A4349B0023FD32 /* ProjectsCoordinator.swift in Sources */,
 				C1FE49E821AC458F00E37E28 /* WorkTimesTableViewHeader.swift in Sources */,
 				C1ECF0A52192C37E006038C6 /* CustomJSONSerialization.swift in Sources */,

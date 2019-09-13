@@ -39,10 +39,10 @@ class WorkTimeCellViewModelTests: XCTestCase {
         //Act
         viewModel.viewConfigured()
         //Assert
-        XCTAssertEqual(userInterface.updateViewData.durationText, "1:00")
-        XCTAssertEqual(userInterface.updateViewData.bodyText, "Bracket - v2")
-        XCTAssertEqual(userInterface.updateViewData.taskUrlText, "task1")
-        XCTAssertEqual(userInterface.updateViewData.fromToDateText, "3:00 PM - 4:00 PM")
+        XCTAssertEqual(userInterface.updateViewData?.durationText, "1:00")
+        XCTAssertEqual(userInterface.updateViewData?.bodyText, "Bracket - v2")
+        XCTAssertEqual(userInterface.updateViewData?.taskUrlText, "task1")
+        XCTAssertEqual(userInterface.updateViewData?.fromToDateText, "3:00 PM - 4:00 PM")
     }
     
     func testPrepareForReuseCallsUpdateView() throws {
@@ -54,20 +54,16 @@ class WorkTimeCellViewModelTests: XCTestCase {
         //Act
         viewModel.prepareForReuse()
         //Assert
-        XCTAssertEqual(userInterface.updateViewData.durationText, "2:00")
-        XCTAssertEqual(userInterface.updateViewData.bodyText, "Bracket - v3")
-        XCTAssertEqual(userInterface.updateViewData.taskUrlText, "task2")
-        XCTAssertEqual(userInterface.updateViewData.fromToDateText, "12:00 PM - 2:00 PM")
+        XCTAssertEqual(userInterface.updateViewData?.durationText, "2:00")
+        XCTAssertEqual(userInterface.updateViewData?.bodyText, "Bracket - v3")
+        XCTAssertEqual(userInterface.updateViewData?.taskUrlText, "task2")
+        XCTAssertEqual(userInterface.updateViewData?.fromToDateText, "12:00 PM - 2:00 PM")
     }
 }
 
 private class WorkTimeCellViewMock: WorkTimeCellViewModelOutput {
-    // swiftlint:disable large_tuple
-    private(set) var updateViewData: (durationText: String?, bodyText: String?,
-        taskUrlText: String?, fromToDateText: String?,
-        projectTitle: String?, projectColor: UIColor?) = (nil, nil, nil, nil, nil, nil)
-    // swiftlint:enable large_tuple
-    func updateView(durationText: String?, bodyText: String?, taskUrlText: String?, fromToDateText: String?, projectTitle: String?, projectColor: UIColor?) {
-        updateViewData = (durationText, bodyText, taskUrlText, fromToDateText, projectTitle, projectColor)
+    private(set) var updateViewData: WorkTimeCellViewModel.ViewData?
+    func updateView(data: WorkTimeCellViewModel.ViewData) {
+        updateViewData = data
     }
 }

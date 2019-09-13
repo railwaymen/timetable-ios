@@ -627,7 +627,7 @@ class WorkTimeViewModelTests: XCTestCase {
                     day: Date(),
                     startAt: try createTime(hours: 8, minutes: 0),
                     endAt: try createTime(hours: 9, minutes: 30),
-                    tag: .development)
+                    tag: .default)
     }
     
     private func createTime(hours: Int, minutes: Int) throws -> Date {
