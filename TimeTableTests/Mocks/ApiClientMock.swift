@@ -36,9 +36,11 @@ class ApiClientMock: ApiClientSessionType, ApiClientWorkTimesType, ApiClientProj
         addWorkTimeComletion = completion
     }
     
+    private(set) var deleteWorkTimeCalled: Bool = false
     private(set) var deleteWorkTimeIdentifier: Int64?
     private(set) var deleteWorkTimeCompletion: ((Result<Void>) -> Void)?
     func deleteWorkTime(identifier: Int64, completion: @escaping ((Result<Void>) -> Void)) {
+        deleteWorkTimeCalled = true
         deleteWorkTimeIdentifier = identifier
         deleteWorkTimeCompletion = completion
     }
