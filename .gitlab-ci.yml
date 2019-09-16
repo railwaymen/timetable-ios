@@ -2,6 +2,9 @@ stages:
   - prepare
   - build
 
+variables:
+  LC_ALL: "en_US.UTF-8"
+
 cache:
   key: "bundle_dependencies"
   paths:
@@ -37,8 +40,6 @@ test_project:
     - killall "Simulator" || true
   script:
     - export
-    - export LC_ALL=en_US.UTF-8
-    - export LANG=en_US.UTF-8
     - rvm --create use ruby-2.6.0@timetable-ios
     - gem install bundler:2.0.2
     - bundle install --path vendor/bundle
