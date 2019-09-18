@@ -1,5 +1,5 @@
 //
-//  TagCollectionCellViewModel.swift
+//  TagCollectionViewCellViewModel.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 29/05/2019.
@@ -8,21 +8,21 @@
 
 import UIKit
 
-protocol TagCollectionCellViewModelType: class {
+protocol TagCollectionViewCellViewModelType: class {
     func configure()
 }
 
-protocol TagCollectionCellViewModelOutput: class {
+protocol TagCollectionViewCellViewModelOutput: class {
     func setUp(title: String?, color: UIColor, isSelected: Bool)
 }
 
-class TagCollectionCellViewModel: TagCollectionCellViewModelType {
-    private weak var userInterface: TagCollectionCellViewModelOutput?
+class TagCollectionViewCellViewModel: TagCollectionViewCellViewModelType {
+    private weak var userInterface: TagCollectionViewCellViewModelOutput?
     private let projectTag: ProjectTag
     private let isSelected: Bool
     
     // MARK: - Initialization
-    init(userInterface: TagCollectionCellViewModelOutput,
+    init(userInterface: TagCollectionViewCellViewModelOutput,
          projectTag: ProjectTag,
          isSelected: Bool) {
         self.userInterface = userInterface
@@ -30,7 +30,7 @@ class TagCollectionCellViewModel: TagCollectionCellViewModelType {
         self.isSelected = isSelected
     }
     
-    // MARK: - TagCollectionCellViewModelType
+    // MARK: - TagCollectionViewCellViewModelType
     func configure() {
         self.userInterface?.setUp(title: self.projectTag.localized,
                                   color: self.projectTag.color,

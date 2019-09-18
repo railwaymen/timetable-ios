@@ -288,7 +288,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
             switch result {
             case .success(let simpleProjectDecoder):
                 self?.projects = simpleProjectDecoder.projects.filter { $0.isActive ?? false }
-                self?.tags = simpleProjectDecoder.tags.filter { $0 != .development }
+                self?.tags = simpleProjectDecoder.tags.filter { $0 != .default }
                 self?.userInterface?.reloadProjectPicker()
                 self?.userInterface?.reloadTagsView()
                 self?.setDefaultTask()

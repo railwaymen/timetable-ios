@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TagCollectionViewCellType: class {
-    func configure(viewModel: TagCollectionCellViewModelType)
+    func configure(viewModel: TagCollectionViewCellViewModelType)
 }
 
 class TagCollectionViewCell: UICollectionViewCell {
@@ -18,19 +18,19 @@ class TagCollectionViewCell: UICollectionViewCell {
     @IBOutlet private var view: AttributedView!
     @IBOutlet private var titleLabel: UILabel!
     
-    private var viewModel: TagCollectionCellViewModelType!
+    private var viewModel: TagCollectionViewCellViewModelType!
 }
 
 // MARK: - TagCollectionViewCellType
 extension TagCollectionViewCell: TagCollectionViewCellType {
-    func configure(viewModel: TagCollectionCellViewModelType) {
+    func configure(viewModel: TagCollectionViewCellViewModelType) {
         self.viewModel = viewModel
         self.viewModel.configure()
     }
 }
 
-// MARK: - TagCollectionCellViewModelOutput
-extension TagCollectionViewCell: TagCollectionCellViewModelOutput {
+// MARK: - TagCollectionViewCellViewModelOutput
+extension TagCollectionViewCell: TagCollectionViewCellViewModelOutput {
     func setUp(title: String?, color: UIColor, isSelected: Bool) {
         self.titleLabel.text = title
         self.titleLabel.textColor = isSelected ? .white : color

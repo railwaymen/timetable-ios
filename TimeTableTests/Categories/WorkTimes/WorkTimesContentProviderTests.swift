@@ -218,4 +218,22 @@ class WorkTimesContentProviderTests: XCTestCase {
         XCTAssertEqual(expectedResponse?.0.count, 1)
         XCTAssertEqual(try (expectedResponse?.1).unwrap(), matchingFullTime)
     }
+    
+    func testDelete() throws {
+        //Arrange
+        let data = try self.json(from: WorkTimesResponse.workTimesResponse)
+        let workTime = try self.decoder.decode([WorkTimeDecoder].self, from: data).first.unwrap()
+        var completionResult: Result<Void>?
+        //Act
+        self.contentProvider.delete(workTime: workTime) { result in
+            completionResult = result
+        }
+        self.apiClientMock.deleteWorkTimeCompletion?(.success(Void()))
+        //Assert
+        XCTAssertTrue(self.apiClientMock.deleteWorkTimeCalled)
+        switch completionResult {
+        case .some(.success): break
+        default: XCTFail()
+        }
+    }
 }

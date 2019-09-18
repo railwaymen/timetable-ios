@@ -136,7 +136,7 @@ extension WorkTimeController: UICollectionViewDelegate {
         }
         guard let tag = self.viewModel.viewRequestedForTag(at: indexPath) else { return UICollectionViewCell() }
         let isSelected = self.viewModel.isTagSelected(at: indexPath)
-        let viewModel = TagCollectionCellViewModel(userInterface: cell,
+        let viewModel = TagCollectionViewCellViewModel(userInterface: cell,
                                                    projectTag: tag,
                                                    isSelected: isSelected)
         cell.configure(viewModel: viewModel)

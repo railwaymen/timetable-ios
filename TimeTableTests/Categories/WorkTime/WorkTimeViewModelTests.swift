@@ -202,6 +202,76 @@ class WorkTimeViewModelTests: XCTestCase {
         XCTAssertEqual(title, "asdsa")
     }
     
+    func testViewRequestedForNumberOfTags() {
+        //Arrange
+        self.viewModel.viewDidLoad()
+        let tags: [ProjectTag] = [.default, .internalMeeting]
+        let simpleProjectDecoder = SimpleProjectDecoder(projects: [], tags: tags)
+        self.apiClient.fetchSimpleListOfProjectsCompletion?(.success(simpleProjectDecoder))
+        //Act
+        let numberOfTags = self.viewModel.viewRequestedForNumberOfTags()
+        //Assert
+        XCTAssertEqual(numberOfTags, 1)
+    }
+    
+    func testViewRequestedForTag() {
+        //Arrange
+        self.viewModel.viewDidLoad()
+        let tags: [ProjectTag] = [.default, .internalMeeting]
+        let simpleProjectDecoder = SimpleProjectDecoder(projects: [], tags: tags)
+        self.apiClient.fetchSimpleListOfProjectsCompletion?(.success(simpleProjectDecoder))
+        //Act
+        let tag = self.viewModel.viewRequestedForTag(at: IndexPath(row: 0, section: 0))
+        //Assert
+        XCTAssertEqual(tag, .internalMeeting)
+    }
+    
+    func testViewRequestedForTag_outOfBounds() {
+        //Act
+        let tag = self.viewModel.viewRequestedForTag(at: IndexPath(row: 0, section: 0))
+        //Assert
+        XCTAssertNil(tag)
+    }
+    
+    func testViewSelectedTag() {
+        //Arrange
+        self.viewModel.viewDidLoad()
+        let tags: [ProjectTag] = [.default, .internalMeeting]
+        let simpleProjectDecoder = SimpleProjectDecoder(projects: [], tags: tags)
+        self.apiClient.fetchSimpleListOfProjectsCompletion?(.success(simpleProjectDecoder))
+        let indexPath = IndexPath(row: 0, section: 0)
+        //Act
+        self.viewModel.viewSelectedTag(at: indexPath)
+        //Assert
+        XCTAssertTrue(self.userInterface.reloadTagsViewCalled)
+        XCTAssertTrue(self.viewModel.isTagSelected(at: indexPath))
+    }
+    
+    func testViewSelectedTag_secondTime() {
+        //Arrange
+        self.viewModel.viewDidLoad()
+        let tags: [ProjectTag] = [.default, .internalMeeting]
+        let simpleProjectDecoder = SimpleProjectDecoder(projects: [], tags: tags)
+        self.apiClient.fetchSimpleListOfProjectsCompletion?(.success(simpleProjectDecoder))
+        let indexPath = IndexPath(row: 0, section: 0)
+        //Act
+        self.viewModel.viewSelectedTag(at: indexPath)
+        self.viewModel.viewSelectedTag(at: indexPath)
+        //Assert
+        XCTAssertTrue(self.userInterface.reloadTagsViewCalled)
+        XCTAssertFalse(self.viewModel.isTagSelected(at: indexPath))
+    }
+    
+    func testViewSelectedTag_outOfBounds() {
+        //Arrange
+        let indexPath = IndexPath(row: 0, section: 0)
+        //Act
+        self.viewModel.viewSelectedTag(at: indexPath)
+        //Assert
+        XCTAssertFalse(self.userInterface.reloadTagsViewCalled)
+        XCTAssertFalse(self.viewModel.isTagSelected(at: indexPath))
+    }
+    
     func testSetDefaultTaskWhileProjectListIsEmpty() {
         //Act
         viewModel.setDefaultTask()
