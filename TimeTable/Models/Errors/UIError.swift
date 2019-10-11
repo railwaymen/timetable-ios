@@ -46,7 +46,7 @@ extension UIError: Equatable {
     static func == (lhs: UIError, rhs: UIError) -> Bool {
         switch (lhs, rhs) {
         case let (.cannotBeEmptyOr(lhsElement1, lhsElement2), .cannotBeEmptyOr(rhsElement1, rhsElement2)):
-            return [lhsElement1, lhsElement2].reduce(true, { $0 && [rhsElement1, rhsElement2].contains($1)})
+            return [lhsElement1, lhsElement2].allSatisfy { [rhsElement1, rhsElement2].contains($0) }
         case (.cannotBeEmpty(let lhsElement), .cannotBeEmpty(let rhsElement)):
             return lhsElement == rhsElement
         case (.invalidFormat(let lhsElement), .invalidFormat(let rhsElement)):
