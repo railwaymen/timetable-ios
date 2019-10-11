@@ -34,7 +34,7 @@ extension TagCollectionViewCell: TagCollectionViewCellViewModelOutput {
     func setUp(title: String?, color: UIColor, isSelected: Bool) {
         self.titleLabel.text = title
         self.titleLabel.textColor = isSelected ? .white : color
-        self.view.backgroundColor = isSelected ? color : .white
-        self.view.borderColor = isSelected ? .white : color
+        self.view.backgroundColor = isSelected ? color : .clear
+        self.view.borderColor = color
     }
 }

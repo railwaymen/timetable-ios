@@ -21,11 +21,7 @@ class WorkTimeController: UIViewController {
     @IBOutlet private var endAtDateTextField: UITextField!
     @IBOutlet private var projectTextField: UITextField!
     @IBOutlet private var bodyTextField: UITextField!
-    @IBOutlet private var taskDescriptionViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet private var taskDescriptionView: UIView!
-    @IBOutlet private var taskURLViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private var taskURLTextField: UITextField!
-    @IBOutlet private var taskURLView: UIView!
     @IBOutlet private var tagsCollectionView: UICollectionView!
     
     private var projectPicker: UIPickerView!
@@ -176,12 +172,10 @@ extension WorkTimeController: WorkTimeViewModelOutput {
                                         name: UIResponder.keyboardWillHideNotification,
                                         object: nil)
         
-        taskDescriptionViewHeightConstraint.constant = isLunch ? 0 : 80
-        taskDescriptionView.isHidden = isLunch
+        bodyTextField.isHidden = isLunch
         bodyTextField.text = body
         
-        taskURLViewHeightConstraint.constant = allowsTask ? 80 : 0
-        taskURLView.isHidden = !allowsTask
+        taskURLTextField.isHidden = !allowsTask || isLunch
         taskURLTextField.text = urlString
 
         projectPicker = UIPickerView()
