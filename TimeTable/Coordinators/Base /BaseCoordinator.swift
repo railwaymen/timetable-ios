@@ -29,6 +29,10 @@ class BaseCoordinator: CoordinatorType, CoordinatorErrorPresenterType {
     }
 
     func finish() {
+        children.forEach { [weak self] in
+            $0.finish()
+            self?.removeChildCoordinator(child: $0)
+        }
         finishCompletion?()
     }
     

@@ -1,5 +1,5 @@
 //
-//  WorkTimeController.swift
+//  WorkTimeViewController.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 09/01/2019.
@@ -14,7 +14,7 @@ protocol WorkTimeViewControllerType: class {
     func configure(viewModel: WorkTimeViewModelType, notificationCenter: NotificationCenterType?)
 }
 
-class WorkTimeController: UIViewController {
+class WorkTimeViewController: UIViewController {
     @IBOutlet private var scrollView: UIScrollView!
     @IBOutlet private var dayTextField: UITextField!
     @IBOutlet private var startAtDateTextField: UITextField!
@@ -43,7 +43,7 @@ class WorkTimeController: UIViewController {
     }
     
     // MARK: - Action
-    @IBAction private func cancelButtonTapped(_ sender: UIBarButtonItem) {
+    @objc private func cancelButtonTapped() {
         viewModel.viewRequestedToFinish()
     }
     
@@ -102,7 +102,7 @@ class WorkTimeController: UIViewController {
 }
 
 // MARK: - UIPickerViewDelegate 
-extension WorkTimeController: UIPickerViewDelegate {
+extension WorkTimeViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return viewModel.viewRequestedForProjectTitle(atRow: row)
     }
@@ -113,7 +113,7 @@ extension WorkTimeController: UIPickerViewDelegate {
 }
 
 // MARK: - UIPickerViewDataSource
-extension WorkTimeController: UIPickerViewDataSource {
+extension WorkTimeViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -124,7 +124,7 @@ extension WorkTimeController: UIPickerViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegate
-extension WorkTimeController: UICollectionViewDelegate {
+extension WorkTimeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.reuseIdentifier,
                                                             for: indexPath) as? TagCollectionViewCell else {
@@ -146,14 +146,14 @@ extension WorkTimeController: UICollectionViewDelegate {
 }
 
 // MARK: - UICollectionViewDataSource
-extension WorkTimeController: UICollectionViewDataSource {
+extension WorkTimeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel.viewRequestedForNumberOfTags()
     }
 }
 
 // MARK: - WorkTimeViewModelOutput
-extension WorkTimeController: WorkTimeViewModelOutput {
+extension WorkTimeViewController: WorkTimeViewModelOutput {
     func reloadProjectPicker() {
         projectPicker.reloadAllComponents()
     }
@@ -171,6 +171,9 @@ extension WorkTimeController: WorkTimeViewModelOutput {
                                         selector: #selector(self.keyboardWillHide),
                                         name: UIResponder.keyboardWillHideNotification,
                                         object: nil)
+        
+        let closeButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(cancelButtonTapped))
+        navigationItem.setRightBarButton(closeButton, animated: false)
         
         bodyTextField.isHidden = isLunch
         bodyTextField.text = body
@@ -239,7 +242,7 @@ extension WorkTimeController: WorkTimeViewModelOutput {
 }
 
 // MARK: - WorkTimeViewControllerType
-extension WorkTimeController: WorkTimeViewControllerType {
+extension WorkTimeViewController: WorkTimeViewControllerType {
     func configure(viewModel: WorkTimeViewModelType, notificationCenter: NotificationCenterType?) {
         self.viewModel = viewModel
         self.notificationCenter = notificationCenter

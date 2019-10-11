@@ -15,8 +15,12 @@ class BaseNavigationCoordinator: BaseCoordinator {
     // MARK: - Initialization
     override init(window: UIWindow?,
                   messagePresenter: MessagePresenterType?) {
-        self.navigationController = UINavigationController()
+        let navigationController = DismissableNavigationController()
+        self.navigationController = navigationController
         super.init(window: window, messagePresenter: messagePresenter)
+        navigationController.setDidDismissHandler { [weak self] in
+            self?.finish()
+        }
         window?.rootViewController = navigationController
         navigationController.interactivePopGestureRecognizer?.delegate = nil
     }

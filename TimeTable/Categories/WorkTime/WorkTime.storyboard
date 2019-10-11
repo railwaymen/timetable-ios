@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Work Time Controller-->
+        <!--Work Time View Controller-->
         <scene sceneID="ExZ-bl-p0j">
             <objects>
-                <viewController id="vWa-gW-sZm" customClass="WorkTimeController" customModule="TimeTable" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vWa-gW-sZm" customClass="WorkTimeViewController" customModule="TimeTable" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gUE-HS-Xzx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

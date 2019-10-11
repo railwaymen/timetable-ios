@@ -53,7 +53,7 @@ typealias WorkTimesApiClientType = (ApiClientWorkTimesType & ApiClientMatchingFu
 
 class WorkTimesViewModel: WorkTimesViewModelType {
     private weak var userInterface: WorkTimesViewModelOutput?
-    private let coordinator: WorkTimesCoordinatorDelegate
+    private weak var coordinator: WorkTimesCoordinatorDelegate?
     private let contentProvider: WorkTimesContentProviderType
     private let errorHandler: ErrorHandlerType
     private let calendar: CalendarType
@@ -66,8 +66,11 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     }
     
     // MARK: - Initialization
-    init(userInterface: WorkTimesViewModelOutput, coordinator: WorkTimesCoordinatorDelegate, contentProvider: WorkTimesContentProviderType,
-         errorHandler: ErrorHandlerType, calendar: CalendarType = Calendar.autoupdatingCurrent) {
+    init(userInterface: WorkTimesViewModelOutput,
+         coordinator: WorkTimesCoordinatorDelegate?,
+         contentProvider: WorkTimesContentProviderType,
+         errorHandler: ErrorHandlerType,
+         calendar: CalendarType = Calendar.autoupdatingCurrent) {
         self.userInterface = userInterface
         self.coordinator = coordinator
         self.contentProvider = contentProvider
@@ -122,7 +125,7 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     func viewRequestToDuplicate(sourceView: UITableViewCell, at indexPath: IndexPath) {
         guard let task = self.createTask(for: indexPath) else { return }
         let lastTask = createTask(for: IndexPath(row: 0, section: 0))
-        self.coordinator.workTimesRequestedForDuplicateWorkTimeView(sourceView: sourceView, duplicatedTask: task, lastTask: lastTask)
+        self.coordinator?.workTimesRequestedForDuplicateWorkTimeView(sourceView: sourceView, duplicatedTask: task, lastTask: lastTask)
     }
     
     func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void) {
@@ -143,12 +146,12 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     
     func viewRequestForNewWorkTimeView(sourceView: UIView) {
         let lastTask = createTask(for: IndexPath(row: 0, section: 0))
-        coordinator.workTimesRequestedForNewWorkTimeView(sourceView: sourceView, lastTask: lastTask)
+        self.coordinator?.workTimesRequestedForNewWorkTimeView(sourceView: sourceView, lastTask: lastTask)
     }
     
     func viewRequestedForEditEntry(sourceView: UITableViewCell, at indexPath: IndexPath) {
         guard let task = createTask(for: indexPath) else { return }
-        coordinator.workTimesRequestedForEditWorkTimeView(sourceView: sourceView, editedTask: task)
+        self.coordinator?.workTimesRequestedForEditWorkTimeView(sourceView: sourceView, editedTask: task)
     }
     
     // MARK: - Private

@@ -46,6 +46,7 @@ protocol WorkTimeViewModelType: class {
 
 class WorkTimeViewModel: WorkTimeViewModelType {
     private weak var userInterface: WorkTimeViewModelOutput?
+    private weak var coordinator: WorkTimeCoordinatorType?
     private let apiClient: WorkTimeApiClientType
     private let errorHandler: ErrorHandlerType
     private let calendar: CalendarType
@@ -65,6 +66,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     
     // MARK: - Initialization
     init(userInterface: WorkTimeViewModelOutput?,
+         coordinator: WorkTimeCoordinatorType?,
          apiClient: WorkTimeApiClientType,
          errorHandler: ErrorHandlerType,
          calendar: CalendarType,
@@ -150,7 +152,8 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func viewRequestedToFinish() {
-        userInterface?.dismissView()
+        self.userInterface?.dismissView()
+        self.coordinator?.viewDidFinish()
     }
     
     func taskNameDidChange(value: String?) {

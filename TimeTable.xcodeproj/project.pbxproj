@@ -10,6 +10,7 @@
 		0AF1DD403C2E47D3343C2878 /* Pods_TimeTable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88922A1AB918F19A04B07211 /* Pods_TimeTable.framework */; };
 		8A10F841235454DA0004F389 /* UIBarButtonItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */; };
 		8A10F83B2350C7AF0004F389 /* WorkTimeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F83A2350C7AF0004F389 /* WorkTimeCoordinator.swift */; };
+		8A10F83D2350D9810004F389 /* DismissableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F83C2350D9810004F389 /* DismissableNavigationController.swift */; };
 		8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */; };
 		BFB4EF72FAE3D8CD21A09744 /* Pods_TimeTableTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FE8C20AC7A1A64A549519E /* Pods_TimeTableTests.framework */; };
 		C101603222003A9500DCE817 /* WorkTimesContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101603122003A9500DCE817 /* WorkTimesContentProvider.swift */; };
@@ -137,7 +138,7 @@
 		C13429B821A8308600F4EA42 /* workTimeBodyNull.json in Resources */ = {isa = PBXBuildFile; fileRef = C13429B721A8308600F4EA42 /* workTimeBodyNull.json */; };
 		C13C2B0421EDD1C5008C9088 /* ServerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C2B0321EDD1C5008C9088 /* ServerError.swift */; };
 		C13C2B0621EDE589008C9088 /* WorkTimesCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C2B0521EDE589008C9088 /* WorkTimesCoordinatorMock.swift */; };
-		C13C88E621E5EA8F00F68C6E /* WorkTimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C88E521E5EA8F00F68C6E /* WorkTimeController.swift */; };
+		C13C88E621E5EA8F00F68C6E /* WorkTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C88E521E5EA8F00F68C6E /* WorkTimeViewController.swift */; };
 		C13C88E821E5F7B600F68C6E /* WorkTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C88E721E5F7B600F68C6E /* WorkTimeViewModel.swift */; };
 		C147D1F721F5F96A00A818BD /* AttributedTextFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C147D1F621F5F96A00A818BD /* AttributedTextFieldTests.swift */; };
 		C14B10FB21F9C64D00A42587 /* TimeTableCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14B10FA21F9C64D00A42587 /* TimeTableCoordinatorTests.swift */; };
@@ -305,6 +306,7 @@
 		88922A1AB918F19A04B07211 /* Pods_TimeTable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeTable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extension.swift"; sourceTree = "<group>"; };
 		8A10F83A2350C7AF0004F389 /* WorkTimeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCoordinator.swift; sourceTree = "<group>"; };
+		8A10F83C2350D9810004F389 /* DismissableNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissableNavigationController.swift; sourceTree = "<group>"; };
 		8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellViewModelTests.swift; sourceTree = "<group>"; };
 		C101603122003A9500DCE817 /* WorkTimesContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesContentProvider.swift; sourceTree = "<group>"; };
 		C101603322003D4000DCE817 /* MatchingFullTimeEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFullTimeEncoder.swift; sourceTree = "<group>"; };
@@ -431,7 +433,7 @@
 		C13429B721A8308600F4EA42 /* workTimeBodyNull.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimeBodyNull.json; sourceTree = "<group>"; };
 		C13C2B0321EDD1C5008C9088 /* ServerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerError.swift; sourceTree = "<group>"; };
 		C13C2B0521EDE589008C9088 /* WorkTimesCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesCoordinatorMock.swift; sourceTree = "<group>"; };
-		C13C88E521E5EA8F00F68C6E /* WorkTimeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeController.swift; sourceTree = "<group>"; };
+		C13C88E521E5EA8F00F68C6E /* WorkTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeViewController.swift; sourceTree = "<group>"; };
 		C13C88E721E5F7B600F68C6E /* WorkTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeViewModel.swift; sourceTree = "<group>"; };
 		C147D1F621F5F96A00A818BD /* AttributedTextFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextFieldTests.swift; sourceTree = "<group>"; };
 		C14B10FA21F9C64D00A42587 /* TimeTableCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableCoordinatorTests.swift; sourceTree = "<group>"; };
@@ -1189,7 +1191,8 @@
 				C1784DDC21E4E03600C83E2A /* WorkTime.storyboard */,
 				C16B3A76229E6BDF00B6E9E6 /* TagCollectionViewCell.swift */,
 				C16B3A78229E742600B6E9E6 /* TagCollectionViewCellViewModel.swift */,
-				C13C88E521E5EA8F00F68C6E /* WorkTimeController.swift */,
+				8A10F83C2350D9810004F389 /* DismissableNavigationController.swift */,
+				C13C88E521E5EA8F00F68C6E /* WorkTimeViewController.swift */,
 				C13C88E721E5F7B600F68C6E /* WorkTimeViewModel.swift */,
 			);
 			path = WorkTime;
@@ -1998,6 +2001,7 @@
 				C125C4D52186F76500FBA0DD /* CoordinatorErrorPresenterType.swift in Sources */,
 				C1F187B021E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift in Sources */,
 				C1AACFDA21A440650023FD32 /* BaseTabBarControllerType.swift in Sources */,
+				8A10F83D2350D9810004F389 /* DismissableNavigationController.swift in Sources */,
 				C13C88E821E5F7B600F68C6E /* WorkTimeViewModel.swift in Sources */,
 				C1C4BA8F2189AD7700683F71 /* Result.swift in Sources */,
 				C13C2B0421EDD1C5008C9088 /* ServerError.swift in Sources */,
@@ -2030,7 +2034,7 @@
 				C153AC532182F1E3007A35BB /* UITextField+Extension.swift in Sources */,
 				C1E1F04421AD2952007F9228 /* NSObject+Extension.swift in Sources */,
 				C153AC4C2182EF40007A35BB /* String+Extension.swift in Sources */,
-				C13C88E621E5EA8F00F68C6E /* WorkTimeController.swift in Sources */,
+				C13C88E621E5EA8F00F68C6E /* WorkTimeViewController.swift in Sources */,
 				C1AFFFDB21A2CD2000A7A632 /* AppError.swift in Sources */,
 				C1B5136D21772D1200C3727C /* AppDelegate.swift in Sources */,
 				C10FD88121F1F15100A233C5 /* UserDecoder.swift in Sources */,

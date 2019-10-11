@@ -10,6 +10,10 @@ import UIKit
 
 typealias WorkTimeApiClientType = ApiClientWorkTimesType & ApiClientProjectsType
 
+protocol WorkTimeCoordinatorType: class {
+    func viewDidFinish()
+}
+
 class WorkTimeCoordinator: BaseNavigationCoordinator {
     private weak var parentViewController: UIViewController?
     private weak var sourceView: UIView?
@@ -52,6 +56,7 @@ class WorkTimeCoordinator: BaseNavigationCoordinator {
         let controller: WorkTimeViewControlleralbe? = self.storyboardsManager.controller(storyboard: .workTime, controllerIdentifier: .initial)
         guard let workTimeViewController = controller else { return }
         let viewModel = WorkTimeViewModel(userInterface: workTimeViewController,
+                                          coordinator: self,
                                           apiClient: self.apiClient,
                                           errorHandler: self.errorHandler,
                                           calendar: Calendar.autoupdatingCurrent,
@@ -62,7 +67,8 @@ class WorkTimeCoordinator: BaseNavigationCoordinator {
         self.navigationController.setViewControllers([workTimeViewController], animated: false)
         self.navigationController.setNavigationBarHidden(false, animated: false)
         self.navigationController.navigationBar.tintColor = .crimson
-        self.navigationController.navigationBar.isTranslucent = true
+        self.navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController.navigationBar.shadowImage = UIImage()
         if let sourceView = self.sourceView {
             self.showWorkTimeController(controller: self.navigationController, sourceView: sourceView)
         } else {
@@ -77,5 +83,12 @@ class WorkTimeCoordinator: BaseNavigationCoordinator {
         controller.popoverPresentationController?.sourceView = sourceView
         controller.popoverPresentationController?.sourceRect = CGRect(x: sourceView.bounds.minX, y: sourceView.bounds.midY, width: 0, height: 0)
         self.parentViewController?.children.last?.present(controller, animated: true)
+    }
+}
+
+// MARK: - WorkTimeCoordinatorType
+extension WorkTimeCoordinator: WorkTimeCoordinatorType {
+    func viewDidFinish() {
+        self.finish()
     }
 }
