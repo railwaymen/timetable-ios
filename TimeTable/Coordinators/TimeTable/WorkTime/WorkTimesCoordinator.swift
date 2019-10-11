@@ -17,6 +17,7 @@ protocol WorkTimesCoordinatorDelegate: class {
 }
 
 class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
+    private weak var messagePresenter: MessagePresenterType?
     private let storyboardsManager: StoryboardsManagerType
     private let apiClient: WorkTimesApiClient
     private let accessService: AccessServiceUserIDType
@@ -68,25 +69,20 @@ class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType
     }
     
     private func runWorkTimeFlow(sourceView: UIView, lastTask: Task?, editedTask: Task?, duplicatedTask: Task?) {
-        guard let controller: WorkTimeViewControlleralbe = storyboardsManager.controller(storyboard: .workTime, controllerIdentifier: .initial) else { return }
-        let viewModel = WorkTimeViewModel(userInterface: controller,
-                                          apiClient: apiClient,
-                                          errorHandler: errorHandler,
-                                          calendar: Calendar.autoupdatingCurrent,
-                                          lastTask: lastTask,
-                                          editedTask: editedTask,
-                                          duplicatedTask: duplicatedTask)
-        controller.configure(viewModel: viewModel, notificationCenter: NotificationCenter.default)
-        showWorkTimeController(controller: controller, sourceView: sourceView)
-    }
-    
-    private func showWorkTimeController(controller: UIViewController, sourceView: UIView) {
-        controller.modalPresentationStyle = .popover
-        controller.preferredContentSize = CGSize(width: 300, height: 320)
-        controller.popoverPresentationController?.permittedArrowDirections = .right
-        controller.popoverPresentationController?.sourceView = sourceView
-        controller.popoverPresentationController?.sourceRect = CGRect(x: sourceView.bounds.minX, y: sourceView.bounds.midY, width: 0, height: 0)
-        root.children.last?.present(controller, animated: true)
+        let coordinator = WorkTimeCoordinator(window: self.window,
+                                              messagePresenter: self.messagePresenter,
+                                              parentViewController: self.navigationController.topViewController,
+                                              sourceView: sourceView,
+                                              apiClient: self.apiClient,
+                                              errorHandler: self.errorHandler,
+                                              storyboardsManager: self.storyboardsManager,
+                                              lastTask: lastTask,
+                                              editedTask: editedTask,
+                                              duplicatedTask: duplicatedTask)
+        self.addChildCoordinator(child: coordinator)
+        coordinator.start { [weak self, weak coordinator] in
+            self?.removeChildCoordinator(child: coordinator)
+        }
     }
 }
 

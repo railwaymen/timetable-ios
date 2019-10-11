@@ -46,7 +46,7 @@ protocol WorkTimeViewModelType: class {
 
 class WorkTimeViewModel: WorkTimeViewModelType {
     private weak var userInterface: WorkTimeViewModelOutput?
-    private let apiClient: TimeTableTabApiClientType
+    private let apiClient: WorkTimeApiClientType
     private let errorHandler: ErrorHandlerType
     private let calendar: CalendarType
     private let lastTask: Task?
@@ -65,7 +65,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     
     // MARK: - Initialization
     init(userInterface: WorkTimeViewModelOutput?,
-         apiClient: TimeTableTabApiClientType,
+         apiClient: WorkTimeApiClientType,
          errorHandler: ErrorHandlerType,
          calendar: CalendarType,
          lastTask: Task?,

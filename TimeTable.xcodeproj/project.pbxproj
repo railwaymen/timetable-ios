@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0AF1DD403C2E47D3343C2878 /* Pods_TimeTable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88922A1AB918F19A04B07211 /* Pods_TimeTable.framework */; };
 		8A10F841235454DA0004F389 /* UIBarButtonItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */; };
+		8A10F83B2350C7AF0004F389 /* WorkTimeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F83A2350C7AF0004F389 /* WorkTimeCoordinator.swift */; };
 		8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */; };
 		BFB4EF72FAE3D8CD21A09744 /* Pods_TimeTableTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FE8C20AC7A1A64A549519E /* Pods_TimeTableTests.framework */; };
 		C101603222003A9500DCE817 /* WorkTimesContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101603122003A9500DCE817 /* WorkTimesContentProvider.swift */; };
@@ -303,6 +304,7 @@
 		709A006A1AEE2AB10E218C48 /* Pods-TimeTable.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTable.stage.xcconfig"; path = "Target Support Files/Pods-TimeTable/Pods-TimeTable.stage.xcconfig"; sourceTree = "<group>"; };
 		88922A1AB918F19A04B07211 /* Pods_TimeTable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeTable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extension.swift"; sourceTree = "<group>"; };
+		8A10F83A2350C7AF0004F389 /* WorkTimeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCoordinator.swift; sourceTree = "<group>"; };
 		8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellViewModelTests.swift; sourceTree = "<group>"; };
 		C101603122003A9500DCE817 /* WorkTimesContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesContentProvider.swift; sourceTree = "<group>"; };
 		C101603322003D4000DCE817 /* MatchingFullTimeEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFullTimeEncoder.swift; sourceTree = "<group>"; };
@@ -1300,6 +1302,7 @@
 			isa = PBXGroup;
 			children = (
 				C1AACFD721A4387F0023FD32 /* WorkTimesCoordinator.swift */,
+				8A10F83A2350C7AF0004F389 /* WorkTimeCoordinator.swift */,
 			);
 			path = WorkTime;
 			sourceTree = "<group>";
@@ -2022,6 +2025,7 @@
 				C1249C682181A1E7005DB2A5 /* CoordinatorType.swift in Sources */,
 				C12CA57D21A593F20082FEB7 /* DateFormatter+Extension.swift in Sources */,
 				C1E1F04B21AD3DBE007F9228 /* Calendar+Extension.swift in Sources */,
+				8A10F83B2350C7AF0004F389 /* WorkTimeCoordinator.swift in Sources */,
 				C10FD87F21F1EDA100A233C5 /* ApiClient+Users.swift in Sources */,
 				C153AC532182F1E3007A35BB /* UITextField+Extension.swift in Sources */,
 				C1E1F04421AD2952007F9228 /* NSObject+Extension.swift in Sources */,
