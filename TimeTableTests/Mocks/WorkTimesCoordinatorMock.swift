@@ -11,9 +11,9 @@ import XCTest
 
 class WorkTimesCoordinatorMock: WorkTimesCoordinatorDelegate {
     private(set) var requestedForNewWorkTimeViewCalled = false
-    private(set) var requestedForNewWorkTimeViewSourceView: UIButton?
+    private(set) var requestedForNewWorkTimeViewSourceView: UIView?
     private(set) var requestedForNewWorkTimeViewLastTask: Task?
-    func workTimesRequestedForNewWorkTimeView(sourceView: UIButton, lastTask: Task?) {
+    func workTimesRequestedForNewWorkTimeView(sourceView: UIView, lastTask: Task?) {
         requestedForNewWorkTimeViewCalled = true
         requestedForNewWorkTimeViewSourceView = sourceView
         requestedForNewWorkTimeViewLastTask = lastTask

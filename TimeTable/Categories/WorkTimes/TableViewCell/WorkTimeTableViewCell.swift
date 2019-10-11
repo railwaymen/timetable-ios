@@ -15,6 +15,8 @@ protocol WorkTimeTableViewCellType: class {
 }
 
 class WorkTimeTableViewCell: UITableViewCell {
+    @IBOutlet private var shadowView: UIView!
+    @IBOutlet private var roundedContainerView: AttributedView!
     @IBOutlet private var projectViews: [UIView]!
     @IBOutlet private var projectTitleLabel: UILabel!
     @IBOutlet private var durationLabel: UILabel!
@@ -24,7 +26,7 @@ class WorkTimeTableViewCell: UITableViewCell {
     @IBOutlet private var taskButton: UIButton!
     @IBOutlet private var tagView: AttributedView!
     @IBOutlet private var tagLabel: UILabel!
-    
+        
     private weak var viewModel: WorkTimeCellViewModelType?
     
     // MARK: - Overriden
@@ -41,6 +43,14 @@ class WorkTimeTableViewCell: UITableViewCell {
 
 // MARK: - WorkTimeCellViewModelOutput
 extension WorkTimeTableViewCell: WorkTimeCellViewModelOutput {
+    func setUp() {
+        self.shadowView.layer.shadowRadius = 8
+        self.shadowView.layer.shadowColor = UIColor.defaultLabel.withAlphaComponent(0.15).cgColor
+        self.shadowView.layer.shadowOpacity = 1
+        self.shadowView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        self.shadowView.layer.cornerRadius = self.roundedContainerView.cornerRadius
+    }
+    
     func updateView(data: WorkTimeCellViewModel.ViewData) {
         self.fromToDateLabel.text = data.fromToDateText
         self.durationLabel.text = data.durationText

@@ -43,7 +43,7 @@ class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
         viewModel.viewConfigured()
         //Assert
         XCTAssertEqual(userInterface.updateViewData.dayText, "day.today".localized)
-        XCTAssertEqual(userInterface.updateViewData.durationText, "3:00")
+        XCTAssertEqual(userInterface.updateViewData.durationText, "3h")
     }
     
     func testViewConfiguredWithYesterdayDate() throws {
@@ -59,7 +59,7 @@ class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
         viewModel.viewConfigured()
         //Assert
         XCTAssertEqual(userInterface.updateViewData.dayText, "day.yesterday".localized)
-        XCTAssertEqual(userInterface.updateViewData.durationText, "3:00")
+        XCTAssertEqual(userInterface.updateViewData.durationText, "3h")
     }
     
     func testViewConfiguredWithOtherDateThanTodayAndYesterday() throws {
@@ -74,7 +74,7 @@ class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
         viewModel.viewConfigured()
         //Assert
         XCTAssertEqual(userInterface.updateViewData.dayText, DateFormatter.localizedString(from: dailyWorkTime.day, dateStyle: .medium, timeStyle: .none))
-        XCTAssertEqual(userInterface.updateViewData.durationText, "3:00")
+        XCTAssertEqual(userInterface.updateViewData.durationText, "3h")
     }
 }
 

@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rEk-z6-2rw">
-    <device id="retina6_5" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rEk-z6-2rw">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="SF-Pro-Display-Bold.otf">
-            <string>SFProDisplay-Bold</string>
-        </array>
         <array key="SF-Pro-Display-Regular.otf">
             <string>SFProDisplay-Regular</string>
         </array>
     </customFonts>
     <scenes>
-        <!--Work Times View Controller-->
+        <!--Timesheet-->
         <scene sceneID="fDV-Bn-Jtn">
             <objects>
                 <viewController id="rEk-z6-2rw" customClass="WorkTimesViewController" customModule="TimeTable" customModuleProvider="target" sceneMemberID="viewController">
@@ -26,28 +21,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timesheet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2gw-Cj-eXj">
-                                <rect key="frame" x="18" y="64" width="134.66666666666666" height="33.666666666666657"/>
-                                <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="28"/>
-                                <color key="textColor" red="0.62352941179999999" green="0.62352941179999999" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="work_times.label.title"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zaq-8A-L30">
-                                <rect key="frame" x="356" y="61" width="40" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="bfo-lO-SLC"/>
-                                    <constraint firstAttribute="width" constant="40" id="jRU-yP-8UT"/>
-                                </constraints>
-                                <state key="normal" image="add-icon"/>
-                                <connections>
-                                    <action selector="addNewRecordTapped:" destination="rEk-z6-2rw" eventType="touchUpInside" id="ueK-IK-DXb"/>
-                                </connections>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SCa-Yp-ddD">
-                                <rect key="frame" x="0.0" y="115.66666666666669" width="414" height="746.33333333333326"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="chj-g6-Xkk">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="141.66666666666663"/>
@@ -58,10 +33,10 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="42h-bD-cZ3">
                                                     <rect key="frame" x="0.0" y="0.0" width="126" height="50"/>
-                                                    <color key="backgroundColor" red="0.88627450980392153" green="0.89411764705882346" blue="0.9137254901960784" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="18"/>
+                                                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <state key="normal" title="Button">
-                                                        <color key="titleColor" red="0.30588235294117649" green="0.30588235294117649" blue="0.41960784313725491" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="previousDateButtonTapped:" destination="KTO-4j-KGE" eventType="touchUpInside" id="yaG-ub-JJy"/>
@@ -74,17 +49,17 @@
                                                         <constraint firstAttribute="width" priority="999" constant="140" id="AcU-aE-un4"/>
                                                         <constraint firstAttribute="height" constant="50" id="vxN-hN-ayA"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                     <state key="normal" title="Button">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DdI-8m-JGR">
                                                     <rect key="frame" x="252" y="0.0" width="126" height="50"/>
-                                                    <color key="backgroundColor" red="0.8862745098" green="0.89411764709999997" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="18"/>
+                                                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <state key="normal" title="Button">
-                                                        <color key="titleColor" red="0.30588235289999999" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="nextDateButtonTapped:" destination="KTO-4j-KGE" eventType="touchUpInside" id="drQ-pJ-f9i"/>
@@ -110,7 +85,7 @@
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                    <real key="value" value="3"/>
+                                                    <real key="value" value="5"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
@@ -120,30 +95,30 @@
                                             </connections>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Month total" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFZ-05-2OL">
-                                            <rect key="frame" x="18" y="90" width="94" height="21.666666666666671"/>
-                                            <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="18"/>
-                                            <color key="textColor" red="0.30588235289999999" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <rect key="frame" x="18.000000000000007" y="90" width="92.666666666666686" height="21.666666666666671"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="zXQ-Am-GFA">
-                                            <rect key="frame" x="219" y="90" width="177" height="21.666666666666671"/>
+                                            <rect key="frame" x="221.33333333333337" y="90" width="174.66666666666663" height="21.666666666666671"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lBK-2K-mAQ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="48.333333333333336" height="21.666666666666668"/>
-                                                    <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="18"/>
-                                                    <color key="textColor" red="0.62352941176470589" green="0.62352941176470589" blue="0.71764705882352942" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="48.666666666666664" height="21.666666666666668"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/ 00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAg-lf-MRk">
-                                                    <rect key="frame" x="52.333333333333314" y="0.0" width="58" height="21.666666666666668"/>
-                                                    <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="18"/>
-                                                    <color key="textColor" red="0.62352941179999999" green="0.62352941179999999" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <rect key="frame" x="52.666666666666657" y="0.0" width="59" height="21.666666666666668"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/ 00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBd-4h-a3P">
-                                                    <rect key="frame" x="114.33333333333333" y="0.0" width="62.666666666666671" height="21.666666666666668"/>
-                                                    <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="18"/>
-                                                    <color key="textColor" red="0.30588235289999999" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <rect key="frame" x="115.66666666666666" y="0.0" width="59" height="21.666666666666668"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -190,18 +165,22 @@
                                     </variation>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="zlN-TH-8OR">
-                                    <rect key="frame" x="0.0" y="446.66666666666663" width="414" height="0.0"/>
+                                    <rect key="frame" x="0.0" y="474.66666666666663" width="414" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WorkTimeStandardTableViewCellReuseIdentifier" rowHeight="277" id="FAd-Y8-Pdy" customClass="WorkTimeTableViewCell" customModule="TimeTable" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WorkTimeStandardTableViewCellReuseIdentifier" rowHeight="277" id="FAd-Y8-Pdy" customClass="WorkTimeTableViewCell" customModule="TimeTable" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="169.66666666666663" width="414" height="277"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FAd-Y8-Pdy" id="qvg-WX-MN5">
+                                        <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FAd-Y8-Pdy" id="qvg-WX-MN5">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="277"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UeQ-id-0ch">
+                                                    <rect key="frame" x="18" y="10" width="378" height="257"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yvi-54-qcM" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
                                                     <rect key="frame" x="18" y="10" width="378" height="257"/>
                                                     <subviews>
@@ -213,28 +192,28 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gXz-0G-Tmb">
-                                                            <rect key="frame" x="0.0" y="18" width="374" height="59"/>
+                                                            <rect key="frame" x="0.0" y="8" width="374" height="59"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Swoppt" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jj4-Uj-OxS">
-                                                                    <rect key="frame" x="19" y="16" width="262.66666666666669" height="27"/>
-                                                                    <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="18"/>
-                                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <rect key="frame" x="19" y="16" width="258.33333333333331" height="27"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                                                    <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:10 h" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mrO-F2-lNw">
-                                                                    <rect key="frame" x="323" y="9" width="40" height="18"/>
-                                                                    <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
-                                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <rect key="frame" x="320.66666666666669" y="9" width="42.333333333333314" height="18"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                    <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="8:00 - 8:10" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H4j-TL-Hum">
-                                                                    <rect key="frame" x="290.66666666666669" y="32" width="72.333333333333314" height="18"/>
-                                                                    <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
-                                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <rect key="frame" x="286.33333333333331" y="32" width="76.666666666666686" height="18"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                    <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
-                                                            <color key="backgroundColor" red="0.5" green="0.024894343440000001" blue="0.12416041329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstItem="H4j-TL-Hum" firstAttribute="top" secondItem="mrO-F2-lNw" secondAttribute="bottom" constant="5" id="76u-v7-RnV"/>
@@ -249,59 +228,71 @@
                                                             </constraints>
                                                         </view>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Cea-Rq-vL0">
-                                                            <rect key="frame" x="18" y="92" width="338" height="147"/>
+                                                            <rect key="frame" x="18" y="82" width="338" height="157"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Swoppt" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZA7-0n-Xl3">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="338" height="18"/>
-                                                                    <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
-                                                                    <color key="textColor" red="0.30588235289999999" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Swoppt" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZA7-0n-Xl3">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="338" height="119"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                    <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBh-u2-HEH">
-                                                                    <rect key="frame" x="0.0" y="26" width="338" height="83"/>
-                                                                    <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
-                                                                    <state key="normal" title="TimeTable - add new work time">
-                                                                        <color key="titleColor" red="0.30588235289999999" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                                    </state>
-                                                                    <connections>
-                                                                        <action selector="taskButtonTapped:" destination="FAd-Y8-Pdy" eventType="touchUpInside" id="wdS-xe-1cY"/>
-                                                                    </connections>
-                                                                </button>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0kF-Ui-fXv" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="117" width="338" height="30"/>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gzy-2x-mpf">
+                                                                    <rect key="frame" x="0.0" y="127" width="338" height="30"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cap-9P-jKo">
-                                                                            <rect key="frame" x="15" y="0.0" width="308" height="30"/>
-                                                                            <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="12"/>
-                                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                            <nil key="highlightedColor"/>
-                                                                        </label>
+                                                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBh-u2-HEH">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="59" height="30"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                            <state key="normal" title="TT-1234">
+                                                                                <color key="titleColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            </state>
+                                                                            <connections>
+                                                                                <action selector="taskButtonTapped:" destination="FAd-Y8-Pdy" eventType="touchUpInside" id="wdS-xe-1cY"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                        <view contentMode="scaleToFill" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="0iD-jX-LOv">
+                                                                            <rect key="frame" x="67.000000000000014" y="0.0" width="205.33333333333337" height="30"/>
+                                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        </view>
+                                                                        <view contentMode="scaleToFill" horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0kF-Ui-fXv" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
+                                                                            <rect key="frame" x="280.33333333333331" y="0.0" width="57.666666666666686" height="30"/>
+                                                                            <subviews>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cap-9P-jKo">
+                                                                                    <rect key="frame" x="15.000000000000002" y="0.0" width="27.666666666666671" height="30"/>
+                                                                                    <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="12"/>
+                                                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                            </subviews>
+                                                                            <color key="backgroundColor" red="0.41176470590000003" green="0.16078431369999999" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <constraints>
+                                                                                <constraint firstItem="cap-9P-jKo" firstAttribute="top" secondItem="0kF-Ui-fXv" secondAttribute="top" id="DtM-r9-hYq"/>
+                                                                                <constraint firstItem="cap-9P-jKo" firstAttribute="leading" secondItem="0kF-Ui-fXv" secondAttribute="leading" constant="15" id="NCG-iX-fxJ"/>
+                                                                                <constraint firstItem="cap-9P-jKo" firstAttribute="centerY" secondItem="0kF-Ui-fXv" secondAttribute="centerY" id="QiP-Iq-cpX"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="cap-9P-jKo" secondAttribute="trailing" constant="15" id="YDc-4r-19k"/>
+                                                                                <constraint firstAttribute="bottom" secondItem="cap-9P-jKo" secondAttribute="bottom" id="jFo-5W-VcH"/>
+                                                                                <constraint firstAttribute="height" constant="30" id="xy6-NM-wZl"/>
+                                                                            </constraints>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                    <color key="value" red="0.41176470590000003" green="0.16078431369999999" blue="0.23529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                    <real key="value" value="15"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                    <real key="value" value="0.0"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                            </userDefinedRuntimeAttributes>
+                                                                        </view>
                                                                     </subviews>
-                                                                    <color key="backgroundColor" red="0.41176470590000003" green="0.16078431369999999" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                                    <constraints>
-                                                                        <constraint firstItem="cap-9P-jKo" firstAttribute="top" secondItem="0kF-Ui-fXv" secondAttribute="top" id="DtM-r9-hYq"/>
-                                                                        <constraint firstItem="cap-9P-jKo" firstAttribute="leading" secondItem="0kF-Ui-fXv" secondAttribute="leading" constant="15" id="NCG-iX-fxJ"/>
-                                                                        <constraint firstItem="cap-9P-jKo" firstAttribute="centerY" secondItem="0kF-Ui-fXv" secondAttribute="centerY" id="QiP-Iq-cpX"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="cap-9P-jKo" secondAttribute="trailing" constant="15" id="YDc-4r-19k"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="cap-9P-jKo" secondAttribute="bottom" id="jFo-5W-VcH"/>
-                                                                        <constraint firstAttribute="height" constant="30" id="xy6-NM-wZl"/>
-                                                                    </constraints>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                            <color key="value" red="0.41176470590000003" green="0.16078431369999999" blue="0.23529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                            <real key="value" value="15"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                            <real key="value" value="0.0"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                    </userDefinedRuntimeAttributes>
-                                                                </view>
+                                                                </stackView>
                                                             </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="ZA7-0n-Xl3" firstAttribute="width" secondItem="Cea-Rq-vL0" secondAttribute="width" id="I4w-pX-sKE"/>
+                                                            </constraints>
                                                         </stackView>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                     <constraints>
                                                         <constraint firstItem="dAN-Bt-UEs" firstAttribute="leading" secondItem="gXz-0G-Tmb" secondAttribute="trailing" id="0OL-O9-KJM"/>
                                                         <constraint firstAttribute="bottom" secondItem="dAN-Bt-UEs" secondAttribute="bottom" id="3Sh-5X-5OT"/>
@@ -309,66 +300,62 @@
                                                         <constraint firstItem="dAN-Bt-UEs" firstAttribute="leading" secondItem="Cea-Rq-vL0" secondAttribute="trailing" constant="18" id="AVw-OV-A6E"/>
                                                         <constraint firstItem="Cea-Rq-vL0" firstAttribute="top" secondItem="gXz-0G-Tmb" secondAttribute="bottom" constant="15" id="EYJ-5y-jxr"/>
                                                         <constraint firstAttribute="trailing" secondItem="dAN-Bt-UEs" secondAttribute="trailing" id="PrH-bu-IQF"/>
-                                                        <constraint firstAttribute="bottom" secondItem="Cea-Rq-vL0" secondAttribute="bottom" constant="18" id="X8v-ss-LHq"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Cea-Rq-vL0" secondAttribute="bottom" priority="999" constant="18" id="X8v-ss-LHq"/>
                                                         <constraint firstItem="gXz-0G-Tmb" firstAttribute="leading" secondItem="yvi-54-qcM" secondAttribute="leading" id="gro-nV-CHd"/>
                                                         <constraint firstItem="dAN-Bt-UEs" firstAttribute="top" secondItem="yvi-54-qcM" secondAttribute="top" id="opb-pq-H92"/>
-                                                        <constraint firstItem="gXz-0G-Tmb" firstAttribute="top" secondItem="yvi-54-qcM" secondAttribute="top" constant="18" id="yvx-d4-Kgh"/>
+                                                        <constraint firstItem="gXz-0G-Tmb" firstAttribute="top" secondItem="yvi-54-qcM" secondAttribute="top" constant="8" id="yvx-d4-Kgh"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="3"/>
+                                                            <real key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="yvi-54-qcM" secondAttribute="bottom" constant="10" id="DgI-Hm-RJS"/>
                                                 <constraint firstItem="yvi-54-qcM" firstAttribute="top" secondItem="qvg-WX-MN5" secondAttribute="top" constant="10" id="Djm-fn-zSY"/>
+                                                <constraint firstItem="UeQ-id-0ch" firstAttribute="trailing" secondItem="yvi-54-qcM" secondAttribute="trailing" id="It9-yy-bPl"/>
+                                                <constraint firstItem="UeQ-id-0ch" firstAttribute="top" secondItem="yvi-54-qcM" secondAttribute="top" id="PNA-Me-ttc"/>
                                                 <constraint firstItem="yvi-54-qcM" firstAttribute="leading" secondItem="qvg-WX-MN5" secondAttribute="leading" constant="18" id="TbO-Kj-DIv">
                                                     <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                                                 </constraint>
                                                 <constraint firstAttribute="trailing" secondItem="yvi-54-qcM" secondAttribute="trailing" constant="18" id="e7O-u0-0fU">
                                                     <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                                                 </constraint>
+                                                <constraint firstItem="UeQ-id-0ch" firstAttribute="leading" secondItem="yvi-54-qcM" secondAttribute="leading" id="jvJ-Hk-sPA"/>
+                                                <constraint firstItem="UeQ-id-0ch" firstAttribute="bottom" secondItem="yvi-54-qcM" secondAttribute="bottom" id="qRl-ag-sDt"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="bodyLabel" destination="ZA7-0n-Xl3" id="Gls-NF-Ho6"/>
                                             <outlet property="durationLabel" destination="mrO-F2-lNw" id="8nu-h6-3l9"/>
                                             <outlet property="fromToDateLabel" destination="H4j-TL-Hum" id="AzU-Jg-YiB"/>
                                             <outlet property="projectTitleLabel" destination="jj4-Uj-OxS" id="qAa-5i-3xt"/>
+                                            <outlet property="roundedContainerView" destination="yvi-54-qcM" id="8x4-Zi-7Hb"/>
+                                            <outlet property="shadowView" destination="UeQ-id-0ch" id="irI-AX-3FH"/>
                                             <outlet property="stackView" destination="Cea-Rq-vL0" id="5aN-a2-dM6"/>
                                             <outlet property="tagLabel" destination="cap-9P-jKo" id="AHk-St-0AY"/>
                                             <outlet property="tagView" destination="0kF-Ui-fXv" id="Eju-Qr-gS7"/>
                                             <outlet property="taskButton" destination="zBh-u2-HEH" id="rKO-8Q-lhb"/>
                                             <outletCollection property="projectViews" destination="dAN-Bt-UEs" collectionClass="NSMutableArray" id="hdT-ej-SDM"/>
-                                            <outletCollection property="projectViews" destination="gXz-0G-Tmb" collectionClass="NSMutableArray" id="IaU-ev-mkG"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="2gw-Cj-eXj" firstAttribute="leading" secondItem="pV0-Kr-wuD" secondAttribute="leading" constant="18" id="8Y7-bS-6WL">
-                                <variation key="heightClass=regular-widthClass=regular" constant="60"/>
-                            </constraint>
-                            <constraint firstItem="pV0-Kr-wuD" firstAttribute="trailing" secondItem="Zaq-8A-L30" secondAttribute="trailing" constant="18" id="Jwb-Gm-9rw">
-                                <variation key="heightClass=regular-widthClass=regular" constant="60"/>
-                            </constraint>
-                            <constraint firstItem="SCa-Yp-ddD" firstAttribute="top" secondItem="2gw-Cj-eXj" secondAttribute="bottom" constant="18" id="Xvn-V9-dq1"/>
+                            <constraint firstItem="SCa-Yp-ddD" firstAttribute="top" secondItem="gSW-q8-FeV" secondAttribute="top" id="Ti8-nd-IOf"/>
                             <constraint firstItem="SCa-Yp-ddD" firstAttribute="leading" secondItem="pV0-Kr-wuD" secondAttribute="leading" id="YLz-zY-hFP"/>
-                            <constraint firstItem="pV0-Kr-wuD" firstAttribute="bottom" secondItem="SCa-Yp-ddD" secondAttribute="bottom" id="ZlT-Eg-Luf"/>
-                            <constraint firstItem="Zaq-8A-L30" firstAttribute="centerY" secondItem="2gw-Cj-eXj" secondAttribute="centerY" id="jPh-gG-QpU"/>
+                            <constraint firstAttribute="bottom" secondItem="SCa-Yp-ddD" secondAttribute="bottom" id="ZlT-Eg-Luf"/>
                             <constraint firstItem="pV0-Kr-wuD" firstAttribute="trailing" secondItem="SCa-Yp-ddD" secondAttribute="trailing" id="mHt-SS-Vcc"/>
-                            <constraint firstItem="2gw-Cj-eXj" firstAttribute="top" secondItem="pV0-Kr-wuD" secondAttribute="top" constant="20" id="uSO-Uo-LgW">
-                                <variation key="heightClass=compact-widthClass=compact" constant="10"/>
-                                <variation key="heightClass=regular-widthClass=regular" constant="60"/>
-                            </constraint>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pV0-Kr-wuD"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Timesheet" largeTitleDisplayMode="always" id="7Ga-cn-eZa"/>
                     <connections>
                         <outlet property="dateSelectorView" destination="KTO-4j-KGE" id="neF-yZ-OrX"/>
                         <outlet property="durationLabel" destination="YBd-4h-a3P" id="puT-X8-6cX"/>
@@ -382,7 +369,4 @@
             <point key="canvasLocation" x="200.00000000000003" y="291.96428571428572"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="add-icon" width="29" height="29"/>
-    </resources>
 </document>

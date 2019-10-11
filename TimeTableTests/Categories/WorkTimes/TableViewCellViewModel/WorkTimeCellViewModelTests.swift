@@ -39,7 +39,7 @@ class WorkTimeCellViewModelTests: XCTestCase {
         //Act
         viewModel.viewConfigured()
         //Assert
-        XCTAssertEqual(userInterface.updateViewData?.durationText, "1:00")
+        XCTAssertEqual(userInterface.updateViewData?.durationText, "1h")
         XCTAssertEqual(userInterface.updateViewData?.bodyText, "Bracket - v2")
         XCTAssertEqual(userInterface.updateViewData?.taskUrlText, "task1")
         XCTAssertEqual(userInterface.updateViewData?.fromToDateText, "3:00 PM - 4:00 PM")
@@ -54,7 +54,7 @@ class WorkTimeCellViewModelTests: XCTestCase {
         //Act
         viewModel.prepareForReuse()
         //Assert
-        XCTAssertEqual(userInterface.updateViewData?.durationText, "2:00")
+        XCTAssertEqual(userInterface.updateViewData?.durationText, "2h")
         XCTAssertEqual(userInterface.updateViewData?.bodyText, "Bracket - v3")
         XCTAssertEqual(userInterface.updateViewData?.taskUrlText, "task2")
         XCTAssertEqual(userInterface.updateViewData?.fromToDateText, "12:00 PM - 2:00 PM")
@@ -62,6 +62,11 @@ class WorkTimeCellViewModelTests: XCTestCase {
 }
 
 private class WorkTimeCellViewMock: WorkTimeCellViewModelOutput {
+    private(set) var setUpCalled = false
+    func setUp() {
+        self.setUpCalled = true
+    }
+    
     private(set) var updateViewData: WorkTimeCellViewModel.ViewData?
     func updateView(data: WorkTimeCellViewModel.ViewData) {
         updateViewData = data
