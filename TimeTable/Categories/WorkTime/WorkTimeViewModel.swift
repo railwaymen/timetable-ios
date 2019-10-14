@@ -74,6 +74,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
          editedTask: Task?,
          duplicatedTask: Task?) {
         self.userInterface = userInterface
+        self.coordinator = coordinator
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.calendar = calendar
