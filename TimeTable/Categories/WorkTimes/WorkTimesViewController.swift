@@ -40,7 +40,7 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     // MARK: - Action
     @objc private func addNewRecordTapped(_ sender: UIBarButtonItem) {
-        let sourceView = sender.value(forKey: "view") as? UIView ?? navigationController?.navigationBar ?? UIView()
+        let sourceView = sender.view ?? navigationController?.navigationBar ?? UIView()
         viewModel.viewRequestForNewWorkTimeView(sourceView: sourceView)
     }
     
