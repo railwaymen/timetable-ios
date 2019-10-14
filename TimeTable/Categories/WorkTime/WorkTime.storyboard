@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Sc1-v6-mIx">
-                                        <rect key="frame" x="0.0" y="70" width="414" height="412"/>
+                                        <rect key="frame" x="0.0" y="16" width="414" height="412"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Select Project" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5hq-3M-39r">
                                                 <rect key="frame" x="16" y="0.0" width="382" height="34"/>
@@ -206,7 +206,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="Sc1-v6-mIx" firstAttribute="leading" secondItem="bjN-hl-pu3" secondAttribute="leading" id="7yN-V4-umk"/>
-                                    <constraint firstItem="Sc1-v6-mIx" firstAttribute="top" secondItem="bjN-hl-pu3" secondAttribute="top" constant="70" id="E7V-GF-n3b"/>
+                                    <constraint firstItem="Sc1-v6-mIx" firstAttribute="top" secondItem="bjN-hl-pu3" secondAttribute="top" constant="16" id="E7V-GF-n3b"/>
                                     <constraint firstAttribute="trailing" secondItem="Sc1-v6-mIx" secondAttribute="trailing" id="LWM-8O-IUh"/>
                                     <constraint firstAttribute="bottom" secondItem="Sc1-v6-mIx" secondAttribute="bottom" constant="8" id="uqg-9O-bhl"/>
                                 </constraints>

@@ -171,8 +171,13 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
                                         selector: #selector(self.keyboardWillHide),
                                         name: UIResponder.keyboardWillHideNotification,
                                         object: nil)
-        
-        let closeButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(cancelButtonTapped))
+        let systemItem: UIBarButtonItem.SystemItem
+        if #available(iOS 13, *) {
+            systemItem = .close
+        } else {
+            systemItem = .cancel
+        }
+        let closeButton = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(cancelButtonTapped))
         navigationItem.setRightBarButton(closeButton, animated: false)
         
         bodyTextField.isHidden = isLunch
