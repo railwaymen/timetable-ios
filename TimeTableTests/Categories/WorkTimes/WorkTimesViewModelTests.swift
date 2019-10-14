@@ -394,6 +394,8 @@ class WorkTimesViewModelTests: XCTestCase {
 
 // MARK: -
 private class WorkTimeCellViewMock: WorkTimeCellViewModelOutput {
+    func setUp() {}
+    
     func updateView(data: WorkTimeCellViewModel.ViewData) {}
 }
 

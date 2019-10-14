@@ -9,6 +9,7 @@
 import UIKit
 
 protocol WorkTimeCellViewModelOutput: class {
+    func setUp()
     func updateView(data: WorkTimeCellViewModel.ViewData)
 }
 
@@ -24,9 +25,9 @@ class WorkTimeCellViewModel: WorkTimeCellViewModelType {
     
     private lazy var dateComponentsFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .positional
         formatter.allowedUnits = [.hour, .minute]
-        formatter.zeroFormattingBehavior = .pad
+        formatter.zeroFormattingBehavior = .default
+        formatter.unitsStyle = .abbreviated
         return formatter
     }()
     
@@ -38,6 +39,7 @@ class WorkTimeCellViewModel: WorkTimeCellViewModelType {
     
     // MARK: - WorkTimeCellViewModelType
     func viewConfigured() {
+        self.userInterface?.setUp()
         self.updateView()
     }
     

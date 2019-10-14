@@ -10,10 +10,24 @@ import UIKit
 
 extension UIColor {
     
-    static var crimson: UIColor = UIColor(hex6: 0xCB142A)
-    static var anzac: UIColor = UIColor(hex6: 0xE0B73F)
-    static var rouge: UIColor = UIColor(hex6: 0xA54294)
-    static var conifier: UIColor = UIColor(hex6: 0x86D64A)
+    static let crimson: UIColor = UIColor(hex6: 0xCB142A)
+    static let anzac: UIColor = UIColor(hex6: 0xE0B73F)
+    static let rouge: UIColor = UIColor(hex6: 0xA54294)
+    static let conifier: UIColor = UIColor(hex6: 0x86D64A)
+    static let defaultBackground: UIColor = {
+        if #available(iOS 13, *) {
+            return .systemBackground
+        } else {
+            return .white
+        }
+    }()
+    static let defaultLabel: UIColor = {
+        if #available(iOS 13, *) {
+            return .label
+        } else {
+            return .black
+        }
+    }()
     
     // MARK: - Initialization
     convenience init(hexString: String, alpha: CGFloat = 1.0) {

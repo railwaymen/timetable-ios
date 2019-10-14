@@ -39,8 +39,9 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     // MARK: - Action
-    @IBAction private func addNewRecordTapped(_ sender: UIButton) {
-        viewModel.viewRequestForNewWorkTimeView(sourceView: sender)
+    @objc private func addNewRecordTapped(_ sender: UIBarButtonItem) {
+        let sourceView = sender.view ?? navigationController?.navigationBar ?? UIView()
+        viewModel.viewRequestForNewWorkTimeView(sourceView: sourceView)
     }
     
     // MARK: - UITableViewDataSource
@@ -136,6 +137,9 @@ extension WorkTimesViewController: WorkTimesViewModelOutput {
         tableView.register(nib, forHeaderFooterViewReuseIdentifier: workTimesTableViewHeaderIdentifier)
 
         dateSelectorView.delegate = self
+        
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewRecordTapped))
+        navigationItem.setRightBarButtonItems([addButton], animated: false)
     }
     
     func updateView() {

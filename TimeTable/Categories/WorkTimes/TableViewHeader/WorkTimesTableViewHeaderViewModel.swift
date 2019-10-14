@@ -23,9 +23,9 @@ class WorkTimesTableViewHeaderViewModel: WorkTimesTableViewHeaderViewModelType {
     
     private lazy var dateComponentsFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .positional
+        formatter.unitsStyle = .abbreviated
         formatter.allowedUnits = [.hour, .minute]
-        formatter.zeroFormattingBehavior = .pad
+        formatter.zeroFormattingBehavior = .default
         return formatter
     }()
     

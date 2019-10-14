@@ -1,15 +1,42 @@
 default_platform(:ios)
 
+SCHEME = "TimeTable"
+WORKSPACE = "TimeTable.xcworkspace"
+PROJECT = "TimeTable.xcodeproj"
+
 platform :ios do
 
   before_all do
-    xcversion(version: "10.3")
+    xcversion(version: "11.1")
   end
 
   after_all do |lane|
   end
 
   error do |lane, exception|
+  end
+
+  #PUBLIC LANES
+  desc "Run unit tests"
+  lane :test do
+    check_style
+    scan(
+      workspace: WORKSPACE,
+      scheme: SCHEME,
+      code_coverage: true)
+    xcov(
+      scheme: SCHEME,
+      workspace: WORKSPACE,
+      json_report: true,
+      markdown_report: true,
+      output_directory: "output/coverage/xcov",
+      skip_slack: true)
+    slather(
+      scheme: SCHEME,
+      workspace: WORKSPACE,
+      proj: PROJECT,
+      html: true,
+      output_directory: "output/coverage/slather")
   end
 
   #PRIVATE LANES
@@ -21,13 +48,4 @@ platform :ios do
 		ENV["PATH"] = ["Pods/SwiftLint", ENV["PATH"]].join(":")
 		swiftlint(output_file:output_file, reporter: "emoji")
 	end
-
-  #PUBLIC LANES
-  desc "Run unit tests"
-  lane :test do
-    check_style
-    scan
-    xcov(scheme: "TimeTable", workspace: "TimeTable.xcworkspace", json_report: true, markdown_report: true, output_directory: "output/coverage/xcov", skip_slack: true)
-    slather(scheme: "TimeTable", workspace:"TimeTable.xcworkspace", proj:"TimeTable.xcodeproj", html: true, output_directory: "output/tests/coverage/slather")
-  end
 end

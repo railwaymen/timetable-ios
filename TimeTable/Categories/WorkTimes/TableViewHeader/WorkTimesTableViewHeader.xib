@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="SF-Pro-Display-Bold.otf">
-            <string>SFProDisplay-Bold</string>
-        </array>
-        <array key="SF-Pro-Display-Regular.otf">
-            <string>SFProDisplay-Regular</string>
-        </array>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -24,39 +14,43 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v6g-0m-cyk">
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uvp-Ht-etH">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
-                    <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
-                </view>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="FJE-yF-ezG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <blurEffect style="prominent"/>
+                </visualEffectView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGw-4p-xFE">
-                    <rect key="frame" x="16" y="8" width="49.5" height="44"/>
-                    <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="18"/>
-                    <color key="textColor" red="0.30588235289999999" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <rect key="frame" x="16" y="8" width="49" height="44"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" text="8:00 h  " textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="zA8-8k-Ly2">
-                    <rect key="frame" x="73.5" y="19" width="285.5" height="22"/>
-                    <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="18"/>
-                    <color key="textColor" red="0.62352941176470589" green="0.62352941176470589" blue="0.71764705882352942" alpha="1" colorSpace="calibratedRGB"/>
+                    <rect key="frame" x="73" y="19" width="286" height="22"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="v6g-0m-cyk" secondAttribute="bottom" id="0QH-ke-15y"/>
+                <constraint firstItem="uvp-Ht-etH" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="ABR-cv-NA4"/>
+                <constraint firstItem="uvp-Ht-etH" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Mwd-mU-hyz"/>
                 <constraint firstItem="zA8-8k-Ly2" firstAttribute="centerY" secondItem="eGw-4p-xFE" secondAttribute="centerY" id="S3V-1N-lD9"/>
+                <constraint firstItem="uvp-Ht-etH" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="VkX-AO-2q4"/>
                 <constraint firstItem="eGw-4p-xFE" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="XRd-w2-wnM">
                     <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                 </constraint>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="eGw-4p-xFE" secondAttribute="bottom" constant="8" id="XkE-bo-Re0"/>
                 <constraint firstItem="zA8-8k-Ly2" firstAttribute="leading" secondItem="eGw-4p-xFE" secondAttribute="trailing" constant="8" id="YlN-U0-dES"/>
-                <constraint firstItem="v6g-0m-cyk" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="dNE-uh-luU"/>
-                <constraint firstItem="v6g-0m-cyk" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="eHf-UG-XBR"/>
+                <constraint firstItem="uvp-Ht-etH" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="e5c-SZ-KRg"/>
                 <constraint firstItem="eGw-4p-xFE" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="nSJ-n9-9JW"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="zA8-8k-Ly2" secondAttribute="trailing" constant="16" id="pZ7-sf-56o">
                     <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                 </constraint>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="v6g-0m-cyk" secondAttribute="trailing" id="xIU-fe-DEr"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

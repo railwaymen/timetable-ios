@@ -11,7 +11,7 @@ import UIKit
 typealias WorkTimesApiClient = (ApiClientProjectsType & ApiClientWorkTimesType & ApiClientUsersType & ApiClientMatchingFullTimeType)
 
 protocol WorkTimesCoordinatorDelegate: class {
-    func workTimesRequestedForNewWorkTimeView(sourceView: UIButton, lastTask: Task?)
+    func workTimesRequestedForNewWorkTimeView(sourceView: UIView, lastTask: Task?)
     func workTimesRequestedForEditWorkTimeView(sourceView: UIView, editedTask: Task)
     func workTimesRequestedForDuplicateWorkTimeView(sourceView: UIView, duplicatedTask: Task, lastTask: Task?)
 }
@@ -42,7 +42,9 @@ class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType
                                        image: #imageLiteral(resourceName: "work_times_icon"),
                                        selectedImage: nil)
         super.init(window: window, messagePresenter: messagePresenter)
-        self.navigationController.setNavigationBarHidden(true, animated: false)
+        self.navigationController.setNavigationBarHidden(false, animated: false)
+        self.navigationController.navigationBar.prefersLargeTitles = true
+        self.navigationController.navigationBar.tintColor = .crimson
         self.root.tabBarItem = tabBarItem
     }
     
@@ -90,7 +92,7 @@ class WorkTimesCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType
 
 // MARK: - WorkTimesCoordinatorDelegate
 extension WorkTimesCoordinator: WorkTimesCoordinatorDelegate {
-    func workTimesRequestedForNewWorkTimeView(sourceView: UIButton, lastTask: Task?) {
+    func workTimesRequestedForNewWorkTimeView(sourceView: UIView, lastTask: Task?) {
         self.runWorkTimeFlow(sourceView: sourceView, lastTask: lastTask, editedTask: nil, duplicatedTask: nil)
     }
     
