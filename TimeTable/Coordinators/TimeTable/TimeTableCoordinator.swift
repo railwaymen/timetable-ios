@@ -25,7 +25,7 @@ class TimeTableTabCoordinator: BaseTabBarCoordinator {
                                                       storyboardsManager: storyboardsManager,
                                                       apiClient: apiClient,
                                                       errorHandler: errorHandler)
-        let workTimeCoordinator = WorkTimesCoordinator(window: nil,
+        let workTimeCoordinator = WorkTimesListCoordinator(window: nil,
                                                        messagePresenter: messagePresenter,
                                                        storyboardsManager: storyboardsManager,
                                                        apiClient: apiClient,

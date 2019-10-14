@@ -1,5 +1,5 @@
 //
-//  WorkTimesViewModel.swift
+//  WorkTimesListViewModel.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 23/11/2018.
@@ -9,21 +9,21 @@
 import Foundation
 import UIKit
 
-protocol WorkTimesViewModelOutput: class {
+protocol WorkTimesListViewModelOutput: class {
     func setUpView()
     func updateView()
     func updateDateSelector(currentDateString: String, previousDateString: String, nextDateString: String)
     func updateMatchingFullTimeLabels(workedHours: String, shouldWorkHours: String, duration: String)
 }
 
-protocol WorkTimesViewModelType: class {
+protocol WorkTimesListViewModelType: class {
     func numberOfSections() -> Int
     func numberOfRows(in section: Int) -> Int
     func viewDidLoad()
     func viewWillAppear()
     func viewRequestForPreviousMonth()
     func viewRequestForNextMonth()
-    func viewRequestForCellType(at index: IndexPath) -> WorkTimesViewModel.CellType
+    func viewRequestForCellType(at index: IndexPath) -> WorkTimesListViewModel.CellType
     func viewRequestForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType?
     func viewRequestForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType?
     func viewRequestToDuplicate(sourceView: UITableViewCell, at indexPath: IndexPath)
@@ -49,12 +49,12 @@ class DailyWorkTime {
     }
 }
 
-typealias WorkTimesApiClientType = (ApiClientWorkTimesType & ApiClientMatchingFullTimeType)
+typealias WorkTimesListApiClientType = (ApiClientWorkTimesType & ApiClientMatchingFullTimeType)
 
-class WorkTimesViewModel: WorkTimesViewModelType {
-    private weak var userInterface: WorkTimesViewModelOutput?
-    private weak var coordinator: WorkTimesCoordinatorDelegate?
-    private let contentProvider: WorkTimesContentProviderType
+class WorkTimesListViewModel: WorkTimesListViewModelType {
+    private weak var userInterface: WorkTimesListViewModelOutput?
+    private weak var coordinator: WorkTimesListCoordinatorDelegate?
+    private let contentProvider: WorkTimesListContentProviderType
     private let errorHandler: ErrorHandlerType
     private let calendar: CalendarType
     private var selectedMonth: Date?
@@ -66,9 +66,9 @@ class WorkTimesViewModel: WorkTimesViewModelType {
     }
     
     // MARK: - Initialization
-    init(userInterface: WorkTimesViewModelOutput,
-         coordinator: WorkTimesCoordinatorDelegate?,
-         contentProvider: WorkTimesContentProviderType,
+    init(userInterface: WorkTimesListViewModelOutput,
+         coordinator: WorkTimesListCoordinatorDelegate?,
+         contentProvider: WorkTimesListContentProviderType,
          errorHandler: ErrorHandlerType,
          calendar: CalendarType = Calendar.autoupdatingCurrent) {
         self.userInterface = userInterface
@@ -81,7 +81,7 @@ class WorkTimesViewModel: WorkTimesViewModelType {
         self.selectedMonth = calendar.date(from: components)
     }
     
-    // MARK: - WorkTimesViewModelType
+    // MARK: - WorkTimesListViewModelType
     func numberOfSections() -> Int {
         return dailyWorkTimesArray.count
     }
@@ -107,7 +107,7 @@ class WorkTimesViewModel: WorkTimesViewModelType {
         fetchAndChangeSelectedMonth(with: DateComponents(month: 1))
     }
     
-    func viewRequestForCellType(at index: IndexPath) -> WorkTimesViewModel.CellType {
+    func viewRequestForCellType(at index: IndexPath) -> WorkTimesListViewModel.CellType {
         guard let workTime = workTime(for: index) else { return .standard }
         return workTime.taskPreview == nil ? .standard : .taskURL
     }

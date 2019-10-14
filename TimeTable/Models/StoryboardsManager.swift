@@ -20,7 +20,7 @@ class StoryboardsManager: StoryboardsManagerType {
         case serverConfiguration = "ServerConfiguration"
         case login = "Login"
         case workTime = "WorkTime"
-        case workTimes = "WorkTimes"
+        case workTimesList = "WorkTimesList"
         case projects = "Projects"
         case user = "User"
     }

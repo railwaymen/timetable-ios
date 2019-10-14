@@ -15,7 +15,7 @@ class StoryboardsManagerMock: StoryboardsManagerType {
     var serverConfigurationController: UIViewController?
     var userController: UIViewController?
     var workTimeController: UIViewController?
-    var workTimesController: UIViewController?
+    var workTimesListController: UIViewController?
     
     func controller<T>(storyboard: StoryboardsManager.StoryboardName, controllerIdentifier: StoryboardsManager.ControllerIdentifier) -> T? {
         switch storyboard {
@@ -24,7 +24,7 @@ class StoryboardsManagerMock: StoryboardsManagerType {
         case .serverConfiguration: return serverConfigurationController as? T
         case .user: return userController as? T
         case .workTime: return workTimeController as? T
-        case .workTimes: return workTimesController as? T
+        case .workTimesList: return workTimesListController as? T
         }
     }
 }

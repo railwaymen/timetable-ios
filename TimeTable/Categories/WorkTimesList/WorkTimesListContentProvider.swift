@@ -1,5 +1,5 @@
 //
-//  WorkTimesContentProvider.swift
+//  WorkTimesListContentProvider.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 29/01/2019.
@@ -8,18 +8,18 @@
 
 import Foundation
 
-protocol WorkTimesContentProviderType: class {
+protocol WorkTimesListContentProviderType: class {
     func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder)>) -> Void)
     func delete(workTime: WorkTimeDecoder, completion: @escaping (Result<Void>) -> Void)
 }
 
-class WorkTimesContentProvider: WorkTimesContentProviderType {
-    private let apiClient: WorkTimesApiClientType
+class WorkTimesListContentProvider: WorkTimesListContentProviderType {
+    private let apiClient: WorkTimesListApiClientType
     private let accessService: AccessServiceUserIDType
     private let calendar: CalendarType
     
     // MARK: - Initialization
-    init(apiClient: WorkTimesApiClientType, accessService: AccessServiceUserIDType, calendar: CalendarType = Calendar.autoupdatingCurrent) {
+    init(apiClient: WorkTimesListApiClientType, accessService: AccessServiceUserIDType, calendar: CalendarType = Calendar.autoupdatingCurrent) {
         self.apiClient = apiClient
         self.accessService = accessService
         self.calendar = calendar

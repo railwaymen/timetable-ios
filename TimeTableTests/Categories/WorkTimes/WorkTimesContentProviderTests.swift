@@ -14,7 +14,7 @@ class WorkTimesContentProviderTests: XCTestCase {
     private var apiClientMock: ApiClientMock!
     private var accessServiceMock: AccessServiceMock!
     private var calendarMock: CalendarMock!
-    private var contentProvider: WorkTimesContentProvider!
+    private var contentProvider: WorkTimesListContentProvider!
     
     private lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -35,7 +35,7 @@ class WorkTimesContentProviderTests: XCTestCase {
         self.apiClientMock = ApiClientMock()
         self.accessServiceMock = AccessServiceMock()
         self.calendarMock = CalendarMock()
-        self.contentProvider = WorkTimesContentProvider(apiClient: apiClientMock, accessService: accessServiceMock, calendar: calendarMock)
+        self.contentProvider = WorkTimesListContentProvider(apiClient: apiClientMock, accessService: accessServiceMock, calendar: calendarMock)
         super.setUp()
     }
     

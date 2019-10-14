@@ -1,5 +1,5 @@
 //
-//  WorkTimesViewController.swift
+//  WorkTimesListViewController.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 23/11/2018.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-typealias WorkTimesViewControlleralbe = (UIViewController & WorkTimesViewControllerType & WorkTimesViewModelOutput)
+typealias WorkTimesListViewControllerable = (UIViewController & WorkTimesListViewControllerType & WorkTimesListViewModelOutput)
 
-protocol WorkTimesViewControllerType: class {
-    func configure(viewModel: WorkTimesViewModelType)
+protocol WorkTimesListViewControllerType: class {
+    func configure(viewModel: WorkTimesListViewModelType)
 }
 
-class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet private var dateSelectorView: DateSelectorView!
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var workedHoursLabel: UILabel!
@@ -25,7 +25,7 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
     private let heightForHeader: CGFloat = 50
     private let workTimeStandardCellReuseIdentifier = "WorkTimeStandardTableViewCellReuseIdentifier"
     private let workTimesTableViewHeaderIdentifier = "WorkTimesTableViewHeaderIdentifier"
-    private var viewModel: WorkTimesViewModelType!
+    private var viewModel: WorkTimesListViewModelType!
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -124,8 +124,8 @@ class WorkTimesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 }
 
-// MARK: - WorkTimesViewModelOutput
-extension WorkTimesViewController: WorkTimesViewModelOutput {
+// MARK: - WorkTimesListViewModelOutput
+extension WorkTimesListViewController: WorkTimesListViewModelOutput {
     func setUpView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -162,14 +162,14 @@ extension WorkTimesViewController: WorkTimesViewModelOutput {
 }
 
 // MARK: - WorkTimesViewControllerType
-extension WorkTimesViewController: WorkTimesViewControllerType {
-    func configure(viewModel: WorkTimesViewModelType) {
+extension WorkTimesListViewController: WorkTimesListViewControllerType {
+    func configure(viewModel: WorkTimesListViewModelType) {
         self.viewModel = viewModel
     }
 }
 
 // MARK: - DateSelectorViewDelegate
-extension WorkTimesViewController: DateSelectorViewDelegate {
+extension WorkTimesListViewController: DateSelectorViewDelegate {
     func dateSelectorRequestedForPreviousDate() {
          viewModel.viewRequestForPreviousMonth()
     }

@@ -1,5 +1,5 @@
 //
-//  WorkTimesCoordinatorMock.swift
+//  WorkTimesListCoordinatorMock.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 15/01/2019.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import TimeTable
 
-class WorkTimesCoordinatorMock: WorkTimesCoordinatorDelegate {
+class WorkTimesListCoordinatorMock: WorkTimesListCoordinatorDelegate {
     private(set) var requestedForNewWorkTimeViewCalled = false
     private(set) var requestedForNewWorkTimeViewSourceView: UIView?
     private(set) var requestedForNewWorkTimeViewLastTask: Task?

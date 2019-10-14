@@ -1,5 +1,5 @@
 //
-//  WorkTimesContentProviderMock.swift
+//  WorkTimesListContentProviderMock.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 31/01/2019.
@@ -9,7 +9,7 @@
 import Foundation
 @testable import TimeTable
 
-class WorkTimesContentProviderMock: WorkTimesContentProviderType {
+class WorkTimesListContentProviderMock: WorkTimesListContentProviderType {
     private(set) var fetchWorkTimesDataValues: (called: Bool, date: Date?) = (false, nil)
     private(set) var fetchWorkTimesDataCompletion: ((Result<([DailyWorkTime], MatchingFullTimeDecoder)>) -> Void)?
     func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder)>) -> Void) {

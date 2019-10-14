@@ -1,5 +1,5 @@
 //
-//  WorkTimesViewControllerMock.swift
+//  WorkTimesListViewControllerMock.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 27/11/2018.
@@ -10,14 +10,14 @@ import Foundation
 @testable import TimeTable
 
 // swiftlint:disable large_tuple
-class WorkTimesViewControllerMock: WorkTimesViewControlleralbe {
+class WorkTimesListViewControllerMock: WorkTimesListViewControllerable {
     
     private(set) var setUpViewCalled = false
     private(set) var updateViewCalled = false
     private(set) var deleteWorkTimeIndexPath: IndexPath?
     private(set) var reloadWorkTimeIndexPath: IndexPath?
     private(set) var updateDateSelectorData: (currentDateString: String?, previousDateString: String?, nextDateString: String?) = (nil, nil, nil)
-    private(set) var configureViewModelData: (called: Bool, viewModel: WorkTimesViewModelType?) = (false, nil)
+    private(set) var configureViewModelData: (called: Bool, viewModel: WorkTimesListViewModelType?) = (false, nil)
     private(set) var updateMatchingFullTimeLabelsData: (workedHours: String?, shouldWorkHours: String?, duration: String?) = (nil, nil, nil)
     
     func setUpView() {
@@ -40,7 +40,7 @@ class WorkTimesViewControllerMock: WorkTimesViewControlleralbe {
         self.reloadWorkTimeIndexPath = indexPath
     }
  
-    func configure(viewModel: WorkTimesViewModelType) {
+    func configure(viewModel: WorkTimesListViewModelType) {
         configureViewModelData = (true, viewModel)
     }
     
