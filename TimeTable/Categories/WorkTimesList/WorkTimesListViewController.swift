@@ -140,6 +140,7 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewRecordTapped))
         navigationItem.setRightBarButtonItems([addButton], animated: false)
+        self.title = "tabbar.title.timesheet".localized
     }
     
     func updateView() {

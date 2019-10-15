@@ -10,7 +10,7 @@
 
 // UIControls
 "tabbar.title.profile" = "Profile";
-"tabbar.title.work_time" = "Work Time";
+"tabbar.title.timesheet" = "Timesheet";
 "tabbar.title.projects" = "Projects";
 
 "server_settings.label.title" = "Log In";
@@ -27,9 +27,6 @@
 "login.button.log_in" = "Log in";
 "login.button.change_server_address" = "Would you like to change the server address?";
 
-"projects.label.title" = "Projects";
-
-"work_times.label.title" = "Timesheet";
 "work_times.label.month_total" = "Month total";
 
 "work_time.label.new_record" = "New record";

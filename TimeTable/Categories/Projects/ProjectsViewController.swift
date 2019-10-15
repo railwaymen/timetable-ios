@@ -56,6 +56,7 @@ extension ProjectsViewController: ProjectsViewModelOutput {
         if let layout = collectionView.collectionViewLayout as? ProjectsCollectionViewLayout {
             layout.delegate = self
         }
+        self.title = "tabbar.title.projects".localized
     }
     
     func updateView() {
