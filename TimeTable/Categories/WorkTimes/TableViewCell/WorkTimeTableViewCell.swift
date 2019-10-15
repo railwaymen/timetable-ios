@@ -44,8 +44,8 @@ class WorkTimeTableViewCell: UITableViewCell {
 // MARK: - WorkTimeCellViewModelOutput
 extension WorkTimeTableViewCell: WorkTimeCellViewModelOutput {
     func setUp() {
-        self.shadowView.layer.shadowRadius = 8
-        self.shadowView.layer.shadowColor = UIColor.defaultLabel.withAlphaComponent(0.15).cgColor
+        self.shadowView.layer.shadowRadius = 4
+        self.shadowView.layer.shadowColor = UIColor.defaultLabel.withAlphaComponent(0.07).cgColor
         self.shadowView.layer.shadowOpacity = 1
         self.shadowView.layer.shadowOffset = CGSize(width: 0, height: 2)
         self.shadowView.layer.cornerRadius = self.roundedContainerView.cornerRadius

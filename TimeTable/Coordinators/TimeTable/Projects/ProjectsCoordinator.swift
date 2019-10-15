@@ -32,7 +32,9 @@ class ProjectsCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType 
                                        image: #imageLiteral(resourceName: "project_icon"),
                                        selectedImage: nil)
         super.init(window: window, messagePresenter: messagePresenter)
-        self.navigationController.setNavigationBarHidden(true, animated: false)
+        self.navigationController.setNavigationBarHidden(false, animated: false)
+        self.navigationController.navigationBar.prefersLargeTitles = true
+        self.navigationController.navigationBar.tintColor = .crimson
         self.root.tabBarItem = tabBarItem
     }
     

@@ -292,7 +292,7 @@
                                                             </constraints>
                                                         </stackView>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstItem="dAN-Bt-UEs" firstAttribute="leading" secondItem="gXz-0G-Tmb" secondAttribute="trailing" id="0OL-O9-KJM"/>
                                                         <constraint firstAttribute="bottom" secondItem="dAN-Bt-UEs" secondAttribute="bottom" id="3Sh-5X-5OT"/>
