@@ -28,8 +28,12 @@ class ProjectsCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType 
         self.storyboardsManager = storyboardsManager
         self.apiClient = apiClient
         self.errorHandler = errorHandler
+        var image: UIImage = #imageLiteral(resourceName: "project_icon")
+        if #available(iOS 13, *), let sfSymbol = UIImage(systemName: "rectangle.grid.2x2.fill") {
+            image = sfSymbol
+        }
         self.tabBarItem = UITabBarItem(title: "tabbar.title.projects".localized,
-                                       image: #imageLiteral(resourceName: "project_icon"),
+                                       image: image,
                                        selectedImage: nil)
         super.init(window: window, messagePresenter: messagePresenter)
         self.navigationController.setNavigationBarHidden(false, animated: false)

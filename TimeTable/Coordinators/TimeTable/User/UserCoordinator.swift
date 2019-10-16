@@ -37,8 +37,12 @@ class UserCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
         self.accessService = accessService
         self.coreDataStack = coreDataStack
         self.errorHandler = errorHandler
+        var image: UIImage = #imageLiteral(resourceName: "profile_icon")
+        if #available(iOS 13, *), let sfSymbol = UIImage(systemName: "person.fill") {
+            image = sfSymbol
+        }
         self.tabBarItem = UITabBarItem(title: "tabbar.title.profile".localized,
-                                       image: #imageLiteral(resourceName: "profile_icon"),
+                                       image: image,
                                        selectedImage: nil)
         super.init(window: window, messagePresenter: messagePresenter)
         self.root.tabBarItem = tabBarItem

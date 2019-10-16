@@ -109,7 +109,6 @@ class WorkTimesCoordinatorTests: XCTestCase {
         //Assert
         XCTAssertNil(workTimeCoordinator.root.children.last)
         XCTAssertTrue(controllerMock.configureViewModelData.called)
-        XCTAssertEqual(controllerMock.modalPresentationStyle, .pageSheet)
     }
     
     func testWorkTimesRequestedForDuplicateWorkTimeView_succeed() {
@@ -123,7 +122,6 @@ class WorkTimesCoordinatorTests: XCTestCase {
         //Assert
         XCTAssertNil(workTimeCoordinator.root.children.last)
         XCTAssertTrue(controllerMock.configureViewModelData.called)
-        XCTAssertEqual(controllerMock.modalPresentationStyle, .pageSheet)
     }
     
     // MAKR: - Private
