@@ -678,6 +678,7 @@ class WorkTimeViewModelTests: XCTestCase {
     
     private func createViewModel(lastTask: Task?, editedTask: Task?, duplicatedTask: Task?) -> WorkTimeViewModel {
         return WorkTimeViewModel(userInterface: userInterface,
+                                 coordinator: nil,
                                  apiClient: apiClient,
                                  errorHandler: errorHandlerMock,
                                  calendar: calendarMock,

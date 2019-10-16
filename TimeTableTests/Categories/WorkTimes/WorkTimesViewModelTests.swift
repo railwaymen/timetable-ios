@@ -12,9 +12,9 @@ import XCTest
 // swiftlint:disable file_length
 // swiftlint:disable type_body_length
 class WorkTimesViewModelTests: XCTestCase {
-    private var userInterfaceMock: WorkTimesViewControllerMock!
-    private var coordinatorMock: WorkTimesCoordinatorMock!
-    private var contentProvider: WorkTimesContentProviderMock!
+    private var userInterfaceMock: WorkTimesListViewControllerMock!
+    private var coordinatorMock: WorkTimesListCoordinatorMock!
+    private var contentProvider: WorkTimesListContentProviderMock!
     private var errorHandlerMock: ErrorHandlerMock!
     private var calendarMock: CalendarMock!
     
@@ -34,10 +34,10 @@ class WorkTimesViewModelTests: XCTestCase {
     }()
     
     override func setUp() {
-        userInterfaceMock = WorkTimesViewControllerMock()
-        coordinatorMock = WorkTimesCoordinatorMock()
+        userInterfaceMock = WorkTimesListViewControllerMock()
+        coordinatorMock = WorkTimesListCoordinatorMock()
         errorHandlerMock = ErrorHandlerMock()
-        contentProvider = WorkTimesContentProviderMock()
+        contentProvider = WorkTimesListContentProviderMock()
         calendarMock = CalendarMock()
         super.setUp()
     }
@@ -368,13 +368,13 @@ class WorkTimesViewModelTests: XCTestCase {
     }
     
     // MARK: - Private
-    private func buildViewModel(isSelecteDate: Bool = true) -> WorkTimesViewModel {
+    private func buildViewModel(isSelecteDate: Bool = true) -> WorkTimesListViewModel {
         let components = DateComponents(year: 2019, month: 2, day: 2)
         calendarMock.dateComponentsReturnValue = components
         if isSelecteDate {
             calendarMock.dateFromComponentsValue = Calendar.current.date(from: components)
         }
-        return WorkTimesViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
+        return WorkTimesListViewModel(userInterface: userInterfaceMock, coordinator: coordinatorMock,
                                   contentProvider: contentProvider, errorHandler: errorHandlerMock, calendar: calendarMock)
     }
     

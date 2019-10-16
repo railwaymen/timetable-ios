@@ -127,9 +127,9 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
     private func createApiClient(with configuration: ServerConfiguration) -> ApiClientType? {
         guard let hostURL = configuration.host else { return nil }
         let networking = Networking(baseURL: hostURL.absoluteString)
-        return ApiClient(networking: networking, buildEncoder: {
+        return ApiClient(networking: networking, buildEncoder: { [encoder] in
             return RequestEncoder(encoder: encoder, serialization: CustomJSONSerialization())
-        }, buildDecoder: {
+        }, buildDecoder: { [decoder] in
             return decoder
         })
     }

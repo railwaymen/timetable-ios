@@ -14,7 +14,7 @@ class WorkTimesCoordinatorTests: XCTestCase {
     private var apiClientMock: ApiClientMock!
     private var accessService: AccessServiceMock!
     private var errorHandlerMock: ErrorHandlerMock!
-    private var workTimeCoordinator: WorkTimesCoordinator!
+    private var workTimeCoordinator: WorkTimesListCoordinator!
     private var messagePresenterMock: MessagePresenterMock!
     
     override func setUp() {
@@ -23,7 +23,7 @@ class WorkTimesCoordinatorTests: XCTestCase {
         self.accessService = AccessServiceMock()
         self.errorHandlerMock = ErrorHandlerMock()
         self.messagePresenterMock = MessagePresenterMock()
-        self.workTimeCoordinator = WorkTimesCoordinator(window: nil,
+        self.workTimeCoordinator = WorkTimesListCoordinator(window: nil,
                                                         messagePresenter: self.messagePresenterMock,
                                                         storyboardsManager: self.storyboardsManagerMock,
                                                         apiClient: self.apiClientMock,
@@ -42,12 +42,12 @@ class WorkTimesCoordinatorTests: XCTestCase {
     
     func testRunMainFlowRunsMainFlow() {
         //Arrange
-        storyboardsManagerMock.workTimesController = WorkTimesViewControllerMock()
+        storyboardsManagerMock.workTimesListController = WorkTimesListViewControllerMock()
         //Act
         workTimeCoordinator.start()
         //Assert
         XCTAssertFalse(workTimeCoordinator.navigationController.children.isEmpty)
-        XCTAssertNotNil(workTimeCoordinator.navigationController.children.first as? WorkTimesViewControlleralbe)
+        XCTAssertNotNil(workTimeCoordinator.navigationController.children.first as? WorkTimesListViewControllerable)
     }
     
     // MARK: - WorkTimesCoordinatorDelegate
@@ -109,7 +109,7 @@ class WorkTimesCoordinatorTests: XCTestCase {
         //Assert
         XCTAssertNil(workTimeCoordinator.root.children.last)
         XCTAssertTrue(controllerMock.configureViewModelData.called)
-        XCTAssertEqual(controllerMock.modalPresentationStyle, .popover)
+        XCTAssertEqual(controllerMock.modalPresentationStyle, .pageSheet)
     }
     
     func testWorkTimesRequestedForDuplicateWorkTimeView_succeed() {
@@ -123,7 +123,7 @@ class WorkTimesCoordinatorTests: XCTestCase {
         //Assert
         XCTAssertNil(workTimeCoordinator.root.children.last)
         XCTAssertTrue(controllerMock.configureViewModelData.called)
-        XCTAssertEqual(controllerMock.modalPresentationStyle, .popover)
+        XCTAssertEqual(controllerMock.modalPresentationStyle, .pageSheet)
     }
     
     // MAKR: - Private

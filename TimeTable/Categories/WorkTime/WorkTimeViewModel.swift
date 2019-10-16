@@ -46,7 +46,8 @@ protocol WorkTimeViewModelType: class {
 
 class WorkTimeViewModel: WorkTimeViewModelType {
     private weak var userInterface: WorkTimeViewModelOutput?
-    private let apiClient: TimeTableTabApiClientType
+    private weak var coordinator: WorkTimeCoordinatorType?
+    private let apiClient: WorkTimeApiClientType
     private let errorHandler: ErrorHandlerType
     private let calendar: CalendarType
     private let lastTask: Task?
@@ -65,13 +66,15 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     
     // MARK: - Initialization
     init(userInterface: WorkTimeViewModelOutput?,
-         apiClient: TimeTableTabApiClientType,
+         coordinator: WorkTimeCoordinatorType?,
+         apiClient: WorkTimeApiClientType,
          errorHandler: ErrorHandlerType,
          calendar: CalendarType,
          lastTask: Task?,
          editedTask: Task?,
          duplicatedTask: Task?) {
         self.userInterface = userInterface
+        self.coordinator = coordinator
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.calendar = calendar
@@ -150,7 +153,8 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func viewRequestedToFinish() {
-        userInterface?.dismissView()
+        self.userInterface?.dismissView()
+        self.coordinator?.viewDidFinish()
     }
     
     func taskNameDidChange(value: String?) {

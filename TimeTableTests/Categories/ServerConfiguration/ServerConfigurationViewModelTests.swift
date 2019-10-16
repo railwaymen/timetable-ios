@@ -72,17 +72,12 @@ class ServerConfigurationViewModelTests: XCTestCase {
     
     func testViewRequestedToContinueCreateCorrectServerConfigurationWithDefaultValues() throws {
         //Arrange
-        let verifyExepectation = self.expectation(description: "verifyExepectation")
         let mainQueueExpectation = self.expectation(description: "mainQueueExpectation")
         let hostString = "www.example.com"
         viewModel.serverAddressDidChange(text: hostString)
-        serverConfigurationManagerMock.expectationHandler = verifyExepectation.fulfill
-        
         //Act
         viewModel.viewRequestedToContinue()
         serverConfigurationManagerMock.verifyConfigurationCompletion?(.success(Void()))
-        wait(for: [verifyExepectation], timeout: timeout)
-        
         //Assert
         DispatchQueue.main.async {
             do {
