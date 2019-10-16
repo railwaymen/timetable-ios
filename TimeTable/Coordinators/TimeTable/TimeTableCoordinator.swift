@@ -26,11 +26,11 @@ class TimeTableTabCoordinator: BaseTabBarCoordinator {
                                                       apiClient: apiClient,
                                                       errorHandler: errorHandler)
         let workTimeCoordinator = WorkTimesListCoordinator(window: nil,
-                                                       messagePresenter: messagePresenter,
-                                                       storyboardsManager: storyboardsManager,
-                                                       apiClient: apiClient,
-                                                       accessService: accessService,
-                                                       errorHandler: errorHandler)
+                                                           messagePresenter: messagePresenter,
+                                                           storyboardsManager: storyboardsManager,
+                                                           apiClient: apiClient,
+                                                           accessService: accessService,
+                                                           errorHandler: errorHandler)
         let userCoordinator = UserCoordinator(window: nil,
                                               messagePresenter: messagePresenter,
                                               storyboardsManager: storyboardsManager,
