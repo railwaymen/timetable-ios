@@ -307,6 +307,9 @@
 		8A10F83A2350C7AF0004F389 /* WorkTimeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCoordinator.swift; sourceTree = "<group>"; };
 		8A10F83C2350D9810004F389 /* DismissableNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissableNavigationController.swift; sourceTree = "<group>"; };
 		8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extension.swift"; sourceTree = "<group>"; };
+		8A839D0A23570E26002F3464 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../../Configuration/Debug.xcconfig; sourceTree = "<group>"; };
+		8A839D0B23570EC0002F3464 /* Stage.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Stage.xcconfig; path = ../../Configuration/Stage.xcconfig; sourceTree = "<group>"; };
+		8A839D0C23570ED4002F3464 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../../Configuration/Release.xcconfig; sourceTree = "<group>"; };
 		8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellViewModelTests.swift; sourceTree = "<group>"; };
 		C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListContentProvider.swift; sourceTree = "<group>"; };
 		C101603322003D4000DCE817 /* MatchingFullTimeEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFullTimeEncoder.swift; sourceTree = "<group>"; };
@@ -491,9 +494,6 @@
 		C19D88A42202FE54007CC867 /* WorkTimesListContentProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListContentProviderMock.swift; sourceTree = "<group>"; };
 		C19D88A7220300AA007CC867 /* matchingFullTimeFullResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = matchingFullTimeFullResponse.json; sourceTree = "<group>"; };
 		C19DDB1221A42043008C6FA3 /* URLExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensionTests.swift; sourceTree = "<group>"; };
-		C1A10AB521772DB100A83651 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Configuration/Debug.xcconfig; sourceTree = SOURCE_ROOT; };
-		C1A10AB621772DB100A83651 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Configuration/Release.xcconfig; sourceTree = SOURCE_ROOT; };
-		C1A10AB721772DB100A83651 /* Stage.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Stage.xcconfig; path = Configuration/Stage.xcconfig; sourceTree = SOURCE_ROOT; };
 		C1AACFCE21A4349B0023FD32 /* ProjectsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsCoordinator.swift; sourceTree = "<group>"; };
 		C1AACFD121A4353B0023FD32 /* BaseNavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationCoordinator.swift; sourceTree = "<group>"; };
 		C1AACFD321A435AD0023FD32 /* BaseTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarCoordinator.swift; sourceTree = "<group>"; };
@@ -625,6 +625,16 @@
 				0FBF482875EDA8CC06F69C1C /* Pods-TimeTableTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		8A839D0E23570FBD002F3464 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				8A839D0A23570E26002F3464 /* Debug.xcconfig */,
+				8A839D0B23570EC0002F3464 /* Stage.xcconfig */,
+				8A839D0C23570ED4002F3464 /* Release.xcconfig */,
+			);
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 		C10FD87D21F1ED8300A233C5 /* User */ = {
@@ -1283,16 +1293,6 @@
 			path = MatchingFullTime;
 			sourceTree = "<group>";
 		};
-		C1A10AB421772DA400A83651 /* Configuration */ = {
-			isa = PBXGroup;
-			children = (
-				C1A10AB521772DB100A83651 /* Debug.xcconfig */,
-				C1A10AB621772DB100A83651 /* Release.xcconfig */,
-				C1A10AB721772DB100A83651 /* Stage.xcconfig */,
-			);
-			name = Configuration;
-			sourceTree = "<group>";
-		};
 		C1AACFCB21A4345C0023FD32 /* Projects */ = {
 			isa = PBXGroup;
 			children = (
@@ -1373,7 +1373,7 @@
 			children = (
 				C1249C5F21819E2C005DB2A5 /* Assets */,
 				C1249C5E21819E16005DB2A5 /* Categories */,
-				C1A10AB421772DA400A83651 /* Configuration */,
+				8A839D0E23570FBD002F3464 /* Configuration */,
 				C1249C632181A198005DB2A5 /* Coordinators */,
 				C1249C6021819E33005DB2A5 /* Delegates */,
 				C153AC482182EE78007A35BB /* Extensions */,
@@ -2187,7 +2187,7 @@
 /* Begin XCBuildConfiguration section */
 		C1A10ABB21772DDC00A83651 /* Stage */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C1A10AB721772DB100A83651 /* Stage.xcconfig */;
+			baseConfigurationReference = 8A839D0B23570EC0002F3464 /* Stage.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -2295,7 +2295,7 @@
 		};
 		C1B5138421772D1400C3727C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C1A10AB521772DB100A83651 /* Debug.xcconfig */;
+			baseConfigurationReference = 8A839D0A23570E26002F3464 /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -2359,7 +2359,7 @@
 		};
 		C1B5138521772D1400C3727C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C1A10AB721772DB100A83651 /* Stage.xcconfig */;
+			baseConfigurationReference = 8A839D0C23570ED4002F3464 /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
