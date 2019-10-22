@@ -1,5 +1,5 @@
 //
-//  UserCoordinatorTests.swift
+//  ProfileCoordinatorTests.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 18/01/2019.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import TimeTable
 
-class UserCoordinatorTests: XCTestCase {
+class ProfileCoordinatorTests: XCTestCase {
     private var window: UIWindow!
     private var storyboardsManagerMock: StoryboardsManagerMock!
     private var apiClientMock: ApiClientMock!
@@ -18,7 +18,7 @@ class UserCoordinatorTests: XCTestCase {
     private var errorHandlerMock: ErrorHandlerMock!
     private var messagePresenterMock: MessagePresenterMock!
     
-    private var coordinator: UserCoordinator!
+    private var coordinator: ProfileCoordinator!
     
     override func setUp() {
         self.window = UIWindow(frame: .zero)
@@ -29,7 +29,7 @@ class UserCoordinatorTests: XCTestCase {
         self.errorHandlerMock = ErrorHandlerMock()
         self.messagePresenterMock = MessagePresenterMock()
         
-        self.coordinator = UserCoordinator(window: self.window,
+        self.coordinator = ProfileCoordinator(window: self.window,
                                            messagePresenter: self.messagePresenterMock,
                                            storyboardsManager: self.storyboardsManagerMock,
                                            apiClient: self.apiClientMock,
@@ -43,7 +43,7 @@ class UserCoordinatorTests: XCTestCase {
         //Act
         coordinator.start(finishCompletion: {})
         //Assert
-        XCTAssertTrue(coordinator.navigationController.navigationBar.isHidden)
+        XCTAssertFalse(coordinator.navigationController.navigationBar.isHidden)
     }
     
     func testStartInvalidControllerReturned() {
@@ -57,17 +57,17 @@ class UserCoordinatorTests: XCTestCase {
     
     func testStartSetsChildViewController() {
         //Arrange
-        storyboardsManagerMock.userController = UserProfileViewMock()
+        storyboardsManagerMock.userController = ProfileViewControllerMock()
         //Act
         coordinator.start(finishCompletion: {})
         //Assert
-        XCTAssertNotNil(coordinator.navigationController.children[0] as? UserProfileViewControllerable)
+        XCTAssertNotNil(coordinator.navigationController.children[0] as? ProfileViewControllerable)
     }
     
     func testUserProfileDidLogoutUser() {
         //Arrange
         var finishCompletionCalled = false
-        storyboardsManagerMock.userController = UserProfileViewMock()
+        storyboardsManagerMock.userController = ProfileViewControllerMock()
         coordinator.start(finishCompletion: {
             finishCompletionCalled = true
         })

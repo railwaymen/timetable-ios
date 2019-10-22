@@ -1,5 +1,5 @@
 //
-//  UserProfileViewMock.swift
+//  ProfileViewControllerMock.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 18/01/2019.
@@ -9,9 +9,9 @@
 import XCTest
 @testable import TimeTable
 
-class UserProfileViewMock: UIViewController, UserProfileViewModelOutput, UserProfileViewControllerType {
+class ProfileViewControllerMock: UIViewController, ProfileViewModelOutput, ProfileViewControllerType {
     
-    // MARK: - UserProfileViewModelOutput
+    // MARK: - ProfileViewModelOutput
     private(set) var setUpCalled = false
     func setUp() {
         setUpCalled = true
@@ -24,9 +24,9 @@ class UserProfileViewMock: UIViewController, UserProfileViewModelOutput, UserPro
     }
     // swiftlint:enable large_tuple
     
-    // MARK: - UserProfileViewControllerType
+    // MARK: - ProfileViewControllerType
     private(set) var configureCalled = false
-    func configure(viewModel: UserProfileViewModelType) {
+    func configure(viewModel: ProfileViewModelType) {
         configureCalled = true
     }
 }

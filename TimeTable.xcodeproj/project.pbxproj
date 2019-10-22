@@ -20,9 +20,9 @@
 		C10FD88421F1F28200A233C5 /* UserDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88321F1F28200A233C5 /* UserDecoderTests.swift */; };
 		C10FD88721F1F30E00A233C5 /* userFullResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C10FD88621F1F30E00A233C5 /* userFullResponse.json */; };
 		C10FD88921F1F36300A233C5 /* ApiClientUsersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88821F1F36300A233C5 /* ApiClientUsersTests.swift */; };
-		C10FD88C21F1FB2800A233C5 /* UserProfileViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88B21F1FB2800A233C5 /* UserProfileViewModelTests.swift */; };
-		C10FD88E21F1FB6200A233C5 /* UserProfileViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88D21F1FB6200A233C5 /* UserProfileViewMock.swift */; };
-		C10FD89021F1FE3800A233C5 /* UserCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88F21F1FE3800A233C5 /* UserCoordinatorMock.swift */; };
+		C10FD88C21F1FB2800A233C5 /* ProfileViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88B21F1FB2800A233C5 /* ProfileViewModelTests.swift */; };
+		C10FD88E21F1FB6200A233C5 /* ProfileViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88D21F1FB6200A233C5 /* ProfileViewControllerMock.swift */; };
+		C10FD89021F1FE3800A233C5 /* ProfileCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88F21F1FE3800A233C5 /* ProfileCoordinatorMock.swift */; };
 		C11B3F3621F7258C00C46BA2 /* DateSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B3F3521F7258C00C46BA2 /* DateSelectorView.swift */; };
 		C11D0CF7220816D800066CA9 /* MatchingFullTimeEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11D0CF6220816D800066CA9 /* MatchingFullTimeEncoderTests.swift */; };
 		C11D0CF9220820BD00066CA9 /* ApiClientMatchingFullTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11D0CF8220820BD00066CA9 /* ApiClientMatchingFullTimeTests.swift */; };
@@ -35,8 +35,8 @@
 		C11F51F121A59DF300FD626A /* workTimeResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C11F51F021A59DF300FD626A /* workTimeResponse.json */; };
 		C11F51F321A5AB9C00FD626A /* workTimeInvalidDateFormatResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C11F51F221A5AB9C00FD626A /* workTimeInvalidDateFormatResponse.json */; };
 		C11F51F521A5AC5800FD626A /* DateFormatterExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11F51F421A5AC5800FD626A /* DateFormatterExtensionTests.swift */; };
-		C1204FBB21F0AE2B00B2C3AC /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1204FBA21F0AE2B00B2C3AC /* UserProfileViewController.swift */; };
-		C1204FBD21F0BA6300B2C3AC /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1204FBC21F0BA6300B2C3AC /* UserProfileViewModel.swift */; };
+		C1204FBB21F0AE2B00B2C3AC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1204FBA21F0AE2B00B2C3AC /* ProfileViewController.swift */; };
+		C1204FBD21F0BA6300B2C3AC /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1204FBC21F0BA6300B2C3AC /* ProfileViewModel.swift */; };
 		C12260172188927A007D64A3 /* AuthenticationCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12260162188927A007D64A3 /* AuthenticationCoordinatorTests.swift */; };
 		C122601A21898BD7007D64A3 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C122601921898BD7007D64A3 /* LoginViewModelTests.swift */; };
 		C122601C21899B84007D64A3 /* ServerConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C122601B21899B84007D64A3 /* ServerConfigurationManager.swift */; };
@@ -164,7 +164,7 @@
 		C153AC6D21833BDC007A35BB /* AttributedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6C21833BDC007A35BB /* AttributedButton.swift */; };
 		C153AC6F218342F6007A35BB /* UIErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6E218342F6007A35BB /* UIErrorTests.swift */; };
 		C153AC7321834F22007A35BB /* ServerConfigurationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC7221834F22007A35BB /* ServerConfigurationViewModelTests.swift */; };
-		C16B05D021F2140200BB63E6 /* UserCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16B05CF21F2140200BB63E6 /* UserCoordinatorTests.swift */; };
+		C16B05D021F2140200BB63E6 /* ProfileCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16B05CF21F2140200BB63E6 /* ProfileCoordinatorTests.swift */; };
 		C16B05D221F216E100BB63E6 /* BaseNavigationCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16B05D121F216E100BB63E6 /* BaseNavigationCoordinatorTests.swift */; };
 		C16B3A73229E696C00B6E9E6 /* SimpleProjectDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16B3A72229E696C00B6E9E6 /* SimpleProjectDecoder.swift */; };
 		C16B3A75229E6A0700B6E9E6 /* ProjectTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16B3A74229E6A0700B6E9E6 /* ProjectTag.swift */; };
@@ -179,7 +179,7 @@
 		C17EA3B82189E04400A3F0CD /* ServerConfigurationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3B72189E04400A3F0CD /* ServerConfigurationManagerTests.swift */; };
 		C17EA3BA2189E9BA00A3F0CD /* ApiClientErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3B92189E9BA00A3F0CD /* ApiClientErrorTests.swift */; };
 		C17EA3BC2189EC1700A3F0CD /* URLSessionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */; };
-		C183F82A21F0A11E00B07AB8 /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C183F82921F0A11E00B07AB8 /* User.storyboard */; };
+		C183F82A21F0A11E00B07AB8 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C183F82921F0A11E00B07AB8 /* Profile.storyboard */; };
 		C18A189A21EF804900CB6E32 /* serverErrorResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189921EF804900CB6E32 /* serverErrorResponse.json */; };
 		C18A189C21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189B21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json */; };
 		C18A189E21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189D21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json */; };
@@ -195,7 +195,7 @@
 		C1AACFCF21A4349B0023FD32 /* ProjectsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFCE21A4349B0023FD32 /* ProjectsCoordinator.swift */; };
 		C1AACFD221A4353B0023FD32 /* BaseNavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD121A4353B0023FD32 /* BaseNavigationCoordinator.swift */; };
 		C1AACFD421A435AD0023FD32 /* BaseTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD321A435AD0023FD32 /* BaseTabBarCoordinator.swift */; };
-		C1AACFD621A438660023FD32 /* UserCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD521A438660023FD32 /* UserCoordinator.swift */; };
+		C1AACFD621A438660023FD32 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD521A438660023FD32 /* ProfileCoordinator.swift */; };
 		C1AACFD821A4387F0023FD32 /* WorkTimesListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD721A4387F0023FD32 /* WorkTimesListCoordinator.swift */; };
 		C1AACFDA21A440650023FD32 /* BaseTabBarControllerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD921A440650023FD32 /* BaseTabBarControllerType.swift */; };
 		C1AFFFD921A2ACC100A7A632 /* AccessServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AFFFD821A2ACC100A7A632 /* AccessServiceTests.swift */; };
@@ -318,9 +318,9 @@
 		C10FD88321F1F28200A233C5 /* UserDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDecoderTests.swift; sourceTree = "<group>"; };
 		C10FD88621F1F30E00A233C5 /* userFullResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = userFullResponse.json; sourceTree = "<group>"; };
 		C10FD88821F1F36300A233C5 /* ApiClientUsersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientUsersTests.swift; sourceTree = "<group>"; };
-		C10FD88B21F1FB2800A233C5 /* UserProfileViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModelTests.swift; sourceTree = "<group>"; };
-		C10FD88D21F1FB6200A233C5 /* UserProfileViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewMock.swift; sourceTree = "<group>"; };
-		C10FD88F21F1FE3800A233C5 /* UserCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoordinatorMock.swift; sourceTree = "<group>"; };
+		C10FD88B21F1FB2800A233C5 /* ProfileViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModelTests.swift; sourceTree = "<group>"; };
+		C10FD88D21F1FB6200A233C5 /* ProfileViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewControllerMock.swift; sourceTree = "<group>"; };
+		C10FD88F21F1FE3800A233C5 /* ProfileCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinatorMock.swift; sourceTree = "<group>"; };
 		C11B3F3521F7258C00C46BA2 /* DateSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectorView.swift; sourceTree = "<group>"; };
 		C11D0CF6220816D800066CA9 /* MatchingFullTimeEncoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFullTimeEncoderTests.swift; sourceTree = "<group>"; };
 		C11D0CF8220820BD00066CA9 /* ApiClientMatchingFullTimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientMatchingFullTimeTests.swift; sourceTree = "<group>"; };
@@ -333,8 +333,8 @@
 		C11F51F021A59DF300FD626A /* workTimeResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimeResponse.json; sourceTree = "<group>"; };
 		C11F51F221A5AB9C00FD626A /* workTimeInvalidDateFormatResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimeInvalidDateFormatResponse.json; sourceTree = "<group>"; };
 		C11F51F421A5AC5800FD626A /* DateFormatterExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterExtensionTests.swift; sourceTree = "<group>"; };
-		C1204FBA21F0AE2B00B2C3AC /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
-		C1204FBC21F0BA6300B2C3AC /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
+		C1204FBA21F0AE2B00B2C3AC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		C1204FBC21F0BA6300B2C3AC /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		C12260162188927A007D64A3 /* AuthenticationCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinatorTests.swift; sourceTree = "<group>"; };
 		C122601921898BD7007D64A3 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
 		C122601B21899B84007D64A3 /* ServerConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationManager.swift; sourceTree = "<group>"; };
@@ -464,7 +464,7 @@
 		C153AC6C21833BDC007A35BB /* AttributedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedButton.swift; sourceTree = "<group>"; };
 		C153AC6E218342F6007A35BB /* UIErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIErrorTests.swift; sourceTree = "<group>"; };
 		C153AC7221834F22007A35BB /* ServerConfigurationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationViewModelTests.swift; sourceTree = "<group>"; };
-		C16B05CF21F2140200BB63E6 /* UserCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoordinatorTests.swift; sourceTree = "<group>"; };
+		C16B05CF21F2140200BB63E6 /* ProfileCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinatorTests.swift; sourceTree = "<group>"; };
 		C16B05D121F216E100BB63E6 /* BaseNavigationCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationCoordinatorTests.swift; sourceTree = "<group>"; };
 		C16B3A72229E696C00B6E9E6 /* SimpleProjectDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleProjectDecoder.swift; sourceTree = "<group>"; };
 		C16B3A74229E6A0700B6E9E6 /* ProjectTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTag.swift; sourceTree = "<group>"; };
@@ -479,7 +479,7 @@
 		C17EA3B72189E04400A3F0CD /* ServerConfigurationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationManagerTests.swift; sourceTree = "<group>"; };
 		C17EA3B92189E9BA00A3F0CD /* ApiClientErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientErrorTests.swift; sourceTree = "<group>"; };
 		C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionExtensionTests.swift; sourceTree = "<group>"; };
-		C183F82921F0A11E00B07AB8 /* User.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
+		C183F82921F0A11E00B07AB8 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		C183F82C21F0A56700B07AB8 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
 		C183F82D21F0A57300B07AB8 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
 		C18A189921EF804900CB6E32 /* serverErrorResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = serverErrorResponse.json; sourceTree = "<group>"; };
@@ -497,7 +497,7 @@
 		C1AACFCE21A4349B0023FD32 /* ProjectsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsCoordinator.swift; sourceTree = "<group>"; };
 		C1AACFD121A4353B0023FD32 /* BaseNavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationCoordinator.swift; sourceTree = "<group>"; };
 		C1AACFD321A435AD0023FD32 /* BaseTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarCoordinator.swift; sourceTree = "<group>"; };
-		C1AACFD521A438660023FD32 /* UserCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoordinator.swift; sourceTree = "<group>"; };
+		C1AACFD521A438660023FD32 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		C1AACFD721A4387F0023FD32 /* WorkTimesListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListCoordinator.swift; sourceTree = "<group>"; };
 		C1AACFD921A440650023FD32 /* BaseTabBarControllerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarControllerType.swift; sourceTree = "<group>"; };
 		C1AFFFD821A2ACC100A7A632 /* AccessServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessServiceTests.swift; sourceTree = "<group>"; };
@@ -666,7 +666,7 @@
 		C10FD88A21F1FB1700A233C5 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				C10FD88B21F1FB2800A233C5 /* UserProfileViewModelTests.swift */,
+				C10FD88B21F1FB2800A233C5 /* ProfileViewModelTests.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1031,9 +1031,9 @@
 				C134296221A693F400F4EA42 /* TestError.swift */,
 				C134298221A6C73000F4EA42 /* URLSessionDataTaskMock.swift */,
 				C134298021A6C71200F4EA42 /* UrlSessionMock.swift */,
-				C10FD88F21F1FE3800A233C5 /* UserCoordinatorMock.swift */,
+				C10FD88F21F1FE3800A233C5 /* ProfileCoordinatorMock.swift */,
 				C134297621A6BFEA00F4EA42 /* UserDefaultsMock.swift */,
-				C10FD88D21F1FB6200A233C5 /* UserProfileViewMock.swift */,
+				C10FD88D21F1FB6200A233C5 /* ProfileViewControllerMock.swift */,
 				C19D88A42202FE54007CC867 /* WorkTimesListContentProviderMock.swift */,
 				C13C2B0521EDE589008C9088 /* WorkTimesListCoordinatorMock.swift */,
 				C1E1F04821AD3712007F9228 /* WorkTimesListViewControllerMock.swift */,
@@ -1174,7 +1174,7 @@
 		C16B05CE21F213DE00BB63E6 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				C16B05CF21F2140200BB63E6 /* UserCoordinatorTests.swift */,
+				C16B05CF21F2140200BB63E6 /* ProfileCoordinatorTests.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1219,9 +1219,9 @@
 		C183F82821F0A0BE00B07AB8 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				C183F82921F0A11E00B07AB8 /* User.storyboard */,
-				C1204FBA21F0AE2B00B2C3AC /* UserProfileViewController.swift */,
-				C1204FBC21F0BA6300B2C3AC /* UserProfileViewModel.swift */,
+				C183F82921F0A11E00B07AB8 /* Profile.storyboard */,
+				C1204FBA21F0AE2B00B2C3AC /* ProfileViewController.swift */,
+				C1204FBC21F0BA6300B2C3AC /* ProfileViewModel.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1313,7 +1313,7 @@
 		C1AACFCD21A434780023FD32 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				C1AACFD521A438660023FD32 /* UserCoordinator.swift */,
+				C1AACFD521A438660023FD32 /* ProfileCoordinator.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1754,7 +1754,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1784DDD21E4E03600C83E2A /* WorkTime.storyboard in Resources */,
-				C183F82A21F0A11E00B07AB8 /* User.storyboard in Resources */,
+				C183F82A21F0A11E00B07AB8 /* Profile.storyboard in Resources */,
 				C1B5137721772D1400C3727C /* LaunchScreen.storyboard in Resources */,
 				C153AC452181E4E7007A35BB /* ServerConfiguration.storyboard in Resources */,
 				C1B5137421772D1400C3727C /* Assets.xcassets in Resources */,
@@ -2006,7 +2006,7 @@
 				C1C4BA8F2189AD7700683F71 /* Result.swift in Sources */,
 				C13C2B0421EDD1C5008C9088 /* ServerError.swift in Sources */,
 				C125F1C121DCF17300594CDE /* ProjectCollectionViewCellModel.swift in Sources */,
-				C1AACFD621A438660023FD32 /* UserCoordinator.swift in Sources */,
+				C1AACFD621A438660023FD32 /* ProfileCoordinator.swift in Sources */,
 				C1FA05D3219413BF00BD8C9D /* CoreDataStack.swift in Sources */,
 				C1E6B34C219EF08200019DC2 /* AccessService.swift in Sources */,
 				C1FA05D6219420FC00BD8C9D /* TimeTable.xcdatamodeld in Sources */,
@@ -2015,7 +2015,7 @@
 				C153AC6921832073007A35BB /* AttributedView.swift in Sources */,
 				C11B3F3621F7258C00C46BA2 /* DateSelectorView.swift in Sources */,
 				C153AC6421830AFE007A35BB /* ServerConfiguartionViewModel.swift in Sources */,
-				C1204FBB21F0AE2B00B2C3AC /* UserProfileViewController.swift in Sources */,
+				C1204FBB21F0AE2B00B2C3AC /* ProfileViewController.swift in Sources */,
 				C1ECF09F2192C1AB006038C6 /* JSONDecoder+Extension.swift in Sources */,
 				C1ECF09D2192BB51006038C6 /* RequestEncoder.swift in Sources */,
 				C153AC512182EFEC007A35BB /* UIButton+Extension.swift in Sources */,
@@ -2040,7 +2040,7 @@
 				C10FD88121F1F15100A233C5 /* UserDecoder.swift in Sources */,
 				C16CA644219AA47900133358 /* UserEntity+SessionDecoder.swift in Sources */,
 				C198BD1D21FF3DD200B5F847 /* MatchingFullTimeDecoder.swift in Sources */,
-				C1204FBD21F0BA6300B2C3AC /* UserProfileViewModel.swift in Sources */,
+				C1204FBD21F0BA6300B2C3AC /* ProfileViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2050,7 +2050,7 @@
 			files = (
 				C12BD99921E48D5700A6EAF0 /* ProjectsViewModelTests.swift in Sources */,
 				C134298721A6C80B00F4EA42 /* StoryboardsManagerMock.swift in Sources */,
-				C10FD88C21F1FB2800A233C5 /* UserProfileViewModelTests.swift in Sources */,
+				C10FD88C21F1FB2800A233C5 /* ProfileViewModelTests.swift in Sources */,
 				C1F7C2E521908B4100F4FAF0 /* AttributedViewTests.swift in Sources */,
 				C19DDB1321A42043008C6FA3 /* URLExtensionTests.swift in Sources */,
 				C134299321A6D73500F4EA42 /* ServerConfigurationManagerMock.swift in Sources */,
@@ -2065,7 +2065,7 @@
 				C1E1F05421AD5FD2007F9228 /* WorkTimesTableViewHeaderViewModelTests.swift in Sources */,
 				C11D0CF9220820BD00066CA9 /* ApiClientMatchingFullTimeTests.swift in Sources */,
 				C1B771F721EF39FA00EFE06F /* ApiValidationErrorsTests.swift in Sources */,
-				C16B05D021F2140200BB63E6 /* UserCoordinatorTests.swift in Sources */,
+				C16B05D021F2140200BB63E6 /* ProfileCoordinatorTests.swift in Sources */,
 				C134298921A6C84F00F4EA42 /* ServerConfigurationViewControllerMock.swift in Sources */,
 				C1B8FA49218C963A009D10B4 /* LoginCredentialsTests.swift in Sources */,
 				C134298B21A6D33300F4EA42 /* LoginCoordinatorMock.swift in Sources */,
@@ -2100,10 +2100,10 @@
 				C1FA05E4219440C700BD8C9D /* LoginContentProviderTests.swift in Sources */,
 				C19706E421C13908007AFED4 /* CalendarExtensionTests.swift in Sources */,
 				C134298521A6C79600F4EA42 /* ErrorHandlerMock.swift in Sources */,
-				C10FD89021F1FE3800A233C5 /* UserCoordinatorMock.swift in Sources */,
+				C10FD89021F1FE3800A233C5 /* ProfileCoordinatorMock.swift in Sources */,
 				C1F7C2E721908DD400F4FAF0 /* AttributedButtonTests.swift in Sources */,
 				C1249C852181B567005DB2A5 /* ErrorHanlderTests.swift in Sources */,
-				C10FD88E21F1FB6200A233C5 /* UserProfileViewMock.swift in Sources */,
+				C10FD88E21F1FB6200A233C5 /* ProfileViewControllerMock.swift in Sources */,
 				C1249C6E2181A265005DB2A5 /* Optional+Unwrap.swift in Sources */,
 				C12260172188927A007D64A3 /* AuthenticationCoordinatorTests.swift in Sources */,
 				C134296021A6937E00F4EA42 /* ApiClientSessionTests.swift in Sources */,

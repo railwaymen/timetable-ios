@@ -22,7 +22,7 @@ class StoryboardsManagerMock: StoryboardsManagerType {
         case .login: return loginController as? T
         case .projects: return projectsController as? T
         case .serverConfiguration: return serverConfigurationController as? T
-        case .user: return userController as? T
+        case .profile: return userController as? T
         case .workTime: return workTimeController as? T
         case .workTimesList: return workTimesListController as? T
         }

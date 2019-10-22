@@ -1,5 +1,5 @@
 //
-//  UserCoordinatorMock.swift
+//  ProfileCoordinatorMock.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 18/01/2019.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import TimeTable
 
-class UserCoordinatorMock: UserCoordinatorDelegate {
+class ProfileCoordinatorMock: ProfileCoordinatorDelegate {
     private(set) var userProfileDidLogoutUserCalled = false
     func userProfileDidLogoutUser() {
         userProfileDidLogoutUserCalled = true

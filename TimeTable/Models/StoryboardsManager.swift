@@ -22,7 +22,7 @@ class StoryboardsManager: StoryboardsManagerType {
         case workTime = "WorkTime"
         case workTimesList = "WorkTimesList"
         case projects = "Projects"
-        case user = "User"
+        case profile = "Profile"
     }
     
     enum ControllerIdentifier: String {
@@ -31,7 +31,6 @@ class StoryboardsManager: StoryboardsManagerType {
     
     // MARK: - Internal
     func controller<T>(storyboard: StoryboardsManager.StoryboardName, controllerIdentifier: ControllerIdentifier) -> T? {
-        
         let storyboard = UIStoryboard(name: storyboard.rawValue, bundle: nil)
         switch controllerIdentifier {
         case .initial:

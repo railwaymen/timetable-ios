@@ -1,5 +1,5 @@
 //
-//  UserProfileViewModel.swift
+//  ProfileViewModel.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 17/01/2019.
@@ -8,27 +8,31 @@
 
 import Foundation
 
-protocol UserProfileViewModelOutput: class {
+protocol ProfileViewModelOutput: class {
     func setUp()
     func update(firstName: String, lastName: String, email: String)
 }
 
-protocol UserProfileViewModelType: class {
+protocol ProfileViewModelType: class {
     func viewDidLoad()
     func viewRequestedForLogout()
 }
 
-class UserProfileViewModel: UserProfileViewModelType {
-    private weak var userInterface: UserProfileViewModelOutput?
-    private let coordinator: UserCoordinatorDelegate
+class ProfileViewModel: ProfileViewModelType {
+    private weak var userInterface: ProfileViewModelOutput?
+    private weak var coordinator: ProfileCoordinatorDelegate?
     private let apiClient: ApiClientUsersType
     private let accessService: AccessServiceUserIDType
     private let coreDataStack: CoreDataStackUserType
     private let errorHandler: ErrorHandlerType
     
     // MARK: - Initialization
-    init(userInterface: UserProfileViewModelOutput?, coordinator: UserCoordinatorDelegate, apiClient: ApiClientUsersType,
-         accessService: AccessServiceUserIDType, coreDataStack: CoreDataStackUserType, errorHandler: ErrorHandlerType) {
+    init(userInterface: ProfileViewModelOutput?,
+         coordinator: ProfileCoordinatorDelegate,
+         apiClient: ApiClientUsersType,
+         accessService: AccessServiceUserIDType,
+         coreDataStack: CoreDataStackUserType,
+         errorHandler: ErrorHandlerType) {
         self.userInterface = userInterface
         self.coordinator = coordinator
         self.apiClient = apiClient
@@ -37,7 +41,7 @@ class UserProfileViewModel: UserProfileViewModelType {
         self.errorHandler = errorHandler
     }
     
-    // MARK: - UserProfileViewModelType
+    // MARK: - ProfileViewModelType
     func viewDidLoad() {
         userInterface?.setUp()
         guard let userIdentifier = accessService.getLastLoggedInUserIdentifier() else { return }
@@ -56,9 +60,7 @@ class UserProfileViewModel: UserProfileViewModelType {
         coreDataStack.deleteUser(forIdentifier: userIdentifier) { [weak self] result in
             switch result {
             case .success:
-                DispatchQueue.main.async { [weak self] in
-                    self?.coordinator.userProfileDidLogoutUser()
-                }
+                self?.coordinator?.userProfileDidLogoutUser()
             case .failure(let error):
                 self?.errorHandler.throwing(error: error)
             }

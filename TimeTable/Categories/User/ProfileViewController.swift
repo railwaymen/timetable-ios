@@ -1,5 +1,5 @@
 //
-//  UserProfileViewController.swift
+//  ProfileViewController.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 17/01/2019.
@@ -8,18 +8,18 @@
 
 import UIKit
 
-typealias UserProfileViewControllerable = (UIViewController & UserProfileViewModelOutput & UserProfileViewControllerType)
+typealias ProfileViewControllerable = (UIViewController & ProfileViewModelOutput & ProfileViewControllerType)
 
-protocol UserProfileViewControllerType: class {
-    func configure(viewModel: UserProfileViewModelType)
+protocol ProfileViewControllerType: class {
+    func configure(viewModel: ProfileViewModelType)
 }
 
-class UserProfileViewController: UIViewController {
+class ProfileViewController: UIViewController {
     @IBOutlet private var firstNameLabel: UILabel!
     @IBOutlet private var lastNameLabel: UILabel!
     @IBOutlet private var emailLabel: UILabel!
     
-    private var viewModel: UserProfileViewModelType!
+    private var viewModel: ProfileViewModelType!
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -33,8 +33,8 @@ class UserProfileViewController: UIViewController {
     }
 }
 
-// MARK: - UserProfileViewModelOutput
-extension UserProfileViewController: UserProfileViewModelOutput {
+// MARK: - ProfileViewModelOutput
+extension ProfileViewController: ProfileViewModelOutput {
     func setUp() {
         firstNameLabel.text = ""
         lastNameLabel.text = ""
@@ -48,9 +48,9 @@ extension UserProfileViewController: UserProfileViewModelOutput {
     }
 }
 
-// MARK: - UserProfileViewControllerType
-extension UserProfileViewController: UserProfileViewControllerType {
-    func configure(viewModel: UserProfileViewModelType) {
+// MARK: - ProfileViewControllerType
+extension ProfileViewController: ProfileViewControllerType {
+    func configure(viewModel: ProfileViewModelType) {
         self.viewModel = viewModel
     }
 }
