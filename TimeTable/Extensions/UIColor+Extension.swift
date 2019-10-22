@@ -10,10 +10,30 @@ import UIKit
 
 extension UIColor {
     
-    static let crimson: UIColor = UIColor(hex6: 0xCB142A)
-    static let anzac: UIColor = UIColor(hex6: 0xE0B73F)
-    static let rouge: UIColor = UIColor(hex6: 0xA54294)
-    static let conifier: UIColor = UIColor(hex6: 0x86D64A)
+    static let crimson: UIColor = { // CB142A
+        let color = UIColor(named: "Crimson")
+        assert(color != nil)
+        return color ?? #colorLiteral(red: 0.7960784314, green: 0.07843137255, blue: 0.1647058824, alpha: 1)
+    }()
+    
+    static let anzac: UIColor = { // E0B73F
+        let color = UIColor(named: "Anzac")
+        assert(color != nil)
+        return color ?? #colorLiteral(red: 0.8784313725, green: 0.7176470588, blue: 0.2470588235, alpha: 1)
+    }()
+    
+    static let rouge: UIColor = { // A54294
+        let color = UIColor(named: "Rouge")
+        assert(color != nil)
+        return color ?? #colorLiteral(red: 0.6470588235, green: 0.2588235294, blue: 0.5803921569, alpha: 1)
+    }()
+    
+    static let conifier: UIColor = { // 86D64A
+        let color = UIColor(named: "Conifier")
+        assert(color != nil)
+        return color ?? #colorLiteral(red: 0.5254901961, green: 0.8392156863, blue: 0.2901960784, alpha: 1)
+    }()
+    
     static let defaultBackground: UIColor = {
         if #available(iOS 13, *) {
             return .systemBackground
@@ -21,6 +41,7 @@ extension UIColor {
             return .white
         }
     }()
+    
     static let defaultLabel: UIColor = {
         if #available(iOS 13, *) {
             return .label
@@ -42,14 +63,6 @@ extension UIColor {
         let red   = CGFloat(Int(color >> 16) & mask) / 255.0
         let green = CGFloat(Int(color >> 8) & mask) / 255.0
         let blue  = CGFloat(Int(color) & mask) / 255.0
-        self.init(red: red, green: green, blue: blue, alpha: alpha)
-    }
-    
-    convenience init(hex6: UInt32, alpha: CGFloat = 1.0) {
-        let divisor = CGFloat(255)
-        let red = CGFloat((hex6 & 0xFF0000) >> 16) / divisor
-        let green = CGFloat((hex6 & 0x00FF00) >> 8) / divisor
-        let blue = CGFloat(hex6 & 0x0000FF) / divisor
         self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
 }
