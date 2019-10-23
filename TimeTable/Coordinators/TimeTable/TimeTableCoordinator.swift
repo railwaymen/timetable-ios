@@ -31,7 +31,7 @@ class TimeTableTabCoordinator: BaseTabBarCoordinator {
                                                            apiClient: apiClient,
                                                            accessService: accessService,
                                                            errorHandler: errorHandler)
-        let userCoordinator = UserCoordinator(window: nil,
+        let userCoordinator = ProfileCoordinator(window: nil,
                                               messagePresenter: messagePresenter,
                                               storyboardsManager: storyboardsManager,
                                               apiClient: apiClient,

@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol UserCoordinatorDelegate: class {
+protocol ProfileCoordinatorDelegate: class {
    func userProfileDidLogoutUser()
 }
 
-class UserCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
+class ProfileCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
     private let storyboardsManager: StoryboardsManagerType
     private let apiClient: ApiClientUsersType
     private let accessService: AccessServiceUserIDType
@@ -51,28 +51,28 @@ class UserCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
     // MARK: - CoordinatorType
     override func start(finishCompletion: (() -> Void)?) {
         self.runMainFlow()
-        navigationController.setNavigationBarHidden(true, animated: false)
+        navigationController.setNavigationBarHidden(false, animated: false)
+        navigationController.navigationBar.prefersLargeTitles = true
         super.start(finishCompletion: finishCompletion)
     }
     
     // MARK: - Private
     private func runMainFlow() {
-        let controller: UserProfileViewControllerable? = storyboardsManager.controller(storyboard: .user, controllerIdentifier: .initial)
-        let viewModel = UserProfileViewModel(userInterface: controller,
+        let controller: ProfileViewControllerable? = storyboardsManager.controller(storyboard: .profile, controllerIdentifier: .initial)
+        let viewModel = ProfileViewModel(userInterface: controller,
                                              coordinator: self,
                                              apiClient: apiClient,
                                              accessService: accessService,
                                              coreDataStack: coreDataStack,
                                              errorHandler: errorHandler)
         controller?.configure(viewModel: viewModel)
-        if let controller = controller {
-            navigationController.pushViewController(controller, animated: false)
-        }
+        guard let profileViewController = controller else { return }
+        navigationController.pushViewController(profileViewController, animated: false)
     }
 }
 
-// MARK: - UserCoordinatorDelegate
-extension UserCoordinator: UserCoordinatorDelegate {
+// MARK: - ProfileCoordinatorDelegate
+extension ProfileCoordinator: ProfileCoordinatorDelegate {
     func userProfileDidLogoutUser() {
         finishCompletion?()
     }

@@ -1,5 +1,5 @@
 //
-//  UserProfileViewModelTests.swift
+//  ProfileViewModelTests.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 18/01/2019.
@@ -9,15 +9,15 @@
 import XCTest
 @testable import TimeTable
 
-class UserProfileViewModelTests: XCTestCase {
+class ProfileViewModelTests: XCTestCase {
 
-    private var userInterfaceMock: UserProfileViewMock!
-    private var coordinatorMock: UserCoordinatorMock!
+    private var userInterfaceMock: ProfileViewControllerMock!
+    private var coordinatorMock: ProfileCoordinatorMock!
     private var apiClientMock: ApiClientMock!
     private var accessServiceMock: AccessServiceMock!
     private var coreDataStackMock: CoreDataStackUserMock!
     private var errorHandlerMock: ErrorHandlerMock!
-    private var viewModel: UserProfileViewModel!
+    private var viewModel: ProfileViewModel!
     
     private enum UserResponse: String, JSONFileResource {
         case userFullResponse
@@ -26,14 +26,14 @@ class UserProfileViewModelTests: XCTestCase {
     private lazy var decoder = JSONDecoder()
     
     override func setUp() {
-        userInterfaceMock = UserProfileViewMock()
-        coordinatorMock = UserCoordinatorMock()
+        userInterfaceMock = ProfileViewControllerMock()
+        coordinatorMock = ProfileCoordinatorMock()
         apiClientMock = ApiClientMock()
         accessServiceMock = AccessServiceMock()
         coreDataStackMock = CoreDataStackUserMock()
         errorHandlerMock = ErrorHandlerMock()
         
-        viewModel = UserProfileViewModel(userInterface: userInterfaceMock,
+        viewModel = ProfileViewModel(userInterface: userInterfaceMock,
                                          coordinator: coordinatorMock,
                                          apiClient: apiClientMock,
                                          accessService: accessServiceMock,
@@ -112,8 +112,6 @@ class UserProfileViewModelTests: XCTestCase {
         viewModel.viewRequestedForLogout()
         coreDataStackMock.deleteUserCompletion?(.success(Void()))
         //Assert
-        DispatchQueue.main.async {
-            XCTAssertTrue(self.coordinatorMock.userProfileDidLogoutUserCalled)
-        }
+        XCTAssertTrue(self.coordinatorMock.userProfileDidLogoutUserCalled)
     }
 }
