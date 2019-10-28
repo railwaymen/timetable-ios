@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
     
     private lazy var serverConfigurationManager: ServerConfigurationManagerType = {
-        return ServerConfigurationManager(urlSession: URLSession.shared, userDefaults: UserDefaults.standard)
+        return ServerConfigurationManager(urlSession: URLSession.shared, userDefaults: UserDefaults.standard, dispatchQueueManager: DispatchQueueManager())
     }()
     
     private lazy var coreDataStack: CoreDataStackType = {

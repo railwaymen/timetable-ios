@@ -13,12 +13,14 @@ class ServerConfigurationManagerTests: XCTestCase {
 
     private var urlSessionMock: UrlSessionMock!
     private var userDefaultsMock: UserDefaultsMock!
+    private var dispatchQueueManagerMock: DispatchQueueManagerMock!
     private var manager: ServerConfigurationManagerType!
     
     override func setUp() {
         self.urlSessionMock = UrlSessionMock()
         self.userDefaultsMock = UserDefaultsMock()
-        self.manager = ServerConfigurationManager(urlSession: urlSessionMock, userDefaults: userDefaultsMock)
+        self.dispatchQueueManagerMock = DispatchQueueManagerMock(taskType: .performOnCurrentThread)
+        self.manager = ServerConfigurationManager(urlSession: urlSessionMock, userDefaults: userDefaultsMock, dispatchQueueManager: dispatchQueueManagerMock)
         super.setUp()
     }
     
