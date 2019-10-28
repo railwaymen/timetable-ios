@@ -85,23 +85,36 @@ class ProjectCollectionViewCellModelTests: XCTestCase {
         let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
         let project = Project(decoder: projectRecord)
         let viewModel = ProjectCollectionViewCellModel(userInterface: userInterfaceMock, project: project)
+        let cellMock = ProjectUserViewTableViewCellMock()
         //Act
-        let result = viewModel.userName(for: IndexPath(row: 0, section: 0))
+        viewModel.configure(view: cellMock, for: IndexPath(row: 0, section: 0))
         //Assert
-        XCTAssertTrue(result.isEmpty)
+        XCTAssertTrue(try (cellMock.configureName?.isEmpty).unwrap())
     }
     
     func testUserNameReturnsEmptyStringWhileIndexPathIsOutOfTheRange() throws {
+        //Arrange
+        let cellMock = ProjectUserViewTableViewCellMock()
         //Act
-        let result = viewModel.userName(for: IndexPath(row: 1, section: 0))
+        viewModel.configure(view: cellMock, for: IndexPath(row: 1, section: 0))
         //Assert
-        XCTAssertTrue(result.isEmpty)
+        XCTAssertTrue(try (cellMock.configureName?.isEmpty).unwrap())
     }
     
     func testUserNameReturnsSucceed() throws {
+        //Arrange
+        let cellMock = ProjectUserViewTableViewCellMock()
         //Act
-        let result = viewModel.userName(for: IndexPath(row: 0, section: 0))
+        viewModel.configure(view: cellMock, for: IndexPath(row: 0, section: 0))
         //Assert
-        XCTAssertEqual(result, "Admin Admin")
+        XCTAssertEqual(cellMock.configureName, "Admin Admin")
+    }
+}
+
+private class ProjectUserViewTableViewCellMock: ProjectUserViewTableViewCellType {
+    
+    private(set) var configureName: String?
+    func configure(withName name: String) {
+        self.configureName = name
     }
 }

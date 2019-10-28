@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias ProjectUserViewTableViewCellable = UITableViewCell & ProjectUserViewTableViewCellType
+
 protocol ProjectUserViewTableViewCellType: class {
     func configure(withName name: String)
 }
