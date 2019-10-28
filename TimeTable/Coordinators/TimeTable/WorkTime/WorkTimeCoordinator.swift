@@ -53,7 +53,7 @@ class WorkTimeCoordinator: BaseNavigationCoordinator {
     
     // MARK: - Private
     private func runMainFlow() {
-        let controller: WorkTimeViewControlleralbe? = self.storyboardsManager.controller(storyboard: .workTime, controllerIdentifier: .initial)
+        let controller: WorkTimeViewControllerable? = self.storyboardsManager.controller(storyboard: .workTime, controllerIdentifier: .initial)
         guard let workTimeViewController = controller else { return }
         let viewModel = WorkTimeViewModel(userInterface: workTimeViewController,
                                           coordinator: self,

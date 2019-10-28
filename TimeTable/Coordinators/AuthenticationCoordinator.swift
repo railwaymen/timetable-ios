@@ -100,7 +100,7 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
     }
     
     private func runServerConfigurationFlow() {
-        let controller: ServerConfigurationViewControlleralbe? = storyboardsManager.controller(storyboard: .serverConfiguration, controllerIdentifier: .initial)
+        let controller: ServerConfigurationViewControllerable? = storyboardsManager.controller(storyboard: .serverConfiguration, controllerIdentifier: .initial)
         guard let serverSettingsViewController = controller else { return }
         let viewModel = ServerConfigurationViewModel(userInterface: serverSettingsViewController,
                                                      coordinator: self,

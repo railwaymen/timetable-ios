@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias WorkTimeTableViewCellalbe = (UITableViewCell & WorkTimeTableViewCellType & WorkTimeCellViewModelOutput)
+typealias WorkTimeTableViewCellable = (UITableViewCell & WorkTimeTableViewCellType & WorkTimeCellViewModelOutput)
 
 protocol WorkTimeTableViewCellType: class {
     func configure(viewModel: WorkTimeCellViewModelType)

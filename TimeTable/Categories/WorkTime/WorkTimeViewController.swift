@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias WorkTimeViewControlleralbe = (UIViewController & WorkTimeViewControllerType & WorkTimeViewModelOutput)
+typealias WorkTimeViewControllerable = (UIViewController & WorkTimeViewControllerType & WorkTimeViewModelOutput)
 
 protocol WorkTimeViewControllerType: class {
     func configure(viewModel: WorkTimeViewModelType, notificationCenter: NotificationCenterType?)
