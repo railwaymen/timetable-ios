@@ -12,7 +12,7 @@ import UIKit
 protocol ProjectCollectionViewCellModelType: class {
     func configure()
     func numberOfRows() -> Int
-    func userName(for indexPath: IndexPath) -> String
+    func configure(view: ProjectUserViewTableViewCellType, for indexPath: IndexPath)
 }
 
 protocol ProjectCollectionViewCellModelOutput: class {
@@ -40,7 +40,12 @@ class ProjectCollectionViewCellModel: ProjectCollectionViewCellModelType {
         return project.users.count
     }
     
-    func userName(for indexPath: IndexPath) -> String {
+    func configure(view: ProjectUserViewTableViewCellType, for indexPath: IndexPath) {
+        view.configure(withName: self.userName(for: indexPath))
+    }
+    
+    // MARK: - Private
+    private func userName(for indexPath: IndexPath) -> String {
         guard project.users.count > indexPath.row else { return "" }
         return project.users[indexPath.row].name
     }

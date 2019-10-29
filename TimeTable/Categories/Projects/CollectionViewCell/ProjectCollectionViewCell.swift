@@ -38,11 +38,10 @@ class ProjectCollectionViewCell: UICollectionViewCell, UITableViewDataSource, UI
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ProjectUserViewTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ProjectUserViewTableViewCellable else {
             return UITableViewCell()
         }
-        let name = viewModel.userName(for: indexPath)
-        cell.configure(withName: name)
+        viewModel.configure(view: cell, for: indexPath)
         return cell
     }
     
