@@ -54,7 +54,7 @@ class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: workTimeStandardCellReuseIdentifier, for: indexPath) as? WorkTimeTableViewCellalbe
+        let cell = tableView.dequeueReusableCell(withIdentifier: workTimeStandardCellReuseIdentifier, for: indexPath) as? WorkTimeTableViewCellable
         guard let workTimeCell = cell else { return UITableViewCell() }
         guard let cellViewModel = viewModel.viewRequestForCellModel(at: indexPath, cell: workTimeCell) else { return UITableViewCell() }
         workTimeCell.configure(viewModel: cellViewModel)

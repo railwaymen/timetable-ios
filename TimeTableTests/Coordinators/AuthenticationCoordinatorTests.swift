@@ -74,7 +74,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
         //Act
         coordinator.start(finishCompletion: { (_, _) in })
         //Assert
-        XCTAssertNotNil(coordinator.navigationController.children[0] as? ServerConfigurationViewControlleralbe)
+        XCTAssertNotNil(coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
     }
 
     func testStartRunsServerConfigurationFlowWhileServerConfigurationShouldRemeberHostIsFalse() {
@@ -84,7 +84,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
         //Act
         coordinator.start(finishCompletion: { (_, _) in })
         //Assert
-        XCTAssertNotNil(coordinator.navigationController.children[0] as? ServerConfigurationViewControlleralbe)
+        XCTAssertNotNil(coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
     }
     
     func testStartDoesNotRunAuthenticationFlowWhileServerControllerHasNilHost() throws {
@@ -97,7 +97,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
         accessServiceMock.getSessionCompletion?(.failure(TestError(message: "ERROR")))
         //Assert
         XCTAssertEqual(coordinator.navigationController.children.count, 1)
-        XCTAssertNotNil(coordinator.navigationController.children[0] as? ServerConfigurationViewControlleralbe)
+        XCTAssertNotNil(coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
     }
     
     func testStartDoesNotRunAuthenticationFlowWhileServerControllerIsInvalid() throws {
@@ -124,7 +124,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
         accessServiceMock.getSessionCompletion?(.failure(TestError(message: "ERROR")))
         //Assert
         XCTAssertEqual(coordinator.navigationController.children.count, 1)
-        XCTAssertNotNil(coordinator.navigationController.children[0] as? ServerConfigurationViewControlleralbe)
+        XCTAssertNotNil(coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
     }
     
     func testStartRunsAuthenticationFlow() throws {
@@ -138,7 +138,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
         accessServiceMock.getSessionCompletion?(.failure(TestError(message: "ERROR")))
         //Assert
         XCTAssertEqual(coordinator.navigationController.children.count, 2)
-        XCTAssertNotNil(coordinator.navigationController.children[0] as? ServerConfigurationViewControlleralbe)
+        XCTAssertNotNil(coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
         XCTAssertNotNil(coordinator.navigationController.children[1] as? LoginViewControllerable)
     }
     
@@ -171,12 +171,12 @@ class AuthenticationCoordinatorTests: XCTestCase {
         let configuration = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
         XCTAssertEqual(coordinator.navigationController.children.count, 1)
-        XCTAssertNotNil(coordinator.navigationController.children[0] as? ServerConfigurationViewControlleralbe)
+        XCTAssertNotNil(coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
         coordinator.serverConfigurationDidFinish(with: configuration)
         //Assert
         DispatchQueue.main.async {
             XCTAssertEqual(self.coordinator.navigationController.children.count, 2)
-            XCTAssertNotNil(self.coordinator.navigationController.children[0] as? ServerConfigurationViewControlleralbe)
+            XCTAssertNotNil(self.coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
             XCTAssertNotNil(self.coordinator.navigationController.children[1] as? LoginViewControllerable)
         }
     }
@@ -195,7 +195,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
         //Assert
         DispatchQueue.main.async {
             XCTAssertEqual(self.coordinator.navigationController.children.count, 1)
-            XCTAssertNotNil(self.coordinator.navigationController.children[0] as? ServerConfigurationViewControlleralbe)
+            XCTAssertNotNil(self.coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
         }
     }
     

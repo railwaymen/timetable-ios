@@ -9,7 +9,7 @@
 import Foundation
 @testable import TimeTable
 
-class WorkTimeViewControllerMock: WorkTimeViewControlleralbe {
+class WorkTimeViewControllerMock: WorkTimeViewControllerable {
     // swiftlint:disable large_tuple
     private(set) var configureViewModelData: (called: Bool, viewModel: WorkTimeViewModelType?, notificationCenter: NotificationCenterType?) = (false, nil, nil)
     private(set) var setUpCurrentProjectName: (currentProjectName: String, isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?)?

@@ -9,7 +9,7 @@
 import Foundation
 @testable import TimeTable
 
-class ServerConfigurationViewControllerMock: ServerConfigurationViewControlleralbe {
+class ServerConfigurationViewControllerMock: ServerConfigurationViewControllerable {
     func configure(viewModel: ServerConfigurationViewModelType, notificationCenter: NotificationCenterType) {}
     func setupView(checkBoxIsActive: Bool, serverAddress: String) {}
     func tearDown() {}
