@@ -17,6 +17,7 @@ class ServerConfigurationManager: ServerConfigurationManagerType {
     
     private var urlSession: URLSessionType
     private var userDefaults: UserDefaultsType
+    private let dispatchQueueManager: DispatchQueueManagerType
     
     private struct UserDefaultsKeys {
         static let hostURLKey = "key.time_table.server_configuration.host"
@@ -24,9 +25,10 @@ class ServerConfigurationManager: ServerConfigurationManagerType {
     }
     
     // MARK: - Initialization
-    init(urlSession: URLSessionType, userDefaults: UserDefaultsType) {
+    init(urlSession: URLSessionType, userDefaults: UserDefaultsType, dispatchQueueManager: DispatchQueueManagerType) {
         self.urlSession = urlSession
         self.userDefaults = userDefaults
+        self.dispatchQueueManager = dispatchQueueManager
     }
     
     // MARK: - ServerConfigurationManagerType
@@ -42,8 +44,13 @@ class ServerConfigurationManager: ServerConfigurationManagerType {
     }
     
     func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void>) -> Void)) {
+        let mainThreadCompletion: ((Result<Void>) -> Void) = { [dispatchQueueManager] result in
+            dispatchQueueManager.performOnMainThread(taskType: .async) {
+                completion(result)
+            }
+        }
         guard let hostURL = configuration.host else {
-            completion(.failure(ApiClientError(type: .invalidHost(configuration.host))))
+            mainThreadCompletion(.failure(ApiClientError(type: .invalidHost(configuration.host))))
             return
         }
         var request = URLRequest(url: hostURL)
@@ -51,9 +58,9 @@ class ServerConfigurationManager: ServerConfigurationManagerType {
         let dataTask = urlSession.dataTask(with: request) { [weak self] (_, response, error) in
             if let response = response as? HTTPURLResponse, error == nil, response.statusCode == 200 {
                 self?.save(configuration: configuration)
-                completion(.success(Void()))
+                mainThreadCompletion(.success(Void()))
             } else {
-                completion(.failure(ApiClientError(type: .invalidHost(hostURL))))
+                mainThreadCompletion(.failure(ApiClientError(type: .invalidHost(hostURL))))
             }
         }
         dataTask.resume()

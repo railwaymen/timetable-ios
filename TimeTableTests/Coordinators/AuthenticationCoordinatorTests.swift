@@ -160,45 +160,8 @@ class AuthenticationCoordinatorTests: XCTestCase {
         })
         accessServiceMock.getSessionCompletion?(.success(sessionReponse))
     }
-    
-    // MARK: - ServerConfigurationCoordinatorDelagete
-    func testServerConfigurationDidFinishRunsAuthenticationFlow() throws {
-        //Arrange
-        storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
-        storyboardsManagerMock.loginController = LoginViewControllerMock()
-        coordinator.start(finishCompletion: { (_, _) in })
-        let url = try URL(string: "www.example.com").unwrap()
-        let configuration = ServerConfiguration(host: url, shouldRememberHost: true)
-        //Act
-        XCTAssertEqual(coordinator.navigationController.children.count, 1)
-        XCTAssertNotNil(coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
-        coordinator.serverConfigurationDidFinish(with: configuration)
-        //Assert
-        DispatchQueue.main.async {
-            XCTAssertEqual(self.coordinator.navigationController.children.count, 2)
-            XCTAssertNotNil(self.coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
-            XCTAssertNotNil(self.coordinator.navigationController.children[1] as? LoginViewControllerable)
-        }
-    }
-    
+
     // MARK: - LoginCoordinatorDelegate
-    func testLoginDidFinishWithStateChangeAddress() throws {
-        //Arrange
-        let url = try URL(string: "www.example.com").unwrap()
-        storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
-        storyboardsManagerMock.loginController = LoginViewControllerMock()
-        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
-        coordinator.start(finishCompletion: { (_, _) in })
-        accessServiceMock.getSessionCompletion?(.failure(TestError(message: "ERROR")))
-        //Act
-        coordinator.loginDidFinish(with: .changeAddress)
-        //Assert
-        DispatchQueue.main.async {
-            XCTAssertEqual(self.coordinator.navigationController.children.count, 1)
-            XCTAssertNotNil(self.coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
-        }
-    }
-    
     func testLoginDidFinishWithStateLoggedInCorrectly() throws {
         //ERROR: Completion handler needs multithreading
         //Arrange

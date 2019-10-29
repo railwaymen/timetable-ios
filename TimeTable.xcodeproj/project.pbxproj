@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0AF1DD403C2E47D3343C2878 /* Pods_TimeTable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88922A1AB918F19A04B07211 /* Pods_TimeTable.framework */; };
+		8A09DCB823673E58003FC2A6 /* DispatchQueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A09DCB723673E58003FC2A6 /* DispatchQueueManager.swift */; };
+		8A09DCBA23673E74003FC2A6 /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A09DCB923673E74003FC2A6 /* DispatchQueue+Extension.swift */; };
+		8A09DCBC23673EED003FC2A6 /* DispatchQueueManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A09DCBB23673EED003FC2A6 /* DispatchQueueManagerMock.swift */; };
 		8A10F83B2350C7AF0004F389 /* WorkTimeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F83A2350C7AF0004F389 /* WorkTimeCoordinator.swift */; };
 		8A10F83D2350D9810004F389 /* DismissableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F83C2350D9810004F389 /* DismissableNavigationController.swift */; };
 		8A10F841235454DA0004F389 /* UIBarButtonItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */; };
@@ -305,6 +308,9 @@
 		6BD568DB1454D07112D32F1A /* Pods-TimeTable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTable.release.xcconfig"; path = "Target Support Files/Pods-TimeTable/Pods-TimeTable.release.xcconfig"; sourceTree = "<group>"; };
 		709A006A1AEE2AB10E218C48 /* Pods-TimeTable.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTable.stage.xcconfig"; path = "Target Support Files/Pods-TimeTable/Pods-TimeTable.stage.xcconfig"; sourceTree = "<group>"; };
 		88922A1AB918F19A04B07211 /* Pods_TimeTable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeTable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A09DCB723673E58003FC2A6 /* DispatchQueueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueManager.swift; sourceTree = "<group>"; };
+		8A09DCB923673E74003FC2A6 /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
+		8A09DCBB23673EED003FC2A6 /* DispatchQueueManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueManagerMock.swift; sourceTree = "<group>"; };
 		8A10F83A2350C7AF0004F389 /* WorkTimeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCoordinator.swift; sourceTree = "<group>"; };
 		8A10F83C2350D9810004F389 /* DismissableNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissableNavigationController.swift; sourceTree = "<group>"; };
 		8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extension.swift"; sourceTree = "<group>"; };
@@ -797,6 +803,7 @@
 		C1249C752181AAD2005DB2A5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8A09DCB723673E58003FC2A6 /* DispatchQueueManager.swift */,
 				C175B56B227CAACA006D9944 /* MessagePresenter.swift */,
 				C125F1BD21DCDCB000594CDE /* Project.swift */,
 				C1C4BA8E2189AD7700683F71 /* Result.swift */,
@@ -1041,6 +1048,7 @@
 				C13C2B0521EDE589008C9088 /* WorkTimesListCoordinatorMock.swift */,
 				C1E1F04821AD3712007F9228 /* WorkTimesListViewControllerMock.swift */,
 				C178B78C21EF8AE1001DA07F /* WorkTimeViewControllerMock.swift */,
+				8A09DCBB23673EED003FC2A6 /* DispatchQueueManagerMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1096,6 +1104,7 @@
 				C1E6B351219F014600019DC2 /* Bundle+Extension.swift */,
 				C1E1F04A21AD3DBE007F9228 /* Calendar+Extension.swift */,
 				C12CA57C21A593F20082FEB7 /* DateFormatter+Extension.swift */,
+				8A09DCB923673E74003FC2A6 /* DispatchQueue+Extension.swift */,
 				C1ECF09E2192C1AB006038C6 /* JSONDecoder+Extension.swift */,
 				C1ECF0A12192C337006038C6 /* JSONEncoder+Extension.swift */,
 				C153AC6521831499007A35BB /* NotificationCenter+Extenison.swift */,
@@ -1944,6 +1953,7 @@
 				C1B8FA41218C91F3009D10B4 /* LoginCredentials.swift in Sources */,
 				C1F926E6218838B80004A9BC /* LoginViewModel.swift in Sources */,
 				C1E6B350219EF52000019DC2 /* KeyChainType.swift in Sources */,
+				8A09DCBA23673E74003FC2A6 /* DispatchQueue+Extension.swift in Sources */,
 				C134295E21A6934C00F4EA42 /* ApiClient+Session.swift in Sources */,
 				C153AC6D21833BDC007A35BB /* AttributedButton.swift in Sources */,
 				C153AC4E2182EF82007A35BB /* UIElementLocalizedType.swift in Sources */,
@@ -2043,6 +2053,7 @@
 				C1B5136D21772D1200C3727C /* AppDelegate.swift in Sources */,
 				C10FD88121F1F15100A233C5 /* UserDecoder.swift in Sources */,
 				C16CA644219AA47900133358 /* UserEntity+SessionDecoder.swift in Sources */,
+				8A09DCB823673E58003FC2A6 /* DispatchQueueManager.swift in Sources */,
 				C198BD1D21FF3DD200B5F847 /* MatchingFullTimeDecoder.swift in Sources */,
 				C1204FBD21F0BA6300B2C3AC /* ProfileViewModel.swift in Sources */,
 			);
@@ -2137,6 +2148,7 @@
 				C1EF3A0721930409000E3511 /* NSRegularExpresionExtensionTests.swift in Sources */,
 				C1FA05E62194464D00BD8C9D /* CoreDataStackTests.swift in Sources */,
 				C16CA647219AB89C00133358 /* UserEntitySessionDecoderTests.swift in Sources */,
+				8A09DCBC23673EED003FC2A6 /* DispatchQueueManagerMock.swift in Sources */,
 				C18A18A121EF88B300CB6E32 /* WorkTimeViewModelTests.swift in Sources */,
 				C1ECF0AA2192CC25006038C6 /* RequestEncoder.swift in Sources */,
 				C147D1F721F5F96A00A818BD /* AttributedTextFieldTests.swift in Sources */,

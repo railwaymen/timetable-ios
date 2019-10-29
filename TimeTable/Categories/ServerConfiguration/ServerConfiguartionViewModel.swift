@@ -70,9 +70,7 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
         serverConfigurationManager.verify(configuration: configuration) { [weak self] result in
             switch result {
             case .success:
-                DispatchQueue.main.async { [weak self] in
-                    self?.coordinator.serverConfigurationDidFinish(with: configuration)
-                }
+                self?.coordinator.serverConfigurationDidFinish(with: configuration)
             case .failure(let error):
                 self?.errorHandler.throwing(error: error)
             }

@@ -72,86 +72,58 @@ class ServerConfigurationViewModelTests: XCTestCase {
     
     func testViewRequestedToContinueCreateCorrectServerConfigurationWithDefaultValues() throws {
         //Arrange
-        let mainQueueExpectation = self.expectation(description: "mainQueueExpectation")
         let hostString = "www.example.com"
         viewModel.serverAddressDidChange(text: hostString)
         //Act
         viewModel.viewRequestedToContinue()
         serverConfigurationManagerMock.verifyConfigurationCompletion?(.success(Void()))
         //Assert
-        DispatchQueue.main.async {
-            do {
-                let configuration = try self.coordinatorMock.serverConfigurationDidFinishValues.serverConfiguration.unwrap()
-                XCTAssertEqual(configuration.host, try URL(string: hostString.apiSuffix().httpPrefix()).unwrap())
-                XCTAssertTrue(configuration.shouldRememberHost)
-            } catch {
-                XCTFail()
-            }
-            mainQueueExpectation.fulfill()
+        do {
+            let configuration = try self.coordinatorMock.serverConfigurationDidFinishValues.serverConfiguration.unwrap()
+            XCTAssertEqual(configuration.host, try URL(string: hostString.apiSuffix().httpPrefix()).unwrap())
+            XCTAssertTrue(configuration.shouldRememberHost)
+        } catch {
+            XCTFail()
         }
-        wait(for: [mainQueueExpectation], timeout: timeout)
     }
     
     func testViewRequestedToContinueCreateCorrectServerConfigurationWithStaySigneInAsFalse() throws {
         //Arrange
-        let verifyExepectation = self.expectation(description: "verifyExepectation")
-        let mainQueueExpectation = self.expectation(description: "mainQueueExpectation")
         let hostString = "www.example.com"
         viewModel.serverAddressDidChange(text: hostString)
         viewModel.shouldRemeberHostCheckBoxStatusDidChange(isActive: true)
-        serverConfigurationManagerMock.expectationHandler = verifyExepectation.fulfill
-        
         //Act
         viewModel.viewRequestedToContinue()
         serverConfigurationManagerMock.verifyConfigurationCompletion?(.success(Void()))
-        wait(for: [verifyExepectation], timeout: timeout)
-
         //Assert
-        DispatchQueue.main.async {
-            do {
-                let configuration = try self.coordinatorMock.serverConfigurationDidFinishValues.serverConfiguration.unwrap()
-                XCTAssertEqual(configuration.host, try URL(string: hostString.apiSuffix().httpPrefix()).unwrap())
-                XCTAssertFalse(configuration.shouldRememberHost)
-            } catch {
-                XCTFail()
-            }
-            mainQueueExpectation.fulfill()
+        do {
+            let configuration = try self.coordinatorMock.serverConfigurationDidFinishValues.serverConfiguration.unwrap()
+            XCTAssertEqual(configuration.host, try URL(string: hostString.apiSuffix().httpPrefix()).unwrap())
+            XCTAssertFalse(configuration.shouldRememberHost)
+        } catch {
+            XCTFail()
         }
-        wait(for: [mainQueueExpectation], timeout: timeout)
     }
     
     func testViewRequestedToContinueWithCorrectServerConfigurationCallCoordinator() throws {
         //Arrange
-        let verifyExepectation = self.expectation(description: "verifyExepectation")
-        let mainQueueExpectation = self.expectation(description: "mainQueueExpectation")
         let hostString = "www.example.com"
         viewModel.serverAddressDidChange(text: hostString)
-        serverConfigurationManagerMock.expectationHandler = verifyExepectation.fulfill
-        
         //Act
         viewModel.viewRequestedToContinue()
         serverConfigurationManagerMock.verifyConfigurationCompletion?(.success(Void()))
-        wait(for: [verifyExepectation], timeout: timeout)
-
         //Assert
-        DispatchQueue.main.async {
-            XCTAssertTrue(self.coordinatorMock.serverConfigurationDidFinishValues.called)
-            mainQueueExpectation.fulfill()
-        }
-        wait(for: [mainQueueExpectation], timeout: timeout)
+        XCTAssertTrue(self.coordinatorMock.serverConfigurationDidFinishValues.called)
     }
     
     func testViewRequestedToContinueWithInvalidServerConfigurationGetsAnError() throws {
         //Arrange
-        let verifyExepectation = self.expectation(description: "")
         let hostString = "com"
         let url = try URL(string: hostString).unwrap()
         viewModel.serverAddressDidChange(text: hostString)
-        serverConfigurationManagerMock.expectationHandler = verifyExepectation.fulfill
         //Act
         viewModel.viewRequestedToContinue()
         serverConfigurationManagerMock.verifyConfigurationCompletion?(.failure(ApiClientError(type: .invalidHost(url))))
-        wait(for: [verifyExepectation], timeout: timeout)
         //Assert
         XCTAssertNotNil(errorHandler.throwedError)
     }
