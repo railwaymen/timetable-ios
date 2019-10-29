@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="prJ-rF-eRP">
-    <device id="ipad12_9rounded" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="prJ-rF-eRP">
+    <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="SF-Pro-Display-Bold.otf">
-            <string>SFProDisplay-Bold</string>
-        </array>
-        <array key="SF-Pro-Display-Regular.otf">
-            <string>SFProDisplay-Regular</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Login View Controller-->
         <scene sceneID="rpT-PJ-SMs">
@@ -28,6 +19,7 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="time_table_background" translatesAutoresizingMaskIntoConstraints="NO" id="8ok-jl-LPk">
                                 <rect key="frame" x="-15" y="0.0" width="400" height="400"/>
+                                <color key="tintColor" name="Crimson"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="CYg-em-sI3">
                                         <variation key="heightClass=regular-widthClass=regular" constant="400"/>
@@ -37,35 +29,27 @@
                                     </constraint>
                                 </constraints>
                             </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mja-sZ-MsA">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1346"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="Mja-sZ-MsA">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="37f-hv-3Dy" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
-                                        <rect key="frame" x="362" y="498" width="300" height="350"/>
+                                        <rect key="frame" x="362" y="20" width="300" height="1326"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RbS-IW-I5Q">
-                                                <rect key="frame" x="15" y="15" width="270" height="33"/>
-                                                <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="28"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.label.title"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Enter your TimeTable server URL." lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="OiT-o1-SxI">
-                                                <rect key="frame" x="15" y="68" width="270" height="18"/>
-                                                <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <rect key="frame" x="15" y="1064" width="270" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.label.explanation"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z1B-zV-UZJ" customClass="AttributedTextField" customModule="TimeTable" customModuleProvider="target">
-                                                <rect key="frame" x="15" y="116" width="270" height="21"/>
-                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
+                                                <rect key="frame" x="15" y="1112" width="270" height="30"/>
+                                                <color key="tintColor" name="Crimson"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="W4a-KH-9gl"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.text_feild.email"/>
@@ -79,18 +63,20 @@
                                                 </connections>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Pp-Kd-Zld" userLabel="E-mail Seperator View">
-                                                <rect key="frame" x="15" y="145" width="270" height="1"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <rect key="frame" x="15" y="1150" width="270" height="1"/>
+                                                <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="53e-h8-O6f"/>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="Y4g-0L-oBQ"/>
                                                 </constraints>
                                             </view>
                                             <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="justified" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zsz-ds-g8F" customClass="AttributedTextField" customModule="TimeTable" customModuleProvider="target">
-                                                <rect key="frame" x="15" y="161" width="270" height="21"/>
-                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
+                                                <rect key="frame" x="15" y="1166" width="270" height="30"/>
+                                                <color key="tintColor" name="Crimson"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="RuR-st-rhm"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.text_feild.password"/>
@@ -104,27 +90,27 @@
                                                 </connections>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4z0-Hb-gpt" userLabel="Password Seperator View">
-                                                <rect key="frame" x="15" y="190" width="270" height="1"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <rect key="frame" x="15" y="1204" width="270" height="1"/>
+                                                <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="eci-BX-PkV"/>
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i9V-Qh-o4R" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
-                                                <rect key="frame" x="15" y="256" width="270" height="50"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <rect key="frame" x="15" y="1270" width="270" height="40"/>
+                                                <color key="backgroundColor" name="Crimson"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="4Qg-ZN-nWs"/>
+                                                    <constraint firstAttribute="height" constant="40" id="4Qg-ZN-nWs"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="15"/>
-                                                <color key="tintColor" red="0.80000000000000004" green="0.078431372550000003" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                <color key="tintColor" name="Crimson"/>
                                                 <state key="normal" title="Button">
-                                                    <color key="titleColor" red="0.79607843137254897" green="0.078431372549019607" blue="0.16470588235294117" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.button.log_in"/>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="3"/>
+                                                        <real key="value" value="5"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -132,7 +118,7 @@
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IgD-qW-NvB">
-                                                <rect key="frame" x="15" y="211" width="270" height="25"/>
+                                                <rect key="frame" x="15" y="1225" width="270" height="25"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Hy-Wy-5Er" customClass="CheckBoxButton" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
@@ -140,27 +126,26 @@
                                                             <constraint firstAttribute="height" constant="25" id="31S-Ci-8wP"/>
                                                             <constraint firstAttribute="width" constant="25" id="McI-om-0eN"/>
                                                         </constraints>
-                                                        <color key="tintColor" red="0.80000000000000004" green="0.078431372550000003" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isActive" value="YES"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                 <real key="value" value="1"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                <real key="value" value="3"/>
+                                                                <real key="value" value="5"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="value" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="checkBoxButtonTapped:" destination="prJ-rF-eRP" eventType="touchUpInside" id="v11-kF-ehv"/>
+                                                            <action selector="checkBoxButtonTapped:" destination="prJ-rF-eRP" eventType="touchUpInside" id="VYX-Hp-Prh"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stay signed in" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="kAh-Lh-QUc">
-                                                        <rect key="frame" x="33" y="6" width="85" height="17"/>
-                                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="13"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <rect key="frame" x="33" y="6.5" width="85" height="16"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.label.stay_signed_in"/>
@@ -176,6 +161,14 @@
                                                     <constraint firstItem="kAh-Lh-QUc" firstAttribute="centerY" secondItem="7Hy-Wy-5Er" secondAttribute="centerY" constant="2" id="zyf-tt-aEB"/>
                                                 </constraints>
                                             </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Login" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RbS-IW-I5Q">
+                                                <rect key="frame" x="15" y="8" width="270" height="1029"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.label.title"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -195,13 +188,13 @@
                                             <constraint firstItem="zsz-ds-g8F" firstAttribute="trailing" secondItem="Z1B-zV-UZJ" secondAttribute="trailing" id="NKb-Vr-WOM"/>
                                             <constraint firstItem="Z1B-zV-UZJ" firstAttribute="trailing" secondItem="OiT-o1-SxI" secondAttribute="trailing" id="PI4-VO-oOa"/>
                                             <constraint firstItem="RbS-IW-I5Q" firstAttribute="top" secondItem="37f-hv-3Dy" secondAttribute="top" constant="15" id="QEW-we-SnE"/>
+                                            <constraint firstAttribute="bottom" secondItem="i9V-Qh-o4R" secondAttribute="bottom" constant="16" id="QRo-6m-fiA"/>
                                             <constraint firstItem="2Pp-Kd-Zld" firstAttribute="top" secondItem="Z1B-zV-UZJ" secondAttribute="bottom" constant="8" id="U9Y-q9-1kq"/>
                                             <constraint firstAttribute="trailing" secondItem="RbS-IW-I5Q" secondAttribute="trailing" constant="15" id="ZGr-7i-jZX"/>
                                             <constraint firstItem="Z1B-zV-UZJ" firstAttribute="top" secondItem="OiT-o1-SxI" secondAttribute="bottom" constant="30" id="bBM-Ju-CKE"/>
                                             <constraint firstItem="OiT-o1-SxI" firstAttribute="leading" secondItem="37f-hv-3Dy" secondAttribute="leading" constant="15" id="d02-Zr-pT3"/>
                                             <constraint firstItem="IgD-qW-NvB" firstAttribute="trailing" secondItem="Z1B-zV-UZJ" secondAttribute="trailing" id="fbt-aT-hyw"/>
                                             <constraint firstItem="i9V-Qh-o4R" firstAttribute="leading" secondItem="Z1B-zV-UZJ" secondAttribute="leading" id="jFD-Fo-SUK"/>
-                                            <constraint firstAttribute="height" constant="350" id="otW-ME-HS7"/>
                                             <constraint firstItem="4z0-Hb-gpt" firstAttribute="trailing" secondItem="2Pp-Kd-Zld" secondAttribute="trailing" id="qYB-sU-spP"/>
                                             <constraint firstItem="2Pp-Kd-Zld" firstAttribute="leading" secondItem="Z1B-zV-UZJ" secondAttribute="leading" id="tOA-Sa-CZZ"/>
                                             <constraint firstItem="IgD-qW-NvB" firstAttribute="top" secondItem="4z0-Hb-gpt" secondAttribute="bottom" constant="20" id="whN-3T-Khg"/>
@@ -224,7 +217,8 @@
                                 <constraints>
                                     <constraint firstItem="37f-hv-3Dy" firstAttribute="centerY" secondItem="Mja-sZ-MsA" secondAttribute="centerY" id="AJR-60-3Fg"/>
                                     <constraint firstItem="37f-hv-3Dy" firstAttribute="centerX" secondItem="Mja-sZ-MsA" secondAttribute="centerX" id="Mr1-hE-bxl"/>
-                                    <constraint firstAttribute="bottom" secondItem="37f-hv-3Dy" secondAttribute="bottom" priority="900" constant="20" id="b4c-tZ-Z7s"/>
+                                    <constraint firstItem="37f-hv-3Dy" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Mja-sZ-MsA" secondAttribute="top" priority="900" constant="20" id="XJW-y5-oeC"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="37f-hv-3Dy" secondAttribute="bottom" priority="900" constant="20" id="b4c-tZ-Z7s"/>
                                     <constraint firstItem="37f-hv-3Dy" firstAttribute="leading" secondItem="Mja-sZ-MsA" secondAttribute="leading" priority="900" constant="20" id="kpS-8j-DGH"/>
                                     <constraint firstItem="37f-hv-3Dy" firstAttribute="top" secondItem="Mja-sZ-MsA" secondAttribute="top" constant="20" id="tfN-yr-HX0">
                                         <variation key="heightClass=regular-widthClass=compact" constant="120"/>
@@ -244,31 +238,42 @@
                                 </variation>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" red="0.79607843137254897" green="0.078431372549019607" blue="0.16470588235294117" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="Mja-sZ-MsA" firstAttribute="top" secondItem="oPN-yH-xSv" secondAttribute="top" id="36q-3L-mEb"/>
-                            <constraint firstItem="ajj-cK-AHp" firstAttribute="bottom" secondItem="Mja-sZ-MsA" secondAttribute="bottom" id="5S3-BX-bh3"/>
-                            <constraint firstItem="Mja-sZ-MsA" firstAttribute="leading" secondItem="oPN-yH-xSv" secondAttribute="leading" id="S9V-Hi-WGp"/>
+                            <constraint firstAttribute="bottom" secondItem="Mja-sZ-MsA" secondAttribute="bottom" id="5S3-BX-bh3"/>
+                            <constraint firstItem="Mja-sZ-MsA" firstAttribute="leading" secondItem="ajj-cK-AHp" secondAttribute="leading" id="S9V-Hi-WGp"/>
                             <constraint firstItem="8ok-jl-LPk" firstAttribute="top" secondItem="oPN-yH-xSv" secondAttribute="top" id="USH-Pc-NJA"/>
                             <constraint firstItem="ajj-cK-AHp" firstAttribute="trailing" secondItem="Mja-sZ-MsA" secondAttribute="trailing" id="mZZ-Ui-cms"/>
                             <constraint firstItem="8ok-jl-LPk" firstAttribute="leading" secondItem="ajj-cK-AHp" secondAttribute="leading" constant="-15" id="q9O-Ee-oIX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ajj-cK-AHp"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="7Iy-rI-v4o" appends="YES" id="ejX-RF-d39"/>
+                        </connections>
                     </view>
                     <connections>
-                        <outlet property="bottomLayoutConstraint" destination="5S3-BX-bh3" id="H0R-bx-8x0"/>
                         <outlet property="checkBoxButton" destination="7Hy-Wy-5Er" id="uwI-HS-1U7"/>
                         <outlet property="loginButton" destination="i9V-Qh-o4R" id="syc-04-fjs"/>
                         <outlet property="loginTextField" destination="Z1B-zV-UZJ" id="YHF-sk-owN"/>
                         <outlet property="passwordTextField" destination="zsz-ds-g8F" id="cUw-dS-I6q"/>
+                        <outlet property="scrollView" destination="Mja-sZ-MsA" id="vYM-GZ-mBV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sJx-7d-v4P" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="7Iy-rI-v4o">
+                    <connections>
+                        <action selector="viewTapped:" destination="prJ-rF-eRP" id="MfU-fF-iOU"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="135.19999999999999" y="18.440779610194905"/>
         </scene>
     </scenes>
     <resources>
         <image name="time_table_background" width="584" height="585"/>
+        <namedColor name="Crimson">
+            <color red="0.79607843137254897" green="0.078431372549019607" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

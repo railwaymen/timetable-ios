@@ -13,11 +13,11 @@ class LoginViewControllerMock: LoginViewControllerable {
     private(set) var setUpViewCalledData: (called: Bool, isActive: Bool?) = (false, nil)
     private(set) var updateLoginFieldsCalled = false
     private(set) var updateLoginFieldsData: (email: String?, password: String?)
-    private(set) var tearDownCalled = false
     private(set) var passwordInputEnabledStateValues: (called: Bool, isEnabled: Bool?) = (false, nil)
     private(set) var loginButtonEnabledStateValues: (called: Bool, isEnabled: Bool?) = (false, nil)
     private(set) var checkBoxIsActiveStateValues: (called: Bool, isActive: Bool?) = (false, nil)
     private(set) var focusOnPasswordTextFieldCalled = false
+    private(set) var dismissKeyboardCalled = false
     
     // MARK: - LoginViewModelOutput
     func setUpView(checkBoxIsActive: Bool) {
@@ -27,10 +27,6 @@ class LoginViewControllerMock: LoginViewControllerable {
     func updateLoginFields(email: String, password: String) {
         updateLoginFieldsCalled = true
         updateLoginFieldsData = (email, password)
-    }
-    
-    func tearDown() {
-        tearDownCalled = true
     }
     
     func passwordInputEnabledState(_ isEnabled: Bool) {
@@ -48,6 +44,11 @@ class LoginViewControllerMock: LoginViewControllerable {
     func focusOnPasswordTextField() {
         focusOnPasswordTextFieldCalled = true
     }
+    
+    func dismissKeyboard() {
+        dismissKeyboardCalled = true
+    }
+    
     // MARK: - LoginViewControllerType
     
     private(set) var configureNotificationCenter: NotificationCenterType?

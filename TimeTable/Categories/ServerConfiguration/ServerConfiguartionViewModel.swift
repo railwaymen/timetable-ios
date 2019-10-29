@@ -10,7 +10,6 @@ import Foundation
 
 protocol ServerConfigurationViewModelOutput: class {
     func setupView(checkBoxIsActive: Bool, serverAddress: String)
-    func tearDown()
     func continueButtonEnabledState(_ isEnabled: Bool)
     func checkBoxIsActiveState(_ isActive: Bool)
     func dissmissKeyboard()
@@ -18,7 +17,6 @@ protocol ServerConfigurationViewModelOutput: class {
 
 protocol ServerConfigurationViewModelType: class {
     func viewDidLoad()
-    func viewWillDisappear()
     func viewRequestedToContinue()
     func serverAddressDidChange(text: String?)
     func serverAddressTextFieldDidRequestForReturn() -> Bool
@@ -29,15 +27,15 @@ protocol ServerConfigurationViewModelType: class {
 class ServerConfigurationViewModel: ServerConfigurationViewModelType {
     
     private weak var userInterface: ServerConfigurationViewModelOutput?
-    private let coordinator: ServerConfigurationCoordinatorDelagete
+    private let coordinator: ServerConfigurationCoordinatorDelegate
     private let serverConfigurationManager: ServerConfigurationManagerType
     private let errorHandler: ErrorHandlerType
     
     private var serverAddress: String?
     private var shouldRememberHost: Bool = true
     
-    // MARK: - Life Cycle
-    init(userInterface: ServerConfigurationViewModelOutput, coordinator: ServerConfigurationCoordinatorDelagete,
+    // MARK: - Initialization
+    init(userInterface: ServerConfigurationViewModelOutput, coordinator: ServerConfigurationCoordinatorDelegate,
          serverConfigurationManager: ServerConfigurationManagerType, errorHandler: ErrorHandlerType) {
         self.userInterface = userInterface
         self.coordinator = coordinator
@@ -51,10 +49,6 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
         self.serverAddress = oldConfiguration?.host?.absoluteString
         self.shouldRememberHost = oldConfiguration?.shouldRememberHost ?? true
         userInterface?.setupView(checkBoxIsActive: shouldRememberHost, serverAddress: serverAddress ?? "")
-    }
-    
-    func viewWillDisappear() {
-        userInterface?.tearDown()
     }
     
     func viewRequestedToContinue() {

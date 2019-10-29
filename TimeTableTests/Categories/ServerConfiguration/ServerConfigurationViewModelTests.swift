@@ -39,14 +39,6 @@ class ServerConfigurationViewModelTests: XCTestCase {
         XCTAssertTrue(userInterface.setupViewStateValues.checkBoxIsActive)
     }
     
-    func testViewWillDesappearCallTearDownOnTheUserInterface() {
-        //Arrange
-        //Act
-        viewModel.viewWillDisappear()
-        //Assert
-        XCTAssertTrue(userInterface.tearDownCalled)
-    }
-    
     func testViewRequestedToContinueThrowErrorWhileServerAddressIsNull() {
         //Arrange
         //Act
@@ -173,8 +165,6 @@ class ServerConfigurationViewModelTests: XCTestCase {
 private class UserInterfaceMock: ServerConfigurationViewModelOutput {
     private(set) var setupViewCalled = false
     private(set) var setupViewStateValues: (checkBoxIsActive: Bool, serverAddress: String) = (false, "")
-    private(set) var tearDownCalled = false
-    private(set) var hideNavigationBarCalled = false
     private(set) var dissmissKeyboardCalled = false
     private(set) var continueButtonEnabledStateValues: (called: Bool, isEnabled: Bool) = (false, false)
     private(set) var checkBoxIsActiveStateValues: (called: Bool, isActive: Bool) = (false, false)
@@ -182,14 +172,6 @@ private class UserInterfaceMock: ServerConfigurationViewModelOutput {
     func setupView(checkBoxIsActive: Bool, serverAddress: String) {
         setupViewCalled = true
         setupViewStateValues = (checkBoxIsActive, serverAddress)
-    }
-
-    func tearDown() {
-        tearDownCalled = true
-    }
-    
-    func hideNavigationBar() {
-        hideNavigationBarCalled = true
     }
     
     func dissmissKeyboard() {

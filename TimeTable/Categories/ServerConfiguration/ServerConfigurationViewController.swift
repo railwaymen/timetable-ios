@@ -16,7 +16,7 @@ protocol ServerConfigurationViewControllerType: class {
 
 class ServerConfigurationViewController: UIViewController {
  
-    @IBOutlet private var scrollViewBottomLayoutConstraint: NSLayoutConstraint!
+    @IBOutlet private var scrollView: UIScrollView!
     @IBOutlet private var continueButton: UIButton!
     @IBOutlet private var serverAddressTextField: UITextField!
     @IBOutlet private var checkBoxButton: CheckBoxButton!
@@ -24,15 +24,15 @@ class ServerConfigurationViewController: UIViewController {
     private var viewModel: ServerConfigurationViewModelType?
     private var notificationCenter: NotificationCenterType?
     
+    // MARK: - Initialization
+    deinit {
+        notificationCenter?.removeObserver(self)
+    }
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel?.viewDidLoad()
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        viewModel?.viewWillDisappear()
     }
     
     // MARK: - Actions
@@ -52,34 +52,28 @@ class ServerConfigurationViewController: UIViewController {
         viewModel?.shouldRemeberHostCheckBoxStatusDidChange(isActive: sender.isActive)
     }
     
-    // MARK: - Internal
-    
-    @objc func keyboardWillShow(notification: NSNotification, offset: CGFloat = 0) {
-        if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height {
-            updateConstraints(with: keyboardHeight - offset)
-        }
+    // MARK: - Notifications
+    @objc private func changeKeyboardFrame(notification: NSNotification, offset: CGFloat = 0) {
+        guard let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height else { return }
+        updateScrollViewInsets(with: keyboardHeight)
     }
     
-    @objc func keyboardWillHide(notification: NSNotification) {
-        updateConstraints()
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        updateScrollViewInsets()
     }
     
     // MARK: - Private
-    private func updateConstraints(with height: CGFloat = 0) {
-        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
-            self.scrollViewBottomLayoutConstraint.constant = height
-            self.view.layoutIfNeeded()
-        })
+    private func updateScrollViewInsets(with height: CGFloat = 0) {
+        self.scrollView.contentInset.bottom = height
+        self.scrollView.scrollIndicatorInsets.bottom = height
     }
 }
 
 // MARK: - UITextFieldDelegate
 extension ServerConfigurationViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if serverAddressTextField == textField {
-            return viewModel?.serverAddressTextFieldDidRequestForReturn() ?? false
-        }
-        return false
+        guard serverAddressTextField == textField else { return false }
+        return viewModel?.serverAddressTextFieldDidRequestForReturn() ?? false
     }
 }
 
@@ -95,15 +89,12 @@ extension ServerConfigurationViewController: ServerConfigurationViewControllerTy
 extension ServerConfigurationViewController: ServerConfigurationViewModelOutput {
     func setupView(checkBoxIsActive: Bool, serverAddress: String) {
         notificationCenter?.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        notificationCenter?.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        notificationCenter?.addObserver(self, selector: #selector(changeKeyboardFrame), name: UIResponder.keyboardDidShowNotification, object: nil)
+        notificationCenter?.addObserver(self, selector: #selector(changeKeyboardFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         
         checkBoxButton.isActive = checkBoxIsActive
         serverAddressTextField.text = serverAddress
         continueButton.isEnabled = !serverAddress.isEmpty
-    }
-    
-    func tearDown() {
-        notificationCenter?.removeObserver(self)
     }
     
     func continueButtonEnabledState(_ isEnabled: Bool) {
@@ -111,7 +102,13 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
     }
     
     func checkBoxIsActiveState(_ isActive: Bool) {
-        checkBoxButton.isActive = isActive
+        UIView.transition(
+            with: checkBoxButton,
+            duration: 0.15,
+            options: .transitionCrossDissolve,
+            animations: { [weak self] in
+                self?.checkBoxButton.isActive = isActive
+        })
     }
 
     func dissmissKeyboard() {
