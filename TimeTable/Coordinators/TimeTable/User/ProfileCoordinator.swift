@@ -13,11 +13,7 @@ protocol ProfileCoordinatorDelegate: class {
 }
 
 class ProfileCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
-    private let storyboardsManager: StoryboardsManagerType
-    private let apiClient: ApiClientUsersType
-    private let accessService: AccessServiceUserIDType
-    private let coreDataStack: CoreDataStackUserType
-    private let errorHandler: ErrorHandlerType
+    private let dependencyContainer: DependencyContainerType
     
     var root: UIViewController {
         return self.navigationController
@@ -25,18 +21,8 @@ class ProfileCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
     var tabBarItem: UITabBarItem
     
     // MARK: - Initialization
-    init(window: UIWindow?,
-         messagePresenter: MessagePresenterType?,
-         storyboardsManager: StoryboardsManagerType,
-         apiClient: ApiClientUsersType,
-         accessService: AccessServiceUserIDType,
-         coreDataStack: CoreDataStackUserType,
-         errorHandler: ErrorHandlerType) {
-        self.storyboardsManager = storyboardsManager
-        self.apiClient = apiClient
-        self.accessService = accessService
-        self.coreDataStack = coreDataStack
-        self.errorHandler = errorHandler
+    init(dependencyContainer: DependencyContainerType) {
+        self.dependencyContainer = dependencyContainer
         var image: UIImage = #imageLiteral(resourceName: "profile_icon")
         if #available(iOS 13, *), let sfSymbol = UIImage(systemName: "person.fill") {
             image = sfSymbol
@@ -44,7 +30,7 @@ class ProfileCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
         self.tabBarItem = UITabBarItem(title: "tabbar.title.profile".localized,
                                        image: image,
                                        selectedImage: nil)
-        super.init(window: window, messagePresenter: messagePresenter)
+        super.init(window: dependencyContainer.window, messagePresenter: dependencyContainer.messagePresenter)
         self.root.tabBarItem = tabBarItem
     }
 
@@ -58,13 +44,15 @@ class ProfileCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
     
     // MARK: - Private
     private func runMainFlow() {
-        let controller: ProfileViewControllerable? = storyboardsManager.controller(storyboard: .profile, controllerIdentifier: .initial)
+        guard let apiClient = dependencyContainer.apiClient,
+            let accessService = dependencyContainer.accessService else { return assertionFailure("Api client or access service is nil") }
+        let controller: ProfileViewControllerable? = dependencyContainer.storyboardsManager.controller(storyboard: .profile)
         let viewModel = ProfileViewModel(userInterface: controller,
                                              coordinator: self,
                                              apiClient: apiClient,
                                              accessService: accessService,
-                                             coreDataStack: coreDataStack,
-                                             errorHandler: errorHandler)
+                                             coreDataStack: dependencyContainer.coreDataStack,
+                                             errorHandler: dependencyContainer.errorHandler)
         controller?.configure(viewModel: viewModel)
         guard let profileViewController = controller else { return }
         navigationController.pushViewController(profileViewController, animated: false)

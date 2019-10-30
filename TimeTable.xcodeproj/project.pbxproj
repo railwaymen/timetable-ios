@@ -16,6 +16,7 @@
 		8A10F841235454DA0004F389 /* UIBarButtonItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */; };
 		8AA5C5DD235F34340083E121 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA5C5DC235F34340083E121 /* Colors.xcassets */; };
 		8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */; };
+		8AF3073823688C5A00832FDD /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3073723688C5A00832FDD /* DependencyContainer.swift */; };
 		BFB4EF72FAE3D8CD21A09744 /* Pods_TimeTableTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FE8C20AC7A1A64A549519E /* Pods_TimeTableTests.framework */; };
 		C101603222003A9500DCE817 /* WorkTimesListContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */; };
 		C101603422003D4000DCE817 /* MatchingFullTimeEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101603322003D4000DCE817 /* MatchingFullTimeEncoder.swift */; };
@@ -319,6 +320,7 @@
 		8A839D0C23570ED4002F3464 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../../Configuration/Release.xcconfig; sourceTree = "<group>"; };
 		8AA5C5DC235F34340083E121 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellViewModelTests.swift; sourceTree = "<group>"; };
+		8AF3073723688C5A00832FDD /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListContentProvider.swift; sourceTree = "<group>"; };
 		C101603322003D4000DCE817 /* MatchingFullTimeEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFullTimeEncoder.swift; sourceTree = "<group>"; };
 		C10FD87E21F1EDA100A233C5 /* ApiClient+Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiClient+Users.swift"; sourceTree = "<group>"; };
@@ -803,6 +805,7 @@
 		C1249C752181AAD2005DB2A5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8AF3073723688C5A00832FDD /* DependencyContainer.swift */,
 				8A09DCB723673E58003FC2A6 /* DispatchQueueManager.swift */,
 				C175B56B227CAACA006D9944 /* MessagePresenter.swift */,
 				C125F1BD21DCDCB000594CDE /* Project.swift */,
@@ -1335,6 +1338,7 @@
 			children = (
 				C1249C642181A1B7005DB2A5 /* BaseCoordinator.swift */,
 				C1AACFD121A4353B0023FD32 /* BaseNavigationCoordinator.swift */,
+				C1AACFD921A440650023FD32 /* BaseTabBarControllerType.swift */,
 				C1AACFD321A435AD0023FD32 /* BaseTabBarCoordinator.swift */,
 			);
 			path = "Base ";
@@ -1351,7 +1355,6 @@
 		C1AFFFE121A2D15C00A7A632 /* TimeTable */ = {
 			isa = PBXGroup;
 			children = (
-				C1AACFD921A440650023FD32 /* BaseTabBarControllerType.swift */,
 				C1AFFFE221A2D16F00A7A632 /* TimeTableCoordinator.swift */,
 				C1AACFCB21A4345C0023FD32 /* Projects */,
 				C1AACFCD21A434780023FD32 /* User */,
@@ -1963,6 +1966,7 @@
 				C1531F002191BD6B00602A0C /* Networking+Extension.swift in Sources */,
 				C1249C802181B4FC005DB2A5 /* ErrorHandler.swift in Sources */,
 				C1249C652181A1B7005DB2A5 /* BaseCoordinator.swift in Sources */,
+				8AF3073823688C5A00832FDD /* DependencyContainer.swift in Sources */,
 				C1AACFD821A4387F0023FD32 /* WorkTimesListCoordinator.swift in Sources */,
 				C1B8FA44218C929F009D10B4 /* SessionDecoder.swift in Sources */,
 				C1AACFD221A4353B0023FD32 /* BaseNavigationCoordinator.swift in Sources */,

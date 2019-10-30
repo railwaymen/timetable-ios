@@ -19,14 +19,7 @@ protocol LoginCoordinatorDelegate: class {
 }
 
 class AuthenticationCoordinator: BaseNavigationCoordinator {
-    
-    private let storyboardsManager: StoryboardsManagerType
-    private let accessServiceBuilder: ((ServerConfiguration, JSONEncoderType, JSONDecoderType) -> AccessServiceLoginType)
-    private let coreDataStack: CoreDataStackUserType
-    private let errorHandler: ErrorHandlerType
-    private let serverConfigurationManager: ServerConfigurationManagerType
-    private let decoder: JSONDecoderType
-    private let encoder: JSONEncoderType
+    private let dependencyContainer: DependencyContainerType
     private var apiClient: ApiClientType?
     private var serverConfiguration: ServerConfiguration?
     
@@ -38,32 +31,19 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
     }
     
     // MARK: - Initialization
-    init(window: UIWindow?,
-         messagePresenter: MessagePresenterType?,
-         storyboardsManager: StoryboardsManagerType,
-         decoder: JSONDecoderType,
-         encoder: JSONEncoderType,
-         accessServiceBuilder: @escaping ((ServerConfiguration, JSONEncoderType, JSONDecoderType) -> AccessServiceLoginType),
-         coreDataStack: CoreDataStackUserType,
-         errorHandler: ErrorHandlerType,
-         serverConfigurationManager: ServerConfigurationManagerType) {
-        self.storyboardsManager = storyboardsManager
-        self.accessServiceBuilder = accessServiceBuilder
-        self.errorHandler = errorHandler
-        self.coreDataStack = coreDataStack
-        self.serverConfigurationManager = serverConfigurationManager
-        self.encoder = encoder
-        self.decoder = decoder
-        super.init(window: window, messagePresenter: messagePresenter)
+    init(dependencyContainer: DependencyContainerType) {
+        self.dependencyContainer = dependencyContainer
+        super.init(window: dependencyContainer.window, messagePresenter: dependencyContainer.messagePresenter)
+        window?.rootViewController = navigationController
         setNavigationBar()
     }
 
     // MARK: - CoordinatorType
     func start(finishCompletion: ((ServerConfiguration, ApiClientType) -> Void)?) {
         self.customFinishCompletion = finishCompletion
-        if let configuration = serverConfigurationManager.getOldConfiguration(), configuration.shouldRememberHost {
+        if let configuration = dependencyContainer.serverConfigurationManager.getOldConfiguration(), configuration.shouldRememberHost {
             self.serverConfiguration = configuration
-            let accessService = accessServiceBuilder(configuration, encoder, decoder)
+            let accessService = dependencyContainer.accessServiceBuilder(configuration, dependencyContainer.encoder, dependencyContainer.decoder)
             accessService.getSession { [weak self] result in
                 switch result {
                 case .success(let session):
@@ -100,26 +80,31 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
     }
     
     private func runServerConfigurationFlow() {
-        let controller: ServerConfigurationViewControllerable? = storyboardsManager.controller(storyboard: .serverConfiguration, controllerIdentifier: .initial)
+        let controller: ServerConfigurationViewControllerable? = dependencyContainer.storyboardsManager.controller(storyboard: .serverConfiguration)
         guard let serverSettingsViewController = controller else { return }
         let viewModel = ServerConfigurationViewModel(userInterface: serverSettingsViewController,
                                                      coordinator: self,
-                                                     serverConfigurationManager: serverConfigurationManager,
-                                                     errorHandler: errorHandler)
-        serverSettingsViewController.configure(viewModel: viewModel, notificationCenter: NotificationCenter.default)
+                                                     serverConfigurationManager: dependencyContainer.serverConfigurationManager,
+                                                     errorHandler: dependencyContainer.errorHandler)
+        serverSettingsViewController.configure(viewModel: viewModel, notificationCenter: dependencyContainer.notificationCenter)
         navigationController.setViewControllers([serverSettingsViewController], animated: true)
     }
     
     private func runAuthenticationFlow(with configuration: ServerConfiguration, animated: Bool) {
-        let accessService = accessServiceBuilder(configuration, encoder, decoder)
-        let controller: LoginViewControllerable? = storyboardsManager.controller(storyboard: .login, controllerIdentifier: .initial)
+        let accessService = dependencyContainer.accessServiceBuilder(configuration, dependencyContainer.encoder, dependencyContainer.decoder)
+        let controller: LoginViewControllerable? = dependencyContainer.storyboardsManager.controller(storyboard: .login)
         guard let loginViewController = controller else { return }
         guard let apiClient = createApiClient(with: configuration) else { return }
         self.apiClient = apiClient
-        let contentProvider = LoginContentProvider(apiClient: apiClient, coreDataStack: coreDataStack, accessService: accessService)
-        let viewModel = LoginViewModel(userInterface: loginViewController, coordinator: self,
-                                       accessService: accessService, contentProvider: contentProvider, errorHandler: errorHandler)
-        loginViewController.configure(notificationCenter: NotificationCenter.default, viewModel: viewModel)
+        let contentProvider = LoginContentProvider(apiClient: apiClient,
+                                                   coreDataStack: dependencyContainer.coreDataStack,
+                                                   accessService: accessService)
+        let viewModel = LoginViewModel(userInterface: loginViewController,
+                                       coordinator: self,
+                                       accessService: accessService,
+                                       contentProvider: contentProvider,
+                                       errorHandler: dependencyContainer.errorHandler)
+        loginViewController.configure(notificationCenter: dependencyContainer.notificationCenter, viewModel: viewModel)
         navigationController.pushViewController(loginViewController, animated: animated)
         navigationController.navigationBar.backItem?.title = ""
     }
@@ -127,9 +112,9 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
     private func createApiClient(with configuration: ServerConfiguration) -> ApiClientType? {
         guard let hostURL = configuration.host else { return nil }
         let networking = Networking(baseURL: hostURL.absoluteString)
-        return ApiClient(networking: networking, buildEncoder: { [encoder] in
+        return ApiClient(networking: networking, buildEncoder: { [encoder = dependencyContainer.encoder] in
             return RequestEncoder(encoder: encoder, serialization: CustomJSONSerialization())
-        }, buildDecoder: { [decoder] in
+        }, buildDecoder: { [decoder = dependencyContainer.decoder] in
             return decoder
         })
     }

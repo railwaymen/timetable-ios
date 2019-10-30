@@ -41,7 +41,7 @@ class ProjectCollectionViewCellModel: ProjectCollectionViewCellModelType {
     }
     
     func configure(view: ProjectUserViewTableViewCellType, for indexPath: IndexPath) {
-        view.configure(withName: self.userName(for: indexPath))
+        view.configure(withName: userName(for: indexPath))
     }
     
     // MARK: - Private

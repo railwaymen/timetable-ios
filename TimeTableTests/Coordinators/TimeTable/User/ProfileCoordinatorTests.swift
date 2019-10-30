@@ -30,12 +30,12 @@ class ProfileCoordinatorTests: XCTestCase {
         self.messagePresenterMock = MessagePresenterMock()
         
         self.coordinator = ProfileCoordinator(window: self.window,
-                                           messagePresenter: self.messagePresenterMock,
-                                           storyboardsManager: self.storyboardsManagerMock,
-                                           apiClient: self.apiClientMock,
-                                           accessService: self.accessServiceMock,
-                                           coreDataStack: self.coreDataStackMock,
-                                           errorHandler: self.errorHandlerMock)
+                                              messagePresenter: self.messagePresenterMock,
+                                              storyboardsManager: self.storyboardsManagerMock,
+                                              apiClient: self.apiClientMock,
+                                              accessService: self.accessServiceMock,
+                                              coreDataStack: self.coreDataStackMock,
+                                              errorHandler: self.errorHandlerMock)
         super.setUp()
     }
     

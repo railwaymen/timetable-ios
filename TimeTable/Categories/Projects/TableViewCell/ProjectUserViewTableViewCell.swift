@@ -16,8 +16,10 @@ protocol ProjectUserViewTableViewCellType: class {
 
 class ProjectUserViewTableViewCell: UITableViewCell {
     @IBOutlet private var userNameLabel: UILabel!
-    
-    // MARK: - ProjectUserViewTableViewCellType
+}
+
+// MARK: - ProjectUserViewTableViewCellType
+extension ProjectUserViewTableViewCell: ProjectUserViewTableViewCellType {
     func configure(withName name: String) {
         userNameLabel.text = name
     }

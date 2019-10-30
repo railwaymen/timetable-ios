@@ -24,11 +24,11 @@ class WorkTimesCoordinatorTests: XCTestCase {
         self.errorHandlerMock = ErrorHandlerMock()
         self.messagePresenterMock = MessagePresenterMock()
         self.workTimeCoordinator = WorkTimesListCoordinator(window: nil,
-                                                        messagePresenter: self.messagePresenterMock,
-                                                        storyboardsManager: self.storyboardsManagerMock,
-                                                        apiClient: self.apiClientMock,
-                                                        accessService: self.accessService,
-                                                        errorHandler: self.errorHandlerMock)
+                                                            messagePresenter: self.messagePresenterMock,
+                                                            storyboardsManager: self.storyboardsManagerMock,
+                                                            apiClient: self.apiClientMock,
+                                                            accessService: self.accessService,
+                                                            errorHandler: self.errorHandlerMock)
         super.setUp()
     }
     
