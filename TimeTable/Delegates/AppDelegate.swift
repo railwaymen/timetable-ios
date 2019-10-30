@@ -29,8 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 accessServiceBuilder: self.accessServiceBuilder,
                 encoder: self.encoder,
                 decoder: self.decoder,
-                apiClient: nil,
-                accessService: nil,
                 notificationCenter: NotificationCenter.default))
     }()
     

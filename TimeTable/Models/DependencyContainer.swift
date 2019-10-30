@@ -47,8 +47,6 @@ struct DependencyContainer: DependencyContainerType {
          accessServiceBuilder: @escaping AccessServiceBuilderType,
          encoder: JSONEncoderType,
          decoder: JSONDecoderType,
-         apiClient: ApiClientType?,
-         accessService: AccessServiceLoginType?,
          notificationCenter: NotificationCenterType) {
         self.window = window
         self.messagePresenter = messagePresenter
@@ -59,8 +57,6 @@ struct DependencyContainer: DependencyContainerType {
         self.accessServiceBuilder = accessServiceBuilder
         self.encoder = encoder
         self.decoder = decoder
-        self.apiClient = apiClient
-        self.accessService = accessService
         self.notificationCenter = notificationCenter
     }
 }
