@@ -29,8 +29,8 @@ class AppCoordinator: BaseCoordinator {
 
     // MARK: - CoordinatorType
     func start() {
-        runAuthenticationFlow()
         super.start()
+        runAuthenticationFlow()
     }
 
     // MARK: - Private

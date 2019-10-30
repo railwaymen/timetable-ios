@@ -10,25 +10,12 @@ import XCTest
 @testable import TimeTable
 
 class WorkTimesCoordinatorTests: XCTestCase {
-    private var storyboardsManagerMock: StoryboardsManagerMock!
-    private var apiClientMock: ApiClientMock!
-    private var accessService: AccessServiceMock!
-    private var errorHandlerMock: ErrorHandlerMock!
+    private var dependencyContainer: DependencyContainerMock!
     private var workTimeCoordinator: WorkTimesListCoordinator!
-    private var messagePresenterMock: MessagePresenterMock!
     
     override func setUp() {
-        self.storyboardsManagerMock = StoryboardsManagerMock()
-        self.apiClientMock = ApiClientMock()
-        self.accessService = AccessServiceMock()
-        self.errorHandlerMock = ErrorHandlerMock()
-        self.messagePresenterMock = MessagePresenterMock()
-        self.workTimeCoordinator = WorkTimesListCoordinator(window: nil,
-                                                            messagePresenter: self.messagePresenterMock,
-                                                            storyboardsManager: self.storyboardsManagerMock,
-                                                            apiClient: self.apiClientMock,
-                                                            accessService: self.accessService,
-                                                            errorHandler: self.errorHandlerMock)
+        dependencyContainer = DependencyContainerMock()
+        workTimeCoordinator = WorkTimesListCoordinator(dependencyContainer: dependencyContainer)
         super.setUp()
     }
     
@@ -42,7 +29,7 @@ class WorkTimesCoordinatorTests: XCTestCase {
     
     func testRunMainFlowRunsMainFlow() {
         //Arrange
-        storyboardsManagerMock.workTimesListController = WorkTimesListViewControllerMock()
+        dependencyContainer.storyboardsManagerMock.workTimesListController = WorkTimesListViewControllerMock()
         //Act
         workTimeCoordinator.start()
         //Assert
@@ -63,7 +50,7 @@ class WorkTimesCoordinatorTests: XCTestCase {
     func testWorkTimesRequestedForNewWorkTimeViewWhileStoryboardsManagerReturnedInvalidController() {
         //Arrange
         let button = UIButton()
-        storyboardsManagerMock.workTimeController = UIViewController()
+        dependencyContainer.storyboardsManagerMock.workTimeController = UIViewController()
         //Act
         workTimeCoordinator.workTimesRequestedForNewWorkTimeView(sourceView: button, lastTask: nil)
         //Assert
@@ -73,7 +60,7 @@ class WorkTimesCoordinatorTests: XCTestCase {
     func testWorkTimesRequestedForNewWorkTimeViewSucceed() {
         //Arrange
         let button = UIButton()
-        storyboardsManagerMock.workTimeController = WorkTimeViewControllerMock()
+        dependencyContainer.storyboardsManagerMock.workTimeController = WorkTimeViewControllerMock()
         //Act
         workTimeCoordinator.workTimesRequestedForNewWorkTimeView(sourceView: button, lastTask: nil)
         //Assert
@@ -92,7 +79,7 @@ class WorkTimesCoordinatorTests: XCTestCase {
     func testWorkTimesRequestedForEditWorkTimeView_whileStoryboardsManagerReturnedInvalidController() {
         //Arrange
         let view = UIView()
-        storyboardsManagerMock.workTimeController = UIViewController()
+        dependencyContainer.storyboardsManagerMock.workTimeController = UIViewController()
         //Act
         workTimeCoordinator.workTimesRequestedForEditWorkTimeView(sourceView: view, editedTask: createTask())
         //Assert
@@ -103,7 +90,7 @@ class WorkTimesCoordinatorTests: XCTestCase {
         //Arrange
         let view = UIView()
         let controllerMock = WorkTimeViewControllerMock()
-        storyboardsManagerMock.workTimeController = controllerMock
+        dependencyContainer.storyboardsManagerMock.workTimeController = controllerMock
         //Act
         workTimeCoordinator.workTimesRequestedForEditWorkTimeView(sourceView: view, editedTask: createTask())
         //Assert
@@ -116,7 +103,7 @@ class WorkTimesCoordinatorTests: XCTestCase {
         let task = createTask()
         let view = UIView()
         let controllerMock = WorkTimeViewControllerMock()
-        storyboardsManagerMock.workTimeController = controllerMock
+        dependencyContainer.storyboardsManagerMock.workTimeController = controllerMock
         //Act
         workTimeCoordinator.workTimesRequestedForDuplicateWorkTimeView(sourceView: view, duplicatedTask: task, lastTask: task)
         //Assert

@@ -40,6 +40,7 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
 
     // MARK: - CoordinatorType
     func start(finishCompletion: ((ServerConfiguration, ApiClientType) -> Void)?) {
+        super.start()
         self.customFinishCompletion = finishCompletion
         if let configuration = dependencyContainer.serverConfigurationManager.getOldConfiguration(), configuration.shouldRememberHost {
             self.serverConfiguration = configuration
@@ -58,7 +59,6 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
         } else {
             self.runServerConfigurationFlow()
         }
-        super.start()
     }
     
     override func finish() {

@@ -1,5 +1,5 @@
 //
-//  CoreDataStackUserMock.swift
+//  CoreDataStackMock.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 22/11/2018.
@@ -9,10 +9,10 @@
 import Foundation
 @testable import TimeTable
 
-class CoreDataStackUserMock: CoreDataStackUserType {
+class CoreDataStackMock: CoreDataStackType {
     
     typealias CDT = UserEntity
-    var fetchUserexpectationHandler: (() -> Void)?
+    var fetchUserExpectationHandler: (() -> Void)?
     private(set) var fetchUserIdentifier: Int64?
     private(set) var fetchUserCompletion: ((Result<UserEntity>) -> Void)?
     private(set) var saveUserDecoder: SessionDecoder?
@@ -22,7 +22,7 @@ class CoreDataStackUserMock: CoreDataStackUserType {
     func fetchUser(forIdentifier identifier: Int64, completion: @escaping (Result<UserEntity>) -> Void) {
         fetchUserIdentifier = identifier
         fetchUserCompletion = completion
-        fetchUserexpectationHandler?()
+        fetchUserExpectationHandler?()
     }
     
     func save<CDT>(userDecoder: SessionDecoder,

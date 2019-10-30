@@ -10,22 +10,12 @@ import XCTest
 @testable import TimeTable
 
 class ProjectsCoordinatorTests: XCTestCase {
-    private var storyboardsManagerMock: StoryboardsManagerMock!
-    private var apiClientMock: ApiClientMock!
-    private var errorHandlerMock: ErrorHandlerMock!
+    private var dependencyContainer: DependencyContainerMock!
     private var projectsCoordinator: ProjectsCoordinator!
-    private var messagePresenterMock: MessagePresenterMock!
     
     override func setUp() {
-        self.storyboardsManagerMock = StoryboardsManagerMock()
-        self.apiClientMock = ApiClientMock()
-        self.errorHandlerMock = ErrorHandlerMock()
-        self.messagePresenterMock = MessagePresenterMock()
-        self.projectsCoordinator = ProjectsCoordinator(window: nil,
-                                                       messagePresenter: self.messagePresenterMock,
-                                                       storyboardsManager: self.storyboardsManagerMock,
-                                                       apiClient: self.apiClientMock,
-                                                       errorHandler: self.errorHandlerMock)
+        dependencyContainer = DependencyContainerMock()
+        projectsCoordinator = ProjectsCoordinator(dependencyContainer: dependencyContainer)
         super.setUp() 
     }
     
@@ -39,7 +29,7 @@ class ProjectsCoordinatorTests: XCTestCase {
     
     func testRunMainFlowRunsMainFlow() {
         //Arrange
-        storyboardsManagerMock.projectsController = ProjectsViewController()
+        dependencyContainer.storyboardsManagerMock.projectsController = ProjectsViewController()
         //Act
         projectsCoordinator.start()
         //Assert

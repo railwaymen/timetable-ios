@@ -15,7 +15,7 @@ class ProfileViewModelTests: XCTestCase {
     private var coordinatorMock: ProfileCoordinatorMock!
     private var apiClientMock: ApiClientMock!
     private var accessServiceMock: AccessServiceMock!
-    private var coreDataStackMock: CoreDataStackUserMock!
+    private var coreDataStackMock: CoreDataStackMock!
     private var errorHandlerMock: ErrorHandlerMock!
     private var viewModel: ProfileViewModel!
     
@@ -30,7 +30,7 @@ class ProfileViewModelTests: XCTestCase {
         coordinatorMock = ProfileCoordinatorMock()
         apiClientMock = ApiClientMock()
         accessServiceMock = AccessServiceMock()
-        coreDataStackMock = CoreDataStackUserMock()
+        coreDataStackMock = CoreDataStackMock()
         errorHandlerMock = ErrorHandlerMock()
         
         viewModel = ProfileViewModel(userInterface: userInterfaceMock,

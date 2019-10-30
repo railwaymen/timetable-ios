@@ -15,50 +15,17 @@ class AppCoordinatorTests: XCTestCase {
 
     private let timeout = 0.1
     private var memoryContext: NSManagedObjectContext!
-    private var window: UIWindow?
-    private var storyboardsManagerMock: StoryboardsManagerMock!
-    private var errorHandlerMock: ErrorHandlerMock!
-    private var serverConfigurationManagerMock: ServerConfigurationManagerMock!
+    private var dependencyContainer: DependencyContainerMock!
     private var appCoordinator: AppCoordinator!
-    private var coreDataStackMock: CoreDataStackUserMock!
-    private var bundleMock: BundleMock!
-    private var keychainAccessMock: KeychainAccessMock!
-    private var userDefaultsMock: UserDefaultsMock!
-    private var encoderMock: JSONEncoderMock!
-    private var decoderMock: JSONDecoderMock!
-    private var messagePresenter: MessagePresenterMock!
     
     private enum SessionResponse: String, JSONFileResource {
         case signInResponse
     }
-    
-    private lazy var decoder = JSONDecoder()
-    
+        
     override func setUp() {
-        self.window = UIWindow(frame: CGRect.zero)
-        self.storyboardsManagerMock = StoryboardsManagerMock()
-        self.errorHandlerMock = ErrorHandlerMock()
-        self.serverConfigurationManagerMock = ServerConfigurationManagerMock()
-        self.coreDataStackMock = CoreDataStackUserMock()
-        self.bundleMock = BundleMock()
-        self.keychainAccessMock = KeychainAccessMock()
-        self.userDefaultsMock = UserDefaultsMock()
-        self.encoderMock = JSONEncoderMock()
-        self.decoderMock = JSONDecoderMock()
-        self.messagePresenter = MessagePresenterMock()
-        self.appCoordinator = AppCoordinator(window: self.window,
-                                             messagePresenter: self.messagePresenter,
-                                             storyboardsManager: self.storyboardsManagerMock,
-                                             errorHandler: self.errorHandlerMock,
-                                             serverConfigurationManager: self.serverConfigurationManagerMock,
-                                             coreDataStack: self.coreDataStackMock,
-                                             accessServiceBuilder: { (_, _, _) in
-                                                return AccessService(userDefaults: self.userDefaultsMock,
-                                                                     keychainAccess: self.keychainAccessMock,
-                                                                     coreData: self.coreDataStackMock,
-                                                                     buildEncoder: { return self.encoderMock },
-                                                                     buildDecoder: { return self.decoderMock })
-        })
+        dependencyContainer = DependencyContainerMock()
+        dependencyContainer.window = UIWindow()
+        appCoordinator = AppCoordinator(dependencyContainer: dependencyContainer)
         super.setUp()
         do {
             memoryContext = try createInMemoryStorage()
@@ -77,7 +44,7 @@ class AppCoordinatorTests: XCTestCase {
     
     func testStart_appCoordinatorContainsChildControllers() throws {
         //Arrange
-        storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
+        dependencyContainer.storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
         //Act
         appCoordinator.start()
         //Assert
@@ -87,7 +54,7 @@ class AppCoordinatorTests: XCTestCase {
     
     func testStartAppCoordinatorContainsAuthenticationConfigurationCoordinatorOnTheStart() {
         //Arrange
-        serverConfigurationManagerMock.oldConfiguration = nil
+        dependencyContainer.serverConfigurationManagerMock.oldConfiguration = nil
         //Act
         appCoordinator.start()
         //Assert
@@ -97,7 +64,7 @@ class AppCoordinatorTests: XCTestCase {
     func testStartAppCoordinatorContainsServerConfigurationCoordinatorOnTheStartWhileConfigurationShouldNotRemeberHost() throws {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
-        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: false)
+        dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: false)
         //Act
         appCoordinator.start()
         //Assert
@@ -107,7 +74,7 @@ class AppCoordinatorTests: XCTestCase {
     func testStartAppCoordinatorRunsAuthetincationFlow() throws {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
-        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         
         //Act
         appCoordinator.start()
@@ -117,11 +84,11 @@ class AppCoordinatorTests: XCTestCase {
     
     func testServerConfigurationCoordinatorFinishBlockRunAuthenticatioFlow() throws {
         //Arrange
-        serverConfigurationManagerMock.oldConfiguration = nil
+        dependencyContainer.serverConfigurationManagerMock.oldConfiguration = nil
         appCoordinator.start()
         let serverConfigurationCoordinator = appCoordinator.children.first as? AuthenticationCoordinator
         let url = try URL(string: "www.example.com").unwrap()
-        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
         serverConfigurationCoordinator?.finish()
         //Assert
@@ -132,7 +99,7 @@ class AppCoordinatorTests: XCTestCase {
     func testAuthenticationCoordinatorFinishRemoveSelfFromAppCoordinatorChildrenForChangeAddressState() throws {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
-        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         appCoordinator.start()
         let authenticationCoordinator = appCoordinator.children.first as? AuthenticationCoordinator
         //Act
@@ -145,7 +112,7 @@ class AppCoordinatorTests: XCTestCase {
     func testStartAppCoordinatorRunsAuthenticationFlowWithHTTPHost() throws {
         //Arrange
         let url = URL(string: "http://www.example.com")
-        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
         appCoordinator.start()
         //Assert
@@ -155,72 +122,50 @@ class AppCoordinatorTests: XCTestCase {
     func testStartAppCoordinatorRunsAuthenticationFlowWithHTTPHosts() throws {
         //Arrange
         let url = URL(string: "https://www.example.com")
-        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
         appCoordinator.start()
         //Assert
         XCTAssertEqual(appCoordinator.children.count, 1)
     }
     
-    func testRunMainFlowFinishRemoveTimeTableTabCoordinatorFromChildrenAnRunsServerConfigurationFlow() throws {
+    func testRunMainFlowFinishRemoveTimeTableTabCoordinatorFromChildrenAndRunsServerConfigurationFlow() throws {
         //Arrange
-        let fetchUserExpectation = self.expectation(description: "")
-        coreDataStackMock.fetchUserexpectationHandler = fetchUserExpectation.fulfill
-        let key = "key.time_table.login_credentials.key"
         let url = try URL(string: "http://www.example.com").unwrap()
-        let keychain = Keychain(server: url, protocolType: .http)
-        let credentials = LoginCredentials(email: "user@example.com", password: "password")
-        let data = try JSONEncoder().encode(credentials)
-        try keychain.set(data, key: key)
-        userDefaultsMock.objectForKey = Int64(1)
         let user = UserEntity(context: memoryContext)
         user.identifier = 1
         user.token = "token_abcd"
         user.firstName = "John"
         user.lastName = "Little"
         
-        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         appCoordinator.start()
-        coreDataStackMock.fetchUserCompletion?(.success(user))
-        wait(for: [fetchUserExpectation], timeout: timeout)
+        dependencyContainer.accessServiceMock.getSessionCompletion?(.success(SessionDecoder(entity: user)))
         let child = try (appCoordinator.children.first as? TimeTableTabCoordinator).unwrap()
         //Act
-        serverConfigurationManagerMock.oldConfiguration = nil
+        dependencyContainer.serverConfigurationManagerMock.oldConfiguration = nil
         child.finishCompletion?()
         //Assert
         XCTAssertEqual(appCoordinator.children.count, 1)
         XCTAssertNotNil(appCoordinator.children.first as? AuthenticationCoordinator)
     }
     
-    func testRunMainFlowFinishRemoveTimeTableTabCoordinatorFromChildrenAnRunsAuthenticationFlow() throws {
+    func testRunMainFlowFinishRemoveTimeTableTabCoordinatorFromChildrenAndRunsAuthenticationFlow() throws {
         //Arrange
-        let fetchUserExpectation = self.expectation(description: "")
-        let fetchFailUserExpectation = self.expectation(description: "")
-        coreDataStackMock.fetchUserexpectationHandler = fetchUserExpectation.fulfill
-        let key = "key.time_table.login_credentials.key"
         let url = try URL(string: "http://www.example.com").unwrap()
-        let keychain = Keychain(server: url, protocolType: .http)
-        let credentials = LoginCredentials(email: "user@example.com", password: "password")
-        let data = try JSONEncoder().encode(credentials)
-        try keychain.set(data, key: key)
-        userDefaultsMock.objectForKey = Int64(1)
         let user = UserEntity(context: memoryContext)
         user.identifier = 1
         user.token = "token_abcd"
         user.firstName = "John"
         user.lastName = "Little"
         
-        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         appCoordinator.start()
-        coreDataStackMock.fetchUserCompletion?(.success(user))
-        wait(for: [fetchUserExpectation], timeout: timeout)
-        coreDataStackMock.fetchUserexpectationHandler = fetchFailUserExpectation.fulfill
+        dependencyContainer.accessServiceMock.getSessionCompletion?(.success(SessionDecoder(entity: user)))
         let child = try (appCoordinator.children.first as? TimeTableTabCoordinator).unwrap()
         //Act
-        try keychain.remove("key.time_table.login_credentials.key")
         child.finishCompletion?()
-        coreDataStackMock.fetchUserCompletion?(.failure(TestError(message: "Error")))
-        wait(for: [fetchFailUserExpectation], timeout: timeout)
+        dependencyContainer.accessServiceMock.getSessionCompletion?(.failure(TestError(message: "Error")))
         //Assert
         XCTAssertEqual(appCoordinator.children.count, 1)
         XCTAssertNotNil(appCoordinator.children.first as? AuthenticationCoordinator
