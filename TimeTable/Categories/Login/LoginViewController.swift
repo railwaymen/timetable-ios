@@ -60,7 +60,8 @@ class LoginViewController: UIViewController {
     // MARK: - Notifications
     @objc private func changeKeyboardFrame(notification: NSNotification, offset: CGFloat = 0) {
         guard let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height else { return }
-        updateScrollViewInsets(with: keyboardHeight - offset)
+        let bottomSpaceInScrollView = scrollView.contentSize.height - loginButton.convert(loginButton.bounds, to: scrollView).maxY
+        updateScrollViewInsets(with: max(keyboardHeight - offset - bottomSpaceInScrollView, 0))
     }
     
     @objc private func keyboardWillHide(notification: NSNotification) {

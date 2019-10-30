@@ -55,7 +55,8 @@ class ServerConfigurationViewController: UIViewController {
     // MARK: - Notifications
     @objc private func changeKeyboardFrame(notification: NSNotification, offset: CGFloat = 0) {
         guard let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height else { return }
-        updateScrollViewInsets(with: keyboardHeight)
+        let bottomSpaceInScrollView = scrollView.contentSize.height - continueButton.convert(continueButton.bounds, to: scrollView).maxY
+        updateScrollViewInsets(with: max(keyboardHeight - bottomSpaceInScrollView, 0))
     }
     
     @objc private func keyboardWillHide(notification: NSNotification) {

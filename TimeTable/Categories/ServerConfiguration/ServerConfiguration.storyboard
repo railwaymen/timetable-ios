@@ -34,7 +34,7 @@
                                     </constraint>
                                 </constraints>
                             </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="aDX-gO-HPG">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="aDX-gO-HPG">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HXu-JY-Jb6" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
@@ -174,16 +174,21 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="400" id="Ur1-iP-jMT"/>
+                                                </constraints>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="E0m-g8-MIU" firstAttribute="top" secondItem="HXu-JY-Jb6" secondAttribute="top" constant="20" id="5fx-lG-KK4"/>
-                                            <constraint firstAttribute="trailing" secondItem="E0m-g8-MIU" secondAttribute="trailing" constant="20" id="EUf-Sx-NPM"/>
-                                            <constraint firstItem="E0m-g8-MIU" firstAttribute="leading" secondItem="HXu-JY-Jb6" secondAttribute="leading" constant="20" id="INM-MH-xzI"/>
+                                            <constraint firstItem="E0m-g8-MIU" firstAttribute="top" relation="greaterThanOrEqual" secondItem="HXu-JY-Jb6" secondAttribute="top" constant="20" id="5fx-lG-KK4"/>
+                                            <constraint firstItem="E0m-g8-MIU" firstAttribute="centerX" secondItem="HXu-JY-Jb6" secondAttribute="centerX" id="Dvm-26-QYd"/>
+                                            <constraint firstAttribute="trailing" secondItem="E0m-g8-MIU" secondAttribute="trailing" priority="900" constant="20" id="EUf-Sx-NPM"/>
+                                            <constraint firstItem="E0m-g8-MIU" firstAttribute="leading" secondItem="HXu-JY-Jb6" secondAttribute="leading" priority="900" constant="20" id="INM-MH-xzI"/>
                                             <constraint firstAttribute="width" constant="300" id="Ncy-7U-0CW"/>
+                                            <constraint firstItem="E0m-g8-MIU" firstAttribute="centerY" secondItem="HXu-JY-Jb6" secondAttribute="centerY" id="VPr-hV-hKX"/>
                                             <constraint firstAttribute="width" constant="350" identifier="40" id="mp7-g7-xBs"/>
-                                            <constraint firstAttribute="bottom" secondItem="E0m-g8-MIU" secondAttribute="bottom" constant="20" id="rDR-h7-GQj"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="E0m-g8-MIU" secondAttribute="bottom" constant="20" id="rDR-h7-GQj"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -215,14 +220,11 @@
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="HXu-JY-Jb6" firstAttribute="top" relation="greaterThanOrEqual" secondItem="aDX-gO-HPG" secondAttribute="top" priority="900" constant="10" id="2xa-5h-iM6">
-                                        <variation key="heightClass=regular-widthClass=compact" constant="20"/>
-                                    </constraint>
-                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="HXu-JY-Jb6" secondAttribute="bottom" priority="200" constant="20" id="8f8-BX-TLO"/>
+                                    <constraint firstItem="HXu-JY-Jb6" firstAttribute="top" secondItem="aDX-gO-HPG" secondAttribute="top" id="2xa-5h-iM6"/>
+                                    <constraint firstAttribute="bottom" secondItem="HXu-JY-Jb6" secondAttribute="bottom" priority="900" id="8f8-BX-TLO"/>
                                     <constraint firstAttribute="trailing" secondItem="HXu-JY-Jb6" secondAttribute="trailing" constant="20" id="Gfd-Uj-Qng"/>
                                     <constraint firstItem="HXu-JY-Jb6" firstAttribute="centerX" secondItem="aDX-gO-HPG" secondAttribute="centerX" id="UsQ-0n-iZa"/>
                                     <constraint firstItem="HXu-JY-Jb6" firstAttribute="leading" secondItem="aDX-gO-HPG" secondAttribute="leading" constant="20" id="gCz-Sr-vnP"/>
-                                    <constraint firstItem="HXu-JY-Jb6" firstAttribute="centerY" secondItem="aDX-gO-HPG" secondAttribute="centerY" id="rbM-ho-jsr"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -230,6 +232,7 @@
                         <constraints>
                             <constraint firstItem="aDX-gO-HPG" firstAttribute="top" secondItem="jj8-cY-Ged" secondAttribute="top" id="AOq-xt-Yyy"/>
                             <constraint firstAttribute="bottom" secondItem="aDX-gO-HPG" secondAttribute="bottom" id="Dty-jX-Ycn"/>
+                            <constraint firstItem="HXu-JY-Jb6" firstAttribute="height" relation="greaterThanOrEqual" secondItem="sc3-FQ-clT" secondAttribute="height" priority="900" id="kwD-Ks-VV0"/>
                             <constraint firstItem="sc3-FQ-clT" firstAttribute="trailing" secondItem="aDX-gO-HPG" secondAttribute="trailing" id="o3D-Rx-Kpc"/>
                             <constraint firstItem="wJi-Ss-qx2" firstAttribute="leading" secondItem="sc3-FQ-clT" secondAttribute="leading" constant="-15" id="qdc-2i-2ux"/>
                             <constraint firstItem="wJi-Ss-qx2" firstAttribute="top" secondItem="jj8-cY-Ged" secondAttribute="top" id="uIK-dX-9YL"/>
