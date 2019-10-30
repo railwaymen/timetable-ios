@@ -89,4 +89,9 @@ class DependencyContainerMock: DependencyContainerType {
     var notificationCenter: NotificationCenterType {
         return notificationCenterMock
     }
+    
+    var dispatchGroupFactoryMock = DispatchGroupFactoryMock()
+    var dispatchGroupFactory: DispatchGroupFactoryType {
+        return dispatchGroupFactoryMock
+    }
 }

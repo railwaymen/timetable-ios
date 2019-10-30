@@ -17,12 +17,17 @@ class WorkTimesListContentProvider: WorkTimesListContentProviderType {
     private let apiClient: WorkTimesListApiClientType
     private let accessService: AccessServiceUserIDType
     private let calendar: CalendarType
+    private let dispatchGroupFactory: DispatchGroupFactoryType
     
     // MARK: - Initialization
-    init(apiClient: WorkTimesListApiClientType, accessService: AccessServiceUserIDType, calendar: CalendarType = Calendar.autoupdatingCurrent) {
+    init(apiClient: WorkTimesListApiClientType,
+         accessService: AccessServiceUserIDType,
+         calendar: CalendarType = Calendar.autoupdatingCurrent,
+         dispatchGroupFactory: DispatchGroupFactoryType) {
         self.apiClient = apiClient
         self.accessService = accessService
         self.calendar = calendar
+        self.dispatchGroupFactory = dispatchGroupFactory
     }
 
     // MARK: - WorkTimesContentProviderType
@@ -30,51 +35,32 @@ class WorkTimesListContentProvider: WorkTimesListContentProviderType {
         var dailyWorkTimes: [DailyWorkTime] = []
         var matchingFullTime: MatchingFullTimeDecoder?
         var fetchError: Error?
-        let operationQueue = OperationQueue()
-        operationQueue.maxConcurrentOperationCount = 2
+        let dispatchGroup = dispatchGroupFactory.createDispatchGroup()
         
-        // Stage 1
-        let workTimesSemaphore = DispatchSemaphore(value: 0)
-        let matchingFullTimeSemaphore = DispatchSemaphore(value: 0)
-        let workTimesBlockOperation = BlockOperation()
-        let matchingFullTimeBlockOperation = BlockOperation()
+        dispatchGroup.enter()
+        self.fetchWorkTimes(date: date, completion: { result in
+            switch result {
+            case .success(let workTimes):
+                dailyWorkTimes = workTimes
+            case .failure(let error):
+                fetchError = error
+            }
+            dispatchGroup.leave()
+        })
         
-        workTimesBlockOperation.addExecutionBlock { [weak self, weak workTimesBlockOperation, weak matchingFullTimeBlockOperation] in
-            guard let blockOperation = workTimesBlockOperation, !blockOperation.isCancelled else { return }
-            self?.fetchWorkTimes(date: date, completion: { result in
-                switch result {
-                case .success(let workTimes):
-                    dailyWorkTimes = workTimes
-                    workTimesSemaphore.signal()
-                case .failure(let error):
-                    fetchError = error
-                    matchingFullTimeBlockOperation?.cancel()
-                    workTimesSemaphore.signal()
-                }
-            })
-            workTimesSemaphore.wait()
-        }
-        
-        matchingFullTimeBlockOperation.addExecutionBlock { [weak self, weak workTimesBlockOperation, weak matchingFullTimeBlockOperation] in
-            guard let blockOperation = matchingFullTimeBlockOperation, !blockOperation.isCancelled else { return }
-            self?.fetchMatchingFullTime(date: date, completion: { result in
-                switch result {
-                case .success(let time):
-                    matchingFullTime = time
-                    matchingFullTimeSemaphore.signal()
-                case .failure(let error):
-                    fetchError = error
-                    workTimesBlockOperation?.cancel()
-                    matchingFullTimeSemaphore.signal()
-                }
-            })
-            matchingFullTimeSemaphore.wait()
-        }
+        dispatchGroup.enter()
+        self.fetchMatchingFullTime(date: date, completion: { result in
+            switch result {
+            case .success(let time):
+                matchingFullTime = time
+            case .failure(let error):
+                fetchError = error
+            }
+            dispatchGroup.leave()
+        })
         
         // Done
-        let doneBlockOperation = BlockOperation()
-        
-        doneBlockOperation.addExecutionBlock {
+        dispatchGroup.notify(qos: .userInitiated, queue: .main) {
             if let error = fetchError {
                 completion(.failure(error))
             } else if let matchingFullTime = matchingFullTime {
@@ -83,13 +69,6 @@ class WorkTimesListContentProvider: WorkTimesListContentProviderType {
                 completion(.failure(ApiClientError(type: .invalidResponse)))
             }
         }
-        
-        doneBlockOperation.addDependency(matchingFullTimeBlockOperation)
-        doneBlockOperation.addDependency(workTimesBlockOperation)
-        
-        operationQueue.addOperation(doneBlockOperation)
-        operationQueue.addOperation(workTimesBlockOperation)
-        operationQueue.addOperation(matchingFullTimeBlockOperation)
     }
     
     func delete(workTime: WorkTimeDecoder, completion: @escaping (Result<Void>) -> Void) {

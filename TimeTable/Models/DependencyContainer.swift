@@ -21,6 +21,7 @@ protocol DependencyContainerType {
     var apiClient: ApiClientType? { get set }
     var accessService: AccessServiceLoginType? { get set }
     var notificationCenter: NotificationCenterType { get }
+    var dispatchGroupFactory: DispatchGroupFactoryType { get }
 }
 
 struct DependencyContainer: DependencyContainerType {
@@ -36,6 +37,7 @@ struct DependencyContainer: DependencyContainerType {
     var apiClient: ApiClientType?
     var accessService: AccessServiceLoginType?
     let notificationCenter: NotificationCenterType
+    let dispatchGroupFactory: DispatchGroupFactoryType
     
     // MARK: Initialization
     init(window: UIWindow?,
@@ -58,5 +60,7 @@ struct DependencyContainer: DependencyContainerType {
         self.encoder = encoder
         self.decoder = decoder
         self.notificationCenter = notificationCenter
+        
+        self.dispatchGroupFactory = DispatchGroupFactory()
     }
 }

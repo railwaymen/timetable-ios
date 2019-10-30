@@ -54,7 +54,8 @@ class WorkTimesListCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinator
         let controller: WorkTimesListViewControllerable? = dependencyContainer.storyboardsManager.controller(storyboard: .workTimesList)
         guard let workTimesListViewController = controller else { return }
         let contentProvider = WorkTimesListContentProvider(apiClient: apiClient,
-                                                           accessService: accessService)
+                                                           accessService: accessService,
+                                                           dispatchGroupFactory: dependencyContainer.dispatchGroupFactory)
         let viewModel = WorkTimesListViewModel(userInterface: workTimesListViewController,
                                                coordinator: self,
                                                contentProvider: contentProvider,

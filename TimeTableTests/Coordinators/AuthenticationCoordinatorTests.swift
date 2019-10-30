@@ -12,7 +12,6 @@ import CoreData
 
 class AuthenticationCoordinatorTests: XCTestCase {
  
-    private let timeout = TimeInterval(0.1)
     private var navigationController: UINavigationController!
     private var coordinator: AuthenticationCoordinator!
     private var dependencyContainer: DependencyContainerMock!

@@ -16,6 +16,10 @@
 		8A10F83B2350C7AF0004F389 /* WorkTimeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F83A2350C7AF0004F389 /* WorkTimeCoordinator.swift */; };
 		8A10F83D2350D9810004F389 /* DismissableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F83C2350D9810004F389 /* DismissableNavigationController.swift */; };
 		8A10F841235454DA0004F389 /* UIBarButtonItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */; };
+		8A5D48BE2369E18C0082C13D /* DispatchGroupFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */; };
+		8A5D48C02369E1A30082C13D /* DispatchGroup+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48BF2369E1A20082C13D /* DispatchGroup+Extension.swift */; };
+		8A5D48C22369E1E20082C13D /* DispatchGroupMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48C12369E1E20082C13D /* DispatchGroupMock.swift */; };
+		8A5D48C42369E20E0082C13D /* DispatchGroupFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48C32369E20E0082C13D /* DispatchGroupFactoryMock.swift */; };
 		8AA5C5DD235F34340083E121 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA5C5DC235F34340083E121 /* Colors.xcassets */; };
 		8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */; };
 		8AF3073823688C5A00832FDD /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3073723688C5A00832FDD /* DependencyContainer.swift */; };
@@ -319,6 +323,10 @@
 		8A10F83A2350C7AF0004F389 /* WorkTimeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCoordinator.swift; sourceTree = "<group>"; };
 		8A10F83C2350D9810004F389 /* DismissableNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissableNavigationController.swift; sourceTree = "<group>"; };
 		8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extension.swift"; sourceTree = "<group>"; };
+		8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupFactory.swift; sourceTree = "<group>"; };
+		8A5D48BF2369E1A20082C13D /* DispatchGroup+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchGroup+Extension.swift"; sourceTree = "<group>"; };
+		8A5D48C12369E1E20082C13D /* DispatchGroupMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupMock.swift; sourceTree = "<group>"; };
+		8A5D48C32369E20E0082C13D /* DispatchGroupFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupFactoryMock.swift; sourceTree = "<group>"; };
 		8A839D0A23570E26002F3464 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../../Configuration/Debug.xcconfig; sourceTree = "<group>"; };
 		8A839D0B23570EC0002F3464 /* Stage.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Stage.xcconfig; path = ../../Configuration/Stage.xcconfig; sourceTree = "<group>"; };
 		8A839D0C23570ED4002F3464 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../../Configuration/Release.xcconfig; sourceTree = "<group>"; };
@@ -810,6 +818,8 @@
 			isa = PBXGroup;
 			children = (
 				8AF3073723688C5A00832FDD /* DependencyContainer.swift */,
+				8A5D48BF2369E1A20082C13D /* DispatchGroup+Extension.swift */,
+				8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */,
 				8A09DCB723673E58003FC2A6 /* DispatchQueueManager.swift */,
 				C175B56B227CAACA006D9944 /* MessagePresenter.swift */,
 				C125F1BD21DCDCB000594CDE /* Project.swift */,
@@ -1058,6 +1068,8 @@
 				C13C2B0521EDE589008C9088 /* WorkTimesListCoordinatorMock.swift */,
 				C1E1F04821AD3712007F9228 /* WorkTimesListViewControllerMock.swift */,
 				C178B78C21EF8AE1001DA07F /* WorkTimeViewControllerMock.swift */,
+				8A5D48C12369E1E20082C13D /* DispatchGroupMock.swift */,
+				8A5D48C32369E20E0082C13D /* DispatchGroupFactoryMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1970,6 +1982,7 @@
 				C1F7C2EB2191858800F4FAF0 /* ApiClient.swift in Sources */,
 				C153AC6621831499007A35BB /* NotificationCenter+Extenison.swift in Sources */,
 				C1531F002191BD6B00602A0C /* Networking+Extension.swift in Sources */,
+				8A5D48BE2369E18C0082C13D /* DispatchGroupFactory.swift in Sources */,
 				C1249C802181B4FC005DB2A5 /* ErrorHandler.swift in Sources */,
 				C1249C652181A1B7005DB2A5 /* BaseCoordinator.swift in Sources */,
 				8AF3073823688C5A00832FDD /* DependencyContainer.swift in Sources */,
@@ -1984,6 +1997,7 @@
 				C1FE49E821AC458F00E37E28 /* WorkTimesTableViewHeader.swift in Sources */,
 				C1ECF0A52192C37E006038C6 /* CustomJSONSerialization.swift in Sources */,
 				C153AC6B218324DB007A35BB /* UIError.swift in Sources */,
+				8A5D48C02369E1A30082C13D /* DispatchGroup+Extension.swift in Sources */,
 				C1F7C2DE2190436B00F4FAF0 /* AuthenticationCoordinator.swift in Sources */,
 				C1FA05E221943E0700BD8C9D /* DataStackType.swift in Sources */,
 				C16B3A79229E742600B6E9E6 /* TagCollectionViewCellViewModel.swift in Sources */,
@@ -2108,6 +2122,7 @@
 				C12BD99B21E48DD100A6EAF0 /* ProjectsViewControllerMock.swift in Sources */,
 				C1249C7C2181AEB0005DB2A5 /* AppCoordinatorTests.swift in Sources */,
 				C134299721A6D7F700F4EA42 /* BundleMock.swift in Sources */,
+				8A5D48C22369E1E20082C13D /* DispatchGroupMock.swift in Sources */,
 				C12BD9BB21E4B7B200A6EAF0 /* ApiClientProjectsTests.swift in Sources */,
 				C17EA3B82189E04400A3F0CD /* ServerConfigurationManagerTests.swift in Sources */,
 				C11F51F521A5AC5800FD626A /* DateFormatterExtensionTests.swift in Sources */,
@@ -2117,6 +2132,7 @@
 				C153AC602182FC4B007A35BB /* UITextFieldExtensionTests.swift in Sources */,
 				C12BD9B721E4A01700A6EAF0 /* ProjectTests.swift in Sources */,
 				C134297921A6C21900F4EA42 /* NetworkingMock.swift in Sources */,
+				8A5D48C42369E20E0082C13D /* DispatchGroupFactoryMock.swift in Sources */,
 				C17EA3BA2189E9BA00A3F0CD /* ApiClientErrorTests.swift in Sources */,
 				C11D0D0522082A4400066CA9 /* WorkTimesContentProviderTests.swift in Sources */,
 				C134298321A6C73000F4EA42 /* URLSessionDataTaskMock.swift in Sources */,
