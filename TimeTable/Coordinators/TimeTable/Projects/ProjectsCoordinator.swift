@@ -20,12 +20,8 @@ class ProjectsCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType 
     // MARK: - Initialization
     init(dependencyContainer: DependencyContainerType) {
         self.dependencyContainer = dependencyContainer
-        var image: UIImage = #imageLiteral(resourceName: "project_icon")
-        if #available(iOS 13, *), let sfSymbol = UIImage(systemName: "rectangle.grid.2x2.fill") {
-            image = sfSymbol
-        }
         self.tabBarItem = UITabBarItem(title: "tabbar.title.projects".localized,
-                                       image: image,
+                                       image: .projects,
                                        selectedImage: nil)
         super.init(window: dependencyContainer.window, messagePresenter: dependencyContainer.messagePresenter)
         self.navigationController.setNavigationBarHidden(false, animated: false)

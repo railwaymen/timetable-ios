@@ -27,12 +27,9 @@ class WorkTimesListCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinator
     // MARK: - Initialization
     init(dependencyContainer: DependencyContainerType) {
         self.dependencyContainer = dependencyContainer
-        var image: UIImage = #imageLiteral(resourceName: "work_times_icon")
-        if #available(iOS 13, *), let sfSymbol = UIImage(systemName: "clock.fill") {
-            image = sfSymbol
-        }
+        
         self.tabBarItem = UITabBarItem(title: "tabbar.title.timesheet".localized,
-                                       image: image,
+                                       image: .timesheet,
                                        selectedImage: nil)
         super.init(window: dependencyContainer.window, messagePresenter: dependencyContainer.messagePresenter)
         self.navigationController.setNavigationBarHidden(false, animated: false)
