@@ -14,18 +14,8 @@ class AuthenticationCoordinatorTests: XCTestCase {
  
     private let timeout = TimeInterval(0.1)
     private var navigationController: UINavigationController!
-    private var storyboardsManagerMock: StoryboardsManagerMock!
-    private var errorHandlerMock: ErrorHandlerMock!
-    private var apiClientMock: ApiClientMock!
-    private var coreDataStackMock: CoreDataStackUserMock!
-    private var accessServiceMock: AccessServiceMock!
-    private var serverConfigurationManagerMock: ServerConfigurationManagerMock!
-    private var keychainAccessMock: KeychainAccessMock!
-    private var userDefaultsMock: UserDefaultsMock!
-    private var encoderMock: JSONEncoderMock!
-    private var decoderMock: JSONDecoderMock!
     private var coordinator: AuthenticationCoordinator!
-    private var messagePresenterMock: MessagePresenterMock!
+    private var dependencyContainer: DependencyContainerMock!
     
     private enum SessionResponse: String, JSONFileResource {
         case signInResponse
@@ -34,34 +24,16 @@ class AuthenticationCoordinatorTests: XCTestCase {
     private lazy var decoder = JSONDecoder()
     
     override func setUp() {
-        self.navigationController = UINavigationController()
-        self.storyboardsManagerMock = StoryboardsManagerMock()
-        self.errorHandlerMock = ErrorHandlerMock()
-        self.apiClientMock = ApiClientMock()
-        self.coreDataStackMock = CoreDataStackUserMock()
-        self.accessServiceMock = AccessServiceMock()
-        self.serverConfigurationManagerMock = ServerConfigurationManagerMock()
-        self.coreDataStackMock = CoreDataStackUserMock()
-        self.keychainAccessMock = KeychainAccessMock()
-        self.userDefaultsMock = UserDefaultsMock()
-        self.encoderMock = JSONEncoderMock()
-        self.decoderMock = JSONDecoderMock()
-        self.messagePresenterMock = MessagePresenterMock()
-        self.coordinator = AuthenticationCoordinator(window: nil,
-                                                     messagePresenter: self.messagePresenterMock,
-                                                     storyboardsManager: self.storyboardsManagerMock,
-                                                     decoder: self.decoderMock,
-                                                     encoder: self.encoderMock,
-                                                     accessServiceBuilder: ({ (_, _, _) in return self.accessServiceMock }),
-                                                     coreDataStack: self.coreDataStackMock,
-                                                     errorHandler: self.errorHandlerMock,
-                                                     serverConfigurationManager: self.serverConfigurationManagerMock)
+        navigationController = UINavigationController()
+        dependencyContainer = DependencyContainerMock()
+        dependencyContainer.window = UIWindow()
+        coordinator = AuthenticationCoordinator(dependencyContainer: dependencyContainer)
         super.setUp()
     }
     
     func testStartDoesNotRunServerConfigurationFlowWhileReturnedControllerIsInvalid() {
         //Arrange
-        storyboardsManagerMock.serverConfigurationController = UIViewController()
+        dependencyContainer.storyboardsManagerMock.serverConfigurationController = UIViewController()
         //Act
         coordinator.start(finishCompletion: { (_, _) in })
         //Assert
@@ -70,7 +42,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
     
     func testStartRunsServerConfigurationFlow() {
         //Arrange
-        storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
+        dependencyContainer.storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
         //Act
         coordinator.start(finishCompletion: { (_, _) in })
         //Assert
@@ -79,8 +51,8 @@ class AuthenticationCoordinatorTests: XCTestCase {
 
     func testStartRunsServerConfigurationFlowWhileServerConfigurationShouldRemeberHostIsFalse() {
         //Arrange
-        storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewController()
-        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: nil, shouldRememberHost: false)
+        dependencyContainer.storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewController()
+        dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: nil, shouldRememberHost: false)
         //Act
         coordinator.start(finishCompletion: { (_, _) in })
         //Assert
@@ -89,12 +61,12 @@ class AuthenticationCoordinatorTests: XCTestCase {
     
     func testStartDoesNotRunAuthenticationFlowWhileServerControllerHasNilHost() throws {
         //Arrange
-        storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
-        storyboardsManagerMock.loginController = LoginViewControllerMock()
-        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: nil, shouldRememberHost: true)
+        dependencyContainer.storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
+        dependencyContainer.storyboardsManagerMock.loginController = LoginViewControllerMock()
+        dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: nil, shouldRememberHost: true)
         //Act
         coordinator.start(finishCompletion: { (_, _) in })
-        accessServiceMock.getSessionCompletion?(.failure(TestError(message: "ERROR")))
+        dependencyContainer.accessServiceMock.getSessionCompletion?(.failure(TestError(message: "ERROR")))
         //Assert
         XCTAssertEqual(coordinator.navigationController.children.count, 1)
         XCTAssertNotNil(coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
@@ -103,12 +75,12 @@ class AuthenticationCoordinatorTests: XCTestCase {
     func testStartDoesNotRunAuthenticationFlowWhileServerControllerIsInvalid() throws {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
-        storyboardsManagerMock.serverConfigurationController = UIViewController()
-        storyboardsManagerMock.loginController = UIViewController()
-        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        dependencyContainer.storyboardsManagerMock.serverConfigurationController = UIViewController()
+        dependencyContainer.storyboardsManagerMock.loginController = UIViewController()
+        dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
         coordinator.start(finishCompletion: { (_, _) in })
-        accessServiceMock.getSessionCompletion?(.failure(TestError(message: "ERROR")))
+        dependencyContainer.accessServiceMock.getSessionCompletion?(.failure(TestError(message: "ERROR")))
         //Assert
         XCTAssertTrue(coordinator.navigationController.children.isEmpty)
     }
@@ -116,12 +88,12 @@ class AuthenticationCoordinatorTests: XCTestCase {
     func testStartDoesNotRunAuthenticationFlowWhileLoginControllerIsInvalid() throws {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
-        storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
-        storyboardsManagerMock.loginController = UIViewController()
-        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        dependencyContainer.storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
+        dependencyContainer.storyboardsManagerMock.loginController = UIViewController()
+        dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
         coordinator.start(finishCompletion: { (_, _) in })
-        accessServiceMock.getSessionCompletion?(.failure(TestError(message: "ERROR")))
+        dependencyContainer.accessServiceMock.getSessionCompletion?(.failure(TestError(message: "ERROR")))
         //Assert
         XCTAssertEqual(coordinator.navigationController.children.count, 1)
         XCTAssertNotNil(coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
@@ -130,12 +102,12 @@ class AuthenticationCoordinatorTests: XCTestCase {
     func testStartRunsAuthenticationFlow() throws {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
-        storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
-        storyboardsManagerMock.loginController = LoginViewControllerMock()
-        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        dependencyContainer.storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
+        dependencyContainer.storyboardsManagerMock.loginController = LoginViewControllerMock()
+        dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
         coordinator.start(finishCompletion: { (_, _) in })
-        accessServiceMock.getSessionCompletion?(.failure(TestError(message: "ERROR")))
+        dependencyContainer.accessServiceMock.getSessionCompletion?(.failure(TestError(message: "ERROR")))
         //Assert
         XCTAssertEqual(coordinator.navigationController.children.count, 2)
         XCTAssertNotNil(coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
@@ -145,9 +117,9 @@ class AuthenticationCoordinatorTests: XCTestCase {
     func testFinishOnStart() throws {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
-        storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
-        storyboardsManagerMock.loginController = LoginViewControllerMock()
-        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        dependencyContainer.storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
+        dependencyContainer.storyboardsManagerMock.loginController = LoginViewControllerMock()
+        dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         let data = try self.json(from: SessionResponse.signInResponse)
         let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
         
@@ -158,7 +130,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
             XCTAssertEqual(configuration.shouldRememberHost, true)
             XCTAssertEqual(apiClient.networking.headerFields?["token"], "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjIt")
         })
-        accessServiceMock.getSessionCompletion?(.success(sessionReponse))
+        dependencyContainer.accessServiceMock.getSessionCompletion?(.success(sessionReponse))
     }
 
     // MARK: - LoginCoordinatorDelegate
@@ -166,10 +138,10 @@ class AuthenticationCoordinatorTests: XCTestCase {
         //ERROR: Completion handler needs multithreading
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
-        storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
-        storyboardsManagerMock.loginController = LoginViewControllerMock()
-        serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
-        accessServiceMock.getSessionCompletion?(.failure(TestError(message: "ERROR")))
+        dependencyContainer.storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
+        dependencyContainer.storyboardsManagerMock.loginController = LoginViewControllerMock()
+        dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        dependencyContainer.accessServiceMock.getSessionCompletion?(.failure(TestError(message: "ERROR")))
         let data = try self.json(from: SessionResponse.signInResponse)
         let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
         coordinator.start(finishCompletion: { (configuration, apiClient) in

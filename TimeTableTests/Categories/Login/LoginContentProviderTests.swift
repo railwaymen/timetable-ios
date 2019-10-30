@@ -15,7 +15,7 @@ class LoginContentProviderTests: XCTestCase {
     
     private var memoryContext: NSManagedObjectContext!
     private var apiClientSessionMock: ApiClientSessionMock!
-    private var coreDataStackUserMock: CoreDataStackUserMock!
+    private var coreDataStackUserMock: CoreDataStackMock!
     private var accessServiceMock: AccessServiceUserIDType!
     private var contentProvider: LoginContentProvider!
     
@@ -27,7 +27,7 @@ class LoginContentProviderTests: XCTestCase {
     
     override func setUp() {
         self.apiClientSessionMock = ApiClientSessionMock()
-        self.coreDataStackUserMock = CoreDataStackUserMock()
+        self.coreDataStackUserMock = CoreDataStackMock()
         self.accessServiceMock = AccessServiceMock()
         self.contentProvider = LoginContentProvider(apiClient: apiClientSessionMock, coreDataStack: coreDataStackUserMock, accessService: accessServiceMock)
         super.setUp()

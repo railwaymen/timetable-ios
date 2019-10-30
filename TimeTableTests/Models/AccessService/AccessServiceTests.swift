@@ -16,12 +16,12 @@ class AccessServiceTests: XCTestCase {
     private var encoderMock: JSONEncoderMock!
     private var decoderMock: JSONDecoderMock!
     private var accessService: AccessService!
-    private var coreDataMock: CoreDataStackUserMock!
+    private var coreDataMock: CoreDataStackMock!
     
     override func setUp() {
         userDefaultsMock = UserDefaultsMock()
         keychainAccessMock = KeychainAccessMock()
-        coreDataMock = CoreDataStackUserMock()
+        coreDataMock = CoreDataStackMock()
         encoderMock = JSONEncoderMock()
         decoderMock = JSONDecoderMock()
         accessService = AccessService(userDefaults: userDefaultsMock,

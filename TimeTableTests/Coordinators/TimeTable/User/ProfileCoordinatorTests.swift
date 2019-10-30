@@ -10,32 +10,12 @@ import XCTest
 @testable import TimeTable
 
 class ProfileCoordinatorTests: XCTestCase {
-    private var window: UIWindow!
-    private var storyboardsManagerMock: StoryboardsManagerMock!
-    private var apiClientMock: ApiClientMock!
-    private var accessServiceMock: AccessServiceMock!
-    private var coreDataStackMock: CoreDataStackUserMock!
-    private var errorHandlerMock: ErrorHandlerMock!
-    private var messagePresenterMock: MessagePresenterMock!
-    
+    private var dependencyContainer: DependencyContainerMock!
     private var coordinator: ProfileCoordinator!
     
     override func setUp() {
-        self.window = UIWindow(frame: .zero)
-        self.storyboardsManagerMock = StoryboardsManagerMock()
-        self.apiClientMock = ApiClientMock()
-        self.accessServiceMock = AccessServiceMock()
-        self.coreDataStackMock = CoreDataStackUserMock()
-        self.errorHandlerMock = ErrorHandlerMock()
-        self.messagePresenterMock = MessagePresenterMock()
-        
-        self.coordinator = ProfileCoordinator(window: self.window,
-                                           messagePresenter: self.messagePresenterMock,
-                                           storyboardsManager: self.storyboardsManagerMock,
-                                           apiClient: self.apiClientMock,
-                                           accessService: self.accessServiceMock,
-                                           coreDataStack: self.coreDataStackMock,
-                                           errorHandler: self.errorHandlerMock)
+        dependencyContainer = DependencyContainerMock()
+        coordinator = ProfileCoordinator(dependencyContainer: dependencyContainer)
         super.setUp()
     }
     
@@ -48,7 +28,7 @@ class ProfileCoordinatorTests: XCTestCase {
     
     func testStartInvalidControllerReturned() {
         //Arrange
-        storyboardsManagerMock.userController = UIViewController()
+        dependencyContainer.storyboardsManagerMock.userController = UIViewController()
         //Act
         coordinator.start(finishCompletion: {})
         //Assert
@@ -57,7 +37,7 @@ class ProfileCoordinatorTests: XCTestCase {
     
     func testStartSetsChildViewController() {
         //Arrange
-        storyboardsManagerMock.userController = ProfileViewControllerMock()
+        dependencyContainer.storyboardsManagerMock.userController = ProfileViewControllerMock()
         //Act
         coordinator.start(finishCompletion: {})
         //Assert
@@ -67,7 +47,7 @@ class ProfileCoordinatorTests: XCTestCase {
     func testUserProfileDidLogoutUser() {
         //Arrange
         var finishCompletionCalled = false
-        storyboardsManagerMock.userController = ProfileViewControllerMock()
+        dependencyContainer.storyboardsManagerMock.userController = ProfileViewControllerMock()
         coordinator.start(finishCompletion: {
             finishCompletionCalled = true
         })

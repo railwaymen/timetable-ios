@@ -21,7 +21,6 @@ class BaseNavigationCoordinator: BaseCoordinator {
         navigationController.setDidDismissHandler { [weak self] in
             self?.finish()
         }
-        window?.rootViewController = navigationController
         navigationController.interactivePopGestureRecognizer?.delegate = nil
     }
     
@@ -30,7 +29,6 @@ class BaseNavigationCoordinator: BaseCoordinator {
          messagePresenter: MessagePresenterType?) {
         self.navigationController = navigationController
         super.init(window: window, messagePresenter: messagePresenter)
-        window?.rootViewController = navigationController
         navigationController.interactivePopGestureRecognizer?.delegate = nil
     }
 }

@@ -17,11 +17,7 @@ protocol WorkTimesListCoordinatorDelegate: class {
 }
 
 class WorkTimesListCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
-    private weak var messagePresenter: MessagePresenterType?
-    private let storyboardsManager: StoryboardsManagerType
-    private let apiClient: WorkTimesListApiClient
-    private let accessService: AccessServiceUserIDType
-    private let errorHandler: ErrorHandlerType
+    private let dependencyContainer: DependencyContainerType
     
     var root: UIViewController {
         return self.navigationController
@@ -29,16 +25,8 @@ class WorkTimesListCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinator
     var tabBarItem: UITabBarItem
     
     // MARK: - Initialization
-    init(window: UIWindow?,
-         messagePresenter: MessagePresenterType?,
-         storyboardsManager: StoryboardsManagerType,
-         apiClient: WorkTimesListApiClient,
-         accessService: AccessServiceUserIDType,
-         errorHandler: ErrorHandlerType) {
-        self.storyboardsManager = storyboardsManager
-        self.apiClient = apiClient
-        self.accessService = accessService
-        self.errorHandler = errorHandler
+    init(dependencyContainer: DependencyContainerType) {
+        self.dependencyContainer = dependencyContainer
         var image: UIImage = #imageLiteral(resourceName: "work_times_icon")
         if #available(iOS 13, *), let sfSymbol = UIImage(systemName: "clock.fill") {
             image = sfSymbol
@@ -46,7 +34,7 @@ class WorkTimesListCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinator
         self.tabBarItem = UITabBarItem(title: "tabbar.title.timesheet".localized,
                                        image: image,
                                        selectedImage: nil)
-        super.init(window: window, messagePresenter: messagePresenter)
+        super.init(window: dependencyContainer.window, messagePresenter: dependencyContainer.messagePresenter)
         self.navigationController.setNavigationBarHidden(false, animated: false)
         self.navigationController.navigationBar.prefersLargeTitles = true
         self.navigationController.navigationBar.tintColor = .crimson
@@ -61,29 +49,28 @@ class WorkTimesListCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinator
     
     // MARK: - Private
     private func runMainFlow() {
-        let controller: WorkTimesListViewControllerable? = storyboardsManager.controller(storyboard: .workTimesList, controllerIdentifier: .initial)
+        guard let apiClient = dependencyContainer.apiClient,
+            let accessService = dependencyContainer.accessService else { return assertionFailure("Api client or access service is nil") }
+        let controller: WorkTimesListViewControllerable? = dependencyContainer.storyboardsManager.controller(storyboard: .workTimesList)
         guard let workTimesListViewController = controller else { return }
-        let contentProvider = WorkTimesListContentProvider(apiClient: apiClient, accessService: accessService)
+        let contentProvider = WorkTimesListContentProvider(apiClient: apiClient,
+                                                           accessService: accessService)
         let viewModel = WorkTimesListViewModel(userInterface: workTimesListViewController,
                                                coordinator: self,
                                                contentProvider: contentProvider,
-                                               errorHandler: errorHandler)
+                                               errorHandler: dependencyContainer.errorHandler)
         controller?.configure(viewModel: viewModel)
-        navigationController.pushViewController(workTimesListViewController, animated: false)
+        navigationController.setViewControllers([workTimesListViewController], animated: false)
     }
     
     private func runWorkTimeFlow(sourceView: UIView, lastTask: Task?, editedTask: Task?, duplicatedTask: Task?) {
-        let coordinator = WorkTimeCoordinator(window: self.window,
-                                              messagePresenter: self.messagePresenter,
-                                              parentViewController: self.navigationController.topViewController,
+        let coordinator = WorkTimeCoordinator(dependencyContainer: dependencyContainer,
+                                              parentViewController: navigationController.topViewController,
                                               sourceView: sourceView,
-                                              apiClient: self.apiClient,
-                                              errorHandler: self.errorHandler,
-                                              storyboardsManager: self.storyboardsManager,
                                               lastTask: lastTask,
                                               editedTask: editedTask,
                                               duplicatedTask: duplicatedTask)
-        self.addChildCoordinator(child: coordinator)
+        addChildCoordinator(child: coordinator)
         coordinator.start { [weak self, weak coordinator] in
             self?.removeChildCoordinator(child: coordinator)
         }

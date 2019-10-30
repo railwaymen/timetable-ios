@@ -12,6 +12,12 @@ protocol StoryboardsManagerType: class {
     func controller<T>(storyboard: StoryboardsManager.StoryboardName, controllerIdentifier: StoryboardsManager.ControllerIdentifier) -> T?
 }
 
+extension StoryboardsManagerType {
+    func controller<T>(storyboard: StoryboardsManager.StoryboardName) -> T? {
+        self.controller(storyboard: storyboard, controllerIdentifier: .initial)
+    }
+}
+
 class StoryboardsManager: StoryboardsManagerType {
     
     static var shared: StoryboardsManagerType = StoryboardsManager()

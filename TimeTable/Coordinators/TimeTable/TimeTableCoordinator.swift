@@ -13,35 +13,14 @@ typealias TimeTableTabApiClientType = (ApiClientWorkTimesType & ApiClientProject
 class TimeTableTabCoordinator: BaseTabBarCoordinator {
     
     // MARK: - Initialization
-    init(window: UIWindow?,
-         messagePresenter: MessagePresenterType?,
-         storyboardsManager: StoryboardsManagerType,
-         apiClient: TimeTableTabApiClientType,
-         accessService: AccessServiceUserIDType,
-         coreDataStack: CoreDataStackUserType,
-         errorHandler: ErrorHandlerType) {
-        let projectsCoordinator = ProjectsCoordinator(window: nil,
-                                                      messagePresenter: messagePresenter,
-                                                      storyboardsManager: storyboardsManager,
-                                                      apiClient: apiClient,
-                                                      errorHandler: errorHandler)
-        let workTimeCoordinator = WorkTimesListCoordinator(window: nil,
-                                                           messagePresenter: messagePresenter,
-                                                           storyboardsManager: storyboardsManager,
-                                                           apiClient: apiClient,
-                                                           accessService: accessService,
-                                                           errorHandler: errorHandler)
-        let userCoordinator = ProfileCoordinator(window: nil,
-                                              messagePresenter: messagePresenter,
-                                              storyboardsManager: storyboardsManager,
-                                              apiClient: apiClient,
-                                              accessService: accessService,
-                                              coreDataStack: coreDataStack,
-                                              errorHandler: errorHandler)
+    init(dependencyContainer: DependencyContainerType) {
+        let projectsCoordinator = ProjectsCoordinator(dependencyContainer: dependencyContainer)
+        let workTimeCoordinator = WorkTimesListCoordinator(dependencyContainer: dependencyContainer)
+        let userCoordinator = ProfileCoordinator(dependencyContainer: dependencyContainer)
         
-        super.init(window: window, messagePresenter: messagePresenter)
-        [projectsCoordinator, workTimeCoordinator, userCoordinator].forEach { self.addChildCoordinator(child: $0) }
-        self.tabBarController.tabBar.tintColor = UIColor.crimson
+        super.init(window: dependencyContainer.window, messagePresenter: dependencyContainer.messagePresenter)
+        [projectsCoordinator, workTimeCoordinator, userCoordinator].forEach { addChildCoordinator(child: $0) }
+        tabBarController.tabBar.tintColor = .crimson
         
         projectsCoordinator.start()
         workTimeCoordinator.start()
