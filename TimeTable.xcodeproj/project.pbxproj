@@ -20,6 +20,7 @@
 		8A5D48C02369E1A30082C13D /* DispatchGroup+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48BF2369E1A20082C13D /* DispatchGroup+Extension.swift */; };
 		8A5D48C22369E1E20082C13D /* DispatchGroupMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48C12369E1E20082C13D /* DispatchGroupMock.swift */; };
 		8A5D48C42369E20E0082C13D /* DispatchGroupFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48C32369E20E0082C13D /* DispatchGroupFactoryMock.swift */; };
+		8A5D48C62369ED990082C13D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48C52369ED990082C13D /* UIImage+Extension.swift */; };
 		8AA5C5DD235F34340083E121 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA5C5DC235F34340083E121 /* Colors.xcassets */; };
 		8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */; };
 		8AF3073823688C5A00832FDD /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3073723688C5A00832FDD /* DependencyContainer.swift */; };
@@ -327,6 +328,7 @@
 		8A5D48BF2369E1A20082C13D /* DispatchGroup+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchGroup+Extension.swift"; sourceTree = "<group>"; };
 		8A5D48C12369E1E20082C13D /* DispatchGroupMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupMock.swift; sourceTree = "<group>"; };
 		8A5D48C32369E20E0082C13D /* DispatchGroupFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupFactoryMock.swift; sourceTree = "<group>"; };
+		8A5D48C52369ED990082C13D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		8A839D0A23570E26002F3464 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../../Configuration/Debug.xcconfig; sourceTree = "<group>"; };
 		8A839D0B23570EC0002F3464 /* Stage.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Stage.xcconfig; path = ../../Configuration/Stage.xcconfig; sourceTree = "<group>"; };
 		8A839D0C23570ED4002F3464 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../../Configuration/Release.xcconfig; sourceTree = "<group>"; };
@@ -1135,6 +1137,7 @@
 				8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */,
 				C153AC502182EFEC007A35BB /* UIButton+Extension.swift */,
 				C12CA56921A57ADD0082FEB7 /* UIColor+Extension.swift */,
+				8A5D48C52369ED990082C13D /* UIImage+Extension.swift */,
 				C153AC492182EE9F007A35BB /* UILabel+Extension .swift */,
 				C153AC522182F1E3007A35BB /* UITextField+Extension.swift */,
 				C1E6B34D219EF30600019DC2 /* URL+Extension.swift */,
@@ -2075,6 +2078,7 @@
 				C13C88E621E5EA8F00F68C6E /* WorkTimeViewController.swift in Sources */,
 				C1AFFFDB21A2CD2000A7A632 /* AppError.swift in Sources */,
 				C1B5136D21772D1200C3727C /* AppDelegate.swift in Sources */,
+				8A5D48C62369ED990082C13D /* UIImage+Extension.swift in Sources */,
 				C10FD88121F1F15100A233C5 /* UserDecoder.swift in Sources */,
 				C16CA644219AA47900133358 /* UserEntity+SessionDecoder.swift in Sources */,
 				8A09DCB823673E58003FC2A6 /* DispatchQueueManager.swift in Sources */,

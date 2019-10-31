@@ -23,12 +23,8 @@ class ProfileCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
     // MARK: - Initialization
     init(dependencyContainer: DependencyContainerType) {
         self.dependencyContainer = dependencyContainer
-        var image: UIImage = #imageLiteral(resourceName: "profile_icon")
-        if #available(iOS 13, *), let sfSymbol = UIImage(systemName: "person.fill") {
-            image = sfSymbol
-        }
         self.tabBarItem = UITabBarItem(title: "tabbar.title.profile".localized,
-                                       image: image,
+                                       image: .profile,
                                        selectedImage: nil)
         super.init(window: dependencyContainer.window, messagePresenter: dependencyContainer.messagePresenter)
         self.root.tabBarItem = tabBarItem

@@ -109,7 +109,7 @@ class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITabl
             }
         }
         deleteAction.backgroundColor = .crimson
-        deleteAction.image = #imageLiteral(resourceName: "icon-trash")
+        deleteAction.image = .delete
         return deleteAction
     }
     
@@ -119,7 +119,8 @@ class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITabl
             self.viewModel.viewRequestToDuplicate(sourceView: cell, at: indexPath)
             completion(true)
         }
-        duplicateAction.backgroundColor = .blue
+        duplicateAction.backgroundColor = .gray
+        duplicateAction.image = .duplicate
         return duplicateAction
     }
 }
