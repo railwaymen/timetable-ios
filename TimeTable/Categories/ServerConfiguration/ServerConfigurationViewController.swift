@@ -20,6 +20,7 @@ class ServerConfigurationViewController: UIViewController {
     @IBOutlet private var continueButton: UIButton!
     @IBOutlet private var serverAddressTextField: UITextField!
     @IBOutlet private var checkBoxButton: CheckBoxButton!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private var viewModel: ServerConfigurationViewModelType?
     private var notificationCenter: NotificationCenterType?
@@ -96,6 +97,7 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
         checkBoxButton.isActive = checkBoxIsActive
         serverAddressTextField.text = serverAddress
         continueButton.isEnabled = !serverAddress.isEmpty
+        setActivityIndicator(isHidden: true)
     }
     
     func continueButtonEnabledState(_ isEnabled: Bool) {
@@ -114,5 +116,10 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
 
     func dissmissKeyboard() {
         view.endEditing(true)
+    }
+    
+    func setActivityIndicator(isHidden: Bool) {
+        isHidden ? activityIndicator.stopAnimating() : activityIndicator.startAnimating()
+        activityIndicator.isHidden = isHidden
     }
 }

@@ -13,6 +13,7 @@ protocol ServerConfigurationViewModelOutput: class {
     func continueButtonEnabledState(_ isEnabled: Bool)
     func checkBoxIsActiveState(_ isActive: Bool)
     func dissmissKeyboard()
+    func setActivityIndicator(isHidden: Bool)
 }
 
 protocol ServerConfigurationViewModelType: class {
@@ -61,7 +62,9 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
             return
         }
         let configuration = ServerConfiguration(host: hostURL, shouldRememberHost: shouldRememberHost)
+        userInterface?.setActivityIndicator(isHidden: false)
         serverConfigurationManager.verify(configuration: configuration) { [weak self] result in
+            self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .success:
                 self?.coordinator.serverConfigurationDidFinish(with: configuration)
