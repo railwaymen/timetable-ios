@@ -211,12 +211,17 @@
                                     <constraint firstAttribute="bottom" secondItem="Sc1-v6-mIx" secondAttribute="bottom" constant="8" id="uqg-9O-bhl"/>
                                 </constraints>
                             </scrollView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="yy6-It-HYM">
+                                <rect key="frame" x="188.66666666666666" y="434.66666666666669" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="bjN-hl-pu3" firstAttribute="top" secondItem="gUE-HS-Xzx" secondAttribute="top" id="2PV-JH-HFM"/>
                             <constraint firstAttribute="trailing" secondItem="bjN-hl-pu3" secondAttribute="trailing" id="AmW-Dy-Gnv"/>
+                            <constraint firstItem="yy6-It-HYM" firstAttribute="centerY" secondItem="HZr-24-I0m" secondAttribute="centerY" id="Dzb-aK-Bui"/>
                             <constraint firstItem="Sc1-v6-mIx" firstAttribute="leading" secondItem="HZr-24-I0m" secondAttribute="leading" id="GxM-2a-GiP"/>
+                            <constraint firstItem="yy6-It-HYM" firstAttribute="centerX" secondItem="HZr-24-I0m" secondAttribute="centerX" id="IbP-bV-ZKi"/>
                             <constraint firstItem="bjN-hl-pu3" firstAttribute="leading" secondItem="gUE-HS-Xzx" secondAttribute="leading" id="eaw-xq-gLv"/>
                             <constraint firstItem="HZr-24-I0m" firstAttribute="trailing" secondItem="Sc1-v6-mIx" secondAttribute="trailing" id="qeS-EK-Ruv"/>
                             <constraint firstAttribute="bottom" secondItem="bjN-hl-pu3" secondAttribute="bottom" id="yAb-L6-2pI"/>
@@ -227,6 +232,7 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="yy6-It-HYM" id="9g2-Gd-3mm"/>
                         <outlet property="bodyTextField" destination="g4e-sp-Azc" id="91i-HX-eAQ"/>
                         <outlet property="dayTextField" destination="s85-fU-VBR" id="F63-Zq-OUV"/>
                         <outlet property="endAtDateTextField" destination="Pgu-1o-gtM" id="dZK-DO-5C1"/>
