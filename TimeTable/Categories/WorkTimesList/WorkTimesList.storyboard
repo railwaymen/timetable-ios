@@ -17,12 +17,12 @@
         <scene sceneID="fDV-Bn-Jtn">
             <objects>
                 <viewController id="rEk-z6-2rw" customClass="WorkTimesListViewController" customModule="TimeTable" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="gSW-q8-FeV">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="gSW-q8-FeV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SCa-Yp-ddD">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="895"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="chj-g6-Xkk">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="141.66666666666663"/>
@@ -163,11 +163,6 @@
                                             <exclude reference="wlx-0s-b3A"/>
                                         </mask>
                                     </variation>
-                                </view>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="zlN-TH-8OR">
-                                    <rect key="frame" x="0.0" y="474.66666666666663" width="414" height="0.0"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WorkTimeStandardTableViewCellReuseIdentifier" rowHeight="277" id="FAd-Y8-Pdy" customClass="WorkTimeTableViewCell" customModule="TimeTable" customModuleProvider="target">
@@ -345,18 +340,25 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" id="RKG-GL-blF">
+                                <rect key="frame" x="38" y="429" width="338" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="RKG-GL-blF" firstAttribute="centerX" secondItem="SCa-Yp-ddD" secondAttribute="centerX" id="6Qp-TW-PlJ"/>
                             <constraint firstItem="SCa-Yp-ddD" firstAttribute="top" secondItem="gSW-q8-FeV" secondAttribute="top" id="Ti8-nd-IOf"/>
                             <constraint firstItem="SCa-Yp-ddD" firstAttribute="leading" secondItem="pV0-Kr-wuD" secondAttribute="leading" id="YLz-zY-hFP"/>
                             <constraint firstAttribute="bottom" secondItem="SCa-Yp-ddD" secondAttribute="bottom" id="ZlT-Eg-Luf"/>
                             <constraint firstItem="pV0-Kr-wuD" firstAttribute="trailing" secondItem="SCa-Yp-ddD" secondAttribute="trailing" id="mHt-SS-Vcc"/>
+                            <constraint firstItem="RKG-GL-blF" firstAttribute="centerY" secondItem="SCa-Yp-ddD" secondAttribute="centerY" id="rm8-tg-fCb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pV0-Kr-wuD"/>
                     </view>
                     <navigationItem key="navigationItem" title="Timesheet" largeTitleDisplayMode="always" id="7Ga-cn-eZa"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="RKG-GL-blF" id="opE-xu-qa1"/>
                         <outlet property="dateSelectorView" destination="KTO-4j-KGE" id="neF-yZ-OrX"/>
                         <outlet property="durationLabel" destination="YBd-4h-a3P" id="puT-X8-6cX"/>
                         <outlet property="shouldWorkHoursLabel" destination="nAg-lf-MRk" id="9Nj-Bv-DJu"/>

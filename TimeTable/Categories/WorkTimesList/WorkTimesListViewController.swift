@@ -20,6 +20,7 @@ class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet private var workedHoursLabel: UILabel!
     @IBOutlet private var shouldWorkHoursLabel: UILabel!
     @IBOutlet private var durationLabel: UILabel!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private let tableViewEstimatedRowHeight: CGFloat = 150
     private let heightForHeader: CGFloat = 50
@@ -156,6 +157,13 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
         workedHoursLabel.text = workedHours + " /"
         shouldWorkHoursLabel.text = shouldWorkHours + " /"
         durationLabel.text = duration
+    }
+    
+    func setActivityIndicator(isHidden: Bool) {
+        DispatchQueue.main.async { [weak self] in
+            isHidden ? self?.activityIndicator.stopAnimating() : self?.activityIndicator.startAnimating()
+            self?.activityIndicator.isHidden = isHidden
+        }
     }
 }
 
