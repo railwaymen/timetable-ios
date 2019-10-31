@@ -18,6 +18,7 @@ class LoginViewControllerMock: LoginViewControllerable {
     private(set) var checkBoxIsActiveStateValues: (called: Bool, isActive: Bool?) = (false, nil)
     private(set) var focusOnPasswordTextFieldCalled = false
     private(set) var dismissKeyboardCalled = false
+    private(set) var setActivityIndicatorIsHidden: Bool?
     
     // MARK: - LoginViewModelOutput
     func setUpView(checkBoxIsActive: Bool) {
@@ -49,8 +50,11 @@ class LoginViewControllerMock: LoginViewControllerable {
         dismissKeyboardCalled = true
     }
     
-    // MARK: - LoginViewControllerType
+    func setActivityIndicator(isHidden: Bool) {
+        setActivityIndicatorIsHidden = isHidden
+    }
     
+    // MARK: - LoginViewControllerType
     private(set) var configureNotificationCenter: NotificationCenterType?
     private(set) var configureViewModel: LoginViewModelType?
     func configure(notificationCenter: NotificationCenterType, viewModel: LoginViewModelType) {

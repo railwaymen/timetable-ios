@@ -117,6 +117,7 @@ class LoginViewModel: LoginViewModelType {
                 case .success(let session):
                     self?.coordinator.loginDidFinish(with: .loggedInCorrectly(session))
                 case .failure(let error):
+                    self?.userInterface?.setActivityIndicator(isHidden: true)
                     self?.errorHandler.throwing(error: error)
                 }
             },

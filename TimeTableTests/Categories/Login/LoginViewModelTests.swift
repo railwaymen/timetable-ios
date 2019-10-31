@@ -253,6 +253,7 @@ class LoginViewModelTests: XCTestCase {
         //Assert
         let error = try (errorHandler.throwedError as? UIError).unwrap()
         XCTAssertEqual(error, expectedError)
+        XCTAssertNil(userInterface.setActivityIndicatorIsHidden)
     }
     
     func testViewRequestedToLoginWhilePasswordIsEmpty() throws {
@@ -264,6 +265,7 @@ class LoginViewModelTests: XCTestCase {
         //Assert
         let error = try (errorHandler.throwedError as? UIError).unwrap()
         XCTAssertEqual(error, expectedError)
+        XCTAssertNil(userInterface.setActivityIndicatorIsHidden)
     }
     
     func testViewRequestedToLoginWithCorrectCredentials() throws {
@@ -278,6 +280,7 @@ class LoginViewModelTests: XCTestCase {
         //Assert
         XCTAssertTrue(coordinatorMock.loginDidFinishCalled)
         XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly(sessionReponse))
+        XCTAssertFalse(try userInterface.setActivityIndicatorIsHidden.unwrap())
     }
     
     func testViewRequestedToLoginFailsWhileSavingToDataBase() throws {
@@ -293,6 +296,7 @@ class LoginViewModelTests: XCTestCase {
         contentProvider.fetchCompletion?(.success(sessionReponse))
         contentProvider.saveCompletion?(.failure(expectedError))
         //Assert
+        XCTAssertTrue(try userInterface.setActivityIndicatorIsHidden.unwrap())
         switch errorHandler.throwedError as? AppError {
         case .cannotRemeberUserCredentials(let error)?:
                XCTAssertEqual(try (error as? TestError).unwrap(), expectedError)
@@ -314,6 +318,7 @@ class LoginViewModelTests: XCTestCase {
         contentProvider.fetchCompletion?(.success(sessionReponse))
         contentProvider.saveCompletion?(.success(Void()))
         //Assert
+        XCTAssertTrue(try userInterface.setActivityIndicatorIsHidden.unwrap())
         XCTAssertTrue(coordinatorMock.loginDidFinishCalled)
         XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly(sessionReponse))
         XCTAssertEqual(try (errorHandler.throwedError as? TestError).unwrap(), TestError(message: "save user"))
@@ -332,6 +337,7 @@ class LoginViewModelTests: XCTestCase {
         contentProvider.fetchCompletion?(.success(sessionReponse))
         contentProvider.saveCompletion?(.success(Void()))
         //Assert
+        XCTAssertTrue(try userInterface.setActivityIndicatorIsHidden.unwrap())
         XCTAssertTrue(coordinatorMock.loginDidFinishCalled)
         XCTAssertEqual(coordinatorMock.loginDidFinishWithState, .loggedInCorrectly(sessionReponse))
         XCTAssertTrue(accessService.saveUserCalled)
@@ -348,5 +354,6 @@ class LoginViewModelTests: XCTestCase {
         //Assert
         let error = try (errorHandler.throwedError as? TestError).unwrap()
         XCTAssertEqual(error, expectedError)
+        XCTAssertTrue(try userInterface.setActivityIndicatorIsHidden.unwrap())
     }
 }

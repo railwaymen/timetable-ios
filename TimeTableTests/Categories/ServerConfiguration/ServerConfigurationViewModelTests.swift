@@ -167,6 +167,7 @@ private class UserInterfaceMock: ServerConfigurationViewModelOutput {
     private(set) var dissmissKeyboardCalled = false
     private(set) var continueButtonEnabledStateValues: (called: Bool, isEnabled: Bool) = (false, false)
     private(set) var checkBoxIsActiveStateValues: (called: Bool, isActive: Bool) = (false, false)
+    private(set) var setActivityIndicatorIsHidden: Bool?
     
     func setupView(checkBoxIsActive: Bool, serverAddress: String) {
         setupViewCalled = true
@@ -183,5 +184,9 @@ private class UserInterfaceMock: ServerConfigurationViewModelOutput {
     
     func checkBoxIsActiveState(_ isActive: Bool) {
         checkBoxIsActiveStateValues = (true, isActive)
+    }
+    
+    func setActivityIndicator(isHidden: Bool) {
+        setActivityIndicatorIsHidden = isHidden
     }
 }
