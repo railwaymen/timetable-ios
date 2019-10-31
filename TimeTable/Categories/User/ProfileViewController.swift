@@ -32,6 +32,16 @@ class ProfileViewController: UIViewController {
     @IBAction private func logoutButtonTapped(_ sender: UIButton) {
         viewModel.viewRequestedForLogout()
     }
+    
+    // MARK: - Private
+    private func setUpActivityIndicator() {
+        if #available(iOS 13, *) {
+            activityIndicator.style = .large
+        } else {
+            activityIndicator.style = .gray
+        }
+        setActivityIndicator(isHidden: true)
+    }
 }
 
 // MARK: - ProfileViewModelOutput
@@ -40,7 +50,7 @@ extension ProfileViewController: ProfileViewModelOutput {
         firstNameLabel.text = ""
         lastNameLabel.text = ""
         emailLabel.text = ""
-        setActivityIndicator(isHidden: true)
+        setUpActivityIndicator()
     }
     
     func update(firstName: String, lastName: String, email: String) {

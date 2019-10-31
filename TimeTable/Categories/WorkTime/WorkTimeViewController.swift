@@ -100,6 +100,16 @@ class WorkTimeViewController: UIViewController {
     @objc private func keyboardWillHide(_ notification: NSNotification) {
         scrollView.contentInset.bottom = 0
     }
+    
+    // MARK: - Private
+    private func setUpActivityIndicator() {
+        if #available(iOS 13, *) {
+            activityIndicator.style = .large
+        } else {
+            activityIndicator.style = .gray
+        }
+        setActivityIndicator(isHidden: true)
+    }
 }
 
 // MARK: - UIPickerViewDelegate 
@@ -214,7 +224,7 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         tagsCollectionView.delegate = self
         tagsCollectionView.dataSource = self
         
-        setActivityIndicator(isHidden: true)
+        setUpActivityIndicator()
     }
     
     func dismissView() {

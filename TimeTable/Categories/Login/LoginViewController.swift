@@ -74,6 +74,15 @@ class LoginViewController: UIViewController {
         self.scrollView.contentInset.bottom = height
         self.scrollView.scrollIndicatorInsets.bottom = height
     }
+    
+    private func setUpActivityIndicator() {
+        if #available(iOS 13, *) {
+            activityIndicator.style = .large
+        } else {
+            activityIndicator.style = .gray
+        }
+        setActivityIndicator(isHidden: true)
+    }
 }
 
 // MARK: - LoginViewModelOutput
@@ -86,7 +95,7 @@ extension LoginViewController: LoginViewModelOutput {
         checkBoxButton.isActive = checkBoxIsActive        
         loginTextField.delegate = self
         passwordTextField.delegate = self
-        setActivityIndicator(isHidden: true)
+        setUpActivityIndicator()
     }
     
     func updateLoginFields(email: String, password: String) {

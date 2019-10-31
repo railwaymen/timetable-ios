@@ -69,6 +69,15 @@ class ServerConfigurationViewController: UIViewController {
         self.scrollView.contentInset.bottom = height
         self.scrollView.scrollIndicatorInsets.bottom = height
     }
+    
+    private func setUpActivityIndicator() {
+        if #available(iOS 13, *) {
+            activityIndicator.style = .large
+        } else {
+            activityIndicator.style = .gray
+        }
+        setActivityIndicator(isHidden: true)
+    }
 }
 
 // MARK: - UITextFieldDelegate
@@ -97,7 +106,7 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
         checkBoxButton.isActive = checkBoxIsActive
         serverAddressTextField.text = serverAddress
         continueButton.isEnabled = !serverAddress.isEmpty
-        setActivityIndicator(isHidden: true)
+        setUpActivityIndicator()
     }
     
     func continueButtonEnabledState(_ isEnabled: Bool) {

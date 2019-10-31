@@ -46,8 +46,15 @@ class ProjectsViewController: UIViewController, UICollectionViewDataSource, UICo
         return cell
     }
     
-    // MARK: - UICollectionViewDelegate
-
+    // MARK: - Private
+    private func setUpActivityIndicator() {
+        if #available(iOS 13, *) {
+            activityIndicator.style = .large
+        } else {
+            activityIndicator.style = .gray
+        }
+        setActivityIndicator(isHidden: true)
+    }
 }
 
 // MARK: - ProjectsViewModelOutput
@@ -59,7 +66,7 @@ extension ProjectsViewController: ProjectsViewModelOutput {
             layout.delegate = self
         }
         self.title = "tabbar.title.projects".localized
-        setActivityIndicator(isHidden: true)
+        setUpActivityIndicator()
     }
     
     func updateView() {
