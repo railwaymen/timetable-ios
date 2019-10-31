@@ -12,7 +12,6 @@ import XCTest
 // swiftlint:disable type_body_length
 // swiftlint:disable file_length
 class WorkTimeViewModelTests: XCTestCase {
-    private let timeout = TimeInterval(0.1)
     private var userInterface: WorkTimeViewControllerMock!
     private var apiClient: ApiClientMock!
     private var errorHandlerMock: ErrorHandlerMock!
@@ -112,13 +111,10 @@ class WorkTimeViewModelTests: XCTestCase {
     
     func testViewDidLoadFetchSimpleListCallsErrorHandlerOnFetchFailure() throws {
         //Arrange
-        let expectation = self.expectation(description: "")
-        apiClient.fetchSimpleListOfProjectsExpectation = expectation.fulfill
         let error = ApiClientError(type: .invalidParameters)
         //Act
         viewModel.viewDidLoad()
         apiClient.fetchSimpleListOfProjectsCompletion?(.failure(error))
-        waitForExpectations(timeout: timeout)
         //Assert
         let throwedError = try (errorHandlerMock.throwedError as? ApiClientError).unwrap()
         XCTAssertEqual(throwedError, error)
@@ -126,14 +122,11 @@ class WorkTimeViewModelTests: XCTestCase {
     
     func testViewDidLoadFetchSimpleListUpdatesUserInterface() throws {
         //Arrange
-        let expectation = self.expectation(description: "")
         let data = try self.json(from: ProjectsRecordsResponse.simpleProjectArrayResponse)
         let projectDecoders = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
-        apiClient.fetchSimpleListOfProjectsExpectation = expectation.fulfill
         //Act
         viewModel.viewDidLoad()
         apiClient.fetchSimpleListOfProjectsCompletion?(.success(projectDecoders))
-        waitForExpectations(timeout: timeout)
         //Assert
         XCTAssertTrue(userInterface.reloadProjectPickerCalled)
         XCTAssertEqual(userInterface.setUpCurrentProjectName?.currentProjectName, "asdsa")
@@ -667,13 +660,10 @@ class WorkTimeViewModelTests: XCTestCase {
     
     // MARK: - Private
     private func fetchProjects() throws {
-        let expectation = self.expectation(description: "")
         let data = try self.json(from: ProjectsRecordsResponse.simpleProjectArrayResponse)
         let projectDecoders = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
-        apiClient.fetchSimpleListOfProjectsExpectation = expectation.fulfill
         viewModel.viewDidLoad()
-        apiClient.fetchSimpleListOfProjectsCompletion?(.success(projectDecoders))
-        waitForExpectations(timeout: timeout)
+        try apiClient.fetchSimpleListOfProjectsCompletion.unwrap()(.success(projectDecoders))
     }
     
     private func createViewModel(lastTask: Task?, editedTask: Task?, duplicatedTask: Task?) -> WorkTimeViewModel {

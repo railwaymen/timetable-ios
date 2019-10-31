@@ -13,7 +13,6 @@ import CoreData
 
 class AppCoordinatorTests: XCTestCase {
 
-    private let timeout = 0.1
     private var memoryContext: NSManagedObjectContext!
     private var dependencyContainer: DependencyContainerMock!
     private var appCoordinator: AppCoordinator!

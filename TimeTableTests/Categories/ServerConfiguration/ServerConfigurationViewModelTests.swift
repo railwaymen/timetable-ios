@@ -10,7 +10,6 @@ import XCTest
 @testable import TimeTable
 
 class ServerConfigurationViewModelTests: XCTestCase {
-    private let timeout = 0.1
     private var userInterface: UserInterfaceMock!
     private var coordinatorMock: CoordinatorMock!
     private var serverConfigurationManagerMock: ServerConfigurationManagerMock!
