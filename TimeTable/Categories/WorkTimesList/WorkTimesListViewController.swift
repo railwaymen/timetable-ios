@@ -96,16 +96,16 @@ class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITabl
     
     // MARK: - Private
     private func buildDeleteContextualAction(indexPath: IndexPath) -> UIContextualAction {
-        let deleteAction = UIContextualAction(style: .destructive, title: nil) { (_, _, completion) in
-            self.viewModel.viewRequestToDelete(at: indexPath) { completed in
+        let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (_, _, completion) in
+            guard let self = self else { return completion(false) }
+            self.viewModel.viewRequestToDelete(at: indexPath) { [weak self] completed in
                 defer { completion(completed) }
+                guard let self = self else { return }
                 guard completed else { return }
                 let numberOfItems = self.viewModel.numberOfRows(in: indexPath.section)
-                DispatchQueue.main.async { [weak self] in
-                    numberOfItems > 0
-                        ? self?.tableView.deleteRows(at: [indexPath], with: .fade)
-                        : self?.tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
-                }
+                numberOfItems > 0
+                    ? self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    : self.tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
             }
         }
         deleteAction.backgroundColor = .crimson
@@ -141,13 +141,11 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewRecordTapped))
         navigationItem.setRightBarButtonItems([addButton], animated: false)
-        self.title = "tabbar.title.timesheet".localized
+        title = "tabbar.title.timesheet".localized
     }
     
     func updateView() {
-        DispatchQueue.main.async { [weak self] in
-            self?.tableView.reloadData()
-        }
+        tableView.reloadData()
     }
     
     func updateDateSelector(currentDateString: String, previousDateString: String, nextDateString: String) {
@@ -155,11 +153,9 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
     }
     
     func updateMatchingFullTimeLabels(workedHours: String, shouldWorkHours: String, duration: String) {
-        DispatchQueue.main.async { [weak self] in
-            self?.workedHoursLabel.text = workedHours + " /"
-            self?.shouldWorkHoursLabel.text = shouldWorkHours + " /"
-            self?.durationLabel.text = duration
-        }
+        workedHoursLabel.text = workedHours + " /"
+        shouldWorkHoursLabel.text = shouldWorkHours + " /"
+        durationLabel.text = duration
     }
 }
 
