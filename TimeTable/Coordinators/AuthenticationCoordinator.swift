@@ -10,7 +10,7 @@ import UIKit
 import Networking
 import KeychainAccess
 
-protocol ServerConfigurationCoordinatorDelagete: class {
+protocol ServerConfigurationCoordinatorDelegate: class {
     func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration)
 }
 
@@ -76,7 +76,7 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
         navigationController.navigationBar.shadowImage = UIImage()
         navigationController.view.backgroundColor = .clear
         navigationController.navigationBar.backgroundColor = .clear
-        navigationController.navigationBar.tintColor = .white
+        navigationController.navigationBar.tintColor = .defaultLabel
     }
     
     private func runServerConfigurationFlow() {
@@ -124,8 +124,8 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
     }
 }
 
-// MARK: - ServerConfigurationCoordinatorDelagete
-extension AuthenticationCoordinator: ServerConfigurationCoordinatorDelagete {
+// MARK: - ServerConfigurationCoordinatorDelegate
+extension AuthenticationCoordinator: ServerConfigurationCoordinatorDelegate {
     func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration) {
         self.serverConfiguration = serverConfiguration
         runAuthenticationFlow(with: serverConfiguration, animated: true)

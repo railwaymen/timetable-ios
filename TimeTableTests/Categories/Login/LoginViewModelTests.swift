@@ -109,14 +109,6 @@ class LoginViewModelTests: XCTestCase {
         XCTAssertEqual(userInterface.updateLoginFieldsData.password, password)
     }
     
-    func testViewRequestedToChangeServerAddressCallsTearDownOnTheUserInerface() {
-        //Arrange
-        //Act
-        viewModel.viewRequestedToChangeServerAddress()
-        //Assert
-        XCTAssertTrue(userInterface.tearDownCalled)
-    }
-    
     func testViewRequestedToChangeServerAddressCallsLoginDidFinishOnTheCoordinator() {
         //Arrange
         //Act

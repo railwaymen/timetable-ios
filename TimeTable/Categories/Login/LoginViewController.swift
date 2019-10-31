@@ -16,7 +16,7 @@ protocol LoginViewControllerType: class {
 
 class LoginViewController: UIViewController {
     
-    @IBOutlet private var bottomLayoutConstraint: NSLayoutConstraint!
+    @IBOutlet private var scrollView: UIScrollView!
     @IBOutlet private var loginTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
     @IBOutlet private var checkBoxButton: CheckBoxButton!
@@ -24,6 +24,11 @@ class LoginViewController: UIViewController {
     
     private var notificationCenter: NotificationCenterType!
     private var viewModel: LoginViewModelType!
+    
+    // MARK: - Initialization
+    deinit {
+        notificationCenter?.removeObserver(self)
+    }
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -48,27 +53,25 @@ class LoginViewController: UIViewController {
         viewModel?.shouldRemeberUserBoxStatusDidChange(isActive: sender.isActive)
     }
     
-    @IBAction private func changeServerAddressTapped(sender: UIButton) {
-        viewModel.viewRequestedToChangeServerAddress()
+    @IBAction private func viewTapped(_ sender: Any) {
+        viewModel?.viewTapped()
     }
     
-    // MARK: - Internal
-    @objc func keyboardWillShow(notification: NSNotification, offset: CGFloat = 0) {
-        if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height {
-            updateConstraints(with: keyboardHeight - offset)
-        }
+    // MARK: - Notifications
+    @objc private func changeKeyboardFrame(notification: NSNotification, offset: CGFloat = 0) {
+        guard let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height else { return }
+        let bottomSpaceInScrollView = scrollView.contentSize.height - loginButton.convert(loginButton.bounds, to: scrollView).maxY
+        updateScrollViewInsets(with: max(keyboardHeight - offset - bottomSpaceInScrollView, 0))
     }
     
-    @objc func keyboardWillHide(notification: NSNotification) {
-        updateConstraints()
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        updateScrollViewInsets()
     }
     
     // MARK: - Private
-    private func updateConstraints(with height: CGFloat = 0) {
-        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
-            self.bottomLayoutConstraint.constant = height
-            self.view.layoutIfNeeded()
-        })
+    private func updateScrollViewInsets(with height: CGFloat = 0) {
+        self.scrollView.contentInset.bottom = height
+        self.scrollView.scrollIndicatorInsets.bottom = height
     }
 }
 
@@ -76,7 +79,8 @@ class LoginViewController: UIViewController {
 extension LoginViewController: LoginViewModelOutput {
     func setUpView(checkBoxIsActive: Bool) {
         notificationCenter.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(changeKeyboardFrame), name: UIResponder.keyboardDidShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(changeKeyboardFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         
         checkBoxButton.isActive = checkBoxIsActive        
         loginTextField.delegate = self
@@ -88,10 +92,6 @@ extension LoginViewController: LoginViewModelOutput {
         passwordTextField.text = password
         passwordTextField.isEnabled = !password.isEmpty
         loginButton.isEnabled = !(email.isEmpty && password.isEmpty)
-    }
-    
-    func tearDown() {
-        notificationCenter.removeObserver(self)
     }
     
     func passwordInputEnabledState(_ isEnabled: Bool) {
@@ -107,13 +107,22 @@ extension LoginViewController: LoginViewModelOutput {
     }
     
     func checkBoxIsActiveState(_ isActive: Bool) {
-        checkBoxButton.isActive = isActive
+        UIView.transition(
+            with: checkBoxButton,
+            duration: 0.15,
+            options: .transitionCrossDissolve,
+            animations: { [weak self] in
+                self?.checkBoxButton.isActive = isActive
+            })
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 
 // MARK: - UITextFieldDelegate
 extension LoginViewController: UITextFieldDelegate {
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
         case loginTextField:

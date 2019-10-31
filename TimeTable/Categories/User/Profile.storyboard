@@ -35,10 +35,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ygC-2Z-X8d">
-                                        <rect key="frame" x="184" y="0.0" width="400" height="300"/>
+                                        <rect key="frame" x="184" y="0.0" width="400" height="305"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="36" translatesAutoresizingMaskIntoConstraints="NO" id="Lp5-6X-9dS">
-                                                <rect key="frame" x="16" y="36" width="368" height="248"/>
+                                                <rect key="frame" x="16" y="36" width="368" height="253"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="WzX-qL-6lz">
                                                         <rect key="frame" x="0.0" y="0.0" width="368" height="35"/>
@@ -95,11 +95,11 @@
                                                         </subviews>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Pb-kl-5te" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
-                                                        <rect key="frame" x="59" y="213" width="250" height="35"/>
+                                                        <rect key="frame" x="59" y="213" width="250" height="40"/>
                                                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="400" id="c4L-Hl-P2E"/>
-                                                            <constraint firstAttribute="height" constant="35" id="gap-Q0-i35"/>
+                                                            <constraint firstAttribute="height" constant="40" id="gap-Q0-i35"/>
                                                             <constraint firstAttribute="width" constant="250" id="jnE-yi-oeh"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="15"/>

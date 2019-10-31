@@ -9,7 +9,7 @@
 import Foundation
 @testable import TimeTable
 
-class CoordinatorMock: ServerConfigurationCoordinatorDelagete {
+class CoordinatorMock: ServerConfigurationCoordinatorDelegate {
     private(set) var serverConfigurationDidFinishValues: (called: Bool, serverConfiguration: ServerConfiguration?) = (false, nil)
     
     func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration) {

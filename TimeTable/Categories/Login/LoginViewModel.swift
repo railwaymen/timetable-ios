@@ -11,11 +11,11 @@ import Foundation
 protocol LoginViewModelOutput: class {
     func setUpView(checkBoxIsActive: Bool)
     func updateLoginFields(email: String, password: String)
-    func tearDown()
     func passwordInputEnabledState(_ isEnabled: Bool)
     func loginButtonEnabledState(_ isEnabled: Bool)
     func focusOnPasswordTextField()
     func checkBoxIsActiveState(_ isActive: Bool)
+    func dismissKeyboard()
 }
 
 protocol LoginViewModelType: class {
@@ -25,6 +25,7 @@ protocol LoginViewModelType: class {
     func passwordInputValueDidChange(value: String?)
     func passwordTextFieldDidRequestForReturn() -> Bool
     func shouldRemeberUserBoxStatusDidChange(isActive: Bool)
+    func viewTapped()
     func viewRequestedToLogin()
     func viewRequestedToChangeServerAddress()
 }
@@ -90,6 +91,10 @@ class LoginViewModel: LoginViewModelType {
         userInterface?.checkBoxIsActiveState(!isActive)
     }
     
+    func viewTapped() {
+        userInterface?.dismissKeyboard()
+    }
+    
     func viewRequestedToLogin() {
         guard !loginCredentials.email.isEmpty else {
             errorHandler.throwing(error: UIError.cannotBeEmpty(.loginTextField))
@@ -121,7 +126,6 @@ class LoginViewModel: LoginViewModelType {
     }
     
     func viewRequestedToChangeServerAddress() {
-        userInterface?.tearDown()
         coordinator.loginDidFinish(with: .changeAddress)
     }
     

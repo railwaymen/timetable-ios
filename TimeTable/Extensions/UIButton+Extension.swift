@@ -12,7 +12,7 @@ extension UIButton: UIElementLocalizedType {
 
     @IBInspectable var localizedStringKey: String? {
         set(newKey) {
-            setTitle(newKey?.localized, for: UIControl.State())
+            setTitle(newKey?.localized.localizedUppercase, for: UIControl.State())
         } get {
             return titleLabel?.text
         }

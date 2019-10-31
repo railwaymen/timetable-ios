@@ -15,7 +15,7 @@ class UIButtonExtensionTests: XCTestCase {
         //Arrange
         let button = UIButton()
         let string = "key"
-        let localizedString = NSLocalizedString(string, comment: "")
+        let localizedString = NSLocalizedString(string, comment: "").localizedUppercase
         //Act
         button.localizedStringKey = string
         //Assert
@@ -26,7 +26,7 @@ class UIButtonExtensionTests: XCTestCase {
         //Arrange
         let button = UIButton()
         let string = "key"
-        let localizedString = NSLocalizedString(string, comment: "")
+        let localizedString = NSLocalizedString(string, comment: "").localizedUppercase
         //Act
         button.localizedStringKey = string
         //Assert
