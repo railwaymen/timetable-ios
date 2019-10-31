@@ -53,9 +53,9 @@ class WorkTimesContentProviderTests: XCTestCase {
             XCTFail()
         }
         //Assert
-        XCTAssertEqual(dispatchGroupMock.enter_calledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.leave_calledCount, 0)
-        XCTAssertEqual(dispatchGroupMock.notify_calledCount, 1)
+        XCTAssertEqual(dispatchGroupMock.enterCalledCount, 2)
+        XCTAssertEqual(dispatchGroupMock.leaveCalledCount, 0)
+        XCTAssertEqual(dispatchGroupMock.notifyCalledCount, 1)
         XCTAssertNotNil(apiClientMock.fetchWorkTimesCompletion)
         XCTAssertNotNil(apiClientMock.fetchMatchingFullTimeCompletion)
     }
@@ -77,9 +77,9 @@ class WorkTimesContentProviderTests: XCTestCase {
         apiClientMock.fetchWorkTimesCompletion?(.failure(error))
         apiClientMock.fetchMatchingFullTimeCompletion?(.failure(error))
         //Assert
-        XCTAssertEqual(dispatchGroupMock.enter_calledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.leave_calledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.notify_calledCount, 1)
+        XCTAssertEqual(dispatchGroupMock.enterCalledCount, 2)
+        XCTAssertEqual(dispatchGroupMock.leaveCalledCount, 2)
+        XCTAssertEqual(dispatchGroupMock.notifyCalledCount, 1)
         XCTAssertEqual(expectedError as? TestError, error)
     }
     
@@ -103,9 +103,9 @@ class WorkTimesContentProviderTests: XCTestCase {
         apiClientMock.fetchWorkTimesCompletion?(.failure(error))
         apiClientMock.fetchMatchingFullTimeCompletion?(.failure(error))
         //Assert
-        XCTAssertEqual(dispatchGroupMock.enter_calledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.leave_calledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.notify_calledCount, 1)
+        XCTAssertEqual(dispatchGroupMock.enterCalledCount, 2)
+        XCTAssertEqual(dispatchGroupMock.leaveCalledCount, 2)
+        XCTAssertEqual(dispatchGroupMock.notifyCalledCount, 1)
         XCTAssertEqual(expectedError as? TestError, error)
     }
     
@@ -132,9 +132,9 @@ class WorkTimesContentProviderTests: XCTestCase {
         apiClientMock.fetchWorkTimesCompletion?(.failure(error))
         apiClientMock.fetchMatchingFullTimeCompletion?(.failure(error))
         //Assert
-        XCTAssertEqual(dispatchGroupMock.enter_calledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.leave_calledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.notify_calledCount, 1)
+        XCTAssertEqual(dispatchGroupMock.enterCalledCount, 2)
+        XCTAssertEqual(dispatchGroupMock.leaveCalledCount, 2)
+        XCTAssertEqual(dispatchGroupMock.notifyCalledCount, 1)
         XCTAssertEqual(expectedError as? TestError, error)
     }
     
@@ -158,9 +158,9 @@ class WorkTimesContentProviderTests: XCTestCase {
         apiClientMock.fetchWorkTimesCompletion?(.failure(error))
         apiClientMock.fetchMatchingFullTimeCompletion?(.success(matchingFullTime))
         //Assert
-        XCTAssertEqual(dispatchGroupMock.enter_calledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.leave_calledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.notify_calledCount, 1)
+        XCTAssertEqual(dispatchGroupMock.enterCalledCount, 2)
+        XCTAssertEqual(dispatchGroupMock.leaveCalledCount, 2)
+        XCTAssertEqual(dispatchGroupMock.notifyCalledCount, 1)
         XCTAssertEqual(expectedError as? TestError, error)
     }
     
@@ -196,9 +196,9 @@ class WorkTimesContentProviderTests: XCTestCase {
         apiClientMock.fetchWorkTimesCompletion?(.success(workTimes))
         apiClientMock.fetchMatchingFullTimeCompletion?(.success(matchingFullTime))
         //Assert
-        XCTAssertEqual(dispatchGroupMock.enter_calledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.leave_calledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.notify_calledCount, 1)
+        XCTAssertEqual(dispatchGroupMock.enterCalledCount, 2)
+        XCTAssertEqual(dispatchGroupMock.leaveCalledCount, 2)
+        XCTAssertEqual(dispatchGroupMock.notifyCalledCount, 1)
         XCTAssertEqual(expectedResponse?.0.count, 1)
         XCTAssertEqual(try (expectedResponse?.1).unwrap(), matchingFullTime)
     }

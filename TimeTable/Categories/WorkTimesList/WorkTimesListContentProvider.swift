@@ -38,7 +38,7 @@ class WorkTimesListContentProvider: WorkTimesListContentProviderType {
         let dispatchGroup = dispatchGroupFactory.createDispatchGroup()
         
         dispatchGroup.enter()
-        self.fetchWorkTimes(date: date, completion: { result in
+        fetchWorkTimes(date: date) { result in
             switch result {
             case .success(let workTimes):
                 dailyWorkTimes = workTimes
@@ -46,10 +46,10 @@ class WorkTimesListContentProvider: WorkTimesListContentProviderType {
                 fetchError = error
             }
             dispatchGroup.leave()
-        })
+        }
         
         dispatchGroup.enter()
-        self.fetchMatchingFullTime(date: date, completion: { result in
+        fetchMatchingFullTime(date: date) { result in
             switch result {
             case .success(let time):
                 matchingFullTime = time
@@ -57,7 +57,7 @@ class WorkTimesListContentProvider: WorkTimesListContentProviderType {
                 fetchError = error
             }
             dispatchGroup.leave()
-        })
+        }
         
         // Done
         dispatchGroup.notify(qos: .userInitiated, queue: .main) {

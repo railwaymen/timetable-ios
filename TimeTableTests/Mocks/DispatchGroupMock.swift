@@ -11,32 +11,31 @@ import Foundation
 
 // swiftlint:disable large_tuple
 class DispatchGroupMock: DispatchGroupType {
-    private(set) var enter_calledCount: Int = 0
+    private(set) var enterCalledCount: Int = 0
     func enter() {
-        self.enter_calledCount += 1
+        self.enterCalledCount += 1
     }
     
-    private(set) var leave_calledCount: Int = 0
+    private(set) var leaveCalledCount: Int = 0
     func leave() {
-        self.leave_calledCount += 1
-        if self.leave_calledCount == self.enter_calledCount {
-            self.notify_work?()
+        self.leaveCalledCount += 1
+        if self.leaveCalledCount == self.enterCalledCount {
+            self.notifyWork?()
         }
     }
     
-    private(set) var notify_calledCount: Int = 0
-    private(set) var notify_values: (qos: DispatchQoS, flags: DispatchWorkItemFlags, queue: DispatchQueue)?
-    private(set) var notify_work: (() -> Void)?
+    private(set) var notifyCalledCount: Int = 0
+    private(set) var notifyValues: (qos: DispatchQoS, flags: DispatchWorkItemFlags, queue: DispatchQueue)?
+    private(set) var notifyWork: (() -> Void)?
     func notify(
         qos: DispatchQoS,
         flags: DispatchWorkItemFlags,
         queue: DispatchQueue,
         execute work: @escaping @convention(block) () -> Void
     ) {
-        self.notify_calledCount += 1
-        self.notify_values = (qos, flags, queue)
-        self.notify_work = work
+        self.notifyCalledCount += 1
+        self.notifyValues = (qos, flags, queue)
+        self.notifyWork = work
     }
 }
 // swiftlint:enable large_tuple
-
