@@ -18,6 +18,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet private var firstNameLabel: UILabel!
     @IBOutlet private var lastNameLabel: UILabel!
     @IBOutlet private var emailLabel: UILabel!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private var viewModel: ProfileViewModelType!
     
@@ -39,12 +40,18 @@ extension ProfileViewController: ProfileViewModelOutput {
         firstNameLabel.text = ""
         lastNameLabel.text = ""
         emailLabel.text = ""
+        setActivityIndicator(isHidden: true)
     }
     
     func update(firstName: String, lastName: String, email: String) {
         firstNameLabel.text = firstName
         lastNameLabel.text = lastName
         emailLabel.text = email
+    }
+    
+    func setActivityIndicator(isHidden: Bool) {
+        isHidden ? activityIndicator.stopAnimating() : activityIndicator.startAnimating()
+        activityIndicator.isHidden = isHidden
     }
 }
 
