@@ -21,6 +21,7 @@ class LoginViewController: UIViewController {
     @IBOutlet private var passwordTextField: UITextField!
     @IBOutlet private var checkBoxButton: CheckBoxButton!
     @IBOutlet private var loginButton: UIButton!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private var notificationCenter: NotificationCenterType!
     private var viewModel: LoginViewModelType!
@@ -85,6 +86,7 @@ extension LoginViewController: LoginViewModelOutput {
         checkBoxButton.isActive = checkBoxIsActive        
         loginTextField.delegate = self
         passwordTextField.delegate = self
+        setActivityIndicator(isHidden: true)
     }
     
     func updateLoginFields(email: String, password: String) {
@@ -118,6 +120,11 @@ extension LoginViewController: LoginViewModelOutput {
     
     func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    func setActivityIndicator(isHidden: Bool) {
+        isHidden ? activityIndicator.stopAnimating() : activityIndicator.startAnimating()
+        activityIndicator.isHidden = isHidden
     }
 }
 

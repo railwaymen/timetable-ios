@@ -16,6 +16,7 @@ protocol LoginViewModelOutput: class {
     func focusOnPasswordTextField()
     func checkBoxIsActiveState(_ isActive: Bool)
     func dismissKeyboard()
+    func setActivityIndicator(isHidden: Bool)
 }
 
 protocol LoginViewModelType: class {
@@ -38,10 +39,13 @@ class LoginViewModel: LoginViewModelType {
     private let accessService: AccessServiceLoginCredentialsType
     private let errorHandler: ErrorHandlerType
     private var loginCredentials: LoginCredentials
-    private var shouldRememberLoginCredentilas: Bool = false
+    private var shouldRememberLoginCredentials: Bool = false
 
-    init(userInterface: LoginViewModelOutput, coordinator: LoginCoordinatorDelegate, accessService: AccessServiceLoginCredentialsType,
-         contentProvider: LoginContentProviderType, errorHandler: ErrorHandlerType) {
+    init(userInterface: LoginViewModelOutput,
+         coordinator: LoginCoordinatorDelegate,
+         accessService: AccessServiceLoginCredentialsType,
+         contentProvider: LoginContentProviderType,
+         errorHandler: ErrorHandlerType) {
         self.userInterface = userInterface
         self.coordinator = coordinator
         self.accessService = accessService
@@ -56,7 +60,7 @@ class LoginViewModel: LoginViewModelType {
     
     // MARK: - LoginViewModelOutput
     func viewDidLoad() {
-        userInterface?.setUpView(checkBoxIsActive: shouldRememberLoginCredentilas)
+        userInterface?.setUpView(checkBoxIsActive: shouldRememberLoginCredentials)
         self.userInterface?.updateLoginFields(email: loginCredentials.email, password: loginCredentials.password)
     }
     
@@ -87,7 +91,7 @@ class LoginViewModel: LoginViewModelType {
     }
     
     func shouldRemeberUserBoxStatusDidChange(isActive: Bool) {
-        shouldRememberLoginCredentilas = !isActive
+        shouldRememberLoginCredentials = !isActive
         userInterface?.checkBoxIsActiveState(!isActive)
     }
     
@@ -105,24 +109,27 @@ class LoginViewModel: LoginViewModelType {
             errorHandler.throwing(error: UIError.cannotBeEmpty(.passwordTextField))
             return
         }
-        
-        contentProvider.login(with: loginCredentials, fetchCompletion: { [weak self] result in
-            switch result {
-            case .success(let session):
-                self?.coordinator.loginDidFinish(with: .loggedInCorrectly(session))
-            case .failure(let error):
-                self?.errorHandler.throwing(error: error)
-            }
-            }, saveCompletion: { [weak self, credentials = self.loginCredentials, shouldSave = self.shouldRememberLoginCredentilas] result in
-                if shouldSave {
-                    switch result {
-                    case .success:
-                        self?.save(credentials: credentials)
-                    case .failure(let error):
-                        self?.errorHandler.throwing(error: AppError.cannotRemeberUserCredentials(error: error))
-                    }
+        userInterface?.setActivityIndicator(isHidden: false)
+        contentProvider.login(
+            with: loginCredentials,
+            fetchCompletion: { [weak self] result in
+                switch result {
+                case .success(let session):
+                    self?.coordinator.loginDidFinish(with: .loggedInCorrectly(session))
+                case .failure(let error):
+                    self?.errorHandler.throwing(error: error)
                 }
-        })
+            },
+            saveCompletion: { [weak self, credentials = self.loginCredentials, shouldSave = self.shouldRememberLoginCredentials] result in
+                self?.userInterface?.setActivityIndicator(isHidden: true)
+                guard shouldSave else { return }
+                switch result {
+                case .success:
+                    self?.save(credentials: credentials)
+                case .failure(let error):
+                    self?.errorHandler.throwing(error: AppError.cannotRemeberUserCredentials(error: error))
+                }
+            })
     }
     
     func viewRequestedToChangeServerAddress() {

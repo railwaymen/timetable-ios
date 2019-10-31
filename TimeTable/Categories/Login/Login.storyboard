@@ -39,7 +39,7 @@
                                                 <rect key="frame" x="20" y="8" width="374" height="1302"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RbS-IW-I5Q">
-                                                        <rect key="frame" x="0.0" y="0.0" width="270" height="1029"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="33.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
@@ -55,7 +55,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z1B-zV-UZJ" customClass="AttributedTextField" customModule="TimeTable" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="1104" width="270" height="30"/>
+                                                        <rect key="frame" x="0.0" y="101.5" width="374" height="30"/>
                                                         <color key="tintColor" name="Crimson"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="W4a-KH-9gl"/>
@@ -74,14 +74,14 @@
                                                         </connections>
                                                     </textField>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Pp-Kd-Zld" userLabel="E-mail Seperator View">
-                                                        <rect key="frame" x="0.0" y="1142" width="270" height="1"/>
+                                                        <rect key="frame" x="0.0" y="139.5" width="374" height="1"/>
                                                         <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="53e-h8-O6f"/>
                                                         </constraints>
                                                     </view>
                                                     <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="justified" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zsz-ds-g8F" customClass="AttributedTextField" customModule="TimeTable" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="1158" width="270" height="30"/>
+                                                        <rect key="frame" x="0.0" y="170.5" width="374" height="30"/>
                                                         <color key="tintColor" name="Crimson"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="RuR-st-rhm"/>
@@ -100,14 +100,14 @@
                                                         </connections>
                                                     </textField>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4z0-Hb-gpt" userLabel="Password Seperator View">
-                                                        <rect key="frame" x="0.0" y="1196" width="270" height="1"/>
+                                                        <rect key="frame" x="0.0" y="208.5" width="374" height="1"/>
                                                         <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="eci-BX-PkV"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IgD-qW-NvB">
-                                                        <rect key="frame" x="0.0" y="1217" width="270" height="25"/>
+                                                        <rect key="frame" x="0.0" y="229.5" width="374" height="25"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Hy-Wy-5Er" customClass="CheckBoxButton" customModule="TimeTable" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
@@ -151,7 +151,7 @@
                                                         </constraints>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i9V-Qh-o4R" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="1262" width="270" height="40"/>
+                                                        <rect key="frame" x="0.0" y="274.5" width="374" height="40"/>
                                                         <color key="backgroundColor" name="Crimson"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="4Qg-ZN-nWs"/>
@@ -229,16 +229,21 @@
                                     <constraint firstAttribute="trailing" secondItem="37f-hv-3Dy" secondAttribute="trailing" priority="900" id="z6t-ko-9r4"/>
                                 </constraints>
                             </scrollView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="ZeQ-6g-scw">
+                                <rect key="frame" x="188.5" y="434.5" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="Mja-sZ-MsA" firstAttribute="top" secondItem="oPN-yH-xSv" secondAttribute="top" id="36q-3L-mEb"/>
                             <constraint firstAttribute="bottom" secondItem="Mja-sZ-MsA" secondAttribute="bottom" id="5S3-BX-bh3"/>
+                            <constraint firstItem="ZeQ-6g-scw" firstAttribute="centerX" secondItem="ajj-cK-AHp" secondAttribute="centerX" id="R4g-Xn-oDq"/>
                             <constraint firstItem="Mja-sZ-MsA" firstAttribute="leading" secondItem="ajj-cK-AHp" secondAttribute="leading" id="S9V-Hi-WGp"/>
                             <constraint firstItem="8ok-jl-LPk" firstAttribute="top" secondItem="oPN-yH-xSv" secondAttribute="top" id="USH-Pc-NJA"/>
                             <constraint firstItem="37f-hv-3Dy" firstAttribute="height" relation="greaterThanOrEqual" secondItem="ajj-cK-AHp" secondAttribute="height" priority="900" id="grN-9R-F8u"/>
                             <constraint firstItem="ajj-cK-AHp" firstAttribute="trailing" secondItem="Mja-sZ-MsA" secondAttribute="trailing" id="mZZ-Ui-cms"/>
                             <constraint firstItem="8ok-jl-LPk" firstAttribute="leading" secondItem="ajj-cK-AHp" secondAttribute="leading" constant="-15" id="q9O-Ee-oIX"/>
+                            <constraint firstItem="ZeQ-6g-scw" firstAttribute="centerY" secondItem="ajj-cK-AHp" secondAttribute="centerY" id="v3B-IY-HLw"/>
                             <constraint firstItem="37f-hv-3Dy" firstAttribute="width" secondItem="ajj-cK-AHp" secondAttribute="width" id="xpX-rU-vKe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ajj-cK-AHp"/>
@@ -247,6 +252,7 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="ZeQ-6g-scw" id="0gZ-8R-bVQ"/>
                         <outlet property="checkBoxButton" destination="7Hy-Wy-5Er" id="uwI-HS-1U7"/>
                         <outlet property="loginButton" destination="i9V-Qh-o4R" id="syc-04-fjs"/>
                         <outlet property="loginTextField" destination="Z1B-zV-UZJ" id="YHF-sk-owN"/>
