@@ -17,6 +17,8 @@ protocol ProjectsViewControllerType: class {
 class ProjectsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     @IBOutlet private var collectionView: UICollectionView!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    
     private var viewModel: ProjectsViewModelType!
 
     private let cellIdentifier = "ProjectCollectionViewCellReuseIdentifier"
@@ -57,10 +59,16 @@ extension ProjectsViewController: ProjectsViewModelOutput {
             layout.delegate = self
         }
         self.title = "tabbar.title.projects".localized
+        setActivityIndicator(isHidden: true)
     }
     
     func updateView() {
         collectionView.reloadData()
+    }
+    
+    func setActivityIndicator(isHidden: Bool) {
+        isHidden ? activityIndicator.stopAnimating() : activityIndicator.startAnimating()
+        activityIndicator.isHidden = isHidden
     }
 }
 

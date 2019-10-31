@@ -156,6 +156,9 @@
                                     <outlet property="delegate" destination="j0q-S1-vPj" id="wYE-qK-MXP"/>
                                 </connections>
                             </collectionView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="ZC9-aj-Rzu">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -166,11 +169,14 @@
                             <constraint firstItem="GT9-Vs-zfn" firstAttribute="trailing" secondItem="O0O-pG-awP" secondAttribute="trailing" id="Whc-ld-Rr9">
                                 <variation key="heightClass=regular-widthClass=regular" constant="-42"/>
                             </constraint>
+                            <constraint firstItem="ZC9-aj-Rzu" firstAttribute="centerX" secondItem="O0O-pG-awP" secondAttribute="centerX" id="Xrg-g1-rJQ"/>
                             <constraint firstItem="GT9-Vs-zfn" firstAttribute="top" secondItem="H09-Zu-PQ1" secondAttribute="top" id="gNB-K2-k9R"/>
+                            <constraint firstItem="ZC9-aj-Rzu" firstAttribute="centerY" secondItem="O0O-pG-awP" secondAttribute="centerY" id="u5E-pa-WEi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O0O-pG-awP"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="ZC9-aj-Rzu" id="1wj-QK-GUV"/>
                         <outlet property="collectionView" destination="GT9-Vs-zfn" id="YwW-xI-gLX"/>
                     </connections>
                 </viewController>
