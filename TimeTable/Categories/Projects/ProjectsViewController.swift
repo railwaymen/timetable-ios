@@ -17,7 +17,7 @@ protocol ProjectsViewControllerType: class {
 class ProjectsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     @IBOutlet private var collectionView: UICollectionView!
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private var viewModel: ProjectsViewModelType!
 
