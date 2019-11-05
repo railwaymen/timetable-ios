@@ -16,6 +16,7 @@
 		8A10F83B2350C7AF0004F389 /* WorkTimeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F83A2350C7AF0004F389 /* WorkTimeCoordinator.swift */; };
 		8A10F83D2350D9810004F389 /* DismissableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F83C2350D9810004F389 /* DismissableNavigationController.swift */; };
 		8A10F841235454DA0004F389 /* UIBarButtonItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */; };
+		8A55BA772372D02D004FFA97 /* UIApplicationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */; };
 		8A5D48BE2369E18C0082C13D /* DispatchGroupFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */; };
 		8A5D48C02369E1A30082C13D /* DispatchGroup+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48BF2369E1A20082C13D /* DispatchGroup+Extension.swift */; };
 		8A5D48C22369E1E20082C13D /* DispatchGroupMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48C12369E1E20082C13D /* DispatchGroupMock.swift */; };
@@ -23,6 +24,7 @@
 		8A5D48C62369ED990082C13D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48C52369ED990082C13D /* UIImage+Extension.swift */; };
 		8AA5C5DD235F34340083E121 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA5C5DC235F34340083E121 /* Colors.xcassets */; };
 		8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */; };
+		8AC097242371CCFF00103FAD /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */; };
 		8AF3073823688C5A00832FDD /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3073723688C5A00832FDD /* DependencyContainer.swift */; };
 		BFB4EF72FAE3D8CD21A09744 /* Pods_TimeTableTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FE8C20AC7A1A64A549519E /* Pods_TimeTableTests.framework */; };
 		C101603222003A9500DCE817 /* WorkTimesListContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */; };
@@ -324,6 +326,7 @@
 		8A10F83A2350C7AF0004F389 /* WorkTimeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCoordinator.swift; sourceTree = "<group>"; };
 		8A10F83C2350D9810004F389 /* DismissableNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissableNavigationController.swift; sourceTree = "<group>"; };
 		8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extension.swift"; sourceTree = "<group>"; };
+		8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationMock.swift; sourceTree = "<group>"; };
 		8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupFactory.swift; sourceTree = "<group>"; };
 		8A5D48BF2369E1A20082C13D /* DispatchGroup+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchGroup+Extension.swift"; sourceTree = "<group>"; };
 		8A5D48C12369E1E20082C13D /* DispatchGroupMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupMock.swift; sourceTree = "<group>"; };
@@ -331,6 +334,7 @@
 		8A5D48C52369ED990082C13D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		8AA5C5DC235F34340083E121 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellViewModelTests.swift; sourceTree = "<group>"; };
+		8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
 		8AC097272371D28100103FAD /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		8AC097282371D28100103FAD /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		8AC097292371D28100103FAD /* Stage.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Stage.xcconfig; sourceTree = "<group>"; };
@@ -1043,6 +1047,8 @@
 				C134299021A6D3BF00F4EA42 /* CoreDataStackMock.swift */,
 				C134297E21A6C66900F4EA42 /* DataStackMock.swift */,
 				8A0707F9236998580019FB8E /* DependencyContainerMock.swift */,
+				8A5D48C32369E20E0082C13D /* DispatchGroupFactoryMock.swift */,
+				8A5D48C12369E1E20082C13D /* DispatchGroupMock.swift */,
 				8A09DCBB23673EED003FC2A6 /* DispatchQueueManagerMock.swift */,
 				C134298421A6C79600F4EA42 /* ErrorHandlerMock.swift */,
 				C134296C21A6BC8C00F4EA42 /* JSONDecoderMock.swift */,
@@ -1064,6 +1070,7 @@
 				C134298821A6C84F00F4EA42 /* ServerConfigurationViewControllerMock.swift */,
 				C134298621A6C80B00F4EA42 /* StoryboardsManagerMock.swift */,
 				C134296221A693F400F4EA42 /* TestError.swift */,
+				8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */,
 				C134298221A6C73000F4EA42 /* URLSessionDataTaskMock.swift */,
 				C134298021A6C71200F4EA42 /* UrlSessionMock.swift */,
 				C134297621A6BFEA00F4EA42 /* UserDefaultsMock.swift */,
@@ -1071,8 +1078,6 @@
 				C13C2B0521EDE589008C9088 /* WorkTimesListCoordinatorMock.swift */,
 				C1E1F04821AD3712007F9228 /* WorkTimesListViewControllerMock.swift */,
 				C178B78C21EF8AE1001DA07F /* WorkTimeViewControllerMock.swift */,
-				8A5D48C12369E1E20082C13D /* DispatchGroupMock.swift */,
-				8A5D48C32369E20E0082C13D /* DispatchGroupFactoryMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1135,6 +1140,7 @@
 				C1E1F04321AD2952007F9228 /* NSObject+Extension.swift */,
 				C1EF3A04219303A7000E3511 /* NSRegularExpression+Extension.swift */,
 				C153AC4B2182EF40007A35BB /* String+Extension.swift */,
+				8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */,
 				8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */,
 				C153AC502182EFEC007A35BB /* UIButton+Extension.swift */,
 				C12CA56921A57ADD0082FEB7 /* UIColor+Extension.swift */,
@@ -2042,6 +2048,7 @@
 				C1249C772181AAE4005DB2A5 /* StoryboardsManager.swift in Sources */,
 				C125C4D52186F76500FBA0DD /* CoordinatorErrorPresenterType.swift in Sources */,
 				C1F187B021E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift in Sources */,
+				8AC097242371CCFF00103FAD /* UIApplication+Extension.swift in Sources */,
 				C1AACFDA21A440650023FD32 /* BaseTabBarControllerType.swift in Sources */,
 				8A10F83D2350D9810004F389 /* DismissableNavigationController.swift in Sources */,
 				C13C88E821E5F7B600F68C6E /* WorkTimeViewModel.swift in Sources */,
@@ -2130,6 +2137,7 @@
 				8A5D48C22369E1E20082C13D /* DispatchGroupMock.swift in Sources */,
 				C12BD9BB21E4B7B200A6EAF0 /* ApiClientProjectsTests.swift in Sources */,
 				C17EA3B82189E04400A3F0CD /* ServerConfigurationManagerTests.swift in Sources */,
+				8A55BA772372D02D004FFA97 /* UIApplicationMock.swift in Sources */,
 				C11F51F521A5AC5800FD626A /* DateFormatterExtensionTests.swift in Sources */,
 				C1E1F04D21AD3EB8007F9228 /* CalendarMock.swift in Sources */,
 				C1FA05E921945DA400BD8C9D /* XCTests+Extension.swift in Sources */,

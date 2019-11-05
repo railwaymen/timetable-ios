@@ -9,6 +9,7 @@
 import UIKit
 
 protocol DependencyContainerType {
+    var application: UIApplicationType? { get }
     var window: UIWindow? { get set }
     var messagePresenter: MessagePresenterType? { get }
     var storyboardsManager: StoryboardsManagerType { get }
@@ -25,6 +26,7 @@ protocol DependencyContainerType {
 }
 
 struct DependencyContainer: DependencyContainerType {
+    weak var application: UIApplicationType?
     weak var window: UIWindow?
     weak var messagePresenter: MessagePresenterType?
     let storyboardsManager: StoryboardsManagerType
@@ -40,7 +42,8 @@ struct DependencyContainer: DependencyContainerType {
     let dispatchGroupFactory: DispatchGroupFactoryType
     
     // MARK: Initialization
-    init(window: UIWindow?,
+    init(application: UIApplicationType?,
+         window: UIWindow?,
          messagePresenter: MessagePresenterType?,
          storyboardsManager: StoryboardsManagerType,
          errorHandler: ErrorHandlerType,
@@ -50,6 +53,7 @@ struct DependencyContainer: DependencyContainerType {
          encoder: JSONEncoderType,
          decoder: JSONDecoderType,
          notificationCenter: NotificationCenterType) {
+        self.application = application
         self.window = window
         self.messagePresenter = messagePresenter
         self.storyboardsManager = storyboardsManager

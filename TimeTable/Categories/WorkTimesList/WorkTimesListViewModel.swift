@@ -112,7 +112,7 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
     
     func viewRequestForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType? {
         guard let workTime = workTime(for: index) else { return nil }
-        return WorkTimeCellViewModel(workTime: workTime, userInterface: cell)
+        return WorkTimeCellViewModel(workTime: workTime, userInterface: cell, parent: self)
     }
     
     func viewRequestForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType? {
@@ -279,5 +279,13 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
         guard let month = components.month, let year = components.year else { return "" }
         guard let monthSymbol = DateFormatter().shortMonthSymbols?[month - 1] else { return "" }
         return "\(monthSymbol) \(year)"
+    }
+}
+
+// MARK: - WorkTimeCellViewModelParentType
+extension WorkTimesListViewModel: WorkTimeCellViewModelParentType {
+    func openTask(for workTime: WorkTimeDecoder) {
+        guard let task = workTime.task, let url = URL(string: task) else { return }
+        coordinator?.workTimesRequestedForSafari(url: url)
     }
 }

@@ -33,4 +33,9 @@ class WorkTimesListCoordinatorMock: WorkTimesListCoordinatorDelegate {
     func workTimesRequestedForDuplicateWorkTimeView(sourceView: UIView, duplicatedTask: Task, lastTask: Task?, finishHandler: @escaping (Bool) -> Void) {
         self.workTimesRequestedForDuplicateWorkTimeViewData = (sourceView, duplicatedTask, lastTask, finishHandler)
     }
+    
+    private(set) var workTimesRequestedForSafariURL: URL?
+    func workTimesRequestedForSafari(url: URL) {
+        workTimesRequestedForSafariURL = url
+    }
 }

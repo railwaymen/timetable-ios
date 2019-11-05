@@ -17,6 +17,7 @@ protocol WorkTimesListCoordinatorDelegate: class {
                                                     duplicatedTask: Task,
                                                     lastTask: Task?,
                                                     finishHandler: @escaping (_ isTaskChanged: Bool) -> Void)
+    func workTimesRequestedForSafari(url: URL)
 }
 
 class WorkTimesListCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
@@ -81,6 +82,10 @@ class WorkTimesListCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinator
             finishHandler(isTaskChanged)
         }
     }
+    
+    private func runWebViewFlow(url: URL) {
+        UIApplication.shared.open(url)
+    }
 }
 
 // MARK: - WorkTimesListCoordinatorDelegate
@@ -98,5 +103,9 @@ extension WorkTimesListCoordinator: WorkTimesListCoordinatorDelegate {
                                                     lastTask: Task?,
                                                     finishHandler: @escaping (_ isTaskChanged: Bool) -> Void) {
         self.runWorkTimeFlow(sourceView: sourceView, lastTask: lastTask, editedTask: nil, duplicatedTask: duplicatedTask, finishHandler: finishHandler)
+    }
+
+    func workTimesRequestedForSafari(url: URL) {
+        dependencyContainer.application?.open(url)
     }
 }
