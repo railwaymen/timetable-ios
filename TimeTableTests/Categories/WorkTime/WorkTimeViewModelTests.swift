@@ -34,7 +34,6 @@ class WorkTimeViewModelTests: XCTestCase {
     }
     
     func testViewDidLoadSetUpUserInterfaceWithCurrentSelectedProject() throws {
-        //Arrange
         //Act
         viewModel.viewDidLoad()
         //Assert
@@ -107,6 +106,34 @@ class WorkTimeViewModelTests: XCTestCase {
         XCTAssertNotNil(userInterface.setUpCurrentProjectName?.urlString)
         XCTAssertEqual(userInterface.setUpCurrentProjectName?.urlString, task.url?.absoluteString)
         XCTAssertEqual(try (userInterface.setUpCurrentProjectName?.allowsTask).unwrap(), task.allowsTask)
+    }
+    
+    func testViewDidLoadFetchSimpleListShowsActivityIndicatorBeforeFetch() throws {
+        //Act
+        viewModel.viewDidLoad()
+        //Assert
+        XCTAssertFalse(try userInterface.setActivityIndicatorIsHidden.unwrap())
+    }
+    
+    func testViewDidLoadFetchSimpleListHidesActivityIndicatorAfterSuccessfulFetch() throws {
+        //Arrange
+        let data = try self.json(from: ProjectsRecordsResponse.simpleProjectArrayResponse)
+        let projectDecoders = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
+        //Act
+        viewModel.viewDidLoad()
+        apiClient.fetchSimpleListOfProjectsCompletion?(.success(projectDecoders))
+        //Assert
+        XCTAssertTrue(try userInterface.setActivityIndicatorIsHidden.unwrap())
+    }
+    
+    func testViewDidLoadFetchSimpleListHidesActivityIndicatorAfterFailedFetch() throws {
+        //Arrange
+        let error = ApiClientError(type: .invalidParameters)
+        //Act
+        viewModel.viewDidLoad()
+        apiClient.fetchSimpleListOfProjectsCompletion?(.failure(error))
+        //Assert
+        XCTAssertTrue(try userInterface.setActivityIndicatorIsHidden.unwrap())
     }
     
     func testViewDidLoadFetchSimpleListCallsErrorHandlerOnFetchFailure() throws {

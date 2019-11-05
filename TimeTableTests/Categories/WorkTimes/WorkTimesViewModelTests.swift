@@ -11,7 +11,7 @@ import XCTest
 
 // swiftlint:disable file_length
 // swiftlint:disable type_body_length
-class WorkTimesViewModelTests: XCTestCase {
+class WorkTimesListViewModelTests: XCTestCase {
     private var userInterfaceMock: WorkTimesListViewControllerMock!
     private var coordinatorMock: WorkTimesListCoordinatorMock!
     private var contentProvider: WorkTimesListContentProviderMock!
@@ -93,6 +93,38 @@ class WorkTimesViewModelTests: XCTestCase {
         viewModel.viewDidLoad()
         //Assert
         XCTAssertTrue(userInterfaceMock.setUpViewCalled)
+    }
+    
+    func testViewWillAppearFetchWorkTimesShowsActivityIndicatorBeforeFetch() throws {
+        //Arrange
+        let viewModel = buildViewModel()
+        //Act
+        viewModel.viewWillAppear()
+        //Assert
+        XCTAssertFalse(try userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
+    }
+    
+    func testViewWillAppearFetchWorkTimesHidesActivityIndicatorAfterSuccessfulFetch() throws {
+        //Arrange
+        let matchingFullTime = try buildMatchingFullTimeDecoder()
+        let dailyWorkTime = try buildDailyWorkTime()
+        let viewModel = buildViewModel()
+        //Act
+        viewModel.viewWillAppear()
+        contentProvider.fetchWorkTimesDataCompletion?(.success(([dailyWorkTime], matchingFullTime)))
+        //Assert
+        XCTAssertTrue(try userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
+    }
+    
+    func testViewWillAppearFetchWorkTimesHidesActivityIndicatorAfterFailedFetch() throws {
+        //Arrange
+        let error = TestError(message: "Error")
+        let viewModel = buildViewModel()
+        //Act
+        viewModel.viewWillAppear()
+        contentProvider.fetchWorkTimesDataCompletion?(.failure(error))
+        //Assert
+        XCTAssertTrue(try userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
     }
 
     func testViewWillAppearRunsFetchWorkTimesCallUpdateViewOnUserInterface() throws {

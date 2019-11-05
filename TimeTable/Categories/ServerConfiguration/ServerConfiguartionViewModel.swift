@@ -12,7 +12,7 @@ protocol ServerConfigurationViewModelOutput: class {
     func setupView(checkBoxIsActive: Bool, serverAddress: String)
     func continueButtonEnabledState(_ isEnabled: Bool)
     func checkBoxIsActiveState(_ isActive: Bool)
-    func dissmissKeyboard()
+    func dismissKeyboard()
     func setActivityIndicator(isHidden: Bool)
 }
 
@@ -81,7 +81,7 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
     }
     
     func serverAddressTextFieldDidRequestForReturn() -> Bool {
-        userInterface?.dissmissKeyboard()
+        userInterface?.dismissKeyboard()
         return true
     }
     
@@ -91,6 +91,6 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
     }
     
     func viewHasBeenTapped() {
-        userInterface?.dissmissKeyboard()
+        userInterface?.dismissKeyboard()
     }
 }

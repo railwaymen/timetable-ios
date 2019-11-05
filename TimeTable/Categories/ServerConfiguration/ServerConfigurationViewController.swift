@@ -123,7 +123,7 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
         })
     }
 
-    func dissmissKeyboard() {
+    func dismissKeyboard() {
         view.endEditing(true)
     }
     
