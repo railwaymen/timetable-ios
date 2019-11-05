@@ -11,7 +11,7 @@ import UIKit
 typealias WorkTimeApiClientType = ApiClientWorkTimesType & ApiClientProjectsType
 
 protocol WorkTimeCoordinatorType: class {
-    func viewDidFinish()
+    func viewDidFinish(isTaskChanged: Bool)
 }
 
 class WorkTimeCoordinator: BaseNavigationCoordinator {
@@ -21,6 +21,8 @@ class WorkTimeCoordinator: BaseNavigationCoordinator {
     private let lastTask: Task?
     private let editedTask: Task?
     private let duplicatedTask: Task?
+    
+    private var customFinishHandler: ((_ isTaskChanged: Bool) -> Void)?
     
     // MARK: - Initialization
     init(dependencyContainer: DependencyContainerType,
@@ -40,7 +42,24 @@ class WorkTimeCoordinator: BaseNavigationCoordinator {
     // MARK: - Overridden
     override func start(finishCompletion: (() -> Void)?) {
         super.start(finishCompletion: finishCompletion)
-        self.runMainFlow()
+        runMainFlow()
+    }
+    
+    override func finish() {
+        customFinishHandler?(false)
+        super.finish()
+    }
+    
+    // MARK: - Internal
+    func start(finishHandler: @escaping (_ isTaskChanged: Bool) -> Void) {
+        super.start(finishCompletion: nil)
+        customFinishHandler = finishHandler
+        runMainFlow()
+    }
+    
+    func finish(isTaskChanged: Bool) {
+        customFinishHandler?(isTaskChanged)
+        super.finish()
     }
     
     // MARK: - Private
@@ -81,7 +100,7 @@ class WorkTimeCoordinator: BaseNavigationCoordinator {
 
 // MARK: - WorkTimeCoordinatorType
 extension WorkTimeCoordinator: WorkTimeCoordinatorType {
-    func viewDidFinish() {
-        finish()
+    func viewDidFinish(isTaskChanged: Bool) {
+        finish(isTaskChanged: isTaskChanged)
     }
 }

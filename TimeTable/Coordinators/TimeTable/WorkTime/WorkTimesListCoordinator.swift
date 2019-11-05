@@ -11,9 +11,12 @@ import UIKit
 typealias WorkTimesListApiClient = (ApiClientProjectsType & ApiClientWorkTimesType & ApiClientUsersType & ApiClientMatchingFullTimeType)
 
 protocol WorkTimesListCoordinatorDelegate: class {
-    func workTimesRequestedForNewWorkTimeView(sourceView: UIView, lastTask: Task?)
-    func workTimesRequestedForEditWorkTimeView(sourceView: UIView, editedTask: Task)
-    func workTimesRequestedForDuplicateWorkTimeView(sourceView: UIView, duplicatedTask: Task, lastTask: Task?)
+    func workTimesRequestedForNewWorkTimeView(sourceView: UIView, lastTask: Task?, finishHandler: @escaping (_ isTaskChanged: Bool) -> Void)
+    func workTimesRequestedForEditWorkTimeView(sourceView: UIView, editedTask: Task, finishHandler: @escaping (_ isTaskChanged: Bool) -> Void)
+    func workTimesRequestedForDuplicateWorkTimeView(sourceView: UIView,
+                                                    duplicatedTask: Task,
+                                                    lastTask: Task?,
+                                                    finishHandler: @escaping (_ isTaskChanged: Bool) -> Void)
 }
 
 class WorkTimesListCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
@@ -61,7 +64,11 @@ class WorkTimesListCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinator
         navigationController.setViewControllers([workTimesListViewController], animated: false)
     }
     
-    private func runWorkTimeFlow(sourceView: UIView, lastTask: Task?, editedTask: Task?, duplicatedTask: Task?) {
+    private func runWorkTimeFlow(sourceView: UIView,
+                                 lastTask: Task?,
+                                 editedTask: Task?,
+                                 duplicatedTask: Task?,
+                                 finishHandler: @escaping (_ isTaskChanged: Bool) -> Void) {
         let coordinator = WorkTimeCoordinator(dependencyContainer: dependencyContainer,
                                               parentViewController: navigationController.topViewController,
                                               sourceView: sourceView,
@@ -69,23 +76,27 @@ class WorkTimesListCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinator
                                               editedTask: editedTask,
                                               duplicatedTask: duplicatedTask)
         addChildCoordinator(child: coordinator)
-        coordinator.start { [weak self, weak coordinator] in
+        coordinator.start { [weak self, weak coordinator] isTaskChanged in
             self?.removeChildCoordinator(child: coordinator)
+            finishHandler(isTaskChanged)
         }
     }
 }
 
 // MARK: - WorkTimesListCoordinatorDelegate
 extension WorkTimesListCoordinator: WorkTimesListCoordinatorDelegate {
-    func workTimesRequestedForNewWorkTimeView(sourceView: UIView, lastTask: Task?) {
-        self.runWorkTimeFlow(sourceView: sourceView, lastTask: lastTask, editedTask: nil, duplicatedTask: nil)
+    func workTimesRequestedForNewWorkTimeView(sourceView: UIView, lastTask: Task?, finishHandler: @escaping (_ isTaskChanged: Bool) -> Void) {
+        self.runWorkTimeFlow(sourceView: sourceView, lastTask: lastTask, editedTask: nil, duplicatedTask: nil, finishHandler: finishHandler)
     }
     
-    func workTimesRequestedForEditWorkTimeView(sourceView: UIView, editedTask: Task) {
-        self.runWorkTimeFlow(sourceView: sourceView, lastTask: nil, editedTask: editedTask, duplicatedTask: nil)
+    func workTimesRequestedForEditWorkTimeView(sourceView: UIView, editedTask: Task, finishHandler: @escaping (_ isTaskChanged: Bool) -> Void) {
+        self.runWorkTimeFlow(sourceView: sourceView, lastTask: nil, editedTask: editedTask, duplicatedTask: nil, finishHandler: finishHandler)
     }
     
-    func workTimesRequestedForDuplicateWorkTimeView(sourceView: UIView, duplicatedTask: Task, lastTask: Task?) {
-        self.runWorkTimeFlow(sourceView: sourceView, lastTask: lastTask, editedTask: nil, duplicatedTask: duplicatedTask)
+    func workTimesRequestedForDuplicateWorkTimeView(sourceView: UIView,
+                                                    duplicatedTask: Task,
+                                                    lastTask: Task?,
+                                                    finishHandler: @escaping (_ isTaskChanged: Bool) -> Void) {
+        self.runWorkTimeFlow(sourceView: sourceView, lastTask: lastTask, editedTask: nil, duplicatedTask: duplicatedTask, finishHandler: finishHandler)
     }
 }

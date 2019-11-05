@@ -296,7 +296,7 @@ class WorkTimesViewModelTests: XCTestCase {
         //Act
         viewModel.viewRequestForNewWorkTimeView(sourceView: button)
         //Assert
-        XCTAssertEqual(coordinatorMock.requestedForNewWorkTimeViewSourceView, button)
+        XCTAssertEqual(coordinatorMock.workTimesRequestedForNewWorkTimeViewSourceView, button)
     }
     
     func testViewRequestedForEditEntry_withoutDailyWorkTimes() {

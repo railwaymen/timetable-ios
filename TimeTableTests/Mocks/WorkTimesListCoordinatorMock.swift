@@ -10,25 +10,27 @@ import XCTest
 @testable import TimeTable
 
 class WorkTimesListCoordinatorMock: WorkTimesListCoordinatorDelegate {
-    private(set) var requestedForNewWorkTimeViewCalled = false
-    private(set) var requestedForNewWorkTimeViewSourceView: UIView?
-    private(set) var requestedForNewWorkTimeViewLastTask: Task?
-    func workTimesRequestedForNewWorkTimeView(sourceView: UIView, lastTask: Task?) {
-        requestedForNewWorkTimeViewCalled = true
-        requestedForNewWorkTimeViewSourceView = sourceView
-        requestedForNewWorkTimeViewLastTask = lastTask
+    private(set) var workTimesRequestedForNewWorkTimeViewCalled = false
+    private(set) var workTimesRequestedForNewWorkTimeViewSourceView: UIView?
+    private(set) var workTimesRequestedForNewWorkTimeViewLastTask: Task?
+    private(set) var workTimesRequestedForNewWorkTimeViewFinishHandler: ((Bool) -> Void)?
+    func workTimesRequestedForNewWorkTimeView(sourceView: UIView, lastTask: Task?, finishHandler: @escaping (Bool) -> Void) {
+        workTimesRequestedForNewWorkTimeViewCalled = true
+        workTimesRequestedForNewWorkTimeViewSourceView = sourceView
+        workTimesRequestedForNewWorkTimeViewLastTask = lastTask
+        workTimesRequestedForNewWorkTimeViewFinishHandler = finishHandler
     }
     
-    // swiftlint:disable identifier_name
-    private(set) var workTimesRequestedForEditWorkTimeViewData: (sourceView: UIView, editedTask: Task)?
-    // swiftlint:enable identifier_name
-    func workTimesRequestedForEditWorkTimeView(sourceView: UIView, editedTask: Task) {
-        workTimesRequestedForEditWorkTimeViewData = (sourceView, editedTask)
+    // swiftlint:disable identifier_name large_tuple
+    private(set) var workTimesRequestedForEditWorkTimeViewData: (sourceView: UIView, editedTask: Task, finishHandler: (Bool) -> Void)?
+    // swiftlint:enable identifier_name large_tuple
+    func workTimesRequestedForEditWorkTimeView(sourceView: UIView, editedTask: Task, finishHandler: @escaping (Bool) -> Void) {
+        workTimesRequestedForEditWorkTimeViewData = (sourceView, editedTask, finishHandler)
     }
     // swiftlint:disable identifier_name large_tuple
-    private(set) var workTimesRequestedForDuplicateWorkTimeViewData: (sourceView: UIView, duplicatedTask: Task, lastTask: Task?)?
+    private(set) var workTimesRequestedForDuplicateWorkTimeViewData: (sourceView: UIView, duplicatedTask: Task, lastTask: Task?, finishHandler: (Bool) -> Void)?
     // swiftlint:enable identifier_name large_tuple
-    func workTimesRequestedForDuplicateWorkTimeView(sourceView: UIView, duplicatedTask: Task, lastTask: Task?) {
-        self.workTimesRequestedForDuplicateWorkTimeViewData = (sourceView, duplicatedTask, lastTask)
+    func workTimesRequestedForDuplicateWorkTimeView(sourceView: UIView, duplicatedTask: Task, lastTask: Task?, finishHandler: @escaping (Bool) -> Void) {
+        self.workTimesRequestedForDuplicateWorkTimeViewData = (sourceView, duplicatedTask, lastTask, finishHandler)
     }
 }
