@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -43,8 +44,8 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IfL-Pr-if0">
-                                                    <rect key="frame" x="94.5" y="0.0" width="95" height="50"/>
-                                                    <color key="backgroundColor" red="0.80000000000000004" green="0.078431372549019607" blue="0.16862745098039217" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <rect key="frame" x="126" y="0.0" width="126" height="50"/>
+                                                    <color key="backgroundColor" name="Crimson"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" priority="999" constant="140" id="AcU-aE-un4"/>
                                                         <constraint firstAttribute="height" constant="50" id="vxN-hN-ayA"/>
@@ -370,4 +371,9 @@
             <point key="canvasLocation" x="200.00000000000003" y="291.96428571428572"/>
         </scene>
     </scenes>
+    <resources>
+        <namedColor name="Crimson">
+            <color red="0.79607843137254897" green="0.078431372549019607" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>
