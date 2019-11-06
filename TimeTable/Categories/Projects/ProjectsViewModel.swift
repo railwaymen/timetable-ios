@@ -11,6 +11,7 @@ import Foundation
 protocol ProjectsViewModelOutput: class {
     func setUpView()
     func updateView()
+    func setActivityIndicator(isHidden: Bool)
 }
 
 protocol ProjectsViewModelType: class {
@@ -51,7 +52,9 @@ class ProjectsViewModel: ProjectsViewModelType {
     
     // MARK: - Private
     private func fetchProjects() {
+        userInterface?.setActivityIndicator(isHidden: false)
         apiClient.fetchAllProjects { [weak self] result in
+            self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .failure(let error):
                 self?.errorHandler.throwing(error: error)

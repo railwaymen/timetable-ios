@@ -20,6 +20,7 @@ class ServerConfigurationViewController: UIViewController {
     @IBOutlet private var continueButton: UIButton!
     @IBOutlet private var serverAddressTextField: UITextField!
     @IBOutlet private var checkBoxButton: CheckBoxButton!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private var viewModel: ServerConfigurationViewModelType?
     private var notificationCenter: NotificationCenterType?
@@ -68,6 +69,15 @@ class ServerConfigurationViewController: UIViewController {
         self.scrollView.contentInset.bottom = height
         self.scrollView.scrollIndicatorInsets.bottom = height
     }
+    
+    private func setUpActivityIndicator() {
+        if #available(iOS 13, *) {
+            activityIndicator.style = .large
+        } else {
+            activityIndicator.style = .gray
+        }
+        setActivityIndicator(isHidden: true)
+    }
 }
 
 // MARK: - UITextFieldDelegate
@@ -96,6 +106,7 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
         checkBoxButton.isActive = checkBoxIsActive
         serverAddressTextField.text = serverAddress
         continueButton.isEnabled = !serverAddress.isEmpty
+        setUpActivityIndicator()
     }
     
     func continueButtonEnabledState(_ isEnabled: Bool) {
@@ -112,7 +123,12 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
         })
     }
 
-    func dissmissKeyboard() {
+    func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    func setActivityIndicator(isHidden: Bool) {
+        isHidden ? activityIndicator.stopAnimating() : activityIndicator.startAnimating()
+        activityIndicator.isHidden = isHidden
     }
 }

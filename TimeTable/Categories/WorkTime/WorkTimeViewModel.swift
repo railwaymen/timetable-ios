@@ -19,6 +19,7 @@ protocol WorkTimeViewModelOutput: class {
     func updateStartAtDate(with date: Date, dateString: String)
     func updateEndAtDate(with date: Date, dateString: String)
     func selectProjectPicker(row: Int)
+    func setActivityIndicator(isHidden: Bool)
 }
 
 protocol WorkTimeViewModelType: class {
@@ -56,6 +57,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     private var tags: [ProjectTag]
     
     private lazy var addUpdateCompletionHandler: (Result<Void>) -> Void = { [weak self] result in
+        self?.userInterface?.setActivityIndicator(isHidden: true)
         switch result {
         case .success:
             self?.userInterface?.dismissView()
@@ -208,13 +210,14 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     func viewRequestedToSave() {
         do {
             try validateInputs()
+            userInterface?.setActivityIndicator(isHidden: false)
             if let workTimeIdentifier = task.workTimeIdentifier {
                 apiClient.updateWorkTime(identifier: workTimeIdentifier, parameters: task, completion: self.addUpdateCompletionHandler)
             } else {
                 apiClient.addWorkTime(parameters: task, completion: self.addUpdateCompletionHandler)
             }
         } catch {
-            self.errorHandler.throwing(error: error)
+            errorHandler.throwing(error: error)
         }
     }
     
@@ -288,7 +291,9 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     private func fetchProjectList() {
+        userInterface?.setActivityIndicator(isHidden: false)
         apiClient.fetchSimpleListOfProjects { [weak self] result in
+            self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .success(let simpleProjectDecoder):
                 self?.projects = simpleProjectDecoder.projects.filter { $0.isActive ?? false }

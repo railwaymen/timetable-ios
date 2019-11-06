@@ -16,5 +16,6 @@ class ServerConfigurationViewControllerMock: ServerConfigurationViewControllerab
     func hideNavigationBar() {}
     func continueButtonEnabledState(_ isEnabled: Bool) {}
     func checkBoxIsActiveState(_ isActive: Bool) {}
-    func dissmissKeyboard() {}
+    func dismissKeyboard() {}
+    func setActivityIndicator(isHidden: Bool) {}
 }

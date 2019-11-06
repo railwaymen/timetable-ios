@@ -20,6 +20,7 @@ class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet private var workedHoursLabel: UILabel!
     @IBOutlet private var shouldWorkHoursLabel: UILabel!
     @IBOutlet private var durationLabel: UILabel!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private let tableViewEstimatedRowHeight: CGFloat = 150
     private let heightForHeader: CGFloat = 50
@@ -123,6 +124,15 @@ class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITabl
         duplicateAction.image = .duplicate
         return duplicateAction
     }
+    
+    private func setUpActivityIndicator() {
+        if #available(iOS 13, *) {
+            activityIndicator.style = .large
+        } else {
+            activityIndicator.style = .gray
+        }
+        setActivityIndicator(isHidden: true)
+    }
 }
 
 // MARK: - WorkTimesListViewModelOutput
@@ -142,6 +152,7 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewRecordTapped))
         navigationItem.setRightBarButtonItems([addButton], animated: false)
         title = "tabbar.title.timesheet".localized
+        setUpActivityIndicator()
     }
     
     func updateView() {
@@ -156,6 +167,11 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
         workedHoursLabel.text = workedHours + " /"
         shouldWorkHoursLabel.text = shouldWorkHours + " /"
         durationLabel.text = duration
+    }
+    
+    func setActivityIndicator(isHidden: Bool) {
+        isHidden ? activityIndicator.stopAnimating() : activityIndicator.startAnimating()
+        activityIndicator.isHidden = isHidden
     }
 }
 

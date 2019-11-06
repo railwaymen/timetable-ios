@@ -48,7 +48,7 @@ class ProjectsViewModelTests: XCTestCase {
         XCTAssertEqual(numberOfItems, 2)
     }
     
-    func testItemAtIndexOnInitializationRetursNil() {
+    func testItemAtIndexOnInitializationReturnsNil() {
         //Arrange
         let indexPath = IndexPath(row: 0, section: 0)
         //Act
@@ -57,7 +57,7 @@ class ProjectsViewModelTests: XCTestCase {
         XCTAssertNil(project)
     }
     
-    func testItemAtIndexAfterViewDidLoadRetrunsProjectForFirstRow() throws {
+    func testItemAtIndexAfterViewDidLoadReturnsProjectForFirstRow() throws {
         //Arrange
         let color = UIColor(hexString: "00000c")
         let user = Project.User(name: "John Test")
@@ -78,7 +78,7 @@ class ProjectsViewModelTests: XCTestCase {
         XCTAssertEqual(project?.leader, leader)
     }
     
-    func testItemAtIndexAfterViewDidLoadRetrunsProjectForSecondRow() throws {
+    func testItemAtIndexAfterViewDidLoadReturnsProjectForSecondRow() throws {
         //Arrange
         let color = UIColor(hexString: "0c0c0c")
         let firstUser = Project.User(name: "User User")
@@ -102,11 +102,11 @@ class ProjectsViewModelTests: XCTestCase {
     }
     
     func testViewDidLoadSetUpsView() {
-        //Arrange
         //Act
         viewModel.viewDidLoad()
         //Assert
         XCTAssertTrue(userInterfaceMock.setUpViewCalled)
+        XCTAssertFalse(try userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
     }
     
     func testViewDidLoadFetchProjectsFailure() throws {
@@ -117,6 +117,7 @@ class ProjectsViewModelTests: XCTestCase {
         apiClientMock.fetchAllProjectsCompletion?(.failure(error))
         //Assert
         XCTAssertEqual(try (errorHandlerMock.throwedError as? TestError).unwrap(), error)
+        XCTAssertTrue(try userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
     }
     
 }

@@ -14,6 +14,7 @@ protocol WorkTimesListViewModelOutput: class {
     func updateView()
     func updateDateSelector(currentDateString: String, previousDateString: String, nextDateString: String)
     func updateMatchingFullTimeLabels(workedHours: String, shouldWorkHours: String, duration: String)
+    func setActivityIndicator(isHidden: Bool)
 }
 
 protocol WorkTimesListViewModelType: class {
@@ -193,7 +194,9 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     private func fetchWorkTimesData(forCurrentMonth date: Date?) {
+        userInterface?.setActivityIndicator(isHidden: false)
         contentProvider.fetchWorkTimesData(for: date) { [weak self] result in
+            self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .success(let dailyWorkTimes, let matchingFullTime):
                 self?.dailyWorkTimesArray = dailyWorkTimes

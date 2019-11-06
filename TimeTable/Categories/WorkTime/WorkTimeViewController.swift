@@ -23,6 +23,7 @@ class WorkTimeViewController: UIViewController {
     @IBOutlet private var bodyTextField: UITextField!
     @IBOutlet private var taskURLTextField: UITextField!
     @IBOutlet private var tagsCollectionView: UICollectionView!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private var projectPicker: UIPickerView!
     private var dayPicker: UIDatePicker!
@@ -98,6 +99,16 @@ class WorkTimeViewController: UIViewController {
     
     @objc private func keyboardWillHide(_ notification: NSNotification) {
         scrollView.contentInset.bottom = 0
+    }
+    
+    // MARK: - Private
+    private func setUpActivityIndicator() {
+        if #available(iOS 13, *) {
+            activityIndicator.style = .large
+        } else {
+            activityIndicator.style = .gray
+        }
+        setActivityIndicator(isHidden: true)
     }
 }
 
@@ -212,6 +223,8 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         
         tagsCollectionView.delegate = self
         tagsCollectionView.dataSource = self
+        
+        setUpActivityIndicator()
     }
     
     func dismissView() {
@@ -243,6 +256,11 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     
     func selectProjectPicker(row: Int) {
         projectPicker.selectRow(row, inComponent: 0, animated: false)
+    }
+    
+    func setActivityIndicator(isHidden: Bool) {
+        isHidden ? activityIndicator.stopAnimating() : activityIndicator.startAnimating()
+        activityIndicator.isHidden = isHidden
     }
 }
 

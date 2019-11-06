@@ -11,6 +11,7 @@ import Foundation
 protocol ProfileViewModelOutput: class {
     func setUp()
     func update(firstName: String, lastName: String, email: String)
+    func setActivityIndicator(isHidden: Bool)
 }
 
 protocol ProfileViewModelType: class {
@@ -45,7 +46,9 @@ class ProfileViewModel: ProfileViewModelType {
     func viewDidLoad() {
         userInterface?.setUp()
         guard let userIdentifier = accessService.getLastLoggedInUserIdentifier() else { return }
+        userInterface?.setActivityIndicator(isHidden: false)
         apiClient.fetchUserProfile(forIdetifier: userIdentifier) { [weak self] result in
+            self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .success(let decoder):
                 self?.userInterface?.update(firstName: decoder.firstName, lastName: decoder.lastName, email: decoder.email)
@@ -57,7 +60,9 @@ class ProfileViewModel: ProfileViewModelType {
     
     func viewRequestedForLogout() {
         guard let userIdentifier = accessService.getLastLoggedInUserIdentifier() else { return }
+        userInterface?.setActivityIndicator(isHidden: false)
         coreDataStack.deleteUser(forIdentifier: userIdentifier) { [weak self] result in
+            self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .success:
                 self?.coordinator?.userProfileDidLogoutUser()

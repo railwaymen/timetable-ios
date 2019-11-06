@@ -18,6 +18,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet private var firstNameLabel: UILabel!
     @IBOutlet private var lastNameLabel: UILabel!
     @IBOutlet private var emailLabel: UILabel!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private var viewModel: ProfileViewModelType!
     
@@ -31,6 +32,16 @@ class ProfileViewController: UIViewController {
     @IBAction private func logoutButtonTapped(_ sender: UIButton) {
         viewModel.viewRequestedForLogout()
     }
+    
+    // MARK: - Private
+    private func setUpActivityIndicator() {
+        if #available(iOS 13, *) {
+            activityIndicator.style = .large
+        } else {
+            activityIndicator.style = .gray
+        }
+        setActivityIndicator(isHidden: true)
+    }
 }
 
 // MARK: - ProfileViewModelOutput
@@ -39,12 +50,18 @@ extension ProfileViewController: ProfileViewModelOutput {
         firstNameLabel.text = ""
         lastNameLabel.text = ""
         emailLabel.text = ""
+        setUpActivityIndicator()
     }
     
     func update(firstName: String, lastName: String, email: String) {
         firstNameLabel.text = firstName
         lastNameLabel.text = lastName
         emailLabel.text = email
+    }
+    
+    func setActivityIndicator(isHidden: Bool) {
+        isHidden ? activityIndicator.stopAnimating() : activityIndicator.startAnimating()
+        activityIndicator.isHidden = isHidden
     }
 }
 

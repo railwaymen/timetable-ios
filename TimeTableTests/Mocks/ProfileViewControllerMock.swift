@@ -24,6 +24,11 @@ class ProfileViewControllerMock: UIViewController, ProfileViewModelOutput, Profi
     }
     // swiftlint:enable large_tuple
     
+    private(set) var setActivityIndicatorIsHidden: Bool?
+    func setActivityIndicator(isHidden: Bool) {
+        setActivityIndicatorIsHidden = isHidden
+    }
+    
     // MARK: - ProfileViewControllerType
     private(set) var configureCalled = false
     func configure(viewModel: ProfileViewModelType) {

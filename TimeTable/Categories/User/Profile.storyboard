@@ -196,10 +196,15 @@
                                     </mask>
                                 </variation>
                             </scrollView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="u6f-df-1cI">
+                                <rect key="frame" x="374" y="502" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="Kes-74-LQ1" firstAttribute="trailing" secondItem="5KN-if-fJf" secondAttribute="trailing" id="0DF-RX-oUT"/>
+                            <constraint firstItem="u6f-df-1cI" firstAttribute="centerY" secondItem="Kes-74-LQ1" secondAttribute="centerY" id="0om-aq-VPh"/>
+                            <constraint firstItem="u6f-df-1cI" firstAttribute="centerX" secondItem="Kes-74-LQ1" secondAttribute="centerX" id="F0g-Gj-tZH"/>
                             <constraint firstItem="FFc-Hn-b9L" firstAttribute="top" secondItem="Kes-74-LQ1" secondAttribute="top" id="RWu-xy-dUh"/>
                             <constraint firstAttribute="trailing" secondItem="FFc-Hn-b9L" secondAttribute="trailing" id="bQg-L4-oyI"/>
                             <constraint firstItem="Kes-74-LQ1" firstAttribute="bottom" secondItem="FFc-Hn-b9L" secondAttribute="bottom" id="cjP-Lq-gHH"/>
@@ -209,6 +214,7 @@
                         <viewLayoutGuide key="safeArea" id="Kes-74-LQ1"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="u6f-df-1cI" id="sAH-r3-xMA"/>
                         <outlet property="emailLabel" destination="6VM-9V-GEz" id="jFO-FA-U5v"/>
                         <outlet property="firstNameLabel" destination="g4j-Pv-CAz" id="WwP-zQ-gP2"/>
                         <outlet property="lastNameLabel" destination="Zg4-CY-yfy" id="NpD-6F-pn4"/>

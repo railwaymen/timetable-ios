@@ -23,6 +23,7 @@ class WorkTimeViewControllerMock: WorkTimeViewControllerable {
     private(set) var updateStartAtDateValues: (date: Date?, dateString: String?) = (nil, nil)
     private(set) var updateEndAtDateValues: (date: Date?, dateString: String?) = (nil, nil)
     private(set) var selectProjectPickerRow: Int?
+    private(set) var setActivityIndicatorIsHidden: Bool?
 
     func configure(viewModel: WorkTimeViewModelType, notificationCenter: NotificationCenterType?) {
         configureViewModelData = (true, viewModel, notificationCenter)
@@ -66,5 +67,9 @@ class WorkTimeViewControllerMock: WorkTimeViewControllerable {
     
     func selectProjectPicker(row: Int) {
         selectProjectPickerRow = row
+    }
+    
+    func setActivityIndicator(isHidden: Bool) {
+        setActivityIndicatorIsHidden = isHidden
     }
 }

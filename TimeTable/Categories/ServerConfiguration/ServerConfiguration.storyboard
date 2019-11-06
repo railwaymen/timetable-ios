@@ -37,10 +37,10 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="aDX-gO-HPG">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HXu-JY-Jb6" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HXu-JY-Jb6" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
                                         <rect key="frame" x="20" y="298" width="374" height="300"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="E0m-g8-MIU">
+                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="E0m-g8-MIU">
                                                 <rect key="frame" x="20" y="20" width="334" height="260"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="5hi-80-sB3">
@@ -227,13 +227,18 @@
                                     <constraint firstItem="HXu-JY-Jb6" firstAttribute="leading" secondItem="aDX-gO-HPG" secondAttribute="leading" constant="20" id="gCz-Sr-vnP"/>
                                 </constraints>
                             </scrollView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="vyY-Nf-RVa">
+                                <rect key="frame" x="197" y="443" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="vyY-Nf-RVa" firstAttribute="centerX" secondItem="sc3-FQ-clT" secondAttribute="centerX" id="0E6-0K-RAz"/>
                             <constraint firstItem="aDX-gO-HPG" firstAttribute="top" secondItem="jj8-cY-Ged" secondAttribute="top" id="AOq-xt-Yyy"/>
                             <constraint firstAttribute="bottom" secondItem="aDX-gO-HPG" secondAttribute="bottom" id="Dty-jX-Ycn"/>
                             <constraint firstItem="HXu-JY-Jb6" firstAttribute="height" relation="greaterThanOrEqual" secondItem="sc3-FQ-clT" secondAttribute="height" priority="900" id="kwD-Ks-VV0"/>
                             <constraint firstItem="sc3-FQ-clT" firstAttribute="trailing" secondItem="aDX-gO-HPG" secondAttribute="trailing" id="o3D-Rx-Kpc"/>
+                            <constraint firstItem="vyY-Nf-RVa" firstAttribute="centerY" secondItem="sc3-FQ-clT" secondAttribute="centerY" id="oOv-dh-fxF"/>
                             <constraint firstItem="wJi-Ss-qx2" firstAttribute="leading" secondItem="sc3-FQ-clT" secondAttribute="leading" constant="-15" id="qdc-2i-2ux"/>
                             <constraint firstItem="wJi-Ss-qx2" firstAttribute="top" secondItem="jj8-cY-Ged" secondAttribute="top" id="uIK-dX-9YL"/>
                             <constraint firstItem="aDX-gO-HPG" firstAttribute="leading" secondItem="sc3-FQ-clT" secondAttribute="leading" id="uZm-b6-vFe"/>
@@ -244,6 +249,7 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="vyY-Nf-RVa" id="vPa-M9-f3p"/>
                         <outlet property="checkBoxButton" destination="AKs-Nk-u9c" id="70b-Ep-SRU"/>
                         <outlet property="continueButton" destination="hXY-9V-ABP" id="VV5-qj-8Yd"/>
                         <outlet property="scrollView" destination="aDX-gO-HPG" id="1Se-6a-pI6"/>

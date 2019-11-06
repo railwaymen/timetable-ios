@@ -12,13 +12,17 @@ import Foundation
 class ProjectsViewControllerMock: ProjectsViewModelOutput {
     
     private(set) var setUpViewCalled = false
-    private(set) var updateViewCalled = false
-    
     func setUpView() {
         setUpViewCalled = true
     }
     
+    private(set) var updateViewCalled = false
     func updateView() {
         updateViewCalled = true
+    }
+    
+    private(set) var setActivityIndicatorIsHidden: Bool?
+    func setActivityIndicator(isHidden: Bool) {
+        setActivityIndicatorIsHidden = isHidden
     }
 }
