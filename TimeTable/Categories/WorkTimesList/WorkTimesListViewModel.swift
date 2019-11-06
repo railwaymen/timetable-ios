@@ -21,7 +21,6 @@ protocol WorkTimesListViewModelType: class {
     func numberOfSections() -> Int
     func numberOfRows(in section: Int) -> Int
     func viewDidLoad()
-    func viewWillAppear()
     func viewRequestForPreviousMonth()
     func viewRequestForNextMonth()
     func viewRequestForCellType(at index: IndexPath) -> WorkTimesListViewModel.CellType
@@ -31,6 +30,7 @@ protocol WorkTimesListViewModelType: class {
     func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void)
     func viewRequestForNewWorkTimeView(sourceView: UIView)
     func viewRequestedForEditEntry(sourceView: UITableViewCell, at indexPath: IndexPath)
+    func viewRequestToRefresh(completion: @escaping () -> Void)
 }
 
 class DailyWorkTime {
@@ -94,9 +94,6 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
     func viewDidLoad() {
         userInterface?.setUpView()
         updateDateSelectorView(withCurrentDate: selectedMonth)
-    }
-    
-    func viewWillAppear() {
         fetchWorkTimesData(forCurrentMonth: selectedMonth)
     }
     
@@ -167,6 +164,10 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
         }
     }
     
+    func viewRequestToRefresh(completion: @escaping () -> Void) {
+        fetchWorkTimesData(forCurrentMonth: selectedMonth, completion: completion)
+    }
+    
     // MARK: - Private
     private func workTime(for indexPath: IndexPath) -> WorkTimeDecoder? {
         return dailyWorkTime(for: indexPath)?.workTimes.sorted(by: { $0.startsAt > $1.startsAt })[indexPath.row]
@@ -205,9 +206,12 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
         completion(deleted)
     }
     
-    private func fetchWorkTimesData(forCurrentMonth date: Date?) {
+    private func fetchWorkTimesData(forCurrentMonth date: Date?, completion: (() -> Void)? = nil) {
         userInterface?.setActivityIndicator(isHidden: false)
         contentProvider.fetchWorkTimesData(for: date) { [weak self] result in
+            defer {
+                completion?()
+            }
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .success(let dailyWorkTimes, let matchingFullTime):

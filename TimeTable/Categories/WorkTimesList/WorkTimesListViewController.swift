@@ -22,6 +22,13 @@ class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet private var durationLabel: UILabel!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
+    private lazy var refreshControl: UIRefreshControl = {
+        let control = UIRefreshControl()
+        control.tintColor = .crimson
+        control.addTarget(self, action: #selector(refreshControlDidActivate), for: .primaryActionTriggered)
+        return control
+    }()
+    
     private let tableViewEstimatedRowHeight: CGFloat = 150
     private let heightForHeader: CGFloat = 50
     private let workTimeStandardCellReuseIdentifier = "WorkTimeStandardTableViewCellReuseIdentifier"
@@ -34,15 +41,16 @@ class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITabl
         viewModel?.viewDidLoad()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel.viewWillAppear()
-    }
-    
     // MARK: - Action
     @objc private func addNewRecordTapped(_ sender: UIBarButtonItem) {
         let sourceView = sender.view ?? navigationController?.navigationBar ?? UIView()
         viewModel.viewRequestForNewWorkTimeView(sourceView: sourceView)
+    }
+    
+    @objc private func refreshControlDidActivate() {
+        viewModel.viewRequestToRefresh { [weak self] in
+            self?.refreshControl.endRefreshing()
+        }
     }
     
     // MARK: - UITableViewDataSource
@@ -152,6 +160,7 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewRecordTapped))
         navigationItem.setRightBarButtonItems([addButton], animated: false)
         title = "tabbar.title.timesheet".localized
+        tableView.refreshControl = refreshControl
         setUpActivityIndicator()
     }
     

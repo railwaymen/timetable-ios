@@ -9,6 +9,7 @@
 import XCTest
 @testable import TimeTable
 
+// swiftlint:disable type_body_length
 class LoginViewModelTests: XCTestCase {
     
     private var userInterface: LoginViewControllerMock!
@@ -357,3 +358,4 @@ class LoginViewModelTests: XCTestCase {
         XCTAssertTrue(try userInterface.setActivityIndicatorIsHidden.unwrap())
     }
 }
+// swiftlint:enable type_body_length
