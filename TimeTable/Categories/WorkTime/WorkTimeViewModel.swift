@@ -61,6 +61,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         switch result {
         case .success:
             self?.userInterface?.dismissView()
+            self?.coordinator?.viewDidFinish(isTaskChanged: true)
         case .failure(let error):
             self?.errorHandler.throwing(error: error)
         }
@@ -156,7 +157,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     
     func viewRequestedToFinish() {
         self.userInterface?.dismissView()
-        self.coordinator?.viewDidFinish()
+        self.coordinator?.viewDidFinish(isTaskChanged: false)
     }
     
     func taskNameDidChange(value: String?) {

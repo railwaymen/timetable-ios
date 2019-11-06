@@ -126,7 +126,13 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
     func viewRequestToDuplicate(sourceView: UITableViewCell, at indexPath: IndexPath) {
         guard let task = self.createTask(for: indexPath) else { return }
         let lastTask = createTask(for: IndexPath(row: 0, section: 0))
-        self.coordinator?.workTimesRequestedForDuplicateWorkTimeView(sourceView: sourceView, duplicatedTask: task, lastTask: lastTask)
+        self.coordinator?.workTimesRequestedForDuplicateWorkTimeView(
+            sourceView: sourceView,
+            duplicatedTask: task,
+            lastTask: lastTask) { [weak self] isTaskChanged in
+                guard isTaskChanged else { return }
+                self?.fetchWorkTimesData(forCurrentMonth: self?.selectedMonth)
+        }
     }
     
     func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void) {
@@ -147,12 +153,18 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
     
     func viewRequestForNewWorkTimeView(sourceView: UIView) {
         let lastTask = createTask(for: IndexPath(row: 0, section: 0))
-        self.coordinator?.workTimesRequestedForNewWorkTimeView(sourceView: sourceView, lastTask: lastTask)
+        self.coordinator?.workTimesRequestedForNewWorkTimeView(sourceView: sourceView, lastTask: lastTask) { [weak self] isTaskChanged in
+            guard isTaskChanged else { return }
+            self?.fetchWorkTimesData(forCurrentMonth: self?.selectedMonth)
+        }
     }
     
     func viewRequestedForEditEntry(sourceView: UITableViewCell, at indexPath: IndexPath) {
         guard let task = createTask(for: indexPath) else { return }
-        self.coordinator?.workTimesRequestedForEditWorkTimeView(sourceView: sourceView, editedTask: task)
+        self.coordinator?.workTimesRequestedForEditWorkTimeView(sourceView: sourceView, editedTask: task) { [weak self] isTaskChanged in
+            guard isTaskChanged else { return }
+            self?.fetchWorkTimesData(forCurrentMonth: self?.selectedMonth)
+        }
     }
     
     // MARK: - Private
