@@ -43,6 +43,8 @@
 "profile.label.profile" = "Profile";
 "profile.button.logout" = "LOGOUT";
 
+"error.button.refresh" = "REFRESH";
+
 // UIErrors
 "ui.error.cannot_be_empty" = "- cannot be empty.";
 "ui.error.invalid_format" = "invalid format.";

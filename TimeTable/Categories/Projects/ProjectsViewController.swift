@@ -26,6 +26,7 @@ class ProjectsViewController: UIViewController, UICollectionViewDataSource, UICo
     private let projectCellTableViewHeight: CGFloat = 28
     private let projectCellStaticHeaderHeight: CGFloat = 88
 
+    // MARK: - Life-cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.viewDidLoad()
