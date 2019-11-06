@@ -10,6 +10,11 @@ import XCTest
 @testable import TimeTable
 
 class DependencyContainerMock: DependencyContainerType {
+    var applicationMock = UIApplicationMock()
+    var application: UIApplicationType? {
+        return applicationMock
+    }
+    
     var window: UIWindow?
     
     var messagePresenterMock = MessagePresenterMock()

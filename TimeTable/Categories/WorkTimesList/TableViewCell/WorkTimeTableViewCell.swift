@@ -27,17 +27,17 @@ class WorkTimeTableViewCell: UITableViewCell {
     @IBOutlet private var tagView: AttributedView!
     @IBOutlet private var tagLabel: UILabel!
         
-    private weak var viewModel: WorkTimeCellViewModelType?
+    private var viewModel: WorkTimeCellViewModelType?
     
     // MARK: - Overriden
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.viewModel?.prepareForReuse()
+        viewModel?.prepareForReuse()
     }
     
     // MARK: - IBAction
     @IBAction private func taskButtonTapped(_ sender: UIButton) {
-        // TO_DO: - redirect to task preview
+        viewModel?.taskButtonTapped()
     }
 }
 

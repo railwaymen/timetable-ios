@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private lazy var appCoordinator: AppCoordinator = {
         return AppCoordinator(
             dependencyContainer: DependencyContainer(
+                application: UIApplication.shared,
                 window: self.window,
                 messagePresenter: self.messagePresenter,
                 storyboardsManager: StoryboardsManager.shared,

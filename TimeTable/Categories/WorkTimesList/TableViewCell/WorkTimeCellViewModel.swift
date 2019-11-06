@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol WorkTimeCellViewModelParentType: class {
+    func openTask(for workTime: WorkTimeDecoder)
+}
+
 protocol WorkTimeCellViewModelOutput: class {
     func setUp()
     func updateView(data: WorkTimeCellViewModel.ViewData)
@@ -16,12 +20,14 @@ protocol WorkTimeCellViewModelOutput: class {
 protocol WorkTimeCellViewModelType: class {
     func viewConfigured()
     func prepareForReuse()
+    func taskButtonTapped()
 }
 
 class WorkTimeCellViewModel: WorkTimeCellViewModelType {
 
     private let workTime: WorkTimeDecoder
     private weak var userInterface: WorkTimeCellViewModelOutput?
+    private weak var parent: WorkTimeCellViewModelParentType?
     
     private lazy var dateComponentsFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
@@ -32,19 +38,24 @@ class WorkTimeCellViewModel: WorkTimeCellViewModelType {
     }()
     
     // MARK: - Initialization
-    init(workTime: WorkTimeDecoder, userInterface: WorkTimeCellViewModelOutput) {
+    init(workTime: WorkTimeDecoder, userInterface: WorkTimeCellViewModelOutput, parent: WorkTimeCellViewModelParentType) {
         self.workTime = workTime
         self.userInterface = userInterface
+        self.parent = parent
     }
     
     // MARK: - WorkTimeCellViewModelType
     func viewConfigured() {
-        self.userInterface?.setUp()
-        self.updateView()
+        userInterface?.setUp()
+        updateView()
     }
     
     func prepareForReuse() {
-        self.updateView()
+        updateView()
+    }
+    
+    func taskButtonTapped() {
+        parent?.openTask(for: workTime)
     }
     
     // MARK: - Private
