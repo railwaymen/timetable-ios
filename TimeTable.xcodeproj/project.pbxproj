@@ -23,6 +23,9 @@
 		8A5D48C62369ED990082C13D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48C52369ED990082C13D /* UIImage+Extension.swift */; };
 		8AA5C5DD235F34340083E121 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA5C5DC235F34340083E121 /* Colors.xcassets */; };
 		8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */; };
+		8AC0972A2371D28100103FAD /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8AC097272371D28100103FAD /* Debug.xcconfig */; };
+		8AC0972B2371D28100103FAD /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8AC097282371D28100103FAD /* Release.xcconfig */; };
+		8AC0972C2371D28100103FAD /* Stage.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8AC097292371D28100103FAD /* Stage.xcconfig */; };
 		8AF3073823688C5A00832FDD /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3073723688C5A00832FDD /* DependencyContainer.swift */; };
 		BFB4EF72FAE3D8CD21A09744 /* Pods_TimeTableTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FE8C20AC7A1A64A549519E /* Pods_TimeTableTests.framework */; };
 		C101603222003A9500DCE817 /* WorkTimesListContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */; };
@@ -329,11 +332,11 @@
 		8A5D48C12369E1E20082C13D /* DispatchGroupMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupMock.swift; sourceTree = "<group>"; };
 		8A5D48C32369E20E0082C13D /* DispatchGroupFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupFactoryMock.swift; sourceTree = "<group>"; };
 		8A5D48C52369ED990082C13D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
-		8A839D0A23570E26002F3464 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../../Configuration/Debug.xcconfig; sourceTree = "<group>"; };
-		8A839D0B23570EC0002F3464 /* Stage.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Stage.xcconfig; path = ../../Configuration/Stage.xcconfig; sourceTree = "<group>"; };
-		8A839D0C23570ED4002F3464 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../../Configuration/Release.xcconfig; sourceTree = "<group>"; };
 		8AA5C5DC235F34340083E121 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellViewModelTests.swift; sourceTree = "<group>"; };
+		8AC097272371D28100103FAD /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		8AC097282371D28100103FAD /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		8AC097292371D28100103FAD /* Stage.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Stage.xcconfig; sourceTree = "<group>"; };
 		8AF3073723688C5A00832FDD /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListContentProvider.swift; sourceTree = "<group>"; };
 		C101603322003D4000DCE817 /* MatchingFullTimeEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFullTimeEncoder.swift; sourceTree = "<group>"; };
@@ -654,11 +657,12 @@
 		8A839D0E23570FBD002F3464 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				8A839D0A23570E26002F3464 /* Debug.xcconfig */,
-				8A839D0B23570EC0002F3464 /* Stage.xcconfig */,
-				8A839D0C23570ED4002F3464 /* Release.xcconfig */,
+				8AC097272371D28100103FAD /* Debug.xcconfig */,
+				8AC097282371D28100103FAD /* Release.xcconfig */,
+				8AC097292371D28100103FAD /* Stage.xcconfig */,
 			);
-			path = Configuration;
+			name = Configuration;
+			path = ../Configuration;
 			sourceTree = "<group>";
 		};
 		C10FD87D21F1ED8300A233C5 /* User */ = {
@@ -1790,13 +1794,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1784DDD21E4E03600C83E2A /* WorkTime.storyboard in Resources */,
+				8AC0972C2371D28100103FAD /* Stage.xcconfig in Resources */,
 				C183F82A21F0A11E00B07AB8 /* Profile.storyboard in Resources */,
+				8AC0972B2371D28100103FAD /* Release.xcconfig in Resources */,
 				8AA5C5DD235F34340083E121 /* Colors.xcassets in Resources */,
 				C1B5137721772D1400C3727C /* LaunchScreen.storyboard in Resources */,
 				C153AC452181E4E7007A35BB /* ServerConfiguration.storyboard in Resources */,
 				C1B5137421772D1400C3727C /* Assets.xcassets in Resources */,
 				C1F926EA218846F80004A9BC /* Login.storyboard in Resources */,
 				C125F1BA21DCCF5D00594CDE /* Projects.storyboard in Resources */,
+				8AC0972A2371D28100103FAD /* Debug.xcconfig in Resources */,
 				C1E1F04221AD2372007F9228 /* WorkTimesTableViewHeader.xib in Resources */,
 				C13429AA21A7DB2300F4EA42 /* WorkTimesList.storyboard in Resources */,
 				C153AC592182F7BB007A35BB /* Localizable.strings in Resources */,
@@ -2235,7 +2242,7 @@
 /* Begin XCBuildConfiguration section */
 		C1A10ABB21772DDC00A83651 /* Stage */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8A839D0B23570EC0002F3464 /* Stage.xcconfig */;
+			baseConfigurationReference = 8AC097292371D28100103FAD /* Stage.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -2343,7 +2350,7 @@
 		};
 		C1B5138421772D1400C3727C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8A839D0A23570E26002F3464 /* Debug.xcconfig */;
+			baseConfigurationReference = 8AC097272371D28100103FAD /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -2407,7 +2414,7 @@
 		};
 		C1B5138521772D1400C3727C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8A839D0C23570ED4002F3464 /* Release.xcconfig */;
+			baseConfigurationReference = 8AC097282371D28100103FAD /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
