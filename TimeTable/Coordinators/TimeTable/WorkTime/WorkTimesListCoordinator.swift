@@ -82,27 +82,23 @@ class WorkTimesListCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinator
             finishHandler(isTaskChanged)
         }
     }
-    
-    private func runWebViewFlow(url: URL) {
-        UIApplication.shared.open(url)
-    }
 }
 
 // MARK: - WorkTimesListCoordinatorDelegate
 extension WorkTimesListCoordinator: WorkTimesListCoordinatorDelegate {
     func workTimesRequestedForNewWorkTimeView(sourceView: UIView, lastTask: Task?, finishHandler: @escaping (_ isTaskChanged: Bool) -> Void) {
-        self.runWorkTimeFlow(sourceView: sourceView, lastTask: lastTask, editedTask: nil, duplicatedTask: nil, finishHandler: finishHandler)
+        runWorkTimeFlow(sourceView: sourceView, lastTask: lastTask, editedTask: nil, duplicatedTask: nil, finishHandler: finishHandler)
     }
     
     func workTimesRequestedForEditWorkTimeView(sourceView: UIView, editedTask: Task, finishHandler: @escaping (_ isTaskChanged: Bool) -> Void) {
-        self.runWorkTimeFlow(sourceView: sourceView, lastTask: nil, editedTask: editedTask, duplicatedTask: nil, finishHandler: finishHandler)
+        runWorkTimeFlow(sourceView: sourceView, lastTask: nil, editedTask: editedTask, duplicatedTask: nil, finishHandler: finishHandler)
     }
     
     func workTimesRequestedForDuplicateWorkTimeView(sourceView: UIView,
                                                     duplicatedTask: Task,
                                                     lastTask: Task?,
                                                     finishHandler: @escaping (_ isTaskChanged: Bool) -> Void) {
-        self.runWorkTimeFlow(sourceView: sourceView, lastTask: lastTask, editedTask: nil, duplicatedTask: duplicatedTask, finishHandler: finishHandler)
+        runWorkTimeFlow(sourceView: sourceView, lastTask: lastTask, editedTask: nil, duplicatedTask: duplicatedTask, finishHandler: finishHandler)
     }
 
     func workTimesRequestedForSafari(url: URL) {
