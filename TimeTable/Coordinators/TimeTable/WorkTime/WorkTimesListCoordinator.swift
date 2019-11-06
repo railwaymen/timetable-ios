@@ -11,12 +11,9 @@ import UIKit
 typealias WorkTimesListApiClient = (ApiClientProjectsType & ApiClientWorkTimesType & ApiClientUsersType & ApiClientMatchingFullTimeType)
 
 protocol WorkTimesListCoordinatorDelegate: class {
-    func workTimesRequestedForNewWorkTimeView(sourceView: UIView, lastTask: Task?, finishHandler: @escaping (_ isTaskChanged: Bool) -> Void)
-    func workTimesRequestedForEditWorkTimeView(sourceView: UIView, editedTask: Task, finishHandler: @escaping (_ isTaskChanged: Bool) -> Void)
-    func workTimesRequestedForDuplicateWorkTimeView(sourceView: UIView,
-                                                    duplicatedTask: Task,
-                                                    lastTask: Task?,
-                                                    finishHandler: @escaping (_ isTaskChanged: Bool) -> Void)
+    func workTimesRequestedForWorkTimeView(sourceView: UIView,
+                                           flowType: WorkTimeViewModel.FlowType,
+                                           finishHandler: @escaping (_ isTaskChanged: Bool) -> Void)
     func workTimesRequestedForSafari(url: URL)
 }
 
@@ -66,16 +63,12 @@ class WorkTimesListCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinator
     }
     
     private func runWorkTimeFlow(sourceView: UIView,
-                                 lastTask: Task?,
-                                 editedTask: Task?,
-                                 duplicatedTask: Task?,
+                                 flowType: WorkTimeViewModel.FlowType,
                                  finishHandler: @escaping (_ isTaskChanged: Bool) -> Void) {
         let coordinator = WorkTimeCoordinator(dependencyContainer: dependencyContainer,
                                               parentViewController: navigationController.topViewController,
                                               sourceView: sourceView,
-                                              lastTask: lastTask,
-                                              editedTask: editedTask,
-                                              duplicatedTask: duplicatedTask)
+                                              flowType: flowType)
         addChildCoordinator(child: coordinator)
         coordinator.start { [weak self, weak coordinator] isTaskChanged in
             self?.removeChildCoordinator(child: coordinator)
@@ -86,19 +79,10 @@ class WorkTimesListCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinator
 
 // MARK: - WorkTimesListCoordinatorDelegate
 extension WorkTimesListCoordinator: WorkTimesListCoordinatorDelegate {
-    func workTimesRequestedForNewWorkTimeView(sourceView: UIView, lastTask: Task?, finishHandler: @escaping (_ isTaskChanged: Bool) -> Void) {
-        runWorkTimeFlow(sourceView: sourceView, lastTask: lastTask, editedTask: nil, duplicatedTask: nil, finishHandler: finishHandler)
-    }
-    
-    func workTimesRequestedForEditWorkTimeView(sourceView: UIView, editedTask: Task, finishHandler: @escaping (_ isTaskChanged: Bool) -> Void) {
-        runWorkTimeFlow(sourceView: sourceView, lastTask: nil, editedTask: editedTask, duplicatedTask: nil, finishHandler: finishHandler)
-    }
-    
-    func workTimesRequestedForDuplicateWorkTimeView(sourceView: UIView,
-                                                    duplicatedTask: Task,
-                                                    lastTask: Task?,
-                                                    finishHandler: @escaping (_ isTaskChanged: Bool) -> Void) {
-        runWorkTimeFlow(sourceView: sourceView, lastTask: lastTask, editedTask: nil, duplicatedTask: duplicatedTask, finishHandler: finishHandler)
+    func workTimesRequestedForWorkTimeView(sourceView: UIView,
+                                           flowType: WorkTimeViewModel.FlowType,
+                                           finishHandler: @escaping (_ isTaskChanged: Bool) -> Void) {
+        runWorkTimeFlow(sourceView: sourceView, flowType: flowType, finishHandler: finishHandler)
     }
 
     func workTimesRequestedForSafari(url: URL) {

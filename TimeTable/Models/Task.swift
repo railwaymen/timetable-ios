@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Task: Encodable {
+struct Task: Encodable, Equatable {
     var workTimeIdentifier: Int64?
     var project: ProjectDecoder?
     var body: String

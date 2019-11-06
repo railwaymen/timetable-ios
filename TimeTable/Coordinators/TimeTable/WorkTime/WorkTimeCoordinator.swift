@@ -18,9 +18,7 @@ class WorkTimeCoordinator: BaseNavigationCoordinator {
     private let dependencyContainer: DependencyContainerType
     private weak var parentViewController: UIViewController?
     private weak var sourceView: UIView?
-    private let lastTask: Task?
-    private let editedTask: Task?
-    private let duplicatedTask: Task?
+    private let flowType: WorkTimeViewModel.FlowType
     
     private var customFinishHandler: ((_ isTaskChanged: Bool) -> Void)?
     
@@ -28,14 +26,10 @@ class WorkTimeCoordinator: BaseNavigationCoordinator {
     init(dependencyContainer: DependencyContainerType,
          parentViewController: UIViewController?,
          sourceView: UIView?,
-         lastTask: Task?,
-         editedTask: Task?,
-         duplicatedTask: Task?) {
+         flowType: WorkTimeViewModel.FlowType) {
         self.parentViewController = parentViewController
         self.dependencyContainer = dependencyContainer
-        self.lastTask = lastTask
-        self.editedTask = editedTask
-        self.duplicatedTask = duplicatedTask
+        self.flowType = flowType
         super.init(window: dependencyContainer.window, messagePresenter: dependencyContainer.messagePresenter)
     }
     
@@ -72,9 +66,7 @@ class WorkTimeCoordinator: BaseNavigationCoordinator {
                                           apiClient: apiClient,
                                           errorHandler: dependencyContainer.errorHandler,
                                           calendar: Calendar.autoupdatingCurrent,
-                                          lastTask: lastTask,
-                                          editedTask: editedTask,
-                                          duplicatedTask: duplicatedTask)
+                                          flowType: flowType)
         workTimeViewController.configure(viewModel: viewModel, notificationCenter: dependencyContainer.notificationCenter)
         navigationController.setViewControllers([workTimeViewController], animated: false)
         navigationController.setNavigationBarHidden(false, animated: false)

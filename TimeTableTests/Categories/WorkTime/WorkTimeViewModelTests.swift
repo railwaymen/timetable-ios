@@ -29,7 +29,7 @@ class WorkTimeViewModelTests: XCTestCase {
         apiClient = ApiClientMock()
         errorHandlerMock = ErrorHandlerMock()
         calendarMock = CalendarMock()
-        viewModel = self.createViewModel(lastTask: nil, editedTask: nil, duplicatedTask: nil)
+        viewModel = self.createViewModel(flowType: .newEntry(lastTask: nil))
         super.setUp()
     }
     
@@ -45,7 +45,7 @@ class WorkTimeViewModelTests: XCTestCase {
     func testViewDidLoadWithLastTaskSetsDateAndTime() throws {
         //Arrange
         let lastTask = try createTask(workTimeIdentifier: nil)
-        viewModel = createViewModel(lastTask: lastTask, editedTask: nil, duplicatedTask: nil)
+        viewModel = createViewModel(flowType: .newEntry(lastTask: lastTask))
         //Act
         viewModel.viewDidLoad()
         //Assert
@@ -59,7 +59,7 @@ class WorkTimeViewModelTests: XCTestCase {
     func testViewDidLoad_withEditedTask() throws {
         //Arrange
         let task = try createTask(workTimeIdentifier: 123)
-        viewModel = createViewModel(lastTask: nil, editedTask: task, duplicatedTask: nil)
+        viewModel = createViewModel(flowType: .editEntry(editedTask: task))
         //Act
         viewModel.viewDidLoad()
         //Assert
@@ -76,7 +76,7 @@ class WorkTimeViewModelTests: XCTestCase {
     func testViewDidLoad_withDuplicatedTaskWithoutLastTask() throws {
         //Arrange
         let task = try createTask(workTimeIdentifier: 123)
-        viewModel = createViewModel(lastTask: nil, editedTask: nil, duplicatedTask: task)
+        viewModel = createViewModel(flowType: .duplicateEntry(duplicatedTask: task, lastTask: nil))
         //Act
         viewModel.viewDidLoad()
         //Assert
@@ -94,7 +94,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let task = try createTask(workTimeIdentifier: 123, index: 3)
         let lastTask = try createTask(workTimeIdentifier: 12, index: 2)
-        viewModel = createViewModel(lastTask: lastTask, editedTask: nil, duplicatedTask: task)
+        viewModel = createViewModel(flowType: .duplicateEntry(duplicatedTask: task, lastTask: lastTask))
         //Act
         viewModel.viewDidLoad()
         //Assert
@@ -163,7 +163,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let lastTask = try createTask(workTimeIdentifier: 2)
         calendarMock.isDateInTodayReturnValue = true
-        viewModel = createViewModel(lastTask: lastTask, editedTask: nil, duplicatedTask: nil)
+        viewModel = createViewModel(flowType: .newEntry(lastTask: lastTask))
         //Act
         try fetchProjects()
         //Assert
@@ -669,7 +669,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         try fetchProjects()
         let task = try createTask(workTimeIdentifier: 1)
-        viewModel = createViewModel(lastTask: nil, editedTask: task, duplicatedTask: nil)
+        viewModel = createViewModel(flowType: .editEntry(editedTask: task))
         try fillAllDataInViewModel(task: task)
         //Act
         viewModel.viewRequestedToSave()
@@ -693,15 +693,13 @@ class WorkTimeViewModelTests: XCTestCase {
         try apiClient.fetchSimpleListOfProjectsCompletion.unwrap()(.success(projectDecoders))
     }
     
-    private func createViewModel(lastTask: Task?, editedTask: Task?, duplicatedTask: Task?) -> WorkTimeViewModel {
+    private func createViewModel(flowType: WorkTimeViewModel.FlowType) -> WorkTimeViewModel {
         return WorkTimeViewModel(userInterface: userInterface,
                                  coordinator: nil,
                                  apiClient: apiClient,
                                  errorHandler: errorHandlerMock,
                                  calendar: calendarMock,
-                                 lastTask: lastTask,
-                                 editedTask: editedTask,
-                                 duplicatedTask: duplicatedTask)
+                                 flowType: flowType)
     }
     
     private func createTask(workTimeIdentifier: Int64?, index: Int = 3) throws -> Task {

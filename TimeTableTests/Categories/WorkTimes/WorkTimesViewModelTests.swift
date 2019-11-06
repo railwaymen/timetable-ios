@@ -252,11 +252,13 @@ class WorkTimesListViewModelTests: XCTestCase {
     func testViewRequestToDeleteWorkTime_invalidIndexPath() {
         //Arrange
         let viewModel = buildViewModel()
+        var requestCompleted: Bool?
         //Act
         viewModel.viewRequestToDelete(at: IndexPath(row: 0, section: 0)) { completed in
-            //Assert
-            XCTAssertFalse(completed)
+            requestCompleted = completed
         }
+        //Assert
+        XCTAssertFalse(try requestCompleted.unwrap())
     }
     
     func testViewRequestToDeleteWorkTime_errorResponse() throws {
@@ -326,7 +328,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         //Act
         viewModel.viewRequestForNewWorkTimeView(sourceView: button)
         //Assert
-        XCTAssertEqual(coordinatorMock.workTimesRequestedForNewWorkTimeViewSourceView, button)
+        XCTAssertEqual(coordinatorMock.workTimesRequestedForWorkTimeViewFlowType, .newEntry(lastTask: nil))
     }
     
     func testViewRequestedForEditEntry_withoutDailyWorkTimes() {
@@ -337,7 +339,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         //Act
         viewModel.viewRequestedForEditEntry(sourceView: cell, at: indexPath)
         //Assert
-        XCTAssertNil(coordinatorMock.workTimesRequestedForEditWorkTimeViewData)
+        XCTAssertFalse(coordinatorMock.workTimesRequestedForWorkTimeViewCalled)
     }
     
     func testViewRequestedForEditEntry_withDailyWorkTimes() throws {
@@ -353,15 +355,15 @@ class WorkTimesListViewModelTests: XCTestCase {
         //Act
         viewModel.viewRequestedForEditEntry(sourceView: cell, at: indexPath)
         //Assert
-        let returnedData = try coordinatorMock.workTimesRequestedForEditWorkTimeViewData.unwrap()
-        XCTAssertEqual(returnedData.sourceView, cell)
-        XCTAssertEqual(returnedData.editedTask.workTimeIdentifier, workTime.identifier)
-        XCTAssertEqual(returnedData.editedTask.project, workTime.project)
-        XCTAssertEqual(returnedData.editedTask.body, workTime.body)
-        XCTAssertEqual(returnedData.editedTask.url?.absoluteString, workTime.task)
-        XCTAssertEqual(returnedData.editedTask.day, dailyWorkTime.day)
-        XCTAssertEqual(returnedData.editedTask.startAt, workTime.startsAt)
-        XCTAssertEqual(returnedData.editedTask.endAt, workTime.endsAt)
+        XCTAssertEqual(coordinatorMock.workTimesRequestedForWorkTimeViewSourceView, cell)
+        guard case let .editEntry(editedTask) = coordinatorMock.workTimesRequestedForWorkTimeViewFlowType else { return XCTFail() }
+        XCTAssertEqual(editedTask.workTimeIdentifier, workTime.identifier)
+        XCTAssertEqual(editedTask.project, workTime.project)
+        XCTAssertEqual(editedTask.body, workTime.body)
+        XCTAssertEqual(editedTask.url?.absoluteString, workTime.task)
+        XCTAssertEqual(editedTask.day, dailyWorkTime.day)
+        XCTAssertEqual(editedTask.startAt, workTime.startsAt)
+        XCTAssertEqual(editedTask.endAt, workTime.endsAt)
     }
     
     func testViewRequestToDuplicate() throws {
@@ -378,23 +380,23 @@ class WorkTimesListViewModelTests: XCTestCase {
         //Act
         viewModel.viewRequestToDuplicate(sourceView: cell, at: indexPath)
         //Assert
-        let returnedData = try self.coordinatorMock.workTimesRequestedForDuplicateWorkTimeViewData.unwrap()
-        XCTAssertEqual(returnedData.sourceView, cell)
-        XCTAssertEqual(returnedData.duplicatedTask.workTimeIdentifier, duplicatedWorkTime.identifier)
-        XCTAssertEqual(returnedData.duplicatedTask.project, duplicatedWorkTime.project)
-        XCTAssertEqual(returnedData.duplicatedTask.body, duplicatedWorkTime.body)
-        XCTAssertEqual(returnedData.duplicatedTask.url?.absoluteString, duplicatedWorkTime.task)
-        XCTAssertEqual(returnedData.duplicatedTask.day, dailyWorkTime.day)
-        XCTAssertEqual(returnedData.duplicatedTask.startAt, duplicatedWorkTime.startsAt)
-        XCTAssertEqual(returnedData.duplicatedTask.endAt, duplicatedWorkTime.endsAt)
+        XCTAssertEqual(coordinatorMock.workTimesRequestedForWorkTimeViewSourceView, cell)
+        guard case let .duplicateEntry(duplicatedTask, lastTask) = coordinatorMock.workTimesRequestedForWorkTimeViewFlowType else { return XCTFail() }
+        XCTAssertEqual(duplicatedTask.workTimeIdentifier, duplicatedWorkTime.identifier)
+        XCTAssertEqual(duplicatedTask.project, duplicatedWorkTime.project)
+        XCTAssertEqual(duplicatedTask.body, duplicatedWorkTime.body)
+        XCTAssertEqual(duplicatedTask.url?.absoluteString, duplicatedWorkTime.task)
+        XCTAssertEqual(duplicatedTask.day, dailyWorkTime.day)
+        XCTAssertEqual(duplicatedTask.startAt, duplicatedWorkTime.startsAt)
+        XCTAssertEqual(duplicatedTask.endAt, duplicatedWorkTime.endsAt)
         
-        XCTAssertEqual(returnedData.lastTask?.workTimeIdentifier, firstWorkTime.identifier)
-        XCTAssertEqual(returnedData.lastTask?.project, firstWorkTime.project)
-        XCTAssertEqual(returnedData.lastTask?.body, firstWorkTime.body)
-        XCTAssertEqual(returnedData.lastTask?.url?.absoluteString, firstWorkTime.task)
-        XCTAssertEqual(returnedData.lastTask?.day, dailyWorkTime.day)
-        XCTAssertEqual(returnedData.lastTask?.startAt, firstWorkTime.startsAt)
-        XCTAssertEqual(returnedData.lastTask?.endAt, firstWorkTime.endsAt)
+        XCTAssertEqual(lastTask?.workTimeIdentifier, firstWorkTime.identifier)
+        XCTAssertEqual(lastTask?.project, firstWorkTime.project)
+        XCTAssertEqual(lastTask?.body, firstWorkTime.body)
+        XCTAssertEqual(lastTask?.url?.absoluteString, firstWorkTime.task)
+        XCTAssertEqual(lastTask?.day, dailyWorkTime.day)
+        XCTAssertEqual(lastTask?.startAt, firstWorkTime.startsAt)
+        XCTAssertEqual(lastTask?.endAt, firstWorkTime.endsAt)
     }
     
     func testViewRequestToRefreshCallsFetch() {
