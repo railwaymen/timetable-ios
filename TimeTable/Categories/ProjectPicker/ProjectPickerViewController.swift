@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias ProjectPickerViewControllerable = ProjectPickerViewControllerType & ProjectPickerViewModelOutput
+
 protocol ProjectPickerViewControllerType: class {
     func configure(viewModel: ProjectPickerViewModelType)
 }

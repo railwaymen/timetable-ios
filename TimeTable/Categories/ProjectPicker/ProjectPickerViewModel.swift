@@ -89,6 +89,7 @@ extension ProjectPickerViewModel: ProjectPickerViewModelType {
     }
     
     func numberOfRows(in section: Int) -> Int {
+        guard section == 0 else { return 0 }
         return filteredProjects.count
     }
     
@@ -109,6 +110,6 @@ extension ProjectPickerViewModel: ProjectPickerViewModelType {
     }
     
     func closeButtonTapped() {
-        coordinator?.finishFlow(project: nil)
+        finish(with: nil)
     }
 }
