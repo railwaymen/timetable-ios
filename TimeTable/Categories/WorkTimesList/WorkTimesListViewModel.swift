@@ -123,10 +123,9 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
     func viewRequestToDuplicate(sourceView: UITableViewCell, at indexPath: IndexPath) {
         guard let task = self.createTask(for: indexPath) else { return }
         let lastTask = createTask(for: IndexPath(row: 0, section: 0))
-        self.coordinator?.workTimesRequestedForDuplicateWorkTimeView(
+        self.coordinator?.workTimesRequestedForWorkTimeView(
             sourceView: sourceView,
-            duplicatedTask: task,
-            lastTask: lastTask) { [weak self] isTaskChanged in
+            flowType: .duplicateEntry(duplicatedTask: task, lastTask: lastTask)) { [weak self] isTaskChanged in
                 guard isTaskChanged else { return }
                 self?.fetchWorkTimesData(forCurrentMonth: self?.selectedMonth)
         }
@@ -150,7 +149,7 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
     
     func viewRequestForNewWorkTimeView(sourceView: UIView) {
         let lastTask = createTask(for: IndexPath(row: 0, section: 0))
-        self.coordinator?.workTimesRequestedForNewWorkTimeView(sourceView: sourceView, lastTask: lastTask) { [weak self] isTaskChanged in
+        self.coordinator?.workTimesRequestedForWorkTimeView(sourceView: sourceView, flowType: .newEntry(lastTask: lastTask)) { [weak self] isTaskChanged in
             guard isTaskChanged else { return }
             self?.fetchWorkTimesData(forCurrentMonth: self?.selectedMonth)
         }
@@ -158,7 +157,7 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
     
     func viewRequestedForEditEntry(sourceView: UITableViewCell, at indexPath: IndexPath) {
         guard let task = createTask(for: indexPath) else { return }
-        self.coordinator?.workTimesRequestedForEditWorkTimeView(sourceView: sourceView, editedTask: task) { [weak self] isTaskChanged in
+        self.coordinator?.workTimesRequestedForWorkTimeView(sourceView: sourceView, flowType: .editEntry(editedTask: task)) { [weak self] isTaskChanged in
             guard isTaskChanged else { return }
             self?.fetchWorkTimesData(forCurrentMonth: self?.selectedMonth)
         }

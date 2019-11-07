@@ -73,28 +73,38 @@ class WorkTimeViewModel: WorkTimeViewModelType {
          apiClient: WorkTimeApiClientType,
          errorHandler: ErrorHandlerType,
          calendar: CalendarType,
-         lastTask: Task?,
-         editedTask: Task?,
-         duplicatedTask: Task?) {
+         flowType: FlowType) {
         self.userInterface = userInterface
         self.coordinator = coordinator
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.calendar = calendar
-        if let lastTaskEndAt = lastTask?.endAt, calendar.isDateInToday(lastTaskEndAt) {
-            self.lastTask = lastTask
-        } else {
+        let lastTaskValidation: (Task?) -> Task? = { lastTask in
+            guard let lastTaskEndAt = lastTask?.endAt, calendar.isDateInToday(lastTaskEndAt) else { return nil }
+            return lastTask
+        }
+        let taskCreation: (_ duplicatedTask: Task?, _ lastTask: Task?) -> Task = { duplicatedTask, lastTask in
+            return Task(
+                workTimeIdentifier: nil,
+                project: duplicatedTask?.project,
+                body: duplicatedTask?.body ?? "",
+                url: duplicatedTask?.url,
+                day: Date(),
+                startAt: lastTask?.endAt,
+                endAt: nil,
+                tag: duplicatedTask?.tag ?? .default)
+        }
+        switch flowType {
+        case let .newEntry(lastTask):
+            self.lastTask = lastTaskValidation(lastTask)
+            self.task = taskCreation(nil, lastTask)
+        case let .duplicateEntry(duplicatedTask, lastTask):
+            self.lastTask = lastTaskValidation(lastTask)
+            self.task = taskCreation(duplicatedTask, lastTask)
+        case let .editEntry(editedTask):
+            self.task = editedTask
             self.lastTask = nil
         }
-        self.task = editedTask ?? Task(
-            workTimeIdentifier: nil,
-            project: duplicatedTask?.project,
-            body: duplicatedTask?.body ?? "",
-            url: duplicatedTask?.url,
-            day: Date(),
-            startAt: lastTask?.endAt,
-            endAt: nil,
-            tag: duplicatedTask?.tag ?? .default)
         self.projects = []
         self.tags = []
     }
@@ -305,6 +315,31 @@ class WorkTimeViewModel: WorkTimeViewModelType {
             case .failure(let error):
                 self?.errorHandler.throwing(error: error)
             }
+        }
+    }
+}
+
+// MARK: - Structures
+extension WorkTimeViewModel {
+    enum FlowType {
+        case newEntry(lastTask: Task?)
+        case editEntry(editedTask: Task)
+        case duplicateEntry(duplicatedTask: Task, lastTask: Task?)
+    }
+    
+}
+
+extension WorkTimeViewModel.FlowType: Equatable {
+    static func == (lhs: WorkTimeViewModel.FlowType, rhs: WorkTimeViewModel.FlowType) -> Bool {
+        switch (lhs, rhs) {
+        case let (.newEntry(lhsLastTask), .newEntry(rhsLastTask)):
+            return lhsLastTask == rhsLastTask
+        case let (.editEntry(lhsEditedTask), .editEntry(rhsEditedTask)):
+            return lhsEditedTask == rhsEditedTask
+        case let (.duplicateEntry(lhsDuplicatedTask, lhsLastTask), .duplicateEntry(rhsDuplicatedTask, rhsLastTask)):
+            return lhsLastTask == rhsLastTask && lhsDuplicatedTask == rhsDuplicatedTask
+        default:
+            return false
         }
     }
 }
