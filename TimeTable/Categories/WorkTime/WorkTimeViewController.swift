@@ -16,16 +16,15 @@ protocol WorkTimeViewControllerType: class {
 
 class WorkTimeViewController: UIViewController {
     @IBOutlet private var scrollView: UIScrollView!
+    @IBOutlet private var projectButton: AttributedButton!
     @IBOutlet private var dayTextField: UITextField!
     @IBOutlet private var startAtDateTextField: UITextField!
     @IBOutlet private var endAtDateTextField: UITextField!
-    @IBOutlet private var projectTextField: UITextField!
     @IBOutlet private var bodyTextField: UITextField!
     @IBOutlet private var taskURLTextField: UITextField!
     @IBOutlet private var tagsCollectionView: UICollectionView!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
-    private var projectPicker: UIPickerView!
     private var dayPicker: UIDatePicker!
     private var startAtDatePicker: UIDatePicker!
     private var endAtDatePicker: UIDatePicker!
@@ -48,12 +47,12 @@ class WorkTimeViewController: UIViewController {
         viewModel.viewRequestedToFinish()
     }
     
-    @IBAction private func taskTextFieldDidChange(_ sender: UITextField) {
-        viewModel.taskNameDidChange(value: sender.text)
+    @IBAction private func projectButtonTapped(_ sender: Any) {
+        viewModel.projectButtonTapped()
     }
     
-    @IBAction private func taskTextFieldDidBegin(_ sender: UITextField) {
-        viewModel.setDefaultTask()
+    @IBAction private func taskTextFieldDidChange(_ sender: UITextField) {
+        viewModel.taskNameDidChange(value: sender.text)
     }
     
     @IBAction private func taskURLTextFieldDidChange(_ sender: UITextField) {
@@ -112,28 +111,6 @@ class WorkTimeViewController: UIViewController {
     }
 }
 
-// MARK: - UIPickerViewDelegate 
-extension WorkTimeViewController: UIPickerViewDelegate {
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return viewModel.viewRequestedForProjectTitle(atRow: row)
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        viewModel.viewSelectedProject(atRow: row)
-    }
-}
-
-// MARK: - UIPickerViewDataSource
-extension WorkTimeViewController: UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return viewModel.viewRequestedForNumberOfProjects()
-    }
-}
-
 // MARK: - UICollectionViewDelegate
 extension WorkTimeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -165,15 +142,11 @@ extension WorkTimeViewController: UICollectionViewDataSource {
 
 // MARK: - WorkTimeViewModelOutput
 extension WorkTimeViewController: WorkTimeViewModelOutput {
-    func reloadProjectPicker() {
-        projectPicker.reloadAllComponents()
-    }
-    
     func reloadTagsView() {
         tagsCollectionView.reloadData()
     }
     
-    func setUp(currentProjectName: String, isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?) {
+    func setUp(isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?) {
         notificationCenter?.addObserver(self,
                                         selector: #selector(self.keyboardFrameWillChange),
                                         name: UIResponder.keyboardWillChangeFrameNotification,
@@ -196,13 +169,6 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         
         taskURLTextField.isHidden = !allowsTask || isLunch
         taskURLTextField.text = urlString
-
-        projectPicker = UIPickerView()
-        projectPicker.delegate = self
-        projectPicker.dataSource = self
-        
-        projectTextField.inputView = projectPicker
-        projectTextField.text = currentProjectName
         
         dayPicker = UIDatePicker()
         dayPicker.datePickerMode = .date
@@ -228,10 +194,10 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     }
     
     func dismissView() {
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
     
-    func dissmissKeyboard() {
+    func dismissKeyboard() {
         view.endEditing(true)
     }
     
@@ -254,8 +220,8 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         endAtDatePicker?.date = date
     }
     
-    func selectProjectPicker(row: Int) {
-        projectPicker.selectRow(row, inComponent: 0, animated: false)
+    func updateProject(name: String) {
+        projectButton.setTitle(name, for: UIControl.State())
     }
     
     func setActivityIndicator(isHidden: Bool) {

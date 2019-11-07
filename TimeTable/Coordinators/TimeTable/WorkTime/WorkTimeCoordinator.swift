@@ -11,6 +11,7 @@ import UIKit
 typealias WorkTimeApiClientType = ApiClientWorkTimesType & ApiClientProjectsType
 
 protocol WorkTimeCoordinatorType: class {
+    func showProjectPicker(projects: [ProjectDecoder], finishHandler: @escaping ProjectPickerCoordinator.FinishHandlerType)
     func viewDidFinish(isTaskChanged: Bool)
 }
 
@@ -80,6 +81,17 @@ class WorkTimeCoordinator: BaseNavigationCoordinator {
         }
     }
     
+    private func runProjectPickerFlow(projects: [ProjectDecoder], finishHandler: @escaping ProjectPickerCoordinator.FinishHandlerType) {
+        let coordinator = ProjectPickerCoordinator(dependencyContainer: dependencyContainer,
+                                                   parentViewController: navigationController,
+                                                   projects: projects)
+        addChildCoordinator(child: coordinator)
+        coordinator.start { [weak self, weak coordinator] project in
+            self?.removeChildCoordinator(child: coordinator)
+            finishHandler(project)
+        }
+    }
+    
     private func showWorkTimeController(controller: UIViewController, sourceView: UIView) {
         controller.modalPresentationStyle = .popover
         controller.preferredContentSize = CGSize(width: 300, height: 320)
@@ -92,6 +104,10 @@ class WorkTimeCoordinator: BaseNavigationCoordinator {
 
 // MARK: - WorkTimeCoordinatorType
 extension WorkTimeCoordinator: WorkTimeCoordinatorType {
+    func showProjectPicker(projects: [ProjectDecoder], finishHandler: @escaping ProjectPickerCoordinator.FinishHandlerType) {
+        runProjectPickerFlow(projects: projects, finishHandler: finishHandler)
+    }
+    
     func viewDidFinish(isTaskChanged: Bool) {
         finish(isTaskChanged: isTaskChanged)
     }

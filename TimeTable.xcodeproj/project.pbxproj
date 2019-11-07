@@ -16,6 +16,13 @@
 		8A10F83B2350C7AF0004F389 /* WorkTimeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F83A2350C7AF0004F389 /* WorkTimeCoordinator.swift */; };
 		8A10F83D2350D9810004F389 /* DismissableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F83C2350D9810004F389 /* DismissableNavigationController.swift */; };
 		8A10F841235454DA0004F389 /* UIBarButtonItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */; };
+		8A31CD7D23741BFC008E590D /* ProjectPickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CD7C23741BFC008E590D /* ProjectPickerCoordinator.swift */; };
+		8A31CD8023741FD0008E590D /* ProjectPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CD7F23741FD0008E590D /* ProjectPickerViewController.swift */; };
+		8A31CD8223742639008E590D /* ProjectPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CD8123742639008E590D /* ProjectPickerViewModel.swift */; };
+		8A31CD8423742B34008E590D /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CD8323742B34008E590D /* Array+Extension.swift */; };
+		8A31CD8723742CEA008E590D /* ProjectPickerCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CD8623742CEA008E590D /* ProjectPickerCellModel.swift */; };
+		8A31CD8923742D15008E590D /* ProjectPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CD8823742D15008E590D /* ProjectPickerCell.swift */; };
+		8A31CD8D23742E43008E590D /* ProjectPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A31CD8C23742E43008E590D /* ProjectPickerCell.xib */; };
 		8A55BA772372D02D004FFA97 /* UIApplicationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */; };
 		8A5D48BE2369E18C0082C13D /* DispatchGroupFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */; };
 		8A5D48C02369E1A30082C13D /* DispatchGroup+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48BF2369E1A20082C13D /* DispatchGroup+Extension.swift */; };
@@ -25,6 +32,7 @@
 		8AA5C5DD235F34340083E121 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA5C5DC235F34340083E121 /* Colors.xcassets */; };
 		8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */; };
 		8AC097242371CCFF00103FAD /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */; };
+		8AE00013237464A1002F783E /* WorkTimeCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE00012237464A1002F783E /* WorkTimeCoordinatorMock.swift */; };
 		8AF3073823688C5A00832FDD /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3073723688C5A00832FDD /* DependencyContainer.swift */; };
 		BFB4EF72FAE3D8CD21A09744 /* Pods_TimeTableTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FE8C20AC7A1A64A549519E /* Pods_TimeTableTests.framework */; };
 		C101603222003A9500DCE817 /* WorkTimesListContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */; };
@@ -326,6 +334,13 @@
 		8A10F83A2350C7AF0004F389 /* WorkTimeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCoordinator.swift; sourceTree = "<group>"; };
 		8A10F83C2350D9810004F389 /* DismissableNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissableNavigationController.swift; sourceTree = "<group>"; };
 		8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extension.swift"; sourceTree = "<group>"; };
+		8A31CD7C23741BFC008E590D /* ProjectPickerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCoordinator.swift; sourceTree = "<group>"; };
+		8A31CD7F23741FD0008E590D /* ProjectPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerViewController.swift; sourceTree = "<group>"; };
+		8A31CD8123742639008E590D /* ProjectPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerViewModel.swift; sourceTree = "<group>"; };
+		8A31CD8323742B34008E590D /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		8A31CD8623742CEA008E590D /* ProjectPickerCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCellModel.swift; sourceTree = "<group>"; };
+		8A31CD8823742D15008E590D /* ProjectPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCell.swift; sourceTree = "<group>"; };
+		8A31CD8C23742E43008E590D /* ProjectPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectPickerCell.xib; sourceTree = "<group>"; };
 		8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationMock.swift; sourceTree = "<group>"; };
 		8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupFactory.swift; sourceTree = "<group>"; };
 		8A5D48BF2369E1A20082C13D /* DispatchGroup+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchGroup+Extension.swift"; sourceTree = "<group>"; };
@@ -338,6 +353,7 @@
 		8AC097272371D28100103FAD /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		8AC097282371D28100103FAD /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		8AC097292371D28100103FAD /* Stage.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Stage.xcconfig; sourceTree = "<group>"; };
+		8AE00012237464A1002F783E /* WorkTimeCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCoordinatorMock.swift; sourceTree = "<group>"; };
 		8AF3073723688C5A00832FDD /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListContentProvider.swift; sourceTree = "<group>"; };
 		C101603322003D4000DCE817 /* MatchingFullTimeEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFullTimeEncoder.swift; sourceTree = "<group>"; };
@@ -655,6 +671,26 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		8A31CD7E23741F93008E590D /* ProjectPicker */ = {
+			isa = PBXGroup;
+			children = (
+				8A31CD7F23741FD0008E590D /* ProjectPickerViewController.swift */,
+				8A31CD8123742639008E590D /* ProjectPickerViewModel.swift */,
+				8A31CD8523742CDA008E590D /* Cell */,
+			);
+			path = ProjectPicker;
+			sourceTree = "<group>";
+		};
+		8A31CD8523742CDA008E590D /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				8A31CD8823742D15008E590D /* ProjectPickerCell.swift */,
+				8A31CD8623742CEA008E590D /* ProjectPickerCellModel.swift */,
+				8A31CD8C23742E43008E590D /* ProjectPickerCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		8A839D0E23570FBD002F3464 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -732,8 +768,10 @@
 		C1249C5E21819E16005DB2A5 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				8A10F83C2350D9810004F389 /* DismissableNavigationController.swift */,
 				C1B5137521772D1400C3727C /* LaunchScreen.storyboard */,
 				C1F926E121874FB40004A9BC /* Login */,
+				8A31CD7E23741F93008E590D /* ProjectPicker */,
 				C125F1B421DCCF2F00594CDE /* Projects */,
 				C153AC432181E4CC007A35BB /* ServerConfiguration */,
 				C183F82821F0A0BE00B07AB8 /* User */,
@@ -1074,6 +1112,7 @@
 				C134298221A6C73000F4EA42 /* URLSessionDataTaskMock.swift */,
 				C134298021A6C71200F4EA42 /* UrlSessionMock.swift */,
 				C134297621A6BFEA00F4EA42 /* UserDefaultsMock.swift */,
+				8AE00012237464A1002F783E /* WorkTimeCoordinatorMock.swift */,
 				C19D88A42202FE54007CC867 /* WorkTimesListContentProviderMock.swift */,
 				C13C2B0521EDE589008C9088 /* WorkTimesListCoordinatorMock.swift */,
 				C1E1F04821AD3712007F9228 /* WorkTimesListViewControllerMock.swift */,
@@ -1152,6 +1191,7 @@
 				C122602021899F82007D64A3 /* URLSessionDataTask+Extension.swift */,
 				C1F7C2E121904E0900F4FAF0 /* UserDefaults+Extension.swift */,
 				C153AC4F2182EFB5007A35BB /* Protocols */,
+				8A31CD8323742B34008E590D /* Array+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1244,7 +1284,6 @@
 				C1784DDC21E4E03600C83E2A /* WorkTime.storyboard */,
 				C16B3A76229E6BDF00B6E9E6 /* TagCollectionViewCell.swift */,
 				C16B3A78229E742600B6E9E6 /* TagCollectionViewCellViewModel.swift */,
-				8A10F83C2350D9810004F389 /* DismissableNavigationController.swift */,
 				C13C88E521E5EA8F00F68C6E /* WorkTimeViewController.swift */,
 				C13C88E721E5F7B600F68C6E /* WorkTimeViewModel.swift */,
 			);
@@ -1347,8 +1386,9 @@
 		C1AACFCC21A434650023FD32 /* WorkTime */ = {
 			isa = PBXGroup;
 			children = (
-				C1AACFD721A4387F0023FD32 /* WorkTimesListCoordinator.swift */,
+				8A31CD7C23741BFC008E590D /* ProjectPickerCoordinator.swift */,
 				8A10F83A2350C7AF0004F389 /* WorkTimeCoordinator.swift */,
+				C1AACFD721A4387F0023FD32 /* WorkTimesListCoordinator.swift */,
 			);
 			path = WorkTime;
 			sourceTree = "<group>";
@@ -1803,6 +1843,7 @@
 				C153AC452181E4E7007A35BB /* ServerConfiguration.storyboard in Resources */,
 				C1B5137421772D1400C3727C /* Assets.xcassets in Resources */,
 				C1F926EA218846F80004A9BC /* Login.storyboard in Resources */,
+				8A31CD8D23742E43008E590D /* ProjectPickerCell.xib in Resources */,
 				C125F1BA21DCCF5D00594CDE /* Projects.storyboard in Resources */,
 				C1E1F04221AD2372007F9228 /* WorkTimesTableViewHeader.xib in Resources */,
 				C13429AA21A7DB2300F4EA42 /* WorkTimesList.storyboard in Resources */,
@@ -2009,6 +2050,7 @@
 				C153AC6B218324DB007A35BB /* UIError.swift in Sources */,
 				8A5D48C02369E1A30082C13D /* DispatchGroup+Extension.swift in Sources */,
 				C1F7C2DE2190436B00F4FAF0 /* AuthenticationCoordinator.swift in Sources */,
+				8A31CD8223742639008E590D /* ProjectPickerViewModel.swift in Sources */,
 				C1FA05E221943E0700BD8C9D /* DataStackType.swift in Sources */,
 				C16B3A79229E742600B6E9E6 /* TagCollectionViewCellViewModel.swift in Sources */,
 				C1F7C2E221904E0900F4FAF0 /* UserDefaults+Extension.swift in Sources */,
@@ -2032,12 +2074,15 @@
 				C1AFFFE321A2D16F00A7A632 /* TimeTableCoordinator.swift in Sources */,
 				C134296921A6964B00F4EA42 /* WorkTimesParameters.swift in Sources */,
 				C101603422003D4000DCE817 /* MatchingFullTimeEncoder.swift in Sources */,
+				8A31CD8423742B34008E590D /* Array+Extension.swift in Sources */,
 				C122601F21899F44007D64A3 /* URLSession+Extension.swift in Sources */,
 				C1F7C2ED2191897A00F4FAF0 /* ApiClientError.swift in Sources */,
+				8A31CD8723742CEA008E590D /* ProjectPickerCellModel.swift in Sources */,
 				8A10F841235454DA0004F389 /* UIBarButtonItem+Extension.swift in Sources */,
 				C125F1BE21DCDCB000594CDE /* Project.swift in Sources */,
 				C13429AE21A7E48C00F4EA42 /* WorkTimesListViewModel.swift in Sources */,
 				C12CA56821A578870082FEB7 /* ProjectDecoder.swift in Sources */,
+				8A31CD8023741FD0008E590D /* ProjectPickerViewController.swift in Sources */,
 				C1F69B2E21903818005D9114 /* LoginContentProvider.swift in Sources */,
 				C152C22221E89CB8003ABD88 /* Task.swift in Sources */,
 				C1ECF0A22192C337006038C6 /* JSONEncoder+Extension.swift in Sources */,
@@ -2077,6 +2122,7 @@
 				C153AC472182EBC1007A35BB /* ServerConfigurationViewController.swift in Sources */,
 				C1249C682181A1E7005DB2A5 /* CoordinatorType.swift in Sources */,
 				C12CA57D21A593F20082FEB7 /* DateFormatter+Extension.swift in Sources */,
+				8A31CD8923742D15008E590D /* ProjectPickerCell.swift in Sources */,
 				C1E1F04B21AD3DBE007F9228 /* Calendar+Extension.swift in Sources */,
 				8A10F83B2350C7AF0004F389 /* WorkTimeCoordinator.swift in Sources */,
 				C10FD87F21F1EDA100A233C5 /* ApiClient+Users.swift in Sources */,
@@ -2088,6 +2134,7 @@
 				C1B5136D21772D1200C3727C /* AppDelegate.swift in Sources */,
 				8A5D48C62369ED990082C13D /* UIImage+Extension.swift in Sources */,
 				C10FD88121F1F15100A233C5 /* UserDecoder.swift in Sources */,
+				8A31CD7D23741BFC008E590D /* ProjectPickerCoordinator.swift in Sources */,
 				C16CA644219AA47900133358 /* UserEntity+SessionDecoder.swift in Sources */,
 				8A09DCB823673E58003FC2A6 /* DispatchQueueManager.swift in Sources */,
 				C198BD1D21FF3DD200B5F847 /* MatchingFullTimeDecoder.swift in Sources */,
@@ -2126,6 +2173,7 @@
 				C134297521A6BE6F00F4EA42 /* AccessServiceMock.swift in Sources */,
 				C134296B21A6ABF200F4EA42 /* WorkTimesParametersTests.swift in Sources */,
 				C1ECF0A82192C427006038C6 /* CustomJSONSerializationTests.swift in Sources */,
+				8AE00013237464A1002F783E /* WorkTimeCoordinatorMock.swift in Sources */,
 				C178B78D21EF8AE1001DA07F /* WorkTimeViewControllerMock.swift in Sources */,
 				C134297721A6BFEA00F4EA42 /* UserDefaultsMock.swift in Sources */,
 				C19D88A52202FE54007CC867 /* WorkTimesListContentProviderMock.swift in Sources */,
