@@ -37,6 +37,7 @@
 		8AE000182374654D002F783E /* ProjectPickerCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE000172374654D002F783E /* ProjectPickerCoordinatorMock.swift */; };
 		8AE0001A23746885002F783E /* ProjectPickerViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE0001923746885002F783E /* ProjectPickerViewControllerMock.swift */; };
 		8AE0001C23746C99002F783E /* ProjectPickerCellMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE0001B23746C99002F783E /* ProjectPickerCellMock.swift */; };
+		8AE0001E23747036002F783E /* ProjectPickerCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE0001D23747036002F783E /* ProjectPickerCellModelTests.swift */; };
 		8AF3073823688C5A00832FDD /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3073723688C5A00832FDD /* DependencyContainer.swift */; };
 		BFB4EF72FAE3D8CD21A09744 /* Pods_TimeTableTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FE8C20AC7A1A64A549519E /* Pods_TimeTableTests.framework */; };
 		C101603222003A9500DCE817 /* WorkTimesListContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */; };
@@ -362,6 +363,7 @@
 		8AE000172374654D002F783E /* ProjectPickerCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCoordinatorMock.swift; sourceTree = "<group>"; };
 		8AE0001923746885002F783E /* ProjectPickerViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerViewControllerMock.swift; sourceTree = "<group>"; };
 		8AE0001B23746C99002F783E /* ProjectPickerCellMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCellMock.swift; sourceTree = "<group>"; };
+		8AE0001D23747036002F783E /* ProjectPickerCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCellModelTests.swift; sourceTree = "<group>"; };
 		8AF3073723688C5A00832FDD /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListContentProvider.swift; sourceTree = "<group>"; };
 		C101603322003D4000DCE817 /* MatchingFullTimeEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFullTimeEncoder.swift; sourceTree = "<group>"; };
@@ -714,6 +716,7 @@
 			isa = PBXGroup;
 			children = (
 				8AE0001523746520002F783E /* ProjectPickerViewModelTests.swift */,
+				8AE0001D23747036002F783E /* ProjectPickerCellModelTests.swift */,
 			);
 			path = ProjectPicker;
 			sourceTree = "<group>";
@@ -2251,6 +2254,7 @@
 				C1E1F04921AD3712007F9228 /* WorkTimesListViewControllerMock.swift in Sources */,
 				C1249C6C2181A23A005DB2A5 /* Error+String.swift in Sources */,
 				C134299B21A6D87900F4EA42 /* CoordinatorMock.swift in Sources */,
+				8AE0001E23747036002F783E /* ProjectPickerCellModelTests.swift in Sources */,
 				C12BD9BE21E4BCDA00A6EAF0 /* ProjectsCoordinatorTests.swift in Sources */,
 				C134297F21A6C66900F4EA42 /* DataStackMock.swift in Sources */,
 				C153AC5E2182FA64007A35BB /* UIButtonExtensionTests.swift in Sources */,
