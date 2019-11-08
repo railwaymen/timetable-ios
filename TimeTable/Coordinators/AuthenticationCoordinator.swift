@@ -112,11 +112,9 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
     private func createApiClient(with configuration: ServerConfiguration) -> ApiClientType? {
         guard let hostURL = configuration.host else { return nil }
         let networking = Networking(baseURL: hostURL.absoluteString)
-        return ApiClient(networking: networking, buildEncoder: { [encoder = dependencyContainer.encoder] in
-            return RequestEncoder(encoder: encoder, serialization: CustomJSONSerialization())
-        }, buildDecoder: { [decoder = dependencyContainer.decoder] in
-            return decoder
-        })
+        return ApiClient(networking: networking,
+                         encoder: RequestEncoder(encoder: dependencyContainer.encoder, serialization: CustomJSONSerialization()),
+                         decoder: dependencyContainer.decoder)
     }
     
     private func updateApiClient(with session: SessionDecoder) {

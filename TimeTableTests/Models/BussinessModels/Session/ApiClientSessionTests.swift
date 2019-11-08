@@ -32,11 +32,7 @@ class ApiClientSessionTests: XCTestCase {
         let decoder = try JSONDecoder().decode(SessionDecoder.self, from: data)
         var expectedSessionDecoder: SessionDecoder?
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
-        let apiClient: ApiClientSessionType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
-            return requestEncoderMock
-        }) { () -> JSONDecoderType in
-            return jsonDecoderMock
-        }
+        let apiClient: ApiClientSessionType = ApiClient(networking: networkingMock, encoder: requestEncoderMock, decoder: jsonDecoderMock)
         //Act
         apiClient.signIn(with: parameters) { result in
             switch result {
@@ -56,11 +52,7 @@ class ApiClientSessionTests: XCTestCase {
         var expectedError: Error?
         let error = TestError(message: "sign in failed")
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
-        let apiClient: ApiClientSessionType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
-            return requestEncoderMock
-        }) { () -> JSONDecoderType in
-            return jsonDecoderMock
-        }
+        let apiClient: ApiClientSessionType = ApiClient(networking: networkingMock, encoder: requestEncoderMock, decoder: jsonDecoderMock)
         //Act
         apiClient.signIn(with: parameters) { result in
             switch result {
