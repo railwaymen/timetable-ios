@@ -18,18 +18,18 @@ class AsynchronousDataTransactionMock: AsynchronousDataTransactionType {
     var user: DynamicObject?
     
     func deleteAll<D>(_ from: From<D>, _ deleteClauses: DeleteClause...) throws -> Int where D: DynamicObject {
-        deleteAllCalled = true
+        self.deleteAllCalled = true
         return 0
     }
     
     func delete<D: DynamicObject>(_ object: D?) {
-        deleteCalled = true
+        self.deleteCalled = true
     }
     
     func create<D>(_ into: Into<D>) -> D where D: DynamicObject {
-        createCalled = true
+        self.createCalled = true
         // swiftlint:disable force_cast
-        return user as! D
+        return self.user as! D
         // swiftlint:enable force_cast
     }
 }

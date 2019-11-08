@@ -16,24 +16,24 @@ class ProjectPickerViewModelTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        userInterfaceMock = ProjectPickerViewControllerMock()
-        coordinatorMock = ProjectPickerCoordinatorMock()
-        dependencyContainerMock = DependencyContainerMock()
+        self.userInterfaceMock = ProjectPickerViewControllerMock()
+        self.coordinatorMock = ProjectPickerCoordinatorMock()
+        self.dependencyContainerMock = DependencyContainerMock()
     }
     
     func testLoadViewSetsUpView() {
         //Arrange
-        let viewModel = buildViewModel()
+        let viewModel = self.buildViewModel()
         //Act
         viewModel.loadView()
         //Assert
-        XCTAssertEqual(userInterfaceMock.setUpCalledCount, 1)
+        XCTAssertEqual(self.userInterfaceMock.setUpCalledCount, 1)
     }
         
     func testNumberOfRowsInZeroSection() {
         //Arrange
-        let projects = [buildProjectDecoder()]
-        let viewModel = buildViewModel(projects: projects)
+        let projects = [self.buildProjectDecoder()]
+        let viewModel = self.buildViewModel(projects: projects)
         //Act
         let numberOfRows = viewModel.numberOfRows(in: 0)
         //Assert
@@ -42,8 +42,8 @@ class ProjectPickerViewModelTests: XCTestCase {
     
     func testNumberOfRowsInNotExistingSection() {
         //Arrange
-        let projects = [buildProjectDecoder()]
-        let viewModel = buildViewModel(projects: projects)
+        let projects = [self.buildProjectDecoder()]
+        let viewModel = self.buildViewModel(projects: projects)
         //Act
         let numberOfRows = viewModel.numberOfRows(in: 92)
         //Assert
@@ -52,7 +52,7 @@ class ProjectPickerViewModelTests: XCTestCase {
     
     func testNumberOfRowsInZeroSectionWithoutProjects() {
         //Arrange
-        let viewModel = buildViewModel()
+        let viewModel = self.buildViewModel()
         //Act
         let numberOfRows = viewModel.numberOfRows(in: 0)
         //Assert
@@ -61,7 +61,7 @@ class ProjectPickerViewModelTests: XCTestCase {
     
     func testNumberOfRowsInNotExistingSectionWithoutProjects() {
         //Arrange
-        let viewModel = buildViewModel()
+        let viewModel = self.buildViewModel()
         //Act
         let numberOfRows = viewModel.numberOfRows(in: 92)
         //Assert
@@ -71,8 +71,8 @@ class ProjectPickerViewModelTests: XCTestCase {
     func testConfigureCellConfiguresCell() {
         //Arrange
         let cellMock = ProjectPickerCellMock()
-        let projects = [buildProjectDecoder()]
-        let viewModel = buildViewModel(projects: projects)
+        let projects = [self.buildProjectDecoder()]
+        let viewModel = self.buildViewModel(projects: projects)
         //Act
         viewModel.configure(cell: cellMock, for: IndexPath(row: 0, section: 0))
         //Assert
@@ -82,7 +82,7 @@ class ProjectPickerViewModelTests: XCTestCase {
     func testConfigureCellWithoutProjects() {
         //Arrange
         let cellMock = ProjectPickerCellMock()
-        let viewModel = buildViewModel()
+        let viewModel = self.buildViewModel()
         //Act
         viewModel.configure(cell: cellMock, for: IndexPath(row: 0, section: 0))
         //Assert
@@ -91,17 +91,17 @@ class ProjectPickerViewModelTests: XCTestCase {
     
     func testUpdateSearchResultsReloadsData() {
         //Arrange
-        let viewModel = buildViewModel()
+        let viewModel = self.buildViewModel()
         //Act
         viewModel.updateSearchResults(for: "")
         //Assert
-        XCTAssertEqual(userInterfaceMock.reloadDataCalledCount, 1)
+        XCTAssertEqual(self.userInterfaceMock.reloadDataCalledCount, 1)
     }
     
     func testUpdateSearchResultsForEmptyTextDoesNotFilterProjects() {
         //Arrange
-        let projects = [buildProjectDecoder(id: 1, name: "1"), buildProjectDecoder(id: 2, name: "3")]
-        let viewModel = buildViewModel(projects: projects)
+        let projects = [self.buildProjectDecoder(id: 1, name: "1"), self.buildProjectDecoder(id: 2, name: "3")]
+        let viewModel = self.buildViewModel(projects: projects)
         //Act
         viewModel.updateSearchResults(for: "")
         //Assert
@@ -110,8 +110,8 @@ class ProjectPickerViewModelTests: XCTestCase {
     
     func testUpdateSearchResultsForTextFiltersProjectsByName() {
         //Arrange
-        let projects = [buildProjectDecoder(id: 1, name: "1"), buildProjectDecoder(id: 2, name: "3")]
-        let viewModel = buildViewModel(projects: projects)
+        let projects = [self.buildProjectDecoder(id: 1, name: "1"), self.buildProjectDecoder(id: 2, name: "3")]
+        let viewModel = self.buildViewModel(projects: projects)
         //Act
         viewModel.updateSearchResults(for: "3")
         //Assert
@@ -120,52 +120,52 @@ class ProjectPickerViewModelTests: XCTestCase {
     
     func testCellDidSelectWithoutProjectsCallsFinishWithoutProject() {
         //Arrange
-        let viewModel = buildViewModel()
+        let viewModel = self.buildViewModel()
         //Act
         viewModel.cellDidSelect(at: IndexPath(row: 0, section: 0))
         //Assert
-        XCTAssertEqual(coordinatorMock.finishFlowCalledCount, 1)
-        XCTAssertNil(coordinatorMock.finishFlowProject)
+        XCTAssertEqual(self.coordinatorMock.finishFlowCalledCount, 1)
+        XCTAssertNil(self.coordinatorMock.finishFlowProject)
     }
     
     func testCellDidSelectExistingProjectCallsFinishWithProperProject() {
         //Arrange
-        let projects = [buildProjectDecoder(id: 1, name: "1"), buildProjectDecoder(id: 2, name: "3")]
-        let viewModel = buildViewModel(projects: projects)
+        let projects = [self.buildProjectDecoder(id: 1, name: "1"), self.buildProjectDecoder(id: 2, name: "3")]
+        let viewModel = self.buildViewModel(projects: projects)
         //Act
         viewModel.cellDidSelect(at: IndexPath(row: 0, section: 0))
         //Assert
-        XCTAssertEqual(coordinatorMock.finishFlowCalledCount, 1)
-        XCTAssertEqual(coordinatorMock.finishFlowProject, projects[0])
+        XCTAssertEqual(self.coordinatorMock.finishFlowCalledCount, 1)
+        XCTAssertEqual(self.coordinatorMock.finishFlowProject, projects[0])
     }
     
     func testCellDidSelectInporperIndexPathCallsFinishWithoutProject() {
         //Arrange
-        let projects = [buildProjectDecoder(id: 1, name: "1"), buildProjectDecoder(id: 2, name: "3")]
-        let viewModel = buildViewModel(projects: projects)
+        let projects = [self.buildProjectDecoder(id: 1, name: "1"), self.buildProjectDecoder(id: 2, name: "3")]
+        let viewModel = self.buildViewModel(projects: projects)
         //Act
         viewModel.cellDidSelect(at: IndexPath(row: 0, section: 1))
         //Assert
-        XCTAssertEqual(coordinatorMock.finishFlowCalledCount, 1)
-        XCTAssertNil(coordinatorMock.finishFlowProject)
+        XCTAssertEqual(self.coordinatorMock.finishFlowCalledCount, 1)
+        XCTAssertNil(self.coordinatorMock.finishFlowProject)
     }
     
     func testCloseButtonTappedFinishesFlow() {
         //Arrange
-        let viewModel = buildViewModel()
+        let viewModel = self.buildViewModel()
         //Act
         viewModel.closeButtonTapped()
         //Assert
-        XCTAssertEqual(coordinatorMock?.finishFlowCalledCount, 1)
-        XCTAssertNil(coordinatorMock?.finishFlowProject)
+        XCTAssertEqual(self.coordinatorMock?.finishFlowCalledCount, 1)
+        XCTAssertNil(self.coordinatorMock?.finishFlowProject)
     }
     
     // MARK: - Private
     private func buildViewModel(projects: [ProjectDecoder] = []) -> ProjectPickerViewModel {
         return ProjectPickerViewModel(
-            userInterface: userInterfaceMock,
-            coordinator: coordinatorMock,
-            notificationCenter: dependencyContainerMock.notificationCenter,
+            userInterface: self.userInterfaceMock,
+            coordinator: self.coordinatorMock,
+            notificationCenter: self.dependencyContainerMock.notificationCenter,
             projects: projects)
     }
     

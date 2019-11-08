@@ -26,124 +26,124 @@ class ProfileViewModelTests: XCTestCase {
     private lazy var decoder = JSONDecoder()
     
     override func setUp() {
-        userInterfaceMock = ProfileViewControllerMock()
-        coordinatorMock = ProfileCoordinatorMock()
-        apiClientMock = ApiClientMock()
-        accessServiceMock = AccessServiceMock()
-        coreDataStackMock = CoreDataStackMock()
-        errorHandlerMock = ErrorHandlerMock()
-        
-        viewModel = ProfileViewModel(userInterface: userInterfaceMock,
-                                     coordinator: coordinatorMock,
-                                     apiClient: apiClientMock,
-                                     accessService: accessServiceMock,
-                                     coreDataStack: coreDataStackMock,
-                                     errorHandler: errorHandlerMock)
         super.setUp()
+        self.userInterfaceMock = ProfileViewControllerMock()
+        self.coordinatorMock = ProfileCoordinatorMock()
+        self.apiClientMock = ApiClientMock()
+        self.accessServiceMock = AccessServiceMock()
+        self.coreDataStackMock = CoreDataStackMock()
+        self.errorHandlerMock = ErrorHandlerMock()
+        
+        self.viewModel = ProfileViewModel(userInterface: self.userInterfaceMock,
+                                          coordinator: self.coordinatorMock,
+                                          apiClient: self.apiClientMock,
+                                          accessService: self.accessServiceMock,
+                                          coreDataStack: self.coreDataStackMock,
+                                          errorHandler: self.errorHandlerMock)
     }
     
     func testViewDidLoadCallsSetUpViewOnTheUserInterface() {
         //Act
-        viewModel.viewDidLoad()
+        self.viewModel.viewDidLoad()
         //Assert
-        XCTAssertTrue(userInterfaceMock.setUpCalled)
+        XCTAssertTrue(self.userInterfaceMock.setUpCalled)
     }
     
     func testViewDidLoadDoesNotUpdateUserInterfaceAndThorwsErrorWhileLastUserIdetifierIsNil() {
         //Arrange
-        accessServiceMock.getLastLoggedInUserIdentifierValue = nil
+        self.accessServiceMock.getLastLoggedInUserIdentifierValue = nil
         //Act
-        viewModel.viewDidLoad()
+        self.viewModel.viewDidLoad()
         //Assert
-        XCTAssertNil(userInterfaceMock.setActivityIndicatorIsHidden)
-        XCTAssertNil(errorHandlerMock.throwedError)
-        XCTAssertNil(userInterfaceMock.updateValues.0)
-        XCTAssertNil(userInterfaceMock.updateValues.1)
-        XCTAssertNil(userInterfaceMock.updateValues.2)
+        XCTAssertNil(self.userInterfaceMock.setActivityIndicatorIsHidden)
+        XCTAssertNil(self.errorHandlerMock.throwedError)
+        XCTAssertNil(self.userInterfaceMock.updateValues.0)
+        XCTAssertNil(self.userInterfaceMock.updateValues.1)
+        XCTAssertNil(self.userInterfaceMock.updateValues.2)
     }
     
     func testViewDidLoadMakesRequest() {
         //Arrange
-        accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
         //Act
-        viewModel.viewDidLoad()
+        self.viewModel.viewDidLoad()
         //Assert
-        XCTAssertFalse(try userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
-        XCTAssertNil(errorHandlerMock.throwedError)
-        XCTAssertNil(userInterfaceMock.updateValues.0)
-        XCTAssertNil(userInterfaceMock.updateValues.1)
-        XCTAssertNil(userInterfaceMock.updateValues.2)
+        XCTAssertFalse(try self.userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
+        XCTAssertNil(self.errorHandlerMock.throwedError)
+        XCTAssertNil(self.userInterfaceMock.updateValues.0)
+        XCTAssertNil(self.userInterfaceMock.updateValues.1)
+        XCTAssertNil(self.userInterfaceMock.updateValues.2)
     }
     
     func testViewDidLoadFetchUserProfileFails() throws {
         //Arrange
         let error = TestError(message: "error")
-        accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
         //Act
-        viewModel.viewDidLoad()
-        apiClientMock.fetchUserProfileCompletion?(.failure(error))
+        self.viewModel.viewDidLoad()
+        self.apiClientMock.fetchUserProfileCompletion?(.failure(error))
         //Assert
-        XCTAssertTrue(try userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
-        XCTAssertEqual(try (errorHandlerMock.throwedError as? TestError).unwrap(), error)
-        XCTAssertTrue(userInterfaceMock.showErrorViewCalled)
+        XCTAssertTrue(try self.userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
+        XCTAssertEqual(try (self.errorHandlerMock.throwedError as? TestError).unwrap(), error)
+        XCTAssertTrue(self.userInterfaceMock.showErrorViewCalled)
     }
     
     func testViewDidLoadFetchUserProfileSucceed() throws {
         //Arrange
-        accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
         let data = try self.json(from: UserResponse.userFullResponse)
-        let userDecoder = try decoder.decode(UserDecoder.self, from: data)
+        let userDecoder = try self.decoder.decode(UserDecoder.self, from: data)
         //Act
-        viewModel.viewDidLoad()
-        apiClientMock.fetchUserProfileCompletion?(.success(userDecoder))
+        self.viewModel.viewDidLoad()
+        self.apiClientMock.fetchUserProfileCompletion?(.success(userDecoder))
         //Assert
-        XCTAssertTrue(try userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
-        XCTAssertEqual(userInterfaceMock.updateValues.0, "John")
-        XCTAssertEqual(userInterfaceMock.updateValues.1, "Little")
-        XCTAssertEqual(userInterfaceMock.updateValues.2, "john.little@example.com")
-        XCTAssertTrue(userInterfaceMock.showScrollViewCalled)
+        XCTAssertTrue(try self.userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
+        XCTAssertEqual(self.userInterfaceMock.updateValues.0, "John")
+        XCTAssertEqual(self.userInterfaceMock.updateValues.1, "Little")
+        XCTAssertEqual(self.userInterfaceMock.updateValues.2, "john.little@example.com")
+        XCTAssertTrue(self.userInterfaceMock.showScrollViewCalled)
     }
     
     func testViewRequestedForLogoutReturnsWhileUserIdentifierIsNil() {
         //Act
-        viewModel.viewRequestedForLogout()
+        self.viewModel.viewRequestedForLogout()
         //Assert
-        XCTAssertNil(userInterfaceMock.setActivityIndicatorIsHidden)
-        XCTAssertNil(errorHandlerMock.throwedError)
-        XCTAssertFalse(coordinatorMock.userProfileDidLogoutUserCalled)
+        XCTAssertNil(self.userInterfaceMock.setActivityIndicatorIsHidden)
+        XCTAssertNil(self.errorHandlerMock.throwedError)
+        XCTAssertFalse(self.coordinatorMock.userProfileDidLogoutUserCalled)
     }
     
     func testViewRequestedForLogoutMakesRequestToDeleteUser() {
         //Arrange
-        accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
         //Act
-        viewModel.viewRequestedForLogout()
+        self.viewModel.viewRequestedForLogout()
         //Assert
-        XCTAssertFalse(try userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
-        XCTAssertNil(errorHandlerMock.throwedError)
-        XCTAssertNotNil(coreDataStackMock.deleteUserCompletion)
+        XCTAssertFalse(try self.userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
+        XCTAssertNil(self.errorHandlerMock.throwedError)
+        XCTAssertNotNil(self.coreDataStackMock.deleteUserCompletion)
     }
     
     func testViewRequestedForLogoutThrowsAnError() {
         //Arrange
         let error = TestError(message: "error")
-        accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
         //Act
-        viewModel.viewRequestedForLogout()
-        coreDataStackMock.deleteUserCompletion?(.failure(error))
+        self.viewModel.viewRequestedForLogout()
+        self.coreDataStackMock.deleteUserCompletion?(.failure(error))
         //Assert
-        XCTAssertTrue(try userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
-        XCTAssertEqual(try (errorHandlerMock.throwedError as? TestError).unwrap(), error)
+        XCTAssertTrue(try self.userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
+        XCTAssertEqual(try (self.errorHandlerMock.throwedError as? TestError).unwrap(), error)
     }
     
     func testViewRequestedForLogoutSucceed() {
         //Arrange
-        accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
         //Act
-        viewModel.viewRequestedForLogout()
-        coreDataStackMock.deleteUserCompletion?(.success(Void()))
+        self.viewModel.viewRequestedForLogout()
+        self.coreDataStackMock.deleteUserCompletion?(.success(Void()))
         //Assert
-        XCTAssertTrue(try userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
+        XCTAssertTrue(try self.userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
         XCTAssertTrue(self.coordinatorMock.userProfileDidLogoutUserCalled)
     }
 }

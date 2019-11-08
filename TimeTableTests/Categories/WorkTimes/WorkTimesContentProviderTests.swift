@@ -32,41 +32,41 @@ class WorkTimesContentProviderTests: XCTestCase {
     }
     
     override func setUp() {
-        apiClientMock = ApiClientMock()
-        accessServiceMock = AccessServiceMock()
-        calendarMock = CalendarMock()
-        dispatchGroupMock = DispatchGroupMock()
-        dispatchGroupFactoryMock = DispatchGroupFactoryMock()
-        dispatchGroupFactoryMock.expectedDispatchGroup = dispatchGroupMock
-        contentProvider = WorkTimesListContentProvider(apiClient: apiClientMock,
-                                                       accessService: accessServiceMock,
-                                                       calendar: calendarMock,
-                                                       dispatchGroupFactory: dispatchGroupFactoryMock)
+        self.apiClientMock = ApiClientMock()
+        self.accessServiceMock = AccessServiceMock()
+        self.calendarMock = CalendarMock()
+        self.dispatchGroupMock = DispatchGroupMock()
+        self.dispatchGroupFactoryMock = DispatchGroupFactoryMock()
+        self.dispatchGroupFactoryMock.expectedDispatchGroup = self.dispatchGroupMock
+        self.contentProvider = WorkTimesListContentProvider(apiClient: self.apiClientMock,
+                                                            accessService: self.accessServiceMock,
+                                                            calendar: self.calendarMock,
+                                                            dispatchGroupFactory: self.dispatchGroupFactoryMock)
         super.setUp()
     }
     
     func testFetchWorkTimeDataMakesRequest() {
         //Arrange
-        accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
         //Act
-        contentProvider.fetchWorkTimesData(for: nil) { _ in
+        self.contentProvider.fetchWorkTimesData(for: nil) { _ in
             XCTFail()
         }
         //Assert
-        XCTAssertEqual(dispatchGroupMock.enterCalledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.leaveCalledCount, 0)
-        XCTAssertEqual(dispatchGroupMock.notifyCalledCount, 1)
-        XCTAssertNotNil(apiClientMock.fetchWorkTimesCompletion)
-        XCTAssertNotNil(apiClientMock.fetchMatchingFullTimeCompletion)
+        XCTAssertEqual(self.dispatchGroupMock.enterCalledCount, 2)
+        XCTAssertEqual(self.dispatchGroupMock.leaveCalledCount, 0)
+        XCTAssertEqual(self.dispatchGroupMock.notifyCalledCount, 1)
+        XCTAssertNotNil(self.apiClientMock.fetchWorkTimesCompletion)
+        XCTAssertNotNil(self.apiClientMock.fetchMatchingFullTimeCompletion)
     }
     
     func testFetchWorkTimeDataWhileGivenDateIsNil() throws {
         //Arrange
         var expectedError: Error?
         let error = TestError(message: "Work times error")
-        accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
         //Act
-        contentProvider.fetchWorkTimesData(for: nil) { result in
+        self.contentProvider.fetchWorkTimesData(for: nil) { result in
             switch result {
             case .success:
                 XCTFail()
@@ -74,25 +74,25 @@ class WorkTimesContentProviderTests: XCTestCase {
                 expectedError = error
             }
         }
-        apiClientMock.fetchWorkTimesCompletion?(.failure(error))
-        apiClientMock.fetchMatchingFullTimeCompletion?(.failure(error))
+        self.apiClientMock.fetchWorkTimesCompletion?(.failure(error))
+        self.apiClientMock.fetchMatchingFullTimeCompletion?(.failure(error))
         //Assert
-        XCTAssertEqual(dispatchGroupMock.enterCalledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.leaveCalledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.notifyCalledCount, 1)
+        XCTAssertEqual(self.dispatchGroupMock.enterCalledCount, 2)
+        XCTAssertEqual(self.dispatchGroupMock.leaveCalledCount, 2)
+        XCTAssertEqual(self.dispatchGroupMock.notifyCalledCount, 1)
         XCTAssertEqual(expectedError as? TestError, error)
     }
     
     func testFetchWorkTimeDataWhileGivenDateIsInvalid_dateComponentsFails() throws {
         //Arrange
         let dateComponents = DateComponents(year: 2019, month: 2, day: 1)
-        calendarMock.dateComponentsReturnValue = dateComponents
+        self.calendarMock.dateComponentsReturnValue = dateComponents
         
         var expectedError: Error?
         let error = TestError(message: "Work times error")
-        accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
         //Act
-        contentProvider.fetchWorkTimesData(for: nil) { result in
+        self.contentProvider.fetchWorkTimesData(for: nil) { result in
             switch result {
             case .success:
                 XCTFail()
@@ -100,28 +100,28 @@ class WorkTimesContentProviderTests: XCTestCase {
                 expectedError = error
             }
         }
-        apiClientMock.fetchWorkTimesCompletion?(.failure(error))
-        apiClientMock.fetchMatchingFullTimeCompletion?(.failure(error))
+        self.apiClientMock.fetchWorkTimesCompletion?(.failure(error))
+        self.apiClientMock.fetchMatchingFullTimeCompletion?(.failure(error))
         //Assert
-        XCTAssertEqual(dispatchGroupMock.enterCalledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.leaveCalledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.notifyCalledCount, 1)
+        XCTAssertEqual(self.dispatchGroupMock.enterCalledCount, 2)
+        XCTAssertEqual(self.dispatchGroupMock.leaveCalledCount, 2)
+        XCTAssertEqual(self.dispatchGroupMock.notifyCalledCount, 1)
         XCTAssertEqual(expectedError as? TestError, error)
     }
     
     func testFetchWorkTimeDataWhileGivenDateIsInvalid_dateFromComponentsFails() throws {
         //Arrange
         let dateComponents = DateComponents(year: 2019, month: 2, day: 1)
-        calendarMock.dateComponentsReturnValue = dateComponents
+        self.calendarMock.dateComponentsReturnValue = dateComponents
         let startOfMonth = try Calendar.current.date(from: dateComponents).unwrap()
-        calendarMock.dateFromComponentsValue = startOfMonth
+        self.calendarMock.dateFromComponentsValue = startOfMonth
         let date = try Calendar.current.date(from: dateComponents).unwrap()
         
         var expectedError: Error?
         let error = TestError(message: "Work times error")
-        accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
         //Act
-        contentProvider.fetchWorkTimesData(for: date) { result in
+        self.contentProvider.fetchWorkTimesData(for: date) { result in
             switch result {
             case .success:
                 XCTFail()
@@ -129,25 +129,25 @@ class WorkTimesContentProviderTests: XCTestCase {
                 expectedError = error
             }
         }
-        apiClientMock.fetchWorkTimesCompletion?(.failure(error))
-        apiClientMock.fetchMatchingFullTimeCompletion?(.failure(error))
+        self.apiClientMock.fetchWorkTimesCompletion?(.failure(error))
+        self.apiClientMock.fetchMatchingFullTimeCompletion?(.failure(error))
         //Assert
-        XCTAssertEqual(dispatchGroupMock.enterCalledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.leaveCalledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.notifyCalledCount, 1)
+        XCTAssertEqual(self.dispatchGroupMock.enterCalledCount, 2)
+        XCTAssertEqual(self.dispatchGroupMock.leaveCalledCount, 2)
+        XCTAssertEqual(self.dispatchGroupMock.notifyCalledCount, 1)
         XCTAssertEqual(expectedError as? TestError, error)
     }
     
     func testFetchWorkTimeDataWhileFetchWorkTimesFinishWithError() throws {
         //Arrange
-        accessServiceMock.getLastLoggedInUserIdentifierValue = 1
+        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 1
         var expectedError: Error?
         let error = TestError(message: "Fetching Work Times Error")
         
         let matchingFullTimeData = try self.json(from: MatchingFullTimeResponse.matchingFullTimeFullResponse)
-        let matchingFullTime = try decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
+        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
         //Act
-        contentProvider.fetchWorkTimesData(for: nil) { result in
+        self.contentProvider.fetchWorkTimesData(for: nil) { result in
             switch result {
             case .success:
                 XCTFail()
@@ -155,12 +155,12 @@ class WorkTimesContentProviderTests: XCTestCase {
                 expectedError = error
             }
         }
-        apiClientMock.fetchWorkTimesCompletion?(.failure(error))
-        apiClientMock.fetchMatchingFullTimeCompletion?(.success(matchingFullTime))
+        self.apiClientMock.fetchWorkTimesCompletion?(.failure(error))
+        self.apiClientMock.fetchMatchingFullTimeCompletion?(.success(matchingFullTime))
         //Assert
-        XCTAssertEqual(dispatchGroupMock.enterCalledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.leaveCalledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.notifyCalledCount, 1)
+        XCTAssertEqual(self.dispatchGroupMock.enterCalledCount, 2)
+        XCTAssertEqual(self.dispatchGroupMock.leaveCalledCount, 2)
+        XCTAssertEqual(self.dispatchGroupMock.notifyCalledCount, 1)
         XCTAssertEqual(expectedError as? TestError, error)
     }
     
@@ -168,12 +168,12 @@ class WorkTimesContentProviderTests: XCTestCase {
         //Arrange
         var dateComponents = DateComponents(year: 2019, month: 2, day: 1)
         let startOfMonth = try Calendar.current.date(from: dateComponents).unwrap()
-        accessServiceMock.getLastLoggedInUserIdentifierValue = 1
-        calendarMock.dateComponentsReturnValue = dateComponents
-        calendarMock.dateFromComponentsValue = startOfMonth
+        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 1
+        self.calendarMock.dateComponentsReturnValue = dateComponents
+        self.calendarMock.dateFromComponentsValue = startOfMonth
         dateComponents.day = 28
         let endOfMonth = try Calendar.current.date(from: dateComponents).unwrap()
-        calendarMock.shortDateByAddingReturnValue = endOfMonth
+        self.calendarMock.shortDateByAddingReturnValue = endOfMonth
         
         var expectedResponse: ([DailyWorkTime], MatchingFullTimeDecoder)?
     
@@ -183,9 +183,9 @@ class WorkTimesContentProviderTests: XCTestCase {
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: workTimesData)
         
         let matchingFullTimeData = try self.json(from: MatchingFullTimeResponse.matchingFullTimeFullResponse)
-        let matchingFullTime = try decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
+        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
         //Act
-        contentProvider.fetchWorkTimesData(for: date) { result in
+        self.contentProvider.fetchWorkTimesData(for: date) { result in
             switch result {
             case .success(let response):
                 expectedResponse = response
@@ -193,12 +193,12 @@ class WorkTimesContentProviderTests: XCTestCase {
                 XCTFail()
             }
         }
-        apiClientMock.fetchWorkTimesCompletion?(.success(workTimes))
-        apiClientMock.fetchMatchingFullTimeCompletion?(.success(matchingFullTime))
+        self.apiClientMock.fetchWorkTimesCompletion?(.success(workTimes))
+        self.apiClientMock.fetchMatchingFullTimeCompletion?(.success(matchingFullTime))
         //Assert
-        XCTAssertEqual(dispatchGroupMock.enterCalledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.leaveCalledCount, 2)
-        XCTAssertEqual(dispatchGroupMock.notifyCalledCount, 1)
+        XCTAssertEqual(self.dispatchGroupMock.enterCalledCount, 2)
+        XCTAssertEqual(self.dispatchGroupMock.leaveCalledCount, 2)
+        XCTAssertEqual(self.dispatchGroupMock.notifyCalledCount, 1)
         XCTAssertEqual(expectedResponse?.0.count, 1)
         XCTAssertEqual(try (expectedResponse?.1).unwrap(), matchingFullTime)
     }

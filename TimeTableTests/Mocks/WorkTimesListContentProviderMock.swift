@@ -13,14 +13,14 @@ class WorkTimesListContentProviderMock: WorkTimesListContentProviderType {
     private(set) var fetchWorkTimesDataValues: (called: Bool, date: Date?) = (false, nil)
     private(set) var fetchWorkTimesDataCompletion: ((Result<([DailyWorkTime], MatchingFullTimeDecoder)>) -> Void)?
     func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder)>) -> Void) {
-        fetchWorkTimesDataValues = (true, date)
-        fetchWorkTimesDataCompletion = completion
+        self.fetchWorkTimesDataValues = (true, date)
+        self.fetchWorkTimesDataCompletion = completion
     }
     
     private(set) var deleteWorkTimeDecoder: WorkTimeDecoder?
     private(set) var deleteWorkTimeCompletion: ((Result<Void>) -> Void)?
     func delete(workTime: WorkTimeDecoder, completion: @escaping (Result<Void>) -> Void) {
-        deleteWorkTimeDecoder = workTime
-        deleteWorkTimeCompletion = completion
+        self.deleteWorkTimeDecoder = workTime
+        self.deleteWorkTimeCompletion = completion
     }
 }

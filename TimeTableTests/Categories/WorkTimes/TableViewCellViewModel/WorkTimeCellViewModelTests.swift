@@ -26,9 +26,9 @@ class WorkTimeCellViewModelTests: XCTestCase {
     }()
     
     override func setUp() {
-        parent = WorkTimeCellViewModelParentMock()
-        userInterface = WorkTimeCellViewMock()
         super.setUp()
+        self.parent = WorkTimeCellViewModelParentMock()
+        self.userInterface = WorkTimeCellViewMock()
     }
     
     func testViewConfiguredCallsUpdateView() throws {
@@ -36,14 +36,14 @@ class WorkTimeCellViewModelTests: XCTestCase {
         let data = try self.json(from: WorkTimesResponse.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         let workTime = workTimes[0]
-        let viewModel = WorkTimeCellViewModel(workTime: workTime, userInterface: userInterface, parent: parent)
+        let viewModel = WorkTimeCellViewModel(workTime: workTime, userInterface: self.userInterface, parent: self.parent)
         //Act
         viewModel.viewConfigured()
         //Assert
-        XCTAssertEqual(userInterface.updateViewData?.durationText, "1h")
-        XCTAssertEqual(userInterface.updateViewData?.bodyText, "Bracket - v2")
-        XCTAssertEqual(userInterface.updateViewData?.taskUrlText, "task1")
-        XCTAssertEqual(userInterface.updateViewData?.fromToDateText, "3:00 PM - 4:00 PM")
+        XCTAssertEqual(self.userInterface.updateViewData?.durationText, "1h")
+        XCTAssertEqual(self.userInterface.updateViewData?.bodyText, "Bracket - v2")
+        XCTAssertEqual(self.userInterface.updateViewData?.taskUrlText, "task1")
+        XCTAssertEqual(self.userInterface.updateViewData?.fromToDateText, "3:00 PM - 4:00 PM")
     }
     
     func testPrepareForReuseCallsUpdateView() throws {
@@ -51,14 +51,14 @@ class WorkTimeCellViewModelTests: XCTestCase {
         let data = try self.json(from: WorkTimesResponse.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         let workTime = workTimes[1]
-        let viewModel = WorkTimeCellViewModel(workTime: workTime, userInterface: userInterface, parent: parent)
+        let viewModel = WorkTimeCellViewModel(workTime: workTime, userInterface: self.userInterface, parent: self.parent)
         //Act
         viewModel.prepareForReuse()
         //Assert
-        XCTAssertEqual(userInterface.updateViewData?.durationText, "2h")
-        XCTAssertEqual(userInterface.updateViewData?.bodyText, "Bracket - v3")
-        XCTAssertEqual(userInterface.updateViewData?.taskUrlText, "task2")
-        XCTAssertEqual(userInterface.updateViewData?.fromToDateText, "12:00 PM - 2:00 PM")
+        XCTAssertEqual(self.userInterface.updateViewData?.durationText, "2h")
+        XCTAssertEqual(self.userInterface.updateViewData?.bodyText, "Bracket - v3")
+        XCTAssertEqual(self.userInterface.updateViewData?.taskUrlText, "task2")
+        XCTAssertEqual(self.userInterface.updateViewData?.fromToDateText, "12:00 PM - 2:00 PM")
     }
     
     func testTaskButtonTappedWithValidURLCallsParentOpenTask() throws {
@@ -66,12 +66,12 @@ class WorkTimeCellViewModelTests: XCTestCase {
         let data = try self.json(from: WorkTimesResponse.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         let workTime = workTimes[1]
-        let viewModel = WorkTimeCellViewModel(workTime: workTime, userInterface: userInterface, parent: parent)
+        let viewModel = WorkTimeCellViewModel(workTime: workTime, userInterface: self.userInterface, parent: self.parent)
         //Act
         viewModel.taskButtonTapped()
         //Assert
-        XCTAssertEqual(parent.openTaskCalledCount, 1)
-        XCTAssertEqual(parent.openTaskWorkTime, workTime)
+        XCTAssertEqual(self.parent.openTaskCalledCount, 1)
+        XCTAssertEqual(self.parent.openTaskWorkTime, workTime)
     }
 }
 
@@ -83,7 +83,7 @@ private class WorkTimeCellViewMock: WorkTimeCellViewModelOutput {
     
     private(set) var updateViewData: WorkTimeCellViewModel.ViewData?
     func updateView(data: WorkTimeCellViewModel.ViewData) {
-        updateViewData = data
+        self.updateViewData = data
     }
 }
 
@@ -91,7 +91,7 @@ private class WorkTimeCellViewModelParentMock: WorkTimeCellViewModelParentType {
     private(set) var openTaskCalledCount = 0
     private(set) var openTaskWorkTime: WorkTimeDecoder?
     func openTask(for workTime: WorkTimeDecoder) {
-        openTaskCalledCount += 1
-        openTaskWorkTime = workTime
+        self.openTaskCalledCount += 1
+        self.openTaskWorkTime = workTime
     }
 }

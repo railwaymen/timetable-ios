@@ -22,36 +22,36 @@ class LoginViewControllerMock: LoginViewControllerable {
     
     // MARK: - LoginViewModelOutput
     func setUpView(checkBoxIsActive: Bool) {
-        setUpViewCalledData = (true, checkBoxIsActive)
+        self.setUpViewCalledData = (true, checkBoxIsActive)
     }
     
     func updateLoginFields(email: String, password: String) {
-        updateLoginFieldsCalled = true
-        updateLoginFieldsData = (email, password)
+        self.updateLoginFieldsCalled = true
+        self.updateLoginFieldsData = (email, password)
     }
     
     func passwordInputEnabledState(_ isEnabled: Bool) {
-        passwordInputEnabledStateValues = (true, isEnabled)
+        self.passwordInputEnabledStateValues = (true, isEnabled)
     }
     
     func loginButtonEnabledState(_ isEnabled: Bool) {
-        loginButtonEnabledStateValues = (true, isEnabled)
+        self.loginButtonEnabledStateValues = (true, isEnabled)
     }
     
     func checkBoxIsActiveState(_ isActive: Bool) {
-        checkBoxIsActiveStateValues = (true, isActive)
+        self.checkBoxIsActiveStateValues = (true, isActive)
     }
     
     func focusOnPasswordTextField() {
-        focusOnPasswordTextFieldCalled = true
+        self.focusOnPasswordTextFieldCalled = true
     }
     
     func dismissKeyboard() {
-        dismissKeyboardCalled = true
+        self.dismissKeyboardCalled = true
     }
     
     func setActivityIndicator(isHidden: Bool) {
-        setActivityIndicatorIsHidden = isHidden
+        self.setActivityIndicatorIsHidden = isHidden
     }
     
     // MARK: - LoginViewControllerType

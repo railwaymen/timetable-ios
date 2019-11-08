@@ -14,26 +14,26 @@ class ProjectsCoordinatorTests: XCTestCase {
     private var projectsCoordinator: ProjectsCoordinator!
     
     override func setUp() {
-        dependencyContainer = DependencyContainerMock()
-        projectsCoordinator = ProjectsCoordinator(dependencyContainer: dependencyContainer)
+        self.dependencyContainer = DependencyContainerMock()
+        self.projectsCoordinator = ProjectsCoordinator(dependencyContainer: self.dependencyContainer)
         super.setUp() 
     }
     
     func testRunMainFlowDoesNotRunMainFlowWhileProjectsControllerIsNil() {
         //Arrange
         //Act
-        projectsCoordinator.start()
+        self.projectsCoordinator.start()
         //Assert
-        XCTAssertTrue(projectsCoordinator.navigationController.children.isEmpty)
+        XCTAssertTrue(self.projectsCoordinator.navigationController.children.isEmpty)
     }
     
     func testRunMainFlowRunsMainFlow() {
         //Arrange
-        dependencyContainer.storyboardsManagerMock.projectsController = ProjectsViewController()
+        self.dependencyContainer.storyboardsManagerMock.projectsController = ProjectsViewController()
         //Act
-        projectsCoordinator.start()
+        self.projectsCoordinator.start()
         //Assert
-        XCTAssertFalse(projectsCoordinator.navigationController.children.isEmpty)
-        XCTAssertNotNil(projectsCoordinator.navigationController.children.first as? ProjectsViewControllerable)
+        XCTAssertFalse(self.projectsCoordinator.navigationController.children.isEmpty)
+        XCTAssertNotNil(self.projectsCoordinator.navigationController.children.first as? ProjectsViewControllerable)
     }
 }

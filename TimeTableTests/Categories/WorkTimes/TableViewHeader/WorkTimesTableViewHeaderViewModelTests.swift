@@ -24,10 +24,10 @@ class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
     }()
     
     override func setUp() {
-        userInterface = WorkTimesTableViewHeaderViewMock()
-        calendar = CalendarMock()
-        
         super.setUp()
+        self.userInterface = WorkTimesTableViewHeaderViewMock()
+        self.calendar = CalendarMock()
+        
     }
     
     func testViewConfiguredWithTodayDate() throws {
@@ -37,13 +37,13 @@ class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
         let data = try self.json(from: WorkTimesResponse.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
-        let viewModel = WorkTimesTableViewHeaderViewModel(userInterface: userInterface, dailyWorkTime: dailyWorkTime, calendar: calendar)
-        calendar.isDateInTodayReturnValue = true
+        let viewModel = WorkTimesTableViewHeaderViewModel(userInterface: self.userInterface, dailyWorkTime: dailyWorkTime, calendar: self.calendar)
+        self.calendar.isDateInTodayReturnValue = true
         //Act
         viewModel.viewConfigured()
         //Assert
-        XCTAssertEqual(userInterface.updateViewData.dayText, "day.today".localized)
-        XCTAssertEqual(userInterface.updateViewData.durationText, "3h")
+        XCTAssertEqual(self.userInterface.updateViewData.dayText, "day.today".localized)
+        XCTAssertEqual(self.userInterface.updateViewData.durationText, "3h")
     }
     
     func testViewConfiguredWithYesterdayDate() throws {
@@ -53,13 +53,13 @@ class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
         let data = try self.json(from: WorkTimesResponse.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
-        let viewModel = WorkTimesTableViewHeaderViewModel(userInterface: userInterface, dailyWorkTime: dailyWorkTime, calendar: calendar)
-        calendar.isDateInYesterdayReturnValue = true
+        let viewModel = WorkTimesTableViewHeaderViewModel(userInterface: self.userInterface, dailyWorkTime: dailyWorkTime, calendar: self.calendar)
+        self.calendar.isDateInYesterdayReturnValue = true
         //Act
         viewModel.viewConfigured()
         //Assert
-        XCTAssertEqual(userInterface.updateViewData.dayText, "day.yesterday".localized)
-        XCTAssertEqual(userInterface.updateViewData.durationText, "3h")
+        XCTAssertEqual(self.userInterface.updateViewData.dayText, "day.yesterday".localized)
+        XCTAssertEqual(self.userInterface.updateViewData.durationText, "3h")
     }
     
     func testViewConfiguredWithOtherDateThanTodayAndYesterday() throws {
@@ -69,12 +69,12 @@ class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
         let data = try self.json(from: WorkTimesResponse.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
-        let viewModel = WorkTimesTableViewHeaderViewModel(userInterface: userInterface, dailyWorkTime: dailyWorkTime, calendar: calendar)
+        let viewModel = WorkTimesTableViewHeaderViewModel(userInterface: self.userInterface, dailyWorkTime: dailyWorkTime, calendar: self.calendar)
         //Act
         viewModel.viewConfigured()
         //Assert
-        XCTAssertEqual(userInterface.updateViewData.dayText, DateFormatter.localizedString(from: dailyWorkTime.day, dateStyle: .medium, timeStyle: .none))
-        XCTAssertEqual(userInterface.updateViewData.durationText, "3h")
+        XCTAssertEqual(self.userInterface.updateViewData.dayText, DateFormatter.localizedString(from: dailyWorkTime.day, dateStyle: .medium, timeStyle: .none))
+        XCTAssertEqual(self.userInterface.updateViewData.durationText, "3h")
     }
 }
 
@@ -82,7 +82,7 @@ private class WorkTimesTableViewHeaderViewMock: WorkTimesTableViewHeaderViewMode
     
     private(set) var updateViewData: (dayText: String?, durationText: String?) = (nil, nil)
     func updateView(dayText: String?, durationText: String?) {
-        updateViewData.dayText = dayText
-        updateViewData.durationText = durationText
+        self.updateViewData.dayText = dayText
+        self.updateViewData.durationText = durationText
     }
 }

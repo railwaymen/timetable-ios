@@ -17,32 +17,32 @@ class ServerConfigurationViewModelTests: XCTestCase {
     private var viewModel: ServerConfigurationViewModel!
     
     override func setUp() {
-        userInterface = UserInterfaceMock()
-        errorHandler = ErrorHandlerMock()
-        coordinatorMock = CoordinatorMock()
-        serverConfigurationManagerMock = ServerConfigurationManagerMock()
-        viewModel = ServerConfigurationViewModel(userInterface: userInterface,
-                                                 coordinator: coordinatorMock,
-                                                 serverConfigurationManager: serverConfigurationManagerMock,
-                                                 errorHandler: errorHandler)
+        self.userInterface = UserInterfaceMock()
+        self.errorHandler = ErrorHandlerMock()
+        self.coordinatorMock = CoordinatorMock()
+        self.serverConfigurationManagerMock = ServerConfigurationManagerMock()
+        self.viewModel = ServerConfigurationViewModel(userInterface: self.userInterface,
+                                                      coordinator: self.coordinatorMock,
+                                                      serverConfigurationManager: self.serverConfigurationManagerMock,
+                                                      errorHandler: self.errorHandler)
         super.setUp()
     }
     
     func testViewDidLoadCallSetupViewOnTheUserInterface() {
         //Act
-        viewModel.viewDidLoad()
+        self.viewModel.viewDidLoad()
         //Assert
-        XCTAssertTrue(userInterface.setupViewCalled)
-        XCTAssertEqual(userInterface.setupViewStateValues.serverAddress, "")
-        XCTAssertTrue(userInterface.setupViewStateValues.checkBoxIsActive)
+        XCTAssertTrue(self.userInterface.setupViewCalled)
+        XCTAssertEqual(self.userInterface.setupViewStateValues.serverAddress, "")
+        XCTAssertTrue(self.userInterface.setupViewStateValues.checkBoxIsActive)
     }
     
     func testViewRequestedToContinueThrowErrorWhileServerAddressIsNull() {
         //Act
-        viewModel.viewRequestedToContinue()
+        self.viewModel.viewRequestedToContinue()
         //Assert
-        XCTAssertNil(userInterface.setActivityIndicatorIsHidden)
-        switch errorHandler.throwedError as? UIError {
+        XCTAssertNil(self.userInterface.setActivityIndicatorIsHidden)
+        switch self.errorHandler.throwedError as? UIError {
         case .cannotBeEmpty?: break
         default: XCTFail()
         }
@@ -50,12 +50,12 @@ class ServerConfigurationViewModelTests: XCTestCase {
     
     func testViewRequestedToContinueThrowErrorWhileServerAddressIsInvalid() {
         //Arrange
-        viewModel.serverAddressDidChange(text: "##invalid_address")
+        self.viewModel.serverAddressDidChange(text: "##invalid_address")
         //Act
-        viewModel.viewRequestedToContinue()
+        self.viewModel.viewRequestedToContinue()
         //Assert
-        XCTAssertNil(userInterface.setActivityIndicatorIsHidden)
-        switch errorHandler.throwedError as? UIError {
+        XCTAssertNil(self.userInterface.setActivityIndicatorIsHidden)
+        switch self.errorHandler.throwedError as? UIError {
         case .invalidFormat?: break
         default: XCTFail()
         }
@@ -64,91 +64,91 @@ class ServerConfigurationViewModelTests: XCTestCase {
     func testViewRequestedToContinueCreateCorrectServerConfigurationWithDefaultValues() throws {
         //Arrange
         let hostString = "www.example.com"
-        viewModel.serverAddressDidChange(text: hostString)
+        self.viewModel.serverAddressDidChange(text: hostString)
         //Act
-        viewModel.viewRequestedToContinue()
-        serverConfigurationManagerMock.verifyConfigurationCompletion?(.success(Void()))
+        self.viewModel.viewRequestedToContinue()
+        self.serverConfigurationManagerMock.verifyConfigurationCompletion?(.success(Void()))
         //Assert
         let configuration = try self.coordinatorMock.serverConfigurationDidFinishValues.serverConfiguration.unwrap()
         XCTAssertEqual(configuration.host, try URL(string: hostString.apiSuffix().httpPrefix()).unwrap())
         XCTAssertTrue(configuration.shouldRememberHost)
-        XCTAssertTrue(try userInterface.setActivityIndicatorIsHidden.unwrap())
+        XCTAssertTrue(try self.userInterface.setActivityIndicatorIsHidden.unwrap())
     }
     
     func testViewRequestedToContinueCreateCorrectServerConfigurationWithStaySigneInAsFalse() throws {
         //Arrange
         let hostString = "www.example.com"
-        viewModel.serverAddressDidChange(text: hostString)
-        viewModel.shouldRemeberHostCheckBoxStatusDidChange(isActive: true)
+        self.viewModel.serverAddressDidChange(text: hostString)
+        self.viewModel.shouldRemeberHostCheckBoxStatusDidChange(isActive: true)
         //Act
-        viewModel.viewRequestedToContinue()
-        serverConfigurationManagerMock.verifyConfigurationCompletion?(.success(Void()))
+        self.viewModel.viewRequestedToContinue()
+        self.serverConfigurationManagerMock.verifyConfigurationCompletion?(.success(Void()))
         //Assert
         let configuration = try self.coordinatorMock.serverConfigurationDidFinishValues.serverConfiguration.unwrap()
         XCTAssertEqual(configuration.host, try URL(string: hostString.apiSuffix().httpPrefix()).unwrap())
         XCTAssertFalse(configuration.shouldRememberHost)
-        XCTAssertTrue(try userInterface.setActivityIndicatorIsHidden.unwrap())
+        XCTAssertTrue(try self.userInterface.setActivityIndicatorIsHidden.unwrap())
     }
     
     func testViewRequestedToContinueWithCorrectServerConfigurationCallCoordinator() throws {
         //Arrange
         let hostString = "www.example.com"
-        viewModel.serverAddressDidChange(text: hostString)
+        self.viewModel.serverAddressDidChange(text: hostString)
         //Act
-        viewModel.viewRequestedToContinue()
-        serverConfigurationManagerMock.verifyConfigurationCompletion?(.success(Void()))
+        self.viewModel.viewRequestedToContinue()
+        self.serverConfigurationManagerMock.verifyConfigurationCompletion?(.success(Void()))
         //Assert
         XCTAssertTrue(self.coordinatorMock.serverConfigurationDidFinishValues.called)
-        XCTAssertTrue(try userInterface.setActivityIndicatorIsHidden.unwrap())
+        XCTAssertTrue(try self.userInterface.setActivityIndicatorIsHidden.unwrap())
     }
     
     func testViewRequestedToContinueWithInvalidServerConfigurationGetsAnError() throws {
         //Arrange
         let hostString = "com"
         let url = try URL(string: hostString).unwrap()
-        viewModel.serverAddressDidChange(text: hostString)
+        self.viewModel.serverAddressDidChange(text: hostString)
         //Act
-        viewModel.viewRequestedToContinue()
-        serverConfigurationManagerMock.verifyConfigurationCompletion?(.failure(ApiClientError(type: .invalidHost(url))))
+        self.viewModel.viewRequestedToContinue()
+        self.serverConfigurationManagerMock.verifyConfigurationCompletion?(.failure(ApiClientError(type: .invalidHost(url))))
         //Assert
-        XCTAssertNotNil(errorHandler.throwedError)
-        XCTAssertTrue(try userInterface.setActivityIndicatorIsHidden.unwrap())
+        XCTAssertNotNil(self.errorHandler.throwedError)
+        XCTAssertTrue(try self.userInterface.setActivityIndicatorIsHidden.unwrap())
     }
     
     func testServerAddressDidChangePassedNilValue() {
         //Act
-        viewModel.serverAddressDidChange(text: nil)
+        self.viewModel.serverAddressDidChange(text: nil)
         //Assert
-        XCTAssertFalse(userInterface.continueButtonEnabledStateValues.called)
+        XCTAssertFalse(self.userInterface.continueButtonEnabledStateValues.called)
     }
     
     func testServerAddressDidChangePassedCorrectHostName() {
         //Act
-        viewModel.serverAddressDidChange(text: "www.example.com")
+        self.viewModel.serverAddressDidChange(text: "www.example.com")
         //Assert
-        XCTAssertTrue(userInterface.continueButtonEnabledStateValues.called)
-        XCTAssertTrue(userInterface.continueButtonEnabledStateValues.isEnabled)
+        XCTAssertTrue(self.userInterface.continueButtonEnabledStateValues.called)
+        XCTAssertTrue(self.userInterface.continueButtonEnabledStateValues.isEnabled)
     }
     
     func testServerAddressTextFieldDidRequestedForReturnDissmissKeyboard() {
         //Act
-        _ = viewModel.serverAddressTextFieldDidRequestForReturn()
+        _ = self.viewModel.serverAddressTextFieldDidRequestForReturn()
         //Assert
-        XCTAssertTrue(userInterface.dismissKeyboardCalled)
+        XCTAssertTrue(self.userInterface.dismissKeyboardCalled)
     }
     
     func testServerAddressTextFieldDidRequestedForReturnReturnCorrectValue() {
         //Act
-        let value = viewModel.serverAddressTextFieldDidRequestForReturn()
+        let value = self.viewModel.serverAddressTextFieldDidRequestForReturn()
         //Assert
         XCTAssertTrue(value)
     }
     
     func testViewHasBeenTappedCallDissmissKeyboardOnUserInteface() {
         //Act
-        _ = viewModel.viewHasBeenTapped()
+        _ = self.viewModel.viewHasBeenTapped()
         //Assert
-        XCTAssertTrue(userInterface.dismissKeyboardCalled)
+        XCTAssertTrue(self.userInterface.dismissKeyboardCalled)
     }
 }
 
@@ -161,23 +161,23 @@ private class UserInterfaceMock: ServerConfigurationViewModelOutput {
     private(set) var setActivityIndicatorIsHidden: Bool?
     
     func setupView(checkBoxIsActive: Bool, serverAddress: String) {
-        setupViewCalled = true
-        setupViewStateValues = (checkBoxIsActive, serverAddress)
+        self.setupViewCalled = true
+        self.setupViewStateValues = (checkBoxIsActive, serverAddress)
     }
     
     func dismissKeyboard() {
-        dismissKeyboardCalled = true
+        self.dismissKeyboardCalled = true
     }
     
     func continueButtonEnabledState(_ isEnabled: Bool) {
-        continueButtonEnabledStateValues = (true, isEnabled)
+        self.continueButtonEnabledStateValues = (true, isEnabled)
     }
     
     func checkBoxIsActiveState(_ isActive: Bool) {
-        checkBoxIsActiveStateValues = (true, isActive)
+        self.checkBoxIsActiveStateValues = (true, isActive)
     }
     
     func setActivityIndicator(isHidden: Bool) {
-        setActivityIndicatorIsHidden = isHidden
+        self.setActivityIndicatorIsHidden = isHidden
     }
 }

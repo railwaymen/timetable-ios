@@ -14,7 +14,7 @@ class ProjectPickerCoordinatorMock: ProjectPickerCoordinatorType {
     private(set) var finishFlowCalledCount = 0
     private(set) var finishFlowProject: ProjectDecoder?
     func finishFlow(project: ProjectDecoder?) {
-        finishFlowCalledCount += 1
-        finishFlowProject = project
+        self.finishFlowCalledCount += 1
+        self.finishFlowProject = project
     }
 }

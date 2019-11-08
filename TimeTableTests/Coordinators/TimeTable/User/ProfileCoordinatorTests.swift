@@ -14,45 +14,45 @@ class ProfileCoordinatorTests: XCTestCase {
     private var coordinator: ProfileCoordinator!
     
     override func setUp() {
-        dependencyContainer = DependencyContainerMock()
-        coordinator = ProfileCoordinator(dependencyContainer: dependencyContainer)
+        self.dependencyContainer = DependencyContainerMock()
+        self.coordinator = ProfileCoordinator(dependencyContainer: self.dependencyContainer)
         super.setUp()
     }
     
     func testStartSetsNavigationBarHidden() {
         //Act
-        coordinator.start(finishCompletion: {})
+        self.coordinator.start(finishCompletion: {})
         //Assert
         XCTAssertFalse(coordinator.navigationController.navigationBar.isHidden)
     }
     
     func testStartInvalidControllerReturned() {
         //Arrange
-        dependencyContainer.storyboardsManagerMock.userController = UIViewController()
+        self.dependencyContainer.storyboardsManagerMock.userController = UIViewController()
         //Act
-        coordinator.start(finishCompletion: {})
+        self.coordinator.start(finishCompletion: {})
         //Assert
-        XCTAssertTrue(coordinator.navigationController.children.isEmpty)
+        XCTAssertTrue(self.coordinator.navigationController.children.isEmpty)
     }
     
     func testStartSetsChildViewController() {
         //Arrange
-        dependencyContainer.storyboardsManagerMock.userController = ProfileViewControllerMock()
+        self.dependencyContainer.storyboardsManagerMock.userController = ProfileViewControllerMock()
         //Act
-        coordinator.start(finishCompletion: {})
+        self.coordinator.start(finishCompletion: {})
         //Assert
-        XCTAssertNotNil(coordinator.navigationController.children[0] as? ProfileViewControllerable)
+        XCTAssertNotNil(self.coordinator.navigationController.children[0] as? ProfileViewControllerable)
     }
     
     func testUserProfileDidLogoutUser() {
         //Arrange
         var finishCompletionCalled = false
-        dependencyContainer.storyboardsManagerMock.userController = ProfileViewControllerMock()
-        coordinator.start(finishCompletion: {
+        self.dependencyContainer.storyboardsManagerMock.userController = ProfileViewControllerMock()
+        self.coordinator.start(finishCompletion: {
             finishCompletionCalled = true
         })
         //Act
-        coordinator.userProfileDidLogoutUser()
+        self.coordinator.userProfileDidLogoutUser()
         //Assert
         XCTAssertTrue(finishCompletionCalled)
     }

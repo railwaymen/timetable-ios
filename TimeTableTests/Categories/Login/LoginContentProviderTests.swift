@@ -29,10 +29,12 @@ class LoginContentProviderTests: XCTestCase {
         self.apiClientSessionMock = ApiClientSessionMock()
         self.coreDataStackUserMock = CoreDataStackMock()
         self.accessServiceMock = AccessServiceMock()
-        self.contentProvider = LoginContentProvider(apiClient: apiClientSessionMock, coreDataStack: coreDataStackUserMock, accessService: accessServiceMock)
+        self.contentProvider = LoginContentProvider(apiClient: self.apiClientSessionMock,
+                                                    coreDataStack: self.coreDataStackUserMock,
+                                                    accessService: self.accessServiceMock)
         super.setUp()
         do {
-            memoryContext = try createInMemoryStorage()
+            self.memoryContext = try self.createInMemoryStorage()
         } catch {
             XCTFail()
         }
@@ -43,7 +45,7 @@ class LoginContentProviderTests: XCTestCase {
         var expectedError: Error?
         let loginCredentials = LoginCredentials(email: "user@exmaple.com", password: "password")
         //Act
-        contentProvider.login(with: loginCredentials, fetchCompletion: { result in
+        self.contentProvider.login(with: loginCredentials, fetchCompletion: { result in
             switch result {
             case .success:
                 XCTFail()
@@ -51,7 +53,7 @@ class LoginContentProviderTests: XCTestCase {
                 expectedError = error
             }
         }, saveCompletion: { _ in })
-        apiClientSessionMock.signInCompletion?(.failure(ApiClientError(type: .invalidParameters)))
+        self.apiClientSessionMock.signInCompletion?(.failure(ApiClientError(type: .invalidParameters)))
         //Assert
         switch (expectedError as? ApiClientError)?.type {
         case .invalidParameters?: break
@@ -64,9 +66,9 @@ class LoginContentProviderTests: XCTestCase {
         var expectedError: Error?
         let loginCredentials = LoginCredentials(email: "user@exmaple.com", password: "password")
         let data = try self.json(from: SessionResponse.signInResponse)
-        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
+        let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         //Act
-        contentProvider.login(with: loginCredentials, fetchCompletion: { _ in
+        self.contentProvider.login(with: loginCredentials, fetchCompletion: { _ in
         }, saveCompletion: { result in
             switch result {
             case .success:
@@ -75,8 +77,8 @@ class LoginContentProviderTests: XCTestCase {
                 expectedError = error
             }
         })
-        apiClientSessionMock.signInCompletion?(.success(sessionReponse))
-        coreDataStackUserMock.saveUserCompletion?(.failure(CoreDataStack.Error.storageItemNotFound))
+        self.apiClientSessionMock.signInCompletion?(.success(sessionReponse))
+        self.coreDataStackUserMock.saveUserCompletion?(.failure(CoreDataStack.Error.storageItemNotFound))
         //Assert
         switch expectedError as? CoreDataStack.Error {
         case .storageItemNotFound?: break
@@ -88,8 +90,8 @@ class LoginContentProviderTests: XCTestCase {
         //Arrange
         let loginCredentials = LoginCredentials(email: "user@exmaple.com", password: "password")
         let data = try self.json(from: SessionResponse.signInResponse)
-        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
-        let user = UserEntity(context: memoryContext)
+        let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
+        let user = UserEntity(context: self.memoryContext)
         user.identifier = 1
         user.token = "token_abcd"
         user.firstName = "John"
@@ -97,16 +99,16 @@ class LoginContentProviderTests: XCTestCase {
         let synchronousDataTransactionMock = AsynchronousDataTransactionMock()
         synchronousDataTransactionMock.user = user
         //Act
-        contentProvider.login(with: loginCredentials, fetchCompletion: { _ in
+        self.contentProvider.login(with: loginCredentials, fetchCompletion: { _ in
         }, saveCompletion: { result in
             switch result {
             case .success: break
             case .failure: XCTFail()
             }
         })
-        apiClientSessionMock.signInCompletion?(.success(sessionReponse))
-        _ = coreDataStackUserMock.saveCoreDataTypeTranslatior?(synchronousDataTransactionMock)
-        coreDataStackUserMock.saveUserCompletion?(.success(user))
+        self.apiClientSessionMock.signInCompletion?(.success(sessionReponse))
+        _ = self.coreDataStackUserMock.saveCoreDataTypeTranslatior?(synchronousDataTransactionMock)
+        self.coreDataStackUserMock.saveUserCompletion?(.success(user))
         //Assert
         XCTAssertTrue(synchronousDataTransactionMock.deleteAllCalled)
     }
@@ -117,8 +119,8 @@ class LoginContentProviderTests: XCTestCase {
         var saveSuccessCalled = false
         let loginCredentials = LoginCredentials(email: "user@exmaple.com", password: "password")
         let data = try self.json(from: SessionResponse.signInResponse)
-        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
-        let user = UserEntity(context: memoryContext)
+        let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
+        let user = UserEntity(context: self.memoryContext)
         user.identifier = 1
         user.token = "token_abcd"
         user.firstName = "John"
@@ -126,7 +128,7 @@ class LoginContentProviderTests: XCTestCase {
         let asynchronousDataTransactionMock = AsynchronousDataTransactionMock()
         asynchronousDataTransactionMock.user = user
         //Act
-        contentProvider.login(with: loginCredentials, fetchCompletion: { result in
+        self.contentProvider.login(with: loginCredentials, fetchCompletion: { result in
             switch result {
             case .success:
                 fetchSuccessCalled = true
@@ -141,9 +143,9 @@ class LoginContentProviderTests: XCTestCase {
                 XCTFail()
             }
         })
-        apiClientSessionMock.signInCompletion?(.success(sessionReponse))
-        _ = coreDataStackUserMock.saveCoreDataTypeTranslatior?(asynchronousDataTransactionMock)
-        coreDataStackUserMock.saveUserCompletion?(.success(user))
+        self.apiClientSessionMock.signInCompletion?(.success(sessionReponse))
+        _ = self.coreDataStackUserMock.saveCoreDataTypeTranslatior?(asynchronousDataTransactionMock)
+        self.coreDataStackUserMock.saveUserCompletion?(.success(user))
         //Assert
         XCTAssertTrue(fetchSuccessCalled)
         XCTAssertTrue(saveSuccessCalled)
@@ -155,7 +157,7 @@ private class ApiClientSessionMock: ApiClientSessionType {
     private(set) var signInCompletion: ((Result<SessionDecoder>) -> Void)?
     
     func signIn(with credentials: LoginCredentials, completion: @escaping ((Result<SessionDecoder>) -> Void)) {
-        signInCredentials = credentials
-        signInCompletion = completion
+        self.signInCredentials = credentials
+        self.signInCompletion = completion
     }
 }

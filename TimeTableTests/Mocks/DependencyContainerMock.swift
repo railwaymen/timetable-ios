@@ -12,19 +12,19 @@ import XCTest
 class DependencyContainerMock: DependencyContainerType {
     var applicationMock = UIApplicationMock()
     var application: UIApplicationType? {
-        return applicationMock
+        return self.applicationMock
     }
     
     var window: UIWindow?
     
     var messagePresenterMock = MessagePresenterMock()
     var messagePresenter: MessagePresenterType? {
-        return messagePresenterMock
+        return self.messagePresenterMock
     }
     
     var storyboardsManagerMock = StoryboardsManagerMock()
     var storyboardsManager: StoryboardsManagerType {
-        return storyboardsManagerMock
+        return self.storyboardsManagerMock
     }
     
     private(set) var errorHandlerSetCalled: Bool = false
@@ -32,22 +32,22 @@ class DependencyContainerMock: DependencyContainerType {
     var errorHandlerMock = ErrorHandlerMock()
     var errorHandler: ErrorHandlerType {
         get {
-            return errorHandlerMock
+            return self.errorHandlerMock
         }
         set {
-            errorHandlerSetCalled = true
-            errorHandlerSetValue = newValue
+            self.errorHandlerSetCalled = true
+            self.errorHandlerSetValue = newValue
         }
     }
     
     var serverConfigurationManagerMock = ServerConfigurationManagerMock()
     var serverConfigurationManager: ServerConfigurationManagerType {
-        return serverConfigurationManagerMock
+        return self.serverConfigurationManagerMock
     }
     
     var coreDataStackMock = CoreDataStackMock()
     var coreDataStack: CoreDataStackType {
-        return coreDataStackMock
+        return self.coreDataStackMock
     }
     
     lazy var accessServiceBuilder: AccessServiceBuilderType = { [weak self] (_, _, _) -> AccessServiceLoginType in
@@ -56,12 +56,12 @@ class DependencyContainerMock: DependencyContainerType {
     
     var encoderMock = JSONEncoderMock()
     var encoder: JSONEncoderType {
-        return encoderMock
+        return self.encoderMock
     }
     
     var decoderMock = JSONDecoderMock()
     var decoder: JSONDecoderType {
-        return decoderMock
+        return self.decoderMock
     }
     
     private(set) var apiClientSetCalled: Bool = false
@@ -69,11 +69,11 @@ class DependencyContainerMock: DependencyContainerType {
     var apiClientMock = ApiClientMock()
     var apiClient: ApiClientType? {
         get {
-            return apiClientMock
+            return self.apiClientMock
         }
         set {
-            apiClientSetCalled = true
-            apiClientSetValue = newValue
+            self.apiClientSetCalled = true
+            self.apiClientSetValue = newValue
         }
     }
     
@@ -82,21 +82,21 @@ class DependencyContainerMock: DependencyContainerType {
     var accessServiceMock = AccessServiceMock()
     var accessService: AccessServiceLoginType? {
         get {
-            return accessServiceMock
+            return self.accessServiceMock
         }
         set {
-            accessServiceSetCalled = true
-            accessServiceSetValue = newValue
+            self.accessServiceSetCalled = true
+            self.accessServiceSetValue = newValue
         }
     }
     
     var notificationCenterMock = NotificationCenterMock()
     var notificationCenter: NotificationCenterType {
-        return notificationCenterMock
+        return self.notificationCenterMock
     }
     
     var dispatchGroupFactoryMock = DispatchGroupFactoryMock()
     var dispatchGroupFactory: DispatchGroupFactoryType {
-        return dispatchGroupFactoryMock
+        return self.dispatchGroupFactoryMock
     }
 }

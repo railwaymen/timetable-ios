@@ -12,6 +12,6 @@ import Foundation
 class URLSessionDataTaskMock: URLSessionDataTaskType {
     private(set) var resumeCalled = false
     func resume() {
-        resumeCalled = true
+        self.resumeCalled = true
     }
 }

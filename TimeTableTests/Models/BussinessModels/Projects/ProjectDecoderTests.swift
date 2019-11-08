@@ -43,7 +43,7 @@ class ProjectDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: WorkTimesProjectResponse.workTimesProjectResponse)
         //Act
-        let project = try decoder.decode(ProjectDecoder.self, from: data)
+        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
         XCTAssertEqual(project.identifier, 3)
         XCTAssertEqual(project.name, "Lorem ipsum")
@@ -60,7 +60,7 @@ class ProjectDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: WorkTimesProjectResponse.workTimesProjectNullColorResponse)
         //Act
-        let project = try decoder.decode(ProjectDecoder.self, from: data)
+        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
         XCTAssertEqual(project.identifier, 3)
         XCTAssertEqual(project.name, "Lorem ipsum")
@@ -77,7 +77,7 @@ class ProjectDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: WorkTimesProjectResponse.workTimesProjectMissingColorKeyResponse)
         //Act
-        let project = try decoder.decode(ProjectDecoder.self, from: data)
+        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
         XCTAssertEqual(project.identifier, 3)
         XCTAssertEqual(project.name, "Lorem ipsum")
@@ -94,7 +94,7 @@ class ProjectDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectFullResponse)
         //Act
-        let project = try decoder.decode(ProjectDecoder.self, from: data)
+        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
         XCTAssertEqual(project.identifier, 11)
         XCTAssertEqual(project.name, "asdsa")
@@ -111,7 +111,7 @@ class ProjectDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectNullColorResponse)
         //Act
-        let project = try decoder.decode(ProjectDecoder.self, from: data)
+        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
         XCTAssertEqual(project.identifier, 11)
         XCTAssertEqual(project.name, "asdsa")
@@ -128,7 +128,7 @@ class ProjectDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectMissingColorKeyResponse)
         //Act
-        let project = try decoder.decode(ProjectDecoder.self, from: data)
+        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
         XCTAssertEqual(project.identifier, 11)
         XCTAssertEqual(project.name, "asdsa")
@@ -145,7 +145,7 @@ class ProjectDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectNullAutofillResponse)
         //Act
-        let project = try decoder.decode(ProjectDecoder.self, from: data)
+        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
         XCTAssertEqual(project.identifier, 11)
         XCTAssertEqual(project.name, "asdsa")
@@ -162,7 +162,7 @@ class ProjectDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectMissingAutofillKeyResponse)
         //Act
-        let project = try decoder.decode(ProjectDecoder.self, from: data)
+        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
         XCTAssertEqual(project.identifier, 11)
         XCTAssertEqual(project.name, "asdsa")
@@ -179,7 +179,7 @@ class ProjectDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectNullInternalResponse)
         //Act
-        let project = try decoder.decode(ProjectDecoder.self, from: data)
+        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
         XCTAssertEqual(project.identifier, 11)
         XCTAssertEqual(project.name, "asdsa")
@@ -196,7 +196,7 @@ class ProjectDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectMissingInternalKeyResponse)
         //Act
-        let project = try decoder.decode(ProjectDecoder.self, from: data)
+        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
         XCTAssertEqual(project.identifier, 11)
         XCTAssertEqual(project.name, "asdsa")
@@ -213,7 +213,7 @@ class ProjectDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectNullCountDurationResponse)
         //Act
-        let project = try decoder.decode(ProjectDecoder.self, from: data)
+        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
         XCTAssertEqual(project.identifier, 11)
         XCTAssertEqual(project.name, "asdsa")
@@ -230,7 +230,7 @@ class ProjectDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectMissingCountDurationKeyResponse)
         //Act
-        let project = try decoder.decode(ProjectDecoder.self, from: data)
+        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
         XCTAssertEqual(project.identifier, 11)
         XCTAssertEqual(project.name, "asdsa")
@@ -247,7 +247,7 @@ class ProjectDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectNullActiveResponse)
         //Act
-        let project = try decoder.decode(ProjectDecoder.self, from: data)
+        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
         XCTAssertEqual(project.identifier, 11)
         XCTAssertEqual(project.name, "asdsa")
@@ -264,7 +264,7 @@ class ProjectDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectMissingActiveKeyResponse)
         //Act
-        let project = try decoder.decode(ProjectDecoder.self, from: data)
+        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
         XCTAssertEqual(project.identifier, 11)
         XCTAssertEqual(project.name, "asdsa")
@@ -281,7 +281,7 @@ class ProjectDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectNullLunchResponse)
         //Act
-        let project = try? decoder.decode(ProjectDecoder.self, from: data)
+        let project = try? self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
         XCTAssertNil(project)
     }
@@ -290,7 +290,7 @@ class ProjectDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectMissingLunchKeyResponse)
         //Act
-        let project = try? decoder.decode(ProjectDecoder.self, from: data)
+        let project = try? self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
         XCTAssertNil(project)
     }
@@ -299,7 +299,7 @@ class ProjectDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectNullWorkTimesAllowsTaskResponse)
         //Act
-        let project = try? decoder.decode(ProjectDecoder.self, from: data)
+        let project = try? self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
         XCTAssertNil(project)
     }
@@ -308,7 +308,7 @@ class ProjectDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectMissingWorkTimesAllowsTaskKeyResponse)
         //Act
-        let project = try? decoder.decode(ProjectDecoder.self, from: data)
+        let project = try? self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
         XCTAssertNil(project)
     }

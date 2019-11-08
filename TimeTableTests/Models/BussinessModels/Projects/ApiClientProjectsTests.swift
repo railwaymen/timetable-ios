@@ -24,7 +24,9 @@ class ApiClientProjectsTests: XCTestCase {
         self.networkingMock = NetworkingMock()
         self.requestEncoderMock = RequestEncoderMock()
         self.jsonDecoderMock = JSONDecoderMock()
-        self.apiClient = ApiClient(networking: networkingMock, encoder: requestEncoderMock, decoder: jsonDecoderMock)
+        self.apiClient = ApiClient(networking: self.networkingMock,
+                                   encoder: self.requestEncoderMock,
+                                   decoder: self.jsonDecoderMock)
         super.setUp()
     }
     
@@ -35,7 +37,7 @@ class ApiClientProjectsTests: XCTestCase {
         let decoder = try JSONDecoder().decode([ProjectRecordDecoder].self, from: data)
         var expectedProjectsRecordsDecoder: [ProjectRecordDecoder]?
         //Act
-        apiClient.fetchAllProjects { result in
+        self.apiClient.fetchAllProjects { result in
             switch result {
             case .success(let projectsRecordsDecoder):
                 expectedProjectsRecordsDecoder = projectsRecordsDecoder
@@ -43,8 +45,7 @@ class ApiClientProjectsTests: XCTestCase {
                 XCTFail()
             }
         }
-
-        networkingMock.getCompletion?(.success(data))
+        self.networkingMock.getCompletion?(.success(data))
         //Assert
         XCTAssertEqual(expectedProjectsRecordsDecoder?.count, decoder.count)
     }
@@ -54,7 +55,7 @@ class ApiClientProjectsTests: XCTestCase {
         var expectedError: Error?
         let error = TestError(message: "fetch projects failed")
         //Act
-        apiClient.fetchAllProjects { result in
+        self.apiClient.fetchAllProjects { result in
             switch result {
             case .success:
                 XCTFail()
@@ -62,7 +63,7 @@ class ApiClientProjectsTests: XCTestCase {
                 expectedError = error
             }
         }
-        networkingMock.getCompletion?(.failure(error))
+        self.networkingMock.getCompletion?(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
@@ -74,7 +75,7 @@ class ApiClientProjectsTests: XCTestCase {
         let decoder = try JSONDecoder().decode(SimpleProjectDecoder.self, from: data)
         var expectedSimpleProjectDecoder: SimpleProjectDecoder?
         //Act
-        apiClient.fetchSimpleListOfProjects { result in
+        self.apiClient.fetchSimpleListOfProjects { result in
             switch result {
             case .success(let simpleProjectDecoder):
                 expectedSimpleProjectDecoder = simpleProjectDecoder
@@ -82,7 +83,7 @@ class ApiClientProjectsTests: XCTestCase {
                 XCTFail()
             }
         }
-        networkingMock.getCompletion?(.success(data))
+        self.networkingMock.getCompletion?(.success(data))
         //Assert
         XCTAssertEqual(expectedSimpleProjectDecoder?.projects.count, decoder.projects.count)
     }
@@ -92,7 +93,7 @@ class ApiClientProjectsTests: XCTestCase {
         var expectedError: Error?
         let error = TestError(message: "fetch projects failed")
         //Act
-        apiClient.fetchSimpleListOfProjects { result in
+        self.apiClient.fetchSimpleListOfProjects { result in
             switch result {
             case .success:
                 XCTFail()
@@ -100,7 +101,7 @@ class ApiClientProjectsTests: XCTestCase {
                 expectedError = error
             }
         }
-        networkingMock.getCompletion?(.failure(error))
+        self.networkingMock.getCompletion?(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)

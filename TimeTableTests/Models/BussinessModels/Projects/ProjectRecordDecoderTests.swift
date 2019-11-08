@@ -30,7 +30,7 @@ class ProjectRecordDecoderTests: XCTestCase {
         let color = UIColor(hexString: "0c0c0c")
         let data = try self.json(from: ProjectRecordResponse.projectRecordResponse)
         //Act
-        let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
+        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(projectRecord.identifier, 16281)
         XCTAssertEqual(projectRecord.projectIdentifier, 11)
@@ -46,7 +46,7 @@ class ProjectRecordDecoderTests: XCTestCase {
         let leader = ProjectRecordDecoder.User(name: "Rosalind Auer")
         let data = try self.json(from: ProjectRecordResponse.projectRecordNullColorResponse)
         //Act
-        let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
+        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(projectRecord.identifier, 16281)
         XCTAssertEqual(projectRecord.projectIdentifier, 11)
@@ -62,7 +62,7 @@ class ProjectRecordDecoderTests: XCTestCase {
         let leader = ProjectRecordDecoder.User(name: "Rosalind Auer")
         let data = try self.json(from: ProjectRecordResponse.projectRecordMissingColorKeyResponse)
         //Act
-        let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
+        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(projectRecord.identifier, 16281)
         XCTAssertEqual(projectRecord.projectIdentifier, 11)
@@ -78,7 +78,7 @@ class ProjectRecordDecoderTests: XCTestCase {
         let color = UIColor(hexString: "0c0c0c")
         let data = try self.json(from: ProjectRecordResponse.projectRecordNullUserResponse)
         //Act
-        let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
+        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(projectRecord.identifier, 16281)
         XCTAssertEqual(projectRecord.projectIdentifier, 11)
@@ -94,7 +94,7 @@ class ProjectRecordDecoderTests: XCTestCase {
         let color = UIColor(hexString: "0c0c0c")
         let data = try self.json(from: ProjectRecordResponse.projectRecordMissingUserKeyResponse)
         //Act
-        let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
+        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(projectRecord.identifier, 16281)
         XCTAssertEqual(projectRecord.projectIdentifier, 11)
@@ -110,7 +110,7 @@ class ProjectRecordDecoderTests: XCTestCase {
         let color = UIColor(hexString: "0c0c0c")
         let data = try self.json(from: ProjectRecordResponse.projectRecordNullLeaderResponse)
         //Act
-        let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
+        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(projectRecord.identifier, 16281)
         XCTAssertEqual(projectRecord.projectIdentifier, 11)
@@ -126,7 +126,7 @@ class ProjectRecordDecoderTests: XCTestCase {
         let color = UIColor(hexString: "0c0c0c")
         let data = try self.json(from: ProjectRecordResponse.projectRecordMissingLeaderKey)
         //Act
-        let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
+        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(projectRecord.identifier, 16281)
         XCTAssertEqual(projectRecord.projectIdentifier, 11)

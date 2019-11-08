@@ -24,10 +24,10 @@ class LoginCredentialsTests: XCTestCase {
     func testCreatedSessionRequestIsCorrect() throws {
         //Arrange
         let sessionRequest = LoginCredentials(email: "user1@example.com", password: "password")
-        let sessionRequestSample = try json(from: SessionRequest.signInRequest)
+        let sessionRequestSample = try self.json(from: SessionRequest.signInRequest)
         let sampleDictionary = try JSONSerialization.jsonObject(with: sessionRequestSample, options: .allowFragments) as? [AnyHashable: Any]
         //Act
-        let data = try encoder.encode(sessionRequest)
+        let data = try self.encoder.encode(sessionRequest)
         let requestDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
         //Assert
         let requestEmail = try (requestDictionary?["email"] as? String).unwrap()

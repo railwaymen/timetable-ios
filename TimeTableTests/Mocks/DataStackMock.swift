@@ -14,7 +14,7 @@ class DataStackMock: DataStackType {
     
     var user: UserEntity?
     func fetchAll<D>(_ from: From<D>, _ fetchClauses: FetchClause...) throws -> [D] {
-        guard let returnType = [user] as? [D] else {
+        guard let returnType = [self.user] as? [D] else {
             throw TestError(message: "Cast failed")
         }
         return returnType
@@ -27,11 +27,11 @@ class DataStackMock: DataStackType {
     func perform<T>(asynchronousTask: @escaping (_ transaction: AsynchronousDataTransactionType) throws -> T,
                     success: @escaping (T) -> Void, failure: @escaping (CoreStoreError) -> Void) {
         // swiftlint:disable force_cast
-        performFailure = failure
-        performSuccess = { value in
+        self.performFailure = failure
+        self.performSuccess = { value in
             success(value as! T)
         }
-        performTask = { transaction in
+        self.performTask = { transaction in
             return try asynchronousTask(transaction) as! UserEntity
         }
         // swiftlint:enable force_cast

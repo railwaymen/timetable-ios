@@ -23,7 +23,7 @@ class MatchingFullTimeEncoderTests: XCTestCase {
         let date = try Calendar.current.date(from: components).unwrap()
         let matchingFullTime = MatchingFullTimeEncoder(date: date, userIdentifier: 1)
         //Act
-        let data = try encoder.encode(matchingFullTime)
+        let data = try self.encoder.encode(matchingFullTime)
         let requestDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
         //Assert
         let dateString = try (requestDictionary?["date"] as? String).unwrap()
@@ -37,7 +37,7 @@ class MatchingFullTimeEncoderTests: XCTestCase {
         let matchingFullTime = MatchingFullTimeEncoder(date: nil, userIdentifier: 1)
         //Act
         do {
-            _ = try encoder.encode(matchingFullTime)
+            _ = try self.encoder.encode(matchingFullTime)
         } catch {
             //Assert
             XCTAssertNotNil(error as? EncodingError)
@@ -51,7 +51,7 @@ class MatchingFullTimeEncoderTests: XCTestCase {
         let matchingFullTime = MatchingFullTimeEncoder(date: date, userIdentifier: nil)
         //Act
         do {
-            _ = try encoder.encode(matchingFullTime)
+            _ = try self.encoder.encode(matchingFullTime)
         } catch {
             //Assert
             XCTAssertNotNil(error as? EncodingError)

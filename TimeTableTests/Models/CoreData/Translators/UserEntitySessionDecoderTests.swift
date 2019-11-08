@@ -22,10 +22,10 @@ class UserEntitySessionDecoderTests: XCTestCase {
     private lazy var decoder = JSONDecoder()
     
     override func setUp() {
-        asynchronousDataTransactionMock = AsynchronousDataTransactionMock()
         super.setUp()
+        self.asynchronousDataTransactionMock = AsynchronousDataTransactionMock()
         do {
-            memoryContext = try createInMemoryStorage()
+            self.memoryContext = try self.createInMemoryStorage()
         } catch {
             XCTFail()
         }
@@ -34,15 +34,15 @@ class UserEntitySessionDecoderTests: XCTestCase {
     func testCreateUser() throws {
         //Arrange
         let data = try self.json(from: SessionResponse.signInResponse)
-        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
-        let user = UserEntity(context: memoryContext)
+        let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
+        let user = UserEntity(context: self.memoryContext)
         user.identifier = 1
         user.token = "token_abcd"
         user.firstName = "John"
         user.lastName = "Little"
-        asynchronousDataTransactionMock.user = user
+        self.asynchronousDataTransactionMock.user = user
         //Act
-        let createdUser = UserEntity.createUser(from: sessionReponse, transaction: asynchronousDataTransactionMock)
+        let createdUser = UserEntity.createUser(from: sessionReponse, transaction: self.asynchronousDataTransactionMock)
         //Assert
         XCTAssertEqual(Int(createdUser.identifier), sessionReponse.identifier)
         XCTAssertEqual(createdUser.firstName, sessionReponse.firstName)

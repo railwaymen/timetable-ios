@@ -20,14 +20,11 @@ class BaseCoordinatorTests: XCTestCase {
     
     // MARK: - CoordinatorType
     func testCoordinatorTypeExtension_normalStartRunsMethodStartFinishCompletionSucceed() {
-        
         //Arrange
         let coordinator = ChildCoordinator(window: nil,
                                            messagePresenter: self.messagePresenterMock)
-        
         //Act
         coordinator.start()
-        
         //Assert
         XCTAssertTrue(coordinator.startWithFinishCompletionCalled)
         XCTAssertNil(coordinator.finishCompletion)
@@ -35,59 +32,47 @@ class BaseCoordinatorTests: XCTestCase {
     
     // MARK: - Coordinator
     func testCoordinator_startWithFinishCompletionSucceed() {
-        
         //Arrange
         let coordinator = BaseCoordinator(window: nil,
                                           messagePresenter: self.messagePresenterMock)
-        
         //Act
         coordinator.start(finishCompletion: { Void() })
-        
         //Assert
         XCTAssertNotNil(coordinator.finishCompletion)
     }
     
     func testCoordinator_finishMethod() {
-        
         //Arrange
         let coordinator = ChildCoordinator(window: nil,
                                            messagePresenter: self.messagePresenterMock)
         coordinator.start(finishCompletion: { Void() })
-        
         //Act
         coordinator.finish()
-        
         //Assert
         XCTAssertTrue(coordinator.finishCalled)
     }
     
     func testCoordinator_addChildCoordinatorMethod() {
-        
         //Arrange
         let coordinator = BaseCoordinator(window: nil,
                                           messagePresenter: self.messagePresenterMock)
         let childCoordinator = ChildCoordinator(window: nil,
                                                 messagePresenter: self.messagePresenterMock)
-        
         //Act
         coordinator.addChildCoordinator(child: childCoordinator)
-        
         //Assert
         XCTAssertEqual(coordinator.children.count, 1)
     }
     
     func testCoordinator_addTwiceThisSameChildCoordinator() {
-        
         //Arrange
         let coordinator = BaseCoordinator(window: nil,
                                           messagePresenter: self.messagePresenterMock)
         let childCoordinator = ChildCoordinator(window: nil,
                                                 messagePresenter: self.messagePresenterMock)
-        
         //Act
         coordinator.addChildCoordinator(child: childCoordinator)
         coordinator.addChildCoordinator(child: childCoordinator)
-        
         //Assert
         XCTAssertEqual(coordinator.children.count, 2)
     }
@@ -98,9 +83,7 @@ class BaseCoordinatorTests: XCTestCase {
                                           messagePresenter: self.messagePresenterMock)
         let childCoordinator = ChildCoordinator(window: nil,
                                                 messagePresenter: self.messagePresenterMock)
-        
         coordinator.addChildCoordinator(child: childCoordinator)
-        
         //Act
         XCTAssertEqual(coordinator.children.count, 1)
         let firstChildCoordinator = try coordinator.children.first.unwrap()
@@ -117,9 +100,7 @@ class BaseCoordinatorTests: XCTestCase {
                                           messagePresenter: self.messagePresenterMock)
         let childCoordinator = ChildCoordinator(window: nil,
                                                 messagePresenter: self.messagePresenterMock)
-        
         coordinator.addChildCoordinator(child: childCoordinator)
-        
         //Act
         XCTAssertEqual(coordinator.children.count, 1)
         let firstChildCoordinator = try coordinator.children.first.unwrap()
@@ -183,12 +164,12 @@ private class ChildCoordinator: BaseCoordinator {
     
     override func start(finishCompletion: (() -> Void)?) {
         self.finishCompletion = finishCompletion
-        startWithFinishCompletionCalled = true
+        self.startWithFinishCompletionCalled = true
         super.start(finishCompletion: finishCompletion)
     }
     
     override func finish() {
-        finishCalled = true
+        self.finishCalled = true
         super.finish()
     }
 }

@@ -45,7 +45,7 @@ class WorkTimeDecoderTests: XCTestCase {
                                      isLunch: false, workTimesAllowsTask: false)
         let data = try self.json(from: WorkTimesResponse.workTimeResponse)
         //Act
-        let worksTime = try decoder.decode(WorkTimeDecoder.self, from: data)
+        let worksTime = try self.decoder.decode(WorkTimeDecoder.self, from: data)
         //Assert
         XCTAssertEqual(worksTime.identifier, 16239)
         XCTAssertFalse(worksTime.updatedByAdmin)
@@ -66,7 +66,7 @@ class WorkTimeDecoderTests: XCTestCase {
         let data = try self.json(from: WorkTimesResponse.workTimeInvalidDateFormatResponse)
         //Act
         do {
-            _ = try decoder.decode(WorkTimeDecoder.self, from: data)
+            _ = try self.decoder.decode(WorkTimeDecoder.self, from: data)
         } catch {
             //Assert
             XCTAssertNotNil(error)
@@ -88,7 +88,7 @@ class WorkTimeDecoderTests: XCTestCase {
                                      isLunch: false, workTimesAllowsTask: false)
         let data = try self.json(from: WorkTimesResponse.workTimeBodyNull)
         //Act
-        let worksTime = try decoder.decode(WorkTimeDecoder.self, from: data)
+        let worksTime = try self.decoder.decode(WorkTimeDecoder.self, from: data)
         //Assert
         XCTAssertEqual(worksTime.identifier, 16239)
         XCTAssertFalse(worksTime.updatedByAdmin)
@@ -119,7 +119,7 @@ class WorkTimeDecoderTests: XCTestCase {
                                      isLunch: false, workTimesAllowsTask: false)
         let data = try self.json(from: WorkTimesResponse.workTimeMissingBodyKey)
         //Act
-        let worksTime = try decoder.decode(WorkTimeDecoder.self, from: data)
+        let worksTime = try self.decoder.decode(WorkTimeDecoder.self, from: data)
         //Assert
         XCTAssertEqual(worksTime.identifier, 16239)
         XCTAssertFalse(worksTime.updatedByAdmin)
@@ -150,7 +150,7 @@ class WorkTimeDecoderTests: XCTestCase {
                                      isLunch: false, workTimesAllowsTask: false)
         let data = try self.json(from: WorkTimesResponse.workTimeNullTask)
         //Act
-        let worksTime = try decoder.decode(WorkTimeDecoder.self, from: data)
+        let worksTime = try self.decoder.decode(WorkTimeDecoder.self, from: data)
         //Assert
         XCTAssertEqual(worksTime.identifier, 16239)
         XCTAssertFalse(worksTime.updatedByAdmin)
@@ -181,7 +181,7 @@ class WorkTimeDecoderTests: XCTestCase {
                                      isLunch: false, workTimesAllowsTask: false)
         let data = try self.json(from: WorkTimesResponse.workTimeMissingTaskKey)
         //Act
-        let worksTime = try decoder.decode(WorkTimeDecoder.self, from: data)
+        let worksTime = try self.decoder.decode(WorkTimeDecoder.self, from: data)
         //Assert
         XCTAssertEqual(worksTime.identifier, 16239)
         XCTAssertFalse(worksTime.updatedByAdmin)
@@ -212,7 +212,7 @@ class WorkTimeDecoderTests: XCTestCase {
                                      isLunch: false, workTimesAllowsTask: false)
         let data = try self.json(from: WorkTimesResponse.workTimeNullTaskPreview)
         //Act
-        let worksTime = try decoder.decode(WorkTimeDecoder.self, from: data)
+        let worksTime = try self.decoder.decode(WorkTimeDecoder.self, from: data)
         //Assert
         XCTAssertEqual(worksTime.identifier, 16239)
         XCTAssertFalse(worksTime.updatedByAdmin)
@@ -243,7 +243,7 @@ class WorkTimeDecoderTests: XCTestCase {
                                      isLunch: false, workTimesAllowsTask: false)
         let data = try self.json(from: WorkTimesResponse.workTimeMissingTaskPreviewKey)
         //Act
-        let worksTime = try decoder.decode(WorkTimeDecoder.self, from: data)
+        let worksTime = try self.decoder.decode(WorkTimeDecoder.self, from: data)
         //Assert
         XCTAssertEqual(worksTime.identifier, 16239)
         XCTAssertFalse(worksTime.updatedByAdmin)

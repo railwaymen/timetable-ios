@@ -31,7 +31,7 @@ class ApiClientUsersTests: XCTestCase {
         let data = try self.json(from: UserResponse.userFullResponse)
         let decoder = try JSONDecoder().decode(UserDecoder.self, from: data)
         var expectedUserDecoder: UserDecoder?
-        let apiClient: ApiClientUsersType = ApiClient(networking: networkingMock, encoder: requestEncoderMock, decoder: jsonDecoderMock)
+        let apiClient: ApiClientUsersType = ApiClient(networking: self.networkingMock, encoder: self.requestEncoderMock, decoder: self.jsonDecoderMock)
         //Act
         apiClient.fetchUserProfile(forIdetifier: 2) { result in
             switch result {
@@ -41,7 +41,7 @@ class ApiClientUsersTests: XCTestCase {
                 XCTFail()
             }
         }
-        networkingMock.getCompletion?(.success(data))
+        self.networkingMock.getCompletion?(.success(data))
         //Assert
         XCTAssertEqual(try expectedUserDecoder.unwrap(), decoder)
     }
@@ -50,7 +50,7 @@ class ApiClientUsersTests: XCTestCase {
         //Arrange
         var expectedError: Error?
         let error = TestError(message: "fetch failed")
-        let apiClient: ApiClientUsersType = ApiClient(networking: networkingMock, encoder: requestEncoderMock, decoder: jsonDecoderMock)
+        let apiClient: ApiClientUsersType = ApiClient(networking: self.networkingMock, encoder: self.requestEncoderMock, decoder: self.jsonDecoderMock)
         //Act
         apiClient.fetchUserProfile(forIdetifier: 2) { result in
             switch result {
@@ -60,7 +60,7 @@ class ApiClientUsersTests: XCTestCase {
                 expectedError = error
             }
         }
-        networkingMock.getCompletion?(.failure(error))
+        self.networkingMock.getCompletion?(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)

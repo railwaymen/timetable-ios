@@ -15,14 +15,14 @@ class RequestEncoderTests: XCTestCase {
     private var jsonSerializationMock: JSONSerializationMock!
     
     override func setUp() {
-        encoderMock = JSONEncoderMock()
-        jsonSerializationMock = JSONSerializationMock()
+        self.encoderMock = JSONEncoderMock()
+        self.jsonSerializationMock = JSONSerializationMock()
         super.setUp()
     }
 
     func testEncodeWhileWhileErrorNotOccured() throws {
         //Arrange
-        let requestEncoder = RequestEncoder(encoder: encoderMock, serialization: jsonSerializationMock)
+        let requestEncoder = self.buildRequestEncoder()
         let wrapper = LoginCredentials(email: "john@example.com", password: "password")
         //Act
         let encodedWrapper = try requestEncoder.encode(wrapper: wrapper)
@@ -34,9 +34,9 @@ class RequestEncoderTests: XCTestCase {
     
     func testEncodeWhileErrorOccured() {
         //Arrange
-        let requestEncoder = RequestEncoder(encoder: encoderMock, serialization: jsonSerializationMock)
+        let requestEncoder = self.buildRequestEncoder()
         let wrapper = LoginCredentials(email: "john@example.com", password: "password")
-        encoderMock.isThrowingError = true
+        self.encoderMock.isThrowingError = true
         //Act
         do {
             _ = try requestEncoder.encode(wrapper: wrapper)
@@ -49,9 +49,9 @@ class RequestEncoderTests: XCTestCase {
     
     func testEncodeToDictionaryThrowAnErrorWhileEncodingTheWrapper() {
         //Arrange
-        let requestEncoder = RequestEncoder(encoder: encoderMock, serialization: jsonSerializationMock)
+        let requestEncoder = self.buildRequestEncoder()
         let wrapper = LoginCredentials(email: "john@example.com", password: "password")
-        encoderMock.isThrowingError = true
+        self.encoderMock.isThrowingError = true
         //Act
         do {
             _ = try requestEncoder.encodeToDictionary(wrapper: wrapper)
@@ -64,9 +64,9 @@ class RequestEncoderTests: XCTestCase {
     
     func testEncodeToDictioanryThrowAnErrorWhileSerializingJSONObject() {
         //Arrange
-        let requestEncoder = RequestEncoder(encoder: encoderMock, serialization: jsonSerializationMock)
+        let requestEncoder = self.buildRequestEncoder()
         let wrapper = LoginCredentials(email: "john@example.com", password: "password")
-        jsonSerializationMock.isThrowingError = true
+        self.jsonSerializationMock.isThrowingError = true
         //Act
         do {
             _ = try requestEncoder.encodeToDictionary(wrapper: wrapper)
@@ -79,9 +79,9 @@ class RequestEncoderTests: XCTestCase {
     
     func testEncodeToDictioanryThrowAnErrorWhileSerializedObjectIsNotDictionary() {
         //Arrange
-        let requestEncoder = RequestEncoder(encoder: encoderMock, serialization: jsonSerializationMock)
+        let requestEncoder = self.buildRequestEncoder()
         let wrapper = LoginCredentials(email: "john@example.com", password: "password")
-        jsonSerializationMock.customObject = "This is not a dictionary"
+        self.jsonSerializationMock.customObject = "This is not a dictionary"
         //Act
         do {
             _ = try requestEncoder.encodeToDictionary(wrapper: wrapper)
@@ -92,5 +92,11 @@ class RequestEncoderTests: XCTestCase {
             default: XCTFail()
             }
         }
+    }
+    
+    // MARK: - Private
+    private func buildRequestEncoder() -> RequestEncoder {
+        return RequestEncoder(encoder: self.encoderMock,
+                              serialization: self.jsonSerializationMock)
     }
 }

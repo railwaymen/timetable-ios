@@ -15,13 +15,13 @@ class ProjectPickerCellMock: ProjectPickerCellable {
     private(set) var setUpCalledCount = 0
     private(set) var setUpTitle: String?
     func setUp(title: String) {
-        setUpCalledCount += 1
-        setUpTitle = title
+        self.setUpCalledCount += 1
+        self.setUpTitle = title
     }
     
     // MARK: - ProjectPickerCellType
     private(set) var configureCalledCount = 0
     func configure(viewModel: ProjectPickerCellModelType) {
-        configureCalledCount += 1
+        self.configureCalledCount += 1
     }
 }

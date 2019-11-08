@@ -24,15 +24,15 @@ class WorkTimesListViewControllerMock: WorkTimesListViewControllerable {
     private(set) var showErrorViewCalled = false
     
     func setUpView() {
-        setUpViewCalled = true
+        self.setUpViewCalled = true
     }
     
     func updateView() {
-        updateViewCalled = true
+        self.updateViewCalled = true
     }
     
     func updateDateSelector(currentDateString: String, previousDateString: String, nextDateString: String) {
-        updateDateSelectorData = (currentDateString, previousDateString, nextDateString)
+        self.updateDateSelectorData = (currentDateString, previousDateString, nextDateString)
     }
     
     func deleteWorkTime(at indexPath: IndexPath) {
@@ -44,23 +44,23 @@ class WorkTimesListViewControllerMock: WorkTimesListViewControllerable {
     }
  
     func configure(viewModel: WorkTimesListViewModelType) {
-        configureViewModelData = (true, viewModel)
+        self.configureViewModelData = (true, viewModel)
     }
     
     func updateMatchingFullTimeLabels(workedHours: String, shouldWorkHours: String, duration: String) {
-        updateMatchingFullTimeLabelsData = (workedHours, shouldWorkHours, duration)
+        self.updateMatchingFullTimeLabelsData = (workedHours, shouldWorkHours, duration)
     }
     
     func setActivityIndicator(isHidden: Bool) {
-        setActivityIndicatorIsHidden = isHidden
+        self.setActivityIndicatorIsHidden = isHidden
     }
     
     func showTableView() {
-        showTableViewCalled = true
+        self.showTableViewCalled = true
     }
     
     func showErrorView() {
-        showErrorViewCalled = true
+        self.showErrorViewCalled = true
     }
 }
 // swiftlint:enable large_tuple

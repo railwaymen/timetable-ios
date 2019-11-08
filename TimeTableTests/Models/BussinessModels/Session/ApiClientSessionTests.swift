@@ -32,7 +32,9 @@ class ApiClientSessionTests: XCTestCase {
         let decoder = try JSONDecoder().decode(SessionDecoder.self, from: data)
         var expectedSessionDecoder: SessionDecoder?
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
-        let apiClient: ApiClientSessionType = ApiClient(networking: networkingMock, encoder: requestEncoderMock, decoder: jsonDecoderMock)
+        let apiClient: ApiClientSessionType = ApiClient(networking: self.networkingMock,
+                                                        encoder: self.requestEncoderMock,
+                                                        decoder: self.jsonDecoderMock)
         //Act
         apiClient.signIn(with: parameters) { result in
             switch result {
@@ -42,7 +44,7 @@ class ApiClientSessionTests: XCTestCase {
                 XCTFail()
             }
         }
-        networkingMock.shortPostCompletion?(.success(data))
+        self.networkingMock.shortPostCompletion?(.success(data))
         //Assert
         XCTAssertEqual(try expectedSessionDecoder.unwrap(), decoder)
     }
@@ -52,7 +54,9 @@ class ApiClientSessionTests: XCTestCase {
         var expectedError: Error?
         let error = TestError(message: "sign in failed")
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
-        let apiClient: ApiClientSessionType = ApiClient(networking: networkingMock, encoder: requestEncoderMock, decoder: jsonDecoderMock)
+        let apiClient: ApiClientSessionType = ApiClient(networking: self.networkingMock,
+                                                        encoder: self.requestEncoderMock,
+                                                        decoder: self.jsonDecoderMock)
         //Act
         apiClient.signIn(with: parameters) { result in
             switch result {
@@ -62,7 +66,7 @@ class ApiClientSessionTests: XCTestCase {
                 expectedError = error
             }
         }
-        networkingMock.shortPostCompletion?(.failure(error))
+        self.networkingMock.shortPostCompletion?(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)

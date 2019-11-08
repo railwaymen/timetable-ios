@@ -14,24 +14,24 @@ class ProjectPickerCellModelTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        userInterfaceMock = ProjectPickerCellMock()
+        self.userInterfaceMock = ProjectPickerCellMock()
     }
     
     func testViewDidConfigureSetsUpView() {
         //Arrange
-        let project = buildProjectDecoder()
-        let viewModel = buildViewModel(project: project)
+        let project = self.buildProjectDecoder()
+        let viewModel = self.buildViewModel(project: project)
         //Act
         viewModel.viewDidConfigure()
         //Assert
-        XCTAssertEqual(userInterfaceMock.setUpCalledCount, 1)
-        XCTAssertEqual(userInterfaceMock.setUpTitle, project.name)
+        XCTAssertEqual(self.userInterfaceMock.setUpCalledCount, 1)
+        XCTAssertEqual(self.userInterfaceMock.setUpTitle, project.name)
     }
     
     // MARK: - Private
     private func buildViewModel(project: ProjectDecoder) -> ProjectPickerCellModel {
         return ProjectPickerCellModel(
-            userInterface: userInterfaceMock,
+            userInterface: self.userInterfaceMock,
             project: project)
     }
     

@@ -14,15 +14,15 @@ class WorkTimeCoordinatorMock: WorkTimeCoordinatorType {
     private(set) var showProjectPickerProjects: [ProjectDecoder]?
     private(set) var showProjectPickerFinishHandler: ProjectPickerCoordinator.FinishHandlerType?
     func showProjectPicker(projects: [ProjectDecoder], finishHandler: @escaping ProjectPickerCoordinator.FinishHandlerType) {
-        showProjectPickerCalledCount += 1
-        showProjectPickerProjects = projects
-        showProjectPickerFinishHandler = finishHandler
+        self.showProjectPickerCalledCount += 1
+        self.showProjectPickerProjects = projects
+        self.showProjectPickerFinishHandler = finishHandler
     }
     
     private(set) var viewDidFinishCalledCount = 0
     private(set) var viewDidFinishIsTaskChanged: Bool?
     func viewDidFinish(isTaskChanged: Bool) {
-        viewDidFinishCalledCount += 1
-        viewDidFinishIsTaskChanged = isTaskChanged
+        self.viewDidFinishCalledCount += 1
+        self.viewDidFinishIsTaskChanged = isTaskChanged
     }
 }

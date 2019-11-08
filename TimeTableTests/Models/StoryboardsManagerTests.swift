@@ -12,13 +12,10 @@ import XCTest
 class StoryboardsManagerTests: XCTestCase {
 
     func testIfMainStoryboardExists() {
-
         //Arrange
         let manager = StoryboardsManager.shared
-        
         //Act
         let controller: ServerConfigurationViewController? = manager.controller(storyboard: .serverConfiguration, controllerIdentifier: .initial)
-        
         //Assert
         XCTAssertNotNil(controller)
     }

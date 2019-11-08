@@ -25,7 +25,7 @@ class MatchingFullTimeDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: MatchingFullTimeResponse.matchingFullTimeFullResponse)
         //Act
-        let matchingFullTime = try decoder.decode(MatchingFullTimeDecoder.self, from: data)
+        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: data)
         //Assert
         XCTAssertEqual(matchingFullTime.period?.identifier, 1383)
         XCTAssertEqual(matchingFullTime.period?.countedDuration, TimeInterval(620100))
@@ -37,7 +37,7 @@ class MatchingFullTimeDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: MatchingFullTimeResponse.matchingFullTimeNullPeriod)
         //Act
-        let matchingFullTime = try decoder.decode(MatchingFullTimeDecoder.self, from: data)
+        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: data)
         //Assert
         XCTAssertNil(matchingFullTime.period)
         XCTAssertEqual(matchingFullTime.shouldWorked, TimeInterval(633600))
@@ -47,7 +47,7 @@ class MatchingFullTimeDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: MatchingFullTimeResponse.matchingFullTimeMissingPeriodKey)
         //Act
-        let matchingFullTime = try decoder.decode(MatchingFullTimeDecoder.self, from: data)
+        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: data)
         //Assert
         XCTAssertNil(matchingFullTime.period)
         XCTAssertEqual(matchingFullTime.shouldWorked, TimeInterval(633600))
@@ -57,7 +57,7 @@ class MatchingFullTimeDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: MatchingFullTimeResponse.matchingFullTimeNullShouldWorked)
         //Act
-        let matchingFullTime = try decoder.decode(MatchingFullTimeDecoder.self, from: data)
+        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: data)
         //Assert
         XCTAssertEqual(matchingFullTime.period?.identifier, 1383)
         XCTAssertEqual(matchingFullTime.period?.countedDuration, TimeInterval(620100))
@@ -69,7 +69,7 @@ class MatchingFullTimeDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: MatchingFullTimeResponse.matchingFullTimeMissingShouldWorkedKey)
         //Act
-        let matchingFullTime = try decoder.decode(MatchingFullTimeDecoder.self, from: data)
+        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: data)
         //Assert
         XCTAssertEqual(matchingFullTime.period?.identifier, 1383)
         XCTAssertEqual(matchingFullTime.period?.countedDuration, TimeInterval(620100))
