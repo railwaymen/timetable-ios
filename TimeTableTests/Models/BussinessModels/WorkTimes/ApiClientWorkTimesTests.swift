@@ -34,11 +34,7 @@ class ApiClientWorkTimesTests: XCTestCase {
         self.networkingMock = NetworkingMock()
         self.requestEncoderMock = RequestEncoderMock()
         self.jsonDecoderMock = JSONDecoderMock()
-        apiClient = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
-            return requestEncoderMock
-        }) { () -> JSONDecoderType in
-            return jsonDecoderMock
-        }
+        apiClient = ApiClient(networking: networkingMock, encoder: requestEncoderMock, decoder: jsonDecoderMock)
         super.setUp()
     }
 

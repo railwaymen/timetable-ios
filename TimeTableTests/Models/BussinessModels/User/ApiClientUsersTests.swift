@@ -31,11 +31,7 @@ class ApiClientUsersTests: XCTestCase {
         let data = try self.json(from: UserResponse.userFullResponse)
         let decoder = try JSONDecoder().decode(UserDecoder.self, from: data)
         var expectedUserDecoder: UserDecoder?
-        let apiClient: ApiClientUsersType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
-            return requestEncoderMock
-        }) { () -> JSONDecoderType in
-            return jsonDecoderMock
-        }
+        let apiClient: ApiClientUsersType = ApiClient(networking: networkingMock, encoder: requestEncoderMock, decoder: jsonDecoderMock)
         //Act
         apiClient.fetchUserProfile(forIdetifier: 2) { result in
             switch result {
@@ -54,11 +50,7 @@ class ApiClientUsersTests: XCTestCase {
         //Arrange
         var expectedError: Error?
         let error = TestError(message: "fetch failed")
-        let apiClient: ApiClientUsersType = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
-            return requestEncoderMock
-        }) { () -> JSONDecoderType in
-            return jsonDecoderMock
-        }
+        let apiClient: ApiClientUsersType = ApiClient(networking: networkingMock, encoder: requestEncoderMock, decoder: jsonDecoderMock)
         //Act
         apiClient.fetchUserProfile(forIdetifier: 2) { result in
             switch result {

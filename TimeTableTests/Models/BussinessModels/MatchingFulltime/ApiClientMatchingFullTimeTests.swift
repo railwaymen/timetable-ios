@@ -24,11 +24,7 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
         self.networkingMock = NetworkingMock()
         self.requestEncoderMock = RequestEncoderMock()
         self.jsonDecoderMock = JSONDecoderMock()
-        self.apiClient = ApiClient(networking: networkingMock, buildEncoder: { () -> RequestEncoderType in
-            return self.requestEncoderMock
-        }, buildDecoder: { () -> JSONDecoderType in
-            return self.jsonDecoderMock
-        })
+        self.apiClient = ApiClient(networking: networkingMock, encoder: requestEncoderMock, decoder: jsonDecoderMock)
         super.setUp()
     }
     

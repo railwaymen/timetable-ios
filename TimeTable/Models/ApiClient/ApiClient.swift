@@ -29,11 +29,11 @@ class ApiClient: ApiClientNetworkingType {
     private let decoder: JSONDecoderType
     
     // MARK: - Initialization
-    init(networking: NetworkingType, buildEncoder: (() -> RequestEncoderType), buildDecoder: (() -> JSONDecoderType)) {
+    init(networking: NetworkingType, encoder: RequestEncoderType, decoder: JSONDecoderType) {
         self.networking = networking
         self.networking.headerFields = ["content-type": "application/json"]
-        self.encoder = buildEncoder()
-        self.decoder = buildDecoder()
+        self.encoder = encoder
+        self.decoder = decoder
     }
     
     // MARK: - Private
