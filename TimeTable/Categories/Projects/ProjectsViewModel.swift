@@ -70,14 +70,27 @@ class ProjectsViewModel: ProjectsViewModelType {
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .failure(let error):
-                self?.errorHandler.throwing(error: error)
-                self?.userInterface?.showErrorView()
+                self?.handleFetch(error: error)
             case .success(let projectRecords):
-                self?.createProjects(from: projectRecords)
-                self?.userInterface?.updateView()
-                self?.userInterface?.showCollectionView()
+                self?.handleFetchSuccess(projectRecords: projectRecords)
             }
         }
+    }
+    
+    private func handleFetch(error: Error) {
+        if let error = error as? ApiClientError {
+            self.errorViewModel?.update(error: error)
+        } else {
+            self.errorViewModel?.update(error: UIError.genericError)
+            self.errorHandler.throwing(error: error)
+        }
+        self.userInterface?.showErrorView()
+    }
+    
+    private func handleFetchSuccess(projectRecords: [ProjectRecordDecoder]) {
+        self.createProjects(from: projectRecords)
+        self.userInterface?.updateView()
+        self.userInterface?.showCollectionView()
     }
     
     private func createProjects(from records: [ProjectRecordDecoder]) {        

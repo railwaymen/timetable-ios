@@ -55,6 +55,8 @@
 "api.error.invalid_url" = "Given URL (%@) is invalid";
 "api.error.invalid_parameters" = "Invalid parameters were sent";
 "api.error.invalid_response" = "Invalid response";
+"api.error.no_connection" = "The device seems to be offline. Please, check your internet connection and try again.";
+"api.error.timeout" = "Your request has timed out. Please, check your internet connection and try again.";
 
 "invalid_email_or_password" = "Invalid email or password";
 

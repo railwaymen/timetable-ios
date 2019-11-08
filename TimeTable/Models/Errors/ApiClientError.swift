@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Networking
 
 struct ApiClientError: Error, Equatable {
     
@@ -24,6 +25,8 @@ struct ApiClientError: Error, Equatable {
         case invalidResponse
         case validationErrors(ApiValidationErrors)
         case serverError(ServerError)
+        case noConnection
+        case timeout
         
         var localizedDescription: String {
             switch self {
@@ -37,6 +40,10 @@ struct ApiClientError: Error, Equatable {
                 return validationErrors.errors.keys.joined(separator: "./n")
             case .serverError(let serverError):
                 return  "\(serverError.status) - \(serverError.error)"
+            case .noConnection:
+                return "api.error.no_connection".localized
+            case .timeout:
+                return "api.error.timeout".localized
             }
         }
         
@@ -48,6 +55,8 @@ struct ApiClientError: Error, Equatable {
             case (.invalidResponse, .invalidResponse): return true
             case (.validationErrors(let lhsError), .validationErrors(let rhsError)): return lhsError == rhsError
             case (.serverError(let lhsError), .serverError(let rhsError)): return lhsError == rhsError
+            case (.noConnection, .noConnection): return true
+            case (.timeout, .timeout): return true
             default: return false
             }
         }
@@ -56,6 +65,19 @@ struct ApiClientError: Error, Equatable {
     // MARK: - Initialization
     init(type: ErrorType) {
         self.type = type
+    }
+    
+    init?(code: Int) {
+        switch code {
+        case NSURLErrorNotConnectedToInternet, NSURLErrorNetworkConnectionLost:
+            type = .noConnection
+        case NSURLErrorTimedOut:
+            type = .timeout
+        case NSURLErrorCannotParseResponse, NSURLErrorBadServerResponse:
+            type = .invalidResponse
+        default:
+            return nil
+        }
     }
     
     init?(data: Data) {

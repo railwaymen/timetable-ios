@@ -61,8 +61,10 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
     private let contentProvider: WorkTimesListContentProviderType
     private let errorHandler: ErrorHandlerType
     private let calendar: CalendarType
+    
     private var selectedMonth: Date?
     private var dailyWorkTimesArray: [DailyWorkTime]
+    private weak var errorViewModel: ErrorViewModelParentType?
     
     enum CellType {
         case standard
@@ -105,6 +107,7 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
             self?.fetchWorkTimesData(forCurrentMonth: self?.selectedMonth)
         }
         view.configure(viewModel: viewModel)
+        errorViewModel = viewModel
     }
     
     func viewRequestForPreviousMonth() {
@@ -225,31 +228,44 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .success(let dailyWorkTimes, let matchingFullTime):
-                self?.dailyWorkTimesArray = dailyWorkTimes
-                let formatter = DateComponentsFormatter()
-                formatter.allowedUnits = [.hour, .minute]
-                formatter.unitsStyle = .abbreviated
-                let defaultValue = "00:00"
-                var time: (workedHours: String, shouldWorkHours: String, duration: String) = (defaultValue, defaultValue, defaultValue)
-                if let countedDuration = matchingFullTime.period?.countedDuration {
-                    time.workedHours = formatter.string(from: countedDuration ) ?? defaultValue
-                }
-                if let shouldWorked = matchingFullTime.shouldWorked {
-                    time.shouldWorkHours = formatter.string(from: shouldWorked) ?? defaultValue
-                }
-                if let duration = matchingFullTime.period?.duration {
-                    time.duration = formatter.string(from: duration) ?? defaultValue
-                }
-                self?.userInterface?.updateMatchingFullTimeLabels(workedHours: time.workedHours,
-                                                                  shouldWorkHours: time.shouldWorkHours,
-                                                                  duration: time.duration)
-                self?.userInterface?.updateView()
-                self?.userInterface?.showTableView()
+                self?.handleFetchSuccess(dailyWorkTimes: dailyWorkTimes, matchingFullTime: matchingFullTime)
             case .failure(let error):
-                self?.errorHandler.throwing(error: error)
-                self?.userInterface?.showErrorView()
+                self?.handleFetch(error: error)
             }
         }
+    }
+    
+    private func handleFetchSuccess(dailyWorkTimes: [DailyWorkTime], matchingFullTime: MatchingFullTimeDecoder) {
+        self.dailyWorkTimesArray = dailyWorkTimes
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute]
+        formatter.unitsStyle = .abbreviated
+        let defaultValue = "00:00"
+        var time: (workedHours: String, shouldWorkHours: String, duration: String) = (defaultValue, defaultValue, defaultValue)
+        if let countedDuration = matchingFullTime.period?.countedDuration {
+            time.workedHours = formatter.string(from: countedDuration ) ?? defaultValue
+        }
+        if let shouldWorked = matchingFullTime.shouldWorked {
+            time.shouldWorkHours = formatter.string(from: shouldWorked) ?? defaultValue
+        }
+        if let duration = matchingFullTime.period?.duration {
+            time.duration = formatter.string(from: duration) ?? defaultValue
+        }
+        self.userInterface?.updateMatchingFullTimeLabels(workedHours: time.workedHours,
+                                                         shouldWorkHours: time.shouldWorkHours,
+                                                         duration: time.duration)
+        self.userInterface?.updateView()
+        self.userInterface?.showTableView()
+    }
+    
+    private func handleFetch(error: Error) {
+        if let error = error as? ApiClientError {
+            self.errorViewModel?.update(error: error)
+        } else {
+            self.errorViewModel?.update(error: UIError.genericError)
+            self.errorHandler.throwing(error: error)
+        }
+        self.userInterface?.showErrorView()
     }
     
     private func fetchAndChangeSelectedMonth(with components: DateComponents) {

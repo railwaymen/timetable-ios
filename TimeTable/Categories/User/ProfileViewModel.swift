@@ -30,6 +30,8 @@ class ProfileViewModel: ProfileViewModelType {
     private let coreDataStack: CoreDataStackUserType
     private let errorHandler: ErrorHandlerType
     
+    private weak var errorViewModel: ErrorViewModelParentType?
+    
     // MARK: - Initialization
     init(userInterface: ProfileViewModelOutput?,
          coordinator: ProfileCoordinatorDelegate,
@@ -56,6 +58,7 @@ class ProfileViewModel: ProfileViewModelType {
             self?.fetchProfile()
         }
         view.configure(viewModel: viewModel)
+        errorViewModel = viewModel
     }
     
     func viewRequestedForLogout() {
@@ -79,13 +82,26 @@ class ProfileViewModel: ProfileViewModelType {
         apiClient.fetchUserProfile(forIdetifier: userIdentifier) { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
-            case .success(let decoder):
-                self?.userInterface?.update(firstName: decoder.firstName, lastName: decoder.lastName, email: decoder.email)
-                self?.userInterface?.showScrollView()
+            case .success(let profile):
+                self?.handleFetchSuccess(profile: profile)
             case .failure(let error):
-                self?.errorHandler.throwing(error: error)
-                self?.userInterface?.showErrorView()
+                self?.handleFetch(error: error)
             }
         }
+    }
+    
+    private func handleFetchSuccess(profile: UserDecoder) {
+        self.userInterface?.update(firstName: profile.firstName, lastName: profile.lastName, email: profile.email)
+        self.userInterface?.showScrollView()
+    }
+    
+    private func handleFetch(error: Error) {
+        if let error = error as? ApiClientError {
+            self.errorViewModel?.update(error: error)
+        } else {
+            self.errorViewModel?.update(error: UIError.genericError)
+            self.errorHandler.throwing(error: error)
+        }
+        self.userInterface?.showErrorView()
     }
 }
