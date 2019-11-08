@@ -19,16 +19,10 @@ class BaseTabBarCoordinator: BaseCoordinator {
         super.init(window: window, messagePresenter: messagePresenter)
     }
     
-    // MARK: - CoordinatorType
-    func start() {
-        window?.rootViewController = tabBarController
-        super.start()
-    }
-    
     // MARK: - Overriden
     override func start(finishCompletion: (() -> Void)?) {
-        window?.rootViewController = tabBarController
         self.tabBarController.viewControllers = self.children.compactMap { ($0 as? BaseTabBarCoordinatorType)?.root }
+        window?.rootViewController = tabBarController
         super.start(finishCompletion: finishCompletion)
     }
     

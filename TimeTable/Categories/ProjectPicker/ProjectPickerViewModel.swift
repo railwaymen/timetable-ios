@@ -15,7 +15,7 @@ protocol ProjectPickerViewModelOutput: class {
 }
 
 protocol ProjectPickerViewModelType: class {
-    func viewDidLoad()
+    func loadView()
     func numberOfRows(in section: Int) -> Int
     func configure(cell: ProjectPickerCellable, for indexPath: IndexPath)
     func updateSearchResults(for text: String)
@@ -84,7 +84,7 @@ class ProjectPickerViewModel {
 
 // MARK: - ProjectPickerViewModelType
 extension ProjectPickerViewModel: ProjectPickerViewModelType {
-    func viewDidLoad() {
+    func loadView() {
         userInterface?.setUp()
     }
     

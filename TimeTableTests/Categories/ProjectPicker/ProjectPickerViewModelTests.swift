@@ -21,11 +21,11 @@ class ProjectPickerViewModelTests: XCTestCase {
         dependencyContainerMock = DependencyContainerMock()
     }
     
-    func testViewDidLoadSetsUpView() {
+    func testLoadViewSetsUpView() {
         //Arrange
         let viewModel = buildViewModel()
         //Act
-        viewModel.viewDidLoad()
+        viewModel.loadView()
         //Assert
         XCTAssertEqual(userInterfaceMock.setUpCalledCount, 1)
     }

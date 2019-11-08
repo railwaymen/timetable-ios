@@ -23,25 +23,15 @@ class ProjectPickerViewController: UIViewController {
     // MARK: - Life cycle
     override func loadView() {
         super.loadView()
-        setUpViews()
+        viewModel.loadView()
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        viewModel.viewDidLoad()
-    }
-    
+
     // MARK: - Actions
     @objc private func closeButtonTapped() {
         viewModel.closeButtonTapped()
     }
     
     // MARK: - Private
-    private func setUpViews() {
-        setUpTableView()
-        setUpSearchController()
-    }
-    
     private func setUpTableView() {
         tableView = UITableView()
         view.addSubview(tableView)
@@ -64,6 +54,17 @@ class ProjectPickerViewController: UIViewController {
         searchController.searchBar.tintColor = .crimson
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
+    }
+    
+    private func setUpBarItems() {
+        let systemItem: UIBarButtonItem.SystemItem
+        if #available(iOS 13, *) {
+            systemItem = .close
+        } else {
+            systemItem = .cancel
+        }
+        let closeButton = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(closeButtonTapped))
+        navigationItem.setRightBarButton(closeButton, animated: false)
     }
 }
 
@@ -98,14 +99,9 @@ extension ProjectPickerViewController: UISearchResultsUpdating {
 // MARK: - ProjectPickerViewModelOutput
 extension ProjectPickerViewController: ProjectPickerViewModelOutput {
     func setUp() {
-        let systemItem: UIBarButtonItem.SystemItem
-        if #available(iOS 13, *) {
-            systemItem = .close
-        } else {
-            systemItem = .cancel
-        }
-        let closeButton = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(closeButtonTapped))
-        navigationItem.setRightBarButton(closeButton, animated: false)
+        setUpTableView()
+        setUpSearchController()
+        setUpBarItems()
     }
     
     func reloadData() {
