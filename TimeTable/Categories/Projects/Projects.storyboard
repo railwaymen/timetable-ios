@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="j0q-S1-vPj">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Projects-->
+        <!--Projects View Controller-->
         <scene sceneID="d9L-jI-ws7">
             <objects>
-                <viewController title="Projects" id="j0q-S1-vPj" customClass="ProjectsViewController" customModule="TimeTable" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="j0q-S1-vPj" customClass="ProjectsViewController" customModule="TimeTable" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="H09-Zu-PQ1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -156,13 +156,21 @@
                                     <outlet property="delegate" destination="j0q-S1-vPj" id="wYE-qK-MXP"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f3J-bM-zlF" customClass="ErrorView" customModule="TimeTable" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="389" width="414" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" priority="1" constant="128" id="CEn-TH-ETs"/>
+                                </constraints>
+                            </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ZC9-aj-Rzu">
                                 <rect key="frame" x="197" y="443" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="f3J-bM-zlF" firstAttribute="leading" secondItem="O0O-pG-awP" secondAttribute="leading" id="2Ha-Rz-BQs"/>
                             <constraint firstItem="GT9-Vs-zfn" firstAttribute="bottom" secondItem="H09-Zu-PQ1" secondAttribute="bottom" id="3Kq-69-Tqi"/>
+                            <constraint firstItem="f3J-bM-zlF" firstAttribute="centerY" secondItem="O0O-pG-awP" secondAttribute="centerY" id="LMa-2f-ENR"/>
                             <constraint firstItem="GT9-Vs-zfn" firstAttribute="leading" secondItem="O0O-pG-awP" secondAttribute="leading" id="UoM-5p-eap">
                                 <variation key="heightClass=regular-widthClass=regular" constant="42"/>
                             </constraint>
@@ -171,13 +179,16 @@
                             </constraint>
                             <constraint firstItem="ZC9-aj-Rzu" firstAttribute="centerX" secondItem="O0O-pG-awP" secondAttribute="centerX" id="Xrg-g1-rJQ"/>
                             <constraint firstItem="GT9-Vs-zfn" firstAttribute="top" secondItem="H09-Zu-PQ1" secondAttribute="top" id="gNB-K2-k9R"/>
+                            <constraint firstItem="O0O-pG-awP" firstAttribute="trailing" secondItem="f3J-bM-zlF" secondAttribute="trailing" id="s9v-I3-dxd"/>
                             <constraint firstItem="ZC9-aj-Rzu" firstAttribute="centerY" secondItem="O0O-pG-awP" secondAttribute="centerY" id="u5E-pa-WEi"/>
+                            <constraint firstItem="f3J-bM-zlF" firstAttribute="centerX" secondItem="O0O-pG-awP" secondAttribute="centerX" id="zYZ-0e-iOj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O0O-pG-awP"/>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="ZC9-aj-Rzu" id="1wj-QK-GUV"/>
                         <outlet property="collectionView" destination="GT9-Vs-zfn" id="YwW-xI-gLX"/>
+                        <outlet property="errorView" destination="f3J-bM-zlF" id="nIr-kx-iK4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ow-9H-oMC" userLabel="First Responder" sceneMemberID="firstResponder"/>

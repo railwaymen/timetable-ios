@@ -8,18 +8,23 @@
 
 import Foundation
 
+protocol ErrorViewModelParentType: class {
+    func update(error: Error)
+}
+
 protocol ErrorViewModelOutput: class {
     func setUp(refreshIsHidden: Bool)
+    func update(title: String)
 }
 
 protocol ErrorViewModelType: class {
-    func viewDidLoad()
+    func viewDidConfigure()
     func refreshButtonTapped()
 }
 
 class ErrorViewModel {
     private weak var userInterface: ErrorViewModelOutput?
-    private let error: Error
+    private var error: Error
     private let actionHandler: (() -> Void)?
     
     // MARK: - Initialization
@@ -34,11 +39,33 @@ class ErrorViewModel {
 
 // MARK: - ErrorViewModelType
 extension ErrorViewModel: ErrorViewModelType {
-    func viewDidLoad() {
+    func viewDidConfigure() {
         userInterface?.setUp(refreshIsHidden: actionHandler == nil)
+        updateErrorTitle()
     }
     
     func refreshButtonTapped() {
         actionHandler?()
+    }
+}
+
+// MARK: - ErrorViewModelParentType
+extension ErrorViewModel: ErrorViewModelParentType {
+    func update(error: Error) {
+        self.error = error
+        updateErrorTitle()
+    }
+}
+
+// MARK: - Private
+private extension ErrorViewModel {
+    private func updateErrorTitle() {
+        var title: String = ""
+        if let error = error as? UIError {
+            title = error.localizedDescription
+        } else if let error = error as? ApiClientError {
+            title = error.type.localizedDescription
+        }
+        userInterface?.update(title: title)
     }
 }

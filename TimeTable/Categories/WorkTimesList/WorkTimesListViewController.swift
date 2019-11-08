@@ -17,6 +17,7 @@ protocol WorkTimesListViewControllerType: class {
 class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet private var dateSelectorView: DateSelectorView!
     @IBOutlet private var tableView: UITableView!
+    @IBOutlet private var errorView: ErrorView!
     @IBOutlet private var workedHoursLabel: UILabel!
     @IBOutlet private var shouldWorkHoursLabel: UILabel!
     @IBOutlet private var durationLabel: UILabel!
@@ -133,6 +134,25 @@ class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITabl
         return duplicateAction
     }
     
+    private func setUpTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = tableViewEstimatedRowHeight
+        
+        let nib = UINib(nibName: WorkTimesTableViewHeader.className, bundle: nil)
+        tableView.register(nib, forHeaderFooterViewReuseIdentifier: workTimesTableViewHeaderIdentifier)
+
+        tableView.refreshControl = refreshControl
+    }
+    
+    private func setUpNavigationItem() {
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewRecordTapped))
+        navigationItem.setRightBarButtonItems([addButton], animated: false)
+        title = "tabbar.title.timesheet".localized
+    }
+    
     private func setUpActivityIndicator() {
         if #available(iOS 13, *) {
             activityIndicator.style = .large
@@ -146,22 +166,13 @@ class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITabl
 // MARK: - WorkTimesListViewModelOutput
 extension WorkTimesListViewController: WorkTimesListViewModelOutput {
     func setUpView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = tableViewEstimatedRowHeight
-        
-        let nib = UINib(nibName: WorkTimesTableViewHeader.className, bundle: nil)
-        tableView.register(nib, forHeaderFooterViewReuseIdentifier: workTimesTableViewHeaderIdentifier)
-
         dateSelectorView.delegate = self
-        
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewRecordTapped))
-        navigationItem.setRightBarButtonItems([addButton], animated: false)
-        title = "tabbar.title.timesheet".localized
-        tableView.refreshControl = refreshControl
+        setUpTableView()
+        setUpNavigationItem()
         setUpActivityIndicator()
+        viewModel.configure(errorView)
+        tableView.isHidden = true
+        errorView.isHidden = true
     }
     
     func updateView() {
@@ -176,6 +187,20 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
         workedHoursLabel.text = workedHours + " /"
         shouldWorkHoursLabel.text = shouldWorkHours + " /"
         durationLabel.text = duration
+    }
+    
+    func showTableView() {
+        UIView.transition(with: tableView, duration: 0.2, animations: { [weak self] in
+            self?.tableView.isHidden = false
+            self?.errorView.isHidden = true
+        })
+    }
+    
+    func showErrorView() {
+        UIView.transition(with: errorView, duration: 0.2, animations: { [weak self] in
+            self?.tableView.isHidden = true
+            self?.errorView.isHidden = false
+        })
     }
     
     func setActivityIndicator(isHidden: Bool) {

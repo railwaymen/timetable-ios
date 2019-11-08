@@ -17,6 +17,7 @@ protocol ProjectsViewControllerType: class {
 class ProjectsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     @IBOutlet private var collectionView: UICollectionView!
+    @IBOutlet private var errorView: ErrorView!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private var viewModel: ProjectsViewModelType!
@@ -60,18 +61,34 @@ class ProjectsViewController: UIViewController, UICollectionViewDataSource, UICo
 
 // MARK: - ProjectsViewModelOutput
 extension ProjectsViewController: ProjectsViewModelOutput {
-    
     func setUpView() {
         collectionView.contentInset = self.contentInset
         if let layout = collectionView.collectionViewLayout as? ProjectsCollectionViewLayout {
             layout.delegate = self
         }
         self.title = "tabbar.title.projects".localized
+        collectionView.isHidden = true
+        errorView.isHidden = true
         setUpActivityIndicator()
+        viewModel.configure(errorView)
     }
     
     func updateView() {
         collectionView.reloadData()
+    }
+    
+    func showCollectionView() {
+        UIView.transition(with: collectionView, duration: 0.2, animations: { [weak self] in
+            self?.collectionView.isHidden = false
+            self?.errorView.isHidden = true
+        })
+    }
+    
+    func showErrorView() {
+        UIView.transition(with: errorView, duration: 0.2, animations: { [weak self] in
+            self?.collectionView.isHidden = true
+            self?.errorView.isHidden = false
+        })
     }
     
     func setActivityIndicator(isHidden: Bool) {

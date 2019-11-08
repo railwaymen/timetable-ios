@@ -15,12 +15,15 @@ protocol WorkTimesListViewModelOutput: class {
     func updateDateSelector(currentDateString: String, previousDateString: String, nextDateString: String)
     func updateMatchingFullTimeLabels(workedHours: String, shouldWorkHours: String, duration: String)
     func setActivityIndicator(isHidden: Bool)
+    func showTableView()
+    func showErrorView()
 }
 
 protocol WorkTimesListViewModelType: class {
     func numberOfSections() -> Int
     func numberOfRows(in section: Int) -> Int
     func viewDidLoad()
+    func configure(_ view: ErrorViewable)
     func viewRequestForPreviousMonth()
     func viewRequestForNextMonth()
     func viewRequestForCellType(at index: IndexPath) -> WorkTimesListViewModel.CellType
@@ -95,6 +98,13 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
         userInterface?.setUpView()
         updateDateSelectorView(withCurrentDate: selectedMonth)
         fetchWorkTimesData(forCurrentMonth: selectedMonth)
+    }
+    
+    func configure(_ view: ErrorViewable) {
+        let viewModel = ErrorViewModel(userInterface: view, error: UIError.genericError) { [weak self] in
+            self?.fetchWorkTimesData(forCurrentMonth: self?.selectedMonth)
+        }
+        view.configure(viewModel: viewModel)
     }
     
     func viewRequestForPreviousMonth() {
@@ -234,8 +244,10 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
                                                                   shouldWorkHours: time.shouldWorkHours,
                                                                   duration: time.duration)
                 self?.userInterface?.updateView()
+                self?.userInterface?.showTableView()
             case .failure(let error):
                 self?.errorHandler.throwing(error: error)
+                self?.userInterface?.showErrorView()
             }
         }
     }

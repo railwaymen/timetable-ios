@@ -11,6 +11,8 @@ import Foundation
 protocol ProjectsViewModelOutput: class {
     func setUpView()
     func updateView()
+    func showCollectionView()
+    func showErrorView()
     func setActivityIndicator(isHidden: Bool)
 }
 
@@ -18,6 +20,7 @@ protocol ProjectsViewModelType: class {
     func numberOfItems() -> Int
     func item(at index: IndexPath) -> Project?
     func viewDidLoad()
+    func configure(_ view: ErrorViewable)
 }
 
 class ProjectsViewModel: ProjectsViewModelType {
@@ -26,6 +29,8 @@ class ProjectsViewModel: ProjectsViewModelType {
     private let apiClient: ApiClientProjectsType
     private let errorHandler: ErrorHandlerType
     private var projects: [Project]
+    
+    private var errorViewModel: ErrorViewModelParentType?
     
     // MARK: - Initialization
     init(userInterface: ProjectsViewModelOutput?, apiClient: ApiClientProjectsType, errorHandler: ErrorHandlerType) {
@@ -50,6 +55,14 @@ class ProjectsViewModel: ProjectsViewModelType {
         userInterface?.setUpView()
     }
     
+    func configure(_ view: ErrorViewable) {
+        let viewModel = ErrorViewModel(userInterface: view, error: UIError.genericError) { [weak self] in
+            self?.fetchProjects()
+        }
+        view.configure(viewModel: viewModel)
+        errorViewModel = viewModel
+    }
+    
     // MARK: - Private
     private func fetchProjects() {
         userInterface?.setActivityIndicator(isHidden: false)
@@ -58,9 +71,11 @@ class ProjectsViewModel: ProjectsViewModelType {
             switch result {
             case .failure(let error):
                 self?.errorHandler.throwing(error: error)
+                self?.userInterface?.showErrorView()
             case .success(let projectRecords):
                 self?.createProjects(from: projectRecords)
                 self?.userInterface?.updateView()
+                self?.userInterface?.showCollectionView()
             }
         }
     }

@@ -44,7 +44,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IfL-Pr-if0">
-                                                    <rect key="frame" x="126" y="0.0" width="126" height="50"/>
+                                                    <rect key="frame" x="94.5" y="0.0" width="95" height="50"/>
                                                     <color key="backgroundColor" name="Crimson"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" priority="999" constant="140" id="AcU-aE-un4"/>
@@ -341,6 +341,12 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eBv-9n-dEF" customClass="ErrorView" customModule="TimeTable" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="220" width="320" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" priority="1" constant="128" id="eRG-A4-2Gv"/>
+                                </constraints>
+                            </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="1Mu-g3-i09">
                                 <rect key="frame" x="150" y="274" width="20" height="20"/>
                             </activityIndicatorView>
@@ -351,7 +357,10 @@
                             <constraint firstItem="SCa-Yp-ddD" firstAttribute="top" secondItem="gSW-q8-FeV" secondAttribute="top" id="Ti8-nd-IOf"/>
                             <constraint firstItem="SCa-Yp-ddD" firstAttribute="leading" secondItem="pV0-Kr-wuD" secondAttribute="leading" id="YLz-zY-hFP"/>
                             <constraint firstAttribute="bottom" secondItem="SCa-Yp-ddD" secondAttribute="bottom" id="ZlT-Eg-Luf"/>
+                            <constraint firstItem="pV0-Kr-wuD" firstAttribute="trailing" secondItem="eBv-9n-dEF" secondAttribute="trailing" id="f5h-sz-AWv"/>
+                            <constraint firstItem="eBv-9n-dEF" firstAttribute="leading" secondItem="pV0-Kr-wuD" secondAttribute="leading" id="gne-P1-WYc"/>
                             <constraint firstItem="pV0-Kr-wuD" firstAttribute="trailing" secondItem="SCa-Yp-ddD" secondAttribute="trailing" id="mHt-SS-Vcc"/>
+                            <constraint firstItem="eBv-9n-dEF" firstAttribute="centerY" secondItem="pV0-Kr-wuD" secondAttribute="centerY" id="noU-KM-aNd"/>
                             <constraint firstItem="1Mu-g3-i09" firstAttribute="centerX" secondItem="pV0-Kr-wuD" secondAttribute="centerX" id="rzt-3y-FAQ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pV0-Kr-wuD"/>
@@ -361,6 +370,7 @@
                         <outlet property="activityIndicator" destination="1Mu-g3-i09" id="cv6-Ww-sXX"/>
                         <outlet property="dateSelectorView" destination="KTO-4j-KGE" id="neF-yZ-OrX"/>
                         <outlet property="durationLabel" destination="YBd-4h-a3P" id="puT-X8-6cX"/>
+                        <outlet property="errorView" destination="eBv-9n-dEF" id="anC-gi-dwo"/>
                         <outlet property="shouldWorkHoursLabel" destination="nAg-lf-MRk" id="9Nj-Bv-DJu"/>
                         <outlet property="tableView" destination="SCa-Yp-ddD" id="XMe-dB-XMK"/>
                         <outlet property="workedHoursLabel" destination="lBK-2K-mAQ" id="q5g-sC-22l"/>

@@ -49,6 +49,7 @@
 "ui.error.cannot_be_empty" = "- cannot be empty.";
 "ui.error.invalid_format" = "invalid format.";
 "ui.error.time_greater_than" = "Duration time must be greater than 0";
+"ui.error.generic_error" = "Oups! We couldn't realize your request. Please, try again later.";
 
 // APiErrors
 "api.error.invalid_url" = "Given URL (%@) is invalid";
