@@ -20,6 +20,8 @@ class WorkTimesListViewControllerMock: WorkTimesListViewControllerable {
     private(set) var configureViewModelData: (called: Bool, viewModel: WorkTimesListViewModelType?) = (false, nil)
     private(set) var updateMatchingFullTimeLabelsData: (workedHours: String?, shouldWorkHours: String?, duration: String?) = (nil, nil, nil)
     private(set) var setActivityIndicatorIsHidden: Bool?
+    private(set) var showTableViewCalled = false
+    private(set) var showErrorViewCalled = false
     
     func setUpView() {
         setUpViewCalled = true
@@ -51,6 +53,14 @@ class WorkTimesListViewControllerMock: WorkTimesListViewControllerable {
     
     func setActivityIndicator(isHidden: Bool) {
         setActivityIndicatorIsHidden = isHidden
+    }
+    
+    func showTableView() {
+        showTableViewCalled = true
+    }
+    
+    func showErrorView() {
+        showErrorViewCalled = true
     }
 }
 // swiftlint:enable large_tuple

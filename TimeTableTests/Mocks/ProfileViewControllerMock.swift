@@ -28,6 +28,16 @@ class ProfileViewControllerMock: UIViewController, ProfileViewModelOutput, Profi
     func setActivityIndicator(isHidden: Bool) {
         setActivityIndicatorIsHidden = isHidden
     }
+
+    private(set) var showScrollViewCalled = false
+    func showScrollView() {
+        showScrollViewCalled = true
+    }
+    
+    private(set) var showErrorViewCalled = false
+    func showErrorView() {
+        showErrorViewCalled = true
+    }
     
     // MARK: - ProfileViewControllerType
     private(set) var configureCalled = false

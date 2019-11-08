@@ -1,5 +1,5 @@
 //
-//  WorkTimesViewModelTests.swift
+//  WorkTimesListViewModelTests.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 27/11/2018.
@@ -127,7 +127,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         XCTAssertTrue(try userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
     }
 
-    func testViewDidLoadRunsFetchWorkTimesCallUpdateViewOnUserInterface() throws {
+    func testViewDidLoadRunsFetchWorkTimesSuccessCallsUpdateViewOnUserInterface() throws {
         //Arrange
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         let dailyWorkTime = try self.buildDailyWorkTime()
@@ -137,6 +137,29 @@ class WorkTimesListViewModelTests: XCTestCase {
         contentProvider.fetchWorkTimesDataCompletion?(.success(([dailyWorkTime], matchingFullTime)))
         //Assert
         XCTAssertTrue(userInterfaceMock.updateViewCalled)
+    }
+    
+    func testViewDidLoadRunsFetchWorkTimesSuccessCallsShowTableViewOnUserInterface() throws {
+        //Arrange
+        let matchingFullTime = try self.buildMatchingFullTimeDecoder()
+        let dailyWorkTime = try self.buildDailyWorkTime()
+        let viewModel = buildViewModel()
+        //Act
+        viewModel.viewDidLoad()
+        contentProvider.fetchWorkTimesDataCompletion?(.success(([dailyWorkTime], matchingFullTime)))
+        //Assert
+        XCTAssertTrue(userInterfaceMock.showTableViewCalled)
+    }
+    
+    func testViewDidLoadRunsFetchWorkTimesFailureCallsShowErrorViewOnUserInterface() throws {
+        //Arrange
+        let error = TestError(message: "Error")
+        let viewModel = buildViewModel()
+        //Act
+        viewModel.viewDidLoad()
+        contentProvider.fetchWorkTimesDataCompletion?(.failure(error))
+        //Assert
+        XCTAssertTrue(userInterfaceMock.showErrorViewCalled)
     }
     
     func testViewWillAppearRunsFetchWorkTimesFinishWithError() throws {

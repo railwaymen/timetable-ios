@@ -85,6 +85,7 @@ class ProfileViewModelTests: XCTestCase {
         //Assert
         XCTAssertTrue(try userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
         XCTAssertEqual(try (errorHandlerMock.throwedError as? TestError).unwrap(), error)
+        XCTAssertTrue(userInterfaceMock.showErrorViewCalled)
     }
     
     func testViewDidLoadFetchUserProfileSucceed() throws {
@@ -100,6 +101,7 @@ class ProfileViewModelTests: XCTestCase {
         XCTAssertEqual(userInterfaceMock.updateValues.0, "John")
         XCTAssertEqual(userInterfaceMock.updateValues.1, "Little")
         XCTAssertEqual(userInterfaceMock.updateValues.2, "john.little@example.com")
+        XCTAssertTrue(userInterfaceMock.showScrollViewCalled)
     }
     
     func testViewRequestedForLogoutReturnsWhileUserIdentifierIsNil() {

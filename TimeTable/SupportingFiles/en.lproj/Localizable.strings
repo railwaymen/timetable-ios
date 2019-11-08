@@ -43,15 +43,20 @@
 "profile.label.profile" = "Profile";
 "profile.button.logout" = "LOGOUT";
 
+"error.button.refresh" = "REFRESH";
+
 // UIErrors
 "ui.error.cannot_be_empty" = "- cannot be empty.";
 "ui.error.invalid_format" = "invalid format.";
 "ui.error.time_greater_than" = "Duration time must be greater than 0";
+"ui.error.generic_error" = "Oups! We couldn't finish your request. Please, try again later.";
 
 // APiErrors
 "api.error.invalid_url" = "Given URL (%@) is invalid";
 "api.error.invalid_parameters" = "Invalid parameters were sent";
 "api.error.invalid_response" = "Invalid response";
+"api.error.no_connection" = "The device seems to be offline. Please, check your internet connection and try again.";
+"api.error.timeout" = "Your request has timed out. Please, check your internet connection and try again.";
 
 "invalid_email_or_password" = "Invalid email or password";
 

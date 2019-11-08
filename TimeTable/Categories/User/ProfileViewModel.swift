@@ -12,10 +12,13 @@ protocol ProfileViewModelOutput: class {
     func setUp()
     func update(firstName: String, lastName: String, email: String)
     func setActivityIndicator(isHidden: Bool)
+    func showScrollView()
+    func showErrorView()
 }
 
 protocol ProfileViewModelType: class {
     func viewDidLoad()
+    func configure(_ view: ErrorViewable)
     func viewRequestedForLogout()
 }
 
@@ -26,6 +29,8 @@ class ProfileViewModel: ProfileViewModelType {
     private let accessService: AccessServiceUserIDType
     private let coreDataStack: CoreDataStackUserType
     private let errorHandler: ErrorHandlerType
+    
+    private weak var errorViewModel: ErrorViewModelParentType?
     
     // MARK: - Initialization
     init(userInterface: ProfileViewModelOutput?,
@@ -45,17 +50,15 @@ class ProfileViewModel: ProfileViewModelType {
     // MARK: - ProfileViewModelType
     func viewDidLoad() {
         userInterface?.setUp()
-        guard let userIdentifier = accessService.getLastLoggedInUserIdentifier() else { return }
-        userInterface?.setActivityIndicator(isHidden: false)
-        apiClient.fetchUserProfile(forIdetifier: userIdentifier) { [weak self] result in
-            self?.userInterface?.setActivityIndicator(isHidden: true)
-            switch result {
-            case .success(let decoder):
-                self?.userInterface?.update(firstName: decoder.firstName, lastName: decoder.lastName, email: decoder.email)
-            case .failure(let error):
-                self?.errorHandler.throwing(error: error)
-            }
+        fetchProfile()
+    }
+    
+    func configure(_ view: ErrorViewable) {
+        let viewModel = ErrorViewModel(userInterface: view, error: UIError.genericError) { [weak self] in
+            self?.fetchProfile()
         }
+        view.configure(viewModel: viewModel)
+        errorViewModel = viewModel
     }
     
     func viewRequestedForLogout() {
@@ -70,5 +73,35 @@ class ProfileViewModel: ProfileViewModelType {
                 self?.errorHandler.throwing(error: error)
             }
         }
+    }
+    
+    // MARK: - Private
+    private func fetchProfile() {
+        guard let userIdentifier = accessService.getLastLoggedInUserIdentifier() else { return }
+        userInterface?.setActivityIndicator(isHidden: false)
+        apiClient.fetchUserProfile(forIdetifier: userIdentifier) { [weak self] result in
+            self?.userInterface?.setActivityIndicator(isHidden: true)
+            switch result {
+            case .success(let profile):
+                self?.handleFetchSuccess(profile: profile)
+            case .failure(let error):
+                self?.handleFetch(error: error)
+            }
+        }
+    }
+    
+    private func handleFetchSuccess(profile: UserDecoder) {
+        self.userInterface?.update(firstName: profile.firstName, lastName: profile.lastName, email: profile.email)
+        self.userInterface?.showScrollView()
+    }
+    
+    private func handleFetch(error: Error) {
+        if let error = error as? ApiClientError {
+            self.errorViewModel?.update(error: error)
+        } else {
+            self.errorViewModel?.update(error: UIError.genericError)
+            self.errorHandler.throwing(error: error)
+        }
+        self.userInterface?.showErrorView()
     }
 }

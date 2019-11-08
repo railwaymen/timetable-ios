@@ -25,20 +25,14 @@ extension Networking: NetworkingType {
     }
  
     func get(_ path: String, parameters: Any?, cachingLevel: CachingLevel, completion: @escaping (Result<Data>) -> Void) {
-        _ = get(path, parameters: parameters, cachingLevel: cachingLevel, completion: { (result: JSONResult) in
+        _ = get(path, parameters: parameters, cachingLevel: cachingLevel, completion: { result in
             self.handleResponse(result: result, completion: completion)
         })
     }
     
     func delete(_ path: String, completion: @escaping ((Result<Void>) -> Void)) {
         _ = self.delete(path, completion: { (result: JSONResult) in
-            switch result {
-            case .success:
-                completion(.success(Void()))
-            case .failure(let failureResponse):
-                let error = self.handle(failureResponse: failureResponse)
-                completion(.failure(error))
-            }
+            self.handleResponse(result: result, completion: completion)
         })
     }
     
@@ -59,8 +53,19 @@ extension Networking: NetworkingType {
         }
     }
     
+    private func handleResponse(result: JSONResult, completion: (Result<Void>) -> Void) {
+        switch result {
+        case .success:
+            completion(.success(Void()))
+        case .failure(let failureResponse):
+            let error = handle(failureResponse: failureResponse)
+            completion(.failure(error))
+        }
+    }
+    
     private func handle(failureResponse: FailureJSONResponse) -> Error {
-        guard let apiClientError = ApiClientError(data: failureResponse.data) else { return failureResponse.error }
-        return apiClientError
+        return ApiClientError(data: failureResponse.data)
+            ?? ApiClientError(code: failureResponse.error.code)
+            ?? failureResponse.error as Error
     }
 }

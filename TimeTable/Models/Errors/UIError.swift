@@ -24,6 +24,7 @@ enum UIError: Error {
     case cannotBeEmpty(UIElement)
     case invalidFormat(UIElement)
     case timeGreaterThan
+    case genericError
     
     var localizedDescription: String {
         
@@ -37,6 +38,8 @@ enum UIError: Error {
             return "\(component.rawValue.localized) " + "ui.error.invalid_format".localized
         case .timeGreaterThan:
             return "ui.error.time_greater_than".localized
+        case .genericError:
+            return "ui.error.generic_error".localized
         }
     }
 }

@@ -21,6 +21,16 @@ class ProjectsViewControllerMock: ProjectsViewModelOutput {
         updateViewCalled = true
     }
     
+    private(set) var showCollectionViewCalled: Bool = false
+    func showCollectionView() {
+        showCollectionViewCalled = true
+    }
+    
+    private(set) var showErrorViewCalled: Bool = false
+    func showErrorView() {
+        showErrorViewCalled = true
+    }
+    
     private(set) var setActivityIndicatorIsHidden: Bool?
     func setActivityIndicator(isHidden: Bool) {
         setActivityIndicatorIsHidden = isHidden

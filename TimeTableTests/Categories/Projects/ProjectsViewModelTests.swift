@@ -118,6 +118,7 @@ class ProjectsViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(try (errorHandlerMock.throwedError as? TestError).unwrap(), error)
         XCTAssertTrue(try userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
+        XCTAssertTrue(userInterfaceMock.showErrorViewCalled)
     }
     
 }

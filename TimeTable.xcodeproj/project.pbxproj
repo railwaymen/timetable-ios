@@ -169,6 +169,10 @@
 		C13C88E821E5F7B600F68C6E /* WorkTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C88E721E5F7B600F68C6E /* WorkTimeViewModel.swift */; };
 		C147D1F721F5F96A00A818BD /* AttributedTextFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C147D1F621F5F96A00A818BD /* AttributedTextFieldTests.swift */; };
 		C14B10FB21F9C64D00A42587 /* TimeTableCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14B10FA21F9C64D00A42587 /* TimeTableCoordinatorTests.swift */; };
+		C14EB0252372D9B0007F07D0 /* ErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14EB0242372D9B0007F07D0 /* ErrorViewModel.swift */; };
+		C14EB0272372E113007F07D0 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14EB0262372E113007F07D0 /* ErrorView.swift */; };
+		C14EB0292372E1A8007F07D0 /* ErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C14EB0282372E1A8007F07D0 /* ErrorView.xib */; };
+		C14EB02B2372E261007F07D0 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14EB02A2372E261007F07D0 /* UIView+Extension.swift */; };
 		C152C22221E89CB8003ABD88 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = C152C22121E89CB8003ABD88 /* Task.swift */; };
 		C1531F002191BD6B00602A0C /* Networking+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1531EFF2191BD6B00602A0C /* Networking+Extension.swift */; };
 		C1531F042191C58000602A0C /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1531F032191C58000602A0C /* Endpoints.swift */; };
@@ -267,7 +271,7 @@
 		C1CE041521F5E01200E80517 /* AttributedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CE041421F5E01200E80517 /* AttributedTextField.swift */; };
 		C1E1F04221AD2372007F9228 /* WorkTimesTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1E1F04121AD2372007F9228 /* WorkTimesTableViewHeader.xib */; };
 		C1E1F04421AD2952007F9228 /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E1F04321AD2952007F9228 /* NSObject+Extension.swift */; };
-		C1E1F04721AD36B3007F9228 /* WorkTimesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E1F04621AD36B3007F9228 /* WorkTimesViewModelTests.swift */; };
+		C1E1F04721AD36B3007F9228 /* WorkTimesListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E1F04621AD36B3007F9228 /* WorkTimesListViewModelTests.swift */; };
 		C1E1F04921AD3712007F9228 /* WorkTimesListViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E1F04821AD3712007F9228 /* WorkTimesListViewControllerMock.swift */; };
 		C1E1F04B21AD3DBE007F9228 /* Calendar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E1F04A21AD3DBE007F9228 /* Calendar+Extension.swift */; };
 		C1E1F04D21AD3EB8007F9228 /* CalendarMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E1F04C21AD3EB8007F9228 /* CalendarMock.swift */; };
@@ -494,6 +498,10 @@
 		C13C88E721E5F7B600F68C6E /* WorkTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeViewModel.swift; sourceTree = "<group>"; };
 		C147D1F621F5F96A00A818BD /* AttributedTextFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextFieldTests.swift; sourceTree = "<group>"; };
 		C14B10FA21F9C64D00A42587 /* TimeTableCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableCoordinatorTests.swift; sourceTree = "<group>"; };
+		C14EB0242372D9B0007F07D0 /* ErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewModel.swift; sourceTree = "<group>"; };
+		C14EB0262372E113007F07D0 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		C14EB0282372E1A8007F07D0 /* ErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorView.xib; sourceTree = "<group>"; };
+		C14EB02A2372E261007F07D0 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		C152C22121E89CB8003ABD88 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		C1531EFF2191BD6B00602A0C /* Networking+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Networking+Extension.swift"; sourceTree = "<group>"; };
 		C1531F032191C58000602A0C /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
@@ -600,7 +608,7 @@
 		C1CE041421F5E01200E80517 /* AttributedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextField.swift; sourceTree = "<group>"; };
 		C1E1F04121AD2372007F9228 /* WorkTimesTableViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkTimesTableViewHeader.xib; sourceTree = "<group>"; };
 		C1E1F04321AD2952007F9228 /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
-		C1E1F04621AD36B3007F9228 /* WorkTimesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesViewModelTests.swift; sourceTree = "<group>"; };
+		C1E1F04621AD36B3007F9228 /* WorkTimesListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListViewModelTests.swift; sourceTree = "<group>"; };
 		C1E1F04821AD3712007F9228 /* WorkTimesListViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListViewControllerMock.swift; sourceTree = "<group>"; };
 		C1E1F04A21AD3DBE007F9228 /* Calendar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+Extension.swift"; sourceTree = "<group>"; };
 		C1E1F04C21AD3EB8007F9228 /* CalendarMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMock.swift; sourceTree = "<group>"; };
@@ -789,6 +797,7 @@
 			children = (
 				8A10F83C2350D9810004F389 /* DismissableNavigationController.swift */,
 				C1B5137521772D1400C3727C /* LaunchScreen.storyboard */,
+				C14EB0232372D9A0007F07D0 /* Error */,
 				C1F926E121874FB40004A9BC /* Login */,
 				8A31CD7E23741F93008E590D /* ProjectPicker */,
 				C125F1B421DCCF2F00594CDE /* Projects */,
@@ -1157,6 +1166,16 @@
 			path = WorkTimesList;
 			sourceTree = "<group>";
 		};
+		C14EB0232372D9A0007F07D0 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				C14EB0242372D9B0007F07D0 /* ErrorViewModel.swift */,
+				C14EB0262372E113007F07D0 /* ErrorView.swift */,
+				C14EB0282372E1A8007F07D0 /* ErrorView.xib */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
 		C1531F022191C52200602A0C /* ApiClient */ = {
 			isa = PBXGroup;
 			children = (
@@ -1208,6 +1227,7 @@
 				8A5D48C52369ED990082C13D /* UIImage+Extension.swift */,
 				C153AC492182EE9F007A35BB /* UILabel+Extension .swift */,
 				C153AC522182F1E3007A35BB /* UITextField+Extension.swift */,
+				C14EB02A2372E261007F07D0 /* UIView+Extension.swift */,
 				C1E6B34D219EF30600019DC2 /* URL+Extension.swift */,
 				C122601E21899F44007D64A3 /* URLSession+Extension.swift */,
 				C122602021899F82007D64A3 /* URLSessionDataTask+Extension.swift */,
@@ -1624,7 +1644,7 @@
 			isa = PBXGroup;
 			children = (
 				C11D0D0422082A4400066CA9 /* WorkTimesContentProviderTests.swift */,
-				C1E1F04621AD36B3007F9228 /* WorkTimesViewModelTests.swift */,
+				C1E1F04621AD36B3007F9228 /* WorkTimesListViewModelTests.swift */,
 				C19706E021C132B8007AFED4 /* TableViewCellViewModel */,
 				C1E1F05221AD5FB9007F9228 /* TableViewHeader */,
 			);
@@ -1862,6 +1882,7 @@
 				C1784DDD21E4E03600C83E2A /* WorkTime.storyboard in Resources */,
 				C183F82A21F0A11E00B07AB8 /* Profile.storyboard in Resources */,
 				8AA5C5DD235F34340083E121 /* Colors.xcassets in Resources */,
+				C14EB0292372E1A8007F07D0 /* ErrorView.xib in Resources */,
 				C1B5137721772D1400C3727C /* LaunchScreen.storyboard in Resources */,
 				C153AC452181E4E7007A35BB /* ServerConfiguration.storyboard in Resources */,
 				C1B5137421772D1400C3727C /* Assets.xcassets in Resources */,
@@ -2066,6 +2087,7 @@
 				C153AC4A2182EE9F007A35BB /* UILabel+Extension .swift in Sources */,
 				C125F1B621DCCF4400594CDE /* ProjectsViewController.swift in Sources */,
 				C125F1AF21DCC95200594CDE /* ProjectRecordDecoder.swift in Sources */,
+				C14EB0252372D9B0007F07D0 /* ErrorViewModel.swift in Sources */,
 				C16B3A75229E6A0700B6E9E6 /* ProjectTag.swift in Sources */,
 				C1AACFCF21A4349B0023FD32 /* ProjectsCoordinator.swift in Sources */,
 				C1FE49E821AC458F00E37E28 /* WorkTimesTableViewHeader.swift in Sources */,
@@ -2083,6 +2105,7 @@
 				C125F1B821DCCF5100594CDE /* ProjectsViewModel.swift in Sources */,
 				C134296721A6951C00F4EA42 /* ApiClient+WorkTimes.swift in Sources */,
 				C125C4DB21871C7A00FBA0DD /* ServerConfiguration.swift in Sources */,
+				C14EB0272372E113007F07D0 /* ErrorView.swift in Sources */,
 				C1CE041521F5E01200E80517 /* AttributedTextField.swift in Sources */,
 				C1FE49EA21AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift in Sources */,
 				C1E6B34E219EF30600019DC2 /* URL+Extension.swift in Sources */,
@@ -2110,6 +2133,7 @@
 				C152C22221E89CB8003ABD88 /* Task.swift in Sources */,
 				C1ECF0A22192C337006038C6 /* JSONEncoder+Extension.swift in Sources */,
 				C175B56C227CAACA006D9944 /* MessagePresenter.swift in Sources */,
+				C14EB02B2372E261007F07D0 /* UIView+Extension.swift in Sources */,
 				C125F1BC21DCDA8800594CDE /* ProjectCollectionViewCell.swift in Sources */,
 				C12CA57B21A5900B0082FEB7 /* WorkTimeDecoder.swift in Sources */,
 				C1C4BA912189AE0900683F71 /* ApiValidationErrors.swift in Sources */,
@@ -2258,7 +2282,7 @@
 				C12BD9BE21E4BCDA00A6EAF0 /* ProjectsCoordinatorTests.swift in Sources */,
 				C134297F21A6C66900F4EA42 /* DataStackMock.swift in Sources */,
 				C153AC5E2182FA64007A35BB /* UIButtonExtensionTests.swift in Sources */,
-				C1E1F04721AD36B3007F9228 /* WorkTimesViewModelTests.swift in Sources */,
+				C1E1F04721AD36B3007F9228 /* WorkTimesListViewModelTests.swift in Sources */,
 				C12CA56521A5649A0082FEB7 /* BaseTabBarCoordinatorTests.swift in Sources */,
 				C1F7C2E921908E1900F4FAF0 /* CheckBoxButtonTests.swift in Sources */,
 				C12BD99F21E48F9000A6EAF0 /* ApiClientMock.swift in Sources */,
