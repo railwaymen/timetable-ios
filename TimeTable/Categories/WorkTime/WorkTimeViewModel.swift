@@ -9,26 +9,23 @@
 import Foundation
 
 protocol WorkTimeViewModelOutput: class {
-    func setUp(currentProjectName: String, isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?)
+    func setUp(isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?)
     func dismissView()
-    func reloadProjectPicker()
     func reloadTagsView()
-    func dissmissKeyboard()
+    func dismissKeyboard()
     func setMinimumDateForTypeEndAtDate(minDate: Date)
     func updateDay(with date: Date, dateString: String)
     func updateStartAtDate(with date: Date, dateString: String)
     func updateEndAtDate(with date: Date, dateString: String)
-    func selectProjectPicker(row: Int)
+    func updateProject(name: String)
     func setActivityIndicator(isHidden: Bool)
 }
 
 protocol WorkTimeViewModelType: class {
     func viewDidLoad()
-    func viewRequestedForNumberOfProjects() -> Int
-    func viewRequestedForProjectTitle(atRow row: Int) -> String?
+    func projectButtonTapped()
     func viewRequestedForNumberOfTags() -> Int
     func viewRequestedForTag(at index: IndexPath) -> ProjectTag?
-    func viewSelectedProject(atRow row: Int)
     func viewSelectedTag(at index: IndexPath)
     func isTagSelected(at index: IndexPath) -> Bool
     func viewRequestedToFinish()
@@ -116,12 +113,12 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         fetchProjectList()
     }
     
-    func viewRequestedForNumberOfProjects() -> Int {
-        return projects.count
-    }
-    
-    func viewRequestedForProjectTitle(atRow row: Int) -> String? {
-        return projects.count > row ? projects[row].name : nil
+    func projectButtonTapped() {
+        coordinator?.showProjectPicker(projects: projects) { [weak self] project in
+            guard project != nil else { return }
+            self?.task.project = project
+            self?.updateViewWithCurrentSelectedProject()
+        }
     }
     
     func viewRequestedForNumberOfTags() -> Int {
@@ -149,12 +146,6 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         case .some:
             break
         }
-        updateViewWithCurrentSelectedProject()
-    }
-    
-    func viewSelectedProject(atRow row: Int) {
-        guard projects.count > row else { return }
-        task.project = .some(projects[row])
         updateViewWithCurrentSelectedProject()
     }
     
@@ -233,7 +224,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func viewHasBeenTapped() {
-        userInterface?.dissmissKeyboard()
+        userInterface?.dismissKeyboard()
     }
     
     // MARK: - Private
@@ -247,8 +238,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     private func updateViewWithCurrentSelectedProject() {
-        userInterface?.setUp(currentProjectName: task.title,
-                             isLunch: task.project?.isLunch ?? false,
+        userInterface?.setUp(isLunch: task.project?.isLunch ?? false,
                              allowsTask: task.allowsTask,
                              body: task.body,
                              urlString: task.url?.absoluteString)
@@ -276,10 +266,7 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         }
         updateStartAtDateView(with: fromDate)
         updateEndAtDateView(with: toDate)
-        if let project = task.project,
-            let index = projects.firstIndex(of: project) {
-            userInterface?.selectProjectPicker(row: index)
-        }
+        userInterface?.updateProject(name: task.project?.name ?? "work_time.text_field.select_project".localized)
     }
     
     private func updateDayView(with date: Date) {
@@ -309,7 +296,6 @@ class WorkTimeViewModel: WorkTimeViewModelType {
             case .success(let simpleProjectDecoder):
                 self?.projects = simpleProjectDecoder.projects.filter { $0.isActive ?? false }
                 self?.tags = simpleProjectDecoder.tags.filter { $0 != .default }
-                self?.userInterface?.reloadProjectPicker()
                 self?.userInterface?.reloadTagsView()
                 self?.setDefaultTask()
             case .failure(let error):
