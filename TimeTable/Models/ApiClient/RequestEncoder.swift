@@ -29,13 +29,13 @@ class RequestEncoder: RequestEncoderType, EncoderType {
 
     // MARK: - EncoderType
     func encode<T: Encodable>(wrapper: T) throws -> Data {
-        return try encoder.encode(wrapper)
+        return try self.encoder.encode(wrapper)
     }
     
     // MARK: - RequestEncoderType
     func encodeToDictionary<T: Encodable>(wrapper: T) throws -> [String: Any] {
-        let data = try encode(wrapper: wrapper)
-        let json = try serialization.jsonObject(with: data, options: .allowFragments)
+        let data = try self.encode(wrapper: wrapper)
+        let json = try self.serialization.jsonObject(with: data, options: .allowFragments)
         guard let jsonDictionary = json as? [String: Any] else {
             throw ApiClientError(type: .invalidParameters)
         }

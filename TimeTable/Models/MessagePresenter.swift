@@ -29,10 +29,10 @@ extension MessagePresenter: MessagePresenterType {
             alert.dismiss(animated: true)
         }
         alert.addAction(action)
-        if let presentedViewController = window?.rootViewController?.presentedViewController {
+        if let presentedViewController = self.window?.rootViewController?.presentedViewController {
             presentedViewController.present(alert, animated: true)
         } else {
-            window?.rootViewController?.present(alert, animated: true)
+            self.window?.rootViewController?.present(alert, animated: true)
         }
     }
 }

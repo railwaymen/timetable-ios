@@ -39,15 +39,15 @@ class WorkTimesTableViewHeaderViewModel: WorkTimesTableViewHeaderViewModelType {
     // MARK: - WorkTimesTableViewHeaderViewModelType
     func viewConfigured() {
         var dayText: String?
-        if calendar.isDateInToday(dailyWorkTime.day) {
+        if self.calendar.isDateInToday(self.dailyWorkTime.day) {
             dayText = "day.today".localized
-        } else if calendar.isDateInYesterday(dailyWorkTime.day) {
+        } else if self.calendar.isDateInYesterday(self.dailyWorkTime.day) {
             dayText = "day.yesterday".localized
         } else {
-            dayText = DateFormatter.localizedString(from: dailyWorkTime.day, dateStyle: .medium, timeStyle: .none)
+            dayText = DateFormatter.localizedString(from: self.dailyWorkTime.day, dateStyle: .medium, timeStyle: .none)
         }
-        let duration = TimeInterval(dailyWorkTime.workTimes.reduce(0) { $0 + $1.duration})
-        let durationText = dateComponentsFormatter.string(from: duration)
-        userInterface?.updateView(dayText: dayText, durationText: durationText)
+        let duration = TimeInterval(self.dailyWorkTime.workTimes.reduce(0) { $0 + $1.duration})
+        let durationText = self.dateComponentsFormatter.string(from: duration)
+        self.userInterface?.updateView(dayText: dayText, durationText: durationText)
     }
 }

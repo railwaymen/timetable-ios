@@ -27,41 +27,41 @@ class ServerConfigurationViewController: UIViewController {
     
     // MARK: - Initialization
     deinit {
-        notificationCenter?.removeObserver(self)
+        self.notificationCenter?.removeObserver(self)
     }
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel?.viewDidLoad()
+        self.viewModel?.viewDidLoad()
     }
     
     // MARK: - Actions
     @IBAction private func serverAddressTextFieldDidChange(_ sender: UITextField) {
-        viewModel?.serverAddressDidChange(text: sender.text)
+        self.viewModel?.serverAddressDidChange(text: sender.text)
     }
     
     @IBAction private func continueButtonTapped(_ sender: UIButton) {
-        viewModel?.viewRequestedToContinue()
+        self.viewModel?.viewRequestedToContinue()
     }
     
     @IBAction private func viewTapped(_ sender: UITapGestureRecognizer) {
-        viewModel?.viewHasBeenTapped()
+        self.viewModel?.viewHasBeenTapped()
     }
     
     @IBAction private func checkBoxButtonTapped(_ sender: CheckBoxButton) {
-        viewModel?.shouldRemeberHostCheckBoxStatusDidChange(isActive: sender.isActive)
+        self.viewModel?.shouldRemeberHostCheckBoxStatusDidChange(isActive: sender.isActive)
     }
     
     // MARK: - Notifications
     @objc private func changeKeyboardFrame(notification: NSNotification, offset: CGFloat = 0) {
         guard let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height else { return }
-        let bottomSpaceInScrollView = scrollView.contentSize.height - continueButton.convert(continueButton.bounds, to: scrollView).maxY
-        updateScrollViewInsets(with: max(keyboardHeight - bottomSpaceInScrollView, 0))
+        let bottomSpaceInScrollView = self.scrollView.contentSize.height - self.continueButton.convert(self.continueButton.bounds, to: self.scrollView).maxY
+        self.updateScrollViewInsets(with: max(keyboardHeight - bottomSpaceInScrollView, 0))
     }
     
     @objc private func keyboardWillHide(notification: NSNotification) {
-        updateScrollViewInsets()
+        self.updateScrollViewInsets()
     }
     
     // MARK: - Private
@@ -72,19 +72,19 @@ class ServerConfigurationViewController: UIViewController {
     
     private func setUpActivityIndicator() {
         if #available(iOS 13, *) {
-            activityIndicator.style = .large
+            self.activityIndicator.style = .large
         } else {
-            activityIndicator.style = .gray
+            self.activityIndicator.style = .gray
         }
-        setActivityIndicator(isHidden: true)
+        self.setActivityIndicator(isHidden: true)
     }
 }
 
 // MARK: - UITextFieldDelegate
 extension ServerConfigurationViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard serverAddressTextField == textField else { return false }
-        return viewModel?.serverAddressTextFieldDidRequestForReturn() ?? false
+        guard self.serverAddressTextField == textField else { return false }
+        return self.viewModel?.serverAddressTextFieldDidRequestForReturn() ?? false
     }
 }
 
@@ -99,23 +99,24 @@ extension ServerConfigurationViewController: ServerConfigurationViewControllerTy
 // MARK: - ServerConfigurationViewModelOutput
 extension ServerConfigurationViewController: ServerConfigurationViewModelOutput {
     func setupView(checkBoxIsActive: Bool, serverAddress: String) {
-        notificationCenter?.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        notificationCenter?.addObserver(self, selector: #selector(changeKeyboardFrame), name: UIResponder.keyboardDidShowNotification, object: nil)
-        notificationCenter?.addObserver(self, selector: #selector(changeKeyboardFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        self.notificationCenter?.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        self.notificationCenter?.addObserver(self, selector: #selector(self.changeKeyboardFrame), name: UIResponder.keyboardDidShowNotification, object: nil)
+        self.notificationCenter?.addObserver(self, selector: #selector(self.changeKeyboardFrame),
+                                             name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         
-        checkBoxButton.isActive = checkBoxIsActive
-        serverAddressTextField.text = serverAddress
-        continueButton.isEnabled = !serverAddress.isEmpty
-        setUpActivityIndicator()
+        self.checkBoxButton.isActive = checkBoxIsActive
+        self.serverAddressTextField.text = serverAddress
+        self.continueButton.isEnabled = !serverAddress.isEmpty
+        self.setUpActivityIndicator()
     }
     
     func continueButtonEnabledState(_ isEnabled: Bool) {
-        continueButton.isEnabled = isEnabled
+        self.continueButton.isEnabled = isEnabled
     }
     
     func checkBoxIsActiveState(_ isActive: Bool) {
         UIView.transition(
-            with: checkBoxButton,
+            with: self.checkBoxButton,
             duration: 0.15,
             options: .transitionCrossDissolve,
             animations: { [weak self] in
@@ -124,11 +125,11 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
     }
 
     func dismissKeyboard() {
-        view.endEditing(true)
+        self.view.endEditing(true)
     }
     
     func setActivityIndicator(isHidden: Bool) {
-        isHidden ? activityIndicator.stopAnimating() : activityIndicator.startAnimating()
-        activityIndicator.isHidden = isHidden
+        isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
+        self.activityIndicator.isHidden = isHidden
     }
 }

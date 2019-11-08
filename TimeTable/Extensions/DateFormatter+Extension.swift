@@ -18,7 +18,7 @@ extension DateFormatter {
     // MARK: - Initialization
     convenience init(type: DateType) {
         self.init() 
-        dateFormat = type.rawValue
+        self.dateFormat = type.rawValue
         self.locale = Locale.autoupdatingCurrent
     }
 }

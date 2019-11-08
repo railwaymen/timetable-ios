@@ -27,37 +27,37 @@ class ProfileCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
                                        image: .profile,
                                        selectedImage: nil)
         super.init(window: dependencyContainer.window, messagePresenter: dependencyContainer.messagePresenter)
-        self.root.tabBarItem = tabBarItem
+        self.root.tabBarItem = self.tabBarItem
     }
 
     // MARK: - CoordinatorType
     override func start(finishCompletion: (() -> Void)?) {
         self.runMainFlow()
-        navigationController.setNavigationBarHidden(false, animated: false)
-        navigationController.navigationBar.prefersLargeTitles = true
+        self.navigationController.setNavigationBarHidden(false, animated: false)
+        self.navigationController.navigationBar.prefersLargeTitles = true
         super.start(finishCompletion: finishCompletion)
     }
     
     // MARK: - Private
     private func runMainFlow() {
-        guard let apiClient = dependencyContainer.apiClient,
-            let accessService = dependencyContainer.accessService else { return assertionFailure("Api client or access service is nil") }
-        let controller: ProfileViewControllerable? = dependencyContainer.storyboardsManager.controller(storyboard: .profile)
+        guard let apiClient = self.dependencyContainer.apiClient,
+            let accessService = self.dependencyContainer.accessService else { return assertionFailure("Api client or access service is nil") }
+        let controller: ProfileViewControllerable? = self.dependencyContainer.storyboardsManager.controller(storyboard: .profile)
         let viewModel = ProfileViewModel(userInterface: controller,
                                              coordinator: self,
                                              apiClient: apiClient,
                                              accessService: accessService,
-                                             coreDataStack: dependencyContainer.coreDataStack,
-                                             errorHandler: dependencyContainer.errorHandler)
+                                             coreDataStack: self.dependencyContainer.coreDataStack,
+                                             errorHandler: self.dependencyContainer.errorHandler)
         controller?.configure(viewModel: viewModel)
         guard let profileViewController = controller else { return }
-        navigationController.pushViewController(profileViewController, animated: false)
+        self.navigationController.pushViewController(profileViewController, animated: false)
     }
 }
 
 // MARK: - ProfileCoordinatorDelegate
 extension ProfileCoordinator: ProfileCoordinatorDelegate {
     func userProfileDidLogoutUser() {
-        finishCompletion?()
+        self.finishCompletion?()
     }
 }

@@ -27,7 +27,7 @@ class ProjectsCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType 
         self.navigationController.setNavigationBarHidden(false, animated: false)
         self.navigationController.navigationBar.prefersLargeTitles = true
         self.navigationController.navigationBar.tintColor = .crimson
-        self.root.tabBarItem = tabBarItem
+        self.root.tabBarItem = self.tabBarItem
     }
     
     // MARK: - CoordinatorType
@@ -38,14 +38,14 @@ class ProjectsCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType 
     
     // MARK: - Private
     private func runMainFlow() {
-        guard let apiClient = dependencyContainer.apiClient else { return assertionFailure("Api client or access service is nil") }
-        let controller: ProjectsViewControllerable? = dependencyContainer.storyboardsManager.controller(storyboard: .projects)
+        guard let apiClient = self.dependencyContainer.apiClient else { return assertionFailure("Api client or access service is nil") }
+        let controller: ProjectsViewControllerable? = self.dependencyContainer.storyboardsManager.controller(storyboard: .projects)
         let viewModel = ProjectsViewModel(userInterface: controller,
                                           apiClient: apiClient,
-                                          errorHandler: dependencyContainer.errorHandler)
+                                          errorHandler: self.dependencyContainer.errorHandler)
         controller?.configure(viewModel: viewModel)
         if let controller = controller {        
-            navigationController.pushViewController(controller, animated: false)
+            self.navigationController.pushViewController(controller, animated: false)
         }
     }
 }

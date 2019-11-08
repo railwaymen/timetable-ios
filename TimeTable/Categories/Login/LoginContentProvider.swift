@@ -31,7 +31,7 @@ class LoginContentProvider: LoginContentProviderType {
     func login(with credentials: LoginCredentials,
                fetchCompletion: @escaping ((Result<SessionDecoder>) -> Void),
                saveCompletion: @escaping ((Result<Void>) -> Void)) {
-        apiClient.signIn(with: credentials) { [weak self] result in
+        self.apiClient.signIn(with: credentials) { [weak self] result in
             switch result {
             case .success(let userDecoder):
                 fetchCompletion(.success(userDecoder))
@@ -44,7 +44,7 @@ class LoginContentProvider: LoginContentProviderType {
     
     // MARK: - Private
     private func save(userDecoder: SessionDecoder, completion: @escaping ((Result<Void>) -> Void)) {
-        coreDataStack.save(userDecoder: userDecoder, coreDataTypeTranslation: { (transaction: AsynchronousDataTransactionType) -> UserEntity in
+        self.coreDataStack.save(userDecoder: userDecoder, coreDataTypeTranslation: { (transaction: AsynchronousDataTransactionType) -> UserEntity in
             _ = try? transaction.deleteAll(From<UserEntity>())
             return UserEntity.createUser(from: userDecoder, transaction: transaction)
         }) { [weak self] result in

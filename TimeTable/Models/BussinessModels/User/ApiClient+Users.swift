@@ -15,6 +15,6 @@ protocol ApiClientUsersType: class {
 // MARK: - ApiClientUsersType
 extension ApiClient: ApiClientUsersType {
     func fetchUserProfile(forIdetifier identifier: Int64, completion: @escaping ((Result<UserDecoder>) -> Void)) {
-        get(Endpoints.user(identifier), completion: completion)
+        self.get(Endpoints.user(identifier), completion: completion)
     }
 }

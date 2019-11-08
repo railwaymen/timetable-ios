@@ -12,7 +12,7 @@ class AttributedTextField: UITextField {
 
     @IBInspectable var placeholderColor: UIColor = UIColor.gray {
         didSet {
-            attributedPlaceholder = NSAttributedString(string: placeholder!, attributes: [.foregroundColor: placeholderColor])
+            self.attributedPlaceholder = NSAttributedString(string: placeholder!, attributes: [.foregroundColor: self.placeholderColor])
         }
     }
 

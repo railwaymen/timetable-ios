@@ -23,17 +23,17 @@ protocol DateSelectorViewDelegate: class {
  
     // MARK: - IBAction
     @IBAction private func previousDateButtonTapped(_ sender: UIButton) {
-        delegate?.dateSelectorRequestedForPreviousDate()
+        self.delegate?.dateSelectorRequestedForPreviousDate()
     }
     
     @IBAction private func nextDateButtonTapped(_ sender: UIButton) {
-        delegate?.dateSelectorRequestedForNextDate()
+        self.delegate?.dateSelectorRequestedForNextDate()
     }
     
     // MARK: - Internal
     func update(currentDateString: String, previousDateString: String, nextDateString: String) {
-        currentDateButton.setTitle(currentDateString, for: .normal)
-        previousDateButton.setTitle(previousDateString, for: .normal)
-        nextDateButton.setTitle(nextDateString, for: .normal)
+        self.currentDateButton.setTitle(currentDateString, for: .normal)
+        self.previousDateButton.setTitle(previousDateString, for: .normal)
+        self.nextDateButton.setTitle(nextDateString, for: .normal)
     }
 }

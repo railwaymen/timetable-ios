@@ -27,57 +27,57 @@ class ProfileViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.viewDidLoad()
+        self.viewModel.viewDidLoad()
     }
     
     // MARK: - Action
     @IBAction private func logoutButtonTapped(_ sender: UIButton) {
-        viewModel.viewRequestedForLogout()
+        self.viewModel.viewRequestedForLogout()
     }
     
     // MARK: - Private
     private func setUpActivityIndicator() {
         if #available(iOS 13, *) {
-            activityIndicator.style = .large
+            self.activityIndicator.style = .large
         } else {
-            activityIndicator.style = .gray
+            self.activityIndicator.style = .gray
         }
-        setActivityIndicator(isHidden: true)
+        self.setActivityIndicator(isHidden: true)
     }
 }
 
 // MARK: - ProfileViewModelOutput
 extension ProfileViewController: ProfileViewModelOutput {
     func setUp() {
-        firstNameLabel.text = ""
-        lastNameLabel.text = ""
-        emailLabel.text = ""
-        setUpActivityIndicator()
-        scrollView.isHidden = true
-        errorView.isHidden = true
-        viewModel.configure(errorView)
+        self.firstNameLabel.text = ""
+        self.lastNameLabel.text = ""
+        self.emailLabel.text = ""
+        self.setUpActivityIndicator()
+        self.scrollView.isHidden = true
+        self.errorView.isHidden = true
+        self.viewModel.configure(self.errorView)
     }
     
     func update(firstName: String, lastName: String, email: String) {
-        firstNameLabel.text = firstName
-        lastNameLabel.text = lastName
-        emailLabel.text = email
+        self.firstNameLabel.text = firstName
+        self.lastNameLabel.text = lastName
+        self.emailLabel.text = email
     }
     
     func setActivityIndicator(isHidden: Bool) {
-        isHidden ? activityIndicator.stopAnimating() : activityIndicator.startAnimating()
-        activityIndicator.isHidden = isHidden
+        isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
+        self.activityIndicator.isHidden = isHidden
     }
     
     func showScrollView() {
-        UIView.transition(with: scrollView, duration: 0.2, animations: { [weak self] in
+        UIView.transition(with: self.scrollView, duration: 0.2, animations: { [weak self] in
             self?.scrollView.isHidden = false
             self?.errorView.isHidden = true
         })
     }
     
     func showErrorView() {
-        UIView.transition(with: errorView, duration: 0.2, animations: { [weak self] in
+        UIView.transition(with: self.errorView, duration: 0.2, animations: { [weak self] in
             self?.scrollView.isHidden = true
             self?.errorView.isHidden = false
         })

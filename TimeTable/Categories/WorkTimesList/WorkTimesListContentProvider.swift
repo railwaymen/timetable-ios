@@ -38,7 +38,7 @@ class WorkTimesListContentProvider: WorkTimesListContentProviderType {
         let dispatchGroup = dispatchGroupFactory.createDispatchGroup()
         
         dispatchGroup.enter()
-        fetchWorkTimes(date: date) { result in
+        self.fetchWorkTimes(date: date) { result in
             switch result {
             case .success(let workTimes):
                 dailyWorkTimes = workTimes
@@ -49,7 +49,7 @@ class WorkTimesListContentProvider: WorkTimesListContentProviderType {
         }
         
         dispatchGroup.enter()
-        fetchMatchingFullTime(date: date) { result in
+        self.fetchMatchingFullTime(date: date) { result in
             switch result {
             case .success(let time):
                 matchingFullTime = time
@@ -72,15 +72,15 @@ class WorkTimesListContentProvider: WorkTimesListContentProviderType {
     }
     
     func delete(workTime: WorkTimeDecoder, completion: @escaping (Result<Void>) -> Void) {
-        apiClient.deleteWorkTime(identifier: workTime.identifier, completion: completion)
+        self.apiClient.deleteWorkTime(identifier: workTime.identifier, completion: completion)
     }
     
     // MARK: - Private
     
     private func fetchWorkTimes(date: Date?, completion: @escaping (Result<[DailyWorkTime]>) -> Void) {
-        let dates = getStartAndEndDate(for: date)
+        let dates = self.getStartAndEndDate(for: date)
         let parameters = WorkTimesParameters(fromDate: dates.startOfMonth, toDate: dates.endOfMonth, projectIdentifier: nil)
-        apiClient.fetchWorkTimes(parameters: parameters) { result in
+        self.apiClient.fetchWorkTimes(parameters: parameters) { result in
             switch result {
             case .success(let workTimes):
                 let dailyWorkTimesArray = workTimes.reduce([DailyWorkTime](), { (array, workTime) in
@@ -101,20 +101,20 @@ class WorkTimesListContentProvider: WorkTimesListContentProviderType {
     }
     
     private func fetchMatchingFullTime(date: Date?, completion: @escaping (Result<MatchingFullTimeDecoder>) -> Void) {
-        let userIdentifier = accessService.getLastLoggedInUserIdentifier()
+        let userIdentifier = self.accessService.getLastLoggedInUserIdentifier()
         let parameters = MatchingFullTimeEncoder(date: date, userIdentifier: userIdentifier)
-        apiClient.fetchMatchingFullTime(parameters: parameters, completion: completion)
+        self.apiClient.fetchMatchingFullTime(parameters: parameters, completion: completion)
     }
     
     private func getStartAndEndDate(for date: Date?) -> (startOfMonth: Date?, endOfMonth: Date?) {
         guard let date = date else { return (nil, nil) }
-        var startOfMonthComponents = calendar.dateComponents([.year, .month], from: date)
+        var startOfMonthComponents = self.calendar.dateComponents([.year, .month], from: date)
         startOfMonthComponents.day = 1
         startOfMonthComponents.timeZone = TimeZone(secondsFromGMT: 0)
-        let startOfMonth = calendar.date(from: startOfMonthComponents)
+        let startOfMonth = self.calendar.date(from: startOfMonthComponents)
         guard let startDate = startOfMonth else { return (startOfMonth, nil) }
         let endOfMonthComponents = DateComponents(month: 1)
-        let endOfMonth = calendar.date(byAdding: endOfMonthComponents, to: startDate)
+        let endOfMonth = self.calendar.date(byAdding: endOfMonthComponents, to: startDate)
         return (startOfMonth, endOfMonth)
     }
 }

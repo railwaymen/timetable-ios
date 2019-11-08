@@ -34,14 +34,14 @@ class ProjectCollectionViewCell: UICollectionViewCell, UITableViewDataSource, UI
     
     // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfRows()
+        return self.viewModel.numberOfRows()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ProjectUserViewTableViewCellable else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as? ProjectUserViewTableViewCellable else {
             return UITableViewCell()
         }
-        viewModel.configure(view: cell, for: indexPath)
+        self.viewModel.configure(view: cell, for: indexPath)
         return cell
     }
     
@@ -71,15 +71,15 @@ class ProjectCollectionViewCell: UICollectionViewCell, UITableViewDataSource, UI
 // MARK: - ProjectCollectionViewCellModelOutput
 extension ProjectCollectionViewCell: ProjectCollectionViewCellModelOutput {
     func setupView() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.reloadData()
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.reloadData()
     }
     
     func updateView(with projectName: String, leaderName: String, projectColor: UIColor) {
-        projectNameLabel.text = projectName
-        leaderNameLabel.text = leaderName
-        projectColorView.backgroundColor = projectColor
+        self.projectNameLabel.text = projectName
+        self.leaderNameLabel.text = leaderName
+        self.projectColorView.backgroundColor = projectColor
     }
 }
 
@@ -87,6 +87,6 @@ extension ProjectCollectionViewCell: ProjectCollectionViewCellModelOutput {
 extension ProjectCollectionViewCell: ProjectCollectionViewCellType {
     func configure(viewModel: ProjectCollectionViewCellModelType) {
         self.viewModel = viewModel
-        self.viewModel?.configure()
+        viewModel.configure()
     }
 }

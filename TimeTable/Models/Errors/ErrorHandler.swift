@@ -29,7 +29,7 @@ public class ErrorHandler: ErrorHandlerType {
     
     // MARK: - Public
     public func throwing(error: Error, finally: @escaping (Bool) -> Void) {
-        throwing(error: error, previous: [], finally: finally)
+        self.throwing(error: error, previous: [], finally: finally)
     }
     
     public func catchingError(action: @escaping HandleAction<Error>) -> ErrorHandlerType {
@@ -38,16 +38,16 @@ public class ErrorHandler: ErrorHandlerType {
     
     // MARK: - Private
     private func throwing(error: Error, previous: [ErrorHandler], finally: ((Bool) -> Void)? = nil) {
-        if let parent = parent {
+        if let parent = self.parent {
             parent.throwing(error: error, previous: previous + [self], finally: finally)
             return
         }
-        serve(error: error, next: AnyCollection(previous.reversed()), finally: finally)
+        self.serve(error: error, next: AnyCollection(previous.reversed()), finally: finally)
     }
     
     private func serve(error: Error, next: AnyCollection<ErrorHandler>, finally: ((Bool) -> Void)? = nil) {
         do {
-            try action(error)
+            try self.action(error)
             finally?(true)
         } catch {
             if let nextHandler = next.first {

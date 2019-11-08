@@ -25,7 +25,7 @@ class ProjectPickerCell: UITableViewCell {
 // MARK: - ProjectPickerCellModelOutput
 extension ProjectPickerCell: ProjectPickerCellModelOutput {
     func setUp(title: String) {
-        titleLabel.text = title
+        self.titleLabel.text = title
     }
 }
 

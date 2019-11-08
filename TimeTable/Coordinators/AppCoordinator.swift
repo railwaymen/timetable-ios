@@ -14,7 +14,7 @@ class AppCoordinator: BaseCoordinator {
     private let parentErrorHandler: ErrorHandlerType
     
     private var errorHandler: ErrorHandlerType {
-        return parentErrorHandler.catchingError(action: { [weak self] error in
+        return self.parentErrorHandler.catchingError(action: { [weak self] error in
             self?.present(error: error)
         })
     }
@@ -24,19 +24,19 @@ class AppCoordinator: BaseCoordinator {
         self.dependencyContainer = dependencyContainer
         self.parentErrorHandler = dependencyContainer.errorHandler
         super.init(window: dependencyContainer.window, messagePresenter: dependencyContainer.messagePresenter)
-        self.dependencyContainer.errorHandler = errorHandler
+        self.dependencyContainer.errorHandler = self.errorHandler
     }
 
     // MARK: - CoordinatorType
     func start() {
         super.start()
-        runAuthenticationFlow()
+        self.runAuthenticationFlow()
     }
 
     // MARK: - Private
     private func runAuthenticationFlow() {
-        let coordinator = AuthenticationCoordinator(dependencyContainer: dependencyContainer)
-        addChildCoordinator(child: coordinator)
+        let coordinator = AuthenticationCoordinator(dependencyContainer: self.dependencyContainer)
+        self.addChildCoordinator(child: coordinator)
         coordinator.start { [weak self, weak coordinator] (configuration, apiClient) in
             self?.runMainFlow(configuration: configuration, apiClient: apiClient)
             self?.removeChildCoordinator(child: coordinator)
@@ -44,11 +44,11 @@ class AppCoordinator: BaseCoordinator {
     }
     
     private func runMainFlow(configuration: ServerConfiguration, apiClient: ApiClientType) {
-        let accessService = dependencyContainer.accessServiceBuilder(configuration, dependencyContainer.encoder, dependencyContainer.decoder)
-        dependencyContainer.apiClient = apiClient
-        dependencyContainer.accessService = accessService
-        let coordinator = TimeTableTabCoordinator(dependencyContainer: dependencyContainer)
-        addChildCoordinator(child: coordinator)
+        let accessService = self.dependencyContainer.accessServiceBuilder(configuration, self.dependencyContainer.encoder, self.dependencyContainer.decoder)
+        self.dependencyContainer.apiClient = apiClient
+        self.dependencyContainer.accessService = accessService
+        let coordinator = TimeTableTabCoordinator(dependencyContainer: self.dependencyContainer)
+        self.addChildCoordinator(child: coordinator)
         coordinator.start(finishCompletion: { [weak self, weak coordinator] in
             self?.removeChildCoordinator(child: coordinator)
             self?.runAuthenticationFlow()

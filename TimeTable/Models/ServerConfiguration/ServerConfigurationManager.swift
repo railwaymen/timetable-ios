@@ -33,7 +33,7 @@ class ServerConfigurationManager: ServerConfigurationManagerType {
     
     // MARK: - ServerConfigurationManagerType
     func getOldConfiguration() -> ServerConfiguration? {
-        let shouldRememberHost = userDefaults.bool(forKey: UserDefaultsKeys.shouldRemeberHostKey)
+        let shouldRememberHost = self.userDefaults.bool(forKey: UserDefaultsKeys.shouldRemeberHostKey)
         var configuration = ServerConfiguration(host: nil, shouldRememberHost: shouldRememberHost)
         if shouldRememberHost {
             guard let hostURLString = userDefaults.string(forKey: UserDefaultsKeys.hostURLKey) else { return nil }
@@ -55,7 +55,7 @@ class ServerConfigurationManager: ServerConfigurationManagerType {
         }
         var request = URLRequest(url: hostURL)
         request.httpMethod = HTTPMethods.HEAD.rawValue
-        let dataTask = urlSession.dataTask(with: request) { [weak self] (_, response, error) in
+        let dataTask = self.urlSession.dataTask(with: request) { [weak self] (_, response, error) in
             if let response = response as? HTTPURLResponse, error == nil, response.statusCode == 200 {
                 self?.save(configuration: configuration)
                 mainThreadCompletion(.success(Void()))
@@ -69,8 +69,8 @@ class ServerConfigurationManager: ServerConfigurationManagerType {
     // MARK: - Pirvate
     private func save(configuration: ServerConfiguration) {
         if configuration.shouldRememberHost, let hostURL = configuration.host {
-            userDefaults.set(hostURL.absoluteString, forKey: UserDefaultsKeys.hostURLKey)
+            self.userDefaults.set(hostURL.absoluteString, forKey: UserDefaultsKeys.hostURLKey)
         }
-        userDefaults.set(configuration.shouldRememberHost, forKey: UserDefaultsKeys.shouldRemeberHostKey)
+        self.userDefaults.set(configuration.shouldRememberHost, forKey: UserDefaultsKeys.shouldRemeberHostKey)
     }
 }

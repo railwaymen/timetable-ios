@@ -25,7 +25,7 @@ protocol CoordinatorType: class, Equatable {
 // MARK: - CoordinatorType
 extension CoordinatorType {
     func start() {
-        start(finishCompletion: nil)
+        self.start(finishCompletion: nil)
     }
 }
 // MARK: - Equatable

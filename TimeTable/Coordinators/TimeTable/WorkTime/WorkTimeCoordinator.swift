@@ -37,55 +37,55 @@ class WorkTimeCoordinator: BaseNavigationCoordinator {
     // MARK: - Overridden
     override func start(finishCompletion: (() -> Void)?) {
         super.start(finishCompletion: finishCompletion)
-        runMainFlow()
+        self.runMainFlow()
     }
     
     override func finish() {
-        customFinishHandler?(false)
+        self.customFinishHandler?(false)
         super.finish()
     }
     
     // MARK: - Internal
     func start(finishHandler: @escaping (_ isTaskChanged: Bool) -> Void) {
         super.start(finishCompletion: nil)
-        customFinishHandler = finishHandler
-        runMainFlow()
+        self.customFinishHandler = finishHandler
+        self.runMainFlow()
     }
     
     func finish(isTaskChanged: Bool) {
-        customFinishHandler?(isTaskChanged)
+        self.customFinishHandler?(isTaskChanged)
         super.finish()
     }
     
     // MARK: - Private
     private func runMainFlow() {
-        guard let apiClient = dependencyContainer.apiClient else { return assertionFailure("Api client is nil") }
-        let controller: WorkTimeViewControllerable? = dependencyContainer.storyboardsManager.controller(storyboard: .workTime)
+        guard let apiClient = self.dependencyContainer.apiClient else { return assertionFailure("Api client is nil") }
+        let controller: WorkTimeViewControllerable? = self.dependencyContainer.storyboardsManager.controller(storyboard: .workTime)
         guard let workTimeViewController = controller else { return }
         let viewModel = WorkTimeViewModel(userInterface: workTimeViewController,
                                           coordinator: self,
                                           apiClient: apiClient,
-                                          errorHandler: dependencyContainer.errorHandler,
+                                          errorHandler: self.dependencyContainer.errorHandler,
                                           calendar: Calendar.autoupdatingCurrent,
-                                          flowType: flowType)
-        workTimeViewController.configure(viewModel: viewModel, notificationCenter: dependencyContainer.notificationCenter)
-        navigationController.setViewControllers([workTimeViewController], animated: false)
-        navigationController.setNavigationBarHidden(false, animated: false)
-        navigationController.navigationBar.tintColor = .crimson
-        navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController.navigationBar.shadowImage = UIImage()
+                                          flowType: self.flowType)
+        workTimeViewController.configure(viewModel: viewModel, notificationCenter: self.dependencyContainer.notificationCenter)
+        self.navigationController.setViewControllers([workTimeViewController], animated: false)
+        self.navigationController.setNavigationBarHidden(false, animated: false)
+        self.navigationController.navigationBar.tintColor = .crimson
+        self.navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController.navigationBar.shadowImage = UIImage()
         if let sourceView = self.sourceView {
-            showWorkTimeController(controller: navigationController, sourceView: sourceView)
+            showWorkTimeController(controller: self.navigationController, sourceView: sourceView)
         } else {
-            parentViewController?.present(navigationController, animated: true)
+            self.parentViewController?.present(self.navigationController, animated: true)
         }
     }
     
     private func runProjectPickerFlow(projects: [ProjectDecoder], finishHandler: @escaping ProjectPickerCoordinator.FinishHandlerType) {
-        let coordinator = ProjectPickerCoordinator(dependencyContainer: dependencyContainer,
-                                                   parentViewController: navigationController,
+        let coordinator = ProjectPickerCoordinator(dependencyContainer: self.dependencyContainer,
+                                                   parentViewController: self.navigationController,
                                                    projects: projects)
-        addChildCoordinator(child: coordinator)
+        self.addChildCoordinator(child: coordinator)
         coordinator.start { [weak self, weak coordinator] project in
             self?.removeChildCoordinator(child: coordinator)
             finishHandler(project)
@@ -98,17 +98,17 @@ class WorkTimeCoordinator: BaseNavigationCoordinator {
         controller.popoverPresentationController?.permittedArrowDirections = .right
         controller.popoverPresentationController?.sourceView = sourceView
         controller.popoverPresentationController?.sourceRect = CGRect(x: sourceView.bounds.minX, y: sourceView.bounds.midY, width: 0, height: 0)
-        parentViewController?.children.last?.present(controller, animated: true)
+        self.parentViewController?.children.last?.present(controller, animated: true)
     }
 }
 
 // MARK: - WorkTimeCoordinatorType
 extension WorkTimeCoordinator: WorkTimeCoordinatorType {
     func showProjectPicker(projects: [ProjectDecoder], finishHandler: @escaping ProjectPickerCoordinator.FinishHandlerType) {
-        runProjectPickerFlow(projects: projects, finishHandler: finishHandler)
+        self.runProjectPickerFlow(projects: projects, finishHandler: finishHandler)
     }
     
     func viewDidFinish(isTaskChanged: Bool) {
-        finish(isTaskChanged: isTaskChanged)
+        self.finish(isTaskChanged: isTaskChanged)
     }
 }

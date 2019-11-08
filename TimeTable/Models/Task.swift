@@ -28,7 +28,7 @@ struct Task: Encodable, Equatable {
     }
     
     var title: String {
-        switch project {
+        switch self.project {
         case .none:
             return "work_time.text_field.select_project".localized
         case .some(let project):
@@ -37,7 +37,7 @@ struct Task: Encodable, Equatable {
     }
     
     var allowsTask: Bool {
-        switch project {
+        switch self.project {
         case .none:
             return true
         case .some(let project):
@@ -46,7 +46,7 @@ struct Task: Encodable, Equatable {
     }
     
     var type: ProjectType? {
-        switch project {
+        switch self.project {
         case .none:
             return nil
         case .some(let project):
@@ -62,18 +62,18 @@ struct Task: Encodable, Equatable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
-        switch project {
+        switch self.project {
         case .none:
             throw EncodingError.invalidValue(ProjectDecoder.self, EncodingError.Context(codingPath: [CodingKeys.projectId], debugDescription: ""))
         case .some(let project):
             try container.encode(project.identifier, forKey: .projectId)
-            try container.encode(body, forKey: .body)
-            try container.encode(url, forKey: .task)
-            let startAtDate = combine(day: day, time: startAt)
+            try container.encode(self.body, forKey: .body)
+            try container.encode(self.url, forKey: .task)
+            let startAtDate = self.combine(day: self.day, time: self.startAt)
             try container.encode(startAtDate, forKey: .startAt)
-            let endAtDate = combine(day: day, time: endAt)
+            let endAtDate = self.combine(day: self.day, time: self.endAt)
             try container.encode(endAtDate, forKey: .endAt)
-            try? container.encode(tag.rawValue, forKey: .tag)
+            try? container.encode(self.tag.rawValue, forKey: .tag)
         }
     }
     

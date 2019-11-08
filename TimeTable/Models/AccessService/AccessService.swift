@@ -58,42 +58,42 @@ class AccessService {
 extension AccessService: AccessServiceLoginCredentialsType {
     func saveUser(credentails: LoginCredentials) throws {
         do {
-            let data = try encoder.encode(credentails)
-            try keychainAccess.set(data, key: Keys.loginCredentialsKey)
+            let data = try self.encoder.encode(credentails)
+            try self.keychainAccess.set(data, key: Keys.loginCredentialsKey)
         } catch {
             throw Error.cannotSaveLoginCredentials
         }
     }
     
     func getUserCredentials() throws -> LoginCredentials {
-        guard let data = try keychainAccess.getData(Keys.loginCredentialsKey) else { throw Error.cannotFetchLoginCredentials }
-        return try decoder.decode(LoginCredentials.self, from: data)
+        guard let data = try self.keychainAccess.getData(Keys.loginCredentialsKey) else { throw Error.cannotFetchLoginCredentials }
+        return try self.decoder.decode(LoginCredentials.self, from: data)
     }
 }
 
 // MARK: - AccessServiceUserIDType
 extension AccessService: AccessServiceUserIDType {
     func saveLastLoggedInUserIdentifier(_ identifer: Int64) {
-        userDefaults.set(identifer, forKey: Keys.lastLoggedInUserIdentifier)
+        self.userDefaults.set(identifer, forKey: Keys.lastLoggedInUserIdentifier)
     }
     
     func getLastLoggedInUserIdentifier() -> Int64? {
-        guard let identifier = userDefaults.object(forKey: Keys.lastLoggedInUserIdentifier) as? Int64 else { return nil }
+        guard let identifier = self.userDefaults.object(forKey: Keys.lastLoggedInUserIdentifier) as? Int64 else { return nil }
         return identifier
     }
     
     func removeLastLoggedInUserIdentifier() {
-        userDefaults.removeObject(forKey: Keys.lastLoggedInUserIdentifier)
+        self.userDefaults.removeObject(forKey: Keys.lastLoggedInUserIdentifier)
     }
 }
 
 // MARK: - AccessServiceSessionType
 extension AccessService: AccessServiceSessionType {
     func getSession(completion: @escaping ((Result<SessionDecoder>) -> Void)) {
-        guard let identifier = getLastLoggedInUserIdentifier() else {
+        guard let identifier = self.getLastLoggedInUserIdentifier() else {
             return completion(.failure(Error.userNeverLoggedIn))
         }
-        coreData.fetchUser(forIdentifier: identifier) { result in
+        self.coreData.fetchUser(forIdentifier: identifier) { result in
             switch result {
             case .success(let entity):
                 completion(.success(SessionDecoder(entity: entity)))

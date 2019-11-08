@@ -30,19 +30,19 @@ class ProjectsViewController: UIViewController, UICollectionViewDataSource, UICo
     // MARK: - Life-cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.viewDidLoad()
+        self.viewModel.viewDidLoad()
     }
       
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfItems()
+        return self.viewModel.numberOfItems()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? ProjectCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as? ProjectCollectionViewCell else {
             return UICollectionViewCell()
         }
-        guard let project = viewModel.item(at: indexPath) else { return UICollectionViewCell() }
+        guard let project = self.viewModel.item(at: indexPath) else { return UICollectionViewCell() }
         let cellViewModel = ProjectCollectionViewCellModel(userInterface: cell, project: project)
         cell.configure(viewModel: cellViewModel)
         return cell
@@ -51,30 +51,30 @@ class ProjectsViewController: UIViewController, UICollectionViewDataSource, UICo
     // MARK: - Private
     private func setUpActivityIndicator() {
         if #available(iOS 13, *) {
-            activityIndicator.style = .large
+            self.activityIndicator.style = .large
         } else {
-            activityIndicator.style = .gray
+            self.activityIndicator.style = .gray
         }
-        setActivityIndicator(isHidden: true)
+        self.setActivityIndicator(isHidden: true)
     }
 }
 
 // MARK: - ProjectsViewModelOutput
 extension ProjectsViewController: ProjectsViewModelOutput {
     func setUpView() {
-        collectionView.contentInset = self.contentInset
-        if let layout = collectionView.collectionViewLayout as? ProjectsCollectionViewLayout {
+        self.collectionView.contentInset = self.contentInset
+        if let layout = self.collectionView.collectionViewLayout as? ProjectsCollectionViewLayout {
             layout.delegate = self
         }
         self.title = "tabbar.title.projects".localized
-        collectionView.isHidden = true
-        errorView.isHidden = true
-        setUpActivityIndicator()
-        viewModel.configure(errorView)
+        self.collectionView.isHidden = true
+        self.errorView.isHidden = true
+        self.setUpActivityIndicator()
+        self.viewModel.configure(self.errorView)
     }
     
     func updateView() {
-        collectionView.reloadData()
+        self.collectionView.reloadData()
     }
     
     func showCollectionView() {
@@ -92,8 +92,8 @@ extension ProjectsViewController: ProjectsViewModelOutput {
     }
     
     func setActivityIndicator(isHidden: Bool) {
-        isHidden ? activityIndicator.stopAnimating() : activityIndicator.startAnimating()
-        activityIndicator.isHidden = isHidden
+        isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
+        self.activityIndicator.isHidden = isHidden
     }
 }
 
@@ -107,7 +107,7 @@ extension ProjectsViewController: ProjectsViewControllerType {
 // MARK: - ProjectsCollectionViewLayoutDelegate
 extension ProjectsViewController: ProjectsCollectionViewLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForUsersTableViewAtIndexPath indexPath: IndexPath) -> CGFloat {
-        guard let project = viewModel.item(at: indexPath) else { return 0 }
-        return CGFloat(project.users.count) * projectCellTableViewHeight + projectCellStaticHeaderHeight
+        guard let project = self.viewModel.item(at: indexPath) else { return 0 }
+        return CGFloat(project.users.count) * self.projectCellTableViewHeight + self.projectCellStaticHeaderHeight
     }
 }

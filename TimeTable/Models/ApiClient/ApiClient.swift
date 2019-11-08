@@ -39,7 +39,7 @@ class ApiClient: ApiClientNetworkingType {
     // MARK: - Private
     private func decode<D: Decodable>(data: Data, completion: @escaping ((Result<D>) -> Void)) {
         do {
-            let decodedResponse = try decoder.decode(D.self, from: data)
+            let decodedResponse = try self.decoder.decode(D.self, from: data)
             completion(.success(decodedResponse))
         } catch {
             completion(.failure(ApiClientError(type: .invalidResponse)))
@@ -58,8 +58,8 @@ class ApiClient: ApiClientNetworkingType {
     // MARK: - ApiClientNetworkingType
     func post<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void)) {
         do {
-            let parameters = try encoder.encodeToDictionary(wrapper: parameters)
-            _ = networking.post(endpoint.value, parameters: parameters) { [weak self] response in
+            let parameters = try self.encoder.encodeToDictionary(wrapper: parameters)
+            _ = self.networking.post(endpoint.value, parameters: parameters) { [weak self] response in
                 self?.handle(response: response, completion: completion)
             }
         } catch {
@@ -69,8 +69,8 @@ class ApiClient: ApiClientNetworkingType {
     
     func post<E: Encodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<Void>) -> Void)) {
         do {
-            let parameters = try encoder.encodeToDictionary(wrapper: parameters)
-            _ = networking.post(endpoint.value, parameters: parameters) { response in
+            let parameters = try self.encoder.encodeToDictionary(wrapper: parameters)
+            _ = self.networking.post(endpoint.value, parameters: parameters) { response in
                 switch response {
                 case .success:
                     completion(.success(Void()))
@@ -84,15 +84,15 @@ class ApiClient: ApiClientNetworkingType {
     }
     
     func get<D: Decodable>(_ endpoint: Endpoints, completion: @escaping ((Result<D>) -> Void)) {
-        networking.get(endpoint.value, parameters: nil, cachingLevel: .none) { [weak self] response in
+        self.networking.get(endpoint.value, parameters: nil, cachingLevel: .none) { [weak self] response in
             self?.handle(response: response, completion: completion)
         }
     }
     
     func get<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void)) {
         do {
-            let parameters = try encoder.encodeToDictionary(wrapper: parameters)
-            networking.get(endpoint.value, parameters: parameters, cachingLevel: .none) { [weak self] response in
+            let parameters = try self.encoder.encodeToDictionary(wrapper: parameters)
+            self.networking.get(endpoint.value, parameters: parameters, cachingLevel: .none) { [weak self] response in
                 self?.handle(response: response, completion: completion)
             }
         } catch {
@@ -101,13 +101,13 @@ class ApiClient: ApiClientNetworkingType {
     }
     
     func delete(_ endpoint: Endpoints, completion: @escaping ((Result<Void>) -> Void)) {
-        networking.delete(endpoint.value, completion: completion)
+        self.networking.delete(endpoint.value, completion: completion)
     }
     
     func put<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void)) {
         do {
-            let parameters = try encoder.encodeToDictionary(wrapper: parameters)
-            _ = networking.put(endpoint.value, parameters: parameters) { [weak self] response in
+            let parameters = try self.encoder.encodeToDictionary(wrapper: parameters)
+            _ = self.networking.put(endpoint.value, parameters: parameters) { [weak self] response in
                 self?.handle(response: response, completion: completion)
             }
         } catch {
@@ -117,8 +117,8 @@ class ApiClient: ApiClientNetworkingType {
     
     func put<E: Encodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<Void>) -> Void)) {
         do {
-            let parameters = try encoder.encodeToDictionary(wrapper: parameters)
-            _ = networking.put(endpoint.value, parameters: parameters) { response in
+            let parameters = try self.encoder.encodeToDictionary(wrapper: parameters)
+            _ = self.networking.put(endpoint.value, parameters: parameters) { response in
                 switch response {
                 case .success:
                     completion(.success(Void()))

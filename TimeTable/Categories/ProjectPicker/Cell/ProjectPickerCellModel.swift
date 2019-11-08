@@ -31,6 +31,6 @@ class ProjectPickerCellModel {
 // MARK: - ProjectPickerCellModelType
 extension ProjectPickerCellModel: ProjectPickerCellModelType {
     func viewDidConfigure() {
-        userInterface?.setUp(title: project.name)
+        self.userInterface?.setUp(title: self.project.name)
     }
 }

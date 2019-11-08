@@ -33,81 +33,81 @@ class WorkTimeViewController: UIViewController {
     
     // MARK: - Deinitialization
     deinit {
-        notificationCenter?.removeObserver(self)
+        self.notificationCenter?.removeObserver(self)
     }
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.viewDidLoad()
+        self.viewModel.viewDidLoad()
     }
     
     // MARK: - Action
     @objc private func cancelButtonTapped() {
-        viewModel.viewRequestedToFinish()
+        self.viewModel.viewRequestedToFinish()
     }
     
     @IBAction private func projectButtonTapped(_ sender: Any) {
-        viewModel.projectButtonTapped()
+        self.viewModel.projectButtonTapped()
     }
     
     @IBAction private func taskTextFieldDidChange(_ sender: UITextField) {
-        viewModel.taskNameDidChange(value: sender.text)
+        self.viewModel.taskNameDidChange(value: sender.text)
     }
     
     @IBAction private func taskURLTextFieldDidChange(_ sender: UITextField) {
-        viewModel.taskURLDidChange(value: sender.text)
+        self.viewModel.taskURLDidChange(value: sender.text)
     }
     
     @IBAction private func saveButtonTapped(_ sender: UIButton) {
-        viewModel.viewRequestedToSave()
+        self.viewModel.viewRequestedToSave()
     }
     
     @IBAction private func viewTapped(_ sender: UITapGestureRecognizer) {
-        viewModel?.viewHasBeenTapped()
+        self.viewModel?.viewHasBeenTapped()
     }
     
     @IBAction private func dayTextFieldDidBegin(_ sender: UITextField) {
-        viewModel.setDefaultDay()
+        self.viewModel.setDefaultDay()
     }
     
     @objc private func dayTextFieldDidChanged(_ sender: UIDatePicker) {
-        viewModel.viewChanged(day: sender.date)
+        self.viewModel.viewChanged(day: sender.date)
     }
     
     @IBAction private func startAtDateTextFieldDidBegin(_ sender: UITextField) {
-        viewModel.setDefaultStartAtDate()
+        self.viewModel.setDefaultStartAtDate()
     }
 
     @objc private func startAtDateTextFieldDidChanged(_ sender: UIDatePicker) {
-        viewModel.viewChanged(startAtDate: sender.date)
+        self.viewModel.viewChanged(startAtDate: sender.date)
     }
     
     @IBAction private func endAtDateTextFieldDidBegin(_ sender: UITextField) {
-        viewModel.setDefaultEndAtDate()
+        self.viewModel.setDefaultEndAtDate()
     }    
     
     @objc private func endAtDateTextFieldDidChanged(_ sender: UIDatePicker) {
-        viewModel.viewChanged(endAtDate: sender.date)
+        self.viewModel.viewChanged(endAtDate: sender.date)
     }
     
     @objc private func keyboardFrameWillChange(_ notification: NSNotification) {
         let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height ?? 0
-        scrollView.contentInset.bottom = keyboardHeight
+        self.scrollView.contentInset.bottom = keyboardHeight
     }
     
     @objc private func keyboardWillHide(_ notification: NSNotification) {
-        scrollView.contentInset.bottom = 0
+        self.scrollView.contentInset.bottom = 0
     }
     
     // MARK: - Private
     private func setUpActivityIndicator() {
         if #available(iOS 13, *) {
-            activityIndicator.style = .large
+            self.activityIndicator.style = .large
         } else {
-            activityIndicator.style = .gray
+            self.activityIndicator.style = .gray
         }
-        setActivityIndicator(isHidden: true)
+        self.setActivityIndicator(isHidden: true)
     }
 }
 
@@ -143,90 +143,90 @@ extension WorkTimeViewController: UICollectionViewDataSource {
 // MARK: - WorkTimeViewModelOutput
 extension WorkTimeViewController: WorkTimeViewModelOutput {
     func reloadTagsView() {
-        tagsCollectionView.reloadData()
+        self.tagsCollectionView.reloadData()
     }
     
     func setUp(isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?) {
-        notificationCenter?.addObserver(self,
-                                        selector: #selector(self.keyboardFrameWillChange),
-                                        name: UIResponder.keyboardWillChangeFrameNotification,
-                                        object: nil)
-        notificationCenter?.addObserver(self,
-                                        selector: #selector(self.keyboardWillHide),
-                                        name: UIResponder.keyboardWillHideNotification,
-                                        object: nil)
+        self.notificationCenter?.addObserver(self,
+                                             selector: #selector(self.keyboardFrameWillChange),
+                                             name: UIResponder.keyboardWillChangeFrameNotification,
+                                             object: nil)
+        self.notificationCenter?.addObserver(self,
+                                             selector: #selector(self.keyboardWillHide),
+                                             name: UIResponder.keyboardWillHideNotification,
+                                             object: nil)
         let systemItem: UIBarButtonItem.SystemItem
         if #available(iOS 13, *) {
             systemItem = .close
         } else {
             systemItem = .cancel
         }
-        let closeButton = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(cancelButtonTapped))
-        navigationItem.setRightBarButton(closeButton, animated: false)
+        let closeButton = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(self.cancelButtonTapped))
+        self.navigationItem.setRightBarButton(closeButton, animated: false)
         
-        bodyTextField.isHidden = isLunch
-        bodyTextField.text = body
+        self.bodyTextField.isHidden = isLunch
+        self.bodyTextField.text = body
         
-        taskURLTextField.isHidden = !allowsTask || isLunch
-        taskURLTextField.text = urlString
+        self.taskURLTextField.isHidden = !allowsTask || isLunch
+        self.taskURLTextField.text = urlString
         
-        dayPicker = UIDatePicker()
-        dayPicker.datePickerMode = .date
-        dayPicker.addTarget(self, action: #selector(dayTextFieldDidChanged), for: .valueChanged)
-        dayTextField.inputView = dayPicker
+        self.dayPicker = UIDatePicker()
+        self.dayPicker.datePickerMode = .date
+        self.dayPicker.addTarget(self, action: #selector(self.dayTextFieldDidChanged), for: .valueChanged)
+        self.dayTextField.inputView = self.dayPicker
         
-        startAtDatePicker = UIDatePicker()
-        startAtDatePicker.datePickerMode = .time
-        startAtDatePicker.minuteInterval = 5
-        startAtDatePicker.addTarget(self, action: #selector(startAtDateTextFieldDidChanged), for: .valueChanged)
-        startAtDateTextField.inputView = startAtDatePicker
+        self.startAtDatePicker = UIDatePicker()
+        self.startAtDatePicker.datePickerMode = .time
+        self.startAtDatePicker.minuteInterval = 5
+        self.startAtDatePicker.addTarget(self, action: #selector(self.startAtDateTextFieldDidChanged), for: .valueChanged)
+        self.startAtDateTextField.inputView = self.startAtDatePicker
 
-        endAtDatePicker = UIDatePicker()
-        endAtDatePicker.datePickerMode = .time
-        endAtDatePicker.minuteInterval = 5
-        endAtDatePicker.addTarget(self, action: #selector(endAtDateTextFieldDidChanged), for: .valueChanged)
-        endAtDateTextField.inputView = endAtDatePicker
+        self.endAtDatePicker = UIDatePicker()
+        self.endAtDatePicker.datePickerMode = .time
+        self.endAtDatePicker.minuteInterval = 5
+        self.endAtDatePicker.addTarget(self, action: #selector(self.endAtDateTextFieldDidChanged), for: .valueChanged)
+        self.endAtDateTextField.inputView = self.endAtDatePicker
         
-        tagsCollectionView.delegate = self
-        tagsCollectionView.dataSource = self
+        self.tagsCollectionView.delegate = self
+        self.tagsCollectionView.dataSource = self
         
-        setUpActivityIndicator()
+        self.setUpActivityIndicator()
     }
     
     func dismissView() {
-        dismiss(animated: true)
+        self.dismiss(animated: true)
     }
     
     func dismissKeyboard() {
-        view.endEditing(true)
+        self.view.endEditing(true)
     }
     
     func setMinimumDateForTypeEndAtDate(minDate: Date) {
-        endAtDatePicker?.minimumDate = minDate
+        self.endAtDatePicker?.minimumDate = minDate
     }
     
     func updateDay(with date: Date, dateString: String) {
-        dayTextField.text = dateString
-        startAtDatePicker?.date = date
+        self.dayTextField.text = dateString
+        self.startAtDatePicker?.date = date
     }
     
     func updateStartAtDate(with date: Date, dateString: String) {
-        startAtDateTextField.text = dateString
-        startAtDatePicker?.date = date
+        self.startAtDateTextField.text = dateString
+        self.startAtDatePicker?.date = date
     }
     
     func updateEndAtDate(with date: Date, dateString: String) {
-        endAtDateTextField.text = dateString
-        endAtDatePicker?.date = date
+        self.endAtDateTextField.text = dateString
+        self.endAtDatePicker?.date = date
     }
     
     func updateProject(name: String) {
-        projectButton.setTitle(name, for: UIControl.State())
+        self.projectButton.setTitle(name, for: UIControl.State())
     }
     
     func setActivityIndicator(isHidden: Bool) {
-        isHidden ? activityIndicator.stopAnimating() : activityIndicator.startAnimating()
-        activityIndicator.isHidden = isHidden
+        isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
+        self.activityIndicator.isHidden = isHidden
     }
 }
 

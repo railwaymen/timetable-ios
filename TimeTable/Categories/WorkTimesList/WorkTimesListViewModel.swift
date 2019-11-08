@@ -47,8 +47,8 @@ class DailyWorkTime {
     }
     
     func remove(workTime: WorkTimeDecoder) -> Bool {
-        guard let index = workTimes.firstIndex(of: workTime) else { return false }
-        workTimes.remove(at: index)
+        guard let index = self.workTimes.firstIndex(of: workTime) else { return false }
+        self.workTimes.remove(at: index)
         return true
     }
 }
@@ -89,17 +89,17 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
     
     // MARK: - WorkTimesListViewModelType
     func numberOfSections() -> Int {
-        return dailyWorkTimesArray.count
+        return self.dailyWorkTimesArray.count
     }
     
     func numberOfRows(in section: Int) -> Int {
-        return (dailyWorkTimesArray.count > section) ? dailyWorkTimesArray[section].workTimes.count : 0
+        return (self.dailyWorkTimesArray.count > section) ? self.dailyWorkTimesArray[section].workTimes.count : 0
     }
     
     func viewDidLoad() {
-        userInterface?.setUpView()
-        updateDateSelectorView(withCurrentDate: selectedMonth)
-        fetchWorkTimesData(forCurrentMonth: selectedMonth)
+        self.userInterface?.setUpView()
+        self.updateDateSelectorView(withCurrentDate: self.selectedMonth)
+        self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
     }
     
     func configure(_ view: ErrorViewable) {
@@ -107,35 +107,35 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
             self?.fetchWorkTimesData(forCurrentMonth: self?.selectedMonth)
         }
         view.configure(viewModel: viewModel)
-        errorViewModel = viewModel
+        self.errorViewModel = viewModel
     }
     
     func viewRequestForPreviousMonth() {
-        fetchAndChangeSelectedMonth(with: DateComponents(month: -1))
+        self.fetchAndChangeSelectedMonth(with: DateComponents(month: -1))
     }
     
     func viewRequestForNextMonth() {
-        fetchAndChangeSelectedMonth(with: DateComponents(month: 1))
+        self.fetchAndChangeSelectedMonth(with: DateComponents(month: 1))
     }
     
     func viewRequestForCellType(at index: IndexPath) -> WorkTimesListViewModel.CellType {
-        guard let workTime = workTime(for: index) else { return .standard }
+        guard let workTime = self.workTime(for: index) else { return .standard }
         return workTime.taskPreview == nil ? .standard : .taskURL
     }
     
     func viewRequestForCellModel(at index: IndexPath, cell: WorkTimeCellViewModelOutput) -> WorkTimeCellViewModelType? {
-        guard let workTime = workTime(for: index) else { return nil }
+        guard let workTime = self.workTime(for: index) else { return nil }
         return WorkTimeCellViewModel(workTime: workTime, userInterface: cell, parent: self)
     }
     
     func viewRequestForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType? {
-        guard dailyWorkTimesArray.count > section else { return nil }
-        return WorkTimesTableViewHeaderViewModel(userInterface: header, dailyWorkTime: dailyWorkTimesArray[section])
+        guard self.dailyWorkTimesArray.count > section else { return nil }
+        return WorkTimesTableViewHeaderViewModel(userInterface: header, dailyWorkTime: self.dailyWorkTimesArray[section])
     }
     
     func viewRequestToDuplicate(sourceView: UITableViewCell, at indexPath: IndexPath) {
         guard let task = self.createTask(for: indexPath) else { return }
-        let lastTask = createTask(for: IndexPath(row: 0, section: 0))
+        let lastTask = self.createTask(for: IndexPath(row: 0, section: 0))
         self.coordinator?.workTimesRequestedForWorkTimeView(
             sourceView: sourceView,
             flowType: .duplicateEntry(duplicatedTask: task, lastTask: lastTask)) { [weak self] isTaskChanged in
@@ -145,11 +145,11 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void) {
-        guard let workTime = workTime(for: index) else {
+        guard let workTime = self.workTime(for: index) else {
             completion(false)
             return
         }
-        contentProvider.delete(workTime: workTime) { [weak self] result in
+        self.contentProvider.delete(workTime: workTime) { [weak self] result in
             switch result {
             case .success:
                 self?.removeDailyWorkTime(at: index, workTime: workTime, completion: completion)
@@ -161,7 +161,7 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     func viewRequestForNewWorkTimeView(sourceView: UIView) {
-        let lastTask = createTask(for: IndexPath(row: 0, section: 0))
+        let lastTask = self.createTask(for: IndexPath(row: 0, section: 0))
         self.coordinator?.workTimesRequestedForWorkTimeView(sourceView: sourceView, flowType: .newEntry(lastTask: lastTask)) { [weak self] isTaskChanged in
             guard isTaskChanged else { return }
             self?.fetchWorkTimesData(forCurrentMonth: self?.selectedMonth)
@@ -169,7 +169,7 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     func viewRequestedForEditEntry(sourceView: UITableViewCell, at indexPath: IndexPath) {
-        guard let task = createTask(for: indexPath) else { return }
+        guard let task = self.createTask(for: indexPath) else { return }
         self.coordinator?.workTimesRequestedForWorkTimeView(sourceView: sourceView, flowType: .editEntry(editedTask: task)) { [weak self] isTaskChanged in
             guard isTaskChanged else { return }
             self?.fetchWorkTimesData(forCurrentMonth: self?.selectedMonth)
@@ -177,22 +177,22 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     func viewRequestToRefresh(completion: @escaping () -> Void) {
-        fetchWorkTimesData(forCurrentMonth: selectedMonth, completion: completion)
+        self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth, completion: completion)
     }
     
     // MARK: - Private
     private func workTime(for indexPath: IndexPath) -> WorkTimeDecoder? {
-        return dailyWorkTime(for: indexPath)?.workTimes.sorted(by: { $0.startsAt > $1.startsAt })[indexPath.row]
+        return self.dailyWorkTime(for: indexPath)?.workTimes.sorted(by: { $0.startsAt > $1.startsAt })[indexPath.row]
     }
     
     private func dailyWorkTime(for indexPath: IndexPath) -> DailyWorkTime? {
-        guard dailyWorkTimesArray.count > indexPath.section else { return nil }
-        return dailyWorkTimesArray[indexPath.section]
+        guard self.dailyWorkTimesArray.count > indexPath.section else { return nil }
+        return self.dailyWorkTimesArray[indexPath.section]
     }
     
     private func createTask(for indexPath: IndexPath) -> Task? {
-        guard let dailyWorkTime = dailyWorkTime(for: indexPath) else { return nil }
-        guard let workTime = workTime(for: indexPath) else { return nil }
+        guard let dailyWorkTime = self.dailyWorkTime(for: indexPath) else { return nil }
+        guard let workTime = self.workTime(for: indexPath) else { return nil }
         let url: URL?
         if let taskUrlString = workTime.task {
             url = URL(string: taskUrlString)
@@ -219,8 +219,8 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     private func fetchWorkTimesData(forCurrentMonth date: Date?, completion: (() -> Void)? = nil) {
-        userInterface?.setActivityIndicator(isHidden: false)
-        contentProvider.fetchWorkTimesData(for: date) { [weak self] result in
+        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.contentProvider.fetchWorkTimesData(for: date) { [weak self] result in
             defer {
                 completion?()
             }
@@ -268,29 +268,29 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     private func fetchAndChangeSelectedMonth(with components: DateComponents) {
-        guard let date = selectedMonth else { return }
-        let newComponents = newDateComponents(for: date, oldComponents: components)
-        let newSelectedMonth = calendar.date(byAdding: newComponents, to: date)
-        selectedMonth = newSelectedMonth
-        updateDateSelectorView(withCurrentDate: newSelectedMonth)
-        fetchWorkTimesData(forCurrentMonth: newSelectedMonth)
+        guard let date = self.selectedMonth else { return }
+        let newComponents = self.newDateComponents(for: date, oldComponents: components)
+        let newSelectedMonth = self.calendar.date(byAdding: newComponents, to: date)
+        self.selectedMonth = newSelectedMonth
+        self.updateDateSelectorView(withCurrentDate: newSelectedMonth)
+        self.fetchWorkTimesData(forCurrentMonth: newSelectedMonth)
     }
     
     private func updateDateSelectorView(withCurrentDate date: Date?) {
         guard let currentDate = date else { return }
-        let previousDateComponents = newDateComponents(for: currentDate, oldComponents: DateComponents(month: -1))
-        let nextDateComponents = newDateComponents(for: currentDate, oldComponents: DateComponents(month: 1))
-        guard let previousDate = calendar.date(byAdding: previousDateComponents, to: currentDate) else { return }
-        guard let nextDate = calendar.date(byAdding: nextDateComponents, to: currentDate) else { return }
-        let currentDateString = string(for: currentDate)
-        let previousDateString = string(for: previousDate)
-        let nextDateString = string(for: nextDate)
-        userInterface?.updateDateSelector(currentDateString: currentDateString, previousDateString: previousDateString, nextDateString: nextDateString)
+        let previousDateComponents = self.newDateComponents(for: currentDate, oldComponents: DateComponents(month: -1))
+        let nextDateComponents = self.newDateComponents(for: currentDate, oldComponents: DateComponents(month: 1))
+        guard let previousDate = self.calendar.date(byAdding: previousDateComponents, to: currentDate) else { return }
+        guard let nextDate = self.calendar.date(byAdding: nextDateComponents, to: currentDate) else { return }
+        let currentDateString = self.string(for: currentDate)
+        let previousDateString = self.string(for: previousDate)
+        let nextDateString = self.string(for: nextDate)
+        self.userInterface?.updateDateSelector(currentDateString: currentDateString, previousDateString: previousDateString, nextDateString: nextDateString)
     }
     
     private func newDateComponents(for date: Date, oldComponents: DateComponents) -> DateComponents {
         var newComponents = oldComponents
-        guard let month = calendar.dateComponents([.month], from: date).month else { return newComponents }
+        guard let month = self.calendar.dateComponents([.month], from: date).month else { return newComponents }
         if let componentsMonth = oldComponents.month {
             if month == 1 && componentsMonth == -1 {
                 newComponents.year = -1
@@ -302,7 +302,7 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     private func string(for date: Date) -> String {
-        let components = calendar.dateComponents([.month, .year], from: date)
+        let components = self.calendar.dateComponents([.month, .year], from: date)
         guard let month = components.month, let year = components.year else { return "" }
         guard let monthSymbol = DateFormatter().shortMonthSymbols?[month - 1] else { return "" }
         return "\(monthSymbol) \(year)"
@@ -313,6 +313,6 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
 extension WorkTimesListViewModel: WorkTimeCellViewModelParentType {
     func openTask(for workTime: WorkTimeDecoder) {
         guard let task = workTime.task, let url = URL(string: task) else { return }
-        coordinator?.workTimesRequestedForSafari(url: url)
+        self.coordinator?.workTimesRequestedForSafari(url: url)
     }
 }

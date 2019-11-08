@@ -24,8 +24,8 @@ class WorkTimesTableViewHeader: UITableViewHeaderFooterView {
 // MARK: - WorkTimesTableViewHeaderViewModelOutput
 extension WorkTimesTableViewHeader: WorkTimesTableViewHeaderViewModelOutput {
     func updateView(dayText: String?, durationText: String?) {
-        dayLabel.text = dayText
-        summaryLabel.text = durationText
+        self.dayLabel.text = dayText
+        self.summaryLabel.text = durationText
     }
 }
 

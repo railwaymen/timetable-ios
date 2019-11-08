@@ -29,28 +29,28 @@ class BaseCoordinator: CoordinatorType, CoordinatorErrorPresenterType {
     }
 
     func finish() {
-        children.forEach { [weak self] in
+        self.children.forEach { [weak self] in
             $0.finish()
             self?.removeChildCoordinator(child: $0)
         }
-        finishCompletion?()
+        self.finishCompletion?()
     }
     
     func addChildCoordinator(child: BaseCoordinator) {
-        children.append(child)
+        self.children.append(child)
     }
     
     func removeChildCoordinator(child: BaseCoordinator?) {
-        guard let index = children.firstIndex(where: { $0 == child }) else { return }
-        children.remove(at: index)
+        guard let index = self.children.firstIndex(where: { $0 == child }) else { return }
+        self.children.remove(at: index)
     }
     
     // MARK: - CoordinatorErrorPresenterType
     func present(error: Error) {
         if let uiError = error as? UIError {
-            presentAlertController(withMessage: uiError.localizedDescription)
+            self.presentAlertController(withMessage: uiError.localizedDescription)
         } else if let apiError = error as? ApiClientError {
-            presentAlertController(withMessage: apiError.type.localizedDescription)
+            self.presentAlertController(withMessage: apiError.type.localizedDescription)
         }
     }
     

@@ -33,22 +33,22 @@ class ProjectPickerCoordinator: BaseNavigationCoordinator {
     // MARK: - Overridden
     override func start(finishCompletion: (() -> Void)?) {
         super.start(finishCompletion: finishCompletion)
-        runMainFlow()
+        self.runMainFlow()
     }
     
     override func finish() {
-        customFinishHandler?(nil)
+        self.customFinishHandler?(nil)
         super.finish()
     }
     
     // MARK: - Internal
     func start(finishHandler: @escaping FinishHandlerType) {
-        customFinishHandler = finishHandler
+        self.customFinishHandler = finishHandler
         self.start()
     }
     
     func finish(project: ProjectDecoder?) {
-        customFinishHandler?(project)
+        self.customFinishHandler?(project)
         super.finish()
     }
     
@@ -57,18 +57,18 @@ class ProjectPickerCoordinator: BaseNavigationCoordinator {
         let controller = ProjectPickerViewController()
         let viewModel = ProjectPickerViewModel(userInterface: controller,
                                                coordinator: self,
-                                               notificationCenter: dependencyContainer.notificationCenter,
-                                               projects: projects)
+                                               notificationCenter: self.dependencyContainer.notificationCenter,
+                                               projects: self.projects)
         controller.configure(viewModel: viewModel)
-        navigationController.setViewControllers([controller], animated: false)
-        parentViewController?.present(navigationController, animated: true)
+        self.navigationController.setViewControllers([controller], animated: false)
+        self.parentViewController?.present(self.navigationController, animated: true)
     }
 }
 
 // MARK: - ProjectPickerCoordinatorType
 extension ProjectPickerCoordinator: ProjectPickerCoordinatorType {
     func finishFlow(project: ProjectDecoder?) {
-        navigationController.dismiss(animated: true)
-        finish(project: project)
+        self.navigationController.dismiss(animated: true)
+        self.finish(project: project)
     }
 }

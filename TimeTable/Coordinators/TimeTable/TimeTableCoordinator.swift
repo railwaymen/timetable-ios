@@ -19,8 +19,8 @@ class TimeTableTabCoordinator: BaseTabBarCoordinator {
         let userCoordinator = ProfileCoordinator(dependencyContainer: dependencyContainer)
         
         super.init(window: dependencyContainer.window, messagePresenter: dependencyContainer.messagePresenter)
-        [projectsCoordinator, workTimeCoordinator, userCoordinator].forEach { addChildCoordinator(child: $0) }
-        tabBarController.tabBar.tintColor = .crimson
+        [projectsCoordinator, workTimeCoordinator, userCoordinator].forEach { self.addChildCoordinator(child: $0) }
+        self.tabBarController.tabBar.tintColor = .crimson
         
         projectsCoordinator.start()
         workTimeCoordinator.start()
