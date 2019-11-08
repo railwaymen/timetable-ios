@@ -196,6 +196,13 @@
                                     </mask>
                                 </variation>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PPK-zj-xBF" customClass="ErrorView" customModule="TimeTable" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="448" width="768" height="128"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" priority="1" constant="128" id="SI4-s8-TiC"/>
+                                </constraints>
+                            </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="u6f-df-1cI">
                                 <rect key="frame" x="374" y="502" width="20" height="20"/>
                             </activityIndicatorView>
@@ -204,8 +211,11 @@
                         <constraints>
                             <constraint firstItem="Kes-74-LQ1" firstAttribute="trailing" secondItem="5KN-if-fJf" secondAttribute="trailing" id="0DF-RX-oUT"/>
                             <constraint firstItem="u6f-df-1cI" firstAttribute="centerY" secondItem="Kes-74-LQ1" secondAttribute="centerY" id="0om-aq-VPh"/>
+                            <constraint firstItem="PPK-zj-xBF" firstAttribute="leading" secondItem="Kes-74-LQ1" secondAttribute="leading" id="66Z-yY-uOe"/>
+                            <constraint firstItem="PPK-zj-xBF" firstAttribute="centerY" secondItem="Kes-74-LQ1" secondAttribute="centerY" id="6CQ-gZ-Obh"/>
                             <constraint firstItem="u6f-df-1cI" firstAttribute="centerX" secondItem="Kes-74-LQ1" secondAttribute="centerX" id="F0g-Gj-tZH"/>
                             <constraint firstItem="FFc-Hn-b9L" firstAttribute="top" secondItem="Kes-74-LQ1" secondAttribute="top" id="RWu-xy-dUh"/>
+                            <constraint firstItem="Kes-74-LQ1" firstAttribute="trailing" secondItem="PPK-zj-xBF" secondAttribute="trailing" id="Wuf-Jf-tUv"/>
                             <constraint firstAttribute="trailing" secondItem="FFc-Hn-b9L" secondAttribute="trailing" id="bQg-L4-oyI"/>
                             <constraint firstItem="Kes-74-LQ1" firstAttribute="bottom" secondItem="FFc-Hn-b9L" secondAttribute="bottom" id="cjP-Lq-gHH"/>
                             <constraint firstItem="FFc-Hn-b9L" firstAttribute="leading" secondItem="LIq-Fv-MXq" secondAttribute="leading" id="i34-qt-qVI"/>
@@ -216,8 +226,10 @@
                     <connections>
                         <outlet property="activityIndicator" destination="u6f-df-1cI" id="sAH-r3-xMA"/>
                         <outlet property="emailLabel" destination="6VM-9V-GEz" id="jFO-FA-U5v"/>
+                        <outlet property="errorView" destination="PPK-zj-xBF" id="LsG-s8-Yxi"/>
                         <outlet property="firstNameLabel" destination="g4j-Pv-CAz" id="WwP-zQ-gP2"/>
                         <outlet property="lastNameLabel" destination="Zg4-CY-yfy" id="NpD-6F-pn4"/>
+                        <outlet property="scrollView" destination="FFc-Hn-b9L" id="ssI-LB-XhS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MdM-pv-hYn" userLabel="First Responder" sceneMemberID="firstResponder"/>

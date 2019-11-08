@@ -15,6 +15,8 @@ protocol ProfileViewControllerType: class {
 }
 
 class ProfileViewController: UIViewController {
+    @IBOutlet private var scrollView: UIScrollView!
+    @IBOutlet private var errorView: ErrorView!
     @IBOutlet private var firstNameLabel: UILabel!
     @IBOutlet private var lastNameLabel: UILabel!
     @IBOutlet private var emailLabel: UILabel!
@@ -51,6 +53,9 @@ extension ProfileViewController: ProfileViewModelOutput {
         lastNameLabel.text = ""
         emailLabel.text = ""
         setUpActivityIndicator()
+        scrollView.isHidden = true
+        errorView.isHidden = true
+        viewModel.configure(errorView)
     }
     
     func update(firstName: String, lastName: String, email: String) {
@@ -62,6 +67,20 @@ extension ProfileViewController: ProfileViewModelOutput {
     func setActivityIndicator(isHidden: Bool) {
         isHidden ? activityIndicator.stopAnimating() : activityIndicator.startAnimating()
         activityIndicator.isHidden = isHidden
+    }
+    
+    func showScrollView() {
+        UIView.transition(with: scrollView, duration: 0.2, animations: { [weak self] in
+            self?.scrollView.isHidden = false
+            self?.errorView.isHidden = true
+        })
+    }
+    
+    func showErrorView() {
+        UIView.transition(with: errorView, duration: 0.2, animations: { [weak self] in
+            self?.scrollView.isHidden = true
+            self?.errorView.isHidden = false
+        })
     }
 }
 
