@@ -29,6 +29,7 @@
 		8A5D48C22369E1E20082C13D /* DispatchGroupMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48C12369E1E20082C13D /* DispatchGroupMock.swift */; };
 		8A5D48C42369E20E0082C13D /* DispatchGroupFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48C32369E20E0082C13D /* DispatchGroupFactoryMock.swift */; };
 		8A5D48C62369ED990082C13D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48C52369ED990082C13D /* UIImage+Extension.swift */; };
+		8A6B6D81237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B6D80237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift */; };
 		8A9369B0237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369AF237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift */; };
 		8A9369B2237AA19D005F8199 /* TagCollectionViewCellMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B1237AA19D005F8199 /* TagCollectionViewCellMock.swift */; };
 		8A9369B4237AA293005F8199 /* WorkTimeCellViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */; };
@@ -360,6 +361,7 @@
 		8A5D48C12369E1E20082C13D /* DispatchGroupMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupMock.swift; sourceTree = "<group>"; };
 		8A5D48C32369E20E0082C13D /* DispatchGroupFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupFactoryMock.swift; sourceTree = "<group>"; };
 		8A5D48C52369ED990082C13D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		8A6B6D80237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCellViewModelParentMock.swift; sourceTree = "<group>"; };
 		8A9369AF237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUserViewTableViewCellMock.swift; sourceTree = "<group>"; };
 		8A9369B1237AA19D005F8199 /* TagCollectionViewCellMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellMock.swift; sourceTree = "<group>"; };
 		8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCellViewMock.swift; sourceTree = "<group>"; };
@@ -1160,6 +1162,7 @@
 				8A9369B1237AA19D005F8199 /* TagCollectionViewCellMock.swift */,
 				8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */,
 				8A9369B5237AA348005F8199 /* WorkTimesTableViewHeaderViewMock.swift */,
+				8A6B6D80237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -2207,6 +2210,7 @@
 			files = (
 				C12BD99921E48D5700A6EAF0 /* ProjectsViewModelTests.swift in Sources */,
 				C134298721A6C80B00F4EA42 /* StoryboardsManagerMock.swift in Sources */,
+				8A6B6D81237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift in Sources */,
 				C10FD88C21F1FB2800A233C5 /* ProfileViewModelTests.swift in Sources */,
 				C1F7C2E521908B4100F4FAF0 /* AttributedViewTests.swift in Sources */,
 				C19DDB1321A42043008C6FA3 /* URLExtensionTests.swift in Sources */,

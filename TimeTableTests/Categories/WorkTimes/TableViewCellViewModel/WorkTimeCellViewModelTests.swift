@@ -74,24 +74,3 @@ class WorkTimeCellViewModelTests: XCTestCase {
         XCTAssertEqual(self.parent.openTaskWorkTime, workTime)
     }
 }
-
-private class WorkTimeCellViewMock: WorkTimeCellViewModelOutput {
-    private(set) var setUpCalled = false
-    func setUp() {
-        self.setUpCalled = true
-    }
-    
-    private(set) var updateViewData: WorkTimeCellViewModel.ViewData?
-    func updateView(data: WorkTimeCellViewModel.ViewData) {
-        self.updateViewData = data
-    }
-}
-
-private class WorkTimeCellViewModelParentMock: WorkTimeCellViewModelParentType {
-    private(set) var openTaskCalledCount = 0
-    private(set) var openTaskWorkTime: WorkTimeDecoder?
-    func openTask(for workTime: WorkTimeDecoder) {
-        self.openTaskCalledCount += 1
-        self.openTaskWorkTime = workTime
-    }
-}

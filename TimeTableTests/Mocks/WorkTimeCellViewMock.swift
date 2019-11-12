@@ -11,10 +11,17 @@ import Foundation
 
 class WorkTimeCellViewMock: WorkTimeTableViewCellable {
     
-    // MARK: - WorkTimeTableViewCellModelOutput
-    func setUp() {}
+    private(set) var setUpCalled = false
+    private(set) var updateViewData: WorkTimeCellViewModel.ViewData?
     
-    func updateView(data: WorkTimeCellViewModel.ViewData) {}
+    // MARK: - WorkTimeTableViewCellModelOutput
+    func setUp() {
+        self.setUpCalled = true
+    }
+    
+    func updateView(data: WorkTimeCellViewModel.ViewData) {
+        self.updateViewData = data
+    }
     
     // MARK: - WorkTimeTableViewCellType
     func configure(viewModel: WorkTimeCellViewModelType) {}
