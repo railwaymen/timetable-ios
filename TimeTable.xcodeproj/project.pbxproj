@@ -29,6 +29,11 @@
 		8A5D48C22369E1E20082C13D /* DispatchGroupMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48C12369E1E20082C13D /* DispatchGroupMock.swift */; };
 		8A5D48C42369E20E0082C13D /* DispatchGroupFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48C32369E20E0082C13D /* DispatchGroupFactoryMock.swift */; };
 		8A5D48C62369ED990082C13D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48C52369ED990082C13D /* UIImage+Extension.swift */; };
+		8A6B6D81237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B6D80237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift */; };
+		8A9369B0237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369AF237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift */; };
+		8A9369B2237AA19D005F8199 /* TagCollectionViewCellMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B1237AA19D005F8199 /* TagCollectionViewCellMock.swift */; };
+		8A9369B4237AA293005F8199 /* WorkTimeCellViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */; };
+		8A9369B6237AA348005F8199 /* WorkTimesTableViewHeaderViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B5237AA348005F8199 /* WorkTimesTableViewHeaderViewMock.swift */; };
 		8AA5C5DD235F34340083E121 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA5C5DC235F34340083E121 /* Colors.xcassets */; };
 		8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */; };
 		8AC097242371CCFF00103FAD /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */; };
@@ -356,6 +361,11 @@
 		8A5D48C12369E1E20082C13D /* DispatchGroupMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupMock.swift; sourceTree = "<group>"; };
 		8A5D48C32369E20E0082C13D /* DispatchGroupFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupFactoryMock.swift; sourceTree = "<group>"; };
 		8A5D48C52369ED990082C13D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		8A6B6D80237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCellViewModelParentMock.swift; sourceTree = "<group>"; };
+		8A9369AF237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUserViewTableViewCellMock.swift; sourceTree = "<group>"; };
+		8A9369B1237AA19D005F8199 /* TagCollectionViewCellMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellMock.swift; sourceTree = "<group>"; };
+		8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCellViewMock.swift; sourceTree = "<group>"; };
+		8A9369B5237AA348005F8199 /* WorkTimesTableViewHeaderViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesTableViewHeaderViewMock.swift; sourceTree = "<group>"; };
 		8AA5C5DC235F34340083E121 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellViewModelTests.swift; sourceTree = "<group>"; };
 		8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
@@ -1148,6 +1158,11 @@
 				C13C2B0521EDE589008C9088 /* WorkTimesListCoordinatorMock.swift */,
 				C1E1F04821AD3712007F9228 /* WorkTimesListViewControllerMock.swift */,
 				C178B78C21EF8AE1001DA07F /* WorkTimeViewControllerMock.swift */,
+				8A9369AF237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift */,
+				8A9369B1237AA19D005F8199 /* TagCollectionViewCellMock.swift */,
+				8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */,
+				8A9369B5237AA348005F8199 /* WorkTimesTableViewHeaderViewMock.swift */,
+				8A6B6D80237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -2195,6 +2210,7 @@
 			files = (
 				C12BD99921E48D5700A6EAF0 /* ProjectsViewModelTests.swift in Sources */,
 				C134298721A6C80B00F4EA42 /* StoryboardsManagerMock.swift in Sources */,
+				8A6B6D81237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift in Sources */,
 				C10FD88C21F1FB2800A233C5 /* ProfileViewModelTests.swift in Sources */,
 				C1F7C2E521908B4100F4FAF0 /* AttributedViewTests.swift in Sources */,
 				C19DDB1321A42043008C6FA3 /* URLExtensionTests.swift in Sources */,
@@ -2290,8 +2306,10 @@
 				C1FA05E62194464D00BD8C9D /* CoreDataStackTests.swift in Sources */,
 				C16CA647219AB89C00133358 /* UserEntitySessionDecoderTests.swift in Sources */,
 				8A09DCBC23673EED003FC2A6 /* DispatchQueueManagerMock.swift in Sources */,
+				8A9369B6237AA348005F8199 /* WorkTimesTableViewHeaderViewMock.swift in Sources */,
 				C18A18A121EF88B300CB6E32 /* WorkTimeViewModelTests.swift in Sources */,
 				C1ECF0AA2192CC25006038C6 /* RequestEncoder.swift in Sources */,
+				8A9369B4237AA293005F8199 /* WorkTimeCellViewMock.swift in Sources */,
 				C147D1F721F5F96A00A818BD /* AttributedTextFieldTests.swift in Sources */,
 				C14B10FB21F9C64D00A42587 /* TimeTableCoordinatorTests.swift in Sources */,
 				C134297D21A6C40000F4EA42 /* AsynchronousDataTransactionMock.swift in Sources */,
@@ -2302,7 +2320,9 @@
 				C19706DF21C13056007AFED4 /* WorkTimesCoordinatorTests.swift in Sources */,
 				C12CA56C21A57BAA0082FEB7 /* UIColorExtensionTests.swift in Sources */,
 				C122601A21898BD7007D64A3 /* LoginViewModelTests.swift in Sources */,
+				8A9369B0237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift in Sources */,
 				C1B8FA4B218C964C009D10B4 /* SessionDecoderTests.swift in Sources */,
+				8A9369B2237AA19D005F8199 /* TagCollectionViewCellMock.swift in Sources */,
 				C12BD9A121E49AE500A6EAF0 /* ProjectRecordDecoderTests.swift in Sources */,
 				C175B56E227CAB01006D9944 /* MessagePresenterMock.swift in Sources */,
 				C1249C712181A282005DB2A5 /* BaseCoordinatorTests.swift in Sources */,

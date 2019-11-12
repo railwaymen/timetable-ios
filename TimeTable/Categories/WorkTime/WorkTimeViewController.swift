@@ -115,7 +115,7 @@ class WorkTimeViewController: UIViewController {
 extension WorkTimeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.reuseIdentifier,
-                                                            for: indexPath) as? TagCollectionViewCell else {
+                                                            for: indexPath) as? TagCollectionViewCellable else {
                                                                 return UICollectionViewCell()
         }
         guard let tag = self.viewModel.viewRequestedForTag(at: indexPath) else { return UICollectionViewCell() }

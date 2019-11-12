@@ -42,8 +42,8 @@ class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
         //Act
         viewModel.viewConfigured()
         //Assert
-        XCTAssertEqual(self.userInterface.updateViewData.dayText, "day.today".localized)
-        XCTAssertEqual(self.userInterface.updateViewData.durationText, "3h")
+        XCTAssertEqual(self.userInterface.updateViewData?.dayText, "day.today".localized)
+        XCTAssertEqual(self.userInterface.updateViewData?.durationText, "3h")
     }
     
     func testViewConfiguredWithYesterdayDate() throws {
@@ -58,8 +58,8 @@ class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
         //Act
         viewModel.viewConfigured()
         //Assert
-        XCTAssertEqual(self.userInterface.updateViewData.dayText, "day.yesterday".localized)
-        XCTAssertEqual(self.userInterface.updateViewData.durationText, "3h")
+        XCTAssertEqual(self.userInterface.updateViewData?.dayText, "day.yesterday".localized)
+        XCTAssertEqual(self.userInterface.updateViewData?.durationText, "3h")
     }
     
     func testViewConfiguredWithOtherDateThanTodayAndYesterday() throws {
@@ -73,16 +73,7 @@ class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
         //Act
         viewModel.viewConfigured()
         //Assert
-        XCTAssertEqual(self.userInterface.updateViewData.dayText, DateFormatter.localizedString(from: dailyWorkTime.day, dateStyle: .medium, timeStyle: .none))
-        XCTAssertEqual(self.userInterface.updateViewData.durationText, "3h")
-    }
-}
-
-private class WorkTimesTableViewHeaderViewMock: WorkTimesTableViewHeaderViewModelOutput {
-    
-    private(set) var updateViewData: (dayText: String?, durationText: String?) = (nil, nil)
-    func updateView(dayText: String?, durationText: String?) {
-        self.updateViewData.dayText = dayText
-        self.updateViewData.durationText = durationText
+        XCTAssertEqual(self.userInterface.updateViewData?.dayText, DateFormatter.localizedString(from: dailyWorkTime.day, dateStyle: .medium, timeStyle: .none))
+        XCTAssertEqual(self.userInterface.updateViewData?.durationText, "3h")
     }
 }

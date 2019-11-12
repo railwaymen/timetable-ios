@@ -10,14 +10,14 @@ import XCTest
 @testable import TimeTable
 
 class ServerConfigurationViewModelTests: XCTestCase {
-    private var userInterface: UserInterfaceMock!
+    private var userInterface: ServerConfigurationViewControllerMock!
     private var coordinatorMock: CoordinatorMock!
     private var serverConfigurationManagerMock: ServerConfigurationManagerMock!
     private var errorHandler: ErrorHandlerMock!
     private var viewModel: ServerConfigurationViewModel!
     
     override func setUp() {
-        self.userInterface = UserInterfaceMock()
+        self.userInterface = ServerConfigurationViewControllerMock()
         self.errorHandler = ErrorHandlerMock()
         self.coordinatorMock = CoordinatorMock()
         self.serverConfigurationManagerMock = ServerConfigurationManagerMock()
@@ -149,35 +149,5 @@ class ServerConfigurationViewModelTests: XCTestCase {
         _ = self.viewModel.viewHasBeenTapped()
         //Assert
         XCTAssertTrue(self.userInterface.dismissKeyboardCalled)
-    }
-}
-
-private class UserInterfaceMock: ServerConfigurationViewModelOutput {
-    private(set) var setupViewCalled = false
-    private(set) var setupViewStateValues: (checkBoxIsActive: Bool, serverAddress: String) = (false, "")
-    private(set) var dismissKeyboardCalled = false
-    private(set) var continueButtonEnabledStateValues: (called: Bool, isEnabled: Bool) = (false, false)
-    private(set) var checkBoxIsActiveStateValues: (called: Bool, isActive: Bool) = (false, false)
-    private(set) var setActivityIndicatorIsHidden: Bool?
-    
-    func setupView(checkBoxIsActive: Bool, serverAddress: String) {
-        self.setupViewCalled = true
-        self.setupViewStateValues = (checkBoxIsActive, serverAddress)
-    }
-    
-    func dismissKeyboard() {
-        self.dismissKeyboardCalled = true
-    }
-    
-    func continueButtonEnabledState(_ isEnabled: Bool) {
-        self.continueButtonEnabledStateValues = (true, isEnabled)
-    }
-    
-    func checkBoxIsActiveState(_ isActive: Bool) {
-        self.checkBoxIsActiveStateValues = (true, isActive)
-    }
-    
-    func setActivityIndicator(isHidden: Bool) {
-        self.setActivityIndicatorIsHidden = isHidden
     }
 }

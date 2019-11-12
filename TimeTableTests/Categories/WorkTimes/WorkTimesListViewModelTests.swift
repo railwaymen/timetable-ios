@@ -490,16 +490,5 @@ class WorkTimesListViewModelTests: XCTestCase {
         return DailyWorkTime(day: date, workTimes: workTimes)
     }
 }
-
-// MARK: -
-private class WorkTimeCellViewMock: WorkTimeCellViewModelOutput {
-    func setUp() {}
-    
-    func updateView(data: WorkTimeCellViewModel.ViewData) {}
-}
-
-private class WorkTimesTableViewHeaderViewMock: WorkTimesTableViewHeaderViewModelOutput {
-    func updateView(dayText: String?, durationText: String?) {}
-}
 // swiftlint:enable type_body_length
 // swiftlint:enable file_length
