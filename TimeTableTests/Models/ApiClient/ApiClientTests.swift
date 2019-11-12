@@ -201,7 +201,7 @@ class ApiClientTests: XCTestCase {
                 expectedError = error
             }
         }
-        networkingMock.shortPostCompletion?(.failure(error))
+        self.networkingMock.shortPostCompletion?(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
@@ -218,7 +218,7 @@ class ApiClientTests: XCTestCase {
         components.day = 22
         let day = try Calendar.current.date(from: components).unwrap()
         let data = try self.json(from: WorkTimesProjectResponse.workTimesProjectResponse)
-        let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
+        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
         let task = Task(workTimeIdentifier: nil,
                         project: projectDecoder,
@@ -237,7 +237,7 @@ class ApiClientTests: XCTestCase {
                 XCTFail()
             }
         }
-        networkingMock.shortPostCompletion?(.success(data))
+        self.networkingMock.shortPostCompletion?(.success(data))
         //Assert
         XCTAssertTrue(successCalled)
     }
@@ -247,7 +247,7 @@ class ApiClientTests: XCTestCase {
         var expectedError: Error?
         let apiClient = self.buildApiClient()
         let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
-        requestEncoderMock.isEncodeToDictionaryThrowingError = true
+        self.requestEncoderMock.isEncodeToDictionaryThrowingError = true
         //Act
         apiClient.get(Endpoints.workTimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
             switch result {
@@ -277,7 +277,7 @@ class ApiClientTests: XCTestCase {
                 expectedError = error
             }
         }
-        networkingMock.getCompletion?(.failure(error))
+        self.networkingMock.getCompletion?(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
@@ -299,7 +299,7 @@ class ApiClientTests: XCTestCase {
                 XCTFail()
             }
         }
-        networkingMock.getCompletion?(.success(data))
+        self.networkingMock.getCompletion?(.success(data))
         //Assert
         let decoder = try (expectedDecoder as? [WorkTimeDecoder]).unwrap()
         XCTAssertEqual(decoder[0], decoders[0])
@@ -322,7 +322,7 @@ class ApiClientTests: XCTestCase {
                 
             }
         }
-        networkingMock.getCompletion?(.success(data))
+        self.networkingMock.getCompletion?(.success(data))
         //Assert
         switch (expectedError as? ApiClientError)?.type {
         case .invalidResponse?: break
@@ -335,7 +335,7 @@ class ApiClientTests: XCTestCase {
         var expectedError: Error?
         let apiClient = self.buildApiClient()
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
-        requestEncoderMock.isEncodeToDictionaryThrowingError = true
+        self.requestEncoderMock.isEncodeToDictionaryThrowingError = true
         //Act
         apiClient.put(Endpoints.signIn, parameters: parameters) { (result: TimeTable.Result<SessionDecoder>) in
             switch result {
@@ -366,7 +366,7 @@ class ApiClientTests: XCTestCase {
                 expectedError = error
             }
         }
-        networkingMock.putCompletion?(.failure(error))
+        self.networkingMock.putCompletion?(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
@@ -387,7 +387,7 @@ class ApiClientTests: XCTestCase {
                 XCTFail()
             }
         }
-        networkingMock.putCompletion?(.success(data))
+        self.networkingMock.putCompletion?(.success(data))
         //Assert
         let decoder = try (expectedDecoder as? SessionDecoder).unwrap()
         XCTAssertEqual(decoder.identifier, 1)
@@ -415,7 +415,7 @@ class ApiClientTests: XCTestCase {
                 
             }
         }
-        networkingMock.putCompletion?(.success(data))
+        self.networkingMock.putCompletion?(.success(data))
         //Assert
         let testError = try (expectedError as? ApiClientError).unwrap()
         XCTAssertEqual(testError.type, .invalidResponse)
@@ -432,7 +432,7 @@ class ApiClientTests: XCTestCase {
         components.day = 22
         let day = try Calendar.current.date(from: components).unwrap()
         let data = try self.json(from: WorkTimesProjectResponse.workTimesProjectResponse)
-        let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
+        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
         let task = Task(workTimeIdentifier: nil,
                         project: projectDecoder,
@@ -442,7 +442,7 @@ class ApiClientTests: XCTestCase {
                         startAt: startsAt,
                         endAt: endsAt,
                         tag: .development)
-        requestEncoderMock.isEncodeToDictionaryThrowingError = true
+        self.requestEncoderMock.isEncodeToDictionaryThrowingError = true
         //Act
         apiClient.put(Endpoints.workTimes, parameters: task) { (result: TimeTable.Result<Void>) in
             switch result {
@@ -469,7 +469,7 @@ class ApiClientTests: XCTestCase {
         components.day = 22
         let day = try Calendar.current.date(from: components).unwrap()
         let data = try self.json(from: WorkTimesProjectResponse.workTimesProjectResponse)
-        let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
+        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
         let task = Task(workTimeIdentifier: nil,
                         project: projectDecoder,
@@ -488,7 +488,7 @@ class ApiClientTests: XCTestCase {
                 expectedError = error
             }
         }
-        networkingMock.putCompletion?(.failure(error))
+        self.networkingMock.putCompletion?(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
@@ -505,7 +505,7 @@ class ApiClientTests: XCTestCase {
         components.day = 22
         let day = try Calendar.current.date(from: components).unwrap()
         let data = try self.json(from: WorkTimesProjectResponse.workTimesProjectResponse)
-        let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
+        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
         let task = Task(workTimeIdentifier: nil,
                         project: projectDecoder,
@@ -524,7 +524,7 @@ class ApiClientTests: XCTestCase {
                 XCTFail()
             }
         }
-        networkingMock.putCompletion?(.success(data))
+        self.networkingMock.putCompletion?(.success(data))
         //Assert
         XCTAssertTrue(successCalled)
     }
