@@ -14,27 +14,27 @@ class WorkTimesListCoordinatorTests: XCTestCase {
     private var workTimeCoordinator: WorkTimesListCoordinator!
     
     override func setUp() {
-        dependencyContainer = DependencyContainerMock()
-        workTimeCoordinator = WorkTimesListCoordinator(dependencyContainer: dependencyContainer)
+        self.dependencyContainer = DependencyContainerMock()
+        self.workTimeCoordinator = WorkTimesListCoordinator(dependencyContainer: self.dependencyContainer)
         super.setUp()
     }
     
     func testRunMainFlowDoesNotRunMainFlowWhileWorkTimesControllerIsNil() {
         //Arrange
         //Act
-        workTimeCoordinator.start()
+        self.workTimeCoordinator.start()
         //Assert
-        XCTAssertTrue(workTimeCoordinator.navigationController.children.isEmpty)
+        XCTAssertTrue(self.workTimeCoordinator.navigationController.children.isEmpty)
     }
     
     func testRunMainFlowRunsMainFlow() {
         //Arrange
-        dependencyContainer.storyboardsManagerMock.workTimesListController = WorkTimesListViewControllerMock()
+        self.dependencyContainer.storyboardsManagerMock.workTimesListController = WorkTimesListViewControllerMock()
         //Act
-        workTimeCoordinator.start()
+        self.workTimeCoordinator.start()
         //Assert
-        XCTAssertFalse(workTimeCoordinator.navigationController.children.isEmpty)
-        XCTAssertNotNil(workTimeCoordinator.navigationController.children.first as? WorkTimesListViewControllerable)
+        XCTAssertFalse(self.workTimeCoordinator.navigationController.children.isEmpty)
+        XCTAssertNotNil(self.workTimeCoordinator.navigationController.children.first as? WorkTimesListViewControllerable)
     }
     
     // MAKR: - Private

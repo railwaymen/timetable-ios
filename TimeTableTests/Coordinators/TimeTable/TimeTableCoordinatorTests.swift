@@ -14,25 +14,25 @@ class TimeTableCoordinatorTests: XCTestCase {
     private var coordinator: TimeTableTabCoordinator!
     
     override func setUp() {
-        dependencyContainer = DependencyContainerMock()
-        coordinator = TimeTableTabCoordinator(dependencyContainer: dependencyContainer)
+        self.dependencyContainer = DependencyContainerMock()
+        self.coordinator = TimeTableTabCoordinator(dependencyContainer: self.dependencyContainer)
         super.setUp()
     }
 
     func testCountOfChildrensOnStart() {
         //Arrange
         //Act
-        coordinator.start(finishCompletion: {})
+        self.coordinator.start(finishCompletion: {})
         //Assert
-        XCTAssertEqual(coordinator.children.count, 3)
+        XCTAssertEqual(self.coordinator.children.count, 3)
     }
     
     func testFinishCalled() {
         //Arrange
-        coordinator.start(finishCompletion: {})
+        self.coordinator.start(finishCompletion: {})
         //Act
-        coordinator.finish()
+        self.coordinator.finish()
         //Assert
-        XCTAssertEqual(coordinator.children.count, 0)
+        XCTAssertEqual(self.coordinator.children.count, 0)
     }
 }

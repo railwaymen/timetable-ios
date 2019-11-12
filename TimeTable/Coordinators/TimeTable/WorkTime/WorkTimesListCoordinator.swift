@@ -36,40 +36,40 @@ class WorkTimesListCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinator
         self.navigationController.setNavigationBarHidden(false, animated: false)
         self.navigationController.navigationBar.prefersLargeTitles = true
         self.navigationController.navigationBar.tintColor = .crimson
-        self.root.tabBarItem = tabBarItem
+        self.root.tabBarItem = self.tabBarItem
     }
     
     // MARK: - CoordinatorType
-    func start() {
+    override func start(finishCompletion: (() -> Void)?) {
+        super.start(finishCompletion: finishCompletion)
         self.runMainFlow()
-        super.start()
     }
     
     // MARK: - Private
     private func runMainFlow() {
-        guard let apiClient = dependencyContainer.apiClient,
-            let accessService = dependencyContainer.accessService else { return assertionFailure("Api client or access service is nil") }
-        let controller: WorkTimesListViewControllerable? = dependencyContainer.storyboardsManager.controller(storyboard: .workTimesList)
+        guard let apiClient = self.dependencyContainer.apiClient,
+            let accessService = self.dependencyContainer.accessService else { return assertionFailure("Api client or access service is nil") }
+        let controller: WorkTimesListViewControllerable? = self.dependencyContainer.storyboardsManager.controller(storyboard: .workTimesList)
         guard let workTimesListViewController = controller else { return }
         let contentProvider = WorkTimesListContentProvider(apiClient: apiClient,
                                                            accessService: accessService,
-                                                           dispatchGroupFactory: dependencyContainer.dispatchGroupFactory)
+                                                           dispatchGroupFactory: self.dependencyContainer.dispatchGroupFactory)
         let viewModel = WorkTimesListViewModel(userInterface: workTimesListViewController,
                                                coordinator: self,
                                                contentProvider: contentProvider,
-                                               errorHandler: dependencyContainer.errorHandler)
+                                               errorHandler: self.dependencyContainer.errorHandler)
         controller?.configure(viewModel: viewModel)
-        navigationController.setViewControllers([workTimesListViewController], animated: false)
+        self.navigationController.setViewControllers([workTimesListViewController], animated: false)
     }
     
     private func runWorkTimeFlow(sourceView: UIView,
                                  flowType: WorkTimeViewModel.FlowType,
                                  finishHandler: @escaping (_ isTaskChanged: Bool) -> Void) {
-        let coordinator = WorkTimeCoordinator(dependencyContainer: dependencyContainer,
-                                              parentViewController: navigationController.topViewController,
+        let coordinator = WorkTimeCoordinator(dependencyContainer: self.dependencyContainer,
+                                              parentViewController: self.navigationController.topViewController,
                                               sourceView: sourceView,
                                               flowType: flowType)
-        addChildCoordinator(child: coordinator)
+        self.addChildCoordinator(child: coordinator)
         coordinator.start { [weak self, weak coordinator] isTaskChanged in
             self?.removeChildCoordinator(child: coordinator)
             finishHandler(isTaskChanged)
@@ -82,10 +82,10 @@ extension WorkTimesListCoordinator: WorkTimesListCoordinatorDelegate {
     func workTimesRequestedForWorkTimeView(sourceView: UIView,
                                            flowType: WorkTimeViewModel.FlowType,
                                            finishHandler: @escaping (_ isTaskChanged: Bool) -> Void) {
-        runWorkTimeFlow(sourceView: sourceView, flowType: flowType, finishHandler: finishHandler)
+        self.runWorkTimeFlow(sourceView: sourceView, flowType: flowType, finishHandler: finishHandler)
     }
 
     func workTimesRequestedForSafari(url: URL) {
-        dependencyContainer.application?.open(url)
+        self.dependencyContainer.application?.open(url)
     }
 }

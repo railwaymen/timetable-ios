@@ -49,8 +49,8 @@ class ProfileViewModel: ProfileViewModelType {
     
     // MARK: - ProfileViewModelType
     func viewDidLoad() {
-        userInterface?.setUp()
-        fetchProfile()
+        self.userInterface?.setUp()
+        self.fetchProfile()
     }
     
     func configure(_ view: ErrorViewable) {
@@ -58,13 +58,13 @@ class ProfileViewModel: ProfileViewModelType {
             self?.fetchProfile()
         }
         view.configure(viewModel: viewModel)
-        errorViewModel = viewModel
+        self.errorViewModel = viewModel
     }
     
     func viewRequestedForLogout() {
-        guard let userIdentifier = accessService.getLastLoggedInUserIdentifier() else { return }
-        userInterface?.setActivityIndicator(isHidden: false)
-        coreDataStack.deleteUser(forIdentifier: userIdentifier) { [weak self] result in
+        guard let userIdentifier = self.accessService.getLastLoggedInUserIdentifier() else { return }
+        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.coreDataStack.deleteUser(forIdentifier: userIdentifier) { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .success:
@@ -77,9 +77,9 @@ class ProfileViewModel: ProfileViewModelType {
     
     // MARK: - Private
     private func fetchProfile() {
-        guard let userIdentifier = accessService.getLastLoggedInUserIdentifier() else { return }
-        userInterface?.setActivityIndicator(isHidden: false)
-        apiClient.fetchUserProfile(forIdetifier: userIdentifier) { [weak self] result in
+        guard let userIdentifier = self.accessService.getLastLoggedInUserIdentifier() else { return }
+        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.apiClient.fetchUserProfile(forIdetifier: userIdentifier) { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .success(let profile):

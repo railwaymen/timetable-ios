@@ -21,18 +21,18 @@ class AccessServiceMock: AccessServiceLoginType {
     
     // MARK: - AccessServiceLoginCredentialsType
     func saveUser(credentails: LoginCredentials) throws {
-        saveUserCalled = true
-        if saveUserIsThrowingError {
+        self.saveUserCalled = true
+        if self.saveUserIsThrowingError {
             throw TestError(message: "save user")
         }
     }
     
     func getUserCredentials() throws -> LoginCredentials {
-        getUserCredentialsCalled = true
-        guard !getUserCredentialsReturnsError else {
+        self.getUserCredentialsCalled = true
+        guard !self.getUserCredentialsReturnsError else {
             throw TestError(message: "getUserCredentials error")
         }
-        if let credentails = userCredentials {
+        if let credentails = self.userCredentials {
             return credentails
         } else {
             return LoginCredentials(email: "", password: "")
@@ -40,7 +40,7 @@ class AccessServiceMock: AccessServiceLoginType {
     }
     
     func removeLastLoggedInUserIdentifier() {
-        removeLastLoggedInUserIdentifierCalled = true
+        self.removeLastLoggedInUserIdentifierCalled = true
     }
     
     // MARK: - AccessServiceLoginCredentialsType
@@ -49,19 +49,19 @@ class AccessServiceMock: AccessServiceLoginType {
     var getLastLoggedInUserIdentifierValue: Int64?
     
     func saveLastLoggedInUserIdentifier(_ identifer: Int64) {
-        saveLastLoggedInUserIdentifierValues = (true, identifer)
+        self.saveLastLoggedInUserIdentifierValues = (true, identifer)
     }
     
     func getLastLoggedInUserIdentifier() -> Int64? {
-        getLastLoggedInUserIdentifierCalled = true
-        return getLastLoggedInUserIdentifierValue
+        self.getLastLoggedInUserIdentifierCalled = true
+        return self.getLastLoggedInUserIdentifierValue
     }
     
     // MARK: - AccessServiceSessionType
     private(set) var getSessionCalled = false
     var getSessionCompletion: ((Result<SessionDecoder>) -> Void)?
     func getSession(completion: @escaping ((Result<SessionDecoder>) -> Void)) {
-        getSessionCalled = true
-        getSessionCompletion = completion
+        self.getSessionCalled = true
+        self.getSessionCompletion = completion
     }
 }

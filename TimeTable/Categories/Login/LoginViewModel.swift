@@ -60,58 +60,58 @@ class LoginViewModel: LoginViewModelType {
     
     // MARK: - LoginViewModelOutput
     func viewDidLoad() {
-        userInterface?.setUpView(checkBoxIsActive: shouldRememberLoginCredentials)
+        self.userInterface?.setUpView(checkBoxIsActive: shouldRememberLoginCredentials)
         self.userInterface?.updateLoginFields(email: loginCredentials.email, password: loginCredentials.password)
     }
     
     func loginInputValueDidChange(value: String?) {
         guard let loginValue = value else { return }
-        loginCredentials.email = loginValue
-        updateView()
+        self.loginCredentials.email = loginValue
+        self.updateView()
     }
     
     func loginTextFieldDidRequestForReturn() -> Bool {
-        guard !loginCredentials.email.isEmpty else { return false }
-        userInterface?.focusOnPasswordTextField()
+        guard !self.loginCredentials.email.isEmpty else { return false }
+        self.userInterface?.focusOnPasswordTextField()
         return true
     }
     
     func passwordInputValueDidChange(value: String?) {
         guard let passowrdValue = value else { return }
-        loginCredentials.password = passowrdValue
-        updateView()
+        self.loginCredentials.password = passowrdValue
+        self.updateView()
     }
     
     func passwordTextFieldDidRequestForReturn() -> Bool {
-        let isCorrect = !loginCredentials.email.isEmpty && !loginCredentials.password.isEmpty
+        let isCorrect = !self.loginCredentials.email.isEmpty && !self.loginCredentials.password.isEmpty
         if isCorrect {
-            viewRequestedToLogin()
+            self.viewRequestedToLogin()
         }
         return isCorrect
     }
     
     func shouldRemeberUserBoxStatusDidChange(isActive: Bool) {
-        shouldRememberLoginCredentials = !isActive
-        userInterface?.checkBoxIsActiveState(!isActive)
+        self.shouldRememberLoginCredentials = !isActive
+        self.userInterface?.checkBoxIsActiveState(!isActive)
     }
     
     func viewTapped() {
-        userInterface?.dismissKeyboard()
+        self.userInterface?.dismissKeyboard()
     }
     
     func viewRequestedToLogin() {
-        guard !loginCredentials.email.isEmpty else {
-            errorHandler.throwing(error: UIError.cannotBeEmpty(.loginTextField))
+        guard !self.loginCredentials.email.isEmpty else {
+            self.errorHandler.throwing(error: UIError.cannotBeEmpty(.loginTextField))
             return
         }
         
-        guard !loginCredentials.password.isEmpty else {
-            errorHandler.throwing(error: UIError.cannotBeEmpty(.passwordTextField))
+        guard !self.loginCredentials.password.isEmpty else {
+            self.errorHandler.throwing(error: UIError.cannotBeEmpty(.passwordTextField))
             return
         }
-        userInterface?.setActivityIndicator(isHidden: false)
-        contentProvider.login(
-            with: loginCredentials,
+        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.contentProvider.login(
+            with: self.loginCredentials,
             fetchCompletion: { [weak self] result in
                 switch result {
                 case .success(let session):
@@ -134,20 +134,21 @@ class LoginViewModel: LoginViewModelType {
     }
     
     func viewRequestedToChangeServerAddress() {
-        coordinator.loginDidFinish(with: .changeAddress)
+        self.coordinator.loginDidFinish(with: .changeAddress)
     }
     
     // MARK: - Private
     private func updateView() {
-        userInterface?.passwordInputEnabledState((!loginCredentials.password.isEmpty && loginCredentials.email.isEmpty) || !loginCredentials.email.isEmpty)
-        userInterface?.loginButtonEnabledState(!loginCredentials.email.isEmpty && !loginCredentials.password.isEmpty)
+        let isPasswordEnabled = (!self.loginCredentials.password.isEmpty && self.loginCredentials.email.isEmpty) || !self.loginCredentials.email.isEmpty
+        self.userInterface?.passwordInputEnabledState(isPasswordEnabled)
+        self.userInterface?.loginButtonEnabledState(!self.loginCredentials.email.isEmpty && !self.loginCredentials.password.isEmpty)
     }
     
     private func save(credentials: LoginCredentials) {
         do {
-            try accessService.saveUser(credentails: credentials)
+            try self.accessService.saveUser(credentails: credentials)
         } catch {
-            errorHandler.throwing(error: error)
+            self.errorHandler.throwing(error: error)
         }
     }
 }

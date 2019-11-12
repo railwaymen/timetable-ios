@@ -11,4 +11,5 @@ import Foundation
 protocol BundleType {
     var bundleIdentifier: String? { get }
 }
+
 extension Bundle: BundleType {}

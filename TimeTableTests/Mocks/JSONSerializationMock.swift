@@ -14,9 +14,9 @@ class JSONSerializationMock: JSONSerializationType {
     var customObject: Any?
     
     func jsonObject(with data: Data, options opt: JSONSerialization.ReadingOptions) throws -> Any {
-        if isThrowingError {
+        if self.isThrowingError {
             throw TestError(message: "jsonObject error")
-        } else if let object = customObject {
+        } else if let object = self.customObject {
             return object
         } else {
             return try JSONSerialization.jsonObject(with: data, options: opt)

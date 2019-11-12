@@ -38,7 +38,7 @@ class CoreDataStack {
 extension CoreDataStack: CoreDataStackUserType {
     
     func deleteUser(forIdentifier identifier: Int64, completion: @escaping (Result<Void>) -> Void) {
-        fetchUser(forIdentifier: identifier) { [unowned self] result in
+        self.fetchUser(forIdentifier: identifier) { [unowned self] result in
             switch result {
             case .success(let user):
                 self.stack.perform(asynchronousTask: { (transaction) -> Void in
@@ -55,7 +55,7 @@ extension CoreDataStack: CoreDataStackUserType {
     }
     
     func fetchUser(forIdentifier identifier: Int64, completion: @escaping (Result<UserEntity>) -> Void) {
-        guard let user = (try? stack.fetchAll(
+        guard let user = (try? self.stack.fetchAll(
             From<UserEntity>(),
             Where<UserEntity>("%K == %d", "identifier", identifier)
         ))?.first else {
@@ -68,7 +68,7 @@ extension CoreDataStack: CoreDataStackUserType {
     func save<CDT: NSManagedObject>(userDecoder: SessionDecoder,
                                     coreDataTypeTranslation: @escaping ((AsynchronousDataTransactionType) -> CDT),
                                     completion: @escaping (Result<CDT>) -> Void) {
-        stack.perform(asynchronousTask: { transaction in
+        self.stack.perform(asynchronousTask: { transaction in
             return coreDataTypeTranslation(transaction)
         }, success: { entity in
             completion(.success(entity))

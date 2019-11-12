@@ -12,6 +12,6 @@ import XCTest
 class ProfileCoordinatorMock: ProfileCoordinatorDelegate {
     private(set) var userProfileDidLogoutUserCalled = false
     func userProfileDidLogoutUser() {
-        userProfileDidLogoutUserCalled = true
+        self.userProfileDidLogoutUserCalled = true
     }
 }

@@ -18,11 +18,11 @@ class ProjectCollectionViewCellMock: ProjectCollectionViewCellModelOutput {
     // swiftlint:enable large_tuple
     
     func setupView() {
-        setupViewCalled = true
+        self.setupViewCalled = true
     }
     
     func updateView(with projectName: String, leaderName: String, projectColor: UIColor) {
-        updateViewCalled = true
-        updateViewData = (projectName, leaderName, projectColor)
+        self.updateViewCalled = true
+        self.updateViewData = (projectName, leaderName, projectColor)
     }
 }

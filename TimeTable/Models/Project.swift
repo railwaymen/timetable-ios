@@ -20,7 +20,7 @@ class Project: Hashable {
         let name: String
         
         init(decoder: ProjectRecordDecoder.User) {
-            name = decoder.name
+            self.name = decoder.name
         }
         
         init(name: String) {
@@ -30,18 +30,18 @@ class Project: Hashable {
     
     // MARK: - Initialization
     init(decoder: ProjectRecordDecoder) {
-        identifier = decoder.projectIdentifier
-        name = decoder.name
-        color = decoder.color ?? .black
+        self.identifier = decoder.projectIdentifier
+        self.name = decoder.name
+        self.color = decoder.color ?? .black
         if let userDecoder = decoder.user {
-            users = [User(decoder: userDecoder)]
+            self.users = [User(decoder: userDecoder)]
         } else {
-            users = []
+            self.users = []
         }
         if let leaderDecoder = decoder.leader {
-            leader = User(decoder: leaderDecoder)
+            self.leader = User(decoder: leaderDecoder)
         } else {
-            leader = nil
+            self.leader = nil
         }
     }
     

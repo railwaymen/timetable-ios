@@ -108,13 +108,13 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     
     // MARK: - WorkTimeViewModelType
     func viewDidLoad() {
-        setDefaultDay()
-        updateViewWithCurrentSelectedProject()
-        fetchProjectList()
+        self.setDefaultDay()
+        self.updateViewWithCurrentSelectedProject()
+        self.fetchProjectList()
     }
     
     func projectButtonTapped() {
-        coordinator?.showProjectPicker(projects: projects) { [weak self] project in
+        self.coordinator?.showProjectPicker(projects: self.projects) { [weak self] project in
             guard project != nil else { return }
             self?.task.project = project
             self?.updateViewWithCurrentSelectedProject()
@@ -135,18 +135,11 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func setDefaultTask() {
-        guard !projects.isEmpty else { return }
-        switch task.project {
-        case .none:
-            if let lastProject = lastTask?.project {
-                task.project = .some(lastProject)
-            } else {
-                task.project = .some(projects[0])
-            }
-        case .some:
-            break
+        guard !self.projects.isEmpty else { return }
+        if self.task.project == nil {
+            self.task.project = .some(self.lastTask?.project ?? self.projects[0])
         }
-        updateViewWithCurrentSelectedProject()
+        self.updateViewWithCurrentSelectedProject()
     }
     
     func viewSelectedTag(at index: IndexPath) {
@@ -163,134 +156,134 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     
     func taskNameDidChange(value: String?) {
         guard let body = value else { return }
-        task.body = body
+        self.task.body = body
     }
     
     func taskURLDidChange(value: String?) {
         guard let stringURL = value, let url = URL(string: stringURL) else { return }
-        task.url = url
+        self.task.url = url
     }
     
     func setDefaultDay() {
-        let date = task.day ?? Date()
-        task.day = date
-        updateDayView(with: date)
+        let date = self.task.day ?? Date()
+        self.task.day = date
+        self.updateDayView(with: date)
     }
     
     func viewChanged(day: Date) {
-        task.day = day
-        updateDayView(with: day)
+        self.task.day = day
+        self.updateDayView(with: day)
     }
     
     func viewChanged(startAtDate date: Date) {
-        task.startAt = date
-        updateStartAtDateView(with: date)
+        self.task.startAt = date
+        self.updateStartAtDateView(with: date)
     }
     
     func setDefaultStartAtDate() {
-        let date = task.startAt ?? Date()
-        task.startAt = date
-        updateStartAtDateView(with: date)
+        let date = self.task.startAt ?? Date()
+        self.task.startAt = date
+        self.updateStartAtDateView(with: date)
     }
     
     func viewChanged(endAtDate date: Date) {
-        task.endAt = date
-        updateEndAtDateView(with: date)
+        self.task.endAt = date
+        self.updateEndAtDateView(with: date)
     }
     
     func setDefaultEndAtDate() {
         let date: Date
-        if let toDate = task.endAt {
+        if let toDate = self.task.endAt {
             date = toDate
         } else {
-            date = task.startAt ?? Date()
-            task.endAt = date
+            date = self.task.startAt ?? Date()
+            self.task.endAt = date
         }
-        updateEndAtDateView(with: date)
+        self.updateEndAtDateView(with: date)
     }
     
     func viewRequestedToSave() {
         do {
-            try validateInputs()
-            userInterface?.setActivityIndicator(isHidden: false)
-            if let workTimeIdentifier = task.workTimeIdentifier {
-                apiClient.updateWorkTime(identifier: workTimeIdentifier, parameters: task, completion: self.addUpdateCompletionHandler)
+            try self.validateInputs()
+            self.userInterface?.setActivityIndicator(isHidden: false)
+            if let workTimeIdentifier = self.task.workTimeIdentifier {
+                self.apiClient.updateWorkTime(identifier: workTimeIdentifier, parameters: self.task, completion: self.addUpdateCompletionHandler)
             } else {
-                apiClient.addWorkTime(parameters: task, completion: self.addUpdateCompletionHandler)
+                self.apiClient.addWorkTime(parameters: self.task, completion: self.addUpdateCompletionHandler)
             }
         } catch {
-            errorHandler.throwing(error: error)
+            self.errorHandler.throwing(error: error)
         }
     }
     
     func viewHasBeenTapped() {
-        userInterface?.dismissKeyboard()
+        self.userInterface?.dismissKeyboard()
     }
     
     // MARK: - Private
     private func validateInputs() throws {
-        guard let project = task.project else { throw UIError.cannotBeEmpty(.projectTextField) }
-        guard !task.body.isEmpty || (task.allowsTask && task.url != nil) || project.isLunch
+        guard let project = self.task.project else { throw UIError.cannotBeEmpty(.projectTextField) }
+        guard !self.task.body.isEmpty || (self.task.allowsTask && self.task.url != nil) || project.isLunch
             else { throw UIError.cannotBeEmptyOr(.taskNameTextField, .taskUrlTextField) }
-        guard let fromDate = task.startAt else { throw UIError.cannotBeEmpty(.startsAtTextField) }
-        guard let toDate = task.endAt else { throw UIError.cannotBeEmpty(.endsAtTextField) }
+        guard let fromDate = self.task.startAt else { throw UIError.cannotBeEmpty(.startsAtTextField) }
+        guard let toDate = self.task.endAt else { throw UIError.cannotBeEmpty(.endsAtTextField) }
         guard fromDate < toDate else { throw UIError.timeGreaterThan }
     }
     
     private func updateViewWithCurrentSelectedProject() {
-        userInterface?.setUp(isLunch: task.project?.isLunch ?? false,
-                             allowsTask: task.allowsTask,
-                             body: task.body,
-                             urlString: task.url?.absoluteString)
+        self.userInterface?.setUp(isLunch: self.task.project?.isLunch ?? false,
+                                  allowsTask: self.task.allowsTask,
+                                  body: self.task.body,
+                                  urlString: self.task.url?.absoluteString)
         
         let fromDate: Date
         let toDate: Date
-        switch task.type {
+        switch self.task.type {
         case .fullDay(let timeInterval)?:
-            fromDate = calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
+            fromDate = self.calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
             toDate = fromDate.addingTimeInterval(timeInterval)
-            task.startAt = fromDate
-            task.endAt = toDate
+            self.task.startAt = fromDate
+            self.task.endAt = toDate
         case .lunch(let timeInterval)?:
-            fromDate = task.startAt ?? Date()
+            fromDate = self.task.startAt ?? Date()
             toDate = fromDate.addingTimeInterval(timeInterval)
-            task.startAt = fromDate
-            task.endAt = toDate
+            self.task.startAt = fromDate
+            self.task.endAt = toDate
         case .standard?, .none:
-            fromDate = lastTask?.endAt ?? task.startAt ?? Date()
-            toDate = task.endAt ?? fromDate
-            task.startAt = fromDate
-            task.endAt = toDate
-            setDefaultStartAtDate()
-            setDefaultEndAtDate()
+            fromDate = self.lastTask?.endAt ?? self.task.startAt ?? Date()
+            toDate = self.task.endAt ?? fromDate
+            self.task.startAt = fromDate
+            self.task.endAt = toDate
+            self.setDefaultStartAtDate()
+            self.setDefaultEndAtDate()
         }
-        updateStartAtDateView(with: fromDate)
-        updateEndAtDateView(with: toDate)
-        userInterface?.updateProject(name: task.project?.name ?? "work_time.text_field.select_project".localized)
+        self.updateStartAtDateView(with: fromDate)
+        self.updateEndAtDateView(with: toDate)
+        self.userInterface?.updateProject(name: self.task.project?.name ?? "work_time.text_field.select_project".localized)
     }
     
     private func updateDayView(with date: Date) {
         let dateString = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none)
-        userInterface?.updateDay(with: date, dateString: dateString)
+        self.userInterface?.updateDay(with: date, dateString: dateString)
     }
     
     private func updateStartAtDateView(with date: Date) {
         let dateString = DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .short)
-        userInterface?.updateStartAtDate(with: date, dateString: dateString)
-        userInterface?.setMinimumDateForTypeEndAtDate(minDate: date)
-        if let startAt = task.endAt, startAt < date {
-            task.endAt = date
-            updateEndAtDateView(with: date)
+        self.userInterface?.updateStartAtDate(with: date, dateString: dateString)
+        self.userInterface?.setMinimumDateForTypeEndAtDate(minDate: date)
+        if let startAt = self.task.endAt, startAt < date {
+            self.task.endAt = date
+            self.updateEndAtDateView(with: date)
         }
     }
     
     private func updateEndAtDateView(with date: Date) {
-        userInterface?.updateEndAtDate(with: date, dateString: DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .short))
+        self.userInterface?.updateEndAtDate(with: date, dateString: DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .short))
     }
     
     private func fetchProjectList() {
-        userInterface?.setActivityIndicator(isHidden: false)
-        apiClient.fetchSimpleListOfProjects { [weak self] result in
+        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.apiClient.fetchSimpleListOfProjects { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .success(let simpleProjectDecoder):

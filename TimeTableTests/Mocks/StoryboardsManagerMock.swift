@@ -19,12 +19,12 @@ class StoryboardsManagerMock: StoryboardsManagerType {
     
     func controller<T>(storyboard: StoryboardsManager.StoryboardName, controllerIdentifier: StoryboardsManager.ControllerIdentifier) -> T? {
         switch storyboard {
-        case .login: return loginController as? T
-        case .projects: return projectsController as? T
-        case .serverConfiguration: return serverConfigurationController as? T
-        case .profile: return userController as? T
-        case .workTime: return workTimeController as? T
-        case .workTimesList: return workTimesListController as? T
+        case .login: return self.loginController as? T
+        case .projects: return self.projectsController as? T
+        case .serverConfiguration: return self.serverConfigurationController as? T
+        case .profile: return self.userController as? T
+        case .workTime: return self.workTimeController as? T
+        case .workTimesList: return self.workTimesListController as? T
         }
     }
 }

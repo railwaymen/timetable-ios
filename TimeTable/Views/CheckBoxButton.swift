@@ -12,29 +12,29 @@ import UIKit
     
     @IBInspectable var isActive: Bool = false {
         didSet {
-            setImage(isActive ? UIImage(named: "check") : nil, for: .normal)
-            backgroundColor = isActive ? .white : .clear
-            tintColor = .crimson
+            self.setImage(self.isActive ? UIImage(named: "check") : nil, for: .normal)
+            self.backgroundColor = self.isActive ? .white : .clear
+            self.tintColor = .crimson
         }
     }
 
     @IBInspectable var borderWidth: CGFloat = 1 {
         didSet {
-            layer.borderWidth = borderWidth
+            self.layer.borderWidth = self.borderWidth
         }
     }
     
     @IBInspectable var cornerRadius: CGFloat = 0 {
         didSet {
-            layer.cornerRadius = cornerRadius
-            layer.masksToBounds = cornerRadius > 0
+            self.layer.cornerRadius = self.cornerRadius
+            self.layer.masksToBounds = self.cornerRadius > 0
         }
     }
     
     @IBInspectable var borderColor: UIColor? {
         didSet {            
-            layer.borderColor = borderColor?.cgColor
-            layer.borderWidth = borderWidth
+            self.layer.borderColor = self.borderColor?.cgColor
+            self.layer.borderWidth = self.borderWidth
         }
     }
 }

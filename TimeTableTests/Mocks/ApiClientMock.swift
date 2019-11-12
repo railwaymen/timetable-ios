@@ -18,52 +18,52 @@ class ApiClientMock: ApiClientType {
     private(set) var postEndpoint: Endpoints?
     private(set) var postParameters: Any?
     func post<E, D>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void)) where E: Encodable, D: Decodable {
-        postCalled = true
-        postEndpoint = endpoint
-        postParameters = parameters
+        self.postCalled = true
+        self.postEndpoint = endpoint
+        self.postParameters = parameters
     }
     
     func post<E>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<Void>) -> Void)) where E: Encodable {
-        postCalled = true
-        postEndpoint = endpoint
-        postParameters = parameters
+        self.postCalled = true
+        self.postEndpoint = endpoint
+        self.postParameters = parameters
     }
     
     private(set) var getCalled: Bool = false
     private(set) var getEndpoint: Endpoints?
     private(set) var getParameters: Any?
     func get<D>(_ endpoint: Endpoints, completion: @escaping ((Result<D>) -> Void)) where D: Decodable {
-        getCalled = true
-        getEndpoint = endpoint
+        self.getCalled = true
+        self.getEndpoint = endpoint
     }
     
     func get<E, D>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void)) where E: Encodable, D: Decodable {
-        getCalled = true
-        getEndpoint = endpoint
-        getParameters = parameters
+        self.getCalled = true
+        self.getEndpoint = endpoint
+        self.getParameters = parameters
     }
     
     private(set) var putCalled: Bool = false
     private(set) var putEndpoint: Endpoints?
     private(set) var putParameters: Any?
     func put<E, D>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void)) where E: Encodable, D: Decodable {
-        putCalled = true
-        putEndpoint = endpoint
-        putParameters = parameters
+        self.putCalled = true
+        self.putEndpoint = endpoint
+        self.putParameters = parameters
     }
     
     func put<E>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<Void>) -> Void)) where E: Encodable {
-        putCalled = true
-        putEndpoint = endpoint
-        putParameters = parameters
+        self.putCalled = true
+        self.putEndpoint = endpoint
+        self.putParameters = parameters
     }
         
     // MARK: - ApiClientSessionType
     private(set) var signInCredentials: LoginCredentials?
     private(set) var signInCompletion: ((Result<SessionDecoder>) -> Void)?
     func signIn(with credentials: LoginCredentials, completion: @escaping ((Result<SessionDecoder>) -> Void)) {
-        signInCredentials = credentials
-        signInCompletion = completion
+        self.signInCredentials = credentials
+        self.signInCompletion = completion
     }
     
     // MARK: - ApiClientWorkTimesType
@@ -71,53 +71,53 @@ class ApiClientMock: ApiClientType {
     private(set) var fetchWorkTimesCompletion: ((Result<[WorkTimeDecoder]>) -> Void)?
     var fetchWorkTimesExpectation: (() -> Void)?
     func fetchWorkTimes(parameters: WorkTimesParameters, completion: @escaping ((Result<[WorkTimeDecoder]>) -> Void)) {
-        fetchWorkTimesExpectation?()
-        fetchWorkTimesParameters = parameters
-        fetchWorkTimesCompletion = completion
+        self.fetchWorkTimesExpectation?()
+        self.fetchWorkTimesParameters = parameters
+        self.fetchWorkTimesCompletion = completion
     }
     
     private(set) var addWorkTimeParameters: Task?
     private(set) var addWorkTimeComletion: (((Result<Void>) -> Void))?
     func addWorkTime(parameters: Task, completion: @escaping ((Result<Void>) -> Void)) {
-        addWorkTimeParameters = parameters
-        addWorkTimeComletion = completion
+        self.addWorkTimeParameters = parameters
+        self.addWorkTimeComletion = completion
     }
     
     private(set) var deleteWorkTimeCalled: Bool = false
     private(set) var deleteWorkTimeIdentifier: Int64?
     private(set) var deleteWorkTimeCompletion: ((Result<Void>) -> Void)?
     func deleteWorkTime(identifier: Int64, completion: @escaping ((Result<Void>) -> Void)) {
-        deleteWorkTimeCalled = true
-        deleteWorkTimeIdentifier = identifier
-        deleteWorkTimeCompletion = completion
+        self.deleteWorkTimeCalled = true
+        self.deleteWorkTimeIdentifier = identifier
+        self.deleteWorkTimeCompletion = completion
     }
     
     private(set) var updateWorkTimeValues: (identifier: Int64, parameters: Task)?
     private(set) var updateWorkTimeCompletion: ((Result<Void>) -> Void)?
     func updateWorkTime(identifier: Int64, parameters: Task, completion: @escaping ((Result<Void>) -> Void)) {
-        updateWorkTimeValues = (identifier, parameters)
-        updateWorkTimeCompletion = completion
+        self.updateWorkTimeValues = (identifier, parameters)
+        self.updateWorkTimeCompletion = completion
     }
 
     // MARK: - ApiClientProjectsType
     private(set) var fetchAllProjectsCompletion: ((Result<[ProjectRecordDecoder]>) -> Void)?
     func fetchAllProjects(completion: @escaping ((Result<[ProjectRecordDecoder]>) -> Void)) {
-        fetchAllProjectsCompletion = completion
+        self.fetchAllProjectsCompletion = completion
     }
     
     private(set) var fetchSimpleListOfProjectsCompletion: ((Result<SimpleProjectDecoder>) -> Void)?
     var fetchSimpleListOfProjectsExpectation: (() -> Void)?
     func fetchSimpleListOfProjects(completion: @escaping ((Result<SimpleProjectDecoder>) -> Void)) {
-        fetchSimpleListOfProjectsCompletion = completion
-        fetchSimpleListOfProjectsExpectation?()
+        self.fetchSimpleListOfProjectsCompletion = completion
+        self.fetchSimpleListOfProjectsExpectation?()
     }
     
     // MARK: - ApiClientUsersType
     private(set) var fetchUserProfileIdentifier: Int64?
     private(set) var fetchUserProfileCompletion: ((Result<UserDecoder>) -> Void)?
     func fetchUserProfile(forIdetifier identifier: Int64, completion: @escaping ((Result<UserDecoder>) -> Void)) {
-        fetchUserProfileIdentifier = identifier
-        fetchUserProfileCompletion = completion
+        self.fetchUserProfileIdentifier = identifier
+        self.fetchUserProfileCompletion = completion
     }
     
     // MARK: - ApiClientMatchingFullTimeType
@@ -125,8 +125,8 @@ class ApiClientMock: ApiClientType {
     private(set) var fetchMatchingFullTimeCompletion: ((Result<MatchingFullTimeDecoder>) -> Void)?
     var fetchMatchingFullTimeExpectation: (() -> Void)?
     func fetchMatchingFullTime(parameters: MatchingFullTimeEncoder, completion: @escaping ((Result<MatchingFullTimeDecoder>) -> Void)) {
-        fetchMatchingFullTimeExpectation?()
-        fetchMatchingFullTimeParameters = parameters
-        fetchMatchingFullTimeCompletion = completion
+        self.fetchMatchingFullTimeExpectation?()
+        self.fetchMatchingFullTimeParameters = parameters
+        self.fetchMatchingFullTimeCompletion = completion
     }
 }

@@ -20,9 +20,9 @@ class CoreDataStackMock: CoreDataStackType {
     private(set) var saveCoreDataTypeTranslatior: ((AsynchronousDataTransactionType) -> UserEntity)?
     
     func fetchUser(forIdentifier identifier: Int64, completion: @escaping (Result<UserEntity>) -> Void) {
-        fetchUserIdentifier = identifier
-        fetchUserCompletion = completion
-        fetchUserExpectationHandler?()
+        self.fetchUserIdentifier = identifier
+        self.fetchUserCompletion = completion
+        self.fetchUserExpectationHandler?()
     }
     
     func save<CDT>(userDecoder: SessionDecoder,
@@ -30,8 +30,8 @@ class CoreDataStackMock: CoreDataStackType {
                    completion: @escaping (Result<CDT>) -> Void) {
         
         // swiftlint:disable force_cast
-        saveUserDecoder = userDecoder
-        saveUserCompletion = { result in
+        self.saveUserDecoder = userDecoder
+        self.saveUserCompletion = { result in
             switch result {
             case .failure(let error):
                 completion(.failure(error))
@@ -39,7 +39,7 @@ class CoreDataStackMock: CoreDataStackType {
                 completion(.success(entity as! CDT))
             }
         }
-        saveCoreDataTypeTranslatior = { transaction in
+        self.saveCoreDataTypeTranslatior = { transaction in
             return coreDataTypeTranslation(transaction) as! UserEntity
         }
         // swiftlint:enable force_cast
@@ -48,7 +48,7 @@ class CoreDataStackMock: CoreDataStackType {
     private(set) var deleteUserValues: (Bool, Int64?) = (false, nil)
     private(set) var deleteUserCompletion: ((Result<Void>) -> Void)?
     func deleteUser(forIdentifier identifier: Int64, completion: @escaping (Result<Void>) -> Void) {
-        deleteUserValues = (true, identifier)
-        deleteUserCompletion = completion
+        self.deleteUserValues = (true, identifier)
+        self.deleteUserCompletion = completion
     }
 }

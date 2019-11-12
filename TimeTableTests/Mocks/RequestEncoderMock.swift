@@ -22,10 +22,10 @@ class RequestEncoderMock: RequestEncoderType {
     
     func encode<T>(wrapper: T) throws -> Data where T: Encodable {
         self.encodeWrapper = wrapper
-        if isThrowingError {
+        if self.isThrowingError {
             throw TestError(message: "encode error")
         } else {
-            return try encoder.encode(wrapper)
+            return try self.encoder.encode(wrapper)
         }
     }
     
@@ -34,10 +34,10 @@ class RequestEncoderMock: RequestEncoderType {
     
     func encodeToDictionary<T>(wrapper: T) throws -> [String: Any] where T: Encodable {
         self.encodeToDictionaryWrapper = wrapper
-        if isEncodeToDictionaryThrowingError {
+        if self.isEncodeToDictionaryThrowingError {
             throw TestError(message: "encode to dictionary error")
         } else {
-            let data = try encoder.encode(wrapper)
+            let data = try self.encoder.encode(wrapper)
             guard let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
                 throw TestError(message: "JSONSerialization.jsonObject error")
             }

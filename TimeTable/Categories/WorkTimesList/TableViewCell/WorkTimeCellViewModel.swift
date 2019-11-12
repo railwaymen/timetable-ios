@@ -46,34 +46,34 @@ class WorkTimeCellViewModel: WorkTimeCellViewModelType {
     
     // MARK: - WorkTimeCellViewModelType
     func viewConfigured() {
-        userInterface?.setUp()
-        updateView()
+        self.userInterface?.setUp()
+        self.updateView()
     }
     
     func prepareForReuse() {
-        updateView()
+        self.updateView()
     }
     
     func taskButtonTapped() {
-        parent?.openTask(for: workTime)
+        self.parent?.openTask(for: self.workTime)
     }
     
     // MARK: - Private
     private func updateView() {
-        let duration = TimeInterval(workTime.duration)
-        let durationText = dateComponentsFormatter.string(from: duration)
-        let startsAtText = DateFormatter.localizedString(from: workTime.startsAt, dateStyle: .none, timeStyle: .short)
-        let endsAtText = DateFormatter.localizedString(from: workTime.endsAt, dateStyle: .none, timeStyle: .short)
+        let duration = TimeInterval(self.workTime.duration)
+        let durationText = self.dateComponentsFormatter.string(from: duration)
+        let startsAtText = DateFormatter.localizedString(from: self.workTime.startsAt, dateStyle: .none, timeStyle: .short)
+        let endsAtText = DateFormatter.localizedString(from: self.workTime.endsAt, dateStyle: .none, timeStyle: .short)
         let fromToDateText = "\(startsAtText) - \(endsAtText)"
         let data = WorkTimeCellViewModel.ViewData(durationText: durationText,
-                                                  bodyText: workTime.body,
-                                                  taskUrlText: workTime.taskPreview,
+                                                  bodyText: self.workTime.body,
+                                                  taskUrlText: self.workTime.taskPreview,
                                                   fromToDateText: fromToDateText,
-                                                  projectTitle: workTime.project.name,
-                                                  projectColor: workTime.project.color,
-                                                  tagTitle: workTime.tag.localized,
-                                                  tagColor: workTime.tag.color)
-        userInterface?.updateView(data: data)
+                                                  projectTitle: self.workTime.project.name,
+                                                  projectColor: self.workTime.project.color,
+                                                  tagTitle: self.workTime.tag.localized,
+                                                  tagColor: self.workTime.tag.color)
+        self.userInterface?.updateView(data: data)
     }
     
     // MARK: - Structures

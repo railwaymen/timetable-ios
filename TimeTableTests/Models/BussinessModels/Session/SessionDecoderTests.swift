@@ -21,7 +21,7 @@ class SessionDecoderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SessionResponse.signInResponse)
         //Act
-        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
+        let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sessionReponse.identifier, 1)
         XCTAssertEqual(sessionReponse.firstName, "Admin")

@@ -38,7 +38,7 @@ class TaskTests: XCTestCase {
     func testTitleForProjectSomeType() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectFullResponse)
-        let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
+        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let task = Task(workTimeIdentifier: nil,
                         project: projectDecoder,
                         body: "body",
@@ -72,7 +72,7 @@ class TaskTests: XCTestCase {
     func testAllowTaskForProjectSomeType() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectFullResponse)
-        let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
+        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let task = Task(workTimeIdentifier: nil,
                         project: projectDecoder,
                         body: "body",
@@ -106,7 +106,7 @@ class TaskTests: XCTestCase {
     func testTypeForProjectWithStandardType() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectFullResponse)
-        let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
+        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let task = Task(workTimeIdentifier: nil,
                         project: projectDecoder,
                         body: "body",
@@ -127,7 +127,7 @@ class TaskTests: XCTestCase {
     func testTypeForProjectWithFullDayType() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectWithAutofillTrueResponse)
-        let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
+        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let task = Task(workTimeIdentifier: nil,
                         project: projectDecoder,
                         body: "body",
@@ -149,7 +149,7 @@ class TaskTests: XCTestCase {
     func testTypeForProjectWithLunchType() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectWithALunchTrueResponse)
-        let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
+        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let task = Task(workTimeIdentifier: nil,
                         project: projectDecoder,
                         body: "body",
@@ -188,7 +188,7 @@ class TaskTests: XCTestCase {
     func testEcondeProject() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectResponse.simpleProjectWithALunchTrueResponse)
-        let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
+        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let task = Task(workTimeIdentifier: nil,
                         project: projectDecoder,
                         body: "body",

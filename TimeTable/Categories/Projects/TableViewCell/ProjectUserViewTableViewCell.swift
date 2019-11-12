@@ -21,6 +21,6 @@ class ProjectUserViewTableViewCell: UITableViewCell {
 // MARK: - ProjectUserViewTableViewCellType
 extension ProjectUserViewTableViewCell: ProjectUserViewTableViewCellType {
     func configure(withName name: String) {
-        userNameLabel.text = name
+        self.userNameLabel.text = name
     }
 }

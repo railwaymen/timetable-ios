@@ -15,12 +15,12 @@ class ErrorHandlerMock: ErrorHandlerType {
     private(set) var catchingErrorActionBlock: ((Error) throws -> Void)?
     
     func throwing(error: Error, finally: @escaping (Bool) -> Void) {
-        throwedError = error
-        throwingFinallyBlock = finally
+        self.throwedError = error
+        self.throwingFinallyBlock = finally
     }
     
     func catchingError(action: @escaping (Error) throws -> Void) -> ErrorHandlerType {
-        catchingErrorActionBlock = action
+        self.catchingErrorActionBlock = action
         return self
     }
 }

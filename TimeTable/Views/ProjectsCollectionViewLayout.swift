@@ -27,32 +27,32 @@ class ProjectsCollectionViewLayout: UICollectionViewFlowLayout {
     
     // MARK: - Overridden
     override var collectionViewContentSize: CGSize {
-        return CGSize(width: contentWidth, height: contentHeight)
+        return CGSize(width: self.contentWidth, height: self.contentHeight)
     }
     
     override func prepare() {
-        guard cache.isEmpty else { return }
-        resizeView()
+        guard self.cache.isEmpty else { return }
+        self.resizeView()
     }
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        return cache.reduce([UICollectionViewLayoutAttributes](), { $1.frame.intersects(rect) ? $0 + [$1] : $0 })
+        return self.cache.reduce([UICollectionViewLayoutAttributes](), { $1.frame.intersects(rect) ? $0 + [$1] : $0 })
     }
     
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        return cache[indexPath.item]
+        return self.cache[indexPath.item]
     }
     
     override func prepare(forAnimatedBoundsChange oldBounds: CGRect) {
-        resizeView()
+        self.resizeView()
     }
     
     // MARK: - Private
     private func resizeView() {
         guard let collectionView = self.collectionView else { return }
         
-        let numberOfItemsPerRow = Int(collectionView.frame.width) / Int(minWidthForCell)
-        let widthPerItem = contentWidth / CGFloat(numberOfItemsPerRow)
+        let numberOfItemsPerRow = Int(collectionView.frame.width) / Int(self.minWidthForCell)
+        let widthPerItem = self.contentWidth / CGFloat(numberOfItemsPerRow)
         var xOffset = [CGFloat]()
         (0..<numberOfItemsPerRow).forEach { xOffset.append(CGFloat($0) * widthPerItem) }
         var column = 0
@@ -60,16 +60,16 @@ class ProjectsCollectionViewLayout: UICollectionViewFlowLayout {
         
         (0..<collectionView.numberOfItems(inSection: 0)).forEach {
             let indexPath = IndexPath(item: $0, section: 0)
-            let tableViewHeight = delegate?.collectionView(collectionView, heightForUsersTableViewAtIndexPath: indexPath) ?? 0
-            let height = cellPadding * 2 + tableViewHeight
+            let tableViewHeight = self.delegate?.collectionView(collectionView, heightForUsersTableViewAtIndexPath: indexPath) ?? 0
+            let height = self.cellPadding * 2 + tableViewHeight
             let frame = CGRect(x: xOffset[column], y: yOffset[column], width: widthPerItem, height: height)
-            let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
+            let insetFrame = frame.insetBy(dx: self.cellPadding, dy: self.cellPadding)
             
             let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
             attributes.frame = insetFrame
-            cache.append(attributes)
+            self.cache.append(attributes)
             
-            contentHeight = max(contentHeight, frame.maxY)
+            self.contentHeight = max(self.contentHeight, frame.maxY)
             yOffset[column] = yOffset[column] + height
             
             column = column < (numberOfItemsPerRow - 1) ? (column + 1) : 0

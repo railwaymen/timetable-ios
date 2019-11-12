@@ -13,11 +13,11 @@ class NotificationCenterMock: NotificationCenterType {
     
     private(set) var removeObserverCalled: Bool = false
     func removeObserver(_ observer: Any) {
-        removeObserverCalled = true
+        self.removeObserverCalled = true
     }
     
     private(set) var addObserverCalled: Bool = false
     func addObserver(_ observer: Any, selector aSelector: Selector, name aName: NSNotification.Name?, object anObject: Any?) {
-        addObserverCalled = true
+        self.addObserverCalled = true
     }
 }

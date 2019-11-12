@@ -17,40 +17,40 @@ class UserDefaultsMock: UserDefaultsType {
     
     private(set) var boolForKeyValues: (called: Bool, defaultName: String?) = (false, nil)
     func bool(forKey defaultName: String) -> Bool {
-        boolForKeyValues = (true, defaultName)
-        return setBoolValueDictionary[defaultName] ?? false
+        self.boolForKeyValues = (true, defaultName)
+        return self.setBoolValueDictionary[defaultName] ?? false
     }
     
     private(set) var removeObjectValues: (called: Bool, defaultName: String?) = (false, nil)
     func removeObject(forKey defaultName: String) {
-        setAnyValueDictionary.removeValue(forKey: defaultName)
-        setBoolValueDictionary.removeValue(forKey: defaultName)
-        removeObjectValues = (true, defaultName)
+        self.setAnyValueDictionary.removeValue(forKey: defaultName)
+        self.setBoolValueDictionary.removeValue(forKey: defaultName)
+        self.removeObjectValues = (true, defaultName)
     }
     
     private(set) var setAnyValues: (called: Bool, value: Any?, defaultName: String?) = (false, nil, nil)
     func set(_ value: Any?, forKey defaultName: String) {
-        setAnyValueDictionary[defaultName] = value
-        setAnyValues = (true, value, defaultName)
+        self.setAnyValueDictionary[defaultName] = value
+        self.setAnyValues = (true, value, defaultName)
     }
     
     private(set) var setBoolValues: (called: Bool, defaultName: String?) = (false, nil)
     func set(_ value: Bool, forKey defaultName: String) {
-        setBoolValueDictionary[defaultName] = value
-        setBoolValues = (true, defaultName)
+        self.setBoolValueDictionary[defaultName] = value
+        self.setBoolValues = (true, defaultName)
     }
     
     private(set) var stringForKeyValues: (called: Bool, defaultName: String?) = (false, nil)
     func string(forKey defaultName: String) -> String? {
-        stringForKeyValues = (true, defaultName)
-        return (setAnyValueDictionary[defaultName] as? String) ?? nil
+        self.stringForKeyValues = (true, defaultName)
+        return (self.setAnyValueDictionary[defaultName] as? String) ?? nil
     }
     
     private(set) var objectForKeyValues: (called: Bool, defaultName: String?) = (false, nil)
     var objectForKey: Any?
     func object(forKey defaultName: String) -> Any? {
-        objectForKeyValues = (true, defaultName)
-        return objectForKey
+        self.objectForKeyValues = (true, defaultName)
+        return self.objectForKey
     }
 }
 // swiftlint:enable large_tuple

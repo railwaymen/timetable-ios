@@ -14,24 +14,24 @@ class ProjectPickerViewControllerMock: ProjectPickerViewControllerable {
     // MARK: - ProjectPickerViewControllerType
     private(set) var configureCalledCount = 0
     func configure(viewModel: ProjectPickerViewModelType) {
-        configureCalledCount += 1
+        self.configureCalledCount += 1
     }
     
     // MARK: - ProjectPickerViewModelOutput
     private(set) var setUpCalledCount = 0
     func setUp() {
-        setUpCalledCount += 1
+        self.setUpCalledCount += 1
     }
     
     private(set) var reloadDataCalledCount = 0
     func reloadData() {
-        reloadDataCalledCount += 1
+        self.reloadDataCalledCount += 1
     }
     
     private(set) var setBottomContentInsetsCalledCount = 0
     private(set) var setBottomContentInsetsInsets: CGFloat?
     func setBottomContentInsets(_ inset: CGFloat) {
-        setBottomContentInsetsCalledCount += 1
-        setBottomContentInsetsInsets = inset
+        self.setBottomContentInsetsCalledCount += 1
+        self.setBottomContentInsetsInsets = inset
     }
 }

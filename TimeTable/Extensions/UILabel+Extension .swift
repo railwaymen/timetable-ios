@@ -11,10 +11,11 @@ import UIKit
 extension UILabel: UIElementLocalizedType {
     
     @IBInspectable var localizedStringKey: String? {
-        set(newKey) {
-            text = newKey?.localized
-        } get {
-            return text
+        set {
+            self.text = newValue?.localized
+        }
+        get {
+            return self.text
         }
     }
 }

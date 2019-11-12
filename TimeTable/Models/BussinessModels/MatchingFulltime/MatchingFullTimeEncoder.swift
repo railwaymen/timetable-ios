@@ -32,7 +32,7 @@ struct MatchingFullTimeEncoder: Encodable {
         
         let dateString =  MatchingFullTimeEncoder.dateFormatter.string(from: date)
         try container.encode(dateString, forKey: .date)
-        guard let identifier = userIdentifier else {
+        guard let identifier = self.userIdentifier else {
             throw EncodingError.invalidValue(MatchingFullTimeEncoder.self,
                                              EncodingError.Context(codingPath: [CodingKeys.userIdentifier],
                                                                    debugDescription: "user_id"))

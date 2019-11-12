@@ -19,26 +19,26 @@ protocol NetworkingType: class {
 
 extension Networking: NetworkingType {
     func post(_ path: String, parameters: Any?, completion: @escaping (Result<Data>) -> Void) {
-        _ = post(path, parameterType: .json, parameters: parameters, completion: { result in
-            self.handleResponse(result: result, completion: completion)
+        _ = self.post(path, parameterType: .json, parameters: parameters, completion: { [weak self] result in
+            self?.handleResponse(result: result, completion: completion)
         })
     }
  
     func get(_ path: String, parameters: Any?, cachingLevel: CachingLevel, completion: @escaping (Result<Data>) -> Void) {
-        _ = get(path, parameters: parameters, cachingLevel: cachingLevel, completion: { result in
-            self.handleResponse(result: result, completion: completion)
+        _ = self.get(path, parameters: parameters, cachingLevel: cachingLevel, completion: { [weak self] result in
+            self?.handleResponse(result: result, completion: completion)
         })
     }
     
     func delete(_ path: String, completion: @escaping ((Result<Void>) -> Void)) {
-        _ = self.delete(path, completion: { (result: JSONResult) in
-            self.handleResponse(result: result, completion: completion)
+        _ = self.delete(path, completion: { [weak self] result in
+            self?.handleResponse(result: result, completion: completion)
         })
     }
     
     func put(_ path: String, parameters: Any?, completion: @escaping (Result<Data>) -> Void) {
-        _ = self.put(path, parameterType: .json, parameters: parameters, completion: { result in
-            self.handleResponse(result: result, completion: completion)
+        _ = self.put(path, parameterType: .json, parameters: parameters, completion: { [weak self] result in
+            self?.handleResponse(result: result, completion: completion)
         })
     }
     

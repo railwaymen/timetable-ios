@@ -39,34 +39,34 @@ class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITabl
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel?.viewDidLoad()
+        self.viewModel?.viewDidLoad()
     }
     
     // MARK: - Action
     @objc private func addNewRecordTapped(_ sender: UIBarButtonItem) {
-        let sourceView = sender.view ?? navigationController?.navigationBar ?? UIView()
-        viewModel.viewRequestForNewWorkTimeView(sourceView: sourceView)
+        let sourceView = sender.view ?? self.navigationController?.navigationBar ?? UIView()
+        self.viewModel.viewRequestForNewWorkTimeView(sourceView: sourceView)
     }
     
     @objc private func refreshControlDidActivate() {
-        viewModel.viewRequestToRefresh { [weak self] in
+        self.viewModel.viewRequestToRefresh { [weak self] in
             self?.refreshControl.endRefreshing()
         }
     }
     
     // MARK: - UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.numberOfSections()
+        return self.viewModel.numberOfSections()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfRows(in: section)
+        return self.viewModel.numberOfRows(in: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: workTimeStandardCellReuseIdentifier, for: indexPath) as? WorkTimeTableViewCellable
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.workTimeStandardCellReuseIdentifier, for: indexPath) as? WorkTimeTableViewCellable
         guard let workTimeCell = cell else { return UITableViewCell() }
-        guard let cellViewModel = viewModel.viewRequestForCellModel(at: indexPath, cell: workTimeCell) else { return UITableViewCell() }
+        guard let cellViewModel = self.viewModel.viewRequestForCellModel(at: indexPath, cell: workTimeCell) else { return UITableViewCell() }
         workTimeCell.configure(viewModel: cellViewModel)
         return workTimeCell
     }
@@ -78,7 +78,7 @@ class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITabl
     // MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
-        viewModel.viewRequestedForEditEntry(sourceView: cell, at: indexPath)
+        self.viewModel.viewRequestedForEditEntry(sourceView: cell, at: indexPath)
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -92,16 +92,15 @@ class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: workTimesTableViewHeaderIdentifier) as? WorkTimesTableViewHeaderable else {
-            return nil
-        }
-        guard let headerViewModel = viewModel.viewRequestForHeaderModel(at: section, header: header) else { return nil }
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.workTimesTableViewHeaderIdentifier)
+            as? WorkTimesTableViewHeaderable else { return nil }
+        guard let headerViewModel = self.viewModel.viewRequestForHeaderModel(at: section, header: header) else { return nil }
         header.configure(viewModel: headerViewModel)
         return header
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return heightForHeader
+        return self.heightForHeader
     }
     
     // MARK: - Private
@@ -135,77 +134,77 @@ class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     private func setUpTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = tableViewEstimatedRowHeight
+        self.tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.estimatedRowHeight = tableViewEstimatedRowHeight
         
         let nib = UINib(nibName: WorkTimesTableViewHeader.className, bundle: nil)
-        tableView.register(nib, forHeaderFooterViewReuseIdentifier: workTimesTableViewHeaderIdentifier)
+        self.tableView.register(nib, forHeaderFooterViewReuseIdentifier: self.workTimesTableViewHeaderIdentifier)
 
-        tableView.refreshControl = refreshControl
+        self.tableView.refreshControl = self.refreshControl
     }
     
     private func setUpNavigationItem() {
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewRecordTapped))
-        navigationItem.setRightBarButtonItems([addButton], animated: false)
-        title = "tabbar.title.timesheet".localized
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addNewRecordTapped))
+        self.navigationItem.setRightBarButtonItems([addButton], animated: false)
+        self.title = "tabbar.title.timesheet".localized
     }
     
     private func setUpActivityIndicator() {
         if #available(iOS 13, *) {
-            activityIndicator.style = .large
+            self.activityIndicator.style = .large
         } else {
-            activityIndicator.style = .gray
+            self.activityIndicator.style = .gray
         }
-        setActivityIndicator(isHidden: true)
+        self.setActivityIndicator(isHidden: true)
     }
 }
 
 // MARK: - WorkTimesListViewModelOutput
 extension WorkTimesListViewController: WorkTimesListViewModelOutput {
     func setUpView() {
-        dateSelectorView.delegate = self
-        setUpTableView()
-        setUpNavigationItem()
-        setUpActivityIndicator()
-        viewModel.configure(errorView)
-        tableView.isHidden = true
-        errorView.isHidden = true
+        self.dateSelectorView.delegate = self
+        self.setUpTableView()
+        self.setUpNavigationItem()
+        self.setUpActivityIndicator()
+        self.viewModel.configure(errorView)
+        self.tableView.isHidden = true
+        self.errorView.isHidden = true
     }
     
     func updateView() {
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
     
     func updateDateSelector(currentDateString: String, previousDateString: String, nextDateString: String) {
-        dateSelectorView.update(currentDateString: currentDateString, previousDateString: previousDateString, nextDateString: nextDateString)
+        self.dateSelectorView.update(currentDateString: currentDateString, previousDateString: previousDateString, nextDateString: nextDateString)
     }
     
     func updateMatchingFullTimeLabels(workedHours: String, shouldWorkHours: String, duration: String) {
-        workedHoursLabel.text = workedHours + " /"
-        shouldWorkHoursLabel.text = shouldWorkHours + " /"
-        durationLabel.text = duration
+        self.workedHoursLabel.text = workedHours + " /"
+        self.shouldWorkHoursLabel.text = shouldWorkHours + " /"
+        self.durationLabel.text = duration
     }
     
     func showTableView() {
-        UIView.transition(with: tableView, duration: 0.2, animations: { [weak self] in
+        UIView.transition(with: self.tableView, duration: 0.2, animations: { [weak self] in
             self?.tableView.isHidden = false
             self?.errorView.isHidden = true
         })
     }
     
     func showErrorView() {
-        UIView.transition(with: errorView, duration: 0.2, animations: { [weak self] in
+        UIView.transition(with: self.errorView, duration: 0.2, animations: { [weak self] in
             self?.tableView.isHidden = true
             self?.errorView.isHidden = false
         })
     }
     
     func setActivityIndicator(isHidden: Bool) {
-        isHidden ? activityIndicator.stopAnimating() : activityIndicator.startAnimating()
-        activityIndicator.isHidden = isHidden
+        isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
+        self.activityIndicator.isHidden = isHidden
     }
 }
 
@@ -219,10 +218,10 @@ extension WorkTimesListViewController: WorkTimesListViewControllerType {
 // MARK: - DateSelectorViewDelegate
 extension WorkTimesListViewController: DateSelectorViewDelegate {
     func dateSelectorRequestedForPreviousDate() {
-         viewModel.viewRequestForPreviousMonth()
+         self.viewModel.viewRequestForPreviousMonth()
     }
     
     func dateSelectorRequestedForNextDate() {
-        viewModel.viewRequestForNextMonth()
+        self.viewModel.viewRequestForNextMonth()
     }
 }

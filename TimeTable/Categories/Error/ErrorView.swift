@@ -35,18 +35,18 @@ class ErrorView: UIView {
     
     // MARK: - Actions
     @IBAction private func refreshButtonTapped(_ sender: UIButton) {
-        viewModel.refreshButtonTapped()
+        self.viewModel.refreshButtonTapped()
     }
 }
 
 // MARK: - ErrorViewModelOutput
 extension ErrorView: ErrorViewModelOutput {
     func setUp(refreshIsHidden: Bool) {
-        refreshButton.isHidden = refreshIsHidden
+        self.refreshButton.isHidden = refreshIsHidden
     }
     
     func update(title: String) {
-        titleLabel.text = title
+        self.titleLabel.text = title
     }
 }
 
@@ -61,13 +61,13 @@ extension ErrorView: ErrorViewType {
 // MARK: - Private
 private extension ErrorView {
     private func commonInit() {
-        view = loadNib()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(view)
+        self.view = loadNib()
+        self.view.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(self.view)
         
-        view.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        view.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        view.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        view.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        self.view.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        self.view.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        self.view.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        self.view.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
     }
 }

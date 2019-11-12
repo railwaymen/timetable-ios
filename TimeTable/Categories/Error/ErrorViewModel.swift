@@ -40,12 +40,12 @@ class ErrorViewModel {
 // MARK: - ErrorViewModelType
 extension ErrorViewModel: ErrorViewModelType {
     func viewDidConfigure() {
-        userInterface?.setUp(refreshIsHidden: actionHandler == nil)
-        updateErrorTitle()
+        self.userInterface?.setUp(refreshIsHidden: self.actionHandler == nil)
+        self.updateErrorTitle()
     }
     
     func refreshButtonTapped() {
-        actionHandler?()
+        self.actionHandler?()
     }
 }
 
@@ -53,7 +53,7 @@ extension ErrorViewModel: ErrorViewModelType {
 extension ErrorViewModel: ErrorViewModelParentType {
     func update(error: Error) {
         self.error = error
-        updateErrorTitle()
+        self.updateErrorTitle()
     }
 }
 
@@ -61,11 +61,11 @@ extension ErrorViewModel: ErrorViewModelParentType {
 private extension ErrorViewModel {
     private func updateErrorTitle() {
         var title: String = ""
-        if let error = error as? UIError {
+        if let error = self.error as? UIError {
             title = error.localizedDescription
-        } else if let error = error as? ApiClientError {
+        } else if let error = self.error as? ApiClientError {
             title = error.type.localizedDescription
         }
-        userInterface?.update(title: title)
+        self.userInterface?.update(title: title)
     }
 }

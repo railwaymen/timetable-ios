@@ -18,6 +18,6 @@ public protocol ErrorHandlerType: class {
 // MARK: - ErrorHandlerType
 extension ErrorHandlerType {
     func throwing(error: Error) {
-        throwing(error: error, finally: { _ in })
+        self.throwing(error: error, finally: { _ in })
     }
 }

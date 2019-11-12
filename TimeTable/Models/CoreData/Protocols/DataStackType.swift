@@ -23,6 +23,6 @@ protocol DataStackType {
 extension DataStack: DataStackType {
     func perform<T>(asynchronousTask: @escaping (AsynchronousDataTransactionType) throws -> T,
                     success: @escaping (T) -> Void, failure: @escaping (CoreStoreError) -> Void) {
-        perform(asynchronous: asynchronousTask, success: success, failure: failure)
+        self.perform(asynchronous: asynchronousTask, success: success, failure: failure)
     }
 }

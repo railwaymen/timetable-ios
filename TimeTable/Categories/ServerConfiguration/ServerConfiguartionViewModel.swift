@@ -26,7 +26,6 @@ protocol ServerConfigurationViewModelType: class {
 }
 
 class ServerConfigurationViewModel: ServerConfigurationViewModelType {
-    
     private weak var userInterface: ServerConfigurationViewModelOutput?
     private let coordinator: ServerConfigurationCoordinatorDelegate
     private let serverConfigurationManager: ServerConfigurationManagerType
@@ -46,24 +45,24 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
     
     // MARK: - ServerSettingsViewModelType
     func viewDidLoad() {
-        let oldConfiguration = serverConfigurationManager.getOldConfiguration()
+        let oldConfiguration = self.serverConfigurationManager.getOldConfiguration()
         self.serverAddress = oldConfiguration?.host?.absoluteString
         self.shouldRememberHost = oldConfiguration?.shouldRememberHost ?? true
-        userInterface?.setupView(checkBoxIsActive: shouldRememberHost, serverAddress: serverAddress ?? "")
+        self.userInterface?.setupView(checkBoxIsActive: self.shouldRememberHost, serverAddress: self.serverAddress ?? "")
     }
     
     func viewRequestedToContinue() {
-        guard let host = serverAddress else {
-            errorHandler.throwing(error: UIError.cannotBeEmpty(.serverAddressTextField))
+        guard let host = self.serverAddress else {
+            self.errorHandler.throwing(error: UIError.cannotBeEmpty(.serverAddressTextField))
             return
         }
         guard let hostURL = URL(string: host.apiSuffix().httpPrefix()) else {
-            errorHandler.throwing(error: UIError.invalidFormat(.serverAddressTextField))
+            self.errorHandler.throwing(error: UIError.invalidFormat(.serverAddressTextField))
             return
         }
-        let configuration = ServerConfiguration(host: hostURL, shouldRememberHost: shouldRememberHost)
-        userInterface?.setActivityIndicator(isHidden: false)
-        serverConfigurationManager.verify(configuration: configuration) { [weak self] result in
+        let configuration = ServerConfiguration(host: hostURL, shouldRememberHost: self.shouldRememberHost)
+        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.serverConfigurationManager.verify(configuration: configuration) { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .success:
@@ -75,22 +74,22 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
     }
     
     func serverAddressDidChange(text: String?) {
-        serverAddress = text
-        guard let host = serverAddress else { return }
-        userInterface?.continueButtonEnabledState(URL(string: host) != nil)
+        self.serverAddress = text
+        guard let host = self.serverAddress else { return }
+        self.userInterface?.continueButtonEnabledState(URL(string: host) != nil)
     }
     
     func serverAddressTextFieldDidRequestForReturn() -> Bool {
-        userInterface?.dismissKeyboard()
+        self.userInterface?.dismissKeyboard()
         return true
     }
     
     func shouldRemeberHostCheckBoxStatusDidChange(isActive: Bool) {
-        shouldRememberHost = !isActive
-        userInterface?.checkBoxIsActiveState(!isActive)
+        self.shouldRememberHost = !isActive
+        self.userInterface?.checkBoxIsActiveState(!isActive)
     }
     
     func viewHasBeenTapped() {
-        userInterface?.dismissKeyboard()
+        self.userInterface?.dismissKeyboard()
     }
 }

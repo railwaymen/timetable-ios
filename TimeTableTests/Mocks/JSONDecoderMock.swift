@@ -24,12 +24,12 @@ class JSONDecoderMock: JSONDecoderType {
     var dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .formatted(DateFormatter.init(type: .dateAndTimeExtended))
     
     func decode<T>(_ type: T.Type, from data: Data) throws -> T where T: Decodable {
-        decodeType = type
-        decodeData = data
-        if isThrowingError {
+        self.decodeType = type
+        self.decodeData = data
+        if self.isThrowingError {
             throw TestError(message: "decoder error")
         } else {
-            return try decoder.decode(T.self, from: data)
+            return try self.decoder.decode(T.self, from: data)
         }
     }
 }

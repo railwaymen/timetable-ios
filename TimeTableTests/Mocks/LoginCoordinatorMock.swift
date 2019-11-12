@@ -14,7 +14,7 @@ class LoginCoordinatorMock: LoginCoordinatorDelegate {
     private(set) var loginDidFinishWithState: AuthenticationCoordinator.State?
     
     func loginDidFinish(with state: AuthenticationCoordinator.State) {
-        loginDidFinishCalled = true
-        loginDidFinishWithState = state
+        self.loginDidFinishCalled = true
+        self.loginDidFinishWithState = state
     }
 }

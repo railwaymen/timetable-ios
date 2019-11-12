@@ -13,6 +13,6 @@ class CoordinatorMock: ServerConfigurationCoordinatorDelegate {
     private(set) var serverConfigurationDidFinishValues: (called: Bool, serverConfiguration: ServerConfiguration?) = (false, nil)
     
     func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration) {
-        serverConfigurationDidFinishValues = (true, serverConfiguration)
+        self.serverConfigurationDidFinishValues = (true, serverConfiguration)
     }
 }

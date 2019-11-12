@@ -24,7 +24,9 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
         self.networkingMock = NetworkingMock()
         self.requestEncoderMock = RequestEncoderMock()
         self.jsonDecoderMock = JSONDecoderMock()
-        self.apiClient = ApiClient(networking: networkingMock, encoder: requestEncoderMock, decoder: jsonDecoderMock)
+        self.apiClient = ApiClient(networking: self.networkingMock,
+                                   encoder: self.requestEncoderMock,
+                                   decoder: self.jsonDecoderMock)
         super.setUp()
     }
     
@@ -36,7 +38,7 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
         let date = try Calendar.current.date(from: components).unwrap()
         let matchingFullTime = MatchingFullTimeEncoder(date: date, userIdentifier: 1)
         //Act
-        apiClient.fetchMatchingFullTime(parameters: matchingFullTime) { result in
+        self.apiClient.fetchMatchingFullTime(parameters: matchingFullTime) { result in
             switch result {
             case .success(let decoder):
                 matchingFullTimeDecoder = decoder
@@ -44,7 +46,7 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
                 XCTFail()
             }
         }
-        networkingMock.getCompletion?(.success(data))
+        self.networkingMock.getCompletion?(.success(data))
         //Assert
         XCTAssertEqual(matchingFullTimeDecoder?.period?.identifier, 1383)
         XCTAssertEqual(matchingFullTimeDecoder?.period?.countedDuration, TimeInterval(620100))
@@ -60,7 +62,7 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
         let date = try Calendar.current.date(from: components).unwrap()
         let matchingFullTime = MatchingFullTimeEncoder(date: date, userIdentifier: 1)
         //Act
-        apiClient.fetchMatchingFullTime(parameters: matchingFullTime) { result in
+        self.apiClient.fetchMatchingFullTime(parameters: matchingFullTime) { result in
             switch result {
             case .success:
                 XCTFail()
@@ -68,7 +70,7 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
                 expectedError = error
             }
         }
-        networkingMock.getCompletion?(.failure(error))
+        self.networkingMock.getCompletion?(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)

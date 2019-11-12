@@ -12,21 +12,21 @@ import UIKit
     
     @IBInspectable var cornerRadius: CGFloat = 3 {
         didSet {
-            layer.cornerRadius = cornerRadius
-            layer.masksToBounds = true
+            self.layer.cornerRadius = self.cornerRadius
+            self.layer.masksToBounds = true
         }
     }
     
     @IBInspectable var borderWidth: CGFloat = 1 {
         didSet {
-            layer.borderWidth = borderWidth
+            self.layer.borderWidth = self.borderWidth
         }
     }
     
     @IBInspectable var borderColor: UIColor? {
         didSet {
-            layer.borderColor = borderColor?.cgColor
-            layer.borderWidth = borderWidth
+            self.layer.borderColor = self.borderColor?.cgColor
+            self.layer.borderWidth = self.borderWidth
         }
     }
 }

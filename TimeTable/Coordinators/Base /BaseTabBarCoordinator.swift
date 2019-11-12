@@ -22,7 +22,7 @@ class BaseTabBarCoordinator: BaseCoordinator {
     // MARK: - Overriden
     override func start(finishCompletion: (() -> Void)?) {
         self.tabBarController.viewControllers = self.children.compactMap { ($0 as? BaseTabBarCoordinatorType)?.root }
-        window?.rootViewController = tabBarController
+        self.window?.rootViewController = tabBarController
         super.start(finishCompletion: finishCompletion)
     }
     

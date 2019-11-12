@@ -84,9 +84,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - UIApplicationDelegate
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        window = UIWindow()
-        window?.makeKeyAndVisible()
-        appCoordinator.start()
+        self.window = UIWindow()
+        self.window?.makeKeyAndVisible()
+        self.appCoordinator.start()
         return true
     }
     

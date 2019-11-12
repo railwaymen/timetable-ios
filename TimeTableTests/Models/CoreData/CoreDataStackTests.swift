@@ -22,10 +22,10 @@ class CoreDataStackTests: XCTestCase {
     private lazy var decoder = JSONDecoder()
     
     override func setUp() {
-        dataStackMock = DataStackMock()
         super.setUp()
+        self.dataStackMock = DataStackMock()
         do {
-            memoryContext = try createInMemoryStorage()
+            self.memoryContext = try self.createInMemoryStorage()
         } catch {
             XCTFail()
         }
@@ -47,7 +47,7 @@ class CoreDataStackTests: XCTestCase {
         //Act
         do {
             //Assert
-            _ = try CoreDataStack { (_, _) -> DataStackType in return dataStackMock }
+            _ = try CoreDataStack { (_, _) -> DataStackType in return self.dataStackMock }
         } catch {
             XCTFail()
         }
@@ -59,14 +59,14 @@ class CoreDataStackTests: XCTestCase {
             //Assert
             XCTAssertEqual(xcodeModelName, "TimeTable")
             XCTAssertEqual(fileName, "TimeTable.sqlite")
-            return dataStackMock
+            return self.dataStackMock
         }
     }
     
     func testFetchUserForIdentifierFailsWhileWasNotSaveToTheStore() throws {
         //Arrange
         var expectedError: Error?
-        let stack = try CoreDataStack { (_, _) -> DataStackType in return dataStackMock }
+        let stack = try CoreDataStack { (_, _) -> DataStackType in return self.dataStackMock }
         //Act
         stack.fetchUser(forIdentifier: 1) { result in
             switch result {
@@ -83,13 +83,13 @@ class CoreDataStackTests: XCTestCase {
     func testFetchUserForIdentifierReturnsTheUser() throws {
         //Arrange
         var expectedEntity: UserEntity?
-        let stack = try CoreDataStack { (_, _) -> DataStackType in return dataStackMock }
+        let stack = try CoreDataStack { (_, _) -> DataStackType in return self.dataStackMock }
         let user = UserEntity(context: memoryContext)
         user.identifier = 1
         user.token = "token_abcd"
         user.firstName = "John"
         user.lastName = "Little"
-        dataStackMock.user = user
+        self.dataStackMock.user = user
         //Act
         stack.fetchUser(forIdentifier: 1) { (result: Result<UserEntity>) in
             switch result {
@@ -107,9 +107,9 @@ class CoreDataStackTests: XCTestCase {
         //Arrange
         var expecetdError: Error?
         let data = try self.json(from: SessionResponse.signInResponse)
-        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
-        let stack = try CoreDataStack { (_, _) -> DataStackType in return dataStackMock }
-        let user = UserEntity(context: memoryContext)
+        let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
+        let stack = try CoreDataStack { (_, _) -> DataStackType in return self.dataStackMock }
+        let user = UserEntity(context: self.memoryContext)
         user.identifier = 1
         user.token = "token_abcd"
         user.firstName = "John"
@@ -125,7 +125,7 @@ class CoreDataStackTests: XCTestCase {
                 expecetdError = error
             }
         }
-        dataStackMock.performFailure?(CoreStoreError.unknown)
+        self.dataStackMock.performFailure?(CoreStoreError.unknown)
         //Assert
         switch expecetdError as? CoreStoreError {
         case .unknown?: break
@@ -137,9 +137,9 @@ class CoreDataStackTests: XCTestCase {
         //Arrange
         var expectedEntity: UserEntity?
         let data = try self.json(from: SessionResponse.signInResponse)
-        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
-        let stack = try CoreDataStack { (_, _) -> DataStackType in return dataStackMock }
-        let user = UserEntity(context: memoryContext)
+        let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
+        let stack = try CoreDataStack { (_, _) -> DataStackType in return self.dataStackMock }
+        let user = UserEntity(context: self.memoryContext)
         user.identifier = 1
         user.token = "token_abcd"
         user.firstName = "John"
@@ -155,7 +155,7 @@ class CoreDataStackTests: XCTestCase {
                 XCTFail()
             }
         }
-        dataStackMock.performSuccess?(user)
+        self.dataStackMock.performSuccess?(user)
         //Assert
         XCTAssertEqual(expectedEntity, user)
     }
@@ -163,10 +163,10 @@ class CoreDataStackTests: XCTestCase {
     func testSaveUserDecoderCoreDataTypeTranslationReturnsTransaction() throws {
         //Arrange
         let data = try self.json(from: SessionResponse.signInResponse)
-        let sessionReponse = try decoder.decode(SessionDecoder.self, from: data)
-        let stack = try CoreDataStack { (_, _) -> DataStackType in return dataStackMock }
+        let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
+        let stack = try CoreDataStack { (_, _) -> DataStackType in return self.dataStackMock }
         let asynchronousDataTransactionMock = AsynchronousDataTransactionMock()
-        let user = UserEntity(context: memoryContext)
+        let user = UserEntity(context: self.memoryContext)
         user.identifier = 1
         user.token = "token_abcd"
         user.firstName = "John"
@@ -177,6 +177,6 @@ class CoreDataStackTests: XCTestCase {
             //Assert
             return UserEntity.createUser(from: sessionReponse, transaction: transaction)
         }) { (_: (Result<UserEntity>)) in }
-        _ = try dataStackMock.performTask?(asynchronousDataTransactionMock)
+        _ = try self.dataStackMock.performTask?(asynchronousDataTransactionMock)
     }
 }

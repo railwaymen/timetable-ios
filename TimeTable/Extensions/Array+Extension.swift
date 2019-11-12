@@ -9,7 +9,7 @@
 import Foundation
 
 extension Array {
-    public subscript(safeIndex index: Int) -> Element? {
-        return (startIndex..<endIndex).contains(index) ? self[index] : nil
+    public subscript(safeIndex index: Index) -> Element? {
+        return (self.startIndex..<self.endIndex).contains(index) ? self[index] : nil
     }
 }

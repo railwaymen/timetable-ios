@@ -23,37 +23,37 @@ class ProjectPickerViewController: UIViewController {
     // MARK: - Life cycle
     override func loadView() {
         super.loadView()
-        viewModel.loadView()
+        self.viewModel.loadView()
     }
 
     // MARK: - Actions
     @objc private func closeButtonTapped() {
-        viewModel.closeButtonTapped()
+        self.viewModel.closeButtonTapped()
     }
     
     // MARK: - Private
     private func setUpTableView() {
-        tableView = UITableView()
-        view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        self.tableView = UITableView()
+        self.view.addSubview(self.tableView)
+        self.tableView.translatesAutoresizingMaskIntoConstraints = false
+        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UINib(nibName: String(describing: ProjectPickerCell.self), bundle: nil),
-                           forCellReuseIdentifier: ProjectPickerCell.reuseIdentifier)
-        tableView.keyboardDismissMode = .interactive
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.register(UINib(nibName: String(describing: ProjectPickerCell.self), bundle: nil),
+                                forCellReuseIdentifier: ProjectPickerCell.reuseIdentifier)
+        self.tableView.keyboardDismissMode = .interactive
     }
     
     private func setUpSearchController() {
-        searchController = UISearchController()
-        navigationItem.searchController = searchController
-        searchController.searchBar.tintColor = .crimson
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
+        self.searchController = UISearchController()
+        self.navigationItem.searchController = self.searchController
+        self.searchController.searchBar.tintColor = .crimson
+        self.searchController.searchResultsUpdater = self
+        self.searchController.obscuresBackgroundDuringPresentation = false
     }
     
     private func setUpBarItems() {
@@ -63,8 +63,8 @@ class ProjectPickerViewController: UIViewController {
         } else {
             systemItem = .cancel
         }
-        let closeButton = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(closeButtonTapped))
-        navigationItem.setRightBarButton(closeButton, animated: false)
+        let closeButton = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(self.closeButtonTapped))
+        self.navigationItem.setRightBarButton(closeButton, animated: false)
     }
 }
 
@@ -77,7 +77,7 @@ extension ProjectPickerViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let dequeuedCell = tableView.dequeueReusableCell(withIdentifier: ProjectPickerCell.reuseIdentifier),
             let cell = dequeuedCell as? ProjectPickerCellable else { return UITableViewCell() }
-        viewModel.configure(cell: cell, for: indexPath)
+        self.viewModel.configure(cell: cell, for: indexPath)
         return cell
     }
 }
@@ -85,33 +85,33 @@ extension ProjectPickerViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension ProjectPickerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.cellDidSelect(at: indexPath)
+        self.viewModel.cellDidSelect(at: indexPath)
     }
 }
 
 // MARK: - UISearchControllerDelegate
 extension ProjectPickerViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        viewModel.updateSearchResults(for: searchController.searchBar.text ?? "")
+        self.viewModel.updateSearchResults(for: searchController.searchBar.text ?? "")
     }
 }
 
 // MARK: - ProjectPickerViewModelOutput
 extension ProjectPickerViewController: ProjectPickerViewModelOutput {
     func setUp() {
-        setUpTableView()
-        setUpSearchController()
-        setUpBarItems()
+        self.setUpTableView()
+        self.setUpSearchController()
+        self.setUpBarItems()
     }
     
     func reloadData() {
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
     
     func setBottomContentInsets(_ inset: CGFloat) {
-        let calculatedInset = max(inset - tableView.safeAreaInsets.bottom, 0)
-        tableView.contentInset.bottom = calculatedInset
-        tableView.scrollIndicatorInsets.bottom = calculatedInset
+        let calculatedInset = max(inset - self.tableView.safeAreaInsets.bottom, 0)
+        self.tableView.contentInset.bottom = calculatedInset
+        self.tableView.scrollIndicatorInsets.bottom = calculatedInset
     }
 }
 

@@ -21,10 +21,10 @@ class JSONEncoderMock: JSONEncoderType {
     
     var dateEncodingStrategy: JSONEncoder.DateEncodingStrategy = .iso8601
     func encode<T>(_ value: T) throws -> Data where T: Encodable {
-        if isThrowingError {
+        if self.isThrowingError {
             throw TestError(message: "encode error")
         } else {
-            return try encoder.encode(value)
+            return try self.encoder.encode(value)
         }
     }
 }

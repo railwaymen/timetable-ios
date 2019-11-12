@@ -32,21 +32,21 @@ class ProjectCollectionViewCellModel: ProjectCollectionViewCellModelType {
     
     // MARK: - ProjectCollectionViewCellModelType
     func configure() {
-        userInterface?.setupView()
-        userInterface?.updateView(with: project.name, leaderName: project.leader?.name ?? "", projectColor: project.color)
+        self.userInterface?.setupView()
+        self.userInterface?.updateView(with: self.project.name, leaderName: self.project.leader?.name ?? "", projectColor: self.project.color)
     }
     
     func numberOfRows() -> Int {
-        return project.users.count
+        return self.project.users.count
     }
     
     func configure(view: ProjectUserViewTableViewCellType, for indexPath: IndexPath) {
-        view.configure(withName: userName(for: indexPath))
+        view.configure(withName: self.userName(for: indexPath))
     }
     
     // MARK: - Private
     private func userName(for indexPath: IndexPath) -> String {
-        guard project.users.count > indexPath.row else { return "" }
-        return project.users[indexPath.row].name
+        guard self.project.users.count > indexPath.row else { return "" }
+        return self.project.users[indexPath.row].name
     }
 }

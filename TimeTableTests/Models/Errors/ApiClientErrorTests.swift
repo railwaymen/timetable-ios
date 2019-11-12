@@ -62,7 +62,7 @@ class ApiClientErrorTests: XCTestCase {
     func testLocalizedDescriptionForValidationErrors() throws {
         //Arrange
         let data = try self.json(from: ApiValidationResponse.baseErrorKeyResponse)
-        let apiValidationErrors = try decoder.decode(ApiValidationErrors.self, from: data)
+        let apiValidationErrors = try self.decoder.decode(ApiValidationErrors.self, from: data)
         let error = ApiClientError(type: .validationErrors(apiValidationErrors))
         //Act
         let localizedString = error.type.localizedDescription
@@ -83,7 +83,7 @@ class ApiClientErrorTests: XCTestCase {
     func testInitFromDataForTypeOfApiValidationErrors() throws {
         //Arrange
         let data = try self.json(from: ApiValidationResponse.baseErrorKeyResponse)
-        let apiValidationErrors = try decoder.decode(ApiValidationErrors.self, from: data)
+        let apiValidationErrors = try self.decoder.decode(ApiValidationErrors.self, from: data)
         let expectedError = ApiClientError(type: .validationErrors(apiValidationErrors))
         //Act
         let error = ApiClientError(data: data)

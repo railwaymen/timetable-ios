@@ -18,13 +18,13 @@ class ServerConfigurationManagerMock: ServerConfigurationManagerType {
     private(set) var verifyConfigurationCompletion: ((Result<Void>) -> Void)?
     
     func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void>) -> Void)) {
-        verifyConfigurationValues = (true, configuration)
+        self.verifyConfigurationValues = (true, configuration)
         self.verifyConfigurationCompletion = completion
-        expectationHandler?()
+        self.expectationHandler?()
     }
     
     func getOldConfiguration() -> ServerConfiguration? {
-        oldConfigurationCalled = true
-        return oldConfiguration
+        self.oldConfigurationCalled = true
+        return self.oldConfiguration
     }
 }

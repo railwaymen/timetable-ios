@@ -70,11 +70,11 @@ struct ApiClientError: Error, Equatable {
     init?(code: Int) {
         switch code {
         case NSURLErrorNotConnectedToInternet, NSURLErrorNetworkConnectionLost:
-            type = .noConnection
+            self.type = .noConnection
         case NSURLErrorTimedOut:
-            type = .timeout
+            self.type = .timeout
         case NSURLErrorCannotParseResponse, NSURLErrorBadServerResponse:
-            type = .invalidResponse
+            self.type = .invalidResponse
         default:
             return nil
         }

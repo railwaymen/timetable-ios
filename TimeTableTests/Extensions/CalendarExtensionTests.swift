@@ -14,8 +14,8 @@ class CalendarExtensionTests: XCTestCase {
     private var calendar: CalendarType!
     
     override func setUp() {
-        calendar = Calendar.current
         super.setUp()
+        self.calendar = Calendar.current
     }
     
     func testDateByAddingComponentsToDate() {
@@ -23,8 +23,8 @@ class CalendarExtensionTests: XCTestCase {
         let components = DateComponents(hour: 13, minute: 41, second: 04)
         let date = Date()
         //Act
-        let firstDate = calendar.date(byAdding: components, to: date)
-        let secondDate = calendar.date(byAdding: components, to: date, wrappingComponents: true)
+        let firstDate = self.calendar.date(byAdding: components, to: date)
+        let secondDate = self.calendar.date(byAdding: components, to: date, wrappingComponents: true)
         //Assert
         XCTAssertEqual(firstDate, secondDate)
     }
@@ -34,8 +34,8 @@ class CalendarExtensionTests: XCTestCase {
         let components = Calendar.Component.day
         let date = Date()
         //Act
-        let firstDate = calendar.date(byAdding: components, value: 1, to: date)
-        let secondDate = calendar.date(byAdding: components, value: 1, to: date, wrappingComponents: true)
+        let firstDate = self.calendar.date(byAdding: components, value: 1, to: date)
+        let secondDate = self.calendar.date(byAdding: components, value: 1, to: date, wrappingComponents: true)
         //Assert
         XCTAssertEqual(firstDate, secondDate)
     }

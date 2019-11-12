@@ -14,8 +14,8 @@ class BaseTabBarCoordinatorTests: XCTestCase {
     private var messagePresenterMock: MessagePresenterMock!
     
     override func setUp() {
-        self.messagePresenterMock = MessagePresenterMock()
         super.setUp()
+        self.messagePresenterMock = MessagePresenterMock()
     }
     
     func testStartWithDefaultFinishCompletion() {

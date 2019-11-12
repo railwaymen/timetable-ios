@@ -42,17 +42,17 @@ class ProjectsViewModel: ProjectsViewModelType {
     
     // MARK: - ProjectsViewModelType
     func numberOfItems() -> Int {
-        return projects.count
+        return self.projects.count
     }
     
     func item(at index: IndexPath) -> Project? {
-        guard projects.count > index.row else { return nil }
-        return projects[index.row]
+        guard self.projects.count > index.row else { return nil }
+        return self.projects[index.row]
     }
     
     func viewDidLoad() {
-        fetchProjects()
-        userInterface?.setUpView()
+        self.fetchProjects()
+        self.userInterface?.setUpView()
     }
     
     func configure(_ view: ErrorViewable) {
@@ -60,13 +60,13 @@ class ProjectsViewModel: ProjectsViewModelType {
             self?.fetchProjects()
         }
         view.configure(viewModel: viewModel)
-        errorViewModel = viewModel
+        self.errorViewModel = viewModel
     }
     
     // MARK: - Private
     private func fetchProjects() {
-        userInterface?.setActivityIndicator(isHidden: false)
-        apiClient.fetchAllProjects { [weak self] result in
+        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.apiClient.fetchAllProjects { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .failure(let error):

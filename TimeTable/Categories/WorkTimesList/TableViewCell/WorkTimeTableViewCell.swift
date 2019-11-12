@@ -32,12 +32,12 @@ class WorkTimeTableViewCell: UITableViewCell {
     // MARK: - Overriden
     override func prepareForReuse() {
         super.prepareForReuse()
-        viewModel?.prepareForReuse()
+        self.viewModel?.prepareForReuse()
     }
     
     // MARK: - IBAction
     @IBAction private func taskButtonTapped(_ sender: UIButton) {
-        viewModel?.taskButtonTapped()
+        self.viewModel?.taskButtonTapped()
     }
 }
 

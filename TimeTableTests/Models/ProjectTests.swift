@@ -29,7 +29,7 @@ class ProjectTests: XCTestCase {
         let user = Project.User(name: "Admin Admin")
         let leader = Project.User(name: "Rosalind Auer")
         let data = try self.json(from: ProjectRecordResponse.projectRecordResponse)
-        let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
+        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Act
         let project = Project(decoder: projectRecord)
         //Assert
@@ -46,7 +46,7 @@ class ProjectTests: XCTestCase {
         let user = Project.User(name: "Admin Admin")
         let leader = Project.User(name: "Rosalind Auer")
         let data = try self.json(from: ProjectRecordResponse.projectRecordNullColorResponse)
-        let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
+        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Act
         let project = Project(decoder: projectRecord)
         //Assert
@@ -63,7 +63,7 @@ class ProjectTests: XCTestCase {
         let user = Project.User(name: "Admin Admin")
         let leader = Project.User(name: "Rosalind Auer")
         let data = try self.json(from: ProjectRecordResponse.projectRecordMissingColorKeyResponse)
-        let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
+        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Act
         let project = Project(decoder: projectRecord)
         //Assert
@@ -80,7 +80,7 @@ class ProjectTests: XCTestCase {
         let color = UIColor(hexString: "0c0c0c")
         let leader = Project.User(name: "Rosalind Auer")
         let data = try self.json(from: ProjectRecordResponse.projectRecordNullUserResponse)
-        let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
+        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Act
         let project = Project(decoder: projectRecord)
         //Assert
@@ -96,7 +96,7 @@ class ProjectTests: XCTestCase {
         let color = UIColor(hexString: "0c0c0c")
         let leader = Project.User(name: "Rosalind Auer")
         let data = try self.json(from: ProjectRecordResponse.projectRecordMissingUserKeyResponse)
-        let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
+        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Act
         let project = Project(decoder: projectRecord)
         //Assert
@@ -112,7 +112,7 @@ class ProjectTests: XCTestCase {
         let color = UIColor(hexString: "0c0c0c")
         let user = Project.User(name: "Admin Admin")
         let data = try self.json(from: ProjectRecordResponse.projectRecordNullLeaderResponse)
-        let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
+        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Act
         let project = Project(decoder: projectRecord)
         //Assert
@@ -129,7 +129,7 @@ class ProjectTests: XCTestCase {
         let color = UIColor(hexString: "0c0c0c")
         let user = Project.User(name: "Admin Admin")
         let data = try self.json(from: ProjectRecordResponse.projectRecordMissingLeaderKey)
-        let projectRecord = try decoder.decode(ProjectRecordDecoder.self, from: data)
+        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Act
         let project = Project(decoder: projectRecord)
         //Assert
@@ -144,9 +144,9 @@ class ProjectTests: XCTestCase {
     func testEqualTwoProjects() throws {
         //Arrange
         let firstProjectData = try self.json(from: ProjectRecordResponse.projectRecordNullLeaderResponse)
-        let firstProjectRecord = try decoder.decode(ProjectRecordDecoder.self, from: firstProjectData)
+        let firstProjectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: firstProjectData)
         let secondProjectData = try self.json(from: ProjectRecordResponse.projectRecordNullLeaderResponse)
-        let secondProjectRecord = try decoder.decode(ProjectRecordDecoder.self, from: secondProjectData)
+        let secondProjectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: secondProjectData)
         //Act
         let firstProject = Project(decoder: firstProjectRecord)
         let secondProject = Project(decoder: secondProjectRecord)
