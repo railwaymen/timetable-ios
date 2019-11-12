@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias TagCollectionViewCellable = UICollectionViewCell & TagCollectionViewCellType & TagCollectionViewCellViewModelOutput
+
 protocol TagCollectionViewCellType: class {
     func configure(viewModel: TagCollectionViewCellViewModelType)
 }

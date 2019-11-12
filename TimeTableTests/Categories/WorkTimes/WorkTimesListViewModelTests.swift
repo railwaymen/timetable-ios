@@ -492,11 +492,7 @@ class WorkTimesListViewModelTests: XCTestCase {
 }
 
 // MARK: -
-private class WorkTimeCellViewMock: WorkTimeCellViewModelOutput {
-    func setUp() {}
-    
-    func updateView(data: WorkTimeCellViewModel.ViewData) {}
-}
+
 
 private class WorkTimesTableViewHeaderViewMock: WorkTimesTableViewHeaderViewModelOutput {
     func updateView(dayText: String?, durationText: String?) {}

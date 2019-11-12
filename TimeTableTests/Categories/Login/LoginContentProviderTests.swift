@@ -14,7 +14,7 @@ import CoreStore
 class LoginContentProviderTests: XCTestCase {
     
     private var memoryContext: NSManagedObjectContext!
-    private var apiClientSessionMock: ApiClientSessionMock!
+    private var apiClientMock: ApiClientMock!
     private var coreDataStackUserMock: CoreDataStackMock!
     private var accessServiceMock: AccessServiceUserIDType!
     private var contentProvider: LoginContentProvider!
@@ -26,10 +26,10 @@ class LoginContentProviderTests: XCTestCase {
     private lazy var decoder = JSONDecoder()
     
     override func setUp() {
-        self.apiClientSessionMock = ApiClientSessionMock()
+        self.apiClientMock = ApiClientMock()
         self.coreDataStackUserMock = CoreDataStackMock()
         self.accessServiceMock = AccessServiceMock()
-        self.contentProvider = LoginContentProvider(apiClient: self.apiClientSessionMock,
+        self.contentProvider = LoginContentProvider(apiClient: self.apiClientMock,
                                                     coreDataStack: self.coreDataStackUserMock,
                                                     accessService: self.accessServiceMock)
         super.setUp()
@@ -53,7 +53,7 @@ class LoginContentProviderTests: XCTestCase {
                 expectedError = error
             }
         }, saveCompletion: { _ in })
-        self.apiClientSessionMock.signInCompletion?(.failure(ApiClientError(type: .invalidParameters)))
+        self.apiClientMock.signInCompletion?(.failure(ApiClientError(type: .invalidParameters)))
         //Assert
         switch (expectedError as? ApiClientError)?.type {
         case .invalidParameters?: break
@@ -77,7 +77,7 @@ class LoginContentProviderTests: XCTestCase {
                 expectedError = error
             }
         })
-        self.apiClientSessionMock.signInCompletion?(.success(sessionReponse))
+        self.apiClientMock.signInCompletion?(.success(sessionReponse))
         self.coreDataStackUserMock.saveUserCompletion?(.failure(CoreDataStack.Error.storageItemNotFound))
         //Assert
         switch expectedError as? CoreDataStack.Error {
@@ -106,7 +106,7 @@ class LoginContentProviderTests: XCTestCase {
             case .failure: XCTFail()
             }
         })
-        self.apiClientSessionMock.signInCompletion?(.success(sessionReponse))
+        self.apiClientMock.signInCompletion?(.success(sessionReponse))
         _ = self.coreDataStackUserMock.saveCoreDataTypeTranslatior?(synchronousDataTransactionMock)
         self.coreDataStackUserMock.saveUserCompletion?(.success(user))
         //Assert
@@ -143,21 +143,11 @@ class LoginContentProviderTests: XCTestCase {
                 XCTFail()
             }
         })
-        self.apiClientSessionMock.signInCompletion?(.success(sessionReponse))
+        self.apiClientMock.signInCompletion?(.success(sessionReponse))
         _ = self.coreDataStackUserMock.saveCoreDataTypeTranslatior?(asynchronousDataTransactionMock)
         self.coreDataStackUserMock.saveUserCompletion?(.success(user))
         //Assert
         XCTAssertTrue(fetchSuccessCalled)
         XCTAssertTrue(saveSuccessCalled)
-    }
-}
-
-private class ApiClientSessionMock: ApiClientSessionType {
-    private(set) var signInCredentials: LoginCredentials?
-    private(set) var signInCompletion: ((Result<SessionDecoder>) -> Void)?
-    
-    func signIn(with credentials: LoginCredentials, completion: @escaping ((Result<SessionDecoder>) -> Void)) {
-        self.signInCredentials = credentials
-        self.signInCompletion = completion
     }
 }

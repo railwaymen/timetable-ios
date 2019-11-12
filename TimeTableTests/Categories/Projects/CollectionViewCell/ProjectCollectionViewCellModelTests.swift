@@ -110,11 +110,3 @@ class ProjectCollectionViewCellModelTests: XCTestCase {
         XCTAssertEqual(cellMock.configureName, "Admin Admin")
     }
 }
-
-private class ProjectUserViewTableViewCellMock: ProjectUserViewTableViewCellType {
-    
-    private(set) var configureName: String?
-    func configure(withName name: String) {
-        self.configureName = name
-    }
-}
