@@ -26,9 +26,9 @@ enum ProjectTag: String, Codable {
     var color: UIColor {
         switch self {
         case .development: return .white
-        case .clientCommunication: return .rouge
-        case .internalMeeting: return .anzac
-        case .research: return .conifier
+        case .clientCommunication: return .purpleHeart
+        case .internalMeeting: return .flushOrange
+        case .research: return .caribbeanGreen
         }
     }
 }
