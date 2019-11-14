@@ -6,23 +6,40 @@
 //  Copyright © 2019 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import XCTest
 @testable import TimeTable
 
-class WorkTimeCellViewMock: WorkTimeTableViewCellable {
+class WorkTimeCellViewMock: UITableViewCell {
+    private(set) var setUpParams: [SetUpParams] = []
+    private(set) var updateViewParams: [UpdateViewParams] = []
+    private(set) var configureParams: [ConfigureParams] = []
     
-    private(set) var setUpCalled = false
-    private(set) var updateViewData: WorkTimeCellViewModel.ViewData?
+    // MARK: - Structures
+    struct SetUpParams {}
     
-    // MARK: - WorkTimeTableViewCellModelOutput
+    struct UpdateViewParams {
+        var data: WorkTimeCellViewModel.ViewData
+    }
+    
+    struct ConfigureParams {
+        var viewModel: WorkTimeCellViewModelType
+    }
+}
+
+// MARK: - WorkTimeCellViewModelOutput
+extension WorkTimeCellViewMock: WorkTimeCellViewModelOutput {
     func setUp() {
-        self.setUpCalled = true
+        self.setUpParams.append(SetUpParams())
     }
     
     func updateView(data: WorkTimeCellViewModel.ViewData) {
-        self.updateViewData = data
+        self.updateViewParams.append(UpdateViewParams(data: data))
     }
+}
     
-    // MARK: - WorkTimeTableViewCellType
-    func configure(viewModel: WorkTimeCellViewModelType) {}
+// MARK: - WorkTimeTableViewCellType
+extension WorkTimeCellViewMock: WorkTimeTableViewCellType {
+    func configure(viewModel: WorkTimeCellViewModelType) {
+        self.configureParams.append(ConfigureParams(viewModel: viewModel))
+    }
 }
