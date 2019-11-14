@@ -67,7 +67,7 @@ class WorkTimeCellViewModelTests: XCTestCase {
         //Act
         viewModel.taskButtonTapped()
         //Assert
-        XCTAssertEqual(self.parent.openTaskCalledCount, 1)
-        XCTAssertEqual(self.parent.openTaskWorkTime, workTime)
+        XCTAssertEqual(self.parent.openTaskParams.count, 1)
+        XCTAssertEqual(self.parent.openTaskParams.last?.workTime, workTime)
     }
 }
