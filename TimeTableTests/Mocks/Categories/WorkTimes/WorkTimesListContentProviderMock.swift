@@ -9,18 +9,29 @@
 import Foundation
 @testable import TimeTable
 
-class WorkTimesListContentProviderMock: WorkTimesListContentProviderType {
-    private(set) var fetchWorkTimesDataValues: (called: Bool, date: Date?) = (false, nil)
-    private(set) var fetchWorkTimesDataCompletion: ((Result<([DailyWorkTime], MatchingFullTimeDecoder)>) -> Void)?
-    func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder)>) -> Void) {
-        self.fetchWorkTimesDataValues = (true, date)
-        self.fetchWorkTimesDataCompletion = completion
+class WorkTimesListContentProviderMock {
+    private(set) var fetchWorkTimesDataParams: [FetchWorkTimesDataParams] = []
+    private(set) var deleteWorkTimeParams: [DeleteWorkTimeParams] = []
+    
+    // MARK: - Structures
+    struct FetchWorkTimesDataParams {
+        var date: Date?
+        var completion: (Result<([DailyWorkTime], MatchingFullTimeDecoder)>) -> Void
     }
     
-    private(set) var deleteWorkTimeDecoder: WorkTimeDecoder?
-    private(set) var deleteWorkTimeCompletion: ((Result<Void>) -> Void)?
+    struct DeleteWorkTimeParams {
+        var workTime: WorkTimeDecoder
+        var completion: (Result<Void>) -> Void
+    }
+}
+
+// MARK: - WorkTimesListContentProviderType
+extension WorkTimesListContentProviderMock: WorkTimesListContentProviderType {
+    func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder)>) -> Void) {
+        self.fetchWorkTimesDataParams.append(FetchWorkTimesDataParams(date: date, completion: completion))
+    }
+    
     func delete(workTime: WorkTimeDecoder, completion: @escaping (Result<Void>) -> Void) {
-        self.deleteWorkTimeDecoder = workTime
-        self.deleteWorkTimeCompletion = completion
+        self.deleteWorkTimeParams.append(DeleteWorkTimeParams(workTime: workTime, completion: completion))
     }
 }
