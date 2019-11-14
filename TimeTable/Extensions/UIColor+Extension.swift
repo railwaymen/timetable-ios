@@ -16,22 +16,22 @@ extension UIColor {
         return color ?? #colorLiteral(red: 0.7960784314, green: 0.07843137255, blue: 0.1647058824, alpha: 1)
     }()
     
-    static let anzac: UIColor = { // E0B73F
-        let color = UIColor(named: "Anzac")
+    static let flushOrange: UIColor = { // E0B73F
+        let color = UIColor(named: "Flush Orange")
         assert(color != nil)
-        return color ?? #colorLiteral(red: 0.8784313725, green: 0.7176470588, blue: 0.2470588235, alpha: 1)
+        return color ?? #colorLiteral(red: 1, green: 0.5254901961, blue: 0, alpha: 1)
     }()
     
-    static let rouge: UIColor = { // A54294
-        let color = UIColor(named: "Rouge")
+    static let purpleHeart: UIColor = { // A54294
+        let color = UIColor(named: "Purple Heart")
         assert(color != nil)
-        return color ?? #colorLiteral(red: 0.6470588235, green: 0.2588235294, blue: 0.5803921569, alpha: 1)
+        return color ?? #colorLiteral(red: 0.4431372549, green: 0.1294117647, blue: 0.8549019608, alpha: 1)
     }()
     
-    static let conifier: UIColor = { // 86D64A
-        let color = UIColor(named: "Conifier")
+    static let caribbeanGreen: UIColor = { // 86D64A
+        let color = UIColor(named: "Caribbean Green")
         assert(color != nil)
-        return color ?? #colorLiteral(red: 0.5254901961, green: 0.8392156863, blue: 0.2901960784, alpha: 1)
+        return color ?? #colorLiteral(red: 0.04705882353, green: 0.8156862745, blue: 0.631372549, alpha: 1)
     }()
     
     static let defaultBackground: UIColor = {
