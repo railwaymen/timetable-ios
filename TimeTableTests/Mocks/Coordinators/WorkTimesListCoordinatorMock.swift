@@ -9,21 +9,31 @@
 import XCTest
 @testable import TimeTable
 
-class WorkTimesListCoordinatorMock: WorkTimesListCoordinatorDelegate {
-    private(set) var workTimesRequestedForWorkTimeViewCalled = false
-    private(set) var workTimesRequestedForWorkTimeViewSourceView: UIView?
-    private(set) var workTimesRequestedForWorkTimeViewFlowType: WorkTimeViewModel.FlowType?
-    private(set) var workTimesRequestedForWorkTimeViewFinishHandler: ((Bool) -> Void)?
+class WorkTimesListCoordinatorMock {
+    private(set) var workTimesRequestedForWorkTimeViewParams: [WorkTimesRequestedForWorkTimeViewParams] = []
+    private(set) var workTimesRequestedForSafari: [WorkTimesRequestedForSafari] = []
     
-    func workTimesRequestedForWorkTimeView(sourceView: UIView, flowType: WorkTimeViewModel.FlowType, finishHandler: @escaping (Bool) -> Void) {
-        self.workTimesRequestedForWorkTimeViewCalled = true
-        self.workTimesRequestedForWorkTimeViewSourceView = sourceView
-        self.workTimesRequestedForWorkTimeViewFlowType = flowType
-        self.workTimesRequestedForWorkTimeViewFinishHandler = finishHandler
+    // MARK: - Structures
+    struct WorkTimesRequestedForWorkTimeViewParams {
+        var sourceView: UIView
+        var flowType: WorkTimeViewModel.FlowType
+        var finishHandler: (Bool) -> Void
     }
+    
+    struct WorkTimesRequestedForSafari {
+        var url: URL
+    }
+}
 
-    private(set) var workTimesRequestedForSafariURL: URL?
+// MARK: - WorkTimesListCoordinatorDelegate
+extension WorkTimesListCoordinatorMock: WorkTimesListCoordinatorDelegate {
+    func workTimesRequestedForWorkTimeView(sourceView: UIView, flowType: WorkTimeViewModel.FlowType, finishHandler: @escaping (Bool) -> Void) {
+        self.workTimesRequestedForWorkTimeViewParams.append(WorkTimesRequestedForWorkTimeViewParams(sourceView: sourceView,
+                                                                                                    flowType: flowType,
+                                                                                                    finishHandler: finishHandler))
+    }
+    
     func workTimesRequestedForSafari(url: URL) {
-        self.workTimesRequestedForSafariURL = url
+        self.workTimesRequestedForSafari.append(WorkTimesRequestedForSafari(url: url))
     }
 }

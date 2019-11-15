@@ -339,7 +339,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         //Act
         viewModel.viewRequestForNewWorkTimeView(sourceView: button)
         //Assert
-        XCTAssertEqual(self.coordinatorMock.workTimesRequestedForWorkTimeViewFlowType, .newEntry(lastTask: nil))
+        XCTAssertEqual(self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.flowType, .newEntry(lastTask: nil))
     }
     
     func testViewRequestedForEditEntry_withoutDailyWorkTimes() {
@@ -350,7 +350,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         //Act
         viewModel.viewRequestedForEditEntry(sourceView: cell, at: indexPath)
         //Assert
-        XCTAssertFalse(self.coordinatorMock.workTimesRequestedForWorkTimeViewCalled)
+        XCTAssertTrue(self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.isEmpty)
     }
     
     func testViewRequestedForEditEntry_withDailyWorkTimes() throws {
@@ -366,8 +366,8 @@ class WorkTimesListViewModelTests: XCTestCase {
         //Act
         viewModel.viewRequestedForEditEntry(sourceView: cell, at: indexPath)
         //Assert
-        XCTAssertEqual(self.coordinatorMock.workTimesRequestedForWorkTimeViewSourceView, cell)
-        guard case let .editEntry(editedTask) = self.coordinatorMock.workTimesRequestedForWorkTimeViewFlowType else { return XCTFail() }
+        XCTAssertEqual(self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.sourceView, cell)
+        guard case let .editEntry(editedTask) = self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.flowType else { return XCTFail() }
         XCTAssertEqual(editedTask.workTimeIdentifier, workTime.identifier)
         XCTAssertEqual(editedTask.project, workTime.project)
         XCTAssertEqual(editedTask.body, workTime.body)
@@ -391,8 +391,10 @@ class WorkTimesListViewModelTests: XCTestCase {
         //Act
         viewModel.viewRequestToDuplicate(sourceView: cell, at: indexPath)
         //Assert
-        XCTAssertEqual(self.coordinatorMock.workTimesRequestedForWorkTimeViewSourceView, cell)
-        guard case let .duplicateEntry(duplicatedTask, lastTask) = self.coordinatorMock.workTimesRequestedForWorkTimeViewFlowType else { return XCTFail() }
+        XCTAssertEqual(self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.sourceView, cell)
+        guard case let .duplicateEntry(duplicatedTask, lastTask) = self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.flowType else {
+            return XCTFail()
+        }
         XCTAssertEqual(duplicatedTask.workTimeIdentifier, duplicatedWorkTime.identifier)
         XCTAssertEqual(duplicatedTask.project, duplicatedWorkTime.project)
         XCTAssertEqual(duplicatedTask.body, duplicatedWorkTime.body)
