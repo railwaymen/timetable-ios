@@ -98,7 +98,7 @@ class LoginViewModelTests: XCTestCase {
         //Act
         self.viewModel.viewRequestedToChangeServerAddress()
         //Assert
-        XCTAssertTrue(self.coordinatorMock.loginDidFinishCalled)
+        XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.count, 1)
     }
     
     func testLoginTextFieldDidRequestForReturnWhileLoginCredentialsAreNil() {
@@ -258,8 +258,8 @@ class LoginViewModelTests: XCTestCase {
         self.viewModel.viewRequestedToLogin()
         self.contentProvider.loginParams.last?.fetchCompletion(.success(sessionReponse))
         //Assert
-        XCTAssertTrue(self.coordinatorMock.loginDidFinishCalled)
-        XCTAssertEqual(self.coordinatorMock.loginDidFinishWithState, .loggedInCorrectly(sessionReponse))
+        XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.count, 1)
+        XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.last?.state, .loggedInCorrectly(sessionReponse))
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 1)
         XCTAssertFalse(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
     }
@@ -302,8 +302,8 @@ class LoginViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
-        XCTAssertTrue(self.coordinatorMock.loginDidFinishCalled)
-        XCTAssertEqual(self.coordinatorMock.loginDidFinishWithState, .loggedInCorrectly(sessionReponse))
+        XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.count, 1)
+        XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.last?.state, .loggedInCorrectly(sessionReponse))
         XCTAssertEqual(try (self.errorHandler.throwedError as? TestError).unwrap(), TestError(message: "save user"))
     }
     
@@ -322,8 +322,8 @@ class LoginViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
-        XCTAssertTrue(self.coordinatorMock.loginDidFinishCalled)
-        XCTAssertEqual(self.coordinatorMock.loginDidFinishWithState, .loggedInCorrectly(sessionReponse))
+        XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.count, 1)
+        XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.last?.state, .loggedInCorrectly(sessionReponse))
         XCTAssertTrue(self.accessService.saveUserCalled)
     }
     
