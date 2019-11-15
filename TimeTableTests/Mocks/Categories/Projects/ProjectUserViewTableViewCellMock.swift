@@ -6,13 +6,21 @@
 //  Copyright © 2019 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import XCTest
 @testable import TimeTable
 
-class ProjectUserViewTableViewCellMock: ProjectUserViewTableViewCellType {
+class ProjectUserViewTableViewCellMock {
+    private(set) var configureParams: [ConfigureParams] = []
     
-    private(set) var configureName: String?
+    // MARK: - Structures
+    struct ConfigureParams {
+        var name: String
+    }
+}
+
+// MARK: - ProjectUserViewTableViewCellType
+extension ProjectUserViewTableViewCellMock: ProjectUserViewTableViewCellType {
     func configure(withName name: String) {
-        self.configureName = name
+        self.configureParams.append(ConfigureParams(name: name))
     }
 }

@@ -83,7 +83,7 @@ class ProjectCollectionViewCellModelTests: XCTestCase {
         //Act
         viewModel.configure(view: cellMock, for: IndexPath(row: 0, section: 0))
         //Assert
-        XCTAssertTrue(try (cellMock.configureName?.isEmpty).unwrap())
+        XCTAssertTrue(try (cellMock.configureParams.last?.name.isEmpty).unwrap())
     }
     
     func testUserNameReturnsEmptyStringWhileIndexPathIsOutOfTheRange() throws {
@@ -92,7 +92,7 @@ class ProjectCollectionViewCellModelTests: XCTestCase {
         //Act
         self.viewModel.configure(view: cellMock, for: IndexPath(row: 1, section: 0))
         //Assert
-        XCTAssertTrue(try (cellMock.configureName?.isEmpty).unwrap())
+        XCTAssertTrue(try (cellMock.configureParams.last?.name.isEmpty).unwrap())
     }
     
     func testUserNameReturnsSucceed() throws {
@@ -101,6 +101,6 @@ class ProjectCollectionViewCellModelTests: XCTestCase {
         //Act
         self.viewModel.configure(view: cellMock, for: IndexPath(row: 0, section: 0))
         //Assert
-        XCTAssertEqual(cellMock.configureName, "Admin Admin")
+        XCTAssertEqual(cellMock.configureParams.last?.name, "Admin Admin")
     }
 }
