@@ -105,8 +105,9 @@ class ProjectsViewModelTests: XCTestCase {
         //Act
         self.viewModel.viewDidLoad()
         //Assert
-        XCTAssertTrue(self.userInterfaceMock.setUpViewCalled)
-        XCTAssertFalse(try self.userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
+        XCTAssertEqual(self.userInterfaceMock.setUpViewParams.count, 1)
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
+        XCTAssertFalse(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
     }
     
     func testViewDidLoadFetchProjectsFailure() throws {
@@ -117,8 +118,9 @@ class ProjectsViewModelTests: XCTestCase {
         self.apiClientMock.fetchAllProjectsCompletion?(.failure(error))
         //Assert
         XCTAssertEqual(try (self.errorHandlerMock.throwedError as? TestError).unwrap(), error)
-        XCTAssertTrue(try self.userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
-        XCTAssertTrue(self.userInterfaceMock.showErrorViewCalled)
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
+        XCTAssertTrue(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertEqual(self.userInterfaceMock.showErrorViewParams.count, 1)
     }
     
 }
