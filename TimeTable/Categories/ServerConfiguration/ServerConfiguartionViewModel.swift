@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ServerConfigurationViewModelOutput: class {
-    func setupView(checkBoxIsActive: Bool, serverAddress: String)
+    func setUpView(checkBoxIsActive: Bool, serverAddress: String)
     func continueButtonEnabledState(_ isEnabled: Bool)
     func checkBoxIsActiveState(_ isActive: Bool)
     func dismissKeyboard()
@@ -48,7 +48,7 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
         let oldConfiguration = self.serverConfigurationManager.getOldConfiguration()
         self.serverAddress = oldConfiguration?.host?.absoluteString
         self.shouldRememberHost = oldConfiguration?.shouldRememberHost ?? true
-        self.userInterface?.setupView(checkBoxIsActive: self.shouldRememberHost, serverAddress: self.serverAddress ?? "")
+        self.userInterface?.setUpView(checkBoxIsActive: self.shouldRememberHost, serverAddress: self.serverAddress ?? "")
     }
     
     func viewRequestedToContinue() {
