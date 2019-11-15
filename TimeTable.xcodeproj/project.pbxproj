@@ -791,13 +791,13 @@
 		8A6B6D85237AB602007D8D93 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				8A6B6D8C237AB65D007D8D93 /* WorkTimes */,
-				8A6B6D8B237AB64B007D8D93 /* WorkTime */,
-				8A6B6D8A237AB636007D8D93 /* Profile */,
-				8A6B6D89237AB629007D8D93 /* ServerConfiguration */,
-				8A6B6D88237AB61E007D8D93 /* Projects */,
-				8A6B6D87237AB613007D8D93 /* ProjectPicker */,
 				8A6B6D86237AB608007D8D93 /* Login */,
+				8A6B6D8A237AB636007D8D93 /* Profile */,
+				8A6B6D87237AB613007D8D93 /* ProjectPicker */,
+				8A6B6D88237AB61E007D8D93 /* Projects */,
+				8A6B6D89237AB629007D8D93 /* ServerConfiguration */,
+				8A6B6D8B237AB64B007D8D93 /* WorkTime */,
+				8A6B6D8C237AB65D007D8D93 /* WorkTimes */,
 			);
 			path = Categories;
 			sourceTree = "<group>";

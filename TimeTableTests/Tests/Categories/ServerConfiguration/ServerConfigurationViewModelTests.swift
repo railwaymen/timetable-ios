@@ -69,7 +69,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         self.viewModel.viewRequestedToContinue()
         self.serverConfigurationManagerMock.verifyConfigurationCompletion?(.success(Void()))
         //Assert
-        let configuration = try self.coordinatorMock.serverConfigurationDidFinishValues.serverConfiguration.unwrap()
+        let configuration = try (self.coordinatorMock.serverConfigurationDidFinishParams.last?.serverConfiguration).unwrap()
         XCTAssertEqual(configuration.host, try URL(string: hostString.apiSuffix().httpPrefix()).unwrap())
         XCTAssertTrue(configuration.shouldRememberHost)
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
@@ -85,7 +85,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         self.viewModel.viewRequestedToContinue()
         self.serverConfigurationManagerMock.verifyConfigurationCompletion?(.success(Void()))
         //Assert
-        let configuration = try self.coordinatorMock.serverConfigurationDidFinishValues.serverConfiguration.unwrap()
+        let configuration = try (self.coordinatorMock.serverConfigurationDidFinishParams.last?.serverConfiguration).unwrap()
         XCTAssertEqual(configuration.host, try URL(string: hostString.apiSuffix().httpPrefix()).unwrap())
         XCTAssertFalse(configuration.shouldRememberHost)
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
@@ -100,7 +100,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         self.viewModel.viewRequestedToContinue()
         self.serverConfigurationManagerMock.verifyConfigurationCompletion?(.success(Void()))
         //Assert
-        XCTAssertTrue(self.coordinatorMock.serverConfigurationDidFinishValues.called)
+        XCTAssertEqual(self.coordinatorMock.serverConfigurationDidFinishParams.count, 1)
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
     }
