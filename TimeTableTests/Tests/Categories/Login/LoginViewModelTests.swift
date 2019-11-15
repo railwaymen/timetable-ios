@@ -260,7 +260,7 @@ class LoginViewModelTests: XCTestCase {
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         //Act
         self.viewModel.viewRequestedToLogin()
-        self.contentProvider.fetchCompletion?(.success(sessionReponse))
+        self.contentProvider.loginParams.last?.fetchCompletion(.success(sessionReponse))
         //Assert
         XCTAssertTrue(self.coordinatorMock.loginDidFinishCalled)
         XCTAssertEqual(self.coordinatorMock.loginDidFinishWithState, .loggedInCorrectly(sessionReponse))
@@ -277,8 +277,8 @@ class LoginViewModelTests: XCTestCase {
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         //Act
         self.viewModel.viewRequestedToLogin()
-        self.contentProvider.fetchCompletion?(.success(sessionReponse))
-        self.contentProvider.saveCompletion?(.failure(expectedError))
+        self.contentProvider.loginParams.last?.fetchCompletion(.success(sessionReponse))
+        self.contentProvider.loginParams.last?.saveCompletion(.failure(expectedError))
         //Assert
         XCTAssertTrue(try self.userInterface.setActivityIndicatorIsHidden.unwrap())
         switch self.errorHandler.throwedError as? AppError {
@@ -299,8 +299,8 @@ class LoginViewModelTests: XCTestCase {
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         //Act
         self.viewModel.viewRequestedToLogin()
-        self.contentProvider.fetchCompletion?(.success(sessionReponse))
-        self.contentProvider.saveCompletion?(.success(Void()))
+        self.contentProvider.loginParams.last?.fetchCompletion(.success(sessionReponse))
+        self.contentProvider.loginParams.last?.saveCompletion(.success(Void()))
         //Assert
         XCTAssertTrue(try self.userInterface.setActivityIndicatorIsHidden.unwrap())
         XCTAssertTrue(self.coordinatorMock.loginDidFinishCalled)
@@ -318,8 +318,8 @@ class LoginViewModelTests: XCTestCase {
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         //Act
         self.viewModel.viewRequestedToLogin()
-        self.contentProvider.fetchCompletion?(.success(sessionReponse))
-        self.contentProvider.saveCompletion?(.success(Void()))
+        self.contentProvider.loginParams.last?.fetchCompletion(.success(sessionReponse))
+        self.contentProvider.loginParams.last?.saveCompletion(.success(Void()))
         //Assert
         XCTAssertTrue(try self.userInterface.setActivityIndicatorIsHidden.unwrap())
         XCTAssertTrue(self.coordinatorMock.loginDidFinishCalled)
@@ -334,7 +334,7 @@ class LoginViewModelTests: XCTestCase {
         self.viewModel.passwordInputValueDidChange(value: "password")
         //Act
         self.viewModel.viewRequestedToLogin()
-        self.contentProvider.fetchCompletion?(.failure(expectedError))
+        self.contentProvider.loginParams.last?.fetchCompletion(.failure(expectedError))
         //Assert
         let error = try (self.errorHandler.throwedError as? TestError).unwrap()
         XCTAssertEqual(error, expectedError)
