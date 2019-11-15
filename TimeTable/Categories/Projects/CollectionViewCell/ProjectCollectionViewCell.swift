@@ -70,7 +70,7 @@ class ProjectCollectionViewCell: UICollectionViewCell, UITableViewDataSource, UI
 
 // MARK: - ProjectCollectionViewCellModelOutput
 extension ProjectCollectionViewCell: ProjectCollectionViewCellModelOutput {
-    func setupView() {
+    func setUpView() {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.reloadData()

@@ -16,7 +16,7 @@ protocol ProjectCollectionViewCellModelType: class {
 }
 
 protocol ProjectCollectionViewCellModelOutput: class {
-    func setupView()
+    func setUpView()
     func updateView(with projectName: String, leaderName: String, projectColor: UIColor)
 }
 
@@ -32,7 +32,7 @@ class ProjectCollectionViewCellModel: ProjectCollectionViewCellModelType {
     
     // MARK: - ProjectCollectionViewCellModelType
     func configure() {
-        self.userInterface?.setupView()
+        self.userInterface?.setUpView()
         self.userInterface?.updateView(with: self.project.name, leaderName: self.project.leader?.name ?? "", projectColor: self.project.color)
     }
     

@@ -34,7 +34,7 @@ class ProjectCollectionViewCellModelTests: XCTestCase {
         //Act
         self.viewModel.configure()
         //Assert
-        XCTAssertTrue(self.userInterfaceMock.setupViewCalled)
+        XCTAssertEqual(self.userInterfaceMock.setUpViewParams.count, 1)
     }
     
     func testConfigureUpdateView() {
@@ -43,10 +43,10 @@ class ProjectCollectionViewCellModelTests: XCTestCase {
         //Act
         self.viewModel.configure()
         //Assert
-        XCTAssertTrue(self.userInterfaceMock.updateViewCalled)
-        XCTAssertEqual(self.userInterfaceMock.updateViewData.leaderName, "Rosalind Auer")
-        XCTAssertEqual(self.userInterfaceMock.updateViewData.projectColor, color)
-        XCTAssertEqual(self.userInterfaceMock.updateViewData.projectName, "Test Name")
+        XCTAssertEqual(self.userInterfaceMock.updateViewParams.count, 1)
+        XCTAssertEqual(self.userInterfaceMock.updateViewParams.last?.leaderName, "Rosalind Auer")
+        XCTAssertEqual(self.userInterfaceMock.updateViewParams.last?.projectColor, color)
+        XCTAssertEqual(self.userInterfaceMock.updateViewParams.last?.projectName, "Test Name")
     }
 
     func testConfigureUpdateViewWhileLeaderNameIsNil() throws {
@@ -59,10 +59,10 @@ class ProjectCollectionViewCellModelTests: XCTestCase {
         //Act
         viewModel.configure()
         //Assert
-        XCTAssertTrue(self.userInterfaceMock.updateViewCalled)
-        XCTAssertEqual(self.userInterfaceMock.updateViewData.leaderName, "")
-        XCTAssertEqual(self.userInterfaceMock.updateViewData.projectColor, color)
-        XCTAssertEqual(self.userInterfaceMock.updateViewData.projectName, "Test Name")
+        XCTAssertEqual(self.userInterfaceMock.updateViewParams.count, 1)
+        XCTAssertEqual(self.userInterfaceMock.updateViewParams.last?.leaderName, "")
+        XCTAssertEqual(self.userInterfaceMock.updateViewParams.last?.projectColor, color)
+        XCTAssertEqual(self.userInterfaceMock.updateViewParams.last?.projectName, "Test Name")
     }
     
     func testNumberOfRows() {
