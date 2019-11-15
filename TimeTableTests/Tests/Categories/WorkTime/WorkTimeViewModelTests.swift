@@ -265,7 +265,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         try self.fetchProjects()
         self.viewModel.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerFinishHandler?(self.coordinatorMock.showProjectPickerProjects?[1])
+        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[1])
         //Act
         self.viewModel.setDefaultTask()
         //Assert
@@ -277,7 +277,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         try self.fetchProjects()
         self.viewModel.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerFinishHandler?(self.coordinatorMock.showProjectPickerProjects?[3])
+        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[3])
         //Act
         self.viewModel.setDefaultTask()
         //Assert
@@ -290,7 +290,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Act
         self.viewModel.projectButtonTapped()
         //Assert
-        XCTAssertTrue(try (self.coordinatorMock.showProjectPickerProjects?.isEmpty).unwrap())
+        XCTAssertTrue(try (self.coordinatorMock.showProjectPickerParams.last?.projects.isEmpty).unwrap())
     }
     
     func testProjectButtonTappedAfterFetch() throws {
@@ -299,7 +299,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Act
         self.viewModel.projectButtonTapped()
         //Assert
-        XCTAssertFalse(try (self.coordinatorMock.showProjectPickerProjects?.isEmpty).unwrap())
+        XCTAssertFalse(try (self.coordinatorMock.showProjectPickerParams.last?.projects.isEmpty).unwrap())
     }
     
     func testProjectButtonTappedFinishHandlerDoesNotUpdateIfProjectIsNil() throws {
@@ -307,7 +307,7 @@ class WorkTimeViewModelTests: XCTestCase {
         try self.fetchProjects()
         //Act
         self.viewModel.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerFinishHandler?(nil)
+        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(nil)
         //Assert
         XCTAssertEqual(self.userInterface.updateProjectParams.count, 2)
     }
@@ -317,7 +317,7 @@ class WorkTimeViewModelTests: XCTestCase {
         try self.fetchProjects()
         //Act
         self.viewModel.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerFinishHandler?(coordinatorMock.showProjectPickerProjects?[1])
+        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(coordinatorMock.showProjectPickerParams.last?.projects[1])
         //Assert
         XCTAssertEqual(self.userInterface.updateProjectParams.count, 3)
     }
@@ -345,7 +345,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         try self.fetchProjects()
         self.viewModel.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerFinishHandler?(self.coordinatorMock.showProjectPickerProjects?[0])
+        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[0])
         //Act
         self.viewModel.taskNameDidChange(value: nil)
         self.viewModel.viewRequestedToSave()
@@ -362,7 +362,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         try self.fetchProjects()
         self.viewModel.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerFinishHandler?(self.coordinatorMock.showProjectPickerProjects?[0])
+        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[0])
         //Act
         self.viewModel.viewRequestedToSave()
         //Assert
@@ -378,7 +378,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         try self.fetchProjects()
         self.viewModel.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerFinishHandler?(self.coordinatorMock.showProjectPickerProjects?[1])
+        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[1])
         self.viewModel.taskNameDidChange(value: nil)
         //Act
         self.viewModel.taskURLDidChange(value: "www.example.com")
@@ -391,7 +391,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         try self.fetchProjects()
         self.viewModel.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerFinishHandler?(self.coordinatorMock.showProjectPickerProjects?[1])
+        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[1])
         self.viewModel.taskNameDidChange(value: "body")
         //Act
         self.viewModel.taskURLDidChange(value: nil)
@@ -404,7 +404,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         try self.fetchProjects()
         self.viewModel.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerFinishHandler?(self.coordinatorMock.showProjectPickerProjects?[1])
+        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[1])
         self.viewModel.taskNameDidChange(value: "body")
         //Act
         self.viewModel.taskURLDidChange(value: "\\INVALID//")
@@ -417,7 +417,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         try self.fetchProjects()
         self.viewModel.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerFinishHandler?(self.coordinatorMock.showProjectPickerProjects?[1])
+        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[1])
         self.viewModel.taskNameDidChange(value: "body")
         //Act
         self.viewModel.viewRequestedToSave()
@@ -429,7 +429,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         try self.fetchProjects()
         self.viewModel.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerFinishHandler?(self.coordinatorMock.showProjectPickerProjects?[1])
+        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[1])
         //Act
         self.viewModel.viewRequestedToSave()
         //Assert
@@ -444,7 +444,7 @@ class WorkTimeViewModelTests: XCTestCase {
         let toDate = try Calendar.current.date(from: components).unwrap()
         try self.fetchProjects()
         self.viewModel.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerFinishHandler?(self.coordinatorMock.showProjectPickerProjects?[0])
+        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[0])
         self.viewModel.taskNameDidChange(value: "body")
         self.viewModel.taskURLDidChange(value: "www.example.com")
         self.calendarMock.dateBySettingReturnValue = fromDate
@@ -701,7 +701,7 @@ class WorkTimeViewModelTests: XCTestCase {
         self.calendarMock.dateBySettingReturnValue = toDate
         self.viewModel.viewChanged(endAtDate: toDate)
         self.viewModel.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerFinishHandler?(self.coordinatorMock.showProjectPickerProjects?.first)
+        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects.first)
         self.viewModel.taskNameDidChange(value: "body")
         self.viewModel.taskURLDidChange(value: "www.example.com")
     }
