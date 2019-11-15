@@ -13,7 +13,7 @@ class WorkTimesTableViewHeaderViewMock: UITableViewHeaderFooterView {
     private(set) var updateViewParams: [UpdateViewParams] = []
     private(set) var configureParams: [ConfigureParams] = []
     
-    // MARK: -
+    // MARK: - Structures
     struct UpdateViewParams {
         var dayText: String?
         var durationText: String?
@@ -24,7 +24,6 @@ class WorkTimesTableViewHeaderViewMock: UITableViewHeaderFooterView {
     }
 }
 
-// UITableViewHeaderFooterView & WorkTimesTableViewHeaderViewModelOutput & WorkTimesTableViewHeaderType
 // MARK: - WorkTimesTableViewHeaderViewModelOutput
 extension WorkTimesTableViewHeaderViewMock: WorkTimesTableViewHeaderViewModelOutput {
     func updateView(dayText: String?, durationText: String?) {

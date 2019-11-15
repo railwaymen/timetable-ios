@@ -24,10 +24,10 @@ class TagCollectionViewCellViewModelTests: XCTestCase {
         //Act
         viewModel.configure()
         //Assert
-        XCTAssertEqual(self.userInterfaceMock.setUp_calledCount, 1)
-        XCTAssertEqual(self.userInterfaceMock.setUp_values?.title, tag.localized)
-        XCTAssertEqual(self.userInterfaceMock.setUp_values?.color, tag.color)
-        XCTAssertTrue(try (self.userInterfaceMock.setUp_values?.isSelected).unwrap())
+        XCTAssertEqual(self.userInterfaceMock.setUpParams.count, 1)
+        XCTAssertEqual(self.userInterfaceMock.setUpParams.last?.title, tag.localized)
+        XCTAssertEqual(self.userInterfaceMock.setUpParams.last?.color, tag.color)
+        XCTAssertTrue(try (self.userInterfaceMock.setUpParams.last?.isSelected).unwrap())
     }
     
     // MARK: - Private
