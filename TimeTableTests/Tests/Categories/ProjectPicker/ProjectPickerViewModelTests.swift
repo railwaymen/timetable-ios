@@ -124,8 +124,8 @@ class ProjectPickerViewModelTests: XCTestCase {
         //Act
         viewModel.cellDidSelect(at: IndexPath(row: 0, section: 0))
         //Assert
-        XCTAssertEqual(self.coordinatorMock.finishFlowCalledCount, 1)
-        XCTAssertNil(self.coordinatorMock.finishFlowProject)
+        XCTAssertEqual(self.coordinatorMock.finishFlowParams.count, 1)
+        XCTAssertNil(self.coordinatorMock?.finishFlowParams.last?.project)
     }
     
     func testCellDidSelectExistingProjectCallsFinishWithProperProject() {
@@ -135,8 +135,8 @@ class ProjectPickerViewModelTests: XCTestCase {
         //Act
         viewModel.cellDidSelect(at: IndexPath(row: 0, section: 0))
         //Assert
-        XCTAssertEqual(self.coordinatorMock.finishFlowCalledCount, 1)
-        XCTAssertEqual(self.coordinatorMock.finishFlowProject, projects[0])
+        XCTAssertEqual(self.coordinatorMock.finishFlowParams.count, 1)
+        XCTAssertEqual(self.coordinatorMock.finishFlowParams.last?.project, projects[0])
     }
     
     func testCellDidSelectInporperIndexPathCallsFinishWithoutProject() {
@@ -146,8 +146,8 @@ class ProjectPickerViewModelTests: XCTestCase {
         //Act
         viewModel.cellDidSelect(at: IndexPath(row: 0, section: 1))
         //Assert
-        XCTAssertEqual(self.coordinatorMock.finishFlowCalledCount, 1)
-        XCTAssertNil(self.coordinatorMock.finishFlowProject)
+        XCTAssertEqual(self.coordinatorMock.finishFlowParams.count, 1)
+        XCTAssertNil(self.coordinatorMock.finishFlowParams.last?.project)
     }
     
     func testCloseButtonTappedFinishesFlow() {
@@ -156,8 +156,8 @@ class ProjectPickerViewModelTests: XCTestCase {
         //Act
         viewModel.closeButtonTapped()
         //Assert
-        XCTAssertEqual(self.coordinatorMock?.finishFlowCalledCount, 1)
-        XCTAssertNil(self.coordinatorMock?.finishFlowProject)
+        XCTAssertEqual(self.coordinatorMock?.finishFlowParams.count, 1)
+        XCTAssertNil(self.coordinatorMock?.finishFlowParams.last?.project)
     }
     
     // MARK: - Private
