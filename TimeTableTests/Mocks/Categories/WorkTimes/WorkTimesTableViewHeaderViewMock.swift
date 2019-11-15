@@ -6,17 +6,35 @@
 //  Copyright © 2019 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import XCTest
 @testable import TimeTable
 
-class WorkTimesTableViewHeaderViewMock: WorkTimesTableViewHeaderable {
+class WorkTimesTableViewHeaderViewMock: UITableViewHeaderFooterView {
+    private(set) var updateViewParams: [UpdateViewParams] = []
+    private(set) var configureParams: [ConfigureParams] = []
     
-    private(set) var updateViewData: (dayText: String?, durationText: String?)?
-    
-    // MARK: - WorkTimesTableViewHeaderViewModelOutput
-    func updateView(dayText: String?, durationText: String?) {
-        self.updateViewData = (dayText, durationText)
+    // MARK: -
+    struct UpdateViewParams {
+        var dayText: String?
+        var durationText: String?
     }
-    // MARK: - WorkTimesTableViewHeaderType
-    func configure(viewModel: WorkTimesTableViewHeaderViewModelType) {}
+    
+    struct ConfigureParams {
+        var viewModel: WorkTimesTableViewHeaderViewModelType
+    }
+}
+
+// UITableViewHeaderFooterView & WorkTimesTableViewHeaderViewModelOutput & WorkTimesTableViewHeaderType
+// MARK: - WorkTimesTableViewHeaderViewModelOutput
+extension WorkTimesTableViewHeaderViewMock: WorkTimesTableViewHeaderViewModelOutput {
+    func updateView(dayText: String?, durationText: String?) {
+        self.updateViewParams.append(UpdateViewParams(dayText: dayText, durationText: durationText))
+    }
+}
+
+// MARK: - WorkTimesTableViewHeaderType
+extension WorkTimesTableViewHeaderViewMock: WorkTimesTableViewHeaderType {
+    func configure(viewModel: WorkTimesTableViewHeaderViewModelType) {
+        self.configureParams.append(ConfigureParams(viewModel: viewModel))
+    }
 }
