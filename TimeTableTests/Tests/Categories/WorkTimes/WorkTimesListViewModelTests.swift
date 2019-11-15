@@ -83,7 +83,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         //Act
         viewModel.viewDidLoad()
         //Assert
-        XCTAssertTrue(self.userInterfaceMock.setUpViewCalled)
+        XCTAssertEqual(self.userInterfaceMock.setUpViewParams.count, 1)
     }
     
     func testViewDidLoadFetchWorkTimesShowsActivityIndicatorBeforeFetch() throws {
@@ -92,7 +92,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         //Act
         viewModel.viewDidLoad()
         //Assert
-        XCTAssertFalse(try self.userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
+        XCTAssertFalse(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
     }
     
     func testViewDidLoadFetchWorkTimesHidesActivityIndicatorAfterSuccessfulFetch() throws {
@@ -104,7 +104,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         viewModel.viewDidLoad()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
         //Assert
-        XCTAssertTrue(try self.userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
+        XCTAssertTrue(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
     }
     
     func testViewDidLoadFetchWorkTimesHidesActivityIndicatorAfterFailedFetch() throws {
@@ -115,7 +115,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         viewModel.viewDidLoad()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.failure(error))
         //Assert
-        XCTAssertTrue(try self.userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
+        XCTAssertTrue(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
     }
 
     func testViewDidLoadRunsFetchWorkTimesSuccessCallsUpdateViewOnUserInterface() throws {
@@ -127,7 +127,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         viewModel.viewDidLoad()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
         //Assert
-        XCTAssertTrue(self.userInterfaceMock.updateViewCalled)
+        XCTAssertEqual(self.userInterfaceMock.updateViewParams.count, 1)
     }
     
     func testViewDidLoadRunsFetchWorkTimesSuccessCallsShowTableViewOnUserInterface() throws {
@@ -139,7 +139,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         viewModel.viewDidLoad()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
         //Assert
-        XCTAssertTrue(self.userInterfaceMock.showTableViewCalled)
+        XCTAssertEqual(self.userInterfaceMock.showTableViewParams.count, 1)
     }
     
     func testViewDidLoadRunsFetchWorkTimesFailureCallsShowErrorViewOnUserInterface() throws {
@@ -150,7 +150,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         viewModel.viewDidLoad()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.failure(error))
         //Assert
-        XCTAssertTrue(self.userInterfaceMock.showErrorViewCalled)
+        XCTAssertEqual(self.userInterfaceMock.showErrorViewParams.count, 1)
     }
     
     func testViewWillAppearRunsFetchWorkTimesFinishWithError() throws {
@@ -166,13 +166,12 @@ class WorkTimesListViewModelTests: XCTestCase {
     }
     
     func testViewRequestForPreviousMonthWhileSelectedMonthIsNilValue() {
-        //Act
+        //Arrange
         let viewModel = self.buildViewModel(isSelecteDate: false)
+        //Act
         viewModel.viewRequestForPreviousMonth()
         //Assert
-        XCTAssertNil(self.userInterfaceMock.updateMatchingFullTimeLabelsData.duration)
-        XCTAssertNil(self.userInterfaceMock.updateMatchingFullTimeLabelsData.shouldWorkHours)
-        XCTAssertNil(self.userInterfaceMock.updateMatchingFullTimeLabelsData.workedHours)
+        XCTAssertTrue(self.userInterfaceMock.updateMatchingFullTimeLabelsParams.isEmpty)
     }
     
     func testViewRequestForPreviousMonthWhileSelectedMonth() throws {
@@ -185,9 +184,9 @@ class WorkTimesListViewModelTests: XCTestCase {
         //Act
         viewModel.viewRequestForPreviousMonth()
         //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateDateSelectorData.currentDateString, "Jan 2019")
-        XCTAssertEqual(self.userInterfaceMock.updateDateSelectorData.nextDateString, "Jan 2019")
-        XCTAssertEqual(self.userInterfaceMock.updateDateSelectorData.previousDateString, "Jan 2019")
+        XCTAssertEqual(self.userInterfaceMock.updateDateSelectorParams.last?.currentDateString, "Jan 2019")
+        XCTAssertEqual(self.userInterfaceMock.updateDateSelectorParams.last?.nextDateString, "Jan 2019")
+        XCTAssertEqual(self.userInterfaceMock.updateDateSelectorParams.last?.previousDateString, "Jan 2019")
     }
     
     func testViewRequestForNextMonthWhileSelectedMonthIsNilValue() {
@@ -195,9 +194,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         let viewModel = self.buildViewModel(isSelecteDate: false)
         viewModel.viewRequestForPreviousMonth()
         //Assert
-        XCTAssertNil(self.userInterfaceMock.updateMatchingFullTimeLabelsData.duration)
-        XCTAssertNil(self.userInterfaceMock.updateMatchingFullTimeLabelsData.shouldWorkHours)
-        XCTAssertNil(self.userInterfaceMock.updateMatchingFullTimeLabelsData.workedHours)
+        XCTAssertTrue(self.userInterfaceMock.updateMatchingFullTimeLabelsParams.isEmpty)
     }
     
     func testViewRequestForNextMonthWhileSelectedMonth() throws {
@@ -210,9 +207,9 @@ class WorkTimesListViewModelTests: XCTestCase {
         //Act
         viewModel.viewRequestForNextMonth()
         //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateDateSelectorData.currentDateString, "Mar 2019")
-        XCTAssertEqual(self.userInterfaceMock.updateDateSelectorData.nextDateString, "Mar 2019")
-        XCTAssertEqual(self.userInterfaceMock.updateDateSelectorData.previousDateString, "Mar 2019")
+        XCTAssertEqual(self.userInterfaceMock.updateDateSelectorParams.last?.currentDateString, "Mar 2019")
+        XCTAssertEqual(self.userInterfaceMock.updateDateSelectorParams.last?.nextDateString, "Mar 2019")
+        XCTAssertEqual(self.userInterfaceMock.updateDateSelectorParams.last?.previousDateString, "Mar 2019")
     }
     
     func testViewRequestForCellModelOnInitialization() {
