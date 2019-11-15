@@ -24,8 +24,8 @@ class ProjectPickerCellModelTests: XCTestCase {
         //Act
         viewModel.viewDidConfigure()
         //Assert
-        XCTAssertEqual(self.userInterfaceMock.setUpCalledCount, 1)
-        XCTAssertEqual(self.userInterfaceMock.setUpTitle, project.name)
+        XCTAssertEqual(self.userInterfaceMock.setUpParams.count, 1)
+        XCTAssertEqual(self.userInterfaceMock.setUpParams.last?.title, project.name)
     }
     
     // MARK: - Private

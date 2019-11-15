@@ -76,7 +76,7 @@ class ProjectPickerViewModelTests: XCTestCase {
         //Act
         viewModel.configure(cell: cellMock, for: IndexPath(row: 0, section: 0))
         //Assert
-        XCTAssertEqual(cellMock.configureCalledCount, 1)
+        XCTAssertEqual(cellMock.configureParams.count, 1)
     }
     
     func testConfigureCellWithoutProjects() {
@@ -86,7 +86,7 @@ class ProjectPickerViewModelTests: XCTestCase {
         //Act
         viewModel.configure(cell: cellMock, for: IndexPath(row: 0, section: 0))
         //Assert
-        XCTAssertEqual(cellMock.configureCalledCount, 0)
+        XCTAssertEqual(cellMock.configureParams.count, 0)
     }
     
     func testUpdateSearchResultsReloadsData() {
