@@ -9,29 +9,44 @@
 import XCTest
 @testable import TimeTable
 
-class ProjectPickerViewControllerMock: ProjectPickerViewControllerable {
+class ProjectPickerViewControllerMock {
+    private(set) var setUpParams: [SetUpParams] = []
+    private(set) var reloadDataParams: [ReloadDataParams] = []
+    private(set) var setBottomContentInsetsParams: [SetBottomContentInsetsParams] = []
+    private(set) var configureParams: [ConfigureParams] = []
     
-    // MARK: - ProjectPickerViewControllerType
-    private(set) var configureCalledCount = 0
-    func configure(viewModel: ProjectPickerViewModelType) {
-        self.configureCalledCount += 1
+    // MARK: - Structures
+    struct SetUpParams {}
+    
+    struct ReloadDataParams {}
+    
+    struct SetBottomContentInsetsParams {
+        var inset: CGFloat
     }
     
-    // MARK: - ProjectPickerViewModelOutput
-    private(set) var setUpCalledCount = 0
+    struct ConfigureParams {
+        var viewModel: ProjectPickerViewModelType
+    }
+}
+
+// MARK: - ProjectPickerViewModelOutput
+extension ProjectPickerViewControllerMock: ProjectPickerViewModelOutput {
     func setUp() {
-        self.setUpCalledCount += 1
+        self.setUpParams.append(SetUpParams())
     }
     
-    private(set) var reloadDataCalledCount = 0
     func reloadData() {
-        self.reloadDataCalledCount += 1
+        self.reloadDataParams.append(ReloadDataParams())
     }
     
-    private(set) var setBottomContentInsetsCalledCount = 0
-    private(set) var setBottomContentInsetsInsets: CGFloat?
     func setBottomContentInsets(_ inset: CGFloat) {
-        self.setBottomContentInsetsCalledCount += 1
-        self.setBottomContentInsetsInsets = inset
+        self.setBottomContentInsetsParams.append(SetBottomContentInsetsParams(inset: inset))
+    }
+}
+
+// MARK: - ProjectPickerViewControllerType
+extension ProjectPickerViewControllerMock: ProjectPickerViewControllerType {
+    func configure(viewModel: ProjectPickerViewModelType) {
+        self.configureParams.append(ConfigureParams(viewModel: viewModel))
     }
 }

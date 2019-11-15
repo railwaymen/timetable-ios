@@ -27,7 +27,7 @@ class ProjectPickerViewModelTests: XCTestCase {
         //Act
         viewModel.loadView()
         //Assert
-        XCTAssertEqual(self.userInterfaceMock.setUpCalledCount, 1)
+        XCTAssertEqual(self.userInterfaceMock.setUpParams.count, 1)
     }
         
     func testNumberOfRowsInZeroSection() {
@@ -95,7 +95,7 @@ class ProjectPickerViewModelTests: XCTestCase {
         //Act
         viewModel.updateSearchResults(for: "")
         //Assert
-        XCTAssertEqual(self.userInterfaceMock.reloadDataCalledCount, 1)
+        XCTAssertEqual(self.userInterfaceMock.reloadDataParams.count, 1)
     }
     
     func testUpdateSearchResultsForEmptyTextDoesNotFilterProjects() {
