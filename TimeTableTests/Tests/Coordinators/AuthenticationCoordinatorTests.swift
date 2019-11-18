@@ -28,7 +28,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
     
     func testStartDoesNotRunServerConfigurationFlowWhileReturnedControllerIsInvalid() {
         //Arrange
-        self.dependencyContainer.storyboardsManagerMock.serverConfigurationController = UIViewController()
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: UIViewController()]
         //Act
         self.coordinator.start(finishCompletion: { (_, _) in })
         //Assert
@@ -37,7 +37,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
     
     func testStartRunsServerConfigurationFlow() {
         //Arrange
-        self.dependencyContainer.storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
         //Act
         self.coordinator.start(finishCompletion: { (_, _) in })
         //Assert
@@ -46,7 +46,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
 
     func testStartRunsServerConfigurationFlowWhileServerConfigurationShouldRemeberHostIsFalse() {
         //Arrange
-        self.dependencyContainer.storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewController()
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewController()]
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: nil, shouldRememberHost: false)
         //Act
         self.coordinator.start(finishCompletion: { (_, _) in })
@@ -56,8 +56,8 @@ class AuthenticationCoordinatorTests: XCTestCase {
     
     func testStartDoesNotRunAuthenticationFlowWhileServerControllerHasNilHost() throws {
         //Arrange
-        self.dependencyContainer.storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
-        self.dependencyContainer.storyboardsManagerMock.loginController = LoginViewControllerMock()
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.login] = [.initial: LoginViewControllerMock()]
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: nil, shouldRememberHost: true)
         //Act
         self.coordinator.start(finishCompletion: { (_, _) in })
@@ -70,8 +70,8 @@ class AuthenticationCoordinatorTests: XCTestCase {
     func testStartDoesNotRunAuthenticationFlowWhileServerControllerIsInvalid() throws {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
-        self.dependencyContainer.storyboardsManagerMock.serverConfigurationController = UIViewController()
-        self.dependencyContainer.storyboardsManagerMock.loginController = UIViewController()
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: UIViewController()]
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.login] = [.initial: UIViewController()]
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
         self.coordinator.start(finishCompletion: { (_, _) in })
@@ -83,8 +83,8 @@ class AuthenticationCoordinatorTests: XCTestCase {
     func testStartDoesNotRunAuthenticationFlowWhileLoginControllerIsInvalid() throws {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
-        self.dependencyContainer.storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
-        self.dependencyContainer.storyboardsManagerMock.loginController = UIViewController()
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.login] = [.initial: UIViewController()]
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
         self.coordinator.start(finishCompletion: { (_, _) in })
@@ -97,8 +97,8 @@ class AuthenticationCoordinatorTests: XCTestCase {
     func testStartRunsAuthenticationFlow() throws {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
-        self.dependencyContainer.storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
-        self.dependencyContainer.storyboardsManagerMock.loginController = LoginViewControllerMock()
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.login] = [.initial: LoginViewControllerMock()]
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
         self.coordinator.start(finishCompletion: { (_, _) in })
@@ -112,8 +112,8 @@ class AuthenticationCoordinatorTests: XCTestCase {
     func testFinishOnStart() throws {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
-        self.dependencyContainer.storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
-        self.dependencyContainer.storyboardsManagerMock.loginController = LoginViewControllerMock()
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.login] = [.initial: LoginViewControllerMock()]
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: url, shouldRememberHost: true)
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
@@ -131,8 +131,8 @@ class AuthenticationCoordinatorTests: XCTestCase {
     func testLoginDidFinishWithStateLoggedInCorrectly() throws {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
-        self.dependencyContainer.storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
-        self.dependencyContainer.storyboardsManagerMock.loginController = LoginViewControllerMock()
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.login] = [.initial: LoginViewControllerMock()]
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: url, shouldRememberHost: true)
         self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
         let data = try self.json(from: SessionJSONResource.signInResponse)

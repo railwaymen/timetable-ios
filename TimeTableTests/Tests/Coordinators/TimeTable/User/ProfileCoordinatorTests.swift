@@ -28,7 +28,7 @@ class ProfileCoordinatorTests: XCTestCase {
     
     func testStartInvalidControllerReturned() {
         //Arrange
-        self.dependencyContainer.storyboardsManagerMock.userController = UIViewController()
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.profile] = [.initial: UIViewController()]
         //Act
         self.coordinator.start(finishCompletion: {})
         //Assert
@@ -37,7 +37,7 @@ class ProfileCoordinatorTests: XCTestCase {
     
     func testStartSetsChildViewController() {
         //Arrange
-        self.dependencyContainer.storyboardsManagerMock.userController = ProfileViewControllerMock()
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.profile] = [.initial: ProfileViewControllerMock()]
         //Act
         self.coordinator.start(finishCompletion: {})
         //Assert
@@ -47,7 +47,7 @@ class ProfileCoordinatorTests: XCTestCase {
     func testUserProfileDidLogoutUser() {
         //Arrange
         var finishCompletionCalled = false
-        self.dependencyContainer.storyboardsManagerMock.userController = ProfileViewControllerMock()
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.profile] = [.initial: ProfileViewControllerMock()]
         self.coordinator.start(finishCompletion: {
             finishCompletionCalled = true
         })

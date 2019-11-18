@@ -39,7 +39,7 @@ class AppCoordinatorTests: XCTestCase {
     
     func testStart_appCoordinatorContainsChildControllers() throws {
         //Arrange
-        self.dependencyContainer.storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
         //Act
         self.appCoordinator.start()
         //Assert

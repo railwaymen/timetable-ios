@@ -22,7 +22,7 @@ class StoryboardsManager: StoryboardsManagerType {
     
     static var shared: StoryboardsManagerType = StoryboardsManager()
     
-    enum StoryboardName: String {
+    enum StoryboardName: String, Hashable {
         case serverConfiguration = "ServerConfiguration"
         case login = "Login"
         case workTime = "WorkTime"
@@ -31,7 +31,7 @@ class StoryboardsManager: StoryboardsManagerType {
         case profile = "Profile"
     }
     
-    enum ControllerIdentifier: String {
+    enum ControllerIdentifier: String, Hashable {
         case initial
     }
     

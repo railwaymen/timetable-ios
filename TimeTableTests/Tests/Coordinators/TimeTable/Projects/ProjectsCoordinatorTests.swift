@@ -29,7 +29,7 @@ class ProjectsCoordinatorTests: XCTestCase {
     
     func testRunMainFlowRunsMainFlow() {
         //Arrange
-        self.dependencyContainer.storyboardsManagerMock.projectsController = ProjectsViewController()
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.projects] = [.initial: ProjectsViewController()]
         //Act
         self.projectsCoordinator.start()
         //Assert
