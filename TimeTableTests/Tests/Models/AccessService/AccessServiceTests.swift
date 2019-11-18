@@ -35,7 +35,7 @@ class AccessServiceTests: XCTestCase {
     func testSaveUserThrowsAnErrorWhileCredentialsEncodingFails() {
         //Arrange
         let credentails = LoginCredentials(email: "user@example.com", password: "password")
-        self.encoderMock.isThrowingError = true
+        self.encoderMock.shouldThrowError = true
         //Act
         do {
             try self.accessService.saveUser(credentails: credentails)
@@ -107,7 +107,7 @@ class AccessServiceTests: XCTestCase {
         let credentials = LoginCredentials(email: "user@example.com", password: "password")
         let data = try JSONEncoder().encode(credentials)
         self.keychainAccessMock.getDataValue = data
-        self.decoderMock.isThrowingError = true
+        self.decoderMock.shouldThrowError = true
         //Act
         do {
             _ = try self.accessService.getUserCredentials()

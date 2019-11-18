@@ -36,7 +36,7 @@ class RequestEncoderTests: XCTestCase {
         //Arrange
         let requestEncoder = self.buildRequestEncoder()
         let wrapper = LoginCredentials(email: "john@example.com", password: "password")
-        self.encoderMock.isThrowingError = true
+        self.encoderMock.shouldThrowError = true
         //Act
         do {
             _ = try requestEncoder.encode(wrapper: wrapper)
@@ -51,7 +51,7 @@ class RequestEncoderTests: XCTestCase {
         //Arrange
         let requestEncoder = self.buildRequestEncoder()
         let wrapper = LoginCredentials(email: "john@example.com", password: "password")
-        self.encoderMock.isThrowingError = true
+        self.encoderMock.shouldThrowError = true
         //Act
         do {
             _ = try requestEncoder.encodeToDictionary(wrapper: wrapper)

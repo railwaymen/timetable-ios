@@ -9,24 +9,31 @@
 import Foundation
 @testable import TimeTable
 
-class JSONDecoderMock: JSONDecoderType {
+class JSONDecoderMock {
+    private(set) var decodeParams: [DecodeParams] = []
     
     private lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(DateFormatter.init(type: .dateAndTimeExtended))
         return decoder
     }()
-    
-    var isThrowingError = false
-    private(set) var decodeType: Decodable.Type?
-    private(set) var decodeData: Data?
+
+    var shouldThrowError: Bool = false
     
     var dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .formatted(DateFormatter.init(type: .dateAndTimeExtended))
     
+    // MARK: - Structures
+    struct DecodeParams {
+        var type: Decodable.Type
+        var data: Data
+    }
+}
+
+// MARK: - JSONDecoderType
+extension JSONDecoderMock: JSONDecoderType {
     func decode<T>(_ type: T.Type, from data: Data) throws -> T where T: Decodable {
-        self.decodeType = type
-        self.decodeData = data
-        if self.isThrowingError {
+        self.decodeParams.append(DecodeParams(type: type, data: data))
+        if self.shouldThrowError {
             throw TestError(message: "decoder error")
         } else {
             return try self.decoder.decode(T.self, from: data)
