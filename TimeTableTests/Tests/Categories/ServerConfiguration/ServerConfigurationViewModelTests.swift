@@ -67,7 +67,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         self.viewModel.serverAddressDidChange(text: hostString)
         //Act
         self.viewModel.viewRequestedToContinue()
-        self.serverConfigurationManagerMock.verifyConfigurationCompletion?(.success(Void()))
+        self.serverConfigurationManagerMock.verifyParams.last?.completion(.success(Void()))
         //Assert
         let configuration = try (self.coordinatorMock.serverConfigurationDidFinishParams.last?.serverConfiguration).unwrap()
         XCTAssertEqual(configuration.host, try URL(string: hostString.apiSuffix().httpPrefix()).unwrap())
@@ -83,7 +83,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         self.viewModel.shouldRemeberHostCheckBoxStatusDidChange(isActive: true)
         //Act
         self.viewModel.viewRequestedToContinue()
-        self.serverConfigurationManagerMock.verifyConfigurationCompletion?(.success(Void()))
+        self.serverConfigurationManagerMock.verifyParams.last?.completion(.success(Void()))
         //Assert
         let configuration = try (self.coordinatorMock.serverConfigurationDidFinishParams.last?.serverConfiguration).unwrap()
         XCTAssertEqual(configuration.host, try URL(string: hostString.apiSuffix().httpPrefix()).unwrap())
@@ -98,7 +98,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         self.viewModel.serverAddressDidChange(text: hostString)
         //Act
         self.viewModel.viewRequestedToContinue()
-        self.serverConfigurationManagerMock.verifyConfigurationCompletion?(.success(Void()))
+        self.serverConfigurationManagerMock.verifyParams.last?.completion(.success(Void()))
         //Assert
         XCTAssertEqual(self.coordinatorMock.serverConfigurationDidFinishParams.count, 1)
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
@@ -112,7 +112,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         self.viewModel.serverAddressDidChange(text: hostString)
         //Act
         self.viewModel.viewRequestedToContinue()
-        self.serverConfigurationManagerMock.verifyConfigurationCompletion?(.failure(ApiClientError(type: .invalidHost(url))))
+        self.serverConfigurationManagerMock.verifyParams.last?.completion(.failure(ApiClientError(type: .invalidHost(url))))
         //Assert
         XCTAssertEqual(self.errorHandler.throwingParams.count, 1)
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
