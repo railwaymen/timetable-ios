@@ -35,7 +35,7 @@ class ApiClientTests: XCTestCase {
         var expectedError: Error?
         let apiClient = self.buildApiClient()
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
-        self.requestEncoderMock.isEncodeToDictionaryThrowingError = true
+        self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
         apiClient.post(Endpoints.signIn, parameters: parameters) { (result: TimeTable.Result<SessionDecoder>) in
             switch result {
@@ -143,7 +143,7 @@ class ApiClientTests: XCTestCase {
                         startAt: startsAt,
                         endAt: endsAt,
                         tag: .development)
-        self.requestEncoderMock.isEncodeToDictionaryThrowingError = true
+        self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
         apiClient.post(Endpoints.workTimes, parameters: task) { (result: TimeTable.Result<Void>) in
             switch result {
@@ -235,7 +235,7 @@ class ApiClientTests: XCTestCase {
         var expectedError: Error?
         let apiClient = self.buildApiClient()
         let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
-        self.requestEncoderMock.isEncodeToDictionaryThrowingError = true
+        self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
         apiClient.get(Endpoints.workTimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
             switch result {
@@ -323,7 +323,7 @@ class ApiClientTests: XCTestCase {
         var expectedError: Error?
         let apiClient = self.buildApiClient()
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
-        self.requestEncoderMock.isEncodeToDictionaryThrowingError = true
+        self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
         apiClient.put(Endpoints.signIn, parameters: parameters) { (result: TimeTable.Result<SessionDecoder>) in
             switch result {
@@ -430,7 +430,7 @@ class ApiClientTests: XCTestCase {
                         startAt: startsAt,
                         endAt: endsAt,
                         tag: .development)
-        self.requestEncoderMock.isEncodeToDictionaryThrowingError = true
+        self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
         apiClient.put(Endpoints.workTimes, parameters: task) { (result: TimeTable.Result<Void>) in
             switch result {

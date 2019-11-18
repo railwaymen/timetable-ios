@@ -9,7 +9,7 @@
 import Foundation
 @testable import TimeTable
 
-class RequestEncoderMock: RequestEncoderType {
+class RequestEncoderMock {
     private lazy var encoder: JSONEncoder = {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .formatted(DateFormatter.init(type: .dateAndTimeExtended))
@@ -17,31 +17,24 @@ class RequestEncoderMock: RequestEncoderType {
         return encoder
     }()
     
-    private(set) var encodeWrapper: Encodable?
-    var isThrowingError = false
-    
-    func encode<T>(wrapper: T) throws -> Data where T: Encodable {
-        self.encodeWrapper = wrapper
-        if self.isThrowingError {
-            throw TestError(message: "encode error")
-        } else {
-            return try self.encoder.encode(wrapper)
-        }
+    var encodeToDictionaryThrowError: Error?
+    private(set) var encodeToDictionaryParams: [EncodeToDictionaryParams] = []
+    struct EncodeToDictionaryParams {
+        var wrapper: Encodable
     }
-    
-    private(set) var encodeToDictionaryWrapper: Encodable?
-    var isEncodeToDictionaryThrowingError = false
-    
+}
+
+// MARK: - RequestEncoderType
+extension RequestEncoderMock: RequestEncoderType {
     func encodeToDictionary<T>(wrapper: T) throws -> [String: Any] where T: Encodable {
-        self.encodeToDictionaryWrapper = wrapper
-        if self.isEncodeToDictionaryThrowingError {
-            throw TestError(message: "encode to dictionary error")
-        } else {
-            let data = try self.encoder.encode(wrapper)
-            guard let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
-                throw TestError(message: "JSONSerialization.jsonObject error")
-            }
-            return json
+        self.encodeToDictionaryParams.append(EncodeToDictionaryParams(wrapper: wrapper))
+        if let error = self.encodeToDictionaryThrowError {
+            throw error
         }
+        let data = try self.encoder.encode(wrapper)
+        guard let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
+            throw TestError(message: "JSONSerialization.jsonObject error")
+        }
+        return json
     }
 }
