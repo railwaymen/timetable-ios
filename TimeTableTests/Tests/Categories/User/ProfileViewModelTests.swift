@@ -74,7 +74,7 @@ class ProfileViewModelTests: XCTestCase {
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
         self.viewModel.viewDidLoad()
-        self.apiClientMock.fetchUserProfileCompletion?(.failure(error))
+        self.apiClientMock.fetchUserProfileParams.last?.completion(.failure(error))
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
@@ -89,7 +89,7 @@ class ProfileViewModelTests: XCTestCase {
         let userDecoder = try self.decoder.decode(UserDecoder.self, from: data)
         //Act
         self.viewModel.viewDidLoad()
-        self.apiClientMock.fetchUserProfileCompletion?(.success(userDecoder))
+        self.apiClientMock.fetchUserProfileParams.last?.completion(.success(userDecoder))
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())

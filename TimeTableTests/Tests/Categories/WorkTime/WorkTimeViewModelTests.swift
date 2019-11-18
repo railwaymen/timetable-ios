@@ -123,7 +123,7 @@ class WorkTimeViewModelTests: XCTestCase {
         let projectDecoders = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
         //Act
         self.viewModel.viewDidLoad()
-        self.apiClient.fetchSimpleListOfProjectsCompletion?(.success(projectDecoders))
+        self.apiClient.fetchSimpleListOfProjectsParams.last?.completion(.success(projectDecoders))
         //Assert
         XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
     }
@@ -133,7 +133,7 @@ class WorkTimeViewModelTests: XCTestCase {
         let error = ApiClientError(type: .invalidParameters)
         //Act
         self.viewModel.viewDidLoad()
-        self.apiClient.fetchSimpleListOfProjectsCompletion?(.failure(error))
+        self.apiClient.fetchSimpleListOfProjectsParams.last?.completion(.failure(error))
         //Assert
         XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
     }
@@ -143,7 +143,7 @@ class WorkTimeViewModelTests: XCTestCase {
         let error = ApiClientError(type: .invalidParameters)
         //Act
         self.viewModel.viewDidLoad()
-        self.apiClient.fetchSimpleListOfProjectsCompletion?(.failure(error))
+        self.apiClient.fetchSimpleListOfProjectsParams.last?.completion(.failure(error))
         //Assert
         let throwedError = try (self.errorHandlerMock.throwedError as? ApiClientError).unwrap()
         XCTAssertEqual(throwedError, error)
@@ -155,7 +155,7 @@ class WorkTimeViewModelTests: XCTestCase {
         let projectDecoders = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
         //Act
         self.viewModel.viewDidLoad()
-        self.apiClient.fetchSimpleListOfProjectsCompletion?(.success(projectDecoders))
+        self.apiClient.fetchSimpleListOfProjectsParams.last?.completion(.success(projectDecoders))
         //Assert
         XCTAssertEqual(self.userInterface.updateProjectParams.last?.name, "asdsa")
     }
@@ -178,7 +178,7 @@ class WorkTimeViewModelTests: XCTestCase {
         self.viewModel.viewDidLoad()
         let tags: [ProjectTag] = [.default, .internalMeeting]
         let simpleProjectDecoder = SimpleProjectDecoder(projects: [], tags: tags)
-        self.apiClient.fetchSimpleListOfProjectsCompletion?(.success(simpleProjectDecoder))
+        self.apiClient.fetchSimpleListOfProjectsParams.last?.completion(.success(simpleProjectDecoder))
         //Act
         let numberOfTags = self.viewModel.viewRequestedForNumberOfTags()
         //Assert
@@ -190,7 +190,7 @@ class WorkTimeViewModelTests: XCTestCase {
         self.viewModel.viewDidLoad()
         let tags: [ProjectTag] = [.default, .internalMeeting]
         let simpleProjectDecoder = SimpleProjectDecoder(projects: [], tags: tags)
-        self.apiClient.fetchSimpleListOfProjectsCompletion?(.success(simpleProjectDecoder))
+        self.apiClient.fetchSimpleListOfProjectsParams.last?.completion(.success(simpleProjectDecoder))
         //Act
         let tag = self.viewModel.viewRequestedForTag(at: IndexPath(row: 0, section: 0))
         //Assert
@@ -209,7 +209,7 @@ class WorkTimeViewModelTests: XCTestCase {
         self.viewModel.viewDidLoad()
         let tags: [ProjectTag] = [.default, .internalMeeting]
         let simpleProjectDecoder = SimpleProjectDecoder(projects: [], tags: tags)
-        self.apiClient.fetchSimpleListOfProjectsCompletion?(.success(simpleProjectDecoder))
+        self.apiClient.fetchSimpleListOfProjectsParams.last?.completion(.success(simpleProjectDecoder))
         let indexPath = IndexPath(row: 0, section: 0)
         //Act
         self.viewModel.viewSelectedTag(at: indexPath)
@@ -223,7 +223,7 @@ class WorkTimeViewModelTests: XCTestCase {
         self.viewModel.viewDidLoad()
         let tags: [ProjectTag] = [.default, .internalMeeting]
         let simpleProjectDecoder = SimpleProjectDecoder(projects: [], tags: tags)
-        self.apiClient.fetchSimpleListOfProjectsCompletion?(.success(simpleProjectDecoder))
+        self.apiClient.fetchSimpleListOfProjectsParams.last?.completion(.success(simpleProjectDecoder))
         let indexPath = IndexPath(row: 0, section: 0)
         //Act
         self.viewModel.viewSelectedTag(at: indexPath)
@@ -620,7 +620,7 @@ class WorkTimeViewModelTests: XCTestCase {
         try self.fillAllDataInViewModel(task: task)
         //Act
         self.viewModel.viewRequestedToSave()
-        self.apiClient.addWorkTimeComletion?(.failure(error))
+        self.apiClient.addWorkTimeParams.last?.completion(.failure(error))
         //Assert
         XCTAssertEqual((self.errorHandlerMock.throwedError as? ApiClientError)?.type, error.type)
     }
@@ -632,7 +632,7 @@ class WorkTimeViewModelTests: XCTestCase {
         try self.fillAllDataInViewModel(task: task)
         //Act
         self.viewModel.viewRequestedToSave()
-        self.apiClient.addWorkTimeComletion?(.success(Void()))
+        self.apiClient.addWorkTimeParams.last?.completion(.success(Void()))
         //Assert
         XCTAssertEqual(self.userInterface.dismissViewParams.count, 1)
     }
@@ -645,7 +645,7 @@ class WorkTimeViewModelTests: XCTestCase {
         try self.fillAllDataInViewModel(task: task)
         //Act
         self.viewModel.viewRequestedToSave()
-        self.apiClient.updateWorkTimeCompletion?(.success(Void()))
+        self.apiClient.updateWorkTimeParams.last?.completion(.success(Void()))
         //Assert
         XCTAssertEqual(self.userInterface.dismissViewParams.count, 1)
     }
@@ -662,7 +662,7 @@ class WorkTimeViewModelTests: XCTestCase {
         let data = try self.json(from: ProjectsRecordsResponse.simpleProjectArrayResponse)
         let projectDecoders = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
         self.viewModel.viewDidLoad()
-        try self.apiClient.fetchSimpleListOfProjectsCompletion.unwrap()(.success(projectDecoders))
+        try self.apiClient.fetchSimpleListOfProjectsParams.last.unwrap().completion(.success(projectDecoders))
     }
     
     private func createViewModel(flowType: WorkTimeViewModel.FlowType) -> WorkTimeViewModel {

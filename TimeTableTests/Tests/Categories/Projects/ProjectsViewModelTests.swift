@@ -41,7 +41,7 @@ class ProjectsViewModelTests: XCTestCase {
         let data = try self.json(from: ProjectsRecordsResponse.projectsRecordsResponse)
         let records = try self.decoder.decode([ProjectRecordDecoder].self, from: data)
         self.viewModel.viewDidLoad()
-        self.apiClientMock.fetchAllProjectsCompletion?(.success(records))
+        self.apiClientMock.fetchAllProjectsParams.last?.completion(.success(records))
         //Act
         let numberOfItems = self.viewModel.numberOfItems()
         //Assert
@@ -65,7 +65,7 @@ class ProjectsViewModelTests: XCTestCase {
         let data = try self.json(from: ProjectsRecordsResponse.projectsRecordsResponse)
         let records = try self.decoder.decode([ProjectRecordDecoder].self, from: data)
         self.viewModel.viewDidLoad()
-        self.apiClientMock.fetchAllProjectsCompletion?(.success(records))
+        self.apiClientMock.fetchAllProjectsParams.last?.completion(.success(records))
         let indexPath = IndexPath(row: 0, section: 0)
         //Act
         let project = self.viewModel.item(at: indexPath)
@@ -87,7 +87,7 @@ class ProjectsViewModelTests: XCTestCase {
         let data = try self.json(from: ProjectsRecordsResponse.projectsRecordsResponse)
         let records = try self.decoder.decode([ProjectRecordDecoder].self, from: data)
         self.viewModel.viewDidLoad()
-        self.apiClientMock.fetchAllProjectsCompletion?(.success(records))
+        self.apiClientMock.fetchAllProjectsParams.last?.completion(.success(records))
         let indexPath = IndexPath(row: 1, section: 0)
         //Act
         let project = self.viewModel.item(at: indexPath)
@@ -115,7 +115,7 @@ class ProjectsViewModelTests: XCTestCase {
         let error = TestError(message: "fetch project failure")
         //Act
         self.viewModel.viewDidLoad()
-        self.apiClientMock.fetchAllProjectsCompletion?(.failure(error))
+        self.apiClientMock.fetchAllProjectsParams.last?.completion(.failure(error))
         //Assert
         XCTAssertEqual(try (self.errorHandlerMock.throwedError as? TestError).unwrap(), error)
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)

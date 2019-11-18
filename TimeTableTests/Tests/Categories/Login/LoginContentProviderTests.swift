@@ -49,7 +49,7 @@ class LoginContentProviderTests: XCTestCase {
                 expectedError = error
             }
         }, saveCompletion: { _ in })
-        self.apiClientMock.signInCompletion?(.failure(ApiClientError(type: .invalidParameters)))
+        self.apiClientMock.signInParams.last?.completion(.failure(ApiClientError(type: .invalidParameters)))
         //Assert
         switch (expectedError as? ApiClientError)?.type {
         case .invalidParameters?: break
@@ -73,7 +73,7 @@ class LoginContentProviderTests: XCTestCase {
                 expectedError = error
             }
         })
-        self.apiClientMock.signInCompletion?(.success(sessionReponse))
+        self.apiClientMock.signInParams.last?.completion(.success(sessionReponse))
         self.coreDataStackUserMock.saveUserCompletion?(.failure(CoreDataStack.Error.storageItemNotFound))
         //Assert
         switch expectedError as? CoreDataStack.Error {
@@ -102,7 +102,7 @@ class LoginContentProviderTests: XCTestCase {
             case .failure: XCTFail()
             }
         })
-        self.apiClientMock.signInCompletion?(.success(sessionReponse))
+        self.apiClientMock.signInParams.last?.completion(.success(sessionReponse))
         _ = self.coreDataStackUserMock.saveCoreDataTypeTranslatior?(synchronousDataTransactionMock)
         self.coreDataStackUserMock.saveUserCompletion?(.success(user))
         //Assert
@@ -139,7 +139,7 @@ class LoginContentProviderTests: XCTestCase {
                 XCTFail()
             }
         })
-        self.apiClientMock.signInCompletion?(.success(sessionReponse))
+        self.apiClientMock.signInParams.last?.completion(.success(sessionReponse))
         _ = self.coreDataStackUserMock.saveCoreDataTypeTranslatior?(asynchronousDataTransactionMock)
         self.coreDataStackUserMock.saveUserCompletion?(.success(user))
         //Assert

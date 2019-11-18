@@ -48,8 +48,8 @@ class WorkTimesContentProviderTests: XCTestCase {
         XCTAssertEqual(self.dispatchGroupMock.enterCalledCount, 2)
         XCTAssertEqual(self.dispatchGroupMock.leaveCalledCount, 0)
         XCTAssertEqual(self.dispatchGroupMock.notifyCalledCount, 1)
-        XCTAssertNotNil(self.apiClientMock.fetchWorkTimesCompletion)
-        XCTAssertNotNil(self.apiClientMock.fetchMatchingFullTimeCompletion)
+        XCTAssertEqual(self.apiClientMock.fetchWorkTimesParams.count, 1)
+        XCTAssertEqual(self.apiClientMock.fetchMatchingFullTimeParams.count, 1)
     }
     
     func testFetchWorkTimeDataWhileGivenDateIsNil() throws {
@@ -66,8 +66,8 @@ class WorkTimesContentProviderTests: XCTestCase {
                 expectedError = error
             }
         }
-        self.apiClientMock.fetchWorkTimesCompletion?(.failure(error))
-        self.apiClientMock.fetchMatchingFullTimeCompletion?(.failure(error))
+        self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
+        self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.failure(error))
         //Assert
         XCTAssertEqual(self.dispatchGroupMock.enterCalledCount, 2)
         XCTAssertEqual(self.dispatchGroupMock.leaveCalledCount, 2)
@@ -92,8 +92,8 @@ class WorkTimesContentProviderTests: XCTestCase {
                 expectedError = error
             }
         }
-        self.apiClientMock.fetchWorkTimesCompletion?(.failure(error))
-        self.apiClientMock.fetchMatchingFullTimeCompletion?(.failure(error))
+        self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
+        self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.failure(error))
         //Assert
         XCTAssertEqual(self.dispatchGroupMock.enterCalledCount, 2)
         XCTAssertEqual(self.dispatchGroupMock.leaveCalledCount, 2)
@@ -121,8 +121,8 @@ class WorkTimesContentProviderTests: XCTestCase {
                 expectedError = error
             }
         }
-        self.apiClientMock.fetchWorkTimesCompletion?(.failure(error))
-        self.apiClientMock.fetchMatchingFullTimeCompletion?(.failure(error))
+        self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
+        self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.failure(error))
         //Assert
         XCTAssertEqual(self.dispatchGroupMock.enterCalledCount, 2)
         XCTAssertEqual(self.dispatchGroupMock.leaveCalledCount, 2)
@@ -147,8 +147,8 @@ class WorkTimesContentProviderTests: XCTestCase {
                 expectedError = error
             }
         }
-        self.apiClientMock.fetchWorkTimesCompletion?(.failure(error))
-        self.apiClientMock.fetchMatchingFullTimeCompletion?(.success(matchingFullTime))
+        self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
+        self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.success(matchingFullTime))
         //Assert
         XCTAssertEqual(self.dispatchGroupMock.enterCalledCount, 2)
         XCTAssertEqual(self.dispatchGroupMock.leaveCalledCount, 2)
@@ -185,8 +185,8 @@ class WorkTimesContentProviderTests: XCTestCase {
                 XCTFail()
             }
         }
-        self.apiClientMock.fetchWorkTimesCompletion?(.success(workTimes))
-        self.apiClientMock.fetchMatchingFullTimeCompletion?(.success(matchingFullTime))
+        self.apiClientMock.fetchWorkTimesParams.last?.completion(.success(workTimes))
+        self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.success(matchingFullTime))
         //Assert
         XCTAssertEqual(self.dispatchGroupMock.enterCalledCount, 2)
         XCTAssertEqual(self.dispatchGroupMock.leaveCalledCount, 2)
@@ -204,9 +204,9 @@ class WorkTimesContentProviderTests: XCTestCase {
         self.contentProvider.delete(workTime: workTime) { result in
             completionResult = result
         }
-        self.apiClientMock.deleteWorkTimeCompletion?(.success(Void()))
+        self.apiClientMock.deleteWorkTimeParams.last?.completion(.success(Void()))
         //Assert
-        XCTAssertTrue(self.apiClientMock.deleteWorkTimeCalled)
+        XCTAssertEqual(self.apiClientMock.deleteWorkTimeParams.count, 1)
         switch completionResult {
         case .some(.success): break
         default: XCTFail()
