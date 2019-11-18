@@ -117,7 +117,7 @@ class ProfileViewModelTests: XCTestCase {
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
         XCTAssertFalse(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
         XCTAssertNil(self.errorHandlerMock.throwedError)
-        XCTAssertNotNil(self.coreDataStackMock.deleteUserCompletion)
+        XCTAssertEqual(self.coreDataStackMock.deleteUserParams.count, 1)
     }
     
     func testViewRequestedForLogoutThrowsAnError() {
@@ -126,7 +126,7 @@ class ProfileViewModelTests: XCTestCase {
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
         self.viewModel.viewRequestedForLogout()
-        self.coreDataStackMock.deleteUserCompletion?(.failure(error))
+        self.coreDataStackMock.deleteUserParams.last?.completion(.failure(error))
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
@@ -138,7 +138,7 @@ class ProfileViewModelTests: XCTestCase {
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
         self.viewModel.viewRequestedForLogout()
-        self.coreDataStackMock.deleteUserCompletion?(.success(Void()))
+        self.coreDataStackMock.deleteUserParams.last?.completion(.success(Void()))
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())

@@ -74,7 +74,7 @@ class LoginContentProviderTests: XCTestCase {
             }
         })
         self.apiClientMock.signInParams.last?.completion(.success(sessionReponse))
-        self.coreDataStackUserMock.saveUserCompletion?(.failure(CoreDataStack.Error.storageItemNotFound))
+        self.coreDataStackUserMock.saveParams.last?.completion(.failure(CoreDataStack.Error.storageItemNotFound))
         //Assert
         switch expectedError as? CoreDataStack.Error {
         case .storageItemNotFound?: break
@@ -103,8 +103,8 @@ class LoginContentProviderTests: XCTestCase {
             }
         })
         self.apiClientMock.signInParams.last?.completion(.success(sessionReponse))
-        _ = self.coreDataStackUserMock.saveCoreDataTypeTranslatior?(synchronousDataTransactionMock)
-        self.coreDataStackUserMock.saveUserCompletion?(.success(user))
+        _ = self.coreDataStackUserMock.saveParams.last?.translation(synchronousDataTransactionMock)
+        self.coreDataStackUserMock.saveParams.last?.completion(.success(user))
         //Assert
         XCTAssertEqual(synchronousDataTransactionMock.deleteAllParams.count, 1)
     }
@@ -140,8 +140,8 @@ class LoginContentProviderTests: XCTestCase {
             }
         })
         self.apiClientMock.signInParams.last?.completion(.success(sessionReponse))
-        _ = self.coreDataStackUserMock.saveCoreDataTypeTranslatior?(asynchronousDataTransactionMock)
-        self.coreDataStackUserMock.saveUserCompletion?(.success(user))
+        _ = self.coreDataStackUserMock.saveParams.last?.translation(asynchronousDataTransactionMock)
+        self.coreDataStackUserMock.saveParams.last?.completion(.success(user))
         //Assert
         XCTAssertTrue(fetchSuccessCalled)
         XCTAssertTrue(saveSuccessCalled)
