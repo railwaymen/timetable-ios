@@ -6,32 +6,47 @@
 //  Copyright © 2018 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import XCTest
 @testable import TimeTable
 
-class CoreDataStackMock: CoreDataStackType {
-    
+class CoreDataStackMock {
     typealias CDT = UserEntity
-    var fetchUserExpectationHandler: (() -> Void)?
-    private(set) var fetchUserIdentifier: Int64?
-    private(set) var fetchUserCompletion: ((Result<UserEntity>) -> Void)?
-    private(set) var saveUserDecoder: SessionDecoder?
-    private(set) var saveUserCompletion: ((Result<UserEntity>) -> Void)?
-    private(set) var saveCoreDataTypeTranslatior: ((AsynchronousDataTransactionType) -> UserEntity)?
+    
+    private(set) var deleteUserParams: [DeleteUserParams] = []
+    struct DeleteUserParams {
+        var identifier: Int64
+        var completion: (Result<Void>) -> Void
+    }
+    
+    private(set) var fetchUserParams: [FetchUserParams] = []
+    struct FetchUserParams {
+        var identifier: Int64
+        var completion: (Result<UserEntity>) -> Void
+    }
+    
+    private(set) var saveParams: [SaveParams] = []
+    struct SaveParams {
+        var userDecoder: SessionDecoder
+        var translation: (AsynchronousDataTransactionType) -> UserEntity
+        var completion: (Result<UserEntity>) -> Void
+    }
+}
+
+// MARK: - CoreDataStackType
+extension CoreDataStackMock: CoreDataStackType {
+    func deleteUser(forIdentifier identifier: Int64, completion: @escaping (Result<Void>) -> Void) {
+        self.deleteUserParams.append(DeleteUserParams(identifier: identifier, completion: completion))
+    }
     
     func fetchUser(forIdentifier identifier: Int64, completion: @escaping (Result<UserEntity>) -> Void) {
-        self.fetchUserIdentifier = identifier
-        self.fetchUserCompletion = completion
-        self.fetchUserExpectationHandler?()
+        self.fetchUserParams.append(FetchUserParams(identifier: identifier, completion: completion))
     }
     
     func save<CDT>(userDecoder: SessionDecoder,
                    coreDataTypeTranslation: @escaping ((AsynchronousDataTransactionType) -> CDT),
                    completion: @escaping (Result<CDT>) -> Void) {
-        
         // swiftlint:disable force_cast
-        self.saveUserDecoder = userDecoder
-        self.saveUserCompletion = { result in
+        let completion: (Result<UserEntity>) -> Void = { result in
             switch result {
             case .failure(let error):
                 completion(.failure(error))
@@ -39,16 +54,10 @@ class CoreDataStackMock: CoreDataStackType {
                 completion(.success(entity as! CDT))
             }
         }
-        self.saveCoreDataTypeTranslatior = { transaction in
+        let translation: (AsynchronousDataTransactionType) -> UserEntity = { transaction in
             return coreDataTypeTranslation(transaction) as! UserEntity
         }
         // swiftlint:enable force_cast
-    }
-    
-    private(set) var deleteUserValues: (Bool, Int64?) = (false, nil)
-    private(set) var deleteUserCompletion: ((Result<Void>) -> Void)?
-    func deleteUser(forIdentifier identifier: Int64, completion: @escaping (Result<Void>) -> Void) {
-        self.deleteUserValues = (true, identifier)
-        self.deleteUserCompletion = completion
+        self.saveParams.append(SaveParams(userDecoder: userDecoder, translation: translation, completion: completion))
     }
 }

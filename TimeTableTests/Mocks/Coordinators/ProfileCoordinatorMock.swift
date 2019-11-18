@@ -9,9 +9,14 @@
 import XCTest
 @testable import TimeTable
 
-class ProfileCoordinatorMock: ProfileCoordinatorDelegate {
-    private(set) var userProfileDidLogoutUserCalled = false
+class ProfileCoordinatorMock {
+    private(set) var userProfileDidLogoutUserParams: [UserProfileDidLogoutUserParams] = []
+    struct UserProfileDidLogoutUserParams {}
+}
+
+// MARK: - ProfileCoordinatorDelegate
+extension ProfileCoordinatorMock: ProfileCoordinatorDelegate {
     func userProfileDidLogoutUser() {
-        self.userProfileDidLogoutUserCalled = true
+        self.userProfileDidLogoutUserParams.append(UserProfileDidLogoutUserParams())
     }
 }

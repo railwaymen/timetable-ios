@@ -85,7 +85,7 @@ class CoreDataStackTests: XCTestCase {
         user.token = "token_abcd"
         user.firstName = "John"
         user.lastName = "Little"
-        self.dataStackMock.user = user
+        self.dataStackMock.fetchAllReturnType = user
         //Act
         stack.fetchUser(forIdentifier: 1) { (result: Result<UserEntity>) in
             switch result {
@@ -121,7 +121,7 @@ class CoreDataStackTests: XCTestCase {
                 expecetdError = error
             }
         }
-        self.dataStackMock.performFailure?(CoreStoreError.unknown)
+        self.dataStackMock.performParams.last?.failure(CoreStoreError.unknown)
         //Assert
         switch expecetdError as? CoreStoreError {
         case .unknown?: break
@@ -151,7 +151,7 @@ class CoreDataStackTests: XCTestCase {
                 XCTFail()
             }
         }
-        self.dataStackMock.performSuccess?(user)
+        self.dataStackMock.performParams.last?.success(user)
         //Assert
         XCTAssertEqual(expectedEntity, user)
     }
@@ -167,12 +167,12 @@ class CoreDataStackTests: XCTestCase {
         user.token = "token_abcd"
         user.firstName = "John"
         user.lastName = "Little"
-        asynchronousDataTransactionMock.user = user
+        asynchronousDataTransactionMock.createReturnValue = user
         //Act
         stack.save(userDecoder: sessionReponse, coreDataTypeTranslation: { (transaction: AsynchronousDataTransactionType) -> UserEntity in
             //Assert
             return UserEntity.createUser(from: sessionReponse, transaction: transaction)
         }) { (_: (Result<UserEntity>)) in }
-        _ = try self.dataStackMock.performTask?(asynchronousDataTransactionMock)
+        _ = try self.dataStackMock.performParams.last?.asynchronousTask(asynchronousDataTransactionMock)
     }
 }

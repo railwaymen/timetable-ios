@@ -9,30 +9,44 @@
 import Foundation
 @testable import TimeTable
 
-class ProjectsViewControllerMock: ProjectsViewModelOutput {
+class ProjectsViewControllerMock {
+    private(set) var setUpViewParams: [SetUpViewParams] = []
+    struct SetUpViewParams {}
     
-    private(set) var setUpViewCalled = false
+    private(set) var updateViewParams: [UpdateViewParams] = []
+    struct UpdateViewParams {}
+    
+    private(set) var showCollectionViewParams: [ShowCollectionViewParams] = []
+    struct ShowCollectionViewParams {}
+    
+    private(set) var showErrorViewParams: [ShowErrorViewParams] = []
+    struct ShowErrorViewParams {}
+    
+    private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
+    struct SetActivityIndicatorParams {
+        var isHidden: Bool
+    }
+}
+
+// MARK: - ProjectsViewModelOutput
+extension ProjectsViewControllerMock: ProjectsViewModelOutput {
     func setUpView() {
-        self.setUpViewCalled = true
+        self.setUpViewParams.append(SetUpViewParams())
     }
     
-    private(set) var updateViewCalled = false
     func updateView() {
-        self.updateViewCalled = true
+        self.updateViewParams.append(UpdateViewParams())
     }
     
-    private(set) var showCollectionViewCalled: Bool = false
     func showCollectionView() {
-        self.showCollectionViewCalled = true
+        self.showCollectionViewParams.append(ShowCollectionViewParams())
     }
     
-    private(set) var showErrorViewCalled: Bool = false
     func showErrorView() {
-        self.showErrorViewCalled = true
+        self.showErrorViewParams.append(ShowErrorViewParams())
     }
     
-    private(set) var setActivityIndicatorIsHidden: Bool?
     func setActivityIndicator(isHidden: Bool) {
-        self.setActivityIndicatorIsHidden = isHidden
+        self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isHidden))
     }
 }

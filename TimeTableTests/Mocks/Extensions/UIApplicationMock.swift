@@ -9,13 +9,18 @@
 import XCTest
 @testable import TimeTable
 
-// swiftlint:disable large_tuple
-class UIApplicationMock: UIApplicationType {
-    private(set) var openURLCalledCount = 0
-    private(set) var openURLValues: (url: URL, options: [UIApplication.OpenExternalURLOptionsKey: Any], completion: ((Bool) -> Void)?)?
-    func open(_ url: URL, options: [UIApplication.OpenExternalURLOptionsKey: Any] = [:], completionHandler completion: ((Bool) -> Void)? = nil) {
-        self.openURLCalledCount += 1
-        self.openURLValues = (url, options, completion)
+class UIApplicationMock {
+    private(set) var openParams: [OpenParams] = []
+    struct OpenParams {
+        var url: URL
+        var options: [UIApplication.OpenExternalURLOptionsKey: Any]
+        var completion: ((Bool) -> Void)?
     }
 }
-// swiftlint:enable large_tuple
+
+// MARK: - UIApplicationType
+extension UIApplicationMock: UIApplicationType {
+    func open(_ url: URL, options: [UIApplication.OpenExternalURLOptionsKey: Any], completionHandler completion: ((Bool) -> Void)?) {
+        self.openParams.append(OpenParams(url: url, options: options, completion: completion))
+    }
+}

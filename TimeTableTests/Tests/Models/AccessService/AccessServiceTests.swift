@@ -11,7 +11,7 @@ import XCTest
 
 class AccessServiceTests: XCTestCase {
     
-    private var userDefaultsMock: UserDefaultsMock!
+    private var userDefaults: UserDefaults!
     private var keychainAccessMock: KeychainAccessMock!
     private var encoderMock: JSONEncoderMock!
     private var decoderMock: JSONDecoderMock!
@@ -20,22 +20,27 @@ class AccessServiceTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        self.userDefaultsMock = UserDefaultsMock()
+        self.userDefaults = UserDefaults()
         self.keychainAccessMock = KeychainAccessMock()
         self.coreDataMock = CoreDataStackMock()
         self.encoderMock = JSONEncoderMock()
         self.decoderMock = JSONDecoderMock()
-        self.accessService = AccessService(userDefaults: self.userDefaultsMock,
+        self.accessService = AccessService(userDefaults: self.userDefaults,
                                            keychainAccess: self.keychainAccessMock,
                                            coreData: self.coreDataMock,
                                            buildEncoder: { return self.encoderMock },
                                            buildDecoder: { return self.decoderMock })
     }
     
+    override func tearDown() {
+        self.userDefaults.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+        super.tearDown()
+    }
+    
     func testSaveUserThrowsAnErrorWhileCredentialsEncodingFails() {
         //Arrange
         let credentails = LoginCredentials(email: "user@example.com", password: "password")
-        self.encoderMock.isThrowingError = true
+        self.encoderMock.shouldThrowError = true
         //Act
         do {
             try self.accessService.saveUser(credentails: credentails)
@@ -52,7 +57,7 @@ class AccessServiceTests: XCTestCase {
     func testSaveUserThrowsAnErrorWhileKeychainAccessFailsWhileSaving() {
         //Arrange
         let credentails = LoginCredentials(email: "user@example.com", password: "password")
-        self.keychainAccessMock.setDataIsThrowingError = true
+        self.keychainAccessMock.setDataThrowError = TestError(message: "test")
         //Act
         do {
             try self.accessService.saveUser(credentails: credentails)
@@ -76,19 +81,20 @@ class AccessServiceTests: XCTestCase {
     
     func testGetUserCredentialsFailsWhileKeychainAccessThrowsAnError() {
         //Arrange
-        self.keychainAccessMock.getDataIsThrowingError = true
+        let thrownError = TestError(message: "test")
+        self.keychainAccessMock.getDataThrowError = thrownError
         //Act
         do {
             _ = try self.accessService.getUserCredentials()
         } catch {
             //Assert
-            XCTAssertEqual(try (error as? TestError).unwrap(), TestError(message: "set Data error"))
+            XCTAssertEqual(try (error as? TestError).unwrap(), thrownError)
         }
     }
     
     func testGetUserCredentialsFailsWhileKeychainAccessReturnsNilValue() {
         //Arrange
-        self.keychainAccessMock.getDataValue = nil
+        self.keychainAccessMock.getDataReturnValue = nil
         //Act
         do {
             _ = try self.accessService.getUserCredentials()
@@ -106,8 +112,8 @@ class AccessServiceTests: XCTestCase {
         //Arrange
         let credentials = LoginCredentials(email: "user@example.com", password: "password")
         let data = try JSONEncoder().encode(credentials)
-        self.keychainAccessMock.getDataValue = data
-        self.decoderMock.isThrowingError = true
+        self.keychainAccessMock.getDataReturnValue = data
+        self.decoderMock.shouldThrowError = true
         //Act
         do {
             _ = try self.accessService.getUserCredentials()
@@ -121,7 +127,7 @@ class AccessServiceTests: XCTestCase {
         //Arrange
         let credentials = LoginCredentials(email: "user@example.com", password: "password")
         let data = try JSONEncoder().encode(credentials)
-        self.keychainAccessMock.getDataValue = data
+        self.keychainAccessMock.getDataReturnValue = data
         //Act
         let accessServiceCredentials = try self.accessService.getUserCredentials()
         //Assert
@@ -134,11 +140,10 @@ class AccessServiceTests: XCTestCase {
         //Act
         self.accessService.saveLastLoggedInUserIdentifier(identifier)
         //Assert
-        XCTAssertEqual(try (self.userDefaultsMock.setAnyValues.value as? Int64).unwrap(), identifier)
+        XCTAssertEqual(self.userDefaults.value(forKey: "key.time_table.last_logged_user.id.key") as? Int64, identifier)
     }
     
     func testGetLastLoggedInUserIdentifierReturnsNilWhileUserDefaultsReturnsNil() {
-        //Arrange
         //Act
         let identifier = self.accessService.getLastLoggedInUserIdentifier()
         //Assert
@@ -147,7 +152,7 @@ class AccessServiceTests: XCTestCase {
     
     func testGetLastLoggedInUserIdentifierReturnsNilWhileUserDefaultsReturnsNotAnInt64() {
         //Arrange
-        self.userDefaultsMock.objectForKey = "TEST"
+        self.userDefaults.set("TEST", forKey: "key.time_table.last_logged_user.id.key")
         //Act
         let identifier = self.accessService.getLastLoggedInUserIdentifier()
         //Assert
@@ -157,7 +162,7 @@ class AccessServiceTests: XCTestCase {
     func testGetLastLoggedInUserIdentifierReturnsCorrectValue() {
         //Arrange
         let expectedIdentifier = Int64(3)
-        self.userDefaultsMock.objectForKey = expectedIdentifier
+        self.userDefaults.set(expectedIdentifier, forKey: "key.time_table.last_logged_user.id.key")
         //Act
         let identifier = self.accessService.getLastLoggedInUserIdentifier()
         //Assert
@@ -166,9 +171,11 @@ class AccessServiceTests: XCTestCase {
     
     func testRemoveLastLoggedInUserIdentifier() {
         //Arrange
+        let key = "key.time_table.last_logged_user.id.key"
+        self.userDefaults.set("test", forKey: key)
         //Act
         self.accessService.removeLastLoggedInUserIdentifier()
         //Assert
-        XCTAssertTrue(self.userDefaultsMock.removeObjectValues.called)
+        XCTAssertNil(self.userDefaults.object(forKey: key))
     }
 }

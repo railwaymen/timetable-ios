@@ -6,19 +6,25 @@
 //  Copyright © 2018 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import XCTest
 @testable import TimeTable
 
-class LoginContentProviderMock: LoginContentProviderType {
-    private(set) var loginCredentials: LoginCredentials?
-    private(set) var fetchCompletion: ((Result<SessionDecoder>) -> Void)?
-    private(set) var saveCompletion: ((Result<Void>) -> Void)?
-    
+class LoginContentProviderMock {
+    private(set) var loginParams: [LoginParams] = []
+    struct LoginParams {
+        var credentials: LoginCredentials
+        var fetchCompletion: ((Result<SessionDecoder>) -> Void)
+        var saveCompletion: ((Result<Void>) -> Void)
+    }
+}
+
+// MARK: - LoginContentProviderType
+extension LoginContentProviderMock: LoginContentProviderType {
     func login(with credentials: LoginCredentials,
                fetchCompletion: @escaping ((Result<SessionDecoder>) -> Void),
                saveCompletion: @escaping ((Result<Void>) -> Void)) {
-        self.loginCredentials = credentials
-        self.fetchCompletion = fetchCompletion
-        self.saveCompletion = saveCompletion
+        self.loginParams.append(LoginParams(credentials: credentials,
+                                            fetchCompletion: fetchCompletion,
+                                            saveCompletion: saveCompletion))
     }
 }

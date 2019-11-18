@@ -147,12 +147,11 @@
 		C134297121A6BDF100F4EA42 /* JSONEncoderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134297021A6BDF100F4EA42 /* JSONEncoderMock.swift */; };
 		C134297321A6BE3800F4EA42 /* JSONSerializationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134297221A6BE3800F4EA42 /* JSONSerializationMock.swift */; };
 		C134297521A6BE6F00F4EA42 /* AccessServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134297421A6BE6F00F4EA42 /* AccessServiceMock.swift */; };
-		C134297721A6BFEA00F4EA42 /* UserDefaultsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134297621A6BFEA00F4EA42 /* UserDefaultsMock.swift */; };
 		C134297921A6C21900F4EA42 /* NetworkingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134297821A6C21900F4EA42 /* NetworkingMock.swift */; };
 		C134297B21A6C27700F4EA42 /* KeychainAccessMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134297A21A6C27700F4EA42 /* KeychainAccessMock.swift */; };
 		C134297D21A6C40000F4EA42 /* AsynchronousDataTransactionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134297C21A6C40000F4EA42 /* AsynchronousDataTransactionMock.swift */; };
 		C134297F21A6C66900F4EA42 /* DataStackMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134297E21A6C66900F4EA42 /* DataStackMock.swift */; };
-		C134298121A6C71200F4EA42 /* UrlSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134298021A6C71200F4EA42 /* UrlSessionMock.swift */; };
+		C134298121A6C71200F4EA42 /* URLSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134298021A6C71200F4EA42 /* URLSessionMock.swift */; };
 		C134298321A6C73000F4EA42 /* URLSessionDataTaskMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134298221A6C73000F4EA42 /* URLSessionDataTaskMock.swift */; };
 		C134298521A6C79600F4EA42 /* ErrorHandlerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134298421A6C79600F4EA42 /* ErrorHandlerMock.swift */; };
 		C134298721A6C80B00F4EA42 /* StoryboardsManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134298621A6C80B00F4EA42 /* StoryboardsManagerMock.swift */; };
@@ -489,12 +488,11 @@
 		C134297021A6BDF100F4EA42 /* JSONEncoderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONEncoderMock.swift; sourceTree = "<group>"; };
 		C134297221A6BE3800F4EA42 /* JSONSerializationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONSerializationMock.swift; sourceTree = "<group>"; };
 		C134297421A6BE6F00F4EA42 /* AccessServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessServiceMock.swift; sourceTree = "<group>"; };
-		C134297621A6BFEA00F4EA42 /* UserDefaultsMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsMock.swift; sourceTree = "<group>"; };
 		C134297821A6C21900F4EA42 /* NetworkingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingMock.swift; sourceTree = "<group>"; };
 		C134297A21A6C27700F4EA42 /* KeychainAccessMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainAccessMock.swift; sourceTree = "<group>"; };
 		C134297C21A6C40000F4EA42 /* AsynchronousDataTransactionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsynchronousDataTransactionMock.swift; sourceTree = "<group>"; };
 		C134297E21A6C66900F4EA42 /* DataStackMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStackMock.swift; sourceTree = "<group>"; };
-		C134298021A6C71200F4EA42 /* UrlSessionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlSessionMock.swift; sourceTree = "<group>"; };
+		C134298021A6C71200F4EA42 /* URLSessionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionMock.swift; sourceTree = "<group>"; };
 		C134298221A6C73000F4EA42 /* URLSessionDataTaskMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionDataTaskMock.swift; sourceTree = "<group>"; };
 		C134298421A6C79600F4EA42 /* ErrorHandlerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandlerMock.swift; sourceTree = "<group>"; };
 		C134298621A6C80B00F4EA42 /* StoryboardsManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardsManagerMock.swift; sourceTree = "<group>"; };
@@ -769,8 +767,7 @@
 				8A0707FB23699BE50019FB8E /* NotificationCenterMock.swift */,
 				8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */,
 				C134298221A6C73000F4EA42 /* URLSessionDataTaskMock.swift */,
-				C134298021A6C71200F4EA42 /* UrlSessionMock.swift */,
-				C134297621A6BFEA00F4EA42 /* UserDefaultsMock.swift */,
+				C134298021A6C71200F4EA42 /* URLSessionMock.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -791,13 +788,13 @@
 		8A6B6D85237AB602007D8D93 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				8A6B6D8C237AB65D007D8D93 /* WorkTimes */,
-				8A6B6D8B237AB64B007D8D93 /* WorkTime */,
-				8A6B6D8A237AB636007D8D93 /* Profile */,
-				8A6B6D89237AB629007D8D93 /* ServerConfiguration */,
-				8A6B6D88237AB61E007D8D93 /* Projects */,
-				8A6B6D87237AB613007D8D93 /* ProjectPicker */,
 				8A6B6D86237AB608007D8D93 /* Login */,
+				8A6B6D8A237AB636007D8D93 /* Profile */,
+				8A6B6D87237AB613007D8D93 /* ProjectPicker */,
+				8A6B6D88237AB61E007D8D93 /* Projects */,
+				8A6B6D89237AB629007D8D93 /* ServerConfiguration */,
+				8A6B6D8B237AB64B007D8D93 /* WorkTime */,
+				8A6B6D8C237AB65D007D8D93 /* WorkTimes */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -2329,7 +2326,7 @@
 				C19DDB1321A42043008C6FA3 /* URLExtensionTests.swift in Sources */,
 				C134299321A6D73500F4EA42 /* ServerConfigurationManagerMock.swift in Sources */,
 				C153AC7321834F22007A35BB /* ServerConfigurationViewModelTests.swift in Sources */,
-				C134298121A6C71200F4EA42 /* UrlSessionMock.swift in Sources */,
+				C134298121A6C71200F4EA42 /* URLSessionMock.swift in Sources */,
 				C10FD88421F1F28200A233C5 /* UserDecoderTests.swift in Sources */,
 				C12CA58221A599E60082FEB7 /* WorkTimeDecoderTests.swift in Sources */,
 				8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift in Sources */,
@@ -2352,7 +2349,6 @@
 				C1ECF0A82192C427006038C6 /* CustomJSONSerializationTests.swift in Sources */,
 				8AE00013237464A1002F783E /* WorkTimeCoordinatorMock.swift in Sources */,
 				C178B78D21EF8AE1001DA07F /* WorkTimeViewControllerMock.swift in Sources */,
-				C134297721A6BFEA00F4EA42 /* UserDefaultsMock.swift in Sources */,
 				C19D88A52202FE54007CC867 /* WorkTimesListContentProviderMock.swift in Sources */,
 				C134297B21A6C27700F4EA42 /* KeychainAccessMock.swift in Sources */,
 				8A065B5D237ABDBB0072A21E /* UserJSONResource.swift in Sources */,

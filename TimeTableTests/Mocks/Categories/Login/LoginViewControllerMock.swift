@@ -6,59 +6,92 @@
 //  Copyright © 2018 Railwaymen. All rights reserved.
 //
 
-import UIKit
+import XCTest
 @testable import TimeTable
 
-class LoginViewControllerMock: LoginViewControllerable {
-    private(set) var setUpViewCalledData: (called: Bool, isActive: Bool?) = (false, nil)
-    private(set) var updateLoginFieldsCalled = false
-    private(set) var updateLoginFieldsData: (email: String?, password: String?)
-    private(set) var passwordInputEnabledStateValues: (called: Bool, isEnabled: Bool?) = (false, nil)
-    private(set) var loginButtonEnabledStateValues: (called: Bool, isEnabled: Bool?) = (false, nil)
-    private(set) var checkBoxIsActiveStateValues: (called: Bool, isActive: Bool?) = (false, nil)
-    private(set) var focusOnPasswordTextFieldCalled = false
-    private(set) var dismissKeyboardCalled = false
-    private(set) var setActivityIndicatorIsHidden: Bool?
+class LoginViewControllerMock: UIViewController {
+    private(set) var setUpViewParams: [SetUpViewParams] = []
+    struct SetUpViewParams {
+        var checkBoxIsActive: Bool
+    }
     
-    // MARK: - LoginViewModelOutput
+    private(set) var updateLoginFieldsParams: [UpdateLoginFieldsParams] = []
+    struct UpdateLoginFieldsParams {
+        var email: String
+        var password: String
+    }
+    
+    private(set) var passwordInputEnabledStateParams: [PasswordInputEnabledStateParams] = []
+    struct PasswordInputEnabledStateParams {
+        var isEnabled: Bool
+    }
+    
+    private(set) var loginButtonEnabledStateParams: [LoginButtonEnabledStateParams] = []
+    struct LoginButtonEnabledStateParams {
+        var isEnabled: Bool
+    }
+    
+    private(set) var focusOnPasswordTextFieldParams: [FocusOnPasswordTextFieldParams] = []
+    struct FocusOnPasswordTextFieldParams {}
+    
+    private(set) var checkBoxIsActiveStateParams: [CheckBoxIsActiveStateParams] = []
+    struct CheckBoxIsActiveStateParams {
+        var isActive: Bool
+    }
+    
+    private(set) var dismissKeyboardParams: [DismissKeyboardParams] = []
+    struct DismissKeyboardParams {}
+    
+    private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
+    struct SetActivityIndicatorParams {
+        var isHidden: Bool
+    }
+    
+    private(set) var configureParams: [ConfigureParams] = []
+    struct ConfigureParams {
+        var notificationCenter: NotificationCenterType
+        var viewModel: LoginViewModelType
+    }
+}
+
+// MARK: - LoginViewModelOutput
+extension LoginViewControllerMock: LoginViewModelOutput {
     func setUpView(checkBoxIsActive: Bool) {
-        self.setUpViewCalledData = (true, checkBoxIsActive)
+        self.setUpViewParams.append(SetUpViewParams(checkBoxIsActive: checkBoxIsActive))
     }
     
     func updateLoginFields(email: String, password: String) {
-        self.updateLoginFieldsCalled = true
-        self.updateLoginFieldsData = (email, password)
+        self.updateLoginFieldsParams.append(UpdateLoginFieldsParams(email: email, password: password))
     }
     
     func passwordInputEnabledState(_ isEnabled: Bool) {
-        self.passwordInputEnabledStateValues = (true, isEnabled)
+        self.passwordInputEnabledStateParams.append(PasswordInputEnabledStateParams(isEnabled: isEnabled))
     }
     
     func loginButtonEnabledState(_ isEnabled: Bool) {
-        self.loginButtonEnabledStateValues = (true, isEnabled)
-    }
-    
-    func checkBoxIsActiveState(_ isActive: Bool) {
-        self.checkBoxIsActiveStateValues = (true, isActive)
+        self.loginButtonEnabledStateParams.append(LoginButtonEnabledStateParams(isEnabled: isEnabled))
     }
     
     func focusOnPasswordTextField() {
-        self.focusOnPasswordTextFieldCalled = true
+        self.focusOnPasswordTextFieldParams.append(FocusOnPasswordTextFieldParams())
+    }
+    
+    func checkBoxIsActiveState(_ isActive: Bool) {
+        self.checkBoxIsActiveStateParams.append(CheckBoxIsActiveStateParams(isActive: isActive))
     }
     
     func dismissKeyboard() {
-        self.dismissKeyboardCalled = true
+        self.dismissKeyboardParams.append(DismissKeyboardParams())
     }
     
     func setActivityIndicator(isHidden: Bool) {
-        self.setActivityIndicatorIsHidden = isHidden
+        self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isHidden))
     }
-    
-    // MARK: - LoginViewControllerType
-    private(set) var configureNotificationCenter: NotificationCenterType?
-    private(set) var configureViewModel: LoginViewModelType?
+}
+
+// MARK: - LoginViewControllerType
+extension LoginViewControllerMock: LoginViewControllerType {
     func configure(notificationCenter: NotificationCenterType, viewModel: LoginViewModelType) {
-        self.configureNotificationCenter = notificationCenter
-        self.configureViewModel = viewModel
+        self.configureParams.append(ConfigureParams(notificationCenter: notificationCenter, viewModel: viewModel))
     }
 }

@@ -9,15 +9,28 @@
 import Foundation
 @testable import TimeTable
 
-class NotificationCenterMock: NotificationCenterType {
-    
-    private(set) var removeObserverCalled: Bool = false
-    func removeObserver(_ observer: Any) {
-        self.removeObserverCalled = true
+class NotificationCenterMock {
+    private(set) var removeObserverParams: [RemoveObserverParams] = []
+    struct RemoveObserverParams {
+        var observer: Any
     }
     
-    private(set) var addObserverCalled: Bool = false
+    private(set) var addObserverParams: [AddObserverParams] = []
+    struct AddObserverParams {
+        var observer: Any
+        var selector: Selector
+        var name: NSNotification.Name?
+        var object: Any?
+    }
+}
+
+// MARK: - NotificationCenterType
+extension NotificationCenterMock: NotificationCenterType {
+    func removeObserver(_ observer: Any) {
+        self.removeObserverParams.append(RemoveObserverParams(observer: observer))
+    }
+    
     func addObserver(_ observer: Any, selector aSelector: Selector, name aName: NSNotification.Name?, object anObject: Any?) {
-        self.addObserverCalled = true
+        self.addObserverParams.append(AddObserverParams(observer: observer, selector: aSelector, name: aName, object: anObject))
     }
 }

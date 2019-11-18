@@ -10,26 +10,39 @@ import Foundation
 import CoreStore
 @testable import TimeTable
 
-class AsynchronousDataTransactionMock: AsynchronousDataTransactionType {
+class AsynchronousDataTransactionMock {
     
-    private(set) var deleteAllCalled = false
-    private(set) var deleteCalled = false
-    private(set) var createCalled = false
-    var user: DynamicObject?
+    var deleteAllReturnValue: Int = 0
+    var deleteAllThrowError: Error?
+    private(set) var deleteAllParams: [DeleteAllParams] = []
+    struct DeleteAllParams {}
     
+    private(set) var deleteParams: [DeleteParams] = []
+    struct DeleteParams {}
+    
+    var createReturnValue: DynamicObject!
+    private(set) var createParams: [CreateParams] = []
+    struct CreateParams {}
+}
+
+// MARK: - AsynchronousDataTransactionType
+extension AsynchronousDataTransactionMock: AsynchronousDataTransactionType {
     func deleteAll<D>(_ from: From<D>, _ deleteClauses: DeleteClause...) throws -> Int where D: DynamicObject {
-        self.deleteAllCalled = true
-        return 0
+        self.deleteAllParams.append(DeleteAllParams())
+        if let error = self.deleteAllThrowError {
+            throw error
+        }
+        return self.deleteAllReturnValue
     }
     
-    func delete<D: DynamicObject>(_ object: D?) {
-        self.deleteCalled = true
+    func delete<D>(_ object: D?) where D: DynamicObject {
+        self.deleteParams.append(DeleteParams())
     }
     
     func create<D>(_ into: Into<D>) -> D where D: DynamicObject {
-        self.createCalled = true
+        self.createParams.append(CreateParams())
         // swiftlint:disable force_cast
-        return self.user as! D
+        return self.createReturnValue as! D
         // swiftlint:enable force_cast
     }
 }

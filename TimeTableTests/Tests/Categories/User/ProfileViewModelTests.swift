@@ -42,104 +42,106 @@ class ProfileViewModelTests: XCTestCase {
         //Act
         self.viewModel.viewDidLoad()
         //Assert
-        XCTAssertTrue(self.userInterfaceMock.setUpCalled)
+        XCTAssertEqual(self.userInterfaceMock.setUpParams.count, 1)
     }
     
     func testViewDidLoadDoesNotUpdateUserInterfaceAndThorwsErrorWhileLastUserIdetifierIsNil() {
         //Arrange
-        self.accessServiceMock.getLastLoggedInUserIdentifierValue = nil
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = nil
         //Act
         self.viewModel.viewDidLoad()
         //Assert
-        XCTAssertNil(self.userInterfaceMock.setActivityIndicatorIsHidden)
-        XCTAssertNil(self.errorHandlerMock.throwedError)
-        XCTAssertNil(self.userInterfaceMock.updateValues.0)
-        XCTAssertNil(self.userInterfaceMock.updateValues.1)
-        XCTAssertNil(self.userInterfaceMock.updateValues.2)
+        XCTAssertTrue(self.userInterfaceMock.setActivityIndicatorParams.isEmpty)
+        XCTAssertTrue(self.errorHandlerMock.throwingParams.isEmpty)
+        XCTAssertTrue(self.userInterfaceMock.updateParams.isEmpty)
     }
     
     func testViewDidLoadMakesRequest() {
         //Arrange
-        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
         self.viewModel.viewDidLoad()
         //Assert
-        XCTAssertFalse(try self.userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
-        XCTAssertNil(self.errorHandlerMock.throwedError)
-        XCTAssertNil(self.userInterfaceMock.updateValues.0)
-        XCTAssertNil(self.userInterfaceMock.updateValues.1)
-        XCTAssertNil(self.userInterfaceMock.updateValues.2)
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
+        XCTAssertFalse(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertTrue(self.errorHandlerMock.throwingParams.isEmpty)
+        XCTAssertTrue(self.userInterfaceMock.updateParams.isEmpty)
     }
     
     func testViewDidLoadFetchUserProfileFails() throws {
         //Arrange
         let error = TestError(message: "error")
-        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
         self.viewModel.viewDidLoad()
-        self.apiClientMock.fetchUserProfileCompletion?(.failure(error))
+        self.apiClientMock.fetchUserProfileParams.last?.completion(.failure(error))
         //Assert
-        XCTAssertTrue(try self.userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
-        XCTAssertEqual(try (self.errorHandlerMock.throwedError as? TestError).unwrap(), error)
-        XCTAssertTrue(self.userInterfaceMock.showErrorViewCalled)
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
+        XCTAssertTrue(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertEqual(try (self.errorHandlerMock.throwingParams.last?.error as? TestError).unwrap(), error)
+        XCTAssertEqual(self.userInterfaceMock.showErrorViewParams.count, 1)
     }
     
     func testViewDidLoadFetchUserProfileSucceed() throws {
         //Arrange
-        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         let data = try self.json(from: UserJSONResource.userFullResponse)
         let userDecoder = try self.decoder.decode(UserDecoder.self, from: data)
         //Act
         self.viewModel.viewDidLoad()
-        self.apiClientMock.fetchUserProfileCompletion?(.success(userDecoder))
+        self.apiClientMock.fetchUserProfileParams.last?.completion(.success(userDecoder))
         //Assert
-        XCTAssertTrue(try self.userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
-        XCTAssertEqual(self.userInterfaceMock.updateValues.0, "John")
-        XCTAssertEqual(self.userInterfaceMock.updateValues.1, "Little")
-        XCTAssertEqual(self.userInterfaceMock.updateValues.2, "john.little@example.com")
-        XCTAssertTrue(self.userInterfaceMock.showScrollViewCalled)
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
+        XCTAssertTrue(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertEqual(self.userInterfaceMock.updateParams.last?.firstName, "John")
+        XCTAssertEqual(self.userInterfaceMock.updateParams.last?.lastName, "Little")
+        XCTAssertEqual(self.userInterfaceMock.updateParams.last?.email, "john.little@example.com")
+        XCTAssertEqual(self.userInterfaceMock.showScrollViewParams.count, 1)
     }
     
     func testViewRequestedForLogoutReturnsWhileUserIdentifierIsNil() {
         //Act
         self.viewModel.viewRequestedForLogout()
         //Assert
-        XCTAssertNil(self.userInterfaceMock.setActivityIndicatorIsHidden)
-        XCTAssertNil(self.errorHandlerMock.throwedError)
-        XCTAssertFalse(self.coordinatorMock.userProfileDidLogoutUserCalled)
+        XCTAssertTrue(self.userInterfaceMock.setActivityIndicatorParams.isEmpty)
+        XCTAssertTrue(self.errorHandlerMock.throwingParams.isEmpty)
+        XCTAssertTrue(self.coordinatorMock.userProfileDidLogoutUserParams.isEmpty)
     }
     
     func testViewRequestedForLogoutMakesRequestToDeleteUser() {
         //Arrange
-        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
         self.viewModel.viewRequestedForLogout()
         //Assert
-        XCTAssertFalse(try self.userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
-        XCTAssertNil(self.errorHandlerMock.throwedError)
-        XCTAssertNotNil(self.coreDataStackMock.deleteUserCompletion)
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
+        XCTAssertFalse(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertTrue(self.errorHandlerMock.throwingParams.isEmpty)
+        XCTAssertEqual(self.coreDataStackMock.deleteUserParams.count, 1)
     }
     
     func testViewRequestedForLogoutThrowsAnError() {
         //Arrange
         let error = TestError(message: "error")
-        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
         self.viewModel.viewRequestedForLogout()
-        self.coreDataStackMock.deleteUserCompletion?(.failure(error))
+        self.coreDataStackMock.deleteUserParams.last?.completion(.failure(error))
         //Assert
-        XCTAssertTrue(try self.userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
-        XCTAssertEqual(try (self.errorHandlerMock.throwedError as? TestError).unwrap(), error)
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
+        XCTAssertTrue(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertEqual(try (self.errorHandlerMock.throwingParams.last?.error as? TestError).unwrap(), error)
     }
     
     func testViewRequestedForLogoutSucceed() {
         //Arrange
-        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
         self.viewModel.viewRequestedForLogout()
-        self.coreDataStackMock.deleteUserCompletion?(.success(Void()))
+        self.coreDataStackMock.deleteUserParams.last?.completion(.success(Void()))
         //Assert
-        XCTAssertTrue(try self.userInterfaceMock.setActivityIndicatorIsHidden.unwrap())
-        XCTAssertTrue(self.coordinatorMock.userProfileDidLogoutUserCalled)
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
+        XCTAssertTrue(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertEqual(self.coordinatorMock.userProfileDidLogoutUserParams.count, 1)
     }
 }

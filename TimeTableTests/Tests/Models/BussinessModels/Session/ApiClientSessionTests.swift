@@ -40,7 +40,7 @@ class ApiClientSessionTests: XCTestCase {
                 XCTFail()
             }
         }
-        self.networkingMock.shortPostCompletion?(.success(data))
+        self.networkingMock.postParams.last?.completion(.success(data))
         //Assert
         XCTAssertEqual(try expectedSessionDecoder.unwrap(), decoder)
     }
@@ -62,7 +62,7 @@ class ApiClientSessionTests: XCTestCase {
                 expectedError = error
             }
         }
-        self.networkingMock.shortPostCompletion?(.failure(error))
+        self.networkingMock.postParams.last?.completion(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)

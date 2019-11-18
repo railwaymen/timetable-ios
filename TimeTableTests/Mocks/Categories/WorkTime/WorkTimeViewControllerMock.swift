@@ -6,67 +6,113 @@
 //  Copyright © 2019 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import XCTest
 @testable import TimeTable
 
-// swiftlint:disable large_tuple
-class WorkTimeViewControllerMock: WorkTimeViewControllerable {
+class WorkTimeViewControllerMock: UIViewController {
+    private(set) var setUpParams: [SetUpParams] = []
+    struct SetUpParams {
+        var isLunch: Bool
+        var allowsTask: Bool
+        var body: String?
+        var urlString: String?
+    }
+    
+    private(set) var dismissViewParams: [DismissViewParams] = []
+    struct DismissViewParams {}
+    
+    private(set) var reloadTagsViewParams: [ReloadTagsViewParams] = []
+    struct ReloadTagsViewParams {}
+    
+    private(set) var dismissKeyboardParams: [DismissKeyboardParams] = []
+    struct DismissKeyboardParams {}
+    
+    private(set) var setMinimumDateForTypeEndAtDateParams: [SetMinimumDateForTypeEndAtDateParams] = []
+    struct SetMinimumDateForTypeEndAtDateParams {
+        var minDate: Date
+    }
+    
+    private(set) var updateDayParams: [UpdateDayParams] = []
+    struct UpdateDayParams {
+        var date: Date
+        var dateString: String
+    }
+    
+    private(set) var updateStartAtDateParams: [UpdateStartAtDateParams] = []
+    struct UpdateStartAtDateParams {
+        var date: Date
+        var dateString: String
+    }
 
-    private(set) var configureViewModelData: (called: Bool, viewModel: WorkTimeViewModelType?, notificationCenter: NotificationCenterType?) = (false, nil, nil)
-    func configure(viewModel: WorkTimeViewModelType, notificationCenter: NotificationCenterType?) {
-        self.configureViewModelData = (true, viewModel, notificationCenter)
+    private(set) var updateEndAtDateParams: [UpdateEndAtDateParams] = []
+    struct UpdateEndAtDateParams {
+        var date: Date
+        var dateString: String
     }
     
-    private(set) var setUpCurrentProjectName: (isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?)?
-    func setUp(isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?) {
-        self.setUpCurrentProjectName = (isLunch, allowsTask, body, urlString)
-    }
-
-    private(set) var dismissViewCalled = false
-    func dismissView() {
-        self.dismissViewCalled = true
+    private(set) var updateProjectParams: [UpdateProjectParams] = []
+    struct UpdateProjectParams {
+        var name: String
     }
     
-    private(set) var reloadTagsViewCalled = false
-    func reloadTagsView() {
-        self.reloadTagsViewCalled = true
+    private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
+    struct SetActivityIndicatorParams {
+        var isHidden: Bool
     }
     
-    private(set) var dismissKeyboardCalled = false
-    func dismissKeyboard() {
-        self.dismissKeyboardCalled = true
-    }
-    
-    private(set) var setMinimumDateForTypeToDateValues: (called: Bool, minDate: Date?) = (false, nil)
-    func setMinimumDateForTypeEndAtDate(minDate: Date) {
-        self.setMinimumDateForTypeToDateValues = (true, minDate)
-    }
-    
-    private(set) var updateDayValues: (date: Date?, dateString: String?) = (nil, nil)
-    func updateDay(with date: Date, dateString: String) {
-        self.updateDayValues = (date, dateString)
-    }
-    
-    private(set) var updateStartAtDateValues: (date: Date?, dateString: String?) = (nil, nil)
-    func updateStartAtDate(with date: Date, dateString: String) {
-        self.updateStartAtDateValues = (date, dateString)
-    }
-    
-    private(set) var updateEndAtDateValues: (date: Date?, dateString: String?) = (nil, nil)
-    func updateEndAtDate(with date: Date, dateString: String) {
-        self.updateEndAtDateValues = (date, dateString)
-    }
-    
-    private(set) var updateProjectCalledCount = 0
-    private(set) var updateProjectName: String?
-    func updateProject(name: String) {
-        self.updateProjectCalledCount += 1
-        self.updateProjectName = name
-    }
-    
-    private(set) var setActivityIndicatorIsHidden: Bool?
-    func setActivityIndicator(isHidden: Bool) {
-        self.setActivityIndicatorIsHidden = isHidden
+    private(set) var configureParams: [ConfigureParams] = []
+    struct ConfigureParams {
+        var viewModel: WorkTimeViewModelType
+        var notificationCenter: NotificationCenterType?
     }
 }
-// swiftlint:enable large_tuple
+
+// MARK: - WorkTimeViewModelOutput
+extension WorkTimeViewControllerMock: WorkTimeViewModelOutput {
+    func setUp(isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?) {
+        self.setUpParams.append(SetUpParams(isLunch: isLunch, allowsTask: allowsTask, body: body, urlString: urlString))
+    }
+    
+    func dismissView() {
+        self.dismissViewParams.append(DismissViewParams())
+    }
+    
+    func reloadTagsView() {
+        self.reloadTagsViewParams.append(ReloadTagsViewParams())
+    }
+    
+    func dismissKeyboard() {
+        self.dismissKeyboardParams.append(DismissKeyboardParams())
+    }
+    
+    func setMinimumDateForTypeEndAtDate(minDate: Date) {
+        self.setMinimumDateForTypeEndAtDateParams.append(SetMinimumDateForTypeEndAtDateParams(minDate: minDate))
+    }
+    
+    func updateDay(with date: Date, dateString: String) {
+        self.updateDayParams.append(UpdateDayParams(date: date, dateString: dateString))
+    }
+    
+    func updateStartAtDate(with date: Date, dateString: String) {
+        self.updateStartAtDateParams.append(UpdateStartAtDateParams(date: date, dateString: dateString))
+    }
+    
+    func updateEndAtDate(with date: Date, dateString: String) {
+        self.updateEndAtDateParams.append(UpdateEndAtDateParams(date: date, dateString: dateString))
+    }
+    
+    func updateProject(name: String) {
+        self.updateProjectParams.append(UpdateProjectParams(name: name))
+    }
+    
+    func setActivityIndicator(isHidden: Bool) {
+        self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isHidden))
+    }
+}
+
+// MARK: - WorkTimeViewControllerType
+extension WorkTimeViewControllerMock: WorkTimeViewControllerType {
+    func configure(viewModel: WorkTimeViewModelType, notificationCenter: NotificationCenterType?) {
+        self.configureParams.append(ConfigureParams(viewModel: viewModel, notificationCenter: notificationCenter))
+    }
+}

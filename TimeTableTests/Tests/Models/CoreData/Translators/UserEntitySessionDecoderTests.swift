@@ -36,7 +36,7 @@ class UserEntitySessionDecoderTests: XCTestCase {
         user.token = "token_abcd"
         user.firstName = "John"
         user.lastName = "Little"
-        self.asynchronousDataTransactionMock.user = user
+        self.asynchronousDataTransactionMock.createReturnValue = user
         //Act
         let createdUser = UserEntity.createUser(from: sessionReponse, transaction: self.asynchronousDataTransactionMock)
         //Assert

@@ -29,7 +29,7 @@ class WorkTimesListCoordinatorTests: XCTestCase {
     
     func testRunMainFlowRunsMainFlow() {
         //Arrange
-        self.dependencyContainer.storyboardsManagerMock.workTimesListController = WorkTimesListViewControllerMock()
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.workTimesList] = [.initial: WorkTimesListViewControllerMock()]
         //Act
         self.workTimeCoordinator.start()
         //Assert

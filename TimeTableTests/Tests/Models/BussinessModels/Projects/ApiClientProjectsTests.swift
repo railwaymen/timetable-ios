@@ -45,7 +45,7 @@ class ApiClientProjectsTests: XCTestCase {
                 XCTFail()
             }
         }
-        self.networkingMock.getCompletion?(.success(data))
+        self.networkingMock.getParams.last?.completion(.success(data))
         //Assert
         XCTAssertEqual(expectedProjectsRecordsDecoder?.count, decoder.count)
     }
@@ -63,7 +63,7 @@ class ApiClientProjectsTests: XCTestCase {
                 expectedError = error
             }
         }
-        self.networkingMock.getCompletion?(.failure(error))
+        self.networkingMock.getParams.last?.completion(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
@@ -83,7 +83,7 @@ class ApiClientProjectsTests: XCTestCase {
                 XCTFail()
             }
         }
-        self.networkingMock.getCompletion?(.success(data))
+        self.networkingMock.getParams.last?.completion(.success(data))
         //Assert
         XCTAssertEqual(expectedSimpleProjectDecoder?.projects.count, decoder.projects.count)
     }
@@ -101,7 +101,7 @@ class ApiClientProjectsTests: XCTestCase {
                 expectedError = error
             }
         }
-        self.networkingMock.getCompletion?(.failure(error))
+        self.networkingMock.getParams.last?.completion(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)

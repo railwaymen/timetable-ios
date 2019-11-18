@@ -6,23 +6,28 @@
 //  Copyright © 2019 Railwaymen. All rights reserved.
 //
 
-import Foundation
-import UIKit
+import XCTest
 @testable import TimeTable
 
-class ProjectCollectionViewCellMock: ProjectCollectionViewCellModelOutput {
-    private(set) var setupViewCalled = false
-    private(set) var updateViewCalled = false
-    // swiftlint:disable large_tuple
-    private(set) var updateViewData: (projectName: String?, leaderName: String?, projectColor: UIColor?) = (nil, nil, nil)
-    // swiftlint:enable large_tuple
+class ProjectCollectionViewCellMock {
+    private(set) var setUpViewParams: [SetUpViewParams] = []
+    struct SetUpViewParams {}
     
-    func setupView() {
-        self.setupViewCalled = true
+    private(set) var updateViewParams: [UpdateViewParams] = []
+    struct UpdateViewParams {
+        var projectName: String
+        var leaderName: String
+        var projectColor: UIColor
+    }
+}
+
+// MARK: - ProjectCollectionViewCellModelOutput
+extension ProjectCollectionViewCellMock: ProjectCollectionViewCellModelOutput {
+    func setUpView() {
+        self.setUpViewParams.append(SetUpViewParams())
     }
     
     func updateView(with projectName: String, leaderName: String, projectColor: UIColor) {
-        self.updateViewCalled = true
-        self.updateViewData = (projectName, leaderName, projectColor)
+        self.updateViewParams.append(UpdateViewParams(projectName: projectName, leaderName: leaderName, projectColor: projectColor))
     }
 }

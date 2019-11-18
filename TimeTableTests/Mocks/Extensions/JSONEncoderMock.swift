@@ -9,7 +9,7 @@
 import Foundation
 @testable import TimeTable
 
-class JSONEncoderMock: JSONEncoderType {
+class JSONEncoderMock {
     private lazy var encoder: JSONEncoder = {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .formatted(DateFormatter.init(type: .dateAndTimeExtended))
@@ -17,11 +17,15 @@ class JSONEncoderMock: JSONEncoderType {
         return encoder
     }()
     
-    var isThrowingError = false
+    var shouldThrowError = false
     
     var dateEncodingStrategy: JSONEncoder.DateEncodingStrategy = .iso8601
+}
+
+// MARK: - JSONEncoderType
+extension JSONEncoderMock: JSONEncoderType {
     func encode<T>(_ value: T) throws -> Data where T: Encodable {
-        if self.isThrowingError {
+        if self.shouldThrowError {
             throw TestError(message: "encode error")
         } else {
             return try self.encoder.encode(value)

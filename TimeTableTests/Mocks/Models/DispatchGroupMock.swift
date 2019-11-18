@@ -9,33 +9,37 @@
 import Foundation
 @testable import TimeTable
 
-// swiftlint:disable large_tuple
-class DispatchGroupMock: DispatchGroupType {
-    private(set) var enterCalledCount: Int = 0
+class DispatchGroupMock {
+    
+    private(set) var enterParams: [EnterParams] = []
+    struct EnterParams {}
+    
+    private(set) var leaveParams: [LeaveParams] = []
+    struct LeaveParams {}
+    
+    private(set) var notifyParams: [NotifyParams] = []
+    struct NotifyParams {
+        var qos: DispatchQoS
+        var flags: DispatchWorkItemFlags
+        var queue: DispatchQueue
+        var work: () -> Void
+    }
+}
+
+// MARK: - DispatchGroupType
+extension DispatchGroupMock: DispatchGroupType {
     func enter() {
-        self.enterCalledCount += 1
+        self.enterParams.append(EnterParams())
     }
     
-    private(set) var leaveCalledCount: Int = 0
     func leave() {
-        self.leaveCalledCount += 1
-        if self.leaveCalledCount == self.enterCalledCount {
-            self.notifyWork?()
+        self.leaveParams.append(LeaveParams())
+        if self.enterParams.count == self.leaveParams.count {
+            self.notifyParams.last?.work()
         }
     }
     
-    private(set) var notifyCalledCount: Int = 0
-    private(set) var notifyValues: (qos: DispatchQoS, flags: DispatchWorkItemFlags, queue: DispatchQueue)?
-    private(set) var notifyWork: (() -> Void)?
-    func notify(
-        qos: DispatchQoS,
-        flags: DispatchWorkItemFlags,
-        queue: DispatchQueue,
-        execute work: @escaping @convention(block) () -> Void
-    ) {
-        self.notifyCalledCount += 1
-        self.notifyValues = (qos, flags, queue)
-        self.notifyWork = work
+    func notify(qos: DispatchQoS, flags: DispatchWorkItemFlags, queue: DispatchQueue, execute work: @escaping @convention(block) () -> Void) {
+        self.notifyParams.append(NotifyParams(qos: qos, flags: flags, queue: queue, work: work))
     }
 }
-// swiftlint:enable large_tuple

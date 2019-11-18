@@ -35,10 +35,11 @@ class WorkTimeCellViewModelTests: XCTestCase {
         //Act
         viewModel.viewConfigured()
         //Assert
-        XCTAssertEqual(self.userInterface.updateViewData?.durationText, "1h")
-        XCTAssertEqual(self.userInterface.updateViewData?.bodyText, "Bracket - v2")
-        XCTAssertEqual(self.userInterface.updateViewData?.taskUrlText, "task1")
-        XCTAssertEqual(self.userInterface.updateViewData?.fromToDateText, "3:00 PM - 4:00 PM")
+        XCTAssertEqual(self.userInterface.updateViewParams.count, 1)
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.durationText, "1h")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.bodyText, "Bracket - v2")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.taskUrlText, "task1")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.fromToDateText, "3:00 PM - 4:00 PM")
     }
     
     func testPrepareForReuseCallsUpdateView() throws {
@@ -50,10 +51,11 @@ class WorkTimeCellViewModelTests: XCTestCase {
         //Act
         viewModel.prepareForReuse()
         //Assert
-        XCTAssertEqual(self.userInterface.updateViewData?.durationText, "2h")
-        XCTAssertEqual(self.userInterface.updateViewData?.bodyText, "Bracket - v3")
-        XCTAssertEqual(self.userInterface.updateViewData?.taskUrlText, "task2")
-        XCTAssertEqual(self.userInterface.updateViewData?.fromToDateText, "12:00 PM - 2:00 PM")
+        XCTAssertEqual(self.userInterface.updateViewParams.count, 1)
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.durationText, "2h")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.bodyText, "Bracket - v3")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.taskUrlText, "task2")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.fromToDateText, "12:00 PM - 2:00 PM")
     }
     
     func testTaskButtonTappedWithValidURLCallsParentOpenTask() throws {
@@ -65,7 +67,7 @@ class WorkTimeCellViewModelTests: XCTestCase {
         //Act
         viewModel.taskButtonTapped()
         //Assert
-        XCTAssertEqual(self.parent.openTaskCalledCount, 1)
-        XCTAssertEqual(self.parent.openTaskWorkTime, workTime)
+        XCTAssertEqual(self.parent.openTaskParams.count, 1)
+        XCTAssertEqual(self.parent.openTaskParams.last?.workTime, workTime)
     }
 }

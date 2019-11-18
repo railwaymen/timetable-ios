@@ -6,13 +6,19 @@
 //  Copyright © 2018 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import XCTest
 @testable import TimeTable
 
-class CoordinatorMock: ServerConfigurationCoordinatorDelegate {
-    private(set) var serverConfigurationDidFinishValues: (called: Bool, serverConfiguration: ServerConfiguration?) = (false, nil)
-    
+class CoordinatorMock {
+    private(set) var serverConfigurationDidFinishParams: [ServerConfigurationDidFinishParams] = []
+    struct ServerConfigurationDidFinishParams {
+        var serverConfiguration: ServerConfiguration
+    }
+}
+
+// MARK: - ServerConfigurationCoordinatorDelegate
+extension CoordinatorMock: ServerConfigurationCoordinatorDelegate {
     func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration) {
-        self.serverConfigurationDidFinishValues = (true, serverConfiguration)
+        self.serverConfigurationDidFinishParams.append(ServerConfigurationDidFinishParams(serverConfiguration: serverConfiguration))
     }
 }

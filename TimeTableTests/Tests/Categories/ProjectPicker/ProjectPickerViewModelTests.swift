@@ -27,7 +27,7 @@ class ProjectPickerViewModelTests: XCTestCase {
         //Act
         viewModel.loadView()
         //Assert
-        XCTAssertEqual(self.userInterfaceMock.setUpCalledCount, 1)
+        XCTAssertEqual(self.userInterfaceMock.setUpParams.count, 1)
     }
         
     func testNumberOfRowsInZeroSection() {
@@ -76,7 +76,7 @@ class ProjectPickerViewModelTests: XCTestCase {
         //Act
         viewModel.configure(cell: cellMock, for: IndexPath(row: 0, section: 0))
         //Assert
-        XCTAssertEqual(cellMock.configureCalledCount, 1)
+        XCTAssertEqual(cellMock.configureParams.count, 1)
     }
     
     func testConfigureCellWithoutProjects() {
@@ -86,7 +86,7 @@ class ProjectPickerViewModelTests: XCTestCase {
         //Act
         viewModel.configure(cell: cellMock, for: IndexPath(row: 0, section: 0))
         //Assert
-        XCTAssertEqual(cellMock.configureCalledCount, 0)
+        XCTAssertEqual(cellMock.configureParams.count, 0)
     }
     
     func testUpdateSearchResultsReloadsData() {
@@ -95,7 +95,7 @@ class ProjectPickerViewModelTests: XCTestCase {
         //Act
         viewModel.updateSearchResults(for: "")
         //Assert
-        XCTAssertEqual(self.userInterfaceMock.reloadDataCalledCount, 1)
+        XCTAssertEqual(self.userInterfaceMock.reloadDataParams.count, 1)
     }
     
     func testUpdateSearchResultsForEmptyTextDoesNotFilterProjects() {
@@ -124,8 +124,8 @@ class ProjectPickerViewModelTests: XCTestCase {
         //Act
         viewModel.cellDidSelect(at: IndexPath(row: 0, section: 0))
         //Assert
-        XCTAssertEqual(self.coordinatorMock.finishFlowCalledCount, 1)
-        XCTAssertNil(self.coordinatorMock.finishFlowProject)
+        XCTAssertEqual(self.coordinatorMock.finishFlowParams.count, 1)
+        XCTAssertNil(self.coordinatorMock?.finishFlowParams.last?.project)
     }
     
     func testCellDidSelectExistingProjectCallsFinishWithProperProject() {
@@ -135,8 +135,8 @@ class ProjectPickerViewModelTests: XCTestCase {
         //Act
         viewModel.cellDidSelect(at: IndexPath(row: 0, section: 0))
         //Assert
-        XCTAssertEqual(self.coordinatorMock.finishFlowCalledCount, 1)
-        XCTAssertEqual(self.coordinatorMock.finishFlowProject, projects[0])
+        XCTAssertEqual(self.coordinatorMock.finishFlowParams.count, 1)
+        XCTAssertEqual(self.coordinatorMock.finishFlowParams.last?.project, projects[0])
     }
     
     func testCellDidSelectInporperIndexPathCallsFinishWithoutProject() {
@@ -146,8 +146,8 @@ class ProjectPickerViewModelTests: XCTestCase {
         //Act
         viewModel.cellDidSelect(at: IndexPath(row: 0, section: 1))
         //Assert
-        XCTAssertEqual(self.coordinatorMock.finishFlowCalledCount, 1)
-        XCTAssertNil(self.coordinatorMock.finishFlowProject)
+        XCTAssertEqual(self.coordinatorMock.finishFlowParams.count, 1)
+        XCTAssertNil(self.coordinatorMock.finishFlowParams.last?.project)
     }
     
     func testCloseButtonTappedFinishesFlow() {
@@ -156,8 +156,8 @@ class ProjectPickerViewModelTests: XCTestCase {
         //Act
         viewModel.closeButtonTapped()
         //Assert
-        XCTAssertEqual(self.coordinatorMock?.finishFlowCalledCount, 1)
-        XCTAssertNil(self.coordinatorMock?.finishFlowProject)
+        XCTAssertEqual(self.coordinatorMock?.finishFlowParams.count, 1)
+        XCTAssertNil(self.coordinatorMock?.finishFlowParams.last?.project)
     }
     
     // MARK: - Private

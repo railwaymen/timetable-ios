@@ -9,17 +9,23 @@
 import Foundation
 @testable import TimeTable
 
-class JSONSerializationMock: JSONSerializationType {
-    var isThrowingError = false
-    var customObject: Any?
-    
+class JSONSerializationMock {
+    var jsonObjectThrowError: Error?
+    var jsonObjectReturnValue: Any?
+    private(set) var jsonObjectParams: [JSONObjectParams] = []
+    struct JSONObjectParams {
+        var data: Data
+        var options: JSONSerialization.ReadingOptions
+    }
+}
+
+// MARK: - JSONSerializationType
+extension JSONSerializationMock: JSONSerializationType {
     func jsonObject(with data: Data, options opt: JSONSerialization.ReadingOptions) throws -> Any {
-        if self.isThrowingError {
-            throw TestError(message: "jsonObject error")
-        } else if let object = self.customObject {
-            return object
-        } else {
-            return try JSONSerialization.jsonObject(with: data, options: opt)
+        self.jsonObjectParams.append(JSONObjectParams(data: data, options: opt))
+        if let error = self.jsonObjectThrowError {
+            throw error
         }
+        return try self.jsonObjectReturnValue ?? (try JSONSerialization.jsonObject(with: data, options: opt))
     }
 }

@@ -9,22 +9,27 @@
 import Foundation
 @testable import TimeTable
 
-class ServerConfigurationManagerMock: ServerConfigurationManagerType {
+class ServerConfigurationManagerMock {
+
+    var getOldConfigurationReturnValue: ServerConfiguration?
+    private(set) var getOldConfigurationParams: [GetOldConfigurationParams] = []
+    struct GetOldConfigurationParams {}
     
-    var expectationHandler: (() -> Void)?
-    var oldConfiguration: ServerConfiguration?
-    private(set) var oldConfigurationCalled = false
-    private(set) var verifyConfigurationValues: (called: Bool, configuration: ServerConfiguration?) = (false, nil)
-    private(set) var verifyConfigurationCompletion: ((Result<Void>) -> Void)?
-    
-    func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void>) -> Void)) {
-        self.verifyConfigurationValues = (true, configuration)
-        self.verifyConfigurationCompletion = completion
-        self.expectationHandler?()
+    private(set) var verifyParams: [VerifyParams] = []
+    struct VerifyParams {
+        var configuration: ServerConfiguration
+        var completion: ((Result<Void>) -> Void)
+    }
+}
+
+// MARK: - ServerConfigurationManagerType
+extension ServerConfigurationManagerMock: ServerConfigurationManagerType {
+    func getOldConfiguration() -> ServerConfiguration? {
+        self.getOldConfigurationParams.append(GetOldConfigurationParams())
+        return self.getOldConfigurationReturnValue
     }
     
-    func getOldConfiguration() -> ServerConfiguration? {
-        self.oldConfigurationCalled = true
-        return self.oldConfiguration
+    func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void>) -> Void)) {
+        self.verifyParams.append(VerifyParams(configuration: configuration, completion: completion))
     }
 }

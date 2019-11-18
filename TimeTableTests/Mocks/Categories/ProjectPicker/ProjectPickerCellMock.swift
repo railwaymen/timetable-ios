@@ -6,22 +6,31 @@
 //  Copyright © 2019 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import XCTest
 @testable import TimeTable
 
-class ProjectPickerCellMock: ProjectPickerCellable {
-    
-    // MARK: - ProjectPickerCellModelOutput
-    private(set) var setUpCalledCount = 0
-    private(set) var setUpTitle: String?
-    func setUp(title: String) {
-        self.setUpCalledCount += 1
-        self.setUpTitle = title
+class ProjectPickerCellMock: UITableViewCell {
+    private(set) var setUpParams: [SetUpParams] = []
+    struct SetUpParams {
+        var title: String
     }
     
-    // MARK: - ProjectPickerCellType
-    private(set) var configureCalledCount = 0
+    private(set) var configureParams: [ConfigureParams] = []
+    struct ConfigureParams {
+        var viewModel: ProjectPickerCellModelType
+    }
+}
+
+// MARK: - ProjectPickerCellModelOutput
+extension ProjectPickerCellMock: ProjectPickerCellModelOutput {
+    func setUp(title: String) {
+        self.setUpParams.append(SetUpParams(title: title))
+    }
+}
+
+// MARK: - ProjectPickerCellType
+extension ProjectPickerCellMock: ProjectPickerCellType {
     func configure(viewModel: ProjectPickerCellModelType) {
-        self.configureCalledCount += 1
+        self.configureParams.append(ConfigureParams(viewModel: viewModel))
     }
 }

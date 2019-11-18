@@ -98,7 +98,7 @@ extension ServerConfigurationViewController: ServerConfigurationViewControllerTy
 
 // MARK: - ServerConfigurationViewModelOutput
 extension ServerConfigurationViewController: ServerConfigurationViewModelOutput {
-    func setupView(checkBoxIsActive: Bool, serverAddress: String) {
+    func setUpView(checkBoxIsActive: Bool, serverAddress: String) {
         self.notificationCenter?.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         self.notificationCenter?.addObserver(self, selector: #selector(self.changeKeyboardFrame), name: UIResponder.keyboardDidShowNotification, object: nil)
         self.notificationCenter?.addObserver(self, selector: #selector(self.changeKeyboardFrame),

@@ -9,12 +9,16 @@
 import Foundation
 @testable import TimeTable
 
-class WorkTimeCellViewModelParentMock: WorkTimeCellViewModelParentType {
-    
-    private(set) var openTaskCalledCount = 0
-    private(set) var openTaskWorkTime: WorkTimeDecoder?
+class WorkTimeCellViewModelParentMock {
+    private(set) var openTaskParams: [OpenTaskParams] = []
+    struct OpenTaskParams {
+        var workTime: WorkTimeDecoder
+    }
+}
+
+// MARK: - WorkTimeCellViewModelParentType
+extension WorkTimeCellViewModelParentMock: WorkTimeCellViewModelParentType {
     func openTask(for workTime: WorkTimeDecoder) {
-        self.openTaskCalledCount += 1
-        self.openTaskWorkTime = workTime
+        self.openTaskParams.append(OpenTaskParams(workTime: workTime))
     }
 }

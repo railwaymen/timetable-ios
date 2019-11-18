@@ -9,20 +9,30 @@
 import XCTest
 @testable import TimeTable
 
-// swiftlint:disable large_tuple
-class TagCollectionViewCellMock: TagCollectionViewCellable {
-    
-    // MARK: - TagCollectionViewCellViewModelOutput
-    private(set) var setUp_calledCount: Int = 0
-    private(set) var setUp_values: (title: String?, color: UIColor, isSelected: Bool)?
-    func setUp(title: String?, color: UIColor, isSelected: Bool) {
-        self.setUp_calledCount += 1
-        self.setUp_values = (title, color, isSelected)
+class TagCollectionViewCellMock: UICollectionViewCell {
+    private(set) var setUpParams: [SetUpParams] = []
+    struct SetUpParams {
+        var title: String?
+        var color: UIColor
+        var isSelected: Bool
     }
     
-    // MARK: - TagCollectionViewCellType
-    func configure(viewModel: TagCollectionViewCellViewModelType) {
-        
+    private(set) var configureParams: [ConfigureParams] = []
+    struct ConfigureParams {
+        var viewModel: TagCollectionViewCellViewModelType
     }
 }
-// swiftlint:enable large_tuple
+
+// MARK: - TagCollectionViewCellViewModelOutput
+extension TagCollectionViewCellMock: TagCollectionViewCellViewModelOutput {
+    func setUp(title: String?, color: UIColor, isSelected: Bool) {
+        self.setUpParams.append(SetUpParams(title: title, color: color, isSelected: isSelected))
+    }
+}
+
+// MARK: - TagCollectionViewCellType
+extension TagCollectionViewCellMock: TagCollectionViewCellType {
+    func configure(viewModel: TagCollectionViewCellViewModelType) {
+        self.configureParams.append(ConfigureParams(viewModel: viewModel))
+    }
+}

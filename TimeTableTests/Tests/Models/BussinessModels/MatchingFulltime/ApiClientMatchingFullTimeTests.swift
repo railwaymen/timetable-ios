@@ -42,7 +42,7 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
                 XCTFail()
             }
         }
-        self.networkingMock.getCompletion?(.success(data))
+        self.networkingMock.getParams.last?.completion(.success(data))
         //Assert
         XCTAssertEqual(matchingFullTimeDecoder?.period?.identifier, 1383)
         XCTAssertEqual(matchingFullTimeDecoder?.period?.countedDuration, TimeInterval(620100))
@@ -66,7 +66,7 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
                 expectedError = error
             }
         }
-        self.networkingMock.getCompletion?(.failure(error))
+        self.networkingMock.getParams.last?.completion(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)

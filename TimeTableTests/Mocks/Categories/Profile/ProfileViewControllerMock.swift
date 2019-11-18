@@ -9,39 +9,60 @@
 import XCTest
 @testable import TimeTable
 
-class ProfileViewControllerMock: UIViewController, ProfileViewModelOutput, ProfileViewControllerType {
+class ProfileViewControllerMock: UIViewController {
+    private(set) var setUpParams: [SetUpParams] = []
+    struct SetUpParams {}
     
-    // MARK: - ProfileViewModelOutput
-    private(set) var setUpCalled = false
-    func setUp() {
-        self.setUpCalled = true
+    private(set) var updateParams: [UpdateParams] = []
+    struct UpdateParams {
+        var firstName: String
+        var lastName: String
+        var email: String
     }
     
-    // swiftlint:disable large_tuple
-    private(set) var updateValues: (String?, String?, String?) = (nil, nil, nil)
-    func update(firstName: String, lastName: String, email: String) {
-        self.updateValues = (firstName, lastName, email)
+    private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
+    struct SetActivityIndicatorParams {
+        var isHidden: Bool
     }
-    // swiftlint:enable large_tuple
     
-    private(set) var setActivityIndicatorIsHidden: Bool?
-    func setActivityIndicator(isHidden: Bool) {
-        self.setActivityIndicatorIsHidden = isHidden
+    private(set) var showScrollViewParams: [ShowScrollViewParams] = []
+    struct ShowScrollViewParams {}
+    
+    private(set) var showErrorViewParams: [ShowErrorViewParams] = []
+    struct ShowErrorViewParams {}
+    
+    private(set) var configureParams: [ConfigureParams] = []
+    struct ConfigureParams {
+        var viewModel: ProfileViewModelType
     }
+}
 
-    private(set) var showScrollViewCalled = false
+// MARK: - ProfileViewModelOutput
+extension ProfileViewControllerMock: ProfileViewModelOutput {
+    func setUp() {
+        self.setUpParams.append(SetUpParams())
+    }
+    
+    func update(firstName: String, lastName: String, email: String) {
+        self.updateParams.append(UpdateParams(firstName: firstName, lastName: lastName, email: email))
+    }
+    
+    func setActivityIndicator(isHidden: Bool) {
+        self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isHidden))
+    }
+    
     func showScrollView() {
-        self.showScrollViewCalled = true
+        self.showScrollViewParams.append(ShowScrollViewParams())
     }
     
-    private(set) var showErrorViewCalled = false
     func showErrorView() {
-        self.showErrorViewCalled = true
+        self.showErrorViewParams.append(ShowErrorViewParams())
     }
-    
-    // MARK: - ProfileViewControllerType
-    private(set) var configureCalled = false
+}
+
+// MARK: - ProfileViewControllerType
+extension ProfileViewControllerMock: ProfileViewControllerType {
     func configure(viewModel: ProfileViewModelType) {
-        self.configureCalled = true
+        self.configureParams.append(ConfigureParams(viewModel: viewModel))
     }
 }

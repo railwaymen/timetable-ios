@@ -14,13 +14,6 @@ typealias ApiClientType = (ApiClientNetworkingType & ApiClientSessionType & ApiC
 
 protocol ApiClientNetworkingType: class {
     var networking: NetworkingType { get set }
-    
-    func post<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void))
-    func post<E: Encodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<Void>) -> Void))
-    func get<D: Decodable>(_ endpoint: Endpoints, completion: @escaping ((Result<D>) -> Void))
-    func get<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void))
-    func put<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void))
-    func put<E: Encodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<Void>) -> Void))
 }
 
 class ApiClient: ApiClientNetworkingType {

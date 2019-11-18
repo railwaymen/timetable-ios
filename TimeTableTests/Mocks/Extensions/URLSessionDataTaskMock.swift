@@ -9,9 +9,14 @@
 import Foundation
 @testable import TimeTable
 
-class URLSessionDataTaskMock: URLSessionDataTaskType {
-    private(set) var resumeCalled = false
+class URLSessionDataTaskMock {
+    private(set) var resumeParams: [ResumeParams] = []
+    struct ResumeParams {}
+}
+
+// MARK: - URLSessionDataTaskType
+extension URLSessionDataTaskMock: URLSessionDataTaskType {
     func resume() {
-        self.resumeCalled = true
+        self.resumeParams.append(ResumeParams())
     }
 }

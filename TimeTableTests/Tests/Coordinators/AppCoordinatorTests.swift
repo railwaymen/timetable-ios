@@ -39,7 +39,7 @@ class AppCoordinatorTests: XCTestCase {
     
     func testStart_appCoordinatorContainsChildControllers() throws {
         //Arrange
-        self.dependencyContainer.storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
+        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
         //Act
         self.appCoordinator.start()
         //Assert
@@ -49,7 +49,7 @@ class AppCoordinatorTests: XCTestCase {
     
     func testStartAppCoordinatorContainsAuthenticationConfigurationCoordinatorOnTheStart() {
         //Arrange
-        self.dependencyContainer.serverConfigurationManagerMock.oldConfiguration = nil
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = nil
         //Act
         self.appCoordinator.start()
         //Assert
@@ -59,7 +59,7 @@ class AppCoordinatorTests: XCTestCase {
     func testStartAppCoordinatorContainsServerConfigurationCoordinatorOnTheStartWhileConfigurationShouldNotRemeberHost() throws {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
-        self.dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: false)
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: url, shouldRememberHost: false)
         //Act
         self.appCoordinator.start()
         //Assert
@@ -69,7 +69,7 @@ class AppCoordinatorTests: XCTestCase {
     func testStartAppCoordinatorRunsAuthetincationFlow() throws {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
-        self.dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
         self.appCoordinator.start()
         //Assert
@@ -78,11 +78,11 @@ class AppCoordinatorTests: XCTestCase {
     
     func testServerConfigurationCoordinatorFinishBlockRunAuthenticatioFlow() throws {
         //Arrange
-        self.dependencyContainer.serverConfigurationManagerMock.oldConfiguration = nil
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = nil
         self.appCoordinator.start()
         let serverConfigurationCoordinator = self.appCoordinator.children.first as? AuthenticationCoordinator
         let url = try URL(string: "www.example.com").unwrap()
-        self.dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
         serverConfigurationCoordinator?.finish()
         //Assert
@@ -93,7 +93,7 @@ class AppCoordinatorTests: XCTestCase {
     func testAuthenticationCoordinatorFinishRemoveSelfFromAppCoordinatorChildrenForChangeAddressState() throws {
         //Arrange
         let url = try URL(string: "www.example.com").unwrap()
-        self.dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: url, shouldRememberHost: true)
         self.appCoordinator.start()
         let authenticationCoordinator = self.appCoordinator.children.first as? AuthenticationCoordinator
         //Act
@@ -106,7 +106,7 @@ class AppCoordinatorTests: XCTestCase {
     func testStartAppCoordinatorRunsAuthenticationFlowWithHTTPHost() throws {
         //Arrange
         let url = URL(string: "http://www.example.com")
-        self.dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
         self.appCoordinator.start()
         //Assert
@@ -116,7 +116,7 @@ class AppCoordinatorTests: XCTestCase {
     func testStartAppCoordinatorRunsAuthenticationFlowWithHTTPHosts() throws {
         //Arrange
         let url = URL(string: "https://www.example.com")
-        self.dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
         self.appCoordinator.start()
         //Assert
@@ -132,12 +132,12 @@ class AppCoordinatorTests: XCTestCase {
         user.firstName = "John"
         user.lastName = "Little"
         
-        self.dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: url, shouldRememberHost: true)
         self.appCoordinator.start()
-        self.dependencyContainer.accessServiceMock.getSessionCompletion?(.success(SessionDecoder(entity: user)))
+        self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.success(SessionDecoder(entity: user)))
         let child = try (self.appCoordinator.children.first as? TimeTableTabCoordinator).unwrap()
         //Act
-        self.dependencyContainer.serverConfigurationManagerMock.oldConfiguration = nil
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = nil
         child.finishCompletion?()
         //Assert
         XCTAssertEqual(self.appCoordinator.children.count, 1)
@@ -153,13 +153,13 @@ class AppCoordinatorTests: XCTestCase {
         user.firstName = "John"
         user.lastName = "Little"
         
-        self.dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: url, shouldRememberHost: true)
         self.appCoordinator.start()
-        self.dependencyContainer.accessServiceMock.getSessionCompletion?(.success(SessionDecoder(entity: user)))
+        self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.success(SessionDecoder(entity: user)))
         let child = try (self.appCoordinator.children.first as? TimeTableTabCoordinator).unwrap()
         //Act
         child.finishCompletion?()
-        self.dependencyContainer.accessServiceMock.getSessionCompletion?(.failure(TestError(message: "Error")))
+        self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "Error")))
         //Assert
         XCTAssertEqual(self.appCoordinator.children.count, 1)
         XCTAssertNotNil(self.appCoordinator.children.first as? AuthenticationCoordinator

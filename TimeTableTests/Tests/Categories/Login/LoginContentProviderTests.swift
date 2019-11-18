@@ -49,7 +49,7 @@ class LoginContentProviderTests: XCTestCase {
                 expectedError = error
             }
         }, saveCompletion: { _ in })
-        self.apiClientMock.signInCompletion?(.failure(ApiClientError(type: .invalidParameters)))
+        self.apiClientMock.signInParams.last?.completion(.failure(ApiClientError(type: .invalidParameters)))
         //Assert
         switch (expectedError as? ApiClientError)?.type {
         case .invalidParameters?: break
@@ -73,8 +73,8 @@ class LoginContentProviderTests: XCTestCase {
                 expectedError = error
             }
         })
-        self.apiClientMock.signInCompletion?(.success(sessionReponse))
-        self.coreDataStackUserMock.saveUserCompletion?(.failure(CoreDataStack.Error.storageItemNotFound))
+        self.apiClientMock.signInParams.last?.completion(.success(sessionReponse))
+        self.coreDataStackUserMock.saveParams.last?.completion(.failure(CoreDataStack.Error.storageItemNotFound))
         //Assert
         switch expectedError as? CoreDataStack.Error {
         case .storageItemNotFound?: break
@@ -93,7 +93,7 @@ class LoginContentProviderTests: XCTestCase {
         user.firstName = "John"
         user.lastName = "Little"
         let synchronousDataTransactionMock = AsynchronousDataTransactionMock()
-        synchronousDataTransactionMock.user = user
+        synchronousDataTransactionMock.createReturnValue = user
         //Act
         self.contentProvider.login(with: loginCredentials, fetchCompletion: { _ in
         }, saveCompletion: { result in
@@ -102,11 +102,11 @@ class LoginContentProviderTests: XCTestCase {
             case .failure: XCTFail()
             }
         })
-        self.apiClientMock.signInCompletion?(.success(sessionReponse))
-        _ = self.coreDataStackUserMock.saveCoreDataTypeTranslatior?(synchronousDataTransactionMock)
-        self.coreDataStackUserMock.saveUserCompletion?(.success(user))
+        self.apiClientMock.signInParams.last?.completion(.success(sessionReponse))
+        _ = self.coreDataStackUserMock.saveParams.last?.translation(synchronousDataTransactionMock)
+        self.coreDataStackUserMock.saveParams.last?.completion(.success(user))
         //Assert
-        XCTAssertTrue(synchronousDataTransactionMock.deleteAllCalled)
+        XCTAssertEqual(synchronousDataTransactionMock.deleteAllParams.count, 1)
     }
     
     func testLoginSucceed() throws {
@@ -122,7 +122,7 @@ class LoginContentProviderTests: XCTestCase {
         user.firstName = "John"
         user.lastName = "Little"
         let asynchronousDataTransactionMock = AsynchronousDataTransactionMock()
-        asynchronousDataTransactionMock.user = user
+        asynchronousDataTransactionMock.createReturnValue = user
         //Act
         self.contentProvider.login(with: loginCredentials, fetchCompletion: { result in
             switch result {
@@ -139,9 +139,9 @@ class LoginContentProviderTests: XCTestCase {
                 XCTFail()
             }
         })
-        self.apiClientMock.signInCompletion?(.success(sessionReponse))
-        _ = self.coreDataStackUserMock.saveCoreDataTypeTranslatior?(asynchronousDataTransactionMock)
-        self.coreDataStackUserMock.saveUserCompletion?(.success(user))
+        self.apiClientMock.signInParams.last?.completion(.success(sessionReponse))
+        _ = self.coreDataStackUserMock.saveParams.last?.translation(asynchronousDataTransactionMock)
+        self.coreDataStackUserMock.saveParams.last?.completion(.success(user))
         //Assert
         XCTAssertTrue(fetchSuccessCalled)
         XCTAssertTrue(saveSuccessCalled)

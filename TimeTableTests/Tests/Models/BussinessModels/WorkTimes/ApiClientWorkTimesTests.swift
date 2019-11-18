@@ -48,7 +48,7 @@ class ApiClientWorkTimesTests: XCTestCase {
                 XCTFail()
             }
         }
-        self.networkingMock.getCompletion?(.success(data))
+        self.networkingMock.getParams.last?.completion(.success(data))
         //Assert
         XCTAssertEqual(try (expectedWorkTimes?[0]).unwrap(), decoders[0])
         XCTAssertEqual(try (expectedWorkTimes?[1]).unwrap(), decoders[1])
@@ -68,7 +68,7 @@ class ApiClientWorkTimesTests: XCTestCase {
                 expectedError = error
             }
         }
-        self.networkingMock.getCompletion?(.failure(error))
+        self.networkingMock.getParams.last?.completion(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
@@ -96,7 +96,7 @@ class ApiClientWorkTimesTests: XCTestCase {
                 XCTFail()
             }
         }
-        self.networkingMock.shortPostCompletion?(.success(data))
+        self.networkingMock.postParams.last?.completion(.success(data))
         //Assert
         XCTAssertTrue(successCalled)
     }
@@ -124,7 +124,7 @@ class ApiClientWorkTimesTests: XCTestCase {
                 expectedError = error
             }
         }
-        self.networkingMock.shortPostCompletion?(.failure(error))
+        self.networkingMock.postParams.last?.completion(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
@@ -142,7 +142,7 @@ class ApiClientWorkTimesTests: XCTestCase {
                 XCTFail()
             }
         }
-        self.networkingMock.deleteCompletion?(.success(Void()))
+        self.networkingMock.deleteParams.last?.completion(.success(Void()))
         //Assert
         XCTAssertTrue(successCalled)
     }
@@ -160,7 +160,7 @@ class ApiClientWorkTimesTests: XCTestCase {
                 expectedError = error
             }
         }
-        self.networkingMock.deleteCompletion?(.failure(error))
+        self.networkingMock.deleteParams.last?.completion(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
@@ -188,7 +188,7 @@ class ApiClientWorkTimesTests: XCTestCase {
                 XCTFail()
             }
         }
-        self.networkingMock.putCompletion?(.success(data))
+        self.networkingMock.putParams.last?.completion(.success(data))
         //Assert
         XCTAssertTrue(successCalled)
     }
@@ -216,7 +216,7 @@ class ApiClientWorkTimesTests: XCTestCase {
                 expectedError = error
             }
         }
-        self.networkingMock.putCompletion?(.failure(error))
+        self.networkingMock.putParams.last?.completion(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)

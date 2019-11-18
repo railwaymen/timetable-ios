@@ -6,15 +6,19 @@
 //  Copyright © 2018 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import XCTest
 @testable import TimeTable
 
-class LoginCoordinatorMock: LoginCoordinatorDelegate {
-    private(set) var loginDidFinishCalled = false
-    private(set) var loginDidFinishWithState: AuthenticationCoordinator.State?
-    
+class LoginCoordinatorMock {
+    private(set) var loginDidFinishParams: [LoginDidFinishParams] = []
+    struct LoginDidFinishParams {
+        var state: AuthenticationCoordinator.State
+    }
+}
+
+// MARK: - LoginCoordinatorDelegate
+extension LoginCoordinatorMock: LoginCoordinatorDelegate {
     func loginDidFinish(with state: AuthenticationCoordinator.State) {
-        self.loginDidFinishCalled = true
-        self.loginDidFinishWithState = state
+        self.loginDidFinishParams.append(LoginDidFinishParams(state: state))
     }
 }
