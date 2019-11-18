@@ -61,7 +61,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
         self.dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: nil, shouldRememberHost: true)
         //Act
         self.coordinator.start(finishCompletion: { (_, _) in })
-        self.dependencyContainer.accessServiceMock.getSessionCompletion?(.failure(TestError(message: "ERROR")))
+        self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
         //Assert
         XCTAssertEqual(self.coordinator.navigationController.children.count, 1)
         XCTAssertNotNil(self.coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
@@ -75,7 +75,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
         self.dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
         self.coordinator.start(finishCompletion: { (_, _) in })
-        self.dependencyContainer.accessServiceMock.getSessionCompletion?(.failure(TestError(message: "ERROR")))
+        self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
         //Assert
         XCTAssertTrue(self.coordinator.navigationController.children.isEmpty)
     }
@@ -88,7 +88,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
         self.dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
         self.coordinator.start(finishCompletion: { (_, _) in })
-        self.dependencyContainer.accessServiceMock.getSessionCompletion?(.failure(TestError(message: "ERROR")))
+        self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
         //Assert
         XCTAssertEqual(self.coordinator.navigationController.children.count, 1)
         XCTAssertNotNil(self.coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
@@ -102,7 +102,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
         self.dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
         self.coordinator.start(finishCompletion: { (_, _) in })
-        self.dependencyContainer.accessServiceMock.getSessionCompletion?(.failure(TestError(message: "ERROR")))
+        self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
         //Assert
         XCTAssertEqual(self.coordinator.navigationController.children.count, 2)
         XCTAssertNotNil(self.coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
@@ -124,7 +124,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
             XCTAssertEqual(configuration.shouldRememberHost, true)
             XCTAssertEqual(apiClient.networking.headerFields?["token"], "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjIt")
         })
-        self.dependencyContainer.accessServiceMock.getSessionCompletion?(.success(sessionReponse))
+        self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.success(sessionReponse))
     }
 
     // MARK: - LoginCoordinatorDelegate
@@ -134,7 +134,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
         self.dependencyContainer.storyboardsManagerMock.serverConfigurationController = ServerConfigurationViewControllerMock()
         self.dependencyContainer.storyboardsManagerMock.loginController = LoginViewControllerMock()
         self.dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
-        self.dependencyContainer.accessServiceMock.getSessionCompletion?(.failure(TestError(message: "ERROR")))
+        self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         self.coordinator.start(finishCompletion: { (configuration, apiClient) in

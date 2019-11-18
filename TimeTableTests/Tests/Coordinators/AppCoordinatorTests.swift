@@ -134,7 +134,7 @@ class AppCoordinatorTests: XCTestCase {
         
         self.dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         self.appCoordinator.start()
-        self.dependencyContainer.accessServiceMock.getSessionCompletion?(.success(SessionDecoder(entity: user)))
+        self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.success(SessionDecoder(entity: user)))
         let child = try (self.appCoordinator.children.first as? TimeTableTabCoordinator).unwrap()
         //Act
         self.dependencyContainer.serverConfigurationManagerMock.oldConfiguration = nil
@@ -155,11 +155,11 @@ class AppCoordinatorTests: XCTestCase {
         
         self.dependencyContainer.serverConfigurationManagerMock.oldConfiguration = ServerConfiguration(host: url, shouldRememberHost: true)
         self.appCoordinator.start()
-        self.dependencyContainer.accessServiceMock.getSessionCompletion?(.success(SessionDecoder(entity: user)))
+        self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.success(SessionDecoder(entity: user)))
         let child = try (self.appCoordinator.children.first as? TimeTableTabCoordinator).unwrap()
         //Act
         child.finishCompletion?()
-        self.dependencyContainer.accessServiceMock.getSessionCompletion?(.failure(TestError(message: "Error")))
+        self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "Error")))
         //Assert
         XCTAssertEqual(self.appCoordinator.children.count, 1)
         XCTAssertNotNil(self.appCoordinator.children.first as? AuthenticationCoordinator

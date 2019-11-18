@@ -9,59 +9,74 @@
 import Foundation
 @testable import TimeTable
 
-class AccessServiceMock: AccessServiceLoginType {
+class AccessServiceMock {
+    
+    var saveUserThrowError: Error?
+    private(set) var saveUserParams: [SaveUserParams] = []
+    struct SaveUserParams {
+        var credentails: LoginCredentials
+    }
+    
+    var getUserCredentialsThrowError: Error?
+    var getUserCredentialsReturnValue: LoginCredentials = LoginCredentials(email: "", password: "")
+    private(set) var getUserCredentialsParams: [GetUserCredentialsParams] = []
+    struct GetUserCredentialsParams {}
+    
+    private(set) var removeLastLoggedInUserIdentifierParams: [RemoveLastLoggedInUserIdentifierParams] = []
+    struct RemoveLastLoggedInUserIdentifierParams {}
+    
+    private(set) var saveLastLoggedInUserIdentifierParams: [SaveLastLoggedInUserIdentifierParams] = []
+    struct SaveLastLoggedInUserIdentifierParams {
+        var identifier: Int64
+    }
+    
+    var getLastLoggedInUserIdentifierReturnValue: Int64?
+    private(set) var getLastLoggedInUserIdentifierParams: [GetLastLoggedInUserIdentifierParams] = []
+    struct GetLastLoggedInUserIdentifierParams {}
+    
+    private(set) var getSessionParams: [GetSessionParams] = []
+    struct GetSessionParams {
+        var completion: ((Result<SessionDecoder>) -> Void)
+    }
+}
 
-    private(set) var saveUserCalled = false
-    private(set) var getUserCredentialsCalled = false
-    private(set) var removeLastLoggedInUserIdentifierCalled = false
-    
-    var saveUserIsThrowingError = false
-    var userCredentials: LoginCredentials?
-    var getUserCredentialsReturnsError = false
-    
-    // MARK: - AccessServiceLoginCredentialsType
+// MARK: - AccessServiceLoginCredentialsType
+extension AccessServiceMock: AccessServiceLoginCredentialsType {
     func saveUser(credentails: LoginCredentials) throws {
-        self.saveUserCalled = true
-        if self.saveUserIsThrowingError {
-            throw TestError(message: "save user")
+        self.saveUserParams.append(SaveUserParams(credentails: credentails))
+        if let error = self.saveUserThrowError {
+            throw error
         }
     }
     
     func getUserCredentials() throws -> LoginCredentials {
-        self.getUserCredentialsCalled = true
-        guard !self.getUserCredentialsReturnsError else {
-            throw TestError(message: "getUserCredentials error")
+        self.getUserCredentialsParams.append(GetUserCredentialsParams())
+        if let error = self.getUserCredentialsThrowError {
+            throw error
         }
-        if let credentails = self.userCredentials {
-            return credentails
-        } else {
-            return LoginCredentials(email: "", password: "")
-        }
+        return self.getUserCredentialsReturnValue
     }
     
     func removeLastLoggedInUserIdentifier() {
-        self.removeLastLoggedInUserIdentifierCalled = true
+        self.removeLastLoggedInUserIdentifierParams.append(RemoveLastLoggedInUserIdentifierParams())
     }
-    
-    // MARK: - AccessServiceLoginCredentialsType
-    private(set) var saveLastLoggedInUserIdentifierValues: (called: Bool, identifier: Int64?) = (false, nil)
-    private(set) var getLastLoggedInUserIdentifierCalled = false
-    var getLastLoggedInUserIdentifierValue: Int64?
-    
+}
+
+// MARK: - AccessServiceUserIDType
+extension AccessServiceMock: AccessServiceUserIDType {
     func saveLastLoggedInUserIdentifier(_ identifer: Int64) {
-        self.saveLastLoggedInUserIdentifierValues = (true, identifer)
+        self.saveLastLoggedInUserIdentifierParams.append(SaveLastLoggedInUserIdentifierParams(identifier: identifer))
     }
     
     func getLastLoggedInUserIdentifier() -> Int64? {
-        self.getLastLoggedInUserIdentifierCalled = true
-        return self.getLastLoggedInUserIdentifierValue
+        self.getLastLoggedInUserIdentifierParams.append(GetLastLoggedInUserIdentifierParams())
+        return self.getLastLoggedInUserIdentifierReturnValue
     }
-    
-    // MARK: - AccessServiceSessionType
-    private(set) var getSessionCalled = false
-    var getSessionCompletion: ((Result<SessionDecoder>) -> Void)?
+}
+
+// MARK: - AccessServiceSessionType
+extension AccessServiceMock: AccessServiceSessionType {
     func getSession(completion: @escaping ((Result<SessionDecoder>) -> Void)) {
-        self.getSessionCalled = true
-        self.getSessionCompletion = completion
+        self.getSessionParams.append(GetSessionParams(completion: completion))
     }
 }

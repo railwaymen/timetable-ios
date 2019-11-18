@@ -39,7 +39,7 @@ class WorkTimesContentProviderTests: XCTestCase {
     
     func testFetchWorkTimeDataMakesRequest() {
         //Arrange
-        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
         self.contentProvider.fetchWorkTimesData(for: nil) { _ in
             XCTFail()
@@ -56,7 +56,7 @@ class WorkTimesContentProviderTests: XCTestCase {
         //Arrange
         var expectedError: Error?
         let error = TestError(message: "Work times error")
-        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
         self.contentProvider.fetchWorkTimesData(for: nil) { result in
             switch result {
@@ -82,7 +82,7 @@ class WorkTimesContentProviderTests: XCTestCase {
         
         var expectedError: Error?
         let error = TestError(message: "Work times error")
-        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
         self.contentProvider.fetchWorkTimesData(for: nil) { result in
             switch result {
@@ -111,7 +111,7 @@ class WorkTimesContentProviderTests: XCTestCase {
         
         var expectedError: Error?
         let error = TestError(message: "Work times error")
-        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
         self.contentProvider.fetchWorkTimesData(for: date) { result in
             switch result {
@@ -132,7 +132,7 @@ class WorkTimesContentProviderTests: XCTestCase {
     
     func testFetchWorkTimeDataWhileFetchWorkTimesFinishWithError() throws {
         //Arrange
-        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 1
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 1
         var expectedError: Error?
         let error = TestError(message: "Fetching Work Times Error")
         
@@ -160,7 +160,7 @@ class WorkTimesContentProviderTests: XCTestCase {
         //Arrange
         var dateComponents = DateComponents(year: 2019, month: 2, day: 1)
         let startOfMonth = try Calendar.current.date(from: dateComponents).unwrap()
-        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 1
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 1
         self.calendarMock.dateComponentsReturnValue = dateComponents
         self.calendarMock.dateFromDateComponentsReturnValue = startOfMonth
         dateComponents.day = 28

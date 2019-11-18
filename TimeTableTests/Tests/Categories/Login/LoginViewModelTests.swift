@@ -47,7 +47,7 @@ class LoginViewModelTests: XCTestCase {
     
     func testViewDidLoadUpdatesLoginFiledsWithEmptyValues() {
         //Arrange
-        self.accessService.getUserCredentialsReturnsError = true
+        self.accessService.getUserCredentialsThrowError = TestError(message: "Test")
         let viewModel = self.buildViewModel()
         //Act
         viewModel.viewDidLoad()
@@ -59,7 +59,7 @@ class LoginViewModelTests: XCTestCase {
     func testViewDidLoadUpdatesLoginFiledsWithFilledEmail() {
         //Arrange
         let email = "user@example.com"
-        self.accessService.userCredentials = LoginCredentials(email: email, password: "")
+        self.accessService.getUserCredentialsReturnValue = LoginCredentials(email: email, password: "")
         let viewModel = self.buildViewModel()
         //Act
         viewModel.viewDidLoad()
@@ -71,7 +71,7 @@ class LoginViewModelTests: XCTestCase {
     func testViewDidLoadUpdatesLoginFiledsWithFilledPassword() {
         //
         let password = "password"
-        self.accessService.userCredentials = LoginCredentials(email: "", password: password)
+        self.accessService.getUserCredentialsReturnValue = LoginCredentials(email: "", password: password)
         let viewModel = self.buildViewModel()
         //Act
         viewModel.viewDidLoad()
@@ -84,7 +84,7 @@ class LoginViewModelTests: XCTestCase {
         //Arrange
         let email = "user@example.com"
         let password = "password"
-        self.accessService.userCredentials = LoginCredentials(email: email, password: password)
+        self.accessService.getUserCredentialsReturnValue = LoginCredentials(email: email, password: password)
         self.viewModel = self.buildViewModel()
         //Act
         self.viewModel.viewDidLoad()
@@ -292,7 +292,8 @@ class LoginViewModelTests: XCTestCase {
         self.viewModel.loginInputValueDidChange(value: "login")
         self.viewModel.passwordInputValueDidChange(value: "password")
         self.viewModel.shouldRemeberUserBoxStatusDidChange(isActive: false)
-        self.accessService.saveUserIsThrowingError = true
+        let thrownError = TestError(message: "Test")
+        self.accessService.saveUserThrowError = thrownError
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         //Act
@@ -304,7 +305,7 @@ class LoginViewModelTests: XCTestCase {
         XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
         XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.count, 1)
         XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.last?.state, .loggedInCorrectly(sessionReponse))
-        XCTAssertEqual(try (self.errorHandler.throwedError as? TestError).unwrap(), TestError(message: "save user"))
+        XCTAssertEqual(try (self.errorHandler.throwedError as? TestError).unwrap(), thrownError)
     }
     
     func testRequestedToLoginWithCorrectCredentialsAndShouldSaveUserCredenailsSucceed() throws {
@@ -312,7 +313,7 @@ class LoginViewModelTests: XCTestCase {
         self.viewModel.loginInputValueDidChange(value: "login")
         self.viewModel.passwordInputValueDidChange(value: "password")
         self.viewModel.shouldRemeberUserBoxStatusDidChange(isActive: false)
-        self.accessService.saveUserIsThrowingError = false
+        self.accessService.saveUserThrowError = TestError(message: "Test")
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         //Act
@@ -324,7 +325,7 @@ class LoginViewModelTests: XCTestCase {
         XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
         XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.count, 1)
         XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.last?.state, .loggedInCorrectly(sessionReponse))
-        XCTAssertTrue(self.accessService.saveUserCalled)
+        XCTAssertEqual(self.accessService.saveUserParams.count, 1)
     }
     
     func testViewRequestedToLoginContentProviderReturnsAnError() throws {

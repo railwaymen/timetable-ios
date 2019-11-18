@@ -47,7 +47,7 @@ class ProfileViewModelTests: XCTestCase {
     
     func testViewDidLoadDoesNotUpdateUserInterfaceAndThorwsErrorWhileLastUserIdetifierIsNil() {
         //Arrange
-        self.accessServiceMock.getLastLoggedInUserIdentifierValue = nil
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = nil
         //Act
         self.viewModel.viewDidLoad()
         //Assert
@@ -58,7 +58,7 @@ class ProfileViewModelTests: XCTestCase {
     
     func testViewDidLoadMakesRequest() {
         //Arrange
-        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
         self.viewModel.viewDidLoad()
         //Assert
@@ -71,7 +71,7 @@ class ProfileViewModelTests: XCTestCase {
     func testViewDidLoadFetchUserProfileFails() throws {
         //Arrange
         let error = TestError(message: "error")
-        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
         self.viewModel.viewDidLoad()
         self.apiClientMock.fetchUserProfileCompletion?(.failure(error))
@@ -84,7 +84,7 @@ class ProfileViewModelTests: XCTestCase {
     
     func testViewDidLoadFetchUserProfileSucceed() throws {
         //Arrange
-        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         let data = try self.json(from: UserJSONResource.userFullResponse)
         let userDecoder = try self.decoder.decode(UserDecoder.self, from: data)
         //Act
@@ -110,7 +110,7 @@ class ProfileViewModelTests: XCTestCase {
     
     func testViewRequestedForLogoutMakesRequestToDeleteUser() {
         //Arrange
-        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
         self.viewModel.viewRequestedForLogout()
         //Assert
@@ -123,7 +123,7 @@ class ProfileViewModelTests: XCTestCase {
     func testViewRequestedForLogoutThrowsAnError() {
         //Arrange
         let error = TestError(message: "error")
-        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
         self.viewModel.viewRequestedForLogout()
         self.coreDataStackMock.deleteUserCompletion?(.failure(error))
@@ -135,7 +135,7 @@ class ProfileViewModelTests: XCTestCase {
     
     func testViewRequestedForLogoutSucceed() {
         //Arrange
-        self.accessServiceMock.getLastLoggedInUserIdentifierValue = 2
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
         self.viewModel.viewRequestedForLogout()
         self.coreDataStackMock.deleteUserCompletion?(.success(Void()))
