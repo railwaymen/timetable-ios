@@ -117,7 +117,7 @@ class ProjectsViewModelTests: XCTestCase {
         self.viewModel.viewDidLoad()
         self.apiClientMock.fetchAllProjectsParams.last?.completion(.failure(error))
         //Assert
-        XCTAssertEqual(try (self.errorHandlerMock.throwedError as? TestError).unwrap(), error)
+        XCTAssertEqual(try (self.errorHandlerMock.throwingParams.last?.error as? TestError).unwrap(), error)
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
         XCTAssertEqual(self.userInterfaceMock.showErrorViewParams.count, 1)

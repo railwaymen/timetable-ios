@@ -42,7 +42,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         self.viewModel.viewRequestedToContinue()
         //Assert
         XCTAssertTrue(self.userInterface.setActivityIndicatorParams.isEmpty)
-        switch self.errorHandler.throwedError as? UIError {
+        switch self.errorHandler.throwingParams.last?.error as? UIError {
         case .cannotBeEmpty?: break
         default: XCTFail()
         }
@@ -55,7 +55,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         self.viewModel.viewRequestedToContinue()
         //Assert
         XCTAssertTrue(self.userInterface.setActivityIndicatorParams.isEmpty)
-        switch self.errorHandler.throwedError as? UIError {
+        switch self.errorHandler.throwingParams.last?.error as? UIError {
         case .invalidFormat?: break
         default: XCTFail()
         }
@@ -114,7 +114,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         self.viewModel.viewRequestedToContinue()
         self.serverConfigurationManagerMock.verifyConfigurationCompletion?(.failure(ApiClientError(type: .invalidHost(url))))
         //Assert
-        XCTAssertNotNil(self.errorHandler.throwedError)
+        XCTAssertEqual(self.errorHandler.throwingParams.count, 1)
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
     }

@@ -161,7 +161,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         viewModel.viewDidLoad()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.failure(expectedError))
         //Assert
-        let error = try (self.errorHandlerMock.throwedError as? TestError).unwrap()
+        let error = try (self.errorHandlerMock.throwingParams.last?.error as? TestError).unwrap()
         XCTAssertEqual(error, expectedError)
     }
     

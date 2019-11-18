@@ -9,9 +9,16 @@
 import XCTest
 @testable import TimeTable
 
-class DispatchQueueManagerMock: DispatchQueueManagerType {
-    let taskType: TaskType
+class DispatchQueueManagerMock {
     
+    private(set) var performOnMainThreadParams: [PerformOnMainThreadParams] = []
+    struct PerformOnMainThreadParams {
+        var taskType: DispatchQueueTaskType
+        var task: () -> Void
+    }
+    
+    // MARK: - Initialization
+    let taskType: TaskType
     enum TaskType {
         case performOnOriginalThread
         case performOnCurrentThread
@@ -23,12 +30,12 @@ class DispatchQueueManagerMock: DispatchQueueManagerType {
     init(taskType: TaskType) {
         self.taskType = taskType
     }
-    
-    private(set) var performOnMainThread_calledCount: Int = 0
-    private(set) var performOnMainThread_taskType: DispatchQueueTaskType?
+}
+
+// MARK: - DispatchQueueManagerType
+extension DispatchQueueManagerMock: DispatchQueueManagerType {
     func performOnMainThread(taskType: DispatchQueueTaskType, _ task: @escaping () -> Void) {
-        self.performOnMainThread_calledCount += 1
-        self.performOnMainThread_taskType = taskType
+        self.performOnMainThreadParams.append(PerformOnMainThreadParams(taskType: taskType, task: task))
         
         switch self.taskType {
         case .performOnOriginalThread: DispatchQueue.performOnMainThread(taskType: .sync, task)

@@ -231,7 +231,7 @@ class LoginViewModelTests: XCTestCase {
         //Act
         self.viewModel.viewRequestedToLogin()
         //Assert
-        let error = try (self.errorHandler.throwedError as? UIError).unwrap()
+        let error = try (self.errorHandler.throwingParams.last?.error as? UIError).unwrap()
         XCTAssertEqual(error, expectedError)
         XCTAssertTrue(self.userInterface.setActivityIndicatorParams.isEmpty)
     }
@@ -243,7 +243,7 @@ class LoginViewModelTests: XCTestCase {
         //Act
         self.viewModel.viewRequestedToLogin()
         //Assert
-        let error = try (self.errorHandler.throwedError as? UIError).unwrap()
+        let error = try (self.errorHandler.throwingParams.last?.error as? UIError).unwrap()
         XCTAssertEqual(error, expectedError)
         XCTAssertTrue(self.userInterface.setActivityIndicatorParams.isEmpty)
     }
@@ -279,7 +279,7 @@ class LoginViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
-        switch self.errorHandler.throwedError as? AppError {
+        switch self.errorHandler.throwingParams.last?.error as? AppError {
         case .cannotRemeberUserCredentials(let error)?:
                XCTAssertEqual(try (error as? TestError).unwrap(), expectedError)
         default:
@@ -305,7 +305,7 @@ class LoginViewModelTests: XCTestCase {
         XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
         XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.count, 1)
         XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.last?.state, .loggedInCorrectly(sessionReponse))
-        XCTAssertEqual(try (self.errorHandler.throwedError as? TestError).unwrap(), thrownError)
+        XCTAssertEqual(try (self.errorHandler.throwingParams.last?.error as? TestError).unwrap(), thrownError)
     }
     
     func testRequestedToLoginWithCorrectCredentialsAndShouldSaveUserCredenailsSucceed() throws {
@@ -337,7 +337,7 @@ class LoginViewModelTests: XCTestCase {
         self.viewModel.viewRequestedToLogin()
         self.contentProvider.loginParams.last?.fetchCompletion(.failure(expectedError))
         //Assert
-        let error = try (self.errorHandler.throwedError as? TestError).unwrap()
+        let error = try (self.errorHandler.throwingParams.last?.error as? TestError).unwrap()
         XCTAssertEqual(error, expectedError)
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
