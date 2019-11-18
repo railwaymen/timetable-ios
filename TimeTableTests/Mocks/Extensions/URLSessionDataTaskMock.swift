@@ -11,8 +11,6 @@ import Foundation
 
 class URLSessionDataTaskMock {
     private(set) var resumeParams: [ResumeParams] = []
-    
-    // MARK: - Structures
     struct ResumeParams {}
 }
 

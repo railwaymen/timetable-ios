@@ -11,8 +11,6 @@ import XCTest
 
 class LoginCoordinatorMock {
     private(set) var loginDidFinishParams: [LoginDidFinishParams] = []
-    
-    // MARK: - Structures
     struct LoginDidFinishParams {
         var state: AuthenticationCoordinator.State
     }

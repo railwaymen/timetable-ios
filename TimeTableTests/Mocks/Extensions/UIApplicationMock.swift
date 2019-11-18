@@ -11,8 +11,6 @@ import XCTest
 
 class UIApplicationMock {
     private(set) var openParams: [OpenParams] = []
-    
-    // MARK: - Structures
     struct OpenParams {
         var url: URL
         var options: [UIApplication.OpenExternalURLOptionsKey: Any]

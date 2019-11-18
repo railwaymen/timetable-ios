@@ -11,32 +11,30 @@ import XCTest
 
 class ServerConfigurationViewControllerMock: UIViewController {
     private(set) var setUpViewParams: [SetUpViewParams] = []
-    private(set) var continueButtonEnabledStateParams: [ContinueButtonEnabledStateParams] = []
-    private(set) var checkBoxIsActiveStateParams: [CheckBoxIsActiveStateParams] = []
-    private(set) var dismissKeyboardParams: [DismissKeyboardParams] = []
-    private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
-    private(set) var configureParams: [ConfigureParams] = []
-    
-    // MARK: - Structures
     struct SetUpViewParams {
         var checkBoxIsActive: Bool
         var serverAddress: String
     }
     
+    private(set) var continueButtonEnabledStateParams: [ContinueButtonEnabledStateParams] = []
     struct ContinueButtonEnabledStateParams {
         var isEnabled: Bool
     }
     
+    private(set) var checkBoxIsActiveStateParams: [CheckBoxIsActiveStateParams] = []
     struct CheckBoxIsActiveStateParams {
         var isActive: Bool
     }
     
+    private(set) var dismissKeyboardParams: [DismissKeyboardParams] = []
     struct DismissKeyboardParams {}
     
+    private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
     struct SetActivityIndicatorParams {
         var isHidden: Bool
     }
     
+    private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
         var viewModel: ServerConfigurationViewModelType
         var notificationCenter: NotificationCenterType

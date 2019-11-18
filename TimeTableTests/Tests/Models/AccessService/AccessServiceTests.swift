@@ -144,8 +144,6 @@ class AccessServiceTests: XCTestCase {
     }
     
     func testGetLastLoggedInUserIdentifierReturnsNilWhileUserDefaultsReturnsNil() {
-        //Arrange
-        
         //Act
         let identifier = self.accessService.getLastLoggedInUserIdentifier()
         //Assert

@@ -11,8 +11,6 @@ import Foundation
 
 class WorkTimeCellViewModelParentMock {
     private(set) var openTaskParams: [OpenTaskParams] = []
-    
-    // MARK: - Structures
     struct OpenTaskParams {
         var workTime: WorkTimeDecoder
     }

@@ -10,11 +10,8 @@ import Foundation
 @testable import TimeTable
 
 class URLSessionMock {
-    private(set) var dataTaskParams: [DataTaskParams] = []
-    
     var dataTaskReturnValue: URLSessionDataTaskType!
-    
-    // MARK: - Structures
+    private(set) var dataTaskParams: [DataTaskParams] = []
     struct DataTaskParams {
         var request: URLRequest
         var completionHandler: (Data?, URLResponse?, Error?) -> Void

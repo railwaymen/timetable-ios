@@ -11,8 +11,6 @@ import XCTest
 
 class CoordinatorMock {
     private(set) var serverConfigurationDidFinishParams: [ServerConfigurationDidFinishParams] = []
-    
-    // MARK: - Structures
     struct ServerConfigurationDidFinishParams {
         var serverConfiguration: ServerConfiguration
     }

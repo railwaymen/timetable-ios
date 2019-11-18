@@ -11,14 +11,12 @@ import XCTest
 
 class WorkTimesTableViewHeaderViewMock: UITableViewHeaderFooterView {
     private(set) var updateViewParams: [UpdateViewParams] = []
-    private(set) var configureParams: [ConfigureParams] = []
-    
-    // MARK: - Structures
     struct UpdateViewParams {
         var dayText: String?
         var durationText: String?
     }
     
+    private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
         var viewModel: WorkTimesTableViewHeaderViewModelType
     }

@@ -11,14 +11,12 @@ import Foundation
 
 class WorkTimeCoordinatorMock {
     private(set) var showProjectPickerParams: [ShowProjectPickerParams] = []
-    private(set) var viewDidFinishParams: [ViewDidFinishParams] = []
-
-    // MARK: - Structures
     struct ShowProjectPickerParams {
         var projects: [ProjectDecoder]
         var finishHandler: ProjectPickerCoordinator.FinishHandlerType
     }
     
+    private(set) var viewDidFinishParams: [ViewDidFinishParams] = []
     struct ViewDidFinishParams {
         var isTaskChanged: Bool
     }

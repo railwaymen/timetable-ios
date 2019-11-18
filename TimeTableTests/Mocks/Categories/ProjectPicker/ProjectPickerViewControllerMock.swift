@@ -11,19 +11,17 @@ import XCTest
 
 class ProjectPickerViewControllerMock {
     private(set) var setUpParams: [SetUpParams] = []
-    private(set) var reloadDataParams: [ReloadDataParams] = []
-    private(set) var setBottomContentInsetsParams: [SetBottomContentInsetsParams] = []
-    private(set) var configureParams: [ConfigureParams] = []
-    
-    // MARK: - Structures
     struct SetUpParams {}
     
+    private(set) var reloadDataParams: [ReloadDataParams] = []
     struct ReloadDataParams {}
     
+    private(set) var setBottomContentInsetsParams: [SetBottomContentInsetsParams] = []
     struct SetBottomContentInsetsParams {
         var inset: CGFloat
     }
     
+    private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
         var viewModel: ProjectPickerViewModelType
     }

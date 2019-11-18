@@ -11,15 +11,13 @@ import XCTest
 
 class TagCollectionViewCellMock: UICollectionViewCell {
     private(set) var setUpParams: [SetUpParams] = []
-    private(set) var configureParams: [ConfigureParams] = []
-    
-    // MARK: - Structures
     struct SetUpParams {
         var title: String?
         var color: UIColor
         var isSelected: Bool
     }
     
+    private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
         var viewModel: TagCollectionViewCellViewModelType
     }

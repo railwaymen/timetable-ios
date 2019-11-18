@@ -11,29 +11,27 @@ import XCTest
 
 class ProfileViewControllerMock: UIViewController {
     private(set) var setUpParams: [SetUpParams] = []
-    private(set) var updateParams: [UpdateParams] = []
-    private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
-    private(set) var showScrollViewParams: [ShowScrollViewParams] = []
-    private(set) var showErrorViewParams: [ShowErrorViewParams] = []
-    private(set) var configureParams: [ConfigureParams] = []
-
-    // MARK: - Structures
     struct SetUpParams {}
     
+    private(set) var updateParams: [UpdateParams] = []
     struct UpdateParams {
         var firstName: String
         var lastName: String
         var email: String
     }
     
+    private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
     struct SetActivityIndicatorParams {
         var isHidden: Bool
     }
     
+    private(set) var showScrollViewParams: [ShowScrollViewParams] = []
     struct ShowScrollViewParams {}
     
+    private(set) var showErrorViewParams: [ShowErrorViewParams] = []
     struct ShowErrorViewParams {}
     
+    private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
         var viewModel: ProfileViewModelType
     }

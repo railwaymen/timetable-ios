@@ -11,15 +11,13 @@ import XCTest
 
 class WorkTimesListCoordinatorMock {
     private(set) var workTimesRequestedForWorkTimeViewParams: [WorkTimesRequestedForWorkTimeViewParams] = []
-    private(set) var workTimesRequestedForSafari: [WorkTimesRequestedForSafari] = []
-    
-    // MARK: - Structures
     struct WorkTimesRequestedForWorkTimeViewParams {
         var sourceView: UIView
         var flowType: WorkTimeViewModel.FlowType
         var finishHandler: (Bool) -> Void
     }
     
+    private(set) var workTimesRequestedForSafari: [WorkTimesRequestedForSafari] = []
     struct WorkTimesRequestedForSafari {
         var url: URL
     }

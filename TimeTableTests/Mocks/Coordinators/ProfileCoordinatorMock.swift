@@ -11,8 +11,6 @@ import XCTest
 
 class ProfileCoordinatorMock {
     private(set) var userProfileDidLogoutUserParams: [UserProfileDidLogoutUserParams] = []
-    
-    // MARK: - Structures
     struct UserProfileDidLogoutUserParams {}
 }
 

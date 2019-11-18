@@ -10,19 +10,16 @@ import Foundation
 @testable import TimeTable
 
 class JSONDecoderMock {
-    private(set) var decodeParams: [DecodeParams] = []
-    
     private lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(DateFormatter.init(type: .dateAndTimeExtended))
         return decoder
     }()
 
-    var shouldThrowError: Bool = false
-    
     var dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .formatted(DateFormatter.init(type: .dateAndTimeExtended))
     
-    // MARK: - Structures
+    var shouldThrowError: Bool = false
+    private(set) var decodeParams: [DecodeParams] = []
     struct DecodeParams {
         var type: Decodable.Type
         var data: Data

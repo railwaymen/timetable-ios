@@ -11,39 +11,37 @@ import XCTest
 
 class WorkTimesListViewControllerMock: UIViewController {
     private(set) var setUpViewParams: [SetUpViewParams] = []
-    private(set) var updateViewParams: [UpdateViewParams] = []
-    private(set) var updateDateSelectorParams: [UpdateDateSelectorParams] = []
-    private(set) var updateMatchingFullTimeLabelsParams: [UpdateMatchingFullTimeLabelsParams] = []
-    private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
-    private(set) var showTableViewParams: [ShowTableViewParams] = []
-    private(set) var showErrorViewParams: [ShowErrorViewParams] = []
-    private(set) var configureParams: [ConfigureParams] = []
-    
-    // MARK: - Structures
     struct SetUpViewParams {}
     
+    private(set) var updateViewParams: [UpdateViewParams] = []
     struct UpdateViewParams {}
     
+    private(set) var updateDateSelectorParams: [UpdateDateSelectorParams] = []
     struct UpdateDateSelectorParams {
         var currentDateString: String
         var previousDateString: String
         var nextDateString: String
     }
     
+    private(set) var updateMatchingFullTimeLabelsParams: [UpdateMatchingFullTimeLabelsParams] = []
     struct UpdateMatchingFullTimeLabelsParams {
         var workedHours: String
         var shouldWorkHours: String
         var duration: String
     }
     
+    private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
     struct SetActivityIndicatorParams {
         var isHidden: Bool
     }
     
+    private(set) var showTableViewParams: [ShowTableViewParams] = []
     struct ShowTableViewParams {}
     
+    private(set) var showErrorViewParams: [ShowErrorViewParams] = []
     struct ShowErrorViewParams {}
     
+    private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
         var viewModel: WorkTimesListViewModelType
     }

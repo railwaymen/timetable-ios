@@ -11,18 +11,6 @@ import XCTest
 
 class WorkTimeViewControllerMock: UIViewController {
     private(set) var setUpParams: [SetUpParams] = []
-    private(set) var dismissViewParams: [DismissViewParams] = []
-    private(set) var reloadTagsViewParams: [ReloadTagsViewParams] = []
-    private(set) var dismissKeyboardParams: [DismissKeyboardParams] = []
-    private(set) var setMinimumDateForTypeEndAtDateParams: [SetMinimumDateForTypeEndAtDateParams] = []
-    private(set) var updateDayParams: [UpdateDayParams] = []
-    private(set) var updateStartAtDateParams: [UpdateStartAtDateParams] = []
-    private(set) var updateEndAtDateParams: [UpdateEndAtDateParams] = []
-    private(set) var updateProjectParams: [UpdateProjectParams] = []
-    private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
-    private(set) var configureParams: [ConfigureParams] = []
-    
-    // MARK: - Structures
     struct SetUpParams {
         var isLunch: Bool
         var allowsTask: Bool
@@ -30,39 +18,49 @@ class WorkTimeViewControllerMock: UIViewController {
         var urlString: String?
     }
     
+    private(set) var dismissViewParams: [DismissViewParams] = []
     struct DismissViewParams {}
     
+    private(set) var reloadTagsViewParams: [ReloadTagsViewParams] = []
     struct ReloadTagsViewParams {}
     
+    private(set) var dismissKeyboardParams: [DismissKeyboardParams] = []
     struct DismissKeyboardParams {}
     
+    private(set) var setMinimumDateForTypeEndAtDateParams: [SetMinimumDateForTypeEndAtDateParams] = []
     struct SetMinimumDateForTypeEndAtDateParams {
         var minDate: Date
     }
     
+    private(set) var updateDayParams: [UpdateDayParams] = []
     struct UpdateDayParams {
         var date: Date
         var dateString: String
     }
     
+    private(set) var updateStartAtDateParams: [UpdateStartAtDateParams] = []
     struct UpdateStartAtDateParams {
         var date: Date
         var dateString: String
     }
 
+    private(set) var updateEndAtDateParams: [UpdateEndAtDateParams] = []
     struct UpdateEndAtDateParams {
         var date: Date
         var dateString: String
     }
     
+    private(set) var updateProjectParams: [UpdateProjectParams] = []
     struct UpdateProjectParams {
         var name: String
     }
     
+    private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
     struct SetActivityIndicatorParams {
         var isHidden: Bool
     }
     
+    private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
         var viewModel: WorkTimeViewModelType
         var notificationCenter: NotificationCenterType?

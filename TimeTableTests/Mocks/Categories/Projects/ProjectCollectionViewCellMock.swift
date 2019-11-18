@@ -11,11 +11,9 @@ import XCTest
 
 class ProjectCollectionViewCellMock {
     private(set) var setUpViewParams: [SetUpViewParams] = []
-    private(set) var updateViewParams: [UpdateViewParams] = []
-    
-    // MARK: - Structures
     struct SetUpViewParams {}
     
+    private(set) var updateViewParams: [UpdateViewParams] = []
     struct UpdateViewParams {
         var projectName: String
         var leaderName: String

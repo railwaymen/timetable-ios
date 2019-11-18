@@ -11,34 +11,21 @@ import Foundation
 
 // swiftlint:disable function_parameter_count
 class CalendarMock {
-    private(set) var dateComponentsParams: [DateComponentsParams] = []
-    private(set) var dateFromDateComponentsParams: [DateFromDateComponentsParams] = []
-    private(set) var dateBySettingHourParams: [DateBySettingHourParams] = []
-    private(set) var dateBySettingCalendarComponentParams: [DateBySettingCalendarComponentParams] = []
-    private(set) var dateByAddingDateComponentsParams: [DateByAddingDateComponentsParams] = []
-    private(set) var dateByAddingCalendarComponentParams: [DateByAddingCalendarComponentParams] = []
-    private(set) var isDateInTodayParams: [IsDateInTodayParams] = []
-    private(set) var isDateInYesterdayParams: [IsDateInYesterdayParams] = []
-
     var dateComponentsReturnValue: DateComponents!
-    var dateFromDateComponentsReturnValue: Date?
-    var dateBySettingHourReturnValue: Date?
-    var dateBySettingCalendarComponentReturnValue: Date?
-    var dateByAddingDateComponentsReturnValue: Date?
-    var dateByAddingCalendarComponentReturnValue: Date?
-    var isDateInTodayReturnValue: Bool = false
-    var isDateInYesterdayReturnValue: Bool = false
-    
-    // MARK: - Structures
+    private(set) var dateComponentsParams: [DateComponentsParams] = []
     struct DateComponentsParams {
         var components: Set<Calendar.Component>
         var date: Date
     }
     
+    var dateFromDateComponentsReturnValue: Date?
+    private(set) var dateFromDateComponentsParams: [DateFromDateComponentsParams] = []
     struct DateFromDateComponentsParams {
         var components: DateComponents
     }
     
+    var dateBySettingHourReturnValue: Date?
+    private(set) var dateBySettingHourParams: [DateBySettingHourParams] = []
     struct DateBySettingHourParams {
         var hour: Int
         var minute: Int
@@ -49,18 +36,24 @@ class CalendarMock {
         var direction: Calendar.SearchDirection
     }
     
+    var dateBySettingCalendarComponentReturnValue: Date?
+    private(set) var dateBySettingCalendarComponentParams: [DateBySettingCalendarComponentParams] = []
     struct DateBySettingCalendarComponentParams {
         var component: Calendar.Component
         var value: Int
         var date: Date
     }
     
+    var dateByAddingDateComponentsReturnValue: Date?
+    private(set) var dateByAddingDateComponentsParams: [DateByAddingDateComponentsParams] = []
     struct DateByAddingDateComponentsParams {
         var components: DateComponents
         var date: Date
         var wrappingComponents: Bool
     }
     
+    var dateByAddingCalendarComponentReturnValue: Date?
+    private(set) var dateByAddingCalendarComponentParams: [DateByAddingCalendarComponentParams] = []
     struct DateByAddingCalendarComponentParams {
         var component: Calendar.Component
         var value: Int
@@ -68,10 +61,14 @@ class CalendarMock {
         var wrappingComponents: Bool
     }
     
+    var isDateInTodayReturnValue: Bool = false
+    private(set) var isDateInTodayParams: [IsDateInTodayParams] = []
     struct IsDateInTodayParams {
         var date: Date
     }
     
+    var isDateInYesterdayReturnValue: Bool = false
+    private(set) var isDateInYesterdayParams: [IsDateInYesterdayParams] = []
     struct IsDateInYesterdayParams {
         var date: Date
     }

@@ -11,20 +11,18 @@ import Foundation
 
 class ProjectsViewControllerMock {
     private(set) var setUpViewParams: [SetUpViewParams] = []
-    private(set) var updateViewParams: [UpdateViewParams] = []
-    private(set) var showCollectionViewParams: [ShowCollectionViewParams] = []
-    private(set) var showErrorViewParams: [ShowErrorViewParams] = []
-    private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
-
-    // MARK: - Structures
     struct SetUpViewParams {}
     
+    private(set) var updateViewParams: [UpdateViewParams] = []
     struct UpdateViewParams {}
     
+    private(set) var showCollectionViewParams: [ShowCollectionViewParams] = []
     struct ShowCollectionViewParams {}
     
+    private(set) var showErrorViewParams: [ShowErrorViewParams] = []
     struct ShowErrorViewParams {}
     
+    private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
     struct SetActivityIndicatorParams {
         var isHidden: Bool
     }

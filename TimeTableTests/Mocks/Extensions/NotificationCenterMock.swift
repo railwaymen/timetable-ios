@@ -11,13 +11,11 @@ import Foundation
 
 class NotificationCenterMock {
     private(set) var removeObserverParams: [RemoveObserverParams] = []
-    private(set) var addObserverParams: [AddObserverParams] = []
-
-    // MARK: - Structures
     struct RemoveObserverParams {
         var observer: Any
     }
     
+    private(set) var addObserverParams: [AddObserverParams] = []
     struct AddObserverParams {
         var observer: Any
         var selector: Selector

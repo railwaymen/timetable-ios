@@ -11,16 +11,14 @@ import XCTest
 
 class WorkTimeCellViewMock: UITableViewCell {
     private(set) var setUpParams: [SetUpParams] = []
-    private(set) var updateViewParams: [UpdateViewParams] = []
-    private(set) var configureParams: [ConfigureParams] = []
-    
-    // MARK: - Structures
     struct SetUpParams {}
     
+    private(set) var updateViewParams: [UpdateViewParams] = []
     struct UpdateViewParams {
         var data: WorkTimeCellViewModel.ViewData
     }
     
+    private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
         var viewModel: WorkTimeCellViewModelType
     }

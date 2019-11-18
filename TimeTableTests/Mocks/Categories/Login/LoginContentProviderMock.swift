@@ -11,8 +11,6 @@ import XCTest
 
 class LoginContentProviderMock {
     private(set) var loginParams: [LoginParams] = []
-    
-    // MARK: - Structures
     struct LoginParams {
         var credentials: LoginCredentials
         var fetchCompletion: ((Result<SessionDecoder>) -> Void)

@@ -11,8 +11,6 @@ import XCTest
 
 class ProjectPickerCoordinatorMock {
     private(set) var finishFlowParams: [FinishFlowParams] = []
-    
-    // MARK: - Structures
     struct FinishFlowParams {
         var project: ProjectDecoder?
     }

@@ -11,45 +11,43 @@ import XCTest
 
 class LoginViewControllerMock: UIViewController {
     private(set) var setUpViewParams: [SetUpViewParams] = []
-    private(set) var updateLoginFieldsParams: [UpdateLoginFieldsParams] = []
-    private(set) var passwordInputEnabledStateParams: [PasswordInputEnabledStateParams] = []
-    private(set) var loginButtonEnabledStateParams: [LoginButtonEnabledStateParams] = []
-    private(set) var focusOnPasswordTextFieldParams: [FocusOnPasswordTextFieldParams] = []
-    private(set) var checkBoxIsActiveStateParams: [CheckBoxIsActiveStateParams] = []
-    private(set) var dismissKeyboardParams: [DismissKeyboardParams] = []
-    private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
-    private(set) var configureParams: [ConfigureParams] = []
-    
-    // MARK: - Structures
     struct SetUpViewParams {
         var checkBoxIsActive: Bool
     }
     
+    private(set) var updateLoginFieldsParams: [UpdateLoginFieldsParams] = []
     struct UpdateLoginFieldsParams {
         var email: String
         var password: String
     }
     
+    private(set) var passwordInputEnabledStateParams: [PasswordInputEnabledStateParams] = []
     struct PasswordInputEnabledStateParams {
         var isEnabled: Bool
     }
     
+    private(set) var loginButtonEnabledStateParams: [LoginButtonEnabledStateParams] = []
     struct LoginButtonEnabledStateParams {
         var isEnabled: Bool
     }
     
+    private(set) var focusOnPasswordTextFieldParams: [FocusOnPasswordTextFieldParams] = []
     struct FocusOnPasswordTextFieldParams {}
     
+    private(set) var checkBoxIsActiveStateParams: [CheckBoxIsActiveStateParams] = []
     struct CheckBoxIsActiveStateParams {
         var isActive: Bool
     }
     
+    private(set) var dismissKeyboardParams: [DismissKeyboardParams] = []
     struct DismissKeyboardParams {}
     
+    private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
     struct SetActivityIndicatorParams {
         var isHidden: Bool
     }
     
+    private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
         var notificationCenter: NotificationCenterType
         var viewModel: LoginViewModelType

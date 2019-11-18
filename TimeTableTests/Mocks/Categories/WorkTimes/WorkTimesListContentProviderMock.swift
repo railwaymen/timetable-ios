@@ -11,14 +11,12 @@ import Foundation
 
 class WorkTimesListContentProviderMock {
     private(set) var fetchWorkTimesDataParams: [FetchWorkTimesDataParams] = []
-    private(set) var deleteWorkTimeParams: [DeleteWorkTimeParams] = []
-    
-    // MARK: - Structures
     struct FetchWorkTimesDataParams {
         var date: Date?
         var completion: (Result<([DailyWorkTime], MatchingFullTimeDecoder)>) -> Void
     }
     
+    private(set) var deleteWorkTimeParams: [DeleteWorkTimeParams] = []
     struct DeleteWorkTimeParams {
         var workTime: WorkTimeDecoder
         var completion: (Result<Void>) -> Void

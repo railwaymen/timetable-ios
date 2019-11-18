@@ -11,8 +11,6 @@ import XCTest
 
 class ProjectUserViewTableViewCellMock {
     private(set) var configureParams: [ConfigureParams] = []
-    
-    // MARK: - Structures
     struct ConfigureParams {
         var name: String
     }
