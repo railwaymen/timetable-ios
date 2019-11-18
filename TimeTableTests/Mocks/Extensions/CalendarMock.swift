@@ -9,90 +9,126 @@
 import Foundation
 @testable import TimeTable
 
-// swiftlint:disable large_tuple
 // swiftlint:disable function_parameter_count
-class CalendarMock: CalendarType {
-    
-    private(set) var dateComponentsData: (components: Set<Calendar.Component>?, date: Date?) = (nil, nil)
+class CalendarMock {
+    private(set) var dateComponentsParams: [DateComponentsParams] = []
+    private(set) var dateFromDateComponentsParams: [DateFromDateComponentsParams] = []
+    private(set) var dateBySettingHourParams: [DateBySettingHourParams] = []
+    private(set) var dateBySettingCalendarComponentParams: [DateBySettingCalendarComponentParams] = []
+    private(set) var dateByAddingDateComponentsParams: [DateByAddingDateComponentsParams] = []
+    private(set) var dateByAddingCalendarComponentParams: [DateByAddingCalendarComponentParams] = []
+    private(set) var isDateInTodayParams: [IsDateInTodayParams] = []
+    private(set) var isDateInYesterdayParams: [IsDateInYesterdayParams] = []
+
     var dateComponentsReturnValue: DateComponents!
+    var dateFromDateComponentsReturnValue: Date?
+    var dateBySettingHourReturnValue: Date?
+    var dateBySettingCalendarComponentReturnValue: Date?
+    var dateByAddingDateComponentsReturnValue: Date?
+    var dateByAddingCalendarComponentReturnValue: Date?
+    var isDateInTodayReturnValue: Bool = false
+    var isDateInYesterdayReturnValue: Bool = false
+    
+    // MARK: - Structures
+    struct DateComponentsParams {
+        var components: Set<Calendar.Component>
+        var date: Date
+    }
+    
+    struct DateFromDateComponentsParams {
+        var components: DateComponents
+    }
+    
+    struct DateBySettingHourParams {
+        var hour: Int
+        var minute: Int
+        var second: Int
+        var date: Date
+        var matchingPolicy: Calendar.MatchingPolicy
+        var repeatedTimePolicy: Calendar.RepeatedTimePolicy
+        var direction: Calendar.SearchDirection
+    }
+    
+    struct DateBySettingCalendarComponentParams {
+        var component: Calendar.Component
+        var value: Int
+        var date: Date
+    }
+    
+    struct DateByAddingDateComponentsParams {
+        var components: DateComponents
+        var date: Date
+        var wrappingComponents: Bool
+    }
+    
+    struct DateByAddingCalendarComponentParams {
+        var component: Calendar.Component
+        var value: Int
+        var date: Date
+        var wrappingComponents: Bool
+    }
+    
+    struct IsDateInTodayParams {
+        var date: Date
+    }
+    
+    struct IsDateInYesterdayParams {
+        var date: Date
+    }
+}
+
+// MARK: - CalendarType
+extension CalendarMock: CalendarType {
     func dateComponents(_ components: Set<Calendar.Component>, from date: Date) -> DateComponents {
-        self.dateComponentsData = (components, date)
+        self.dateComponentsParams.append(DateComponentsParams(components: components, date: date))
         return self.dateComponentsReturnValue
     }
     
-    private(set) var dateFromComponents: DateComponents?
-    var dateFromComponentsValue: Date?
     func date(from components: DateComponents) -> Date? {
-        self.dateFromComponents = components
-        return self.dateFromComponentsValue
+        self.dateFromDateComponentsParams.append(DateFromDateComponentsParams(components: components))
+        return self.dateFromDateComponentsReturnValue
     }
     
-    private(set) var dateBySettingHourShortData: (hour: Int?, minute: Int?, second: Int?, date: Date?) = (nil, nil, nil, nil)
-    var dateBySettingHourShortReturnValue: Date?
-    func date(bySettingHour hour: Int, minute: Int, second: Int, of date: Date) -> Date? {
-        self.dateBySettingHourShortData = (hour, minute, second, date)
-        return self.dateBySettingHourShortReturnValue
-    }
-    
-    private(set) var dateBySettingHourLongData: (hour: Int?, minute: Int?, second: Int?,
-        date: Date?, matchingPolicy: Calendar.MatchingPolicy?,
-        repeatedTimePolicy: Calendar.RepeatedTimePolicy?, direction: Calendar.SearchDirection?) = (nil, nil, nil, nil, nil, nil, nil)
-    var dateBySettingHourLongReturnValue: Date?
     func date(bySettingHour hour: Int, minute: Int, second: Int, of date: Date,
               matchingPolicy: Calendar.MatchingPolicy, repeatedTimePolicy: Calendar.RepeatedTimePolicy, direction: Calendar.SearchDirection) -> Date? {
-        self.dateBySettingHourLongData = (hour, minute, second, date, matchingPolicy, repeatedTimePolicy, direction)
-        return self.dateBySettingHourLongReturnValue
+        self.dateBySettingHourParams.append(DateBySettingHourParams(hour: hour,
+                                                                    minute: minute,
+                                                                    second: second,
+                                                                    date: date,
+                                                                    matchingPolicy: matchingPolicy,
+                                                                    repeatedTimePolicy: repeatedTimePolicy,
+                                                                    direction: direction))
+        return self.dateBySettingHourReturnValue
     }
     
-    private(set) var dateBySettingData: (component: Calendar.Component?, value: Int?, date: Date?) = (nil, nil, nil)
-    var dateBySettingReturnValue: Date?
     func date(bySetting component: Calendar.Component, value: Int, of date: Date) -> Date? {
-        self.dateBySettingData = (component, value, date)
-        return self.dateBySettingReturnValue
+        self.dateBySettingCalendarComponentParams.append(DateBySettingCalendarComponentParams(component: component, value: value, date: date))
+        return self.dateBySettingCalendarComponentReturnValue
     }
     
-    private(set) var fullDateByAddingData: (components: DateComponents?, date: Date?, wrappingComponents: Bool?) = (nil, nil, nil)
-    var fullDateByAddingReturnValue: Date?
     func date(byAdding components: DateComponents, to date: Date, wrappingComponents: Bool) -> Date? {
-        self.fullDateByAddingData = (components, date, wrappingComponents)
-        return self.fullDateByAddingReturnValue
+        self.dateByAddingDateComponentsParams.append(DateByAddingDateComponentsParams(components: components,
+                                                                                      date: date,
+                                                                                      wrappingComponents: wrappingComponents))
+        return self.dateByAddingDateComponentsReturnValue
     }
     
-    private(set) var shortDateByAddingData: (components: DateComponents?, date: Date?) = (nil, nil)
-    var shortDateByAddingReturnValue: Date?
-    func date(byAdding components: DateComponents, to date: Date) -> Date? {
-        self.shortDateByAddingData = (components, date)
-        return self.shortDateByAddingReturnValue
-    }
-    
-    private(set) var fullDateByAddingDataWithValueData: (components: Calendar.Component?, value: Int?, date: Date?,
-        wrappingComponents: Bool?) = (nil, nil, nil, nil)
-    var fullDateByAddingWithValueReturnValue: Date?
     func date(byAdding component: Calendar.Component, value: Int, to date: Date, wrappingComponents: Bool) -> Date? {
-        self.fullDateByAddingDataWithValueData = (component, value, date, wrappingComponents)
-        return self.fullDateByAddingWithValueReturnValue
+        self.dateByAddingCalendarComponentParams.append(DateByAddingCalendarComponentParams(component: component,
+                                                                                            value: value,
+                                                                                            date: date,
+                                                                                            wrappingComponents: wrappingComponents))
+        return self.dateByAddingCalendarComponentReturnValue
     }
     
-    private(set) var shortDateByAddingDataWithValueData: (components: Calendar.Component?, value: Int?, date: Date?) = (nil, nil, nil)
-    var shortDateByAddingWithValueReturnValue: Date?
-    func date(byAdding component: Calendar.Component, value: Int, to date: Date) -> Date? {
-        self.shortDateByAddingDataWithValueData = (component, value, date)
-        return self.shortDateByAddingWithValueReturnValue
-    }
-    
-    private(set) var isDateInTodayValues: (called: Bool, date: Date?) = (false, nil)
-    var isDateInTodayReturnValue = false
     func isDateInToday(_ date: Date) -> Bool {
-        self.isDateInTodayValues = (true, date)
+        self.isDateInTodayParams.append(IsDateInTodayParams(date: date))
         return self.isDateInTodayReturnValue
     }
     
-    private(set) var isDateInYesterdayValues: (called: Bool, date: Date?) = (false, nil)
-    var isDateInYesterdayReturnValue = false
     func isDateInYesterday(_ date: Date) -> Bool {
-        self.isDateInYesterdayValues = (true, date)
+        self.isDateInYesterdayParams.append(IsDateInYesterdayParams(date: date))
         return self.isDateInYesterdayReturnValue
     }
 }
-// swiftlint:enable large_tuple
 // swiftlint:enable function_parameter_count

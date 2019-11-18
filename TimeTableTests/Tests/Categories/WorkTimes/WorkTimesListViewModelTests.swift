@@ -179,7 +179,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         let viewModel = self.buildViewModel()
         let components = DateComponents(year: 2019, month: 1, day: 1)
         let date = Calendar.current.date(from: components)
-        self.calendarMock.shortDateByAddingReturnValue = date
+        self.calendarMock.dateByAddingDateComponentsReturnValue = date
         self.calendarMock.dateComponentsReturnValue = DateComponents(year: 2019, month: 1)
         //Act
         viewModel.viewRequestForPreviousMonth()
@@ -202,7 +202,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         let viewModel = self.buildViewModel()
         let components = DateComponents(year: 2019, month: 1, day: 1)
         let date = Calendar.current.date(from: components)
-        self.calendarMock.shortDateByAddingReturnValue = date
+        self.calendarMock.dateByAddingDateComponentsReturnValue = date
         self.calendarMock.dateComponentsReturnValue = DateComponents(year: 2019, month: 3)
         //Act
         viewModel.viewRequestForNextMonth()
@@ -458,7 +458,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         let components = DateComponents(year: 2019, month: 2, day: 2)
         self.calendarMock.dateComponentsReturnValue = components
         if isSelecteDate {
-            self.calendarMock.dateFromComponentsValue = Calendar.current.date(from: components)
+            self.calendarMock.dateFromDateComponentsReturnValue = Calendar.current.date(from: components)
         }
         return WorkTimesListViewModel(userInterface: self.userInterfaceMock,
                                       coordinator: self.coordinatorMock,

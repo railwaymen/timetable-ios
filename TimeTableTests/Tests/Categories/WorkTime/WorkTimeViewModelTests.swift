@@ -447,9 +447,9 @@ class WorkTimeViewModelTests: XCTestCase {
         self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[0])
         self.viewModel.taskNameDidChange(value: "body")
         self.viewModel.taskURLDidChange(value: "www.example.com")
-        self.calendarMock.dateBySettingReturnValue = fromDate
+        self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
         self.viewModel.viewChanged(startAtDate: fromDate)
-        self.calendarMock.dateBySettingReturnValue = toDate
+        self.calendarMock.dateBySettingCalendarComponentReturnValue = toDate
         self.viewModel.viewChanged(endAtDate: toDate)
         //Act
         self.viewModel.viewRequestedToSave()
@@ -517,9 +517,9 @@ class WorkTimeViewModelTests: XCTestCase {
         let fromDate = try Calendar.current.date(from: components).unwrap()
         components.day = 16
         let toDate = try Calendar.current.date(from: components).unwrap()
-        self.calendarMock.dateBySettingReturnValue = toDate
+        self.calendarMock.dateBySettingCalendarComponentReturnValue = toDate
         self.viewModel.viewChanged(endAtDate: toDate)
-        self.calendarMock.dateBySettingReturnValue = fromDate
+        self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
         //Act
         self.viewModel.viewChanged(startAtDate: fromDate)
         //Assert
@@ -539,7 +539,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let fromDate = try Calendar.current.date(from: components).unwrap()
-        self.calendarMock.dateBySettingReturnValue = fromDate
+        self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
         self.viewModel.viewChanged(startAtDate: fromDate)
         //Act
         self.viewModel.setDefaultStartAtDate()
@@ -567,9 +567,9 @@ class WorkTimeViewModelTests: XCTestCase {
         let fromDate = try Calendar.current.date(from: components).unwrap()
         components.hour = 13
         let toDate = try Calendar.current.date(from: components).unwrap()
-        self.calendarMock.dateBySettingReturnValue = fromDate
+        self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
         self.viewModel.viewChanged(startAtDate: fromDate)
-        self.calendarMock.dateBySettingReturnValue = toDate
+        self.calendarMock.dateBySettingCalendarComponentReturnValue = toDate
         //Act
         self.viewModel.viewChanged(endAtDate: toDate)
         //Assert
@@ -588,7 +588,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let toDate = try Calendar.current.date(from: components).unwrap()
-        self.calendarMock.dateBySettingReturnValue = toDate
+        self.calendarMock.dateBySettingCalendarComponentReturnValue = toDate
         self.viewModel.viewChanged(endAtDate: toDate)
         //Act
         self.viewModel.setDefaultEndAtDate()
@@ -601,7 +601,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let fromDate = try Calendar.current.date(from: components).unwrap()
-        self.calendarMock.dateBySettingReturnValue = fromDate
+        self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
         self.viewModel.viewChanged(startAtDate: fromDate)
         //Act
         self.viewModel.setDefaultEndAtDate()
@@ -696,9 +696,9 @@ class WorkTimeViewModelTests: XCTestCase {
         let fromDate = try task.startAt.unwrap()
         let toDate = try task.endAt.unwrap()
         self.viewModel.viewChanged(day: try task.day.unwrap())
-        self.calendarMock.dateBySettingReturnValue = fromDate
+        self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
         self.viewModel.viewChanged(startAtDate: fromDate)
-        self.calendarMock.dateBySettingReturnValue = toDate
+        self.calendarMock.dateBySettingCalendarComponentReturnValue = toDate
         self.viewModel.viewChanged(endAtDate: toDate)
         self.viewModel.projectButtonTapped()
         self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects.first)

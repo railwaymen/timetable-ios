@@ -106,7 +106,7 @@ class WorkTimesContentProviderTests: XCTestCase {
         let dateComponents = DateComponents(year: 2019, month: 2, day: 1)
         self.calendarMock.dateComponentsReturnValue = dateComponents
         let startOfMonth = try Calendar.current.date(from: dateComponents).unwrap()
-        self.calendarMock.dateFromComponentsValue = startOfMonth
+        self.calendarMock.dateFromDateComponentsReturnValue = startOfMonth
         let date = try Calendar.current.date(from: dateComponents).unwrap()
         
         var expectedError: Error?
@@ -162,10 +162,10 @@ class WorkTimesContentProviderTests: XCTestCase {
         let startOfMonth = try Calendar.current.date(from: dateComponents).unwrap()
         self.accessServiceMock.getLastLoggedInUserIdentifierValue = 1
         self.calendarMock.dateComponentsReturnValue = dateComponents
-        self.calendarMock.dateFromComponentsValue = startOfMonth
+        self.calendarMock.dateFromDateComponentsReturnValue = startOfMonth
         dateComponents.day = 28
         let endOfMonth = try Calendar.current.date(from: dateComponents).unwrap()
-        self.calendarMock.shortDateByAddingReturnValue = endOfMonth
+        self.calendarMock.dateByAddingCalendarComponentReturnValue = endOfMonth
         
         var expectedResponse: ([DailyWorkTime], MatchingFullTimeDecoder)?
     
