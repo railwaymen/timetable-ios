@@ -45,9 +45,9 @@ class WorkTimesContentProviderTests: XCTestCase {
             XCTFail()
         }
         //Assert
-        XCTAssertEqual(self.dispatchGroupMock.enterCalledCount, 2)
-        XCTAssertEqual(self.dispatchGroupMock.leaveCalledCount, 0)
-        XCTAssertEqual(self.dispatchGroupMock.notifyCalledCount, 1)
+        XCTAssertEqual(self.dispatchGroupMock.enterParams.count, 2)
+        XCTAssertEqual(self.dispatchGroupMock.leaveParams.count, 0)
+        XCTAssertEqual(self.dispatchGroupMock.notifyParams.count, 1)
         XCTAssertEqual(self.apiClientMock.fetchWorkTimesParams.count, 1)
         XCTAssertEqual(self.apiClientMock.fetchMatchingFullTimeParams.count, 1)
     }
@@ -69,9 +69,9 @@ class WorkTimesContentProviderTests: XCTestCase {
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
         self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.failure(error))
         //Assert
-        XCTAssertEqual(self.dispatchGroupMock.enterCalledCount, 2)
-        XCTAssertEqual(self.dispatchGroupMock.leaveCalledCount, 2)
-        XCTAssertEqual(self.dispatchGroupMock.notifyCalledCount, 1)
+        XCTAssertEqual(self.dispatchGroupMock.enterParams.count, 2)
+        XCTAssertEqual(self.dispatchGroupMock.leaveParams.count, 2)
+        XCTAssertEqual(self.dispatchGroupMock.notifyParams.count, 1)
         XCTAssertEqual(expectedError as? TestError, error)
     }
     
@@ -95,9 +95,9 @@ class WorkTimesContentProviderTests: XCTestCase {
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
         self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.failure(error))
         //Assert
-        XCTAssertEqual(self.dispatchGroupMock.enterCalledCount, 2)
-        XCTAssertEqual(self.dispatchGroupMock.leaveCalledCount, 2)
-        XCTAssertEqual(self.dispatchGroupMock.notifyCalledCount, 1)
+        XCTAssertEqual(self.dispatchGroupMock.enterParams.count, 2)
+        XCTAssertEqual(self.dispatchGroupMock.leaveParams.count, 2)
+        XCTAssertEqual(self.dispatchGroupMock.notifyParams.count, 1)
         XCTAssertEqual(expectedError as? TestError, error)
     }
     
@@ -124,9 +124,9 @@ class WorkTimesContentProviderTests: XCTestCase {
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
         self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.failure(error))
         //Assert
-        XCTAssertEqual(self.dispatchGroupMock.enterCalledCount, 2)
-        XCTAssertEqual(self.dispatchGroupMock.leaveCalledCount, 2)
-        XCTAssertEqual(self.dispatchGroupMock.notifyCalledCount, 1)
+        XCTAssertEqual(self.dispatchGroupMock.enterParams.count, 2)
+        XCTAssertEqual(self.dispatchGroupMock.leaveParams.count, 2)
+        XCTAssertEqual(self.dispatchGroupMock.notifyParams.count, 1)
         XCTAssertEqual(expectedError as? TestError, error)
     }
     
@@ -150,9 +150,9 @@ class WorkTimesContentProviderTests: XCTestCase {
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
         self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.success(matchingFullTime))
         //Assert
-        XCTAssertEqual(self.dispatchGroupMock.enterCalledCount, 2)
-        XCTAssertEqual(self.dispatchGroupMock.leaveCalledCount, 2)
-        XCTAssertEqual(self.dispatchGroupMock.notifyCalledCount, 1)
+        XCTAssertEqual(self.dispatchGroupMock.enterParams.count, 2)
+        XCTAssertEqual(self.dispatchGroupMock.leaveParams.count, 2)
+        XCTAssertEqual(self.dispatchGroupMock.notifyParams.count, 1)
         XCTAssertEqual(expectedError as? TestError, error)
     }
     
@@ -188,9 +188,9 @@ class WorkTimesContentProviderTests: XCTestCase {
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.success(workTimes))
         self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.success(matchingFullTime))
         //Assert
-        XCTAssertEqual(self.dispatchGroupMock.enterCalledCount, 2)
-        XCTAssertEqual(self.dispatchGroupMock.leaveCalledCount, 2)
-        XCTAssertEqual(self.dispatchGroupMock.notifyCalledCount, 1)
+        XCTAssertEqual(self.dispatchGroupMock.enterParams.count, 2)
+        XCTAssertEqual(self.dispatchGroupMock.leaveParams.count, 2)
+        XCTAssertEqual(self.dispatchGroupMock.notifyParams.count, 1)
         XCTAssertEqual(expectedResponse?.0.count, 1)
         XCTAssertEqual(try (expectedResponse?.1).unwrap(), matchingFullTime)
     }
