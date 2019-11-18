@@ -93,7 +93,7 @@ class LoginContentProviderTests: XCTestCase {
         user.firstName = "John"
         user.lastName = "Little"
         let synchronousDataTransactionMock = AsynchronousDataTransactionMock()
-        synchronousDataTransactionMock.user = user
+        synchronousDataTransactionMock.createReturnValue = user
         //Act
         self.contentProvider.login(with: loginCredentials, fetchCompletion: { _ in
         }, saveCompletion: { result in
@@ -106,7 +106,7 @@ class LoginContentProviderTests: XCTestCase {
         _ = self.coreDataStackUserMock.saveCoreDataTypeTranslatior?(synchronousDataTransactionMock)
         self.coreDataStackUserMock.saveUserCompletion?(.success(user))
         //Assert
-        XCTAssertTrue(synchronousDataTransactionMock.deleteAllCalled)
+        XCTAssertEqual(synchronousDataTransactionMock.deleteAllParams.count, 1)
     }
     
     func testLoginSucceed() throws {
@@ -122,7 +122,7 @@ class LoginContentProviderTests: XCTestCase {
         user.firstName = "John"
         user.lastName = "Little"
         let asynchronousDataTransactionMock = AsynchronousDataTransactionMock()
-        asynchronousDataTransactionMock.user = user
+        asynchronousDataTransactionMock.createReturnValue = user
         //Act
         self.contentProvider.login(with: loginCredentials, fetchCompletion: { result in
             switch result {

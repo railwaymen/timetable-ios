@@ -167,7 +167,7 @@ class CoreDataStackTests: XCTestCase {
         user.token = "token_abcd"
         user.firstName = "John"
         user.lastName = "Little"
-        asynchronousDataTransactionMock.user = user
+        asynchronousDataTransactionMock.createReturnValue = user
         //Act
         stack.save(userDecoder: sessionReponse, coreDataTypeTranslation: { (transaction: AsynchronousDataTransactionType) -> UserEntity in
             //Assert
