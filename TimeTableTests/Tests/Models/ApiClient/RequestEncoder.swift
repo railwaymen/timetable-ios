@@ -66,14 +66,15 @@ class RequestEncoderTests: XCTestCase {
         //Arrange
         let requestEncoder = self.buildRequestEncoder()
         let wrapper = LoginCredentials(email: "john@example.com", password: "password")
-        self.jsonSerializationMock.isThrowingError = true
+        let thrownError = TestError(message: "Test")
+        self.jsonSerializationMock.jsonObjectThrowError = thrownError
         //Act
         do {
             _ = try requestEncoder.encodeToDictionary(wrapper: wrapper)
         } catch {
             //Assert
             let expectedError = error as? TestError
-            XCTAssertEqual(expectedError, TestError(message: "jsonObject error"))
+            XCTAssertEqual(expectedError, thrownError)
         }
     }
     
@@ -81,7 +82,7 @@ class RequestEncoderTests: XCTestCase {
         //Arrange
         let requestEncoder = self.buildRequestEncoder()
         let wrapper = LoginCredentials(email: "john@example.com", password: "password")
-        self.jsonSerializationMock.customObject = "This is not a dictionary"
+        self.jsonSerializationMock.jsonObjectReturnValue = "This is not a dictionary"
         //Act
         do {
             _ = try requestEncoder.encodeToDictionary(wrapper: wrapper)
