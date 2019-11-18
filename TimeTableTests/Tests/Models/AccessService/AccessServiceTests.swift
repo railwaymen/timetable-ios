@@ -57,7 +57,7 @@ class AccessServiceTests: XCTestCase {
     func testSaveUserThrowsAnErrorWhileKeychainAccessFailsWhileSaving() {
         //Arrange
         let credentails = LoginCredentials(email: "user@example.com", password: "password")
-        self.keychainAccessMock.setDataIsThrowingError = true
+        self.keychainAccessMock.setDataThrowError = TestError(message: "test")
         //Act
         do {
             try self.accessService.saveUser(credentails: credentails)
@@ -81,19 +81,20 @@ class AccessServiceTests: XCTestCase {
     
     func testGetUserCredentialsFailsWhileKeychainAccessThrowsAnError() {
         //Arrange
-        self.keychainAccessMock.getDataIsThrowingError = true
+        let thrownError = TestError(message: "test")
+        self.keychainAccessMock.getDataThrowError = thrownError
         //Act
         do {
             _ = try self.accessService.getUserCredentials()
         } catch {
             //Assert
-            XCTAssertEqual(try (error as? TestError).unwrap(), TestError(message: "set Data error"))
+            XCTAssertEqual(try (error as? TestError).unwrap(), thrownError)
         }
     }
     
     func testGetUserCredentialsFailsWhileKeychainAccessReturnsNilValue() {
         //Arrange
-        self.keychainAccessMock.getDataValue = nil
+        self.keychainAccessMock.getDataReturnValue = nil
         //Act
         do {
             _ = try self.accessService.getUserCredentials()
@@ -111,7 +112,7 @@ class AccessServiceTests: XCTestCase {
         //Arrange
         let credentials = LoginCredentials(email: "user@example.com", password: "password")
         let data = try JSONEncoder().encode(credentials)
-        self.keychainAccessMock.getDataValue = data
+        self.keychainAccessMock.getDataReturnValue = data
         self.decoderMock.shouldThrowError = true
         //Act
         do {
@@ -126,7 +127,7 @@ class AccessServiceTests: XCTestCase {
         //Arrange
         let credentials = LoginCredentials(email: "user@example.com", password: "password")
         let data = try JSONEncoder().encode(credentials)
-        self.keychainAccessMock.getDataValue = data
+        self.keychainAccessMock.getDataReturnValue = data
         //Act
         let accessServiceCredentials = try self.accessService.getUserCredentials()
         //Assert
