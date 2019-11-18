@@ -136,7 +136,7 @@ class BaseCoordinatorTests: XCTestCase {
         //Act
         coordinator.present(error: error)
         //Assert
-        XCTAssertEqual(self.messagePresenterMock.message, error.localizedDescription)
+        XCTAssertEqual(self.messagePresenterMock.presentAlertControllerParams.last?.message, error.localizedDescription)
     }
     
     func testPresentApiErrorPresentAlertController() throws {
@@ -153,7 +153,7 @@ class BaseCoordinatorTests: XCTestCase {
         //Act
         coordinator.present(error: error)
         //Assert
-        XCTAssertEqual(self.messagePresenterMock.message, error.type.localizedDescription)
+        XCTAssertEqual(self.messagePresenterMock.presentAlertControllerParams.last?.message, error.type.localizedDescription)
     }
 }
 

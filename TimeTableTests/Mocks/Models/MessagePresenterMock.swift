@@ -9,10 +9,16 @@
 import XCTest
 @testable import TimeTable
 
-class MessagePresenterMock: MessagePresenterType {
-    private(set) var message: String?
-    
+class MessagePresenterMock {
+    private(set) var presentAlertControllerParams: [PresentAlertControllerParams] = []
+    struct PresentAlertControllerParams {
+        var message: String
+    }
+}
+
+// MARK: - MessagePresenterType
+extension MessagePresenterMock: MessagePresenterType {
     func presentAlertController(withMessage message: String) {
-        self.message = message
+        self.presentAlertControllerParams.append(PresentAlertControllerParams(message: message))
     }
 }
