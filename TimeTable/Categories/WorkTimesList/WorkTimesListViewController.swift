@@ -14,7 +14,7 @@ protocol WorkTimesListViewControllerType: class {
     func configure(viewModel: WorkTimesListViewModelType)
 }
 
-class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class WorkTimesListViewController: UIViewController {
     @IBOutlet private var dateSelectorView: DateSelectorView!
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var errorView: ErrorView!
@@ -36,13 +36,13 @@ class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITabl
     private let workTimesTableViewHeaderIdentifier = "WorkTimesTableViewHeaderIdentifier"
     private var viewModel: WorkTimesListViewModelType!
     
-    // MARK: - Life Cycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel?.viewDidLoad()
     }
     
-    // MARK: - Action
+    // MARK: - Actions
     @objc private func addNewRecordTapped(_ sender: UIBarButtonItem) {
         let sourceView = sender.view ?? self.navigationController?.navigationBar ?? UIView()
         self.viewModel.viewRequestForNewWorkTimeView(sourceView: sourceView)
@@ -53,8 +53,10 @@ class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITabl
             self?.refreshControl.endRefreshing()
         }
     }
-    
-    // MARK: - UITableViewDataSource
+}
+ 
+// MARK: - UITableViewDataSource
+extension WorkTimesListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.viewModel.numberOfSections()
     }
@@ -75,7 +77,10 @@ class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITabl
         return true
     }
     
-    // MARK: - UITableViewDelegate
+}
+ 
+// MARK: - UITableViewDelegate
+extension WorkTimesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
         self.viewModel.viewRequestedForEditEntry(sourceView: cell, at: indexPath)
@@ -101,64 +106,6 @@ class WorkTimesListViewController: UIViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return self.heightForHeader
-    }
-    
-    // MARK: - Private
-    private func buildDeleteContextualAction(indexPath: IndexPath) -> UIContextualAction {
-        let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (_, _, completion) in
-            guard let self = self else { return completion(false) }
-            self.viewModel.viewRequestToDelete(at: indexPath) { [weak self] completed in
-                defer { completion(completed) }
-                guard let self = self else { return }
-                guard completed else { return }
-                let numberOfItems = self.viewModel.numberOfRows(in: indexPath.section)
-                numberOfItems > 0
-                    ? self.tableView.deleteRows(at: [indexPath], with: .fade)
-                    : self.tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
-            }
-        }
-        deleteAction.backgroundColor = .crimson
-        deleteAction.image = .delete
-        return deleteAction
-    }
-    
-    private func buildDuplicateContextualAction(indexPath: IndexPath) -> UIContextualAction {
-        let duplicateAction = UIContextualAction(style: .normal, title: nil) { (_, _, completion) in
-            guard let cell = self.tableView.cellForRow(at: indexPath) else { return }
-            self.viewModel.viewRequestToDuplicate(sourceView: cell, at: indexPath)
-            completion(true)
-        }
-        duplicateAction.backgroundColor = .gray
-        duplicateAction.image = .duplicate
-        return duplicateAction
-    }
-    
-    private func setUpTableView() {
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.estimatedRowHeight = tableViewEstimatedRowHeight
-        
-        let nib = UINib(nibName: WorkTimesTableViewHeader.className, bundle: nil)
-        self.tableView.register(nib, forHeaderFooterViewReuseIdentifier: self.workTimesTableViewHeaderIdentifier)
-
-        self.tableView.refreshControl = self.refreshControl
-    }
-    
-    private func setUpNavigationItem() {
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addNewRecordTapped))
-        self.navigationItem.setRightBarButtonItems([addButton], animated: false)
-        self.title = "tabbar.title.timesheet".localized
-    }
-    
-    private func setUpActivityIndicator() {
-        if #available(iOS 13, *) {
-            self.activityIndicator.style = .large
-        } else {
-            self.activityIndicator.style = .gray
-        }
-        self.setActivityIndicator(isHidden: true)
     }
 }
 
@@ -223,5 +170,65 @@ extension WorkTimesListViewController: DateSelectorViewDelegate {
     
     func dateSelectorRequestedForNextDate() {
         self.viewModel.viewRequestForNextMonth()
+    }
+}
+
+// MARK: - Private
+extension WorkTimesListViewController {
+    private func buildDeleteContextualAction(indexPath: IndexPath) -> UIContextualAction {
+        let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (_, _, completion) in
+            guard let self = self else { return completion(false) }
+            self.viewModel.viewRequestToDelete(at: indexPath) { [weak self] completed in
+                defer { completion(completed) }
+                guard let self = self else { return }
+                guard completed else { return }
+                let numberOfItems = self.viewModel.numberOfRows(in: indexPath.section)
+                numberOfItems > 0
+                    ? self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    : self.tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+            }
+        }
+        deleteAction.backgroundColor = .crimson
+        deleteAction.image = .delete
+        return deleteAction
+    }
+    
+    private func buildDuplicateContextualAction(indexPath: IndexPath) -> UIContextualAction {
+        let duplicateAction = UIContextualAction(style: .normal, title: nil) { (_, _, completion) in
+            guard let cell = self.tableView.cellForRow(at: indexPath) else { return }
+            self.viewModel.viewRequestToDuplicate(sourceView: cell, at: indexPath)
+            completion(true)
+        }
+        duplicateAction.backgroundColor = .gray
+        duplicateAction.image = .duplicate
+        return duplicateAction
+    }
+    
+    private func setUpTableView() {
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+        self.tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.estimatedRowHeight = tableViewEstimatedRowHeight
+        
+        let nib = UINib(nibName: WorkTimesTableViewHeader.className, bundle: nil)
+        self.tableView.register(nib, forHeaderFooterViewReuseIdentifier: self.workTimesTableViewHeaderIdentifier)
+        
+        self.tableView.refreshControl = self.refreshControl
+    }
+    
+    private func setUpNavigationItem() {
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addNewRecordTapped))
+        self.navigationItem.setRightBarButtonItems([addButton], animated: false)
+        self.title = "tabbar.title.timesheet".localized
+    }
+    
+    private func setUpActivityIndicator() {
+        if #available(iOS 13, *) {
+            self.activityIndicator.style = .large
+        } else {
+            self.activityIndicator.style = .gray
+        }
+        self.setActivityIndicator(isHidden: true)
     }
 }

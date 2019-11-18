@@ -23,8 +23,7 @@ protocol WorkTimeCellViewModelType: class {
     func taskButtonTapped()
 }
 
-class WorkTimeCellViewModel: WorkTimeCellViewModelType {
-
+class WorkTimeCellViewModel {
     private let workTime: WorkTimeDecoder
     private weak var userInterface: WorkTimeCellViewModelOutput?
     private weak var parent: WorkTimeCellViewModelParentType?
@@ -43,8 +42,24 @@ class WorkTimeCellViewModel: WorkTimeCellViewModelType {
         self.userInterface = userInterface
         self.parent = parent
     }
-    
-    // MARK: - WorkTimeCellViewModelType
+}
+
+// MARK: - Structures
+extension WorkTimeCellViewModel {
+    struct ViewData {
+        let durationText: String?
+        let bodyText: String?
+        let taskUrlText: String?
+        let fromToDateText: String?
+        let projectTitle: String?
+        let projectColor: UIColor?
+        let tagTitle: String?
+        let tagColor: UIColor?
+    }
+}
+
+// MARK: - WorkTimeCellViewModelType
+extension WorkTimeCellViewModel: WorkTimeCellViewModelType {
     func viewConfigured() {
         self.userInterface?.setUp()
         self.updateView()
@@ -57,8 +72,10 @@ class WorkTimeCellViewModel: WorkTimeCellViewModelType {
     func taskButtonTapped() {
         self.parent?.openTask(for: self.workTime)
     }
-    
-    // MARK: - Private
+}
+
+// MARK: - Private
+extension WorkTimeCellViewModel {
     private func updateView() {
         let duration = TimeInterval(self.workTime.duration)
         let durationText = self.dateComponentsFormatter.string(from: duration)
@@ -74,17 +91,5 @@ class WorkTimeCellViewModel: WorkTimeCellViewModelType {
                                                   tagTitle: self.workTime.tag.localized,
                                                   tagColor: self.workTime.tag.color)
         self.userInterface?.updateView(data: data)
-    }
-    
-    // MARK: - Structures
-    struct ViewData {
-        let durationText: String?
-        let bodyText: String?
-        let taskUrlText: String?
-        let fromToDateText: String?
-        let projectTitle: String?
-        let projectColor: UIColor?
-        let tagTitle: String?
-        let tagColor: UIColor?
     }
 }

@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 application: UIApplication.shared,
                 window: self.window,
                 messagePresenter: self.messagePresenter,
-                storyboardsManager: StoryboardsManager.shared,
+                storyboardsManager: StoryboardsManager(),
                 errorHandler: self.errorHandler,
                 serverConfigurationManager: self.serverConfigurationManager,
                 coreDataStack: self.coreDataStack,
@@ -89,8 +89,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.appCoordinator.start()
         return true
     }
-    
-    // MARK: - Private
+}
+
+// MARK: - Private
+extension AppDelegate {
     private func createKeychain(with configuration: ServerConfiguration) -> Keychain {
         if let host = configuration.host {
             if host.isHTTP {

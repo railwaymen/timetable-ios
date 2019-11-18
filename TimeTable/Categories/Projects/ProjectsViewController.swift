@@ -14,7 +14,7 @@ protocol ProjectsViewControllerType: class {
     func configure(viewModel: ProjectsViewModelType)
 }
 
-class ProjectsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class ProjectsViewController: UIViewController {
     
     @IBOutlet private var collectionView: UICollectionView!
     @IBOutlet private var errorView: ErrorView!
@@ -27,13 +27,16 @@ class ProjectsViewController: UIViewController, UICollectionViewDataSource, UICo
     private let projectCellTableViewHeight: CGFloat = 28
     private let projectCellStaticHeaderHeight: CGFloat = 88
 
-    // MARK: - Life-cycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.viewDidLoad()
     }
       
-    // MARK: - UICollectionViewDataSource
+}
+
+// MARK: - UICollectionViewDataSource
+extension ProjectsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel.numberOfItems()
     }
@@ -47,15 +50,16 @@ class ProjectsViewController: UIViewController, UICollectionViewDataSource, UICo
         cell.configure(viewModel: cellViewModel)
         return cell
     }
-    
-    // MARK: - Private
-    private func setUpActivityIndicator() {
-        if #available(iOS 13, *) {
-            self.activityIndicator.style = .large
-        } else {
-            self.activityIndicator.style = .gray
-        }
-        self.setActivityIndicator(isHidden: true)
+}
+
+// MARK: - UICollectionViewDelegate
+extension ProjectsViewController: UICollectionViewDelegate {}
+
+// MARK: - ProjectsCollectionViewLayoutDelegate
+extension ProjectsViewController: ProjectsCollectionViewLayoutDelegate {
+    func collectionView(_ collectionView: UICollectionView, heightForUsersTableViewAtIndexPath indexPath: IndexPath) -> CGFloat {
+        guard let project = self.viewModel.item(at: indexPath) else { return 0 }
+        return CGFloat(project.users.count) * self.projectCellTableViewHeight + self.projectCellStaticHeaderHeight
     }
 }
 
@@ -104,10 +108,14 @@ extension ProjectsViewController: ProjectsViewControllerType {
     }
 }
 
-// MARK: - ProjectsCollectionViewLayoutDelegate
-extension ProjectsViewController: ProjectsCollectionViewLayoutDelegate {
-    func collectionView(_ collectionView: UICollectionView, heightForUsersTableViewAtIndexPath indexPath: IndexPath) -> CGFloat {
-        guard let project = self.viewModel.item(at: indexPath) else { return 0 }
-        return CGFloat(project.users.count) * self.projectCellTableViewHeight + self.projectCellStaticHeaderHeight
+// MARK: - Private
+extension ProjectsViewController {
+    private func setUpActivityIndicator() {
+        if #available(iOS 13, *) {
+            self.activityIndicator.style = .large
+        } else {
+            self.activityIndicator.style = .gray
+        }
+        self.setActivityIndicator(isHidden: true)
     }
 }

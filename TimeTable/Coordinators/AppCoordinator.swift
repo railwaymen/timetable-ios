@@ -9,7 +9,6 @@
 import UIKit
 
 class AppCoordinator: BaseCoordinator {
-    
     private var dependencyContainer: DependencyContainerType
     private let parentErrorHandler: ErrorHandlerType
     
@@ -27,13 +26,15 @@ class AppCoordinator: BaseCoordinator {
         self.dependencyContainer.errorHandler = self.errorHandler
     }
 
-    // MARK: - CoordinatorType
-    func start() {
-        super.start()
+    // MARK: - Overridden
+    override func start(finishCompletion: (() -> Void)?) {
+        super.start(finishCompletion: finishCompletion)
         self.runAuthenticationFlow()
     }
-
-    // MARK: - Private
+}
+ 
+// MARK: - Private
+extension AppCoordinator {
     private func runAuthenticationFlow() {
         let coordinator = AuthenticationCoordinator(dependencyContainer: self.dependencyContainer)
         self.addChildCoordinator(child: coordinator)

@@ -29,8 +29,10 @@ class TagCollectionViewCellViewModelTests: XCTestCase {
         XCTAssertEqual(self.userInterfaceMock.setUpParams.last?.color, tag.color)
         XCTAssertTrue(try (self.userInterfaceMock.setUpParams.last?.isSelected).unwrap())
     }
-    
-    // MARK: - Private
+}
+
+// MARK: - Private
+extension TagCollectionViewCellViewModelTests {
     private func buildViewModel(tag: ProjectTag = .development, isSelected: Bool = false) -> TagCollectionViewCellViewModel {
         return TagCollectionViewCellViewModel(userInterface: self.userInterfaceMock,
                                               projectTag: tag,

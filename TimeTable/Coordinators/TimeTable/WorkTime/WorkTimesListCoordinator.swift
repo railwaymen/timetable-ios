@@ -44,8 +44,23 @@ class WorkTimesListCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinator
         super.start(finishCompletion: finishCompletion)
         self.runMainFlow()
     }
-    
-    // MARK: - Private
+}
+
+// MARK: - WorkTimesListCoordinatorDelegate
+extension WorkTimesListCoordinator: WorkTimesListCoordinatorDelegate {
+    func workTimesRequestedForWorkTimeView(sourceView: UIView,
+                                           flowType: WorkTimeViewModel.FlowType,
+                                           finishHandler: @escaping (_ isTaskChanged: Bool) -> Void) {
+        self.runWorkTimeFlow(sourceView: sourceView, flowType: flowType, finishHandler: finishHandler)
+    }
+
+    func workTimesRequestedForSafari(url: URL) {
+        self.dependencyContainer.application?.open(url)
+    }
+}
+
+// MARK: - Private
+extension WorkTimesListCoordinator {
     private func runMainFlow() {
         guard let apiClient = self.dependencyContainer.apiClient,
             let accessService = self.dependencyContainer.accessService else { return assertionFailure("Api client or access service is nil") }
@@ -74,18 +89,5 @@ class WorkTimesListCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinator
             self?.removeChildCoordinator(child: coordinator)
             finishHandler(isTaskChanged)
         }
-    }
-}
-
-// MARK: - WorkTimesListCoordinatorDelegate
-extension WorkTimesListCoordinator: WorkTimesListCoordinatorDelegate {
-    func workTimesRequestedForWorkTimeView(sourceView: UIView,
-                                           flowType: WorkTimeViewModel.FlowType,
-                                           finishHandler: @escaping (_ isTaskChanged: Bool) -> Void) {
-        self.runWorkTimeFlow(sourceView: sourceView, flowType: flowType, finishHandler: finishHandler)
-    }
-
-    func workTimesRequestedForSafari(url: URL) {
-        self.dependencyContainer.application?.open(url)
     }
 }

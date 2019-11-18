@@ -157,6 +157,7 @@ class BaseCoordinatorTests: XCTestCase {
     }
 }
 
+// MARK: - Private structures
 private class ChildCoordinator: BaseCoordinator {
     
     private(set) var startWithFinishCompletionCalled: Bool = false

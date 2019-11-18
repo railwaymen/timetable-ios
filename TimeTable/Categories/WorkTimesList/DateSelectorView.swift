@@ -14,14 +14,13 @@ protocol DateSelectorViewDelegate: class {
 }
 
 @IBDesignable class DateSelectorView: AttributedView {
-    
     @IBOutlet private var previousDateButton: UIButton!
     @IBOutlet private var nextDateButton: UIButton!
     @IBOutlet private var currentDateButton: UIButton!
     
     weak var delegate: DateSelectorViewDelegate?
  
-    // MARK: - IBAction
+    // MARK: - Actions
     @IBAction private func previousDateButtonTapped(_ sender: UIButton) {
         self.delegate?.dateSelectorRequestedForPreviousDate()
     }

@@ -13,7 +13,6 @@ protocol UserEntityTranslatorType: class {
     static func createUser(from userDecoder: SessionDecoder, transaction: AsynchronousDataTransactionType) -> UserEntity
 }
 
-// MARK: - UserEntityTranslatorType
 extension UserEntity: UserEntityTranslatorType {
     static func createUser(from userDecoder: SessionDecoder, transaction: AsynchronousDataTransactionType) -> UserEntity {
         let user = transaction.create(Into<UserEntity>())

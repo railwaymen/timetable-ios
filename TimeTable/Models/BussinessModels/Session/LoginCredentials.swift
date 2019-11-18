@@ -8,18 +8,16 @@
 
 import Foundation
 
-struct LoginCredentials: Codable {
+struct LoginCredentials {
     var email: String
     var password: String
-    
+}
+
+// MARK: - Codable
+extension LoginCredentials: Codable {
     enum CodingKeys: String, CodingKey {
         case email
         case password
-    }
-    
-    init(email: String, password: String) {
-        self.email = email
-        self.password = password
     }
 }
 

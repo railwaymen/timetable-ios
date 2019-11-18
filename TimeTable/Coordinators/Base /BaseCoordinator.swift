@@ -53,8 +53,10 @@ class BaseCoordinator: CoordinatorType, CoordinatorErrorPresenterType {
             self.presentAlertController(withMessage: apiError.type.localizedDescription)
         }
     }
-    
-    // MARK: - Private
+}
+ 
+// MARK: - Private
+extension BaseCoordinator {
     private func presentAlertController(withMessage message: String) {
         self.messagePresenter?.presentAlertController(withMessage: message)
     }

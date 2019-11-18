@@ -16,7 +16,7 @@ protocol WorkTimesTableViewHeaderViewModelType: class {
     func viewConfigured()
 }
 
-class WorkTimesTableViewHeaderViewModel: WorkTimesTableViewHeaderViewModelType {
+class WorkTimesTableViewHeaderViewModel {
     private weak var userInterface: WorkTimesTableViewHeaderViewModelOutput?
     private let calendar: CalendarType
     private let dailyWorkTime: DailyWorkTime
@@ -35,8 +35,10 @@ class WorkTimesTableViewHeaderViewModel: WorkTimesTableViewHeaderViewModelType {
         self.dailyWorkTime = dailyWorkTime
         self.calendar = calendar
     }
-    
-    // MARK: - WorkTimesTableViewHeaderViewModelType
+}
+ 
+// MARK: - WorkTimesTableViewHeaderViewModelType
+extension WorkTimesTableViewHeaderViewModel: WorkTimesTableViewHeaderViewModelType {
     func viewConfigured() {
         var dayText: String?
         if self.calendar.isDateInToday(self.dailyWorkTime.day) {

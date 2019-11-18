@@ -16,7 +16,7 @@ protocol TagCollectionViewCellViewModelOutput: class {
     func setUp(title: String?, color: UIColor, isSelected: Bool)
 }
 
-class TagCollectionViewCellViewModel: TagCollectionViewCellViewModelType {
+class TagCollectionViewCellViewModel {
     private weak var userInterface: TagCollectionViewCellViewModelOutput?
     private let projectTag: ProjectTag
     private let isSelected: Bool
@@ -29,8 +29,10 @@ class TagCollectionViewCellViewModel: TagCollectionViewCellViewModelType {
         self.projectTag = projectTag
         self.isSelected = isSelected
     }
-    
-    // MARK: - TagCollectionViewCellViewModelType
+}
+
+// MARK: - TagCollectionViewCellViewModelType
+extension TagCollectionViewCellViewModel: TagCollectionViewCellViewModelType {
     func configure() {
         self.userInterface?.setUp(title: self.projectTag.localized,
                                   color: self.projectTag.color,

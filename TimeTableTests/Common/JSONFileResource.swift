@@ -10,7 +10,7 @@ import XCTest
 import Foundation
 
 protocol JSONFileResource: RawRepresentable {
-    var fileName: String {get}
+    var fileName: String { get }
 }
 
 extension XCTestCase {

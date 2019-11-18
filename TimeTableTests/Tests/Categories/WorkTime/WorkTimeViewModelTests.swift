@@ -656,8 +656,10 @@ class WorkTimeViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(self.userInterface.dismissKeyboardParams.count, 1)
     }
-    
-    // MARK: - Private
+}
+
+// MARK: - Private
+extension WorkTimeViewModelTests {
     private func fetchProjects() throws {
         let data = try self.json(from: ProjectsRecordsResponse.simpleProjectArrayResponse)
         let projectDecoders = try self.decoder.decode(SimpleProjectDecoder.self, from: data)

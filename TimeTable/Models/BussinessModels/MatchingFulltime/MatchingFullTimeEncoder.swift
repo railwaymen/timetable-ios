@@ -8,14 +8,15 @@
 
 import Foundation
 
-struct MatchingFullTimeEncoder: Encodable {
+struct MatchingFullTimeEncoder {
+    static var dateFormatter: DateFormatter = DateFormatter(type: .simple)
+    
     let date: Date?
     let userIdentifier: Int64?
-    
-    static var dateFormatter: DateFormatter {
-        return DateFormatter(type: .simple)
-    }
-    
+}
+
+// MARK: - Encodable
+extension MatchingFullTimeEncoder: Encodable {
     enum CodingKeys: String, CodingKey {
         case date
         case userIdentifier = "user_id"

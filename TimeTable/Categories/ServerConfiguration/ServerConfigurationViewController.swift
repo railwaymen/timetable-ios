@@ -30,7 +30,7 @@ class ServerConfigurationViewController: UIViewController {
         self.notificationCenter?.removeObserver(self)
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel?.viewDidLoad()
@@ -62,21 +62,6 @@ class ServerConfigurationViewController: UIViewController {
     
     @objc private func keyboardWillHide(notification: NSNotification) {
         self.updateScrollViewInsets()
-    }
-    
-    // MARK: - Private
-    private func updateScrollViewInsets(with height: CGFloat = 0) {
-        self.scrollView.contentInset.bottom = height
-        self.scrollView.scrollIndicatorInsets.bottom = height
-    }
-    
-    private func setUpActivityIndicator() {
-        if #available(iOS 13, *) {
-            self.activityIndicator.style = .large
-        } else {
-            self.activityIndicator.style = .gray
-        }
-        self.setActivityIndicator(isHidden: true)
     }
 }
 
@@ -131,5 +116,22 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
     func setActivityIndicator(isHidden: Bool) {
         isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
         self.activityIndicator.isHidden = isHidden
+    }
+}
+
+// MARK: - Private
+extension ServerConfigurationViewController {
+    private func updateScrollViewInsets(with height: CGFloat = 0) {
+        self.scrollView.contentInset.bottom = height
+        self.scrollView.scrollIndicatorInsets.bottom = height
+    }
+    
+    private func setUpActivityIndicator() {
+        if #available(iOS 13, *) {
+            self.activityIndicator.style = .large
+        } else {
+            self.activityIndicator.style = .gray
+        }
+        self.setActivityIndicator(isHidden: true)
     }
 }

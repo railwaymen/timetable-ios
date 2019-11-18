@@ -35,8 +35,10 @@ public class ErrorHandler: ErrorHandlerType {
     public func catchingError(action: @escaping HandleAction<Error>) -> ErrorHandlerType {
         return ErrorHandler(action: action, parent: self)
     }
-    
-    // MARK: - Private
+}
+
+// MARK: - Private
+extension ErrorHandler {
     private func throwing(error: Error, previous: [ErrorHandler], finally: ((Bool) -> Void)? = nil) {
         if let parent = self.parent {
             parent.throwing(error: error, previous: previous + [self], finally: finally)

@@ -516,8 +516,10 @@ class ApiClientTests: XCTestCase {
         //Assert
         XCTAssertTrue(successCalled)
     }
+}
 
-    // MARK: - Private
+// MARK: - Private
+extension ApiClientTests {
     private func buildApiClient() -> ApiClient {
         return ApiClient(networking: self.networkingMock,
                          encoder: self.requestEncoderMock,

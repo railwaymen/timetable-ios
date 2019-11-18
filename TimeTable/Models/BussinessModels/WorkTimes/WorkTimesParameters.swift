@@ -8,11 +8,14 @@
 
 import Foundation
 
-struct WorkTimesParameters: Encodable {
+struct WorkTimesParameters {
     let fromDate: Date?
     let toDate: Date?
     let projectIdentifier: Int?
-    
+}
+
+// MARK: - Encodable
+extension WorkTimesParameters: Encodable {
     enum CodingKeys: String, CodingKey {
         case fromDate = "from"
         case toDate = "to"

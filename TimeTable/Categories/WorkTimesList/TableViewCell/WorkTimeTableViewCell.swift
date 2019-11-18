@@ -35,7 +35,7 @@ class WorkTimeTableViewCell: UITableViewCell {
         self.viewModel?.prepareForReuse()
     }
     
-    // MARK: - IBAction
+    // MARK: - Actions
     @IBAction private func taskButtonTapped(_ sender: UIButton) {
         self.viewModel?.taskButtonTapped()
     }

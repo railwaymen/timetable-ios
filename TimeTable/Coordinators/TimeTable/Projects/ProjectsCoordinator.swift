@@ -30,13 +30,15 @@ class ProjectsCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType 
         self.root.tabBarItem = self.tabBarItem
     }
     
-    // MARK: - CoordinatorType
-    func start() {
+    // MARK: - Overridden
+    override func start(finishCompletion: (() -> Void)?) {
+        super.start(finishCompletion: finishCompletion)
         self.runMainFlow()
-        super.start()
     }
-    
-    // MARK: - Private
+}
+  
+// MARK: - Private
+extension ProjectsCoordinator {
     private func runMainFlow() {
         guard let apiClient = self.dependencyContainer.apiClient else { return assertionFailure("Api client or access service is nil") }
         let controller: ProjectsViewControllerable? = self.dependencyContainer.storyboardsManager.controller(storyboard: .projects)

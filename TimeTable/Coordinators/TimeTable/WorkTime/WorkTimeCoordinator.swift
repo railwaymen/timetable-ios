@@ -56,8 +56,21 @@ class WorkTimeCoordinator: BaseNavigationCoordinator {
         self.customFinishHandler?(isTaskChanged)
         super.finish()
     }
+}
+
+// MARK: - WorkTimeCoordinatorType
+extension WorkTimeCoordinator: WorkTimeCoordinatorType {
+    func showProjectPicker(projects: [ProjectDecoder], finishHandler: @escaping ProjectPickerCoordinator.FinishHandlerType) {
+        self.runProjectPickerFlow(projects: projects, finishHandler: finishHandler)
+    }
     
-    // MARK: - Private
+    func viewDidFinish(isTaskChanged: Bool) {
+        self.finish(isTaskChanged: isTaskChanged)
+    }
+}
+
+// MARK: - Private
+extension WorkTimeCoordinator {
     private func runMainFlow() {
         guard let apiClient = self.dependencyContainer.apiClient else { return assertionFailure("Api client is nil") }
         let controller: WorkTimeViewControllerable? = self.dependencyContainer.storyboardsManager.controller(storyboard: .workTime)
@@ -99,16 +112,5 @@ class WorkTimeCoordinator: BaseNavigationCoordinator {
         controller.popoverPresentationController?.sourceView = sourceView
         controller.popoverPresentationController?.sourceRect = CGRect(x: sourceView.bounds.minX, y: sourceView.bounds.midY, width: 0, height: 0)
         self.parentViewController?.children.last?.present(controller, animated: true)
-    }
-}
-
-// MARK: - WorkTimeCoordinatorType
-extension WorkTimeCoordinator: WorkTimeCoordinatorType {
-    func showProjectPicker(projects: [ProjectDecoder], finishHandler: @escaping ProjectPickerCoordinator.FinishHandlerType) {
-        self.runProjectPickerFlow(projects: projects, finishHandler: finishHandler)
-    }
-    
-    func viewDidFinish(isTaskChanged: Bool) {
-        self.finish(isTaskChanged: isTaskChanged)
     }
 }

@@ -9,8 +9,7 @@
 import Foundation
 import UIKit
 
-struct ProjectRecordDecoder: Decodable {
-    
+struct ProjectRecordDecoder {
     let identifier: Int
     let projectIdentifier: Int
     let name: String
@@ -18,18 +17,13 @@ struct ProjectRecordDecoder: Decodable {
     let user: User?
     let leader: User?
     
-    struct User: Decodable, Equatable {
+    struct User {
         let name: String
-        
-        enum CodingKeys: String, CodingKey {
-            case name
-        }
-        
-        static func == (lhs: User, rhs: User) -> Bool {
-            return lhs.name == rhs.name
-        }
     }
-    
+}
+
+// MARK: - Decodable
+extension ProjectRecordDecoder: Decodable {
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
         case projectIdentifier = "project_id"
@@ -38,8 +32,7 @@ struct ProjectRecordDecoder: Decodable {
         case user
         case leader
     }
-
-    // MARK: - Initialization
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.identifier = try container.decode(Int.self, forKey: .identifier)
@@ -54,3 +47,12 @@ struct ProjectRecordDecoder: Decodable {
         self.leader = try? container.decode(User.self, forKey: .leader)
     }
 }
+
+extension ProjectRecordDecoder.User: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case name
+    }
+}
+
+// MARK: - Equatable
+extension ProjectRecordDecoder.User: Equatable {}

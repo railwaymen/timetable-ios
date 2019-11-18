@@ -31,16 +31,16 @@ protocol LoginViewModelType: class {
     func viewRequestedToChangeServerAddress()
 }
 
-class LoginViewModel: LoginViewModelType {
-    
+class LoginViewModel {
     private weak var userInterface: LoginViewModelOutput?
-    private let coordinator: LoginCoordinatorDelegate
+    private weak var coordinator: LoginCoordinatorDelegate?
     private let contentProvider: LoginContentProviderType
     private let accessService: AccessServiceLoginCredentialsType
     private let errorHandler: ErrorHandlerType
     private var loginCredentials: LoginCredentials
     private var shouldRememberLoginCredentials: Bool = false
 
+    // MARK: - Initialization
     init(userInterface: LoginViewModelOutput,
          coordinator: LoginCoordinatorDelegate,
          accessService: AccessServiceLoginCredentialsType,
@@ -58,7 +58,10 @@ class LoginViewModel: LoginViewModelType {
         }
     }
     
-    // MARK: - LoginViewModelOutput
+}
+
+// MARK: - LoginViewModelType
+extension LoginViewModel: LoginViewModelType {
     func viewDidLoad() {
         self.userInterface?.setUpView(checkBoxIsActive: shouldRememberLoginCredentials)
         self.userInterface?.updateLoginFields(email: loginCredentials.email, password: loginCredentials.password)
@@ -115,7 +118,7 @@ class LoginViewModel: LoginViewModelType {
             fetchCompletion: { [weak self] result in
                 switch result {
                 case .success(let session):
-                    self?.coordinator.loginDidFinish(with: .loggedInCorrectly(session))
+                    self?.coordinator?.loginDidFinish(with: .loggedInCorrectly(session))
                 case .failure(let error):
                     self?.userInterface?.setActivityIndicator(isHidden: true)
                     self?.errorHandler.throwing(error: error)
@@ -134,10 +137,12 @@ class LoginViewModel: LoginViewModelType {
     }
     
     func viewRequestedToChangeServerAddress() {
-        self.coordinator.loginDidFinish(with: .changeAddress)
+        self.coordinator?.loginDidFinish(with: .changeAddress)
     }
-    
-    // MARK: - Private
+}
+
+// MARK: - Private
+extension LoginViewModel {
     private func updateView() {
         let isPasswordEnabled = (!self.loginCredentials.password.isEmpty && self.loginCredentials.email.isEmpty) || !self.loginCredentials.email.isEmpty
         self.userInterface?.passwordInputEnabledState(isPasswordEnabled)

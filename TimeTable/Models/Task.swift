@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Task: Encodable, Equatable {
+struct Task {
     var workTimeIdentifier: Int64?
     var project: ProjectDecoder?
     var body: String
@@ -17,15 +17,6 @@ struct Task: Encodable, Equatable {
     var startAt: Date?
     var endAt: Date?
     var tag: ProjectTag = .default
-    
-    enum CodingKeys: String, CodingKey {
-        case projectId = "project_id"
-        case body
-        case task
-        case startAt = "starts_at"
-        case endAt = "ends_at"
-        case tag
-    }
     
     var title: String {
         switch self.project {
@@ -58,10 +49,31 @@ struct Task: Encodable, Equatable {
             return .standard
         }
     }
+}
+
+// MARK: - Structures
+extension Task {
+    enum ProjectType {
+        case standard
+        case lunch(TimeInterval)
+        case fullDay(TimeInterval)
+    }
+}
+
+// MARK: - Encodable
+extension Task: Encodable {
+    enum CodingKeys: String, CodingKey {
+        case projectId = "project_id"
+        case body
+        case task
+        case startAt = "starts_at"
+        case endAt = "ends_at"
+        case tag
+    }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-
+        
         switch self.project {
         case .none:
             throw EncodingError.invalidValue(ProjectDecoder.self, EncodingError.Context(codingPath: [CodingKeys.projectId], debugDescription: ""))
@@ -76,7 +88,13 @@ struct Task: Encodable, Equatable {
             try? container.encode(self.tag.rawValue, forKey: .tag)
         }
     }
-    
+}
+
+// MARK: - Equatable
+extension Task: Equatable {}
+
+// MARK: - Private
+extension Task {
     private func combine(day: Date?, time: Date?) -> Date? {
         guard let day = day, let time = time else { return nil }
         let calendar = Calendar.autoupdatingCurrent
@@ -102,11 +120,5 @@ struct Task: Encodable, Equatable {
         static  var autofillTimeInterval: TimeInterval {
             return TimeInterval(AutofillHours.seconds * AutofillHours.minutes * 8)
         }
-    }
-
-    enum ProjectType {
-        case standard
-        case lunch(TimeInterval)
-        case fullDay(TimeInterval)
     }
 }

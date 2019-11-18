@@ -19,7 +19,7 @@ class BaseTabBarCoordinator: BaseCoordinator {
         super.init(window: window, messagePresenter: messagePresenter)
     }
     
-    // MARK: - Overriden
+    // MARK: - Overridden
     override func start(finishCompletion: (() -> Void)?) {
         self.tabBarController.viewControllers = self.children.compactMap { ($0 as? BaseTabBarCoordinatorType)?.root }
         self.window?.rootViewController = tabBarController

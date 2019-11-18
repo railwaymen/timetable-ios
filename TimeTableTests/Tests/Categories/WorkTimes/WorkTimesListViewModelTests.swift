@@ -452,8 +452,10 @@ class WorkTimesListViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(completionCalledCount, 1)
     }
-    
-    // MARK: - Private
+}
+
+// MARK: - Private
+extension WorkTimesListViewModelTests {
     private func buildViewModel(isSelecteDate: Bool = true) -> WorkTimesListViewModel {
         let components = DateComponents(year: 2019, month: 2, day: 2)
         self.calendarMock.dateComponentsReturnValue = components

@@ -342,8 +342,10 @@ class LoginViewModelTests: XCTestCase {
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
     }
-    
-    // MARK: - Private
+}
+
+// MARK: - Private
+extension LoginViewModelTests {
     private func buildViewModel() -> LoginViewModel {
         return LoginViewModel(userInterface: self.userInterface,
                               coordinator: self.coordinatorMock,

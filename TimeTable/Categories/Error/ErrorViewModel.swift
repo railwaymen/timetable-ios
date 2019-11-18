@@ -58,7 +58,7 @@ extension ErrorViewModel: ErrorViewModelParentType {
 }
 
 // MARK: - Private
-private extension ErrorViewModel {
+extension ErrorViewModel {
     private func updateErrorTitle() {
         var title: String = ""
         if let error = self.error as? UIError {

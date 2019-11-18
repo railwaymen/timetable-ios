@@ -25,7 +25,7 @@ protocol ServerConfigurationViewModelType: class {
     func viewHasBeenTapped()
 }
 
-class ServerConfigurationViewModel: ServerConfigurationViewModelType {
+class ServerConfigurationViewModel {
     private weak var userInterface: ServerConfigurationViewModelOutput?
     private let coordinator: ServerConfigurationCoordinatorDelegate
     private let serverConfigurationManager: ServerConfigurationManagerType
@@ -43,7 +43,10 @@ class ServerConfigurationViewModel: ServerConfigurationViewModelType {
         self.errorHandler = errorHandler
     }
     
-    // MARK: - ServerSettingsViewModelType
+}
+
+// MARK: - ServerSettingsViewModelType
+extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
     func viewDidLoad() {
         let oldConfiguration = self.serverConfigurationManager.getOldConfiguration()
         self.serverAddress = oldConfiguration?.host?.absoluteString

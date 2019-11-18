@@ -32,6 +32,19 @@ class AccessService {
     private let encoder: JSONEncoderType
     private let decoder: JSONDecoderType
     
+    // MARK: - Initialization
+    init(userDefaults: UserDefaultsType, keychainAccess: KeychainAccessType, coreData: CoreDataStackUserType,
+         buildEncoder: (() -> JSONEncoderType), buildDecoder: (() -> JSONDecoderType)) {
+        self.userDefaults = userDefaults
+        self.keychainAccess = keychainAccess
+        self.coreData = coreData
+        self.encoder = buildEncoder()
+        self.decoder = buildDecoder()
+    }
+}
+
+// MARK: - Structures
+extension AccessService {
     enum Error: Swift.Error {
         case userNeverLoggedIn
         case cannotSaveLoginCredentials
@@ -41,16 +54,6 @@ class AccessService {
     private struct Keys {
         static let loginCredentialsKey = "key.time_table.login_credentials.key"
         static let lastLoggedInUserIdentifier = "key.time_table.last_logged_user.id.key"
-    }
-    
-    // MARK: - Initialization
-    init(userDefaults: UserDefaultsType, keychainAccess: KeychainAccessType, coreData: CoreDataStackUserType,
-         buildEncoder: (() -> JSONEncoderType), buildDecoder: (() -> JSONDecoderType)) {
-        self.userDefaults = userDefaults
-        self.keychainAccess = keychainAccess
-        self.coreData = coreData
-        self.encoder = buildEncoder()
-        self.decoder = buildDecoder()
     }
 }
 

@@ -16,8 +16,7 @@ protocol RequestEncoderType: class {
     func encodeToDictionary<T: Encodable>(wrapper: T) throws -> [String: Any]
 }
 
-class RequestEncoder: RequestEncoderType, EncoderType {
-    
+class RequestEncoder {
     private let encoder: JSONEncoderType
     private let serialization: JSONSerializationType
     
@@ -26,13 +25,17 @@ class RequestEncoder: RequestEncoderType, EncoderType {
         self.encoder = encoder
         self.serialization = serialization
     }
-
-    // MARK: - EncoderType
+}
+ 
+// MARK: - EncoderType
+extension RequestEncoder: EncoderType {
     func encode<T: Encodable>(wrapper: T) throws -> Data {
         return try self.encoder.encode(wrapper)
     }
-    
-    // MARK: - RequestEncoderType
+}
+ 
+// MARK: - RequestEncoderType
+extension RequestEncoder: RequestEncoderType {
     func encodeToDictionary<T: Encodable>(wrapper: T) throws -> [String: Any] {
         let data = try self.encode(wrapper: wrapper)
         let json = try self.serialization.jsonObject(with: data, options: .allowFragments)

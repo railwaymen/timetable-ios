@@ -15,7 +15,7 @@ protocol LoginContentProviderType: class {
                saveCompletion: @escaping ((Result<Void>) -> Void))
 }
 
-class LoginContentProvider: LoginContentProviderType {
+class LoginContentProvider {
     private let apiClient: ApiClientSessionType
     private let coreDataStack: CoreDataStackUserType
     private let accessService: AccessServiceUserIDType
@@ -26,8 +26,10 @@ class LoginContentProvider: LoginContentProviderType {
         self.coreDataStack = coreDataStack
         self.accessService = accessService
     }
+}
     
-    // MARK: - LoginContentProviderType
+// MARK: - LoginContentProviderType
+extension LoginContentProvider: LoginContentProviderType {
     func login(with credentials: LoginCredentials,
                fetchCompletion: @escaping ((Result<SessionDecoder>) -> Void),
                saveCompletion: @escaping ((Result<Void>) -> Void)) {
@@ -42,7 +44,10 @@ class LoginContentProvider: LoginContentProviderType {
         }
     }
     
-    // MARK: - Private
+}
+
+// MARK: - Private
+extension LoginContentProvider {
     private func save(userDecoder: SessionDecoder, completion: @escaping ((Result<Void>) -> Void)) {
         self.coreDataStack.save(userDecoder: userDecoder, coreDataTypeTranslation: { (transaction: AsynchronousDataTransactionType) -> UserEntity in
             _ = try? transaction.deleteAll(From<UserEntity>())

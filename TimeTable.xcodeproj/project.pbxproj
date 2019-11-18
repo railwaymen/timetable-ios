@@ -32,6 +32,7 @@
 		8A31CD8923742D15008E590D /* ProjectPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CD8823742D15008E590D /* ProjectPickerCell.swift */; };
 		8A31CD8D23742E43008E590D /* ProjectPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A31CD8C23742E43008E590D /* ProjectPickerCell.xib */; };
 		8A55BA772372D02D004FFA97 /* UIApplicationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */; };
+		8A59AF202382E29200108C33 /* DailyWorkTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A59AF1F2382E29200108C33 /* DailyWorkTime.swift */; };
 		8A5D48BE2369E18C0082C13D /* DispatchGroupFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */; };
 		8A5D48C02369E1A30082C13D /* DispatchGroup+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48BF2369E1A20082C13D /* DispatchGroup+Extension.swift */; };
 		8A5D48C22369E1E20082C13D /* DispatchGroupMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48C12369E1E20082C13D /* DispatchGroupMock.swift */; };
@@ -85,7 +86,7 @@
 		C122602121899F82007D64A3 /* URLSessionDataTask+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C122602021899F82007D64A3 /* URLSessionDataTask+Extension.swift */; };
 		C1249C652181A1B7005DB2A5 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C642181A1B7005DB2A5 /* BaseCoordinator.swift */; };
 		C1249C682181A1E7005DB2A5 /* CoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C672181A1E7005DB2A5 /* CoordinatorType.swift */; };
-		C1249C6C2181A23A005DB2A5 /* Error+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C6B2181A23A005DB2A5 /* Error+String.swift */; };
+		C1249C6C2181A23A005DB2A5 /* String+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C6B2181A23A005DB2A5 /* String+Error.swift */; };
 		C1249C6E2181A265005DB2A5 /* Optional+Unwrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C6D2181A265005DB2A5 /* Optional+Unwrap.swift */; };
 		C1249C712181A282005DB2A5 /* BaseCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C702181A282005DB2A5 /* BaseCoordinatorTests.swift */; };
 		C1249C742181A3D0005DB2A5 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C732181A3D0005DB2A5 /* AppCoordinator.swift */; };
@@ -298,7 +299,7 @@
 		C1ECF0A22192C337006038C6 /* JSONEncoder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ECF0A12192C337006038C6 /* JSONEncoder+Extension.swift */; };
 		C1ECF0A52192C37E006038C6 /* CustomJSONSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ECF0A42192C37E006038C6 /* CustomJSONSerialization.swift */; };
 		C1ECF0A82192C427006038C6 /* CustomJSONSerializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ECF0A72192C427006038C6 /* CustomJSONSerializationTests.swift */; };
-		C1ECF0AA2192CC25006038C6 /* RequestEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ECF0A92192CC25006038C6 /* RequestEncoder.swift */; };
+		C1ECF0AA2192CC25006038C6 /* RequestEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ECF0A92192CC25006038C6 /* RequestEncoderTests.swift */; };
 		C1EF3A05219303A7000E3511 /* NSRegularExpression+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EF3A04219303A7000E3511 /* NSRegularExpression+Extension.swift */; };
 		C1EF3A0721930409000E3511 /* NSRegularExpresionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EF3A0621930409000E3511 /* NSRegularExpresionExtensionTests.swift */; };
 		C1EF3A0921930722000E3511 /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EF3A0821930722000E3511 /* StringExtensionTests.swift */; };
@@ -371,6 +372,7 @@
 		8A31CD8823742D15008E590D /* ProjectPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCell.swift; sourceTree = "<group>"; };
 		8A31CD8C23742E43008E590D /* ProjectPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectPickerCell.xib; sourceTree = "<group>"; };
 		8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationMock.swift; sourceTree = "<group>"; };
+		8A59AF1F2382E29200108C33 /* DailyWorkTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWorkTime.swift; sourceTree = "<group>"; };
 		8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupFactory.swift; sourceTree = "<group>"; };
 		8A5D48BF2369E1A20082C13D /* DispatchGroup+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchGroup+Extension.swift"; sourceTree = "<group>"; };
 		8A5D48C12369E1E20082C13D /* DispatchGroupMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupMock.swift; sourceTree = "<group>"; };
@@ -426,7 +428,7 @@
 		C122602021899F82007D64A3 /* URLSessionDataTask+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSessionDataTask+Extension.swift"; sourceTree = "<group>"; };
 		C1249C642181A1B7005DB2A5 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		C1249C672181A1E7005DB2A5 /* CoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorType.swift; sourceTree = "<group>"; };
-		C1249C6B2181A23A005DB2A5 /* Error+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+String.swift"; sourceTree = "<group>"; };
+		C1249C6B2181A23A005DB2A5 /* String+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Error.swift"; sourceTree = "<group>"; };
 		C1249C6D2181A265005DB2A5 /* Optional+Unwrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Unwrap.swift"; sourceTree = "<group>"; };
 		C1249C702181A282005DB2A5 /* BaseCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinatorTests.swift; sourceTree = "<group>"; };
 		C1249C732181A3D0005DB2A5 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -647,7 +649,7 @@
 		C1ECF0A12192C337006038C6 /* JSONEncoder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONEncoder+Extension.swift"; sourceTree = "<group>"; };
 		C1ECF0A42192C37E006038C6 /* CustomJSONSerialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomJSONSerialization.swift; sourceTree = "<group>"; };
 		C1ECF0A72192C427006038C6 /* CustomJSONSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomJSONSerializationTests.swift; sourceTree = "<group>"; };
-		C1ECF0A92192CC25006038C6 /* RequestEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestEncoder.swift; sourceTree = "<group>"; };
+		C1ECF0A92192CC25006038C6 /* RequestEncoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestEncoderTests.swift; sourceTree = "<group>"; };
 		C1EF3A04219303A7000E3511 /* NSRegularExpression+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSRegularExpression+Extension.swift"; sourceTree = "<group>"; };
 		C1EF3A0621930409000E3511 /* NSRegularExpresionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSRegularExpresionExtensionTests.swift; sourceTree = "<group>"; };
 		C1EF3A0821930722000E3511 /* StringExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionTests.swift; sourceTree = "<group>"; };
@@ -1045,7 +1047,7 @@
 		C1249C692181A21B005DB2A5 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				C1249C6B2181A23A005DB2A5 /* Error+String.swift */,
+				C1249C6B2181A23A005DB2A5 /* String+Error.swift */,
 				C1B8FA4C218C9A04009D10B4 /* JSONFileResource.swift */,
 				C1249C6D2181A265005DB2A5 /* Optional+Unwrap.swift */,
 				C134296221A693F400F4EA42 /* TestError.swift */,
@@ -1294,6 +1296,7 @@
 			isa = PBXGroup;
 			children = (
 				C13429A921A7DB2300F4EA42 /* WorkTimesList.storyboard */,
+				8A59AF1F2382E29200108C33 /* DailyWorkTime.swift */,
 				C11B3F3521F7258C00C46BA2 /* DateSelectorView.swift */,
 				C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */,
 				C13429AB21A7DDAB00F4EA42 /* WorkTimesListViewController.swift */,
@@ -1329,7 +1332,7 @@
 			isa = PBXGroup;
 			children = (
 				C1531F062191CD4B00602A0C /* ApiClientTests.swift */,
-				C1ECF0A92192CC25006038C6 /* RequestEncoder.swift */,
+				C1ECF0A92192CC25006038C6 /* RequestEncoderTests.swift */,
 				C1ECF0A62192C409006038C6 /* Extensions */,
 			);
 			path = ApiClient;
@@ -2234,6 +2237,7 @@
 				C1FE49EA21AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift in Sources */,
 				C1E6B34E219EF30600019DC2 /* URL+Extension.swift in Sources */,
 				C13429AC21A7DDAB00F4EA42 /* WorkTimesListViewController.swift in Sources */,
+				8A59AF202382E29200108C33 /* DailyWorkTime.swift in Sources */,
 				C1FA05EB219475FF00BD8C9D /* AsynchronousDataTransactionType.swift in Sources */,
 				C122601C21899B84007D64A3 /* ServerConfigurationManager.swift in Sources */,
 				C122602121899F82007D64A3 /* URLSessionDataTask+Extension.swift in Sources */,
@@ -2405,7 +2409,7 @@
 				8A065B55237ABA1B0072A21E /* SimpleProjectJSONResource.swift in Sources */,
 				C1AFFFD921A2ACC100A7A632 /* AccessServiceTests.swift in Sources */,
 				C1E1F04921AD3712007F9228 /* WorkTimesListViewControllerMock.swift in Sources */,
-				C1249C6C2181A23A005DB2A5 /* Error+String.swift in Sources */,
+				C1249C6C2181A23A005DB2A5 /* String+Error.swift in Sources */,
 				C134299B21A6D87900F4EA42 /* CoordinatorMock.swift in Sources */,
 				8AE0001E23747036002F783E /* ProjectPickerCellModelTests.swift in Sources */,
 				C12BD9BE21E4BCDA00A6EAF0 /* ProjectsCoordinatorTests.swift in Sources */,
@@ -2423,7 +2427,7 @@
 				8A09DCBC23673EED003FC2A6 /* DispatchQueueManagerMock.swift in Sources */,
 				8A9369B6237AA348005F8199 /* WorkTimesTableViewHeaderViewMock.swift in Sources */,
 				C18A18A121EF88B300CB6E32 /* WorkTimeViewModelTests.swift in Sources */,
-				C1ECF0AA2192CC25006038C6 /* RequestEncoder.swift in Sources */,
+				C1ECF0AA2192CC25006038C6 /* RequestEncoderTests.swift in Sources */,
 				8A9369B4237AA293005F8199 /* WorkTimeCellViewMock.swift in Sources */,
 				C147D1F721F5F96A00A818BD /* AttributedTextFieldTests.swift in Sources */,
 				C14B10FB21F9C64D00A42587 /* TimeTableCoordinatorTests.swift in Sources */,

@@ -46,8 +46,10 @@ class ProjectsCollectionViewLayout: UICollectionViewFlowLayout {
     override func prepare(forAnimatedBoundsChange oldBounds: CGRect) {
         self.resizeView()
     }
-    
-    // MARK: - Private
+}
+
+// MARK: - Private
+extension ProjectsCollectionViewLayout {
     private func resizeView() {
         guard let collectionView = self.collectionView else { return }
         

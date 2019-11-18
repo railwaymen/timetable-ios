@@ -8,25 +8,30 @@
 
 import Foundation
 
-struct MatchingFullTimeDecoder: Decodable {
+struct MatchingFullTimeDecoder {
     let period: Period?
     let shouldWorked: TimeInterval?
     
-    struct Period: Decodable {
+    struct Period {
         let identifier: Int
         let countedDuration: TimeInterval
         let duration: TimeInterval
-        
-        enum CodingKeys: String, CodingKey {
-            case identifier = "id"
-            case countedDuration = "counted_duration"
-            case duration
-        }
     }
-    
+}
+
+// MARK: - Decodable
+extension MatchingFullTimeDecoder: Decodable {
     enum CodingKeys: String, CodingKey {
         case period
         case shouldWorked = "should_worked"
+    }
+}
+
+extension MatchingFullTimeDecoder.Period: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case identifier = "id"
+        case countedDuration = "counted_duration"
+        case duration
     }
 }
 

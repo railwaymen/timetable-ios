@@ -17,7 +17,7 @@ protocol ApiClientNetworkingType: class {
 }
 
 class ApiClient: ApiClientNetworkingType {
-    internal var networking: NetworkingType
+    var networking: NetworkingType
     private let encoder: RequestEncoderType
     private let decoder: JSONDecoderType
     
@@ -29,26 +29,7 @@ class ApiClient: ApiClientNetworkingType {
         self.decoder = decoder
     }
     
-    // MARK: - Private
-    private func decode<D: Decodable>(data: Data, completion: @escaping ((Result<D>) -> Void)) {
-        do {
-            let decodedResponse = try self.decoder.decode(D.self, from: data)
-            completion(.success(decodedResponse))
-        } catch {
-            completion(.failure(ApiClientError(type: .invalidResponse)))
-        }
-    }
-    
-    private func handle<D: Decodable>(response: Result<Data>, completion: @escaping ((Result<D>) -> Void)) {
-        switch response {
-        case .success(let data):
-            self.decode(data: data, completion: completion)
-        case .failure(let error):
-            completion(.failure(error))
-        }
-    }
-    
-    // MARK: - ApiClientNetworkingType
+    // MARK: - Internal
     func post<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void)) {
         do {
             let parameters = try self.encoder.encodeToDictionary(wrapper: parameters)
@@ -121,6 +102,27 @@ class ApiClient: ApiClientNetworkingType {
             }
         } catch {
             completion(.failure(ApiClientError(type: .invalidParameters)))
+        }
+    }
+}
+
+// MARK: - Private
+extension ApiClient {
+    private func decode<D: Decodable>(data: Data, completion: @escaping ((Result<D>) -> Void)) {
+        do {
+            let decodedResponse = try self.decoder.decode(D.self, from: data)
+            completion(.success(decodedResponse))
+        } catch {
+            completion(.failure(ApiClientError(type: .invalidResponse)))
+        }
+    }
+    
+    private func handle<D: Decodable>(response: Result<Data>, completion: @escaping ((Result<D>) -> Void)) {
+        switch response {
+        case .success(let data):
+            self.decode(data: data, completion: completion)
+        case .failure(let error):
+            completion(.failure(error))
         }
     }
 }
