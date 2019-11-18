@@ -10,30 +10,41 @@ import Foundation
 import CoreStore
 @testable import TimeTable
 
-class DataStackMock: DataStackType {
+class DataStackMock {
     
-    var user: UserEntity?
-    func fetchAll<D>(_ from: From<D>, _ fetchClauses: FetchClause...) throws -> [D] {
-        guard let returnType = [self.user] as? [D] else {
-            throw TestError(message: "Cast failed")
+    var fetchAllReturnType: UserEntity!
+    private(set) var fetchAllParams: [FetchAllParams] = []
+    struct FetchAllParams {}
+    
+    private(set) var performParams: [PerformParams] = []
+    struct PerformParams {
+        var asynchronousTask: (AsynchronousDataTransactionType) throws -> UserEntity
+        var success: (UserEntity) -> Void
+        var failure: (CoreStoreError) -> Void
+    }
+}
+
+// MARK: - DataStackType
+extension DataStackMock: DataStackType {
+    func fetchAll<D>(_ from: From<D>, _ fetchClauses: FetchClause...) throws -> [D] where D: DynamicObject {
+        self.fetchAllParams.append(FetchAllParams())
+        guard let returnValue = [self.fetchAllReturnType] as? [D] else {
+            throw TestError(message: "test")
         }
-        return returnType
+        return returnValue
     }
     
-    private(set) var performFailure: ((CoreStoreError) -> Void)?
-    private(set) var performSuccess: ((UserEntity) -> Void)?
-    private(set) var performTask: ((AsynchronousDataTransactionType) throws -> UserEntity)?
-    
-    func perform<T>(asynchronousTask: @escaping (_ transaction: AsynchronousDataTransactionType) throws -> T,
-                    success: @escaping (T) -> Void, failure: @escaping (CoreStoreError) -> Void) {
+    func perform<T>(asynchronousTask: @escaping (AsynchronousDataTransactionType) throws -> T,
+                    success: @escaping (T) -> Void,
+                    failure: @escaping (CoreStoreError) -> Void) {
         // swiftlint:disable force_cast
-        self.performFailure = failure
-        self.performSuccess = { value in
+        let newSuccess: (UserEntity) -> Void = { value in
             success(value as! T)
         }
-        self.performTask = { transaction in
+        let newTask: (AsynchronousDataTransactionType) throws -> UserEntity = { transaction in
             return try asynchronousTask(transaction) as! UserEntity
         }
         // swiftlint:enable force_cast
+        self.performParams.append(PerformParams(asynchronousTask: newTask, success: newSuccess, failure: failure))
     }
 }
