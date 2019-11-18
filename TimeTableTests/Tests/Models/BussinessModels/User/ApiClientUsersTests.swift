@@ -37,7 +37,7 @@ class ApiClientUsersTests: XCTestCase {
                 XCTFail()
             }
         }
-        self.networkingMock.getCompletion?(.success(data))
+        self.networkingMock.getParams.last?.completion(.success(data))
         //Assert
         XCTAssertEqual(try expectedUserDecoder.unwrap(), decoder)
     }
@@ -56,7 +56,7 @@ class ApiClientUsersTests: XCTestCase {
                 expectedError = error
             }
         }
-        self.networkingMock.getCompletion?(.failure(error))
+        self.networkingMock.getParams.last?.completion(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)

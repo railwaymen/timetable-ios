@@ -10,36 +10,53 @@ import Foundation
 import Networking
 @testable import TimeTable
 
-// swiftlint:disable large_tuple
-class NetworkingMock: NetworkingType {
+class NetworkingMock {
     var headerFields: [String: String]?
-
-    private(set) var shortPostValues: (path: String, parametres: Any?)?
-    private(set) var shortPostCompletion: ((TimeTable.Result<Data>) -> Void)?
-    func post(_ path: String, parameters: Any?, completion: @escaping (TimeTable.Result<Data>) -> Void) {
-        shortPostValues = (path, parameters)
-        shortPostCompletion = completion
+    
+    private(set) var postParams: [PostParams] = []
+    struct PostParams {
+        var path: String
+        var parameters: Any?
+        var completion: (TimeTable.Result<Data>) -> Void
     }
     
-    private(set) var getValues: (path: String, parameters: Any?, cachingLevel: Networking.CachingLevel)?
-    private(set) var getCompletion: ((TimeTable.Result<Data>) -> Void)?
-    func get(_ path: String, parameters: Any?, cachingLevel: Networking.CachingLevel, completion: @escaping (TimeTable.Result<Data>) -> Void) {
-        getValues = (path, parameters, cachingLevel)
-        getCompletion = completion
+    private(set) var getParams: [GetParams] = []
+    struct GetParams {
+        var path: String
+        var parameters: Any?
+        var cachingLevel: Networking.CachingLevel
+        var completion: (TimeTable.Result<Data>) -> Void
     }
     
-    private(set) var deletePath: String?
-    private(set) var deleteCompletion: ((TimeTable.Result<Void>) -> Void)?
-    func delete(_ path: String, completion: @escaping ((TimeTable.Result<Void>) -> Void)) {
-        deletePath = path
-        deleteCompletion = completion
+    private(set) var deleteParams: [DeleteParams] = []
+    struct DeleteParams {
+        var path: String
+        var completion: ((TimeTable.Result<Void>) -> Void)
     }
     
-    private(set) var putValues: (path: String, parameters: Any?)?
-    private(set) var putCompletion: ((TimeTable.Result<Data>) -> Void)?
-    func put(_ path: String, parameters: Any?, completion: @escaping (TimeTable.Result<Data>) -> Void) {
-        putValues = (path, parameters)
-        putCompletion = completion
+    private(set) var putParams: [PutParams] = []
+    struct PutParams {
+        var path: String
+        var parameters: Any?
+        var completion: (TimeTable.Result<Data>) -> Void
     }
 }
-// swiftlint:enable large_tuple
+
+// MARK: - NetworkingType
+extension NetworkingMock: NetworkingType {
+    func post(_ path: String, parameters: Any?, completion: @escaping (TimeTable.Result<Data>) -> Void) {
+        self.postParams.append(PostParams(path: path, parameters: parameters, completion: completion))
+    }
+    
+    func get(_ path: String, parameters: Any?, cachingLevel: Networking.CachingLevel, completion: @escaping (TimeTable.Result<Data>) -> Void) {
+        self.getParams.append(GetParams(path: path, parameters: parameters, cachingLevel: cachingLevel, completion: completion))
+    }
+    
+    func delete(_ path: String, completion: @escaping ((TimeTable.Result<Void>) -> Void)) {
+        self.deleteParams.append(DeleteParams(path: path, completion: completion))
+    }
+    
+    func put(_ path: String, parameters: Any?, completion: @escaping (TimeTable.Result<Data>) -> Void) {
+        self.putParams.append(PutParams(path: path, parameters: parameters, completion: completion))
+    }
+}

@@ -65,7 +65,7 @@ class ApiClientTests: XCTestCase {
                 expectedError = error
             }
         }
-        self.networkingMock.shortPostCompletion?(.failure(error))
+        self.networkingMock.postParams.last?.completion(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
@@ -86,7 +86,7 @@ class ApiClientTests: XCTestCase {
                 XCTFail()
             }
         }
-        self.networkingMock.shortPostCompletion?(.success(data))
+        self.networkingMock.postParams.last?.completion(.success(data))
         //Assert
         let decoder = try (expectedDecoder as? SessionDecoder).unwrap()
         XCTAssertEqual(decoder.identifier, 1)
@@ -114,7 +114,7 @@ class ApiClientTests: XCTestCase {
                 
             }
         }
-        self.networkingMock.shortPostCompletion?(.success(data))
+        self.networkingMock.postParams.last?.completion(.success(data))
         //Assert
         switch (expectedError as? ApiClientError)?.type {
         case .invalidResponse?: break
@@ -189,7 +189,7 @@ class ApiClientTests: XCTestCase {
                 expectedError = error
             }
         }
-        self.networkingMock.shortPostCompletion?(.failure(error))
+        self.networkingMock.postParams.last?.completion(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
@@ -225,7 +225,7 @@ class ApiClientTests: XCTestCase {
                 XCTFail()
             }
         }
-        self.networkingMock.shortPostCompletion?(.success(data))
+        self.networkingMock.postParams.last?.completion(.success(data))
         //Assert
         XCTAssertTrue(successCalled)
     }
@@ -265,7 +265,7 @@ class ApiClientTests: XCTestCase {
                 expectedError = error
             }
         }
-        self.networkingMock.getCompletion?(.failure(error))
+        self.networkingMock.getParams.last?.completion(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
@@ -287,7 +287,7 @@ class ApiClientTests: XCTestCase {
                 XCTFail()
             }
         }
-        self.networkingMock.getCompletion?(.success(data))
+        self.networkingMock.getParams.last?.completion(.success(data))
         //Assert
         let decoder = try (expectedDecoder as? [WorkTimeDecoder]).unwrap()
         XCTAssertEqual(decoder[0], decoders[0])
@@ -310,7 +310,7 @@ class ApiClientTests: XCTestCase {
                 
             }
         }
-        self.networkingMock.getCompletion?(.success(data))
+        self.networkingMock.getParams.last?.completion(.success(data))
         //Assert
         switch (expectedError as? ApiClientError)?.type {
         case .invalidResponse?: break
@@ -354,7 +354,7 @@ class ApiClientTests: XCTestCase {
                 expectedError = error
             }
         }
-        self.networkingMock.putCompletion?(.failure(error))
+        self.networkingMock.putParams.last?.completion(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
@@ -375,7 +375,7 @@ class ApiClientTests: XCTestCase {
                 XCTFail()
             }
         }
-        self.networkingMock.putCompletion?(.success(data))
+        self.networkingMock.putParams.last?.completion(.success(data))
         //Assert
         let decoder = try (expectedDecoder as? SessionDecoder).unwrap()
         XCTAssertEqual(decoder.identifier, 1)
@@ -403,7 +403,7 @@ class ApiClientTests: XCTestCase {
                 
             }
         }
-        self.networkingMock.putCompletion?(.success(data))
+        self.networkingMock.putParams.last?.completion(.success(data))
         //Assert
         let testError = try (expectedError as? ApiClientError).unwrap()
         XCTAssertEqual(testError.type, .invalidResponse)
@@ -476,7 +476,7 @@ class ApiClientTests: XCTestCase {
                 expectedError = error
             }
         }
-        self.networkingMock.putCompletion?(.failure(error))
+        self.networkingMock.putParams.last?.completion(.failure(error))
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
@@ -512,7 +512,7 @@ class ApiClientTests: XCTestCase {
                 XCTFail()
             }
         }
-        self.networkingMock.putCompletion?(.success(data))
+        self.networkingMock.putParams.last?.completion(.success(data))
         //Assert
         XCTAssertTrue(successCalled)
     }
