@@ -12,18 +12,23 @@ import XCTest
 class ServerConfigurationManagerTests: XCTestCase {
 
     private var urlSessionMock: URLSessionMock!
-    private var userDefaultsMock: UserDefaultsMock!
+    private var userDefaults: UserDefaults!
     private var dispatchQueueManagerMock: DispatchQueueManagerMock!
     private var manager: ServerConfigurationManagerType!
     
     override func setUp() {
         super.setUp()
         self.urlSessionMock = URLSessionMock()
-        self.userDefaultsMock = UserDefaultsMock()
+        self.userDefaults = UserDefaults()
         self.dispatchQueueManagerMock = DispatchQueueManagerMock(taskType: .performOnCurrentThread)
         self.manager = ServerConfigurationManager(urlSession: self.urlSessionMock,
-                                                  userDefaults: self.userDefaultsMock,
+                                                  userDefaults: self.userDefaults,
                                                   dispatchQueueManager: self.dispatchQueueManagerMock)
+    }
+    
+    override func tearDown() {
+        self.userDefaults.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+        super.tearDown()
     }
     
     func testVerifyConfigurationWhileResponseIsNil() throws {
@@ -112,7 +117,7 @@ class ServerConfigurationManagerTests: XCTestCase {
         let fakeResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
         self.manager.verify(configuration: configuration) { _ in }
         self.urlSessionMock.dataTaskParams.last?.completionHandler(nil, fakeResponse, nil)
-        self.userDefaultsMock.setAnyValueDictionary.removeAll()
+        self.userDefaults.removeObject(forKey: "key.time_table.server_configuration.host")
         //Act
         let oldConfiguration = self.manager.getOldConfiguration()
         //Assert
@@ -127,8 +132,7 @@ class ServerConfigurationManagerTests: XCTestCase {
         let fakeResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
         self.manager.verify(configuration: configuration) { _ in }
         self.urlSessionMock.dataTaskParams.last?.completionHandler(nil, fakeResponse, nil)
-        let key = try self.userDefaultsMock.setAnyValueDictionary.first.unwrap().key
-        self.userDefaultsMock.setAnyValueDictionary[key] = "\\example"
+        self.userDefaults.set(" ", forKey: "key.time_table.server_configuration.host")
         //Act
         let oldConfiguration = self.manager.getOldConfiguration()
         //Assert
@@ -212,12 +216,10 @@ class ServerConfigurationManagerTests: XCTestCase {
         self.manager.verify(configuration: configuration) { _ in }
         self.urlSessionMock.dataTaskParams.last?.completionHandler(nil, fakeResponse, nil)
         //Assert
-        XCTAssertFalse(self.userDefaultsMock.setAnyValueDictionary.isEmpty)
-        let hostURLString = try (self.userDefaultsMock.setAnyValueDictionary.first?.value as? String).unwrap()
+        let hostURLString = try (self.userDefaults.string(forKey: "key.time_table.server_configuration.host")).unwrap()
         let hostURL = try URL(string: hostURLString).unwrap()
         XCTAssertEqual(hostURL, url)
-        XCTAssertFalse(self.userDefaultsMock.setBoolValueDictionary.isEmpty)
-        let shouldSaveHostURL = try self.userDefaultsMock.setBoolValueDictionary.first.unwrap().value
+        let shouldSaveHostURL = try (self.userDefaults.value(forKey: "key.time_table.server_configuration.should_remeber_host_key") as? Bool).unwrap()
         XCTAssertTrue(shouldSaveHostURL)
     }
     
@@ -231,9 +233,8 @@ class ServerConfigurationManagerTests: XCTestCase {
         self.manager.verify(configuration: configuration) { _ in }
         self.urlSessionMock.dataTaskParams.last?.completionHandler(nil, fakeResponse, nil)
         //Assert
-        XCTAssertTrue(self.userDefaultsMock.setAnyValueDictionary.isEmpty)
-        XCTAssertFalse(self.userDefaultsMock.setBoolValueDictionary.isEmpty)
-        let value = try self.userDefaultsMock.setBoolValueDictionary.first.unwrap().value
+        XCTAssertNil(self.userDefaults.value(forKey: "key.time_table.server_configuration.host"))
+        let value = try (self.userDefaults.value(forKey: "key.time_table.server_configuration.should_remeber_host_key") as? Bool).unwrap()
         XCTAssertFalse(value)
     }
 }

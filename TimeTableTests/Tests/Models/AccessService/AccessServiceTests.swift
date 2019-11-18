@@ -11,7 +11,7 @@ import XCTest
 
 class AccessServiceTests: XCTestCase {
     
-    private var userDefaultsMock: UserDefaultsMock!
+    private var userDefaults: UserDefaults!
     private var keychainAccessMock: KeychainAccessMock!
     private var encoderMock: JSONEncoderMock!
     private var decoderMock: JSONDecoderMock!
@@ -20,16 +20,21 @@ class AccessServiceTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        self.userDefaultsMock = UserDefaultsMock()
+        self.userDefaults = UserDefaults()
         self.keychainAccessMock = KeychainAccessMock()
         self.coreDataMock = CoreDataStackMock()
         self.encoderMock = JSONEncoderMock()
         self.decoderMock = JSONDecoderMock()
-        self.accessService = AccessService(userDefaults: self.userDefaultsMock,
+        self.accessService = AccessService(userDefaults: self.userDefaults,
                                            keychainAccess: self.keychainAccessMock,
                                            coreData: self.coreDataMock,
                                            buildEncoder: { return self.encoderMock },
                                            buildDecoder: { return self.decoderMock })
+    }
+    
+    override func tearDown() {
+        self.userDefaults.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+        super.tearDown()
     }
     
     func testSaveUserThrowsAnErrorWhileCredentialsEncodingFails() {
@@ -134,11 +139,12 @@ class AccessServiceTests: XCTestCase {
         //Act
         self.accessService.saveLastLoggedInUserIdentifier(identifier)
         //Assert
-        XCTAssertEqual(try (self.userDefaultsMock.setAnyValues.value as? Int64).unwrap(), identifier)
+        XCTAssertEqual(self.userDefaults.value(forKey: "key.time_table.last_logged_user.id.key") as? Int64, identifier)
     }
     
     func testGetLastLoggedInUserIdentifierReturnsNilWhileUserDefaultsReturnsNil() {
         //Arrange
+        
         //Act
         let identifier = self.accessService.getLastLoggedInUserIdentifier()
         //Assert
@@ -147,7 +153,7 @@ class AccessServiceTests: XCTestCase {
     
     func testGetLastLoggedInUserIdentifierReturnsNilWhileUserDefaultsReturnsNotAnInt64() {
         //Arrange
-        self.userDefaultsMock.objectForKey = "TEST"
+        self.userDefaults.set("TEST", forKey: "key.time_table.last_logged_user.id.key")
         //Act
         let identifier = self.accessService.getLastLoggedInUserIdentifier()
         //Assert
@@ -157,7 +163,7 @@ class AccessServiceTests: XCTestCase {
     func testGetLastLoggedInUserIdentifierReturnsCorrectValue() {
         //Arrange
         let expectedIdentifier = Int64(3)
-        self.userDefaultsMock.objectForKey = expectedIdentifier
+        self.userDefaults.set(expectedIdentifier, forKey: "key.time_table.last_logged_user.id.key")
         //Act
         let identifier = self.accessService.getLastLoggedInUserIdentifier()
         //Assert
@@ -166,9 +172,11 @@ class AccessServiceTests: XCTestCase {
     
     func testRemoveLastLoggedInUserIdentifier() {
         //Arrange
+        let key = "key.time_table.last_logged_user.id.key"
+        self.userDefaults.set("test", forKey: key)
         //Act
         self.accessService.removeLastLoggedInUserIdentifier()
         //Assert
-        XCTAssertTrue(self.userDefaultsMock.removeObjectValues.called)
+        XCTAssertNil(self.userDefaults.object(forKey: key))
     }
 }
