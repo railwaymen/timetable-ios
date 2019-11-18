@@ -29,7 +29,7 @@ class WorkTimesContentProviderTests: XCTestCase {
         self.calendarMock = CalendarMock()
         self.dispatchGroupMock = DispatchGroupMock()
         self.dispatchGroupFactoryMock = DispatchGroupFactoryMock()
-        self.dispatchGroupFactoryMock.expectedDispatchGroup = self.dispatchGroupMock
+        self.dispatchGroupFactoryMock.createDispatchGroupReturnValue = self.dispatchGroupMock
         self.contentProvider = WorkTimesListContentProvider(apiClient: self.apiClientMock,
                                                             accessService: self.accessServiceMock,
                                                             calendar: self.calendarMock,
