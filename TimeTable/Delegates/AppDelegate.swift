@@ -78,8 +78,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return AccessService(userDefaults: UserDefaults.standard,
                              keychainAccess: self.createKeychain(with: serverConfiguration),
                              coreData: self.coreDataStack,
-                             buildEncoder: { return encoder },
-                             buildDecoder: { return decoder })
+                             encoder: encoder,
+                             decoder: decoder)
     }
 
     // MARK: - UIApplicationDelegate

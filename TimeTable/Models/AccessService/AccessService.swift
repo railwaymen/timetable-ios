@@ -33,13 +33,16 @@ class AccessService {
     private let decoder: JSONDecoderType
     
     // MARK: - Initialization
-    init(userDefaults: UserDefaultsType, keychainAccess: KeychainAccessType, coreData: CoreDataStackUserType,
-         buildEncoder: (() -> JSONEncoderType), buildDecoder: (() -> JSONDecoderType)) {
+    init(userDefaults: UserDefaultsType,
+         keychainAccess: KeychainAccessType,
+         coreData: CoreDataStackUserType,
+         encoder: JSONEncoderType,
+         decoder: JSONDecoderType) {
         self.userDefaults = userDefaults
         self.keychainAccess = keychainAccess
         self.coreData = coreData
-        self.encoder = buildEncoder()
-        self.decoder = buildDecoder()
+        self.encoder = encoder
+        self.decoder = decoder
     }
 }
 
