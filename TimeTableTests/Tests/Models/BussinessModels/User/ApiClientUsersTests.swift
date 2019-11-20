@@ -27,9 +27,9 @@ class ApiClientUsersTests: XCTestCase {
         let data = try self.json(from: UserJSONResource.userFullResponse)
         let decoder = try JSONDecoder().decode(UserDecoder.self, from: data)
         var expectedUserDecoder: UserDecoder?
-        let apiClient: ApiClientUsersType = ApiClient(networking: self.networkingMock, encoder: self.requestEncoderMock, decoder: self.jsonDecoderMock)
+        let sut = self.buildSUT()
         //Act
-        apiClient.fetchUserProfile(forIdetifier: 2) { result in
+        sut.fetchUserProfile(forIdetifier: 2) { result in
             switch result {
             case .success(let userDecoder):
                 expectedUserDecoder = userDecoder
@@ -46,9 +46,9 @@ class ApiClientUsersTests: XCTestCase {
         //Arrange
         var expectedError: Error?
         let error = TestError(message: "fetch failed")
-        let apiClient: ApiClientUsersType = ApiClient(networking: self.networkingMock, encoder: self.requestEncoderMock, decoder: self.jsonDecoderMock)
+        let sut = self.buildSUT()
         //Act
-        apiClient.fetchUserProfile(forIdetifier: 2) { result in
+        sut.fetchUserProfile(forIdetifier: 2) { result in
             switch result {
             case .success:
                 XCTFail()
@@ -60,5 +60,14 @@ class ApiClientUsersTests: XCTestCase {
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
+    }
+}
+
+// MARK: - Private
+extension ApiClientUsersTests {
+    private func buildSUT() -> ApiClientUsersType {
+        ApiClient(networking: self.networkingMock,
+                  encoder: self.requestEncoderMock,
+                  decoder: self.jsonDecoderMock)
     }
 }

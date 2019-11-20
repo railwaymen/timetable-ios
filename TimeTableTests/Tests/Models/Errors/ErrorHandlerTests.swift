@@ -1,5 +1,5 @@
 //
-//  ErrorHanlderTests.swift
+//  ErrorHandlerTests.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 25/10/2018.
@@ -9,46 +9,41 @@
 import XCTest
 @testable import TimeTable
 
-class ErrorHanlderTests: XCTestCase {
+class ErrorHandlerTests: XCTestCase {
     
     func testThrowingErrorWhileActionHandlerIsDefault() {
-        
         //Arrange
-        let parentErrorHandler = ErrorHandler()
+        let sut = ErrorHandler()
         let error: TestError = TestError(message: "catching error")
-        
         //Act
-        parentErrorHandler.throwing(error: error, finally: { isActionExecuted in
+        sut.throwing(error: error, finally: { isActionExecuted in
             //Assert
             XCTAssertFalse(isActionExecuted)
         })
     }
     
     func testThrwoingErrorWhileActionHandlerIsSetUp() {
-        
         //Arrange
         let error: TestError = TestError(message: "catching error")
-        let parentErrorHandler = ErrorHandler { error in
+        let sut = ErrorHandler { error in
             if (error as? TestError) == nil {
                 throw error
             }
         }
         //Act
-        parentErrorHandler.throwing(error: error) { isActionExecuted in
+        sut.throwing(error: error) { isActionExecuted in
             //Assert
             XCTAssertTrue(isActionExecuted)
         }
     }
     
     func testThrowingError() {
-        
         //Arrange
-        let parentErrorHandler = ErrorHandler()
+        let sut = ErrorHandler()
         let error: TestError = TestError(message: "catching error")
-        
         //Act
         var errorHandler: ErrorHandlerType {
-            return parentErrorHandler.catchingError(action: { catchedError in
+            return sut.catchingError(action: { catchedError in
                 //Assert
                 if let testError = catchedError as? TestError {
                     XCTAssertEqual(testError, error)
@@ -57,8 +52,6 @@ class ErrorHanlderTests: XCTestCase {
                 }
             })
         }
-        
         errorHandler.throwing(error: error, finally: { _ in })
-        
     }
 }

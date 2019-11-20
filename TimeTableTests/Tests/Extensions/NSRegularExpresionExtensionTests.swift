@@ -15,9 +15,9 @@ class NSRegularExpressionExtensionTests: XCTestCase {
         //Arrange
         let testString = "example.com.com.example"
         let pattern = "(?:^|\\W)example(?:$|\\W)"
-        let regularExpression = try? NSRegularExpression(pattern: pattern)
+        let sut = try? NSRegularExpression(pattern: pattern)
         //Act
-        let result = regularExpression?.matches(in: testString)
+        let result = sut?.matches(in: testString)
         //Assert
         XCTAssertEqual(result?.count, 2)
     }

@@ -10,7 +10,6 @@ import XCTest
 @testable import TimeTable
 
 class WorkTimeCellViewModelTests: XCTestCase {
-    
     private var userInterface: WorkTimeCellViewMock!
     private var parent: WorkTimeCellViewModelParentMock!
     
@@ -22,8 +21,8 @@ class WorkTimeCellViewModelTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        self.parent = WorkTimeCellViewModelParentMock()
         self.userInterface = WorkTimeCellViewMock()
+        self.parent = WorkTimeCellViewModelParentMock()
     }
     
     func testViewConfiguredCallsUpdateView() throws {
@@ -31,9 +30,9 @@ class WorkTimeCellViewModelTests: XCTestCase {
         let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         let workTime = workTimes[0]
-        let viewModel = WorkTimeCellViewModel(workTime: workTime, userInterface: self.userInterface, parent: self.parent)
+        let sut = self.buildSUT(workTime: workTime)
         //Act
-        viewModel.viewConfigured()
+        sut.viewConfigured()
         //Assert
         XCTAssertEqual(self.userInterface.updateViewParams.count, 1)
         XCTAssertEqual(self.userInterface.updateViewParams.last?.data.durationText, "1h")
@@ -47,9 +46,9 @@ class WorkTimeCellViewModelTests: XCTestCase {
         let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         let workTime = workTimes[1]
-        let viewModel = WorkTimeCellViewModel(workTime: workTime, userInterface: self.userInterface, parent: self.parent)
+        let sut = self.buildSUT(workTime: workTime)
         //Act
-        viewModel.prepareForReuse()
+        sut.prepareForReuse()
         //Assert
         XCTAssertEqual(self.userInterface.updateViewParams.count, 1)
         XCTAssertEqual(self.userInterface.updateViewParams.last?.data.durationText, "2h")
@@ -63,11 +62,20 @@ class WorkTimeCellViewModelTests: XCTestCase {
         let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         let workTime = workTimes[1]
-        let viewModel = WorkTimeCellViewModel(workTime: workTime, userInterface: self.userInterface, parent: self.parent)
+        let sut = self.buildSUT(workTime: workTime)
         //Act
-        viewModel.taskButtonTapped()
+        sut.taskButtonTapped()
         //Assert
         XCTAssertEqual(self.parent.openTaskParams.count, 1)
         XCTAssertEqual(self.parent.openTaskParams.last?.workTime, workTime)
+    }
+}
+
+// MARK: - Private
+extension WorkTimeCellViewModelTests {
+    private func buildSUT(workTime: WorkTimeDecoder) -> WorkTimeCellViewModel {
+        return WorkTimeCellViewModel(workTime: workTime,
+                                     userInterface: self.userInterface,
+                                     parent: self.parent)
     }
 }

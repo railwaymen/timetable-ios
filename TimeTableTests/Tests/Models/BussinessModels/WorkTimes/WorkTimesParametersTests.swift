@@ -10,7 +10,6 @@ import XCTest
 @testable import TimeTable
 
 class WorkTimesParametersTests: XCTestCase {
-
     private var encoder: JSONEncoder = {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
@@ -30,9 +29,9 @@ class WorkTimesParametersTests: XCTestCase {
         components.hour = 12
         components.minute = 0
         let toDate = try Calendar.current.date(from: components).unwrap()
-        let workTimesParameters = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectIdentifier: projectIdentifier)
+        let sut = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectIdentifier: projectIdentifier)
         //Act
-        let data = try self.encoder.encode(workTimesParameters)
+        let data = try self.encoder.encode(sut)
         let requestDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
         //Assert
         XCTAssertEqual(try (requestDictionary?["project_id"] as? Int).unwrap(), projectIdentifier)
@@ -51,9 +50,9 @@ class WorkTimesParametersTests: XCTestCase {
         components.hour = 12
         components.minute = 0
         let toDate = try Calendar.current.date(from: components).unwrap()
-        let workTimesParameters = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectIdentifier: nil)
+        let sut = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectIdentifier: nil)
         //Act
-        let data = try self.encoder.encode(workTimesParameters)
+        let data = try self.encoder.encode(sut)
         let requestDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
         //Assert
         XCTAssertNil(requestDictionary?["project_id"] as? Int)
@@ -70,9 +69,9 @@ class WorkTimesParametersTests: XCTestCase {
         let projectIdentifier = 3
         let components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 22, hour: 12, minute: 0)
         let toDate = try Calendar.current.date(from: components).unwrap()
-        let workTimesParameters = WorkTimesParameters(fromDate: nil, toDate: toDate, projectIdentifier: projectIdentifier)
+        let sut = WorkTimesParameters(fromDate: nil, toDate: toDate, projectIdentifier: projectIdentifier)
         //Act
-        let data = try self.encoder.encode(workTimesParameters)
+        let data = try self.encoder.encode(sut)
         let requestDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
         //Assert
         XCTAssertEqual(try (requestDictionary?["project_id"] as? Int).unwrap(), projectIdentifier)
@@ -87,9 +86,9 @@ class WorkTimesParametersTests: XCTestCase {
         let projectIdentifier = 3
         let components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
         let fromDate = try Calendar.current.date(from: components).unwrap()
-        let workTimesParameters = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectIdentifier: projectIdentifier)
+        let sut = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectIdentifier: projectIdentifier)
         //Act
-        let data = try self.encoder.encode(workTimesParameters)
+        let data = try self.encoder.encode(sut)
         let requestDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
         //Assert
         XCTAssertEqual(try (requestDictionary?["project_id"] as? Int).unwrap(), projectIdentifier)
@@ -99,91 +98,91 @@ class WorkTimesParametersTests: XCTestCase {
         XCTAssertNil(requestDictionary?["to"] as? String)
     }
     
-    func testWorkTimesAreEquatbleWhileAllPrametersAreNil() {
+    func testWorkTimesAreEquatableWhileAllParametersAreNil() {
         //Arrange
-        let firstWorkTime = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
-        let secondWorkTime = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
+        let sut1 = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
+        let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
         //Assert
-        XCTAssertEqual(firstWorkTime, secondWorkTime)
+        XCTAssertEqual(sut1, sut2)
     }
     
-    func testWorkTimesAreEquatbleWhileProjectIsThisSame() {
+    func testWorkTimesAreEquatableWhileProjectIsTheSame() {
         //Arrange
-        let firstWorkTime = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: 1)
-        let secondWorkTime = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: 1)
+        let sut1 = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: 1)
+        let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: 1)
         //Assert
-        XCTAssertEqual(firstWorkTime, secondWorkTime)
+        XCTAssertEqual(sut1, sut2)
     }
     
-    func testWorkTimesAreNotEquatbleWhileProjectIsNotThisSame() {
+    func testWorkTimesAreNotEquatableWhileProjectIsNotTheSame() {
         //Arrange
-        let firstWorkTime = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: 1)
-        let secondWorkTime = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: 2)
+        let sut1 = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: 1)
+        let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: 2)
         //Assert
-        XCTAssertNotEqual(firstWorkTime, secondWorkTime)
+        XCTAssertNotEqual(sut1, sut2)
     }
     
-    func testWorkTimesAreEquatbleWhileFromIsThisSame() throws {
-        //Arrange
-        let components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
-        let fromDate = try Calendar.current.date(from: components).unwrap()
-        let firstWorkTime = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectIdentifier: nil)
-        let secondWorkTime = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectIdentifier: nil)
-        //Assert
-        XCTAssertEqual(firstWorkTime, secondWorkTime)
-    }
-    
-    func testWorkTimesAreNotEquatbleWhileFromIsNotThisSame() throws {
+    func testWorkTimesAreEquatableWhileFromIsTheSame() throws {
         //Arrange
         let components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
         let fromDate = try Calendar.current.date(from: components).unwrap()
-        let firstWorkTime = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectIdentifier: nil)
-        let secondWorkTime = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
+        let sut1 = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectIdentifier: nil)
+        let sut2 = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectIdentifier: nil)
         //Assert
-        XCTAssertNotEqual(firstWorkTime, secondWorkTime)
+        XCTAssertEqual(sut1, sut2)
     }
     
-    func testWorkTimesAreEquatbleWhileToDateIsThisSame() throws {
+    func testWorkTimesAreNotEquatableWhileFromIsNotTheSame() throws {
+        //Arrange
+        let components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
+        let fromDate = try Calendar.current.date(from: components).unwrap()
+        let sut1 = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectIdentifier: nil)
+        let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
+        //Assert
+        XCTAssertNotEqual(sut1, sut2)
+    }
+    
+    func testWorkTimesAreEquatableWhileToDateIsTheSame() throws {
         //Arrange
         let components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
         let toDate = try Calendar.current.date(from: components).unwrap()
-        let firstWorkTime = WorkTimesParameters(fromDate: nil, toDate: toDate, projectIdentifier: nil)
-        let secondWorkTime = WorkTimesParameters(fromDate: nil, toDate: toDate, projectIdentifier: nil)
+        let sut1 = WorkTimesParameters(fromDate: nil, toDate: toDate, projectIdentifier: nil)
+        let sut2 = WorkTimesParameters(fromDate: nil, toDate: toDate, projectIdentifier: nil)
         //Assert
-        XCTAssertEqual(firstWorkTime, secondWorkTime)
+        XCTAssertEqual(sut1, sut2)
     }
     
-    func testWorkTimesAreNotEquatbleWhileToDateIsNotThisSame() throws {
+    func testWorkTimesAreNotEquatableWhileToDateIsNotTheSame() throws {
         //Arrange
         let components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
         let toDate = try Calendar.current.date(from: components).unwrap()
-        let firstWorkTime = WorkTimesParameters(fromDate: nil, toDate: toDate, projectIdentifier: nil)
-        let secondWorkTime = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
+        let sut1 = WorkTimesParameters(fromDate: nil, toDate: toDate, projectIdentifier: nil)
+        let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
         //Assert
-        XCTAssertNotEqual(firstWorkTime, secondWorkTime)
+        XCTAssertNotEqual(sut1, sut2)
     }
     
-    func testWorkTimesAreEquatbleWhileAllParametersAreThisSame() throws {
+    func testWorkTimesAreEquatableWhileAllParametersAreTheSame() throws {
         //Arrange
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
         let fromDate = try Calendar.current.date(from: components).unwrap()
         components.hour = 11
         let toDate = try Calendar.current.date(from: components).unwrap()
-        let firstWorkTime = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectIdentifier: 1)
-        let secondWorkTime = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectIdentifier: 1)
+        let sut1 = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectIdentifier: 1)
+        let sut2 = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectIdentifier: 1)
         //Assert
-        XCTAssertEqual(firstWorkTime, secondWorkTime)
+        XCTAssertEqual(sut1, sut2)
     }
     
-    func testWorkTimesAreNotEquatbleWithDiffrenetParameters() throws {
+    func testWorkTimesAreNotEquatableWithDifferentParameters() throws {
         //Arrange
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
         let fromDate = try Calendar.current.date(from: components).unwrap()
         components.hour = 11
         let toDate = try Calendar.current.date(from: components).unwrap()
-        let firstWorkTime = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectIdentifier: 1)
-        let secondWorkTime = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
+        let sut1 = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectIdentifier: 1)
+        let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
         //Assert
-        XCTAssertNotEqual(firstWorkTime, secondWorkTime)
+        XCTAssertNotEqual(sut1, sut2)
     }
 }

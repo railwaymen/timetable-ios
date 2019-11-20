@@ -17,11 +17,6 @@ class WorkTimeViewModelTests: XCTestCase {
     private var apiClient: ApiClientMock!
     private var errorHandlerMock: ErrorHandlerMock!
     private var calendarMock: CalendarMock!
-    private var viewModel: WorkTimeViewModel!
-    
-    private enum ProjectsRecordsResponse: String, JSONFileResource {
-        case simpleProjectArrayResponse
-    }
     
     private let decoder = JSONDecoder()
     
@@ -31,13 +26,14 @@ class WorkTimeViewModelTests: XCTestCase {
         self.errorHandlerMock = ErrorHandlerMock()
         self.calendarMock = CalendarMock()
         self.coordinatorMock = WorkTimeCoordinatorMock()
-        self.viewModel = self.createViewModel(flowType: .newEntry(lastTask: nil))
         super.setUp()
     }
     
     func testViewDidLoadSetUpUserInterfaceWithCurrentSelectedProject() throws {
+        //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         //Act
-        self.viewModel.viewDidLoad()
+        sut.viewDidLoad()
         //Assert
         XCTAssertEqual(self.userInterface.updateDayParams.count, 1)
         XCTAssertEqual(self.userInterface.updateProjectParams.last?.name, "Select project")
@@ -47,9 +43,9 @@ class WorkTimeViewModelTests: XCTestCase {
     func testViewDidLoadWithLastTaskSetsDateAndTime() throws {
         //Arrange
         let lastTask = try self.createTask(workTimeIdentifier: nil)
-        self.viewModel = self.createViewModel(flowType: .newEntry(lastTask: lastTask))
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: lastTask))
         //Act
-        self.viewModel.viewDidLoad()
+        sut.viewDidLoad()
         //Assert
         XCTAssertTrue(Calendar.current.isDateInToday(try (self.userInterface.updateDayParams.last?.date).unwrap()))
         XCTAssertEqual(self.userInterface.updateStartAtDateParams.last?.date, lastTask.endAt)
@@ -61,9 +57,9 @@ class WorkTimeViewModelTests: XCTestCase {
     func testViewDidLoad_withEditedTask() throws {
         //Arrange
         let task = try self.createTask(workTimeIdentifier: 123)
-        self.viewModel = self.createViewModel(flowType: .editEntry(editedTask: task))
+        let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
         //Act
-        self.viewModel.viewDidLoad()
+        sut.viewDidLoad()
         //Assert
         XCTAssertEqual(self.userInterface.updateDayParams.last?.date, task.day)
         XCTAssertEqual(self.userInterface.updateStartAtDateParams.last?.date, task.startAt)
@@ -78,9 +74,9 @@ class WorkTimeViewModelTests: XCTestCase {
     func testViewDidLoad_withDuplicatedTaskWithoutLastTask() throws {
         //Arrange
         let task = try self.createTask(workTimeIdentifier: 123)
-        self.viewModel = self.createViewModel(flowType: .duplicateEntry(duplicatedTask: task, lastTask: nil))
+        let sut = self.buildSUT(flowType: .duplicateEntry(duplicatedTask: task, lastTask: nil))
         //Act
-        self.viewModel.viewDidLoad()
+        sut.viewDidLoad()
         //Assert
         XCTAssertNotEqual(self.userInterface.updateDayParams.last?.date, task.day)
         XCTAssertNotEqual(self.userInterface.updateStartAtDateParams.last?.date, task.startAt)
@@ -96,9 +92,9 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let task = try self.createTask(workTimeIdentifier: 123, index: 3)
         let lastTask = try self.createTask(workTimeIdentifier: 12, index: 2)
-        self.viewModel = self.createViewModel(flowType: .duplicateEntry(duplicatedTask: task, lastTask: lastTask))
+        let sut = self.buildSUT(flowType: .duplicateEntry(duplicatedTask: task, lastTask: lastTask))
         //Act
-        self.viewModel.viewDidLoad()
+        sut.viewDidLoad()
         //Assert
         XCTAssertTrue(Calendar.current.isDateInToday(try (self.userInterface.updateDayParams.last?.date).unwrap()))
         XCTAssertEqual(self.userInterface.updateStartAtDateParams.last?.date, lastTask.endAt)
@@ -111,18 +107,21 @@ class WorkTimeViewModelTests: XCTestCase {
     }
     
     func testViewDidLoadFetchSimpleListShowsActivityIndicatorBeforeFetch() throws {
+        //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         //Act
-        self.viewModel.viewDidLoad()
+        sut.viewDidLoad()
         //Assert
         XCTAssertFalse(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
     }
     
     func testViewDidLoadFetchSimpleListHidesActivityIndicatorAfterSuccessfulFetch() throws {
         //Arrange
-        let data = try self.json(from: ProjectsRecordsResponse.simpleProjectArrayResponse)
+        let data = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
         let projectDecoders = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         //Act
-        self.viewModel.viewDidLoad()
+        sut.viewDidLoad()
         self.apiClient.fetchSimpleListOfProjectsParams.last?.completion(.success(projectDecoders))
         //Assert
         XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
@@ -131,8 +130,9 @@ class WorkTimeViewModelTests: XCTestCase {
     func testViewDidLoadFetchSimpleListHidesActivityIndicatorAfterFailedFetch() {
         //Arrange
         let error = ApiClientError(type: .invalidParameters)
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         //Act
-        self.viewModel.viewDidLoad()
+        sut.viewDidLoad()
         self.apiClient.fetchSimpleListOfProjectsParams.last?.completion(.failure(error))
         //Assert
         XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
@@ -141,8 +141,9 @@ class WorkTimeViewModelTests: XCTestCase {
     func testViewDidLoadFetchSimpleListCallsErrorHandlerOnFetchFailure() throws {
         //Arrange
         let error = ApiClientError(type: .invalidParameters)
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         //Act
-        self.viewModel.viewDidLoad()
+        sut.viewDidLoad()
         self.apiClient.fetchSimpleListOfProjectsParams.last?.completion(.failure(error))
         //Assert
         let throwedError = try (self.errorHandlerMock.throwingParams.last?.error as? ApiClientError).unwrap()
@@ -151,10 +152,11 @@ class WorkTimeViewModelTests: XCTestCase {
     
     func testViewDidLoadFetchSimpleListUpdatesUserInterface() throws {
         //Arrange
-        let data = try self.json(from: ProjectsRecordsResponse.simpleProjectArrayResponse)
+        let data = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
         let projectDecoders = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         //Act
-        self.viewModel.viewDidLoad()
+        sut.viewDidLoad()
         self.apiClient.fetchSimpleListOfProjectsParams.last?.completion(.success(projectDecoders))
         //Assert
         XCTAssertEqual(self.userInterface.updateProjectParams.last?.name, "asdsa")
@@ -164,9 +166,9 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let lastTask = try self.createTask(workTimeIdentifier: 2)
         self.calendarMock.isDateInTodayReturnValue = true
-        self.viewModel = self.createViewModel(flowType: .newEntry(lastTask: lastTask))
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: lastTask))
         //Act
-        try self.fetchProjects()
+        try self.fetchProjects(sut: sut)
         //Assert
         XCTAssertEqual(self.userInterface.setUpParams.count, 2)
         XCTAssertEqual(self.userInterface.updateProjectParams.count, 2)
@@ -175,77 +177,86 @@ class WorkTimeViewModelTests: XCTestCase {
     
     func testViewRequestedForNumberOfTags() {
         //Arrange
-        self.viewModel.viewDidLoad()
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        sut.viewDidLoad()
         let tags: [ProjectTag] = [.default, .internalMeeting]
         let simpleProjectDecoder = SimpleProjectDecoder(projects: [], tags: tags)
         self.apiClient.fetchSimpleListOfProjectsParams.last?.completion(.success(simpleProjectDecoder))
         //Act
-        let numberOfTags = self.viewModel.viewRequestedForNumberOfTags()
+        let numberOfTags = sut.viewRequestedForNumberOfTags()
         //Assert
         XCTAssertEqual(numberOfTags, 1)
     }
     
     func testViewRequestedForTag() {
         //Arrange
-        self.viewModel.viewDidLoad()
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        sut.viewDidLoad()
         let tags: [ProjectTag] = [.default, .internalMeeting]
         let simpleProjectDecoder = SimpleProjectDecoder(projects: [], tags: tags)
         self.apiClient.fetchSimpleListOfProjectsParams.last?.completion(.success(simpleProjectDecoder))
         //Act
-        let tag = self.viewModel.viewRequestedForTag(at: IndexPath(row: 0, section: 0))
+        let tag = sut.viewRequestedForTag(at: IndexPath(row: 0, section: 0))
         //Assert
         XCTAssertEqual(tag, .internalMeeting)
     }
     
     func testViewRequestedForTag_outOfBounds() {
+        //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         //Act
-        let tag = self.viewModel.viewRequestedForTag(at: IndexPath(row: 0, section: 0))
+        let tag = sut.viewRequestedForTag(at: IndexPath(row: 0, section: 0))
         //Assert
         XCTAssertNil(tag)
     }
     
     func testViewSelectedTag() {
         //Arrange
-        self.viewModel.viewDidLoad()
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        sut.viewDidLoad()
         let tags: [ProjectTag] = [.default, .internalMeeting]
         let simpleProjectDecoder = SimpleProjectDecoder(projects: [], tags: tags)
         self.apiClient.fetchSimpleListOfProjectsParams.last?.completion(.success(simpleProjectDecoder))
         let indexPath = IndexPath(row: 0, section: 0)
         //Act
-        self.viewModel.viewSelectedTag(at: indexPath)
+        sut.viewSelectedTag(at: indexPath)
         //Assert
         XCTAssertEqual(self.userInterface.reloadTagsViewParams.count, 2)
-        XCTAssertTrue(self.viewModel.isTagSelected(at: indexPath))
+        XCTAssertTrue(sut.isTagSelected(at: indexPath))
     }
     
     func testViewSelectedTag_secondTime() {
         //Arrange
-        self.viewModel.viewDidLoad()
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        sut.viewDidLoad()
         let tags: [ProjectTag] = [.default, .internalMeeting]
         let simpleProjectDecoder = SimpleProjectDecoder(projects: [], tags: tags)
         self.apiClient.fetchSimpleListOfProjectsParams.last?.completion(.success(simpleProjectDecoder))
         let indexPath = IndexPath(row: 0, section: 0)
         //Act
-        self.viewModel.viewSelectedTag(at: indexPath)
-        self.viewModel.viewSelectedTag(at: indexPath)
+        sut.viewSelectedTag(at: indexPath)
+        sut.viewSelectedTag(at: indexPath)
         //Assert
         XCTAssertEqual(self.userInterface.reloadTagsViewParams.count, 3)
-        XCTAssertFalse(self.viewModel.isTagSelected(at: indexPath))
+        XCTAssertFalse(sut.isTagSelected(at: indexPath))
     }
     
     func testViewSelectedTag_outOfBounds() {
         //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let indexPath = IndexPath(row: 0, section: 0)
         //Act
-        self.viewModel.viewSelectedTag(at: indexPath)
+        sut.viewSelectedTag(at: indexPath)
         //Assert
         XCTAssertEqual(self.userInterface.reloadTagsViewParams.count, 0)
-        XCTAssertFalse(self.viewModel.isTagSelected(at: indexPath))
+        XCTAssertFalse(sut.isTagSelected(at: indexPath))
     }
     
     func testSetDefaultTaskWhileProjectListIsEmpty() {
+        //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         //Act
-        self.viewModel.setDefaultTask()
+        sut.setDefaultTask()
         //Assert
         XCTAssertTrue(self.userInterface.setUpParams.isEmpty)
         XCTAssertTrue(self.userInterface.updateProjectParams.isEmpty)
@@ -253,9 +264,10 @@ class WorkTimeViewModelTests: XCTestCase {
     
     func testSetDefaultTaskWhileProjectAfterFetchingProjectsListAndProjectNotSelected() throws {
         //Arrange
-        try self.fetchProjects()
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        try self.fetchProjects(sut: sut)
         //Act
-        self.viewModel.setDefaultTask()
+        sut.setDefaultTask()
         //Assert
         XCTAssertTrue(try (self.userInterface.setUpParams.last?.allowsTask).unwrap())
         XCTAssertEqual(self.userInterface.updateProjectParams.last?.name, "asdsa")
@@ -263,11 +275,12 @@ class WorkTimeViewModelTests: XCTestCase {
     
     func testSetDefaultTaskWhileTaskWasSetPreviously() throws {
         //Arrange
-        try self.fetchProjects()
-        self.viewModel.projectButtonTapped()
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        try self.fetchProjects(sut: sut)
+        sut.projectButtonTapped()
         self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[1])
         //Act
-        self.viewModel.setDefaultTask()
+        sut.setDefaultTask()
         //Assert
         XCTAssertTrue(try (self.userInterface.setUpParams.last?.allowsTask).unwrap())
         XCTAssertNotEqual(self.userInterface.updateProjectParams.last?.name, "asdsa")
@@ -275,11 +288,12 @@ class WorkTimeViewModelTests: XCTestCase {
     
     func testSetDefaultTaskWhileTaskIsFullDayOption() throws {
         //Arrange
-        try self.fetchProjects()
-        self.viewModel.projectButtonTapped()
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        try self.fetchProjects(sut: sut)
+        sut.projectButtonTapped()
         self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[3])
         //Act
-        self.viewModel.setDefaultTask()
+        sut.setDefaultTask()
         //Assert
         XCTAssertEqual(self.userInterface.updateStartAtDateParams.count, 6)
         XCTAssertEqual(self.userInterface.setMinimumDateForTypeEndAtDateParams.count, 6)
@@ -287,26 +301,30 @@ class WorkTimeViewModelTests: XCTestCase {
     }
     
     func testProjectButtonTappedBeforeFetch() {
+        //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         //Act
-        self.viewModel.projectButtonTapped()
+        sut.projectButtonTapped()
         //Assert
         XCTAssertTrue(try (self.coordinatorMock.showProjectPickerParams.last?.projects.isEmpty).unwrap())
     }
     
     func testProjectButtonTappedAfterFetch() throws {
         //Arrange
-        try self.fetchProjects()
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        try self.fetchProjects(sut: sut)
         //Act
-        self.viewModel.projectButtonTapped()
+        sut.projectButtonTapped()
         //Assert
         XCTAssertFalse(try (self.coordinatorMock.showProjectPickerParams.last?.projects.isEmpty).unwrap())
     }
     
     func testProjectButtonTappedFinishHandlerDoesNotUpdateIfProjectIsNil() throws {
         //Arrange
-        try self.fetchProjects()
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        try self.fetchProjects(sut: sut)
         //Act
-        self.viewModel.projectButtonTapped()
+        sut.projectButtonTapped()
         self.coordinatorMock.showProjectPickerParams.last?.finishHandler(nil)
         //Assert
         XCTAssertEqual(self.userInterface.updateProjectParams.count, 2)
@@ -314,25 +332,29 @@ class WorkTimeViewModelTests: XCTestCase {
     
     func testProjectButtonTappedFinishHandlerUpdatesIfProjectIsNotNil() throws {
         //Arrange
-        try self.fetchProjects()
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        try self.fetchProjects(sut: sut)
         //Act
-        self.viewModel.projectButtonTapped()
+        sut.projectButtonTapped()
         self.coordinatorMock.showProjectPickerParams.last?.finishHandler(coordinatorMock.showProjectPickerParams.last?.projects[1])
         //Assert
         XCTAssertEqual(self.userInterface.updateProjectParams.count, 3)
     }
     
     func testViewRequestedToFinish() {
+        //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         //Act
-        self.viewModel.viewRequestedToFinish()
+        sut.viewRequestedToFinish()
         //Assert
         XCTAssertEqual(self.userInterface.dismissViewParams.count, 1)
     }
     
     func testViewRequestedToSaveWhileProjectIsNil() {
         //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         //Act
-        self.viewModel.viewRequestedToSave()
+        sut.viewRequestedToSave()
         //Assert
         switch self.errorHandlerMock.throwingParams.last?.error as? UIError {
         case .cannotBeEmpty(let element)?:
@@ -343,12 +365,13 @@ class WorkTimeViewModelTests: XCTestCase {
 
     func testViewRequestedToSaveWhileTaskBodySetAsNilValue() throws {
         //Arrange
-        try self.fetchProjects()
-        self.viewModel.projectButtonTapped()
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        try self.fetchProjects(sut: sut)
+        sut.projectButtonTapped()
         self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[0])
         //Act
-        self.viewModel.taskNameDidChange(value: nil)
-        self.viewModel.viewRequestedToSave()
+        sut.taskNameDidChange(value: nil)
+        sut.viewRequestedToSave()
         //Assert
         switch self.errorHandlerMock.throwingParams.last?.error as? UIError {
         case .cannotBeEmptyOr(let element1, let element2)?:
@@ -360,11 +383,12 @@ class WorkTimeViewModelTests: XCTestCase {
     
     func testViewRequestedToSaveWhileTaskBodyIsNil() throws {
         //Arrange
-        try self.fetchProjects()
-        self.viewModel.projectButtonTapped()
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        try self.fetchProjects(sut: sut)
+        sut.projectButtonTapped()
         self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[0])
         //Act
-        self.viewModel.viewRequestedToSave()
+        sut.viewRequestedToSave()
         //Assert
         switch self.errorHandlerMock.throwingParams.last?.error as? UIError {
         case .cannotBeEmptyOr(let element1, let element2)?:
@@ -376,102 +400,111 @@ class WorkTimeViewModelTests: XCTestCase {
     
     func testViewRequestedToSaveWhileTaskBodyIsNilAndURLIsNot() throws {
         //Arrange
-        try self.fetchProjects()
-        self.viewModel.projectButtonTapped()
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        try self.fetchProjects(sut: sut)
+        sut.projectButtonTapped()
         self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[1])
-        self.viewModel.taskNameDidChange(value: nil)
+        sut.taskNameDidChange(value: nil)
         //Act
-        self.viewModel.taskURLDidChange(value: "www.example.com")
-        self.viewModel.viewRequestedToSave()
+        sut.taskURLDidChange(value: "www.example.com")
+        sut.viewRequestedToSave()
         //Assert
         XCTAssertNil(self.errorHandlerMock.throwingParams.last?.error as? UIError)
     }
     
     func testViewRequestedToSaveWhileTaskURLWasSetAsNil() throws {
         //Arrange
-        try self.fetchProjects()
-        self.viewModel.projectButtonTapped()
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        try self.fetchProjects(sut: sut)
+        sut.projectButtonTapped()
         self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[1])
-        self.viewModel.taskNameDidChange(value: "body")
+        sut.taskNameDidChange(value: "body")
         //Act
-        self.viewModel.taskURLDidChange(value: nil)
-        self.viewModel.viewRequestedToSave()
+        sut.taskURLDidChange(value: nil)
+        sut.viewRequestedToSave()
         //Assert
         XCTAssertNil(self.errorHandlerMock.throwingParams.last?.error as? UIError)
     }
     
     func testViewRequestedToSaveWhileTaskURLWasSetAsInvalidURL() throws {
         //Arrange
-        try self.fetchProjects()
-        self.viewModel.projectButtonTapped()
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        try self.fetchProjects(sut: sut)
+        sut.projectButtonTapped()
         self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[1])
-        self.viewModel.taskNameDidChange(value: "body")
+        sut.taskNameDidChange(value: "body")
         //Act
-        self.viewModel.taskURLDidChange(value: "\\INVALID//")
-        self.viewModel.viewRequestedToSave()
+        sut.taskURLDidChange(value: "\\INVALID//")
+        sut.viewRequestedToSave()
         //Assert
         XCTAssertNil(self.errorHandlerMock.throwingParams.last?.error as? UIError)
     }
     
     func testViewRequestedToSaveWhileTaskURLIsNil() throws {
         //Arrange
-        try self.fetchProjects()
-        self.viewModel.projectButtonTapped()
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        try self.fetchProjects(sut: sut)
+        sut.projectButtonTapped()
         self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[1])
-        self.viewModel.taskNameDidChange(value: "body")
+        sut.taskNameDidChange(value: "body")
         //Act
-        self.viewModel.viewRequestedToSave()
+        sut.viewRequestedToSave()
         //Assert
         XCTAssertNil(self.errorHandlerMock.throwingParams.last?.error as? UIError)
     }
     
     func testViewRequestedToSaveWhileProjectIsLunch() throws {
         //Arrange
-        try self.fetchProjects()
-        self.viewModel.projectButtonTapped()
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        try self.fetchProjects(sut: sut)
+        sut.projectButtonTapped()
         self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[1])
         //Act
-        self.viewModel.viewRequestedToSave()
+        sut.viewRequestedToSave()
         //Assert
         XCTAssertNil(self.errorHandlerMock.throwingParams.last?.error as? UIError)
     }
     
     func testViewRequestedToSaveWhileTaskFromDateIsGreaterThanToDate() throws {
         //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         var components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let fromDate = try Calendar.current.date(from: components).unwrap()
         components.day = 16
         let toDate = try Calendar.current.date(from: components).unwrap()
-        try self.fetchProjects()
-        self.viewModel.projectButtonTapped()
+        try self.fetchProjects(sut: sut)
+        sut.projectButtonTapped()
         self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[0])
-        self.viewModel.taskNameDidChange(value: "body")
-        self.viewModel.taskURLDidChange(value: "www.example.com")
+        sut.taskNameDidChange(value: "body")
+        sut.taskURLDidChange(value: "www.example.com")
         self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
-        self.viewModel.viewChanged(startAtDate: fromDate)
+        sut.viewChanged(startAtDate: fromDate)
         self.calendarMock.dateBySettingCalendarComponentReturnValue = toDate
-        self.viewModel.viewChanged(endAtDate: toDate)
+        sut.viewChanged(endAtDate: toDate)
         //Act
-        self.viewModel.viewRequestedToSave()
+        sut.viewRequestedToSave()
         //Assert
         XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? UIError, .timeGreaterThan)
     }
     
     func testSetDefaultDayIfDayWasNotSet() {
+        //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         //Act
-        self.viewModel.setDefaultDay()
+        sut.setDefaultDay()
         //Assert
         XCTAssertEqual(self.userInterface.updateDayParams.count, 1)
     }
     
     func testSetDefaultDayNotSetCurrentDayIfWasSetBefore() throws {
         //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let components = DateComponents(year: 2018, month: 1, day: 17)
         let day = try Calendar.current.date(from: components).unwrap()
         let dayString = DateFormatter.localizedString(from: day, dateStyle: .short, timeStyle: .none)
-        self.viewModel.viewChanged(day: day)
+        sut.viewChanged(day: day)
         //Act
-        self.viewModel.setDefaultDay()
+        sut.setDefaultDay()
         //Assert
         XCTAssertEqual(self.userInterface.updateDayParams.last?.date, day)
         XCTAssertEqual(self.userInterface.updateDayParams.last?.dateString, dayString)
@@ -479,11 +512,12 @@ class WorkTimeViewModelTests: XCTestCase {
     
     func testViewChangedDay() throws {
         //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let components = DateComponents(year: 2018, month: 1, day: 17)
         let day = try Calendar.current.date(from: components).unwrap()
         let dayString = DateFormatter.localizedString(from: day, dateStyle: .short, timeStyle: .none)
         //Act
-        self.viewModel.viewChanged(day: day)
+        sut.viewChanged(day: day)
         //Assert
         XCTAssertEqual(self.userInterface.updateDayParams.last?.date, day)
         XCTAssertEqual(self.userInterface.updateDayParams.last?.dateString, dayString)
@@ -491,10 +525,11 @@ class WorkTimeViewModelTests: XCTestCase {
     
     func testViewChangedFromDateUpdatesUpdateFromDateOnTheUserInterface() throws {
         //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let fromDate = try Calendar.current.date(from: components).unwrap()
         //Act
-        self.viewModel.viewChanged(startAtDate: fromDate)
+        sut.viewChanged(startAtDate: fromDate)
         //Assert
         XCTAssertEqual(self.userInterface.updateStartAtDateParams.last?.date, fromDate)
         XCTAssertEqual(self.userInterface.updateStartAtDateParams.last?.dateString, "12:02 PM")
@@ -502,10 +537,11 @@ class WorkTimeViewModelTests: XCTestCase {
     
     func testViewChangedFromDateUpdatesSetsMinimumDateForTypeToDateOnTheUserInterface() throws {
         //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let fromDate = try Calendar.current.date(from: components).unwrap()
         //Act
-        self.viewModel.viewChanged(startAtDate: fromDate)
+        sut.viewChanged(startAtDate: fromDate)
         //Assert
         XCTAssertEqual(self.userInterface.setMinimumDateForTypeEndAtDateParams.count, 1)
         XCTAssertEqual(self.userInterface.setMinimumDateForTypeEndAtDateParams.last?.minDate, fromDate)
@@ -513,23 +549,26 @@ class WorkTimeViewModelTests: XCTestCase {
     
     func testViewChangedFromDateWhileToDateWasSet() throws {
         //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         var components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let fromDate = try Calendar.current.date(from: components).unwrap()
         components.day = 16
         let toDate = try Calendar.current.date(from: components).unwrap()
         self.calendarMock.dateBySettingCalendarComponentReturnValue = toDate
-        self.viewModel.viewChanged(endAtDate: toDate)
+        sut.viewChanged(endAtDate: toDate)
         self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
         //Act
-        self.viewModel.viewChanged(startAtDate: fromDate)
+        sut.viewChanged(startAtDate: fromDate)
         //Assert
         XCTAssertEqual(self.userInterface.updateEndAtDateParams.last?.date, fromDate)
         XCTAssertEqual(self.userInterface.updateEndAtDateParams.last?.dateString, "12:02 PM")
     }
     
     func testSetDefaultFromDateWhileFromDateWasNotSet() {
+        //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         //Act
-        self.viewModel.setDefaultStartAtDate()
+        sut.setDefaultStartAtDate()
         //Assert
         XCTAssertEqual(self.userInterface.updateStartAtDateParams.count, 1)
         XCTAssertEqual(self.userInterface.setMinimumDateForTypeEndAtDateParams.count, 1)
@@ -537,12 +576,13 @@ class WorkTimeViewModelTests: XCTestCase {
     
     func testSetDefaultFromDateWhileFromDateWasSet() throws {
         //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let fromDate = try Calendar.current.date(from: components).unwrap()
         self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
-        self.viewModel.viewChanged(startAtDate: fromDate)
+        sut.viewChanged(startAtDate: fromDate)
         //Act
-        self.viewModel.setDefaultStartAtDate()
+        sut.setDefaultStartAtDate()
         //Assert
         XCTAssertEqual(self.userInterface.updateStartAtDateParams.last?.date, fromDate)
         XCTAssertEqual(self.userInterface.updateStartAtDateParams.last?.dateString, "12:02 PM")
@@ -552,10 +592,11 @@ class WorkTimeViewModelTests: XCTestCase {
     
     func testViewChangedToDate() throws {
         //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let components = DateComponents(year: 2018, month: 1, day: 16, hour: 12, minute: 2, second: 1)
         let toDate = try Calendar.current.date(from: components).unwrap()
         //Act
-        self.viewModel.viewChanged(endAtDate: toDate)
+        sut.viewChanged(endAtDate: toDate)
         //Assert
         XCTAssertEqual(self.userInterface.updateEndAtDateParams.last?.date, toDate)
         XCTAssertEqual(self.userInterface.updateEndAtDateParams.last?.dateString, "12:02 PM")
@@ -563,35 +604,39 @@ class WorkTimeViewModelTests: XCTestCase {
     
     func testViewChangedToDateWhileFromDateSet() throws {
         //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         var components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let fromDate = try Calendar.current.date(from: components).unwrap()
         components.hour = 13
         let toDate = try Calendar.current.date(from: components).unwrap()
         self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
-        self.viewModel.viewChanged(startAtDate: fromDate)
+        sut.viewChanged(startAtDate: fromDate)
         self.calendarMock.dateBySettingCalendarComponentReturnValue = toDate
         //Act
-        self.viewModel.viewChanged(endAtDate: toDate)
+        sut.viewChanged(endAtDate: toDate)
         //Assert
         XCTAssertEqual(self.userInterface.updateEndAtDateParams.last?.date, toDate)
         XCTAssertEqual(self.userInterface.updateEndAtDateParams.last?.dateString, "1:02 PM")
     }
     
     func testSetDefaultToDate() {
+        //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         //Act
-        self.viewModel.setDefaultEndAtDate()
+        sut.setDefaultEndAtDate()
         //Assert
         XCTAssertEqual(self.userInterface.updateEndAtDateParams.count, 1)
     }
     
     func testSetDefaultToDateWhileToDateWasSet() throws {
         //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let toDate = try Calendar.current.date(from: components).unwrap()
         self.calendarMock.dateBySettingCalendarComponentReturnValue = toDate
-        self.viewModel.viewChanged(endAtDate: toDate)
+        sut.viewChanged(endAtDate: toDate)
         //Act
-        self.viewModel.setDefaultEndAtDate()
+        sut.setDefaultEndAtDate()
         //Assert
         XCTAssertEqual(self.userInterface.updateEndAtDateParams.last?.date, toDate)
         XCTAssertEqual(self.userInterface.updateEndAtDateParams.last?.dateString, "12:02 PM")
@@ -599,12 +644,13 @@ class WorkTimeViewModelTests: XCTestCase {
     
     func testSetDefaultToDateWhileFromDateWasSet() throws {
         //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let fromDate = try Calendar.current.date(from: components).unwrap()
         self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
-        self.viewModel.viewChanged(startAtDate: fromDate)
+        sut.viewChanged(startAtDate: fromDate)
         //Act
-        self.viewModel.setDefaultEndAtDate()
+        sut.setDefaultEndAtDate()
         //Assert
         XCTAssertEqual(self.userInterface.updateStartAtDateParams.last?.date, fromDate)
         XCTAssertEqual(self.userInterface.updateStartAtDateParams.last?.dateString, "12:02 PM")
@@ -614,12 +660,13 @@ class WorkTimeViewModelTests: XCTestCase {
     
     func testViewRequestedToSaveApiClientThrowsError() throws {
         //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let error = ApiClientError(type: .invalidParameters)
-        try self.fetchProjects()
+        try self.fetchProjects(sut: sut)
         let task = try self.createTask(workTimeIdentifier: nil)
-        try self.fillAllDataInViewModel(task: task)
+        try self.fillAllDataInViewModel(sut: sut, task: task)
         //Act
-        self.viewModel.viewRequestedToSave()
+        sut.viewRequestedToSave()
         self.apiClient.addWorkTimeParams.last?.completion(.failure(error))
         //Assert
         XCTAssertEqual((self.errorHandlerMock.throwingParams.last?.error as? ApiClientError)?.type, error.type)
@@ -627,11 +674,12 @@ class WorkTimeViewModelTests: XCTestCase {
     
     func testViewRequestedToSaveApiClientSucceed() throws {
         //Arrange
-        try self.fetchProjects()
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        try self.fetchProjects(sut: sut)
         let task = try self.createTask(workTimeIdentifier: nil)
-        try self.fillAllDataInViewModel(task: task)
+        try self.fillAllDataInViewModel(sut: sut, task: task)
         //Act
-        self.viewModel.viewRequestedToSave()
+        sut.viewRequestedToSave()
         self.apiClient.addWorkTimeParams.last?.completion(.success(Void()))
         //Assert
         XCTAssertEqual(self.userInterface.dismissViewParams.count, 1)
@@ -639,20 +687,22 @@ class WorkTimeViewModelTests: XCTestCase {
     
     func testViewRequestedToSaveApiClient_updatesExistingWorkItem() throws {
         //Arrange
-        try self.fetchProjects()
         let task = try self.createTask(workTimeIdentifier: 1)
-        self.viewModel = self.createViewModel(flowType: .editEntry(editedTask: task))
-        try self.fillAllDataInViewModel(task: task)
+        let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
+        try self.fetchProjects(sut: sut)
+        try self.fillAllDataInViewModel(sut: sut, task: task)
         //Act
-        self.viewModel.viewRequestedToSave()
+        sut.viewRequestedToSave()
         self.apiClient.updateWorkTimeParams.last?.completion(.success(Void()))
         //Assert
         XCTAssertEqual(self.userInterface.dismissViewParams.count, 1)
     }
     
     func testViewHasBeenTappedCallsDismissKeyboardOnTheUserInterface() {
+        //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         //Act
-        self.viewModel.viewHasBeenTapped()
+        sut.viewHasBeenTapped()
         //Assert
         XCTAssertEqual(self.userInterface.dismissKeyboardParams.count, 1)
     }
@@ -660,14 +710,7 @@ class WorkTimeViewModelTests: XCTestCase {
 
 // MARK: - Private
 extension WorkTimeViewModelTests {
-    private func fetchProjects() throws {
-        let data = try self.json(from: ProjectsRecordsResponse.simpleProjectArrayResponse)
-        let projectDecoders = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
-        self.viewModel.viewDidLoad()
-        try self.apiClient.fetchSimpleListOfProjectsParams.last.unwrap().completion(.success(projectDecoders))
-    }
-    
-    private func createViewModel(flowType: WorkTimeViewModel.FlowType) -> WorkTimeViewModel {
+    private func buildSUT(flowType: WorkTimeViewModel.FlowType) -> WorkTimeViewModel {
         return WorkTimeViewModel(userInterface: self.userInterface,
                                  coordinator: self.coordinatorMock,
                                  apiClient: self.apiClient,
@@ -676,8 +719,15 @@ extension WorkTimeViewModelTests {
                                  flowType: flowType)
     }
     
+    private func fetchProjects(sut: WorkTimeViewModel) throws {
+        let data = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
+        let projectDecoders = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
+        sut.viewDidLoad()
+        try self.apiClient.fetchSimpleListOfProjectsParams.last.unwrap().completion(.success(projectDecoders))
+    }
+    
     private func createTask(workTimeIdentifier: Int64?, index: Int = 3) throws -> Task {
-        let data = try self.json(from: ProjectsRecordsResponse.simpleProjectArrayResponse)
+        let data = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
         let simpleProjectDecoder = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
         let project = simpleProjectDecoder.projects[index]
         return Task(workTimeIdentifier: workTimeIdentifier,
@@ -694,18 +744,18 @@ extension WorkTimeViewModelTests {
         return try Calendar(identifier: .gregorian).date(bySettingHour: hours, minute: minutes, second: 0, of: Date()).unwrap()
     }
     
-    private func fillAllDataInViewModel(task: Task) throws {
+    private func fillAllDataInViewModel(sut: WorkTimeViewModel, task: Task) throws {
         let fromDate = try task.startAt.unwrap()
         let toDate = try task.endAt.unwrap()
-        self.viewModel.viewChanged(day: try task.day.unwrap())
+        sut.viewChanged(day: try task.day.unwrap())
         self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
-        self.viewModel.viewChanged(startAtDate: fromDate)
+        sut.viewChanged(startAtDate: fromDate)
         self.calendarMock.dateBySettingCalendarComponentReturnValue = toDate
-        self.viewModel.viewChanged(endAtDate: toDate)
-        self.viewModel.projectButtonTapped()
+        sut.viewChanged(endAtDate: toDate)
+        sut.projectButtonTapped()
         self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects.first)
-        self.viewModel.taskNameDidChange(value: "body")
-        self.viewModel.taskURLDidChange(value: "www.example.com")
+        sut.taskNameDidChange(value: "body")
+        sut.taskURLDidChange(value: "www.example.com")
     }
 }
 // swiftlint:enable type_body_length

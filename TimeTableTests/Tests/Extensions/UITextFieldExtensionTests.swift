@@ -13,23 +13,23 @@ class UITextFieldExtensionTests: XCTestCase {
     
     func testIfLocalizedStringIsSetProperly() {
         //Arrange
-        let textField = UITextField()
+        let sut = UITextField()
         let string = "key"
         let localizedString = NSLocalizedString(string, comment: "")
         //Act
-        textField.localizedStringKey = string
+        sut.localizedStringKey = string
         //Assert
-        XCTAssertEqual(textField.placeholder, localizedString)
+        XCTAssertEqual(sut.placeholder, localizedString)
     }
     
     func testIfLocalizedStringReturnsPlaceholderTextOfTheTextField() {
         //Arrange
-        let textField = UITextField()
+        let sut = UITextField()
         let string = "key"
         let localizedString = NSLocalizedString(string, comment: "")
         //Act
-        textField.localizedStringKey = string
+        sut.localizedStringKey = string
         //Assert
-        XCTAssertEqual(textField.localizedStringKey, localizedString)
+        XCTAssertEqual(sut.localizedStringKey, localizedString)
     }
 }

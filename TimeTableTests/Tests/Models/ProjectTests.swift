@@ -21,14 +21,14 @@ class ProjectTests: XCTestCase {
         let data = try self.json(from: ProjectRecordJSONResource.projectRecordResponse)
         let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Act
-        let project = Project(decoder: projectRecord)
+        let sut = Project(decoder: projectRecord)
         //Assert
-        XCTAssertEqual(project.identifier, 11)
-        XCTAssertEqual(project.name, "Test Name")
-        XCTAssertEqual(project.color, color)
-        XCTAssertEqual(project.users.count, 1)
-        XCTAssertEqual(try (project.users.first).unwrap(), user)
-        XCTAssertEqual(project.leader, leader)
+        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.name, "Test Name")
+        XCTAssertEqual(sut.color, color)
+        XCTAssertEqual(sut.users.count, 1)
+        XCTAssertEqual(try (sut.users.first).unwrap(), user)
+        XCTAssertEqual(sut.leader, leader)
     }
     
     func testInitializationWithProjectRecordNullColorResponse() throws {
@@ -38,14 +38,14 @@ class ProjectTests: XCTestCase {
         let data = try self.json(from: ProjectRecordJSONResource.projectRecordNullColorResponse)
         let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Act
-        let project = Project(decoder: projectRecord)
+        let sut = Project(decoder: projectRecord)
         //Assert
-        XCTAssertEqual(project.identifier, 11)
-        XCTAssertEqual(project.name, "Test Name")
-        XCTAssertEqual(project.color, .black)
-        XCTAssertEqual(project.users.count, 1)
-        XCTAssertEqual(try (project.users.first).unwrap(), user)
-        XCTAssertEqual(project.leader, leader)
+        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.name, "Test Name")
+        XCTAssertEqual(sut.color, .black)
+        XCTAssertEqual(sut.users.count, 1)
+        XCTAssertEqual(try (sut.users.first).unwrap(), user)
+        XCTAssertEqual(sut.leader, leader)
     }
     
     func testInitializationWithProjectRecordMissingColorKeyResponse() throws {
@@ -55,14 +55,14 @@ class ProjectTests: XCTestCase {
         let data = try self.json(from: ProjectRecordJSONResource.projectRecordMissingColorKeyResponse)
         let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Act
-        let project = Project(decoder: projectRecord)
+        let sut = Project(decoder: projectRecord)
         //Assert
-        XCTAssertEqual(project.identifier, 11)
-        XCTAssertEqual(project.name, "Test Name")
-        XCTAssertEqual(project.color, .black)
-        XCTAssertEqual(project.users.count, 1)
-        XCTAssertEqual(try (project.users.first).unwrap(), user)
-        XCTAssertEqual(project.leader, leader)
+        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.name, "Test Name")
+        XCTAssertEqual(sut.color, .black)
+        XCTAssertEqual(sut.users.count, 1)
+        XCTAssertEqual(try (sut.users.first).unwrap(), user)
+        XCTAssertEqual(sut.leader, leader)
     }
 
     func testInitializationWithProjectRecordNullUserResponse() throws {
@@ -72,13 +72,13 @@ class ProjectTests: XCTestCase {
         let data = try self.json(from: ProjectRecordJSONResource.projectRecordNullUserResponse)
         let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Act
-        let project = Project(decoder: projectRecord)
+        let sut = Project(decoder: projectRecord)
         //Assert
-        XCTAssertEqual(project.identifier, 11)
-        XCTAssertEqual(project.name, "Test Name")
-        XCTAssertEqual(project.color, color)
-        XCTAssertEqual(project.users.count, 0)
-        XCTAssertEqual(project.leader, leader)
+        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.name, "Test Name")
+        XCTAssertEqual(sut.color, color)
+        XCTAssertEqual(sut.users.count, 0)
+        XCTAssertEqual(sut.leader, leader)
     }
     
     func testInitializationWithProjectRecordMissingUserKeyResponse() throws {
@@ -88,13 +88,13 @@ class ProjectTests: XCTestCase {
         let data = try self.json(from: ProjectRecordJSONResource.projectRecordMissingUserKeyResponse)
         let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Act
-        let project = Project(decoder: projectRecord)
+        let sut = Project(decoder: projectRecord)
         //Assert
-        XCTAssertEqual(project.identifier, 11)
-        XCTAssertEqual(project.name, "Test Name")
-        XCTAssertEqual(project.color, color)
-        XCTAssertEqual(project.users.count, 0)
-        XCTAssertEqual(project.leader, leader)
+        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.name, "Test Name")
+        XCTAssertEqual(sut.color, color)
+        XCTAssertEqual(sut.users.count, 0)
+        XCTAssertEqual(sut.leader, leader)
     }
     
     func testInitializationWithProjectRecordNullLeaderResponse() throws {
@@ -104,14 +104,14 @@ class ProjectTests: XCTestCase {
         let data = try self.json(from: ProjectRecordJSONResource.projectRecordNullLeaderResponse)
         let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Act
-        let project = Project(decoder: projectRecord)
+        let sut = Project(decoder: projectRecord)
         //Assert
-        XCTAssertEqual(project.identifier, 11)
-        XCTAssertEqual(project.name, "Test Name")
-        XCTAssertEqual(project.color, color)
-        XCTAssertEqual(project.users.count, 1)
-        XCTAssertEqual(try (project.users.first).unwrap(), user)
-        XCTAssertNil(project.leader)
+        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.name, "Test Name")
+        XCTAssertEqual(sut.color, color)
+        XCTAssertEqual(sut.users.count, 1)
+        XCTAssertEqual(try (sut.users.first).unwrap(), user)
+        XCTAssertNil(sut.leader)
     }
     
     func testInitializationWithProjectRecordMissingLeaderKey() throws {
@@ -121,26 +121,13 @@ class ProjectTests: XCTestCase {
         let data = try self.json(from: ProjectRecordJSONResource.projectRecordMissingLeaderKey)
         let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Act
-        let project = Project(decoder: projectRecord)
+        let sut = Project(decoder: projectRecord)
         //Assert
-        XCTAssertEqual(project.identifier, 11)
-        XCTAssertEqual(project.name, "Test Name")
-        XCTAssertEqual(project.color, color)
-        XCTAssertEqual(project.users.count, 1)
-        XCTAssertEqual(try (project.users.first).unwrap(), user)
-        XCTAssertNil(project.leader)
-    }
-    
-    func testEqualTwoProjects() throws {
-        //Arrange
-        let firstProjectData = try self.json(from: ProjectRecordJSONResource.projectRecordNullLeaderResponse)
-        let firstProjectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: firstProjectData)
-        let secondProjectData = try self.json(from: ProjectRecordJSONResource.projectRecordNullLeaderResponse)
-        let secondProjectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: secondProjectData)
-        //Act
-        let firstProject = Project(decoder: firstProjectRecord)
-        let secondProject = Project(decoder: secondProjectRecord)
-        //Assert
-        XCTAssertEqual(firstProject, secondProject)
+        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.name, "Test Name")
+        XCTAssertEqual(sut.color, color)
+        XCTAssertEqual(sut.users.count, 1)
+        XCTAssertEqual(try (sut.users.first).unwrap(), user)
+        XCTAssertNil(sut.leader)
     }
 }

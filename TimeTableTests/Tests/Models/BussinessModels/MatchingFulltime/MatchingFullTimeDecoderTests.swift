@@ -10,62 +10,61 @@ import XCTest
 @testable import TimeTable
 
 class MatchingFullTimeDecoderTests: XCTestCase {
-        
     private lazy var decoder = JSONDecoder()
  
-    func testParsingMatchingFullTimeFullResponse() throws {
+    func testDecoding_matchingFullTimeFullResponse() throws {
         //Arrange
         let data = try self.json(from: MatchingFullTimeJSONResource.matchingFullTimeFullResponse)
         //Act
-        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: data)
+        let sut = try self.decoder.decode(MatchingFullTimeDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(matchingFullTime.period?.identifier, 1383)
-        XCTAssertEqual(matchingFullTime.period?.countedDuration, TimeInterval(620100))
-        XCTAssertEqual(matchingFullTime.period?.duration, TimeInterval(633600))
-        XCTAssertEqual(matchingFullTime.shouldWorked, TimeInterval(633600))
+        XCTAssertEqual(sut.period?.identifier, 1383)
+        XCTAssertEqual(sut.period?.countedDuration, TimeInterval(620100))
+        XCTAssertEqual(sut.period?.duration, TimeInterval(633600))
+        XCTAssertEqual(sut.shouldWorked, TimeInterval(633600))
     }
     
-    func testMatchingFullTimeNullPeriod() throws {
+    func testDecoding_matchingFullTimeNullPeriod() throws {
         //Arrange
         let data = try self.json(from: MatchingFullTimeJSONResource.matchingFullTimeNullPeriod)
         //Act
-        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: data)
+        let sut = try self.decoder.decode(MatchingFullTimeDecoder.self, from: data)
         //Assert
-        XCTAssertNil(matchingFullTime.period)
-        XCTAssertEqual(matchingFullTime.shouldWorked, TimeInterval(633600))
+        XCTAssertNil(sut.period)
+        XCTAssertEqual(sut.shouldWorked, TimeInterval(633600))
     }
     
-    func testMatchingFullTimeMissingPeriodKey() throws {
+    func testDecoding_matchingFullTimeMissingPeriodKey() throws {
         //Arrange
         let data = try self.json(from: MatchingFullTimeJSONResource.matchingFullTimeMissingPeriodKey)
         //Act
-        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: data)
+        let sut = try self.decoder.decode(MatchingFullTimeDecoder.self, from: data)
         //Assert
-        XCTAssertNil(matchingFullTime.period)
-        XCTAssertEqual(matchingFullTime.shouldWorked, TimeInterval(633600))
+        XCTAssertNil(sut.period)
+        XCTAssertEqual(sut.shouldWorked, TimeInterval(633600))
     }
 
-    func testMatchingFullTimeNullShouldWorked() throws {
+    func testDecoding_matchingFullTimeNullShouldWorked() throws {
         //Arrange
         let data = try self.json(from: MatchingFullTimeJSONResource.matchingFullTimeNullShouldWorked)
         //Act
-        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: data)
+        let sut = try self.decoder.decode(MatchingFullTimeDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(matchingFullTime.period?.identifier, 1383)
-        XCTAssertEqual(matchingFullTime.period?.countedDuration, TimeInterval(620100))
-        XCTAssertEqual(matchingFullTime.period?.duration, TimeInterval(633600))
-        XCTAssertNil(matchingFullTime.shouldWorked)
+        XCTAssertEqual(sut.period?.identifier, 1383)
+        XCTAssertEqual(sut.period?.countedDuration, TimeInterval(620100))
+        XCTAssertEqual(sut.period?.duration, TimeInterval(633600))
+        XCTAssertNil(sut.shouldWorked)
     }
     
-    func testMatchingFullTimeMissingShouldWorkedKey() throws {
+    func testDecoding_matchingFullTimeMissingShouldWorkedKey() throws {
         //Arrange
         let data = try self.json(from: MatchingFullTimeJSONResource.matchingFullTimeMissingShouldWorkedKey)
         //Act
-        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: data)
+        let sut = try self.decoder.decode(MatchingFullTimeDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(matchingFullTime.period?.identifier, 1383)
-        XCTAssertEqual(matchingFullTime.period?.countedDuration, TimeInterval(620100))
-        XCTAssertEqual(matchingFullTime.period?.duration, TimeInterval(633600))
-        XCTAssertNil(matchingFullTime.shouldWorked)
+        XCTAssertEqual(sut.period?.identifier, 1383)
+        XCTAssertEqual(sut.period?.countedDuration, TimeInterval(620100))
+        XCTAssertEqual(sut.period?.duration, TimeInterval(633600))
+        XCTAssertNil(sut.shouldWorked)
     }
 }

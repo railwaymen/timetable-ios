@@ -10,7 +10,6 @@ import XCTest
 @testable import TimeTable
 
 class LoginCredentialsTests: XCTestCase {
-    
     private var encoder: JSONEncoder = {
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
@@ -19,11 +18,11 @@ class LoginCredentialsTests: XCTestCase {
     
     func testCreatedSessionRequestIsCorrect() throws {
         //Arrange
-        let sessionRequest = LoginCredentials(email: "user1@example.com", password: "password")
+        let sut = LoginCredentials(email: "user1@example.com", password: "password")
         let sessionRequestSample = try self.json(from: SessionJSONResource.signInRequest)
         let sampleDictionary = try JSONSerialization.jsonObject(with: sessionRequestSample, options: .allowFragments) as? [AnyHashable: Any]
         //Act
-        let data = try self.encoder.encode(sessionRequest)
+        let data = try self.encoder.encode(sut)
         let requestDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
         //Assert
         let requestEmail = try (requestDictionary?["email"] as? String).unwrap()

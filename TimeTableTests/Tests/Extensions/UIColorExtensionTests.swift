@@ -15,17 +15,17 @@ class UIColorExtensionTests: XCTestCase {
         //Arrange
         let rgb: (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) = (231, 20, 40, 1)
         //Act
-        let color = UIColor(hexString: "E71428")
+        let sut = UIColor(hexString: "E71428")
         //Assert
-        XCTAssertEqual(color, UIColor(red: rgb.r/255.0, green: rgb.g/255.0, blue: rgb.b/255.0, alpha: rgb.a))
+        XCTAssertEqual(sut, UIColor(red: rgb.r/255.0, green: rgb.g/255.0, blue: rgb.b/255.0, alpha: rgb.a))
     }
     
     func testConvenienceInitFromHexStringWithHashSign() {
         //Arrange
         let rgb: (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) = (231, 20, 40, 1)
         //Act
-        let color = UIColor(hexString: "#E71428")
+        let sut = UIColor(hexString: "#E71428")
         //Assert
-        XCTAssertEqual(color, UIColor(red: rgb.r/255.0, green: rgb.g/255.0, blue: rgb.b/255.0, alpha: rgb.a))
+        XCTAssertEqual(sut, UIColor(red: rgb.r/255.0, green: rgb.g/255.0, blue: rgb.b/255.0, alpha: rgb.a))
     }
 }

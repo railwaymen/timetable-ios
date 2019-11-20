@@ -23,21 +23,21 @@ class ApiClientTests: XCTestCase {
     }()
     
     override func setUp() {
+        super.setUp()
         self.networkingMock = NetworkingMock()
         self.requestEncoderMock = RequestEncoderMock()
         self.jsonDecoderMock = JSONDecoderMock()
-        super.setUp()
     }
 
     // MARK: - ApiClientNetworkingType
     func testPostReturnsAnErrorWhileGivenWrapperCannotBeEncodedToDictionary() {
         //ArrangeC
         var expectedError: Error?
-        let apiClient = self.buildApiClient()
+        let sut = self.buildSUT()
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
-        apiClient.post(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
+        sut.post(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -56,9 +56,9 @@ class ApiClientTests: XCTestCase {
         var expectedError: Error?
         let error = TestError(message: "500 - server internal error")
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
-        let apiClient = self.buildApiClient()
+        let sut = self.buildSUT()
         //Act
-        apiClient.post(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
+        sut.post(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -76,9 +76,9 @@ class ApiClientTests: XCTestCase {
         var expectedDecoder: Decodable?
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
         let data = try self.json(from: SessionJSONResource.signInResponse)
-        let apiClient = self.buildApiClient()
+        let sut = self.buildSUT()
         //Act
-        apiClient.post(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
+        sut.post(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success(let decoder):
                 expectedDecoder = decoder
@@ -103,9 +103,9 @@ class ApiClientTests: XCTestCase {
         var expectedError: Error?
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
         let data = try JSONSerialization.data(withJSONObject: ["test": "test"], options: .prettyPrinted)
-        let apiClient = self.buildApiClient()
+        let sut = self.buildSUT()
         //Act
-        apiClient.post(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
+        sut.post(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success:
                 XCTFail()
@@ -125,7 +125,7 @@ class ApiClientTests: XCTestCase {
     func testPostWithoutDecodableResponseReturnsAnErrorWhileGivenWrapperCannotBeEncodedToDictionary() throws {
         //Arrange
         var expectedError: Error?
-        let apiClient = self.buildApiClient()
+        let sut = self.buildSUT()
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
         let startsAt = try Calendar.current.date(from: components).unwrap()
         components.hour = 16
@@ -145,7 +145,7 @@ class ApiClientTests: XCTestCase {
                         tag: .development)
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
-        apiClient.post(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
+        sut.post(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -163,7 +163,7 @@ class ApiClientTests: XCTestCase {
         //Arrange
         var expectedError: Error?
         let error = TestError(message: "500 - server internal error")
-        let apiClient = self.buildApiClient()
+        let sut = self.buildSUT()
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
         let startsAt = try Calendar.current.date(from: components).unwrap()
         components.hour = 16
@@ -182,7 +182,7 @@ class ApiClientTests: XCTestCase {
                         endAt: endsAt,
                         tag: .development)
         //Act
-        apiClient.post(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
+        sut.post(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -198,7 +198,7 @@ class ApiClientTests: XCTestCase {
     func testPostWithoutDecodableResponseReturnsCorrectDecodableObject() throws {
         //Arrange
         var successCalled = false
-        let apiClient = self.buildApiClient()
+        let sut = self.buildSUT()
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
         let startsAt = try Calendar.current.date(from: components).unwrap()
         components.hour = 16
@@ -217,7 +217,7 @@ class ApiClientTests: XCTestCase {
                         endAt: endsAt,
                         tag: .development)
         //Act
-        apiClient.post(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
+        sut.post(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
             case .success:
                 successCalled = true
@@ -233,11 +233,11 @@ class ApiClientTests: XCTestCase {
     func testGetReturnsAnErrorWhileGivenWrapperCannotBeEncodedToDictionary() {
         //Arrange
         var expectedError: Error?
-        let apiClient = self.buildApiClient()
+        let sut = self.buildSUT()
         let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
-        apiClient.get(Endpoints.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
+        sut.get(Endpoints.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -256,9 +256,9 @@ class ApiClientTests: XCTestCase {
         var expectedError: Error?
         let error = TestError(message: "500 - server internal error")
         let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
-        let apiClient = self.buildApiClient()
+        let sut = self.buildSUT()
         //Act
-        apiClient.get(Endpoints.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
+        sut.get(Endpoints.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -277,9 +277,9 @@ class ApiClientTests: XCTestCase {
         let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
         let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
         let decoders = try self.decoder.decode([WorkTimeDecoder].self, from: data)
-        let apiClient = self.buildApiClient()
+        let sut = self.buildSUT()
         //Act
-        apiClient.get(Endpoints.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
+        sut.get(Endpoints.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
             switch result {
             case .success(let decoder):
                 expectedDecoder = decoder
@@ -299,9 +299,9 @@ class ApiClientTests: XCTestCase {
         var expectedError: Error?
         let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
         let data = try JSONSerialization.data(withJSONObject: ["test": "test"], options: .prettyPrinted)
-        let apiClient = self.buildApiClient()
+        let sut = self.buildSUT()
         //Act
-        apiClient.get(Endpoints.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
+        sut.get(Endpoints.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
             switch result {
             case .success:
                 XCTFail()
@@ -321,11 +321,11 @@ class ApiClientTests: XCTestCase {
     func testPutReturnsAnErrorWhileGivenWrapperCannotBeEncodedToDictionary() {
         //ArrangeC
         var expectedError: Error?
-        let apiClient = self.buildApiClient()
+        let sut = self.buildSUT()
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
-        apiClient.put(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
+        sut.put(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -344,9 +344,9 @@ class ApiClientTests: XCTestCase {
         var expectedError: Error?
         let error = TestError(message: "500 - server internal error")
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
-        let apiClient = self.buildApiClient()
+        let sut = self.buildSUT()
         //Act
-        apiClient.put(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
+        sut.put(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success:
                 XCTFail()
@@ -365,9 +365,9 @@ class ApiClientTests: XCTestCase {
         var expectedDecoder: Decodable?
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
         let data = try self.json(from: SessionJSONResource.signInResponse)
-        let apiClient = self.buildApiClient()
+        let sut = self.buildSUT()
         //Act
-        apiClient.put(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
+        sut.put(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success(let decoder):
                 expectedDecoder = decoder
@@ -392,9 +392,9 @@ class ApiClientTests: XCTestCase {
         var expectedError: Error?
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
         let data = try JSONSerialization.data(withJSONObject: ["test": "test"], options: .prettyPrinted)
-        let apiClient = self.buildApiClient()
+        let sut = self.buildSUT()
         //Act
-        apiClient.put(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
+        sut.put(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success:
                 XCTFail()
@@ -412,7 +412,7 @@ class ApiClientTests: XCTestCase {
     func testPutWithoutDecodableResponseReturnsAnErrorWhileGivenWrapperCannotBeEncodedToDictionary() throws {
         //Arrange
         var expectedError: Error?
-        let apiClient = self.buildApiClient()
+        let sut = self.buildSUT()
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
         let startsAt = try Calendar.current.date(from: components).unwrap()
         components.hour = 16
@@ -432,7 +432,7 @@ class ApiClientTests: XCTestCase {
                         tag: .development)
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
-        apiClient.put(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
+        sut.put(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
             case .success:
                 XCTFail()
@@ -449,7 +449,7 @@ class ApiClientTests: XCTestCase {
         //Arrange
         var expectedError: Error?
         let error = TestError(message: "500 - server internal error")
-        let apiClient = self.buildApiClient()
+        let sut = self.buildSUT()
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
         let startsAt = try Calendar.current.date(from: components).unwrap()
         components.hour = 16
@@ -468,7 +468,7 @@ class ApiClientTests: XCTestCase {
                         endAt: endsAt,
                         tag: .development)
         //Act
-        apiClient.put(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
+        sut.put(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
             case .success:
                 XCTFail()
@@ -485,7 +485,7 @@ class ApiClientTests: XCTestCase {
     func testPutWithoutDecodableResponseReturnsCorrectDecodableObject() throws {
         //Arrange
         var successCalled = false
-        let apiClient = self.buildApiClient()
+        let sut = self.buildSUT()
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
         let startsAt = try Calendar.current.date(from: components).unwrap()
         components.hour = 16
@@ -504,7 +504,7 @@ class ApiClientTests: XCTestCase {
                         endAt: endsAt,
                         tag: .development)
         //Act
-        apiClient.put(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
+        sut.put(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
             case .success:
                 successCalled = true
@@ -520,7 +520,7 @@ class ApiClientTests: XCTestCase {
 
 // MARK: - Private
 extension ApiClientTests {
-    private func buildApiClient() -> ApiClient {
+    private func buildSUT() -> ApiClient {
         return ApiClient(networking: self.networkingMock,
                          encoder: self.requestEncoderMock,
                          decoder: self.jsonDecoderMock)

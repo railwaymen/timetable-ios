@@ -10,15 +10,15 @@ import XCTest
 @testable import TimeTable
 
 class CustomJSONSerializationTests: XCTestCase {
-    
     private lazy var decoder = JSONDecoder()
     
     func testJsonObject() throws {
         //Arrange
+        let sut = CustomJSONSerialization()
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         //Act
-        let jsonData = try CustomJSONSerialization().jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
+        let jsonData = try sut.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
         let json = try jsonData.unwrap()
         //Assert
         XCTAssertEqual(json["id"] as? Int, sessionReponse.identifier)

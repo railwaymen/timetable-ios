@@ -13,11 +13,11 @@ class AttributedButtonTests: XCTestCase {
     
     func testCornerRadious() {
         //Arrange
-        let button = AttributedButton()
+        let sut = AttributedButton()
         //Act
-        button.cornerRadius = 5
-        let cornerRadius = button.layer.cornerRadius
-        let masksToBounds = button.layer.masksToBounds
+        sut.cornerRadius = 5
+        let cornerRadius = sut.layer.cornerRadius
+        let masksToBounds = sut.layer.masksToBounds
         //Assert
         XCTAssertEqual(cornerRadius, 5)
         XCTAssertTrue(masksToBounds)
@@ -25,21 +25,21 @@ class AttributedButtonTests: XCTestCase {
     
     func testBorderWidth() {
         //Arrange
-        let button = AttributedButton()
+        let sut = AttributedButton()
         //Act
-        button.borderWidth = 2
-        let borderWidth = button.layer.borderWidth
+        sut.borderWidth = 2
+        let borderWidth = sut.layer.borderWidth
         //Assert
         XCTAssertEqual(borderWidth, 2)
     }
     
     func testBorderColor() {
         //Arrange
-        let button = AttributedButton()
+        let sut = AttributedButton()
         //Act
-        button.borderColor = .black
-        let borderWidth = button.layer.borderWidth
-        let borderColor = button.layer.borderColor
+        sut.borderColor = .black
+        let borderWidth = sut.layer.borderWidth
+        let borderColor = sut.layer.borderColor
         //Assert
         XCTAssertEqual(borderWidth, 1)
         XCTAssertEqual(borderColor, UIColor.black.cgColor)

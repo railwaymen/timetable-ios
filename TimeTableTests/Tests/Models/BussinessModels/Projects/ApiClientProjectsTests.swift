@@ -13,31 +13,23 @@ class ApiClientProjectsTests: XCTestCase {
     private var networkingMock: NetworkingMock!
     private var requestEncoderMock: RequestEncoderMock!
     private var jsonDecoderMock: JSONDecoderMock!
-    private var apiClient: ApiClientProjectsType!
-    
-    private enum ProjectsRecordsResponse: String, JSONFileResource {
-        case projectsRecordsResponse
-        case simpleProjectArrayResponse
-    }
     
     override func setUp() {
         self.networkingMock = NetworkingMock()
         self.requestEncoderMock = RequestEncoderMock()
         self.jsonDecoderMock = JSONDecoderMock()
-        self.apiClient = ApiClient(networking: self.networkingMock,
-                                   encoder: self.requestEncoderMock,
-                                   decoder: self.jsonDecoderMock)
         super.setUp()
     }
     
     // MARK: - ApiClientSessionType
     func testFetchAllProjectsSucceed() throws {
         //Arrange
-        let data = try self.json(from: ProjectsRecordsResponse.projectsRecordsResponse)
+        let sut = self.buildSUT()
+        let data = try self.json(from: ProjectRecordJSONResource.projectsRecordsResponse)
         let decoder = try JSONDecoder().decode([ProjectRecordDecoder].self, from: data)
         var expectedProjectsRecordsDecoder: [ProjectRecordDecoder]?
         //Act
-        self.apiClient.fetchAllProjects { result in
+        sut.fetchAllProjects { result in
             switch result {
             case .success(let projectsRecordsDecoder):
                 expectedProjectsRecordsDecoder = projectsRecordsDecoder
@@ -52,10 +44,11 @@ class ApiClientProjectsTests: XCTestCase {
     
     func testFetchAllProjectsFailed() throws {
         //Arrange
+        let sut = self.buildSUT()
         var expectedError: Error?
         let error = TestError(message: "fetch projects failed")
         //Act
-        self.apiClient.fetchAllProjects { result in
+        sut.fetchAllProjects { result in
             switch result {
             case .success:
                 XCTFail()
@@ -71,11 +64,12 @@ class ApiClientProjectsTests: XCTestCase {
     
     func testFetchSimpleProjectArrayResponseSucceed() throws {
         //Arrange
-        let data = try self.json(from: ProjectsRecordsResponse.simpleProjectArrayResponse)
+        let sut = self.buildSUT()
+        let data = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
         let decoder = try JSONDecoder().decode(SimpleProjectDecoder.self, from: data)
         var expectedSimpleProjectDecoder: SimpleProjectDecoder?
         //Act
-        self.apiClient.fetchSimpleListOfProjects { result in
+        sut.fetchSimpleListOfProjects { result in
             switch result {
             case .success(let simpleProjectDecoder):
                 expectedSimpleProjectDecoder = simpleProjectDecoder
@@ -90,10 +84,11 @@ class ApiClientProjectsTests: XCTestCase {
     
     func testFetchSimpleProjectArrayResponseFailed() throws {
         //Arrange
+        let sut = self.buildSUT()
         var expectedError: Error?
         let error = TestError(message: "fetch projects failed")
         //Act
-        self.apiClient.fetchSimpleListOfProjects { result in
+        sut.fetchSimpleListOfProjects { result in
             switch result {
             case .success:
                 XCTFail()
@@ -105,5 +100,14 @@ class ApiClientProjectsTests: XCTestCase {
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
+    }
+}
+
+// MARK: - Private
+extension ApiClientProjectsTests {
+    private func buildSUT() -> ApiClientProjectsType {
+        return ApiClient(networking: self.networkingMock,
+                         encoder: self.requestEncoderMock,
+                         decoder: self.jsonDecoderMock)
     }
 }

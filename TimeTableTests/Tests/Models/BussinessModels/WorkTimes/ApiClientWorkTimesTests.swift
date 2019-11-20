@@ -10,11 +10,9 @@ import XCTest
 @testable import TimeTable
 
 class ApiClientWorkTimesTests: XCTestCase {
-    
     private var networkingMock: NetworkingMock!
     private var requestEncoderMock: RequestEncoderMock!
     private var jsonDecoderMock: JSONDecoderMock!
-    private var apiClient: ApiClientWorkTimesType!
     
     private lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -23,24 +21,22 @@ class ApiClientWorkTimesTests: XCTestCase {
     }()
     
     override func setUp() {
+        super.setUp()
         self.networkingMock = NetworkingMock()
         self.requestEncoderMock = RequestEncoderMock()
         self.jsonDecoderMock = JSONDecoderMock()
-        self.apiClient = ApiClient(networking: self.networkingMock,
-                                   encoder: self.requestEncoderMock,
-                                   decoder: self.jsonDecoderMock)
-        super.setUp()
     }
 
     // MARK: - ApiClientWorkTimesType
     func testFetchSucceed() throws {
         //Arrange
+        let sut = self.buildSUT()
         let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
         let decoders = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         var expectedWorkTimes: [WorkTimeDecoder]?
         let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
         //Act
-        self.apiClient.fetchWorkTimes(parameters: parameters) { result in
+        sut.fetchWorkTimes(parameters: parameters) { result in
             switch result {
             case .success(let workTimeDecoder):
                 expectedWorkTimes = workTimeDecoder
@@ -56,11 +52,12 @@ class ApiClientWorkTimesTests: XCTestCase {
     
     func testFetchFailed() throws {
         //Arrange
+        let sut = self.buildSUT()
         var expectedError: Error?
         let error = TestError(message: "fetch failed")
         let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
         //Act
-        self.apiClient.fetchWorkTimes(parameters: parameters) { result in
+        sut.fetchWorkTimes(parameters: parameters) { result in
             switch result {
             case .success:
                 XCTFail()
@@ -76,6 +73,7 @@ class ApiClientWorkTimesTests: XCTestCase {
     
     func testAddWorkTimeSucceed() throws {
         //Arrange
+        let sut = self.buildSUT()
         var successCalled = false
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
@@ -88,7 +86,7 @@ class ApiClientWorkTimesTests: XCTestCase {
                         endAt: nil,
                         tag: .development)
         //Act
-        self.apiClient.addWorkTime(parameters: task) { result in
+        sut.addWorkTime(parameters: task) { result in
             switch result {
             case .success:
                 successCalled = true
@@ -103,6 +101,7 @@ class ApiClientWorkTimesTests: XCTestCase {
     
     func testAddWorkTimeFailed() throws {
         //Arrange
+        let sut = self.buildSUT()
         var expectedError: Error?
         let error = TestError(message: "fetch failed")
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
@@ -116,7 +115,7 @@ class ApiClientWorkTimesTests: XCTestCase {
                         endAt: nil,
                         tag: .development)
         //Act
-        self.apiClient.addWorkTime(parameters: task) { result in
+        sut.addWorkTime(parameters: task) { result in
             switch result {
             case .success:
                 XCTFail()
@@ -132,9 +131,10 @@ class ApiClientWorkTimesTests: XCTestCase {
     
     func testDeleteWorkTimeSucceed() {
         //Arrange
+        let sut = self.buildSUT()
         var successCalled = false
         //Act
-        self.apiClient.deleteWorkTime(identifier: 2) { result in
+        sut.deleteWorkTime(identifier: 2) { result in
             switch result {
             case .success:
                 successCalled = true
@@ -149,10 +149,11 @@ class ApiClientWorkTimesTests: XCTestCase {
     
     func testDeleteWorkTimeFailed() throws {
         //Arrange
+        let sut = self.buildSUT()
         var expectedError: Error?
         let error = TestError(message: "fetch failed")
         //Act
-        self.apiClient.deleteWorkTime(identifier: 2) { result in
+        sut.deleteWorkTime(identifier: 2) { result in
             switch result {
             case .success:
                 XCTFail()
@@ -168,6 +169,7 @@ class ApiClientWorkTimesTests: XCTestCase {
     
     func testUpdateWorkTime_succeed() throws {
         //Arrange
+        let sut = self.buildSUT()
         var successCalled = false
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
@@ -180,7 +182,7 @@ class ApiClientWorkTimesTests: XCTestCase {
                         endAt: nil,
                         tag: .development)
         //Act
-        self.apiClient.updateWorkTime(identifier: 1, parameters: task) { result in
+        sut.updateWorkTime(identifier: 1, parameters: task) { result in
             switch result {
             case .success:
                 successCalled = true
@@ -195,6 +197,7 @@ class ApiClientWorkTimesTests: XCTestCase {
     
     func testUpdateWorkTime_fail() throws {
         //Arrange
+        let sut = self.buildSUT()
         var expectedError: Error?
         let error = TestError(message: "fetch failed")
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
@@ -208,7 +211,7 @@ class ApiClientWorkTimesTests: XCTestCase {
                         endAt: nil,
                         tag: .development)
         //Act
-        self.apiClient.updateWorkTime(identifier: 1, parameters: task) { result in
+        sut.updateWorkTime(identifier: 1, parameters: task) { result in
             switch result {
             case .success:
                 XCTFail()
@@ -220,5 +223,14 @@ class ApiClientWorkTimesTests: XCTestCase {
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
+    }
+}
+
+// MARK: - Private
+extension ApiClientWorkTimesTests {
+    private func buildSUT() -> ApiClientWorkTimesType {
+        return ApiClient(networking: self.networkingMock,
+                         encoder: self.requestEncoderMock,
+                         decoder: self.jsonDecoderMock)
     }
 }

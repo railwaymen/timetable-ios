@@ -20,9 +20,9 @@ class ProjectPickerCellModelTests: XCTestCase {
     func testViewDidConfigureSetsUpView() {
         //Arrange
         let project = self.buildProjectDecoder()
-        let viewModel = self.buildViewModel(project: project)
+        let sut = self.buildSUT(project: project)
         //Act
-        viewModel.viewDidConfigure()
+        sut.viewDidConfigure()
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setUpParams.count, 1)
         XCTAssertEqual(self.userInterfaceMock.setUpParams.last?.title, project.name)
@@ -31,7 +31,7 @@ class ProjectPickerCellModelTests: XCTestCase {
 
 // MARK: - Private
 extension ProjectPickerCellModelTests {
-    private func buildViewModel(project: ProjectDecoder) -> ProjectPickerCellModel {
+    private func buildSUT(project: ProjectDecoder) -> ProjectPickerCellModel {
         return ProjectPickerCellModel(
             userInterface: self.userInterfaceMock,
             project: project)

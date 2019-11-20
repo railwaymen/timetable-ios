@@ -14,12 +14,12 @@ class AttributedTextFieldTests: XCTestCase {
     func testPlaceholderColor() throws {
         //Arrange
         let expectedColor = UIColor.gray
-        let attributedTextField = AttributedTextField()
-        attributedTextField.placeholder = "text"
+        let sut = AttributedTextField()
+        sut.placeholder = "text"
         //Act
-        attributedTextField.placeholderColor = expectedColor
+        sut.placeholderColor = expectedColor
         //Assert
-        let color = try (attributedTextField.attributedPlaceholder?.attribute(.foregroundColor, at: 0, effectiveRange: nil) as? UIColor).unwrap()
+        let color = try (sut.attributedPlaceholder?.attribute(.foregroundColor, at: 0, effectiveRange: nil) as? UIColor).unwrap()
         XCTAssertEqual(color, expectedColor)
     }
 }

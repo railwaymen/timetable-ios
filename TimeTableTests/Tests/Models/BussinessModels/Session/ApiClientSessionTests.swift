@@ -28,11 +28,9 @@ class ApiClientSessionTests: XCTestCase {
         let decoder = try JSONDecoder().decode(SessionDecoder.self, from: data)
         var expectedSessionDecoder: SessionDecoder?
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
-        let apiClient: ApiClientSessionType = ApiClient(networking: self.networkingMock,
-                                                        encoder: self.requestEncoderMock,
-                                                        decoder: self.jsonDecoderMock)
+        let sut = self.buildSUT()
         //Act
-        apiClient.signIn(with: parameters) { result in
+        sut.signIn(with: parameters) { result in
             switch result {
             case .success(let sessionDecoder):
                 expectedSessionDecoder = sessionDecoder
@@ -50,11 +48,9 @@ class ApiClientSessionTests: XCTestCase {
         var expectedError: Error?
         let error = TestError(message: "sign in failed")
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
-        let apiClient: ApiClientSessionType = ApiClient(networking: self.networkingMock,
-                                                        encoder: self.requestEncoderMock,
-                                                        decoder: self.jsonDecoderMock)
+        let sut = self.buildSUT()
         //Act
-        apiClient.signIn(with: parameters) { result in
+        sut.signIn(with: parameters) { result in
             switch result {
             case .success:
                 XCTFail()
@@ -66,5 +62,14 @@ class ApiClientSessionTests: XCTestCase {
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
+    }
+}
+
+// MARK: - Private
+extension ApiClientSessionTests {
+    private func buildSUT() -> ApiClientSessionType {
+        return ApiClient(networking: self.networkingMock,
+                         encoder: self.requestEncoderMock,
+                         decoder: self.jsonDecoderMock)
     }
 }

@@ -11,12 +11,14 @@ import XCTest
 
 class URLSessionExtensionTests: XCTestCase {
     
-    func test() throws {
+    func testDataTask_createsProperDataTask() throws {
+        //Arrange
         let url = URL(string: "www.example.com")!
         let request = URLRequest(url: url)
-        let urlSession: URLSessionType = URLSession.shared
-        let dataTask = urlSession.dataTask(with: request) { (_, _, _) in }
-        
-        XCTAssertNotNil(dataTask as URLSessionDataTaskType)
+        let sut: URLSessionType = URLSession.shared
+        //Act
+        let dataTask = sut.dataTask(with: request) { (_, _, _) in }
+        //Assert
+        XCTAssertNotNil(dataTask as? URLSessionDataTask)
     }
 }

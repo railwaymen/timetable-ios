@@ -10,7 +10,6 @@ import XCTest
 @testable import TimeTable
 
 class ProjectRecordDecoderTests: XCTestCase {
-
     private var decoder: JSONDecoder = JSONDecoder()
     
     func testParsingProjectRecordResponseSucceed() throws {
@@ -20,14 +19,14 @@ class ProjectRecordDecoderTests: XCTestCase {
         let color = UIColor(hexString: "0c0c0c")
         let data = try self.json(from: ProjectRecordJSONResource.projectRecordResponse)
         //Act
-        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
+        let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(projectRecord.identifier, 16281)
-        XCTAssertEqual(projectRecord.projectIdentifier, 11)
-        XCTAssertEqual(projectRecord.name, "Test Name")
-        XCTAssertEqual(projectRecord.color, color)
-        XCTAssertEqual(projectRecord.user, user)
-        XCTAssertEqual(projectRecord.leader, leader)
+        XCTAssertEqual(sut.identifier, 16281)
+        XCTAssertEqual(sut.projectIdentifier, 11)
+        XCTAssertEqual(sut.name, "Test Name")
+        XCTAssertEqual(sut.color, color)
+        XCTAssertEqual(sut.user, user)
+        XCTAssertEqual(sut.leader, leader)
     }
     
     func testParsingProjectRecordNullColorResponseSucceed() throws {
@@ -36,14 +35,14 @@ class ProjectRecordDecoderTests: XCTestCase {
         let leader = ProjectRecordDecoder.User(name: "Rosalind Auer")
         let data = try self.json(from: ProjectRecordJSONResource.projectRecordNullColorResponse)
         //Act
-        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
+        let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(projectRecord.identifier, 16281)
-        XCTAssertEqual(projectRecord.projectIdentifier, 11)
-        XCTAssertEqual(projectRecord.name, "Test Name")
-        XCTAssertNil(projectRecord.color)
-        XCTAssertEqual(projectRecord.user, user)
-        XCTAssertEqual(projectRecord.leader, leader)
+        XCTAssertEqual(sut.identifier, 16281)
+        XCTAssertEqual(sut.projectIdentifier, 11)
+        XCTAssertEqual(sut.name, "Test Name")
+        XCTAssertNil(sut.color)
+        XCTAssertEqual(sut.user, user)
+        XCTAssertEqual(sut.leader, leader)
     }
     
     func testParsingProjectRecordMissingColorKeyResponseSucceed() throws {
@@ -52,14 +51,14 @@ class ProjectRecordDecoderTests: XCTestCase {
         let leader = ProjectRecordDecoder.User(name: "Rosalind Auer")
         let data = try self.json(from: ProjectRecordJSONResource.projectRecordMissingColorKeyResponse)
         //Act
-        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
+        let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(projectRecord.identifier, 16281)
-        XCTAssertEqual(projectRecord.projectIdentifier, 11)
-        XCTAssertEqual(projectRecord.name, "Test Name")
-        XCTAssertNil(projectRecord.color)
-        XCTAssertEqual(projectRecord.user, user)
-        XCTAssertEqual(projectRecord.leader, leader)
+        XCTAssertEqual(sut.identifier, 16281)
+        XCTAssertEqual(sut.projectIdentifier, 11)
+        XCTAssertEqual(sut.name, "Test Name")
+        XCTAssertNil(sut.color)
+        XCTAssertEqual(sut.user, user)
+        XCTAssertEqual(sut.leader, leader)
     }
     
     func testParsingProjectRecordNullUserResponseSucceed() throws {
@@ -68,14 +67,14 @@ class ProjectRecordDecoderTests: XCTestCase {
         let color = UIColor(hexString: "0c0c0c")
         let data = try self.json(from: ProjectRecordJSONResource.projectRecordNullUserResponse)
         //Act
-        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
+        let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(projectRecord.identifier, 16281)
-        XCTAssertEqual(projectRecord.projectIdentifier, 11)
-        XCTAssertEqual(projectRecord.name, "Test Name")
-        XCTAssertEqual(projectRecord.color, color)
-        XCTAssertNil(projectRecord.user)
-        XCTAssertEqual(projectRecord.leader, leader)
+        XCTAssertEqual(sut.identifier, 16281)
+        XCTAssertEqual(sut.projectIdentifier, 11)
+        XCTAssertEqual(sut.name, "Test Name")
+        XCTAssertEqual(sut.color, color)
+        XCTAssertNil(sut.user)
+        XCTAssertEqual(sut.leader, leader)
     }
     
     func testParsingProjectRecordMissingUserKeyResponseSucceed() throws {
@@ -84,14 +83,14 @@ class ProjectRecordDecoderTests: XCTestCase {
         let color = UIColor(hexString: "0c0c0c")
         let data = try self.json(from: ProjectRecordJSONResource.projectRecordMissingUserKeyResponse)
         //Act
-        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
+        let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(projectRecord.identifier, 16281)
-        XCTAssertEqual(projectRecord.projectIdentifier, 11)
-        XCTAssertEqual(projectRecord.name, "Test Name")
-        XCTAssertEqual(projectRecord.color, color)
-        XCTAssertNil(projectRecord.user)
-        XCTAssertEqual(projectRecord.leader, leader)
+        XCTAssertEqual(sut.identifier, 16281)
+        XCTAssertEqual(sut.projectIdentifier, 11)
+        XCTAssertEqual(sut.name, "Test Name")
+        XCTAssertEqual(sut.color, color)
+        XCTAssertNil(sut.user)
+        XCTAssertEqual(sut.leader, leader)
     }
     
     func testParsingProjectRecordNullLeaderResponseSucceed() throws {
@@ -100,14 +99,14 @@ class ProjectRecordDecoderTests: XCTestCase {
         let color = UIColor(hexString: "0c0c0c")
         let data = try self.json(from: ProjectRecordJSONResource.projectRecordNullLeaderResponse)
         //Act
-        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
+        let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(projectRecord.identifier, 16281)
-        XCTAssertEqual(projectRecord.projectIdentifier, 11)
-        XCTAssertEqual(projectRecord.name, "Test Name")
-        XCTAssertEqual(projectRecord.color, color)
-        XCTAssertEqual(projectRecord.user, user)
-        XCTAssertNil(projectRecord.leader)
+        XCTAssertEqual(sut.identifier, 16281)
+        XCTAssertEqual(sut.projectIdentifier, 11)
+        XCTAssertEqual(sut.name, "Test Name")
+        XCTAssertEqual(sut.color, color)
+        XCTAssertEqual(sut.user, user)
+        XCTAssertNil(sut.leader)
     }
     
     func testParsingProjectRecordMissingLeaderKeySucceed() throws {
@@ -116,13 +115,13 @@ class ProjectRecordDecoderTests: XCTestCase {
         let color = UIColor(hexString: "0c0c0c")
         let data = try self.json(from: ProjectRecordJSONResource.projectRecordMissingLeaderKey)
         //Act
-        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
+        let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(projectRecord.identifier, 16281)
-        XCTAssertEqual(projectRecord.projectIdentifier, 11)
-        XCTAssertEqual(projectRecord.name, "Test Name")
-        XCTAssertEqual(projectRecord.color, color)
-        XCTAssertEqual(projectRecord.user, user)
-        XCTAssertNil(projectRecord.leader)
+        XCTAssertEqual(sut.identifier, 16281)
+        XCTAssertEqual(sut.projectIdentifier, 11)
+        XCTAssertEqual(sut.name, "Test Name")
+        XCTAssertEqual(sut.color, color)
+        XCTAssertEqual(sut.user, user)
+        XCTAssertNil(sut.leader)
     }
 }

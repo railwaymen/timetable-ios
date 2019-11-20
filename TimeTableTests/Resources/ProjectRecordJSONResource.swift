@@ -16,4 +16,6 @@ enum ProjectRecordJSONResource: String, JSONFileResource {
     case projectRecordMissingUserKeyResponse
     case projectRecordNullLeaderResponse
     case projectRecordMissingLeaderKey
+    
+    case projectsRecordsResponse
 }

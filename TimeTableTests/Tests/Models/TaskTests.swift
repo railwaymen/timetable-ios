@@ -15,7 +15,7 @@ class TaskTests: XCTestCase {
     
     func testTitleForProjectNoneType() {
         //Arrange
-        let task = Task(workTimeIdentifier: nil,
+        let sut = Task(workTimeIdentifier: nil,
                         project: nil,
                         body: "body",
                         url: nil,
@@ -24,7 +24,7 @@ class TaskTests: XCTestCase {
                         endAt: nil,
                         tag: .development)
         //Act
-        let title = task.title
+        let title = sut.title
         //Assert
         XCTAssertEqual(title, "work_time.text_field.select_project".localized)
     }
@@ -33,7 +33,7 @@ class TaskTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let task = Task(workTimeIdentifier: nil,
+        let sut = Task(workTimeIdentifier: nil,
                         project: projectDecoder,
                         body: "body",
                         url: nil,
@@ -42,14 +42,14 @@ class TaskTests: XCTestCase {
                         endAt: nil,
                         tag: .development)
         //Act
-        let title = task.title
+        let title = sut.title
         //Assert
         XCTAssertEqual(title, "asdsa")
     }
     
     func testAllowTaskForProjectNoneType() {
         //Arrange
-        let task = Task(workTimeIdentifier: nil,
+        let sut = Task(workTimeIdentifier: nil,
                         project: nil,
                         body: "body",
                         url: nil,
@@ -58,7 +58,7 @@ class TaskTests: XCTestCase {
                         endAt: nil,
                         tag: .development)
         //Act
-        let allowsTask = task.allowsTask
+        let allowsTask = sut.allowsTask
         //Assert
         XCTAssertTrue(allowsTask)
     }
@@ -67,7 +67,7 @@ class TaskTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let task = Task(workTimeIdentifier: nil,
+        let sut = Task(workTimeIdentifier: nil,
                         project: projectDecoder,
                         body: "body",
                         url: nil,
@@ -76,14 +76,14 @@ class TaskTests: XCTestCase {
                         endAt: nil,
                         tag: .development)
         //Act
-        let allowsTask = task.allowsTask
+        let allowsTask = sut.allowsTask
         //Assert
         XCTAssertTrue(allowsTask)
     }
     
     func testTypeForProjectNoneType() {
         //Arrange
-        let task = Task(workTimeIdentifier: nil,
+        let sut = Task(workTimeIdentifier: nil,
                         project: nil,
                         body: "body",
                         url: nil,
@@ -92,7 +92,7 @@ class TaskTests: XCTestCase {
                         endAt: nil,
                         tag: .development)
         //Act
-        let type = task.type
+        let type = sut.type
         //Assert
         XCTAssertNil(type)
     }
@@ -101,7 +101,7 @@ class TaskTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let task = Task(workTimeIdentifier: nil,
+        let sut = Task(workTimeIdentifier: nil,
                         project: projectDecoder,
                         body: "body",
                         url: nil,
@@ -110,7 +110,7 @@ class TaskTests: XCTestCase {
                         endAt: nil,
                         tag: .development)
         //Act
-        let type = try task.type.unwrap()
+        let type = try sut.type.unwrap()
         //Assert
         switch type {
         case .standard: break
@@ -122,7 +122,7 @@ class TaskTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithAutofillTrueResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let task = Task(workTimeIdentifier: nil,
+        let sut = Task(workTimeIdentifier: nil,
                         project: projectDecoder,
                         body: "body",
                         url: nil,
@@ -131,7 +131,7 @@ class TaskTests: XCTestCase {
                         endAt: nil,
                         tag: .development)
         //Act
-        let type = try task.type.unwrap()
+        let type = try sut.type.unwrap()
         //Assert
         switch type {
         case .fullDay(let timeInterval):
@@ -144,7 +144,7 @@ class TaskTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithALunchTrueResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let task = Task(workTimeIdentifier: nil,
+        let sut = Task(workTimeIdentifier: nil,
                         project: projectDecoder,
                         body: "body",
                         url: nil,
@@ -153,7 +153,7 @@ class TaskTests: XCTestCase {
                         endAt: nil,
                         tag: .development)
         //Act
-        let type = try task.type.unwrap()
+        let type = try sut.type.unwrap()
         //Assert
         switch type {
         case .lunch(let timeInterval):
@@ -162,10 +162,10 @@ class TaskTests: XCTestCase {
         }
     }
     
-    func testEcondeThrowsErrorWhileProjectIsNil() {
+    func testEncodingThrowsErrorWhileProjectIsNil() {
         //Arrange
         let encoder = JSONEncoder()
-        let task = Task(workTimeIdentifier: nil,
+        let sut = Task(workTimeIdentifier: nil,
                         project: nil,
                         body: "body",
                         url: nil,
@@ -174,16 +174,16 @@ class TaskTests: XCTestCase {
                         endAt: nil,
                         tag: .development)
         //Act
-        let encodedTask = try? encoder.encode(task)
+        let encodedTask = try? encoder.encode(sut)
         //Assert
         XCTAssertNil(encodedTask)
     }
     
-    func testEcondeProject() throws {
+    func testEncodingProject() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithALunchTrueResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let task = Task(workTimeIdentifier: nil,
+        let sut = Task(workTimeIdentifier: nil,
                         project: projectDecoder,
                         body: "body",
                         url: nil,
@@ -193,7 +193,7 @@ class TaskTests: XCTestCase {
                         tag: .development)
         let encoder = JSONEncoder()
         //Act
-        let encodedTask = try? encoder.encode(task)
+        let encodedTask = try? encoder.encode(sut)
         //Assert
         XCTAssertNotNil(encodedTask)
     }

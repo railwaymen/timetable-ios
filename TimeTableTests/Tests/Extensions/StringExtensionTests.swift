@@ -11,60 +11,114 @@ import XCTest
 
 class StringExtensionTests: XCTestCase {
     
+    // MARK: - localized
     func testLocalized() {
         //Arrange
-        let testString = "ui.error.invalid_format"
+        let sut = "ui.error.invalid_format"
         //Act
-        let localized = testString.localized
+        let localized = sut.localized
         //Assert
-        XCTAssertEqual(localized, NSLocalizedString(testString, comment: ""))
+        XCTAssertEqual(localized, NSLocalizedString(sut, comment: ""))
     }
     
-    func testApiSuffix() {
+    // MARK: - apiSuffix
+    func testApiSuffix_withApiWithoutSlash() {
         //Arrange
-        let expectedString = "http://example.com/api"
-        let firstString = "http://example.com/api/"
-        let secondString = "http://example.com/api"
-        let thirdString = "http://example.com/"
-        let fourthString = "http://example.com"
-        let fifthString = "http://example.com/api/v1"
-        let sixthString = "http://example.com/api/api/"
-        let seventhString = "http://example.com/api/api/api"
-        let eighthString = "http://example.com/api/done/api"
+        let sut = "http://example.com/api"
         //Act
-        let firstStringResult = firstString.apiSuffix()
-        let secondStringResult = secondString.apiSuffix()
-        let thirdStringResult = thirdString.apiSuffix()
-        let fourthStringResult = fourthString.apiSuffix()
-        let fifthStringResult = fifthString.apiSuffix()
-        let sixthStringResult = sixthString.apiSuffix()
-        let seventhStringResult = seventhString.apiSuffix()
-        let eighthStringResult = eighthString.apiSuffix()
+        let result = sut.apiSuffix()
         //Assert
-        XCTAssertEqual(firstStringResult, expectedString)
-        XCTAssertEqual(secondStringResult, expectedString)
-        XCTAssertEqual(thirdStringResult, expectedString)
-        XCTAssertEqual(fourthStringResult, expectedString)
-        XCTAssertEqual(fifthStringResult, expectedString)
-        XCTAssertEqual(sixthStringResult, expectedString)
-        XCTAssertEqual(seventhStringResult, expectedString)
-        XCTAssertEqual(eighthStringResult, expectedString)
+        XCTAssertEqual(result, "http://example.com/api")
     }
     
-    func testHttpPrefix() {
+    func testApiSuffix_withApiAndWithSlash() {
         //Arrange
-        let expectedHTTPString = "http://example.com"
-        let expectedHTTPSString = "https://example.com"
-        let firstString = "example.com"
-        let secondString = "http://example.com"
-        let thirdString = "https://example.com"
+        let sut = "http://example.com/api/"
         //Act
-        let firstStringResult = firstString.httpPrefix()
-        let secondStringResult = secondString.httpPrefix()
-        let thirdStringResult = thirdString.httpPrefix()
+        let result = sut.apiSuffix()
         //Assert
-        XCTAssertEqual(firstStringResult, expectedHTTPString)
-        XCTAssertEqual(secondStringResult, expectedHTTPString)
-        XCTAssertEqual(thirdStringResult, expectedHTTPSString)
+        XCTAssertEqual(result, "http://example.com/api")
+    }
+    
+    func testApiSuffix_withoutApiButWithSlash() {
+        //Arrange
+        let sut = "http://example.com/"
+        //Act
+        let result = sut.apiSuffix()
+        //Assert
+        XCTAssertEqual(result, "http://example.com/api")
+    }
+    
+    func testApiSuffix_withoutApiAndWithoutSlash() {
+        //Arrange
+        let sut = "http://example.com"
+        //Act
+        let result = sut.apiSuffix()
+        //Assert
+        XCTAssertEqual(result, "http://example.com/api")
+    }
+    
+    func testApiSuffix_withApiAndSomeText() {
+        //Arrange
+        let sut = "http://example.com/api/v1"
+        //Act
+        let result = sut.apiSuffix()
+        //Assert
+        XCTAssertEqual(result, "http://example.com/api")
+    }
+    
+    func testApiSuffix_withDoubleApi() {
+        //Arrange
+        let sut = "http://example.com/api/api/"
+        //Act
+        let result = sut.apiSuffix()
+        //Assert
+        XCTAssertEqual(result, "http://example.com/api")
+    }
+    
+    func testApiSuffix_withTripleApi() {
+        //Arrange
+        let sut = "http://example.com/api/api/api"
+        //Act
+        let result = sut.apiSuffix()
+        //Assert
+        XCTAssertEqual(result, "http://example.com/api")
+    }
+    
+    func testApiSuffix_withDoubleApiWithSomeTextBetween() {
+        //Arrange
+        let sut = "http://example.com/api/done/api/"
+        //Act
+        let result = sut.apiSuffix()
+        //Assert
+        XCTAssertEqual(result, "http://example.com/api")
+    }
+    
+    // MARK: - httpPrefix
+    func testHttpPrefix_withoutPrefix() {
+        //Arrange
+        let sut = "example.com"
+        //Act
+        let result = sut.httpPrefix()
+        //Assert
+        XCTAssertEqual(result, "http://example.com")
+    }
+    
+    func testHttpPrefix_withHttpPrefix() {
+        //Arrange
+        let sut = "http://example.com"
+        //Act
+        let result = sut.httpPrefix()
+        //Assert
+        XCTAssertEqual(result, "http://example.com")
+    }
+    
+    func testHttpPrefix_withHttpsPrefix() {
+        //Arrange
+        let sut = "https://example.com"
+        //Act
+        let result = sut.httpPrefix()
+        //Assert
+        XCTAssertEqual(result, "https://example.com")
     }
 }

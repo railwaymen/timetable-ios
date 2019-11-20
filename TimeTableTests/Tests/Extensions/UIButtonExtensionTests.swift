@@ -13,23 +13,23 @@ class UIButtonExtensionTests: XCTestCase {
     
     func testIfLocalizedStringIsSetProperly() {
         //Arrange
-        let button = UIButton()
+        let sut = UIButton()
         let string = "key"
         let localizedString = NSLocalizedString(string, comment: "").localizedUppercase
         //Act
-        button.localizedStringKey = string
+        sut.localizedStringKey = string
         //Assert
-        XCTAssertEqual(button.titleLabel?.text, localizedString)
+        XCTAssertEqual(sut.titleLabel?.text, localizedString)
     }
     
     func testIfLocalizedStringReturnsTitleOfTheButton() {
         //Arrange
-        let button = UIButton()
+        let sut = UIButton()
         let string = "key"
         let localizedString = NSLocalizedString(string, comment: "").localizedUppercase
         //Act
-        button.localizedStringKey = string
+        sut.localizedStringKey = string
         //Assert
-        XCTAssertEqual(button.localizedStringKey, localizedString)
+        XCTAssertEqual(sut.localizedStringKey, localizedString)
     }
 }

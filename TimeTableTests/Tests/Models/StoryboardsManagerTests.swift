@@ -13,9 +13,9 @@ class StoryboardsManagerTests: XCTestCase {
 
     func testIfMainStoryboardExists() {
         //Arrange
-        let manager = StoryboardsManager()
+        let sut = StoryboardsManager()
         //Act
-        let controller: ServerConfigurationViewController? = manager.controller(storyboard: .serverConfiguration, controllerIdentifier: .initial)
+        let controller: ServerConfigurationViewController? = sut.controller(storyboard: .serverConfiguration, controllerIdentifier: .initial)
         //Assert
         XCTAssertNotNil(controller)
     }

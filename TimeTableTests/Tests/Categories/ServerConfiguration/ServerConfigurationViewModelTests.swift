@@ -14,23 +14,20 @@ class ServerConfigurationViewModelTests: XCTestCase {
     private var coordinatorMock: CoordinatorMock!
     private var serverConfigurationManagerMock: ServerConfigurationManagerMock!
     private var errorHandler: ErrorHandlerMock!
-    private var viewModel: ServerConfigurationViewModel!
     
     override func setUp() {
         self.userInterface = ServerConfigurationViewControllerMock()
         self.errorHandler = ErrorHandlerMock()
         self.coordinatorMock = CoordinatorMock()
         self.serverConfigurationManagerMock = ServerConfigurationManagerMock()
-        self.viewModel = ServerConfigurationViewModel(userInterface: self.userInterface,
-                                                      coordinator: self.coordinatorMock,
-                                                      serverConfigurationManager: self.serverConfigurationManagerMock,
-                                                      errorHandler: self.errorHandler)
         super.setUp()
     }
     
     func testViewDidLoadCallSetupViewOnTheUserInterface() {
+        //Arrange
+        let sut = self.buildSUT()
         //Act
-        self.viewModel.viewDidLoad()
+        sut.viewDidLoad()
         //Assert
         XCTAssertEqual(self.userInterface.setUpViewParams.count, 1)
         XCTAssertEqual(self.userInterface.setUpViewParams.last?.serverAddress, "")
@@ -38,8 +35,10 @@ class ServerConfigurationViewModelTests: XCTestCase {
     }
     
     func testViewRequestedToContinueThrowErrorWhileServerAddressIsNull() {
+        //Arrange
+        let sut = self.buildSUT()
         //Act
-        self.viewModel.viewRequestedToContinue()
+        sut.viewRequestedToContinue()
         //Assert
         XCTAssertTrue(self.userInterface.setActivityIndicatorParams.isEmpty)
         switch self.errorHandler.throwingParams.last?.error as? UIError {
@@ -50,9 +49,10 @@ class ServerConfigurationViewModelTests: XCTestCase {
     
     func testViewRequestedToContinueThrowErrorWhileServerAddressIsInvalid() {
         //Arrange
-        self.viewModel.serverAddressDidChange(text: "##invalid_address")
+        let sut = self.buildSUT()
+        sut.serverAddressDidChange(text: "##invalid_address")
         //Act
-        self.viewModel.viewRequestedToContinue()
+        sut.viewRequestedToContinue()
         //Assert
         XCTAssertTrue(self.userInterface.setActivityIndicatorParams.isEmpty)
         switch self.errorHandler.throwingParams.last?.error as? UIError {
@@ -63,10 +63,11 @@ class ServerConfigurationViewModelTests: XCTestCase {
     
     func testViewRequestedToContinueCreateCorrectServerConfigurationWithDefaultValues() throws {
         //Arrange
+        let sut = self.buildSUT()
         let hostString = "www.example.com"
-        self.viewModel.serverAddressDidChange(text: hostString)
+        sut.serverAddressDidChange(text: hostString)
         //Act
-        self.viewModel.viewRequestedToContinue()
+        sut.viewRequestedToContinue()
         self.serverConfigurationManagerMock.verifyParams.last?.completion(.success(Void()))
         //Assert
         let configuration = try (self.coordinatorMock.serverConfigurationDidFinishParams.last?.serverConfiguration).unwrap()
@@ -78,11 +79,12 @@ class ServerConfigurationViewModelTests: XCTestCase {
     
     func testViewRequestedToContinueCreateCorrectServerConfigurationWithStaySigneInAsFalse() throws {
         //Arrange
+        let sut = self.buildSUT()
         let hostString = "www.example.com"
-        self.viewModel.serverAddressDidChange(text: hostString)
-        self.viewModel.shouldRemeberHostCheckBoxStatusDidChange(isActive: true)
+        sut.serverAddressDidChange(text: hostString)
+        sut.shouldRemeberHostCheckBoxStatusDidChange(isActive: true)
         //Act
-        self.viewModel.viewRequestedToContinue()
+        sut.viewRequestedToContinue()
         self.serverConfigurationManagerMock.verifyParams.last?.completion(.success(Void()))
         //Assert
         let configuration = try (self.coordinatorMock.serverConfigurationDidFinishParams.last?.serverConfiguration).unwrap()
@@ -94,10 +96,11 @@ class ServerConfigurationViewModelTests: XCTestCase {
     
     func testViewRequestedToContinueWithCorrectServerConfigurationCallCoordinator() throws {
         //Arrange
+        let sut = self.buildSUT()
         let hostString = "www.example.com"
-        self.viewModel.serverAddressDidChange(text: hostString)
+        sut.serverAddressDidChange(text: hostString)
         //Act
-        self.viewModel.viewRequestedToContinue()
+        sut.viewRequestedToContinue()
         self.serverConfigurationManagerMock.verifyParams.last?.completion(.success(Void()))
         //Assert
         XCTAssertEqual(self.coordinatorMock.serverConfigurationDidFinishParams.count, 1)
@@ -107,11 +110,12 @@ class ServerConfigurationViewModelTests: XCTestCase {
     
     func testViewRequestedToContinueWithInvalidServerConfigurationGetsAnError() throws {
         //Arrange
+        let sut = self.buildSUT()
         let hostString = "com"
         let url = try URL(string: hostString).unwrap()
-        self.viewModel.serverAddressDidChange(text: hostString)
+        sut.serverAddressDidChange(text: hostString)
         //Act
-        self.viewModel.viewRequestedToContinue()
+        sut.viewRequestedToContinue()
         self.serverConfigurationManagerMock.verifyParams.last?.completion(.failure(ApiClientError(type: .invalidHost(url))))
         //Assert
         XCTAssertEqual(self.errorHandler.throwingParams.count, 1)
@@ -120,38 +124,58 @@ class ServerConfigurationViewModelTests: XCTestCase {
     }
     
     func testServerAddressDidChangePassedNilValue() {
+        //Arrange
+        let sut = self.buildSUT()
         //Act
-        self.viewModel.serverAddressDidChange(text: nil)
+        sut.serverAddressDidChange(text: nil)
         //Assert
         XCTAssertTrue(self.userInterface.continueButtonEnabledStateParams.isEmpty)
     }
     
     func testServerAddressDidChangePassedCorrectHostName() {
+        //Arrange
+        let sut = self.buildSUT()
         //Act
-        self.viewModel.serverAddressDidChange(text: "www.example.com")
+        sut.serverAddressDidChange(text: "www.example.com")
         //Assert
         XCTAssertEqual(self.userInterface.continueButtonEnabledStateParams.count, 1)
         XCTAssertTrue(try (self.userInterface.continueButtonEnabledStateParams.last?.isEnabled).unwrap())
     }
     
     func testServerAddressTextFieldDidRequestedForReturnDissmissKeyboard() {
+        //Arrange
+        let sut = self.buildSUT()
         //Act
-        _ = self.viewModel.serverAddressTextFieldDidRequestForReturn()
+        _ = sut.serverAddressTextFieldDidRequestForReturn()
         //Assert
         XCTAssertEqual(self.userInterface.dismissKeyboardParams.count, 1)
     }
     
     func testServerAddressTextFieldDidRequestedForReturnReturnCorrectValue() {
+        //Arrange
+        let sut = self.buildSUT()
         //Act
-        let value = self.viewModel.serverAddressTextFieldDidRequestForReturn()
+        let value = sut.serverAddressTextFieldDidRequestForReturn()
         //Assert
         XCTAssertTrue(value)
     }
     
     func testViewHasBeenTappedCallDissmissKeyboardOnUserInteface() {
+        //Arrange
+        let sut = self.buildSUT()
         //Act
-        _ = self.viewModel.viewHasBeenTapped()
+        _ = sut.viewHasBeenTapped()
         //Assert
         XCTAssertEqual(self.userInterface.dismissKeyboardParams.count, 1)
+    }
+}
+
+// MARK: - Private
+extension ServerConfigurationViewModelTests {
+    private func buildSUT() -> ServerConfigurationViewModel {
+        return ServerConfigurationViewModel(userInterface: self.userInterface,
+                                            coordinator: self.coordinatorMock,
+                                            serverConfigurationManager: self.serverConfigurationManagerMock,
+                                            errorHandler: self.errorHandler)
     }
 }
