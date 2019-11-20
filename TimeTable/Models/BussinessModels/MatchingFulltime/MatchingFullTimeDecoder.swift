@@ -11,7 +11,10 @@ import Foundation
 struct MatchingFullTimeDecoder {
     let period: Period?
     let shouldWorked: TimeInterval?
-    
+}
+
+// MARK: - Structures
+extension MatchingFullTimeDecoder {
     struct Period {
         let identifier: Int
         let countedDuration: TimeInterval

@@ -20,6 +20,13 @@ protocol DateSelectorViewDelegate: class {
     
     weak var delegate: DateSelectorViewDelegate?
  
+    // MARK: - Internal
+    func update(currentDateString: String, previousDateString: String, nextDateString: String) {
+        self.currentDateButton.setTitle(currentDateString, for: .normal)
+        self.previousDateButton.setTitle(previousDateString, for: .normal)
+        self.nextDateButton.setTitle(nextDateString, for: .normal)
+    }
+    
     // MARK: - Actions
     @IBAction private func previousDateButtonTapped(_ sender: UIButton) {
         self.delegate?.dateSelectorRequestedForPreviousDate()
@@ -27,12 +34,5 @@ protocol DateSelectorViewDelegate: class {
     
     @IBAction private func nextDateButtonTapped(_ sender: UIButton) {
         self.delegate?.dateSelectorRequestedForNextDate()
-    }
-    
-    // MARK: - Internal
-    func update(currentDateString: String, previousDateString: String, nextDateString: String) {
-        self.currentDateButton.setTitle(currentDateString, for: .normal)
-        self.previousDateButton.setTitle(previousDateString, for: .normal)
-        self.nextDateButton.setTitle(nextDateString, for: .normal)
     }
 }

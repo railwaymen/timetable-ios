@@ -49,11 +49,6 @@ class WorkTimesListViewModel {
     private var dailyWorkTimesArray: [DailyWorkTime]
     private weak var errorViewModel: ErrorViewModelParentType?
     
-    enum CellType {
-        case standard
-        case taskURL
-    }
-    
     // MARK: - Initialization
     init(userInterface: WorkTimesListViewModelOutput,
          coordinator: WorkTimesListCoordinatorDelegate?,
@@ -68,6 +63,14 @@ class WorkTimesListViewModel {
         self.dailyWorkTimesArray = []
         let components = calendar.dateComponents([.month, .year], from: Date())
         self.selectedMonth = calendar.date(from: components)
+    }
+}
+
+// MARK: - Structures
+extension WorkTimesListViewModel {
+    enum CellType {
+        case standard
+        case taskURL
     }
 }
  

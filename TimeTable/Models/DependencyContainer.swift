@@ -41,7 +41,7 @@ struct DependencyContainer: DependencyContainerType {
     let notificationCenter: NotificationCenterType
     let dispatchGroupFactory: DispatchGroupFactoryType
     
-    // MARK: Initialization
+    // MARK: - Initialization
     init(application: UIApplicationType?,
          window: UIWindow?,
          messagePresenter: MessagePresenterType?,
