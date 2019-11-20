@@ -32,7 +32,6 @@ class ProjectsViewController: UIViewController {
         super.viewDidLoad()
         self.viewModel.viewDidLoad()
     }
-      
 }
 
 // MARK: - UICollectionViewDataSource

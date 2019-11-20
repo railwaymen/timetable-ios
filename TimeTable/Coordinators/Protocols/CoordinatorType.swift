@@ -22,15 +22,15 @@ protocol CoordinatorType: class, Equatable {
     func removeChildCoordinator(child: Coordinator?)
 }
 
-// MARK: - CoordinatorType
 extension CoordinatorType {
     func start() {
         self.start(finishCompletion: nil)
     }
 }
+
 // MARK: - Equatable
 extension CoordinatorType {
     static func == (lhs: Self, rhs: Self) -> Bool {
-        return lhs.children == rhs.children
+        return lhs === rhs
     }
 }

@@ -73,19 +73,6 @@ extension AuthenticationCoordinator {
     }
 }
 
-extension AuthenticationCoordinator.State: Equatable {
-    static func == (lhs: AuthenticationCoordinator.State, rhs: AuthenticationCoordinator.State) -> Bool {
-        switch (lhs, rhs) {
-        case (.changeAddress, .changeAddress):
-            return true
-        case (.loggedInCorrectly(let lhsSessionDecoder), .loggedInCorrectly(let rhsSessionDecoder)):
-            return lhsSessionDecoder == rhsSessionDecoder
-        default:
-            return false
-        }
-    }
-}
-
 // MARK: - ServerConfigurationCoordinatorDelegate
 extension AuthenticationCoordinator: ServerConfigurationCoordinatorDelegate {
     func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration) {
@@ -103,6 +90,20 @@ extension AuthenticationCoordinator: LoginCoordinatorDelegate {
         case .loggedInCorrectly(let session):
             self.updateApiClient(with: session)
             self.finish()
+        }
+    }
+}
+
+// MARK: - Equatable
+extension AuthenticationCoordinator.State: Equatable {
+    static func == (lhs: AuthenticationCoordinator.State, rhs: AuthenticationCoordinator.State) -> Bool {
+        switch (lhs, rhs) {
+        case (.changeAddress, .changeAddress):
+            return true
+        case (.loggedInCorrectly(let lhsSessionDecoder), .loggedInCorrectly(let rhsSessionDecoder)):
+            return lhsSessionDecoder == rhsSessionDecoder
+        default:
+            return false
         }
     }
 }
