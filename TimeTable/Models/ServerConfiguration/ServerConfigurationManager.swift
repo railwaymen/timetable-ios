@@ -10,7 +10,7 @@ import Foundation
 
 protocol ServerConfigurationManagerType: class {
     func getOldConfiguration() -> ServerConfiguration?
-    func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void>) -> Void))
+    func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void, Error>) -> Void))
 }
 
 class ServerConfigurationManager {
@@ -47,8 +47,8 @@ extension ServerConfigurationManager: ServerConfigurationManagerType {
         return configuration
     }
     
-    func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void>) -> Void)) {
-        let mainThreadCompletion: ((Result<Void>) -> Void) = { [dispatchQueueManager] result in
+    func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void, Error>) -> Void)) {
+        let mainThreadCompletion: ((Result<Void, Error>) -> Void) = { [dispatchQueueManager] result in
             dispatchQueueManager.performOnMainThread(taskType: .async) {
                 completion(result)
             }

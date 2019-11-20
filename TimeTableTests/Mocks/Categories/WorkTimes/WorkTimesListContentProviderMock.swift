@@ -13,23 +13,23 @@ class WorkTimesListContentProviderMock {
     private(set) var fetchWorkTimesDataParams: [FetchWorkTimesDataParams] = []
     struct FetchWorkTimesDataParams {
         var date: Date?
-        var completion: (Result<([DailyWorkTime], MatchingFullTimeDecoder)>) -> Void
+        var completion: (Result<([DailyWorkTime], MatchingFullTimeDecoder), Error>) -> Void
     }
     
     private(set) var deleteWorkTimeParams: [DeleteWorkTimeParams] = []
     struct DeleteWorkTimeParams {
         var workTime: WorkTimeDecoder
-        var completion: (Result<Void>) -> Void
+        var completion: (Result<Void, Error>) -> Void
     }
 }
 
 // MARK: - WorkTimesListContentProviderType
 extension WorkTimesListContentProviderMock: WorkTimesListContentProviderType {
-    func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder)>) -> Void) {
+    func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder), Error>) -> Void) {
         self.fetchWorkTimesDataParams.append(FetchWorkTimesDataParams(date: date, completion: completion))
     }
     
-    func delete(workTime: WorkTimeDecoder, completion: @escaping (Result<Void>) -> Void) {
+    func delete(workTime: WorkTimeDecoder, completion: @escaping (Result<Void, Error>) -> Void) {
         self.deleteWorkTimeParams.append(DeleteWorkTimeParams(workTime: workTime, completion: completion))
     }
 }

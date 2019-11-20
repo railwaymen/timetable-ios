@@ -53,7 +53,7 @@ class WorkTimeViewModel {
     private var task: Task
     private var tags: [ProjectTag]
     
-    private lazy var addUpdateCompletionHandler: (Result<Void>) -> Void = { [weak self] result in
+    private lazy var addUpdateCompletionHandler: (Result<Void, Error>) -> Void = { [weak self] result in
         self?.userInterface?.setActivityIndicator(isHidden: true)
         switch result {
         case .success:

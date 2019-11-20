@@ -278,7 +278,6 @@
 		C1B8FA4B218C964C009D10B4 /* SessionDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8FA4A218C964C009D10B4 /* SessionDecoderTests.swift */; };
 		C1B8FA4D218C9A04009D10B4 /* JSONFileResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8FA4C218C9A04009D10B4 /* JSONFileResource.swift */; };
 		C1B8FA51218C9A86009D10B4 /* signInRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B8FA50218C9A86009D10B4 /* signInRequest.json */; };
-		C1C4BA8F2189AD7700683F71 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C4BA8E2189AD7700683F71 /* Result.swift */; };
 		C1C4BA912189AE0900683F71 /* ApiValidationErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C4BA902189AE0900683F71 /* ApiValidationErrors.swift */; };
 		C1C4BA932189AF3300683F71 /* HTTPMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C4BA922189AF3300683F71 /* HTTPMethods.swift */; };
 		C1CE041521F5E01200E80517 /* AttributedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CE041421F5E01200E80517 /* AttributedTextField.swift */; };
@@ -628,7 +627,6 @@
 		C1B8FA4A218C964C009D10B4 /* SessionDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDecoderTests.swift; sourceTree = "<group>"; };
 		C1B8FA4C218C9A04009D10B4 /* JSONFileResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONFileResource.swift; sourceTree = "<group>"; };
 		C1B8FA50218C9A86009D10B4 /* signInRequest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInRequest.json; sourceTree = "<group>"; };
-		C1C4BA8E2189AD7700683F71 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		C1C4BA902189AE0900683F71 /* ApiValidationErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiValidationErrors.swift; sourceTree = "<group>"; };
 		C1C4BA922189AF3300683F71 /* HTTPMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethods.swift; sourceTree = "<group>"; };
 		C1CE041421F5E01200E80517 /* AttributedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextField.swift; sourceTree = "<group>"; };
@@ -1076,7 +1074,6 @@
 				8A09DCB723673E58003FC2A6 /* DispatchQueueManager.swift */,
 				C175B56B227CAACA006D9944 /* MessagePresenter.swift */,
 				C125F1BD21DCDCB000594CDE /* Project.swift */,
-				C1C4BA8E2189AD7700683F71 /* Result.swift */,
 				C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */,
 				C152C22121E89CB8003ABD88 /* Task.swift */,
 				C1E6B34A219EF02100019DC2 /* AccessService */,
@@ -2272,7 +2269,6 @@
 				C1AACFDA21A440650023FD32 /* BaseTabBarControllerType.swift in Sources */,
 				8A10F83D2350D9810004F389 /* DismissableNavigationController.swift in Sources */,
 				C13C88E821E5F7B600F68C6E /* WorkTimeViewModel.swift in Sources */,
-				C1C4BA8F2189AD7700683F71 /* Result.swift in Sources */,
 				8A798746237D4DC6003DC028 /* ProfileViewController.swift in Sources */,
 				C13C2B0421EDD1C5008C9088 /* ServerError.swift in Sources */,
 				C125F1C121DCF17300594CDE /* ProjectCollectionViewCellModel.swift in Sources */,

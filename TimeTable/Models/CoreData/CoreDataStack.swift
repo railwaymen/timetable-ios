@@ -12,11 +12,11 @@ import CoreStore
 typealias CoreDataStackType = (CoreDataStackUserType)
 
 protocol CoreDataStackUserType: class {
-    func deleteUser(forIdentifier identifier: Int64, completion: @escaping (Result<Void>) -> Void)
-    func fetchUser(forIdentifier identifier: Int64, completion: @escaping (Result<UserEntity>) -> Void)
+    func deleteUser(forIdentifier identifier: Int64, completion: @escaping (Result<Void, Error>) -> Void)
+    func fetchUser(forIdentifier identifier: Int64, completion: @escaping (Result<UserEntity, Error>) -> Void)
     func save<CDT: NSManagedObject>(userDecoder: SessionDecoder,
                                     coreDataTypeTranslation: @escaping ((AsynchronousDataTransactionType) -> CDT),
-                                    completion: @escaping (Result<CDT>) -> Void)
+                                    completion: @escaping (Result<CDT, Error>) -> Void)
 }
 
 class CoreDataStack {
@@ -40,7 +40,7 @@ extension CoreDataStack {
 
 // MARK: - CoreDataStackUserType
 extension CoreDataStack: CoreDataStackUserType {
-    func deleteUser(forIdentifier identifier: Int64, completion: @escaping (Result<Void>) -> Void) {
+    func deleteUser(forIdentifier identifier: Int64, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
         self.fetchUser(forIdentifier: identifier) { [unowned self] result in
             switch result {
             case .success(let user):
@@ -57,7 +57,7 @@ extension CoreDataStack: CoreDataStackUserType {
         }
     }
     
-    func fetchUser(forIdentifier identifier: Int64, completion: @escaping (Result<UserEntity>) -> Void) {
+    func fetchUser(forIdentifier identifier: Int64, completion: @escaping (Result<UserEntity, Swift.Error>) -> Void) {
         guard let user = (try? self.stack.fetchAll(
             From<UserEntity>(),
             Where<UserEntity>("%K == %d", "identifier", identifier)
@@ -70,7 +70,7 @@ extension CoreDataStack: CoreDataStackUserType {
     
     func save<CDT: NSManagedObject>(userDecoder: SessionDecoder,
                                     coreDataTypeTranslation: @escaping ((AsynchronousDataTransactionType) -> CDT),
-                                    completion: @escaping (Result<CDT>) -> Void) {
+                                    completion: @escaping (Result<CDT, Swift.Error>) -> Void) {
         self.stack.perform(asynchronousTask: { transaction in
             return coreDataTypeTranslation(transaction)
         }, success: { entity in

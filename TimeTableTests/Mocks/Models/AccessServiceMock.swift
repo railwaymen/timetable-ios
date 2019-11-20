@@ -36,7 +36,7 @@ class AccessServiceMock {
     
     private(set) var getSessionParams: [GetSessionParams] = []
     struct GetSessionParams {
-        var completion: ((Result<SessionDecoder>) -> Void)
+        var completion: ((Result<SessionDecoder, Error>) -> Void)
     }
 }
 
@@ -76,7 +76,7 @@ extension AccessServiceMock: AccessServiceUserIDType {
 
 // MARK: - AccessServiceSessionType
 extension AccessServiceMock: AccessServiceSessionType {
-    func getSession(completion: @escaping ((Result<SessionDecoder>) -> Void)) {
+    func getSession(completion: @escaping ((Result<SessionDecoder, Error>) -> Void)) {
         self.getSessionParams.append(GetSessionParams(completion: completion))
     }
 }

@@ -30,7 +30,7 @@ class ApiClient: ApiClientNetworkingType {
     }
     
     // MARK: - Internal
-    func post<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void)) {
+    func post<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Swift.Result<D, Error>) -> Void)) {
         do {
             let parameters = try self.encoder.encodeToDictionary(wrapper: parameters)
             _ = self.networking.post(endpoint.value, parameters: parameters) { [weak self] response in
@@ -41,7 +41,7 @@ class ApiClient: ApiClientNetworkingType {
         }
     }
     
-    func post<E: Encodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<Void>) -> Void)) {
+    func post<E: Encodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Swift.Result<Void, Error>) -> Void)) {
         do {
             let parameters = try self.encoder.encodeToDictionary(wrapper: parameters)
             _ = self.networking.post(endpoint.value, parameters: parameters) { response in
@@ -57,13 +57,13 @@ class ApiClient: ApiClientNetworkingType {
         }
     }
     
-    func get<D: Decodable>(_ endpoint: Endpoints, completion: @escaping ((Result<D>) -> Void)) {
+    func get<D: Decodable>(_ endpoint: Endpoints, completion: @escaping ((Swift.Result<D, Error>) -> Void)) {
         self.networking.get(endpoint.value, parameters: nil, cachingLevel: .none) { [weak self] response in
             self?.handle(response: response, completion: completion)
         }
     }
     
-    func get<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void)) {
+    func get<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Swift.Result<D, Error>) -> Void)) {
         do {
             let parameters = try self.encoder.encodeToDictionary(wrapper: parameters)
             self.networking.get(endpoint.value, parameters: parameters, cachingLevel: .none) { [weak self] response in
@@ -74,11 +74,11 @@ class ApiClient: ApiClientNetworkingType {
         }
     }
     
-    func delete(_ endpoint: Endpoints, completion: @escaping ((Result<Void>) -> Void)) {
+    func delete(_ endpoint: Endpoints, completion: @escaping ((Swift.Result<Void, Error>) -> Void)) {
         self.networking.delete(endpoint.value, completion: completion)
     }
     
-    func put<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<D>) -> Void)) {
+    func put<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Swift.Result<D, Error>) -> Void)) {
         do {
             let parameters = try self.encoder.encodeToDictionary(wrapper: parameters)
             _ = self.networking.put(endpoint.value, parameters: parameters) { [weak self] response in
@@ -89,7 +89,7 @@ class ApiClient: ApiClientNetworkingType {
         }
     }
     
-    func put<E: Encodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Result<Void>) -> Void)) {
+    func put<E: Encodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Swift.Result<Void, Error>) -> Void)) {
         do {
             let parameters = try self.encoder.encodeToDictionary(wrapper: parameters)
             _ = self.networking.put(endpoint.value, parameters: parameters) { response in
@@ -108,7 +108,7 @@ class ApiClient: ApiClientNetworkingType {
 
 // MARK: - Private
 extension ApiClient {
-    private func decode<D: Decodable>(data: Data, completion: @escaping ((Result<D>) -> Void)) {
+    private func decode<D: Decodable>(data: Data, completion: @escaping ((Swift.Result<D, Error>) -> Void)) {
         do {
             let decodedResponse = try self.decoder.decode(D.self, from: data)
             completion(.success(decodedResponse))
@@ -117,7 +117,7 @@ extension ApiClient {
         }
     }
     
-    private func handle<D: Decodable>(response: Result<Data>, completion: @escaping ((Result<D>) -> Void)) {
+    private func handle<D: Decodable>(response: Swift.Result<Data, Error>, completion: @escaping ((Swift.Result<D, Error>) -> Void)) {
         switch response {
         case .success(let data):
             self.decode(data: data, completion: completion)

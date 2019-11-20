@@ -87,7 +87,7 @@ class CoreDataStackTests: XCTestCase {
         user.lastName = "Little"
         self.dataStackMock.fetchAllReturnType = user
         //Act
-        stack.fetchUser(forIdentifier: 1) { (result: Result<UserEntity>) in
+        stack.fetchUser(forIdentifier: 1) { (result: Result<UserEntity, Error>) in
             switch result {
             case .success(let entity):
                 expectedEntity = entity
@@ -172,7 +172,7 @@ class CoreDataStackTests: XCTestCase {
         stack.save(userDecoder: sessionReponse, coreDataTypeTranslation: { (transaction: AsynchronousDataTransactionType) -> UserEntity in
             //Assert
             return UserEntity.createUser(from: sessionReponse, transaction: transaction)
-        }) { (_: (Result<UserEntity>)) in }
+        }) { (_: (Result<UserEntity, Error>)) in }
         _ = try self.dataStackMock.performParams.last?.asynchronousTask(asynchronousDataTransactionMock)
     }
 }

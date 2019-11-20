@@ -9,8 +9,8 @@
 import Foundation
 
 protocol WorkTimesListContentProviderType: class {
-    func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder)>) -> Void)
-    func delete(workTime: WorkTimeDecoder, completion: @escaping (Result<Void>) -> Void)
+    func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder), Error>) -> Void)
+    func delete(workTime: WorkTimeDecoder, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 class WorkTimesListContentProvider {
@@ -33,7 +33,7 @@ class WorkTimesListContentProvider {
  
 // MARK: - WorkTimesContentProviderType
 extension WorkTimesListContentProvider: WorkTimesListContentProviderType {
-    func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder)>) -> Void) {
+    func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder), Error>) -> Void) {
         var dailyWorkTimes: [DailyWorkTime] = []
         var matchingFullTime: MatchingFullTimeDecoder?
         var fetchError: Error?
@@ -73,14 +73,14 @@ extension WorkTimesListContentProvider: WorkTimesListContentProviderType {
         }
     }
     
-    func delete(workTime: WorkTimeDecoder, completion: @escaping (Result<Void>) -> Void) {
+    func delete(workTime: WorkTimeDecoder, completion: @escaping (Result<Void, Error>) -> Void) {
         self.apiClient.deleteWorkTime(identifier: workTime.identifier, completion: completion)
     }
 }
 
 // MARK: - Private
 extension WorkTimesListContentProvider {
-    private func fetchWorkTimes(date: Date?, completion: @escaping (Result<[DailyWorkTime]>) -> Void) {
+    private func fetchWorkTimes(date: Date?, completion: @escaping (Result<[DailyWorkTime], Error>) -> Void) {
         let dates = self.getStartAndEndDate(for: date)
         let parameters = WorkTimesParameters(fromDate: dates.startOfMonth, toDate: dates.endOfMonth, projectIdentifier: nil)
         self.apiClient.fetchWorkTimes(parameters: parameters) { result in
@@ -103,7 +103,7 @@ extension WorkTimesListContentProvider {
         }
     }
     
-    private func fetchMatchingFullTime(date: Date?, completion: @escaping (Result<MatchingFullTimeDecoder>) -> Void) {
+    private func fetchMatchingFullTime(date: Date?, completion: @escaping (Result<MatchingFullTimeDecoder, Error>) -> Void) {
         let userIdentifier = self.accessService.getLastLoggedInUserIdentifier()
         let parameters = MatchingFullTimeEncoder(date: date, userIdentifier: userIdentifier)
         self.apiClient.fetchMatchingFullTime(parameters: parameters, completion: completion)

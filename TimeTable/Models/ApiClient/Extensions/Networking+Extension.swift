@@ -11,32 +11,32 @@ import Networking
 
 protocol NetworkingType: class {
     var headerFields: [String: String]? { get set }
-    func post(_ path: String, parameters: Any?, completion: @escaping (Result<Data>) -> Void)
-    func get(_ path: String, parameters: Any?, cachingLevel: Networking.CachingLevel, completion: @escaping (Result<Data>) -> Void)
-    func delete(_ path: String, completion: @escaping ((Result<Void>) -> Void))
-    func put(_ path: String, parameters: Any?, completion: @escaping (Result<Data>) -> Void)
+    func post(_ path: String, parameters: Any?, completion: @escaping (Swift.Result<Data, Error>) -> Void)
+    func get(_ path: String, parameters: Any?, cachingLevel: Networking.CachingLevel, completion: @escaping (Swift.Result<Data, Error>) -> Void)
+    func delete(_ path: String, completion: @escaping ((Swift.Result<Void, Error>) -> Void))
+    func put(_ path: String, parameters: Any?, completion: @escaping (Swift.Result<Data, Error>) -> Void)
 }
 
 extension Networking: NetworkingType {
-    func post(_ path: String, parameters: Any?, completion: @escaping (Result<Data>) -> Void) {
+    func post(_ path: String, parameters: Any?, completion: @escaping (Swift.Result<Data, Error>) -> Void) {
         _ = self.post(path, parameterType: .json, parameters: parameters, completion: { [weak self] result in
             self?.handleResponse(result: result, completion: completion)
         })
     }
  
-    func get(_ path: String, parameters: Any?, cachingLevel: CachingLevel, completion: @escaping (Result<Data>) -> Void) {
+    func get(_ path: String, parameters: Any?, cachingLevel: CachingLevel, completion: @escaping (Swift.Result<Data, Error>) -> Void) {
         _ = self.get(path, parameters: parameters, cachingLevel: cachingLevel, completion: { [weak self] result in
             self?.handleResponse(result: result, completion: completion)
         })
     }
     
-    func delete(_ path: String, completion: @escaping ((Result<Void>) -> Void)) {
+    func delete(_ path: String, completion: @escaping ((Swift.Result<Void, Error>) -> Void)) {
         _ = self.delete(path, completion: { [weak self] result in
             self?.handleResponse(result: result, completion: completion)
         })
     }
     
-    func put(_ path: String, parameters: Any?, completion: @escaping (Result<Data>) -> Void) {
+    func put(_ path: String, parameters: Any?, completion: @escaping (Swift.Result<Data, Error>) -> Void) {
         _ = self.put(path, parameterType: .json, parameters: parameters, completion: { [weak self] result in
             self?.handleResponse(result: result, completion: completion)
         })
@@ -45,7 +45,7 @@ extension Networking: NetworkingType {
 
 // MARK: - Private
 extension Networking {
-    private func handleResponse(result: JSONResult, completion: (Result<Data>) -> Void) {
+    private func handleResponse(result: JSONResult, completion: (Swift.Result<Data, Error>) -> Void) {
         switch result {
         case .success(let successResponse):
             completion(.success(successResponse.data))
@@ -55,7 +55,7 @@ extension Networking {
         }
     }
     
-    private func handleResponse(result: JSONResult, completion: (Result<Void>) -> Void) {
+    private func handleResponse(result: JSONResult, completion: (Swift.Result<Void, Error>) -> Void) {
         switch result {
         case .success:
             completion(.success(Void()))
