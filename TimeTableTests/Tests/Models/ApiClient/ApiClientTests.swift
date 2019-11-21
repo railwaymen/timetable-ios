@@ -37,7 +37,7 @@ class ApiClientTests: XCTestCase {
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
-        apiClient.post(Endpoints.signIn, parameters: parameters) { (result: TimeTable.Result<SessionDecoder>) in
+        apiClient.post(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -58,7 +58,7 @@ class ApiClientTests: XCTestCase {
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
         let apiClient = self.buildApiClient()
         //Act
-        apiClient.post(Endpoints.signIn, parameters: parameters) { (result: TimeTable.Result<SessionDecoder>) in
+        apiClient.post(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -78,7 +78,7 @@ class ApiClientTests: XCTestCase {
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let apiClient = self.buildApiClient()
         //Act
-        apiClient.post(Endpoints.signIn, parameters: parameters) { (result: TimeTable.Result<SessionDecoder>) in
+        apiClient.post(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success(let decoder):
                 expectedDecoder = decoder
@@ -105,7 +105,7 @@ class ApiClientTests: XCTestCase {
         let data = try JSONSerialization.data(withJSONObject: ["test": "test"], options: .prettyPrinted)
         let apiClient = self.buildApiClient()
         //Act
-        apiClient.post(Endpoints.signIn, parameters: parameters) { (result: TimeTable.Result<SessionDecoder>) in
+        apiClient.post(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success:
                 XCTFail()
@@ -145,7 +145,7 @@ class ApiClientTests: XCTestCase {
                         tag: .development)
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
-        apiClient.post(Endpoints.workTimes, parameters: task) { (result: TimeTable.Result<Void>) in
+        apiClient.post(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -182,7 +182,7 @@ class ApiClientTests: XCTestCase {
                         endAt: endsAt,
                         tag: .development)
         //Act
-        apiClient.post(Endpoints.workTimes, parameters: task) { (result: TimeTable.Result<Void>) in
+        apiClient.post(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -217,7 +217,7 @@ class ApiClientTests: XCTestCase {
                         endAt: endsAt,
                         tag: .development)
         //Act
-        apiClient.post(Endpoints.workTimes, parameters: task) { (result: TimeTable.Result<Void>) in
+        apiClient.post(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
             case .success:
                 successCalled = true
@@ -237,7 +237,7 @@ class ApiClientTests: XCTestCase {
         let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
-        apiClient.get(Endpoints.workTimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
+        apiClient.get(Endpoints.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -258,7 +258,7 @@ class ApiClientTests: XCTestCase {
         let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
         let apiClient = self.buildApiClient()
         //Act
-        apiClient.get(Endpoints.workTimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
+        apiClient.get(Endpoints.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -279,7 +279,7 @@ class ApiClientTests: XCTestCase {
         let decoders = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         let apiClient = self.buildApiClient()
         //Act
-        apiClient.get(Endpoints.workTimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
+        apiClient.get(Endpoints.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
             switch result {
             case .success(let decoder):
                 expectedDecoder = decoder
@@ -301,7 +301,7 @@ class ApiClientTests: XCTestCase {
         let data = try JSONSerialization.data(withJSONObject: ["test": "test"], options: .prettyPrinted)
         let apiClient = self.buildApiClient()
         //Act
-        apiClient.get(Endpoints.workTimes, parameters: parameters) { (result: TimeTable.Result<[WorkTimeDecoder]>) in
+        apiClient.get(Endpoints.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
             switch result {
             case .success:
                 XCTFail()
@@ -325,7 +325,7 @@ class ApiClientTests: XCTestCase {
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
-        apiClient.put(Endpoints.signIn, parameters: parameters) { (result: TimeTable.Result<SessionDecoder>) in
+        apiClient.put(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -346,7 +346,7 @@ class ApiClientTests: XCTestCase {
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
         let apiClient = self.buildApiClient()
         //Act
-        apiClient.put(Endpoints.signIn, parameters: parameters) { (result: TimeTable.Result<SessionDecoder>) in
+        apiClient.put(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success:
                 XCTFail()
@@ -367,7 +367,7 @@ class ApiClientTests: XCTestCase {
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let apiClient = self.buildApiClient()
         //Act
-        apiClient.put(Endpoints.signIn, parameters: parameters) { (result: TimeTable.Result<SessionDecoder>) in
+        apiClient.put(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success(let decoder):
                 expectedDecoder = decoder
@@ -394,7 +394,7 @@ class ApiClientTests: XCTestCase {
         let data = try JSONSerialization.data(withJSONObject: ["test": "test"], options: .prettyPrinted)
         let apiClient = self.buildApiClient()
         //Act
-        apiClient.put(Endpoints.signIn, parameters: parameters) { (result: TimeTable.Result<SessionDecoder>) in
+        apiClient.put(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success:
                 XCTFail()
@@ -432,7 +432,7 @@ class ApiClientTests: XCTestCase {
                         tag: .development)
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
-        apiClient.put(Endpoints.workTimes, parameters: task) { (result: TimeTable.Result<Void>) in
+        apiClient.put(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
             case .success:
                 XCTFail()
@@ -468,7 +468,7 @@ class ApiClientTests: XCTestCase {
                         endAt: endsAt,
                         tag: .development)
         //Act
-        apiClient.put(Endpoints.workTimes, parameters: task) { (result: TimeTable.Result<Void>) in
+        apiClient.put(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
             case .success:
                 XCTFail()
@@ -504,7 +504,7 @@ class ApiClientTests: XCTestCase {
                         endAt: endsAt,
                         tag: .development)
         //Act
-        apiClient.put(Endpoints.workTimes, parameters: task) { (result: TimeTable.Result<Void>) in
+        apiClient.put(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
             case .success:
                 successCalled = true

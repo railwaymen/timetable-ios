@@ -22,7 +22,7 @@ protocol AccessServiceUserIDType: class {
 }
 
 protocol AccessServiceSessionType: class {
-    func getSession(completion: @escaping ((Result<SessionDecoder>) -> Void))
+    func getSession(completion: @escaping ((Result<SessionDecoder, Error>) -> Void))
 }
 
 class AccessService {
@@ -95,7 +95,7 @@ extension AccessService: AccessServiceUserIDType {
 
 // MARK: - AccessServiceSessionType
 extension AccessService: AccessServiceSessionType {
-    func getSession(completion: @escaping ((Result<SessionDecoder>) -> Void)) {
+    func getSession(completion: @escaping ((Result<SessionDecoder, Swift.Error>) -> Void)) {
         guard let identifier = self.getLastLoggedInUserIdentifier() else {
             return completion(.failure(Error.userNeverLoggedIn))
         }

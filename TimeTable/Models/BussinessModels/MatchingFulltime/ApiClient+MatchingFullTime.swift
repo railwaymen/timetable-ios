@@ -9,11 +9,11 @@
 import Foundation
 
 protocol ApiClientMatchingFullTimeType: class {
-    func fetchMatchingFullTime(parameters: MatchingFullTimeEncoder, completion: @escaping ((Result<MatchingFullTimeDecoder>) -> Void))
+    func fetchMatchingFullTime(parameters: MatchingFullTimeEncoder, completion: @escaping ((Result<MatchingFullTimeDecoder, Error>) -> Void))
 }
 
 extension ApiClient: ApiClientMatchingFullTimeType {
-    func fetchMatchingFullTime(parameters: MatchingFullTimeEncoder, completion: @escaping ((Result<MatchingFullTimeDecoder>) -> Void)) {
+    func fetchMatchingFullTime(parameters: MatchingFullTimeEncoder, completion: @escaping ((Result<MatchingFullTimeDecoder, Error>) -> Void)) {
         self.get(.matchingFullTime, parameters: parameters, completion: completion)
     }
 }

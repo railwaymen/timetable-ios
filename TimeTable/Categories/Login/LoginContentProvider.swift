@@ -11,8 +11,8 @@ import CoreStore
 
 protocol LoginContentProviderType: class {
     func login(with credentials: LoginCredentials,
-               fetchCompletion: @escaping ((Result<SessionDecoder>) -> Void),
-               saveCompletion: @escaping ((Result<Void>) -> Void))
+               fetchCompletion: @escaping ((Result<SessionDecoder, Error>) -> Void),
+               saveCompletion: @escaping ((Result<Void, Error>) -> Void))
 }
 
 class LoginContentProvider {
@@ -31,8 +31,8 @@ class LoginContentProvider {
 // MARK: - LoginContentProviderType
 extension LoginContentProvider: LoginContentProviderType {
     func login(with credentials: LoginCredentials,
-               fetchCompletion: @escaping ((Result<SessionDecoder>) -> Void),
-               saveCompletion: @escaping ((Result<Void>) -> Void)) {
+               fetchCompletion: @escaping ((Result<SessionDecoder, Error>) -> Void),
+               saveCompletion: @escaping ((Result<Void, Error>) -> Void)) {
         self.apiClient.signIn(with: credentials) { [weak self] result in
             switch result {
             case .success(let userDecoder):
@@ -48,7 +48,7 @@ extension LoginContentProvider: LoginContentProviderType {
 
 // MARK: - Private
 extension LoginContentProvider {
-    private func save(userDecoder: SessionDecoder, completion: @escaping ((Result<Void>) -> Void)) {
+    private func save(userDecoder: SessionDecoder, completion: @escaping ((Result<Void, Error>) -> Void)) {
         self.coreDataStack.save(userDecoder: userDecoder, coreDataTypeTranslation: { (transaction: AsynchronousDataTransactionType) -> UserEntity in
             _ = try? transaction.deleteAll(From<UserEntity>())
             return UserEntity.createUser(from: userDecoder, transaction: transaction)

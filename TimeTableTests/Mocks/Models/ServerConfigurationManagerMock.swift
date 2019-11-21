@@ -18,7 +18,7 @@ class ServerConfigurationManagerMock {
     private(set) var verifyParams: [VerifyParams] = []
     struct VerifyParams {
         var configuration: ServerConfiguration
-        var completion: ((Result<Void>) -> Void)
+        var completion: ((Result<Void, Error>) -> Void)
     }
 }
 
@@ -29,7 +29,7 @@ extension ServerConfigurationManagerMock: ServerConfigurationManagerType {
         return self.getOldConfigurationReturnValue
     }
     
-    func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void>) -> Void)) {
+    func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void, Error>) -> Void)) {
         self.verifyParams.append(VerifyParams(configuration: configuration, completion: completion))
     }
 }

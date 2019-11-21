@@ -199,7 +199,7 @@ class WorkTimesContentProviderTests: XCTestCase {
         //Arrange
         let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
         let workTime = try self.decoder.decode([WorkTimeDecoder].self, from: data).first.unwrap()
-        var completionResult: Result<Void>?
+        var completionResult: Result<Void, Error>?
         //Act
         self.contentProvider.delete(workTime: workTime) { result in
             completionResult = result

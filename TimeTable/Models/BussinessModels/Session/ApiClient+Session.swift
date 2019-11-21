@@ -9,11 +9,11 @@
 import Foundation
 
 protocol ApiClientSessionType: class {
-    func signIn(with credentials: LoginCredentials, completion: @escaping ((Result<SessionDecoder>) -> Void))
+    func signIn(with credentials: LoginCredentials, completion: @escaping ((Result<SessionDecoder, Error>) -> Void))
 }
 
 extension ApiClient: ApiClientSessionType {
-    func signIn(with credentials: LoginCredentials, completion: @escaping ((Result<SessionDecoder>) -> Void)) {
+    func signIn(with credentials: LoginCredentials, completion: @escaping ((Result<SessionDecoder, Error>) -> Void)) {
         self.post(Endpoints.signIn, parameters: credentials, completion: completion)
     }
 }
