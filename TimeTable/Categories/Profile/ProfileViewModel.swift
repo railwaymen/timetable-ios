@@ -22,7 +22,7 @@ protocol ProfileViewModelType: class {
     func viewRequestedForLogout()
 }
 
-class ProfileViewModel: ProfileViewModelType {
+class ProfileViewModel {
     private weak var userInterface: ProfileViewModelOutput?
     private weak var coordinator: ProfileCoordinatorDelegate?
     private let apiClient: ApiClientUsersType
@@ -47,7 +47,10 @@ class ProfileViewModel: ProfileViewModelType {
         self.errorHandler = errorHandler
     }
     
-    // MARK: - ProfileViewModelType
+}
+
+// MARK: - ProfileViewModelType
+extension ProfileViewModel: ProfileViewModelType {
     func viewDidLoad() {
         self.userInterface?.setUp()
         self.fetchProfile()
@@ -74,8 +77,10 @@ class ProfileViewModel: ProfileViewModelType {
             }
         }
     }
-    
-    // MARK: - Private
+}
+
+// MARK: - Private
+extension ProfileViewModel {
     private func fetchProfile() {
         guard let userIdentifier = self.accessService.getLastLoggedInUserIdentifier() else { return }
         self.userInterface?.setActivityIndicator(isHidden: false)

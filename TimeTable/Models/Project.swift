@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Project: Hashable {
+class Project {
     let identifier: Int
     let name: String
     let color: UIColor
@@ -44,14 +44,18 @@ class Project: Hashable {
             self.leader = nil
         }
     }
-    
-    // MARK: - Hashable
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.identifier.hashValue)
-    }
-    
-    // MARK: - Equatable
+}
+
+// MARK: - Equatable
+extension Project: Equatable {
     static func == (lhs: Project, rhs: Project) -> Bool {
         return lhs.identifier == rhs.identifier && lhs.name == rhs.name
+    }
+}
+
+// MARK: - Hashable
+extension Project: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.identifier.hashValue)
     }
 }

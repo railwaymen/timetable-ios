@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum ProjectTag: String, Codable {
+enum ProjectTag: String {
     case development = "dev"
     case internalMeeting = "im"
     case clientCommunication = "cc"
@@ -32,3 +32,6 @@ enum ProjectTag: String, Codable {
         }
     }
 }
+
+// MARK: - Codable
+extension ProjectTag: Codable {}

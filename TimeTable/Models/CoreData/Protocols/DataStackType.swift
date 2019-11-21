@@ -19,7 +19,6 @@ protocol DataStackType {
     // swiftlint:enable type_name
 }
 
-// MARK: - DataStackType
 extension DataStack: DataStackType {
     func perform<T>(asynchronousTask: @escaping (AsynchronousDataTransactionType) throws -> T,
                     success: @escaping (T) -> Void, failure: @escaping (CoreStoreError) -> Void) {

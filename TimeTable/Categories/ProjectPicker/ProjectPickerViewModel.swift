@@ -58,29 +58,6 @@ class ProjectPickerViewModel {
     @objc private func keyboardWillHide() {
         self.userInterface?.setBottomContentInsets(0)
     }
-    
-    // MARK: - Private
-    private func setUpNotifications() {
-        self.notificationCenter.addObserver(self, selector: #selector(self.changeKeyboardFrame),
-                                            name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-        self.notificationCenter.addObserver(self, selector: #selector(self.changeKeyboardFrame), name: UIResponder.keyboardDidShowNotification, object: nil)
-        self.notificationCenter.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    private func filterProjects(with text: String) {
-        self.filteredProjects = text.isEmpty ? self.projects : self.projects.filter {
-            $0.name.lowercased().contains(text.lowercased())
-        }
-    }
-    
-    private func project(at indexPath: IndexPath) -> ProjectDecoder? {
-        guard indexPath.section == 0 else { return nil }
-        return self.filteredProjects[safeIndex: indexPath.row]
-    }
-    
-    private func finish(with project: ProjectDecoder?) {
-        self.coordinator?.finishFlow(project: project)
-    }
 }
 
 // MARK: - ProjectPickerViewModelType
@@ -112,5 +89,30 @@ extension ProjectPickerViewModel: ProjectPickerViewModelType {
     
     func closeButtonTapped() {
         self.finish(with: nil)
+    }
+}
+
+// MARK: - Private
+extension ProjectPickerViewModel {
+    private func setUpNotifications() {
+        self.notificationCenter.addObserver(self, selector: #selector(self.changeKeyboardFrame),
+                                            name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        self.notificationCenter.addObserver(self, selector: #selector(self.changeKeyboardFrame), name: UIResponder.keyboardDidShowNotification, object: nil)
+        self.notificationCenter.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    private func filterProjects(with text: String) {
+        self.filteredProjects = text.isEmpty ? self.projects : self.projects.filter {
+            $0.name.lowercased().contains(text.lowercased())
+        }
+    }
+    
+    private func project(at indexPath: IndexPath) -> ProjectDecoder? {
+        guard indexPath.section == 0 else { return nil }
+        return self.filteredProjects[safeIndex: indexPath.row]
+    }
+    
+    private func finish(with project: ProjectDecoder?) {
+        self.coordinator?.finishFlow(project: project)
     }
 }

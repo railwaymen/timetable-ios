@@ -30,28 +30,12 @@ class ProfileCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
         self.root.tabBarItem = self.tabBarItem
     }
 
-    // MARK: - CoordinatorType
+    // MARK: - Overridden
     override func start(finishCompletion: (() -> Void)?) {
+        super.start(finishCompletion: finishCompletion)
         self.runMainFlow()
         self.navigationController.setNavigationBarHidden(false, animated: false)
         self.navigationController.navigationBar.prefersLargeTitles = true
-        super.start(finishCompletion: finishCompletion)
-    }
-    
-    // MARK: - Private
-    private func runMainFlow() {
-        guard let apiClient = self.dependencyContainer.apiClient,
-            let accessService = self.dependencyContainer.accessService else { return assertionFailure("Api client or access service is nil") }
-        let controller: ProfileViewControllerable? = self.dependencyContainer.storyboardsManager.controller(storyboard: .profile)
-        let viewModel = ProfileViewModel(userInterface: controller,
-                                             coordinator: self,
-                                             apiClient: apiClient,
-                                             accessService: accessService,
-                                             coreDataStack: self.dependencyContainer.coreDataStack,
-                                             errorHandler: self.dependencyContainer.errorHandler)
-        controller?.configure(viewModel: viewModel)
-        guard let profileViewController = controller else { return }
-        self.navigationController.pushViewController(profileViewController, animated: false)
     }
 }
 
@@ -59,5 +43,23 @@ class ProfileCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
 extension ProfileCoordinator: ProfileCoordinatorDelegate {
     func userProfileDidLogoutUser() {
         self.finishCompletion?()
+    }
+}
+
+// MARK: - Private
+extension ProfileCoordinator {
+    private func runMainFlow() {
+        guard let apiClient = self.dependencyContainer.apiClient,
+            let accessService = self.dependencyContainer.accessService else { return assertionFailure("Api client or access service is nil") }
+        let controller: ProfileViewControllerable? = self.dependencyContainer.storyboardsManager.controller(storyboard: .profile)
+        let viewModel = ProfileViewModel(userInterface: controller,
+                                         coordinator: self,
+                                         apiClient: apiClient,
+                                         accessService: accessService,
+                                         coreDataStack: self.dependencyContainer.coreDataStack,
+                                         errorHandler: self.dependencyContainer.errorHandler)
+        controller?.configure(viewModel: viewModel)
+        guard let profileViewController = controller else { return }
+        self.navigationController.pushViewController(profileViewController, animated: false)
     }
 }

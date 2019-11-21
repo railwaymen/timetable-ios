@@ -159,8 +159,10 @@ class ProjectPickerViewModelTests: XCTestCase {
         XCTAssertEqual(self.coordinatorMock?.finishFlowParams.count, 1)
         XCTAssertNil(self.coordinatorMock?.finishFlowParams.last?.project)
     }
-    
-    // MARK: - Private
+}
+
+// MARK: - Private
+extension ProjectPickerViewModelTests {
     private func buildViewModel(projects: [ProjectDecoder] = []) -> ProjectPickerViewModel {
         return ProjectPickerViewModel(
             userInterface: self.userInterfaceMock,

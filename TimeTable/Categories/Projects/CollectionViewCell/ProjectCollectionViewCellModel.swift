@@ -20,7 +20,7 @@ protocol ProjectCollectionViewCellModelOutput: class {
     func updateView(with projectName: String, leaderName: String, projectColor: UIColor)
 }
 
-class ProjectCollectionViewCellModel: ProjectCollectionViewCellModelType {
+class ProjectCollectionViewCellModel {
     private weak var userInterface: ProjectCollectionViewCellModelOutput?
     private let project: Project
     
@@ -29,8 +29,10 @@ class ProjectCollectionViewCellModel: ProjectCollectionViewCellModelType {
         self.userInterface = userInterface
         self.project = project
     }
-    
-    // MARK: - ProjectCollectionViewCellModelType
+}
+ 
+// MARK: - ProjectCollectionViewCellModelType
+extension ProjectCollectionViewCellModel: ProjectCollectionViewCellModelType {
     func configure() {
         self.userInterface?.setUpView()
         self.userInterface?.updateView(with: self.project.name, leaderName: self.project.leader?.name ?? "", projectColor: self.project.color)
@@ -43,8 +45,10 @@ class ProjectCollectionViewCellModel: ProjectCollectionViewCellModelType {
     func configure(view: ProjectUserViewTableViewCellType, for indexPath: IndexPath) {
         view.configure(withName: self.userName(for: indexPath))
     }
-    
-    // MARK: - Private
+}
+ 
+// MARK: - Private
+extension ProjectCollectionViewCellModel {
     private func userName(for indexPath: IndexPath) -> String {
         guard self.project.users.count > indexPath.row else { return "" }
         return self.project.users[indexPath.row].name

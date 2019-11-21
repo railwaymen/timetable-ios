@@ -15,7 +15,6 @@ protocol ApiClientWorkTimesType: class {
     func updateWorkTime(identifier: Int64, parameters: Task, completion: @escaping ((Result<Void>) -> Void))
 }
 
-// MARK: - ApiClientWorkTimesType
 extension ApiClient: ApiClientWorkTimesType {
     func fetchWorkTimes(parameters: WorkTimesParameters, completion: @escaping ((Result<[WorkTimeDecoder]>) -> Void)) {
         self.get(.workTimes, parameters: parameters, completion: completion)

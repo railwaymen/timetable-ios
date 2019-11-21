@@ -22,11 +22,8 @@ protocol CoreDataStackUserType: class {
 class CoreDataStack {
     private static let xcodeModelName = "TimeTable"
     private static let fileName = "TimeTable.sqlite"
-    private let stack: DataStackType
     
-    enum Error: Swift.Error {
-        case storageItemNotFound
-    }
+    private let stack: DataStackType
     
     // MARK: - Initialization
     init(buildStack: ((_ xcodeModelName: String, _ fileName: String) throws -> DataStackType)) throws {
@@ -34,9 +31,15 @@ class CoreDataStack {
     }
 }
 
+// MARK: - Structures
+extension CoreDataStack {
+    enum Error: Swift.Error {
+        case storageItemNotFound
+    }
+}
+
 // MARK: - CoreDataStackUserType
 extension CoreDataStack: CoreDataStackUserType {
-    
     func deleteUser(forIdentifier identifier: Int64, completion: @escaping (Result<Void>) -> Void) {
         self.fetchUser(forIdentifier: identifier) { [unowned self] result in
             switch result {

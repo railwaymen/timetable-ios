@@ -18,10 +18,10 @@ extension StoryboardsManagerType {
     }
 }
 
-class StoryboardsManager: StoryboardsManagerType {
-    
-    static var shared: StoryboardsManagerType = StoryboardsManager()
-    
+class StoryboardsManager {}
+
+// MARK: - Structures
+extension StoryboardsManager {
     enum StoryboardName: String, Hashable {
         case serverConfiguration = "ServerConfiguration"
         case login = "Login"
@@ -34,8 +34,10 @@ class StoryboardsManager: StoryboardsManagerType {
     enum ControllerIdentifier: String, Hashable {
         case initial
     }
-    
-    // MARK: - Internal
+}
+ 
+// MARK: - StoryboardsManagerType
+extension StoryboardsManager: StoryboardsManagerType {
     func controller<T>(storyboard: StoryboardsManager.StoryboardName, controllerIdentifier: ControllerIdentifier) -> T? {
         let storyboard = UIStoryboard(name: storyboard.rawValue, bundle: nil)
         switch controllerIdentifier {

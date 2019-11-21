@@ -24,25 +24,15 @@ class ProfileViewController: UIViewController {
     
     private var viewModel: ProfileViewModelType!
     
-    // MARK: - Life Cycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.viewDidLoad()
     }
     
-    // MARK: - Action
+    // MARK: - Actions
     @IBAction private func logoutButtonTapped(_ sender: UIButton) {
         self.viewModel.viewRequestedForLogout()
-    }
-    
-    // MARK: - Private
-    private func setUpActivityIndicator() {
-        if #available(iOS 13, *) {
-            self.activityIndicator.style = .large
-        } else {
-            self.activityIndicator.style = .gray
-        }
-        self.setActivityIndicator(isHidden: true)
     }
 }
 
@@ -88,5 +78,17 @@ extension ProfileViewController: ProfileViewModelOutput {
 extension ProfileViewController: ProfileViewControllerType {
     func configure(viewModel: ProfileViewModelType) {
         self.viewModel = viewModel
+    }
+}
+
+// MARK: - Private
+extension ProfileViewController {
+    private func setUpActivityIndicator() {
+        if #available(iOS 13, *) {
+            self.activityIndicator.style = .large
+        } else {
+            self.activityIndicator.style = .gray
+        }
+        self.setActivityIndicator(isHidden: true)
     }
 }

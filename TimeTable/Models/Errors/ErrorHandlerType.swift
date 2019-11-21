@@ -15,7 +15,6 @@ public protocol ErrorHandlerType: class {
     func catchingError(action: @escaping HandleAction<Error>) -> ErrorHandlerType
 }
 
-// MARK: - ErrorHandlerType
 extension ErrorHandlerType {
     func throwing(error: Error) {
         self.throwing(error: error, finally: { _ in })

@@ -25,11 +25,6 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
     
     var customFinishCompletion: ((ServerConfiguration, ApiClientType) -> Void)?
     
-    enum State {
-        case changeAddress
-        case loggedInCorrectly(SessionDecoder)
-    }
-    
     // MARK: - Initialization
     init(dependencyContainer: DependencyContainerType) {
         self.dependencyContainer = dependencyContainer
@@ -38,7 +33,15 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
         self.setNavigationBar()
     }
 
-    // MARK: - CoordinatorType
+    // MARK: - Overridden
+    override func finish() {
+        if let configuration = self.serverConfiguration, let apiClient = self.apiClient {
+            customFinishCompletion?(configuration, apiClient)
+        }
+        super.finish()
+    }
+    
+    // MARK: - Internal
     func start(finishCompletion: ((ServerConfiguration, ApiClientType) -> Void)?) {
         super.start()
         self.customFinishCompletion = finishCompletion
@@ -60,15 +63,53 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
             self.runServerConfigurationFlow()
         }
     }
-    
-    override func finish() {
-        if let configuration = self.serverConfiguration, let apiClient = self.apiClient {
-            customFinishCompletion?(configuration, apiClient)
-        }
-        super.finish()
-    }
+}
 
-    // MARL: - Private
+// MARK: - Structures
+extension AuthenticationCoordinator {
+    enum State {
+        case changeAddress
+        case loggedInCorrectly(SessionDecoder)
+    }
+}
+
+// MARK: - ServerConfigurationCoordinatorDelegate
+extension AuthenticationCoordinator: ServerConfigurationCoordinatorDelegate {
+    func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration) {
+        self.serverConfiguration = serverConfiguration
+        self.runAuthenticationFlow(with: serverConfiguration, animated: true)
+    }
+}
+
+// MARK: - LoginCoordinatorDelegate
+extension AuthenticationCoordinator: LoginCoordinatorDelegate {
+    func loginDidFinish(with state: AuthenticationCoordinator.State) {
+        switch state {
+        case .changeAddress:
+            self.navigationController.popViewController(animated: true)
+        case .loggedInCorrectly(let session):
+            self.updateApiClient(with: session)
+            self.finish()
+        }
+    }
+}
+
+// MARK: - Equatable
+extension AuthenticationCoordinator.State: Equatable {
+    static func == (lhs: AuthenticationCoordinator.State, rhs: AuthenticationCoordinator.State) -> Bool {
+        switch (lhs, rhs) {
+        case (.changeAddress, .changeAddress):
+            return true
+        case (.loggedInCorrectly(let lhsSessionDecoder), .loggedInCorrectly(let rhsSessionDecoder)):
+            return lhsSessionDecoder == rhsSessionDecoder
+        default:
+            return false
+        }
+    }
+}
+
+// MARK: - Private
+extension AuthenticationCoordinator {
     private func setNavigationBar() {
         self.navigationController.interactivePopGestureRecognizer?.delegate = nil
         self.navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -119,40 +160,5 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
     
     private func updateApiClient(with session: SessionDecoder) {
         self.apiClient?.networking.headerFields?["token"] = session.token
-    }
-}
-
-// MARK: - ServerConfigurationCoordinatorDelegate
-extension AuthenticationCoordinator: ServerConfigurationCoordinatorDelegate {
-    func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration) {
-        self.serverConfiguration = serverConfiguration
-        self.runAuthenticationFlow(with: serverConfiguration, animated: true)
-    }
-}
-
-// MARK: - LoginCoordinatorDelegate
-extension AuthenticationCoordinator: LoginCoordinatorDelegate {
-    func loginDidFinish(with state: AuthenticationCoordinator.State) {
-        switch state {
-        case .changeAddress:
-            self.navigationController.popViewController(animated: true)
-        case .loggedInCorrectly(let session):
-            self.updateApiClient(with: session)
-            self.finish()
-        }
-    }
-}
-
-// MARK: - State Equatable
-extension AuthenticationCoordinator.State: Equatable {
-    static func == (lhs: AuthenticationCoordinator.State, rhs: AuthenticationCoordinator.State) -> Bool {
-        switch (lhs, rhs) {
-        case (.changeAddress, .changeAddress):
-            return true
-        case (.loggedInCorrectly(let lhsSessionDecoder), .loggedInCorrectly(let rhsSessionDecoder)):
-            return lhsSessionDecoder == rhsSessionDecoder
-        default:
-            return false
-        }
     }
 }

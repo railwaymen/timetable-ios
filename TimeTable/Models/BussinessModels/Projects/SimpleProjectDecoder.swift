@@ -8,10 +8,13 @@
 
 import Foundation
 
-struct SimpleProjectDecoder: Decodable {
+struct SimpleProjectDecoder {
     let projects: [ProjectDecoder]
     let tags: [ProjectTag]
-    
+}
+
+// MARK: - Decodable
+extension SimpleProjectDecoder: Decodable {
     enum CodingKeys: String, CodingKey {
         case projects
         case tags

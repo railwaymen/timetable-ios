@@ -12,7 +12,7 @@ protocol ProjectCollectionViewCellType: class {
     func configure(viewModel: ProjectCollectionViewCellModelType)
 }
 
-class ProjectCollectionViewCell: UICollectionViewCell, UITableViewDataSource, UITableViewDelegate {
+class ProjectCollectionViewCell: UICollectionViewCell {
     @IBOutlet private var attributedBackgroundView: AttributedView!
     @IBOutlet private var projectNameLabel: UILabel!
     @IBOutlet private var leaderNameLabel: UILabel!
@@ -31,8 +31,10 @@ class ProjectCollectionViewCell: UICollectionViewCell, UITableViewDataSource, UI
         self.shadowLayer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: cornerRadius).cgPath
         super.layoutSubviews()
     }
-    
-    // MARK: - UITableViewDataSource
+}
+
+// MARK: - UITableViewDataSource
+extension ProjectCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.numberOfRows()
     }
@@ -44,27 +46,12 @@ class ProjectCollectionViewCell: UICollectionViewCell, UITableViewDataSource, UI
         self.viewModel.configure(view: cell, for: indexPath)
         return cell
     }
-    
-    // MARK: - UITableViewDelegate
+}
+ 
+// MARK: - UITableViewDelegate
+extension ProjectCollectionViewCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 28
-    }
-    
-    // MARK: - Private
-    private func generateShadowLayer() -> CALayer {
-        let cornerRadius = self.attributedBackgroundView.layer.cornerRadius
-        let shadowLayer = CAShapeLayer()
-        shadowLayer.frame = self.bounds
-        shadowLayer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: cornerRadius).cgPath
-        shadowLayer.shadowColor = UIColor.defaultLabel.cgColor
-        shadowLayer.shadowOpacity = 0.07
-        shadowLayer.shadowOffset = CGSize(width: 0, height: 2)
-        shadowLayer.shadowRadius = 4
-        shadowLayer.masksToBounds = false
-        self.layer.masksToBounds = false
-        self.clipsToBounds = false
-        self.layer.insertSublayer(shadowLayer, at: 0)
-        return shadowLayer
     }
 }
 
@@ -88,5 +75,24 @@ extension ProjectCollectionViewCell: ProjectCollectionViewCellType {
     func configure(viewModel: ProjectCollectionViewCellModelType) {
         self.viewModel = viewModel
         viewModel.configure()
+    }
+}
+
+// MARK: - Private
+extension ProjectCollectionViewCell {
+    private func generateShadowLayer() -> CALayer {
+        let cornerRadius = self.attributedBackgroundView.layer.cornerRadius
+        let shadowLayer = CAShapeLayer()
+        shadowLayer.frame = self.bounds
+        shadowLayer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: cornerRadius).cgPath
+        shadowLayer.shadowColor = UIColor.defaultLabel.cgColor
+        shadowLayer.shadowOpacity = 0.07
+        shadowLayer.shadowOffset = CGSize(width: 0, height: 2)
+        shadowLayer.shadowRadius = 4
+        shadowLayer.masksToBounds = false
+        self.layer.masksToBounds = false
+        self.clipsToBounds = false
+        self.layer.insertSublayer(shadowLayer, at: 0)
+        return shadowLayer
     }
 }

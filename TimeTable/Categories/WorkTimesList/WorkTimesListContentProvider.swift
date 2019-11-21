@@ -13,7 +13,7 @@ protocol WorkTimesListContentProviderType: class {
     func delete(workTime: WorkTimeDecoder, completion: @escaping (Result<Void>) -> Void)
 }
 
-class WorkTimesListContentProvider: WorkTimesListContentProviderType {
+class WorkTimesListContentProvider {
     private let apiClient: WorkTimesListApiClientType
     private let accessService: AccessServiceUserIDType
     private let calendar: CalendarType
@@ -29,8 +29,10 @@ class WorkTimesListContentProvider: WorkTimesListContentProviderType {
         self.calendar = calendar
         self.dispatchGroupFactory = dispatchGroupFactory
     }
-
-    // MARK: - WorkTimesContentProviderType
+}
+ 
+// MARK: - WorkTimesContentProviderType
+extension WorkTimesListContentProvider: WorkTimesListContentProviderType {
     func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder)>) -> Void) {
         var dailyWorkTimes: [DailyWorkTime] = []
         var matchingFullTime: MatchingFullTimeDecoder?
@@ -74,9 +76,10 @@ class WorkTimesListContentProvider: WorkTimesListContentProviderType {
     func delete(workTime: WorkTimeDecoder, completion: @escaping (Result<Void>) -> Void) {
         self.apiClient.deleteWorkTime(identifier: workTime.identifier, completion: completion)
     }
-    
-    // MARK: - Private
-    
+}
+
+// MARK: - Private
+extension WorkTimesListContentProvider {
     private func fetchWorkTimes(date: Date?, completion: @escaping (Result<[DailyWorkTime]>) -> Void) {
         let dates = self.getStartAndEndDate(for: date)
         let parameters = WorkTimesParameters(fromDate: dates.startOfMonth, toDate: dates.endOfMonth, projectIdentifier: nil)

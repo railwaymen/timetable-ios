@@ -13,7 +13,7 @@ class StoryboardsManagerTests: XCTestCase {
 
     func testIfMainStoryboardExists() {
         //Arrange
-        let manager = StoryboardsManager.shared
+        let manager = StoryboardsManager()
         //Act
         let controller: ServerConfigurationViewController? = manager.controller(storyboard: .serverConfiguration, controllerIdentifier: .initial)
         //Assert

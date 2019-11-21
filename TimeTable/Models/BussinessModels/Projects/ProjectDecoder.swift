@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct ProjectDecoder: Decodable {
+struct ProjectDecoder {
     let identifier: Int
     let name: String
     let color: UIColor?
@@ -19,36 +19,7 @@ struct ProjectDecoder: Decodable {
     let isLunch: Bool
     let workTimesAllowsTask: Bool
     
-    enum CodingKeys: String, CodingKey {
-        case identifier = "id"
-        case name
-        case color
-        case autofill
-        case isInternal = "internal"
-        case countDuration = "count_duration"
-        case isActive = "active"
-        case isLunch = "lunch"
-        case workTimesAllowsTask = "work_times_allows_task"
-    }
-    
     // MARK: - Initialization
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.identifier = try container.decode(Int.self, forKey: .identifier)
-        self.name = try container.decode(String.self, forKey: .name)
-        if let colorHexString = try? container.decode(String.self, forKey: .color) {
-            self.color = UIColor(hexString: colorHexString)
-        } else {
-            self.color = nil
-        }
-        self.autofill = try? container.decode(Bool.self, forKey: .autofill)
-        self.countDuration = try? container.decode(Bool.self, forKey: .countDuration)
-        self.isActive = try? container.decode(Bool.self, forKey: .isActive)
-        self.isInternal = try? container.decode(Bool.self, forKey: .isInternal)
-        self.isLunch = try container.decode(Bool.self, forKey: .isLunch)
-        self.workTimesAllowsTask = try container.decode(Bool.self, forKey: .workTimesAllowsTask)
-    }
-    
     init(identifier: Int,
          name: String,
          color: UIColor?,
@@ -67,6 +38,38 @@ struct ProjectDecoder: Decodable {
         self.isInternal = isInternal
         self.isLunch = isLunch
         self.workTimesAllowsTask = workTimesAllowsTask
+    }
+}
+
+// MARK: - Decodable
+extension ProjectDecoder: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case identifier = "id"
+        case name
+        case color
+        case autofill
+        case isInternal = "internal"
+        case countDuration = "count_duration"
+        case isActive = "active"
+        case isLunch = "lunch"
+        case workTimesAllowsTask = "work_times_allows_task"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.identifier = try container.decode(Int.self, forKey: .identifier)
+        self.name = try container.decode(String.self, forKey: .name)
+        if let colorHexString = try? container.decode(String.self, forKey: .color) {
+            self.color = UIColor(hexString: colorHexString)
+        } else {
+            self.color = nil
+        }
+        self.autofill = try? container.decode(Bool.self, forKey: .autofill)
+        self.countDuration = try? container.decode(Bool.self, forKey: .countDuration)
+        self.isActive = try? container.decode(Bool.self, forKey: .isActive)
+        self.isInternal = try? container.decode(Bool.self, forKey: .isInternal)
+        self.isLunch = try container.decode(Bool.self, forKey: .isLunch)
+        self.workTimesAllowsTask = try container.decode(Bool.self, forKey: .workTimesAllowsTask)
     }
 }
 

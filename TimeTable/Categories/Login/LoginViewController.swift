@@ -31,13 +31,13 @@ class LoginViewController: UIViewController {
         self.notificationCenter?.removeObserver(self)
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.viewDidLoad()
     }
     
-    // MARK: - Action
+    // MARK: - Actions
     @IBAction private func loginTextFieldDidChange(_ sender: UITextField) {
         self.viewModel.loginInputValueDidChange(value: sender.text)
     }
@@ -67,21 +67,6 @@ class LoginViewController: UIViewController {
     
     @objc private func keyboardWillHide(notification: NSNotification) {
         self.updateScrollViewInsets()
-    }
-    
-    // MARK: - Private
-    private func updateScrollViewInsets(with height: CGFloat = 0) {
-        self.scrollView.contentInset.bottom = height
-        self.scrollView.scrollIndicatorInsets.bottom = height
-    }
-    
-    private func setUpActivityIndicator() {
-        if #available(iOS 13, *) {
-            self.activityIndicator.style = .large
-        } else {
-            self.activityIndicator.style = .gray
-        }
-        self.setActivityIndicator(isHidden: true)
     }
 }
 
@@ -157,5 +142,22 @@ extension LoginViewController: LoginViewControllerType {
     func configure(notificationCenter: NotificationCenterType, viewModel: LoginViewModelType) {
         self.notificationCenter = notificationCenter
         self.viewModel = viewModel
+    }
+}
+
+// MARK: - Private
+extension LoginViewController {
+    private func updateScrollViewInsets(with height: CGFloat = 0) {
+        self.scrollView.contentInset.bottom = height
+        self.scrollView.scrollIndicatorInsets.bottom = height
+    }
+    
+    private func setUpActivityIndicator() {
+        if #available(iOS 13, *) {
+            self.activityIndicator.style = .large
+        } else {
+            self.activityIndicator.style = .gray
+        }
+        self.setActivityIndicator(isHidden: true)
     }
 }

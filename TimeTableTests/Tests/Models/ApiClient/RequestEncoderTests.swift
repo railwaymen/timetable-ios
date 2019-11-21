@@ -1,5 +1,5 @@
 //
-//  RequestEncoder.swift
+//  RequestEncoderTests.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 07/11/2018.
@@ -94,8 +94,10 @@ class RequestEncoderTests: XCTestCase {
             }
         }
     }
-    
-    // MARK: - Private
+}
+
+// MARK: - Private
+extension RequestEncoderTests {
     private func buildRequestEncoder() -> RequestEncoder {
         return RequestEncoder(encoder: self.encoderMock,
                               serialization: self.jsonSerializationMock)

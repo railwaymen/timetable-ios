@@ -13,7 +13,6 @@ protocol ApiClientProjectsType: class {
     func fetchSimpleListOfProjects(completion: @escaping ((Result<SimpleProjectDecoder>) -> Void))
 }
 
-// MARK: - ApiClientSessionType
 extension ApiClient: ApiClientProjectsType {
     func fetchAllProjects(completion: @escaping ((Result<[ProjectRecordDecoder]>) -> Void)) {
         self.get(.projects, completion: completion)

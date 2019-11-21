@@ -42,7 +42,7 @@ protocol WorkTimeViewModelType: class {
     func viewHasBeenTapped()
 }
 
-class WorkTimeViewModel: WorkTimeViewModelType {
+class WorkTimeViewModel {
     private weak var userInterface: WorkTimeViewModelOutput?
     private weak var coordinator: WorkTimeCoordinatorType?
     private let apiClient: WorkTimeApiClientType
@@ -105,8 +105,35 @@ class WorkTimeViewModel: WorkTimeViewModelType {
         self.projects = []
         self.tags = []
     }
+}
+
+// MARK: - Structures
+extension WorkTimeViewModel {
+    enum FlowType {
+        case newEntry(lastTask: Task?)
+        case editEntry(editedTask: Task)
+        case duplicateEntry(duplicatedTask: Task, lastTask: Task?)
+    }
     
-    // MARK: - WorkTimeViewModelType
+}
+
+extension WorkTimeViewModel.FlowType: Equatable {
+    static func == (lhs: WorkTimeViewModel.FlowType, rhs: WorkTimeViewModel.FlowType) -> Bool {
+        switch (lhs, rhs) {
+        case let (.newEntry(lhsLastTask), .newEntry(rhsLastTask)):
+            return lhsLastTask == rhsLastTask
+        case let (.editEntry(lhsEditedTask), .editEntry(rhsEditedTask)):
+            return lhsEditedTask == rhsEditedTask
+        case let (.duplicateEntry(lhsDuplicatedTask, lhsLastTask), .duplicateEntry(rhsDuplicatedTask, rhsLastTask)):
+            return lhsLastTask == rhsLastTask && lhsDuplicatedTask == rhsDuplicatedTask
+        default:
+            return false
+        }
+    }
+}
+
+// MARK: - WorkTimeViewModelType
+extension WorkTimeViewModel: WorkTimeViewModelType {
     func viewDidLoad() {
         self.setDefaultDay()
         self.updateViewWithCurrentSelectedProject()
@@ -219,8 +246,10 @@ class WorkTimeViewModel: WorkTimeViewModelType {
     func viewHasBeenTapped() {
         self.userInterface?.dismissKeyboard()
     }
-    
-    // MARK: - Private
+}
+
+// MARK: - Private
+extension WorkTimeViewModel {
     private func validateInputs() throws {
         guard let project = self.task.project else { throw UIError.cannotBeEmpty(.projectTextField) }
         guard !self.task.body.isEmpty || (self.task.allowsTask && self.task.url != nil) || project.isLunch
@@ -294,31 +323,6 @@ class WorkTimeViewModel: WorkTimeViewModelType {
             case .failure(let error):
                 self?.errorHandler.throwing(error: error)
             }
-        }
-    }
-}
-
-// MARK: - Structures
-extension WorkTimeViewModel {
-    enum FlowType {
-        case newEntry(lastTask: Task?)
-        case editEntry(editedTask: Task)
-        case duplicateEntry(duplicatedTask: Task, lastTask: Task?)
-    }
-    
-}
-
-extension WorkTimeViewModel.FlowType: Equatable {
-    static func == (lhs: WorkTimeViewModel.FlowType, rhs: WorkTimeViewModel.FlowType) -> Bool {
-        switch (lhs, rhs) {
-        case let (.newEntry(lhsLastTask), .newEntry(rhsLastTask)):
-            return lhsLastTask == rhsLastTask
-        case let (.editEntry(lhsEditedTask), .editEntry(rhsEditedTask)):
-            return lhsEditedTask == rhsEditedTask
-        case let (.duplicateEntry(lhsDuplicatedTask, lhsLastTask), .duplicateEntry(rhsDuplicatedTask, rhsLastTask)):
-            return lhsLastTask == rhsLastTask && lhsDuplicatedTask == rhsDuplicatedTask
-        default:
-            return false
         }
     }
 }

@@ -13,16 +13,10 @@ protocol ServerConfigurationManagerType: class {
     func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void>) -> Void))
 }
 
-class ServerConfigurationManager: ServerConfigurationManagerType {
-    
+class ServerConfigurationManager {
     private var urlSession: URLSessionType
     private var userDefaults: UserDefaultsType
     private let dispatchQueueManager: DispatchQueueManagerType
-    
-    private struct UserDefaultsKeys {
-        static let hostURLKey = "key.time_table.server_configuration.host"
-        static let shouldRemeberHostKey = "key.time_table.server_configuration.should_remeber_host_key"
-    }
     
     // MARK: - Initialization
     init(urlSession: URLSessionType, userDefaults: UserDefaultsType, dispatchQueueManager: DispatchQueueManagerType) {
@@ -30,8 +24,18 @@ class ServerConfigurationManager: ServerConfigurationManagerType {
         self.userDefaults = userDefaults
         self.dispatchQueueManager = dispatchQueueManager
     }
-    
-    // MARK: - ServerConfigurationManagerType
+}
+
+// MARK: - Structures
+extension ServerConfigurationManager {
+    private struct UserDefaultsKeys {
+        static let hostURLKey = "key.time_table.server_configuration.host"
+        static let shouldRemeberHostKey = "key.time_table.server_configuration.should_remeber_host_key"
+    }
+}
+
+// MARK: - ServerConfigurationManagerType
+extension ServerConfigurationManager: ServerConfigurationManagerType {
     func getOldConfiguration() -> ServerConfiguration? {
         let shouldRememberHost = self.userDefaults.bool(forKey: UserDefaultsKeys.shouldRemeberHostKey)
         var configuration = ServerConfiguration(host: nil, shouldRememberHost: shouldRememberHost)
@@ -65,8 +69,10 @@ class ServerConfigurationManager: ServerConfigurationManagerType {
         }
         dataTask.resume()
     }
-    
-    // MARK: - Pirvate
+}
+ 
+// MARK: - Private
+extension ServerConfigurationManager {
     private func save(configuration: ServerConfiguration) {
         if configuration.shouldRememberHost, let hostURL = configuration.host {
             self.userDefaults.set(hostURL.absoluteString, forKey: UserDefaultsKeys.hostURLKey)

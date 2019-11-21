@@ -20,7 +20,7 @@ class ProjectPickerViewController: UIViewController {
     
     private var viewModel: ProjectPickerViewModelType!
     
-    // MARK: - Life cycle
+    // MARK: - Lifecycle
     override func loadView() {
         super.loadView()
         self.viewModel.loadView()
@@ -29,42 +29,6 @@ class ProjectPickerViewController: UIViewController {
     // MARK: - Actions
     @objc private func closeButtonTapped() {
         self.viewModel.closeButtonTapped()
-    }
-    
-    // MARK: - Private
-    private func setUpTableView() {
-        self.tableView = UITableView()
-        self.view.addSubview(self.tableView)
-        self.tableView.translatesAutoresizingMaskIntoConstraints = false
-        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.register(UINib(nibName: String(describing: ProjectPickerCell.self), bundle: nil),
-                                forCellReuseIdentifier: ProjectPickerCell.reuseIdentifier)
-        self.tableView.keyboardDismissMode = .interactive
-    }
-    
-    private func setUpSearchController() {
-        self.searchController = UISearchController()
-        self.navigationItem.searchController = self.searchController
-        self.searchController.searchBar.tintColor = .crimson
-        self.searchController.searchResultsUpdater = self
-        self.searchController.obscuresBackgroundDuringPresentation = false
-    }
-    
-    private func setUpBarItems() {
-        let systemItem: UIBarButtonItem.SystemItem
-        if #available(iOS 13, *) {
-            systemItem = .close
-        } else {
-            systemItem = .cancel
-        }
-        let closeButton = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(self.closeButtonTapped))
-        self.navigationItem.setRightBarButton(closeButton, animated: false)
     }
 }
 
@@ -119,5 +83,43 @@ extension ProjectPickerViewController: ProjectPickerViewModelOutput {
 extension ProjectPickerViewController: ProjectPickerViewControllerType {
     func configure(viewModel: ProjectPickerViewModelType) {
         self.viewModel = viewModel
+    }
+}
+
+// MARK: - Private
+extension ProjectPickerViewController {
+    private func setUpTableView() {
+        self.tableView = UITableView()
+        self.view.addSubview(self.tableView)
+        self.tableView.translatesAutoresizingMaskIntoConstraints = false
+        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.register(UINib(nibName: String(describing: ProjectPickerCell.self), bundle: nil),
+                                forCellReuseIdentifier: ProjectPickerCell.reuseIdentifier)
+        self.tableView.keyboardDismissMode = .interactive
+    }
+    
+    private func setUpSearchController() {
+        self.searchController = UISearchController()
+        self.navigationItem.searchController = self.searchController
+        self.searchController.searchBar.tintColor = .crimson
+        self.searchController.searchResultsUpdater = self
+        self.searchController.obscuresBackgroundDuringPresentation = false
+    }
+    
+    private func setUpBarItems() {
+        let systemItem: UIBarButtonItem.SystemItem
+        if #available(iOS 13, *) {
+            systemItem = .close
+        } else {
+            systemItem = .cancel
+        }
+        let closeButton = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(self.closeButtonTapped))
+        self.navigationItem.setRightBarButton(closeButton, animated: false)
     }
 }

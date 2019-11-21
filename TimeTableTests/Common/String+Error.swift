@@ -1,5 +1,5 @@
 //
-//  Error+String.swift
+//  String+Error.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 25/10/2018.

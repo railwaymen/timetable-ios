@@ -41,8 +41,10 @@ extension Networking: NetworkingType {
             self?.handleResponse(result: result, completion: completion)
         })
     }
-    
-    // MARK: - Private
+}
+
+// MARK: - Private
+extension Networking {
     private func handleResponse(result: JSONResult, completion: (Result<Data>) -> Void) {
         switch result {
         case .success(let successResponse):

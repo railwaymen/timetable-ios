@@ -51,8 +51,18 @@ class ProjectPickerCoordinator: BaseNavigationCoordinator {
         self.customFinishHandler?(project)
         super.finish()
     }
-    
-    // MARK: - Private
+}
+
+// MARK: - ProjectPickerCoordinatorType
+extension ProjectPickerCoordinator: ProjectPickerCoordinatorType {
+    func finishFlow(project: ProjectDecoder?) {
+        self.navigationController.dismiss(animated: true)
+        self.finish(project: project)
+    }
+}
+
+// MARK: - Private
+extension ProjectPickerCoordinator {
     private func runMainFlow() {
         let controller = ProjectPickerViewController()
         let viewModel = ProjectPickerViewModel(userInterface: controller,
@@ -62,13 +72,5 @@ class ProjectPickerCoordinator: BaseNavigationCoordinator {
         controller.configure(viewModel: viewModel)
         self.navigationController.setViewControllers([controller], animated: false)
         self.parentViewController?.present(self.navigationController, animated: true)
-    }
-}
-
-// MARK: - ProjectPickerCoordinatorType
-extension ProjectPickerCoordinator: ProjectPickerCoordinatorType {
-    func finishFlow(project: ProjectDecoder?) {
-        self.navigationController.dismiss(animated: true)
-        self.finish(project: project)
     }
 }

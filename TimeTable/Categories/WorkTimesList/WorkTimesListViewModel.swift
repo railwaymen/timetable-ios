@@ -36,26 +36,9 @@ protocol WorkTimesListViewModelType: class {
     func viewRequestToRefresh(completion: @escaping () -> Void)
 }
 
-class DailyWorkTime {
-    let day: Date
-    var workTimes: [WorkTimeDecoder]
-    
-    // MARK: - Initialization
-    init(day: Date, workTimes: [WorkTimeDecoder]) {
-        self.day = day
-        self.workTimes = workTimes
-    }
-    
-    func remove(workTime: WorkTimeDecoder) -> Bool {
-        guard let index = self.workTimes.firstIndex(of: workTime) else { return false }
-        self.workTimes.remove(at: index)
-        return true
-    }
-}
-
 typealias WorkTimesListApiClientType = (ApiClientWorkTimesType & ApiClientMatchingFullTimeType)
 
-class WorkTimesListViewModel: WorkTimesListViewModelType {
+class WorkTimesListViewModel {
     private weak var userInterface: WorkTimesListViewModelOutput?
     private weak var coordinator: WorkTimesListCoordinatorDelegate?
     private let contentProvider: WorkTimesListContentProviderType
@@ -86,8 +69,10 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
         let components = calendar.dateComponents([.month, .year], from: Date())
         self.selectedMonth = calendar.date(from: components)
     }
-    
-    // MARK: - WorkTimesListViewModelType
+}
+ 
+// MARK: - WorkTimesListViewModelType
+extension WorkTimesListViewModel: WorkTimesListViewModelType {
     func numberOfSections() -> Int {
         return self.dailyWorkTimesArray.count
     }
@@ -179,8 +164,18 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
     func viewRequestToRefresh(completion: @escaping () -> Void) {
         self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth, completion: completion)
     }
-    
-    // MARK: - Private
+}
+
+// MARK: - WorkTimeCellViewModelParentType
+extension WorkTimesListViewModel: WorkTimeCellViewModelParentType {
+    func openTask(for workTime: WorkTimeDecoder) {
+        guard let task = workTime.task, let url = URL(string: task) else { return }
+        self.coordinator?.workTimesRequestedForSafari(url: url)
+    }
+}
+
+// MARK: - Private
+extension WorkTimesListViewModel {
     private func workTime(for indexPath: IndexPath) -> WorkTimeDecoder? {
         return self.dailyWorkTime(for: indexPath)?.workTimes.sorted(by: { $0.startsAt > $1.startsAt })[indexPath.row]
     }
@@ -208,7 +203,7 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
                     endAt: workTime.endsAt,
                     tag: workTime.tag)
     }
-        
+    
     private func removeDailyWorkTime(at indexPath: IndexPath, workTime: WorkTimeDecoder, completion: @escaping (Bool) -> Void) {
         guard let dailyWorkTime = self.dailyWorkTime(for: indexPath) else {
             completion(false)
@@ -306,13 +301,5 @@ class WorkTimesListViewModel: WorkTimesListViewModelType {
         guard let month = components.month, let year = components.year else { return "" }
         guard let monthSymbol = DateFormatter().shortMonthSymbols?[month - 1] else { return "" }
         return "\(monthSymbol) \(year)"
-    }
-}
-
-// MARK: - WorkTimeCellViewModelParentType
-extension WorkTimesListViewModel: WorkTimeCellViewModelParentType {
-    func openTask(for workTime: WorkTimeDecoder) {
-        guard let task = workTime.task, let url = URL(string: task) else { return }
-        self.coordinator?.workTimesRequestedForSafari(url: url)
     }
 }

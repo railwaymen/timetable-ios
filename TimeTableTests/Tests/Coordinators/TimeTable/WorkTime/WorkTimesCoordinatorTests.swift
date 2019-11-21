@@ -36,8 +36,10 @@ class WorkTimesListCoordinatorTests: XCTestCase {
         XCTAssertFalse(self.workTimeCoordinator.navigationController.children.isEmpty)
         XCTAssertNotNil(self.workTimeCoordinator.navigationController.children.first as? WorkTimesListViewControllerable)
     }
-    
-    // MAKR: - Private
+}
+
+// MAKR: - Private
+extension WorkTimesListCoordinatorTests {
     private func createTask() -> Task {
         return Task(workTimeIdentifier: 1,
                     project: nil,

@@ -27,8 +27,10 @@ class ProjectPickerCellModelTests: XCTestCase {
         XCTAssertEqual(self.userInterfaceMock.setUpParams.count, 1)
         XCTAssertEqual(self.userInterfaceMock.setUpParams.last?.title, project.name)
     }
-    
-    // MARK: - Private
+}
+
+// MARK: - Private
+extension ProjectPickerCellModelTests {
     private func buildViewModel(project: ProjectDecoder) -> ProjectPickerCellModel {
         return ProjectPickerCellModel(
             userInterface: self.userInterfaceMock,

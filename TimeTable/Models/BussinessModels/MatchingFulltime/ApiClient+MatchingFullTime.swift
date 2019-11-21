@@ -12,7 +12,6 @@ protocol ApiClientMatchingFullTimeType: class {
     func fetchMatchingFullTime(parameters: MatchingFullTimeEncoder, completion: @escaping ((Result<MatchingFullTimeDecoder>) -> Void))
 }
 
-// MARK: - ApiClientSessionType
 extension ApiClient: ApiClientMatchingFullTimeType {
     func fetchMatchingFullTime(parameters: MatchingFullTimeEncoder, completion: @escaping ((Result<MatchingFullTimeDecoder>) -> Void)) {
         self.get(.matchingFullTime, parameters: parameters, completion: completion)

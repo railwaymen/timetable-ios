@@ -23,7 +23,7 @@ protocol ProjectsViewModelType: class {
     func configure(_ view: ErrorViewable)
 }
 
-class ProjectsViewModel: ProjectsViewModelType {
+class ProjectsViewModel {
     
     private weak var userInterface: ProjectsViewModelOutput?
     private let apiClient: ApiClientProjectsType
@@ -39,8 +39,10 @@ class ProjectsViewModel: ProjectsViewModelType {
         self.errorHandler = errorHandler
         self.projects = []
     }
-    
-    // MARK: - ProjectsViewModelType
+}
+
+// MARK: - ProjectsViewModelType
+extension ProjectsViewModel: ProjectsViewModelType {
     func numberOfItems() -> Int {
         return self.projects.count
     }
@@ -62,8 +64,10 @@ class ProjectsViewModel: ProjectsViewModelType {
         view.configure(viewModel: viewModel)
         self.errorViewModel = viewModel
     }
-    
-    // MARK: - Private
+}
+ 
+// MARK: - Private
+extension ProjectsViewModel {
     private func fetchProjects() {
         self.userInterface?.setActivityIndicator(isHidden: false)
         self.apiClient.fetchAllProjects { [weak self] result in

@@ -31,18 +31,18 @@ class WorkTimeViewController: UIViewController {
     private var viewModel: WorkTimeViewModelType!
     private var notificationCenter: NotificationCenterType?
     
-    // MARK: - Deinitialization
+    // MARK: - Initialization
     deinit {
         self.notificationCenter?.removeObserver(self)
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.viewDidLoad()
     }
     
-    // MARK: - Action
+    // MARK: - Actions
     @objc private func cancelButtonTapped() {
         self.viewModel.viewRequestedToFinish()
     }
@@ -98,16 +98,6 @@ class WorkTimeViewController: UIViewController {
     
     @objc private func keyboardWillHide(_ notification: NSNotification) {
         self.scrollView.contentInset.bottom = 0
-    }
-    
-    // MARK: - Private
-    private func setUpActivityIndicator() {
-        if #available(iOS 13, *) {
-            self.activityIndicator.style = .large
-        } else {
-            self.activityIndicator.style = .gray
-        }
-        self.setActivityIndicator(isHidden: true)
     }
 }
 
@@ -235,5 +225,17 @@ extension WorkTimeViewController: WorkTimeViewControllerType {
     func configure(viewModel: WorkTimeViewModelType, notificationCenter: NotificationCenterType?) {
         self.viewModel = viewModel
         self.notificationCenter = notificationCenter
+    }
+}
+
+// MARK: - Private
+extension WorkTimeViewController {
+    private func setUpActivityIndicator() {
+        if #available(iOS 13, *) {
+            self.activityIndicator.style = .large
+        } else {
+            self.activityIndicator.style = .gray
+        }
+        self.setActivityIndicator(isHidden: true)
     }
 }
