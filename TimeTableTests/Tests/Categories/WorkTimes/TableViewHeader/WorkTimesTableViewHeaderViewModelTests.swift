@@ -23,7 +23,6 @@ class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
         super.setUp()
         self.userInterface = WorkTimesTableViewHeaderViewMock()
         self.calendar = CalendarMock()
-        
     }
     
     func testViewConfiguredWithTodayDate() throws {
@@ -33,10 +32,10 @@ class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
         let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
-        let viewModel = WorkTimesTableViewHeaderViewModel(userInterface: self.userInterface, dailyWorkTime: dailyWorkTime, calendar: self.calendar)
+        let sut = self.buildSUT(dailyWorkTime: dailyWorkTime)
         self.calendar.isDateInTodayReturnValue = true
         //Act
-        viewModel.viewConfigured()
+        sut.viewConfigured()
         //Assert
         XCTAssertEqual(self.userInterface.updateViewParams.last?.dayText, "day.today".localized)
         XCTAssertEqual(self.userInterface.updateViewParams.last?.durationText, "3h")
@@ -49,10 +48,10 @@ class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
         let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
-        let viewModel = WorkTimesTableViewHeaderViewModel(userInterface: self.userInterface, dailyWorkTime: dailyWorkTime, calendar: self.calendar)
+        let sut = self.buildSUT(dailyWorkTime: dailyWorkTime)
         self.calendar.isDateInYesterdayReturnValue = true
         //Act
-        viewModel.viewConfigured()
+        sut.viewConfigured()
         //Assert
         XCTAssertEqual(self.userInterface.updateViewParams.last?.dayText, "day.yesterday".localized)
         XCTAssertEqual(self.userInterface.updateViewParams.last?.durationText, "3h")
@@ -66,11 +65,20 @@ class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
         let expectedDayText = DateFormatter.localizedString(from: dailyWorkTime.day, dateStyle: .medium, timeStyle: .none)
-        let viewModel = WorkTimesTableViewHeaderViewModel(userInterface: self.userInterface, dailyWorkTime: dailyWorkTime, calendar: self.calendar)
+        let sut = self.buildSUT(dailyWorkTime: dailyWorkTime)
         //Act
-        viewModel.viewConfigured()
+        sut.viewConfigured()
         //Assert
         XCTAssertEqual(self.userInterface.updateViewParams.last?.dayText, expectedDayText)
         XCTAssertEqual(self.userInterface.updateViewParams.last?.durationText, "3h")
+    }
+}
+
+// MARK: - Private
+extension WorkTimesTableViewHeaderViewModelTests {
+    private func buildSUT(dailyWorkTime: DailyWorkTime) -> WorkTimesTableViewHeaderViewModel {
+        return WorkTimesTableViewHeaderViewModel(userInterface: self.userInterface,
+                                                 dailyWorkTime: dailyWorkTime,
+                                                 calendar: self.calendar)
     }
 }

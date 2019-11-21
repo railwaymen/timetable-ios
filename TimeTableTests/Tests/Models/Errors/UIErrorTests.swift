@@ -13,71 +13,71 @@ class UIErrorTests: XCTestCase {
 
     func testLocalizedDescriptionIfCannotBeErrorIsCalled() {
         //Arrange
-        let error = UIError.cannotBeEmpty(.serverAddressTextField)
+        let sut = UIError.cannotBeEmpty(.serverAddressTextField)
         let expectedResult = UIElement.serverAddressTextField.rawValue.localized + " " + "ui.error.cannot_be_empty".localized
         //Act
-        let localizedString = error.localizedDescription
+        let localizedString = sut.localizedDescription
         //Assert
         XCTAssertEqual(localizedString, expectedResult)
     }
     
     func testLocalizedDescriptionIfInvalidFormatIsCalled() {
         //Arrange
-        let error = UIError.invalidFormat(.serverAddressTextField)
+        let sut = UIError.invalidFormat(.serverAddressTextField)
         let expectedResult = UIElement.serverAddressTextField.rawValue.localized + " " + "ui.error.invalid_format".localized
         //Act
-        let localizedString = error.localizedDescription
+        let localizedString = sut.localizedDescription
         //Assert
         XCTAssertEqual(localizedString, expectedResult)
     }
     
     func testLocalizedDescriptionIfTimeGreaterThan() {
         //Arrange
-        let error = UIError.timeGreaterThan
+        let sut = UIError.timeGreaterThan
         let expectedResult = "ui.error.time_greater_than".localized
         //Act
-        let localizedString = error.localizedDescription
+        let localizedString = sut.localizedDescription
         //Assert
         XCTAssertEqual(localizedString, expectedResult)
     }
     
     func testEquatableForCannotBeEmptyWhileElementsAreEqual() {
         //Arrange
-        let firstUIError = UIError.cannotBeEmpty(.loginTextField)
-        let secondUIError = UIError.cannotBeEmpty(.loginTextField)
+        let sut1 = UIError.cannotBeEmpty(.loginTextField)
+        let sut2 = UIError.cannotBeEmpty(.loginTextField)
         //Assert
-        XCTAssertEqual(firstUIError, secondUIError)
+        XCTAssertEqual(sut1, sut2)
     }
     
     func testEquatableForCannotBeEmptyWhileElementsAreNotEqual() {
         //Arrange
-        let firstUIError = UIError.cannotBeEmpty(.loginTextField)
-        let secondUIError = UIError.cannotBeEmpty(.passwordTextField)
+        let sut1 = UIError.cannotBeEmpty(.loginTextField)
+        let sut2 = UIError.cannotBeEmpty(.passwordTextField)
         //Assert
-        XCTAssertNotEqual(firstUIError, secondUIError)
+        XCTAssertNotEqual(sut1, sut2)
     }
 
     func testEquatableForCannotBeEmptyAndInvalidFormantUIErrors() {
         //Arrange
-        let firstUIError = UIError.cannotBeEmpty(.loginTextField)
-        let secondUIError = UIError.invalidFormat(.loginTextField)
+        let sut1 = UIError.cannotBeEmpty(.loginTextField)
+        let sut2 = UIError.invalidFormat(.loginTextField)
         //Assert
-        XCTAssertNotEqual(firstUIError, secondUIError)
+        XCTAssertNotEqual(sut1, sut2)
     }
     
     func testEquatableForInvalidFormatWhileElementsAreEqual() {
         //Arrange
-        let firstUIError = UIError.invalidFormat(.loginTextField)
-        let secondUIError = UIError.invalidFormat(.loginTextField)
+        let sut1 = UIError.invalidFormat(.loginTextField)
+        let sut2 = UIError.invalidFormat(.loginTextField)
         //Assert
-        XCTAssertEqual(firstUIError, secondUIError)
+        XCTAssertEqual(sut1, sut2)
     }
     
     func testEquatableForInvalidFormatWhileElementsAreNotEqual() {
         //Arrange
-        let firstUIError = UIError.invalidFormat(.loginTextField)
-        let secondUIError = UIError.invalidFormat(.passwordTextField)
+        let sut1 = UIError.invalidFormat(.loginTextField)
+        let sut2 = UIError.invalidFormat(.passwordTextField)
         //Assert
-        XCTAssertNotEqual(firstUIError, secondUIError)
+        XCTAssertNotEqual(sut1, sut2)
     }
 }

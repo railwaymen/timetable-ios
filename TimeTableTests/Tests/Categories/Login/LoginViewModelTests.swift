@@ -9,13 +9,13 @@
 import XCTest
 @testable import TimeTable
 
+// swiftlint:disable type_body_length
 class LoginViewModelTests: XCTestCase {
     private var userInterface: LoginViewControllerMock!
     private var coordinatorMock: LoginCoordinatorMock!
     private var contentProvider: LoginContentProviderMock!
     private var errorHandler: ErrorHandlerMock!
     private var accessService: AccessServiceMock!
-    private var viewModel: LoginViewModel!
     
     private lazy var decoder = JSONDecoder()
     
@@ -25,22 +25,23 @@ class LoginViewModelTests: XCTestCase {
         self.contentProvider = LoginContentProviderMock()
         self.errorHandler = ErrorHandlerMock()
         self.accessService = AccessServiceMock()
-        self.viewModel = self.buildViewModel()
         super.setUp()
     }
     
     func testViewDidLoadCallsSetUpView() {
         //Arrange
+        let sut = self.buildSUT()
         //Act
-        self.viewModel.viewDidLoad()
+        sut.viewDidLoad()
         //Assert
         XCTAssertEqual(self.userInterface.setUpViewParams.count, 1)
     }
     
     func testViewDidSetsUpViewWithDefaultValueForCheckBoxButton() throws {
         //Arrange
+        let sut = self.buildSUT()
         //Act
-        self.viewModel.viewDidLoad()
+        sut.viewDidLoad()
         //Assert
         XCTAssertFalse(try (self.userInterface.setUpViewParams.last?.checkBoxIsActive).unwrap())
     }
@@ -48,9 +49,9 @@ class LoginViewModelTests: XCTestCase {
     func testViewDidLoadUpdatesLoginFiledsWithEmptyValues() {
         //Arrange
         self.accessService.getUserCredentialsThrowError = TestError(message: "Test")
-        let viewModel = self.buildViewModel()
+        let sut = self.buildSUT()
         //Act
-        viewModel.viewDidLoad()
+        sut.viewDidLoad()
         //Assert
         XCTAssertEqual(self.userInterface.updateLoginFieldsParams.last?.email, "")
         XCTAssertEqual(self.userInterface.updateLoginFieldsParams.last?.password, "")
@@ -60,9 +61,9 @@ class LoginViewModelTests: XCTestCase {
         //Arrange
         let email = "user@example.com"
         self.accessService.getUserCredentialsReturnValue = LoginCredentials(email: email, password: "")
-        let viewModel = self.buildViewModel()
+        let sut = self.buildSUT()
         //Act
-        viewModel.viewDidLoad()
+        sut.viewDidLoad()
         //Assert
         XCTAssertEqual(self.userInterface.updateLoginFieldsParams.last?.email, email)
         XCTAssertEqual(self.userInterface.updateLoginFieldsParams.last?.password, "")
@@ -72,9 +73,9 @@ class LoginViewModelTests: XCTestCase {
         //
         let password = "password"
         self.accessService.getUserCredentialsReturnValue = LoginCredentials(email: "", password: password)
-        let viewModel = self.buildViewModel()
+        let sut = self.buildSUT()
         //Act
-        viewModel.viewDidLoad()
+        sut.viewDidLoad()
         //Assert
         XCTAssertEqual(self.userInterface.updateLoginFieldsParams.last?.email, "")
         XCTAssertEqual(self.userInterface.updateLoginFieldsParams.last?.password, password)
@@ -85,9 +86,9 @@ class LoginViewModelTests: XCTestCase {
         let email = "user@example.com"
         let password = "password"
         self.accessService.getUserCredentialsReturnValue = LoginCredentials(email: email, password: password)
-        self.viewModel = self.buildViewModel()
+        let sut = self.buildSUT()
         //Act
-        self.viewModel.viewDidLoad()
+        sut.viewDidLoad()
         //Assert
         XCTAssertEqual(self.userInterface.updateLoginFieldsParams.last?.email, email)
         XCTAssertEqual(self.userInterface.updateLoginFieldsParams.last?.password, password)
@@ -95,42 +96,47 @@ class LoginViewModelTests: XCTestCase {
     
     func testViewRequestedToChangeServerAddressCallsLoginDidFinishOnTheCoordinator() {
         //Arrange
+        let sut = self.buildSUT()
         //Act
-        self.viewModel.viewRequestedToChangeServerAddress()
+        sut.viewRequestedToChangeServerAddress()
         //Assert
         XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.count, 1)
     }
     
     func testLoginTextFieldDidRequestForReturnWhileLoginCredentialsAreNil() {
         //Arrange
+        let sut = self.buildSUT()
         //Act
-        let value = self.viewModel.loginTextFieldDidRequestForReturn()
+        let value = sut.loginTextFieldDidRequestForReturn()
         //Assert
         XCTAssertFalse(value)
     }
     
     func testLoginTextFieldDidRequestForReturnWhilePasswordIsNil() {
         //Arrange
-        self.viewModel.loginInputValueDidChange(value: "login")
+        let sut = self.buildSUT()
+        sut.loginInputValueDidChange(value: "login")
         //Act
-        let value = self.viewModel.loginTextFieldDidRequestForReturn()
+        let value = sut.loginTextFieldDidRequestForReturn()
         //Assert
         XCTAssertTrue(value)
     }
     
     func testLoginTextFieldDidRequestForReturnCallsFocusOnThePasswordTextField() {
         //Arrange
-        self.viewModel.loginInputValueDidChange(value: "login")
+        let sut = self.buildSUT()
+        sut.loginInputValueDidChange(value: "login")
         //Act
-        _ = self.viewModel.loginTextFieldDidRequestForReturn()
+        _ = sut.loginTextFieldDidRequestForReturn()
         //Assert
         XCTAssertEqual(self.userInterface.focusOnPasswordTextFieldParams.count, 1)
     }
     
     func testLoginInputValueDidChangePassedNilValue() {
         //Arrange
+        let sut = self.buildSUT()
         //Act
-        self.viewModel.loginInputValueDidChange(value: nil)
+        sut.loginInputValueDidChange(value: nil)
         //Assert
         XCTAssertTrue(self.userInterface.passwordInputEnabledStateParams.isEmpty)
         XCTAssertTrue(self.userInterface.loginButtonEnabledStateParams.isEmpty)
@@ -138,8 +144,9 @@ class LoginViewModelTests: XCTestCase {
     
     func testLoginInputValueDidChange() throws {
         //Arrange
+        let sut = self.buildSUT()
         //Act
-        self.viewModel.loginInputValueDidChange(value: "login")
+        sut.loginInputValueDidChange(value: "login")
         //Assert
         XCTAssertEqual(self.userInterface.passwordInputEnabledStateParams.count, 1)
         XCTAssertTrue(try (self.userInterface.passwordInputEnabledStateParams.last?.isEnabled).unwrap())
@@ -149,8 +156,9 @@ class LoginViewModelTests: XCTestCase {
 
     func testPasswordInputValueDidChangePassedNilValue() throws {
         //Arrange
+        let sut = self.buildSUT()
         //Act
-        self.viewModel.passwordInputValueDidChange(value: nil)
+        sut.passwordInputValueDidChange(value: nil)
         //Assert
         XCTAssertTrue(self.userInterface.passwordInputEnabledStateParams.isEmpty)
         XCTAssertTrue(self.userInterface.loginButtonEnabledStateParams.isEmpty)
@@ -158,8 +166,9 @@ class LoginViewModelTests: XCTestCase {
     
     func testPasswordInputValueDidChangeWhileLoginValueIsNil() throws {
         //Arrange
+        let sut = self.buildSUT()
         //Act
-        self.viewModel.passwordInputValueDidChange(value: "password")
+        sut.passwordInputValueDidChange(value: "password")
         //Assert
         XCTAssertEqual(self.userInterface.passwordInputEnabledStateParams.count, 1)
         XCTAssertTrue(try (self.userInterface.passwordInputEnabledStateParams.last?.isEnabled).unwrap())
@@ -169,9 +178,10 @@ class LoginViewModelTests: XCTestCase {
     
     func testPasswordInputValueDidChangeWhileLoginValueIsNotNil() throws {
         //Arrange
+        let sut = self.buildSUT()
         //Act
-        self.viewModel.loginInputValueDidChange(value: "login")
-        self.viewModel.passwordInputValueDidChange(value: "password")
+        sut.loginInputValueDidChange(value: "login")
+        sut.passwordInputValueDidChange(value: "password")
         //Assert
         XCTAssertEqual(self.userInterface.passwordInputEnabledStateParams.count, 2)
         XCTAssertTrue(try (self.userInterface.passwordInputEnabledStateParams.last?.isEnabled).unwrap())
@@ -181,36 +191,40 @@ class LoginViewModelTests: XCTestCase {
 
     func testPasswordTextFieldDidRequestForReturnWhileLoginIsEmpty() {
         //Arrange
-        self.viewModel.passwordInputValueDidChange(value: "password")
+        let sut = self.buildSUT()
+        sut.passwordInputValueDidChange(value: "password")
         //Act
-        let value = self.viewModel.passwordTextFieldDidRequestForReturn()
+        let value = sut.passwordTextFieldDidRequestForReturn()
         //Assert
         XCTAssertFalse(value)
     }
     
     func testPasswordTextFieldDidRequestForReturnWhilePasswordIsEmpty() {
         //Arrange
-        self.viewModel.loginInputValueDidChange(value: "login")
+        let sut = self.buildSUT()
+        sut.loginInputValueDidChange(value: "login")
         //Act
-        let value = self.viewModel.passwordTextFieldDidRequestForReturn()
+        let value = sut.passwordTextFieldDidRequestForReturn()
         //Assert
         XCTAssertFalse(value)
     }
     
     func testPasswordTextFieldDidRequestForReturnWhileCredentialsAreCorrect() {
         //Arrange
-        self.viewModel.loginInputValueDidChange(value: "login")
-        self.viewModel.passwordInputValueDidChange(value: "password")
+        let sut = self.buildSUT()
+        sut.loginInputValueDidChange(value: "login")
+        sut.passwordInputValueDidChange(value: "password")
         //Act
-        let value = self.viewModel.passwordTextFieldDidRequestForReturn()
+        let value = sut.passwordTextFieldDidRequestForReturn()
         //Assert
         XCTAssertTrue(value)
     }
     
     func testShouldRemeberUserBoxStatusDidChangeToFalse() throws {
         //Arrange
+        let sut = self.buildSUT()
         //Act
-        self.viewModel.shouldRemeberUserBoxStatusDidChange(isActive: false)
+        sut.shouldRemeberUserBoxStatusDidChange(isActive: false)
         //Assert
         XCTAssertEqual(self.userInterface.checkBoxIsActiveStateParams.count, 1)
         XCTAssertTrue(try (self.userInterface.checkBoxIsActiveStateParams.last?.isActive).unwrap())
@@ -218,8 +232,9 @@ class LoginViewModelTests: XCTestCase {
     
     func testShouldRemeberUserBoxStatusDidChangeToTrue() throws {
         //Arrange
+        let sut = self.buildSUT()
         //Act
-        self.viewModel.shouldRemeberUserBoxStatusDidChange(isActive: false)
+        sut.shouldRemeberUserBoxStatusDidChange(isActive: false)
         //Assert
         XCTAssertEqual(self.userInterface.checkBoxIsActiveStateParams.count, 1)
         XCTAssertTrue(try (self.userInterface.checkBoxIsActiveStateParams.last?.isActive).unwrap())
@@ -228,8 +243,9 @@ class LoginViewModelTests: XCTestCase {
     func testViewRequestedToLoginWhileLoginIsEmpty() throws {
         //Arrange
         let expectedError = UIError.cannotBeEmpty(.loginTextField)
+        let sut = self.buildSUT()
         //Act
-        self.viewModel.viewRequestedToLogin()
+        sut.viewRequestedToLogin()
         //Assert
         let error = try (self.errorHandler.throwingParams.last?.error as? UIError).unwrap()
         XCTAssertEqual(error, expectedError)
@@ -239,9 +255,10 @@ class LoginViewModelTests: XCTestCase {
     func testViewRequestedToLoginWhilePasswordIsEmpty() throws {
         //Arrange
         let expectedError = UIError.cannotBeEmpty(.passwordTextField)
-        self.viewModel.loginInputValueDidChange(value: "login")
+        let sut = self.buildSUT()
+        sut.loginInputValueDidChange(value: "login")
         //Act
-        self.viewModel.viewRequestedToLogin()
+        sut.viewRequestedToLogin()
         //Assert
         let error = try (self.errorHandler.throwingParams.last?.error as? UIError).unwrap()
         XCTAssertEqual(error, expectedError)
@@ -250,12 +267,13 @@ class LoginViewModelTests: XCTestCase {
     
     func testViewRequestedToLoginWithCorrectCredentials() throws {
         //Arrange
-        self.viewModel.loginInputValueDidChange(value: "login")
-        self.viewModel.passwordInputValueDidChange(value: "password")
+        let sut = self.buildSUT()
+        sut.loginInputValueDidChange(value: "login")
+        sut.passwordInputValueDidChange(value: "password")
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         //Act
-        self.viewModel.viewRequestedToLogin()
+        sut.viewRequestedToLogin()
         self.contentProvider.loginParams.last?.fetchCompletion(.success(sessionReponse))
         //Assert
         XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.count, 1)
@@ -267,13 +285,14 @@ class LoginViewModelTests: XCTestCase {
     func testViewRequestedToLoginFailsWhileSavingToDataBase() throws {
         //Arrange
         let expectedError = TestError(message: "")
-        self.viewModel.loginInputValueDidChange(value: "login")
-        self.viewModel.passwordInputValueDidChange(value: "password")
-        self.viewModel.shouldRemeberUserBoxStatusDidChange(isActive: false)
+        let sut = self.buildSUT()
+        sut.loginInputValueDidChange(value: "login")
+        sut.passwordInputValueDidChange(value: "password")
+        sut.shouldRemeberUserBoxStatusDidChange(isActive: false)
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         //Act
-        self.viewModel.viewRequestedToLogin()
+        sut.viewRequestedToLogin()
         self.contentProvider.loginParams.last?.fetchCompletion(.success(sessionReponse))
         self.contentProvider.loginParams.last?.saveCompletion(.failure(expectedError))
         //Assert
@@ -289,15 +308,16 @@ class LoginViewModelTests: XCTestCase {
     
     func testRequestedToLoginWithCorrectCredentialsAndShouldSaveUserCredenailsFails() throws {
         //Arrange
-        self.viewModel.loginInputValueDidChange(value: "login")
-        self.viewModel.passwordInputValueDidChange(value: "password")
-        self.viewModel.shouldRemeberUserBoxStatusDidChange(isActive: false)
+        let sut = self.buildSUT()
+        sut.loginInputValueDidChange(value: "login")
+        sut.passwordInputValueDidChange(value: "password")
+        sut.shouldRemeberUserBoxStatusDidChange(isActive: false)
         let thrownError = TestError(message: "Test")
         self.accessService.saveUserThrowError = thrownError
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         //Act
-        self.viewModel.viewRequestedToLogin()
+        sut.viewRequestedToLogin()
         self.contentProvider.loginParams.last?.fetchCompletion(.success(sessionReponse))
         self.contentProvider.loginParams.last?.saveCompletion(.success(Void()))
         //Assert
@@ -310,14 +330,15 @@ class LoginViewModelTests: XCTestCase {
     
     func testRequestedToLoginWithCorrectCredentialsAndShouldSaveUserCredenailsSucceed() throws {
         //Arrange
-        self.viewModel.loginInputValueDidChange(value: "login")
-        self.viewModel.passwordInputValueDidChange(value: "password")
-        self.viewModel.shouldRemeberUserBoxStatusDidChange(isActive: false)
+        let sut = self.buildSUT()
+        sut.loginInputValueDidChange(value: "login")
+        sut.passwordInputValueDidChange(value: "password")
+        sut.shouldRemeberUserBoxStatusDidChange(isActive: false)
         self.accessService.saveUserThrowError = TestError(message: "Test")
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         //Act
-        self.viewModel.viewRequestedToLogin()
+        sut.viewRequestedToLogin()
         self.contentProvider.loginParams.last?.fetchCompletion(.success(sessionReponse))
         self.contentProvider.loginParams.last?.saveCompletion(.success(Void()))
         //Assert
@@ -331,10 +352,11 @@ class LoginViewModelTests: XCTestCase {
     func testViewRequestedToLoginContentProviderReturnsAnError() throws {
         //Arrange
         let expectedError = TestError(message: "errorOccured")
-        self.viewModel.loginInputValueDidChange(value: "login")
-        self.viewModel.passwordInputValueDidChange(value: "password")
+        let sut = self.buildSUT()
+        sut.loginInputValueDidChange(value: "login")
+        sut.passwordInputValueDidChange(value: "password")
         //Act
-        self.viewModel.viewRequestedToLogin()
+        sut.viewRequestedToLogin()
         self.contentProvider.loginParams.last?.fetchCompletion(.failure(expectedError))
         //Assert
         let error = try (self.errorHandler.throwingParams.last?.error as? TestError).unwrap()
@@ -346,7 +368,7 @@ class LoginViewModelTests: XCTestCase {
 
 // MARK: - Private
 extension LoginViewModelTests {
-    private func buildViewModel() -> LoginViewModel {
+    private func buildSUT() -> LoginViewModel {
         return LoginViewModel(userInterface: self.userInterface,
                               coordinator: self.coordinatorMock,
                               accessService: self.accessService,
@@ -354,3 +376,4 @@ extension LoginViewModelTests {
                               errorHandler: self.errorHandler)
     }
 }
+// swiftlint:enable type_body_length

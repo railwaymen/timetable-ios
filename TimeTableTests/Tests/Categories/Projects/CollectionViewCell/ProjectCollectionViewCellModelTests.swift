@@ -10,38 +10,30 @@ import XCTest
 @testable import TimeTable
 
 class ProjectCollectionViewCellModelTests: XCTestCase {
-    
     private var userInterfaceMock: ProjectCollectionViewCellMock!
-    private var viewModel: ProjectCollectionViewCellModel!
     
     private var decoder: JSONDecoder = JSONDecoder()
     
     override func setUp() {
         self.userInterfaceMock = ProjectCollectionViewCellMock()
-        do {
-            let data = try self.json(from: ProjectRecordJSONResource.projectRecordResponse)
-            let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
-            let project = Project(decoder: projectRecord)
-            self.viewModel = ProjectCollectionViewCellModel(userInterface: self.userInterfaceMock, project: project)
-        } catch {
-            XCTFail()
-        }
-        
         super.setUp()
     }
     
-    func testConfigureSetUpsView() {
+    func testConfigureSetUpsView() throws {
+        //Arrange
+        let sut = try self.buildSUT()
         //Act
-        self.viewModel.configure()
+        sut.configure()
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setUpViewParams.count, 1)
     }
     
-    func testConfigureUpdateView() {
+    func testConfigureUpdateView() throws {
         //Arrange
+        let sut = try self.buildSUT()
         let color = UIColor(hexString: "0c0c0c")
         //Act
-        self.viewModel.configure()
+        sut.configure()
         //Assert
         XCTAssertEqual(self.userInterfaceMock.updateViewParams.count, 1)
         XCTAssertEqual(self.userInterfaceMock.updateViewParams.last?.leaderName, "Rosalind Auer")
@@ -54,10 +46,10 @@ class ProjectCollectionViewCellModelTests: XCTestCase {
         let data = try self.json(from: ProjectRecordJSONResource.projectRecordNullLeaderResponse)
         let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         let project = Project(decoder: projectRecord)
-        let viewModel = ProjectCollectionViewCellModel(userInterface: self.userInterfaceMock, project: project)
+        let sut = try self.buildSUT(project: project)
         let color = UIColor(hexString: "0c0c0c")
         //Act
-        viewModel.configure()
+        sut.configure()
         //Assert
         XCTAssertEqual(self.userInterfaceMock.updateViewParams.count, 1)
         XCTAssertEqual(self.userInterfaceMock.updateViewParams.last?.leaderName, "")
@@ -65,10 +57,11 @@ class ProjectCollectionViewCellModelTests: XCTestCase {
         XCTAssertEqual(self.userInterfaceMock.updateViewParams.last?.projectName, "Test Name")
     }
     
-    func testNumberOfRows() {
+    func testNumberOfRows() throws {
         //Arrange
+        let sut = try self.buildSUT()
         //Act
-        let number = self.viewModel.numberOfRows()
+        let number = sut.numberOfRows()
         //Assert
         XCTAssertEqual(number, 1)
     }
@@ -78,29 +71,42 @@ class ProjectCollectionViewCellModelTests: XCTestCase {
         let data = try self.json(from: ProjectRecordJSONResource.projectRecordNullUserResponse)
         let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         let project = Project(decoder: projectRecord)
-        let viewModel = ProjectCollectionViewCellModel(userInterface: self.userInterfaceMock, project: project)
+        let sut = try self.buildSUT(project: project)
         let cellMock = ProjectUserViewTableViewCellMock()
         //Act
-        viewModel.configure(view: cellMock, for: IndexPath(row: 0, section: 0))
+        sut.configure(view: cellMock, for: IndexPath(row: 0, section: 0))
         //Assert
         XCTAssertTrue(try (cellMock.configureParams.last?.name.isEmpty).unwrap())
     }
     
     func testUserNameReturnsEmptyStringWhileIndexPathIsOutOfTheRange() throws {
         //Arrange
+        let sut = try self.buildSUT()
         let cellMock = ProjectUserViewTableViewCellMock()
         //Act
-        self.viewModel.configure(view: cellMock, for: IndexPath(row: 1, section: 0))
+        sut.configure(view: cellMock, for: IndexPath(row: 1, section: 0))
         //Assert
         XCTAssertTrue(try (cellMock.configureParams.last?.name.isEmpty).unwrap())
     }
     
     func testUserNameReturnsSucceed() throws {
         //Arrange
+        let sut = try self.buildSUT()
         let cellMock = ProjectUserViewTableViewCellMock()
         //Act
-        self.viewModel.configure(view: cellMock, for: IndexPath(row: 0, section: 0))
+        sut.configure(view: cellMock, for: IndexPath(row: 0, section: 0))
         //Assert
         XCTAssertEqual(cellMock.configureParams.last?.name, "Admin Admin")
+    }
+}
+
+// MARK: - Private
+extension ProjectCollectionViewCellModelTests {
+    private func buildSUT(project: Project? = nil) throws -> ProjectCollectionViewCellModel {
+        let data = try self.json(from: ProjectRecordJSONResource.projectRecordResponse)
+        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
+        let defaultProject = Project(decoder: projectRecord)
+        return ProjectCollectionViewCellModel(userInterface: self.userInterfaceMock,
+                                              project: project ?? defaultProject)
     }
 }

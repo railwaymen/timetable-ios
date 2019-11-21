@@ -15,7 +15,6 @@ class WorkTimesContentProviderTests: XCTestCase {
     private var calendarMock: CalendarMock!
     private var dispatchGroupMock: DispatchGroupMock!
     private var dispatchGroupFactoryMock: DispatchGroupFactoryMock!
-    private var contentProvider: WorkTimesListContentProvider!
     
     private lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -30,18 +29,15 @@ class WorkTimesContentProviderTests: XCTestCase {
         self.dispatchGroupMock = DispatchGroupMock()
         self.dispatchGroupFactoryMock = DispatchGroupFactoryMock()
         self.dispatchGroupFactoryMock.createDispatchGroupReturnValue = self.dispatchGroupMock
-        self.contentProvider = WorkTimesListContentProvider(apiClient: self.apiClientMock,
-                                                            accessService: self.accessServiceMock,
-                                                            calendar: self.calendarMock,
-                                                            dispatchGroupFactory: self.dispatchGroupFactoryMock)
         super.setUp()
     }
     
     func testFetchWorkTimeDataMakesRequest() {
         //Arrange
+        let sut = self.buildSUT()
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
-        self.contentProvider.fetchWorkTimesData(for: nil) { _ in
+        sut.fetchWorkTimesData(for: nil) { _ in
             XCTFail()
         }
         //Assert
@@ -54,11 +50,12 @@ class WorkTimesContentProviderTests: XCTestCase {
     
     func testFetchWorkTimeDataWhileGivenDateIsNil() throws {
         //Arrange
+        let sut = self.buildSUT()
         var expectedError: Error?
         let error = TestError(message: "Work times error")
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
-        self.contentProvider.fetchWorkTimesData(for: nil) { result in
+        sut.fetchWorkTimesData(for: nil) { result in
             switch result {
             case .success:
                 XCTFail()
@@ -77,6 +74,7 @@ class WorkTimesContentProviderTests: XCTestCase {
     
     func testFetchWorkTimeDataWhileGivenDateIsInvalid_dateComponentsFails() throws {
         //Arrange
+        let sut = self.buildSUT()
         let dateComponents = DateComponents(year: 2019, month: 2, day: 1)
         self.calendarMock.dateComponentsReturnValue = dateComponents
         
@@ -84,7 +82,7 @@ class WorkTimesContentProviderTests: XCTestCase {
         let error = TestError(message: "Work times error")
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
-        self.contentProvider.fetchWorkTimesData(for: nil) { result in
+        sut.fetchWorkTimesData(for: nil) { result in
             switch result {
             case .success:
                 XCTFail()
@@ -103,6 +101,7 @@ class WorkTimesContentProviderTests: XCTestCase {
     
     func testFetchWorkTimeDataWhileGivenDateIsInvalid_dateFromComponentsFails() throws {
         //Arrange
+        let sut = self.buildSUT()
         let dateComponents = DateComponents(year: 2019, month: 2, day: 1)
         self.calendarMock.dateComponentsReturnValue = dateComponents
         let startOfMonth = try Calendar.current.date(from: dateComponents).unwrap()
@@ -113,7 +112,7 @@ class WorkTimesContentProviderTests: XCTestCase {
         let error = TestError(message: "Work times error")
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
-        self.contentProvider.fetchWorkTimesData(for: date) { result in
+        sut.fetchWorkTimesData(for: date) { result in
             switch result {
             case .success:
                 XCTFail()
@@ -132,6 +131,7 @@ class WorkTimesContentProviderTests: XCTestCase {
     
     func testFetchWorkTimeDataWhileFetchWorkTimesFinishWithError() throws {
         //Arrange
+        let sut = self.buildSUT()
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 1
         var expectedError: Error?
         let error = TestError(message: "Fetching Work Times Error")
@@ -139,7 +139,7 @@ class WorkTimesContentProviderTests: XCTestCase {
         let matchingFullTimeData = try self.json(from: MatchingFullTimeJSONResource.matchingFullTimeFullResponse)
         let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
         //Act
-        self.contentProvider.fetchWorkTimesData(for: nil) { result in
+        sut.fetchWorkTimesData(for: nil) { result in
             switch result {
             case .success:
                 XCTFail()
@@ -158,6 +158,7 @@ class WorkTimesContentProviderTests: XCTestCase {
     
     func testFetchWorkTimeDataWhileFetchWorkTimesSucceed() throws {
         //Arrange
+        let sut = self.buildSUT()
         var dateComponents = DateComponents(year: 2019, month: 2, day: 1)
         let startOfMonth = try Calendar.current.date(from: dateComponents).unwrap()
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 1
@@ -177,7 +178,7 @@ class WorkTimesContentProviderTests: XCTestCase {
         let matchingFullTimeData = try self.json(from: MatchingFullTimeJSONResource.matchingFullTimeFullResponse)
         let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
         //Act
-        self.contentProvider.fetchWorkTimesData(for: date) { result in
+        sut.fetchWorkTimesData(for: date) { result in
             switch result {
             case .success(let response):
                 expectedResponse = response
@@ -197,11 +198,12 @@ class WorkTimesContentProviderTests: XCTestCase {
     
     func testDelete() throws {
         //Arrange
+        let sut = self.buildSUT()
         let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
         let workTime = try self.decoder.decode([WorkTimeDecoder].self, from: data).first.unwrap()
         var completionResult: Result<Void, Error>?
         //Act
-        self.contentProvider.delete(workTime: workTime) { result in
+        sut.delete(workTime: workTime) { result in
             completionResult = result
         }
         self.apiClientMock.deleteWorkTimeParams.last?.completion(.success(Void()))
@@ -211,5 +213,15 @@ class WorkTimesContentProviderTests: XCTestCase {
         case .some(.success): break
         default: XCTFail()
         }
+    }
+}
+
+// MARK: - Private
+extension WorkTimesContentProviderTests {
+    private func buildSUT() -> WorkTimesListContentProvider {
+        return WorkTimesListContentProvider(apiClient: self.apiClientMock,
+                                            accessService: self.accessServiceMock,
+                                            calendar: self.calendarMock,
+                                            dispatchGroupFactory: self.dispatchGroupFactoryMock)
     }
 }

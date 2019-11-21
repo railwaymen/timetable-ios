@@ -12,12 +12,10 @@ import CoreStore
 @testable import TimeTable
 
 class LoginContentProviderTests: XCTestCase {
-    
     private var memoryContext: NSManagedObjectContext!
     private var apiClientMock: ApiClientMock!
     private var coreDataStackUserMock: CoreDataStackMock!
     private var accessServiceMock: AccessServiceUserIDType!
-    private var contentProvider: LoginContentProvider!
     
     private lazy var decoder = JSONDecoder()
     
@@ -25,9 +23,6 @@ class LoginContentProviderTests: XCTestCase {
         self.apiClientMock = ApiClientMock()
         self.coreDataStackUserMock = CoreDataStackMock()
         self.accessServiceMock = AccessServiceMock()
-        self.contentProvider = LoginContentProvider(apiClient: self.apiClientMock,
-                                                    coreDataStack: self.coreDataStackUserMock,
-                                                    accessService: self.accessServiceMock)
         super.setUp()
         do {
             self.memoryContext = try self.createInMemoryStorage()
@@ -40,8 +35,9 @@ class LoginContentProviderTests: XCTestCase {
         //Arrange
         var expectedError: Error?
         let loginCredentials = LoginCredentials(email: "user@exmaple.com", password: "password")
+        let sut = self.buildSUT()
         //Act
-        self.contentProvider.login(with: loginCredentials, fetchCompletion: { result in
+        sut.login(with: loginCredentials, fetchCompletion: { result in
             switch result {
             case .success:
                 XCTFail()
@@ -63,8 +59,9 @@ class LoginContentProviderTests: XCTestCase {
         let loginCredentials = LoginCredentials(email: "user@exmaple.com", password: "password")
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
+        let sut = self.buildSUT()
         //Act
-        self.contentProvider.login(with: loginCredentials, fetchCompletion: { _ in
+        sut.login(with: loginCredentials, fetchCompletion: { _ in
         }, saveCompletion: { result in
             switch result {
             case .success:
@@ -94,8 +91,9 @@ class LoginContentProviderTests: XCTestCase {
         user.lastName = "Little"
         let synchronousDataTransactionMock = AsynchronousDataTransactionMock()
         synchronousDataTransactionMock.createReturnValue = user
+        let sut = self.buildSUT()
         //Act
-        self.contentProvider.login(with: loginCredentials, fetchCompletion: { _ in
+        sut.login(with: loginCredentials, fetchCompletion: { _ in
         }, saveCompletion: { result in
             switch result {
             case .success: break
@@ -123,8 +121,9 @@ class LoginContentProviderTests: XCTestCase {
         user.lastName = "Little"
         let asynchronousDataTransactionMock = AsynchronousDataTransactionMock()
         asynchronousDataTransactionMock.createReturnValue = user
+        let sut = self.buildSUT()
         //Act
-        self.contentProvider.login(with: loginCredentials, fetchCompletion: { result in
+        sut.login(with: loginCredentials, fetchCompletion: { result in
             switch result {
             case .success:
                 fetchSuccessCalled = true
@@ -145,5 +144,14 @@ class LoginContentProviderTests: XCTestCase {
         //Assert
         XCTAssertTrue(fetchSuccessCalled)
         XCTAssertTrue(saveSuccessCalled)
+    }
+}
+
+// MARK: - Private
+extension LoginContentProviderTests {
+    private func buildSUT() -> LoginContentProvider {
+        return LoginContentProvider(apiClient: self.apiClientMock,
+                                    coreDataStack: self.coreDataStackUserMock,
+                                    accessService: self.accessServiceMock)
     }
 }

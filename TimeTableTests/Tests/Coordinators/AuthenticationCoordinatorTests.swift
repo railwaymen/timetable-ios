@@ -11,9 +11,7 @@ import CoreData
 @testable import TimeTable
 
 class AuthenticationCoordinatorTests: XCTestCase {
- 
     private var navigationController: UINavigationController!
-    private var coordinator: AuthenticationCoordinator!
     private var dependencyContainer: DependencyContainerMock!
     
     private lazy var decoder = JSONDecoder()
@@ -23,94 +21,101 @@ class AuthenticationCoordinatorTests: XCTestCase {
         self.navigationController = UINavigationController()
         self.dependencyContainer = DependencyContainerMock()
         self.dependencyContainer.window = UIWindow()
-        self.coordinator = AuthenticationCoordinator(dependencyContainer: self.dependencyContainer)
     }
     
     func testStartDoesNotRunServerConfigurationFlowWhileReturnedControllerIsInvalid() {
         //Arrange
+        let sut = self.buildSUT()
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: UIViewController()]
         //Act
-        self.coordinator.start(finishCompletion: { (_, _) in })
+        sut.start(finishCompletion: { (_, _) in })
         //Assert
-        XCTAssertTrue(self.coordinator.navigationController.children.isEmpty)
+        XCTAssertTrue(sut.navigationController.children.isEmpty)
     }
     
     func testStartRunsServerConfigurationFlow() {
         //Arrange
+        let sut = self.buildSUT()
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
         //Act
-        self.coordinator.start(finishCompletion: { (_, _) in })
+        sut.start(finishCompletion: { (_, _) in })
         //Assert
-        XCTAssertNotNil(self.coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
+        XCTAssertNotNil(sut.navigationController.children[0] as? ServerConfigurationViewControllerable)
     }
 
     func testStartRunsServerConfigurationFlowWhileServerConfigurationShouldRemeberHostIsFalse() {
         //Arrange
+        let sut = self.buildSUT()
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewController()]
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: nil, shouldRememberHost: false)
         //Act
-        self.coordinator.start(finishCompletion: { (_, _) in })
+        sut.start(finishCompletion: { (_, _) in })
         //Assert
-        XCTAssertNotNil(self.coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
+        XCTAssertNotNil(sut.navigationController.children[0] as? ServerConfigurationViewControllerable)
     }
     
     func testStartDoesNotRunAuthenticationFlowWhileServerControllerHasNilHost() throws {
         //Arrange
+        let sut = self.buildSUT()
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.login] = [.initial: LoginViewControllerMock()]
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: nil, shouldRememberHost: true)
         //Act
-        self.coordinator.start(finishCompletion: { (_, _) in })
+        sut.start(finishCompletion: { (_, _) in })
         self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
         //Assert
-        XCTAssertEqual(self.coordinator.navigationController.children.count, 1)
-        XCTAssertNotNil(self.coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
+        XCTAssertEqual(sut.navigationController.children.count, 1)
+        XCTAssertNotNil(sut.navigationController.children[0] as? ServerConfigurationViewControllerable)
     }
     
     func testStartDoesNotRunAuthenticationFlowWhileServerControllerIsInvalid() throws {
         //Arrange
+        let sut = self.buildSUT()
         let url = try URL(string: "www.example.com").unwrap()
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: UIViewController()]
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.login] = [.initial: UIViewController()]
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
-        self.coordinator.start(finishCompletion: { (_, _) in })
+        sut.start(finishCompletion: { (_, _) in })
         self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
         //Assert
-        XCTAssertTrue(self.coordinator.navigationController.children.isEmpty)
+        XCTAssertTrue(sut.navigationController.children.isEmpty)
     }
     
     func testStartDoesNotRunAuthenticationFlowWhileLoginControllerIsInvalid() throws {
         //Arrange
+        let sut = self.buildSUT()
         let url = try URL(string: "www.example.com").unwrap()
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.login] = [.initial: UIViewController()]
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
-        self.coordinator.start(finishCompletion: { (_, _) in })
+        sut.start(finishCompletion: { (_, _) in })
         self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
         //Assert
-        XCTAssertEqual(self.coordinator.navigationController.children.count, 1)
-        XCTAssertNotNil(self.coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
+        XCTAssertEqual(sut.navigationController.children.count, 1)
+        XCTAssertNotNil(sut.navigationController.children[0] as? ServerConfigurationViewControllerable)
     }
     
     func testStartRunsAuthenticationFlow() throws {
         //Arrange
+        let sut = self.buildSUT()
         let url = try URL(string: "www.example.com").unwrap()
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.login] = [.initial: LoginViewControllerMock()]
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: url, shouldRememberHost: true)
         //Act
-        self.coordinator.start(finishCompletion: { (_, _) in })
+        sut.start(finishCompletion: { (_, _) in })
         self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
         //Assert
-        XCTAssertEqual(self.coordinator.navigationController.children.count, 2)
-        XCTAssertNotNil(self.coordinator.navigationController.children[0] as? ServerConfigurationViewControllerable)
-        XCTAssertNotNil(self.coordinator.navigationController.children[1] as? LoginViewControllerable)
+        XCTAssertEqual(sut.navigationController.children.count, 2)
+        XCTAssertNotNil(sut.navigationController.children[0] as? ServerConfigurationViewControllerable)
+        XCTAssertNotNil(sut.navigationController.children[1] as? LoginViewControllerable)
     }
     
     func testFinishOnStart() throws {
         //Arrange
+        let sut = self.buildSUT()
         let url = try URL(string: "www.example.com").unwrap()
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.login] = [.initial: LoginViewControllerMock()]
@@ -118,7 +123,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         //Act
-        self.coordinator.start(finishCompletion: { (configuration, apiClient) in
+        sut.start(finishCompletion: { (configuration, apiClient) in
             //Assert
             XCTAssertEqual(configuration.host, url)
             XCTAssertEqual(configuration.shouldRememberHost, true)
@@ -130,6 +135,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
     // MARK: - LoginCoordinatorDelegate
     func testLoginDidFinishWithStateLoggedInCorrectly() throws {
         //Arrange
+        let sut = self.buildSUT()
         let url = try URL(string: "www.example.com").unwrap()
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.login] = [.initial: LoginViewControllerMock()]
@@ -137,14 +143,14 @@ class AuthenticationCoordinatorTests: XCTestCase {
         self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
-        self.coordinator.start(finishCompletion: { (configuration, apiClient) in
+        sut.start(finishCompletion: { (configuration, apiClient) in
             //Assert
             XCTAssertEqual(configuration.host, url)
             XCTAssertEqual(configuration.shouldRememberHost, true)
             XCTAssertEqual(apiClient.networking.headerFields?["token"], "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjIt")
         })
         //Act
-        self.coordinator.loginDidFinish(with: .loggedInCorrectly(sessionReponse))
+        sut.loginDidFinish(with: .loggedInCorrectly(sessionReponse))
     }
     
     // MARK: - State Equatable
@@ -176,5 +182,12 @@ class AuthenticationCoordinatorTests: XCTestCase {
         let secoundState = AuthenticationCoordinator.State.loggedInCorrectly(sessionReponse)
         //Assert
         XCTAssertEqual(firstState, secoundState)
+    }
+}
+
+// MARK: - Private
+extension AuthenticationCoordinatorTests {
+    private func buildSUT() -> AuthenticationCoordinator {
+        return AuthenticationCoordinator(dependencyContainer: self.dependencyContainer)
     }
 }

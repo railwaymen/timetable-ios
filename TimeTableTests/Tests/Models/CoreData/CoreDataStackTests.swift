@@ -11,7 +11,6 @@ import CoreStore
 @testable import TimeTable
 
 class CoreDataStackTests: XCTestCase {
-    
     private var memoryContext: NSManagedObjectContext!
     private var dataStackMock: DataStackMock!
     
@@ -62,9 +61,9 @@ class CoreDataStackTests: XCTestCase {
     func testFetchUserForIdentifierFailsWhileWasNotSaveToTheStore() throws {
         //Arrange
         var expectedError: Error?
-        let stack = try CoreDataStack { (_, _) -> DataStackType in return self.dataStackMock }
+        let sut = try CoreDataStack { (_, _) -> DataStackType in return self.dataStackMock }
         //Act
-        stack.fetchUser(forIdentifier: 1) { result in
+        sut.fetchUser(forIdentifier: 1) { result in
             switch result {
             case .success:
                 XCTFail()
@@ -79,7 +78,7 @@ class CoreDataStackTests: XCTestCase {
     func testFetchUserForIdentifierReturnsTheUser() throws {
         //Arrange
         var expectedEntity: UserEntity?
-        let stack = try CoreDataStack { (_, _) -> DataStackType in return self.dataStackMock }
+        let sut = try CoreDataStack { (_, _) -> DataStackType in return self.dataStackMock }
         let user = UserEntity(context: memoryContext)
         user.identifier = 1
         user.token = "token_abcd"
@@ -87,7 +86,7 @@ class CoreDataStackTests: XCTestCase {
         user.lastName = "Little"
         self.dataStackMock.fetchAllReturnType = user
         //Act
-        stack.fetchUser(forIdentifier: 1) { (result: Result<UserEntity, Error>) in
+        sut.fetchUser(forIdentifier: 1) { (result: Result<UserEntity, Error>) in
             switch result {
             case .success(let entity):
                 expectedEntity = entity
@@ -104,14 +103,14 @@ class CoreDataStackTests: XCTestCase {
         var expecetdError: Error?
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
-        let stack = try CoreDataStack { (_, _) -> DataStackType in return self.dataStackMock }
+        let sut = try CoreDataStack { (_, _) -> DataStackType in return self.dataStackMock }
         let user = UserEntity(context: self.memoryContext)
         user.identifier = 1
         user.token = "token_abcd"
         user.firstName = "John"
         user.lastName = "Little"
         //Act
-        stack.save(userDecoder: sessionReponse, coreDataTypeTranslation: { (_) in
+        sut.save(userDecoder: sessionReponse, coreDataTypeTranslation: { (_) in
             return user
         }) { result in
             switch result {
@@ -134,14 +133,14 @@ class CoreDataStackTests: XCTestCase {
         var expectedEntity: UserEntity?
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
-        let stack = try CoreDataStack { (_, _) -> DataStackType in return self.dataStackMock }
+        let sut = try CoreDataStack { (_, _) -> DataStackType in return self.dataStackMock }
         let user = UserEntity(context: self.memoryContext)
         user.identifier = 1
         user.token = "token_abcd"
         user.firstName = "John"
         user.lastName = "Little"
         //Act
-        stack.save(userDecoder: sessionReponse, coreDataTypeTranslation: { (_) in
+        sut.save(userDecoder: sessionReponse, coreDataTypeTranslation: { (_) in
             return user
         }) { result in
             switch result {
@@ -160,7 +159,7 @@ class CoreDataStackTests: XCTestCase {
         //Arrange
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
-        let stack = try CoreDataStack { (_, _) -> DataStackType in return self.dataStackMock }
+        let sut = try CoreDataStack { (_, _) -> DataStackType in return self.dataStackMock }
         let asynchronousDataTransactionMock = AsynchronousDataTransactionMock()
         let user = UserEntity(context: self.memoryContext)
         user.identifier = 1
@@ -169,7 +168,7 @@ class CoreDataStackTests: XCTestCase {
         user.lastName = "Little"
         asynchronousDataTransactionMock.createReturnValue = user
         //Act
-        stack.save(userDecoder: sessionReponse, coreDataTypeTranslation: { (transaction: AsynchronousDataTransactionType) -> UserEntity in
+        sut.save(userDecoder: sessionReponse, coreDataTypeTranslation: { (transaction: AsynchronousDataTransactionType) -> UserEntity in
             //Assert
             return UserEntity.createUser(from: sessionReponse, transaction: transaction)
         }) { (_: (Result<UserEntity, Error>)) in }

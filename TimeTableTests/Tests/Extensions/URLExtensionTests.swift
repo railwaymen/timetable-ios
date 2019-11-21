@@ -11,25 +11,59 @@ import XCTest
 
 class URLExtensionTests: XCTestCase {
 
-    func testIsHTTP() throws {
+    // MARK: - isHTTP
+    func testIsHTTP_withHttpPrefix() throws {
         //Arrange
-        let httpURL = try URL(string: "http://www.example.com").unwrap()
-        let httpsURL = try URL(string: "https://www.example.com").unwrap()
-        let url = try URL(string: "www.example.com").unwrap()
+        let sut = try URL(string: "http://www.example.com").unwrap()
+        //Act
+        let result = sut.isHTTP
         //Assert
-        XCTAssertTrue(httpURL.isHTTP)
-        XCTAssertFalse(httpsURL.isHTTP)
-        XCTAssertFalse(url.isHTTP)
+        XCTAssertTrue(result)
     }
     
-    func testIsHTTPS() throws {
+    func testIsHTTP_withHttpsPrefix() throws {
         //Arrange
-        let httpURL = try URL(string: "http://www.example.com").unwrap()
-        let httpsURL = try URL(string: "https://www.example.com").unwrap()
-        let url = try URL(string: "www.example.com").unwrap()
+        let sut = try URL(string: "https://www.example.com").unwrap()
+        //Act
+        let result = sut.isHTTP
         //Assert
-        XCTAssertFalse(httpURL.isHTTPS)
-        XCTAssertTrue(httpsURL.isHTTPS)
-        XCTAssertFalse(url.isHTTPS)
+        XCTAssertFalse(result)
+    }
+    
+    func testIsHTTP_withoutPrefix() throws {
+        //Arrange
+        let sut = try URL(string: "www.example.com").unwrap()
+        //Act
+        let result = sut.isHTTP
+        //Assert
+        XCTAssertFalse(result)
+    }
+    
+    // MARK: - isHTTPS
+    func testIsHTTPS_withHttpPrefix() throws {
+        //Arrange
+        let sut = try URL(string: "http://www.example.com").unwrap()
+        //Act
+        let result = sut.isHTTPS
+        //Assert
+        XCTAssertFalse(result)
+    }
+    
+    func testIsHTTPS_withHttpsPrefix() throws {
+        //Arrange
+        let sut = try URL(string: "https://www.example.com").unwrap()
+        //Act
+        let result = sut.isHTTPS
+        //Assert
+        XCTAssertTrue(result)
+    }
+    
+    func testIsHTTPS_withoutPrefix() throws {
+        //Arrange
+        let sut = try URL(string: "www.example.com").unwrap()
+        //Act
+        let result = sut.isHTTPS
+        //Assert
+        XCTAssertFalse(result)
     }
 }

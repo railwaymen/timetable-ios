@@ -13,21 +13,21 @@ class AttributedViewTests: XCTestCase {
     
     func testBorderWidth() {
         //Arrange
-        let view = AttributedView()
+        let sut = AttributedView()
         //Act
-        view.borderWidth = 2
-        let borderWidth = view.layer.borderWidth
+        sut.borderWidth = 2
+        let borderWidth = sut.layer.borderWidth
         //Assert
         XCTAssertEqual(borderWidth, 2)
     }
     
-    func testCornerRadious() {
+    func testCornerRadius() {
         //Arrange
-        let view = AttributedView()
+        let sut = AttributedView()
         //Act
-        view.cornerRadius = 5
-        let cornerRadius = view.layer.cornerRadius
-        let masksToBounds = view.layer.masksToBounds
+        sut.cornerRadius = 5
+        let cornerRadius = sut.layer.cornerRadius
+        let masksToBounds = sut.layer.masksToBounds
         //Assert
         XCTAssertEqual(cornerRadius, 5)
         XCTAssertTrue(masksToBounds)
@@ -35,11 +35,11 @@ class AttributedViewTests: XCTestCase {
     
     func testBorderColor() {
         //Arrange
-        let view = AttributedView()
+        let sut = AttributedView()
         //Act
-        view.borderColor = .black
-        let borderWidth = view.layer.borderWidth
-        let borderColor = view.layer.borderColor
+        sut.borderColor = .black
+        let borderWidth = sut.layer.borderWidth
+        let borderColor = sut.layer.borderColor
         //Assert
         XCTAssertEqual(borderWidth, 1)
         XCTAssertEqual(borderColor, UIColor.black.cgColor)

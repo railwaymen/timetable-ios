@@ -13,11 +13,6 @@ class ProjectsViewModelTests: XCTestCase {
     private var userInterfaceMock: ProjectsViewControllerMock!
     private var apiClientMock: ApiClientMock!
     private var errorHandlerMock: ErrorHandlerMock!
-    private var viewModel: ProjectsViewModel!
-    
-    private enum ProjectsRecordsResponse: String, JSONFileResource {
-        case projectsRecordsResponse
-    }
     
     private var decoder: JSONDecoder = JSONDecoder()
     
@@ -25,34 +20,37 @@ class ProjectsViewModelTests: XCTestCase {
         self.userInterfaceMock = ProjectsViewControllerMock()
         self.apiClientMock = ApiClientMock()
         self.errorHandlerMock = ErrorHandlerMock()
-        self.viewModel = ProjectsViewModel(userInterface: self.userInterfaceMock, apiClient: self.apiClientMock, errorHandler: self.errorHandlerMock)
         super.setUp()
     }
     
     func testNumberOfItemsOnInitializationReturnsZero() {
+        //Arrange
+        let sut = self.buildSUT()
         //Act
-        let numberOfItems = self.viewModel.numberOfItems()
+        let numberOfItems = sut.numberOfItems()
         //Assert
         XCTAssertEqual(numberOfItems, 0)
     }
     
     func testNuberOfItemsAfterViewDidLoadReturnsMoreThanZero() throws {
         //Arrange
-        let data = try self.json(from: ProjectsRecordsResponse.projectsRecordsResponse)
+        let data = try self.json(from: ProjectRecordJSONResource.projectsRecordsResponse)
         let records = try self.decoder.decode([ProjectRecordDecoder].self, from: data)
-        self.viewModel.viewDidLoad()
+        let sut = self.buildSUT()
+        sut.viewDidLoad()
         self.apiClientMock.fetchAllProjectsParams.last?.completion(.success(records))
         //Act
-        let numberOfItems = self.viewModel.numberOfItems()
+        let numberOfItems = sut.numberOfItems()
         //Assert
         XCTAssertEqual(numberOfItems, 2)
     }
     
     func testItemAtIndexOnInitializationReturnsNil() {
         //Arrange
+        let sut = self.buildSUT()
         let indexPath = IndexPath(row: 0, section: 0)
         //Act
-        let project = self.viewModel.item(at: indexPath)
+        let project = sut.item(at: indexPath)
         //Assert
         XCTAssertNil(project)
     }
@@ -62,13 +60,14 @@ class ProjectsViewModelTests: XCTestCase {
         let color = UIColor(hexString: "00000c")
         let user = Project.User(name: "John Test")
         let leader = Project.User(name: "Leader Leader")
-        let data = try self.json(from: ProjectsRecordsResponse.projectsRecordsResponse)
+        let data = try self.json(from: ProjectRecordJSONResource.projectsRecordsResponse)
         let records = try self.decoder.decode([ProjectRecordDecoder].self, from: data)
-        self.viewModel.viewDidLoad()
+        let sut = self.buildSUT()
+        sut.viewDidLoad()
         self.apiClientMock.fetchAllProjectsParams.last?.completion(.success(records))
         let indexPath = IndexPath(row: 0, section: 0)
         //Act
-        let project = self.viewModel.item(at: indexPath)
+        let project = sut.item(at: indexPath)
         //Assert
         XCTAssertEqual(project?.name, "Test Test")
         XCTAssertEqual(project?.color, color)
@@ -84,13 +83,14 @@ class ProjectsViewModelTests: XCTestCase {
         let firstUser = Project.User(name: "User User")
         let lastUser = Project.User(name: "Admin Admin")
         let leader = Project.User(name: "Rosalind Auer")
-        let data = try self.json(from: ProjectsRecordsResponse.projectsRecordsResponse)
+        let data = try self.json(from: ProjectRecordJSONResource.projectsRecordsResponse)
         let records = try self.decoder.decode([ProjectRecordDecoder].self, from: data)
-        self.viewModel.viewDidLoad()
+        let sut = self.buildSUT()
+        sut.viewDidLoad()
         self.apiClientMock.fetchAllProjectsParams.last?.completion(.success(records))
         let indexPath = IndexPath(row: 1, section: 0)
         //Act
-        let project = self.viewModel.item(at: indexPath)
+        let project = sut.item(at: indexPath)
         //Assert
         XCTAssertEqual(project?.name, "Test Name")
         XCTAssertEqual(project?.identifier, 11)
@@ -102,8 +102,10 @@ class ProjectsViewModelTests: XCTestCase {
     }
     
     func testViewDidLoadSetUpsView() {
+        //Arrange
+        let sut = self.buildSUT()
         //Act
-        self.viewModel.viewDidLoad()
+        sut.viewDidLoad()
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setUpViewParams.count, 1)
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
@@ -113,8 +115,9 @@ class ProjectsViewModelTests: XCTestCase {
     func testViewDidLoadFetchProjectsFailure() throws {
         //Arrange
         let error = TestError(message: "fetch project failure")
+        let sut = self.buildSUT()
         //Act
-        self.viewModel.viewDidLoad()
+        sut.viewDidLoad()
         self.apiClientMock.fetchAllProjectsParams.last?.completion(.failure(error))
         //Assert
         XCTAssertEqual(try (self.errorHandlerMock.throwingParams.last?.error as? TestError).unwrap(), error)
@@ -123,4 +126,13 @@ class ProjectsViewModelTests: XCTestCase {
         XCTAssertEqual(self.userInterfaceMock.showErrorViewParams.count, 1)
     }
     
+}
+
+// MARK: - Private
+extension ProjectsViewModelTests {
+    private func buildSUT() -> ProjectsViewModel {
+        return ProjectsViewModel(userInterface: self.userInterfaceMock,
+                                 apiClient: self.apiClientMock,
+                                 errorHandler: self.errorHandlerMock)
+    }
 }

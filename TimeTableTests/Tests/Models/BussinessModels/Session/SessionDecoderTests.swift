@@ -10,21 +10,20 @@ import XCTest
 @testable import TimeTable
 
 class SessionDecoderTests: XCTestCase {
-    
     private lazy var decoder = JSONDecoder()
     
     func testParsingSignInResponse() throws {
         //Arrange
         let data = try self.json(from: SessionJSONResource.signInResponse)
         //Act
-        let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
+        let sut = try self.decoder.decode(SessionDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sessionReponse.identifier, 1)
-        XCTAssertEqual(sessionReponse.firstName, "Admin")
-        XCTAssertEqual(sessionReponse.lastName, "Little")
-        XCTAssertFalse(sessionReponse.isLeader)
-        XCTAssertTrue(sessionReponse.admin)
-        XCTAssertFalse(sessionReponse.manager)
-        XCTAssertEqual(sessionReponse.token, "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjIt")
+        XCTAssertEqual(sut.identifier, 1)
+        XCTAssertEqual(sut.firstName, "Admin")
+        XCTAssertEqual(sut.lastName, "Little")
+        XCTAssertFalse(sut.isLeader)
+        XCTAssertTrue(sut.admin)
+        XCTAssertFalse(sut.manager)
+        XCTAssertEqual(sut.token, "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjIt")
     }
 }

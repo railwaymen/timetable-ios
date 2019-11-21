@@ -11,32 +11,27 @@ import XCTest
 
 class CalendarExtensionTests: XCTestCase {
     
-    private var calendar: CalendarType!
-    
-    override func setUp() {
-        super.setUp()
-        self.calendar = Calendar.current
-    }
-    
-    func testDateByAddingComponentsToDate() {
+    func testDateByAddingComponentsToDate() throws {
         //Arrange
-        let components = DateComponents(hour: 13, minute: 41, second: 04)
-        let date = Date()
+        let sut: CalendarType = Calendar(identifier: .iso8601)
+        let components = DateComponents(hour: 2, minute: 41, second: 04)
+        let date = try DateComponents(calendar: Calendar(identifier: .iso8601), hour: 23).date.unwrap()
+        let expectedDate = Calendar(identifier: .iso8601).date(byAdding: components, to: date)
         //Act
-        let firstDate = self.calendar.date(byAdding: components, to: date)
-        let secondDate = self.calendar.date(byAdding: components, to: date, wrappingComponents: true)
+        let result = sut.date(byAdding: components, to: date)
         //Assert
-        XCTAssertEqual(firstDate, secondDate)
+        XCTAssertEqual(result, expectedDate)
     }
     
-    func testDateByAddingComponentsWithIntValueToDate() {
+    func testDateByAddingComponentsWithIntValueToDate() throws {
         //Arrange
+        let sut: CalendarType = Calendar(identifier: .iso8601)
         let components = Calendar.Component.day
-        let date = Date()
+        let date = try DateComponents(calendar: Calendar(identifier: .iso8601), month: 1, day: 31).date.unwrap()
+        let expectedDate = Calendar.current.date(byAdding: components, value: 1, to: date)
         //Act
-        let firstDate = self.calendar.date(byAdding: components, value: 1, to: date)
-        let secondDate = self.calendar.date(byAdding: components, value: 1, to: date, wrappingComponents: true)
+        let result = sut.date(byAdding: components, value: 1, to: date)
         //Assert
-        XCTAssertEqual(firstDate, secondDate)
+        XCTAssertEqual(result, expectedDate)
     }
 }

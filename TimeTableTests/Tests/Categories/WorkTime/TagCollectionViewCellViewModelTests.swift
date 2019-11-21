@@ -20,9 +20,9 @@ class TagCollectionViewCellViewModelTests: XCTestCase {
     func testConfigure() {
         //Arrange
         let tag = ProjectTag.internalMeeting
-        let viewModel = self.buildViewModel(tag: tag, isSelected: true)
+        let sut = self.buildSUT(tag: tag, isSelected: true)
         //Act
-        viewModel.configure()
+        sut.configure()
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setUpParams.count, 1)
         XCTAssertEqual(self.userInterfaceMock.setUpParams.last?.title, tag.localized)
@@ -33,7 +33,7 @@ class TagCollectionViewCellViewModelTests: XCTestCase {
 
 // MARK: - Private
 extension TagCollectionViewCellViewModelTests {
-    private func buildViewModel(tag: ProjectTag = .development, isSelected: Bool = false) -> TagCollectionViewCellViewModel {
+    private func buildSUT(tag: ProjectTag = .development, isSelected: Bool = false) -> TagCollectionViewCellViewModel {
         return TagCollectionViewCellViewModel(userInterface: self.userInterfaceMock,
                                               projectTag: tag,
                                               isSelected: isSelected

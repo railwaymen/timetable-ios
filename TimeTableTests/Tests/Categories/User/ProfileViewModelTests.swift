@@ -10,14 +10,12 @@ import XCTest
 @testable import TimeTable
 
 class ProfileViewModelTests: XCTestCase {
-
     private var userInterfaceMock: ProfileViewControllerMock!
     private var coordinatorMock: ProfileCoordinatorMock!
     private var apiClientMock: ApiClientMock!
     private var accessServiceMock: AccessServiceMock!
     private var coreDataStackMock: CoreDataStackMock!
     private var errorHandlerMock: ErrorHandlerMock!
-    private var viewModel: ProfileViewModel!
     
     private lazy var decoder = JSONDecoder()
     
@@ -29,27 +27,23 @@ class ProfileViewModelTests: XCTestCase {
         self.accessServiceMock = AccessServiceMock()
         self.coreDataStackMock = CoreDataStackMock()
         self.errorHandlerMock = ErrorHandlerMock()
-        
-        self.viewModel = ProfileViewModel(userInterface: self.userInterfaceMock,
-                                          coordinator: self.coordinatorMock,
-                                          apiClient: self.apiClientMock,
-                                          accessService: self.accessServiceMock,
-                                          coreDataStack: self.coreDataStackMock,
-                                          errorHandler: self.errorHandlerMock)
     }
     
     func testViewDidLoadCallsSetUpViewOnTheUserInterface() {
+        //Arrange
+        let sut = self.buildSUT()
         //Act
-        self.viewModel.viewDidLoad()
+        sut.viewDidLoad()
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setUpParams.count, 1)
     }
     
     func testViewDidLoadDoesNotUpdateUserInterfaceAndThorwsErrorWhileLastUserIdetifierIsNil() {
         //Arrange
+        let sut = self.buildSUT()
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = nil
         //Act
-        self.viewModel.viewDidLoad()
+        sut.viewDidLoad()
         //Assert
         XCTAssertTrue(self.userInterfaceMock.setActivityIndicatorParams.isEmpty)
         XCTAssertTrue(self.errorHandlerMock.throwingParams.isEmpty)
@@ -58,9 +52,10 @@ class ProfileViewModelTests: XCTestCase {
     
     func testViewDidLoadMakesRequest() {
         //Arrange
+        let sut = self.buildSUT()
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
-        self.viewModel.viewDidLoad()
+        sut.viewDidLoad()
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
         XCTAssertFalse(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
@@ -70,10 +65,11 @@ class ProfileViewModelTests: XCTestCase {
     
     func testViewDidLoadFetchUserProfileFails() throws {
         //Arrange
+        let sut = self.buildSUT()
         let error = TestError(message: "error")
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
-        self.viewModel.viewDidLoad()
+        sut.viewDidLoad()
         self.apiClientMock.fetchUserProfileParams.last?.completion(.failure(error))
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
@@ -84,11 +80,12 @@ class ProfileViewModelTests: XCTestCase {
     
     func testViewDidLoadFetchUserProfileSucceed() throws {
         //Arrange
+        let sut = self.buildSUT()
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         let data = try self.json(from: UserJSONResource.userFullResponse)
         let userDecoder = try self.decoder.decode(UserDecoder.self, from: data)
         //Act
-        self.viewModel.viewDidLoad()
+        sut.viewDidLoad()
         self.apiClientMock.fetchUserProfileParams.last?.completion(.success(userDecoder))
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
@@ -100,8 +97,10 @@ class ProfileViewModelTests: XCTestCase {
     }
     
     func testViewRequestedForLogoutReturnsWhileUserIdentifierIsNil() {
+        //Arrange
+        let sut = self.buildSUT()
         //Act
-        self.viewModel.viewRequestedForLogout()
+        sut.viewRequestedForLogout()
         //Assert
         XCTAssertTrue(self.userInterfaceMock.setActivityIndicatorParams.isEmpty)
         XCTAssertTrue(self.errorHandlerMock.throwingParams.isEmpty)
@@ -110,9 +109,10 @@ class ProfileViewModelTests: XCTestCase {
     
     func testViewRequestedForLogoutMakesRequestToDeleteUser() {
         //Arrange
+        let sut = self.buildSUT()
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
-        self.viewModel.viewRequestedForLogout()
+        sut.viewRequestedForLogout()
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
         XCTAssertFalse(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
@@ -122,10 +122,11 @@ class ProfileViewModelTests: XCTestCase {
     
     func testViewRequestedForLogoutThrowsAnError() {
         //Arrange
+        let sut = self.buildSUT()
         let error = TestError(message: "error")
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
-        self.viewModel.viewRequestedForLogout()
+        sut.viewRequestedForLogout()
         self.coreDataStackMock.deleteUserParams.last?.completion(.failure(error))
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
@@ -135,13 +136,26 @@ class ProfileViewModelTests: XCTestCase {
     
     func testViewRequestedForLogoutSucceed() {
         //Arrange
+        let sut = self.buildSUT()
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
-        self.viewModel.viewRequestedForLogout()
+        sut.viewRequestedForLogout()
         self.coreDataStackMock.deleteUserParams.last?.completion(.success(Void()))
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
         XCTAssertEqual(self.coordinatorMock.userProfileDidLogoutUserParams.count, 1)
+    }
+}
+
+// MARK: - Private
+extension ProfileViewModelTests {
+    private func buildSUT() -> ProfileViewModel {
+        return ProfileViewModel(userInterface: self.userInterfaceMock,
+                                coordinator: self.coordinatorMock,
+                                apiClient: self.apiClientMock,
+                                accessService: self.accessServiceMock,
+                                coreDataStack: self.coreDataStackMock,
+                                errorHandler: self.errorHandlerMock)
     }
 }

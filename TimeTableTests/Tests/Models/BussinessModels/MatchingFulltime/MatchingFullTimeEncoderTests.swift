@@ -10,7 +10,6 @@ import XCTest
 @testable import TimeTable
 
 class MatchingFullTimeEncoderTests: XCTestCase {
-    
     private var encoder: JSONEncoder = {
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
@@ -21,9 +20,9 @@ class MatchingFullTimeEncoderTests: XCTestCase {
         //Arrange
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let date = try Calendar.current.date(from: components).unwrap()
-        let matchingFullTime = MatchingFullTimeEncoder(date: date, userIdentifier: 1)
+        let sut = MatchingFullTimeEncoder(date: date, userIdentifier: 1)
         //Act
-        let data = try self.encoder.encode(matchingFullTime)
+        let data = try self.encoder.encode(sut)
         let requestDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
         //Assert
         let dateString = try (requestDictionary?["date"] as? String).unwrap()
@@ -34,10 +33,10 @@ class MatchingFullTimeEncoderTests: XCTestCase {
     
     func testCreatedMatchingFullTimeEncoderFailsWhileDateIsNil() throws {
         //Arrange
-        let matchingFullTime = MatchingFullTimeEncoder(date: nil, userIdentifier: 1)
+        let sut = MatchingFullTimeEncoder(date: nil, userIdentifier: 1)
         //Act
         do {
-            _ = try self.encoder.encode(matchingFullTime)
+            _ = try self.encoder.encode(sut)
         } catch {
             //Assert
             XCTAssertNotNil(error as? EncodingError)
@@ -48,10 +47,10 @@ class MatchingFullTimeEncoderTests: XCTestCase {
         //Arrange
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let date = try Calendar.current.date(from: components).unwrap()
-        let matchingFullTime = MatchingFullTimeEncoder(date: date, userIdentifier: nil)
+        let sut = MatchingFullTimeEncoder(date: date, userIdentifier: nil)
         //Act
         do {
-            _ = try self.encoder.encode(matchingFullTime)
+            _ = try self.encoder.encode(sut)
         } catch {
             //Assert
             XCTAssertNotNil(error as? EncodingError)

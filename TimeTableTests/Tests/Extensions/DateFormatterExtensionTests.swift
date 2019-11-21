@@ -15,18 +15,18 @@ class DateFormatterExtensionTests: XCTestCase {
         //Arrange
         let components = DateComponents(year: 2018, month: 11, day: 21)
         let expectedDate = Calendar.autoupdatingCurrent.date(from: components)
-        let dateFormatter = DateFormatter(type: .simple)
+        let sut = DateFormatter(type: .simple)
         //Act
-        let date = try dateFormatter.date(from: "2018-11-21").unwrap()
+        let date = try sut.date(from: "2018-11-21").unwrap()
         //Assert
         XCTAssertEqual(date, expectedDate)
     }
     
     func testSimpleDateTypeFails() {
         //Arrange
-        let dateFormatter = DateFormatter(type: .simple)
+        let sut = DateFormatter(type: .simple)
         //Act
-        let date = dateFormatter.date(from: "2018-11-21T16:00:00")
+        let date = sut.date(from: "2018-11-21T16:00:00")
         //Assert
         XCTAssertNil(date)
     }
@@ -36,18 +36,18 @@ class DateFormatterExtensionTests: XCTestCase {
         let components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018,
                                         month: 11, day: 21, hour: 15, minute: 0, second: 30)
         let expectedDate = Calendar.autoupdatingCurrent.date(from: components)
-        let dateFormatter = DateFormatter(type: .dateAndTimeExtended)
+        let sut = DateFormatter(type: .dateAndTimeExtended)
         //Act
-        let date = try dateFormatter.date(from: "2018-11-21T15:00:30.000+01:00").unwrap()
+        let date = try sut.date(from: "2018-11-21T15:00:30.000+01:00").unwrap()
         //Assert
         XCTAssertEqual(date, expectedDate)
     }
     
     func testDateAndTimeExtendedDateTypeFails() {
         //Arrange
-        let dateFormatter = DateFormatter(type: .dateAndTimeExtended)
+        let sut = DateFormatter(type: .dateAndTimeExtended)
         //Act
-        let date = dateFormatter.date(from: "2018-11-21T16:00:00")
+        let date = sut.date(from: "2018-11-21T16:00:00")
         //Assert
         XCTAssertNil(date)
     }

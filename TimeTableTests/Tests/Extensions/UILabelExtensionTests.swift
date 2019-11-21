@@ -9,27 +9,27 @@
 import XCTest
 @testable import TimeTable
 
-class UIViewExtensionTests: XCTestCase {
+class UILabelExtensionTests: XCTestCase {
     
     func testIfLocalizedStringIsSetProperly() {
         //Arrange
-        let label = UILabel()
+        let sut = UILabel()
         let string = "key"
         let localizedString = NSLocalizedString(string, comment: "")
         //Act
-        label.localizedStringKey = string
+        sut.localizedStringKey = string
         //Assert
-        XCTAssertEqual(label.text, localizedString)
+        XCTAssertEqual(sut.text, localizedString)
     }
     
     func testIfLocalizedStringReturnsTextOfTheLabel() {
         //Arrange
-        let label = UILabel()
+        let sut = UILabel()
         let string = "key"
         let localizedString = NSLocalizedString(string, comment: "")
         //Act
-        label.localizedStringKey = string
+        sut.localizedStringKey = string
         //Assert
-        XCTAssertEqual(label.localizedStringKey, localizedString)
+        XCTAssertEqual(sut.localizedStringKey, localizedString)
     }
 }

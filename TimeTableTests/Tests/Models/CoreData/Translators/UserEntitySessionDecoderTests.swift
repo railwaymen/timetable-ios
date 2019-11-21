@@ -11,7 +11,6 @@ import CoreData
 @testable import TimeTable
 
 class UserEntitySessionDecoderTests: XCTestCase {
-    
     private var memoryContext: NSManagedObjectContext!
     private var asynchronousDataTransactionMock: AsynchronousDataTransactionMock!
     
@@ -38,11 +37,11 @@ class UserEntitySessionDecoderTests: XCTestCase {
         user.lastName = "Little"
         self.asynchronousDataTransactionMock.createReturnValue = user
         //Act
-        let createdUser = UserEntity.createUser(from: sessionReponse, transaction: self.asynchronousDataTransactionMock)
+        let sut = UserEntity.createUser(from: sessionReponse, transaction: self.asynchronousDataTransactionMock)
         //Assert
-        XCTAssertEqual(Int(createdUser.identifier), sessionReponse.identifier)
-        XCTAssertEqual(createdUser.firstName, sessionReponse.firstName)
-        XCTAssertEqual(createdUser.lastName, sessionReponse.lastName)
-        XCTAssertEqual(createdUser.token, sessionReponse.token)
+        XCTAssertEqual(Int(sut.identifier), sessionReponse.identifier)
+        XCTAssertEqual(sut.firstName, sessionReponse.firstName)
+        XCTAssertEqual(sut.lastName, sessionReponse.lastName)
+        XCTAssertEqual(sut.token, sessionReponse.token)
     }
 }

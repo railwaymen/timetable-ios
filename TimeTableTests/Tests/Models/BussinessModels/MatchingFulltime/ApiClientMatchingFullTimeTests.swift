@@ -10,31 +10,27 @@ import XCTest
 @testable import TimeTable
 
 class ApiClientMatchingFullTimeTests: XCTestCase {
-    
     private var networkingMock: NetworkingMock!
     private var requestEncoderMock: RequestEncoderMock!
     private var jsonDecoderMock: JSONDecoderMock!
-    private var apiClient: ApiClientMatchingFullTimeType!
     
     override func setUp() {
         self.networkingMock = NetworkingMock()
         self.requestEncoderMock = RequestEncoderMock()
         self.jsonDecoderMock = JSONDecoderMock()
-        self.apiClient = ApiClient(networking: self.networkingMock,
-                                   encoder: self.requestEncoderMock,
-                                   decoder: self.jsonDecoderMock)
         super.setUp()
     }
     
     func testFetchMatchingFullTimeSucceed() throws {
         //Arrange
+        let sut = self.buildSUT()
         let data = try self.json(from: MatchingFullTimeJSONResource.matchingFullTimeFullResponse)
         var matchingFullTimeDecoder: MatchingFullTimeDecoder?
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let date = try Calendar.current.date(from: components).unwrap()
         let matchingFullTime = MatchingFullTimeEncoder(date: date, userIdentifier: 1)
         //Act
-        self.apiClient.fetchMatchingFullTime(parameters: matchingFullTime) { result in
+        sut.fetchMatchingFullTime(parameters: matchingFullTime) { result in
             switch result {
             case .success(let decoder):
                 matchingFullTimeDecoder = decoder
@@ -52,13 +48,14 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
     
     func testFetchMatchingFullTimeFailed() throws {
         //Arrange
+        let sut = self.buildSUT()
         let error = TestError(message: "fetch matching full time failed")
         var expectedError: Error?
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let date = try Calendar.current.date(from: components).unwrap()
         let matchingFullTime = MatchingFullTimeEncoder(date: date, userIdentifier: 1)
         //Act
-        self.apiClient.fetchMatchingFullTime(parameters: matchingFullTime) { result in
+        sut.fetchMatchingFullTime(parameters: matchingFullTime) { result in
             switch result {
             case .success:
                 XCTFail()
@@ -70,5 +67,14 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
         //Assert
         let testError = try (expectedError as? TestError).unwrap()
         XCTAssertEqual(testError, error)
+    }
+}
+
+// MARK: - Private
+extension ApiClientMatchingFullTimeTests {
+    private func buildSUT() -> ApiClientMatchingFullTimeType {
+        return ApiClient(networking: self.networkingMock,
+                         encoder: self.requestEncoderMock,
+                         decoder: self.jsonDecoderMock)
     }
 }

@@ -11,29 +11,36 @@ import XCTest
 
 class ProjectsCoordinatorTests: XCTestCase {
     private var dependencyContainer: DependencyContainerMock!
-    private var projectsCoordinator: ProjectsCoordinator!
     
     override func setUp() {
         self.dependencyContainer = DependencyContainerMock()
-        self.projectsCoordinator = ProjectsCoordinator(dependencyContainer: self.dependencyContainer)
-        super.setUp() 
+        super.setUp()
     }
     
     func testRunMainFlowDoesNotRunMainFlowWhileProjectsControllerIsNil() {
         //Arrange
+        let sut = self.buildSUT()
         //Act
-        self.projectsCoordinator.start()
+        sut.start()
         //Assert
-        XCTAssertTrue(self.projectsCoordinator.navigationController.children.isEmpty)
+        XCTAssertTrue(sut.navigationController.children.isEmpty)
     }
     
     func testRunMainFlowRunsMainFlow() {
         //Arrange
+        let sut = self.buildSUT()
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.projects] = [.initial: ProjectsViewController()]
         //Act
-        self.projectsCoordinator.start()
+        sut.start()
         //Assert
-        XCTAssertFalse(self.projectsCoordinator.navigationController.children.isEmpty)
-        XCTAssertNotNil(self.projectsCoordinator.navigationController.children.first as? ProjectsViewControllerable)
+        XCTAssertFalse(sut.navigationController.children.isEmpty)
+        XCTAssertNotNil(sut.navigationController.children.first as? ProjectsViewControllerable)
+    }
+}
+
+// MARK: - Private
+extension ProjectsCoordinatorTests {
+    private func buildSUT() -> ProjectsCoordinator {
+        return ProjectsCoordinator(dependencyContainer: self.dependencyContainer)
     }
 }

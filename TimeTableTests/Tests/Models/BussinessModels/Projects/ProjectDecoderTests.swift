@@ -11,281 +11,280 @@ import XCTest
 
 // swiftlint:disable identifier_name
 class ProjectDecoderTests: XCTestCase {
-        
     private var decoder: JSONDecoder = JSONDecoder()
     
     func testParsingWorkTimesProjectResponse() throws {
         //Arrange
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         //Act
-        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(project.identifier, 3)
-        XCTAssertEqual(project.name, "Lorem ipsum")
-        XCTAssertEqual(project.color, UIColor(hexString: "fe0404"))
-        XCTAssertNil(project.autofill)
-        XCTAssertNil(project.countDuration)
-        XCTAssertNil(project.isActive)
-        XCTAssertNil(project.isInternal)
-        XCTAssertFalse(project.isLunch)
-        XCTAssertTrue(project.workTimesAllowsTask)
+        XCTAssertEqual(sut.identifier, 3)
+        XCTAssertEqual(sut.name, "Lorem ipsum")
+        XCTAssertEqual(sut.color, UIColor(hexString: "fe0404"))
+        XCTAssertNil(sut.autofill)
+        XCTAssertNil(sut.countDuration)
+        XCTAssertNil(sut.isActive)
+        XCTAssertNil(sut.isInternal)
+        XCTAssertFalse(sut.isLunch)
+        XCTAssertTrue(sut.workTimesAllowsTask)
     }
     
     func testParsingWorkTimesProjectNullColorResponse() throws {
         //Arrange
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectNullColorResponse)
         //Act
-        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(project.identifier, 3)
-        XCTAssertEqual(project.name, "Lorem ipsum")
-        XCTAssertNil(project.color)
-        XCTAssertNil(project.autofill)
-        XCTAssertNil(project.countDuration)
-        XCTAssertNil(project.isActive)
-        XCTAssertNil(project.isInternal)
-        XCTAssertFalse(project.isLunch)
-        XCTAssertTrue(project.workTimesAllowsTask)
+        XCTAssertEqual(sut.identifier, 3)
+        XCTAssertEqual(sut.name, "Lorem ipsum")
+        XCTAssertNil(sut.color)
+        XCTAssertNil(sut.autofill)
+        XCTAssertNil(sut.countDuration)
+        XCTAssertNil(sut.isActive)
+        XCTAssertNil(sut.isInternal)
+        XCTAssertFalse(sut.isLunch)
+        XCTAssertTrue(sut.workTimesAllowsTask)
     }
     
     func testParsingWorkTimesProjectMissingColorKeyResponse() throws {
         //Arrange
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectMissingColorKeyResponse)
         //Act
-        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(project.identifier, 3)
-        XCTAssertEqual(project.name, "Lorem ipsum")
-        XCTAssertNil(project.color)
-        XCTAssertNil(project.autofill)
-        XCTAssertNil(project.countDuration)
-        XCTAssertNil(project.isActive)
-        XCTAssertNil(project.isInternal)
-        XCTAssertFalse(project.isLunch)
-        XCTAssertTrue(project.workTimesAllowsTask)
+        XCTAssertEqual(sut.identifier, 3)
+        XCTAssertEqual(sut.name, "Lorem ipsum")
+        XCTAssertNil(sut.color)
+        XCTAssertNil(sut.autofill)
+        XCTAssertNil(sut.countDuration)
+        XCTAssertNil(sut.isActive)
+        XCTAssertNil(sut.isInternal)
+        XCTAssertFalse(sut.isLunch)
+        XCTAssertTrue(sut.workTimesAllowsTask)
     }
     
     func testParsingSimpleProjectFullResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         //Act
-        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(project.identifier, 11)
-        XCTAssertEqual(project.name, "asdsa")
-        XCTAssertEqual(project.color, UIColor(hexString: "0c0cOc"))
-        XCTAssertFalse(try project.autofill.unwrap())
-        XCTAssertTrue(try project.countDuration.unwrap())
-        XCTAssertTrue(try project.isActive.unwrap())
-        XCTAssertFalse(try project.isInternal.unwrap())
-        XCTAssertFalse(project.isLunch)
-        XCTAssertTrue(project.workTimesAllowsTask)
+        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.name, "asdsa")
+        XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
+        XCTAssertFalse(try sut.autofill.unwrap())
+        XCTAssertTrue(try sut.countDuration.unwrap())
+        XCTAssertTrue(try sut.isActive.unwrap())
+        XCTAssertFalse(try sut.isInternal.unwrap())
+        XCTAssertFalse(sut.isLunch)
+        XCTAssertTrue(sut.workTimesAllowsTask)
     }
     
     func testParsingSimpleProjectNullColorResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectNullColorResponse)
         //Act
-        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(project.identifier, 11)
-        XCTAssertEqual(project.name, "asdsa")
-        XCTAssertNil(project.color)
-        XCTAssertFalse(try project.autofill.unwrap())
-        XCTAssertTrue(try project.countDuration.unwrap())
-        XCTAssertTrue(try project.isActive.unwrap())
-        XCTAssertFalse(try project.isInternal.unwrap())
-        XCTAssertFalse(project.isLunch)
-        XCTAssertTrue(project.workTimesAllowsTask)
+        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.name, "asdsa")
+        XCTAssertNil(sut.color)
+        XCTAssertFalse(try sut.autofill.unwrap())
+        XCTAssertTrue(try sut.countDuration.unwrap())
+        XCTAssertTrue(try sut.isActive.unwrap())
+        XCTAssertFalse(try sut.isInternal.unwrap())
+        XCTAssertFalse(sut.isLunch)
+        XCTAssertTrue(sut.workTimesAllowsTask)
     }
     
     func testParsingSimpleProjectMissingColorKeyResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectMissingColorKeyResponse)
         //Act
-        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(project.identifier, 11)
-        XCTAssertEqual(project.name, "asdsa")
-        XCTAssertNil(project.color)
-        XCTAssertFalse(try project.autofill.unwrap())
-        XCTAssertTrue(try project.countDuration.unwrap())
-        XCTAssertTrue(try project.isActive.unwrap())
-        XCTAssertFalse(try project.isInternal.unwrap())
-        XCTAssertFalse(project.isLunch)
-        XCTAssertTrue(project.workTimesAllowsTask)
+        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.name, "asdsa")
+        XCTAssertNil(sut.color)
+        XCTAssertFalse(try sut.autofill.unwrap())
+        XCTAssertTrue(try sut.countDuration.unwrap())
+        XCTAssertTrue(try sut.isActive.unwrap())
+        XCTAssertFalse(try sut.isInternal.unwrap())
+        XCTAssertFalse(sut.isLunch)
+        XCTAssertTrue(sut.workTimesAllowsTask)
     }
     
     func testParsingSimpleProjectNullAutofillResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectNullAutofillResponse)
         //Act
-        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(project.identifier, 11)
-        XCTAssertEqual(project.name, "asdsa")
-        XCTAssertEqual(project.color, UIColor(hexString: "0c0cOc"))
-        XCTAssertNil(project.autofill)
-        XCTAssertTrue(try project.countDuration.unwrap())
-        XCTAssertTrue(try project.isActive.unwrap())
-        XCTAssertFalse(try project.isInternal.unwrap())
-        XCTAssertFalse(project.isLunch)
-        XCTAssertTrue(project.workTimesAllowsTask)
+        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.name, "asdsa")
+        XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
+        XCTAssertNil(sut.autofill)
+        XCTAssertTrue(try sut.countDuration.unwrap())
+        XCTAssertTrue(try sut.isActive.unwrap())
+        XCTAssertFalse(try sut.isInternal.unwrap())
+        XCTAssertFalse(sut.isLunch)
+        XCTAssertTrue(sut.workTimesAllowsTask)
     }
     
     func testParsingSimpleProjectMissingAutofillKeyResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectMissingAutofillKeyResponse)
         //Act
-        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(project.identifier, 11)
-        XCTAssertEqual(project.name, "asdsa")
-        XCTAssertEqual(project.color, UIColor(hexString: "0c0cOc"))
-        XCTAssertNil(project.autofill)
-        XCTAssertTrue(try project.countDuration.unwrap())
-        XCTAssertTrue(try project.isActive.unwrap())
-        XCTAssertFalse(try project.isInternal.unwrap())
-        XCTAssertFalse(project.isLunch)
-        XCTAssertTrue(project.workTimesAllowsTask)
+        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.name, "asdsa")
+        XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
+        XCTAssertNil(sut.autofill)
+        XCTAssertTrue(try sut.countDuration.unwrap())
+        XCTAssertTrue(try sut.isActive.unwrap())
+        XCTAssertFalse(try sut.isInternal.unwrap())
+        XCTAssertFalse(sut.isLunch)
+        XCTAssertTrue(sut.workTimesAllowsTask)
     }
     
     func testParsingSimpleProjectNullInternalResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectNullInternalResponse)
         //Act
-        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(project.identifier, 11)
-        XCTAssertEqual(project.name, "asdsa")
-        XCTAssertEqual(project.color, UIColor(hexString: "0c0cOc"))
-        XCTAssertFalse(try project.autofill.unwrap())
-        XCTAssertTrue(try project.countDuration.unwrap())
-        XCTAssertTrue(try project.isActive.unwrap())
-        XCTAssertNil(project.isInternal)
-        XCTAssertFalse(project.isLunch)
-        XCTAssertTrue(project.workTimesAllowsTask)
+        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.name, "asdsa")
+        XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
+        XCTAssertFalse(try sut.autofill.unwrap())
+        XCTAssertTrue(try sut.countDuration.unwrap())
+        XCTAssertTrue(try sut.isActive.unwrap())
+        XCTAssertNil(sut.isInternal)
+        XCTAssertFalse(sut.isLunch)
+        XCTAssertTrue(sut.workTimesAllowsTask)
     }
     
     func testParsingSimpleProjectMissingInternalKeyResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectMissingInternalKeyResponse)
         //Act
-        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(project.identifier, 11)
-        XCTAssertEqual(project.name, "asdsa")
-        XCTAssertEqual(project.color, UIColor(hexString: "0c0cOc"))
-        XCTAssertFalse(try project.autofill.unwrap())
-        XCTAssertTrue(try project.countDuration.unwrap())
-        XCTAssertTrue(try project.isActive.unwrap())
-        XCTAssertNil(project.isInternal)
-        XCTAssertFalse(project.isLunch)
-        XCTAssertTrue(project.workTimesAllowsTask)
+        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.name, "asdsa")
+        XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
+        XCTAssertFalse(try sut.autofill.unwrap())
+        XCTAssertTrue(try sut.countDuration.unwrap())
+        XCTAssertTrue(try sut.isActive.unwrap())
+        XCTAssertNil(sut.isInternal)
+        XCTAssertFalse(sut.isLunch)
+        XCTAssertTrue(sut.workTimesAllowsTask)
     }
     
     func testParsingSimpleProjectNullCountDurationResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectNullCountDurationResponse)
         //Act
-        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(project.identifier, 11)
-        XCTAssertEqual(project.name, "asdsa")
-        XCTAssertEqual(project.color, UIColor(hexString: "0c0cOc"))
-        XCTAssertFalse(try project.autofill.unwrap())
-        XCTAssertNil(project.countDuration)
-        XCTAssertTrue(try project.isActive.unwrap())
-        XCTAssertFalse(try project.isInternal.unwrap())
-        XCTAssertFalse(project.isLunch)
-        XCTAssertTrue(project.workTimesAllowsTask)
+        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.name, "asdsa")
+        XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
+        XCTAssertFalse(try sut.autofill.unwrap())
+        XCTAssertNil(sut.countDuration)
+        XCTAssertTrue(try sut.isActive.unwrap())
+        XCTAssertFalse(try sut.isInternal.unwrap())
+        XCTAssertFalse(sut.isLunch)
+        XCTAssertTrue(sut.workTimesAllowsTask)
     }
     
     func testParsingSimpleProjectMissingCountDurationKeyResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectMissingCountDurationKeyResponse)
         //Act
-        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(project.identifier, 11)
-        XCTAssertEqual(project.name, "asdsa")
-        XCTAssertEqual(project.color, UIColor(hexString: "0c0cOc"))
-        XCTAssertFalse(try project.autofill.unwrap())
-        XCTAssertNil(project.countDuration)
-        XCTAssertTrue(try project.isActive.unwrap())
-        XCTAssertFalse(try project.isInternal.unwrap())
-        XCTAssertFalse(project.isLunch)
-        XCTAssertTrue(project.workTimesAllowsTask)
+        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.name, "asdsa")
+        XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
+        XCTAssertFalse(try sut.autofill.unwrap())
+        XCTAssertNil(sut.countDuration)
+        XCTAssertTrue(try sut.isActive.unwrap())
+        XCTAssertFalse(try sut.isInternal.unwrap())
+        XCTAssertFalse(sut.isLunch)
+        XCTAssertTrue(sut.workTimesAllowsTask)
     }
     
     func testParsingSimpleProjectNullActiveResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectNullActiveResponse)
         //Act
-        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(project.identifier, 11)
-        XCTAssertEqual(project.name, "asdsa")
-        XCTAssertEqual(project.color, UIColor(hexString: "0c0cOc"))
-        XCTAssertFalse(try project.autofill.unwrap())
-        XCTAssertTrue(try project.countDuration.unwrap())
-        XCTAssertNil(project.isActive)
-        XCTAssertFalse(try project.isInternal.unwrap())
-        XCTAssertFalse(project.isLunch)
-        XCTAssertTrue(project.workTimesAllowsTask)
+        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.name, "asdsa")
+        XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
+        XCTAssertFalse(try sut.autofill.unwrap())
+        XCTAssertTrue(try sut.countDuration.unwrap())
+        XCTAssertNil(sut.isActive)
+        XCTAssertFalse(try sut.isInternal.unwrap())
+        XCTAssertFalse(sut.isLunch)
+        XCTAssertTrue(sut.workTimesAllowsTask)
     }
     
     func testParsingSimpleProjectMissingActiveKeyResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectMissingActiveKeyResponse)
         //Act
-        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(project.identifier, 11)
-        XCTAssertEqual(project.name, "asdsa")
-        XCTAssertEqual(project.color, UIColor(hexString: "0c0cOc"))
-        XCTAssertFalse(try project.autofill.unwrap())
-        XCTAssertTrue(try project.countDuration.unwrap())
-        XCTAssertNil(project.isActive)
-        XCTAssertFalse(try project.isInternal.unwrap())
-        XCTAssertFalse(project.isLunch)
-        XCTAssertTrue(project.workTimesAllowsTask)
+        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.name, "asdsa")
+        XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
+        XCTAssertFalse(try sut.autofill.unwrap())
+        XCTAssertTrue(try sut.countDuration.unwrap())
+        XCTAssertNil(sut.isActive)
+        XCTAssertFalse(try sut.isInternal.unwrap())
+        XCTAssertFalse(sut.isLunch)
+        XCTAssertTrue(sut.workTimesAllowsTask)
     }
     
     func testParsingSimpleProjectNullLunchResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectNullLunchResponse)
         //Act
-        let project = try? self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try? self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
-        XCTAssertNil(project)
+        XCTAssertNil(sut)
     }
     
     func testParsingSimpleProjectMissingLunchKeyResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectMissingLunchKeyResponse)
         //Act
-        let project = try? self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try? self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
-        XCTAssertNil(project)
+        XCTAssertNil(sut)
     }
     
     func testParsingSimpleProjectNullWorkTimesAllowsTaskResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectNullWorkTimesAllowsTaskResponse)
         //Act
-        let project = try? self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try? self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
-        XCTAssertNil(project)
+        XCTAssertNil(sut)
     }
     
     func testParsingSimpleProjectMissingWorkTimesAllowsTaskKeyResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectMissingWorkTimesAllowsTaskKeyResponse)
         //Act
-        let project = try? self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try? self.decoder.decode(ProjectDecoder.self, from: data)
         //Assert
-        XCTAssertNil(project)
+        XCTAssertNil(sut)
     }
 }
 // swiftlint:enable identifier_name

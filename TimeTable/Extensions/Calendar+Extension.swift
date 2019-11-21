@@ -23,11 +23,11 @@ protocol CalendarType {
 
 extension CalendarType {
     func date(byAdding components: DateComponents, to date: Date) -> Date? {
-        return self.date(byAdding: components, to: date, wrappingComponents: true)
+        return self.date(byAdding: components, to: date, wrappingComponents: false)
     }
     
     func date(byAdding component: Calendar.Component, value: Int, to date: Date) -> Date? {
-        return self.date(byAdding: component, value: value, to: date, wrappingComponents: true)
+        return self.date(byAdding: component, value: value, to: date, wrappingComponents: false)
     }
     
     func date(bySettingHour hour: Int, minute: Int, second: Int, of date: Date) -> Date? {
