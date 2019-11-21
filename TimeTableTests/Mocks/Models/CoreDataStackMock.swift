@@ -24,6 +24,11 @@ class CoreDataStackMock {
         var completion: (Result<UserEntity, Error>) -> Void
     }
     
+    private(set) var fetchAllUsersParams: [FetchAllUsersParams] = []
+    struct FetchAllUsersParams {
+        var completion: (Result<[UserEntity], Error>) -> Void
+    }
+    
     private(set) var saveParams: [SaveParams] = []
     struct SaveParams {
         var userDecoder: SessionDecoder
@@ -40,6 +45,10 @@ extension CoreDataStackMock: CoreDataStackType {
     
     func fetchUser(forIdentifier identifier: Int64, completion: @escaping (Result<UserEntity, Error>) -> Void) {
         self.fetchUserParams.append(FetchUserParams(identifier: identifier, completion: completion))
+    }
+    
+    func fetchAllUsers(completion: @escaping (Result<[UserEntity], Error>) -> Void) {
+        self.fetchAllUsersParams.append(FetchAllUsersParams(completion: completion))
     }
     
     func save<CDT>(userDecoder: SessionDecoder,

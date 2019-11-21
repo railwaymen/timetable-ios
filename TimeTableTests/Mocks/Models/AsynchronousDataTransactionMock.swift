@@ -11,12 +11,7 @@ import CoreStore
 @testable import TimeTable
 
 class AsynchronousDataTransactionMock {
-    
-    var deleteAllReturnValue: Int = 0
-    var deleteAllThrowError: Error?
-    private(set) var deleteAllParams: [DeleteAllParams] = []
-    struct DeleteAllParams {}
-    
+        
     private(set) var deleteParams: [DeleteParams] = []
     struct DeleteParams {}
     
@@ -27,15 +22,11 @@ class AsynchronousDataTransactionMock {
 
 // MARK: - AsynchronousDataTransactionType
 extension AsynchronousDataTransactionMock: AsynchronousDataTransactionType {
-    func deleteAll<D>(_ from: From<D>, _ deleteClauses: DeleteClause...) throws -> Int where D: DynamicObject {
-        self.deleteAllParams.append(DeleteAllParams())
-        if let error = self.deleteAllThrowError {
-            throw error
-        }
-        return self.deleteAllReturnValue
+    func delete<S>(_ objects: S) where S: Sequence, S.Element: ObjectRepresentation {
+        self.deleteParams.append(DeleteParams())
     }
     
-    func delete<D>(_ object: D?) where D: DynamicObject {
+    func delete<O>(_ object: O?, _ objects: O?...) where O: ObjectRepresentation {
         self.deleteParams.append(DeleteParams())
     }
     

@@ -49,15 +49,22 @@ extension LoginContentProvider: LoginContentProviderType {
 // MARK: - Private
 extension LoginContentProvider {
     private func save(userDecoder: SessionDecoder, completion: @escaping ((Result<Void, Error>) -> Void)) {
-        self.coreDataStack.save(userDecoder: userDecoder, coreDataTypeTranslation: { (transaction: AsynchronousDataTransactionType) -> UserEntity in
-            _ = try? transaction.deleteAll(From<UserEntity>())
-            return UserEntity.createUser(from: userDecoder, transaction: transaction)
-        }) { [weak self] result in
+        self.coreDataStack.fetchAllUsers { [weak self] result in
             switch result {
-            case .success(let entity):
-                self?.accessService.saveLastLoggedInUserIdentifier(entity.identifier)
-                completion(.success(Void()))
-            case .failure(let error):
+            case let .success(users):
+                self?.coreDataStack.save(userDecoder: userDecoder, coreDataTypeTranslation: { (transaction: AsynchronousDataTransactionType) -> UserEntity in
+                    transaction.delete(users)
+                    return UserEntity.createUser(from: userDecoder, transaction: transaction)
+                }) { [weak self] result in
+                    switch result {
+                    case .success(let entity):
+                        self?.accessService.saveLastLoggedInUserIdentifier(entity.identifier)
+                        completion(.success(Void()))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                }
+            case let .failure(error):
                 completion(.failure(error))
             }
         }

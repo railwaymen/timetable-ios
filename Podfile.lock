@@ -1,28 +1,28 @@
 PODS:
-  - CoreStore (6.3.2)
-  - KeychainAccess (3.2.0)
-  - Networking (5.0.0)
-  - SwiftLint (0.35.0)
+  - CoreStore (7.0.1)
+  - KeychainAccess (4.1.0)
+  - Networking (5.0.1)
+  - SwiftLint (0.37.0)
 
 DEPENDENCIES:
-  - CoreStore (~> 6.3)
-  - KeychainAccess (~> 3.2)
+  - CoreStore (~> 7.0)
+  - KeychainAccess (~> 4.1)
   - Networking (~> 5.0.0)
   - SwiftLint (~> 0.35)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - CoreStore
     - KeychainAccess
     - Networking
     - SwiftLint
 
 SPEC CHECKSUMS:
-  CoreStore: 690a587902a81c412cf353466d2d2a029934267e
-  KeychainAccess: 3b1bf8a77eb4c6ea1ce9404c292e48f948954c6b
-  Networking: 8ced5868ab2b5cf0fcc1d3657bf9bb589ae2fe91
-  SwiftLint: 5553187048b900c91aa03552807681bb6b027846
+  CoreStore: c353080c6ae1708f621b75d9f8afe7d2ee716807
+  KeychainAccess: 445e28864fe6d3458b41fa211bcdc39890e8bd5a
+  Networking: 0a77e3315c32133e3aefb8dd2bd027ff536fd25d
+  SwiftLint: c078a14d7d7ade75e5507795d185e3da41d844d2
 
-PODFILE CHECKSUM: 5b45752418ff7379ea583f29f341d558bc55b814
+PODFILE CHECKSUM: 614016a801b532979be40d227da60238ff003fb7
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.4

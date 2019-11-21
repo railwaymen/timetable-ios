@@ -14,6 +14,7 @@ typealias CoreDataStackType = (CoreDataStackUserType)
 protocol CoreDataStackUserType: class {
     func deleteUser(forIdentifier identifier: Int64, completion: @escaping (Result<Void, Error>) -> Void)
     func fetchUser(forIdentifier identifier: Int64, completion: @escaping (Result<UserEntity, Error>) -> Void)
+    func fetchAllUsers(completion: @escaping (Result<[UserEntity], Error>) -> Void)
     func save<CDT: NSManagedObject>(userDecoder: SessionDecoder,
                                     coreDataTypeTranslation: @escaping ((AsynchronousDataTransactionType) -> CDT),
                                     completion: @escaping (Result<CDT, Error>) -> Void)
@@ -66,6 +67,15 @@ extension CoreDataStack: CoreDataStackUserType {
             return
         }
         completion(.success(user))
+    }
+    
+    func fetchAllUsers(completion: @escaping (Result<[UserEntity], Swift.Error>) -> Void) {
+        do {
+            let users = try self.stack.fetchAll(From<UserEntity>())
+            completion(.success(users))
+        } catch {
+            return completion(.failure(error))
+        }
     }
     
     func save<CDT: NSManagedObject>(userDecoder: SessionDecoder,
