@@ -1,7 +1,11 @@
+source 'ssh://git@git.railwaymen.org:10522/open/rwm_podspec.git'
+source 'https://github.com/CocoaPods/Specs.git'
+
 platform :ios, '11.4'
 use_frameworks!
 
 def universal_pods
+  pod 'CoordinatorsFoundation', '~> 0.2.1'
   pod 'SwiftLint', '~> 0.37'
   pod 'Networking', '~> 5.0.1'
   pod 'CoreStore', '~> 7.0'

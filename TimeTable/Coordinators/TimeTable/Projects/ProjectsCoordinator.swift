@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProjectsCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
+class ProjectsCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
     private let dependencyContainer: DependencyContainerType
     
     var root: UIViewController {
@@ -24,7 +24,7 @@ class ProjectsCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType 
             title: "tabbar.title.projects".localized,
             image: .projects,
             selectedImage: nil)
-        super.init(window: dependencyContainer.window, messagePresenter: dependencyContainer.messagePresenter)
+        super.init(window: dependencyContainer.window)
         self.navigationController.setNavigationBarHidden(false, animated: false)
         self.navigationController.navigationBar.prefersLargeTitles = true
         self.navigationController.navigationBar.tintColor = .crimson
@@ -32,8 +32,8 @@ class ProjectsCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType 
     }
     
     // MARK: - Overridden
-    override func start(finishCompletion: (() -> Void)?) {
-        super.start(finishCompletion: finishCompletion)
+    override func start(finishHandler: (() -> Void)?) {
+        super.start(finishHandler: finishHandler)
         self.runMainFlow()
     }
 }

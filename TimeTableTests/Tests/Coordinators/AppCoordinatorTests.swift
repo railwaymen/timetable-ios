@@ -136,7 +136,7 @@ class AppCoordinatorTests: XCTestCase {
         XCTAssertEqual(sut.children.count, 1)
     }
     
-    func testRunMainFlowFinishRemoveTimeTableTabCoordinatorFromChildrenAndRunsServerConfigurationFlow() throws {
+    func testRunMainFlowFinishRemovesTimeTableTabCoordinatorFromChildrenAndRunsServerConfigurationFlow() throws {
         //Arrange
         let sut = self.buildSUT()
         let user = UserEntity(context: self.memoryContext)
@@ -153,13 +153,13 @@ class AppCoordinatorTests: XCTestCase {
         let child = try XCTUnwrap(sut.children.first as? TimeTableTabCoordinator)
         //Act
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = nil
-        child.finishCompletion?()
+        child.finish()
         //Assert
         XCTAssertEqual(sut.children.count, 1)
         XCTAssertNotNil(sut.children.first as? AuthenticationCoordinator)
     }
     
-    func testRunMainFlowFinishRemoveTimeTableTabCoordinatorFromChildrenAndRunsAuthenticationFlow() throws {
+    func testRunMainFlowFinishRemovesTimeTableTabCoordinatorFromChildrenAndRunsAuthenticationFlow() throws {
         //Arrange
         let sut = self.buildSUT()
         let user = UserEntity(context: self.memoryContext)
@@ -175,7 +175,7 @@ class AppCoordinatorTests: XCTestCase {
         self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.success(SessionDecoder(entity: user)))
         let child = try XCTUnwrap(sut.children.first as? TimeTableTabCoordinator)
         //Act
-        child.finishCompletion?()
+        child.finish()
         self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "Error")))
         //Assert
         XCTAssertEqual(sut.children.count, 1)

@@ -1,28 +1,33 @@
 PODS:
+  - CoordinatorsFoundation (0.2.1)
   - CoreStore (7.0.1)
   - KeychainAccess (4.1.0)
   - Networking (5.0.1)
-  - SwiftLint (0.37.0)
+  - SwiftLint (0.38.0)
 
 DEPENDENCIES:
+  - CoordinatorsFoundation (~> 0.2.1)
   - CoreStore (~> 7.0)
   - KeychainAccess (~> 4.1)
   - Networking (~> 5.0.1)
   - SwiftLint (~> 0.37)
 
 SPEC REPOS:
-  trunk:
+  https://github.com/CocoaPods/Specs.git:
     - CoreStore
     - KeychainAccess
     - Networking
     - SwiftLint
+  "ssh://git@git.railwaymen.org:10522/open/rwm_podspec.git":
+    - CoordinatorsFoundation
 
 SPEC CHECKSUMS:
+  CoordinatorsFoundation: f7acce9c02f89127a7a1350de67c35c2647c8be3
   CoreStore: c353080c6ae1708f621b75d9f8afe7d2ee716807
   KeychainAccess: 445e28864fe6d3458b41fa211bcdc39890e8bd5a
   Networking: 0a77e3315c32133e3aefb8dd2bd027ff536fd25d
-  SwiftLint: c078a14d7d7ade75e5507795d185e3da41d844d2
+  SwiftLint: 4105f061f9812b214568b736dab580ab2c73a582
 
-PODFILE CHECKSUM: 1696aec88dfb6f58cd7eab3a35cad303bc95a729
+PODFILE CHECKSUM: 3c5ddd19adf72201059601153839f9828c06288a
 
 COCOAPODS: 1.8.4

@@ -8,12 +8,17 @@
 
 import UIKit
 
+protocol ProfileCoordinatorParentType: class {
+    func childDidRequestToFinish()
+}
+
 protocol ProfileCoordinatorDelegate: class {
    func userProfileDidLogoutUser()
 }
 
-class ProfileCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
+class ProfileCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
     private let dependencyContainer: DependencyContainerType
+    private weak var parent: ProfileCoordinatorParentType?
     
     var root: UIViewController {
         return self.navigationController
@@ -21,19 +26,23 @@ class ProfileCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
     var tabBarItem: UITabBarItem
     
     // MARK: - Initialization
-    init(dependencyContainer: DependencyContainerType) {
+    init(
+        dependencyContainer: DependencyContainerType,
+        parent: ProfileCoordinatorParentType?
+    ) {
         self.dependencyContainer = dependencyContainer
+        self.parent = parent
         self.tabBarItem = UITabBarItem(
             title: "tabbar.title.profile".localized,
             image: .profile,
             selectedImage: nil)
-        super.init(window: dependencyContainer.window, messagePresenter: dependencyContainer.messagePresenter)
+        super.init(window: dependencyContainer.window)
         self.root.tabBarItem = self.tabBarItem
     }
 
     // MARK: - Overridden
-    override func start(finishCompletion: (() -> Void)?) {
-        super.start(finishCompletion: finishCompletion)
+    override func start(finishHandler: (() -> Void)?) {
+        super.start(finishHandler: finishHandler)
         self.runMainFlow()
         self.navigationController.setNavigationBarHidden(false, animated: false)
         self.navigationController.navigationBar.prefersLargeTitles = true
@@ -43,7 +52,7 @@ class ProfileCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
 // MARK: - ProfileCoordinatorDelegate
 extension ProfileCoordinator: ProfileCoordinatorDelegate {
     func userProfileDidLogoutUser() {
-        self.finishCompletion?()
+        self.parent?.childDidRequestToFinish()
     }
 }
 

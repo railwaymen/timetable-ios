@@ -12,13 +12,13 @@ protocol ProjectPickerCoordinatorType: class {
     func finishFlow(project: ProjectDecoder?)
 }
 
-class ProjectPickerCoordinator: BaseNavigationCoordinator {
-    typealias FinishHandlerType = (ProjectDecoder?) -> Void
+class ProjectPickerCoordinator: NavigationCoordinator {
+    typealias CustomFinishHandlerType = (ProjectDecoder?) -> Void
     private let dependencyContainer: DependencyContainerType
     private weak var parentViewController: UIViewController?
     private let projects: [ProjectDecoder]
     
-    private var customFinishHandler: FinishHandlerType?
+    private var customFinishHandler: CustomFinishHandlerType?
     
     // MARK: - Initialization
     init(
@@ -29,12 +29,12 @@ class ProjectPickerCoordinator: BaseNavigationCoordinator {
         self.dependencyContainer = dependencyContainer
         self.parentViewController = parentViewController
         self.projects = projects
-        super.init(window: dependencyContainer.window, messagePresenter: dependencyContainer.messagePresenter)
+        super.init(window: dependencyContainer.window)
     }
     
     // MARK: - Overridden
-    override func start(finishCompletion: (() -> Void)?) {
-        super.start(finishCompletion: finishCompletion)
+    override func start(finishHandler: FinishHandlerType?) {
+        super.start(finishHandler: finishHandler)
         self.runMainFlow()
     }
     
@@ -44,7 +44,7 @@ class ProjectPickerCoordinator: BaseNavigationCoordinator {
     }
     
     // MARK: - Internal
-    func start(finishHandler: @escaping FinishHandlerType) {
+    func start(finishHandler: @escaping CustomFinishHandlerType) {
         self.customFinishHandler = finishHandler
         self.start()
     }

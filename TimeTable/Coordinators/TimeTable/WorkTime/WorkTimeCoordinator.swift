@@ -11,11 +11,11 @@ import UIKit
 typealias WorkTimeApiClientType = ApiClientWorkTimesType & ApiClientProjectsType
 
 protocol WorkTimeCoordinatorType: class {
-    func showProjectPicker(projects: [ProjectDecoder], finishHandler: @escaping ProjectPickerCoordinator.FinishHandlerType)
+    func showProjectPicker(projects: [ProjectDecoder], finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType)
     func viewDidFinish(isTaskChanged: Bool)
 }
 
-class WorkTimeCoordinator: BaseNavigationCoordinator {
+class WorkTimeCoordinator: NavigationCoordinator {
     private let dependencyContainer: DependencyContainerType
     private weak var parentViewController: UIViewController?
     private weak var sourceView: UIView?
@@ -33,12 +33,12 @@ class WorkTimeCoordinator: BaseNavigationCoordinator {
         self.parentViewController = parentViewController
         self.dependencyContainer = dependencyContainer
         self.flowType = flowType
-        super.init(window: dependencyContainer.window, messagePresenter: dependencyContainer.messagePresenter)
+        super.init(window: dependencyContainer.window)
     }
     
     // MARK: - Overridden
-    override func start(finishCompletion: (() -> Void)?) {
-        super.start(finishCompletion: finishCompletion)
+    override func start(finishHandler: (() -> Void)?) {
+        super.start(finishHandler: finishHandler)
         self.runMainFlow()
     }
     
@@ -49,7 +49,7 @@ class WorkTimeCoordinator: BaseNavigationCoordinator {
     
     // MARK: - Internal
     func start(finishHandler: @escaping (_ isTaskChanged: Bool) -> Void) {
-        super.start(finishCompletion: nil)
+        super.start(finishHandler: nil)
         self.customFinishHandler = finishHandler
         self.runMainFlow()
     }
@@ -62,7 +62,7 @@ class WorkTimeCoordinator: BaseNavigationCoordinator {
 
 // MARK: - WorkTimeCoordinatorType
 extension WorkTimeCoordinator: WorkTimeCoordinatorType {
-    func showProjectPicker(projects: [ProjectDecoder], finishHandler: @escaping ProjectPickerCoordinator.FinishHandlerType) {
+    func showProjectPicker(projects: [ProjectDecoder], finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType) {
         self.runProjectPickerFlow(projects: projects, finishHandler: finishHandler)
     }
     
@@ -96,14 +96,14 @@ extension WorkTimeCoordinator {
         }
     }
     
-    private func runProjectPickerFlow(projects: [ProjectDecoder], finishHandler: @escaping ProjectPickerCoordinator.FinishHandlerType) {
+    private func runProjectPickerFlow(projects: [ProjectDecoder], finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType) {
         let coordinator = ProjectPickerCoordinator(
             dependencyContainer: self.dependencyContainer,
             parentViewController: self.navigationController,
             projects: projects)
-        self.addChildCoordinator(child: coordinator)
+        self.add(child: coordinator)
         coordinator.start { [weak self, weak coordinator] project in
-            self?.removeChildCoordinator(child: coordinator)
+            self?.remove(child: coordinator)
             finishHandler(project)
         }
     }

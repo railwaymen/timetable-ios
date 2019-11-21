@@ -17,7 +17,7 @@ protocol WorkTimesListCoordinatorDelegate: class {
     func workTimesRequestedForSafari(url: URL)
 }
 
-class WorkTimesListCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
+class WorkTimesListCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
     private let dependencyContainer: DependencyContainerType
     
     var root: UIViewController {
@@ -33,7 +33,7 @@ class WorkTimesListCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinator
             title: "tabbar.title.timesheet".localized,
             image: .timesheet,
             selectedImage: nil)
-        super.init(window: dependencyContainer.window, messagePresenter: dependencyContainer.messagePresenter)
+        super.init(window: dependencyContainer.window)
         self.navigationController.setNavigationBarHidden(false, animated: false)
         self.navigationController.navigationBar.prefersLargeTitles = true
         self.navigationController.navigationBar.tintColor = .crimson
@@ -41,8 +41,8 @@ class WorkTimesListCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinator
     }
     
     // MARK: - Overridden
-    override func start(finishCompletion: (() -> Void)?) {
-        super.start(finishCompletion: finishCompletion)
+    override func start(finishHandler: (() -> Void)?) {
+        super.start(finishHandler: finishHandler)
         self.runMainFlow()
     }
 }
@@ -92,9 +92,9 @@ extension WorkTimesListCoordinator {
             parentViewController: self.navigationController.topViewController,
             sourceView: sourceView,
             flowType: flowType)
-        self.addChildCoordinator(child: coordinator)
+        self.add(child: coordinator)
         coordinator.start { [weak self, weak coordinator] isTaskChanged in
-            self?.removeChildCoordinator(child: coordinator)
+            self?.remove(child: coordinator)
             finishHandler(isTaskChanged)
         }
     }
