@@ -16,7 +16,10 @@ struct ProjectRecordDecoder {
     let color: UIColor?
     let user: User?
     let leader: User?
-    
+}
+
+// MARK: - Structures
+extension ProjectRecordDecoder {
     struct User {
         let name: String
     }

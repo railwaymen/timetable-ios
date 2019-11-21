@@ -31,7 +31,7 @@ class WorkTimesListContentProvider {
     }
 }
  
-// MARK: - WorkTimesContentProviderType
+// MARK: - WorkTimesListContentProviderType
 extension WorkTimesListContentProvider: WorkTimesListContentProviderType {
     func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder)>) -> Void) {
         var dailyWorkTimes: [DailyWorkTime] = []

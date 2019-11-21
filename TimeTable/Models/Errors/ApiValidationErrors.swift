@@ -10,7 +10,10 @@ import Foundation
 
 struct ApiValidationErrors: Error {
     let errors: Base
+}
 
+// MARK: - Structures
+extension ApiValidationErrors {
     struct Base {
         var keys: [String]
     }

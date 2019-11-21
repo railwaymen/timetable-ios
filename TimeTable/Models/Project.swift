@@ -16,18 +16,6 @@ class Project {
     var users: [User]
     let leader: User?
     
-    struct User: Hashable {
-        let name: String
-        
-        init(decoder: ProjectRecordDecoder.User) {
-            self.name = decoder.name
-        }
-        
-        init(name: String) {
-            self.name = name
-        }
-    }
-    
     // MARK: - Initialization
     init(decoder: ProjectRecordDecoder) {
         self.identifier = decoder.projectIdentifier
@@ -46,6 +34,22 @@ class Project {
     }
 }
 
+// MARK: - Structures
+extension Project {
+    struct User {
+        let name: String
+        
+        // MARK: Initialization
+        init(decoder: ProjectRecordDecoder.User) {
+            self.name = decoder.name
+        }
+        
+        init(name: String) {
+            self.name = name
+        }
+    }
+}
+
 // MARK: - Equatable
 extension Project: Equatable {
     static func == (lhs: Project, rhs: Project) -> Bool {
@@ -59,3 +63,5 @@ extension Project: Hashable {
         hasher.combine(self.identifier.hashValue)
     }
 }
+
+extension Project.User: Hashable {}

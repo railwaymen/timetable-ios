@@ -117,21 +117,6 @@ extension WorkTimeViewModel {
     
 }
 
-extension WorkTimeViewModel.FlowType: Equatable {
-    static func == (lhs: WorkTimeViewModel.FlowType, rhs: WorkTimeViewModel.FlowType) -> Bool {
-        switch (lhs, rhs) {
-        case let (.newEntry(lhsLastTask), .newEntry(rhsLastTask)):
-            return lhsLastTask == rhsLastTask
-        case let (.editEntry(lhsEditedTask), .editEntry(rhsEditedTask)):
-            return lhsEditedTask == rhsEditedTask
-        case let (.duplicateEntry(lhsDuplicatedTask, lhsLastTask), .duplicateEntry(rhsDuplicatedTask, rhsLastTask)):
-            return lhsLastTask == rhsLastTask && lhsDuplicatedTask == rhsDuplicatedTask
-        default:
-            return false
-        }
-    }
-}
-
 // MARK: - WorkTimeViewModelType
 extension WorkTimeViewModel: WorkTimeViewModelType {
     func viewDidLoad() {
@@ -245,6 +230,22 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     
     func viewHasBeenTapped() {
         self.userInterface?.dismissKeyboard()
+    }
+}
+
+// MARK: - Equatable
+extension WorkTimeViewModel.FlowType: Equatable {
+    static func == (lhs: WorkTimeViewModel.FlowType, rhs: WorkTimeViewModel.FlowType) -> Bool {
+        switch (lhs, rhs) {
+        case let (.newEntry(lhsLastTask), .newEntry(rhsLastTask)):
+            return lhsLastTask == rhsLastTask
+        case let (.editEntry(lhsEditedTask), .editEntry(rhsEditedTask)):
+            return lhsEditedTask == rhsEditedTask
+        case let (.duplicateEntry(lhsDuplicatedTask, lhsLastTask), .duplicateEntry(rhsDuplicatedTask, rhsLastTask)):
+            return lhsLastTask == rhsLastTask && lhsDuplicatedTask == rhsDuplicatedTask
+        default:
+            return false
+        }
     }
 }
 

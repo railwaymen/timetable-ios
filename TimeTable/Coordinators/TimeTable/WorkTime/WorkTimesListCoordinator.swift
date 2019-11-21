@@ -39,7 +39,7 @@ class WorkTimesListCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinator
         self.root.tabBarItem = self.tabBarItem
     }
     
-    // MARK: - CoordinatorType
+    // MARK: - Overridden
     override func start(finishCompletion: (() -> Void)?) {
         super.start(finishCompletion: finishCompletion)
         self.runMainFlow()

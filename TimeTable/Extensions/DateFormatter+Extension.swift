@@ -9,16 +9,19 @@
 import Foundation
 
 extension DateFormatter {
-
-    enum DateType: String {
-        case simple = "yyyy-MM-dd"
-        case dateAndTimeExtended = "yyyy-MM-dd'T'HH:mm:ss.SSSXX"
-    }
     
     // MARK: - Initialization
     convenience init(type: DateType) {
         self.init() 
         self.dateFormat = type.rawValue
         self.locale = Locale.autoupdatingCurrent
+    }
+}
+
+// MARK: - Structures
+extension DateFormatter {
+    enum DateType: String {
+        case simple = "yyyy-MM-dd"
+        case dateAndTimeExtended = "yyyy-MM-dd'T'HH:mm:ss.SSSXX"
     }
 }

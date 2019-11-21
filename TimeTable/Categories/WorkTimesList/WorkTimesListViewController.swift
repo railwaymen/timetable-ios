@@ -155,7 +155,7 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
     }
 }
 
-// MARK: - WorkTimesViewControllerType
+// MARK: - WorkTimesListViewControllerType
 extension WorkTimesListViewController: WorkTimesListViewControllerType {
     func configure(viewModel: WorkTimesListViewModelType) {
         self.viewModel = viewModel

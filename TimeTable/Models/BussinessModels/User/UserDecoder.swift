@@ -14,6 +14,7 @@ struct UserDecoder {
     let lastName: String
     let email: String
 }
+
 // MARK: - Decodable
 extension UserDecoder: Decodable {
     enum CodingKeys: String, CodingKey {

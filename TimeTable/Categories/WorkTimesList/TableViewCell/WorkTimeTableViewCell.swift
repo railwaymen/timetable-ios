@@ -29,7 +29,7 @@ class WorkTimeTableViewCell: UITableViewCell {
         
     private var viewModel: WorkTimeCellViewModelType?
     
-    // MARK: - Overriden
+    // MARK: - Overridden
     override func prepareForReuse() {
         super.prepareForReuse()
         self.viewModel?.prepareForReuse()

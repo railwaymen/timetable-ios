@@ -53,7 +53,7 @@ extension ProjectPickerViewController: UITableViewDelegate {
     }
 }
 
-// MARK: - UISearchControllerDelegate
+// MARK: - UISearchResultsUpdating
 extension ProjectPickerViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         self.viewModel.updateSearchResults(for: searchController.searchBar.text ?? "")
