@@ -28,8 +28,8 @@ class AccessServiceTests: XCTestCase {
         self.accessService = AccessService(userDefaults: self.userDefaults,
                                            keychainAccess: self.keychainAccessMock,
                                            coreData: self.coreDataMock,
-                                           buildEncoder: { return self.encoderMock },
-                                           buildDecoder: { return self.decoderMock })
+                                           encoder: self.encoderMock,
+                                           decoder: self.decoderMock)
     }
     
     override func tearDown() {

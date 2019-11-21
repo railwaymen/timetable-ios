@@ -23,8 +23,7 @@ platform :ios do
     scan(
       workspace: WORKSPACE,
       scheme: SCHEME,
-      code_coverage: true,
-      clean: true)
+      code_coverage: true)
     xcov(
       scheme: SCHEME,
       workspace: WORKSPACE,
