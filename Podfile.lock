@@ -7,8 +7,8 @@ PODS:
 DEPENDENCIES:
   - CoreStore (~> 7.0)
   - KeychainAccess (~> 4.1)
-  - Networking (~> 5.0.0)
-  - SwiftLint (~> 0.35)
+  - Networking (~> 5.0.1)
+  - SwiftLint (~> 0.37)
 
 SPEC REPOS:
   trunk:
@@ -23,6 +23,6 @@ SPEC CHECKSUMS:
   Networking: 0a77e3315c32133e3aefb8dd2bd027ff536fd25d
   SwiftLint: c078a14d7d7ade75e5507795d185e3da41d844d2
 
-PODFILE CHECKSUM: 614016a801b532979be40d227da60238ff003fb7
+PODFILE CHECKSUM: 1696aec88dfb6f58cd7eab3a35cad303bc95a729
 
 COCOAPODS: 1.8.4
