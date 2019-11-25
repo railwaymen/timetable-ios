@@ -11,9 +11,7 @@ import XCTest
 
 class ProjectCollectionViewCellModelTests: XCTestCase {
     private var userInterfaceMock: ProjectCollectionViewCellMock!
-    
-    private var decoder: JSONDecoder = JSONDecoder()
-    
+        
     override func setUp() {
         self.userInterfaceMock = ProjectCollectionViewCellMock()
         super.setUp()

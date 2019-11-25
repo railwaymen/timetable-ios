@@ -13,9 +13,7 @@ import CoreData
 class UserEntitySessionDecoderTests: XCTestCase {
     private var memoryContext: NSManagedObjectContext!
     private var asynchronousDataTransactionMock: AsynchronousDataTransactionMock!
-    
-    private lazy var decoder = JSONDecoder()
-    
+        
     override func setUp() {
         super.setUp()
         self.asynchronousDataTransactionMock = AsynchronousDataTransactionMock()

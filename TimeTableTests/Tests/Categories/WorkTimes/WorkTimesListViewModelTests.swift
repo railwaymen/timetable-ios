@@ -17,13 +17,7 @@ class WorkTimesListViewModelTests: XCTestCase {
     private var contentProvider: WorkTimesListContentProviderMock!
     private var errorHandlerMock: ErrorHandlerMock!
     private var calendarMock: CalendarMock!
-    
-    private lazy var decoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
-        return decoder
-    }()
-    
+
     override func setUp() {
         self.userInterfaceMock = WorkTimesListViewControllerMock()
         self.coordinatorMock = WorkTimesListCoordinatorMock()

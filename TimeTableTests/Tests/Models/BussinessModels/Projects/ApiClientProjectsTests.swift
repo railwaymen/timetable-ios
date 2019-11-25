@@ -26,7 +26,7 @@ class ApiClientProjectsTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT()
         let data = try self.json(from: ProjectRecordJSONResource.projectsRecordsResponse)
-        let decoder = try JSONDecoder().decode([ProjectRecordDecoder].self, from: data)
+        let decoder = try self.decoder.decode([ProjectRecordDecoder].self, from: data)
         var expectedProjectsRecordsDecoder: [ProjectRecordDecoder]?
         //Act
         sut.fetchAllProjects { result in
@@ -66,7 +66,7 @@ class ApiClientProjectsTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT()
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
-        let decoder = try JSONDecoder().decode(SimpleProjectDecoder.self, from: data)
+        let decoder = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
         var expectedSimpleProjectDecoder: SimpleProjectDecoder?
         //Act
         sut.fetchSimpleListOfProjects { result in

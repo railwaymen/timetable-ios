@@ -10,12 +10,7 @@ import XCTest
 @testable import TimeTable
 
 class WorkTimeDecoderTests: XCTestCase {
-    private lazy var decoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
-        return decoder
-    }()
-    
+
     func testWorkTimeResponse() throws {
         //Arrange
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)

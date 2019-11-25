@@ -13,9 +13,7 @@ import CoreStore
 class CoreDataStackTests: XCTestCase {
     private var memoryContext: NSManagedObjectContext!
     private var dataStackMock: DataStackMock!
-    
-    private lazy var decoder = JSONDecoder()
-    
+        
     override func setUp() {
         super.setUp()
         self.dataStackMock = DataStackMock()

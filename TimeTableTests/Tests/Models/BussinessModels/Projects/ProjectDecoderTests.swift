@@ -11,7 +11,6 @@ import XCTest
 
 // swiftlint:disable identifier_name
 class ProjectDecoderTests: XCTestCase {
-    private var decoder: JSONDecoder = JSONDecoder()
     
     func testParsingWorkTimesProjectResponse() throws {
         //Arrange

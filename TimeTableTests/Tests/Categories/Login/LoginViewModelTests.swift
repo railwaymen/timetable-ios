@@ -16,9 +16,7 @@ class LoginViewModelTests: XCTestCase {
     private var contentProvider: LoginContentProviderMock!
     private var errorHandler: ErrorHandlerMock!
     private var accessService: AccessServiceMock!
-    
-    private lazy var decoder = JSONDecoder()
-    
+        
     override func setUp() {
         self.userInterface = LoginViewControllerMock()
         self.coordinatorMock = LoginCoordinatorMock()

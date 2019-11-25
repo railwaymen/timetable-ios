@@ -17,9 +17,7 @@ class WorkTimeViewModelTests: XCTestCase {
     private var apiClient: ApiClientMock!
     private var errorHandlerMock: ErrorHandlerMock!
     private var calendarMock: CalendarMock!
-    
-    private let decoder = JSONDecoder()
-    
+        
     override func setUp() {
         self.userInterface = WorkTimeViewControllerMock()
         self.apiClient = ApiClientMock()

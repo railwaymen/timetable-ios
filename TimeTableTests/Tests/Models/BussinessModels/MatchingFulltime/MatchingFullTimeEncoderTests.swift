@@ -10,12 +10,7 @@ import XCTest
 @testable import TimeTable
 
 class MatchingFullTimeEncoderTests: XCTestCase {
-    private var encoder: JSONEncoder = {
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        return encoder
-    }()
-    
+
     func testCreatedMatchingFullTimeEncoderIsCorrect() throws {
         //Arrange
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)

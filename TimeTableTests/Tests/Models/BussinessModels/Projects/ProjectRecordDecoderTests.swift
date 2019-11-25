@@ -10,7 +10,6 @@ import XCTest
 @testable import TimeTable
 
 class ProjectRecordDecoderTests: XCTestCase {
-    private var decoder: JSONDecoder = JSONDecoder()
     
     func testParsingProjectRecordResponseSucceed() throws {
         //Arrange

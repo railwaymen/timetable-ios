@@ -25,7 +25,7 @@ class ApiClientUsersTests: XCTestCase {
     func testFetchUserSucceed() throws {
         //Arrange
         let data = try self.json(from: UserJSONResource.userFullResponse)
-        let decoder = try JSONDecoder().decode(UserDecoder.self, from: data)
+        let decoder = try self.decoder.decode(UserDecoder.self, from: data)
         var expectedUserDecoder: UserDecoder?
         let sut = self.buildSUT()
         //Act

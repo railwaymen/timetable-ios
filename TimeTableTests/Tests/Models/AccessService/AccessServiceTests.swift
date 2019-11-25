@@ -109,7 +109,7 @@ class AccessServiceTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT()
         let credentials = LoginCredentials(email: "user@example.com", password: "password")
-        let data = try JSONEncoder().encode(credentials)
+        let data = try self.encoder.encode(credentials)
         self.keychainAccessMock.getDataReturnValue = data
         self.decoderMock.shouldThrowError = true
         //Act
@@ -125,7 +125,7 @@ class AccessServiceTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT()
         let credentials = LoginCredentials(email: "user@example.com", password: "password")
-        let data = try JSONEncoder().encode(credentials)
+        let data = try self.encoder.encode(credentials)
         self.keychainAccessMock.getDataReturnValue = data
         //Act
         let accessServiceCredentials = try sut.getUserCredentials()
