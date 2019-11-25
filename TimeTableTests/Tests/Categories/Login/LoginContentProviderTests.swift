@@ -55,12 +55,13 @@ class LoginContentProviderTests: XCTestCase {
     
     func testLoginCoreDataFetchUsersReturnsError() throws {
         //Arrange
+        let sut = self.buildSUT()
         var expectedError: Error?
         let loginCredentials = LoginCredentials(email: "user@exmaple.com", password: "password")
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         //Act
-        self.contentProvider.login(with: loginCredentials, fetchCompletion: { _ in
+        sut.login(with: loginCredentials, fetchCompletion: { _ in
         }, saveCompletion: { result in
             switch result {
             case .success:
