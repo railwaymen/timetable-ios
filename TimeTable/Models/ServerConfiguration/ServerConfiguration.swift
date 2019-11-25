@@ -16,6 +16,7 @@ struct ServerConfiguration {
 // MARK: - Equatable
 extension ServerConfiguration: Equatable {
     static func == (lhs: ServerConfiguration, rhs: ServerConfiguration) -> Bool {
-        return lhs.host == rhs.host && lhs.shouldRememberHost == rhs.shouldRememberHost
+        return lhs.host == rhs.host
+            && lhs.shouldRememberHost == rhs.shouldRememberHost
     }
 }

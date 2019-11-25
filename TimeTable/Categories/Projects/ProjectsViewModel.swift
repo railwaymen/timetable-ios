@@ -33,7 +33,11 @@ class ProjectsViewModel {
     private var errorViewModel: ErrorViewModelParentType?
     
     // MARK: - Initialization
-    init(userInterface: ProjectsViewModelOutput?, apiClient: ApiClientProjectsType, errorHandler: ErrorHandlerType) {
+    init(
+        userInterface: ProjectsViewModelOutput?,
+        apiClient: ApiClientProjectsType,
+        errorHandler: ErrorHandlerType
+    ) {
         self.userInterface = userInterface
         self.apiClient = apiClient
         self.errorHandler = errorHandler

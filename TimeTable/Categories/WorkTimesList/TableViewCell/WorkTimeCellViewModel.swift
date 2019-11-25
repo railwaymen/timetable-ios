@@ -37,7 +37,11 @@ class WorkTimeCellViewModel {
     }()
     
     // MARK: - Initialization
-    init(workTime: WorkTimeDecoder, userInterface: WorkTimeCellViewModelOutput, parent: WorkTimeCellViewModelParentType) {
+    init(
+        workTime: WorkTimeDecoder,
+        userInterface: WorkTimeCellViewModelOutput,
+        parent: WorkTimeCellViewModelParentType
+    ) {
         self.workTime = workTime
         self.userInterface = userInterface
         self.parent = parent
@@ -82,14 +86,15 @@ extension WorkTimeCellViewModel {
         let startsAtText = DateFormatter.localizedString(from: self.workTime.startsAt, dateStyle: .none, timeStyle: .short)
         let endsAtText = DateFormatter.localizedString(from: self.workTime.endsAt, dateStyle: .none, timeStyle: .short)
         let fromToDateText = "\(startsAtText) - \(endsAtText)"
-        let data = WorkTimeCellViewModel.ViewData(durationText: durationText,
-                                                  bodyText: self.workTime.body,
-                                                  taskUrlText: self.workTime.taskPreview,
-                                                  fromToDateText: fromToDateText,
-                                                  projectTitle: self.workTime.project.name,
-                                                  projectColor: self.workTime.project.color,
-                                                  tagTitle: self.workTime.tag.localized,
-                                                  tagColor: self.workTime.tag.color)
+        let data = WorkTimeCellViewModel.ViewData(
+            durationText: durationText,
+            bodyText: self.workTime.body,
+            taskUrlText: self.workTime.taskPreview,
+            fromToDateText: fromToDateText,
+            projectTitle: self.workTime.project.name,
+            projectColor: self.workTime.project.color,
+            tagTitle: self.workTime.tag.localized,
+            tagColor: self.workTime.tag.color)
         self.userInterface?.updateView(data: data)
     }
 }

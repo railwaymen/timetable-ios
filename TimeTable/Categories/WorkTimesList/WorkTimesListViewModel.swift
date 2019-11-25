@@ -50,11 +50,13 @@ class WorkTimesListViewModel {
     private weak var errorViewModel: ErrorViewModelParentType?
     
     // MARK: - Initialization
-    init(userInterface: WorkTimesListViewModelOutput,
-         coordinator: WorkTimesListCoordinatorDelegate?,
-         contentProvider: WorkTimesListContentProviderType,
-         errorHandler: ErrorHandlerType,
-         calendar: CalendarType = Calendar.autoupdatingCurrent) {
+    init(
+        userInterface: WorkTimesListViewModelOutput,
+        coordinator: WorkTimesListCoordinatorDelegate?,
+        contentProvider: WorkTimesListContentProviderType,
+        errorHandler: ErrorHandlerType,
+        calendar: CalendarType = Calendar.autoupdatingCurrent
+    ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
         self.contentProvider = contentProvider
@@ -129,14 +131,11 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
             flowType: .duplicateEntry(duplicatedTask: task, lastTask: lastTask)) { [weak self] isTaskChanged in
                 guard isTaskChanged else { return }
                 self?.fetchWorkTimesData(forCurrentMonth: self?.selectedMonth)
-        }
+            }
     }
     
     func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void) {
-        guard let workTime = self.workTime(for: index) else {
-            completion(false)
-            return
-        }
+        guard let workTime = self.workTime(for: index) else { return completion(false) }
         self.contentProvider.delete(workTime: workTime) { [weak self] result in
             switch result {
             case .success:
@@ -197,23 +196,21 @@ extension WorkTimesListViewModel {
         } else {
             url = nil
         }
-        return Task(workTimeIdentifier: workTime.identifier,
-                    project: workTime.project,
-                    body: workTime.body ?? "",
-                    url: url,
-                    day: dailyWorkTime.day,
-                    startAt: workTime.startsAt,
-                    endAt: workTime.endsAt,
-                    tag: workTime.tag)
+        return Task(
+            workTimeIdentifier: workTime.identifier,
+            project: workTime.project,
+            body: workTime.body ?? "",
+            url: url,
+            day: dailyWorkTime.day,
+            startAt: workTime.startsAt,
+            endAt: workTime.endsAt,
+            tag: workTime.tag)
     }
     
     private func removeDailyWorkTime(at indexPath: IndexPath, workTime: WorkTimeDecoder, completion: @escaping (Bool) -> Void) {
-        guard let dailyWorkTime = self.dailyWorkTime(for: indexPath) else {
-            completion(false)
-            return
-        }
-        let deleted = dailyWorkTime.remove(workTime: workTime)
-        completion(deleted)
+        guard let dailyWorkTime = self.dailyWorkTime(for: indexPath) else { return completion(false) }
+        let isDeleted = dailyWorkTime.remove(workTime: workTime)
+        completion(isDeleted)
     }
     
     private func fetchWorkTimesData(forCurrentMonth date: Date?, completion: (() -> Void)? = nil) {
@@ -248,9 +245,10 @@ extension WorkTimesListViewModel {
         if let duration = matchingFullTime.period?.duration {
             time.duration = formatter.string(from: duration) ?? defaultValue
         }
-        self.userInterface?.updateMatchingFullTimeLabels(workedHours: time.workedHours,
-                                                         shouldWorkHours: time.shouldWorkHours,
-                                                         duration: time.duration)
+        self.userInterface?.updateMatchingFullTimeLabels(
+            workedHours: time.workedHours,
+            shouldWorkHours: time.shouldWorkHours,
+            duration: time.duration)
         self.userInterface?.updateView()
         self.userInterface?.showTableView()
     }

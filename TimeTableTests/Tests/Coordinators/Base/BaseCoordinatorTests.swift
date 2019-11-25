@@ -20,8 +20,9 @@ class BaseCoordinatorTests: XCTestCase {
     // MARK: - CoordinatorType
     func testCoordinatorTypeExtension_normalStartRunsMethodStartFinishCompletionSucceed() {
         //Arrange
-        let sut = ChildCoordinator(window: nil,
-                                   messagePresenter: self.messagePresenterMock)
+        let sut = ChildCoordinator(
+            window: nil,
+            messagePresenter: self.messagePresenterMock)
         //Act
         sut.start()
         //Assert
@@ -32,19 +33,21 @@ class BaseCoordinatorTests: XCTestCase {
     // MARK: - Coordinator
     func testCoordinator_startWithFinishCompletionSucceed() {
         //Arrange
-        let sut = BaseCoordinator(window: nil,
-                                  messagePresenter: self.messagePresenterMock)
+        let sut = BaseCoordinator(
+            window: nil,
+            messagePresenter: self.messagePresenterMock)
         //Act
-        sut.start(finishCompletion: { Void() })
+        sut.start {}
         //Assert
         XCTAssertNotNil(sut.finishCompletion)
     }
     
     func testCoordinator_finishMethod() {
         //Arrange
-        let sut = ChildCoordinator(window: nil,
-                                   messagePresenter: self.messagePresenterMock)
-        sut.start(finishCompletion: { Void() })
+        let sut = ChildCoordinator(
+            window: nil,
+            messagePresenter: self.messagePresenterMock)
+        sut.start {}
         //Act
         sut.finish()
         //Assert
@@ -53,10 +56,12 @@ class BaseCoordinatorTests: XCTestCase {
     
     func testCoordinator_addChildCoordinatorMethod() {
         //Arrange
-        let sut = BaseCoordinator(window: nil,
-                                  messagePresenter: self.messagePresenterMock)
-        let childCoordinator = ChildCoordinator(window: nil,
-                                                messagePresenter: self.messagePresenterMock)
+        let sut = BaseCoordinator(
+            window: nil,
+            messagePresenter: self.messagePresenterMock)
+        let childCoordinator = ChildCoordinator(
+            window: nil,
+            messagePresenter: self.messagePresenterMock)
         //Act
         sut.addChildCoordinator(child: childCoordinator)
         //Assert
@@ -65,10 +70,12 @@ class BaseCoordinatorTests: XCTestCase {
     
     func testCoordinator_addTwiceThisSameChildCoordinator() {
         //Arrange
-        let sut = BaseCoordinator(window: nil,
-                                  messagePresenter: self.messagePresenterMock)
-        let childCoordinator = ChildCoordinator(window: nil,
-                                                messagePresenter: self.messagePresenterMock)
+        let sut = BaseCoordinator(
+            window: nil,
+            messagePresenter: self.messagePresenterMock)
+        let childCoordinator = ChildCoordinator(
+            window: nil,
+            messagePresenter: self.messagePresenterMock)
         //Act
         sut.addChildCoordinator(child: childCoordinator)
         sut.addChildCoordinator(child: childCoordinator)
@@ -78,10 +85,12 @@ class BaseCoordinatorTests: XCTestCase {
     
     func testCoordinator_removeChildCoordinatorWhileGivenParametersIsNil() throws {
         //Arrange
-        let sut = BaseCoordinator(window: nil,
-                                  messagePresenter: self.messagePresenterMock)
-        let childCoordinator = ChildCoordinator(window: nil,
-                                                messagePresenter: self.messagePresenterMock)
+        let sut = BaseCoordinator(
+            window: nil,
+            messagePresenter: self.messagePresenterMock)
+        let childCoordinator = ChildCoordinator(
+            window: nil,
+            messagePresenter: self.messagePresenterMock)
         sut.addChildCoordinator(child: childCoordinator)
         //Act
         XCTAssertEqual(sut.children.count, 1)
@@ -95,10 +104,12 @@ class BaseCoordinatorTests: XCTestCase {
     
     func testCoordinator_removeChildCoordinator() throws {
         //Arrange
-        let sut = BaseCoordinator(window: nil,
-                                  messagePresenter: self.messagePresenterMock)
-        let childCoordinator = ChildCoordinator(window: nil,
-                                                messagePresenter: self.messagePresenterMock)
+        let sut = BaseCoordinator(
+            window: nil,
+            messagePresenter: self.messagePresenterMock)
+        let childCoordinator = ChildCoordinator(
+            window: nil,
+            messagePresenter: self.messagePresenterMock)
         sut.addChildCoordinator(child: childCoordinator)
         //Act
         XCTAssertEqual(sut.children.count, 1)
@@ -112,8 +123,9 @@ class BaseCoordinatorTests: XCTestCase {
     
     func testPresentErrorDoesNotPresentAlertController() {
         //Arrange
-        let sut = ChildCoordinator(window: nil,
-                                   messagePresenter: self.messagePresenterMock)
+        let sut = ChildCoordinator(
+            window: nil,
+            messagePresenter: self.messagePresenterMock)
         sut.start()
         let error = TestError(message: "error_message")
         //Act
@@ -128,8 +140,9 @@ class BaseCoordinatorTests: XCTestCase {
         let navigationController = UINavigationController(rootViewController: UIViewController())
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
-        let sut = ChildCoordinator(window: window,
-                                   messagePresenter: self.messagePresenterMock)
+        let sut = ChildCoordinator(
+            window: window,
+            messagePresenter: self.messagePresenterMock)
         sut.start()
         let error = UIError.cannotBeEmpty(.endsAtTextField)
         //Act
@@ -144,8 +157,9 @@ class BaseCoordinatorTests: XCTestCase {
         let navigationController = UINavigationController(rootViewController: UIViewController())
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
-        let sut = ChildCoordinator(window: window,
-                                   messagePresenter: self.messagePresenterMock)
+        let sut = ChildCoordinator(
+            window: window,
+            messagePresenter: self.messagePresenterMock)
         sut.start()
         let url = try URL(string: "www.example.com").unwrap()
         let error = ApiClientError(type: .invalidHost(url))

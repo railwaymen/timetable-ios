@@ -19,12 +19,12 @@ class WorkTimesListViewModelTests: XCTestCase {
     private var calendarMock: CalendarMock!
 
     override func setUp() {
+        super.setUp()
         self.userInterfaceMock = WorkTimesListViewControllerMock()
         self.coordinatorMock = WorkTimesListCoordinatorMock()
         self.errorHandlerMock = ErrorHandlerMock()
         self.contentProvider = WorkTimesListContentProviderMock()
         self.calendarMock = CalendarMock()
-        super.setUp()
     }
     
     func testNumberOfSectionsOnInitialization() {
@@ -456,11 +456,12 @@ extension WorkTimesListViewModelTests {
         if isSelecteDate {
             self.calendarMock.dateFromDateComponentsReturnValue = Calendar.current.date(from: components)
         }
-        return WorkTimesListViewModel(userInterface: self.userInterfaceMock,
-                                      coordinator: self.coordinatorMock,
-                                      contentProvider: self.contentProvider,
-                                      errorHandler: self.errorHandlerMock,
-                                      calendar: self.calendarMock)
+        return WorkTimesListViewModel(
+            userInterface: self.userInterfaceMock,
+            coordinator: self.coordinatorMock,
+            contentProvider: self.contentProvider,
+            errorHandler: self.errorHandlerMock,
+            calendar: self.calendarMock)
     }
     
     private func buildMatchingFullTimeDecoder() throws -> MatchingFullTimeDecoder {

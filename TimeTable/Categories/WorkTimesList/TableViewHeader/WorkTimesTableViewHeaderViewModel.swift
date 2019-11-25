@@ -30,7 +30,11 @@ class WorkTimesTableViewHeaderViewModel {
     }()
     
     // MARK: - Initialization
-    init(userInterface: WorkTimesTableViewHeaderViewModelOutput, dailyWorkTime: DailyWorkTime, calendar: CalendarType = Calendar.autoupdatingCurrent) {
+    init(
+        userInterface: WorkTimesTableViewHeaderViewModelOutput,
+        dailyWorkTime: DailyWorkTime,
+        calendar: CalendarType = Calendar.autoupdatingCurrent
+    ) {
         self.userInterface = userInterface
         self.dailyWorkTime = dailyWorkTime
         self.calendar = calendar

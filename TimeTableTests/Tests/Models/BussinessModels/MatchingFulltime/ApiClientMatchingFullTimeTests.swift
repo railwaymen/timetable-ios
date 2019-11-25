@@ -15,10 +15,10 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
     private var jsonDecoderMock: JSONDecoderMock!
     
     override func setUp() {
+        super.setUp()
         self.networkingMock = NetworkingMock()
         self.requestEncoderMock = RequestEncoderMock()
         self.jsonDecoderMock = JSONDecoderMock()
-        super.setUp()
     }
     
     func testFetchMatchingFullTimeSucceed() throws {
@@ -73,8 +73,9 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
 // MARK: - Private
 extension ApiClientMatchingFullTimeTests {
     private func buildSUT() -> ApiClientMatchingFullTimeType {
-        return ApiClient(networking: self.networkingMock,
-                         encoder: self.requestEncoderMock,
-                         decoder: self.jsonDecoderMock)
+        return ApiClient(
+            networking: self.networkingMock,
+            encoder: self.requestEncoderMock,
+            decoder: self.jsonDecoderMock)
     }
 }

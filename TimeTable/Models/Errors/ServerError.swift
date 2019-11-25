@@ -24,6 +24,7 @@ extension ServerError: Decodable {
 // MARK: - Equatable
 extension ServerError: Equatable {
     static func == (lhs: ServerError, rhs: ServerError) -> Bool {
-        return lhs.error == rhs.error && lhs.status == rhs.status
+        return lhs.error == rhs.error
+            && lhs.status == rhs.status
     }
 }

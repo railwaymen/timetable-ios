@@ -98,7 +98,8 @@ class RequestEncoderTests: XCTestCase {
 // MARK: - Private
 extension RequestEncoderTests {
     private func buildSUT() -> RequestEncoder {
-        return RequestEncoder(encoder: self.encoderMock,
-                              serialization: self.jsonSerializationMock)
+        return RequestEncoder(
+            encoder: self.encoderMock,
+            serialization: self.jsonSerializationMock)
     }
 }

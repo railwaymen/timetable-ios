@@ -13,15 +13,15 @@ class TimeTableTabCoordinatorTests: XCTestCase {
     private var dependencyContainer: DependencyContainerMock!
     
     override func setUp() {
-        self.dependencyContainer = DependencyContainerMock()
         super.setUp()
+        self.dependencyContainer = DependencyContainerMock()
     }
 
     func testCountOfChildrensOnStart() {
         //Arrange
         let sut = self.buildSUT()
         //Act
-        sut.start(finishCompletion: {})
+        sut.start {}
         //Assert
         XCTAssertEqual(sut.children.count, 3)
     }
@@ -29,7 +29,7 @@ class TimeTableTabCoordinatorTests: XCTestCase {
     func testFinishCalled() {
         //Arrange
         let sut = self.buildSUT()
-        sut.start(finishCompletion: {})
+        sut.start {}
         //Act
         sut.finish()
         //Assert

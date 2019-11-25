@@ -45,8 +45,12 @@ extension SessionDecoder: Decodable {
 // MARK: - Equatable
 extension SessionDecoder: Equatable {
     static func == (lhs: SessionDecoder, rhs: SessionDecoder) -> Bool {
-        return lhs.identifier == rhs.identifier && lhs.firstName == rhs.firstName
-            && lhs.lastName == rhs.lastName && lhs.isLeader == rhs.isLeader
-            && lhs.admin == rhs.admin && lhs.manager == rhs.manager && lhs.token == rhs.token
+        return lhs.identifier == rhs.identifier
+            && lhs.firstName == rhs.firstName
+            && lhs.lastName == rhs.lastName
+            && lhs.isLeader == rhs.isLeader
+            && lhs.admin == rhs.admin
+            && lhs.manager == rhs.manager
+            && lhs.token == rhs.token
     }
 }

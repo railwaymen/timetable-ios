@@ -21,7 +21,10 @@ class RequestEncoder {
     private let serialization: JSONSerializationType
     
     // MARK: - Initialization
-    init(encoder: JSONEncoderType, serialization: JSONSerializationType) {
+    init(
+        encoder: JSONEncoderType,
+        serialization: JSONSerializationType
+    ) {
         self.encoder = encoder
         self.serialization = serialization
     }

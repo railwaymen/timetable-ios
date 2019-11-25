@@ -13,8 +13,10 @@ class BaseTabBarCoordinator: BaseCoordinator {
     internal let tabBarController: UITabBarController
     
     // MARK: - Initialization
-    override init(window: UIWindow?,
-                  messagePresenter: MessagePresenterType?) {
+    override init(
+        window: UIWindow?,
+        messagePresenter: MessagePresenterType?
+    ) {
         self.tabBarController = UITabBarController()
         super.init(window: window, messagePresenter: messagePresenter)
     }

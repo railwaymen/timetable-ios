@@ -248,8 +248,9 @@ class ServerConfigurationManagerTests: XCTestCase {
 // MARK: - Private
 extension ServerConfigurationManagerTests {
     private func buildSUT() -> ServerConfigurationManagerType {
-        return ServerConfigurationManager(urlSession: self.urlSessionMock,
-                                          userDefaults: self.userDefaults,
-                                          dispatchQueueManager: self.dispatchQueueManagerMock)
+        return ServerConfigurationManager(
+            urlSession: self.urlSessionMock,
+            userDefaults: self.userDefaults,
+            dispatchQueueManager: self.dispatchQueueManagerMock)
     }
 }

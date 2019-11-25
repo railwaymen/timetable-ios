@@ -20,8 +20,9 @@ class BaseTabBarCoordinatorTests: XCTestCase {
     func testStartWithDefaultFinishCompletion() {
         //Arrange
         let window = UIWindow()
-        let sut = BaseTabBarCoordinator(window: window,
-                                        messagePresenter: self.messagePresenterMock)
+        let sut = BaseTabBarCoordinator(
+            window: window,
+            messagePresenter: self.messagePresenterMock)
         //Act
         sut.start()
         //Assert
@@ -31,8 +32,9 @@ class BaseTabBarCoordinatorTests: XCTestCase {
     func testStartWithCustomFinishCompletion() {
         //Arrange
         let window = UIWindow()
-        let sut = BaseTabBarCoordinator(window: window,
-                                        messagePresenter: self.messagePresenterMock)
+        let sut = BaseTabBarCoordinator(
+            window: window,
+            messagePresenter: self.messagePresenterMock)
         //Act
         sut.start {}
         //Assert
@@ -43,8 +45,9 @@ class BaseTabBarCoordinatorTests: XCTestCase {
         //Arrange
         var finishCompletionCalled = false
         let window = UIWindow()
-        let sut = BaseTabBarCoordinator(window: window,
-                                        messagePresenter: self.messagePresenterMock)
+        let sut = BaseTabBarCoordinator(
+            window: window,
+            messagePresenter: self.messagePresenterMock)
         //Act
         sut.start {
             finishCompletionCalled = true

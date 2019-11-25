@@ -58,15 +58,19 @@ extension WorkTimesListViewControllerMock: WorkTimesListViewModelOutput {
     }
     
     func updateDateSelector(currentDateString: String, previousDateString: String, nextDateString: String) {
-        self.updateDateSelectorParams.append(UpdateDateSelectorParams(currentDateString: currentDateString,
-                                                                      previousDateString: previousDateString,
-                                                                      nextDateString: nextDateString))
+        self.updateDateSelectorParams.append(
+            UpdateDateSelectorParams(
+            currentDateString: currentDateString,
+            previousDateString: previousDateString,
+            nextDateString: nextDateString))
     }
     
     func updateMatchingFullTimeLabels(workedHours: String, shouldWorkHours: String, duration: String) {
-        self.updateMatchingFullTimeLabelsParams.append(UpdateMatchingFullTimeLabelsParams(workedHours: workedHours,
-                                                                                          shouldWorkHours: shouldWorkHours,
-                                                                                          duration: duration))
+        self.updateMatchingFullTimeLabelsParams.append(
+            UpdateMatchingFullTimeLabelsParams(
+                workedHours: workedHours,
+                shouldWorkHours: shouldWorkHours,
+                duration: duration))
     }
     
     func setActivityIndicator(isHidden: Bool) {

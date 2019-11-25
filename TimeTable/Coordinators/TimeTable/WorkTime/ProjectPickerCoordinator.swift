@@ -21,9 +21,11 @@ class ProjectPickerCoordinator: BaseNavigationCoordinator {
     private var customFinishHandler: FinishHandlerType?
     
     // MARK: - Initialization
-    init(dependencyContainer: DependencyContainerType,
-         parentViewController: UIViewController,
-         projects: [ProjectDecoder]) {
+    init(
+        dependencyContainer: DependencyContainerType,
+        parentViewController: UIViewController,
+        projects: [ProjectDecoder]
+    ) {
         self.dependencyContainer = dependencyContainer
         self.parentViewController = parentViewController
         self.projects = projects
@@ -65,10 +67,11 @@ extension ProjectPickerCoordinator: ProjectPickerCoordinatorType {
 extension ProjectPickerCoordinator {
     private func runMainFlow() {
         let controller = ProjectPickerViewController()
-        let viewModel = ProjectPickerViewModel(userInterface: controller,
-                                               coordinator: self,
-                                               notificationCenter: self.dependencyContainer.notificationCenter,
-                                               projects: self.projects)
+        let viewModel = ProjectPickerViewModel(
+            userInterface: controller,
+            coordinator: self,
+            notificationCenter: self.dependencyContainer.notificationCenter,
+            projects: self.projects)
         controller.configure(viewModel: viewModel)
         self.navigationController.setViewControllers([controller], animated: false)
         self.parentViewController?.present(self.navigationController, animated: true)

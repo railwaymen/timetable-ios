@@ -20,11 +20,15 @@ class LoginContentProviderMock {
 
 // MARK: - LoginContentProviderType
 extension LoginContentProviderMock: LoginContentProviderType {
-    func login(with credentials: LoginCredentials,
-               fetchCompletion: @escaping ((Result<SessionDecoder, Error>) -> Void),
-               saveCompletion: @escaping ((Result<Void, Error>) -> Void)) {
-        self.loginParams.append(LoginParams(credentials: credentials,
-                                            fetchCompletion: fetchCompletion,
-                                            saveCompletion: saveCompletion))
+    func login(
+        with credentials: LoginCredentials,
+        fetchCompletion: @escaping ((Result<SessionDecoder, Error>) -> Void),
+        saveCompletion: @escaping ((Result<Void, Error>) -> Void)
+    ) {
+        self.loginParams.append(
+            LoginParams(
+                credentials: credentials,
+                fetchCompletion: fetchCompletion,
+                saveCompletion: saveCompletion))
     }
 }

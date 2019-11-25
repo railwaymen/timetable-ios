@@ -99,8 +99,9 @@ extension ProjectPickerViewController {
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.register(UINib(nibName: String(describing: ProjectPickerCell.self), bundle: nil),
-                                forCellReuseIdentifier: ProjectPickerCell.reuseIdentifier)
+        self.tableView.register(
+            UINib(nibName: String(describing: ProjectPickerCell.self), bundle: nil),
+            forCellReuseIdentifier: ProjectPickerCell.reuseIdentifier)
         self.tableView.keyboardDismissMode = .interactive
     }
     

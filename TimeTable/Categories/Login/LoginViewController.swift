@@ -73,11 +73,7 @@ class LoginViewController: UIViewController {
 // MARK: - LoginViewModelOutput
 extension LoginViewController: LoginViewModelOutput {
     func setUpView(checkBoxIsActive: Bool) {
-        self.notificationCenter.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        self.notificationCenter.addObserver(self, selector: #selector(self.changeKeyboardFrame), name: UIResponder.keyboardDidShowNotification, object: nil)
-        self.notificationCenter.addObserver(self, selector: #selector(self.changeKeyboardFrame),
-                                            name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-        
+        self.setUpNotifications()
         self.checkBoxButton.isActive = checkBoxIsActive
         self.loginTextField.delegate = self
         self.passwordTextField.delegate = self
@@ -159,5 +155,23 @@ extension LoginViewController {
             self.activityIndicator.style = .gray
         }
         self.setActivityIndicator(isHidden: true)
+    }
+    
+    private func setUpNotifications() {
+        self.notificationCenter.addObserver(
+            self,
+            selector: #selector(self.keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
+        self.notificationCenter.addObserver(
+            self,
+            selector: #selector(self.changeKeyboardFrame),
+            name: UIResponder.keyboardDidShowNotification,
+            object: nil)
+        self.notificationCenter.addObserver(
+            self,
+            selector: #selector(self.changeKeyboardFrame),
+            name: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil)
     }
 }

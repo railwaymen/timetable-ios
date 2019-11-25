@@ -129,8 +129,9 @@ class ProjectsViewModelTests: XCTestCase {
 // MARK: - Private
 extension ProjectsViewModelTests {
     private func buildSUT() -> ProjectsViewModel {
-        return ProjectsViewModel(userInterface: self.userInterfaceMock,
-                                 apiClient: self.apiClientMock,
-                                 errorHandler: self.errorHandlerMock)
+        return ProjectsViewModel(
+            userInterface: self.userInterfaceMock,
+            apiClient: self.apiClientMock,
+            errorHandler: self.errorHandlerMock)
     }
 }

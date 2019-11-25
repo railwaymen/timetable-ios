@@ -23,9 +23,10 @@ class ProfileCoordinator: BaseNavigationCoordinator, BaseTabBarCoordinatorType {
     // MARK: - Initialization
     init(dependencyContainer: DependencyContainerType) {
         self.dependencyContainer = dependencyContainer
-        self.tabBarItem = UITabBarItem(title: "tabbar.title.profile".localized,
-                                       image: .profile,
-                                       selectedImage: nil)
+        self.tabBarItem = UITabBarItem(
+            title: "tabbar.title.profile".localized,
+            image: .profile,
+            selectedImage: nil)
         super.init(window: dependencyContainer.window, messagePresenter: dependencyContainer.messagePresenter)
         self.root.tabBarItem = self.tabBarItem
     }
@@ -52,12 +53,13 @@ extension ProfileCoordinator {
         guard let apiClient = self.dependencyContainer.apiClient,
             let accessService = self.dependencyContainer.accessService else { return assertionFailure("Api client or access service is nil") }
         let controller: ProfileViewControllerable? = self.dependencyContainer.storyboardsManager.controller(storyboard: .profile)
-        let viewModel = ProfileViewModel(userInterface: controller,
-                                         coordinator: self,
-                                         apiClient: apiClient,
-                                         accessService: accessService,
-                                         coreDataStack: self.dependencyContainer.coreDataStack,
-                                         errorHandler: self.dependencyContainer.errorHandler)
+        let viewModel = ProfileViewModel(
+            userInterface: controller,
+            coordinator: self,
+            apiClient: apiClient,
+            accessService: accessService,
+            coreDataStack: self.dependencyContainer.coreDataStack,
+            errorHandler: self.dependencyContainer.errorHandler)
         controller?.configure(viewModel: viewModel)
         guard let profileViewController = controller else { return }
         self.navigationController.pushViewController(profileViewController, animated: false)

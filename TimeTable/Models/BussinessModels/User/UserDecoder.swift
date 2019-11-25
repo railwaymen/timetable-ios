@@ -28,6 +28,8 @@ extension UserDecoder: Decodable {
 // MARK: - Equatable
 extension UserDecoder: Equatable {
     static func == (lhs: UserDecoder, rhs: UserDecoder) -> Bool {
-        return lhs.email == rhs.email && lhs.firstName == rhs.firstName && lhs.lastName == rhs.lastName
+        return lhs.email == rhs.email
+            && lhs.firstName == rhs.firstName
+            && lhs.lastName == rhs.lastName
     }
 }

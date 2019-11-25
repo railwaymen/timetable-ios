@@ -149,11 +149,12 @@ class ProfileViewModelTests: XCTestCase {
 // MARK: - Private
 extension ProfileViewModelTests {
     private func buildSUT() -> ProfileViewModel {
-        return ProfileViewModel(userInterface: self.userInterfaceMock,
-                                coordinator: self.coordinatorMock,
-                                apiClient: self.apiClientMock,
-                                accessService: self.accessServiceMock,
-                                coreDataStack: self.coreDataStackMock,
-                                errorHandler: self.errorHandlerMock)
+        return ProfileViewModel(
+            userInterface: self.userInterfaceMock,
+            coordinator: self.coordinatorMock,
+            apiClient: self.apiClientMock,
+            accessService: self.accessServiceMock,
+            coreDataStack: self.coreDataStackMock,
+            errorHandler: self.errorHandlerMock)
     }
 }

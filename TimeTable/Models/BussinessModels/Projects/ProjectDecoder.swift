@@ -20,15 +20,17 @@ struct ProjectDecoder {
     let workTimesAllowsTask: Bool
     
     // MARK: - Initialization
-    init(identifier: Int,
-         name: String,
-         color: UIColor?,
-         autofill: Bool?,
-         countDuration: Bool?,
-         isActive: Bool?,
-         isInternal: Bool?,
-         isLunch: Bool,
-         workTimesAllowsTask: Bool) {
+    init(
+        identifier: Int,
+        name: String,
+        color: UIColor?,
+        autofill: Bool?,
+        countDuration: Bool?,
+        isActive: Bool?,
+        isInternal: Bool?,
+        isLunch: Bool,
+        workTimesAllowsTask: Bool
+    ) {
         self.identifier = identifier
         self.name = name
         self.color = color

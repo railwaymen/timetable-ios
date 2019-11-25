@@ -104,7 +104,8 @@ extension ProjectCollectionViewCellModelTests {
         let data = try self.json(from: ProjectRecordJSONResource.projectRecordResponse)
         let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         let defaultProject = Project(decoder: projectRecord)
-        return ProjectCollectionViewCellModel(userInterface: self.userInterfaceMock,
-                                              project: project ?? defaultProject)
+        return ProjectCollectionViewCellModel(
+            userInterface: self.userInterfaceMock,
+            project: project ?? defaultProject)
     }
 }

@@ -25,7 +25,10 @@ class ProjectCollectionViewCellModel {
     private let project: Project
     
     // MARK: - Initialization
-    init(userInterface: ProjectCollectionViewCellModelOutput?, project: Project) {
+    init(
+        userInterface: ProjectCollectionViewCellModelOutput?,
+        project: Project
+    ) {
         self.userInterface = userInterface
         self.project = project
     }

@@ -19,12 +19,12 @@ class WorkTimeViewModelTests: XCTestCase {
     private var calendarMock: CalendarMock!
         
     override func setUp() {
+        super.setUp()
         self.userInterface = WorkTimeViewControllerMock()
         self.apiClient = ApiClientMock()
         self.errorHandlerMock = ErrorHandlerMock()
         self.calendarMock = CalendarMock()
         self.coordinatorMock = WorkTimeCoordinatorMock()
-        super.setUp()
     }
     
     func testViewDidLoadSetUpUserInterfaceWithCurrentSelectedProject() throws {
@@ -709,12 +709,13 @@ class WorkTimeViewModelTests: XCTestCase {
 // MARK: - Private
 extension WorkTimeViewModelTests {
     private func buildSUT(flowType: WorkTimeViewModel.FlowType) -> WorkTimeViewModel {
-        return WorkTimeViewModel(userInterface: self.userInterface,
-                                 coordinator: self.coordinatorMock,
-                                 apiClient: self.apiClient,
-                                 errorHandler: self.errorHandlerMock,
-                                 calendar: self.calendarMock,
-                                 flowType: flowType)
+        return WorkTimeViewModel(
+            userInterface: self.userInterface,
+            coordinator: self.coordinatorMock,
+            apiClient: self.apiClient,
+            errorHandler: self.errorHandlerMock,
+            calendar: self.calendarMock,
+            flowType: flowType)
     }
     
     private func fetchProjects(sut: WorkTimeViewModel) throws {
@@ -728,14 +729,15 @@ extension WorkTimeViewModelTests {
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
         let simpleProjectDecoder = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
         let project = simpleProjectDecoder.projects[index]
-        return Task(workTimeIdentifier: workTimeIdentifier,
-                    project: project,
-                    body: "Blah blah blah",
-                    url: try URL(string: "http://example.com").unwrap(),
-                    day: Date(),
-                    startAt: try self.createTime(hours: 8, minutes: 0),
-                    endAt: try self.createTime(hours: 9, minutes: 30),
-                    tag: .default)
+        return Task(
+            workTimeIdentifier: workTimeIdentifier,
+            project: project,
+            body: "Blah blah blah",
+            url: try URL(string: "http://example.com").unwrap(),
+            day: Date(),
+            startAt: try self.createTime(hours: 8, minutes: 0),
+            endAt: try self.createTime(hours: 9, minutes: 30),
+            tag: .default)
     }
     
     private func createTime(hours: Int, minutes: Int) throws -> Date {

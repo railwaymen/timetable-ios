@@ -65,12 +65,14 @@ class WorkTimeViewModel {
     }
     
     // MARK: - Initialization
-    init(userInterface: WorkTimeViewModelOutput?,
-         coordinator: WorkTimeCoordinatorType?,
-         apiClient: WorkTimeApiClientType,
-         errorHandler: ErrorHandlerType,
-         calendar: CalendarType,
-         flowType: FlowType) {
+    init(
+        userInterface: WorkTimeViewModelOutput?,
+        coordinator: WorkTimeCoordinatorType?,
+        apiClient: WorkTimeApiClientType,
+        errorHandler: ErrorHandlerType,
+        calendar: CalendarType,
+        flowType: FlowType
+    ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
         self.apiClient = apiClient
@@ -261,10 +263,11 @@ extension WorkTimeViewModel {
     }
     
     private func updateViewWithCurrentSelectedProject() {
-        self.userInterface?.setUp(isLunch: self.task.project?.isLunch ?? false,
-                                  allowsTask: self.task.allowsTask,
-                                  body: self.task.body,
-                                  urlString: self.task.url?.absoluteString)
+        self.userInterface?.setUp(
+            isLunch: self.task.project?.isLunch ?? false,
+            allowsTask: self.task.allowsTask,
+            body: self.task.body,
+            urlString: self.task.url?.absoluteString)
         
         let fromDate: Date
         let toDate: Date

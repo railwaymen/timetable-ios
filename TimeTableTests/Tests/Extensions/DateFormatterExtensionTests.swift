@@ -33,8 +33,14 @@ class DateFormatterExtensionTests: XCTestCase {
     
     func testDateAndTimeExtendedDateTypeSucceed() throws {
         //Arrange
-        let components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018,
-                                        month: 11, day: 21, hour: 15, minute: 0, second: 30)
+        let components = DateComponents(
+            timeZone: TimeZone(secondsFromGMT: 3600),
+            year: 2018,
+            month: 11,
+            day: 21,
+            hour: 15,
+            minute: 0,
+            second: 30)
         let expectedDate = Calendar.autoupdatingCurrent.date(from: components)
         let sut = DateFormatter(type: .dateAndTimeExtended)
         //Act

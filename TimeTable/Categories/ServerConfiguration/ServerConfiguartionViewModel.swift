@@ -35,8 +35,12 @@ class ServerConfigurationViewModel {
     private var shouldRememberHost: Bool = true
     
     // MARK: - Initialization
-    init(userInterface: ServerConfigurationViewModelOutput, coordinator: ServerConfigurationCoordinatorDelegate,
-         serverConfigurationManager: ServerConfigurationManagerType, errorHandler: ErrorHandlerType) {
+    init(
+        userInterface: ServerConfigurationViewModelOutput,
+        coordinator: ServerConfigurationCoordinatorDelegate,
+        serverConfigurationManager: ServerConfigurationManagerType,
+        errorHandler: ErrorHandlerType
+    ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
         self.serverConfigurationManager = serverConfigurationManager

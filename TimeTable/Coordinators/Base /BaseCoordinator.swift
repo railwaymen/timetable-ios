@@ -16,8 +16,10 @@ class BaseCoordinator: CoordinatorType, CoordinatorErrorPresenterType {
     private weak var messagePresenter: MessagePresenterType?
     
     // MARK: - Initialization
-    init(window: UIWindow?,
-         messagePresenter: MessagePresenterType?) {
+    init(
+        window: UIWindow?,
+        messagePresenter: MessagePresenterType?
+    ) {
         self.children = []
         self.window = window
         self.messagePresenter = messagePresenter

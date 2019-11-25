@@ -39,13 +39,15 @@ class LoginViewModel {
     private let errorHandler: ErrorHandlerType
     private var loginCredentials: LoginCredentials
     private var shouldRememberLoginCredentials: Bool = false
-
+    
     // MARK: - Initialization
-    init(userInterface: LoginViewModelOutput,
-         coordinator: LoginCoordinatorDelegate,
-         accessService: AccessServiceLoginCredentialsType,
-         contentProvider: LoginContentProviderType,
-         errorHandler: ErrorHandlerType) {
+    init(
+        userInterface: LoginViewModelOutput,
+        coordinator: LoginCoordinatorDelegate,
+        accessService: AccessServiceLoginCredentialsType,
+        contentProvider: LoginContentProviderType,
+        errorHandler: ErrorHandlerType
+    ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
         self.accessService = accessService
@@ -57,7 +59,6 @@ class LoginViewModel {
             self.loginCredentials = LoginCredentials(email: "", password: "")
         }
     }
-    
 }
 
 // MARK: - LoginViewModelType

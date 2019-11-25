@@ -45,22 +45,22 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
     func start(finishCompletion: ((ServerConfiguration, ApiClientType) -> Void)?) {
         super.start()
         self.customFinishCompletion = finishCompletion
-        if let configuration = self.dependencyContainer.serverConfigurationManager.getOldConfiguration(), configuration.shouldRememberHost {
-            self.serverConfiguration = configuration
-            let accessService = self.dependencyContainer.accessServiceBuilder(configuration, self.dependencyContainer.encoder, self.dependencyContainer.decoder)
-            accessService.getSession { [weak self] result in
-                switch result {
-                case .success(let session):
-                    self?.apiClient = self?.createApiClient(with: configuration)
-                    self?.updateApiClient(with: session)
-                    self?.finish()
-                case .failure:
-                    self?.runServerConfigurationFlow()
-                    self?.runAuthenticationFlow(with: configuration, animated: false)
-                }
-            }
-        } else {
+        guard let configuration = self.dependencyContainer.serverConfigurationManager.getOldConfiguration(), configuration.shouldRememberHost else {
             self.runServerConfigurationFlow()
+            return
+        }
+        self.serverConfiguration = configuration
+        let accessService = self.dependencyContainer.accessServiceBuilder(configuration, self.dependencyContainer.encoder, self.dependencyContainer.decoder)
+        accessService.getSession { [weak self] result in
+            switch result {
+            case .success(let session):
+                self?.apiClient = self?.createApiClient(with: configuration)
+                self?.updateApiClient(with: session)
+                self?.finish()
+            case .failure:
+                self?.runServerConfigurationFlow()
+                self?.runAuthenticationFlow(with: configuration, animated: false)
+            }
         }
     }
 }
@@ -123,10 +123,11 @@ extension AuthenticationCoordinator {
     private func runServerConfigurationFlow() {
         let controller: ServerConfigurationViewControllerable? = self.dependencyContainer.storyboardsManager.controller(storyboard: .serverConfiguration)
         guard let serverSettingsViewController = controller else { return }
-        let viewModel = ServerConfigurationViewModel(userInterface: serverSettingsViewController,
-                                                     coordinator: self,
-                                                     serverConfigurationManager: self.dependencyContainer.serverConfigurationManager,
-                                                     errorHandler: self.dependencyContainer.errorHandler)
+        let viewModel = ServerConfigurationViewModel(
+            userInterface: serverSettingsViewController,
+            coordinator: self,
+            serverConfigurationManager: self.dependencyContainer.serverConfigurationManager,
+            errorHandler: self.dependencyContainer.errorHandler)
         serverSettingsViewController.configure(viewModel: viewModel, notificationCenter: self.dependencyContainer.notificationCenter)
         self.navigationController.setViewControllers([serverSettingsViewController], animated: true)
     }
@@ -137,14 +138,16 @@ extension AuthenticationCoordinator {
         guard let loginViewController = controller else { return }
         guard let apiClient = self.createApiClient(with: configuration) else { return }
         self.apiClient = apiClient
-        let contentProvider = LoginContentProvider(apiClient: apiClient,
-                                                   coreDataStack: self.dependencyContainer.coreDataStack,
-                                                   accessService: accessService)
-        let viewModel = LoginViewModel(userInterface: loginViewController,
-                                       coordinator: self,
-                                       accessService: accessService,
-                                       contentProvider: contentProvider,
-                                       errorHandler: self.dependencyContainer.errorHandler)
+        let contentProvider = LoginContentProvider(
+            apiClient: apiClient,
+            coreDataStack: self.dependencyContainer.coreDataStack,
+            accessService: accessService)
+        let viewModel = LoginViewModel(
+            userInterface: loginViewController,
+            coordinator: self,
+            accessService: accessService,
+            contentProvider: contentProvider,
+            errorHandler: self.dependencyContainer.errorHandler)
         loginViewController.configure(notificationCenter: self.dependencyContainer.notificationCenter, viewModel: viewModel)
         self.navigationController.pushViewController(loginViewController, animated: animated)
         self.navigationController.navigationBar.backItem?.title = ""
@@ -153,9 +156,10 @@ extension AuthenticationCoordinator {
     private func createApiClient(with configuration: ServerConfiguration) -> ApiClientType? {
         guard let hostURL = configuration.host else { return nil }
         let networking = Networking(baseURL: hostURL.absoluteString)
-        return ApiClient(networking: networking,
-                         encoder: RequestEncoder(encoder: self.dependencyContainer.encoder, serialization: CustomJSONSerialization()),
-                         decoder: self.dependencyContainer.decoder)
+        return ApiClient(
+            networking: networking,
+            encoder: RequestEncoder(encoder: self.dependencyContainer.encoder, serialization: CustomJSONSerialization()),
+            decoder: self.dependencyContainer.decoder)
     }
     
     private func updateApiClient(with session: SessionDecoder) {

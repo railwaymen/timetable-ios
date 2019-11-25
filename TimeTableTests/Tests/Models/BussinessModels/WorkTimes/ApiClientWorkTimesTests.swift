@@ -71,14 +71,15 @@ class ApiClientWorkTimesTests: XCTestCase {
         var successCalled = false
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let task = Task(workTimeIdentifier: nil,
-                        project: projectDecoder,
-                        body: "body",
-                        url: nil,
-                        day: nil,
-                        startAt: nil,
-                        endAt: nil,
-                        tag: .development)
+        let task = Task(
+            workTimeIdentifier: nil,
+            project: projectDecoder,
+            body: "body",
+            url: nil,
+            day: nil,
+            startAt: nil,
+            endAt: nil,
+            tag: .development)
         //Act
         sut.addWorkTime(parameters: task) { result in
             switch result {
@@ -100,14 +101,15 @@ class ApiClientWorkTimesTests: XCTestCase {
         let error = TestError(message: "fetch failed")
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let task = Task(workTimeIdentifier: nil,
-                        project: projectDecoder,
-                        body: "body",
-                        url: nil,
-                        day: nil,
-                        startAt: nil,
-                        endAt: nil,
-                        tag: .development)
+        let task = Task(
+            workTimeIdentifier: nil,
+            project: projectDecoder,
+            body: "body",
+            url: nil,
+            day: nil,
+            startAt: nil,
+            endAt: nil,
+            tag: .development)
         //Act
         sut.addWorkTime(parameters: task) { result in
             switch result {
@@ -167,14 +169,15 @@ class ApiClientWorkTimesTests: XCTestCase {
         var successCalled = false
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let task = Task(workTimeIdentifier: nil,
-                        project: projectDecoder,
-                        body: "body",
-                        url: nil,
-                        day: nil,
-                        startAt: nil,
-                        endAt: nil,
-                        tag: .development)
+        let task = Task(
+            workTimeIdentifier: nil,
+            project: projectDecoder,
+            body: "body",
+            url: nil,
+            day: nil,
+            startAt: nil,
+            endAt: nil,
+            tag: .development)
         //Act
         sut.updateWorkTime(identifier: 1, parameters: task) { result in
             switch result {
@@ -196,14 +199,15 @@ class ApiClientWorkTimesTests: XCTestCase {
         let error = TestError(message: "fetch failed")
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let task = Task(workTimeIdentifier: nil,
-                        project: projectDecoder,
-                        body: "body",
-                        url: nil,
-                        day: nil,
-                        startAt: nil,
-                        endAt: nil,
-                        tag: .development)
+        let task = Task(
+            workTimeIdentifier: nil,
+            project: projectDecoder,
+            body: "body",
+            url: nil,
+            day: nil,
+            startAt: nil,
+            endAt: nil,
+            tag: .development)
         //Act
         sut.updateWorkTime(identifier: 1, parameters: task) { result in
             switch result {
@@ -223,8 +227,9 @@ class ApiClientWorkTimesTests: XCTestCase {
 // MARK: - Private
 extension ApiClientWorkTimesTests {
     private func buildSUT() -> ApiClientWorkTimesType {
-        return ApiClient(networking: self.networkingMock,
-                         encoder: self.requestEncoderMock,
-                         decoder: self.jsonDecoderMock)
+        return ApiClient(
+            networking: self.networkingMock,
+            encoder: self.requestEncoderMock,
+            decoder: self.jsonDecoderMock)
     }
 }
