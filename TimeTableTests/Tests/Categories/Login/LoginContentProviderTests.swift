@@ -53,6 +53,32 @@ class LoginContentProviderTests: XCTestCase {
         }
     }
     
+    func testLoginCoreDataFetchUsersReturnsError() throws {
+        //Arrange
+        var expectedError: Error?
+        let loginCredentials = LoginCredentials(email: "user@exmaple.com", password: "password")
+        let data = try self.json(from: SessionJSONResource.signInResponse)
+        let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
+        //Act
+        self.contentProvider.login(with: loginCredentials, fetchCompletion: { _ in
+        }, saveCompletion: { result in
+            switch result {
+            case .success:
+                XCTFail()
+            case .failure(let error):
+                expectedError = error
+            }
+        })
+        self.apiClientMock.signInParams.last?.completion(.success(sessionReponse))
+        self.coreDataStackUserMock.fetchAllUsersParams.last?.completion(.failure(CoreDataStack.Error.storageItemNotFound))
+        //Assert
+        XCTAssertTrue(self.coreDataStackUserMock.saveParams.isEmpty)
+        switch expectedError as? CoreDataStack.Error {
+        case .storageItemNotFound?: break
+        default: XCTFail()
+        }
+    }
+    
     func testLoginCoreDataStackReturnAnError() throws {
         //Arrange
         var expectedError: Error?
@@ -71,6 +97,7 @@ class LoginContentProviderTests: XCTestCase {
             }
         })
         self.apiClientMock.signInParams.last?.completion(.success(sessionReponse))
+        self.coreDataStackUserMock.fetchAllUsersParams.last?.completion(.success([]))
         self.coreDataStackUserMock.saveParams.last?.completion(.failure(CoreDataStack.Error.storageItemNotFound))
         //Assert
         switch expectedError as? CoreDataStack.Error {
@@ -101,10 +128,11 @@ class LoginContentProviderTests: XCTestCase {
             }
         })
         self.apiClientMock.signInParams.last?.completion(.success(sessionReponse))
+        self.coreDataStackUserMock.fetchAllUsersParams.last?.completion(.success([]))
         _ = self.coreDataStackUserMock.saveParams.last?.translation(synchronousDataTransactionMock)
         self.coreDataStackUserMock.saveParams.last?.completion(.success(user))
         //Assert
-        XCTAssertEqual(synchronousDataTransactionMock.deleteAllParams.count, 1)
+        XCTAssertEqual(synchronousDataTransactionMock.deleteParams.count, 1)
     }
     
     func testLoginSucceed() throws {
@@ -139,6 +167,7 @@ class LoginContentProviderTests: XCTestCase {
             }
         })
         self.apiClientMock.signInParams.last?.completion(.success(sessionReponse))
+        self.coreDataStackUserMock.fetchAllUsersParams.last?.completion(.success([]))
         _ = self.coreDataStackUserMock.saveParams.last?.translation(asynchronousDataTransactionMock)
         self.coreDataStackUserMock.saveParams.last?.completion(.success(user))
         //Assert

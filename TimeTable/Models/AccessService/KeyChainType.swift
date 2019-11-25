@@ -10,10 +10,28 @@ import Foundation
 import KeychainAccess
 
 protocol KeychainAccessType: class {
-    func get(_ key: String) throws -> String?
-    func getData(_ key: String) throws -> Data?
-    func set(_ value: String, key: String) throws
-    func set(_ value: Data, key: String) throws
+    func get(_ key: String, ignoringAttributeSynchronizable: Bool) throws -> String?
+    func getData(_ key: String, ignoringAttributeSynchronizable: Bool) throws -> Data?
+    func set(_ value: String, key: String, ignoringAttributeSynchronizable: Bool) throws
+    func set(_ value: Data, key: String, ignoringAttributeSynchronizable: Bool) throws
+}
+
+extension KeychainAccessType {
+    func get(_ key: String) throws -> String? {
+        return try self.get(key, ignoringAttributeSynchronizable: true)
+    }
+    
+    func getData(_ key: String) throws -> Data? {
+        return try self.getData(key, ignoringAttributeSynchronizable: true)
+    }
+    
+    func set(_ value: String, key: String) throws {
+        try self.set(value, key: key, ignoringAttributeSynchronizable: true)
+    }
+    
+    func set(_ value: Data, key: String) throws {
+        try self.set(value, key: key, ignoringAttributeSynchronizable: true)
+    }
 }
 
 extension Keychain: KeychainAccessType {}
