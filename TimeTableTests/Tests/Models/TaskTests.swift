@@ -201,8 +201,8 @@ class TaskTests: XCTestCase {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectWithALunchTrueResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
-        let startsAt = try XCTUnwrap(self.createDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57))
-        let endsAt = try XCTUnwrap(self.createDate(year: 2019, month: 11, day: 12, hour: 10, minute: 8, second: 57))
+        let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
+        let endsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 10, minute: 8, second: 57)
         let sut = Task(
             workTimeIdentifier: 1,
             project: projectDecoder,
@@ -222,21 +222,5 @@ class TaskTests: XCTestCase {
         XCTAssertEqual(task["starts_at"] as? String, "2019-11-12T09:08:00.000\(self.timeZoneString)")
         XCTAssertEqual(task["ends_at"] as? String, "2019-11-12T10:08:00.000\(self.timeZoneString)")
         XCTAssertEqual(task["tag"] as? String, "dev")
-    }
-}
-
-// MARK: - Private
-extension TaskTests {
-    private func createDate(year: Int, month: Int, day: Int, hour: Int = 0, minute: Int = 0, second: Int = 0) -> Date? {
-        let components = DateComponents(
-            calendar: Calendar(identifier: .gregorian),
-            timeZone: TimeZone.current,
-            year: year,
-            month: month,
-            day: day,
-            hour: hour,
-            minute: minute,
-            second: second)
-        return components.date
     }
 }

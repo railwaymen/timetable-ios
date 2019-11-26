@@ -468,10 +468,8 @@ class WorkTimeViewModelTests: XCTestCase {
     func testViewRequestedToSaveWhileTaskFromDateIsGreaterThanToDate() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        var components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let fromDate = try XCTUnwrap(Calendar.current.date(from: components))
-        components.day = 16
-        let toDate = try XCTUnwrap(Calendar.current.date(from: components))
+        let fromDate = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
+        let toDate = try self.buildDate(year: 2018, month: 1, day: 16, hour: 12, minute: 2, second: 1)
         try self.fetchProjects(sut: sut)
         sut.projectButtonTapped()
         self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[0])
@@ -499,8 +497,7 @@ class WorkTimeViewModelTests: XCTestCase {
     func testSetDefaultDayNotSetCurrentDayIfWasSetBefore() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let components = DateComponents(year: 2018, month: 1, day: 17)
-        let day = try XCTUnwrap(Calendar.current.date(from: components))
+        let day = try self.buildDate(year: 2018, month: 1, day: 17)
         let dayString = DateFormatter.localizedString(from: day, dateStyle: .short, timeStyle: .none)
         sut.viewChanged(day: day)
         //Act
@@ -513,8 +510,7 @@ class WorkTimeViewModelTests: XCTestCase {
     func testViewChangedDay() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let components = DateComponents(year: 2018, month: 1, day: 17)
-        let day = try XCTUnwrap(Calendar.current.date(from: components))
+        let day = try self.buildDate(year: 2018, month: 1, day: 17)
         let dayString = DateFormatter.localizedString(from: day, dateStyle: .short, timeStyle: .none)
         //Act
         sut.viewChanged(day: day)
@@ -526,8 +522,7 @@ class WorkTimeViewModelTests: XCTestCase {
     func testViewChangedFromDateUpdatesUpdateFromDateOnTheUserInterface() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let fromDate = try XCTUnwrap(Calendar.current.date(from: components))
+        let fromDate = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         //Act
         sut.viewChanged(startAtDate: fromDate)
         //Assert
@@ -538,8 +533,7 @@ class WorkTimeViewModelTests: XCTestCase {
     func testViewChangedFromDateUpdatesSetsMinimumDateForTypeToDateOnTheUserInterface() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let fromDate = try XCTUnwrap(Calendar.current.date(from: components))
+        let fromDate = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         //Act
         sut.viewChanged(startAtDate: fromDate)
         //Assert
@@ -550,10 +544,8 @@ class WorkTimeViewModelTests: XCTestCase {
     func testViewChangedFromDateWhileToDateWasSet() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        var components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let fromDate = try XCTUnwrap(Calendar.current.date(from: components))
-        components.day = 16
-        let toDate = try XCTUnwrap(Calendar.current.date(from: components))
+        let fromDate = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
+        let toDate = try self.buildDate(year: 2018, month: 1, day: 16, hour: 12, minute: 2, second: 1)
         self.calendarMock.dateBySettingCalendarComponentReturnValue = toDate
         sut.viewChanged(endAtDate: toDate)
         self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
@@ -577,8 +569,7 @@ class WorkTimeViewModelTests: XCTestCase {
     func testSetDefaultFromDateWhileFromDateWasSet() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let fromDate = try XCTUnwrap(Calendar.current.date(from: components))
+        let fromDate = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
         sut.viewChanged(startAtDate: fromDate)
         //Act
@@ -593,8 +584,7 @@ class WorkTimeViewModelTests: XCTestCase {
     func testViewChangedToDate() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let components = DateComponents(year: 2018, month: 1, day: 16, hour: 12, minute: 2, second: 1)
-        let toDate = try XCTUnwrap(Calendar.current.date(from: components))
+        let toDate = try self.buildDate(year: 2018, month: 1, day: 16, hour: 12, minute: 2, second: 1)
         //Act
         sut.viewChanged(endAtDate: toDate)
         //Assert
@@ -605,10 +595,8 @@ class WorkTimeViewModelTests: XCTestCase {
     func testViewChangedToDateWhileFromDateSet() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        var components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let fromDate = try XCTUnwrap(Calendar.current.date(from: components))
-        components.hour = 13
-        let toDate = try XCTUnwrap(Calendar.current.date(from: components))
+        let fromDate = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
+        let toDate = try self.buildDate(year: 2018, month: 1, day: 17, hour: 13, minute: 2, second: 1)
         self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
         sut.viewChanged(startAtDate: fromDate)
         self.calendarMock.dateBySettingCalendarComponentReturnValue = toDate
@@ -631,8 +619,7 @@ class WorkTimeViewModelTests: XCTestCase {
     func testSetDefaultToDateWhileToDateWasSet() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let toDate = try XCTUnwrap(Calendar.current.date(from: components))
+        let toDate = try XCTUnwrap(self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1))
         self.calendarMock.dateBySettingCalendarComponentReturnValue = toDate
         sut.viewChanged(endAtDate: toDate)
         //Act
@@ -645,8 +632,7 @@ class WorkTimeViewModelTests: XCTestCase {
     func testSetDefaultToDateWhileFromDateWasSet() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let fromDate = try XCTUnwrap(Calendar.current.date(from: components))
+        let fromDate = try XCTUnwrap(self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1))
         self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
         sut.viewChanged(startAtDate: fromDate)
         //Act

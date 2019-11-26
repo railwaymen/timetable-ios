@@ -43,4 +43,21 @@ extension XCTestCase {
         
         return context
     }
+    
+    func buildDate(timeZone: TimeZone = .current, year: Int, month: Int, day: Int, hour: Int = 0, minute: Int = 0, second: Int = 0) throws -> Date {
+        let components = DateComponents(
+            calendar: Calendar(identifier: .iso8601),
+            timeZone: timeZone,
+            year: year,
+            month: month,
+            day: day,
+            hour: hour,
+            minute: minute,
+            second: second)
+        return try XCTUnwrap(components.date)
+    }
+    
+    func buildDate(_ components: DateComponents) throws -> Date {
+        return try XCTUnwrap(Calendar(identifier: .iso8601).date(from: components))
+    }
 }

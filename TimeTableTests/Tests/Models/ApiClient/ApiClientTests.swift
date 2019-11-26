@@ -120,12 +120,10 @@ class ApiClientTests: XCTestCase {
         //Arrange
         var expectedError: Error?
         let sut = self.buildSUT()
-        var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
-        let startsAt = try XCTUnwrap(Calendar.current.date(from: components))
-        components.hour = 16
-        let endsAt = try XCTUnwrap(Calendar.current.date(from: components))
-        components.day = 22
-        let day = try XCTUnwrap(Calendar.current.date(from: components))
+        let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
+        let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
+        let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
+        let day = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 16)
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let task = Task(
@@ -158,12 +156,10 @@ class ApiClientTests: XCTestCase {
         var expectedError: Error?
         let error = TestError(message: "500 - server internal error")
         let sut = self.buildSUT()
-        var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
-        let startsAt = try XCTUnwrap(Calendar.current.date(from: components))
-        components.hour = 16
-        let endsAt = try XCTUnwrap(Calendar.current.date(from: components))
-        components.day = 22
-        let day = try XCTUnwrap(Calendar.current.date(from: components))
+        let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
+        let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
+        let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
+        let day = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 16)
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
         let task = Task(
@@ -193,12 +189,10 @@ class ApiClientTests: XCTestCase {
         //Arrange
         var successCalled = false
         let sut = self.buildSUT()
-        var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
-        let startsAt = try XCTUnwrap(Calendar.current.date(from: components))
-        components.hour = 16
-        let endsAt = try XCTUnwrap(Calendar.current.date(from: components))
-        components.day = 22
-        let day = try XCTUnwrap(Calendar.current.date(from: components))
+        let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
+        let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
+        let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
+        let day = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 16)
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let task = Task(
@@ -407,12 +401,10 @@ class ApiClientTests: XCTestCase {
         //Arrange
         var expectedError: Error?
         let sut = self.buildSUT()
-        var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
-        let startsAt = try XCTUnwrap(Calendar.current.date(from: components))
-        components.hour = 16
-        let endsAt = try XCTUnwrap(Calendar.current.date(from: components))
-        components.day = 22
-        let day = try XCTUnwrap(Calendar.current.date(from: components))
+        let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
+        let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
+        let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
+        let day = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 16)
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let task = Task(
@@ -444,12 +436,10 @@ class ApiClientTests: XCTestCase {
         var expectedError: Error?
         let error = TestError(message: "500 - server internal error")
         let sut = self.buildSUT()
-        var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
-        let startsAt = try XCTUnwrap(Calendar.current.date(from: components))
-        components.hour = 16
-        let endsAt = try XCTUnwrap(Calendar.current.date(from: components))
-        components.day = 22
-        let day = try XCTUnwrap(Calendar.current.date(from: components))
+        let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
+        let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
+        let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
+        let day = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 16)
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let task = Task(
@@ -480,12 +470,10 @@ class ApiClientTests: XCTestCase {
         //Arrange
         var successCalled = false
         let sut = self.buildSUT()
-        var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
-        let startsAt = try XCTUnwrap(Calendar.current.date(from: components))
-        components.hour = 16
-        let endsAt = try XCTUnwrap(Calendar.current.date(from: components))
-        components.day = 22
-        let day = try XCTUnwrap(Calendar.current.date(from: components))
+        let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
+        let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
+        let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
+        let day = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 16)
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let task = Task(

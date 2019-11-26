@@ -26,8 +26,7 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
         let sut = self.buildSUT()
         let data = try self.json(from: MatchingFullTimeJSONResource.matchingFullTimeFullResponse)
         var matchingFullTimeDecoder: MatchingFullTimeDecoder?
-        let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let date = try XCTUnwrap(Calendar.current.date(from: components))
+        let date = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let matchingFullTime = MatchingFullTimeEncoder(date: date, userId: 1)
         //Act
         sut.fetchMatchingFullTime(parameters: matchingFullTime) { result in
@@ -51,8 +50,7 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
         let sut = self.buildSUT()
         let error = TestError(message: "fetch matching full time failed")
         var expectedError: Error?
-        let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let date = try XCTUnwrap(Calendar.current.date(from: components))
+        let date = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let matchingFullTime = MatchingFullTimeEncoder(date: date, userId: 1)
         //Act
         sut.fetchMatchingFullTime(parameters: matchingFullTime) { result in
