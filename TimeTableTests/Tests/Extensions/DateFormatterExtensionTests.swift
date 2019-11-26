@@ -17,7 +17,7 @@ class DateFormatterExtensionTests: XCTestCase {
         let expectedDate = Calendar.autoupdatingCurrent.date(from: components)
         let sut = DateFormatter(type: .simple)
         //Act
-        let date = try sut.date(from: "2018-11-21").unwrap()
+        let date = try XCTUnwrap(sut.date(from: "2018-11-21"))
         //Assert
         XCTAssertEqual(date, expectedDate)
     }
@@ -44,7 +44,7 @@ class DateFormatterExtensionTests: XCTestCase {
         let expectedDate = Calendar.autoupdatingCurrent.date(from: components)
         let sut = DateFormatter(type: .dateAndTimeExtended)
         //Act
-        let date = try sut.date(from: "2018-11-21T15:00:30.000+01:00").unwrap()
+        let date = try XCTUnwrap(sut.date(from: "2018-11-21T15:00:30.000+01:00"))
         //Assert
         XCTAssertEqual(date, expectedDate)
     }

@@ -32,7 +32,7 @@ class CoreDataStackTests: XCTestCase {
             _ = try CoreDataStack { (_, _) -> DataStackType in throw testError }
         } catch {
             //Assert
-            XCTAssertEqual(try (error as? TestError).unwrap(), testError)
+            XCTAssertEqual(try XCTUnwrap(error as? TestError), testError)
         }
     }
     

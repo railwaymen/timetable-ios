@@ -94,7 +94,7 @@ class BaseCoordinatorTests: XCTestCase {
         sut.addChildCoordinator(child: childCoordinator)
         //Act
         XCTAssertEqual(sut.children.count, 1)
-        let firstChildCoordinator = try sut.children.first.unwrap()
+        let firstChildCoordinator = try XCTUnwrap(sut.children.first)
         XCTAssertEqual(firstChildCoordinator, childCoordinator)
         
         sut.removeChildCoordinator(child: nil)
@@ -113,7 +113,7 @@ class BaseCoordinatorTests: XCTestCase {
         sut.addChildCoordinator(child: childCoordinator)
         //Act
         XCTAssertEqual(sut.children.count, 1)
-        let firstChildCoordinator = try sut.children.first.unwrap()
+        let firstChildCoordinator = try XCTUnwrap(sut.children.first)
         XCTAssertEqual(firstChildCoordinator, childCoordinator)
         
         sut.removeChildCoordinator(child: childCoordinator)
@@ -161,7 +161,7 @@ class BaseCoordinatorTests: XCTestCase {
             window: window,
             messagePresenter: self.messagePresenterMock)
         sut.start()
-        let url = try URL(string: "www.example.com").unwrap()
+        let url = try XCTUnwrap(URL(string: "www.example.com"))
         let error = ApiClientError(type: .invalidHost(url))
         //Act
         sut.present(error: error)

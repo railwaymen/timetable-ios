@@ -27,7 +27,7 @@ class TagCollectionViewCellViewModelTests: XCTestCase {
         XCTAssertEqual(self.userInterfaceMock.setUpParams.count, 1)
         XCTAssertEqual(self.userInterfaceMock.setUpParams.last?.title, tag.localized)
         XCTAssertEqual(self.userInterfaceMock.setUpParams.last?.color, tag.color)
-        XCTAssertTrue(try (self.userInterfaceMock.setUpParams.last?.isSelected).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setUpParams.last?.isSelected))
     }
 }
 

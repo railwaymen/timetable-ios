@@ -87,7 +87,6 @@
 		C1249C652181A1B7005DB2A5 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C642181A1B7005DB2A5 /* BaseCoordinator.swift */; };
 		C1249C682181A1E7005DB2A5 /* CoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C672181A1E7005DB2A5 /* CoordinatorType.swift */; };
 		C1249C6C2181A23A005DB2A5 /* String+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C6B2181A23A005DB2A5 /* String+Error.swift */; };
-		C1249C6E2181A265005DB2A5 /* Optional+Unwrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C6D2181A265005DB2A5 /* Optional+Unwrap.swift */; };
 		C1249C712181A282005DB2A5 /* BaseCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C702181A282005DB2A5 /* BaseCoordinatorTests.swift */; };
 		C1249C742181A3D0005DB2A5 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C732181A3D0005DB2A5 /* AppCoordinator.swift */; };
 		C1249C772181AAE4005DB2A5 /* StoryboardsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */; };
@@ -428,7 +427,6 @@
 		C1249C642181A1B7005DB2A5 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		C1249C672181A1E7005DB2A5 /* CoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorType.swift; sourceTree = "<group>"; };
 		C1249C6B2181A23A005DB2A5 /* String+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Error.swift"; sourceTree = "<group>"; };
-		C1249C6D2181A265005DB2A5 /* Optional+Unwrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Unwrap.swift"; sourceTree = "<group>"; };
 		C1249C702181A282005DB2A5 /* BaseCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinatorTests.swift; sourceTree = "<group>"; };
 		C1249C732181A3D0005DB2A5 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardsManager.swift; sourceTree = "<group>"; };
@@ -1047,7 +1045,6 @@
 			children = (
 				C1249C6B2181A23A005DB2A5 /* String+Error.swift */,
 				C1B8FA4C218C9A04009D10B4 /* JSONFileResource.swift */,
-				C1249C6D2181A265005DB2A5 /* Optional+Unwrap.swift */,
 				C134296221A693F400F4EA42 /* TestError.swift */,
 				C1FA05E821945DA400BD8C9D /* XCTests+Extension.swift */,
 			);
@@ -2382,7 +2379,6 @@
 				C1F7C2E721908DD400F4FAF0 /* AttributedButtonTests.swift in Sources */,
 				C1249C852181B567005DB2A5 /* ErrorHandlerTests.swift in Sources */,
 				C10FD88E21F1FB6200A233C5 /* ProfileViewControllerMock.swift in Sources */,
-				C1249C6E2181A265005DB2A5 /* Optional+Unwrap.swift in Sources */,
 				C12260172188927A007D64A3 /* AuthenticationCoordinatorTests.swift in Sources */,
 				C134296021A6937E00F4EA42 /* ApiClientSessionTests.swift in Sources */,
 				C153AC622182FCB7007A35BB /* UILabelExtensionTests.swift in Sources */,

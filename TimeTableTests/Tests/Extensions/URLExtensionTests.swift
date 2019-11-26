@@ -14,7 +14,7 @@ class URLExtensionTests: XCTestCase {
     // MARK: - isHTTP
     func testIsHTTP_withHttpPrefix() throws {
         //Arrange
-        let sut = try URL(string: "http://www.example.com").unwrap()
+        let sut = try XCTUnwrap(URL(string: "http://www.example.com"))
         //Act
         let result = sut.isHTTP
         //Assert
@@ -23,7 +23,7 @@ class URLExtensionTests: XCTestCase {
     
     func testIsHTTP_withHttpsPrefix() throws {
         //Arrange
-        let sut = try URL(string: "https://www.example.com").unwrap()
+        let sut = try XCTUnwrap(URL(string: "https://www.example.com"))
         //Act
         let result = sut.isHTTP
         //Assert
@@ -32,7 +32,7 @@ class URLExtensionTests: XCTestCase {
     
     func testIsHTTP_withoutPrefix() throws {
         //Arrange
-        let sut = try URL(string: "www.example.com").unwrap()
+        let sut = try XCTUnwrap(URL(string: "www.example.com"))
         //Act
         let result = sut.isHTTP
         //Assert
@@ -42,7 +42,7 @@ class URLExtensionTests: XCTestCase {
     // MARK: - isHTTPS
     func testIsHTTPS_withHttpPrefix() throws {
         //Arrange
-        let sut = try URL(string: "http://www.example.com").unwrap()
+        let sut = try XCTUnwrap(URL(string: "http://www.example.com"))
         //Act
         let result = sut.isHTTPS
         //Assert
@@ -51,7 +51,7 @@ class URLExtensionTests: XCTestCase {
     
     func testIsHTTPS_withHttpsPrefix() throws {
         //Arrange
-        let sut = try URL(string: "https://www.example.com").unwrap()
+        let sut = try XCTUnwrap(URL(string: "https://www.example.com"))
         //Act
         let result = sut.isHTTPS
         //Assert
@@ -60,7 +60,7 @@ class URLExtensionTests: XCTestCase {
     
     func testIsHTTPS_withoutPrefix() throws {
         //Arrange
-        let sut = try URL(string: "www.example.com").unwrap()
+        let sut = try XCTUnwrap(URL(string: "www.example.com"))
         //Act
         let result = sut.isHTTPS
         //Assert

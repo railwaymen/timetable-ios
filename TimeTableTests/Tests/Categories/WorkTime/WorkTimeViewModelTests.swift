@@ -35,7 +35,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(self.userInterface.updateDayParams.count, 1)
         XCTAssertEqual(self.userInterface.updateProjectParams.last?.name, "Select project")
-        XCTAssertTrue(try (self.userInterface.setUpParams.last?.allowsTask).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.setUpParams.last?.allowsTask))
     }
     
     func testViewDidLoadWithLastTaskSetsDateAndTime() throws {
@@ -45,11 +45,11 @@ class WorkTimeViewModelTests: XCTestCase {
         //Act
         sut.viewDidLoad()
         //Assert
-        XCTAssertTrue(Calendar.current.isDateInToday(try (self.userInterface.updateDayParams.last?.date).unwrap()))
+        XCTAssertTrue(Calendar.current.isDateInToday(try XCTUnwrap(self.userInterface.updateDayParams.last?.date)))
         XCTAssertEqual(self.userInterface.updateStartAtDateParams.last?.date, lastTask.endAt)
         XCTAssertEqual(self.userInterface.updateEndAtDateParams.last?.date, lastTask.endAt)
         XCTAssertEqual(self.userInterface.updateProjectParams.last?.name, "Select project")
-        XCTAssertTrue(try (self.userInterface.setUpParams.last?.allowsTask).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.setUpParams.last?.allowsTask))
     }
     
     func testViewDidLoad_withEditedTask() throws {
@@ -66,7 +66,7 @@ class WorkTimeViewModelTests: XCTestCase {
         XCTAssertEqual(self.userInterface.setUpParams.last?.body, task.body)
         XCTAssertNotNil(self.userInterface.setUpParams.last?.urlString)
         XCTAssertEqual(self.userInterface.setUpParams.last?.urlString, task.url?.absoluteString)
-        XCTAssertEqual(try (self.userInterface.setUpParams.last?.allowsTask).unwrap(), task.allowsTask)
+        XCTAssertEqual(try XCTUnwrap(self.userInterface.setUpParams.last?.allowsTask), task.allowsTask)
     }
     
     func testViewDidLoad_withDuplicatedTaskWithoutLastTask() throws {
@@ -83,7 +83,7 @@ class WorkTimeViewModelTests: XCTestCase {
         XCTAssertEqual(self.userInterface.setUpParams.last?.body, task.body)
         XCTAssertNotNil(self.userInterface.setUpParams.last?.urlString)
         XCTAssertEqual(self.userInterface.setUpParams.last?.urlString, task.url?.absoluteString)
-        XCTAssertEqual(try (self.userInterface.setUpParams.last?.allowsTask).unwrap(), task.allowsTask)
+        XCTAssertEqual(try XCTUnwrap(self.userInterface.setUpParams.last?.allowsTask), task.allowsTask)
     }
     
     func testViewDidLoad_withDuplicatedTaskWithLastTask() throws {
@@ -94,14 +94,14 @@ class WorkTimeViewModelTests: XCTestCase {
         //Act
         sut.viewDidLoad()
         //Assert
-        XCTAssertTrue(Calendar.current.isDateInToday(try (self.userInterface.updateDayParams.last?.date).unwrap()))
+        XCTAssertTrue(Calendar.current.isDateInToday(try XCTUnwrap(self.userInterface.updateDayParams.last?.date)))
         XCTAssertEqual(self.userInterface.updateStartAtDateParams.last?.date, lastTask.endAt)
         XCTAssertEqual(self.userInterface.updateEndAtDateParams.last?.date, lastTask.endAt)
         XCTAssertEqual(self.userInterface.updateProjectParams.last?.name, task.project?.name)
         XCTAssertEqual(self.userInterface.setUpParams.last?.body, task.body)
         XCTAssertNotNil(self.userInterface.setUpParams.last?.urlString)
         XCTAssertEqual(self.userInterface.setUpParams.last?.urlString, task.url?.absoluteString)
-        XCTAssertEqual(try (self.userInterface.setUpParams.last?.allowsTask).unwrap(), task.allowsTask)
+        XCTAssertEqual(try XCTUnwrap(self.userInterface.setUpParams.last?.allowsTask), task.allowsTask)
     }
     
     func testViewDidLoadFetchSimpleListShowsActivityIndicatorBeforeFetch() throws {
@@ -110,7 +110,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Act
         sut.viewDidLoad()
         //Assert
-        XCTAssertFalse(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertFalse(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isHidden))
     }
     
     func testViewDidLoadFetchSimpleListHidesActivityIndicatorAfterSuccessfulFetch() throws {
@@ -122,7 +122,7 @@ class WorkTimeViewModelTests: XCTestCase {
         sut.viewDidLoad()
         self.apiClient.fetchSimpleListOfProjectsParams.last?.completion(.success(projectDecoders))
         //Assert
-        XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isHidden))
     }
     
     func testViewDidLoadFetchSimpleListHidesActivityIndicatorAfterFailedFetch() {
@@ -133,7 +133,7 @@ class WorkTimeViewModelTests: XCTestCase {
         sut.viewDidLoad()
         self.apiClient.fetchSimpleListOfProjectsParams.last?.completion(.failure(error))
         //Assert
-        XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isHidden))
     }
     
     func testViewDidLoadFetchSimpleListCallsErrorHandlerOnFetchFailure() throws {
@@ -144,7 +144,7 @@ class WorkTimeViewModelTests: XCTestCase {
         sut.viewDidLoad()
         self.apiClient.fetchSimpleListOfProjectsParams.last?.completion(.failure(error))
         //Assert
-        let throwedError = try (self.errorHandlerMock.throwingParams.last?.error as? ApiClientError).unwrap()
+        let throwedError = try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? ApiClientError)
         XCTAssertEqual(throwedError, error)
     }
     
@@ -267,7 +267,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Act
         sut.setDefaultTask()
         //Assert
-        XCTAssertTrue(try (self.userInterface.setUpParams.last?.allowsTask).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.setUpParams.last?.allowsTask))
         XCTAssertEqual(self.userInterface.updateProjectParams.last?.name, "asdsa")
     }
     
@@ -280,7 +280,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Act
         sut.setDefaultTask()
         //Assert
-        XCTAssertTrue(try (self.userInterface.setUpParams.last?.allowsTask).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.setUpParams.last?.allowsTask))
         XCTAssertNotEqual(self.userInterface.updateProjectParams.last?.name, "asdsa")
     }
     
@@ -304,7 +304,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Act
         sut.projectButtonTapped()
         //Assert
-        XCTAssertTrue(try (self.coordinatorMock.showProjectPickerParams.last?.projects.isEmpty).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.coordinatorMock.showProjectPickerParams.last?.projects.isEmpty))
     }
     
     func testProjectButtonTappedAfterFetch() throws {
@@ -314,7 +314,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Act
         sut.projectButtonTapped()
         //Assert
-        XCTAssertFalse(try (self.coordinatorMock.showProjectPickerParams.last?.projects.isEmpty).unwrap())
+        XCTAssertFalse(try XCTUnwrap(self.coordinatorMock.showProjectPickerParams.last?.projects.isEmpty))
     }
     
     func testProjectButtonTappedFinishHandlerDoesNotUpdateIfProjectIsNil() throws {
@@ -467,9 +467,9 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         var components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let fromDate = try Calendar.current.date(from: components).unwrap()
+        let fromDate = try XCTUnwrap(Calendar.current.date(from: components))
         components.day = 16
-        let toDate = try Calendar.current.date(from: components).unwrap()
+        let toDate = try XCTUnwrap(Calendar.current.date(from: components))
         try self.fetchProjects(sut: sut)
         sut.projectButtonTapped()
         self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[0])
@@ -498,7 +498,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let components = DateComponents(year: 2018, month: 1, day: 17)
-        let day = try Calendar.current.date(from: components).unwrap()
+        let day = try XCTUnwrap(Calendar.current.date(from: components))
         let dayString = DateFormatter.localizedString(from: day, dateStyle: .short, timeStyle: .none)
         sut.viewChanged(day: day)
         //Act
@@ -512,7 +512,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let components = DateComponents(year: 2018, month: 1, day: 17)
-        let day = try Calendar.current.date(from: components).unwrap()
+        let day = try XCTUnwrap(Calendar.current.date(from: components))
         let dayString = DateFormatter.localizedString(from: day, dateStyle: .short, timeStyle: .none)
         //Act
         sut.viewChanged(day: day)
@@ -525,7 +525,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let fromDate = try Calendar.current.date(from: components).unwrap()
+        let fromDate = try XCTUnwrap(Calendar.current.date(from: components))
         //Act
         sut.viewChanged(startAtDate: fromDate)
         //Assert
@@ -537,7 +537,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let fromDate = try Calendar.current.date(from: components).unwrap()
+        let fromDate = try XCTUnwrap(Calendar.current.date(from: components))
         //Act
         sut.viewChanged(startAtDate: fromDate)
         //Assert
@@ -549,9 +549,9 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         var components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let fromDate = try Calendar.current.date(from: components).unwrap()
+        let fromDate = try XCTUnwrap(Calendar.current.date(from: components))
         components.day = 16
-        let toDate = try Calendar.current.date(from: components).unwrap()
+        let toDate = try XCTUnwrap(Calendar.current.date(from: components))
         self.calendarMock.dateBySettingCalendarComponentReturnValue = toDate
         sut.viewChanged(endAtDate: toDate)
         self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
@@ -576,7 +576,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let fromDate = try Calendar.current.date(from: components).unwrap()
+        let fromDate = try XCTUnwrap(Calendar.current.date(from: components))
         self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
         sut.viewChanged(startAtDate: fromDate)
         //Act
@@ -592,7 +592,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let components = DateComponents(year: 2018, month: 1, day: 16, hour: 12, minute: 2, second: 1)
-        let toDate = try Calendar.current.date(from: components).unwrap()
+        let toDate = try XCTUnwrap(Calendar.current.date(from: components))
         //Act
         sut.viewChanged(endAtDate: toDate)
         //Assert
@@ -604,9 +604,9 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         var components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let fromDate = try Calendar.current.date(from: components).unwrap()
+        let fromDate = try XCTUnwrap(Calendar.current.date(from: components))
         components.hour = 13
-        let toDate = try Calendar.current.date(from: components).unwrap()
+        let toDate = try XCTUnwrap(Calendar.current.date(from: components))
         self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
         sut.viewChanged(startAtDate: fromDate)
         self.calendarMock.dateBySettingCalendarComponentReturnValue = toDate
@@ -630,7 +630,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let toDate = try Calendar.current.date(from: components).unwrap()
+        let toDate = try XCTUnwrap(Calendar.current.date(from: components))
         self.calendarMock.dateBySettingCalendarComponentReturnValue = toDate
         sut.viewChanged(endAtDate: toDate)
         //Act
@@ -644,7 +644,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let fromDate = try Calendar.current.date(from: components).unwrap()
+        let fromDate = try XCTUnwrap(Calendar.current.date(from: components))
         self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
         sut.viewChanged(startAtDate: fromDate)
         //Act
@@ -722,7 +722,7 @@ extension WorkTimeViewModelTests {
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
         let projectDecoders = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
         sut.viewDidLoad()
-        try self.apiClient.fetchSimpleListOfProjectsParams.last.unwrap().completion(.success(projectDecoders))
+        try XCTUnwrap(self.apiClient.fetchSimpleListOfProjectsParams.last).completion(.success(projectDecoders))
     }
     
     private func createTask(workTimeIdentifier: Int64?, index: Int = 3) throws -> Task {
@@ -733,7 +733,7 @@ extension WorkTimeViewModelTests {
             workTimeIdentifier: workTimeIdentifier,
             project: project,
             body: "Blah blah blah",
-            url: try URL(string: "http://example.com").unwrap(),
+            url: try XCTUnwrap(URL(string: "http://example.com")),
             day: Date(),
             startAt: try self.createTime(hours: 8, minutes: 0),
             endAt: try self.createTime(hours: 9, minutes: 30),
@@ -741,13 +741,13 @@ extension WorkTimeViewModelTests {
     }
     
     private func createTime(hours: Int, minutes: Int) throws -> Date {
-        return try Calendar(identifier: .gregorian).date(bySettingHour: hours, minute: minutes, second: 0, of: Date()).unwrap()
+        return try XCTUnwrap(Calendar(identifier: .gregorian).date(bySettingHour: hours, minute: minutes, second: 0, of: Date()))
     }
     
     private func fillAllDataInViewModel(sut: WorkTimeViewModel, task: Task) throws {
-        let fromDate = try task.startAt.unwrap()
-        let toDate = try task.endAt.unwrap()
-        sut.viewChanged(day: try task.day.unwrap())
+        let fromDate = try XCTUnwrap(task.startAt)
+        let toDate = try XCTUnwrap(task.endAt)
+        sut.viewChanged(day: try XCTUnwrap(task.day))
         self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
         sut.viewChanged(startAtDate: fromDate)
         self.calendarMock.dateBySettingCalendarComponentReturnValue = toDate

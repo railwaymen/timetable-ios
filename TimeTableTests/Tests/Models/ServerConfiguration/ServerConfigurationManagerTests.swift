@@ -30,8 +30,7 @@ class ServerConfigurationManagerTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT()
         self.urlSessionMock.dataTaskReturnValue = URLSessionDataTaskMock()
-        let url = try URL(string: "www.example.com").unwrap()
-        let configuration = ServerConfiguration(host: url, shouldRememberHost: false)
+        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: false)
         var expectedError: Error?
         //Act
         sut.verify(configuration: configuration) { result in
@@ -46,7 +45,7 @@ class ServerConfigurationManagerTests: XCTestCase {
         //Assert
         switch (expectedError as? ApiClientError)?.type {
         case .invalidHost(let host)?:
-            XCTAssertEqual(host, url)
+            XCTAssertEqual(host, self.exampleURL)
         default: XCTFail()
         }
     }
@@ -55,9 +54,8 @@ class ServerConfigurationManagerTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT()
         self.urlSessionMock.dataTaskReturnValue = URLSessionDataTaskMock()
-        let url = try URL(string: "www.example.com").unwrap()
-        let configuration = ServerConfiguration(host: url, shouldRememberHost: false)
-        let fakeResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: false)
+        let fakeResponse = HTTPURLResponse(url: self.exampleURL, statusCode: 200, httpVersion: nil, headerFields: nil)
         var expectedError: Error?
         //Act
         sut.verify(configuration: configuration) { result in
@@ -72,7 +70,7 @@ class ServerConfigurationManagerTests: XCTestCase {
         //Assert
         switch (expectedError as? ApiClientError)?.type {
         case .invalidHost(let host)?:
-            XCTAssertEqual(host, url)
+            XCTAssertEqual(host, exampleURL)
         default: XCTFail()
         }
     }
@@ -81,13 +79,12 @@ class ServerConfigurationManagerTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT()
         self.urlSessionMock.dataTaskReturnValue = URLSessionDataTaskMock()
-        let url = try URL(string: "www.example.com").unwrap()
-        let configuration = ServerConfiguration(host: url, shouldRememberHost: false)
-        let fakeResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: false)
+        let fakeResponse = HTTPURLResponse(url: self.exampleURL, statusCode: 200, httpVersion: nil, headerFields: nil)
         sut.verify(configuration: configuration) { _ in }
         self.urlSessionMock.dataTaskParams.last?.completionHandler(nil, fakeResponse, nil)
         //Act
-        let oldConfiguration = try sut.getOldConfiguration().unwrap()
+        let oldConfiguration = try XCTUnwrap(sut.getOldConfiguration())
         //Assert
         XCTAssertNil(oldConfiguration.host)
         XCTAssertFalse(oldConfiguration.shouldRememberHost)
@@ -97,13 +94,12 @@ class ServerConfigurationManagerTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT()
         self.urlSessionMock.dataTaskReturnValue = URLSessionDataTaskMock()
-        let url = try URL(string: "www.example.com").unwrap()
-        let configuration = ServerConfiguration(host: url, shouldRememberHost: true)
-        let fakeResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: true)
+        let fakeResponse = HTTPURLResponse(url: self.exampleURL, statusCode: 200, httpVersion: nil, headerFields: nil)
         sut.verify(configuration: configuration) { _ in }
         self.urlSessionMock.dataTaskParams.last?.completionHandler(nil, fakeResponse, nil)
         //Act
-        let oldConfiguration = try sut.getOldConfiguration().unwrap()
+        let oldConfiguration = try XCTUnwrap(sut.getOldConfiguration())
         //Assert
         XCTAssertEqual(oldConfiguration, configuration)
     }
@@ -112,9 +108,8 @@ class ServerConfigurationManagerTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT()
         self.urlSessionMock.dataTaskReturnValue = URLSessionDataTaskMock()
-        let url = try URL(string: "www.example.com").unwrap()
-        let configuration = ServerConfiguration(host: url, shouldRememberHost: true)
-        let fakeResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: true)
+        let fakeResponse = HTTPURLResponse(url: self.exampleURL, statusCode: 200, httpVersion: nil, headerFields: nil)
         sut.verify(configuration: configuration) { _ in }
         self.urlSessionMock.dataTaskParams.last?.completionHandler(nil, fakeResponse, nil)
         self.userDefaults.removeObject(forKey: "key.time_table.server_configuration.host")
@@ -128,9 +123,8 @@ class ServerConfigurationManagerTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT()
         self.urlSessionMock.dataTaskReturnValue = URLSessionDataTaskMock()
-        let url = try URL(string: "www.example.com").unwrap()
-        let configuration = ServerConfiguration(host: url, shouldRememberHost: true)
-        let fakeResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: true)
+        let fakeResponse = HTTPURLResponse(url: self.exampleURL, statusCode: 200, httpVersion: nil, headerFields: nil)
         sut.verify(configuration: configuration) { _ in }
         self.urlSessionMock.dataTaskParams.last?.completionHandler(nil, fakeResponse, nil)
         self.userDefaults.set(" ", forKey: "key.time_table.server_configuration.host")
@@ -144,9 +138,8 @@ class ServerConfigurationManagerTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT()
         self.urlSessionMock.dataTaskReturnValue = URLSessionDataTaskMock()
-        let url = try URL(string: "www.example.com").unwrap()
-        let configuration = ServerConfiguration(host: url, shouldRememberHost: false)
-        let fakeResponse = HTTPURLResponse(url: url, statusCode: 500, httpVersion: nil, headerFields: nil)
+        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: false)
+        let fakeResponse = HTTPURLResponse(url: self.exampleURL, statusCode: 500, httpVersion: nil, headerFields: nil)
         var expectedError: Error?
         //Act
         sut.verify(configuration: configuration) { result in
@@ -161,7 +154,7 @@ class ServerConfigurationManagerTests: XCTestCase {
         //Assert
         switch (expectedError as? ApiClientError)?.type {
         case .invalidHost(let host)?:
-            XCTAssertEqual(host, url)
+            XCTAssertEqual(host, exampleURL)
         default: XCTFail()
         }
     }
@@ -192,9 +185,8 @@ class ServerConfigurationManagerTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT()
         self.urlSessionMock.dataTaskReturnValue = URLSessionDataTaskMock()
-        let url = try URL(string: "www.example.com").unwrap()
-        let configuration = ServerConfiguration(host: url, shouldRememberHost: false)
-        let fakeResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: false)
+        let fakeResponse = HTTPURLResponse(url: self.exampleURL, statusCode: 200, httpVersion: nil, headerFields: nil)
         var successCalled: Bool = false
         //Act
         sut.verify(configuration: configuration) { result in
@@ -214,17 +206,16 @@ class ServerConfigurationManagerTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT()
         self.urlSessionMock.dataTaskReturnValue = URLSessionDataTaskMock()
-        let url = try URL(string: "www.example.com").unwrap()
-        let configuration = ServerConfiguration(host: url, shouldRememberHost: true)
-        let fakeResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: true)
+        let fakeResponse = HTTPURLResponse(url: self.exampleURL, statusCode: 200, httpVersion: nil, headerFields: nil)
         //Act
         sut.verify(configuration: configuration) { _ in }
         self.urlSessionMock.dataTaskParams.last?.completionHandler(nil, fakeResponse, nil)
         //Assert
-        let hostURLString = try (self.userDefaults.string(forKey: "key.time_table.server_configuration.host")).unwrap()
-        let hostURL = try URL(string: hostURLString).unwrap()
-        XCTAssertEqual(hostURL, url)
-        let shouldSaveHostURL = try (self.userDefaults.value(forKey: "key.time_table.server_configuration.should_remeber_host_key") as? Bool).unwrap()
+        let hostURLString = try XCTUnwrap(self.userDefaults.string(forKey: "key.time_table.server_configuration.host"))
+        let hostURL = try XCTUnwrap(URL(string: hostURLString))
+        XCTAssertEqual(hostURL, self.exampleURL)
+        let shouldSaveHostURL = try XCTUnwrap(self.userDefaults.value(forKey: "key.time_table.server_configuration.should_remeber_host_key") as? Bool)
         XCTAssertTrue(shouldSaveHostURL)
     }
     
@@ -232,15 +223,14 @@ class ServerConfigurationManagerTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT()
         self.urlSessionMock.dataTaskReturnValue = URLSessionDataTaskMock()
-        let url = try URL(string: "www.example.com").unwrap()
-        let configuration = ServerConfiguration(host: url, shouldRememberHost: false)
-        let fakeResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: false)
+        let fakeResponse = HTTPURLResponse(url: self.exampleURL, statusCode: 200, httpVersion: nil, headerFields: nil)
         //Act
         sut.verify(configuration: configuration) { _ in }
         self.urlSessionMock.dataTaskParams.last?.completionHandler(nil, fakeResponse, nil)
         //Assert
         XCTAssertNil(self.userDefaults.value(forKey: "key.time_table.server_configuration.host"))
-        let value = try (self.userDefaults.value(forKey: "key.time_table.server_configuration.should_remeber_host_key") as? Bool).unwrap()
+        let value = try XCTUnwrap(self.userDefaults.value(forKey: "key.time_table.server_configuration.should_remeber_host_key") as? Bool)
         XCTAssertFalse(value)
     }
 }

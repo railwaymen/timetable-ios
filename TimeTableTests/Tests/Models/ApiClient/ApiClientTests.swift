@@ -61,7 +61,7 @@ class ApiClientTests: XCTestCase {
         }
         self.networkingMock.postParams.last?.completion(.failure(error))
         //Assert
-        let testError = try (expectedError as? TestError).unwrap()
+        let testError = try XCTUnwrap(expectedError as? TestError)
         XCTAssertEqual(testError, error)
     }
     
@@ -82,7 +82,7 @@ class ApiClientTests: XCTestCase {
         }
         self.networkingMock.postParams.last?.completion(.success(data))
         //Assert
-        let decoder = try (expectedDecoder as? SessionDecoder).unwrap()
+        let decoder = try XCTUnwrap(expectedDecoder as? SessionDecoder)
         XCTAssertEqual(decoder.identifier, 1)
         XCTAssertEqual(decoder.firstName, "Admin")
         XCTAssertEqual(decoder.lastName, "Little")
@@ -121,19 +121,18 @@ class ApiClientTests: XCTestCase {
         var expectedError: Error?
         let sut = self.buildSUT()
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
-        let startsAt = try Calendar.current.date(from: components).unwrap()
+        let startsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.hour = 16
-        let endsAt = try Calendar.current.date(from: components).unwrap()
+        let endsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.day = 22
-        let day = try Calendar.current.date(from: components).unwrap()
+        let day = try XCTUnwrap(Calendar.current.date(from: components))
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let url = try URL(string: "www.example.com").unwrap()
         let task = Task(
             workTimeIdentifier: nil,
             project: projectDecoder,
             body: "TEST",
-            url: url,
+            url: self.exampleURL,
             day: day,
             startAt: startsAt,
             endAt: endsAt,
@@ -160,19 +159,18 @@ class ApiClientTests: XCTestCase {
         let error = TestError(message: "500 - server internal error")
         let sut = self.buildSUT()
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
-        let startsAt = try Calendar.current.date(from: components).unwrap()
+        let startsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.hour = 16
-        let endsAt = try Calendar.current.date(from: components).unwrap()
+        let endsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.day = 22
-        let day = try Calendar.current.date(from: components).unwrap()
+        let day = try XCTUnwrap(Calendar.current.date(from: components))
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
-        let url = try URL(string: "www.example.com").unwrap()
         let task = Task(
             workTimeIdentifier: nil,
             project: projectDecoder,
             body: "TEST",
-            url: url,
+            url: self.exampleURL,
             day: day,
             startAt: startsAt,
             endAt: endsAt,
@@ -187,7 +185,7 @@ class ApiClientTests: XCTestCase {
         }
         self.networkingMock.postParams.last?.completion(.failure(error))
         //Assert
-        let testError = try (expectedError as? TestError).unwrap()
+        let testError = try XCTUnwrap(expectedError as? TestError)
         XCTAssertEqual(testError, error)
     }
     
@@ -196,19 +194,18 @@ class ApiClientTests: XCTestCase {
         var successCalled = false
         let sut = self.buildSUT()
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
-        let startsAt = try Calendar.current.date(from: components).unwrap()
+        let startsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.hour = 16
-        let endsAt = try Calendar.current.date(from: components).unwrap()
+        let endsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.day = 22
-        let day = try Calendar.current.date(from: components).unwrap()
+        let day = try XCTUnwrap(Calendar.current.date(from: components))
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let url = try URL(string: "www.example.com").unwrap()
         let task = Task(
             workTimeIdentifier: nil,
             project: projectDecoder,
             body: "TEST",
-            url: url,
+            url: self.exampleURL,
             day: day,
             startAt: startsAt,
             endAt: endsAt,
@@ -264,7 +261,7 @@ class ApiClientTests: XCTestCase {
         }
         self.networkingMock.getParams.last?.completion(.failure(error))
         //Assert
-        let testError = try (expectedError as? TestError).unwrap()
+        let testError = try XCTUnwrap(expectedError as? TestError)
         XCTAssertEqual(testError, error)
     }
     
@@ -286,7 +283,7 @@ class ApiClientTests: XCTestCase {
         }
         self.networkingMock.getParams.last?.completion(.success(data))
         //Assert
-        let decoder = try (expectedDecoder as? [WorkTimeDecoder]).unwrap()
+        let decoder = try XCTUnwrap(expectedDecoder as? [WorkTimeDecoder])
         XCTAssertEqual(decoder[0], decoders[0])
         XCTAssertEqual(decoder[1], decoders[1])
     }
@@ -353,7 +350,7 @@ class ApiClientTests: XCTestCase {
         }
         self.networkingMock.putParams.last?.completion(.failure(error))
         //Assert
-        let testError = try (expectedError as? TestError).unwrap()
+        let testError = try XCTUnwrap(expectedError as? TestError)
         XCTAssertEqual(testError, error)
     }
     
@@ -374,7 +371,7 @@ class ApiClientTests: XCTestCase {
         }
         self.networkingMock.putParams.last?.completion(.success(data))
         //Assert
-        let decoder = try (expectedDecoder as? SessionDecoder).unwrap()
+        let decoder = try XCTUnwrap(expectedDecoder as? SessionDecoder)
         XCTAssertEqual(decoder.identifier, 1)
         XCTAssertEqual(decoder.firstName, "Admin")
         XCTAssertEqual(decoder.lastName, "Little")
@@ -402,7 +399,7 @@ class ApiClientTests: XCTestCase {
         }
         self.networkingMock.putParams.last?.completion(.success(data))
         //Assert
-        let testError = try (expectedError as? ApiClientError).unwrap()
+        let testError = try XCTUnwrap(expectedError as? ApiClientError)
         XCTAssertEqual(testError.type, .invalidResponse)
     }
     
@@ -411,19 +408,18 @@ class ApiClientTests: XCTestCase {
         var expectedError: Error?
         let sut = self.buildSUT()
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
-        let startsAt = try Calendar.current.date(from: components).unwrap()
+        let startsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.hour = 16
-        let endsAt = try Calendar.current.date(from: components).unwrap()
+        let endsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.day = 22
-        let day = try Calendar.current.date(from: components).unwrap()
+        let day = try XCTUnwrap(Calendar.current.date(from: components))
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let url = try URL(string: "www.example.com").unwrap()
         let task = Task(
             workTimeIdentifier: nil,
             project: projectDecoder,
             body: "TEST",
-            url: url,
+            url: self.exampleURL,
             day: day,
             startAt: startsAt,
             endAt: endsAt,
@@ -439,7 +435,7 @@ class ApiClientTests: XCTestCase {
             }
         }
         //Assert
-        let testError = try (expectedError as? ApiClientError).unwrap()
+        let testError = try XCTUnwrap(expectedError as? ApiClientError)
         XCTAssertEqual(testError.type, .invalidParameters)
     }
     
@@ -449,19 +445,18 @@ class ApiClientTests: XCTestCase {
         let error = TestError(message: "500 - server internal error")
         let sut = self.buildSUT()
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
-        let startsAt = try Calendar.current.date(from: components).unwrap()
+        let startsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.hour = 16
-        let endsAt = try Calendar.current.date(from: components).unwrap()
+        let endsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.day = 22
-        let day = try Calendar.current.date(from: components).unwrap()
+        let day = try XCTUnwrap(Calendar.current.date(from: components))
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let url = try URL(string: "www.example.com").unwrap()
         let task = Task(
             workTimeIdentifier: nil,
             project: projectDecoder,
             body: "TEST",
-            url: url,
+            url: self.exampleURL,
             day: day,
             startAt: startsAt,
             endAt: endsAt,
@@ -477,7 +472,7 @@ class ApiClientTests: XCTestCase {
         }
         self.networkingMock.putParams.last?.completion(.failure(error))
         //Assert
-        let testError = try (expectedError as? TestError).unwrap()
+        let testError = try XCTUnwrap(expectedError as? TestError)
         XCTAssertEqual(testError, error)
     }
     
@@ -486,19 +481,18 @@ class ApiClientTests: XCTestCase {
         var successCalled = false
         let sut = self.buildSUT()
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
-        let startsAt = try Calendar.current.date(from: components).unwrap()
+        let startsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.hour = 16
-        let endsAt = try Calendar.current.date(from: components).unwrap()
+        let endsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.day = 22
-        let day = try Calendar.current.date(from: components).unwrap()
+        let day = try XCTUnwrap(Calendar.current.date(from: components))
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let url = try URL(string: "www.example.com").unwrap()
         let task = Task(
             workTimeIdentifier: nil,
             project: projectDecoder,
             body: "TEST",
-            url: url,
+            url: self.exampleURL,
             day: day,
             startAt: startsAt,
             endAt: endsAt,

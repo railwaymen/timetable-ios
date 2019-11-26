@@ -27,7 +27,7 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
         let data = try self.json(from: MatchingFullTimeJSONResource.matchingFullTimeFullResponse)
         var matchingFullTimeDecoder: MatchingFullTimeDecoder?
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let date = try Calendar.current.date(from: components).unwrap()
+        let date = try XCTUnwrap(Calendar.current.date(from: components))
         let matchingFullTime = MatchingFullTimeEncoder(date: date, userIdentifier: 1)
         //Act
         sut.fetchMatchingFullTime(parameters: matchingFullTime) { result in
@@ -52,7 +52,7 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
         let error = TestError(message: "fetch matching full time failed")
         var expectedError: Error?
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let date = try Calendar.current.date(from: components).unwrap()
+        let date = try XCTUnwrap(Calendar.current.date(from: components))
         let matchingFullTime = MatchingFullTimeEncoder(date: date, userIdentifier: 1)
         //Act
         sut.fetchMatchingFullTime(parameters: matchingFullTime) { result in
@@ -65,7 +65,7 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
         }
         self.networkingMock.getParams.last?.completion(.failure(error))
         //Assert
-        let testError = try (expectedError as? TestError).unwrap()
+        let testError = try XCTUnwrap(expectedError as? TestError)
         XCTAssertEqual(testError, error)
     }
 }

@@ -71,7 +71,7 @@ class ProjectsViewModelTests: XCTestCase {
         XCTAssertEqual(project?.color, color)
         XCTAssertEqual(project?.identifier, 12)
         XCTAssertEqual(project?.users.count, 1)
-        XCTAssertEqual(try (project?.users.first).unwrap(), user)
+        XCTAssertEqual(try XCTUnwrap(project?.users.first), user)
         XCTAssertEqual(project?.leader, leader)
     }
     
@@ -94,8 +94,8 @@ class ProjectsViewModelTests: XCTestCase {
         XCTAssertEqual(project?.identifier, 11)
         XCTAssertEqual(project?.color, color)
         XCTAssertEqual(project?.users.count, 2)
-        XCTAssertEqual(try (project?.users.first).unwrap(), firstUser)
-        XCTAssertEqual(try (project?.users.last).unwrap(), lastUser)
+        XCTAssertEqual(try XCTUnwrap(project?.users.first), firstUser)
+        XCTAssertEqual(try XCTUnwrap(project?.users.last), lastUser)
         XCTAssertEqual(project?.leader, leader)
     }
     
@@ -107,7 +107,7 @@ class ProjectsViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setUpViewParams.count, 1)
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
-        XCTAssertFalse(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
     }
     
     func testViewDidLoadFetchProjectsFailure() throws {
@@ -118,9 +118,9 @@ class ProjectsViewModelTests: XCTestCase {
         sut.viewDidLoad()
         self.apiClientMock.fetchAllProjectsParams.last?.completion(.failure(error))
         //Assert
-        XCTAssertEqual(try (self.errorHandlerMock.throwingParams.last?.error as? TestError).unwrap(), error)
+        XCTAssertEqual(try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? TestError), error)
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
         XCTAssertEqual(self.userInterfaceMock.showErrorViewParams.count, 1)
     }
     

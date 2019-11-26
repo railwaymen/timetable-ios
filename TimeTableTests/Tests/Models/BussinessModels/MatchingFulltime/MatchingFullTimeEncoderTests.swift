@@ -14,14 +14,14 @@ class MatchingFullTimeEncoderTests: XCTestCase {
     func testCreatedMatchingFullTimeEncoderIsCorrect() throws {
         //Arrange
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let date = try Calendar.current.date(from: components).unwrap()
+        let date = try XCTUnwrap(Calendar.current.date(from: components))
         let sut = MatchingFullTimeEncoder(date: date, userIdentifier: 1)
         //Act
         let data = try self.encoder.encode(sut)
         let requestDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
         //Assert
-        let dateString = try (requestDictionary?["date"] as? String).unwrap()
-        let userId = try (requestDictionary?["user_id"] as? Int).unwrap()
+        let dateString = try XCTUnwrap(requestDictionary?["date"] as? String)
+        let userId = try XCTUnwrap(requestDictionary?["user_id"] as? Int)
         XCTAssertEqual(dateString, "2018-01-17")
         XCTAssertEqual(userId, 1)
     }
@@ -41,7 +41,7 @@ class MatchingFullTimeEncoderTests: XCTestCase {
     func testCreatedMatchingFullTimeEncoderFailsWhileUserIdentfierIsNil() throws {
         //Arrange
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let date = try Calendar.current.date(from: components).unwrap()
+        let date = try XCTUnwrap(Calendar.current.date(from: components))
         let sut = MatchingFullTimeEncoder(date: date, userIdentifier: nil)
         //Act
         do {

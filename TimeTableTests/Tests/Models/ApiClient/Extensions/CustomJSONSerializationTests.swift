@@ -18,8 +18,8 @@ class CustomJSONSerializationTests: XCTestCase {
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         //Act
         let jsonData = try sut.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
-        let json = try jsonData.unwrap()
         //Assert
+        let json = try XCTUnwrap(jsonData)
         XCTAssertEqual(json["id"] as? Int, sessionReponse.identifier)
         XCTAssertEqual(json["first_name"] as? String, sessionReponse.firstName)
         XCTAssertEqual(json["last_name"] as? String, sessionReponse.lastName)

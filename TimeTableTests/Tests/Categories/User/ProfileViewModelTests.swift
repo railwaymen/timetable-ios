@@ -56,7 +56,7 @@ class ProfileViewModelTests: XCTestCase {
         sut.viewDidLoad()
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
-        XCTAssertFalse(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
         XCTAssertTrue(self.errorHandlerMock.throwingParams.isEmpty)
         XCTAssertTrue(self.userInterfaceMock.updateParams.isEmpty)
     }
@@ -71,8 +71,8 @@ class ProfileViewModelTests: XCTestCase {
         self.apiClientMock.fetchUserProfileParams.last?.completion(.failure(error))
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
-        XCTAssertEqual(try (self.errorHandlerMock.throwingParams.last?.error as? TestError).unwrap(), error)
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertEqual(try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? TestError), error)
         XCTAssertEqual(self.userInterfaceMock.showErrorViewParams.count, 1)
     }
     
@@ -87,7 +87,7 @@ class ProfileViewModelTests: XCTestCase {
         self.apiClientMock.fetchUserProfileParams.last?.completion(.success(userDecoder))
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
         XCTAssertEqual(self.userInterfaceMock.updateParams.last?.firstName, "John")
         XCTAssertEqual(self.userInterfaceMock.updateParams.last?.lastName, "Little")
         XCTAssertEqual(self.userInterfaceMock.updateParams.last?.email, "john.little@example.com")
@@ -113,7 +113,7 @@ class ProfileViewModelTests: XCTestCase {
         sut.viewRequestedForLogout()
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
-        XCTAssertFalse(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
         XCTAssertTrue(self.errorHandlerMock.throwingParams.isEmpty)
         XCTAssertEqual(self.coreDataStackMock.deleteUserParams.count, 1)
     }
@@ -128,8 +128,8 @@ class ProfileViewModelTests: XCTestCase {
         self.coreDataStackMock.deleteUserParams.last?.completion(.failure(error))
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
-        XCTAssertEqual(try (self.errorHandlerMock.throwingParams.last?.error as? TestError).unwrap(), error)
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertEqual(try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? TestError), error)
     }
     
     func testViewRequestedForLogoutSucceed() {
@@ -141,7 +141,7 @@ class ProfileViewModelTests: XCTestCase {
         self.coreDataStackMock.deleteUserParams.last?.completion(.success(Void()))
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
         XCTAssertEqual(self.coordinatorMock.userProfileDidLogoutUserParams.count, 1)
     }
 }

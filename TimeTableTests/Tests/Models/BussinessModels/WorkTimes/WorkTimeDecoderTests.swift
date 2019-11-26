@@ -15,11 +15,11 @@ class WorkTimeDecoderTests: XCTestCase {
     func testWorkTimeResponse() throws {
         //Arrange
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
-        let startsAt = try Calendar.current.date(from: components).unwrap()
+        let startsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.hour = 16
-        let endsAt = try Calendar.current.date(from: components).unwrap()
+        let endsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.hour = 0
-        let date = try Calendar.current.date(from: components).unwrap()
+        let date = try XCTUnwrap(Calendar.current.date(from: components))
         
         let project = ProjectDecoder(
             identifier: 3,
@@ -64,11 +64,11 @@ class WorkTimeDecoderTests: XCTestCase {
     func testWorkTimeBodyNull() throws {
         //Arrange
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
-        let startsAt = try Calendar.current.date(from: components).unwrap()
+        let startsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.hour = 16
-        let endsAt = try Calendar.current.date(from: components).unwrap()
+        let endsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.hour = 0
-        let date = try Calendar.current.date(from: components).unwrap()
+        let date = try XCTUnwrap(Calendar.current.date(from: components))
         let project = ProjectDecoder(
             identifier: 3,
             name: "Lorem Ipsum",
@@ -100,11 +100,11 @@ class WorkTimeDecoderTests: XCTestCase {
     func testWorkTimeMissingBodyKey() throws {
         //Arrange
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
-        let startsAt = try Calendar.current.date(from: components).unwrap()
+        let startsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.hour = 16
-        let endsAt = try Calendar.current.date(from: components).unwrap()
+        let endsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.hour = 0
-        let date = try Calendar.current.date(from: components).unwrap()
+        let date = try XCTUnwrap(Calendar.current.date(from: components))
         let project = ProjectDecoder(
             identifier: 3,
             name: "Lorem Ipsum",
@@ -136,11 +136,11 @@ class WorkTimeDecoderTests: XCTestCase {
     func testWorkTimeNullTask() throws {
         //Arrange
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
-        let startsAt = try Calendar.current.date(from: components).unwrap()
+        let startsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.hour = 16
-        let endsAt = try Calendar.current.date(from: components).unwrap()
+        let endsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.hour = 0
-        let date = try Calendar.current.date(from: components).unwrap()
+        let date = try XCTUnwrap(Calendar.current.date(from: components))
         let project = ProjectDecoder(
             identifier: 3,
             name: "Lorem Ipsum",
@@ -172,11 +172,11 @@ class WorkTimeDecoderTests: XCTestCase {
     func testWorkTimeMissingTaskKey() throws {
         //Arrange
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
-        let startsAt = try Calendar.current.date(from: components).unwrap()
+        let startsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.hour = 16
-        let endsAt = try Calendar.current.date(from: components).unwrap()
+        let endsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.hour = 0
-        let date = try Calendar.current.date(from: components).unwrap()
+        let date = try XCTUnwrap(Calendar.current.date(from: components))
         let project = ProjectDecoder(
             identifier: 3,
             name: "Lorem Ipsum",
@@ -208,11 +208,11 @@ class WorkTimeDecoderTests: XCTestCase {
     func testWorkTimeNullTaskPreview() throws {
         //Arrange
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
-        let startsAt = try Calendar.current.date(from: components).unwrap()
+        let startsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.hour = 16
-        let endsAt = try Calendar.current.date(from: components).unwrap()
+        let endsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.hour = 0
-        let date = try Calendar.current.date(from: components).unwrap()
+        let date = try XCTUnwrap(Calendar.current.date(from: components))
         let project = ProjectDecoder(
             identifier: 3,
             name: "Lorem Ipsum",
@@ -244,11 +244,11 @@ class WorkTimeDecoderTests: XCTestCase {
     func testWorkTimesMissingTaskPreviewKey() throws {
         //Arrange
         var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 21, hour: 15)
-        let startsAt = try Calendar.current.date(from: components).unwrap()
+        let startsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.hour = 16
-        let endsAt = try Calendar.current.date(from: components).unwrap()
+        let endsAt = try XCTUnwrap(Calendar.current.date(from: components))
         components.hour = 0
-        let date = try Calendar.current.date(from: components).unwrap()
+        let date = try XCTUnwrap(Calendar.current.date(from: components))
         let project = ProjectDecoder(
             identifier: 3,
             name: "Lorem Ipsum",

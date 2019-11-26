@@ -74,7 +74,7 @@ class ProjectCollectionViewCellModelTests: XCTestCase {
         //Act
         sut.configure(view: cellMock, for: IndexPath(row: 0, section: 0))
         //Assert
-        XCTAssertTrue(try (cellMock.configureParams.last?.name.isEmpty).unwrap())
+        XCTAssertTrue(try XCTUnwrap(cellMock.configureParams.last?.name.isEmpty))
     }
     
     func testUserNameReturnsEmptyStringWhileIndexPathIsOutOfTheRange() throws {
@@ -84,7 +84,7 @@ class ProjectCollectionViewCellModelTests: XCTestCase {
         //Act
         sut.configure(view: cellMock, for: IndexPath(row: 1, section: 0))
         //Assert
-        XCTAssertTrue(try (cellMock.configureParams.last?.name.isEmpty).unwrap())
+        XCTAssertTrue(try XCTUnwrap(cellMock.configureParams.last?.name.isEmpty))
     }
     
     func testUserNameReturnsSucceed() throws {

@@ -41,7 +41,7 @@ class LoginViewModelTests: XCTestCase {
         //Act
         sut.viewDidLoad()
         //Assert
-        XCTAssertFalse(try (self.userInterface.setUpViewParams.last?.checkBoxIsActive).unwrap())
+        XCTAssertFalse(try XCTUnwrap(self.userInterface.setUpViewParams.last?.checkBoxIsActive))
     }
     
     func testViewDidLoadUpdatesLoginFiledsWithEmptyValues() {
@@ -147,9 +147,9 @@ class LoginViewModelTests: XCTestCase {
         sut.loginInputValueDidChange(value: "login")
         //Assert
         XCTAssertEqual(self.userInterface.passwordInputEnabledStateParams.count, 1)
-        XCTAssertTrue(try (self.userInterface.passwordInputEnabledStateParams.last?.isEnabled).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.passwordInputEnabledStateParams.last?.isEnabled))
         XCTAssertEqual(self.userInterface.loginButtonEnabledStateParams.count, 1)
-        XCTAssertFalse(try (self.userInterface.loginButtonEnabledStateParams.last?.isEnabled).unwrap())
+        XCTAssertFalse(try XCTUnwrap(self.userInterface.loginButtonEnabledStateParams.last?.isEnabled))
     }
 
     func testPasswordInputValueDidChangePassedNilValue() throws {
@@ -169,9 +169,9 @@ class LoginViewModelTests: XCTestCase {
         sut.passwordInputValueDidChange(value: "password")
         //Assert
         XCTAssertEqual(self.userInterface.passwordInputEnabledStateParams.count, 1)
-        XCTAssertTrue(try (self.userInterface.passwordInputEnabledStateParams.last?.isEnabled).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.passwordInputEnabledStateParams.last?.isEnabled))
         XCTAssertEqual(self.userInterface.loginButtonEnabledStateParams.count, 1)
-        XCTAssertFalse(try (self.userInterface.loginButtonEnabledStateParams.last?.isEnabled).unwrap())
+        XCTAssertFalse(try XCTUnwrap(self.userInterface.loginButtonEnabledStateParams.last?.isEnabled))
     }
     
     func testPasswordInputValueDidChangeWhileLoginValueIsNotNil() throws {
@@ -182,9 +182,9 @@ class LoginViewModelTests: XCTestCase {
         sut.passwordInputValueDidChange(value: "password")
         //Assert
         XCTAssertEqual(self.userInterface.passwordInputEnabledStateParams.count, 2)
-        XCTAssertTrue(try (self.userInterface.passwordInputEnabledStateParams.last?.isEnabled).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.passwordInputEnabledStateParams.last?.isEnabled))
         XCTAssertEqual(self.userInterface.loginButtonEnabledStateParams.count, 2)
-        XCTAssertTrue(try (self.userInterface.loginButtonEnabledStateParams.last?.isEnabled).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.loginButtonEnabledStateParams.last?.isEnabled))
     }
 
     func testPasswordTextFieldDidRequestForReturnWhileLoginIsEmpty() {
@@ -225,7 +225,7 @@ class LoginViewModelTests: XCTestCase {
         sut.shouldRemeberUserBoxStatusDidChange(isActive: false)
         //Assert
         XCTAssertEqual(self.userInterface.checkBoxIsActiveStateParams.count, 1)
-        XCTAssertTrue(try (self.userInterface.checkBoxIsActiveStateParams.last?.isActive).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.checkBoxIsActiveStateParams.last?.isActive))
     }
     
     func testShouldRemeberUserBoxStatusDidChangeToTrue() throws {
@@ -235,7 +235,7 @@ class LoginViewModelTests: XCTestCase {
         sut.shouldRemeberUserBoxStatusDidChange(isActive: false)
         //Assert
         XCTAssertEqual(self.userInterface.checkBoxIsActiveStateParams.count, 1)
-        XCTAssertTrue(try (self.userInterface.checkBoxIsActiveStateParams.last?.isActive).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.checkBoxIsActiveStateParams.last?.isActive))
     }
     
     func testViewRequestedToLoginWhileLoginIsEmpty() throws {
@@ -245,7 +245,7 @@ class LoginViewModelTests: XCTestCase {
         //Act
         sut.viewRequestedToLogin()
         //Assert
-        let error = try (self.errorHandler.throwingParams.last?.error as? UIError).unwrap()
+        let error = try XCTUnwrap(self.errorHandler.throwingParams.last?.error as? UIError)
         XCTAssertEqual(error, expectedError)
         XCTAssertTrue(self.userInterface.setActivityIndicatorParams.isEmpty)
     }
@@ -258,7 +258,7 @@ class LoginViewModelTests: XCTestCase {
         //Act
         sut.viewRequestedToLogin()
         //Assert
-        let error = try (self.errorHandler.throwingParams.last?.error as? UIError).unwrap()
+        let error = try XCTUnwrap(self.errorHandler.throwingParams.last?.error as? UIError)
         XCTAssertEqual(error, expectedError)
         XCTAssertTrue(self.userInterface.setActivityIndicatorParams.isEmpty)
     }
@@ -277,7 +277,7 @@ class LoginViewModelTests: XCTestCase {
         XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.count, 1)
         XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.last?.state, .loggedInCorrectly(sessionReponse))
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 1)
-        XCTAssertFalse(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertFalse(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isHidden))
     }
     
     func testViewRequestedToLoginFailsWhileSavingToDataBase() throws {
@@ -295,10 +295,10 @@ class LoginViewModelTests: XCTestCase {
         self.contentProvider.loginParams.last?.saveCompletion(.failure(expectedError))
         //Assert
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isHidden))
         switch self.errorHandler.throwingParams.last?.error as? AppError {
         case .cannotRemeberUserCredentials(let error)?:
-               XCTAssertEqual(try (error as? TestError).unwrap(), expectedError)
+               XCTAssertEqual(try XCTUnwrap(error as? TestError), expectedError)
         default:
             XCTFail()
         }
@@ -320,10 +320,10 @@ class LoginViewModelTests: XCTestCase {
         self.contentProvider.loginParams.last?.saveCompletion(.success(Void()))
         //Assert
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isHidden))
         XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.count, 1)
         XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.last?.state, .loggedInCorrectly(sessionReponse))
-        XCTAssertEqual(try (self.errorHandler.throwingParams.last?.error as? TestError).unwrap(), thrownError)
+        XCTAssertEqual(try XCTUnwrap(self.errorHandler.throwingParams.last?.error as? TestError), thrownError)
     }
     
     func testRequestedToLoginWithCorrectCredentialsAndShouldSaveUserCredenailsSucceed() throws {
@@ -341,7 +341,7 @@ class LoginViewModelTests: XCTestCase {
         self.contentProvider.loginParams.last?.saveCompletion(.success(Void()))
         //Assert
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isHidden))
         XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.count, 1)
         XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.last?.state, .loggedInCorrectly(sessionReponse))
         XCTAssertEqual(self.accessService.saveUserParams.count, 1)
@@ -357,10 +357,10 @@ class LoginViewModelTests: XCTestCase {
         sut.viewRequestedToLogin()
         self.contentProvider.loginParams.last?.fetchCompletion(.failure(expectedError))
         //Assert
-        let error = try (self.errorHandler.throwingParams.last?.error as? TestError).unwrap()
+        let error = try XCTUnwrap(self.errorHandler.throwingParams.last?.error as? TestError)
         XCTAssertEqual(error, expectedError)
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isHidden))
     }
 }
 

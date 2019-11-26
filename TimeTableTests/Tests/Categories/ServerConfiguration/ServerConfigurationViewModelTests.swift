@@ -31,7 +31,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(self.userInterface.setUpViewParams.count, 1)
         XCTAssertEqual(self.userInterface.setUpViewParams.last?.serverAddress, "")
-        XCTAssertTrue(try (self.userInterface.setUpViewParams.last?.checkBoxIsActive).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.setUpViewParams.last?.checkBoxIsActive))
     }
     
     func testViewRequestedToContinueThrowErrorWhileServerAddressIsNull() {
@@ -70,11 +70,11 @@ class ServerConfigurationViewModelTests: XCTestCase {
         sut.viewRequestedToContinue()
         self.serverConfigurationManagerMock.verifyParams.last?.completion(.success(Void()))
         //Assert
-        let configuration = try (self.coordinatorMock.serverConfigurationDidFinishParams.last?.serverConfiguration).unwrap()
-        XCTAssertEqual(configuration.host, try URL(string: hostString.apiSuffix().httpPrefix()).unwrap())
+        let configuration = try XCTUnwrap(self.coordinatorMock.serverConfigurationDidFinishParams.last?.serverConfiguration)
+        XCTAssertEqual(configuration.host, try XCTUnwrap(URL(string: hostString.apiSuffix().httpPrefix())))
         XCTAssertTrue(configuration.shouldRememberHost)
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isHidden))
     }
     
     func testViewRequestedToContinueCreateCorrectServerConfigurationWithStaySigneInAsFalse() throws {
@@ -87,11 +87,11 @@ class ServerConfigurationViewModelTests: XCTestCase {
         sut.viewRequestedToContinue()
         self.serverConfigurationManagerMock.verifyParams.last?.completion(.success(Void()))
         //Assert
-        let configuration = try (self.coordinatorMock.serverConfigurationDidFinishParams.last?.serverConfiguration).unwrap()
-        XCTAssertEqual(configuration.host, try URL(string: hostString.apiSuffix().httpPrefix()).unwrap())
+        let configuration = try XCTUnwrap(self.coordinatorMock.serverConfigurationDidFinishParams.last?.serverConfiguration)
+        XCTAssertEqual(configuration.host, try XCTUnwrap(URL(string: hostString.apiSuffix().httpPrefix())))
         XCTAssertFalse(configuration.shouldRememberHost)
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isHidden))
     }
     
     func testViewRequestedToContinueWithCorrectServerConfigurationCallCoordinator() throws {
@@ -105,14 +105,14 @@ class ServerConfigurationViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(self.coordinatorMock.serverConfigurationDidFinishParams.count, 1)
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isHidden))
     }
     
     func testViewRequestedToContinueWithInvalidServerConfigurationGetsAnError() throws {
         //Arrange
         let sut = self.buildSUT()
         let hostString = "com"
-        let url = try URL(string: hostString).unwrap()
+        let url = try XCTUnwrap(URL(string: hostString))
         sut.serverAddressDidChange(text: hostString)
         //Act
         sut.viewRequestedToContinue()
@@ -120,7 +120,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(self.errorHandler.throwingParams.count, 1)
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try (self.userInterface.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isHidden))
     }
     
     func testServerAddressDidChangePassedNilValue() {
@@ -139,7 +139,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         sut.serverAddressDidChange(text: "www.example.com")
         //Assert
         XCTAssertEqual(self.userInterface.continueButtonEnabledStateParams.count, 1)
-        XCTAssertTrue(try (self.userInterface.continueButtonEnabledStateParams.last?.isEnabled).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.continueButtonEnabledStateParams.last?.isEnabled))
     }
     
     func testServerAddressTextFieldDidRequestedForReturnDissmissKeyboard() {

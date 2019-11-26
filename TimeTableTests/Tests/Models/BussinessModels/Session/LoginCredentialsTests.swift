@@ -20,11 +20,11 @@ class LoginCredentialsTests: XCTestCase {
         let data = try self.encoder.encode(sut)
         let requestDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
         //Assert
-        let requestEmail = try (requestDictionary?["email"] as? String).unwrap()
-        let sampleEmail = try (sampleDictionary?["email"] as? String).unwrap()
+        let requestEmail = try XCTUnwrap(requestDictionary?["email"] as? String)
+        let sampleEmail = try XCTUnwrap(sampleDictionary?["email"] as? String)
         XCTAssertEqual(requestEmail, sampleEmail)
-        let requestPassword = try (requestDictionary?["password"] as? String).unwrap()
-        let samplePassword = try (requestDictionary?["password"] as? String).unwrap()
+        let requestPassword = try XCTUnwrap(requestDictionary?["password"] as? String)
+        let samplePassword = try XCTUnwrap(requestDictionary?["password"] as? String)
         XCTAssertEqual(requestPassword, samplePassword)
     }
 }
