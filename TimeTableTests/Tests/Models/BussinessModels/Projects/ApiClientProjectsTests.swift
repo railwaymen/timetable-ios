@@ -58,7 +58,7 @@ class ApiClientProjectsTests: XCTestCase {
         }
         self.networkingMock.getParams.last?.completion(.failure(error))
         //Assert
-        let testError = try (expectedError as? TestError).unwrap()
+        let testError = try XCTUnwrap(expectedError as? TestError)
         XCTAssertEqual(testError, error)
     }
     
@@ -98,7 +98,7 @@ class ApiClientProjectsTests: XCTestCase {
         }
         self.networkingMock.getParams.last?.completion(.failure(error))
         //Assert
-        let testError = try (expectedError as? TestError).unwrap()
+        let testError = try XCTUnwrap(expectedError as? TestError)
         XCTAssertEqual(testError, error)
     }
 }

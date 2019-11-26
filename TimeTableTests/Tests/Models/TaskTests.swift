@@ -114,7 +114,7 @@ class TaskTests: XCTestCase {
             endAt: nil,
             tag: .development)
         //Act
-        let type = try sut.type.unwrap()
+        let type = try XCTUnwrap(sut.type)
         //Assert
         switch type {
         case .standard: break
@@ -136,7 +136,7 @@ class TaskTests: XCTestCase {
             endAt: nil,
             tag: .development)
         //Act
-        let type = try sut.type.unwrap()
+        let type = try XCTUnwrap(sut.type)
         //Assert
         switch type {
         case .fullDay(let timeInterval):
@@ -159,7 +159,7 @@ class TaskTests: XCTestCase {
             endAt: nil,
             tag: .development)
         //Act
-        let type = try sut.type.unwrap()
+        let type = try XCTUnwrap(sut.type)
         //Assert
         switch type {
         case .lunch(let timeInterval):

@@ -98,9 +98,9 @@ class WorkTimesContentProviderTests: XCTestCase {
         let sut = self.buildSUT()
         let dateComponents = DateComponents(year: 2019, month: 2, day: 1)
         self.calendarMock.dateComponentsReturnValue = dateComponents
-        let startOfMonth = try Calendar.current.date(from: dateComponents).unwrap()
+        let startOfMonth = try XCTUnwrap(Calendar.current.date(from: dateComponents))
         self.calendarMock.dateFromDateComponentsReturnValue = startOfMonth
-        let date = try Calendar.current.date(from: dateComponents).unwrap()
+        let date = try XCTUnwrap(Calendar.current.date(from: dateComponents))
         
         var expectedError: Error?
         let error = TestError(message: "Work times error")
@@ -154,17 +154,17 @@ class WorkTimesContentProviderTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT()
         var dateComponents = DateComponents(year: 2019, month: 2, day: 1)
-        let startOfMonth = try Calendar.current.date(from: dateComponents).unwrap()
+        let startOfMonth = try XCTUnwrap(Calendar.current.date(from: dateComponents))
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 1
         self.calendarMock.dateComponentsReturnValue = dateComponents
         self.calendarMock.dateFromDateComponentsReturnValue = startOfMonth
         dateComponents.day = 28
-        let endOfMonth = try Calendar.current.date(from: dateComponents).unwrap()
+        let endOfMonth = try XCTUnwrap(Calendar.current.date(from: dateComponents))
         self.calendarMock.dateByAddingCalendarComponentReturnValue = endOfMonth
         
         var expectedResponse: ([DailyWorkTime], MatchingFullTimeDecoder)?
     
-        let date = try Calendar.current.date(from: dateComponents).unwrap()
+        let date = try XCTUnwrap(Calendar.current.date(from: dateComponents))
         
         let workTimesData = try self.json(from: WorkTimesJSONResource.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: workTimesData)
@@ -187,14 +187,14 @@ class WorkTimesContentProviderTests: XCTestCase {
         XCTAssertEqual(self.dispatchGroupMock.leaveParams.count, 2)
         XCTAssertEqual(self.dispatchGroupMock.notifyParams.count, 1)
         XCTAssertEqual(expectedResponse?.0.count, 1)
-        XCTAssertEqual(try (expectedResponse?.1).unwrap(), matchingFullTime)
+        XCTAssertEqual(try XCTUnwrap(expectedResponse?.1), matchingFullTime)
     }
     
     func testDelete() throws {
         //Arrange
         let sut = self.buildSUT()
         let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
-        let workTime = try self.decoder.decode([WorkTimeDecoder].self, from: data).first.unwrap()
+        let workTime = try XCTUnwrap(self.decoder.decode([WorkTimeDecoder].self, from: data).first)
         var completionResult: Result<Void, Error>?
         //Act
         sut.delete(workTime: workTime) { result in

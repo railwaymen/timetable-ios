@@ -25,7 +25,7 @@ class ProjectTests: XCTestCase {
         XCTAssertEqual(sut.name, "Test Name")
         XCTAssertEqual(sut.color, color)
         XCTAssertEqual(sut.users.count, 1)
-        XCTAssertEqual(try (sut.users.first).unwrap(), user)
+        XCTAssertEqual(try XCTUnwrap(sut.users.first), user)
         XCTAssertEqual(sut.leader, leader)
     }
     
@@ -42,7 +42,7 @@ class ProjectTests: XCTestCase {
         XCTAssertEqual(sut.name, "Test Name")
         XCTAssertEqual(sut.color, .black)
         XCTAssertEqual(sut.users.count, 1)
-        XCTAssertEqual(try (sut.users.first).unwrap(), user)
+        XCTAssertEqual(try XCTUnwrap(sut.users.first), user)
         XCTAssertEqual(sut.leader, leader)
     }
     
@@ -59,7 +59,7 @@ class ProjectTests: XCTestCase {
         XCTAssertEqual(sut.name, "Test Name")
         XCTAssertEqual(sut.color, .black)
         XCTAssertEqual(sut.users.count, 1)
-        XCTAssertEqual(try (sut.users.first).unwrap(), user)
+        XCTAssertEqual(try XCTUnwrap(sut.users.first), user)
         XCTAssertEqual(sut.leader, leader)
     }
 
@@ -108,7 +108,7 @@ class ProjectTests: XCTestCase {
         XCTAssertEqual(sut.name, "Test Name")
         XCTAssertEqual(sut.color, color)
         XCTAssertEqual(sut.users.count, 1)
-        XCTAssertEqual(try (sut.users.first).unwrap(), user)
+        XCTAssertEqual(try XCTUnwrap(sut.users.first), user)
         XCTAssertNil(sut.leader)
     }
     
@@ -125,7 +125,7 @@ class ProjectTests: XCTestCase {
         XCTAssertEqual(sut.name, "Test Name")
         XCTAssertEqual(sut.color, color)
         XCTAssertEqual(sut.users.count, 1)
-        XCTAssertEqual(try (sut.users.first).unwrap(), user)
+        XCTAssertEqual(try XCTUnwrap(sut.users.first), user)
         XCTAssertNil(sut.leader)
     }
 }

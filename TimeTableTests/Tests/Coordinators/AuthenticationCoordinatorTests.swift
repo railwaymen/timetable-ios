@@ -69,10 +69,9 @@ class AuthenticationCoordinatorTests: XCTestCase {
     func testStartDoesNotRunAuthenticationFlowWhileServerControllerIsInvalid() throws {
         //Arrange
         let sut = self.buildSUT()
-        let url = try URL(string: "www.example.com").unwrap()
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: UIViewController()]
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.login] = [.initial: UIViewController()]
-        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: url, shouldRememberHost: true)
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: exampleURL, shouldRememberHost: true)
         //Act
         sut.start { (_, _) in }
         self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
@@ -83,10 +82,11 @@ class AuthenticationCoordinatorTests: XCTestCase {
     func testStartDoesNotRunAuthenticationFlowWhileLoginControllerIsInvalid() throws {
         //Arrange
         let sut = self.buildSUT()
-        let url = try URL(string: "www.example.com").unwrap()
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.login] = [.initial: UIViewController()]
-        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: url, shouldRememberHost: true)
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
+            host: self.exampleURL,
+            shouldRememberHost: true)
         //Act
         sut.start { (_, _) in }
         self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
@@ -98,10 +98,11 @@ class AuthenticationCoordinatorTests: XCTestCase {
     func testStartRunsAuthenticationFlow() throws {
         //Arrange
         let sut = self.buildSUT()
-        let url = try URL(string: "www.example.com").unwrap()
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.login] = [.initial: LoginViewControllerMock()]
-        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: url, shouldRememberHost: true)
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
+            host: self.exampleURL,
+            shouldRememberHost: true)
         //Act
         sut.start { (_, _) in }
         self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
@@ -114,16 +115,17 @@ class AuthenticationCoordinatorTests: XCTestCase {
     func testFinishOnStart() throws {
         //Arrange
         let sut = self.buildSUT()
-        let url = try URL(string: "www.example.com").unwrap()
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.login] = [.initial: LoginViewControllerMock()]
-        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: url, shouldRememberHost: true)
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
+            host: self.exampleURL,
+            shouldRememberHost: true)
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         //Act
         sut.start { (configuration, apiClient) in
             //Assert
-            XCTAssertEqual(configuration.host, url)
+            XCTAssertEqual(configuration.host, self.exampleURL)
             XCTAssertEqual(configuration.shouldRememberHost, true)
             XCTAssertEqual(apiClient.networking.headerFields?["token"], "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjIt")
         }
@@ -134,16 +136,17 @@ class AuthenticationCoordinatorTests: XCTestCase {
     func testLoginDidFinishWithStateLoggedInCorrectly() throws {
         //Arrange
         let sut = self.buildSUT()
-        let url = try URL(string: "www.example.com").unwrap()
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.login] = [.initial: LoginViewControllerMock()]
-        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: url, shouldRememberHost: true)
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
+            host: self.exampleURL,
+            shouldRememberHost: true)
         self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         sut.start { (configuration, apiClient) in
             //Assert
-            XCTAssertEqual(configuration.host, url)
+            XCTAssertEqual(configuration.host, self.exampleURL)
             XCTAssertEqual(configuration.shouldRememberHost, true)
             XCTAssertEqual(apiClient.networking.headerFields?["token"], "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjIt")
         }

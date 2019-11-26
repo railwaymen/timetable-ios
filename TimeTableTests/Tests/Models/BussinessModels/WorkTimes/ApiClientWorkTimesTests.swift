@@ -40,8 +40,8 @@ class ApiClientWorkTimesTests: XCTestCase {
         }
         self.networkingMock.getParams.last?.completion(.success(data))
         //Assert
-        XCTAssertEqual(try (expectedWorkTimes?[0]).unwrap(), decoders[0])
-        XCTAssertEqual(try (expectedWorkTimes?[1]).unwrap(), decoders[1])
+        XCTAssertEqual(try XCTUnwrap(expectedWorkTimes?[0]), decoders[0])
+        XCTAssertEqual(try XCTUnwrap(expectedWorkTimes?[1]), decoders[1])
     }
     
     func testFetchFailed() throws {
@@ -61,7 +61,7 @@ class ApiClientWorkTimesTests: XCTestCase {
         }
         self.networkingMock.getParams.last?.completion(.failure(error))
         //Assert
-        let testError = try (expectedError as? TestError).unwrap()
+        let testError = try XCTUnwrap(expectedError as? TestError)
         XCTAssertEqual(testError, error)
     }
     
@@ -121,7 +121,7 @@ class ApiClientWorkTimesTests: XCTestCase {
         }
         self.networkingMock.postParams.last?.completion(.failure(error))
         //Assert
-        let testError = try (expectedError as? TestError).unwrap()
+        let testError = try XCTUnwrap(expectedError as? TestError)
         XCTAssertEqual(testError, error)
     }
     
@@ -159,7 +159,7 @@ class ApiClientWorkTimesTests: XCTestCase {
         }
         self.networkingMock.deleteParams.last?.completion(.failure(error))
         //Assert
-        let testError = try (expectedError as? TestError).unwrap()
+        let testError = try XCTUnwrap(expectedError as? TestError)
         XCTAssertEqual(testError, error)
     }
     
@@ -219,7 +219,7 @@ class ApiClientWorkTimesTests: XCTestCase {
         }
         self.networkingMock.putParams.last?.completion(.failure(error))
         //Assert
-        let testError = try (expectedError as? TestError).unwrap()
+        let testError = try XCTUnwrap(expectedError as? TestError)
         XCTAssertEqual(testError, error)
     }
 }

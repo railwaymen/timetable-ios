@@ -13,9 +13,8 @@ class ApiClientErrorTests: XCTestCase {
     
     func testLocalizedDescriptionIfInvalidHostHasBeenGiven() throws {
         //Arrange
-        let url = try URL(string: "www.example.com").unwrap()
-        let sut =  ApiClientError(type: .invalidHost(url))
-        let expectedResult = String(format: "api.error.invalid_url".localized, url.absoluteString)
+        let sut =  ApiClientError(type: .invalidHost(self.exampleURL))
+        let expectedResult = String(format: "api.error.invalid_url".localized, self.exampleURL.absoluteString)
         //Act
         let localizedString = sut.type.localizedDescription
         //Assert

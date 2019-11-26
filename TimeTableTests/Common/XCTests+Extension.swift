@@ -24,8 +24,12 @@ extension XCTestCase {
         return decoder
     }
     
+    var exampleURL: URL {
+        return URL(string: "www.example.com")!
+    }
+    
     func createInMemoryStorage() throws -> NSManagedObjectContext {
-        let model = try NSManagedObjectModel.mergedModel(from: nil).unwrap()
+        let model = try XCTUnwrap(NSManagedObjectModel.mergedModel(from: nil))
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
         
         do {

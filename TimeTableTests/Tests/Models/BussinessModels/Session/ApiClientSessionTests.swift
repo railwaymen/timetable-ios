@@ -40,7 +40,7 @@ class ApiClientSessionTests: XCTestCase {
         }
         self.networkingMock.postParams.last?.completion(.success(data))
         //Assert
-        XCTAssertEqual(try expectedSessionDecoder.unwrap(), decoder)
+        XCTAssertEqual(try XCTUnwrap(expectedSessionDecoder), decoder)
     }
     
     func testSignInFailed() throws {
@@ -60,7 +60,7 @@ class ApiClientSessionTests: XCTestCase {
         }
         self.networkingMock.postParams.last?.completion(.failure(error))
         //Assert
-        let testError = try (expectedError as? TestError).unwrap()
+        let testError = try XCTUnwrap(expectedError as? TestError)
         XCTAssertEqual(testError, error)
     }
 }

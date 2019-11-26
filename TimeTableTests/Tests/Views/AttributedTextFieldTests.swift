@@ -19,7 +19,7 @@ class AttributedTextFieldTests: XCTestCase {
         //Act
         sut.placeholderColor = expectedColor
         //Assert
-        let color = try (sut.attributedPlaceholder?.attribute(.foregroundColor, at: 0, effectiveRange: nil) as? UIColor).unwrap()
+        let color = try XCTUnwrap(sut.attributedPlaceholder?.attribute(.foregroundColor, at: 0, effectiveRange: nil) as? UIColor)
         XCTAssertEqual(color, expectedColor)
     }
 }

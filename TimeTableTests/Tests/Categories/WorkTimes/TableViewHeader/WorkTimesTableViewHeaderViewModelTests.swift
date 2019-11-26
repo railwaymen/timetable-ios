@@ -22,7 +22,7 @@ class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
     func testViewConfiguredWithTodayDate() throws {
         //Arrange
         let components = DateComponents(year: 2018, month: 11, day: 21)
-        let date = try Calendar.current.date(from: components).unwrap()
+        let date = try XCTUnwrap(Calendar.current.date(from: components))
         let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
@@ -38,7 +38,7 @@ class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
     func testViewConfiguredWithYesterdayDate() throws {
         //Arrange
         let components = DateComponents(year: 2018, month: 11, day: 20)
-        let date = try Calendar.current.date(from: components).unwrap()
+        let date = try XCTUnwrap(Calendar.current.date(from: components))
         let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
@@ -54,7 +54,7 @@ class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
     func testViewConfiguredWithOtherDateThanTodayAndYesterday() throws {
         //Arrange
         let components = DateComponents(year: 2018, month: 11, day: 20)
-        let date = try Calendar.current.date(from: components).unwrap()
+        let date = try XCTUnwrap(Calendar.current.date(from: components))
         let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)

@@ -84,7 +84,7 @@ class AccessServiceTests: XCTestCase {
             _ = try sut.getUserCredentials()
         } catch {
             //Assert
-            XCTAssertEqual(try (error as? TestError).unwrap(), thrownError)
+            XCTAssertEqual(try XCTUnwrap(error as? TestError), thrownError)
         }
     }
     
@@ -117,7 +117,7 @@ class AccessServiceTests: XCTestCase {
             _ = try sut.getUserCredentials()
         } catch {
             //Assert
-            XCTAssertEqual(try (error as? TestError).unwrap(), TestError(message: "decoder error"))
+            XCTAssertEqual(try XCTUnwrap(error as? TestError), TestError(message: "decoder error"))
         }
     }
 

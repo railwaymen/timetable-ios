@@ -86,7 +86,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         //Act
         sut.viewDidLoad()
         //Assert
-        XCTAssertFalse(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
     }
     
     func testViewDidLoadFetchWorkTimesHidesActivityIndicatorAfterSuccessfulFetch() throws {
@@ -98,7 +98,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         sut.viewDidLoad()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
         //Assert
-        XCTAssertTrue(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
     }
     
     func testViewDidLoadFetchWorkTimesHidesActivityIndicatorAfterFailedFetch() throws {
@@ -109,7 +109,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         sut.viewDidLoad()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.failure(error))
         //Assert
-        XCTAssertTrue(try (self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden).unwrap())
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
     }
 
     func testViewDidLoadRunsFetchWorkTimesSuccessCallsUpdateViewOnUserInterface() throws {
@@ -155,7 +155,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         sut.viewDidLoad()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.failure(expectedError))
         //Assert
-        let error = try (self.errorHandlerMock.throwingParams.last?.error as? TestError).unwrap()
+        let error = try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? TestError)
         XCTAssertEqual(error, expectedError)
     }
     
@@ -263,7 +263,7 @@ class WorkTimesListViewModelTests: XCTestCase {
             requestCompleted = completed
         }
         //Assert
-        XCTAssertFalse(try requestCompleted.unwrap())
+        XCTAssertFalse(try XCTUnwrap(requestCompleted))
     }
     
     func testViewRequestToDeleteWorkTime_errorResponse() throws {
@@ -315,7 +315,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         let matchingFullTimeData = try self.json(from: MatchingFullTimeJSONResource.matchingFullTimeFullResponse)
         let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
         let components = DateComponents(year: 2018, month: 11, day: 21)
-        let date = try Calendar.current.date(from: components).unwrap()
+        let date = try XCTUnwrap(Calendar.current.date(from: components))
         let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
         let sut = self.buildSUT()
         sut.viewDidLoad()
@@ -353,7 +353,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         let cell = UITableViewCell()
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         let dailyWorkTime = try self.buildDailyWorkTime()
-        let workTime = try dailyWorkTime.workTimes.first.unwrap()
+        let workTime = try XCTUnwrap(dailyWorkTime.workTimes.first)
         let sut = self.buildSUT()
         sut.viewDidLoad()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
@@ -473,7 +473,7 @@ extension WorkTimesListViewModelTests {
         let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         let components = DateComponents(year: 2018, month: 11, day: 21)
-        let date = try Calendar.current.date(from: components).unwrap()
+        let date = try XCTUnwrap(Calendar.current.date(from: components))
         return DailyWorkTime(day: date, workTimes: workTimes)
     }
 }

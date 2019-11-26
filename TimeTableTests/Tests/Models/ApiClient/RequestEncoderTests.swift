@@ -25,8 +25,8 @@ class RequestEncoderTests: XCTestCase {
         let wrapper = LoginCredentials(email: "john@example.com", password: "password")
         //Act
         let encodedWrapper = try sut.encode(wrapper: wrapper)
-        let dictionary = try (try JSONSerialization.jsonObject(with: encodedWrapper, options: .allowFragments) as? [AnyHashable: Any]).unwrap()
         //Assert
+        let dictionary = try XCTUnwrap(try JSONSerialization.jsonObject(with: encodedWrapper, options: .allowFragments) as? [AnyHashable: Any])
         XCTAssertEqual(dictionary["email"] as? String, wrapper.email)
         XCTAssertEqual(dictionary["password"] as? String, wrapper.password)
     }
