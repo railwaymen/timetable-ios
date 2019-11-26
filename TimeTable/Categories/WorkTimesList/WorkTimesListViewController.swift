@@ -32,8 +32,6 @@ class WorkTimesListViewController: UIViewController {
     
     private let tableViewEstimatedRowHeight: CGFloat = 150
     private let heightForHeader: CGFloat = 50
-    private let workTimeStandardCellReuseIdentifier = "WorkTimeStandardTableViewCellReuseIdentifier"
-    private let workTimesTableViewHeaderIdentifier = "WorkTimesTableViewHeaderIdentifier"
     private var viewModel: WorkTimesListViewModelType!
     
     // MARK: - Lifecycle
@@ -66,7 +64,7 @@ extension WorkTimesListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: self.workTimeStandardCellReuseIdentifier, for: indexPath) as? WorkTimeTableViewCellable
+        let cell = tableView.dequeueReusableCell(withIdentifier: WorkTimeTableViewCell.reuseIdentifier, for: indexPath) as? WorkTimeTableViewCellable
         guard let workTimeCell = cell else { return UITableViewCell() }
         guard let cellViewModel = self.viewModel.viewRequestForCellModel(at: indexPath, cell: workTimeCell) else { return UITableViewCell() }
         workTimeCell.configure(viewModel: cellViewModel)
@@ -76,7 +74,6 @@ extension WorkTimesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-    
 }
  
 // MARK: - UITableViewDelegate
@@ -97,8 +94,10 @@ extension WorkTimesListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.workTimesTableViewHeaderIdentifier)
-            as? WorkTimesTableViewHeaderable else { return nil }
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: WorkTimesTableViewHeader.reuseIdentifier)
+            as? WorkTimesTableViewHeaderable else {
+                return nil
+        }
         guard let headerViewModel = self.viewModel.viewRequestForHeaderModel(at: section, header: header) else { return nil }
         header.configure(viewModel: headerViewModel)
         return header
@@ -212,7 +211,7 @@ extension WorkTimesListViewController {
         self.tableView.estimatedRowHeight = tableViewEstimatedRowHeight
         
         let nib = UINib(nibName: WorkTimesTableViewHeader.className, bundle: nil)
-        self.tableView.register(nib, forHeaderFooterViewReuseIdentifier: self.workTimesTableViewHeaderIdentifier)
+        self.tableView.register(nib, forHeaderFooterViewReuseIdentifier: WorkTimesTableViewHeader.reuseIdentifier)
         
         self.tableView.refreshControl = self.refreshControl
     }
