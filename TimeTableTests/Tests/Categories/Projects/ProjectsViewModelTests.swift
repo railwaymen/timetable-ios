@@ -13,9 +13,7 @@ class ProjectsViewModelTests: XCTestCase {
     private var userInterfaceMock: ProjectsViewControllerMock!
     private var apiClientMock: ApiClientMock!
     private var errorHandlerMock: ErrorHandlerMock!
-    
-    private var decoder: JSONDecoder = JSONDecoder()
-    
+        
     override func setUp() {
         self.userInterfaceMock = ProjectsViewControllerMock()
         self.apiClientMock = ApiClientMock()

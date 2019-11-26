@@ -10,7 +10,6 @@ import XCTest
 @testable import TimeTable
 
 class ApiValidationErrorsTests: XCTestCase {
-    private var decoder: JSONDecoder = JSONDecoder()
     
     func testEmptyErrosKeysResponse() throws {
         //Arrange

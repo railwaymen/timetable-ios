@@ -10,12 +10,7 @@ import XCTest
 @testable import TimeTable
 
 class LoginCredentialsTests: XCTestCase {
-    private var encoder: JSONEncoder = {
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        return encoder
-    }()
-    
+
     func testCreatedSessionRequestIsCorrect() throws {
         //Arrange
         let sut = LoginCredentials(email: "user1@example.com", password: "password")

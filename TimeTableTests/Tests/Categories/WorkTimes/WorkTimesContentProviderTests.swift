@@ -16,12 +16,6 @@ class WorkTimesContentProviderTests: XCTestCase {
     private var dispatchGroupMock: DispatchGroupMock!
     private var dispatchGroupFactoryMock: DispatchGroupFactoryMock!
     
-    private lazy var decoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
-        return decoder
-    }()
-    
     override func setUp() {
         self.apiClientMock = ApiClientMock()
         self.accessServiceMock = AccessServiceMock()

@@ -16,9 +16,7 @@ class ProfileViewModelTests: XCTestCase {
     private var accessServiceMock: AccessServiceMock!
     private var coreDataStackMock: CoreDataStackMock!
     private var errorHandlerMock: ErrorHandlerMock!
-    
-    private lazy var decoder = JSONDecoder()
-    
+        
     override func setUp() {
         super.setUp()
         self.userInterfaceMock = ProfileViewControllerMock()

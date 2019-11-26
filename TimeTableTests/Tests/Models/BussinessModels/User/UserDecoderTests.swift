@@ -10,7 +10,6 @@ import XCTest
 @testable import TimeTable
 
 class UserDecoderTests: XCTestCase {
-    private lazy var decoder = JSONDecoder()
     
     func testParsingUserFullResponse() throws {
         //Arrange

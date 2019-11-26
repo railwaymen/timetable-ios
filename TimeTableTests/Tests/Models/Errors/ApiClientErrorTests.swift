@@ -10,7 +10,6 @@ import XCTest
 @testable import TimeTable
 
 class ApiClientErrorTests: XCTestCase {
-    private var decoder: JSONDecoder = JSONDecoder()
     
     func testLocalizedDescriptionIfInvalidHostHasBeenGiven() throws {
         //Arrange

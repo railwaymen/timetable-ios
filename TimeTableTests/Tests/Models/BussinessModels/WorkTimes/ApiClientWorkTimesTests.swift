@@ -14,12 +14,6 @@ class ApiClientWorkTimesTests: XCTestCase {
     private var requestEncoderMock: RequestEncoderMock!
     private var jsonDecoderMock: JSONDecoderMock!
     
-    private lazy var decoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
-        return decoder
-    }()
-    
     override func setUp() {
         super.setUp()
         self.networkingMock = NetworkingMock()

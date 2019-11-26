@@ -13,12 +13,6 @@ class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
     private var userInterface: WorkTimesTableViewHeaderViewMock!
     private var calendar: CalendarMock!
     
-    private lazy var decoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
-        return decoder
-    }()
-    
     override func setUp() {
         super.setUp()
         self.userInterface = WorkTimesTableViewHeaderViewMock()

@@ -10,9 +10,7 @@ import XCTest
 @testable import TimeTable
 
 class ProjectTests: XCTestCase {
-    
-    private var decoder: JSONDecoder = JSONDecoder()
-    
+        
     func testInitializationWithFullProjectRecord() throws {
         //Arrange
         let color = UIColor(hexString: "0c0c0c")

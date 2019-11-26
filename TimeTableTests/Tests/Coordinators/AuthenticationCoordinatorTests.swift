@@ -13,9 +13,7 @@ import CoreData
 class AuthenticationCoordinatorTests: XCTestCase {
     private var navigationController: UINavigationController!
     private var dependencyContainer: DependencyContainerMock!
-    
-    private lazy var decoder = JSONDecoder()
-    
+        
     override func setUp() {
         super.setUp()
         self.navigationController = UINavigationController()

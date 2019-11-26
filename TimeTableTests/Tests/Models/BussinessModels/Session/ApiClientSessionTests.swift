@@ -25,7 +25,7 @@ class ApiClientSessionTests: XCTestCase {
     func testSignInSucceed() throws {
         //Arrange
         let data = try self.json(from: SessionJSONResource.signInResponse)
-        let decoder = try JSONDecoder().decode(SessionDecoder.self, from: data)
+        let decoder = try self.decoder.decode(SessionDecoder.self, from: data)
         var expectedSessionDecoder: SessionDecoder?
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
         let sut = self.buildSUT()

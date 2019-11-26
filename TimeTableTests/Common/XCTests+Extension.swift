@@ -11,6 +11,19 @@ import CoreData
 @testable import TimeTable
 
 extension XCTestCase {
+    var encoder: JSONEncoder {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
+        encoder.outputFormatting = .prettyPrinted
+        return encoder
+    }
+    
+    var decoder: JSONDecoder {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
+        return decoder
+    }
+    
     func createInMemoryStorage() throws -> NSManagedObjectContext {
         let model = try NSManagedObjectModel.mergedModel(from: nil).unwrap()
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: model)

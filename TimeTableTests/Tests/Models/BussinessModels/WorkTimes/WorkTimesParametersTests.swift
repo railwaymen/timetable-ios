@@ -10,13 +10,7 @@ import XCTest
 @testable import TimeTable
 
 class WorkTimesParametersTests: XCTestCase {
-    private var encoder: JSONEncoder = {
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
-        encoder.outputFormatting = .prettyPrinted
-        return encoder
-    }()
-    
+
     private lazy var dateFormatter: DateFormatter = {
         return DateFormatter(type: .dateAndTimeExtended)
     }()

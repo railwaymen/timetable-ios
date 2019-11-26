@@ -16,9 +16,7 @@ class LoginContentProviderTests: XCTestCase {
     private var apiClientMock: ApiClientMock!
     private var coreDataStackUserMock: CoreDataStackMock!
     private var accessServiceMock: AccessServiceUserIDType!
-    
-    private lazy var decoder = JSONDecoder()
-    
+        
     override func setUp() {
         self.apiClientMock = ApiClientMock()
         self.coreDataStackUserMock = CoreDataStackMock()

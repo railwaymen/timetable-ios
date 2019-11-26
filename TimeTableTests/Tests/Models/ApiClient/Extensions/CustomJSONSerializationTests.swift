@@ -10,7 +10,6 @@ import XCTest
 @testable import TimeTable
 
 class CustomJSONSerializationTests: XCTestCase {
-    private lazy var decoder = JSONDecoder()
     
     func testJsonObject() throws {
         //Arrange

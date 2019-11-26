@@ -12,13 +12,7 @@ import XCTest
 class WorkTimeCellViewModelTests: XCTestCase {
     private var userInterface: WorkTimeCellViewMock!
     private var parent: WorkTimeCellViewModelParentMock!
-    
-    private lazy var decoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
-        return decoder
-    }()
-    
+
     override func setUp() {
         super.setUp()
         self.userInterface = WorkTimeCellViewMock()
