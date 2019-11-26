@@ -48,8 +48,8 @@ class WorkTimeViewModelTests: XCTestCase {
         sut.viewDidLoad()
         //Assert
         XCTAssertTrue(Calendar.current.isDateInToday(try XCTUnwrap(self.userInterfaceMock.updateDayParams.last?.date)))
-        XCTAssertEqual(self.userInterfaceMock.updateStartAtDateParams.last?.date, lastTask.endAt)
-        XCTAssertEqual(self.userInterfaceMock.updateEndAtDateParams.last?.date, lastTask.endAt)
+        XCTAssertEqual(self.userInterfaceMock.updateStartAtDateParams.last?.date, lastTask.endsAt)
+        XCTAssertEqual(self.userInterfaceMock.updateEndAtDateParams.last?.date, lastTask.endsAt)
         XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, "Select project")
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setUpParams.last?.allowsTask))
     }
@@ -62,8 +62,8 @@ class WorkTimeViewModelTests: XCTestCase {
         sut.viewDidLoad()
         //Assert
         XCTAssertEqual(self.userInterfaceMock.updateDayParams.last?.date, task.day)
-        XCTAssertEqual(self.userInterfaceMock.updateStartAtDateParams.last?.date, task.startAt)
-        XCTAssertEqual(self.userInterfaceMock.updateEndAtDateParams.last?.date, task.endAt)
+        XCTAssertEqual(self.userInterfaceMock.updateStartAtDateParams.last?.date, task.startsAt)
+        XCTAssertEqual(self.userInterfaceMock.updateEndAtDateParams.last?.date, task.endsAt)
         XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, task.project?.name)
         XCTAssertEqual(self.userInterfaceMock.setUpParams.last?.body, task.body)
         XCTAssertNotNil(self.userInterfaceMock.setUpParams.last?.urlString)
@@ -79,8 +79,8 @@ class WorkTimeViewModelTests: XCTestCase {
         sut.viewDidLoad()
         //Assert
         XCTAssertNotEqual(self.userInterfaceMock.updateDayParams.last?.date, task.day)
-        XCTAssertNotEqual(self.userInterfaceMock.updateStartAtDateParams.last?.date, task.startAt)
-        XCTAssertNotEqual(self.userInterfaceMock.updateEndAtDateParams.last?.date, task.endAt)
+        XCTAssertNotEqual(self.userInterfaceMock.updateStartAtDateParams.last?.date, task.startsAt)
+        XCTAssertNotEqual(self.userInterfaceMock.updateEndAtDateParams.last?.date, task.endsAt)
         XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, task.project?.name)
         XCTAssertEqual(self.userInterfaceMock.setUpParams.last?.body, task.body)
         XCTAssertNotNil(self.userInterfaceMock.setUpParams.last?.urlString)
@@ -97,8 +97,8 @@ class WorkTimeViewModelTests: XCTestCase {
         sut.viewDidLoad()
         //Assert
         XCTAssertTrue(Calendar.current.isDateInToday(try XCTUnwrap(self.userInterfaceMock.updateDayParams.last?.date)))
-        XCTAssertEqual(self.userInterfaceMock.updateStartAtDateParams.last?.date, lastTask.endAt)
-        XCTAssertEqual(self.userInterfaceMock.updateEndAtDateParams.last?.date, lastTask.endAt)
+        XCTAssertEqual(self.userInterfaceMock.updateStartAtDateParams.last?.date, lastTask.endsAt)
+        XCTAssertEqual(self.userInterfaceMock.updateEndAtDateParams.last?.date, lastTask.endsAt)
         XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, task.project?.name)
         XCTAssertEqual(self.userInterfaceMock.setUpParams.last?.body, task.body)
         XCTAssertNotNil(self.userInterfaceMock.setUpParams.last?.urlString)
@@ -738,8 +738,8 @@ extension WorkTimeViewModelTests {
             body: "Blah blah blah",
             url: try XCTUnwrap(URL(string: "http://example.com")),
             day: Date(),
-            startAt: try self.createTime(hours: 8, minutes: 0),
-            endAt: try self.createTime(hours: 9, minutes: 30),
+            startsAt: try self.createTime(hours: 8, minutes: 0),
+            endsAt: try self.createTime(hours: 9, minutes: 30),
             tag: .default)
     }
     
@@ -748,8 +748,8 @@ extension WorkTimeViewModelTests {
     }
     
     private func fillAllDataInViewModel(sut: WorkTimeViewModel, task: Task) throws {
-        let fromDate = try XCTUnwrap(task.startAt)
-        let toDate = try XCTUnwrap(task.endAt)
+        let fromDate = try XCTUnwrap(task.startsAt)
+        let toDate = try XCTUnwrap(task.endsAt)
         sut.viewChanged(day: try XCTUnwrap(task.day))
         self.calendarMock.dateBySettingCalendarComponentReturnValue = fromDate
         sut.viewChanged(startAtDate: fromDate)

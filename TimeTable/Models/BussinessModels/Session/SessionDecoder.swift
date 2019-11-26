@@ -33,9 +33,9 @@ struct SessionDecoder {
 extension SessionDecoder: Decodable {
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
-        case firstName = "first_name"
-        case lastName = "last_name"
-        case isLeader = "is_leader"
+        case firstName
+        case lastName
+        case isLeader
         case admin
         case manager
         case token

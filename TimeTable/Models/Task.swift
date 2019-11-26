@@ -14,8 +14,8 @@ struct Task {
     var body: String
     var url: URL?
     var day: Date?
-    var startAt: Date?
-    var endAt: Date?
+    var startsAt: Date?
+    var endsAt: Date?
     var tag: ProjectTag = .default
     
     var title: String {
@@ -63,11 +63,11 @@ extension Task {
 // MARK: - Encodable
 extension Task: Encodable {
     enum CodingKeys: String, CodingKey {
-        case projectId = "project_id"
+        case projectId
         case body
         case task
-        case startAt = "starts_at"
-        case endAt = "ends_at"
+        case startsAt
+        case endsAt
         case tag
     }
     
@@ -81,10 +81,10 @@ extension Task: Encodable {
             try container.encode(project.identifier, forKey: .projectId)
             try container.encode(self.body, forKey: .body)
             try container.encode(self.url, forKey: .task)
-            let startAtDate = self.combine(day: self.day, time: self.startAt)
-            try container.encode(startAtDate, forKey: .startAt)
-            let endAtDate = self.combine(day: self.day, time: self.endAt)
-            try container.encode(endAtDate, forKey: .endAt)
+            let startAtDate = self.combine(day: self.day, time: self.startsAt)
+            try container.encode(startAtDate, forKey: .startsAt)
+            let endAtDate = self.combine(day: self.day, time: self.endsAt)
+            try container.encode(endAtDate, forKey: .endsAt)
             try? container.encode(self.tag.rawValue, forKey: .tag)
         }
     }
@@ -117,7 +117,7 @@ extension Task {
         static var lunchTimeInterval: TimeInterval {
             return TimeInterval(AutofillHours.seconds * 30)
         }
-        static  var autofillTimeInterval: TimeInterval {
+        static var autofillTimeInterval: TimeInterval {
             return TimeInterval(AutofillHours.seconds * AutofillHours.minutes * 8)
         }
     }

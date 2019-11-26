@@ -11,7 +11,7 @@ import Foundation
 struct WorkTimesParameters {
     let fromDate: Date?
     let toDate: Date?
-    let projectIdentifier: Int?
+    let projectId: Int?
 }
 
 // MARK: - Encodable
@@ -19,7 +19,7 @@ extension WorkTimesParameters: Encodable {
     enum CodingKeys: String, CodingKey {
         case fromDate = "from"
         case toDate = "to"
-        case projectIdentifier = "project_id"
+        case projectId
     }
 }
 
@@ -28,6 +28,6 @@ extension WorkTimesParameters: Equatable {
     static func == (lhs: WorkTimesParameters, rhs: WorkTimesParameters) -> Bool {
         return lhs.fromDate == rhs.fromDate
             && lhs.toDate == rhs.toDate
-            && lhs.projectIdentifier == rhs.projectIdentifier
+            && lhs.projectId == rhs.projectId
     }
 }

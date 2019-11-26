@@ -21,7 +21,7 @@ class ProjectRecordDecoderTests: XCTestCase {
         let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 16281)
-        XCTAssertEqual(sut.projectIdentifier, 11)
+        XCTAssertEqual(sut.projectId, 11)
         XCTAssertEqual(sut.name, "Test Name")
         XCTAssertEqual(sut.color, color)
         XCTAssertEqual(sut.user, user)
@@ -37,7 +37,7 @@ class ProjectRecordDecoderTests: XCTestCase {
         let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 16281)
-        XCTAssertEqual(sut.projectIdentifier, 11)
+        XCTAssertEqual(sut.projectId, 11)
         XCTAssertEqual(sut.name, "Test Name")
         XCTAssertNil(sut.color)
         XCTAssertEqual(sut.user, user)
@@ -53,7 +53,7 @@ class ProjectRecordDecoderTests: XCTestCase {
         let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 16281)
-        XCTAssertEqual(sut.projectIdentifier, 11)
+        XCTAssertEqual(sut.projectId, 11)
         XCTAssertEqual(sut.name, "Test Name")
         XCTAssertNil(sut.color)
         XCTAssertEqual(sut.user, user)
@@ -69,7 +69,7 @@ class ProjectRecordDecoderTests: XCTestCase {
         let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 16281)
-        XCTAssertEqual(sut.projectIdentifier, 11)
+        XCTAssertEqual(sut.projectId, 11)
         XCTAssertEqual(sut.name, "Test Name")
         XCTAssertEqual(sut.color, color)
         XCTAssertNil(sut.user)
@@ -85,7 +85,7 @@ class ProjectRecordDecoderTests: XCTestCase {
         let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 16281)
-        XCTAssertEqual(sut.projectIdentifier, 11)
+        XCTAssertEqual(sut.projectId, 11)
         XCTAssertEqual(sut.name, "Test Name")
         XCTAssertEqual(sut.color, color)
         XCTAssertNil(sut.user)
@@ -101,7 +101,7 @@ class ProjectRecordDecoderTests: XCTestCase {
         let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 16281)
-        XCTAssertEqual(sut.projectIdentifier, 11)
+        XCTAssertEqual(sut.projectId, 11)
         XCTAssertEqual(sut.name, "Test Name")
         XCTAssertEqual(sut.color, color)
         XCTAssertEqual(sut.user, user)
@@ -117,7 +117,7 @@ class ProjectRecordDecoderTests: XCTestCase {
         let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 16281)
-        XCTAssertEqual(sut.projectIdentifier, 11)
+        XCTAssertEqual(sut.projectId, 11)
         XCTAssertEqual(sut.name, "Test Name")
         XCTAssertEqual(sut.color, color)
         XCTAssertEqual(sut.user, user)

@@ -104,7 +104,7 @@ extension ProjectsViewModel {
     private func createProjects(from records: [ProjectRecordDecoder]) {        
         self.projects = records.reduce(Set<Project>(), { result, new in
             var newResult = result
-            if let project = newResult.first(where: { $0.identifier == new.projectIdentifier }), let newUser = new.user {
+            if let project = newResult.first(where: { $0.identifier == new.projectId }), let newUser = new.user {
                 project.users.append(Project.User(decoder: newUser))
                 project.users.sort(by: { $0.name > $1.name })
             } else {

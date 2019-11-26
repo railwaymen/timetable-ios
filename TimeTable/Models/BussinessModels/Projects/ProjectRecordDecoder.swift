@@ -11,7 +11,7 @@ import UIKit
 
 struct ProjectRecordDecoder {
     let identifier: Int
-    let projectIdentifier: Int
+    let projectId: Int
     let name: String
     let color: UIColor?
     let user: User?
@@ -29,7 +29,7 @@ extension ProjectRecordDecoder {
 extension ProjectRecordDecoder: Decodable {
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
-        case projectIdentifier = "project_id"
+        case projectId
         case name
         case color
         case user
@@ -39,7 +39,7 @@ extension ProjectRecordDecoder: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.identifier = try container.decode(Int.self, forKey: .identifier)
-        self.projectIdentifier = try container.decode(Int.self, forKey: .projectIdentifier)
+        self.projectId = try container.decode(Int.self, forKey: .projectId)
         self.name = try container.decode(String.self, forKey: .name)
         if let colorHexString = try? container.decode(String.self, forKey: .color) {
             self.color = UIColor(hexString: colorHexString)

@@ -51,10 +51,10 @@ extension ProjectDecoder: Decodable {
         case color
         case autofill
         case isInternal = "internal"
-        case countDuration = "count_duration"
+        case countDuration
         case isActive = "active"
         case isLunch = "lunch"
-        case workTimesAllowsTask = "work_times_allows_task"
+        case workTimesAllowsTask
     }
     
     init(from decoder: Decoder) throws {

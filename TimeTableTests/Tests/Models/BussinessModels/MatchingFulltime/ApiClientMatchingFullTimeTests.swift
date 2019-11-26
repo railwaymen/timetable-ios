@@ -28,7 +28,7 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
         var matchingFullTimeDecoder: MatchingFullTimeDecoder?
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let date = try XCTUnwrap(Calendar.current.date(from: components))
-        let matchingFullTime = MatchingFullTimeEncoder(date: date, userIdentifier: 1)
+        let matchingFullTime = MatchingFullTimeEncoder(date: date, userId: 1)
         //Act
         sut.fetchMatchingFullTime(parameters: matchingFullTime) { result in
             switch result {
@@ -53,7 +53,7 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
         var expectedError: Error?
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let date = try XCTUnwrap(Calendar.current.date(from: components))
-        let matchingFullTime = MatchingFullTimeEncoder(date: date, userIdentifier: 1)
+        let matchingFullTime = MatchingFullTimeEncoder(date: date, userId: 1)
         //Act
         sut.fetchMatchingFullTime(parameters: matchingFullTime) { result in
             switch result {

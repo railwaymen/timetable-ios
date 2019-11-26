@@ -13,14 +13,14 @@ struct WorkTimeDecoder {
     
     let identifier: Int64
     let updatedByAdmin: Bool
-    let projectIdentifier: Int
+    let projectId: Int
     let startsAt: Date
     let endsAt: Date
     let duration: Int64
     let body: String?
     let task: String?
     let taskPreview: String?
-    let userIdentifier: Int
+    let userId: Int
     let project: ProjectDecoder
     let date: Date
     let tag: ProjectTag
@@ -30,15 +30,15 @@ struct WorkTimeDecoder {
 extension WorkTimeDecoder: Decodable {
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
-        case updatedByAdmin = "updated_by_admin"
-        case projectIdentifier = "project_id"
-        case startsAt = "starts_at"
-        case endsAt = "ends_at"
+        case updatedByAdmin
+        case projectId
+        case startsAt
+        case endsAt
         case duration
         case body
         case task
-        case taskPreview = "task_preview"
-        case userIdentifier = "user_id"
+        case taskPreview
+        case userId
         case project
         case date
         case tag
@@ -48,14 +48,14 @@ extension WorkTimeDecoder: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.identifier = try container.decode(Int64.self, forKey: .identifier)
         self.updatedByAdmin = try container.decode(Bool.self, forKey: .updatedByAdmin)
-        self.projectIdentifier = try container.decode(Int.self, forKey: .projectIdentifier)
+        self.projectId = try container.decode(Int.self, forKey: .projectId)
         self.startsAt = try container.decode(Date.self, forKey: .startsAt)
         self.endsAt = try container.decode(Date.self, forKey: .endsAt)
         self.duration = try container.decode(Int64.self, forKey: .duration)
         self.body = try? container.decode(String.self, forKey: .body)
         self.task = try? container.decode(String.self, forKey: .task)
         self.taskPreview = try? container.decode(String.self, forKey: .taskPreview)
-        self.userIdentifier = try container.decode(Int.self, forKey: .userIdentifier)
+        self.userId = try container.decode(Int.self, forKey: .userId)
         self.project = try container.decode(ProjectDecoder.self, forKey: .project)
         self.tag = try container.decode(ProjectTag.self, forKey: .tag)
         
@@ -73,7 +73,7 @@ extension WorkTimeDecoder: Equatable {
     static func == (lhs: WorkTimeDecoder, rhs: WorkTimeDecoder) -> Bool {
         return lhs.identifier == rhs.identifier
             && lhs.updatedByAdmin == rhs.updatedByAdmin
-            && lhs.projectIdentifier == rhs.projectIdentifier
+            && lhs.projectId == rhs.projectId
             && lhs.startsAt == rhs.startsAt
             && lhs.endsAt == rhs.endsAt
             && lhs.duration == rhs.duration
@@ -81,7 +81,7 @@ extension WorkTimeDecoder: Equatable {
             && lhs.task == rhs.task
             && lhs.taskPreview == rhs.taskPreview
             && lhs.date == rhs.date
-            && lhs.userIdentifier == rhs.userIdentifier
+            && lhs.userId == rhs.userId
             && lhs.project == rhs.project
     }
 }

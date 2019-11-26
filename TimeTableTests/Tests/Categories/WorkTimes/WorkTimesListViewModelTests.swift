@@ -367,8 +367,8 @@ class WorkTimesListViewModelTests: XCTestCase {
         XCTAssertEqual(editedTask.body, workTime.body)
         XCTAssertEqual(editedTask.url?.absoluteString, workTime.task)
         XCTAssertEqual(editedTask.day, dailyWorkTime.day)
-        XCTAssertEqual(editedTask.startAt, workTime.startsAt)
-        XCTAssertEqual(editedTask.endAt, workTime.endsAt)
+        XCTAssertEqual(editedTask.startsAt, workTime.startsAt)
+        XCTAssertEqual(editedTask.endsAt, workTime.endsAt)
     }
     
     func testViewRequestToDuplicate() throws {
@@ -394,16 +394,16 @@ class WorkTimesListViewModelTests: XCTestCase {
         XCTAssertEqual(duplicatedTask.body, duplicatedWorkTime.body)
         XCTAssertEqual(duplicatedTask.url?.absoluteString, duplicatedWorkTime.task)
         XCTAssertEqual(duplicatedTask.day, dailyWorkTime.day)
-        XCTAssertEqual(duplicatedTask.startAt, duplicatedWorkTime.startsAt)
-        XCTAssertEqual(duplicatedTask.endAt, duplicatedWorkTime.endsAt)
+        XCTAssertEqual(duplicatedTask.startsAt, duplicatedWorkTime.startsAt)
+        XCTAssertEqual(duplicatedTask.endsAt, duplicatedWorkTime.endsAt)
         
         XCTAssertEqual(lastTask?.workTimeIdentifier, firstWorkTime.identifier)
         XCTAssertEqual(lastTask?.project, firstWorkTime.project)
         XCTAssertEqual(lastTask?.body, firstWorkTime.body)
         XCTAssertEqual(lastTask?.url?.absoluteString, firstWorkTime.task)
         XCTAssertEqual(lastTask?.day, dailyWorkTime.day)
-        XCTAssertEqual(lastTask?.startAt, firstWorkTime.startsAt)
-        XCTAssertEqual(lastTask?.endAt, firstWorkTime.endsAt)
+        XCTAssertEqual(lastTask?.startsAt, firstWorkTime.startsAt)
+        XCTAssertEqual(lastTask?.endsAt, firstWorkTime.endsAt)
     }
     
     func testViewRequestToRefreshCallsFetch() {
