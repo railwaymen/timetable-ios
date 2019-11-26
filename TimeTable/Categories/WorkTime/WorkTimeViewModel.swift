@@ -6,7 +6,7 @@
 //  Copyright © 2019 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol WorkTimeViewModelOutput: class {
     func setUp(isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?)
@@ -19,6 +19,7 @@ protocol WorkTimeViewModelOutput: class {
     func updateEndAtDate(with date: Date, dateString: String)
     func updateProject(name: String)
     func setActivityIndicator(isHidden: Bool)
+    func setBottomContentInset(_ height: CGFloat)
 }
 
 protocol WorkTimeViewModelType: class {
@@ -48,6 +49,7 @@ class WorkTimeViewModel {
     private let apiClient: WorkTimeApiClientType
     private let errorHandler: ErrorHandlerType
     private let calendar: CalendarType
+    private let notificationCenter: NotificationCenterType
     private let lastTask: Task?
     private var projects: [ProjectDecoder]
     private var task: Task
@@ -71,6 +73,7 @@ class WorkTimeViewModel {
         apiClient: WorkTimeApiClientType,
         errorHandler: ErrorHandlerType,
         calendar: CalendarType,
+        notificationCenter: NotificationCenterType,
         flowType: FlowType
     ) {
         self.userInterface = userInterface
@@ -78,6 +81,7 @@ class WorkTimeViewModel {
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.calendar = calendar
+        self.notificationCenter = notificationCenter
         let lastTaskValidation: (Task?) -> Task? = { lastTask in
             guard let lastTaskEndAt = lastTask?.endAt, calendar.isDateInToday(lastTaskEndAt) else { return nil }
             return lastTask
@@ -106,6 +110,18 @@ class WorkTimeViewModel {
         }
         self.projects = []
         self.tags = []
+        
+        self.setUpNotification()
+    }
+    
+    // MARK: - Notifications
+    @objc func keyboardFrameWillChange(_ notification: NSNotification) {
+        guard let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height else { return }
+        self.userInterface?.setBottomContentInset(keyboardHeight)
+    }
+    
+    @objc func keyboardWillHide() {
+        self.userInterface?.setBottomContentInset(0)
     }
 }
 
@@ -253,6 +269,19 @@ extension WorkTimeViewModel.FlowType: Equatable {
 
 // MARK: - Private
 extension WorkTimeViewModel {
+    private func setUpNotification() {
+        self.notificationCenter.addObserver(
+            self,
+            selector: #selector(self.keyboardFrameWillChange),
+            name: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil)
+        self.notificationCenter.addObserver(
+            self,
+            selector: #selector(self.keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
+    }
+    
     private func validateInputs() throws {
         guard let project = self.task.project else { throw UIError.cannotBeEmpty(.projectTextField) }
         guard !self.task.body.isEmpty || (self.task.allowsTask && self.task.url != nil) || project.isLunch

@@ -6,7 +6,7 @@
 //  Copyright © 2018 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol ServerConfigurationViewModelOutput: class {
     func setUpView(checkBoxIsActive: Bool, serverAddress: String)
@@ -14,6 +14,7 @@ protocol ServerConfigurationViewModelOutput: class {
     func checkBoxIsActiveState(_ isActive: Bool)
     func dismissKeyboard()
     func setActivityIndicator(isHidden: Bool)
+    func setBottomContentInset(_ height: CGFloat)
 }
 
 protocol ServerConfigurationViewModelType: class {
@@ -30,6 +31,7 @@ class ServerConfigurationViewModel {
     private let coordinator: ServerConfigurationCoordinatorDelegate
     private let serverConfigurationManager: ServerConfigurationManagerType
     private let errorHandler: ErrorHandlerType
+    private let notificationCenter: NotificationCenterType
     
     private var serverAddress: String?
     private var shouldRememberHost: Bool = true
@@ -39,14 +41,30 @@ class ServerConfigurationViewModel {
         userInterface: ServerConfigurationViewModelOutput,
         coordinator: ServerConfigurationCoordinatorDelegate,
         serverConfigurationManager: ServerConfigurationManagerType,
-        errorHandler: ErrorHandlerType
+        errorHandler: ErrorHandlerType,
+        notificationCenter: NotificationCenterType
     ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
         self.serverConfigurationManager = serverConfigurationManager
         self.errorHandler = errorHandler
+        self.notificationCenter = notificationCenter
+        self.setUpNotifications()
     }
     
+    deinit {
+        self.notificationCenter.removeObserver(self)
+    }
+    
+    // MARK: - Notification
+    @objc func changeKeyboardFrame(notification: NSNotification) {
+        guard let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height else { return }
+        self.userInterface?.setBottomContentInset(keyboardHeight)
+    }
+    
+    @objc func keyboardWillHide() {
+        self.userInterface?.setBottomContentInset(0)
+    }
 }
 
 // MARK: - ServerSettingsViewModelType
@@ -98,5 +116,26 @@ extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
     
     func viewHasBeenTapped() {
         self.userInterface?.dismissKeyboard()
+    }
+}
+
+// MARK: - Private
+extension ServerConfigurationViewModel {
+    private func setUpNotifications() {
+        self.notificationCenter.addObserver(
+            self,
+            selector: #selector(self.keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
+        self.notificationCenter.addObserver(
+            self,
+            selector: #selector(self.changeKeyboardFrame),
+            name: UIResponder.keyboardDidShowNotification,
+            object: nil)
+        self.notificationCenter.addObserver(
+            self,
+            selector: #selector(self.changeKeyboardFrame),
+            name: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil)
     }
 }

@@ -11,7 +11,7 @@ import UIKit
 typealias WorkTimeViewControllerable = (UIViewController & WorkTimeViewControllerType & WorkTimeViewModelOutput)
 
 protocol WorkTimeViewControllerType: class {
-    func configure(viewModel: WorkTimeViewModelType, notificationCenter: NotificationCenterType?)
+    func configure(viewModel: WorkTimeViewModelType)
 }
 
 class WorkTimeViewController: UIViewController {
@@ -29,12 +29,6 @@ class WorkTimeViewController: UIViewController {
     private var startAtDatePicker: UIDatePicker!
     private var endAtDatePicker: UIDatePicker!
     private var viewModel: WorkTimeViewModelType!
-    private var notificationCenter: NotificationCenterType?
-    
-    // MARK: - Initialization
-    deinit {
-        self.notificationCenter?.removeObserver(self)
-    }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -90,15 +84,6 @@ class WorkTimeViewController: UIViewController {
     @objc private func endAtDateTextFieldDidChanged(_ sender: UIDatePicker) {
         self.viewModel.viewChanged(endAtDate: sender.date)
     }
-    
-    @objc private func keyboardFrameWillChange(_ notification: NSNotification) {
-        let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height ?? 0
-        self.scrollView.contentInset.bottom = keyboardHeight
-    }
-    
-    @objc private func keyboardWillHide(_ notification: NSNotification) {
-        self.scrollView.contentInset.bottom = 0
-    }
 }
 
 // MARK: - UICollectionViewDelegate
@@ -138,16 +123,6 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     }
     
     func setUp(isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?) {
-        self.notificationCenter?.addObserver(
-            self,
-            selector: #selector(self.keyboardFrameWillChange),
-            name: UIResponder.keyboardWillChangeFrameNotification,
-            object: nil)
-        self.notificationCenter?.addObserver(
-            self,
-            selector: #selector(self.keyboardWillHide),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil)
         let systemItem: UIBarButtonItem.SystemItem
         if #available(iOS 13, *) {
             systemItem = .close
@@ -221,13 +196,17 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
         self.activityIndicator.isHidden = isHidden
     }
+    
+    func setBottomContentInset(_ height: CGFloat) {
+        guard self.viewIfLoaded != nil else { return }
+        self.scrollView.contentInset.bottom = height
+    }
 }
 
 // MARK: - WorkTimeViewControllerType
 extension WorkTimeViewController: WorkTimeViewControllerType {
-    func configure(viewModel: WorkTimeViewModelType, notificationCenter: NotificationCenterType?) {
+    func configure(viewModel: WorkTimeViewModelType) {
         self.viewModel = viewModel
-        self.notificationCenter = notificationCenter
     }
 }
 

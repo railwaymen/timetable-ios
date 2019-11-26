@@ -10,17 +10,19 @@ import XCTest
 @testable import TimeTable
 
 class ServerConfigurationViewModelTests: XCTestCase {
-    private var userInterface: ServerConfigurationViewControllerMock!
+    private var userInterfaceMock: ServerConfigurationViewControllerMock!
     private var coordinatorMock: CoordinatorMock!
     private var serverConfigurationManagerMock: ServerConfigurationManagerMock!
-    private var errorHandler: ErrorHandlerMock!
+    private var errorHandlerMock: ErrorHandlerMock!
+    private var notificationCenterMock: NotificationCenterMock!
     
     override func setUp() {
         super.setUp()
-        self.userInterface = ServerConfigurationViewControllerMock()
-        self.errorHandler = ErrorHandlerMock()
+        self.userInterfaceMock = ServerConfigurationViewControllerMock()
+        self.errorHandlerMock = ErrorHandlerMock()
         self.coordinatorMock = CoordinatorMock()
         self.serverConfigurationManagerMock = ServerConfigurationManagerMock()
+        self.notificationCenterMock = NotificationCenterMock()
     }
     
     func testViewDidLoadCallSetupViewOnTheUserInterface() {
@@ -29,9 +31,9 @@ class ServerConfigurationViewModelTests: XCTestCase {
         //Act
         sut.viewDidLoad()
         //Assert
-        XCTAssertEqual(self.userInterface.setUpViewParams.count, 1)
-        XCTAssertEqual(self.userInterface.setUpViewParams.last?.serverAddress, "")
-        XCTAssertTrue(try XCTUnwrap(self.userInterface.setUpViewParams.last?.checkBoxIsActive))
+        XCTAssertEqual(self.userInterfaceMock.setUpViewParams.count, 1)
+        XCTAssertEqual(self.userInterfaceMock.setUpViewParams.last?.serverAddress, "")
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setUpViewParams.last?.checkBoxIsActive))
     }
     
     func testViewRequestedToContinueThrowErrorWhileServerAddressIsNull() {
@@ -40,8 +42,8 @@ class ServerConfigurationViewModelTests: XCTestCase {
         //Act
         sut.viewRequestedToContinue()
         //Assert
-        XCTAssertTrue(self.userInterface.setActivityIndicatorParams.isEmpty)
-        switch self.errorHandler.throwingParams.last?.error as? UIError {
+        XCTAssertTrue(self.userInterfaceMock.setActivityIndicatorParams.isEmpty)
+        switch self.errorHandlerMock.throwingParams.last?.error as? UIError {
         case .cannotBeEmpty?: break
         default: XCTFail()
         }
@@ -54,8 +56,8 @@ class ServerConfigurationViewModelTests: XCTestCase {
         //Act
         sut.viewRequestedToContinue()
         //Assert
-        XCTAssertTrue(self.userInterface.setActivityIndicatorParams.isEmpty)
-        switch self.errorHandler.throwingParams.last?.error as? UIError {
+        XCTAssertTrue(self.userInterfaceMock.setActivityIndicatorParams.isEmpty)
+        switch self.errorHandlerMock.throwingParams.last?.error as? UIError {
         case .invalidFormat?: break
         default: XCTFail()
         }
@@ -73,8 +75,8 @@ class ServerConfigurationViewModelTests: XCTestCase {
         let configuration = try XCTUnwrap(self.coordinatorMock.serverConfigurationDidFinishParams.last?.serverConfiguration)
         XCTAssertEqual(configuration.host, try XCTUnwrap(URL(string: hostString.apiSuffix().httpPrefix())))
         XCTAssertTrue(configuration.shouldRememberHost)
-        XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
     }
     
     func testViewRequestedToContinueCreateCorrectServerConfigurationWithStaySigneInAsFalse() throws {
@@ -90,8 +92,8 @@ class ServerConfigurationViewModelTests: XCTestCase {
         let configuration = try XCTUnwrap(self.coordinatorMock.serverConfigurationDidFinishParams.last?.serverConfiguration)
         XCTAssertEqual(configuration.host, try XCTUnwrap(URL(string: hostString.apiSuffix().httpPrefix())))
         XCTAssertFalse(configuration.shouldRememberHost)
-        XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
     }
     
     func testViewRequestedToContinueWithCorrectServerConfigurationCallCoordinator() throws {
@@ -104,8 +106,8 @@ class ServerConfigurationViewModelTests: XCTestCase {
         self.serverConfigurationManagerMock.verifyParams.last?.completion(.success(Void()))
         //Assert
         XCTAssertEqual(self.coordinatorMock.serverConfigurationDidFinishParams.count, 1)
-        XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
     }
     
     func testViewRequestedToContinueWithInvalidServerConfigurationGetsAnError() throws {
@@ -118,9 +120,9 @@ class ServerConfigurationViewModelTests: XCTestCase {
         sut.viewRequestedToContinue()
         self.serverConfigurationManagerMock.verifyParams.last?.completion(.failure(ApiClientError(type: .invalidHost(url))))
         //Assert
-        XCTAssertEqual(self.errorHandler.throwingParams.count, 1)
-        XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertEqual(self.errorHandlerMock.throwingParams.count, 1)
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
     }
     
     func testServerAddressDidChangePassedNilValue() {
@@ -129,7 +131,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         //Act
         sut.serverAddressDidChange(text: nil)
         //Assert
-        XCTAssertTrue(self.userInterface.continueButtonEnabledStateParams.isEmpty)
+        XCTAssertTrue(self.userInterfaceMock.continueButtonEnabledStateParams.isEmpty)
     }
     
     func testServerAddressDidChangePassedCorrectHostName() {
@@ -138,8 +140,8 @@ class ServerConfigurationViewModelTests: XCTestCase {
         //Act
         sut.serverAddressDidChange(text: "www.example.com")
         //Assert
-        XCTAssertEqual(self.userInterface.continueButtonEnabledStateParams.count, 1)
-        XCTAssertTrue(try XCTUnwrap(self.userInterface.continueButtonEnabledStateParams.last?.isEnabled))
+        XCTAssertEqual(self.userInterfaceMock.continueButtonEnabledStateParams.count, 1)
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.continueButtonEnabledStateParams.last?.isEnabled))
     }
     
     func testServerAddressTextFieldDidRequestedForReturnDissmissKeyboard() {
@@ -148,7 +150,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         //Act
         _ = sut.serverAddressTextFieldDidRequestForReturn()
         //Assert
-        XCTAssertEqual(self.userInterface.dismissKeyboardParams.count, 1)
+        XCTAssertEqual(self.userInterfaceMock.dismissKeyboardParams.count, 1)
     }
     
     func testServerAddressTextFieldDidRequestedForReturnReturnCorrectValue() {
@@ -166,7 +168,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         //Act
         _ = sut.viewHasBeenTapped()
         //Assert
-        XCTAssertEqual(self.userInterface.dismissKeyboardParams.count, 1)
+        XCTAssertEqual(self.userInterfaceMock.dismissKeyboardParams.count, 1)
     }
 }
 
@@ -174,9 +176,10 @@ class ServerConfigurationViewModelTests: XCTestCase {
 extension ServerConfigurationViewModelTests {
     private func buildSUT() -> ServerConfigurationViewModel {
         return ServerConfigurationViewModel(
-            userInterface: self.userInterface,
+            userInterface: self.userInterfaceMock,
             coordinator: self.coordinatorMock,
             serverConfigurationManager: self.serverConfigurationManagerMock,
-            errorHandler: self.errorHandler)
+            errorHandler: self.errorHandlerMock,
+            notificationCenter: self.notificationCenterMock)
     }
 }

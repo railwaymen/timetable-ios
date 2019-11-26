@@ -11,11 +11,10 @@ import UIKit
 typealias ServerConfigurationViewControllerable = (UIViewController & ServerConfigurationViewControllerType & ServerConfigurationViewModelOutput)
 
 protocol ServerConfigurationViewControllerType: class {
-    func configure(viewModel: ServerConfigurationViewModelType, notificationCenter: NotificationCenterType)
+    func configure(viewModel: ServerConfigurationViewModelType)
 }
 
 class ServerConfigurationViewController: UIViewController {
- 
     @IBOutlet private var scrollView: UIScrollView!
     @IBOutlet private var continueButton: UIButton!
     @IBOutlet private var serverAddressTextField: UITextField!
@@ -23,12 +22,6 @@ class ServerConfigurationViewController: UIViewController {
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private var viewModel: ServerConfigurationViewModelType?
-    private var notificationCenter: NotificationCenterType?
-    
-    // MARK: - Initialization
-    deinit {
-        self.notificationCenter?.removeObserver(self)
-    }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -52,17 +45,6 @@ class ServerConfigurationViewController: UIViewController {
     @IBAction private func checkBoxButtonTapped(_ sender: CheckBoxButton) {
         self.viewModel?.shouldRemeberHostCheckBoxStatusDidChange(isActive: sender.isActive)
     }
-    
-    // MARK: - Notifications
-    @objc private func changeKeyboardFrame(notification: NSNotification, offset: CGFloat = 0) {
-        guard let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height else { return }
-        let bottomSpaceInScrollView = self.scrollView.contentSize.height - self.continueButton.convert(self.continueButton.bounds, to: self.scrollView).maxY
-        self.updateScrollViewInsets(with: max(keyboardHeight - bottomSpaceInScrollView, 0))
-    }
-    
-    @objc private func keyboardWillHide(notification: NSNotification) {
-        self.updateScrollViewInsets()
-    }
 }
 
 // MARK: - UITextFieldDelegate
@@ -75,8 +57,7 @@ extension ServerConfigurationViewController: UITextFieldDelegate {
 
 // MARK: - ServerConfigurationViewControllerType
 extension ServerConfigurationViewController: ServerConfigurationViewControllerType {
-    func configure(viewModel: ServerConfigurationViewModelType, notificationCenter: NotificationCenterType) {
-        self.notificationCenter = notificationCenter
+    func configure(viewModel: ServerConfigurationViewModelType) {
         self.viewModel = viewModel
     }
 }
@@ -84,7 +65,6 @@ extension ServerConfigurationViewController: ServerConfigurationViewControllerTy
 // MARK: - ServerConfigurationViewModelOutput
 extension ServerConfigurationViewController: ServerConfigurationViewModelOutput {
     func setUpView(checkBoxIsActive: Bool, serverAddress: String) {
-        self.setUpNotifications()
         self.checkBoxButton.isActive = checkBoxIsActive
         self.serverAddressTextField.text = serverAddress
         self.continueButton.isEnabled = !serverAddress.isEmpty
@@ -113,6 +93,12 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
         isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
         self.activityIndicator.isHidden = isHidden
     }
+    
+    func setBottomContentInset(_ height: CGFloat) {
+        guard self.viewIfLoaded != nil else { return }
+        let bottomSpaceInScrollView = self.scrollView.contentSize.height - self.continueButton.convert(self.continueButton.bounds, to: self.scrollView).maxY
+        self.updateScrollViewInsets(with: max(height - bottomSpaceInScrollView, 0))
+    }
 }
 
 // MARK: - Private
@@ -129,23 +115,5 @@ extension ServerConfigurationViewController {
             self.activityIndicator.style = .gray
         }
         self.setActivityIndicator(isHidden: true)
-    }
-    
-    private func setUpNotifications() {
-        self.notificationCenter?.addObserver(
-            self,
-            selector: #selector(self.keyboardWillHide),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil)
-        self.notificationCenter?.addObserver(
-            self,
-            selector: #selector(self.changeKeyboardFrame),
-            name: UIResponder.keyboardDidShowNotification,
-            object: nil)
-        self.notificationCenter?.addObserver(
-            self,
-            selector: #selector(self.changeKeyboardFrame),
-            name: UIResponder.keyboardWillChangeFrameNotification,
-            object: nil)
     }
 }

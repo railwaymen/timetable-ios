@@ -10,6 +10,8 @@ import XCTest
 @testable import TimeTable
 
 class WorkTimeViewControllerMock: UIViewController {
+    
+    // MARK: - WorkTimeViewModelOutput
     private(set) var setUpParams: [SetUpParams] = []
     struct SetUpParams {
         var isLunch: Bool
@@ -60,10 +62,15 @@ class WorkTimeViewControllerMock: UIViewController {
         var isHidden: Bool
     }
     
+    private(set) var setBottomContentInsetParams: [SetBottomContentInsetParams] = []
+    struct SetBottomContentInsetParams {
+        var height: CGFloat
+    }
+    
+    // MARK: - WorkTimeViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
         var viewModel: WorkTimeViewModelType
-        var notificationCenter: NotificationCenterType?
     }
 }
 
@@ -108,11 +115,15 @@ extension WorkTimeViewControllerMock: WorkTimeViewModelOutput {
     func setActivityIndicator(isHidden: Bool) {
         self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isHidden))
     }
+    
+    func setBottomContentInset(_ height: CGFloat) {
+        self.setBottomContentInsetParams.append(SetBottomContentInsetParams(height: height))
+    }
 }
 
 // MARK: - WorkTimeViewControllerType
 extension WorkTimeViewControllerMock: WorkTimeViewControllerType {
-    func configure(viewModel: WorkTimeViewModelType, notificationCenter: NotificationCenterType?) {
-        self.configureParams.append(ConfigureParams(viewModel: viewModel, notificationCenter: notificationCenter))
+    func configure(viewModel: WorkTimeViewModelType) {
+        self.configureParams.append(ConfigureParams(viewModel: viewModel))
     }
 }

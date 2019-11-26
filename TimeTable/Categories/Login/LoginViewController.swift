@@ -11,11 +11,10 @@ import UIKit
 typealias LoginViewControllerable = (UIViewController & LoginViewControllerType & LoginViewModelOutput)
 
 protocol LoginViewControllerType: class {
-    func configure(notificationCenter: NotificationCenterType, viewModel: LoginViewModelType)
+    func configure(viewModel: LoginViewModelType)
 }
 
 class LoginViewController: UIViewController {
-    
     @IBOutlet private var scrollView: UIScrollView!
     @IBOutlet private var loginTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
@@ -23,13 +22,7 @@ class LoginViewController: UIViewController {
     @IBOutlet private var loginButton: UIButton!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
-    private var notificationCenter: NotificationCenterType!
     private var viewModel: LoginViewModelType!
-    
-    // MARK: - Initialization
-    deinit {
-        self.notificationCenter?.removeObserver(self)
-    }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -57,23 +50,11 @@ class LoginViewController: UIViewController {
     @IBAction private func viewTapped(_ sender: Any) {
         self.viewModel?.viewTapped()
     }
-    
-    // MARK: - Notifications
-    @objc private func changeKeyboardFrame(notification: NSNotification, offset: CGFloat = 0) {
-        guard let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height else { return }
-        let bottomSpaceInScrollView = self.scrollView.contentSize.height - self.loginButton.convert(self.loginButton.bounds, to: self.scrollView).maxY
-        self.updateScrollViewInsets(with: max(keyboardHeight - offset - bottomSpaceInScrollView, 0))
-    }
-    
-    @objc private func keyboardWillHide(notification: NSNotification) {
-        self.updateScrollViewInsets()
-    }
 }
 
 // MARK: - LoginViewModelOutput
 extension LoginViewController: LoginViewModelOutput {
     func setUpView(checkBoxIsActive: Bool) {
-        self.setUpNotifications()
         self.checkBoxButton.isActive = checkBoxIsActive
         self.loginTextField.delegate = self
         self.passwordTextField.delegate = self
@@ -117,6 +98,12 @@ extension LoginViewController: LoginViewModelOutput {
         isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
         self.activityIndicator.isHidden = isHidden
     }
+    
+    func setBottomContentInset(_ height: CGFloat) {
+        guard self.viewIfLoaded != nil else { return }
+        let bottomSpaceInScrollView = self.scrollView.contentSize.height - self.loginButton.convert(self.loginButton.bounds, to: self.scrollView).maxY
+        self.updateScrollViewInsets(with: max(height - bottomSpaceInScrollView, 0))
+    }
 }
 
 // MARK: - UITextFieldDelegate
@@ -135,8 +122,7 @@ extension LoginViewController: UITextFieldDelegate {
 
 // MARK: - LoginViewControllerType
 extension LoginViewController: LoginViewControllerType {
-    func configure(notificationCenter: NotificationCenterType, viewModel: LoginViewModelType) {
-        self.notificationCenter = notificationCenter
+    func configure(viewModel: LoginViewModelType) {
         self.viewModel = viewModel
     }
 }
@@ -155,23 +141,5 @@ extension LoginViewController {
             self.activityIndicator.style = .gray
         }
         self.setActivityIndicator(isHidden: true)
-    }
-    
-    private func setUpNotifications() {
-        self.notificationCenter.addObserver(
-            self,
-            selector: #selector(self.keyboardWillHide),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil)
-        self.notificationCenter.addObserver(
-            self,
-            selector: #selector(self.changeKeyboardFrame),
-            name: UIResponder.keyboardDidShowNotification,
-            object: nil)
-        self.notificationCenter.addObserver(
-            self,
-            selector: #selector(self.changeKeyboardFrame),
-            name: UIResponder.keyboardWillChangeFrameNotification,
-            object: nil)
     }
 }

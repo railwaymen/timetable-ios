@@ -10,6 +10,8 @@ import XCTest
 @testable import TimeTable
 
 class ServerConfigurationViewControllerMock: UIViewController {
+    
+    // MARK: - ServerConfigurationViewModelOutput
     private(set) var setUpViewParams: [SetUpViewParams] = []
     struct SetUpViewParams {
         var checkBoxIsActive: Bool
@@ -34,10 +36,15 @@ class ServerConfigurationViewControllerMock: UIViewController {
         var isHidden: Bool
     }
     
+    private(set) var setBottomContentInsetParams: [SetBottomContentInsetParams] = []
+    struct SetBottomContentInsetParams {
+        var height: CGFloat
+    }
+    
+    // MARK: - ServerConfigurationViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
         var viewModel: ServerConfigurationViewModelType
-        var notificationCenter: NotificationCenterType
     }
 }
 
@@ -62,11 +69,15 @@ extension ServerConfigurationViewControllerMock: ServerConfigurationViewModelOut
     func setActivityIndicator(isHidden: Bool) {
         self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isHidden))
     }
+    
+    func setBottomContentInset(_ height: CGFloat) {
+        self.setBottomContentInsetParams.append(SetBottomContentInsetParams(height: height))
+    }
 }
 
 // MARK: - ServerConfigurationViewControllerType
 extension ServerConfigurationViewControllerMock: ServerConfigurationViewControllerType {
-    func configure(viewModel: ServerConfigurationViewModelType, notificationCenter: NotificationCenterType) {
-        self.configureParams.append(ConfigureParams(viewModel: viewModel, notificationCenter: notificationCenter))
+    func configure(viewModel: ServerConfigurationViewModelType) {
+        self.configureParams.append(ConfigureParams(viewModel: viewModel))
     }
 }

@@ -83,8 +83,9 @@ extension WorkTimeCoordinator {
             apiClient: apiClient,
             errorHandler: self.dependencyContainer.errorHandler,
             calendar: Calendar.autoupdatingCurrent,
+            notificationCenter: self.dependencyContainer.notificationCenter,
             flowType: self.flowType)
-        workTimeViewController.configure(viewModel: viewModel, notificationCenter: self.dependencyContainer.notificationCenter)
+        workTimeViewController.configure(viewModel: viewModel)
         self.navigationController.setViewControllers([workTimeViewController], animated: false)
         self.navigationController.setNavigationBarHidden(false, animated: false)
         self.navigationController.navigationBar.tintColor = .crimson
