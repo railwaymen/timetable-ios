@@ -27,7 +27,6 @@ enum UIError: Error {
     case genericError
     
     var localizedDescription: String {
-        
         switch self {
         case .cannotBeEmptyOr(let component1, let component2):
             return "\(component1.rawValue.localized) " + "conjunction.or".localized + " \(component2.rawValue.localized) "

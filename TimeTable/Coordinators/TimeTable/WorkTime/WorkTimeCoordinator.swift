@@ -24,10 +24,12 @@ class WorkTimeCoordinator: BaseNavigationCoordinator {
     private var customFinishHandler: ((_ isTaskChanged: Bool) -> Void)?
     
     // MARK: - Initialization
-    init(dependencyContainer: DependencyContainerType,
-         parentViewController: UIViewController?,
-         sourceView: UIView?,
-         flowType: WorkTimeViewModel.FlowType) {
+    init(
+        dependencyContainer: DependencyContainerType,
+        parentViewController: UIViewController?,
+        sourceView: UIView?,
+        flowType: WorkTimeViewModel.FlowType
+    ) {
         self.parentViewController = parentViewController
         self.dependencyContainer = dependencyContainer
         self.flowType = flowType
@@ -75,12 +77,13 @@ extension WorkTimeCoordinator {
         guard let apiClient = self.dependencyContainer.apiClient else { return assertionFailure("Api client is nil") }
         let controller: WorkTimeViewControllerable? = self.dependencyContainer.storyboardsManager.controller(storyboard: .workTime)
         guard let workTimeViewController = controller else { return }
-        let viewModel = WorkTimeViewModel(userInterface: workTimeViewController,
-                                          coordinator: self,
-                                          apiClient: apiClient,
-                                          errorHandler: self.dependencyContainer.errorHandler,
-                                          calendar: Calendar.autoupdatingCurrent,
-                                          flowType: self.flowType)
+        let viewModel = WorkTimeViewModel(
+            userInterface: workTimeViewController,
+            coordinator: self,
+            apiClient: apiClient,
+            errorHandler: self.dependencyContainer.errorHandler,
+            calendar: Calendar.autoupdatingCurrent,
+            flowType: self.flowType)
         workTimeViewController.configure(viewModel: viewModel, notificationCenter: self.dependencyContainer.notificationCenter)
         self.navigationController.setViewControllers([workTimeViewController], animated: false)
         self.navigationController.setNavigationBarHidden(false, animated: false)
@@ -88,16 +91,17 @@ extension WorkTimeCoordinator {
         self.navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController.navigationBar.shadowImage = UIImage()
         if let sourceView = self.sourceView {
-            showWorkTimeController(controller: self.navigationController, sourceView: sourceView)
+            self.showWorkTimeController(controller: self.navigationController, sourceView: sourceView)
         } else {
             self.parentViewController?.present(self.navigationController, animated: true)
         }
     }
     
     private func runProjectPickerFlow(projects: [ProjectDecoder], finishHandler: @escaping ProjectPickerCoordinator.FinishHandlerType) {
-        let coordinator = ProjectPickerCoordinator(dependencyContainer: self.dependencyContainer,
-                                                   parentViewController: self.navigationController,
-                                                   projects: projects)
+        let coordinator = ProjectPickerCoordinator(
+            dependencyContainer: self.dependencyContainer,
+            parentViewController: self.navigationController,
+            projects: projects)
         self.addChildCoordinator(child: coordinator)
         coordinator.start { [weak self, weak coordinator] project in
             self?.removeChildCoordinator(child: coordinator)

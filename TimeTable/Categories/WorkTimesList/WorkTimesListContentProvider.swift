@@ -20,10 +20,12 @@ class WorkTimesListContentProvider {
     private let dispatchGroupFactory: DispatchGroupFactoryType
     
     // MARK: - Initialization
-    init(apiClient: WorkTimesListApiClientType,
-         accessService: AccessServiceUserIDType,
-         calendar: CalendarType = Calendar.autoupdatingCurrent,
-         dispatchGroupFactory: DispatchGroupFactoryType) {
+    init(
+        apiClient: WorkTimesListApiClientType,
+        accessService: AccessServiceUserIDType,
+        calendar: CalendarType = Calendar.autoupdatingCurrent,
+        dispatchGroupFactory: DispatchGroupFactoryType
+    ) {
         self.apiClient = apiClient
         self.accessService = accessService
         self.calendar = calendar

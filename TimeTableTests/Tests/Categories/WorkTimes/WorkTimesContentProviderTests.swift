@@ -213,9 +213,10 @@ class WorkTimesContentProviderTests: XCTestCase {
 // MARK: - Private
 extension WorkTimesContentProviderTests {
     private func buildSUT() -> WorkTimesListContentProvider {
-        return WorkTimesListContentProvider(apiClient: self.apiClientMock,
-                                            accessService: self.accessServiceMock,
-                                            calendar: self.calendarMock,
-                                            dispatchGroupFactory: self.dispatchGroupFactoryMock)
+        return WorkTimesListContentProvider(
+            apiClient: self.apiClientMock,
+            accessService: self.accessServiceMock,
+            calendar: self.calendarMock,
+            dispatchGroupFactory: self.dispatchGroupFactoryMock)
     }
 }

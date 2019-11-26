@@ -42,17 +42,19 @@ struct DependencyContainer: DependencyContainerType {
     let dispatchGroupFactory: DispatchGroupFactoryType
     
     // MARK: - Initialization
-    init(application: UIApplicationType?,
-         window: UIWindow?,
-         messagePresenter: MessagePresenterType?,
-         storyboardsManager: StoryboardsManagerType,
-         errorHandler: ErrorHandlerType,
-         serverConfigurationManager: ServerConfigurationManagerType,
-         coreDataStack: CoreDataStackType,
-         accessServiceBuilder: @escaping AccessServiceBuilderType,
-         encoder: JSONEncoderType,
-         decoder: JSONDecoderType,
-         notificationCenter: NotificationCenterType) {
+    init(
+        application: UIApplicationType?,
+        window: UIWindow?,
+        messagePresenter: MessagePresenterType?,
+        storyboardsManager: StoryboardsManagerType,
+        errorHandler: ErrorHandlerType,
+        serverConfigurationManager: ServerConfigurationManagerType,
+        coreDataStack: CoreDataStackType,
+        accessServiceBuilder: @escaping AccessServiceBuilderType,
+        encoder: JSONEncoderType,
+        decoder: JSONDecoderType,
+        notificationCenter: NotificationCenterType
+    ) {
         self.application = application
         self.window = window
         self.messagePresenter = messagePresenter

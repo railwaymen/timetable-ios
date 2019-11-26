@@ -88,13 +88,15 @@ extension CalendarMock: CalendarType {
     
     func date(bySettingHour hour: Int, minute: Int, second: Int, of date: Date,
               matchingPolicy: Calendar.MatchingPolicy, repeatedTimePolicy: Calendar.RepeatedTimePolicy, direction: Calendar.SearchDirection) -> Date? {
-        self.dateBySettingHourParams.append(DateBySettingHourParams(hour: hour,
-                                                                    minute: minute,
-                                                                    second: second,
-                                                                    date: date,
-                                                                    matchingPolicy: matchingPolicy,
-                                                                    repeatedTimePolicy: repeatedTimePolicy,
-                                                                    direction: direction))
+        self.dateBySettingHourParams.append(
+            DateBySettingHourParams(
+                hour: hour,
+                minute: minute,
+                second: second,
+                date: date,
+                matchingPolicy: matchingPolicy,
+                repeatedTimePolicy: repeatedTimePolicy,
+                direction: direction))
         return self.dateBySettingHourReturnValue
     }
     
@@ -104,17 +106,21 @@ extension CalendarMock: CalendarType {
     }
     
     func date(byAdding components: DateComponents, to date: Date, wrappingComponents: Bool) -> Date? {
-        self.dateByAddingDateComponentsParams.append(DateByAddingDateComponentsParams(components: components,
-                                                                                      date: date,
-                                                                                      wrappingComponents: wrappingComponents))
+        self.dateByAddingDateComponentsParams.append(
+            DateByAddingDateComponentsParams(
+                components: components,
+                date: date,
+                wrappingComponents: wrappingComponents))
         return self.dateByAddingDateComponentsReturnValue
     }
     
     func date(byAdding component: Calendar.Component, value: Int, to date: Date, wrappingComponents: Bool) -> Date? {
-        self.dateByAddingCalendarComponentParams.append(DateByAddingCalendarComponentParams(component: component,
-                                                                                            value: value,
-                                                                                            date: date,
-                                                                                            wrappingComponents: wrappingComponents))
+        self.dateByAddingCalendarComponentParams.append(
+            DateByAddingCalendarComponentParams(
+                component: component,
+                value: value,
+                date: date,
+                wrappingComponents: wrappingComponents))
         return self.dateByAddingCalendarComponentReturnValue
     }
     

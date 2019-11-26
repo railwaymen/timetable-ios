@@ -33,12 +33,14 @@ class ProfileViewModel {
     private weak var errorViewModel: ErrorViewModelParentType?
     
     // MARK: - Initialization
-    init(userInterface: ProfileViewModelOutput?,
-         coordinator: ProfileCoordinatorDelegate,
-         apiClient: ApiClientUsersType,
-         accessService: AccessServiceUserIDType,
-         coreDataStack: CoreDataStackUserType,
-         errorHandler: ErrorHandlerType) {
+    init(
+        userInterface: ProfileViewModelOutput?,
+        coordinator: ProfileCoordinatorDelegate,
+        apiClient: ApiClientUsersType,
+        accessService: AccessServiceUserIDType,
+        coreDataStack: CoreDataStackUserType,
+        errorHandler: ErrorHandlerType
+    ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
         self.apiClient = apiClient
@@ -46,7 +48,6 @@ class ProfileViewModel {
         self.coreDataStack = coreDataStack
         self.errorHandler = errorHandler
     }
-    
 }
 
 // MARK: - ProfileViewModelType

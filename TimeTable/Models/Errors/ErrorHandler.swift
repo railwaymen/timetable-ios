@@ -13,7 +13,6 @@
 import Foundation
 
 public class ErrorHandler: ErrorHandlerType {
-    
     private var parent: ErrorHandler?
     private let action: HandleAction<Error>
     
@@ -42,9 +41,9 @@ extension ErrorHandler {
     private func throwing(error: Error, previous: [ErrorHandler], finally: ((Bool) -> Void)? = nil) {
         if let parent = self.parent {
             parent.throwing(error: error, previous: previous + [self], finally: finally)
-            return
+        } else {
+            self.serve(error: error, next: AnyCollection(previous.reversed()), finally: finally)
         }
-        self.serve(error: error, next: AnyCollection(previous.reversed()), finally: finally)
     }
     
     private func serve(error: Error, next: AnyCollection<ErrorHandler>, finally: ((Bool) -> Void)? = nil) {

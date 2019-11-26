@@ -95,16 +95,29 @@ extension ProjectPickerViewModel: ProjectPickerViewModelType {
 // MARK: - Private
 extension ProjectPickerViewModel {
     private func setUpNotifications() {
-        self.notificationCenter.addObserver(self, selector: #selector(self.changeKeyboardFrame),
-                                            name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-        self.notificationCenter.addObserver(self, selector: #selector(self.changeKeyboardFrame), name: UIResponder.keyboardDidShowNotification, object: nil)
-        self.notificationCenter.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        self.notificationCenter.addObserver(
+            self,
+            selector: #selector(self.changeKeyboardFrame),
+            name: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil)
+        self.notificationCenter.addObserver(
+            self,
+            selector: #selector(self.changeKeyboardFrame),
+            name: UIResponder.keyboardDidShowNotification,
+            object: nil)
+        self.notificationCenter.addObserver(
+            self,
+            selector: #selector(self.keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
     }
     
     private func filterProjects(with text: String) {
-        self.filteredProjects = text.isEmpty ? self.projects : self.projects.filter {
-            $0.name.lowercased().contains(text.lowercased())
-        }
+        self.filteredProjects = text.isEmpty
+            ? self.projects
+            : self.projects.filter {
+                $0.name.lowercased().contains(text.lowercased())
+            }
     }
     
     private func project(at indexPath: IndexPath) -> ProjectDecoder? {

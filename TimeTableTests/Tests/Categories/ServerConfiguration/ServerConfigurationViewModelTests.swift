@@ -16,11 +16,11 @@ class ServerConfigurationViewModelTests: XCTestCase {
     private var errorHandler: ErrorHandlerMock!
     
     override func setUp() {
+        super.setUp()
         self.userInterface = ServerConfigurationViewControllerMock()
         self.errorHandler = ErrorHandlerMock()
         self.coordinatorMock = CoordinatorMock()
         self.serverConfigurationManagerMock = ServerConfigurationManagerMock()
-        super.setUp()
     }
     
     func testViewDidLoadCallSetupViewOnTheUserInterface() {
@@ -173,9 +173,10 @@ class ServerConfigurationViewModelTests: XCTestCase {
 // MARK: - Private
 extension ServerConfigurationViewModelTests {
     private func buildSUT() -> ServerConfigurationViewModel {
-        return ServerConfigurationViewModel(userInterface: self.userInterface,
-                                            coordinator: self.coordinatorMock,
-                                            serverConfigurationManager: self.serverConfigurationManagerMock,
-                                            errorHandler: self.errorHandler)
+        return ServerConfigurationViewModel(
+            userInterface: self.userInterface,
+            coordinator: self.coordinatorMock,
+            serverConfigurationManager: self.serverConfigurationManagerMock,
+            errorHandler: self.errorHandler)
     }
 }

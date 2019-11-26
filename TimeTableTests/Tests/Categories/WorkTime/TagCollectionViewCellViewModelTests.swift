@@ -34,9 +34,9 @@ class TagCollectionViewCellViewModelTests: XCTestCase {
 // MARK: - Private
 extension TagCollectionViewCellViewModelTests {
     private func buildSUT(tag: ProjectTag = .development, isSelected: Bool = false) -> TagCollectionViewCellViewModel {
-        return TagCollectionViewCellViewModel(userInterface: self.userInterfaceMock,
-                                              projectTag: tag,
-                                              isSelected: isSelected
-        )
+        return TagCollectionViewCellViewModel(
+            userInterface: self.userInterfaceMock,
+            projectTag: tag,
+            isSelected: isSelected)
     }
 }

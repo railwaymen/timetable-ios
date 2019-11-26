@@ -71,10 +71,17 @@ extension WorkTimeDecoder: Decodable {
 // MARK: - Equatable
 extension WorkTimeDecoder: Equatable {
     static func == (lhs: WorkTimeDecoder, rhs: WorkTimeDecoder) -> Bool {
-        return lhs.identifier == rhs.identifier && lhs.updatedByAdmin == rhs.updatedByAdmin
-            && lhs.projectIdentifier == rhs.projectIdentifier && lhs.startsAt == rhs.startsAt
-            && lhs.endsAt == rhs.endsAt && lhs.duration == rhs.duration && lhs.body == rhs.body
-            && lhs.task == rhs.task && lhs.taskPreview == rhs.taskPreview && lhs.date == rhs.date
-            && lhs.userIdentifier == rhs.userIdentifier && lhs.project == rhs.project
+        return lhs.identifier == rhs.identifier
+            && lhs.updatedByAdmin == rhs.updatedByAdmin
+            && lhs.projectIdentifier == rhs.projectIdentifier
+            && lhs.startsAt == rhs.startsAt
+            && lhs.endsAt == rhs.endsAt
+            && lhs.duration == rhs.duration
+            && lhs.body == rhs.body
+            && lhs.task == rhs.task
+            && lhs.taskPreview == rhs.taskPreview
+            && lhs.date == rhs.date
+            && lhs.userIdentifier == rhs.userIdentifier
+            && lhs.project == rhs.project
     }
 }

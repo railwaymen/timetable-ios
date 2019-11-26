@@ -18,12 +18,12 @@ class LoginViewModelTests: XCTestCase {
     private var accessService: AccessServiceMock!
         
     override func setUp() {
+        super.setUp()
         self.userInterface = LoginViewControllerMock()
         self.coordinatorMock = LoginCoordinatorMock()
         self.contentProvider = LoginContentProviderMock()
         self.errorHandler = ErrorHandlerMock()
         self.accessService = AccessServiceMock()
-        super.setUp()
     }
     
     func testViewDidLoadCallsSetUpView() {
@@ -367,11 +367,12 @@ class LoginViewModelTests: XCTestCase {
 // MARK: - Private
 extension LoginViewModelTests {
     private func buildSUT() -> LoginViewModel {
-        return LoginViewModel(userInterface: self.userInterface,
-                              coordinator: self.coordinatorMock,
-                              accessService: self.accessService,
-                              contentProvider: self.contentProvider,
-                              errorHandler: self.errorHandler)
+        return LoginViewModel(
+            userInterface: self.userInterface,
+            coordinator: self.coordinatorMock,
+            accessService: self.accessService,
+            contentProvider: self.contentProvider,
+            errorHandler: self.errorHandler)
     }
 }
 // swiftlint:enable type_body_length

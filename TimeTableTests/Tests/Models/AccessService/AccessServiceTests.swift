@@ -187,10 +187,11 @@ class AccessServiceTests: XCTestCase {
 // MARK: - Private
 extension AccessServiceTests {
     private func buildSUT() -> AccessService {
-        return AccessService(userDefaults: self.userDefaults,
-                             keychainAccess: self.keychainAccessMock,
-                             coreData: self.coreDataMock,
-                             encoder: self.encoderMock,
-                             decoder: self.decoderMock)
+        return AccessService(
+            userDefaults: self.userDefaults,
+            keychainAccess: self.keychainAccessMock,
+            coreData: self.coreDataMock,
+            encoder: self.encoderMock,
+            decoder: self.decoderMock)
     }
 }

@@ -21,8 +21,10 @@ class ProjectPickerCellModel {
     private let project: ProjectDecoder
     
     // MARK: - Initialization
-    init(userInterface: ProjectPickerCellModelOutput?,
-         project: ProjectDecoder) {
+    init(
+        userInterface: ProjectPickerCellModelOutput?,
+        project: ProjectDecoder
+    ) {
         self.userInterface = userInterface
         self.project = project
     }

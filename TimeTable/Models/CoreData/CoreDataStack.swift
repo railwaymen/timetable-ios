@@ -15,9 +15,10 @@ protocol CoreDataStackUserType: class {
     func deleteUser(forIdentifier identifier: Int64, completion: @escaping (Result<Void, Error>) -> Void)
     func fetchUser(forIdentifier identifier: Int64, completion: @escaping (Result<UserEntity, Error>) -> Void)
     func fetchAllUsers(completion: @escaping (Result<[UserEntity], Error>) -> Void)
-    func save<CDT: NSManagedObject>(userDecoder: SessionDecoder,
-                                    coreDataTypeTranslation: @escaping ((AsynchronousDataTransactionType) -> CDT),
-                                    completion: @escaping (Result<CDT, Error>) -> Void)
+    func save<CDT: NSManagedObject>(
+        userDecoder: SessionDecoder,
+        coreDataTypeTranslation: @escaping ((AsynchronousDataTransactionType) -> CDT),
+        completion: @escaping (Result<CDT, Error>) -> Void)
 }
 
 class CoreDataStack {
@@ -45,13 +46,16 @@ extension CoreDataStack: CoreDataStackUserType {
         self.fetchUser(forIdentifier: identifier) { [unowned self] result in
             switch result {
             case .success(let user):
-                self.stack.perform(asynchronousTask: { (transaction) -> Void in
-                    transaction.delete(user)
-                }, success: { _ in
-                    completion(.success(Void()))
-                }, failure: { error in
-                    completion(.failure(error))
-                })
+                self.stack.perform(
+                    asynchronousTask: { (transaction) -> Void in
+                        transaction.delete(user)
+                    },
+                    success: { _ in
+                        completion(.success(Void()))
+                    },
+                    failure: { error in
+                        completion(.failure(error))
+                    })
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -78,15 +82,20 @@ extension CoreDataStack: CoreDataStackUserType {
         }
     }
     
-    func save<CDT: NSManagedObject>(userDecoder: SessionDecoder,
-                                    coreDataTypeTranslation: @escaping ((AsynchronousDataTransactionType) -> CDT),
-                                    completion: @escaping (Result<CDT, Swift.Error>) -> Void) {
-        self.stack.perform(asynchronousTask: { transaction in
-            return coreDataTypeTranslation(transaction)
-        }, success: { entity in
-            completion(.success(entity))
-        }) { error in
-            completion(.failure(error))
-        }
+    func save<CDT: NSManagedObject>(
+        userDecoder: SessionDecoder,
+        coreDataTypeTranslation: @escaping ((AsynchronousDataTransactionType) -> CDT),
+        completion: @escaping (Result<CDT, Swift.Error>) -> Void
+    ) {
+        self.stack.perform(
+            asynchronousTask: { transaction in
+                return coreDataTypeTranslation(transaction)
+            },
+            success: { entity in
+                completion(.success(entity))
+            },
+            failure: { error in
+                completion(.failure(error))
+            })
     }
 }

@@ -59,27 +59,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private lazy var coreDataStack: CoreDataStackType = {
         do {
-            return try CoreDataStack(buildStack: { (xcodeModelName, fileName) throws -> DataStack in
+            return try CoreDataStack { (xcodeModelName, fileName) throws -> DataStack in
                 let dataStack = DataStack(xcodeModelName: xcodeModelName)
                 try dataStack.addStorageAndWait(
                     SQLiteStore(
                         fileName: fileName,
-                        localStorageOptions: .recreateStoreOnModelMismatch
-                    )
-                )
+                        localStorageOptions: .recreateStoreOnModelMismatch))
                 return dataStack
-            })
+            }
         } catch {
             fatalError("Core Data Stack error:\n \(error)")
         }
     }()
     
     private lazy var accessServiceBuilder: AccessServiceBuilderType = { (serverConfiguration, encoder, decoder) in
-        return AccessService(userDefaults: UserDefaults.standard,
-                             keychainAccess: self.createKeychain(with: serverConfiguration),
-                             coreData: self.coreDataStack,
-                             encoder: encoder,
-                             decoder: decoder)
+        return AccessService(
+            userDefaults: UserDefaults.standard,
+            keychainAccess: self.createKeychain(with: serverConfiguration),
+            coreData: self.coreDataStack,
+            encoder: encoder,
+            decoder: decoder)
     }
 
     // MARK: - UIApplicationDelegate

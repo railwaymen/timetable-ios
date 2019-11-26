@@ -18,10 +18,10 @@ class LoginContentProviderTests: XCTestCase {
     private var accessServiceMock: AccessServiceUserIDType!
         
     override func setUp() {
+        super.setUp()
         self.apiClientMock = ApiClientMock()
         self.coreDataStackUserMock = CoreDataStackMock()
         self.accessServiceMock = AccessServiceMock()
-        super.setUp()
         do {
             self.memoryContext = try self.createInMemoryStorage()
         } catch {
@@ -35,14 +35,17 @@ class LoginContentProviderTests: XCTestCase {
         let loginCredentials = LoginCredentials(email: "user@exmaple.com", password: "password")
         let sut = self.buildSUT()
         //Act
-        sut.login(with: loginCredentials, fetchCompletion: { result in
-            switch result {
-            case .success:
-                XCTFail()
-            case .failure(let error):
-                expectedError = error
-            }
-        }, saveCompletion: { _ in })
+        sut.login(
+            with: loginCredentials,
+            fetchCompletion: { result in
+                switch result {
+                case .success:
+                    XCTFail()
+                case .failure(let error):
+                    expectedError = error
+                }
+            },
+            saveCompletion: { _ in })
         self.apiClientMock.signInParams.last?.completion(.failure(ApiClientError(type: .invalidParameters)))
         //Assert
         switch (expectedError as? ApiClientError)?.type {
@@ -59,15 +62,17 @@ class LoginContentProviderTests: XCTestCase {
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         //Act
-        sut.login(with: loginCredentials, fetchCompletion: { _ in
-        }, saveCompletion: { result in
-            switch result {
-            case .success:
-                XCTFail()
-            case .failure(let error):
-                expectedError = error
-            }
-        })
+        sut.login(
+            with: loginCredentials,
+            fetchCompletion: { _ in },
+            saveCompletion: { result in
+                switch result {
+                case .success:
+                    XCTFail()
+                case .failure(let error):
+                    expectedError = error
+                }
+            })
         self.apiClientMock.signInParams.last?.completion(.success(sessionReponse))
         self.coreDataStackUserMock.fetchAllUsersParams.last?.completion(.failure(CoreDataStack.Error.storageItemNotFound))
         //Assert
@@ -86,15 +91,17 @@ class LoginContentProviderTests: XCTestCase {
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         let sut = self.buildSUT()
         //Act
-        sut.login(with: loginCredentials, fetchCompletion: { _ in
-        }, saveCompletion: { result in
-            switch result {
-            case .success:
-                XCTFail()
-            case .failure(let error):
-                expectedError = error
-            }
-        })
+        sut.login(
+            with: loginCredentials,
+            fetchCompletion: { _ in },
+            saveCompletion: { result in
+                switch result {
+                case .success:
+                    XCTFail()
+                case .failure(let error):
+                    expectedError = error
+                }
+            })
         self.apiClientMock.signInParams.last?.completion(.success(sessionReponse))
         self.coreDataStackUserMock.fetchAllUsersParams.last?.completion(.success([]))
         self.coreDataStackUserMock.saveParams.last?.completion(.failure(CoreDataStack.Error.storageItemNotFound))
@@ -119,13 +126,15 @@ class LoginContentProviderTests: XCTestCase {
         synchronousDataTransactionMock.createReturnValue = user
         let sut = self.buildSUT()
         //Act
-        sut.login(with: loginCredentials, fetchCompletion: { _ in
-        }, saveCompletion: { result in
-            switch result {
-            case .success: break
-            case .failure: XCTFail()
-            }
-        })
+        sut.login(
+            with: loginCredentials,
+            fetchCompletion: { _ in },
+            saveCompletion: { result in
+                switch result {
+                case .success: break
+                case .failure: XCTFail()
+                }
+            })
         self.apiClientMock.signInParams.last?.completion(.success(sessionReponse))
         self.coreDataStackUserMock.fetchAllUsersParams.last?.completion(.success([]))
         _ = self.coreDataStackUserMock.saveParams.last?.translation(synchronousDataTransactionMock)
@@ -150,21 +159,24 @@ class LoginContentProviderTests: XCTestCase {
         asynchronousDataTransactionMock.createReturnValue = user
         let sut = self.buildSUT()
         //Act
-        sut.login(with: loginCredentials, fetchCompletion: { result in
-            switch result {
-            case .success:
-                fetchSuccessCalled = true
-            case .failure:
-                XCTFail()
-            }
-        }, saveCompletion: { result in
-            switch result {
-            case .success:
-                saveSuccessCalled = true
-            case .failure:
-                XCTFail()
-            }
-        })
+        sut.login(
+            with: loginCredentials,
+            fetchCompletion: { result in
+                switch result {
+                case .success:
+                    fetchSuccessCalled = true
+                case .failure:
+                    XCTFail()
+                }
+            },
+            saveCompletion: { result in
+                switch result {
+                case .success:
+                    saveSuccessCalled = true
+                case .failure:
+                    XCTFail()
+                }
+            })
         self.apiClientMock.signInParams.last?.completion(.success(sessionReponse))
         self.coreDataStackUserMock.fetchAllUsersParams.last?.completion(.success([]))
         _ = self.coreDataStackUserMock.saveParams.last?.translation(asynchronousDataTransactionMock)
@@ -178,8 +190,9 @@ class LoginContentProviderTests: XCTestCase {
 // MARK: - Private
 extension LoginContentProviderTests {
     private func buildSUT() -> LoginContentProvider {
-        return LoginContentProvider(apiClient: self.apiClientMock,
-                                    coreDataStack: self.coreDataStackUserMock,
-                                    accessService: self.accessServiceMock)
+        return LoginContentProvider(
+            apiClient: self.apiClientMock,
+            coreDataStack: self.coreDataStackUserMock,
+            accessService: self.accessServiceMock)
     }
 }

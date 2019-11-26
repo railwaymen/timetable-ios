@@ -28,9 +28,11 @@ class ErrorViewModel {
     private let actionHandler: (() -> Void)?
     
     // MARK: - Initialization
-    init(userInterface: ErrorViewModelOutput?,
-         error: Error,
-         actionHandler: (() -> Void)?) {
+    init(
+        userInterface: ErrorViewModelOutput?,
+        error: Error,
+        actionHandler: (() -> Void)?
+    ) {
         self.userInterface = userInterface
         self.error = error
         self.actionHandler = actionHandler

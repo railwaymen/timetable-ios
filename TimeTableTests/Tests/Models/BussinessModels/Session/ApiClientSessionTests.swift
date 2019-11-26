@@ -15,10 +15,10 @@ class ApiClientSessionTests: XCTestCase {
     private var jsonDecoderMock: JSONDecoderMock!
     
     override func setUp() {
+        super.setUp()
         self.networkingMock = NetworkingMock()
         self.requestEncoderMock = RequestEncoderMock()
         self.jsonDecoderMock = JSONDecoderMock()
-        super.setUp()
     }
     
     // MARK: - ApiClientSessionType
@@ -68,8 +68,9 @@ class ApiClientSessionTests: XCTestCase {
 // MARK: - Private
 extension ApiClientSessionTests {
     private func buildSUT() -> ApiClientSessionType {
-        return ApiClient(networking: self.networkingMock,
-                         encoder: self.requestEncoderMock,
-                         decoder: self.jsonDecoderMock)
+        return ApiClient(
+            networking: self.networkingMock,
+            encoder: self.requestEncoderMock,
+            decoder: self.jsonDecoderMock)
     }
 }

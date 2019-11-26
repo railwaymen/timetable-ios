@@ -21,8 +21,9 @@ class BaseNavigationCoordinatorTests: XCTestCase {
         //Arrange
         let window = UIWindow(frame: .zero)
         //Act
-        let sut = BaseNavigationCoordinator(window: window,
-                                            messagePresenter: self.messagePresenterMock)
+        let sut = BaseNavigationCoordinator(
+            window: window,
+            messagePresenter: self.messagePresenterMock)
         //Assert
         XCTAssertNil(window.rootViewController as? UINavigationController)
         XCTAssertNotNil(sut.navigationController)
@@ -33,9 +34,10 @@ class BaseNavigationCoordinatorTests: XCTestCase {
         let window = UIWindow(frame: .zero)
         let navigationController = UINavigationController()
         //Act
-        let sut = BaseNavigationCoordinator(window: window,
-                                            navigationController: navigationController,
-                                            messagePresenter: self.messagePresenterMock)
+        let sut = BaseNavigationCoordinator(
+            window: window,
+            navigationController: navigationController,
+            messagePresenter: self.messagePresenterMock)
         //Assert
         XCTAssertNil(window.rootViewController)
         XCTAssertEqual(sut.navigationController, navigationController)

@@ -108,16 +108,18 @@ class CoreDataStackTests: XCTestCase {
         user.firstName = "John"
         user.lastName = "Little"
         //Act
-        sut.save(userDecoder: sessionReponse, coreDataTypeTranslation: { (_) in
-            return user
-        }) { result in
-            switch result {
-            case .success:
-                XCTFail()
-            case .failure(let error):
-                expecetdError = error
-            }
-        }
+        sut.save(
+            userDecoder: sessionReponse,
+            coreDataTypeTranslation: { (_) in
+                return user
+            }, completion: { result in
+                switch result {
+                case .success:
+                    XCTFail()
+                case .failure(let error):
+                    expecetdError = error
+                }
+            })
         self.dataStackMock.performParams.last?.failure(CoreStoreError.unknown)
         //Assert
         switch expecetdError as? CoreStoreError {
@@ -138,16 +140,19 @@ class CoreDataStackTests: XCTestCase {
         user.firstName = "John"
         user.lastName = "Little"
         //Act
-        sut.save(userDecoder: sessionReponse, coreDataTypeTranslation: { (_) in
-            return user
-        }) { result in
-            switch result {
-            case .success(let entity):
-                expectedEntity = entity
-            case .failure:
-                XCTFail()
-            }
-        }
+        sut.save(
+            userDecoder: sessionReponse,
+            coreDataTypeTranslation: { (_) in
+                return user
+            },
+            completion: { result in
+                switch result {
+                case .success(let entity):
+                    expectedEntity = entity
+                case .failure:
+                    XCTFail()
+                }
+            })
         self.dataStackMock.performParams.last?.success(user)
         //Assert
         XCTAssertEqual(expectedEntity, user)
@@ -166,10 +171,13 @@ class CoreDataStackTests: XCTestCase {
         user.lastName = "Little"
         asynchronousDataTransactionMock.createReturnValue = user
         //Act
-        sut.save(userDecoder: sessionReponse, coreDataTypeTranslation: { (transaction: AsynchronousDataTransactionType) -> UserEntity in
-            //Assert
-            return UserEntity.createUser(from: sessionReponse, transaction: transaction)
-        }) { (_: (Result<UserEntity, Error>)) in }
+        sut.save(
+            userDecoder: sessionReponse,
+            coreDataTypeTranslation: { (transaction: AsynchronousDataTransactionType) -> UserEntity in
+                //Assert
+                return UserEntity.createUser(from: sessionReponse, transaction: transaction)
+            },
+            completion: { _ in })
         _ = try self.dataStackMock.performParams.last?.asynchronousTask(asynchronousDataTransactionMock)
     }
 }

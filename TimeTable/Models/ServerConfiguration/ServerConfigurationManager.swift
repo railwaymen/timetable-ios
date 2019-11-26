@@ -19,7 +19,11 @@ class ServerConfigurationManager {
     private let dispatchQueueManager: DispatchQueueManagerType
     
     // MARK: - Initialization
-    init(urlSession: URLSessionType, userDefaults: UserDefaultsType, dispatchQueueManager: DispatchQueueManagerType) {
+    init(
+        urlSession: URLSessionType,
+        userDefaults: UserDefaultsType,
+        dispatchQueueManager: DispatchQueueManagerType
+    ) {
         self.urlSession = urlSession
         self.userDefaults = userDefaults
         self.dispatchQueueManager = dispatchQueueManager

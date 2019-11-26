@@ -13,8 +13,8 @@ class ProjectsCoordinatorTests: XCTestCase {
     private var dependencyContainer: DependencyContainerMock!
     
     override func setUp() {
-        self.dependencyContainer = DependencyContainerMock()
         super.setUp()
+        self.dependencyContainer = DependencyContainerMock()
     }
     
     func testRunMainFlowDoesNotRunMainFlowWhileProjectsControllerIsNil() {

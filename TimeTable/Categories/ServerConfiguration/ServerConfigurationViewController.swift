@@ -84,11 +84,7 @@ extension ServerConfigurationViewController: ServerConfigurationViewControllerTy
 // MARK: - ServerConfigurationViewModelOutput
 extension ServerConfigurationViewController: ServerConfigurationViewModelOutput {
     func setUpView(checkBoxIsActive: Bool, serverAddress: String) {
-        self.notificationCenter?.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        self.notificationCenter?.addObserver(self, selector: #selector(self.changeKeyboardFrame), name: UIResponder.keyboardDidShowNotification, object: nil)
-        self.notificationCenter?.addObserver(self, selector: #selector(self.changeKeyboardFrame),
-                                             name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-        
+        self.setUpNotifications()
         self.checkBoxButton.isActive = checkBoxIsActive
         self.serverAddressTextField.text = serverAddress
         self.continueButton.isEnabled = !serverAddress.isEmpty
@@ -133,5 +129,23 @@ extension ServerConfigurationViewController {
             self.activityIndicator.style = .gray
         }
         self.setActivityIndicator(isHidden: true)
+    }
+    
+    private func setUpNotifications() {
+        self.notificationCenter?.addObserver(
+            self,
+            selector: #selector(self.keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
+        self.notificationCenter?.addObserver(
+            self,
+            selector: #selector(self.changeKeyboardFrame),
+            name: UIResponder.keyboardDidShowNotification,
+            object: nil)
+        self.notificationCenter?.addObserver(
+            self,
+            selector: #selector(self.changeKeyboardFrame),
+            name: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil)
     }
 }

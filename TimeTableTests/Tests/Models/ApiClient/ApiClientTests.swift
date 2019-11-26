@@ -129,14 +129,15 @@ class ApiClientTests: XCTestCase {
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
-        let task = Task(workTimeIdentifier: nil,
-                        project: projectDecoder,
-                        body: "TEST",
-                        url: url,
-                        day: day,
-                        startAt: startsAt,
-                        endAt: endsAt,
-                        tag: .development)
+        let task = Task(
+            workTimeIdentifier: nil,
+            project: projectDecoder,
+            body: "TEST",
+            url: url,
+            day: day,
+            startAt: startsAt,
+            endAt: endsAt,
+            tag: .development)
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
         sut.post(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
@@ -167,14 +168,15 @@ class ApiClientTests: XCTestCase {
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
-        let task = Task(workTimeIdentifier: nil,
-                        project: projectDecoder,
-                        body: "TEST",
-                        url: url,
-                        day: day,
-                        startAt: startsAt,
-                        endAt: endsAt,
-                        tag: .development)
+        let task = Task(
+            workTimeIdentifier: nil,
+            project: projectDecoder,
+            body: "TEST",
+            url: url,
+            day: day,
+            startAt: startsAt,
+            endAt: endsAt,
+            tag: .development)
         //Act
         sut.post(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
@@ -202,14 +204,15 @@ class ApiClientTests: XCTestCase {
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
-        let task = Task(workTimeIdentifier: nil,
-                        project: projectDecoder,
-                        body: "TEST",
-                        url: url,
-                        day: day,
-                        startAt: startsAt,
-                        endAt: endsAt,
-                        tag: .development)
+        let task = Task(
+            workTimeIdentifier: nil,
+            project: projectDecoder,
+            body: "TEST",
+            url: url,
+            day: day,
+            startAt: startsAt,
+            endAt: endsAt,
+            tag: .development)
         //Act
         sut.post(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
@@ -416,14 +419,15 @@ class ApiClientTests: XCTestCase {
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
-        let task = Task(workTimeIdentifier: nil,
-                        project: projectDecoder,
-                        body: "TEST",
-                        url: url,
-                        day: day,
-                        startAt: startsAt,
-                        endAt: endsAt,
-                        tag: .development)
+        let task = Task(
+            workTimeIdentifier: nil,
+            project: projectDecoder,
+            body: "TEST",
+            url: url,
+            day: day,
+            startAt: startsAt,
+            endAt: endsAt,
+            tag: .development)
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
         sut.put(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
@@ -453,14 +457,15 @@ class ApiClientTests: XCTestCase {
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
-        let task = Task(workTimeIdentifier: nil,
-                        project: projectDecoder,
-                        body: "TEST",
-                        url: url,
-                        day: day,
-                        startAt: startsAt,
-                        endAt: endsAt,
-                        tag: .development)
+        let task = Task(
+            workTimeIdentifier: nil,
+            project: projectDecoder,
+            body: "TEST",
+            url: url,
+            day: day,
+            startAt: startsAt,
+            endAt: endsAt,
+            tag: .development)
         //Act
         sut.put(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
@@ -489,14 +494,15 @@ class ApiClientTests: XCTestCase {
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let url = try URL(string: "www.example.com").unwrap()
-        let task = Task(workTimeIdentifier: nil,
-                        project: projectDecoder,
-                        body: "TEST",
-                        url: url,
-                        day: day,
-                        startAt: startsAt,
-                        endAt: endsAt,
-                        tag: .development)
+        let task = Task(
+            workTimeIdentifier: nil,
+            project: projectDecoder,
+            body: "TEST",
+            url: url,
+            day: day,
+            startAt: startsAt,
+            endAt: endsAt,
+            tag: .development)
         //Act
         sut.put(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
@@ -515,9 +521,10 @@ class ApiClientTests: XCTestCase {
 // MARK: - Private
 extension ApiClientTests {
     private func buildSUT() -> ApiClient {
-        return ApiClient(networking: self.networkingMock,
-                         encoder: self.requestEncoderMock,
-                         decoder: self.jsonDecoderMock)
+        return ApiClient(
+            networking: self.networkingMock,
+            encoder: self.requestEncoderMock,
+            decoder: self.jsonDecoderMock)
     }
 }
 // swiftlint:enable type_body_length

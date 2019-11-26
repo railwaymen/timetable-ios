@@ -21,7 +21,7 @@ class ProfileCoordinatorTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT()
         //Act
-        sut.start(finishCompletion: {})
+        sut.start {}
         //Assert
         XCTAssertFalse(sut.navigationController.navigationBar.isHidden)
     }
@@ -31,7 +31,7 @@ class ProfileCoordinatorTests: XCTestCase {
         let sut = self.buildSUT()
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.profile] = [.initial: UIViewController()]
         //Act
-        sut.start(finishCompletion: {})
+        sut.start {}
         //Assert
         XCTAssertTrue(sut.navigationController.children.isEmpty)
     }
@@ -41,7 +41,7 @@ class ProfileCoordinatorTests: XCTestCase {
         let sut = self.buildSUT()
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.profile] = [.initial: ProfileViewControllerMock()]
         //Act
-        sut.start(finishCompletion: {})
+        sut.start {}
         //Assert
         XCTAssertNotNil(sut.navigationController.children[0] as? ProfileViewControllerable)
     }
@@ -51,9 +51,9 @@ class ProfileCoordinatorTests: XCTestCase {
         let sut = self.buildSUT()
         var finishCompletionCalled = false
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.profile] = [.initial: ProfileViewControllerMock()]
-        sut.start(finishCompletion: {
+        sut.start {
             finishCompletionCalled = true
-        })
+        }
         //Act
         sut.userProfileDidLogoutUser()
         //Assert

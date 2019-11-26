@@ -16,10 +16,12 @@ class ErrorHandlerTests: XCTestCase {
         let sut = ErrorHandler()
         let error: TestError = TestError(message: "catching error")
         //Act
-        sut.throwing(error: error, finally: { isActionExecuted in
-            //Assert
-            XCTAssertFalse(isActionExecuted)
-        })
+        sut.throwing(
+            error: error,
+            finally: { isActionExecuted in
+                //Assert
+                XCTAssertFalse(isActionExecuted)
+            })
     }
     
     func testThrwoingErrorWhileActionHandlerIsSetUp() {

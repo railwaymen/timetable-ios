@@ -104,9 +104,10 @@ class WorkTimeViewController: UIViewController {
 // MARK: - UICollectionViewDelegate
 extension WorkTimeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.reuseIdentifier,
-                                                            for: indexPath) as? TagCollectionViewCellable else {
-                                                                return UICollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: TagCollectionViewCell.reuseIdentifier,
+            for: indexPath) as? TagCollectionViewCellable else {
+                return UICollectionViewCell()
         }
         guard let tag = self.viewModel.viewRequestedForTag(at: indexPath) else { return UICollectionViewCell() }
         let isSelected = self.viewModel.isTagSelected(at: indexPath)
@@ -137,14 +138,16 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     }
     
     func setUp(isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?) {
-        self.notificationCenter?.addObserver(self,
-                                             selector: #selector(self.keyboardFrameWillChange),
-                                             name: UIResponder.keyboardWillChangeFrameNotification,
-                                             object: nil)
-        self.notificationCenter?.addObserver(self,
-                                             selector: #selector(self.keyboardWillHide),
-                                             name: UIResponder.keyboardWillHideNotification,
-                                             object: nil)
+        self.notificationCenter?.addObserver(
+            self,
+            selector: #selector(self.keyboardFrameWillChange),
+            name: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil)
+        self.notificationCenter?.addObserver(
+            self,
+            selector: #selector(self.keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
         let systemItem: UIBarButtonItem.SystemItem
         if #available(iOS 13, *) {
             systemItem = .close

@@ -71,8 +71,9 @@ class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
 // MARK: - Private
 extension WorkTimesTableViewHeaderViewModelTests {
     private func buildSUT(dailyWorkTime: DailyWorkTime) -> WorkTimesTableViewHeaderViewModel {
-        return WorkTimesTableViewHeaderViewModel(userInterface: self.userInterface,
-                                                 dailyWorkTime: dailyWorkTime,
-                                                 calendar: self.calendar)
+        return WorkTimesTableViewHeaderViewModel(
+            userInterface: self.userInterface,
+            dailyWorkTime: dailyWorkTime,
+            calendar: self.calendar)
     }
 }

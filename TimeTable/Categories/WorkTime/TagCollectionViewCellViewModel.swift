@@ -22,9 +22,11 @@ class TagCollectionViewCellViewModel {
     private let isSelected: Bool
     
     // MARK: - Initialization
-    init(userInterface: TagCollectionViewCellViewModelOutput,
-         projectTag: ProjectTag,
-         isSelected: Bool) {
+    init(
+        userInterface: TagCollectionViewCellViewModelOutput,
+        projectTag: ProjectTag,
+        isSelected: Bool
+    ) {
         self.userInterface = userInterface
         self.projectTag = projectTag
         self.isSelected = isSelected
@@ -34,8 +36,9 @@ class TagCollectionViewCellViewModel {
 // MARK: - TagCollectionViewCellViewModelType
 extension TagCollectionViewCellViewModel: TagCollectionViewCellViewModelType {
     func configure() {
-        self.userInterface?.setUp(title: self.projectTag.localized,
-                                  color: self.projectTag.color,
-                                  isSelected: self.isSelected)
+        self.userInterface?.setUp(
+            title: self.projectTag.localized,
+            color: self.projectTag.color,
+            isSelected: self.isSelected)
     }
 }
