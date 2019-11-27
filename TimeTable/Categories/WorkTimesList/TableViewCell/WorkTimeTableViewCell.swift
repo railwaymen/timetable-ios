@@ -15,6 +15,8 @@ protocol WorkTimeTableViewCellType: class {
 }
 
 class WorkTimeTableViewCell: UITableViewCell {
+    static let reuseIdentifier = "WorkTimeStandardTableViewCellReuseIdentifier"
+    
     @IBOutlet private var shadowView: UIView!
     @IBOutlet private var roundedContainerView: AttributedView!
     @IBOutlet private var projectViews: [UIView]!

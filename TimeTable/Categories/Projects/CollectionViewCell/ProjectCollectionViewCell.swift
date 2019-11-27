@@ -13,6 +13,8 @@ protocol ProjectCollectionViewCellType: class {
 }
 
 class ProjectCollectionViewCell: UICollectionViewCell {
+    static let reuseIdentifier = "ProjectCollectionViewCellReuseIdentifier"
+    
     @IBOutlet private var attributedBackgroundView: AttributedView!
     @IBOutlet private var projectNameLabel: UILabel!
     @IBOutlet private var leaderNameLabel: UILabel!

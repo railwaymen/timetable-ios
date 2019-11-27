@@ -21,7 +21,6 @@ class ProjectsViewController: UIViewController {
     
     private var viewModel: ProjectsViewModelType!
 
-    private let cellIdentifier = "ProjectCollectionViewCellReuseIdentifier"
     private let contentInset = UIEdgeInsets(top: 30, left: 18, bottom: 30, right: 18)
     private let projectCellTableViewHeight: CGFloat = 28
     private let projectCellStaticHeaderHeight: CGFloat = 88
@@ -40,9 +39,8 @@ extension ProjectsViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as? ProjectCollectionViewCell else {
-            return UICollectionViewCell()
-        }
+        let reusedCell = collectionView.dequeueReusableCell(withReuseIdentifier: ProjectCollectionViewCell.reuseIdentifier, for: indexPath)
+        guard let cell = reusedCell as? ProjectCollectionViewCell else { return UICollectionViewCell() }
         guard let project = self.viewModel.item(at: indexPath) else { return UICollectionViewCell() }
         let cellViewModel = ProjectCollectionViewCellModel(userInterface: cell, project: project)
         cell.configure(viewModel: cellViewModel)
