@@ -10,6 +10,8 @@ import XCTest
 @testable import TimeTable
 
 class LoginViewControllerMock: UIViewController {
+    
+    // MARK: - LoginViewModelOutput
     private(set) var setUpViewParams: [SetUpViewParams] = []
     struct SetUpViewParams {
         var checkBoxIsActive: Bool
@@ -47,9 +49,14 @@ class LoginViewControllerMock: UIViewController {
         var isHidden: Bool
     }
     
+    private(set) var setBottomContentInsetParams: [SetBottomContentInsetParams] = []
+    struct SetBottomContentInsetParams {
+        var height: CGFloat
+    }
+    
+    // MARK: - LoginViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
-        var notificationCenter: NotificationCenterType
         var viewModel: LoginViewModelType
     }
 }
@@ -87,11 +94,15 @@ extension LoginViewControllerMock: LoginViewModelOutput {
     func setActivityIndicator(isHidden: Bool) {
         self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isHidden))
     }
+    
+    func setBottomContentInset(_ height: CGFloat) {
+        self.setBottomContentInsetParams.append(SetBottomContentInsetParams(height: height))
+    }
 }
 
 // MARK: - LoginViewControllerType
 extension LoginViewControllerMock: LoginViewControllerType {
-    func configure(notificationCenter: NotificationCenterType, viewModel: LoginViewModelType) {
-        self.configureParams.append(ConfigureParams(notificationCenter: notificationCenter, viewModel: viewModel))
+    func configure(viewModel: LoginViewModelType) {
+        self.configureParams.append(ConfigureParams(viewModel: viewModel))
     }
 }

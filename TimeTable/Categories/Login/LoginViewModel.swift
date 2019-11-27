@@ -6,7 +6,7 @@
 //  Copyright © 2018 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol LoginViewModelOutput: class {
     func setUpView(checkBoxIsActive: Bool)
@@ -17,6 +17,7 @@ protocol LoginViewModelOutput: class {
     func checkBoxIsActiveState(_ isActive: Bool)
     func dismissKeyboard()
     func setActivityIndicator(isHidden: Bool)
+    func setBottomContentInset(_ height: CGFloat)
 }
 
 protocol LoginViewModelType: class {
@@ -37,6 +38,8 @@ class LoginViewModel {
     private let contentProvider: LoginContentProviderType
     private let accessService: AccessServiceLoginCredentialsType
     private let errorHandler: ErrorHandlerType
+    private let notificationCenter: NotificationCenterType
+    
     private var loginCredentials: LoginCredentials
     private var shouldRememberLoginCredentials: Bool = false
     
@@ -46,18 +49,35 @@ class LoginViewModel {
         coordinator: LoginCoordinatorDelegate,
         accessService: AccessServiceLoginCredentialsType,
         contentProvider: LoginContentProviderType,
-        errorHandler: ErrorHandlerType
+        errorHandler: ErrorHandlerType,
+        notificationCenter: NotificationCenterType
     ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
         self.accessService = accessService
         self.contentProvider = contentProvider
         self.errorHandler = errorHandler
+        self.notificationCenter = notificationCenter
         do {
             self.loginCredentials = try accessService.getUserCredentials()
         } catch {
             self.loginCredentials = LoginCredentials(email: "", password: "")
         }
+        self.setUpNotifications()
+    }
+    
+    deinit {
+        self.notificationCenter.removeObserver(self)
+    }
+    
+    // MARK: - Notifications
+    @objc func changeKeyboardFrame(notification: NSNotification) {
+        guard let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height else { return }
+        self.userInterface?.setBottomContentInset(keyboardHeight)
+    }
+    
+    @objc func keyboardWillHide() {
+        self.userInterface?.setBottomContentInset(0)
     }
 }
 
@@ -144,6 +164,24 @@ extension LoginViewModel: LoginViewModelType {
 
 // MARK: - Private
 extension LoginViewModel {
+    private func setUpNotifications() {
+        self.notificationCenter.addObserver(
+            self,
+            selector: #selector(self.keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
+        self.notificationCenter.addObserver(
+            self,
+            selector: #selector(self.changeKeyboardFrame),
+            name: UIResponder.keyboardDidShowNotification,
+            object: nil)
+        self.notificationCenter.addObserver(
+            self,
+            selector: #selector(self.changeKeyboardFrame),
+            name: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil)
+    }
+    
     private func updateView() {
         let isPasswordEnabled = (!self.loginCredentials.password.isEmpty && self.loginCredentials.email.isEmpty) || !self.loginCredentials.email.isEmpty
         self.userInterface?.passwordInputEnabledState(isPasswordEnabled)

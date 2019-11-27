@@ -127,8 +127,9 @@ extension AuthenticationCoordinator {
             userInterface: serverSettingsViewController,
             coordinator: self,
             serverConfigurationManager: self.dependencyContainer.serverConfigurationManager,
-            errorHandler: self.dependencyContainer.errorHandler)
-        serverSettingsViewController.configure(viewModel: viewModel, notificationCenter: self.dependencyContainer.notificationCenter)
+            errorHandler: self.dependencyContainer.errorHandler,
+            notificationCenter: self.dependencyContainer.notificationCenter)
+        serverSettingsViewController.configure(viewModel: viewModel)
         self.navigationController.setViewControllers([serverSettingsViewController], animated: true)
     }
     
@@ -147,8 +148,9 @@ extension AuthenticationCoordinator {
             coordinator: self,
             accessService: accessService,
             contentProvider: contentProvider,
-            errorHandler: self.dependencyContainer.errorHandler)
-        loginViewController.configure(notificationCenter: self.dependencyContainer.notificationCenter, viewModel: viewModel)
+            errorHandler: self.dependencyContainer.errorHandler,
+            notificationCenter: self.dependencyContainer.notificationCenter)
+        loginViewController.configure(viewModel: viewModel)
         self.navigationController.pushViewController(loginViewController, animated: animated)
         self.navigationController.navigationBar.backItem?.title = ""
     }
