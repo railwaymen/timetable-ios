@@ -152,6 +152,10 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
         isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
         self.activityIndicator.isHidden = isHidden
     }
+    
+    func performBatchUpdates(_ updates: (() -> Void)?) {
+        self.tableView.performBatchUpdates(updates, completion: nil)
+    }
 }
 
 // MARK: - WorkTimesListViewControllerType
