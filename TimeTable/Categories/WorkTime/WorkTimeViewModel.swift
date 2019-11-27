@@ -100,7 +100,7 @@ class WorkTimeViewModel {
         switch flowType {
         case let .newEntry(lastTask):
             self.lastTask = lastTaskValidation(lastTask)
-            self.task = taskCreation(nil, lastTask)
+            self.task = taskCreation(nil, lastTaskValidation(lastTask))
         case let .duplicateEntry(duplicatedTask, lastTask):
             self.lastTask = lastTaskValidation(lastTask)
             self.task = taskCreation(duplicatedTask, lastTask)
@@ -284,7 +284,7 @@ extension WorkTimeViewModel {
     
     private func validateInputs() throws {
         guard let project = self.task.project else { throw UIError.cannotBeEmpty(.projectTextField) }
-        guard !self.task.body.isEmpty || (self.task.allowsTask && self.task.url != nil) || project.isLunch
+        guard !self.task.body.isEmpty || (self.task.allowsTask && self.task.url != nil) || project.isLunch || !(project.countDuration ?? false)
             else { throw UIError.cannotBeEmptyOr(.taskNameTextField, .taskUrlTextField) }
         guard let fromDate = self.task.startsAt else { throw UIError.cannotBeEmpty(.startsAtTextField) }
         guard let toDate = self.task.endsAt else { throw UIError.cannotBeEmpty(.endsAtTextField) }

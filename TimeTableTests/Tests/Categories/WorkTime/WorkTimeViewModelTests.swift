@@ -44,12 +44,15 @@ class WorkTimeViewModelTests: XCTestCase {
         //Arrange
         let lastTask = try self.createTask(workTimeIdentifier: nil)
         let sut = self.buildSUT(flowType: .newEntry(lastTask: lastTask))
+        let creationDate = Date()
         //Act
         sut.viewDidLoad()
         //Assert
         XCTAssertTrue(Calendar.current.isDateInToday(try XCTUnwrap(self.userInterfaceMock.updateDayParams.last?.date)))
-        XCTAssertEqual(self.userInterfaceMock.updateStartAtDateParams.last?.date, lastTask.endsAt)
-        XCTAssertEqual(self.userInterfaceMock.updateEndAtDateParams.last?.date, lastTask.endsAt)
+        let startsAtDate = try XCTUnwrap(self.userInterfaceMock.updateStartAtDateParams.last?.date)
+        let endsAtDate = try XCTUnwrap(self.userInterfaceMock.updateEndAtDateParams.last?.date)
+        XCTAssertEqual(startsAtDate.timeIntervalSince1970, creationDate.timeIntervalSince1970, accuracy: 0.01)
+        XCTAssertEqual(endsAtDate.timeIntervalSince1970, creationDate.timeIntervalSince1970, accuracy: 0.01)
         XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, "Select project")
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setUpParams.last?.allowsTask))
     }
