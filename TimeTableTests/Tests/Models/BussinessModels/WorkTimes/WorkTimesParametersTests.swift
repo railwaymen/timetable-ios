@@ -18,11 +18,9 @@ class WorkTimesParametersTests: XCTestCase {
     func testEncoding_fullModel() throws {
         //Arrange
         let projectIdentifier = 3
-        var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
-        let fromDate = try XCTUnwrap(Calendar.current.date(from: components))
-        components.hour = 12
-        components.minute = 0
-        let toDate = try XCTUnwrap(Calendar.current.date(from: components))
+        let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
+        let fromDate = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 10, minute: 30)
+        let toDate = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 12, minute: 0)
         let sut = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectId: projectIdentifier)
         //Act
         let data = try self.encoder.encode(sut)
@@ -39,11 +37,9 @@ class WorkTimesParametersTests: XCTestCase {
     
     func testEncoding_nilProjectId() throws {
         //Arrange
-        var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
-        let fromDate = try XCTUnwrap(Calendar.current.date(from: components))
-        components.hour = 12
-        components.minute = 0
-        let toDate = try XCTUnwrap(Calendar.current.date(from: components))
+        let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
+        let fromDate = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 10, minute: 30)
+        let toDate = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 12, minute: 0)
         let sut = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectId: nil)
         //Act
         let data = try self.encoder.encode(sut)
@@ -61,8 +57,8 @@ class WorkTimesParametersTests: XCTestCase {
     func testEncoding_nilFrom() throws {
         //Arrange
         let projectIdentifier = 3
-        let components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 22, hour: 12, minute: 0)
-        let toDate = try XCTUnwrap(Calendar.current.date(from: components))
+        let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
+        let toDate = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 12, minute: 0)
         let sut = WorkTimesParameters(fromDate: nil, toDate: toDate, projectId: projectIdentifier)
         //Act
         let data = try self.encoder.encode(sut)
@@ -78,8 +74,8 @@ class WorkTimesParametersTests: XCTestCase {
     func testEncoding_nilTo() throws {
         //Arrange
         let projectIdentifier = 3
-        let components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
-        let fromDate = try XCTUnwrap(Calendar.current.date(from: components))
+        let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
+        let fromDate = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 10, minute: 30)
         let sut = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectId: projectIdentifier)
         //Act
         let data = try self.encoder.encode(sut)
@@ -118,8 +114,7 @@ class WorkTimesParametersTests: XCTestCase {
     
     func testWorkTimesAreEquatableWhileFromIsTheSame() throws {
         //Arrange
-        let components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
-        let fromDate = try XCTUnwrap(Calendar.current.date(from: components))
+        let fromDate = try self.buildDate(timeZone: try XCTUnwrap(TimeZone(secondsFromGMT: 3600)), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
         let sut1 = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectId: nil)
         let sut2 = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectId: nil)
         //Assert
@@ -128,8 +123,7 @@ class WorkTimesParametersTests: XCTestCase {
     
     func testWorkTimesAreNotEquatableWhileFromIsNotTheSame() throws {
         //Arrange
-        let components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
-        let fromDate = try XCTUnwrap(Calendar.current.date(from: components))
+        let fromDate = try self.buildDate(timeZone: try XCTUnwrap(TimeZone(secondsFromGMT: 3600)), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
         let sut1 = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectId: nil)
         let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
         //Assert
@@ -138,8 +132,7 @@ class WorkTimesParametersTests: XCTestCase {
     
     func testWorkTimesAreEquatableWhileToDateIsTheSame() throws {
         //Arrange
-        let components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
-        let toDate = try XCTUnwrap(Calendar.current.date(from: components))
+        let toDate = try self.buildDate(timeZone: try XCTUnwrap(TimeZone(secondsFromGMT: 3600)), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
         let sut1 = WorkTimesParameters(fromDate: nil, toDate: toDate, projectId: nil)
         let sut2 = WorkTimesParameters(fromDate: nil, toDate: toDate, projectId: nil)
         //Assert
@@ -148,8 +141,7 @@ class WorkTimesParametersTests: XCTestCase {
     
     func testWorkTimesAreNotEquatableWhileToDateIsNotTheSame() throws {
         //Arrange
-        let components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
-        let toDate = try XCTUnwrap(Calendar.current.date(from: components))
+        let toDate = try self.buildDate(timeZone: try XCTUnwrap(TimeZone(secondsFromGMT: 3600)), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
         let sut1 = WorkTimesParameters(fromDate: nil, toDate: toDate, projectId: nil)
         let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
         //Assert
@@ -158,10 +150,8 @@ class WorkTimesParametersTests: XCTestCase {
     
     func testWorkTimesAreEquatableWhileAllParametersAreTheSame() throws {
         //Arrange
-        var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
-        let fromDate = try XCTUnwrap(Calendar.current.date(from: components))
-        components.hour = 11
-        let toDate = try XCTUnwrap(Calendar.current.date(from: components))
+        let fromDate = try self.buildDate(timeZone: try XCTUnwrap(TimeZone(secondsFromGMT: 3600)), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
+        let toDate = try self.buildDate(timeZone: try XCTUnwrap(TimeZone(secondsFromGMT: 3600)), year: 2018, month: 11, day: 22, hour: 11, minute: 30)
         let sut1 = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectId: 1)
         let sut2 = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectId: 1)
         //Assert
@@ -170,10 +160,8 @@ class WorkTimesParametersTests: XCTestCase {
     
     func testWorkTimesAreNotEquatableWithDifferentParameters() throws {
         //Arrange
-        var components = DateComponents(timeZone: TimeZone(secondsFromGMT: 3600), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
-        let fromDate = try XCTUnwrap(Calendar.current.date(from: components))
-        components.hour = 11
-        let toDate = try XCTUnwrap(Calendar.current.date(from: components))
+        let fromDate = try self.buildDate(timeZone: try XCTUnwrap(TimeZone(secondsFromGMT: 3600)), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
+        let toDate = try self.buildDate(timeZone: try XCTUnwrap(TimeZone(secondsFromGMT: 3600)), year: 2018, month: 11, day: 22, hour: 11, minute: 30)
         let sut1 = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectId: 1)
         let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
         //Assert

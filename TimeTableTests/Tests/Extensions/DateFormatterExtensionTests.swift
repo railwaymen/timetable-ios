@@ -13,8 +13,7 @@ class DateFormatterExtensionTests: XCTestCase {
 
     func testSimpleDateTypeSucceed() throws {
         //Arrange
-        let components = DateComponents(year: 2018, month: 11, day: 21)
-        let expectedDate = Calendar.autoupdatingCurrent.date(from: components)
+        let expectedDate = try self.buildDate(year: 2018, month: 11, day: 21)
         let sut = DateFormatter(type: .simple)
         //Act
         let date = try XCTUnwrap(sut.date(from: "2018-11-21"))
@@ -33,15 +32,14 @@ class DateFormatterExtensionTests: XCTestCase {
     
     func testDateAndTimeExtendedDateTypeSucceed() throws {
         //Arrange
-        let components = DateComponents(
-            timeZone: TimeZone(secondsFromGMT: 3600),
+        let expectedDate = try self.buildDate(
+            timeZone: try XCTUnwrap(TimeZone(secondsFromGMT: 3600)),
             year: 2018,
             month: 11,
             day: 21,
             hour: 15,
             minute: 0,
             second: 30)
-        let expectedDate = Calendar.autoupdatingCurrent.date(from: components)
         let sut = DateFormatter(type: .dateAndTimeExtended)
         //Act
         let date = try XCTUnwrap(sut.date(from: "2018-11-21T15:00:30.000+01:00"))

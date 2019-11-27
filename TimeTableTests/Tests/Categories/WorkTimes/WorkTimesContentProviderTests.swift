@@ -98,9 +98,8 @@ class WorkTimesContentProviderTests: XCTestCase {
         let sut = self.buildSUT()
         let dateComponents = DateComponents(year: 2019, month: 2, day: 1)
         self.calendarMock.dateComponentsReturnValue = dateComponents
-        let startOfMonth = try XCTUnwrap(Calendar.current.date(from: dateComponents))
-        self.calendarMock.dateFromDateComponentsReturnValue = startOfMonth
-        let date = try XCTUnwrap(Calendar.current.date(from: dateComponents))
+        let date = try self.buildDate(dateComponents)
+        self.calendarMock.dateFromDateComponentsReturnValue = date
         
         var expectedError: Error?
         let error = TestError(message: "Work times error")
@@ -153,18 +152,15 @@ class WorkTimesContentProviderTests: XCTestCase {
     func testFetchWorkTimeDataWhileFetchWorkTimesSucceed() throws {
         //Arrange
         let sut = self.buildSUT()
-        var dateComponents = DateComponents(year: 2019, month: 2, day: 1)
-        let startOfMonth = try XCTUnwrap(Calendar.current.date(from: dateComponents))
+        let dateComponents = DateComponents(year: 2019, month: 2, day: 1)
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 1
         self.calendarMock.dateComponentsReturnValue = dateComponents
-        self.calendarMock.dateFromDateComponentsReturnValue = startOfMonth
-        dateComponents.day = 28
-        let endOfMonth = try XCTUnwrap(Calendar.current.date(from: dateComponents))
-        self.calendarMock.dateByAddingCalendarComponentReturnValue = endOfMonth
+        self.calendarMock.dateFromDateComponentsReturnValue = try self.buildDate(dateComponents)
+        self.calendarMock.dateByAddingCalendarComponentReturnValue = try self.buildDate(year: 2019, month: 2, day: 28)
         
         var expectedResponse: ([DailyWorkTime], MatchingFullTimeDecoder)?
     
-        let date = try XCTUnwrap(Calendar.current.date(from: dateComponents))
+        let date = try self.buildDate(dateComponents)
         
         let workTimesData = try self.json(from: WorkTimesJSONResource.workTimesResponse)
         let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: workTimesData)

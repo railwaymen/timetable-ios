@@ -13,8 +13,7 @@ class MatchingFullTimeEncoderTests: XCTestCase {
 
     func testEncoding_fullModel() throws {
         //Arrange
-        let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let date = try XCTUnwrap(Calendar.current.date(from: components))
+        let date = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let sut = MatchingFullTimeEncoder(date: date, userId: 1)
         //Act
         let data = try self.encoder.encode(sut)
@@ -42,8 +41,7 @@ class MatchingFullTimeEncoderTests: XCTestCase {
     
     func testEncoding_nilUserId() throws {
         //Arrange
-        let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let date = try XCTUnwrap(Calendar.current.date(from: components))
+        let date = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let sut = MatchingFullTimeEncoder(date: date, userId: nil)
         var thrownError: Error?
         //Act
