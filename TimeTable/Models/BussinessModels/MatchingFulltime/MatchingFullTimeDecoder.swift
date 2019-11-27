@@ -26,14 +26,14 @@ extension MatchingFullTimeDecoder {
 extension MatchingFullTimeDecoder: Decodable {
     enum CodingKeys: String, CodingKey {
         case period
-        case shouldWorked = "should_worked"
+        case shouldWorked
     }
 }
 
 extension MatchingFullTimeDecoder.Period: Decodable {
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
-        case countedDuration = "counted_duration"
+        case countedDuration
         case duration
     }
 }

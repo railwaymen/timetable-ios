@@ -11,44 +11,48 @@ import XCTest
 
 class MatchingFullTimeEncoderTests: XCTestCase {
 
-    func testCreatedMatchingFullTimeEncoderIsCorrect() throws {
+    func testEncoding_fullModel() throws {
         //Arrange
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let date = try XCTUnwrap(Calendar.current.date(from: components))
-        let sut = MatchingFullTimeEncoder(date: date, userIdentifier: 1)
+        let sut = MatchingFullTimeEncoder(date: date, userId: 1)
         //Act
         let data = try self.encoder.encode(sut)
-        let requestDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
         //Assert
+        let requestDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
         let dateString = try XCTUnwrap(requestDictionary?["date"] as? String)
         let userId = try XCTUnwrap(requestDictionary?["user_id"] as? Int)
         XCTAssertEqual(dateString, "2018-01-17")
         XCTAssertEqual(userId, 1)
     }
     
-    func testCreatedMatchingFullTimeEncoderFailsWhileDateIsNil() throws {
+    func testEncoding_nilDate() throws {
         //Arrange
-        let sut = MatchingFullTimeEncoder(date: nil, userIdentifier: 1)
+        let sut = MatchingFullTimeEncoder(date: nil, userId: 1)
+        var thrownError: Error?
         //Act
         do {
             _ = try self.encoder.encode(sut)
         } catch {
-            //Assert
-            XCTAssertNotNil(error as? EncodingError)
+            thrownError = error
         }
+        //Assert
+        XCTAssertTrue(thrownError is EncodingError)
     }
     
-    func testCreatedMatchingFullTimeEncoderFailsWhileUserIdentfierIsNil() throws {
+    func testEncoding_nilUserId() throws {
         //Arrange
         let components = DateComponents(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let date = try XCTUnwrap(Calendar.current.date(from: components))
-        let sut = MatchingFullTimeEncoder(date: date, userIdentifier: nil)
+        let sut = MatchingFullTimeEncoder(date: date, userId: nil)
+        var thrownError: Error?
         //Act
         do {
             _ = try self.encoder.encode(sut)
         } catch {
-            //Assert
-            XCTAssertNotNil(error as? EncodingError)
+            thrownError = error
         }
+        //Assert
+        XCTAssertTrue(thrownError is EncodingError)
     }
 }

@@ -84,7 +84,7 @@ extension WorkTimesListContentProvider: WorkTimesListContentProviderType {
 extension WorkTimesListContentProvider {
     private func fetchWorkTimes(date: Date?, completion: @escaping (Result<[DailyWorkTime], Error>) -> Void) {
         let dates = self.getStartAndEndDate(for: date)
-        let parameters = WorkTimesParameters(fromDate: dates.startOfMonth, toDate: dates.endOfMonth, projectIdentifier: nil)
+        let parameters = WorkTimesParameters(fromDate: dates.startOfMonth, toDate: dates.endOfMonth, projectId: nil)
         self.apiClient.fetchWorkTimes(parameters: parameters) { result in
             switch result {
             case .success(let workTimes):
@@ -107,7 +107,7 @@ extension WorkTimesListContentProvider {
     
     private func fetchMatchingFullTime(date: Date?, completion: @escaping (Result<MatchingFullTimeDecoder, Error>) -> Void) {
         let userIdentifier = self.accessService.getLastLoggedInUserIdentifier()
-        let parameters = MatchingFullTimeEncoder(date: date, userIdentifier: userIdentifier)
+        let parameters = MatchingFullTimeEncoder(date: date, userId: userIdentifier)
         self.apiClient.fetchMatchingFullTime(parameters: parameters, completion: completion)
     }
     

@@ -51,8 +51,8 @@ extension WorkTimesListCoordinatorTests {
             body: "body",
             url: nil,
             day: Date(),
-            startAt: Date(),
-            endAt: Date().addingTimeInterval(3600),
+            startsAt: Date(),
+            endsAt: Date().addingTimeInterval(3600),
             tag: .default)
     }
 }

@@ -29,10 +29,10 @@ extension ApiValidationErrors: Decodable {
 extension ApiValidationErrors.Base: Decodable {
     enum CodingKeys: String, CodingKey {
         case base
-        case startsAt = "starts_at"
-        case endsAt = "ends_at"
+        case startsAt
+        case endsAt
         case duration
-        case invalidEmailOrPassword = "invalid_email_or_password"
+        case invalidEmailOrPassword
     }
     
     init(from decoder: Decoder) throws {

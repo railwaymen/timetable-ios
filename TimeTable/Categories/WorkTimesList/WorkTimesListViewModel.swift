@@ -202,8 +202,8 @@ extension WorkTimesListViewModel {
             body: workTime.body ?? "",
             url: url,
             day: dailyWorkTime.day,
-            startAt: workTime.startsAt,
-            endAt: workTime.endsAt,
+            startsAt: workTime.startsAt,
+            endsAt: workTime.endsAt,
             tag: workTime.tag)
     }
     

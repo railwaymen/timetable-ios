@@ -28,7 +28,7 @@ class ApiClientWorkTimesTests: XCTestCase {
         let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
         let decoders = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         var expectedWorkTimes: [WorkTimeDecoder]?
-        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
+        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
         //Act
         sut.fetchWorkTimes(parameters: parameters) { result in
             switch result {
@@ -49,7 +49,7 @@ class ApiClientWorkTimesTests: XCTestCase {
         let sut = self.buildSUT()
         var expectedError: Error?
         let error = TestError(message: "fetch failed")
-        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
+        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
         //Act
         sut.fetchWorkTimes(parameters: parameters) { result in
             switch result {
@@ -77,8 +77,8 @@ class ApiClientWorkTimesTests: XCTestCase {
             body: "body",
             url: nil,
             day: nil,
-            startAt: nil,
-            endAt: nil,
+            startsAt: nil,
+            endsAt: nil,
             tag: .development)
         //Act
         sut.addWorkTime(parameters: task) { result in
@@ -107,8 +107,8 @@ class ApiClientWorkTimesTests: XCTestCase {
             body: "body",
             url: nil,
             day: nil,
-            startAt: nil,
-            endAt: nil,
+            startsAt: nil,
+            endsAt: nil,
             tag: .development)
         //Act
         sut.addWorkTime(parameters: task) { result in
@@ -175,8 +175,8 @@ class ApiClientWorkTimesTests: XCTestCase {
             body: "body",
             url: nil,
             day: nil,
-            startAt: nil,
-            endAt: nil,
+            startsAt: nil,
+            endsAt: nil,
             tag: .development)
         //Act
         sut.updateWorkTime(identifier: 1, parameters: task) { result in
@@ -205,8 +205,8 @@ class ApiClientWorkTimesTests: XCTestCase {
             body: "body",
             url: nil,
             day: nil,
-            startAt: nil,
-            endAt: nil,
+            startsAt: nil,
+            endsAt: nil,
             tag: .development)
         //Act
         sut.updateWorkTime(identifier: 1, parameters: task) { result in

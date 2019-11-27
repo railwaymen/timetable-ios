@@ -19,8 +19,8 @@ struct UserDecoder {
 extension UserDecoder: Decodable {
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
-        case firstName = "first_name"
-        case lastName = "last_name"
+        case firstName
+        case lastName
         case email
     }
 }

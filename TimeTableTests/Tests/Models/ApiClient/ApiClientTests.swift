@@ -134,8 +134,8 @@ class ApiClientTests: XCTestCase {
             body: "TEST",
             url: self.exampleURL,
             day: day,
-            startAt: startsAt,
-            endAt: endsAt,
+            startsAt: startsAt,
+            endsAt: endsAt,
             tag: .development)
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
@@ -172,8 +172,8 @@ class ApiClientTests: XCTestCase {
             body: "TEST",
             url: self.exampleURL,
             day: day,
-            startAt: startsAt,
-            endAt: endsAt,
+            startsAt: startsAt,
+            endsAt: endsAt,
             tag: .development)
         //Act
         sut.post(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
@@ -207,8 +207,8 @@ class ApiClientTests: XCTestCase {
             body: "TEST",
             url: self.exampleURL,
             day: day,
-            startAt: startsAt,
-            endAt: endsAt,
+            startsAt: startsAt,
+            endsAt: endsAt,
             tag: .development)
         //Act
         sut.post(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
@@ -228,7 +228,7 @@ class ApiClientTests: XCTestCase {
         //Arrange
         var expectedError: Error?
         let sut = self.buildSUT()
-        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
+        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
         sut.get(Endpoints.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
@@ -249,7 +249,7 @@ class ApiClientTests: XCTestCase {
         //Arrange
         var expectedError: Error?
         let error = TestError(message: "500 - server internal error")
-        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
+        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
         let sut = self.buildSUT()
         //Act
         sut.get(Endpoints.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
@@ -268,7 +268,7 @@ class ApiClientTests: XCTestCase {
     func testGetReturnsCorrectDecodableObject() throws {
         //Arrange
         var expectedDecoder: Decodable?
-        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
+        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
         let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
         let decoders = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         let sut = self.buildSUT()
@@ -291,7 +291,7 @@ class ApiClientTests: XCTestCase {
     func testGetReturnsAnErrorWhileResponseJSONIsInvalid() throws {
         //Arrange
         var expectedError: Error?
-        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectIdentifier: nil)
+        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
         let data = try JSONSerialization.data(withJSONObject: ["test": "test"], options: .prettyPrinted)
         let sut = self.buildSUT()
         //Act
@@ -421,8 +421,8 @@ class ApiClientTests: XCTestCase {
             body: "TEST",
             url: self.exampleURL,
             day: day,
-            startAt: startsAt,
-            endAt: endsAt,
+            startsAt: startsAt,
+            endsAt: endsAt,
             tag: .development)
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
@@ -458,8 +458,8 @@ class ApiClientTests: XCTestCase {
             body: "TEST",
             url: self.exampleURL,
             day: day,
-            startAt: startsAt,
-            endAt: endsAt,
+            startsAt: startsAt,
+            endsAt: endsAt,
             tag: .development)
         //Act
         sut.put(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
@@ -494,8 +494,8 @@ class ApiClientTests: XCTestCase {
             body: "TEST",
             url: self.exampleURL,
             day: day,
-            startAt: startsAt,
-            endAt: endsAt,
+            startsAt: startsAt,
+            endsAt: endsAt,
             tag: .development)
         //Act
         sut.put(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in

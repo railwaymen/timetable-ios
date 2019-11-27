@@ -13,6 +13,7 @@ class JSONDecoderMock {
     private lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(DateFormatter.init(type: .dateAndTimeExtended))
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
         return decoder
     }()
 

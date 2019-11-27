@@ -13,6 +13,7 @@ struct ApiClientError: Error {
     private static var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
         return decoder
     }()
     

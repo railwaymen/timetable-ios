@@ -18,7 +18,7 @@ class Project {
     
     // MARK: - Initialization
     init(decoder: ProjectRecordDecoder) {
-        self.identifier = decoder.projectIdentifier
+        self.identifier = decoder.projectId
         self.name = decoder.name
         self.color = decoder.color ?? .black
         if let userDecoder = decoder.user {

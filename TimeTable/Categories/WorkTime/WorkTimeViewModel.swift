@@ -83,7 +83,7 @@ class WorkTimeViewModel {
         self.calendar = calendar
         self.notificationCenter = notificationCenter
         let lastTaskValidation: (Task?) -> Task? = { lastTask in
-            guard let lastTaskEndAt = lastTask?.endAt, calendar.isDateInToday(lastTaskEndAt) else { return nil }
+            guard let lastTaskEndAt = lastTask?.endsAt, calendar.isDateInToday(lastTaskEndAt) else { return nil }
             return lastTask
         }
         let taskCreation: (_ duplicatedTask: Task?, _ lastTask: Task?) -> Task = { duplicatedTask, lastTask in
@@ -93,8 +93,8 @@ class WorkTimeViewModel {
                 body: duplicatedTask?.body ?? "",
                 url: duplicatedTask?.url,
                 day: Date(),
-                startAt: lastTask?.endAt,
-                endAt: nil,
+                startsAt: lastTask?.endsAt,
+                endsAt: nil,
                 tag: duplicatedTask?.tag ?? .default)
         }
         switch flowType {
@@ -206,28 +206,28 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func viewChanged(startAtDate date: Date) {
-        self.task.startAt = date
+        self.task.startsAt = date
         self.updateStartAtDateView(with: date)
     }
     
     func setDefaultStartAtDate() {
-        let date = self.task.startAt ?? Date()
-        self.task.startAt = date
+        let date = self.task.startsAt ?? Date()
+        self.task.startsAt = date
         self.updateStartAtDateView(with: date)
     }
     
     func viewChanged(endAtDate date: Date) {
-        self.task.endAt = date
+        self.task.endsAt = date
         self.updateEndAtDateView(with: date)
     }
     
     func setDefaultEndAtDate() {
         let date: Date
-        if let toDate = self.task.endAt {
+        if let toDate = self.task.endsAt {
             date = toDate
         } else {
-            date = self.task.startAt ?? Date()
-            self.task.endAt = date
+            date = self.task.startsAt ?? Date()
+            self.task.endsAt = date
         }
         self.updateEndAtDateView(with: date)
     }
@@ -286,8 +286,8 @@ extension WorkTimeViewModel {
         guard let project = self.task.project else { throw UIError.cannotBeEmpty(.projectTextField) }
         guard !self.task.body.isEmpty || (self.task.allowsTask && self.task.url != nil) || project.isLunch
             else { throw UIError.cannotBeEmptyOr(.taskNameTextField, .taskUrlTextField) }
-        guard let fromDate = self.task.startAt else { throw UIError.cannotBeEmpty(.startsAtTextField) }
-        guard let toDate = self.task.endAt else { throw UIError.cannotBeEmpty(.endsAtTextField) }
+        guard let fromDate = self.task.startsAt else { throw UIError.cannotBeEmpty(.startsAtTextField) }
+        guard let toDate = self.task.endsAt else { throw UIError.cannotBeEmpty(.endsAtTextField) }
         guard fromDate < toDate else { throw UIError.timeGreaterThan }
     }
     
@@ -304,18 +304,18 @@ extension WorkTimeViewModel {
         case .fullDay(let timeInterval)?:
             fromDate = self.calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
             toDate = fromDate.addingTimeInterval(timeInterval)
-            self.task.startAt = fromDate
-            self.task.endAt = toDate
+            self.task.startsAt = fromDate
+            self.task.endsAt = toDate
         case .lunch(let timeInterval)?:
-            fromDate = self.task.startAt ?? Date()
+            fromDate = self.task.startsAt ?? Date()
             toDate = fromDate.addingTimeInterval(timeInterval)
-            self.task.startAt = fromDate
-            self.task.endAt = toDate
+            self.task.startsAt = fromDate
+            self.task.endsAt = toDate
         case .standard?, .none:
-            fromDate = self.lastTask?.endAt ?? self.task.startAt ?? Date()
-            toDate = self.task.endAt ?? fromDate
-            self.task.startAt = fromDate
-            self.task.endAt = toDate
+            fromDate = self.lastTask?.endsAt ?? self.task.startsAt ?? Date()
+            toDate = self.task.endsAt ?? fromDate
+            self.task.startsAt = fromDate
+            self.task.endsAt = toDate
             self.setDefaultStartAtDate()
             self.setDefaultEndAtDate()
         }
@@ -333,8 +333,8 @@ extension WorkTimeViewModel {
         let dateString = DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .short)
         self.userInterface?.updateStartAtDate(with: date, dateString: dateString)
         self.userInterface?.setMinimumDateForTypeEndAtDate(minDate: date)
-        if let startAt = self.task.endAt, startAt < date {
-            self.task.endAt = date
+        if let startAt = self.task.endsAt, startAt < date {
+            self.task.endsAt = date
             self.updateEndAtDateView(with: date)
         }
     }

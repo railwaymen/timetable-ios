@@ -12,14 +12,14 @@ struct MatchingFullTimeEncoder {
     static var dateFormatter: DateFormatter = DateFormatter(type: .simple)
     
     let date: Date?
-    let userIdentifier: Int64?
+    let userId: Int64?
 }
 
 // MARK: - Encodable
 extension MatchingFullTimeEncoder: Encodable {
     enum CodingKeys: String, CodingKey {
         case date
-        case userIdentifier = "user_id"
+        case userId
     }
     
     func encode(to encoder: Encoder) throws {
@@ -35,13 +35,13 @@ extension MatchingFullTimeEncoder: Encodable {
         
         let dateString =  MatchingFullTimeEncoder.dateFormatter.string(from: date)
         try container.encode(dateString, forKey: .date)
-        guard let identifier = self.userIdentifier else {
+        guard let identifier = self.userId else {
             throw EncodingError.invalidValue(
                 MatchingFullTimeEncoder.self,
                 EncodingError.Context(
-                    codingPath: [CodingKeys.userIdentifier],
+                    codingPath: [CodingKeys.userId],
                     debugDescription: "user_id"))
         }
-        try container.encode(identifier, forKey: .userIdentifier)
+        try container.encode(identifier, forKey: .userId)
     }
 }
