@@ -211,7 +211,7 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func setDefaultStartAtDate() {
-        let date = self.task.startsAt ?? Date()
+        let date = self.task.startsAt ?? Date().roundedToFiveMinutes()
         self.task.startsAt = date
         self.updateStartAtDateView(with: date)
     }
@@ -226,7 +226,7 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
         if let toDate = self.task.endsAt {
             date = toDate
         } else {
-            date = self.task.startsAt ?? Date()
+            date = self.task.startsAt ?? Date().roundedToFiveMinutes()
             self.task.endsAt = date
         }
         self.updateEndAtDateView(with: date)
@@ -307,12 +307,12 @@ extension WorkTimeViewModel {
             self.task.startsAt = fromDate
             self.task.endsAt = toDate
         case .lunch(let timeInterval)?:
-            fromDate = self.task.startsAt ?? Date()
+            fromDate = self.task.startsAt ?? Date().roundedToFiveMinutes()
             toDate = fromDate.addingTimeInterval(timeInterval)
             self.task.startsAt = fromDate
             self.task.endsAt = toDate
         case .standard?, .none:
-            fromDate = self.lastTask?.endsAt ?? self.task.startsAt ?? Date()
+            fromDate = self.lastTask?.endsAt ?? self.task.startsAt ?? Date().roundedToFiveMinutes()
             toDate = self.task.endsAt ?? fromDate
             self.task.startsAt = fromDate
             self.task.endsAt = toDate
