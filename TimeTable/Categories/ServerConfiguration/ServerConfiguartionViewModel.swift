@@ -19,11 +19,11 @@ protocol ServerConfigurationViewModelOutput: class {
 
 protocol ServerConfigurationViewModelType: class {
     func viewDidLoad()
-    func viewRequestedToContinue()
+    func continueButtonTapped()
     func serverAddressDidChange(text: String?)
     func serverAddressTextFieldDidRequestForReturn() -> Bool
-    func shouldRemeberHostCheckBoxStatusDidChange(isActive: Bool)
-    func viewHasBeenTapped()
+    func checkboxButtonTapped(isActive: Bool)
+    func viewTapped()
 }
 
 class ServerConfigurationViewModel {
@@ -76,7 +76,7 @@ extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
         self.userInterface?.setUpView(checkBoxIsActive: self.shouldRememberHost, serverAddress: self.serverAddress ?? "")
     }
     
-    func viewRequestedToContinue() {
+    func continueButtonTapped() {
         guard let host = self.serverAddress else {
             self.errorHandler.throwing(error: UIError.cannotBeEmpty(.serverAddressTextField))
             return
@@ -109,12 +109,12 @@ extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
         return true
     }
     
-    func shouldRemeberHostCheckBoxStatusDidChange(isActive: Bool) {
+    func checkboxButtonTapped(isActive: Bool) {
         self.shouldRememberHost = !isActive
         self.userInterface?.checkBoxIsActiveState(!isActive)
     }
     
-    func viewHasBeenTapped() {
+    func viewTapped() {
         self.userInterface?.dismissKeyboard()
     }
 }

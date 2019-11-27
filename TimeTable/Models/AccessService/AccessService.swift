@@ -11,8 +11,9 @@ import Foundation
 typealias AccessServiceLoginType = (AccessServiceLoginCredentialsType & AccessServiceUserIDType & AccessServiceSessionType)
 
 protocol AccessServiceLoginCredentialsType: class {
-    func saveUser(credentails: LoginCredentials) throws
+    func saveUser(credentials: LoginCredentials) throws
     func getUserCredentials() throws -> LoginCredentials
+    func removeUserCredentials() throws 
     func removeLastLoggedInUserIdentifier()
 }
 
@@ -53,6 +54,7 @@ extension AccessService {
     enum Error: Swift.Error {
         case userNeverLoggedIn
         case cannotSaveLoginCredentials
+        case cannotRemoveLoginCredentials
         case cannotFetchLoginCredentials
     }
     
@@ -64,12 +66,20 @@ extension AccessService {
 
 // MARK: - AccessServiceLoginCredentialsType
 extension AccessService: AccessServiceLoginCredentialsType {
-    func saveUser(credentails: LoginCredentials) throws {
+    func saveUser(credentials: LoginCredentials) throws {
         do {
-            let data = try self.encoder.encode(credentails)
+            let data = try self.encoder.encode(credentials)
             try self.keychainAccess.set(data, key: Keys.loginCredentialsKey)
         } catch {
             throw Error.cannotSaveLoginCredentials
+        }
+    }
+    
+    func removeUserCredentials() throws {
+        do {
+            try self.keychainAccess.remove(Keys.loginCredentialsKey)
+        } catch {
+            throw Error.cannotRemoveLoginCredentials
         }
     }
     

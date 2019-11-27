@@ -37,22 +37,27 @@ class LoginViewModelTests: XCTestCase {
         XCTAssertEqual(self.userInterfaceMock.setUpViewParams.count, 1)
     }
     
-    func testViewDidSetsUpViewWithDefaultValueForCheckBoxButton() throws {
+    func testViewDidLoad_withUserCredentials() throws {
         //Arrange
+        let loginCredentials = LoginCredentials(email: "email", password: "password")
+        self.accessServiceMock.getUserCredentialsReturnValue = loginCredentials
         let sut = self.buildSUT()
         //Act
         sut.viewDidLoad()
         //Assert
-        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setUpViewParams.last?.checkBoxIsActive))
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setUpViewParams.last?.checkBoxIsActive))
+        XCTAssertEqual(self.userInterfaceMock.updateLoginFieldsParams.last?.email, loginCredentials.email)
+        XCTAssertEqual(self.userInterfaceMock.updateLoginFieldsParams.last?.password, loginCredentials.password)
     }
     
-    func testViewDidLoadUpdatesLoginFiledsWithEmptyValues() {
+    func testViewDidLoad_withGetUserCredentialsThrownError() {
         //Arrange
         self.accessServiceMock.getUserCredentialsThrowError = TestError(message: "Test")
         let sut = self.buildSUT()
         //Act
         sut.viewDidLoad()
         //Assert
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setUpViewParams.last?.checkBoxIsActive))
         XCTAssertEqual(self.userInterfaceMock.updateLoginFieldsParams.last?.email, "")
         XCTAssertEqual(self.userInterfaceMock.updateLoginFieldsParams.last?.password, "")
     }
