@@ -10,6 +10,8 @@ import XCTest
 @testable import TimeTable
 
 class WorkTimesListViewControllerMock: UIViewController {
+    
+    // MARK: - WorkTimesListViewModelOutput
     private(set) var setUpViewParams: [SetUpViewParams] = []
     struct SetUpViewParams {}
     
@@ -41,6 +43,12 @@ class WorkTimesListViewControllerMock: UIViewController {
     private(set) var showErrorViewParams: [ShowErrorViewParams] = []
     struct ShowErrorViewParams {}
     
+    private(set) var performBatchUpdatesParams: [PerformBatchUpdatesParams] = []
+    struct PerformBatchUpdatesParams {
+        var updates: (() -> Void)?
+    }
+    
+    // MARK: - WorkTimesListViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
         var viewModel: WorkTimesListViewModelType
@@ -83,6 +91,10 @@ extension WorkTimesListViewControllerMock: WorkTimesListViewModelOutput {
     
     func showErrorView() {
         self.showErrorViewParams.append(ShowErrorViewParams())
+    }
+    
+    func performBatchUpdates(_ updates: (() -> Void)?) {
+        self.performBatchUpdatesParams.append(PerformBatchUpdatesParams(updates: updates))
     }
 }
 

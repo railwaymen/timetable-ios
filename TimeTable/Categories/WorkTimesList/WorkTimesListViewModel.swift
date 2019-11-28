@@ -17,6 +17,7 @@ protocol WorkTimesListViewModelOutput: class {
     func setActivityIndicator(isHidden: Bool)
     func showTableView()
     func showErrorView()
+    func performBatchUpdates(_ updates: (() -> Void)?)
 }
 
 protocol WorkTimesListViewModelType: class {
@@ -178,15 +179,6 @@ extension WorkTimesListViewModel: WorkTimeCellViewModelParentType {
 
 // MARK: - Private
 extension WorkTimesListViewModel {
-    private func workTime(for indexPath: IndexPath) -> WorkTimeDecoder? {
-        return self.dailyWorkTime(for: indexPath)?.workTimes.sorted(by: { $0.startsAt > $1.startsAt })[indexPath.row]
-    }
-    
-    private func dailyWorkTime(for indexPath: IndexPath) -> DailyWorkTime? {
-        guard self.dailyWorkTimesArray.count > indexPath.section else { return nil }
-        return self.dailyWorkTimesArray[indexPath.section]
-    }
-    
     private func createTask(for indexPath: IndexPath) -> Task? {
         guard let dailyWorkTime = self.dailyWorkTime(for: indexPath) else { return nil }
         guard let workTime = self.workTime(for: indexPath) else { return nil }
@@ -210,15 +202,37 @@ extension WorkTimesListViewModel {
     private func removeDailyWorkTime(at indexPath: IndexPath, workTime: WorkTimeDecoder, completion: @escaping (Bool) -> Void) {
         guard let dailyWorkTime = self.dailyWorkTime(for: indexPath) else { return completion(false) }
         let isDeleted = dailyWorkTime.remove(workTime: workTime)
-        completion(isDeleted)
+        self.userInterface?.performBatchUpdates { [weak self] in
+            completion(isDeleted)
+            self?.dailyWorkTimesArray.removeAll { $0.workTimes.isEmpty }
+        }
+    }
+    
+    private func fetchAndChangeSelectedMonth(with components: DateComponents) {
+        guard let date = self.selectedMonth else { return }
+        let newComponents = self.newDateComponents(for: date, oldComponents: components)
+        let newSelectedMonth = self.calendar.date(byAdding: newComponents, to: date)
+        self.selectedMonth = newSelectedMonth
+        self.updateDateSelectorView(withCurrentDate: newSelectedMonth)
+        self.fetchWorkTimesData(forCurrentMonth: newSelectedMonth)
+    }
+    
+    private func updateDateSelectorView(withCurrentDate date: Date?) {
+        guard let currentDate = date else { return }
+        let previousDateComponents = self.newDateComponents(for: currentDate, oldComponents: DateComponents(month: -1))
+        let nextDateComponents = self.newDateComponents(for: currentDate, oldComponents: DateComponents(month: 1))
+        guard let previousDate = self.calendar.date(byAdding: previousDateComponents, to: currentDate) else { return }
+        guard let nextDate = self.calendar.date(byAdding: nextDateComponents, to: currentDate) else { return }
+        let currentDateString = self.string(for: currentDate)
+        let previousDateString = self.string(for: previousDate)
+        let nextDateString = self.string(for: nextDate)
+        self.userInterface?.updateDateSelector(currentDateString: currentDateString, previousDateString: previousDateString, nextDateString: nextDateString)
     }
     
     private func fetchWorkTimesData(forCurrentMonth date: Date?, completion: (() -> Void)? = nil) {
         self.userInterface?.setActivityIndicator(isHidden: false)
         self.contentProvider.fetchWorkTimesData(for: date) { [weak self] result in
-            defer {
-                completion?()
-            }
+            defer { completion?() }
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .success(let dailyWorkTimes, let matchingFullTime):
@@ -263,27 +277,6 @@ extension WorkTimesListViewModel {
         self.userInterface?.showErrorView()
     }
     
-    private func fetchAndChangeSelectedMonth(with components: DateComponents) {
-        guard let date = self.selectedMonth else { return }
-        let newComponents = self.newDateComponents(for: date, oldComponents: components)
-        let newSelectedMonth = self.calendar.date(byAdding: newComponents, to: date)
-        self.selectedMonth = newSelectedMonth
-        self.updateDateSelectorView(withCurrentDate: newSelectedMonth)
-        self.fetchWorkTimesData(forCurrentMonth: newSelectedMonth)
-    }
-    
-    private func updateDateSelectorView(withCurrentDate date: Date?) {
-        guard let currentDate = date else { return }
-        let previousDateComponents = self.newDateComponents(for: currentDate, oldComponents: DateComponents(month: -1))
-        let nextDateComponents = self.newDateComponents(for: currentDate, oldComponents: DateComponents(month: 1))
-        guard let previousDate = self.calendar.date(byAdding: previousDateComponents, to: currentDate) else { return }
-        guard let nextDate = self.calendar.date(byAdding: nextDateComponents, to: currentDate) else { return }
-        let currentDateString = self.string(for: currentDate)
-        let previousDateString = self.string(for: previousDate)
-        let nextDateString = self.string(for: nextDate)
-        self.userInterface?.updateDateSelector(currentDateString: currentDateString, previousDateString: previousDateString, nextDateString: nextDateString)
-    }
-    
     private func newDateComponents(for date: Date, oldComponents: DateComponents) -> DateComponents {
         var newComponents = oldComponents
         guard let month = self.calendar.dateComponents([.month], from: date).month else { return newComponents }
@@ -302,5 +295,14 @@ extension WorkTimesListViewModel {
         guard let month = components.month, let year = components.year else { return "" }
         guard let monthSymbol = DateFormatter().shortMonthSymbols?[month - 1] else { return "" }
         return "\(monthSymbol) \(year)"
+    }
+    
+    private func workTime(for indexPath: IndexPath) -> WorkTimeDecoder? {
+        return self.dailyWorkTime(for: indexPath)?.workTimes.sorted(by: { $0.startsAt > $1.startsAt })[indexPath.row]
+    }
+    
+    private func dailyWorkTime(for indexPath: IndexPath) -> DailyWorkTime? {
+        guard self.dailyWorkTimesArray.count > indexPath.section else { return nil }
+        return self.dailyWorkTimesArray[indexPath.section]
     }
 }
