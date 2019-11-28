@@ -122,5 +122,6 @@ extension ProjectPickerViewController {
         }
         let closeButton = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(self.closeButtonTapped))
         self.navigationItem.setRightBarButton(closeButton, animated: false)
+        self.navigationController?.navigationBar.tintColor = .crimson
     }
 }
