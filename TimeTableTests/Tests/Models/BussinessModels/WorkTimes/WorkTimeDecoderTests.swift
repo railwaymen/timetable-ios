@@ -27,7 +27,8 @@ class WorkTimeDecoderTests: XCTestCase {
             isActive: nil,
             isInternal: nil,
             isLunch: false,
-            workTimesAllowsTask: false)
+            workTimesAllowsTask: false,
+            isTaggable: true)
         let data = try self.json(from: WorkTimesJSONResource.workTimeResponse)
         //Act
         let sut = try self.decoder.decode(WorkTimeDecoder.self, from: data)
@@ -73,7 +74,8 @@ class WorkTimeDecoderTests: XCTestCase {
             isActive: nil,
             isInternal: nil,
             isLunch: false,
-            workTimesAllowsTask: false)
+            workTimesAllowsTask: false,
+            isTaggable: true)
         let data = try self.json(from: WorkTimesJSONResource.workTimeBodyNull)
         //Act
         let sut = try self.decoder.decode(WorkTimeDecoder.self, from: data)
@@ -107,7 +109,8 @@ class WorkTimeDecoderTests: XCTestCase {
             isActive: nil,
             isInternal: nil,
             isLunch: false,
-            workTimesAllowsTask: false)
+            workTimesAllowsTask: false,
+            isTaggable: true)
         let data = try self.json(from: WorkTimesJSONResource.workTimeMissingBodyKey)
         //Act
         let sut = try self.decoder.decode(WorkTimeDecoder.self, from: data)
@@ -141,7 +144,8 @@ class WorkTimeDecoderTests: XCTestCase {
             isActive: nil,
             isInternal: nil,
             isLunch: false,
-            workTimesAllowsTask: false)
+            workTimesAllowsTask: false,
+            isTaggable: true)
         let data = try self.json(from: WorkTimesJSONResource.workTimeNullTask)
         //Act
         let sut = try self.decoder.decode(WorkTimeDecoder.self, from: data)
@@ -175,7 +179,8 @@ class WorkTimeDecoderTests: XCTestCase {
             isActive: nil,
             isInternal: nil,
             isLunch: false,
-            workTimesAllowsTask: false)
+            workTimesAllowsTask: false,
+            isTaggable: true)
         let data = try self.json(from: WorkTimesJSONResource.workTimeMissingTaskKey)
         //Act
         let sut = try self.decoder.decode(WorkTimeDecoder.self, from: data)
@@ -209,7 +214,8 @@ class WorkTimeDecoderTests: XCTestCase {
             isActive: nil,
             isInternal: nil,
             isLunch: false,
-            workTimesAllowsTask: false)
+            workTimesAllowsTask: false,
+            isTaggable: true)
         let data = try self.json(from: WorkTimesJSONResource.workTimeNullTaskPreview)
         //Act
         let sut = try self.decoder.decode(WorkTimeDecoder.self, from: data)
@@ -243,7 +249,8 @@ class WorkTimeDecoderTests: XCTestCase {
             isActive: nil,
             isInternal: nil,
             isLunch: false,
-            workTimesAllowsTask: false)
+            workTimesAllowsTask: false,
+            isTaggable: true)
         let data = try self.json(from: WorkTimesJSONResource.workTimeMissingTaskPreviewKey)
         //Act
         let sut = try self.decoder.decode(WorkTimeDecoder.self, from: data)

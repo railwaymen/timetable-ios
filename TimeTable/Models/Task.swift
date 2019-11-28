@@ -36,6 +36,10 @@ struct Task {
         }
     }
     
+    var isTaggable: Bool {
+        return self.project?.isTaggable ?? false
+    }
+    
     var type: ProjectType? {
         switch self.project {
         case .none:
@@ -85,7 +89,7 @@ extension Task: Encodable {
             try container.encode(startAtDate, forKey: .startsAt)
             let endAtDate = self.combine(day: self.day, time: self.endsAt)
             try container.encode(endAtDate, forKey: .endsAt)
-            try? container.encode(self.tag.rawValue, forKey: .tag)
+            try? container.encode(self.isTaggable ? self.tag.rawValue : ProjectTag.default.rawValue, forKey: .tag)
         }
     }
 }

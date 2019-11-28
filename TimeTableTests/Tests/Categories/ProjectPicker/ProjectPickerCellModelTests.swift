@@ -47,6 +47,7 @@ extension ProjectPickerCellModelTests {
             isActive: nil,
             isInternal: nil,
             isLunch: false,
-            workTimesAllowsTask: true)
+            workTimesAllowsTask: true,
+            isTaggable: true)
     }
 }

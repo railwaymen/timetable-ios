@@ -18,6 +18,7 @@ struct ProjectDecoder {
     let isInternal: Bool?
     let isLunch: Bool
     let workTimesAllowsTask: Bool
+    let isTaggable: Bool
     
     // MARK: - Initialization
     init(
@@ -29,7 +30,8 @@ struct ProjectDecoder {
         isActive: Bool?,
         isInternal: Bool?,
         isLunch: Bool,
-        workTimesAllowsTask: Bool
+        workTimesAllowsTask: Bool,
+        isTaggable: Bool
     ) {
         self.identifier = identifier
         self.name = name
@@ -40,6 +42,7 @@ struct ProjectDecoder {
         self.isInternal = isInternal
         self.isLunch = isLunch
         self.workTimesAllowsTask = workTimesAllowsTask
+        self.isTaggable = isTaggable
     }
 }
 
@@ -55,6 +58,7 @@ extension ProjectDecoder: Decodable {
         case isActive = "active"
         case isLunch = "lunch"
         case workTimesAllowsTask
+        case isTaggable = "taggable"
     }
     
     init(from decoder: Decoder) throws {
@@ -72,6 +76,7 @@ extension ProjectDecoder: Decodable {
         self.isInternal = try? container.decode(Bool.self, forKey: .isInternal)
         self.isLunch = try container.decode(Bool.self, forKey: .isLunch)
         self.workTimesAllowsTask = try container.decode(Bool.self, forKey: .workTimesAllowsTask)
+        self.isTaggable = try container.decode(Bool.self, forKey: .isTaggable)
     }
 }
 

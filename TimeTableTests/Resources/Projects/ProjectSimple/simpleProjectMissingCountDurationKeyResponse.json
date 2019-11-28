@@ -6,5 +6,6 @@
     "internal": false,
     "active": true,
     "lunch": false,
-    "work_times_allows_task": true
+    "work_times_allows_task": true,
+    "taggable": true
 }

@@ -201,6 +201,10 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         guard self.viewIfLoaded != nil else { return }
         self.scrollView.contentInset.bottom = height
     }
+    
+    func setTagsCollectionView(isHidden: Bool) {
+        self.tagsCollectionView.isHidden = isHidden
+    }
 }
 
 // MARK: - WorkTimeViewControllerType

@@ -67,6 +67,11 @@ class WorkTimeViewControllerMock: UIViewController {
         var height: CGFloat
     }
     
+    private(set) var setTagsCollectionViewParams: [SetTagsCollectionViewParams] = []
+    struct SetTagsCollectionViewParams {
+        var isHidden: Bool
+    }
+    
     // MARK: - WorkTimeViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
@@ -118,6 +123,10 @@ extension WorkTimeViewControllerMock: WorkTimeViewModelOutput {
     
     func setBottomContentInset(_ height: CGFloat) {
         self.setBottomContentInsetParams.append(SetBottomContentInsetParams(height: height))
+    }
+    
+    func setTagsCollectionView(isHidden: Bool) {
+        self.setTagsCollectionViewParams.append(SetTagsCollectionViewParams(isHidden: isHidden))
     }
 }
 
