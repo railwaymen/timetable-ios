@@ -11,11 +11,16 @@ import Foundation
 
 class AccessServiceMock {
     
+    // MARK: - AccessServiceLoginCredentialsType
     var saveUserThrowError: Error?
     private(set) var saveUserParams: [SaveUserParams] = []
     struct SaveUserParams {
-        var credentails: LoginCredentials
+        var credentials: LoginCredentials
     }
+    
+    var removeUserCredentialsThrowError: Error?
+    private(set) var removeUserCredentialsParams: [RemoveUserCredentialsParams] = []
+    struct RemoveUserCredentialsParams {}
     
     var getUserCredentialsThrowError: Error?
     var getUserCredentialsReturnValue: LoginCredentials = LoginCredentials(email: "", password: "")
@@ -25,6 +30,7 @@ class AccessServiceMock {
     private(set) var removeLastLoggedInUserIdentifierParams: [RemoveLastLoggedInUserIdentifierParams] = []
     struct RemoveLastLoggedInUserIdentifierParams {}
     
+    // MARK: - AccessServiceUserIDType
     private(set) var saveLastLoggedInUserIdentifierParams: [SaveLastLoggedInUserIdentifierParams] = []
     struct SaveLastLoggedInUserIdentifierParams {
         var identifier: Int64
@@ -42,9 +48,16 @@ class AccessServiceMock {
 
 // MARK: - AccessServiceLoginCredentialsType
 extension AccessServiceMock: AccessServiceLoginCredentialsType {
-    func saveUser(credentails: LoginCredentials) throws {
-        self.saveUserParams.append(SaveUserParams(credentails: credentails))
+    func saveUser(credentials: LoginCredentials) throws {
+        self.saveUserParams.append(SaveUserParams(credentials: credentials))
         if let error = self.saveUserThrowError {
+            throw error
+        }
+    }
+    
+    func removeUserCredentials() throws {
+        self.removeUserCredentialsParams.append(RemoveUserCredentialsParams())
+        if let error = self.removeUserCredentialsThrowError {
             throw error
         }
     }

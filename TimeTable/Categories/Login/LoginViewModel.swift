@@ -60,6 +60,7 @@ class LoginViewModel {
         self.notificationCenter = notificationCenter
         do {
             self.loginCredentials = try accessService.getUserCredentials()
+            self.shouldRememberLoginCredentials = true
         } catch {
             self.loginCredentials = LoginCredentials(email: "", password: "")
         }
@@ -84,8 +85,8 @@ class LoginViewModel {
 // MARK: - LoginViewModelType
 extension LoginViewModel: LoginViewModelType {
     func viewDidLoad() {
-        self.userInterface?.setUpView(checkBoxIsActive: shouldRememberLoginCredentials)
-        self.userInterface?.updateLoginFields(email: loginCredentials.email, password: loginCredentials.password)
+        self.userInterface?.setUpView(checkBoxIsActive: self.shouldRememberLoginCredentials)
+        self.userInterface?.updateLoginFields(email: self.loginCredentials.email, password: self.loginCredentials.password)
     }
     
     func loginInputValueDidChange(value: String?) {
@@ -147,10 +148,11 @@ extension LoginViewModel: LoginViewModelType {
             },
             saveCompletion: { [weak self, credentials = self.loginCredentials, shouldSave = self.shouldRememberLoginCredentials] result in
                 self?.userInterface?.setActivityIndicator(isHidden: true)
-                guard shouldSave else { return }
                 switch result {
                 case .success:
-                    self?.save(credentials: credentials)
+                    shouldSave
+                        ? self?.save(credentials: credentials)
+                        : self?.deleteCredentials()
                 case .failure(let error):
                     self?.errorHandler.throwing(error: AppError.cannotRemeberUserCredentials(error: error))
                 }
@@ -190,7 +192,15 @@ extension LoginViewModel {
     
     private func save(credentials: LoginCredentials) {
         do {
-            try self.accessService.saveUser(credentails: credentials)
+            try self.accessService.saveUser(credentials: credentials)
+        } catch {
+            self.errorHandler.throwing(error: error)
+        }
+    }
+    
+    private func deleteCredentials() {
+        do {
+            try self.accessService.removeUserCredentials()
         } catch {
             self.errorHandler.throwing(error: error)
         }

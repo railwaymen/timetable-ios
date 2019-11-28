@@ -37,7 +37,7 @@ class AccessServiceTests: XCTestCase {
         self.encoderMock.shouldThrowError = true
         //Act
         do {
-            try sut.saveUser(credentails: credentails)
+            try sut.saveUser(credentials: credentails)
         } catch {
             //Assert
             switch error as? AccessService.Error {
@@ -55,7 +55,7 @@ class AccessServiceTests: XCTestCase {
         self.keychainAccessMock.setDataThrowError = TestError(message: "test")
         //Act
         do {
-            try sut.saveUser(credentails: credentails)
+            try sut.saveUser(credentials: credentails)
         } catch {
             //Assert
             switch error as? AccessService.Error {
@@ -71,7 +71,7 @@ class AccessServiceTests: XCTestCase {
         let sut = self.buildSUT()
         let credentails = LoginCredentials(email: "user@example.com", password: "password")
         //Act
-        try sut.saveUser(credentails: credentails)
+        try sut.saveUser(credentials: credentails)
     }
     
     func testGetUserCredentialsFailsWhileKeychainAccessThrowsAnError() {

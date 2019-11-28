@@ -41,6 +41,13 @@ class KeychainAccessMock {
         var key: String
         var ignoringAttributeSynchronizable: Bool
     }
+    
+    var removeThrowError: Error?
+    private(set) var removeParams: [RemoveParams] = []
+    struct RemoveParams {
+        var key: String
+        var ignoringAttributeSynchronizable: Bool
+    }
 }
 
 // MARK: - KeychainAccessType
@@ -71,6 +78,13 @@ extension KeychainAccessMock: KeychainAccessType {
     func set(_ value: Data, key: String, ignoringAttributeSynchronizable: Bool) throws {
         self.setDataParams.append(SetDataParams(value: value, key: key, ignoringAttributeSynchronizable: ignoringAttributeSynchronizable))
         if let error = self.setDataThrowError {
+            throw error
+        }
+    }
+    
+    func remove(_ key: String, ignoringAttributeSynchronizable: Bool) throws {
+        self.removeParams.append(RemoveParams(key: key, ignoringAttributeSynchronizable: ignoringAttributeSynchronizable))
+        if let error = self.removeThrowError {
             throw error
         }
     }

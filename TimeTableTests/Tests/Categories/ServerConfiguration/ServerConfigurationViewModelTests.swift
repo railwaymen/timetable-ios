@@ -40,7 +40,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT()
         //Act
-        sut.viewRequestedToContinue()
+        sut.continueButtonTapped()
         //Assert
         XCTAssertTrue(self.userInterfaceMock.setActivityIndicatorParams.isEmpty)
         switch self.errorHandlerMock.throwingParams.last?.error as? UIError {
@@ -54,7 +54,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         let sut = self.buildSUT()
         sut.serverAddressDidChange(text: "##invalid_address")
         //Act
-        sut.viewRequestedToContinue()
+        sut.continueButtonTapped()
         //Assert
         XCTAssertTrue(self.userInterfaceMock.setActivityIndicatorParams.isEmpty)
         switch self.errorHandlerMock.throwingParams.last?.error as? UIError {
@@ -69,7 +69,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         let hostString = "www.example.com"
         sut.serverAddressDidChange(text: hostString)
         //Act
-        sut.viewRequestedToContinue()
+        sut.continueButtonTapped()
         self.serverConfigurationManagerMock.verifyParams.last?.completion(.success(Void()))
         //Assert
         let configuration = try XCTUnwrap(self.coordinatorMock.serverConfigurationDidFinishParams.last?.serverConfiguration)
@@ -84,9 +84,9 @@ class ServerConfigurationViewModelTests: XCTestCase {
         let sut = self.buildSUT()
         let hostString = "www.example.com"
         sut.serverAddressDidChange(text: hostString)
-        sut.shouldRemeberHostCheckBoxStatusDidChange(isActive: true)
+        sut.checkboxButtonTapped(isActive: true)
         //Act
-        sut.viewRequestedToContinue()
+        sut.continueButtonTapped()
         self.serverConfigurationManagerMock.verifyParams.last?.completion(.success(Void()))
         //Assert
         let configuration = try XCTUnwrap(self.coordinatorMock.serverConfigurationDidFinishParams.last?.serverConfiguration)
@@ -102,7 +102,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         let hostString = "www.example.com"
         sut.serverAddressDidChange(text: hostString)
         //Act
-        sut.viewRequestedToContinue()
+        sut.continueButtonTapped()
         self.serverConfigurationManagerMock.verifyParams.last?.completion(.success(Void()))
         //Assert
         XCTAssertEqual(self.coordinatorMock.serverConfigurationDidFinishParams.count, 1)
@@ -117,7 +117,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         let url = try XCTUnwrap(URL(string: hostString))
         sut.serverAddressDidChange(text: hostString)
         //Act
-        sut.viewRequestedToContinue()
+        sut.continueButtonTapped()
         self.serverConfigurationManagerMock.verifyParams.last?.completion(.failure(ApiClientError(type: .invalidHost(url))))
         //Assert
         XCTAssertEqual(self.errorHandlerMock.throwingParams.count, 1)
@@ -166,7 +166,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         //Arrange
         let sut = self.buildSUT()
         //Act
-        _ = sut.viewHasBeenTapped()
+        _ = sut.viewTapped()
         //Assert
         XCTAssertEqual(self.userInterfaceMock.dismissKeyboardParams.count, 1)
     }

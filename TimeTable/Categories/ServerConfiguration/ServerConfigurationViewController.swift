@@ -35,15 +35,15 @@ class ServerConfigurationViewController: UIViewController {
     }
     
     @IBAction private func continueButtonTapped(_ sender: UIButton) {
-        self.viewModel?.viewRequestedToContinue()
+        self.viewModel?.continueButtonTapped()
     }
     
     @IBAction private func viewTapped(_ sender: UITapGestureRecognizer) {
-        self.viewModel?.viewHasBeenTapped()
+        self.viewModel?.viewTapped()
     }
     
     @IBAction private func checkBoxButtonTapped(_ sender: CheckBoxButton) {
-        self.viewModel?.shouldRemeberHostCheckBoxStatusDidChange(isActive: sender.isActive)
+        self.viewModel?.checkboxButtonTapped(isActive: sender.isActive)
     }
 }
 
