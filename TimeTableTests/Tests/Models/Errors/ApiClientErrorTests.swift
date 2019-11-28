@@ -59,7 +59,7 @@ class ApiClientErrorTests: XCTestCase {
         //Act
         let localizedString = sut.type.localizedDescription
         //Assert
-        XCTAssertEqual(localizedString, "Nie można utworzyć lub edytować wpisu./nError")
+        XCTAssertEqual(localizedString, "Nie można utworzyć lub edytować wpisu.\nError")
     }
     
     func testLocalizedDescriptionForServerError() throws {
