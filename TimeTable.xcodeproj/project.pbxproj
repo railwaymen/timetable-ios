@@ -33,6 +33,7 @@
 		8A31CD8723742CEA008E590D /* ProjectPickerCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CD8623742CEA008E590D /* ProjectPickerCellModel.swift */; };
 		8A31CD8923742D15008E590D /* ProjectPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CD8823742D15008E590D /* ProjectPickerCell.swift */; };
 		8A31CD8D23742E43008E590D /* ProjectPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A31CD8C23742E43008E590D /* ProjectPickerCell.xib */; };
+		8A523C8E2395091900215C61 /* DateExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A523C8D2395091900215C61 /* DateExtensionTests.swift */; };
 		8A55BA772372D02D004FFA97 /* UIApplicationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */; };
 		8A59AF202382E29200108C33 /* DailyWorkTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A59AF1F2382E29200108C33 /* DailyWorkTime.swift */; };
 		8A5D48BE2369E18C0082C13D /* DispatchGroupFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */; };
@@ -373,6 +374,7 @@
 		8A31CD8623742CEA008E590D /* ProjectPickerCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCellModel.swift; sourceTree = "<group>"; };
 		8A31CD8823742D15008E590D /* ProjectPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCell.swift; sourceTree = "<group>"; };
 		8A31CD8C23742E43008E590D /* ProjectPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectPickerCell.xib; sourceTree = "<group>"; };
+		8A523C8D2395091900215C61 /* DateExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensionTests.swift; sourceTree = "<group>"; };
 		8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationMock.swift; sourceTree = "<group>"; };
 		8A59AF1F2382E29200108C33 /* DailyWorkTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWorkTime.swift; sourceTree = "<group>"; };
 		8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupFactory.swift; sourceTree = "<group>"; };
@@ -1390,6 +1392,8 @@
 		C153AC542182F3A6007A35BB /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C19706E321C13908007AFED4 /* CalendarExtensionTests.swift */,
+				8A523C8D2395091900215C61 /* DateExtensionTests.swift */,
 				C11F51F421A5AC5800FD626A /* DateFormatterExtensionTests.swift */,
 				C1EF3A0621930409000E3511 /* NSRegularExpresionExtensionTests.swift */,
 				C1EF3A0821930722000E3511 /* StringExtensionTests.swift */,
@@ -1399,7 +1403,6 @@
 				C153AC5F2182FC4B007A35BB /* UITextFieldExtensionTests.swift */,
 				C19DDB1221A42043008C6FA3 /* URLExtensionTests.swift */,
 				C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */,
-				C19706E321C13908007AFED4 /* CalendarExtensionTests.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2395,6 +2398,7 @@
 				C134297321A6BE3800F4EA42 /* JSONSerializationMock.swift in Sources */,
 				8AE0001C23746C99002F783E /* ProjectPickerCellMock.swift in Sources */,
 				C1EF3A0921930722000E3511 /* StringExtensionTests.swift in Sources */,
+				8A523C8E2395091900215C61 /* DateExtensionTests.swift in Sources */,
 				C134296F21A6BCCD00F4EA42 /* RequestEncoderMock.swift in Sources */,
 				C134299121A6D3BF00F4EA42 /* CoreDataStackMock.swift in Sources */,
 				C16B05D221F216E100BB63E6 /* BaseNavigationCoordinatorTests.swift in Sources */,
