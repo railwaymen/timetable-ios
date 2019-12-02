@@ -49,6 +49,8 @@
 		8A9369B2237AA19D005F8199 /* TagCollectionViewCellMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B1237AA19D005F8199 /* TagCollectionViewCellMock.swift */; };
 		8A9369B4237AA293005F8199 /* WorkTimeCellViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */; };
 		8A9369B6237AA348005F8199 /* WorkTimesTableViewHeaderViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B5237AA348005F8199 /* WorkTimesTableViewHeaderViewMock.swift */; };
+		8A9987CE23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A9987CD23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json */; };
+		8A9987D023951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A9987CF23951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json */; };
 		8AA5C5DD235F34340083E121 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA5C5DC235F34340083E121 /* Colors.xcassets */; };
 		8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */; };
 		8AC097242371CCFF00103FAD /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */; };
@@ -390,6 +392,8 @@
 		8A9369B1237AA19D005F8199 /* TagCollectionViewCellMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellMock.swift; sourceTree = "<group>"; };
 		8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCellViewMock.swift; sourceTree = "<group>"; };
 		8A9369B5237AA348005F8199 /* WorkTimesTableViewHeaderViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesTableViewHeaderViewMock.swift; sourceTree = "<group>"; };
+		8A9987CD23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithIsTaggableTrueResponse.json; sourceTree = "<group>"; };
+		8A9987CF23951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithIsTaggableFalseResponse.json; sourceTree = "<group>"; };
 		8AA5C5DC235F34340083E121 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellViewModelTests.swift; sourceTree = "<group>"; };
 		8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
@@ -1702,6 +1706,8 @@
 				C1B771F221EF2A2A00EFE06F /* simpleProjectArrayResponse.json */,
 				C18A189B21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json */,
 				C18A189D21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json */,
+				8A9987CD23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json */,
+				8A9987CF23951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json */,
 			);
 			path = ProjectSimple;
 			sourceTree = "<group>";
@@ -2064,6 +2070,7 @@
 				C12BD9AB21E49C8A00A6EAF0 /* projectRecordNullColorResponse.json in Resources */,
 				C12BD9AF21E49CC900A6EAF0 /* projectRecordNullUserResponse.json in Resources */,
 				C1B771DF21EF1E3E00EFE06F /* simpleProjectMissingInternalKeyResponse.json in Resources */,
+				8A9987CE23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json in Resources */,
 				C13429A321A6DCA300F4EA42 /* workTimeMissingTaskPreviewKey.json in Resources */,
 				C19D88A8220300AA007CC867 /* matchingFullTimeFullResponse.json in Resources */,
 				C12CA57421A58D150082FEB7 /* workTimesProjectNullColorResponse.json in Resources */,
@@ -2076,6 +2083,7 @@
 				C13429A721A6E73F00F4EA42 /* workTimeRequest.json in Resources */,
 				C1E1F04F21AD52BA007F9228 /* workTimesResponseNotSorted.json in Resources */,
 				C134299F21A6DC7600F4EA42 /* workTimeMissingTaskKey.json in Resources */,
+				8A9987D023951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json in Resources */,
 				C18A189E21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json in Resources */,
 				C11D0D012208243C00066CA9 /* matchingFullTimeMissingShouldWorkedKey.json in Resources */,
 				C12BD9B121E49CDD00A6EAF0 /* projectRecordMissingUserKeyResponse.json in Resources */,

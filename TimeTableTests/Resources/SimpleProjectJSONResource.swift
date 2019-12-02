@@ -27,6 +27,8 @@ enum SimpleProjectJSONResource: String, JSONFileResource {
     
     case simpleProjectWithAutofillTrueResponse
     case simpleProjectWithALunchTrueResponse
+    case simpleProjectWithIsTaggableTrueResponse
+    case simpleProjectWithIsTaggableFalseResponse
     
     case simpleProjectArrayResponse
 }

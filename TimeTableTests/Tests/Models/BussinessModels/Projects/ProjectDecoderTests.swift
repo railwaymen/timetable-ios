@@ -10,9 +10,11 @@ import XCTest
 @testable import TimeTable
 
 // swiftlint:disable identifier_name
-class ProjectDecoderTests: XCTestCase {
-    
-    func testParsingWorkTimesProjectResponse() throws {
+class ProjectDecoderTests: XCTestCase {}
+
+// MARK: - Decodable
+extension ProjectDecoderTests {
+    func testDecoding_workTimesProjectResponse() throws {
         //Arrange
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         //Act
@@ -27,9 +29,10 @@ class ProjectDecoderTests: XCTestCase {
         XCTAssertNil(sut.isInternal)
         XCTAssertFalse(sut.isLunch)
         XCTAssertTrue(sut.workTimesAllowsTask)
+        XCTAssertFalse(sut.isTaggable)
     }
     
-    func testParsingWorkTimesProjectNullColorResponse() throws {
+    func testDecoding_workTimesProjectNullColorResponse() throws {
         //Arrange
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectNullColorResponse)
         //Act
@@ -44,9 +47,10 @@ class ProjectDecoderTests: XCTestCase {
         XCTAssertNil(sut.isInternal)
         XCTAssertFalse(sut.isLunch)
         XCTAssertTrue(sut.workTimesAllowsTask)
+        XCTAssertTrue(sut.isTaggable)
     }
     
-    func testParsingWorkTimesProjectMissingColorKeyResponse() throws {
+    func testDecoding_workTimesProjectMissingColorKeyResponse() throws {
         //Arrange
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectMissingColorKeyResponse)
         //Act
@@ -61,9 +65,10 @@ class ProjectDecoderTests: XCTestCase {
         XCTAssertNil(sut.isInternal)
         XCTAssertFalse(sut.isLunch)
         XCTAssertTrue(sut.workTimesAllowsTask)
+        XCTAssertTrue(sut.isTaggable)
     }
     
-    func testParsingSimpleProjectFullResponse() throws {
+    func testDecoding_simpleProjectFullResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         //Act
@@ -78,9 +83,10 @@ class ProjectDecoderTests: XCTestCase {
         XCTAssertFalse(try XCTUnwrap(sut.isInternal))
         XCTAssertFalse(sut.isLunch)
         XCTAssertTrue(sut.workTimesAllowsTask)
+        XCTAssertTrue(sut.isTaggable)
     }
     
-    func testParsingSimpleProjectNullColorResponse() throws {
+    func testDecoding_simpleProjectNullColorResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectNullColorResponse)
         //Act
@@ -95,9 +101,10 @@ class ProjectDecoderTests: XCTestCase {
         XCTAssertFalse(try XCTUnwrap(sut.isInternal))
         XCTAssertFalse(sut.isLunch)
         XCTAssertTrue(sut.workTimesAllowsTask)
+        XCTAssertTrue(sut.isTaggable)
     }
     
-    func testParsingSimpleProjectMissingColorKeyResponse() throws {
+    func testDecoding_simpleProjectMissingColorKeyResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectMissingColorKeyResponse)
         //Act
@@ -112,9 +119,10 @@ class ProjectDecoderTests: XCTestCase {
         XCTAssertFalse(try XCTUnwrap(sut.isInternal))
         XCTAssertFalse(sut.isLunch)
         XCTAssertTrue(sut.workTimesAllowsTask)
+        XCTAssertTrue(sut.isTaggable)
     }
     
-    func testParsingSimpleProjectNullAutofillResponse() throws {
+    func testDecoding_simpleProjectNullAutofillResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectNullAutofillResponse)
         //Act
@@ -129,9 +137,10 @@ class ProjectDecoderTests: XCTestCase {
         XCTAssertFalse(try XCTUnwrap(sut.isInternal))
         XCTAssertFalse(sut.isLunch)
         XCTAssertTrue(sut.workTimesAllowsTask)
+        XCTAssertTrue(sut.isTaggable)
     }
     
-    func testParsingSimpleProjectMissingAutofillKeyResponse() throws {
+    func testDecoding_simpleProjectMissingAutofillKeyResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectMissingAutofillKeyResponse)
         //Act
@@ -146,9 +155,10 @@ class ProjectDecoderTests: XCTestCase {
         XCTAssertFalse(try XCTUnwrap(sut.isInternal))
         XCTAssertFalse(sut.isLunch)
         XCTAssertTrue(sut.workTimesAllowsTask)
+        XCTAssertTrue(sut.isTaggable)
     }
     
-    func testParsingSimpleProjectNullInternalResponse() throws {
+    func testDecoding_simpleProjectNullInternalResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectNullInternalResponse)
         //Act
@@ -163,9 +173,10 @@ class ProjectDecoderTests: XCTestCase {
         XCTAssertNil(sut.isInternal)
         XCTAssertFalse(sut.isLunch)
         XCTAssertTrue(sut.workTimesAllowsTask)
+        XCTAssertTrue(sut.isTaggable)
     }
     
-    func testParsingSimpleProjectMissingInternalKeyResponse() throws {
+    func testDecoding_simpleProjectMissingInternalKeyResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectMissingInternalKeyResponse)
         //Act
@@ -180,9 +191,10 @@ class ProjectDecoderTests: XCTestCase {
         XCTAssertNil(sut.isInternal)
         XCTAssertFalse(sut.isLunch)
         XCTAssertTrue(sut.workTimesAllowsTask)
+        XCTAssertTrue(sut.isTaggable)
     }
     
-    func testParsingSimpleProjectNullCountDurationResponse() throws {
+    func testDecoding_simpleProjectNullCountDurationResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectNullCountDurationResponse)
         //Act
@@ -197,9 +209,10 @@ class ProjectDecoderTests: XCTestCase {
         XCTAssertFalse(try XCTUnwrap(sut.isInternal))
         XCTAssertFalse(sut.isLunch)
         XCTAssertTrue(sut.workTimesAllowsTask)
+        XCTAssertTrue(sut.isTaggable)
     }
     
-    func testParsingSimpleProjectMissingCountDurationKeyResponse() throws {
+    func testDecoding_simpleProjectMissingCountDurationKeyResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectMissingCountDurationKeyResponse)
         //Act
@@ -214,9 +227,10 @@ class ProjectDecoderTests: XCTestCase {
         XCTAssertFalse(try XCTUnwrap(sut.isInternal))
         XCTAssertFalse(sut.isLunch)
         XCTAssertTrue(sut.workTimesAllowsTask)
+        XCTAssertTrue(sut.isTaggable)
     }
     
-    func testParsingSimpleProjectNullActiveResponse() throws {
+    func testDecoding_simpleProjectNullActiveResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectNullActiveResponse)
         //Act
@@ -231,9 +245,10 @@ class ProjectDecoderTests: XCTestCase {
         XCTAssertFalse(try XCTUnwrap(sut.isInternal))
         XCTAssertFalse(sut.isLunch)
         XCTAssertTrue(sut.workTimesAllowsTask)
+        XCTAssertTrue(sut.isTaggable)
     }
     
-    func testParsingSimpleProjectMissingActiveKeyResponse() throws {
+    func testDecoding_simpleProjectMissingActiveKeyResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectMissingActiveKeyResponse)
         //Act
@@ -248,9 +263,46 @@ class ProjectDecoderTests: XCTestCase {
         XCTAssertFalse(try XCTUnwrap(sut.isInternal))
         XCTAssertFalse(sut.isLunch)
         XCTAssertTrue(sut.workTimesAllowsTask)
+        XCTAssertTrue(sut.isTaggable)
     }
     
-    func testParsingSimpleProjectNullLunchResponse() throws {
+    func testDecoding_simpleProjectIsTaggableTrueResponse() throws {
+        //Arrange
+        let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithIsTaggableTrueResponse)
+        //Act
+        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
+        //Assert
+        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.name, "asdsa")
+        XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
+        XCTAssertFalse(try XCTUnwrap(sut.autofill))
+        XCTAssertTrue(try XCTUnwrap(sut.countDuration))
+        XCTAssertTrue(try XCTUnwrap(sut.isActive))
+        XCTAssertFalse(try XCTUnwrap(sut.isInternal))
+        XCTAssertFalse(sut.isLunch)
+        XCTAssertTrue(sut.workTimesAllowsTask)
+        XCTAssertTrue(sut.isTaggable)
+    }
+    
+    func testDecoding_simpleProjectIsTaggableFalseResponse() throws {
+        //Arrange
+        let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithIsTaggableFalseResponse)
+        //Act
+        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
+        //Assert
+        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.name, "asdsa")
+        XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
+        XCTAssertFalse(try XCTUnwrap(sut.autofill))
+        XCTAssertTrue(try XCTUnwrap(sut.countDuration))
+        XCTAssertTrue(try XCTUnwrap(sut.isActive))
+        XCTAssertFalse(try XCTUnwrap(sut.isInternal))
+        XCTAssertFalse(sut.isLunch)
+        XCTAssertTrue(sut.workTimesAllowsTask)
+        XCTAssertFalse(sut.isTaggable)
+    }
+    
+    func testDecoding_simpleProjectNullLunchResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectNullLunchResponse)
         //Act
@@ -259,7 +311,7 @@ class ProjectDecoderTests: XCTestCase {
         XCTAssertNil(sut)
     }
     
-    func testParsingSimpleProjectMissingLunchKeyResponse() throws {
+    func testDecoding_simpleProjectMissingLunchKeyResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectMissingLunchKeyResponse)
         //Act
@@ -268,7 +320,7 @@ class ProjectDecoderTests: XCTestCase {
         XCTAssertNil(sut)
     }
     
-    func testParsingSimpleProjectNullWorkTimesAllowsTaskResponse() throws {
+    func testDecoding_simpleProjectNullWorkTimesAllowsTaskResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectNullWorkTimesAllowsTaskResponse)
         //Act
@@ -277,7 +329,7 @@ class ProjectDecoderTests: XCTestCase {
         XCTAssertNil(sut)
     }
     
-    func testParsingSimpleProjectMissingWorkTimesAllowsTaskKeyResponse() throws {
+    func testDecoding_simpleProjectMissingWorkTimesAllowsTaskKeyResponse() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectMissingWorkTimesAllowsTaskKeyResponse)
         //Act
