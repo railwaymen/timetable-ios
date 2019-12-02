@@ -45,14 +45,17 @@ class WorkTimeViewModelTests: XCTestCase {
         let lastTask = try self.createTask(workTimeIdentifier: nil)
         let sut = self.buildSUT(flowType: .newEntry(lastTask: lastTask))
         let creationDate = Date()
+        let timestampRoundingFactor = 5 * TimeInterval.minute
         //Act
         sut.viewDidLoad()
         //Assert
         XCTAssertTrue(Calendar.current.isDateInToday(try XCTUnwrap(self.userInterfaceMock.updateDayParams.last?.date)))
         let startsAtDate = try XCTUnwrap(self.userInterfaceMock.updateStartAtDateParams.last?.date)
         let endsAtDate = try XCTUnwrap(self.userInterfaceMock.updateEndAtDateParams.last?.date)
-        XCTAssertEqual(startsAtDate.timeIntervalSince1970, creationDate.timeIntervalSince1970, accuracy: 0.01)
-        XCTAssertEqual(endsAtDate.timeIntervalSince1970, creationDate.timeIntervalSince1970, accuracy: 0.01)
+        XCTAssertEqual(startsAtDate.timeIntervalSince1970.remainder(dividingBy: timestampRoundingFactor), 0)
+        XCTAssertEqual(startsAtDate.timeIntervalSince1970, creationDate.timeIntervalSince1970, accuracy: timestampRoundingFactor / 2 + 0.01)
+        XCTAssertEqual(endsAtDate.timeIntervalSince1970.remainder(dividingBy: timestampRoundingFactor), 0)
+        XCTAssertEqual(endsAtDate.timeIntervalSince1970, creationDate.timeIntervalSince1970, accuracy: timestampRoundingFactor / 2 + 0.01)
         XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, "Select project")
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setUpParams.last?.allowsTask))
     }
