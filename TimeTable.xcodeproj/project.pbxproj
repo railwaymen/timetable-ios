@@ -54,6 +54,7 @@
 		8AA5C5DD235F34340083E121 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA5C5DC235F34340083E121 /* Colors.xcassets */; };
 		8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */; };
 		8AC097242371CCFF00103FAD /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */; };
+		8AD1345A2396B60B00572632 /* AttributedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD134592396B60B00572632 /* AttributedTextView.swift */; };
 		8AE00013237464A1002F783E /* WorkTimeCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE00012237464A1002F783E /* WorkTimeCoordinatorMock.swift */; };
 		8AE0001623746520002F783E /* ProjectPickerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE0001523746520002F783E /* ProjectPickerViewModelTests.swift */; };
 		8AE000182374654D002F783E /* ProjectPickerCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE000172374654D002F783E /* ProjectPickerCoordinatorMock.swift */; };
@@ -400,6 +401,7 @@
 		8AC097272371D28100103FAD /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		8AC097282371D28100103FAD /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		8AC097292371D28100103FAD /* Stage.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Stage.xcconfig; sourceTree = "<group>"; };
+		8AD134592396B60B00572632 /* AttributedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextView.swift; sourceTree = "<group>"; };
 		8AE00012237464A1002F783E /* WorkTimeCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCoordinatorMock.swift; sourceTree = "<group>"; };
 		8AE0001523746520002F783E /* ProjectPickerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerViewModelTests.swift; sourceTree = "<group>"; };
 		8AE000172374654D002F783E /* ProjectPickerCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCoordinatorMock.swift; sourceTree = "<group>"; };
@@ -1416,6 +1418,7 @@
 			children = (
 				C153AC6C21833BDC007A35BB /* AttributedButton.swift */,
 				C1CE041421F5E01200E80517 /* AttributedTextField.swift */,
+				8AD134592396B60B00572632 /* AttributedTextView.swift */,
 				C153AC6821832073007A35BB /* AttributedView.swift */,
 				C125C4D62187086C00FBA0DD /* CheckBoxButton.swift */,
 				C1F187B121E37C760037B8C2 /* ProjectsCollectionViewLayout.swift */,
@@ -2262,6 +2265,7 @@
 				C101603422003D4000DCE817 /* MatchingFullTimeEncoder.swift in Sources */,
 				8A31CD8423742B34008E590D /* Array+Extension.swift in Sources */,
 				C122601F21899F44007D64A3 /* URLSession+Extension.swift in Sources */,
+				8AD1345A2396B60B00572632 /* AttributedTextView.swift in Sources */,
 				C1F7C2ED2191897A00F4FAF0 /* ApiClientError.swift in Sources */,
 				8A31CD8723742CEA008E590D /* ProjectPickerCellModel.swift in Sources */,
 				8A10F841235454DA0004F389 /* UIBarButtonItem+Extension.swift in Sources */,

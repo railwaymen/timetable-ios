@@ -20,7 +20,7 @@ class WorkTimeViewController: UIViewController {
     @IBOutlet private var dayTextField: UITextField!
     @IBOutlet private var startAtDateTextField: UITextField!
     @IBOutlet private var endAtDateTextField: UITextField!
-    @IBOutlet private var bodyTextField: UITextField!
+    @IBOutlet private var bodyTextView: UITextView!
     @IBOutlet private var taskURLTextField: UITextField!
     @IBOutlet private var tagsCollectionView: UICollectionView!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
@@ -43,10 +43,6 @@ class WorkTimeViewController: UIViewController {
     
     @IBAction private func projectButtonTapped(_ sender: Any) {
         self.viewModel.projectButtonTapped()
-    }
-    
-    @IBAction private func taskTextFieldDidChange(_ sender: UITextField) {
-        self.viewModel.taskNameDidChange(value: sender.text)
     }
     
     @IBAction private func taskURLTextFieldDidChange(_ sender: UITextField) {
@@ -116,6 +112,13 @@ extension WorkTimeViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UITextViewDelegate
+extension WorkTimeViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        self.viewModel.taskNameDidChange(value: textView.text)
+    }
+}
+
 // MARK: - WorkTimeViewModelOutput
 extension WorkTimeViewController: WorkTimeViewModelOutput {
     func reloadTagsView() {
@@ -133,8 +136,8 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         let closeButton = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(self.cancelButtonTapped))
         self.navigationItem.setRightBarButton(closeButton, animated: false)
         
-        self.bodyTextField.set(isHidden: isLunch)
-        self.bodyTextField.text = body
+        self.bodyTextView.set(isHidden: isLunch)
+        self.bodyTextView.text = body
         
         self.taskURLTextField.set(isHidden: !allowsTask || isLunch)
         self.taskURLTextField.text = urlString
