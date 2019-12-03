@@ -42,7 +42,7 @@ class ErrorView: UIView {
 // MARK: - ErrorViewModelOutput
 extension ErrorView: ErrorViewModelOutput {
     func setUp(refreshIsHidden: Bool) {
-        self.refreshButton.isHidden = refreshIsHidden
+        self.refreshButton.set(isHidden: refreshIsHidden)
     }
     
     func update(title: String) {

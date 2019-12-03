@@ -91,7 +91,7 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
     
     func setActivityIndicator(isHidden: Bool) {
         isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
-        self.activityIndicator.isHidden = isHidden
+        self.activityIndicator.set(isHidden: isHidden)
     }
     
     func setBottomContentInset(_ height: CGFloat) {

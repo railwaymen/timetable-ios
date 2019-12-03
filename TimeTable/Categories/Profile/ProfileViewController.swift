@@ -43,8 +43,8 @@ extension ProfileViewController: ProfileViewModelOutput {
         self.lastNameLabel.text = ""
         self.emailLabel.text = ""
         self.setUpActivityIndicator()
-        self.scrollView.isHidden = true
-        self.errorView.isHidden = true
+        self.scrollView.set(isHidden: true)
+        self.errorView.set(isHidden: true)
         self.viewModel.configure(self.errorView)
     }
     
@@ -56,20 +56,20 @@ extension ProfileViewController: ProfileViewModelOutput {
     
     func setActivityIndicator(isHidden: Bool) {
         isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
-        self.activityIndicator.isHidden = isHidden
+        self.activityIndicator.set(isHidden: isHidden)
     }
     
     func showScrollView() {
         UIView.transition(with: self.scrollView, duration: 0.2, animations: { [weak self] in
-            self?.scrollView.isHidden = false
-            self?.errorView.isHidden = true
+            self?.scrollView.set(isHidden: false)
+            self?.errorView.set(isHidden: true)
         })
     }
     
     func showErrorView() {
         UIView.transition(with: self.errorView, duration: 0.2, animations: { [weak self] in
-            self?.scrollView.isHidden = true
-            self?.errorView.isHidden = false
+            self?.scrollView.set(isHidden: true)
+            self?.errorView.set(isHidden: false)
         })
     }
 }
