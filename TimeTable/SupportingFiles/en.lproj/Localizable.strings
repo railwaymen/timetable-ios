@@ -29,6 +29,8 @@
 
 "work_times.label.month_total" = "Month total";
 
+"work_time.title.new" = "Add new entry";
+"work_time.title.edit" = "Edit entry";
 "work_time.label.new_record" = "New record";
 "work_time.label.project" = "Project";
 "work_time.label.date" = "Date";

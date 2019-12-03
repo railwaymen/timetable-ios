@@ -122,7 +122,8 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         self.tagsCollectionView.reloadData()
     }
     
-    func setUp(isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?) {
+    func setUp(title: String, isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?) {
+        self.title = title
         let systemItem: UIBarButtonItem.SystemItem
         if #available(iOS 13, *) {
             systemItem = .close

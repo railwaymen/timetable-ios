@@ -89,8 +89,6 @@ extension WorkTimeCoordinator {
         self.navigationController.setViewControllers([workTimeViewController], animated: false)
         self.navigationController.setNavigationBarHidden(false, animated: false)
         self.navigationController.navigationBar.tintColor = .crimson
-        self.navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController.navigationBar.shadowImage = UIImage()
         if let sourceView = self.sourceView {
             self.showWorkTimeController(controller: self.navigationController, sourceView: sourceView)
         } else {

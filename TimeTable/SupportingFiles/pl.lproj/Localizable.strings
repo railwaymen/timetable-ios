@@ -29,6 +29,8 @@
 
 "work_times.label.month_total" = "Suma w miesiącu";
 
+"work_time.title.new" = "Dodaj nowy wpis";
+"work_time.title.edit" = "Edytuj wpis";
 "work_time.label.new_record" = "Nowy wpis";
 "work_time.label.project" = "Projekt";
 "work_time.label.date" = "Dzień";
