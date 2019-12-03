@@ -59,9 +59,9 @@ extension WorkTimeTableViewCell: WorkTimeCellViewModelOutput {
         self.bodyLabel.text = data.bodyText
         self.projectTitleLabel.text = data.projectTitle
         self.projectViews.forEach { $0.backgroundColor = data.projectColor }
-        self.taskButton.isHidden = data.taskUrlText == nil
+        self.taskButton.set(isHidden: data.taskUrlText == nil)
         self.taskButton?.setTitle(data.taskUrlText, for: .normal)
-        self.tagView.isHidden = data.tagTitle == nil
+        self.tagView.set(isHidden: data.tagTitle == nil)
         self.tagLabel.text = data.tagTitle
         self.tagView.backgroundColor = data.tagColor
         self.stackView.setCustomSpacing(16, after: self.taskButton)

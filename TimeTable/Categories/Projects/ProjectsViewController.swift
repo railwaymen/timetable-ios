@@ -67,8 +67,8 @@ extension ProjectsViewController: ProjectsViewModelOutput {
             layout.delegate = self
         }
         self.title = "tabbar.title.projects".localized
-        self.collectionView.isHidden = true
-        self.errorView.isHidden = true
+        self.collectionView.set(isHidden: true)
+        self.errorView.set(isHidden: true)
         self.setUpActivityIndicator()
         self.viewModel.configure(self.errorView)
     }
@@ -79,21 +79,21 @@ extension ProjectsViewController: ProjectsViewModelOutput {
     
     func showCollectionView() {
         UIView.transition(with: collectionView, duration: 0.2, animations: { [weak self] in
-            self?.collectionView.isHidden = false
-            self?.errorView.isHidden = true
+            self?.collectionView.set(isHidden: false)
+            self?.errorView.set(isHidden: true)
         })
     }
     
     func showErrorView() {
         UIView.transition(with: errorView, duration: 0.2, animations: { [weak self] in
-            self?.collectionView.isHidden = true
-            self?.errorView.isHidden = false
+            self?.collectionView.set(isHidden: true)
+            self?.errorView.set(isHidden: false)
         })
     }
     
     func setActivityIndicator(isHidden: Bool) {
         isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
-        self.activityIndicator.isHidden = isHidden
+        self.activityIndicator.set(isHidden: isHidden)
     }
 }
 

@@ -15,4 +15,9 @@ extension UIView {
         let nib = UINib(nibName: nibName, bundle: bundle)
         return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
+    
+    func set(isHidden: Bool) {
+        guard self.isHidden != isHidden else { return }
+        self.isHidden = isHidden
+    }
 }

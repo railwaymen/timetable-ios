@@ -116,8 +116,8 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
         self.setUpNavigationItem()
         self.setUpActivityIndicator()
         self.viewModel.configure(errorView)
-        self.tableView.isHidden = true
-        self.errorView.isHidden = true
+        self.tableView.set(isHidden: true)
+        self.errorView.set(isHidden: true)
     }
     
     func updateView() {
@@ -136,21 +136,21 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
     
     func showTableView() {
         UIView.transition(with: self.tableView, duration: 0.2, animations: { [weak self] in
-            self?.tableView.isHidden = false
-            self?.errorView.isHidden = true
+            self?.tableView.set(isHidden: false)
+            self?.errorView.set(isHidden: true)
         })
     }
     
     func showErrorView() {
         UIView.transition(with: self.errorView, duration: 0.2, animations: { [weak self] in
-            self?.tableView.isHidden = true
-            self?.errorView.isHidden = false
+            self?.tableView.set(isHidden: true)
+            self?.errorView.set(isHidden: false)
         })
     }
     
     func setActivityIndicator(isHidden: Bool) {
         isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
-        self.activityIndicator.isHidden = isHidden
+        self.activityIndicator.set(isHidden: isHidden)
     }
     
     func performBatchUpdates(_ updates: (() -> Void)?) {

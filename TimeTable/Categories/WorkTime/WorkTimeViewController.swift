@@ -132,10 +132,10 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         let closeButton = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(self.cancelButtonTapped))
         self.navigationItem.setRightBarButton(closeButton, animated: false)
         
-        self.bodyTextField.isHidden = isLunch
+        self.bodyTextField.set(isHidden: isLunch)
         self.bodyTextField.text = body
         
-        self.taskURLTextField.isHidden = !allowsTask || isLunch
+        self.taskURLTextField.set(isHidden: !allowsTask || isLunch)
         self.taskURLTextField.text = urlString
         
         self.dayPicker = UIDatePicker()
@@ -194,7 +194,7 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     
     func setActivityIndicator(isHidden: Bool) {
         isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
-        self.activityIndicator.isHidden = isHidden
+        self.activityIndicator.set(isHidden: isHidden)
     }
     
     func setBottomContentInset(_ height: CGFloat) {
@@ -203,7 +203,7 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     }
     
     func setTagsCollectionView(isHidden: Bool) {
-        self.tagsCollectionView.isHidden = isHidden
+        self.tagsCollectionView.set(isHidden: isHidden)
     }
 }
 
