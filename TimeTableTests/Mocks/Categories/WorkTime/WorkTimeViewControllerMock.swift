@@ -14,6 +14,7 @@ class WorkTimeViewControllerMock: UIViewController {
     // MARK: - WorkTimeViewModelOutput
     private(set) var setUpParams: [SetUpParams] = []
     struct SetUpParams {
+        var title: String
         var isLunch: Bool
         var allowsTask: Bool
         var body: String?
@@ -81,8 +82,8 @@ class WorkTimeViewControllerMock: UIViewController {
 
 // MARK: - WorkTimeViewModelOutput
 extension WorkTimeViewControllerMock: WorkTimeViewModelOutput {
-    func setUp(isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?) {
-        self.setUpParams.append(SetUpParams(isLunch: isLunch, allowsTask: allowsTask, body: body, urlString: urlString))
+    func setUp(title: String, isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?) {
+        self.setUpParams.append(SetUpParams(title: title, isLunch: isLunch, allowsTask: allowsTask, body: body, urlString: urlString))
     }
     
     func dismissView() {

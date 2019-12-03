@@ -9,7 +9,7 @@
 import UIKit
 
 protocol WorkTimeViewModelOutput: class {
-    func setUp(isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?)
+    func setUp(title: String, isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?)
     func dismissView()
     func reloadTagsView()
     func dismissKeyboard()
@@ -52,6 +52,7 @@ class WorkTimeViewModel {
     private let calendar: CalendarType
     private let notificationCenter: NotificationCenterType
     private let lastTask: Task?
+    private let viewTitle: String
     private var projects: [ProjectDecoder]
     private var task: Task
     private var tags: [ProjectTag]
@@ -83,6 +84,7 @@ class WorkTimeViewModel {
         self.errorHandler = errorHandler
         self.calendar = calendar
         self.notificationCenter = notificationCenter
+        self.viewTitle = flowType.viewTitle
         let lastTaskValidation: (Task?) -> Task? = { lastTask in
             guard let lastTaskEndAt = lastTask?.endsAt, calendar.isDateInToday(lastTaskEndAt) else { return nil }
             return lastTask
@@ -132,8 +134,14 @@ extension WorkTimeViewModel {
         case newEntry(lastTask: Task?)
         case editEntry(editedTask: Task)
         case duplicateEntry(duplicatedTask: Task, lastTask: Task?)
+        
+        var viewTitle: String {
+            switch self {
+            case .editEntry: return "work_time.title.edit".localized
+            case .newEntry, .duplicateEntry: return "work_time.title.new".localized
+            }
+        }
     }
-    
 }
 
 // MARK: - WorkTimeViewModelType
@@ -294,6 +302,7 @@ extension WorkTimeViewModel {
     
     private func updateViewWithCurrentSelectedProject() {
         self.userInterface?.setUp(
+            title: self.viewTitle,
             isLunch: self.task.project?.isLunch ?? false,
             allowsTask: self.task.allowsTask,
             body: self.task.body,
