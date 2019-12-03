@@ -7,4 +7,5 @@
     "count_duration": true,
     "active": true,
     "lunch": false,
+    "taggable": true,
 }

@@ -17,8 +17,11 @@ class TaskTests: XCTestCase {
         formatter.dateFormat = "Z"
         return formatter.string(from: Date())
     }
-    
-    func testTitleForProjectNoneType() {
+}
+
+// MARK: - title
+extension TaskTests {
+    func testTitle_withoutProject() {
         //Arrange
         let sut = Task(
             workTimeIdentifier: nil,
@@ -35,7 +38,7 @@ class TaskTests: XCTestCase {
         XCTAssertEqual(title, "work_time.text_field.select_project".localized)
     }
     
-    func testTitleForProjectSomeType() throws {
+    func testTitle_withProject() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
@@ -53,8 +56,11 @@ class TaskTests: XCTestCase {
         //Assert
         XCTAssertEqual(title, "asdsa")
     }
-    
-    func testAllowTaskForProjectNoneType() {
+}
+
+// MARK: - allowsTask
+extension TaskTests {
+    func testAllowTask_withoutProject() {
         //Arrange
         let sut = Task(
             workTimeIdentifier: nil,
@@ -71,7 +77,7 @@ class TaskTests: XCTestCase {
         XCTAssertTrue(allowsTask)
     }
     
-    func testAllowTaskForProjectSomeType() throws {
+    func testAllowTask_withProject() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
@@ -89,8 +95,69 @@ class TaskTests: XCTestCase {
         //Assert
         XCTAssertTrue(allowsTask)
     }
+}
+
+// MARK: - isTaggable
+extension TaskTests {
+    func testIsTaggable_withoutProject() throws {
+        //Arrange
+        let sut = Task(
+            workTimeIdentifier: nil,
+            project: nil,
+            body: "body",
+            url: nil,
+            day: nil,
+            startsAt: nil,
+            endsAt: nil,
+            tag: .development)
+        //Act
+        let isTaggable = sut.isTaggable
+        //Assert
+        XCTAssertFalse(isTaggable)
+    }
     
-    func testTypeForProjectNoneType() {
+    func testIsTaggable_withTaggableProject() throws {
+        //Arrange
+        let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithIsTaggableTrueResponse)
+        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = Task(
+            workTimeIdentifier: nil,
+            project: project,
+            body: "body",
+            url: nil,
+            day: nil,
+            startsAt: nil,
+            endsAt: nil,
+            tag: .development)
+        //Act
+        let isTaggable = sut.isTaggable
+        //Assert
+        XCTAssertTrue(isTaggable)
+    }
+    
+    func testIsTaggable_withNotTaggableProject() throws {
+        //Arrange
+        let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithIsTaggableFalseResponse)
+        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = Task(
+            workTimeIdentifier: nil,
+            project: project,
+            body: "body",
+            url: nil,
+            day: nil,
+            startsAt: nil,
+            endsAt: nil,
+            tag: .development)
+        //Act
+        let isTaggable = sut.isTaggable
+        //Assert
+        XCTAssertFalse(isTaggable)
+    }
+}
+
+// MARK: - type
+extension TaskTests {
+    func testType_withoutProject() {
         //Arrange
         let sut = Task(
             workTimeIdentifier: nil,
@@ -107,7 +174,7 @@ class TaskTests: XCTestCase {
         XCTAssertNil(type)
     }
     
-    func testTypeForProjectWithStandardType() throws {
+    func testType_projectWithStandardType() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
@@ -129,7 +196,7 @@ class TaskTests: XCTestCase {
         }
     }
     
-    func testTypeForProjectWithFullDayType() throws {
+    func testType_projectWithFullDayType() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithAutofillTrueResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
@@ -152,7 +219,7 @@ class TaskTests: XCTestCase {
         }
     }
     
-    func testTypeForProjectWithLunchType() throws {
+    func testType_projectWithLunchType() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithALunchTrueResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
@@ -174,8 +241,92 @@ class TaskTests: XCTestCase {
         default: XCTFail()
         }
     }
+}
+
+// MARK: - encode
+extension TaskTests {
+    func testEncoding_fullModel() throws {
+        //Arrange
+        let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectWithALunchTrueResponse)
+        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
+        let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
+        let endsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 10, minute: 8, second: 57)
+        let sut = Task(
+            workTimeIdentifier: 1,
+            project: projectDecoder,
+            body: "body",
+            url: self.url,
+            day: startsAt,
+            startsAt: startsAt,
+            endsAt: endsAt,
+            tag: .development)
+        //Act
+        let data = try self.encoder.encode(sut)
+        //Assert
+        let task = try XCTUnwrap(JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any])
+        XCTAssertEqual(task["project_id"] as? Int64, 11)
+        XCTAssertEqual(task["body"] as? String, "body")
+        XCTAssertEqual(task["task"] as? String, "www.example.com")
+        XCTAssertEqual(task["starts_at"] as? String, "2019-11-12T09:08:00.000\(self.timeZoneString)")
+        XCTAssertEqual(task["ends_at"] as? String, "2019-11-12T10:08:00.000\(self.timeZoneString)")
+        XCTAssertEqual(task["tag"] as? String, "dev")
+    }
     
-    func testEncodingThrowsErrorWhileProjectIsNil() throws {
+    func testEncoding_forTaggableProject() throws {
+        //Arrange
+        let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectWithIsTaggableTrueResponse)
+        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
+        let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
+        let endsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 10, minute: 8, second: 57)
+        let sut = Task(
+            workTimeIdentifier: 1,
+            project: projectDecoder,
+            body: "body",
+            url: self.url,
+            day: startsAt,
+            startsAt: startsAt,
+            endsAt: endsAt,
+            tag: .internalMeeting)
+        //Act
+        let data = try self.encoder.encode(sut)
+        //Assert
+        let task = try XCTUnwrap(JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any])
+        XCTAssertEqual(task["project_id"] as? Int64, 11)
+        XCTAssertEqual(task["body"] as? String, "body")
+        XCTAssertEqual(task["task"] as? String, "www.example.com")
+        XCTAssertEqual(task["starts_at"] as? String, "2019-11-12T09:08:00.000\(self.timeZoneString)")
+        XCTAssertEqual(task["ends_at"] as? String, "2019-11-12T10:08:00.000\(self.timeZoneString)")
+        XCTAssertEqual(task["tag"] as? String, "im")
+    }
+    
+    func testEncoding_forNotTaggableProject() throws {
+        //Arrange
+        let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectWithIsTaggableFalseResponse)
+        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
+        let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
+        let endsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 10, minute: 8, second: 57)
+        let sut = Task(
+            workTimeIdentifier: 1,
+            project: projectDecoder,
+            body: "body",
+            url: self.url,
+            day: startsAt,
+            startsAt: startsAt,
+            endsAt: endsAt,
+            tag: .internalMeeting)
+        //Act
+        let data = try self.encoder.encode(sut)
+        //Assert
+        let task = try XCTUnwrap(JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any])
+        XCTAssertEqual(task["project_id"] as? Int64, 11)
+        XCTAssertEqual(task["body"] as? String, "body")
+        XCTAssertEqual(task["task"] as? String, "www.example.com")
+        XCTAssertEqual(task["starts_at"] as? String, "2019-11-12T09:08:00.000\(self.timeZoneString)")
+        XCTAssertEqual(task["ends_at"] as? String, "2019-11-12T10:08:00.000\(self.timeZoneString)")
+        XCTAssertEqual(task["tag"] as? String, "dev")
+    }
+    
+    func testEncoding_withoutProject() throws {
         //Arrange
         let sut = Task(
             workTimeIdentifier: nil,
@@ -195,32 +346,5 @@ class TaskTests: XCTestCase {
         }
         //Assert
         XCTAssertNotNil(thrownError)
-    }
-    
-    func testEncodingProject() throws {
-        //Arrange
-        let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectWithALunchTrueResponse)
-        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
-        let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
-        let endsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 10, minute: 8, second: 57)
-        let sut = Task(
-            workTimeIdentifier: 1,
-            project: projectDecoder,
-            body: "body",
-            url: self.url,
-            day: startsAt,
-            startsAt: startsAt,
-            endsAt: endsAt,
-            tag: .development)
-        //Act
-        let data = try? self.encoder.encode(sut)
-        //Assert
-        let task = try XCTUnwrap(JSONSerialization.jsonObject(with: try XCTUnwrap(data), options: .allowFragments) as? [String: Any])
-        XCTAssertEqual(task["project_id"] as? Int64, 11)
-        XCTAssertEqual(task["body"] as? String, "body")
-        XCTAssertEqual(task["task"] as? String, "www.example.com")
-        XCTAssertEqual(task["starts_at"] as? String, "2019-11-12T09:08:00.000\(self.timeZoneString)")
-        XCTAssertEqual(task["ends_at"] as? String, "2019-11-12T10:08:00.000\(self.timeZoneString)")
-        XCTAssertEqual(task["tag"] as? String, "dev")
     }
 }

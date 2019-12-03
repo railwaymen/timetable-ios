@@ -2,5 +2,6 @@
     "id": 3,
     "name": "Lorem ipsum",
     "work_times_allows_task": true,
-    "lunch": false
+    "lunch": false,
+    "taggable": true
 }

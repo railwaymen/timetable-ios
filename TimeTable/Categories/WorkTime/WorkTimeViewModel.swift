@@ -20,6 +20,7 @@ protocol WorkTimeViewModelOutput: class {
     func updateProject(name: String)
     func setActivityIndicator(isHidden: Bool)
     func setBottomContentInset(_ height: CGFloat)
+    func setTagsCollectionView(isHidden: Bool)
 }
 
 protocol WorkTimeViewModelType: class {
@@ -297,7 +298,7 @@ extension WorkTimeViewModel {
             allowsTask: self.task.allowsTask,
             body: self.task.body,
             urlString: self.task.url?.absoluteString)
-        
+        self.userInterface?.setTagsCollectionView(isHidden: !self.task.isTaggable)
         let fromDate: Date
         let toDate: Date
         switch self.task.type {

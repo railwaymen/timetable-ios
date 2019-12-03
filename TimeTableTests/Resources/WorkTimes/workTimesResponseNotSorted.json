@@ -16,7 +16,8 @@
             "name": "Lorem Ipsum",
             "color": "fe0404",
             "work_times_allows_task": false,
-            "lunch": false
+            "lunch": false,
+            "taggable": true
         },
         "date": "2018-11-22"
     },
@@ -37,7 +38,8 @@
             "name": "Lorem Ipsum",
             "color": "fe0404",
             "work_times_allows_task": false,
-            "lunch": false
+            "lunch": false,
+            "taggable": true
         },
         "date": "2018-11-21"
     }

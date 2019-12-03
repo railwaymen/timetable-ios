@@ -3,5 +3,6 @@
     "name": "Lorem ipsum",
     "color": "fe0404",
     "work_times_allows_task": true,
-    "lunch": false
+    "lunch": false,
+    "taggable": false
 }
