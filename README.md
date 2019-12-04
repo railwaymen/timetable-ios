@@ -43,7 +43,7 @@ Simple time tracking iOS application. Check out our [TimeTable Ruby on Rails pro
 ### Bundler
 
 - [Cocoapods](https://cocoapods.org) 1.8.4
-- [Fastlane](https://fastlane.tools) 2.136.0
+- [Fastlane](https://fastlane.tools) 2.137.0
 - [Slather](https://github.com/SlatherOrg/slather) 2.4.7
 - [xcode-install](https://github.com/xcpretty/xcode-install) 2.6.3
 - [xcov](https://github.com/nakiostudio/xcov) 1.7.0
