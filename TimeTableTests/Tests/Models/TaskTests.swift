@@ -9,6 +9,7 @@
 import XCTest
 @testable import TimeTable
 
+// swiftlint:disable file_length
 class TaskTests: XCTestCase {
     private var url: URL = URL(string: "www.example.com")!
     
@@ -245,7 +246,120 @@ extension TaskTests {
 
 // MARK: - validate()
 extension TaskTests {
+    func testValidate_fullData() throws {
+        //Arrange
+        let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
+        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
+        let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
+        let endsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 10, minute: 8, second: 57)
+        let sut = Task(
+            workTimeIdentifier: 1,
+            project: projectDecoder,
+            body: "body",
+            url: self.url,
+            day: startsAt,
+            startsAt: startsAt,
+            endsAt: endsAt,
+            tag: .development)
+        //Act
+        //Assert
+        XCTAssertNoThrow(try sut.validate())
+    }
     
+    func testValidate_lunchFullData() throws {
+        //Arrange
+        let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectWithALunchTrueResponse)
+        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
+        let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
+        let endsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 10, minute: 8, second: 57)
+        let sut = Task(
+            workTimeIdentifier: 1,
+            project: projectDecoder,
+            body: "",
+            url: nil,
+            day: startsAt,
+            startsAt: startsAt,
+            endsAt: endsAt,
+            tag: .development)
+        //Act
+        //Assert
+        XCTAssertNoThrow(try sut.validate())
+    }
+    
+    func testValidate_nilProject() throws {
+        //Arrange
+        let sut = Task(body: "")
+        //Act
+        //Assert
+        XCTAssertThrowsError(try sut.validate()) { error in
+            XCTAssertEqual(error as? TaskValidationError, TaskValidationError.projectIsNil)
+        }
+    }
+    
+    func testValidate_emptyBody() throws {
+        //Arrange
+        let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
+        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
+        let sut = Task(
+            project: projectDecoder,
+            body: "")
+        //Act
+        //Assert
+        XCTAssertThrowsError(try sut.validate()) { error in
+            XCTAssertEqual(error as? TaskValidationError, TaskValidationError.bodyIsEmpty)
+        }
+    }
+    
+    func testValidate_nilURL() throws {
+        //Arrange
+        let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
+        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
+        let sut = Task(
+            project: projectDecoder,
+            body: "body",
+            url: nil)
+        //Act
+        //Assert
+        XCTAssertThrowsError(try sut.validate()) { error in
+            XCTAssertEqual(error as? TaskValidationError, TaskValidationError.urlIsNil)
+        }
+    }
+    
+    func testValidate_nilStartsAt() throws {
+        //Arrange
+        let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
+        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
+        let sut = Task(
+            project: projectDecoder,
+            body: "body",
+            url: self.url,
+            startsAt: nil)
+        //Act
+        //Assert
+        XCTAssertThrowsError(try sut.validate()) { error in
+            XCTAssertEqual(error as? TaskValidationError, TaskValidationError.startsAtIsNil)
+        }
+    }
+    
+    func testValidate_nilEndsAt() throws {
+        //Arrange
+        let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
+        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
+        let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
+        let sut = Task(
+            workTimeIdentifier: 1,
+            project: projectDecoder,
+            body: "body",
+            url: self.url,
+            day: startsAt,
+            startsAt: startsAt,
+            endsAt: nil)
+        //Act
+        //Assert
+        XCTAssertThrowsError(try sut.validate()) { error in
+            XCTAssertEqual(error as? TaskValidationError, TaskValidationError.endsAtIsNil)
+        }
+    }
 }
 
 // MARK: - encode
@@ -353,3 +467,4 @@ extension TaskTests {
         XCTAssertNotNil(thrownError)
     }
 }
+// swiftlint:enable file_length
