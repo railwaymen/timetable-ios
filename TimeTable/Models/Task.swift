@@ -8,15 +8,6 @@
 
 import Foundation
 
-enum TaskValidationError: Error {
-    case projectIsNil
-    case urlIsNil
-    case bodyIsEmpty
-    case startsAtIsNil
-    case endsAtIsNil
-    case startsAtIsGreaterThanEndsAt
-}
-
 struct Task {
     var workTimeIdentifier: Int64?
     var project: ProjectDecoder?
@@ -28,21 +19,13 @@ struct Task {
     var tag: ProjectTag = .default
     
     var title: String {
-        switch self.project {
-        case .none:
-            return "work_time.text_field.select_project".localized
-        case .some(let project):
-            return project.name
-        }
+        guard let project = self.project else { return "work_time.text_field.select_project".localized }
+        return project.name
     }
     
     var allowsTask: Bool {
-        switch self.project {
-        case .none:
-            return true
-        case .some(let project):
-            return project.workTimesAllowsTask
-        }
+        guard let project = self.project else { return true }
+        return project.workTimesAllowsTask
     }
     
     var isTaggable: Bool {
@@ -50,32 +33,24 @@ struct Task {
     }
     
     var type: ProjectType? {
-        switch self.project {
-        case .none:
-            return nil
-        case .some(let project):
-            if let autofill = project.autofill, autofill {
-                return .fullDay(AutofillHours.autofillTimeInterval)
-            } else if project.isLunch {
-                return .lunch(AutofillHours.lunchTimeInterval)
-            }
-            return .standard
+        guard let project = self.project else { return nil }
+        if let autofill = project.autofill, autofill {
+            return .fullDay(AutofillHours.autofillTimeInterval)
+        } else if project.isLunch {
+            return .lunch(AutofillHours.lunchTimeInterval)
         }
+        return .standard
     }
     
     func validate() throws {
         guard let project = self.project else { throw TaskValidationError.projectIsNil }
         if !project.isLunch && project.countDuration ?? true {
-            if self.body.isEmpty {
-                throw TaskValidationError.bodyIsEmpty
-            }
-            if self.allowsTask && self.url == nil {
-                throw TaskValidationError.urlIsNil
-            }
+            guard !self.body.isEmpty else { throw TaskValidationError.bodyIsEmpty }
+            guard !self.allowsTask || self.url != nil else { throw TaskValidationError.urlIsNil }
         }
         guard let startsAt = self.startsAt else { throw TaskValidationError.startsAtIsNil }
         guard let endsAt = self.endsAt else { throw TaskValidationError.endsAtIsNil }
-        guard startsAt < endsAt else { throw TaskValidationError.startsAtIsGreaterThanEndsAt }
+        guard startsAt < endsAt else { throw TaskValidationError.timeRangeIsIncorrect }
     }
 }
 
@@ -140,13 +115,12 @@ extension Task {
     }
     
     private struct AutofillHours {
-        private static let seconds = 60
-        private static let minutes = 60
         static var lunchTimeInterval: TimeInterval {
-            return TimeInterval(AutofillHours.seconds * 30)
+            return 30 * .minute
         }
+        
         static var autofillTimeInterval: TimeInterval {
-            return TimeInterval(AutofillHours.seconds * AutofillHours.minutes * 8)
+            return 8 * .hour
         }
     }
 }

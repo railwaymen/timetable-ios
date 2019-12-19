@@ -306,7 +306,7 @@ extension WorkTimeViewModel {
                 throw UIError.cannotBeEmpty(.startsAtTextField)
             case .endsAtIsNil:
                 throw UIError.cannotBeEmpty(.endsAtTextField)
-            case .startsAtIsGreaterThanEndsAt:
+            case .timeRangeIsIncorrect:
                 throw UIError.timeGreaterThan
             }
         } catch {
