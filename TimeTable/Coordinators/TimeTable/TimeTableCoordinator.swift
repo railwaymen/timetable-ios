@@ -10,22 +10,31 @@ import UIKit
 
 typealias TimeTableTabApiClientType = (ApiClientWorkTimesType & ApiClientProjectsType & ApiClientUsersType & ApiClientMatchingFullTimeType)
 
-class TimeTableTabCoordinator: BaseTabBarCoordinator {
+class TimeTableTabCoordinator: TabBarCoordinator {
     
     // MARK: - Initialization
     init(dependencyContainer: DependencyContainerType) {
+        super.init(window: dependencyContainer.window)
+        
         let projectsCoordinator = ProjectsCoordinator(dependencyContainer: dependencyContainer)
         let workTimeCoordinator = WorkTimesListCoordinator(dependencyContainer: dependencyContainer)
-        let userCoordinator = ProfileCoordinator(dependencyContainer: dependencyContainer)
+        let userCoordinator = ProfileCoordinator(
+            dependencyContainer: dependencyContainer,
+            parent: self)
         
-        super.init(window: dependencyContainer.window, messagePresenter: dependencyContainer.messagePresenter)
-        [projectsCoordinator, workTimeCoordinator, userCoordinator].forEach { self.addChildCoordinator(child: $0) }
         self.tabBarController.tabBar.tintColor = .crimson
-        
-        projectsCoordinator.start()
-        workTimeCoordinator.start()
-        userCoordinator.start { [weak self] in
-            self?.finishCompletion?()
+        dependencyContainer.window?.rootViewController = self.tabBarController
+        let children = [projectsCoordinator, workTimeCoordinator, userCoordinator]
+        children.forEach {
+            self.add(child: $0)
+            $0.start()
         }
+    }
+}
+
+// MARK: - ProfileCoordinatorParentType
+extension TimeTableTabCoordinator: ProfileCoordinatorParentType {
+    func childDidRequestToFinish() {
+        self.finish()
     }
 }

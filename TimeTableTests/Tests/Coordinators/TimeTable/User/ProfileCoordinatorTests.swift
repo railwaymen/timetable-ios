@@ -11,10 +11,12 @@ import XCTest
 
 class ProfileCoordinatorTests: XCTestCase {
     private var dependencyContainer: DependencyContainerMock!
+    private var parentMock: ProfileCoordinatorParentMock!
     
     override func setUp() {
         super.setUp()
         self.dependencyContainer = DependencyContainerMock()
+        self.parentMock = ProfileCoordinatorParentMock()
     }
     
     func testStartSetsNavigationBarHidden() {
@@ -57,13 +59,26 @@ class ProfileCoordinatorTests: XCTestCase {
         //Act
         sut.userProfileDidLogoutUser()
         //Assert
-        XCTAssertTrue(finishCompletionCalled)
+        XCTAssertFalse(finishCompletionCalled)
+        XCTAssertEqual(self.parentMock.childDidRequestToFinishParams.count, 1)
     }
 }
 
 // MARK: - Private
 extension ProfileCoordinatorTests {
     private func buildSUT() -> ProfileCoordinator {
-        return ProfileCoordinator(dependencyContainer: self.dependencyContainer)
+        return ProfileCoordinator(
+            dependencyContainer: self.dependencyContainer,
+            parent: self.parentMock)
+    }
+}
+
+// MARK: - Private Structures
+private class ProfileCoordinatorParentMock: ProfileCoordinatorParentType {
+    private(set) var childDidRequestToFinishParams: [ChildDidRequestToFinishParams] = []
+    struct ChildDidRequestToFinishParams {}
+    
+    func childDidRequestToFinish() {
+        self.childDidRequestToFinishParams.append(ChildDidRequestToFinishParams())
     }
 }

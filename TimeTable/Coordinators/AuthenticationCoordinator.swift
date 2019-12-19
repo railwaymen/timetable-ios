@@ -18,7 +18,7 @@ protocol LoginCoordinatorDelegate: class {
     func loginDidFinish(with state: AuthenticationCoordinator.State)
 }
 
-class AuthenticationCoordinator: BaseNavigationCoordinator {
+class AuthenticationCoordinator: NavigationCoordinator {
     private let dependencyContainer: DependencyContainerType
     private var apiClient: ApiClientType?
     private var serverConfiguration: ServerConfiguration?
@@ -28,7 +28,7 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
     // MARK: - Initialization
     init(dependencyContainer: DependencyContainerType) {
         self.dependencyContainer = dependencyContainer
-        super.init(window: dependencyContainer.window, messagePresenter: dependencyContainer.messagePresenter)
+        super.init(window: dependencyContainer.window)
         self.window?.rootViewController = self.navigationController
         self.setNavigationBar()
     }
@@ -36,7 +36,7 @@ class AuthenticationCoordinator: BaseNavigationCoordinator {
     // MARK: - Overridden
     override func finish() {
         if let configuration = self.serverConfiguration, let apiClient = self.apiClient {
-            customFinishCompletion?(configuration, apiClient)
+            self.customFinishCompletion?(configuration, apiClient)
         }
         super.finish()
     }

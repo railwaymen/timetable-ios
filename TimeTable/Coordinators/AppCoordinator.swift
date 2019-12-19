@@ -8,7 +8,11 @@
 
 import UIKit
 
-class AppCoordinator: BaseCoordinator {
+protocol ParentCoordinator {
+    func present(error: Error)
+}
+
+class AppCoordinator: Coordinator {
     private var dependencyContainer: DependencyContainerType
     private let parentErrorHandler: ErrorHandlerType
     
@@ -22,25 +26,36 @@ class AppCoordinator: BaseCoordinator {
     init(dependencyContainer: DependencyContainerType) {
         self.dependencyContainer = dependencyContainer
         self.parentErrorHandler = dependencyContainer.errorHandler
-        super.init(window: dependencyContainer.window, messagePresenter: dependencyContainer.messagePresenter)
+        super.init(window: dependencyContainer.window)
         self.dependencyContainer.errorHandler = self.errorHandler
     }
 
     // MARK: - Overridden
-    override func start(finishCompletion: (() -> Void)?) {
-        super.start(finishCompletion: finishCompletion)
+    override func start(finishHandler: (() -> Void)?) {
+        super.start(finishHandler: finishHandler)
         self.runAuthenticationFlow()
     }
 }
- 
+
+// MARK: - ParentCoordinator
+extension AppCoordinator: ParentCoordinator {
+    func present(error: Error) {
+        if let uiError = error as? UIError {
+            self.dependencyContainer.messagePresenter?.presentAlertController(withMessage: uiError.localizedDescription)
+        } else if let apiError = error as? ApiClientError {
+            self.dependencyContainer.messagePresenter?.presentAlertController(withMessage: apiError.type.localizedDescription)
+        }
+    }
+}
+
 // MARK: - Private
 extension AppCoordinator {
     private func runAuthenticationFlow() {
         let coordinator = AuthenticationCoordinator(dependencyContainer: self.dependencyContainer)
-        self.addChildCoordinator(child: coordinator)
+        self.add(child: coordinator)
         coordinator.start { [weak self, weak coordinator] (configuration, apiClient) in
+            self?.remove(child: coordinator)
             self?.runMainFlow(configuration: configuration, apiClient: apiClient)
-            self?.removeChildCoordinator(child: coordinator)
         }
     }
     
@@ -49,10 +64,10 @@ extension AppCoordinator {
         self.dependencyContainer.apiClient = apiClient
         self.dependencyContainer.accessService = accessService
         let coordinator = TimeTableTabCoordinator(dependencyContainer: self.dependencyContainer)
-        self.addChildCoordinator(child: coordinator)
-        coordinator.start(finishCompletion: { [weak self, weak coordinator] in
-            self?.removeChildCoordinator(child: coordinator)
+        self.add(child: coordinator)
+        coordinator.start { [weak self, weak coordinator] in
+            self?.remove(child: coordinator)
             self?.runAuthenticationFlow()
-        })
+        }
     }
 }

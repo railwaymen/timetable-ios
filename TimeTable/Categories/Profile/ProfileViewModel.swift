@@ -74,7 +74,14 @@ extension ProfileViewModel: ProfileViewModelType {
             case .success:
                 self?.coordinator?.userProfileDidLogoutUser()
             case .failure(let error):
-                self?.errorHandler.throwing(error: error)
+                if let error = error as? CoreDataStack.Error {
+                    switch error {
+                    case .storageItemNotFound:
+                        self?.coordinator?.userProfileDidLogoutUser()
+                    }
+                } else {
+                    self?.errorHandler.throwing(error: error)
+                }
             }
         }
     }
