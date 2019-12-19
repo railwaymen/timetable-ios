@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vWa-gW-sZm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vWa-gW-sZm">
     <device id="retina6_5" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,11 +21,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Sc1-v6-mIx">
-                                        <rect key="frame" x="0.0" y="16" width="414" height="413"/>
+                                        <rect key="frame" x="0.0" y="16" width="414" height="538.66666666666663"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qy7-kP-lwM" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="0.0" width="382" height="35"/>
-                                                <color key="backgroundColor" systemColor="quaternarySystemFillColor" red="0.4549019608" green="0.4549019608" blue="0.50196078430000002" alpha="0.080000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" name="Text Field Background"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="XXO-Th-GFE"/>
                                                 </constraints>
@@ -38,10 +38,10 @@
                                                         <real key="value" value="5"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                        <real key="value" value="0.0"/>
+                                                        <real key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" systemColor="secondarySystemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.16" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="value" name="Text Field Border"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -150,38 +150,93 @@
                                                     <outlet property="delegate" destination="vWa-gW-sZm" id="t3Q-vv-jr8"/>
                                                 </connections>
                                             </collectionView>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g4e-sp-Azc">
-                                                <rect key="frame" x="16" y="245" width="382" height="40"/>
-                                                <color key="tintColor" name="Crimson"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AqR-op-JKn">
+                                                <rect key="frame" x="16" y="245.00000000000003" width="382" height="121.33333333333334"/>
+                                                <subviews>
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5pA-GP-fz3" customClass="AttributerTextView" customModule="TimeTable" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="25.999999999999993" width="382" height="95.333333333333314"/>
+                                                        <color key="backgroundColor" name="Text Field Background"/>
+                                                        <color key="tintColor" name="Crimson"/>
+                                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+                                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" name="Text Field Border"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="vWa-gW-sZm" id="SLP-b3-BKh"/>
+                                                        </connections>
+                                                    </textView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What have you done?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXg-Wn-GLb">
+                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="18"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="work_time.text_field.what_have_you_done"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="4Er-7T-gau"/>
+                                                    <constraint firstItem="WXg-Wn-GLb" firstAttribute="leading" secondItem="AqR-op-JKn" secondAttribute="leading" id="5dY-F5-m8W"/>
+                                                    <constraint firstItem="5pA-GP-fz3" firstAttribute="leading" secondItem="AqR-op-JKn" secondAttribute="leading" id="JTX-sF-brU"/>
+                                                    <constraint firstItem="5pA-GP-fz3" firstAttribute="top" secondItem="WXg-Wn-GLb" secondAttribute="bottom" constant="8" id="goV-9i-l9h"/>
+                                                    <constraint firstAttribute="bottom" secondItem="5pA-GP-fz3" secondAttribute="bottom" priority="990" id="hfY-J8-79b"/>
+                                                    <constraint firstAttribute="trailing" secondItem="5pA-GP-fz3" secondAttribute="trailing" id="hqB-TK-ms5"/>
+                                                    <constraint firstItem="WXg-Wn-GLb" firstAttribute="width" secondItem="5pA-GP-fz3" secondAttribute="width" id="lNt-dC-BKk"/>
+                                                    <constraint firstItem="WXg-Wn-GLb" firstAttribute="top" secondItem="AqR-op-JKn" secondAttribute="top" id="lgA-jZ-Fqg"/>
+                                                    <constraint firstAttribute="trailing" secondItem="WXg-Wn-GLb" secondAttribute="trailing" id="zvB-gW-xJI"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="done"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="work_time.text_field.what_have_you_done"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="taskTextFieldDidChange:" destination="vWa-gW-sZm" eventType="editingChanged" id="8U4-as-Wfz"/>
-                                                </connections>
-                                            </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dYn-5C-xtg">
-                                                <rect key="frame" x="16" y="309" width="382" height="40"/>
-                                                <color key="tintColor" name="Crimson"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPE-xV-Lbs">
+                                                <rect key="frame" x="16" y="390.33333333333331" width="382" height="84.333333333333314"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dYn-5C-xtg">
+                                                        <rect key="frame" x="0.0" y="44.333333333333371" width="382" height="40"/>
+                                                        <color key="tintColor" name="Crimson"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" priority="900" constant="40" id="FA8-YM-png"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" textContentType="url"/>
+                                                        <connections>
+                                                            <action selector="taskURLTextFieldDidChange:" destination="vWa-gW-sZm" eventType="editingChanged" id="k1v-aP-UAk"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task URL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oxn-gQ-FYm">
+                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="36.333333333333336"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="work_time.text_field.task_url"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" priority="900" constant="40" id="FA8-YM-png"/>
+                                                    <constraint firstAttribute="bottom" secondItem="dYn-5C-xtg" secondAttribute="bottom" priority="990" id="8QN-tZ-nhx"/>
+                                                    <constraint firstItem="Oxn-gQ-FYm" firstAttribute="top" secondItem="qPE-xV-Lbs" secondAttribute="top" id="A4z-g2-A0U"/>
+                                                    <constraint firstItem="dYn-5C-xtg" firstAttribute="leading" secondItem="qPE-xV-Lbs" secondAttribute="leading" id="Md0-pi-sBV"/>
+                                                    <constraint firstItem="Oxn-gQ-FYm" firstAttribute="leading" secondItem="qPE-xV-Lbs" secondAttribute="leading" id="X1I-bs-XJB"/>
+                                                    <constraint firstAttribute="trailing" secondItem="dYn-5C-xtg" secondAttribute="trailing" id="aOn-HN-2eO"/>
+                                                    <constraint firstItem="Oxn-gQ-FYm" firstAttribute="width" secondItem="dYn-5C-xtg" secondAttribute="width" id="cKT-x0-xJC"/>
+                                                    <constraint firstItem="dYn-5C-xtg" firstAttribute="top" secondItem="Oxn-gQ-FYm" secondAttribute="bottom" constant="8" id="iAA-jD-rpP"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Oxn-gQ-FYm" secondAttribute="trailing" id="sbC-iO-pQk"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" textContentType="url"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="work_time.text_field.task_url"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="taskURLTextFieldDidChange:" destination="vWa-gW-sZm" eventType="editingChanged" id="k1v-aP-UAk"/>
-                                                </connections>
-                                            </textField>
+                                            </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TSS-Hb-MVA" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="373" width="382" height="40"/>
+                                                <rect key="frame" x="16" y="498.66666666666663" width="382" height="40"/>
                                                 <color key="backgroundColor" name="Crimson"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="Wjx-xj-X70"/>
@@ -203,8 +258,8 @@
                                             </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="dYn-5C-xtg" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" constant="16" id="3zg-dG-f6i"/>
-                                            <constraint firstAttribute="trailing" secondItem="g4e-sp-Azc" secondAttribute="trailing" constant="16" id="G7m-sS-ma8"/>
+                                            <constraint firstItem="qPE-xV-Lbs" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" constant="16" id="HSw-VQ-wOR"/>
+                                            <constraint firstItem="AqR-op-JKn" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" constant="16" id="JMJ-WU-8uP"/>
                                             <constraint firstItem="TSS-Hb-MVA" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" constant="16" id="OBd-QO-5EB"/>
                                             <constraint firstAttribute="trailing" secondItem="vs0-xH-GvZ" secondAttribute="trailing" constant="16" id="PNP-D2-UgW"/>
                                             <constraint firstItem="05z-uo-ywe" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" id="TDC-9q-aij"/>
@@ -212,10 +267,10 @@
                                             <constraint firstAttribute="trailing" secondItem="05z-uo-ywe" secondAttribute="trailing" id="egW-So-7dt"/>
                                             <constraint firstAttribute="trailing" secondItem="TSS-Hb-MVA" secondAttribute="trailing" constant="16" id="gFc-2o-tpO"/>
                                             <constraint firstItem="s85-fU-VBR" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" constant="16" id="gYm-7e-oTf"/>
-                                            <constraint firstItem="g4e-sp-Azc" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" constant="16" id="khU-rb-e8w"/>
                                             <constraint firstItem="qy7-kP-lwM" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" constant="16" id="oVx-Cq-wwm"/>
+                                            <constraint firstAttribute="trailing" secondItem="qPE-xV-Lbs" secondAttribute="trailing" constant="16" id="rOb-7D-0dx"/>
+                                            <constraint firstAttribute="trailing" secondItem="AqR-op-JKn" secondAttribute="trailing" constant="16" id="t9k-tu-OKg"/>
                                             <constraint firstAttribute="trailing" secondItem="qy7-kP-lwM" secondAttribute="trailing" constant="16" id="y6E-po-cHD"/>
-                                            <constraint firstAttribute="trailing" secondItem="dYn-5C-xtg" secondAttribute="trailing" constant="16" id="y9e-y0-aCT"/>
                                             <constraint firstItem="vs0-xH-GvZ" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" constant="16" id="yBm-WV-KjH"/>
                                         </constraints>
                                     </stackView>
@@ -250,7 +305,8 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="yy6-It-HYM" id="9g2-Gd-3mm"/>
-                        <outlet property="bodyTextField" destination="g4e-sp-Azc" id="91i-HX-eAQ"/>
+                        <outlet property="bodyTextView" destination="5pA-GP-fz3" id="zKQ-FQ-1HC"/>
+                        <outlet property="bodyView" destination="AqR-op-JKn" id="hPj-dB-fn9"/>
                         <outlet property="dayTextField" destination="s85-fU-VBR" id="F63-Zq-OUV"/>
                         <outlet property="endAtDateTextField" destination="Pgu-1o-gtM" id="dZK-DO-5C1"/>
                         <outlet property="projectButton" destination="qy7-kP-lwM" id="N6u-fk-fZe"/>
@@ -258,6 +314,7 @@
                         <outlet property="startAtDateTextField" destination="GPe-vx-7eJ" id="T6d-7v-C73"/>
                         <outlet property="tagsCollectionView" destination="05z-uo-ywe" id="knM-oA-b0k"/>
                         <outlet property="taskURLTextField" destination="dYn-5C-xtg" id="qHZ-kE-zYM"/>
+                        <outlet property="taskURLView" destination="qPE-xV-Lbs" id="Xoh-uB-q7X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qjf-dp-sLH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -273,6 +330,12 @@
     <resources>
         <namedColor name="Crimson">
             <color red="0.79607843137254897" green="0.078431372549019607" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Text Field Background">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Text Field Border">
+            <color red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
