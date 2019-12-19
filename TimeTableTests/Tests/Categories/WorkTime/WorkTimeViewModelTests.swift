@@ -18,7 +18,7 @@ class WorkTimeViewModelTests: XCTestCase {
     private var errorHandlerMock: ErrorHandlerMock!
     private var calendarMock: CalendarMock!
     private var notificationCenterMock: NotificationCenterMock!
-        
+    
     override func setUp() {
         super.setUp()
         self.userInterfaceMock = WorkTimeViewControllerMock()
