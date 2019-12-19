@@ -380,9 +380,8 @@ class WorkTimeViewModelTests: XCTestCase {
         sut.viewRequestedToSave()
         //Assert
         switch self.errorHandlerMock.throwingParams.last?.error as? UIError {
-        case .cannotBeEmptyOr(let element1, let element2)?:
-            XCTAssertEqual(element1, UIElement.taskNameTextField)
-            XCTAssertEqual(element2, UIElement.taskUrlTextField)
+        case let .cannotBeEmpty(element):
+            XCTAssertEqual(element, UIElement.taskNameTextField)
         default: XCTFail()
         }
     }
@@ -397,9 +396,8 @@ class WorkTimeViewModelTests: XCTestCase {
         sut.viewRequestedToSave()
         //Assert
         switch self.errorHandlerMock.throwingParams.last?.error as? UIError {
-        case .cannotBeEmptyOr(let element1, let element2)?:
-            XCTAssertEqual(element1, UIElement.taskNameTextField)
-            XCTAssertEqual(element2, UIElement.taskUrlTextField)
+        case let .cannotBeEmpty(element):
+            XCTAssertEqual(element, UIElement.taskNameTextField)
         default: XCTFail()
         }
     }
@@ -415,7 +413,7 @@ class WorkTimeViewModelTests: XCTestCase {
         sut.taskURLDidChange(value: "www.example.com")
         sut.viewRequestedToSave()
         //Assert
-        XCTAssertNil(self.errorHandlerMock.throwingParams.last?.error as? UIError)
+        XCTAssertNil(self.errorHandlerMock.throwingParams.last?.error)
     }
     
     func testViewRequestedToSaveWhileTaskURLWasSetAsNil() throws {
@@ -429,7 +427,7 @@ class WorkTimeViewModelTests: XCTestCase {
         sut.taskURLDidChange(value: nil)
         sut.viewRequestedToSave()
         //Assert
-        XCTAssertNil(self.errorHandlerMock.throwingParams.last?.error as? UIError)
+        XCTAssertNil(self.errorHandlerMock.throwingParams.last?.error)
     }
     
     func testViewRequestedToSaveWhileTaskURLWasSetAsInvalidURL() throws {
@@ -443,7 +441,7 @@ class WorkTimeViewModelTests: XCTestCase {
         sut.taskURLDidChange(value: "\\INVALID//")
         sut.viewRequestedToSave()
         //Assert
-        XCTAssertNil(self.errorHandlerMock.throwingParams.last?.error as? UIError)
+        XCTAssertNil(self.errorHandlerMock.throwingParams.last?.error)
     }
     
     func testViewRequestedToSaveWhileTaskURLIsNil() throws {
@@ -456,7 +454,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Act
         sut.viewRequestedToSave()
         //Assert
-        XCTAssertNil(self.errorHandlerMock.throwingParams.last?.error as? UIError)
+        XCTAssertNil(self.errorHandlerMock.throwingParams.last?.error)
     }
     
     func testViewRequestedToSaveWhileProjectIsLunch() throws {
@@ -468,7 +466,7 @@ class WorkTimeViewModelTests: XCTestCase {
         //Act
         sut.viewRequestedToSave()
         //Assert
-        XCTAssertNil(self.errorHandlerMock.throwingParams.last?.error as? UIError)
+        XCTAssertNil(self.errorHandlerMock.throwingParams.last?.error)
     }
     
     func testViewRequestedToSaveWhileTaskFromDateIsGreaterThanToDate() throws {

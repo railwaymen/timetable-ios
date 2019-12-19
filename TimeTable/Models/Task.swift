@@ -8,6 +8,15 @@
 
 import Foundation
 
+enum TaskValidationError: Error {
+    case projectIsNil
+    case urlIsNil
+    case bodyIsEmpty
+    case startsAtIsNil
+    case endsAtIsNil
+    case startsAtIsGreaterThanEndsAt
+}
+
 struct Task {
     var workTimeIdentifier: Int64?
     var project: ProjectDecoder?
@@ -52,6 +61,21 @@ struct Task {
             }
             return .standard
         }
+    }
+    
+    func validate() throws {
+        guard let project = self.project else { throw TaskValidationError.projectIsNil }
+        if !project.isLunch && project.countDuration ?? true {
+            if self.body.isEmpty {
+                throw TaskValidationError.bodyIsEmpty
+            }
+            if self.allowsTask && self.url == nil {
+                throw TaskValidationError.urlIsNil
+            }
+        }
+        guard let startsAt = self.startsAt else { throw TaskValidationError.startsAtIsNil }
+        guard let endsAt = self.endsAt else { throw TaskValidationError.endsAtIsNil }
+        guard startsAt < endsAt else { throw TaskValidationError.startsAtIsGreaterThanEndsAt }
     }
 }
 
