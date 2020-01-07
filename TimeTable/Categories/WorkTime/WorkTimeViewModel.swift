@@ -312,12 +312,6 @@ extension WorkTimeViewModel {
         } catch {
             assertionFailure()
         }
-//        guard let project = self.task.project else { throw UIError.cannotBeEmpty(.projectTextField) }
-//        guard !self.task.body.isEmpty || (self.task.allowsTask && self.task.url != nil) || project.isLunch || !(project.countDuration ?? false)
-//            else { throw UIError.cannotBeEmptyOr(.taskNameTextField, .taskUrlTextField) }
-//        guard let fromDate = self.task.startsAt else { throw UIError.cannotBeEmpty(.startsAtTextField) }
-//        guard let toDate = self.task.endsAt else { throw UIError.cannotBeEmpty(.endsAtTextField) }
-//        guard fromDate < toDate else { throw UIError.timeGreaterThan }
     }
     
     private func updateViewWithCurrentSelectedProject() {
