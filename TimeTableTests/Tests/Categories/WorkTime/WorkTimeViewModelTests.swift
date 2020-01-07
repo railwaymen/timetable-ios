@@ -422,137 +422,78 @@ extension WorkTimeViewModelTests {
 
 // MARK: - viewRequestedToSave()
 extension WorkTimeViewModelTests {
-    func testViewRequestedToSave_whileProjectIsNil() {
+    func testViewRequestedToSave_whileProjectIsNil() throws {
         //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        let task = Task(workTimeIdentifier: nil, project: nil, body: "", url: nil, day: nil, startsAt: nil, endsAt: nil, tag: .default)
+        guard task.isTaskValidationError(equalTo: .projectIsNil) else { return XCTFail() }
+        let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
         //Act
         sut.viewRequestedToSave()
         //Assert
-        switch self.errorHandlerMock.throwingParams.last?.error as? UIError {
-        case .cannotBeEmpty(let element)?:
-            XCTAssertEqual(element, UIElement.projectTextField)
-        default: XCTFail()
-        }
+        XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? UIError, UIError.cannotBeEmpty(UIElement.projectTextField))
     }
 
-    func testViewRequestedToSave_whileTaskBodySetAsNilValue() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        try self.fetchProjects(sut: sut)
-        sut.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[0])
-        //Act
-        sut.taskNameDidChange(value: nil)
-        sut.viewRequestedToSave()
-        //Assert
-        switch self.errorHandlerMock.throwingParams.last?.error as? UIError {
-        case let .cannotBeEmpty(element):
-            XCTAssertEqual(element, UIElement.taskNameTextField)
-        default: XCTFail()
-        }
-    }
-    
     func testViewRequestedToSave_whileTaskBodyIsNil() throws {
         //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        try self.fetchProjects(sut: sut)
-        sut.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[0])
+        let project = self.buildProjectDecoder(countDuration: nil, isLunch: false, workTimesAllowsTask: true)
+        let task = Task(workTimeIdentifier: nil, project: project, body: "", url: nil, day: nil, startsAt: nil, endsAt: nil, tag: .default)
+        guard task.isTaskValidationError(equalTo: .bodyIsEmpty) else { return XCTFail() }
+        let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
         //Act
         sut.viewRequestedToSave()
         //Assert
-        switch self.errorHandlerMock.throwingParams.last?.error as? UIError {
-        case let .cannotBeEmpty(element):
-            XCTAssertEqual(element, UIElement.taskNameTextField)
-        default: XCTFail()
-        }
-    }
-    
-    func testViewRequestedToSave_whileTaskBodyIsNilAndURLIsNot() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        try self.fetchProjects(sut: sut)
-        sut.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[1])
-        sut.taskNameDidChange(value: nil)
-        //Act
-        sut.taskURLDidChange(value: "www.example.com")
-        sut.viewRequestedToSave()
-        //Assert
-        XCTAssertNil(self.errorHandlerMock.throwingParams.last?.error)
-    }
-    
-    func testViewRequestedToSave_whileTaskURLWasSetAsNil() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        try self.fetchProjects(sut: sut)
-        sut.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[1])
-        sut.taskNameDidChange(value: "body")
-        //Act
-        sut.taskURLDidChange(value: nil)
-        sut.viewRequestedToSave()
-        //Assert
-        XCTAssertNil(self.errorHandlerMock.throwingParams.last?.error)
-    }
-    
-    func testViewRequestedToSave_whileTaskURLWasSetAsInvalidURL() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        try self.fetchProjects(sut: sut)
-        sut.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[1])
-        sut.taskNameDidChange(value: "body")
-        //Act
-        sut.taskURLDidChange(value: "\\INVALID//")
-        sut.viewRequestedToSave()
-        //Assert
-        XCTAssertNil(self.errorHandlerMock.throwingParams.last?.error)
+        XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? UIError, UIError.cannotBeEmpty(UIElement.taskNameTextField))
     }
     
     func testViewRequestedToSave_whileTaskURLIsNil() throws {
         //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        try self.fetchProjects(sut: sut)
-        sut.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[1])
-        sut.taskNameDidChange(value: "body")
+        let project = self.buildProjectDecoder(countDuration: nil, isLunch: false, workTimesAllowsTask: true)
+        let task = Task(workTimeIdentifier: nil, project: project, body: "Some", url: nil, day: nil, startsAt: nil, endsAt: nil, tag: .default)
+        guard task.isTaskValidationError(equalTo: .urlIsNil) else { return XCTFail() }
+        let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
         //Act
         sut.viewRequestedToSave()
         //Assert
-        XCTAssertNil(self.errorHandlerMock.throwingParams.last?.error)
+        XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? UIError, UIError.cannotBeEmpty(UIElement.taskUrlTextField))
     }
     
-    func testViewRequestedToSave_whileProjectIsLunch() throws {
+    func testViewRequestedToSave_startsAtIsNil() throws {
         //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        try self.fetchProjects(sut: sut)
-        sut.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[1])
+        let project = self.buildProjectDecoder(countDuration: nil, isLunch: true, workTimesAllowsTask: true)
+        let task = Task(workTimeIdentifier: nil, project: project, body: "", url: nil, day: nil, startsAt: nil, endsAt: nil, tag: .default)
+        guard task.isTaskValidationError(equalTo: .startsAtIsNil) else { return XCTFail() }
+        let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
         //Act
         sut.viewRequestedToSave()
         //Assert
-        XCTAssertNil(self.errorHandlerMock.throwingParams.last?.error)
+        XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? UIError, UIError.cannotBeEmpty(UIElement.startsAtTextField))
+    }
+    
+    func testViewRequestedToSave_endsAtIsNil() throws {
+        //Arrange
+        let startsAtDate = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
+        let project = self.buildProjectDecoder(countDuration: nil, isLunch: true, workTimesAllowsTask: true)
+        let task = Task(workTimeIdentifier: nil, project: project, body: "", url: nil, day: nil, startsAt: startsAtDate, endsAt: nil, tag: .default)
+        guard task.isTaskValidationError(equalTo: .endsAtIsNil) else { return XCTFail() }
+        let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
+        //Act
+        sut.viewRequestedToSave()
+        //Assert
+        XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? UIError, UIError.cannotBeEmpty(UIElement.endsAtTextField))
     }
     
     func testViewRequestedToSave_whileTaskStartAtDateIsGreaterThanEndAtDate() throws {
         //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let startAtDate = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let endAtDate = try self.buildDate(year: 2018, month: 1, day: 16, hour: 12, minute: 2, second: 1)
-        try self.fetchProjects(sut: sut)
-        sut.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[0])
-        sut.taskNameDidChange(value: "body")
-        sut.taskURLDidChange(value: "www.example.com")
-        self.calendarMock.dateBySettingCalendarComponentReturnValue = startAtDate
-        sut.viewChanged(startAtDate: startAtDate)
-        self.calendarMock.dateBySettingCalendarComponentReturnValue = endAtDate
-        sut.viewChanged(endAtDate: endAtDate)
+        let startsAtDate = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
+        let endsAtDate = try self.buildDate(year: 2018, month: 1, day: 16, hour: 12, minute: 2, second: 1)
+        let project = self.buildProjectDecoder(countDuration: nil, isLunch: true, workTimesAllowsTask: true)
+        let task = Task(workTimeIdentifier: nil, project: project, body: "", url: nil, day: nil, startsAt: startsAtDate, endsAt: endsAtDate, tag: .default)
+        guard task.isTaskValidationError(equalTo: .timeRangeIsIncorrect) else { return XCTFail() }
+        let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
         //Act
         sut.viewRequestedToSave()
         //Assert
-        XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? UIError, .timeGreaterThan)
+        XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? UIError, UIError.timeGreaterThan)
     }
 }
 
@@ -823,6 +764,20 @@ extension WorkTimeViewModelTests {
             tag: .default)
     }
     
+    private func buildProjectDecoder(countDuration: Bool?, isLunch: Bool, workTimesAllowsTask: Bool) -> ProjectDecoder {
+        return ProjectDecoder(
+            identifier: 1,
+            name: "",
+            color: nil,
+            autofill: nil,
+            countDuration: countDuration,
+            isActive: nil,
+            isInternal: nil,
+            isLunch: isLunch,
+            workTimesAllowsTask: workTimesAllowsTask,
+            isTaggable: false)
+    }
+    
     private func createTime(hours: Int, minutes: Int) throws -> Date {
         return try XCTUnwrap(Calendar(identifier: .gregorian).date(bySettingHour: hours, minute: minutes, second: 0, of: Date()))
     }
@@ -839,6 +794,18 @@ extension WorkTimeViewModelTests {
         self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects.first)
         sut.taskNameDidChange(value: "body")
         sut.taskURLDidChange(value: "www.example.com")
+    }
+}
+
+private extension Task {
+    func isTaskValidationError(equalTo: TaskValidationError?) -> Bool {
+        do {
+            try self.validate()
+            return equalTo == nil
+        } catch {
+            guard let error = error as? TaskValidationError else { return false }
+            return error == equalTo
+        }
     }
 }
 // swiftlint:enable file_length
