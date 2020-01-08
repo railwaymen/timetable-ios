@@ -34,6 +34,8 @@
 		8A31CD8723742CEA008E590D /* ProjectPickerCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CD8623742CEA008E590D /* ProjectPickerCellModel.swift */; };
 		8A31CD8923742D15008E590D /* ProjectPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CD8823742D15008E590D /* ProjectPickerCell.swift */; };
 		8A31CD8D23742E43008E590D /* ProjectPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A31CD8C23742E43008E590D /* ProjectPickerCell.xib */; };
+		8A3FE1B123ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3FE1B023ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift */; };
+		8A3FE1B323ABCFEE00CC9CC9 /* TaskValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3FE1B223ABCFEE00CC9CC9 /* TaskValidationError.swift */; };
 		8A523C8E2395091900215C61 /* DateExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A523C8D2395091900215C61 /* DateExtensionTests.swift */; };
 		8A55BA772372D02D004FFA97 /* UIApplicationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */; };
 		8A59AF202382E29200108C33 /* DailyWorkTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A59AF1F2382E29200108C33 /* DailyWorkTime.swift */; };
@@ -370,6 +372,8 @@
 		8A31CD8623742CEA008E590D /* ProjectPickerCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCellModel.swift; sourceTree = "<group>"; };
 		8A31CD8823742D15008E590D /* ProjectPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCell.swift; sourceTree = "<group>"; };
 		8A31CD8C23742E43008E590D /* ProjectPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectPickerCell.xib; sourceTree = "<group>"; };
+		8A3FE1B023ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeViewModelFlowTypeTests.swift; sourceTree = "<group>"; };
+		8A3FE1B223ABCFEE00CC9CC9 /* TaskValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskValidationError.swift; sourceTree = "<group>"; };
 		8A523C8D2395091900215C61 /* DateExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensionTests.swift; sourceTree = "<group>"; };
 		8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationMock.swift; sourceTree = "<group>"; };
 		8A59AF1F2382E29200108C33 /* DailyWorkTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWorkTime.swift; sourceTree = "<group>"; };
@@ -1058,6 +1062,7 @@
 				C125F1BD21DCDCB000594CDE /* Project.swift */,
 				C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */,
 				C152C22121E89CB8003ABD88 /* Task.swift */,
+				8A3FE1B223ABCFEE00CC9CC9 /* TaskValidationError.swift */,
 				C1E6B34A219EF02100019DC2 /* AccessService */,
 				C1531F022191C52200602A0C /* ApiClient */,
 				C12CA57821A58FA70082FEB7 /* BussinessModels */,
@@ -1467,8 +1472,9 @@
 		C18A189F21EF889B00CB6E32 /* WorkTime */ = {
 			isa = PBXGroup;
 			children = (
-				C18A18A021EF88B300CB6E32 /* WorkTimeViewModelTests.swift */,
 				8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */,
+				8A3FE1B023ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift */,
+				C18A18A021EF88B300CB6E32 /* WorkTimeViewModelTests.swift */,
 			);
 			path = WorkTime;
 			sourceTree = "<group>";
@@ -2249,6 +2255,7 @@
 				C153AC6921832073007A35BB /* AttributedView.swift in Sources */,
 				C11B3F3621F7258C00C46BA2 /* DateSelectorView.swift in Sources */,
 				C153AC6421830AFE007A35BB /* ServerConfiguartionViewModel.swift in Sources */,
+				8A3FE1B323ABCFEE00CC9CC9 /* TaskValidationError.swift in Sources */,
 				C1ECF09F2192C1AB006038C6 /* JSONDecoder+Extension.swift in Sources */,
 				C1ECF09D2192BB51006038C6 /* RequestEncoder.swift in Sources */,
 				C153AC512182EFEC007A35BB /* UIButton+Extension.swift in Sources */,
@@ -2300,6 +2307,7 @@
 				C1B771F521EF2C5800EFE06F /* TaskTests.swift in Sources */,
 				C10FD88921F1F36300A233C5 /* ApiClientUsersTests.swift in Sources */,
 				C134298F21A6D39C00F4EA42 /* LoginViewControllerMock.swift in Sources */,
+				8A3FE1B123ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift in Sources */,
 				C1E1F05421AD5FD2007F9228 /* WorkTimesTableViewHeaderViewModelTests.swift in Sources */,
 				C11D0CF9220820BD00066CA9 /* ApiClientMatchingFullTimeTests.swift in Sources */,
 				C1B771F721EF39FA00EFE06F /* ApiValidationErrorsTests.swift in Sources */,
