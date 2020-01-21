@@ -71,6 +71,7 @@
 		8AF5697123D7222800A1D001 /* ProjectRecordDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5697023D7222800A1D001 /* ProjectRecordDecoderFactory.swift */; };
 		8AF5697323D7248D00A1D001 /* SimpleProjectDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5697223D7248D00A1D001 /* SimpleProjectDecoderFactory.swift */; };
 		8AF5697723D751F400A1D001 /* SessionDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5697623D751F400A1D001 /* SessionDecoderFactory.swift */; };
+		8AF5697923D754D600A1D001 /* UserDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5697823D754D600A1D001 /* UserDecoderFactory.swift */; };
 		BFB4EF72FAE3D8CD21A09744 /* Pods_TimeTableTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FE8C20AC7A1A64A549519E /* Pods_TimeTableTests.framework */; };
 		C101603222003A9500DCE817 /* WorkTimesListContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */; };
 		C101603422003D4000DCE817 /* MatchingFullTimeEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101603322003D4000DCE817 /* MatchingFullTimeEncoder.swift */; };
@@ -418,6 +419,7 @@
 		8AF5697023D7222800A1D001 /* ProjectRecordDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRecordDecoderFactory.swift; sourceTree = "<group>"; };
 		8AF5697223D7248D00A1D001 /* SimpleProjectDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleProjectDecoderFactory.swift; sourceTree = "<group>"; };
 		8AF5697623D751F400A1D001 /* SessionDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDecoderFactory.swift; sourceTree = "<group>"; };
+		8AF5697823D754D600A1D001 /* UserDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDecoderFactory.swift; sourceTree = "<group>"; };
 		C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListContentProvider.swift; sourceTree = "<group>"; };
 		C101603322003D4000DCE817 /* MatchingFullTimeEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFullTimeEncoder.swift; sourceTree = "<group>"; };
 		C10FD87E21F1EDA100A233C5 /* ApiClient+Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiClient+Users.swift"; sourceTree = "<group>"; };
@@ -924,6 +926,7 @@
 				8AF5697023D7222800A1D001 /* ProjectRecordDecoderFactory.swift */,
 				8AF5697623D751F400A1D001 /* SessionDecoderFactory.swift */,
 				8AF5697223D7248D00A1D001 /* SimpleProjectDecoderFactory.swift */,
+				8AF5697823D754D600A1D001 /* UserDecoderFactory.swift */,
 			);
 			path = Factories;
 			sourceTree = "<group>";
@@ -2399,6 +2402,7 @@
 				C1531F072191CD4B00602A0C /* ApiClientTests.swift in Sources */,
 				C134297121A6BDF100F4EA42 /* JSONEncoderMock.swift in Sources */,
 				8A0707FA236998580019FB8E /* DependencyContainerMock.swift in Sources */,
+				8AF5697923D754D600A1D001 /* UserDecoderFactory.swift in Sources */,
 				8AE000182374654D002F783E /* ProjectPickerCoordinatorMock.swift in Sources */,
 				C134296521A694F300F4EA42 /* ApiClientWorkTimesTests.swift in Sources */,
 				C125C4D32186F4D800FBA0DD /* ErrorHandlerTypeTests.swift in Sources */,

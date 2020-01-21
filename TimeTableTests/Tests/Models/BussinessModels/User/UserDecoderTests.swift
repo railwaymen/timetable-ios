@@ -17,6 +17,7 @@ class UserDecoderTests: XCTestCase {
         //Act
         let sut = try self.decoder.decode(UserDecoder.self, from: data)
         //Assert
+        XCTAssertEqual(sut.identifier, 11)
         XCTAssertEqual(sut.firstName, "John")
         XCTAssertEqual(sut.lastName, "Little")
         XCTAssertEqual(sut.email, "john.little@example.com")
