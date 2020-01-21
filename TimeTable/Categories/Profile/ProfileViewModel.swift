@@ -26,7 +26,7 @@ class ProfileViewModel {
     private weak var userInterface: ProfileViewModelOutput?
     private weak var coordinator: ProfileCoordinatorDelegate?
     private let apiClient: ApiClientUsersType
-    private let accessService: AccessServiceUserIDType
+    private let accessService: AccessServiceLoginType
     private let coreDataStack: CoreDataStackUserType
     private let errorHandler: ErrorHandlerType
     
@@ -37,7 +37,7 @@ class ProfileViewModel {
         userInterface: ProfileViewModelOutput?,
         coordinator: ProfileCoordinatorDelegate,
         apiClient: ApiClientUsersType,
-        accessService: AccessServiceUserIDType,
+        accessService: AccessServiceLoginType,
         coreDataStack: CoreDataStackUserType,
         errorHandler: ErrorHandlerType
     ) {
@@ -72,11 +72,13 @@ extension ProfileViewModel: ProfileViewModelType {
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .success:
+                self?.removeUserCredentials()
                 self?.coordinator?.userProfileDidLogoutUser()
             case .failure(let error):
                 if let error = error as? CoreDataStack.Error {
                     switch error {
                     case .storageItemNotFound:
+                        self?.removeUserCredentials()
                         self?.coordinator?.userProfileDidLogoutUser()
                     }
                 } else {
@@ -116,5 +118,13 @@ extension ProfileViewModel {
             self.errorHandler.throwing(error: error)
         }
         self.userInterface?.showErrorView()
+    }
+    
+    private func removeUserCredentials() {
+        do {
+            try self.accessService.removeUserCredentials()
+        } catch {
+            assertionFailure("Error: \(error)")
+        }
     }
 }

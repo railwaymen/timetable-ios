@@ -132,6 +132,22 @@ class ProfileViewModelTests: XCTestCase {
         XCTAssertEqual(try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? TestError), error)
     }
     
+    func testViewRequestedForLogoutThrowsStorageItemNotFoundError() {
+        //Arrange
+        let sut = self.buildSUT()
+        let error: CoreDataStack.Error = .storageItemNotFound
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
+        //Act
+        sut.viewRequestedForLogout()
+        self.coreDataStackMock.deleteUserParams.last?.completion(.failure(error))
+        //Assert
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertEqual(self.accessServiceMock.removeUserCredentialsParams.count, 1)
+        XCTAssertEqual(self.coordinatorMock.userProfileDidLogoutUserParams.count, 1)
+        XCTAssertEqual(self.errorHandlerMock.throwingParams.count, 0)
+    }
+    
     func testViewRequestedForLogoutSucceed() {
         //Arrange
         let sut = self.buildSUT()
@@ -142,6 +158,7 @@ class ProfileViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertEqual(self.accessServiceMock.removeUserCredentialsParams.count, 1)
         XCTAssertEqual(self.coordinatorMock.userProfileDidLogoutUserParams.count, 1)
     }
 }
