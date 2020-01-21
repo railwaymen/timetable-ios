@@ -210,8 +210,7 @@ extension WorkTimesListViewModel {
     
     private func fetchAndChangeSelectedMonth(with components: DateComponents) {
         guard let date = self.selectedMonth else { return }
-        let newComponents = self.newDateComponents(for: date, oldComponents: components)
-        let newSelectedMonth = self.calendar.date(byAdding: newComponents, to: date)
+        let newSelectedMonth = self.calendar.date(byAdding: components, to: date)
         self.selectedMonth = newSelectedMonth
         self.updateDateSelectorView(withCurrentDate: newSelectedMonth)
         self.fetchWorkTimesData(forCurrentMonth: newSelectedMonth)
@@ -219,10 +218,8 @@ extension WorkTimesListViewModel {
     
     private func updateDateSelectorView(withCurrentDate date: Date?) {
         guard let currentDate = date else { return }
-        let previousDateComponents = self.newDateComponents(for: currentDate, oldComponents: DateComponents(month: -1))
-        let nextDateComponents = self.newDateComponents(for: currentDate, oldComponents: DateComponents(month: 1))
-        guard let previousDate = self.calendar.date(byAdding: previousDateComponents, to: currentDate) else { return }
-        guard let nextDate = self.calendar.date(byAdding: nextDateComponents, to: currentDate) else { return }
+        guard let previousDate = self.calendar.date(byAdding: DateComponents(month: -1), to: currentDate) else { return }
+        guard let nextDate = self.calendar.date(byAdding: DateComponents(month: 1), to: currentDate) else { return }
         let currentDateString = self.string(for: currentDate)
         let previousDateString = self.string(for: previousDate)
         let nextDateString = self.string(for: nextDate)
@@ -251,7 +248,7 @@ extension WorkTimesListViewModel {
         let defaultValue = "00:00"
         var time: (workedHours: String, shouldWorkHours: String, duration: String) = (defaultValue, defaultValue, defaultValue)
         if let countedDuration = matchingFullTime.period?.countedDuration {
-            time.workedHours = formatter.string(from: countedDuration ) ?? defaultValue
+            time.workedHours = formatter.string(from: countedDuration) ?? defaultValue
         }
         if let shouldWorked = matchingFullTime.shouldWorked {
             time.shouldWorkHours = formatter.string(from: shouldWorked) ?? defaultValue
@@ -275,19 +272,6 @@ extension WorkTimesListViewModel {
             self.errorHandler.throwing(error: error)
         }
         self.userInterface?.showErrorView()
-    }
-    
-    private func newDateComponents(for date: Date, oldComponents: DateComponents) -> DateComponents {
-        var newComponents = oldComponents
-        guard let month = self.calendar.dateComponents([.month], from: date).month else { return newComponents }
-        if let componentsMonth = oldComponents.month {
-            if month == 1 && componentsMonth == -1 {
-                newComponents.year = -1
-            } else if month == 12 && componentsMonth == 1 {
-                newComponents.year = 1
-            }
-        }
-        return newComponents
     }
     
     private func string(for date: Date) -> String {

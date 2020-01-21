@@ -161,7 +161,7 @@ class WorkTimesListViewModelTests: XCTestCase {
     
     func testViewRequestForPreviousMonthWhileSelectedMonthIsNilValue() throws {
         //Arrange
-        let sut = try self.buildSUT(isSelecteDate: false)
+        let sut = try self.buildSUT(isSelectedDate: false)
         //Act
         sut.viewRequestForPreviousMonth()
         //Assert
@@ -184,7 +184,7 @@ class WorkTimesListViewModelTests: XCTestCase {
     
     func testViewRequestForNextMonthWhileSelectedMonthIsNilValue() throws {
         //Act
-        let sut = try self.buildSUT(isSelecteDate: false)
+        let sut = try self.buildSUT(isSelectedDate: false)
         sut.viewRequestForPreviousMonth()
         //Assert
         XCTAssertTrue(self.userInterfaceMock.updateMatchingFullTimeLabelsParams.isEmpty)
@@ -446,10 +446,10 @@ class WorkTimesListViewModelTests: XCTestCase {
 
 // MARK: - Private
 extension WorkTimesListViewModelTests {
-    private func buildSUT(isSelecteDate: Bool = true) throws -> WorkTimesListViewModel {
+    private func buildSUT(isSelectedDate: Bool = true) throws -> WorkTimesListViewModel {
         let components = DateComponents(year: 2019, month: 2, day: 2)
         self.calendarMock.dateComponentsReturnValue = components
-        if isSelecteDate {
+        if isSelectedDate {
             self.calendarMock.dateFromDateComponentsReturnValue = try self.buildDate(components)
         }
         return WorkTimesListViewModel(

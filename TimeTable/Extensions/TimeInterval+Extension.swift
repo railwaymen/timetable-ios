@@ -9,6 +9,6 @@
 import Foundation
 
 extension TimeInterval {
-    static let minute: TimeInterval = 60
     static let hour: TimeInterval = 3600
+    static let minute: TimeInterval = 60
 }
