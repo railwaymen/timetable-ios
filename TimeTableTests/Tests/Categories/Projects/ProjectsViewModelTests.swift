@@ -13,15 +13,85 @@ class ProjectsViewModelTests: XCTestCase {
     private var userInterfaceMock: ProjectsViewControllerMock!
     private var apiClientMock: ApiClientMock!
     private var errorHandlerMock: ErrorHandlerMock!
+    private var notificationCenterMock: NotificationCenterMock!
         
     override func setUp() {
+        super.setUp()
         self.userInterfaceMock = ProjectsViewControllerMock()
         self.apiClientMock = ApiClientMock()
         self.errorHandlerMock = ErrorHandlerMock()
-        super.setUp()
+        self.notificationCenterMock = NotificationCenterMock()
+    }
+}
+
+// MARK: - Default init
+extension ProjectsViewModelTests {
+    func testInit_setsUpNotifications() {
+        //Act
+        _ = self.buildSUT()
+        //Assert
+        XCTAssertEqual(self.notificationCenterMock.addObserverParams.count, 1)
+        XCTAssertEqual(self.notificationCenterMock.addObserverParams.first?.name, UIDevice.orientationDidChangeNotification)
+    }
+}
+
+// MARK: - screenOrientationDidChange()
+extension ProjectsViewModelTests {
+    func testScreenOrientationDidChange() {
+        //Arrange
+        let sut = self.buildSUT()
+        //Act
+        sut.screenOrientationDidChange()
+        //Assert
+        XCTAssertEqual(self.userInterfaceMock.screenOrientationDidChangeParams.count, 1)
+    }
+}
+
+// MARK: - viewDidLoad()
+extension ProjectsViewModelTests {
+    func testViewDidLoad_setsUpView() {
+        //Arrange
+        let sut = self.buildSUT()
+        //Act
+        sut.viewDidLoad()
+        //Assert
+        XCTAssertEqual(self.userInterfaceMock.setUpViewParams.count, 1)
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
     }
     
-    func testNumberOfItemsOnInitializationReturnsZero() {
+    func testViewDidLoad_fetchProjects_testError() throws {
+        //Arrange
+        let error = TestError(message: "fetch project failure")
+        let sut = self.buildSUT()
+        //Act
+        sut.viewDidLoad()
+        self.apiClientMock.fetchAllProjectsParams.last?.completion(.failure(error))
+        //Assert
+        XCTAssertEqual(try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? TestError), error)
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertEqual(self.userInterfaceMock.showErrorViewParams.count, 1)
+    }
+    
+    func testViewDidLoad_fetchProjects_timeout() throws {
+        //Arrange
+        let error = ApiClientError(type: .timeout)
+        let sut = self.buildSUT()
+        //Act
+        sut.viewDidLoad()
+        self.apiClientMock.fetchAllProjectsParams.last?.completion(.failure(error))
+        //Assert
+        XCTAssertEqual(self.errorHandlerMock.throwingParams.count, 0)
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertEqual(self.userInterfaceMock.showErrorViewParams.count, 1)
+    }
+}
+
+// MARK: - numberOfItems()
+extension ProjectsViewModelTests {
+    func testNumberOfItems_withoutProjects() {
         //Arrange
         let sut = self.buildSUT()
         //Act
@@ -30,7 +100,7 @@ class ProjectsViewModelTests: XCTestCase {
         XCTAssertEqual(numberOfItems, 0)
     }
     
-    func testNuberOfItemsAfterViewDidLoadReturnsMoreThanZero() throws {
+    func testNuberOfItems_withProjects() throws {
         //Arrange
         let data = try self.json(from: ProjectRecordJSONResource.projectsRecordsResponse)
         let records = try self.decoder.decode([ProjectRecordDecoder].self, from: data)
@@ -42,8 +112,11 @@ class ProjectsViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(numberOfItems, 2)
     }
-    
-    func testItemAtIndexOnInitializationReturnsNil() {
+}
+
+// MARK: - item(at:)
+extension ProjectsViewModelTests {
+    func testItemAtIndex_withoutProjects() {
         //Arrange
         let sut = self.buildSUT()
         let indexPath = IndexPath(row: 0, section: 0)
@@ -53,7 +126,7 @@ class ProjectsViewModelTests: XCTestCase {
         XCTAssertNil(project)
     }
     
-    func testItemAtIndexAfterViewDidLoadReturnsProjectForFirstRow() throws {
+    func testItemAtIndex_withProjects_firstRow() throws {
         //Arrange
         let color = UIColor(hexString: "00000c")
         let user = Project.User(name: "John Test")
@@ -75,7 +148,7 @@ class ProjectsViewModelTests: XCTestCase {
         XCTAssertEqual(project?.leader, leader)
     }
     
-    func testItemAtIndexAfterViewDidLoadReturnsProjectForSecondRow() throws {
+    func testItemAtIndex_withProjects_secondRow() throws {
         //Arrange
         let color = UIColor(hexString: "0c0c0c")
         let firstUser = Project.User(name: "User User")
@@ -98,32 +171,6 @@ class ProjectsViewModelTests: XCTestCase {
         XCTAssertEqual(try XCTUnwrap(project?.users.last), lastUser)
         XCTAssertEqual(project?.leader, leader)
     }
-    
-    func testViewDidLoadSetUpsView() {
-        //Arrange
-        let sut = self.buildSUT()
-        //Act
-        sut.viewDidLoad()
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.setUpViewParams.count, 1)
-        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
-        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-    }
-    
-    func testViewDidLoadFetchProjectsFailure() throws {
-        //Arrange
-        let error = TestError(message: "fetch project failure")
-        let sut = self.buildSUT()
-        //Act
-        sut.viewDidLoad()
-        self.apiClientMock.fetchAllProjectsParams.last?.completion(.failure(error))
-        //Assert
-        XCTAssertEqual(try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? TestError), error)
-        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-        XCTAssertEqual(self.userInterfaceMock.showErrorViewParams.count, 1)
-    }
-    
 }
 
 // MARK: - Private
@@ -132,6 +179,7 @@ extension ProjectsViewModelTests {
         return ProjectsViewModel(
             userInterface: self.userInterfaceMock,
             apiClient: self.apiClientMock,
-            errorHandler: self.errorHandlerMock)
+            errorHandler: self.errorHandlerMock,
+            notificationCenter: self.notificationCenterMock)
     }
 }

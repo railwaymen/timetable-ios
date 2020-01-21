@@ -46,6 +46,11 @@ class ProjectsCollectionViewLayout: UICollectionViewFlowLayout {
     override func prepare(forAnimatedBoundsChange oldBounds: CGRect) {
         self.resizeView()
     }
+    
+    override func invalidateLayout() {
+        super.invalidateLayout()
+        self.cache.removeAll()
+    }
 }
 
 // MARK: - Private
@@ -60,6 +65,7 @@ extension ProjectsCollectionViewLayout {
         var column = 0
         var yOffset = [CGFloat](repeating: 0, count: numberOfItemsPerRow)
         
+        var contentHeight: CGFloat = 0
         (0..<collectionView.numberOfItems(inSection: 0)).forEach {
             let indexPath = IndexPath(item: $0, section: 0)
             let tableViewHeight = self.delegate?.collectionView(collectionView, heightForUsersTableViewAtIndexPath: indexPath) ?? 0
@@ -71,10 +77,11 @@ extension ProjectsCollectionViewLayout {
             attributes.frame = insetFrame
             self.cache.append(attributes)
             
-            self.contentHeight = max(self.contentHeight, frame.maxY)
+            contentHeight = max(contentHeight, frame.maxY)
             yOffset[column] = yOffset[column] + height
             
             column = column < (numberOfItemsPerRow - 1) ? (column + 1) : 0
         }
+        self.contentHeight = contentHeight
     }
 }

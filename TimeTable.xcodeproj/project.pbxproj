@@ -23,7 +23,6 @@
 		8A09DCBC23673EED003FC2A6 /* DispatchQueueManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A09DCBB23673EED003FC2A6 /* DispatchQueueManagerMock.swift */; };
 		8A0AFA662386CFF70054D55F /* CoordinatorsFoundation+Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AFA652386CFF70054D55F /* CoordinatorsFoundation+Typealiases.swift */; };
 		8A10F83B2350C7AF0004F389 /* WorkTimeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F83A2350C7AF0004F389 /* WorkTimeCoordinator.swift */; };
-		8A10F83D2350D9810004F389 /* DismissableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F83C2350D9810004F389 /* DismissableNavigationController.swift */; };
 		8A10F841235454DA0004F389 /* UIBarButtonItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */; };
 		8A31A85E238E902B008DCC08 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31A85D238E902B008DCC08 /* Date+Extension.swift */; };
 		8A31A860238E927E008DCC08 /* TimeInterval+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31A85F238E927E008DCC08 /* TimeInterval+Extension.swift */; };
@@ -361,7 +360,6 @@
 		8A09DCBB23673EED003FC2A6 /* DispatchQueueManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueManagerMock.swift; sourceTree = "<group>"; };
 		8A0AFA652386CFF70054D55F /* CoordinatorsFoundation+Typealiases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoordinatorsFoundation+Typealiases.swift"; sourceTree = "<group>"; };
 		8A10F83A2350C7AF0004F389 /* WorkTimeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCoordinator.swift; sourceTree = "<group>"; };
-		8A10F83C2350D9810004F389 /* DismissableNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissableNavigationController.swift; sourceTree = "<group>"; };
 		8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extension.swift"; sourceTree = "<group>"; };
 		8A31A85D238E902B008DCC08 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		8A31A85F238E927E008DCC08 /* TimeInterval+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extension.swift"; sourceTree = "<group>"; };
@@ -970,7 +968,6 @@
 		C1249C5E21819E16005DB2A5 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				8A10F83C2350D9810004F389 /* DismissableNavigationController.swift */,
 				C14EB0232372D9A0007F07D0 /* Error */,
 				C1B5137521772D1400C3727C /* LaunchScreen.storyboard */,
 				C1F926E121874FB40004A9BC /* Login */,
@@ -2240,7 +2237,6 @@
 				C1249C772181AAE4005DB2A5 /* StoryboardsManager.swift in Sources */,
 				C1F187B021E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift in Sources */,
 				8AC097242371CCFF00103FAD /* UIApplication+Extension.swift in Sources */,
-				8A10F83D2350D9810004F389 /* DismissableNavigationController.swift in Sources */,
 				C13C88E821E5F7B600F68C6E /* WorkTimeViewModel.swift in Sources */,
 				8A798746237D4DC6003DC028 /* ProfileViewController.swift in Sources */,
 				C13C2B0421EDD1C5008C9088 /* ServerError.swift in Sources */,
