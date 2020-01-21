@@ -24,8 +24,11 @@ class ProjectsViewControllerMock {
     
     private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
     struct SetActivityIndicatorParams {
-        var isHidden: Bool
+        let isHidden: Bool
     }
+    
+        private(set) var screenOrientationDidChangeParams: [ScreenOrientationDidChangeParams] = []
+    struct ScreenOrientationDidChangeParams {}
 }
 
 // MARK: - ProjectsViewModelOutput
@@ -48,5 +51,9 @@ extension ProjectsViewControllerMock: ProjectsViewModelOutput {
     
     func setActivityIndicator(isHidden: Bool) {
         self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isHidden))
+    }
+    
+    func screenOrientationDidChange() {
+        self.screenOrientationDidChangeParams.append(ScreenOrientationDidChangeParams())
     }
 }

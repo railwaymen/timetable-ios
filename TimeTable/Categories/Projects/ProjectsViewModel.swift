@@ -6,7 +6,7 @@
 //  Copyright © 2019 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol ProjectsViewModelOutput: class {
     func setUpView()
@@ -14,20 +14,21 @@ protocol ProjectsViewModelOutput: class {
     func showCollectionView()
     func showErrorView()
     func setActivityIndicator(isHidden: Bool)
+    func screenOrientationDidChange()
 }
 
 protocol ProjectsViewModelType: class {
+    func viewDidLoad()
     func numberOfItems() -> Int
     func item(at index: IndexPath) -> Project?
-    func viewDidLoad()
     func configure(_ view: ErrorViewable)
 }
 
 class ProjectsViewModel {
-    
     private weak var userInterface: ProjectsViewModelOutput?
     private let apiClient: ApiClientProjectsType
     private let errorHandler: ErrorHandlerType
+    private weak var notificationCenter: NotificationCenterType?
     private var projects: [Project]
     
     private var errorViewModel: ErrorViewModelParentType?
@@ -36,17 +37,31 @@ class ProjectsViewModel {
     init(
         userInterface: ProjectsViewModelOutput?,
         apiClient: ApiClientProjectsType,
-        errorHandler: ErrorHandlerType
+        errorHandler: ErrorHandlerType,
+        notificationCenter: NotificationCenterType
     ) {
         self.userInterface = userInterface
         self.apiClient = apiClient
         self.errorHandler = errorHandler
+        self.notificationCenter = notificationCenter
         self.projects = []
+        
+        self.setUpNotifications()
+    }
+    
+    // MARK: - Notifcations
+    @objc func screenOrientationDidChange() {
+        self.userInterface?.screenOrientationDidChange()
     }
 }
 
 // MARK: - ProjectsViewModelType
 extension ProjectsViewModel: ProjectsViewModelType {
+    func viewDidLoad() {
+        self.fetchProjects()
+        self.userInterface?.setUpView()
+    }
+    
     func numberOfItems() -> Int {
         return self.projects.count
     }
@@ -54,11 +69,6 @@ extension ProjectsViewModel: ProjectsViewModelType {
     func item(at index: IndexPath) -> Project? {
         guard self.projects.count > index.row else { return nil }
         return self.projects[index.row]
-    }
-    
-    func viewDidLoad() {
-        self.fetchProjects()
-        self.userInterface?.setUpView()
     }
     
     func configure(_ view: ErrorViewable) {
@@ -72,6 +82,14 @@ extension ProjectsViewModel: ProjectsViewModelType {
  
 // MARK: - Private
 extension ProjectsViewModel {
+    private func setUpNotifications() {
+        self.notificationCenter?.addObserver(
+            self,
+            selector: #selector(self.screenOrientationDidChange),
+            name: UIDevice.orientationDidChangeNotification,
+            object: nil)
+    }
+    
     private func fetchProjects() {
         self.userInterface?.setActivityIndicator(isHidden: false)
         self.apiClient.fetchAllProjects { [weak self] result in

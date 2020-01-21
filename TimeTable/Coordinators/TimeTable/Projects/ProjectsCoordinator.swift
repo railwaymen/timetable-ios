@@ -46,7 +46,8 @@ extension ProjectsCoordinator {
         let viewModel = ProjectsViewModel(
             userInterface: controller,
             apiClient: apiClient,
-            errorHandler: self.dependencyContainer.errorHandler)
+            errorHandler: self.dependencyContainer.errorHandler,
+            notificationCenter: self.dependencyContainer.notificationCenter)
         controller?.configure(viewModel: viewModel)
         if let controller = controller {        
             self.navigationController.pushViewController(controller, animated: false)

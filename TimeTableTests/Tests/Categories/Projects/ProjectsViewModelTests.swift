@@ -13,12 +13,14 @@ class ProjectsViewModelTests: XCTestCase {
     private var userInterfaceMock: ProjectsViewControllerMock!
     private var apiClientMock: ApiClientMock!
     private var errorHandlerMock: ErrorHandlerMock!
+    private var notificationCenterMock: NotificationCenterMock!
         
     override func setUp() {
+        super.setUp()
         self.userInterfaceMock = ProjectsViewControllerMock()
         self.apiClientMock = ApiClientMock()
         self.errorHandlerMock = ErrorHandlerMock()
-        super.setUp()
+        self.notificationCenterMock = NotificationCenterMock()
     }
     
     func testNumberOfItemsOnInitializationReturnsZero() {
@@ -132,6 +134,7 @@ extension ProjectsViewModelTests {
         return ProjectsViewModel(
             userInterface: self.userInterfaceMock,
             apiClient: self.apiClientMock,
-            errorHandler: self.errorHandlerMock)
+            errorHandler: self.errorHandlerMock,
+            notificationCenter: self.notificationCenterMock)
     }
 }

@@ -95,6 +95,14 @@ extension ProjectsViewController: ProjectsViewModelOutput {
         isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
         self.activityIndicator.set(isHidden: isHidden)
     }
+    
+    func screenOrientationDidChange() {
+        guard let collectionView = self.collectionView else { return }
+        collectionView.setNeedsLayout()
+        guard let layout = collectionView.collectionViewLayout as? ProjectsCollectionViewLayout else { return assertionFailure() }
+        layout.invalidateLayout()
+        collectionView.layoutIfNeeded()
+    }
 }
 
 // MARK: - ProjectsViewControllerType
