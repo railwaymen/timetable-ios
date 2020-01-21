@@ -66,6 +66,8 @@
 		8AE0001C23746C99002F783E /* ProjectPickerCellMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE0001B23746C99002F783E /* ProjectPickerCellMock.swift */; };
 		8AE0001E23747036002F783E /* ProjectPickerCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE0001D23747036002F783E /* ProjectPickerCellModelTests.swift */; };
 		8AF3073823688C5A00832FDD /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3073723688C5A00832FDD /* DependencyContainer.swift */; };
+		8AF5696D23D71C0900A1D001 /* ProjectDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5696C23D71C0900A1D001 /* ProjectDecoderFactory.swift */; };
+		8AF5696F23D71EA000A1D001 /* JSONFactorable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5696E23D71EA000A1D001 /* JSONFactorable+Extension.swift */; };
 		BFB4EF72FAE3D8CD21A09744 /* Pods_TimeTableTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FE8C20AC7A1A64A549519E /* Pods_TimeTableTests.framework */; };
 		C101603222003A9500DCE817 /* WorkTimesListContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */; };
 		C101603422003D4000DCE817 /* MatchingFullTimeEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101603322003D4000DCE817 /* MatchingFullTimeEncoder.swift */; };
@@ -408,6 +410,8 @@
 		8AE0001B23746C99002F783E /* ProjectPickerCellMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCellMock.swift; sourceTree = "<group>"; };
 		8AE0001D23747036002F783E /* ProjectPickerCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCellModelTests.swift; sourceTree = "<group>"; };
 		8AF3073723688C5A00832FDD /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
+		8AF5696C23D71C0900A1D001 /* ProjectDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDecoderFactory.swift; sourceTree = "<group>"; };
+		8AF5696E23D71EA000A1D001 /* JSONFactorable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONFactorable+Extension.swift"; sourceTree = "<group>"; };
 		C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListContentProvider.swift; sourceTree = "<group>"; };
 		C101603322003D4000DCE817 /* MatchingFullTimeEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFullTimeEncoder.swift; sourceTree = "<group>"; };
 		C10FD87E21F1EDA100A233C5 /* ApiClient+Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiClient+Users.swift"; sourceTree = "<group>"; };
@@ -907,6 +911,14 @@
 			path = ProjectPicker;
 			sourceTree = "<group>";
 		};
+		8AF5696B23D71BE700A1D001 /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				8AF5696C23D71C0900A1D001 /* ProjectDecoderFactory.swift */,
+			);
+			path = Factories;
+			sourceTree = "<group>";
+		};
 		C10FD87D21F1ED8300A233C5 /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -1035,8 +1047,9 @@
 		C1249C692181A21B005DB2A5 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				C1249C6B2181A23A005DB2A5 /* String+Error.swift */,
+				8AF5696E23D71EA000A1D001 /* JSONFactorable+Extension.swift */,
 				C1B8FA4C218C9A04009D10B4 /* JSONFileResource.swift */,
+				C1249C6B2181A23A005DB2A5 /* String+Error.swift */,
 				C134296221A693F400F4EA42 /* TestError.swift */,
 				C1FA05E821945DA400BD8C9D /* XCTests+Extension.swift */,
 			);
@@ -1616,6 +1629,7 @@
 			isa = PBXGroup;
 			children = (
 				C1249C692181A21B005DB2A5 /* Common */,
+				8AF5696B23D71BE700A1D001 /* Factories */,
 				C134296121A693D000F4EA42 /* Mocks */,
 				C1B8FA4E218C9A5B009D10B4 /* Resources */,
 				C1249C6221819EF7005DB2A5 /* SupportingFiles */,
@@ -2352,6 +2366,7 @@
 				C134298321A6C73000F4EA42 /* URLSessionDataTaskMock.swift in Sources */,
 				8A0707FC23699BE50019FB8E /* NotificationCenterMock.swift in Sources */,
 				C11D0CF7220816D800066CA9 /* MatchingFullTimeEncoderTests.swift in Sources */,
+				8AF5696F23D71EA000A1D001 /* JSONFactorable+Extension.swift in Sources */,
 				C19706E221C132C9007AFED4 /* WorkTimeCellViewModelTests.swift in Sources */,
 				C1FA05E4219440C700BD8C9D /* LoginContentProviderTests.swift in Sources */,
 				C19706E421C13908007AFED4 /* CalendarExtensionTests.swift in Sources */,
@@ -2370,6 +2385,7 @@
 				C1EF3A0921930722000E3511 /* StringExtensionTests.swift in Sources */,
 				8A523C8E2395091900215C61 /* DateExtensionTests.swift in Sources */,
 				C134296F21A6BCCD00F4EA42 /* RequestEncoderMock.swift in Sources */,
+				8AF5696D23D71C0900A1D001 /* ProjectDecoderFactory.swift in Sources */,
 				C134299121A6D3BF00F4EA42 /* CoreDataStackMock.swift in Sources */,
 				C1531F072191CD4B00602A0C /* ApiClientTests.swift in Sources */,
 				C134297121A6BDF100F4EA42 /* JSONEncoderMock.swift in Sources */,

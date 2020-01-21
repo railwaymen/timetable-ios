@@ -11,6 +11,8 @@ import XCTest
 
 // swiftlint:disable file_length
 class WorkTimeViewModelTests: XCTestCase {
+    private let projectDecoderFactory = ProjectDecoderFactory()
+    
     private var userInterfaceMock: WorkTimeViewControllerMock!
     private var coordinatorMock: WorkTimeCoordinatorMock!
     private var apiClientMock: ApiClientMock!
@@ -435,7 +437,7 @@ extension WorkTimeViewModelTests {
 
     func testViewRequestedToSave_whileTaskBodyIsNil() throws {
         //Arrange
-        let project = self.buildProjectDecoder(countDuration: nil, isLunch: false, workTimesAllowsTask: true)
+        let project = try self.projectDecoderFactory.build(countDuration: nil, isLunch: false, workTimesAllowsTask: true)
         let task = Task(workTimeIdentifier: nil, project: project, body: "", url: nil, day: nil, startsAt: nil, endsAt: nil, tag: .default)
         guard task.isTaskValidationError(equalTo: .bodyIsEmpty) else { return XCTFail() }
         let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
@@ -447,7 +449,7 @@ extension WorkTimeViewModelTests {
     
     func testViewRequestedToSave_whileTaskURLIsNil() throws {
         //Arrange
-        let project = self.buildProjectDecoder(countDuration: nil, isLunch: false, workTimesAllowsTask: true)
+        let project = try self.projectDecoderFactory.build(countDuration: nil, isLunch: false, workTimesAllowsTask: true)
         let task = Task(workTimeIdentifier: nil, project: project, body: "Some", url: nil, day: nil, startsAt: nil, endsAt: nil, tag: .default)
         guard task.isTaskValidationError(equalTo: .urlIsNil) else { return XCTFail() }
         let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
@@ -459,7 +461,7 @@ extension WorkTimeViewModelTests {
     
     func testViewRequestedToSave_startsAtIsNil() throws {
         //Arrange
-        let project = self.buildProjectDecoder(countDuration: nil, isLunch: true, workTimesAllowsTask: true)
+        let project = try self.projectDecoderFactory.build(countDuration: nil, isLunch: true, workTimesAllowsTask: true)
         let task = Task(workTimeIdentifier: nil, project: project, body: "", url: nil, day: nil, startsAt: nil, endsAt: nil, tag: .default)
         guard task.isTaskValidationError(equalTo: .startsAtIsNil) else { return XCTFail() }
         let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
@@ -472,7 +474,7 @@ extension WorkTimeViewModelTests {
     func testViewRequestedToSave_endsAtIsNil() throws {
         //Arrange
         let startsAtDate = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let project = self.buildProjectDecoder(countDuration: nil, isLunch: true, workTimesAllowsTask: true)
+        let project = try self.projectDecoderFactory.build(countDuration: nil, isLunch: true, workTimesAllowsTask: true)
         let task = Task(workTimeIdentifier: nil, project: project, body: "", url: nil, day: nil, startsAt: startsAtDate, endsAt: nil, tag: .default)
         guard task.isTaskValidationError(equalTo: .endsAtIsNil) else { return XCTFail() }
         let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
@@ -486,7 +488,7 @@ extension WorkTimeViewModelTests {
         //Arrange
         let startsAtDate = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let endsAtDate = try self.buildDate(year: 2018, month: 1, day: 16, hour: 12, minute: 2, second: 1)
-        let project = self.buildProjectDecoder(countDuration: nil, isLunch: true, workTimesAllowsTask: true)
+        let project = try self.projectDecoderFactory.build(countDuration: nil, isLunch: true, workTimesAllowsTask: true)
         let task = Task(workTimeIdentifier: nil, project: project, body: "", url: nil, day: nil, startsAt: startsAtDate, endsAt: endsAtDate, tag: .default)
         guard task.isTaskValidationError(equalTo: .timeRangeIsIncorrect) else { return XCTFail() }
         let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
@@ -762,20 +764,6 @@ extension WorkTimeViewModelTests {
             startsAt: try self.createTime(hours: 8, minutes: 0),
             endsAt: try self.createTime(hours: 9, minutes: 30),
             tag: .default)
-    }
-    
-    private func buildProjectDecoder(countDuration: Bool?, isLunch: Bool, workTimesAllowsTask: Bool) -> ProjectDecoder {
-        return ProjectDecoder(
-            identifier: 1,
-            name: "",
-            color: nil,
-            autofill: nil,
-            countDuration: countDuration,
-            isActive: nil,
-            isInternal: nil,
-            isLunch: isLunch,
-            workTimesAllowsTask: workTimesAllowsTask,
-            isTaggable: false)
     }
     
     private func createTime(hours: Int, minutes: Int) throws -> Date {

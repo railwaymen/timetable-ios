@@ -9,8 +9,8 @@
 import XCTest
 @testable import TimeTable
 
-// swiftlint:disable type_body_length
 class WorkTimeDecoderTests: XCTestCase {
+    private let projectDecoderFactory = ProjectDecoderFactory()
 
     func testWorkTimeResponse() throws {
         //Arrange
@@ -18,14 +18,10 @@ class WorkTimeDecoderTests: XCTestCase {
         let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
         let date = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 0)
-        let project = ProjectDecoder(
+        let project = try self.projectDecoderFactory.build(
             identifier: 3,
             name: "Lorem Ipsum",
             color: UIColor(hexString: "fe0404"),
-            autofill: nil,
-            countDuration: nil,
-            isActive: nil,
-            isInternal: nil,
             isLunch: false,
             workTimesAllowsTask: false,
             isTaggable: true)
@@ -65,14 +61,10 @@ class WorkTimeDecoderTests: XCTestCase {
         let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
         let date = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 0)
-        let project = ProjectDecoder(
+        let project = try self.projectDecoderFactory.build(
             identifier: 3,
             name: "Lorem Ipsum",
             color: UIColor(hexString: "fe0404"),
-            autofill: nil,
-            countDuration: nil,
-            isActive: nil,
-            isInternal: nil,
             isLunch: false,
             workTimesAllowsTask: false,
             isTaggable: true)
@@ -100,14 +92,10 @@ class WorkTimeDecoderTests: XCTestCase {
         let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
         let date = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 0)
-        let project = ProjectDecoder(
+        let project = try self.projectDecoderFactory.build(
             identifier: 3,
             name: "Lorem Ipsum",
             color: UIColor(hexString: "fe0404"),
-            autofill: nil,
-            countDuration: nil,
-            isActive: nil,
-            isInternal: nil,
             isLunch: false,
             workTimesAllowsTask: false,
             isTaggable: true)
@@ -135,14 +123,10 @@ class WorkTimeDecoderTests: XCTestCase {
         let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
         let date = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 0)
-        let project = ProjectDecoder(
+        let project = try self.projectDecoderFactory.build(
             identifier: 3,
             name: "Lorem Ipsum",
             color: UIColor(hexString: "fe0404"),
-            autofill: nil,
-            countDuration: nil,
-            isActive: nil,
-            isInternal: nil,
             isLunch: false,
             workTimesAllowsTask: false,
             isTaggable: true)
@@ -170,14 +154,10 @@ class WorkTimeDecoderTests: XCTestCase {
         let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
         let date = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 0)
-        let project = ProjectDecoder(
+        let project = try self.projectDecoderFactory.build(
             identifier: 3,
             name: "Lorem Ipsum",
             color: UIColor(hexString: "fe0404"),
-            autofill: nil,
-            countDuration: nil,
-            isActive: nil,
-            isInternal: nil,
             isLunch: false,
             workTimesAllowsTask: false,
             isTaggable: true)
@@ -205,14 +185,10 @@ class WorkTimeDecoderTests: XCTestCase {
         let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
         let date = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 0)
-        let project = ProjectDecoder(
+        let project = try self.projectDecoderFactory.build(
             identifier: 3,
             name: "Lorem Ipsum",
             color: UIColor(hexString: "fe0404"),
-            autofill: nil,
-            countDuration: nil,
-            isActive: nil,
-            isInternal: nil,
             isLunch: false,
             workTimesAllowsTask: false,
             isTaggable: true)
@@ -240,14 +216,10 @@ class WorkTimeDecoderTests: XCTestCase {
         let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
         let date = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 0)
-        let project = ProjectDecoder(
+        let project = try self.projectDecoderFactory.build(
             identifier: 3,
             name: "Lorem Ipsum",
             color: UIColor(hexString: "fe0404"),
-            autofill: nil,
-            countDuration: nil,
-            isActive: nil,
-            isInternal: nil,
             isLunch: false,
             workTimesAllowsTask: false,
             isTaggable: true)
@@ -269,4 +241,3 @@ class WorkTimeDecoderTests: XCTestCase {
         XCTAssertEqual(sut.project, project)
     }
 }
-// swiftlint:enable type_body_length
