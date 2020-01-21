@@ -9,24 +9,14 @@
 import Foundation
 import UIKit
 
-struct ProjectRecordDecoder {
+struct ProjectRecordDecoder: Decodable {
     let identifier: Int
     let projectId: Int
     let name: String
     let color: UIColor?
     let user: User?
     let leader: User?
-}
-
-// MARK: - Structures
-extension ProjectRecordDecoder {
-    struct User {
-        let name: String
-    }
-}
-
-// MARK: - Decodable
-extension ProjectRecordDecoder: Decodable {
+    
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
         case projectId
@@ -36,6 +26,7 @@ extension ProjectRecordDecoder: Decodable {
         case leader
     }
     
+    // MARK: - Initialization
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.identifier = try container.decode(Int.self, forKey: .identifier)
@@ -51,9 +42,14 @@ extension ProjectRecordDecoder: Decodable {
     }
 }
 
-extension ProjectRecordDecoder.User: Decodable {
-    enum CodingKeys: String, CodingKey {
-        case name
+// MARK: - Structures
+extension ProjectRecordDecoder {
+    struct User: Decodable {
+        let name: String
+        
+        enum CodingKeys: String, CodingKey {
+            case name
+        }
     }
 }
 
