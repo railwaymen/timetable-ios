@@ -10,6 +10,7 @@ import XCTest
 @testable import TimeTable
 
 class ApiClientErrorTests: XCTestCase {
+    private let serverErrorFactory = ServerErrorFactory()
     
     func testLocalizedDescriptionIfInvalidHostHasBeenGiven() throws {
         //Arrange
@@ -64,7 +65,7 @@ class ApiClientErrorTests: XCTestCase {
     
     func testLocalizedDescriptionForServerError() throws {
         //Arrange
-        let serverError = ServerError(error: "Internal server sut", status: 500)
+        let serverError = try self.serverErrorFactory.build(wrapper: .init(error: "Internal server sut", status: 500))
         let sut = ApiClientError(type: .serverError(serverError))
         //Act
         let localizedString = sut.type.localizedDescription
@@ -85,7 +86,7 @@ class ApiClientErrorTests: XCTestCase {
     
     func testInitFromDataForTypeOfServerError() throws {
         //Arrange
-        let serverError = ServerError(error: "Internal Server Error", status: 500)
+        let serverError = try self.serverErrorFactory.build(wrapper: .init(error: "Internal Server Error", status: 500))
         let expectedError = ApiClientError(type: .serverError(serverError))
         let data = try self.json(from: ApiValidationJSONResource.serverErrorResponse)
         //Act
