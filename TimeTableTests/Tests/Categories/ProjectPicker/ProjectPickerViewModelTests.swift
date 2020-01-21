@@ -103,8 +103,8 @@ class ProjectPickerViewModelTests: XCTestCase {
     func testUpdateSearchResultsForEmptyTextDoesNotFilterProjects() throws {
         //Arrange
         let projects = [
-            try self.projectDecoderFactory.build(identifier: 1, name: "1"),
-            try self.projectDecoderFactory.build(identifier: 2, name: "3")
+            try self.projectDecoderFactory.build(wrapper: .init(identifier: 1, name: "1")),
+            try self.projectDecoderFactory.build(wrapper: .init(identifier: 2, name: "3"))
         ]
         let sut = self.buildSUT(projects: projects)
         //Act
@@ -116,8 +116,8 @@ class ProjectPickerViewModelTests: XCTestCase {
     func testUpdateSearchResultsForTextFiltersProjectsByName() throws {
         //Arrange
         let projects = [
-            try self.projectDecoderFactory.build(identifier: 1, name: "1"),
-            try self.projectDecoderFactory.build(identifier: 2, name: "3")
+            try self.projectDecoderFactory.build(wrapper: .init(identifier: 1, name: "1")),
+            try self.projectDecoderFactory.build(wrapper: .init(identifier: 2, name: "3"))
         ]
         let sut = self.buildSUT(projects: projects)
         //Act
@@ -139,8 +139,8 @@ class ProjectPickerViewModelTests: XCTestCase {
     func testCellDidSelectExistingProjectCallsFinishWithProperProject() throws {
         //Arrange
         let projects = [
-            try self.projectDecoderFactory.build(identifier: 1, name: "1"),
-            try self.projectDecoderFactory.build(identifier: 2, name: "3")
+            try self.projectDecoderFactory.build(wrapper: .init(identifier: 1, name: "1")),
+            try self.projectDecoderFactory.build(wrapper: .init(identifier: 2, name: "3"))
         ]
         let sut = self.buildSUT(projects: projects)
         //Act
@@ -153,8 +153,8 @@ class ProjectPickerViewModelTests: XCTestCase {
     func testCellDidSelectInporperIndexPathCallsFinishWithoutProject() throws {
         //Arrange
         let projects = [
-            try self.projectDecoderFactory.build(identifier: 1, name: "1"),
-            try self.projectDecoderFactory.build(identifier: 2, name: "3")
+            try self.projectDecoderFactory.build(wrapper: .init(identifier: 1, name: "1")),
+            try self.projectDecoderFactory.build(wrapper: .init(identifier: 2, name: "3"))
         ]
         let sut = self.buildSUT(projects: projects)
         //Act
