@@ -10,14 +10,23 @@ import Foundation
 @testable import TimeTable
 
 class ApiClientMock {
-    var networking: NetworkingType = NetworkingMock()
+    // MARK: - ApiClientNetworkingType
+    private(set) var setAuthenticationTokenParams: [SetAuthenticationTokenParams] = []
+    struct SetAuthenticationTokenParams {
+        let token: String
+    }
     
+    private(set) var removeAuthenticationTokenParams: [RemoveAuthenticationTokenParams] = []
+    struct RemoveAuthenticationTokenParams {}
+
+    // MARK: - ApiClientSessionType
     private(set) var signInParams: [SignInParams] = []
     struct SignInParams {
         var credentials: LoginCredentials
         var completion: ((Result<SessionDecoder, Error>) -> Void)
     }
     
+    // MARK: - ApiClientWorkTimesType
     private(set) var fetchWorkTimesParams: [FetchWorkTimesParams] = []
     struct FetchWorkTimesParams {
         var parameters: WorkTimesParameters
@@ -43,6 +52,7 @@ class ApiClientMock {
         var completion: ((Result<Void, Error>) -> Void)
     }
     
+    // MARK: - ApiClientProjectsType
     private(set) var fetchAllProjectsParams: [FetchAllProjectsParams] = []
     struct FetchAllProjectsParams {
         var completion: ((Result<[ProjectRecordDecoder], Error>) -> Void)
@@ -53,12 +63,14 @@ class ApiClientMock {
         var completion: ((Result<SimpleProjectDecoder, Error>) -> Void)
     }
     
+    // MARK: - ApiClientUsersType
     private(set) var fetchUserProfileParams: [FetchUserProfileParams] = []
     struct FetchUserProfileParams {
         var identifier: Int64
         var completion: ((Result<UserDecoder, Error>) -> Void)
     }
     
+    // MARK: - ApiClientMatchingFullTimeType
     private(set) var fetchMatchingFullTimeParams: [FetchMatchingFullTimeParams] = []
     struct FetchMatchingFullTimeParams {
         var parameters: MatchingFullTimeEncoder
@@ -67,7 +79,15 @@ class ApiClientMock {
 }
 
 // MARK: - ApiClientNetworkingType
-extension ApiClientMock: ApiClientNetworkingType {}
+extension ApiClientMock: ApiClientNetworkingType {
+    func setAuthenticationToken(_ token: String) {
+        self.setAuthenticationTokenParams.append(SetAuthenticationTokenParams(token: token))
+    }
+    
+    func removeAuthenticationToken() {
+        self.removeAuthenticationTokenParams.append(RemoveAuthenticationTokenParams())
+    }
+}
 
 // MARK: - ApiClientSessionType
 extension ApiClientMock: ApiClientSessionType {

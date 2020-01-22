@@ -77,6 +77,11 @@ class DependencyContainerMock: DependencyContainerType {
         }
     }
     
+    var apiClientFactoryMock = APIClientFactoryMock()
+    var apiClientFactory: APIClientFactoryType {
+        return self.apiClientFactoryMock
+    }
+    
     private(set) var accessServiceSetCalled: Bool = false
     private(set) var accessServiceSetValue: AccessServiceLoginType?
     var accessServiceMock = AccessServiceMock()

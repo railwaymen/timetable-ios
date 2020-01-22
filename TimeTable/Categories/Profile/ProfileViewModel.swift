@@ -121,6 +121,6 @@ extension ProfileViewModel {
     }
     
     private func invalidateUserToken() {
-        self.apiClient.networking.headerFields?.removeValue(forKey: "token")
+        self.apiClient.removeAuthenticationToken()
     }
 }
