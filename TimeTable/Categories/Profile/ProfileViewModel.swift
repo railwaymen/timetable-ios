@@ -25,7 +25,7 @@ protocol ProfileViewModelType: class {
 class ProfileViewModel {
     private weak var userInterface: ProfileViewModelOutput?
     private weak var coordinator: ProfileCoordinatorDelegate?
-    private let apiClient: ApiClientUsersType
+    private let apiClient: ApiClientProfileType
     private let accessService: AccessServiceLoginType
     private let coreDataStack: CoreDataStackUserType
     private let errorHandler: ErrorHandlerType
@@ -36,7 +36,7 @@ class ProfileViewModel {
     init(
         userInterface: ProfileViewModelOutput?,
         coordinator: ProfileCoordinatorDelegate,
-        apiClient: ApiClientUsersType,
+        apiClient: ApiClientProfileType,
         accessService: AccessServiceLoginType,
         coreDataStack: CoreDataStackUserType,
         errorHandler: ErrorHandlerType
@@ -72,13 +72,13 @@ extension ProfileViewModel: ProfileViewModelType {
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .success:
-                self?.removeUserCredentials()
+                self?.invalidateUserToken()
                 self?.coordinator?.userProfileDidLogoutUser()
             case .failure(let error):
                 if let error = error as? CoreDataStack.Error {
                     switch error {
                     case .storageItemNotFound:
-                        self?.removeUserCredentials()
+                        self?.invalidateUserToken()
                         self?.coordinator?.userProfileDidLogoutUser()
                     }
                 } else {
@@ -120,11 +120,7 @@ extension ProfileViewModel {
         self.userInterface?.showErrorView()
     }
     
-    private func removeUserCredentials() {
-        do {
-            try self.accessService.removeUserCredentials()
-        } catch {
-            assertionFailure("Error: \(error)")
-        }
+    private func invalidateUserToken() {
+        self.apiClient.networking.headerFields?.removeValue(forKey: "token")
     }
 }

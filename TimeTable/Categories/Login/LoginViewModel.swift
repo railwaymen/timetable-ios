@@ -41,7 +41,6 @@ class LoginViewModel {
     private let notificationCenter: NotificationCenterType
     
     private var loginCredentials: LoginCredentials
-    private var shouldRememberLoginCredentials: Bool = false
     
     // MARK: - Initialization
     init(
@@ -58,12 +57,8 @@ class LoginViewModel {
         self.contentProvider = contentProvider
         self.errorHandler = errorHandler
         self.notificationCenter = notificationCenter
-        do {
-            self.loginCredentials = try accessService.getUserCredentials()
-            self.shouldRememberLoginCredentials = true
-        } catch {
-            self.loginCredentials = LoginCredentials(email: "", password: "")
-        }
+        self.loginCredentials = LoginCredentials(email: "", password: "")
+        
         self.setUpNotifications()
     }
     
@@ -85,7 +80,7 @@ class LoginViewModel {
 // MARK: - LoginViewModelType
 extension LoginViewModel: LoginViewModelType {
     func viewDidLoad() {
-        self.userInterface?.setUpView(checkBoxIsActive: self.shouldRememberLoginCredentials)
+        self.userInterface?.setUpView(checkBoxIsActive: false)
         self.userInterface?.updateLoginFields(email: self.loginCredentials.email, password: self.loginCredentials.password)
     }
     
@@ -116,7 +111,6 @@ extension LoginViewModel: LoginViewModelType {
     }
     
     func shouldRemeberUserBoxStatusDidChange(isActive: Bool) {
-        self.shouldRememberLoginCredentials = !isActive
         self.userInterface?.checkBoxIsActiveState(!isActive)
     }
     
@@ -146,13 +140,11 @@ extension LoginViewModel: LoginViewModelType {
                     self?.errorHandler.throwing(error: error)
                 }
             },
-            saveCompletion: { [weak self, credentials = self.loginCredentials, shouldSave = self.shouldRememberLoginCredentials] result in
+            saveCompletion: { [weak self] result in
                 self?.userInterface?.setActivityIndicator(isHidden: true)
                 switch result {
                 case .success:
-                    shouldSave
-                        ? self?.save(credentials: credentials)
-                        : self?.deleteCredentials()
+                    break
                 case .failure(let error):
                     self?.errorHandler.throwing(error: AppError.cannotRemeberUserCredentials(error: error))
                 }
@@ -188,21 +180,5 @@ extension LoginViewModel {
         let isPasswordEnabled = (!self.loginCredentials.password.isEmpty && self.loginCredentials.email.isEmpty) || !self.loginCredentials.email.isEmpty
         self.userInterface?.passwordInputEnabledState(isPasswordEnabled)
         self.userInterface?.loginButtonEnabledState(!self.loginCredentials.email.isEmpty && !self.loginCredentials.password.isEmpty)
-    }
-    
-    private func save(credentials: LoginCredentials) {
-        do {
-            try self.accessService.saveUser(credentials: credentials)
-        } catch {
-            self.errorHandler.throwing(error: error)
-        }
-    }
-    
-    private func deleteCredentials() {
-        do {
-            try self.accessService.removeUserCredentials()
-        } catch {
-            self.errorHandler.throwing(error: error)
-        }
     }
 }

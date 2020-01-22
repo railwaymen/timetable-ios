@@ -11,9 +11,6 @@ import Foundation
 typealias AccessServiceLoginType = (AccessServiceLoginCredentialsType & AccessServiceUserIDType & AccessServiceSessionType)
 
 protocol AccessServiceLoginCredentialsType: class {
-    func saveUser(credentials: LoginCredentials) throws
-    func getUserCredentials() throws -> LoginCredentials
-    func removeUserCredentials() throws 
     func removeLastLoggedInUserIdentifier()
 }
 
@@ -65,29 +62,7 @@ extension AccessService {
 }
 
 // MARK: - AccessServiceLoginCredentialsType
-extension AccessService: AccessServiceLoginCredentialsType {
-    func saveUser(credentials: LoginCredentials) throws {
-        do {
-            let data = try self.encoder.encode(credentials)
-            try self.keychainAccess.set(data, key: Keys.loginCredentialsKey)
-        } catch {
-            throw Error.cannotSaveLoginCredentials
-        }
-    }
-    
-    func removeUserCredentials() throws {
-        do {
-            try self.keychainAccess.remove(Keys.loginCredentialsKey)
-        } catch {
-            throw Error.cannotRemoveLoginCredentials
-        }
-    }
-    
-    func getUserCredentials() throws -> LoginCredentials {
-        guard let data = try self.keychainAccess.getData(Keys.loginCredentialsKey) else { throw Error.cannotFetchLoginCredentials }
-        return try self.decoder.decode(LoginCredentials.self, from: data)
-    }
-}
+extension AccessService: AccessServiceLoginCredentialsType {}
 
 // MARK: - AccessServiceUserIDType
 extension AccessService: AccessServiceUserIDType {
