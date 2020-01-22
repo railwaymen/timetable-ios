@@ -22,6 +22,7 @@ protocol ProjectsViewModelType: class {
     func numberOfItems() -> Int
     func item(at index: IndexPath) -> Project?
     func configure(_ view: ErrorViewable)
+    func refreshData(completion: @escaping () -> Void)
 }
 
 class ProjectsViewModel {
@@ -77,6 +78,18 @@ extension ProjectsViewModel: ProjectsViewModelType {
         }
         view.configure(viewModel: viewModel)
         self.errorViewModel = viewModel
+    }
+    
+    func refreshData(completion: @escaping () -> Void) {
+        self.apiClient.fetchAllProjects { [weak self] result in
+            completion()
+            switch result {
+            case let .success(projectRecords):
+                self?.handleFetchSuccess(projectRecords: projectRecords)
+            case let .failure(error):
+                self?.handleFetch(error: error)
+            }
+        }
     }
 }
  

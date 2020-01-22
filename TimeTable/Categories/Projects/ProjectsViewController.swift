@@ -30,6 +30,13 @@ class ProjectsViewController: UIViewController {
         super.viewDidLoad()
         self.viewModel.viewDidLoad()
     }
+    
+    // MARK: - Actions
+    @objc private func viewDidRequestToRefresh() {
+        self.viewModel.refreshData { [weak self] in
+            self?.collectionView.refreshControl?.endRefreshing()
+        }
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -71,6 +78,7 @@ extension ProjectsViewController: ProjectsViewModelOutput {
         self.errorView.set(isHidden: true)
         self.setUpActivityIndicator()
         self.viewModel.configure(self.errorView)
+        self.setUpRefreshControl()
     }
     
     func updateView() {
@@ -121,5 +129,11 @@ extension ProjectsViewController {
             self.activityIndicator.style = .gray
         }
         self.setActivityIndicator(isHidden: true)
+    }
+    
+    private func setUpRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.viewDidRequestToRefresh), for: .valueChanged)
+        self.collectionView.refreshControl = refreshControl
     }
 }

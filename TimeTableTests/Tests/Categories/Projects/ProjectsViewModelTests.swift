@@ -173,6 +173,68 @@ extension ProjectsViewModelTests {
     }
 }
 
+// MARK: - refreshData(completion:)
+extension ProjectsViewModelTests {
+    func testRefreshData_callsFetch() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        var completionCalledCount = 0
+        //Act
+        sut.refreshData { completionCalledCount += 1 }
+        //Assert
+        XCTAssertEqual(self.apiClientMock.fetchAllProjectsParams.count, 1)
+        XCTAssertEqual(completionCalledCount, 0)
+    }
+    
+    func testRefreshData_fetchSuccess() throws {
+        //Arrange
+        let data = try self.json(from: ProjectRecordJSONResource.projectsRecordsResponse)
+        let projects = try self.decoder.decode([ProjectRecordDecoder].self, from: data)
+        let sut = self.buildSUT()
+        var completionCalledCount = 0
+        //Act
+        sut.refreshData { completionCalledCount += 1 }
+        try XCTUnwrap(self.apiClientMock.fetchAllProjectsParams.first).completion(.success(projects))
+        //Assert
+        XCTAssertEqual(self.apiClientMock.fetchAllProjectsParams.count, 1)
+        XCTAssertEqual(completionCalledCount, 1)
+        XCTAssertEqual(self.userInterfaceMock.updateViewParams.count, 1)
+        XCTAssertEqual(self.userInterfaceMock.showCollectionViewParams.count, 1)
+        XCTAssertEqual(sut.numberOfItems(), 2)
+    }
+    
+    func testRefreshData_fetchFailed_timeout() throws {
+        //Arrange
+        let error = ApiClientError(type: .timeout)
+        let sut = self.buildSUT()
+        var completionCalledCount = 0
+        //Act
+        sut.refreshData { completionCalledCount += 1 }
+        try XCTUnwrap(self.apiClientMock.fetchAllProjectsParams.first).completion(.failure(error))
+        //Assert
+        XCTAssertEqual(self.apiClientMock.fetchAllProjectsParams.count, 1)
+        XCTAssertEqual(completionCalledCount, 1)
+        XCTAssertEqual(self.errorHandlerMock.throwingParams.count, 0)
+        XCTAssertEqual(self.userInterfaceMock.showErrorViewParams.count, 1)
+    }
+    
+    func testRefreshData_fetchFailed_differentError() throws {
+        //Arrange
+        let error = TestError(message: "Test error")
+        let sut = self.buildSUT()
+        var completionCalledCount = 0
+        //Act
+        sut.refreshData { completionCalledCount += 1 }
+        try XCTUnwrap(self.apiClientMock.fetchAllProjectsParams.first).completion(.failure(error))
+        //Assert
+        XCTAssertEqual(self.apiClientMock.fetchAllProjectsParams.count, 1)
+        XCTAssertEqual(completionCalledCount, 1)
+        XCTAssertEqual(self.errorHandlerMock.throwingParams.count, 1)
+        XCTAssertEqual(self.errorHandlerMock.throwingParams.first?.error as? TestError, error)
+        XCTAssertEqual(self.userInterfaceMock.showErrorViewParams.count, 1)
+    }
+}
+
 // MARK: - Private
 extension ProjectsViewModelTests {
     private func buildSUT() -> ProjectsViewModel {
