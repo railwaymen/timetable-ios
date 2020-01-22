@@ -7,7 +7,7 @@ PROJECT = "TimeTable.xcodeproj"
 platform :ios do
 
   before_all do
-    xcversion(version: "11.3")
+    xcversion(version: "11.3.1")
   end
 
   after_all do |lane|

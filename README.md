@@ -1,5 +1,7 @@
 # TimeTable
 
+[![build status](https://git.railwaymen.org/open-source/timetable-ios/badges/develop/pipeline.svg)](http://git.railwaymen.org/open-source/timetable-ios/commits/develop) [![coverage report](https://git.railwaymen.org/open-source/timetable-ios/badges/develop/coverage.svg)](http://git.railwaymen.org/open-source/timetable-ios/commits/develop)
+
 ## Description
 
 Simple time tracking iOS application. Check out our [TimeTable Ruby on Rails project](https://github.com/railwaymen/timetable)!
@@ -7,7 +9,7 @@ Simple time tracking iOS application. Check out our [TimeTable Ruby on Rails pro
 ## Requirements
 
 - [Bundler](https://bundler.io) 2.0.2
-- [Xcode](https://developer.apple.com/xcode/) 10.3
+- [Xcode](https://developer.apple.com/xcode/) 11.3.1
 
 ## Installation
 
