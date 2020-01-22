@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="j0q-S1-vPj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="j0q-S1-vPj">
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="GT9-Vs-zfn">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" contentInsetAdjustmentBehavior="always" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="GT9-Vs-zfn">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewLayout key="collectionViewLayout" id="gev-0K-ve4" customClass="ProjectsCollectionViewLayout" customModule="TimeTable" customModuleProvider="target"/>
@@ -171,12 +171,8 @@
                             <constraint firstItem="f3J-bM-zlF" firstAttribute="leading" secondItem="O0O-pG-awP" secondAttribute="leading" id="2Ha-Rz-BQs"/>
                             <constraint firstItem="GT9-Vs-zfn" firstAttribute="bottom" secondItem="H09-Zu-PQ1" secondAttribute="bottom" id="3Kq-69-Tqi"/>
                             <constraint firstItem="f3J-bM-zlF" firstAttribute="centerY" secondItem="O0O-pG-awP" secondAttribute="centerY" id="LMa-2f-ENR"/>
-                            <constraint firstItem="GT9-Vs-zfn" firstAttribute="leading" secondItem="O0O-pG-awP" secondAttribute="leading" id="UoM-5p-eap">
-                                <variation key="heightClass=regular-widthClass=regular" constant="42"/>
-                            </constraint>
-                            <constraint firstItem="GT9-Vs-zfn" firstAttribute="trailing" secondItem="O0O-pG-awP" secondAttribute="trailing" id="Whc-ld-Rr9">
-                                <variation key="heightClass=regular-widthClass=regular" constant="-42"/>
-                            </constraint>
+                            <constraint firstItem="GT9-Vs-zfn" firstAttribute="leading" secondItem="H09-Zu-PQ1" secondAttribute="leading" id="UoM-5p-eap"/>
+                            <constraint firstItem="GT9-Vs-zfn" firstAttribute="trailing" secondItem="H09-Zu-PQ1" secondAttribute="trailing" id="Whc-ld-Rr9"/>
                             <constraint firstItem="ZC9-aj-Rzu" firstAttribute="centerX" secondItem="O0O-pG-awP" secondAttribute="centerX" id="Xrg-g1-rJQ"/>
                             <constraint firstItem="GT9-Vs-zfn" firstAttribute="top" secondItem="H09-Zu-PQ1" secondAttribute="top" id="gNB-K2-k9R"/>
                             <constraint firstItem="O0O-pG-awP" firstAttribute="trailing" secondItem="f3J-bM-zlF" secondAttribute="trailing" id="s9v-I3-dxd"/>
