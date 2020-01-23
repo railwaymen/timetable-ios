@@ -55,6 +55,7 @@
 		8A9369B6237AA348005F8199 /* WorkTimesTableViewHeaderViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B5237AA348005F8199 /* WorkTimesTableViewHeaderViewMock.swift */; };
 		8A9987CE23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A9987CD23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json */; };
 		8A9987D023951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A9987CF23951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json */; };
+		8A99EBC123D9B95600CC9BA8 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A99EBC023D9B95600CC9BA8 /* UIColor+Extension.swift */; };
 		8AA5C5DD235F34340083E121 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA5C5DC235F34340083E121 /* Colors.xcassets */; };
 		8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */; };
 		8AC097242371CCFF00103FAD /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */; };
@@ -402,6 +403,7 @@
 		8A9369B5237AA348005F8199 /* WorkTimesTableViewHeaderViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesTableViewHeaderViewMock.swift; sourceTree = "<group>"; };
 		8A9987CD23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithIsTaggableTrueResponse.json; sourceTree = "<group>"; };
 		8A9987CF23951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithIsTaggableFalseResponse.json; sourceTree = "<group>"; };
+		8A99EBC023D9B95600CC9BA8 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		8AA5C5DC235F34340083E121 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellViewModelTests.swift; sourceTree = "<group>"; };
 		8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
@@ -1070,6 +1072,7 @@
 				C1249C6B2181A23A005DB2A5 /* String+Error.swift */,
 				C134296221A693F400F4EA42 /* TestError.swift */,
 				C1FA05E821945DA400BD8C9D /* XCTests+Extension.swift */,
+				8A99EBC023D9B95600CC9BA8 /* UIColor+Extension.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2403,6 +2406,7 @@
 				C1EF3A0921930722000E3511 /* StringExtensionTests.swift in Sources */,
 				8A523C8E2395091900215C61 /* DateExtensionTests.swift in Sources */,
 				C134296F21A6BCCD00F4EA42 /* RequestEncoderMock.swift in Sources */,
+				8A99EBC123D9B95600CC9BA8 /* UIColor+Extension.swift in Sources */,
 				8AF5696D23D71C0900A1D001 /* ProjectDecoderFactory.swift in Sources */,
 				C134299121A6D3BF00F4EA42 /* CoreDataStackMock.swift in Sources */,
 				C1531F072191CD4B00602A0C /* ApiClientTests.swift in Sources */,

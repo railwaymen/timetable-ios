@@ -61,9 +61,7 @@ extension ProjectRecordDecoderFactory {
     struct UserWrapper {
         let name: String
         
-        init(
-            name: String = "name"
-        ) {
+        init(name: String = "name") {
             self.name = name
         }
         

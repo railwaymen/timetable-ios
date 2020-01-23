@@ -16,33 +16,35 @@ class ServerErrorFactory: JSONFactorable {
     }
 }
 
-// MARK: - Helper extensions
-extension ServerError: JSONObjectType {
-    public func jsonConvertible() throws -> JSONConvertible {
-        let wrapper = ServerErrorWrapper(
-            error: self.error,
-            status: self.status)
-        return wrapper.jsonConvertible()
+// MARK: - Structures
+extension ServerErrorFactory {
+    struct ServerErrorWrapper {
+        let error: String
+        let status: Int
+        
+        init(
+            error: String = "error",
+            status: Int = 0
+        ) {
+            self.error = error
+            self.status = status
+        }
+        
+        func jsonConvertible() -> AnyJSONConvertible {
+            return [
+                "error": AnyJSONConvertible(self.error),
+                "status": AnyJSONConvertible(self.status)
+            ]
+        }
     }
 }
 
-// MARK: - Structures
-struct ServerErrorWrapper {
-    let error: String
-    let status: Int
-    
-    init(
-        error: String = "error",
-        status: Int = 0
-    ) {
-        self.error = error
-        self.status = status
-    }
-    
-    func jsonConvertible() -> AnyJSONConvertible {
-        return [
-            "error": AnyJSONConvertible(self.error),
-            "status": AnyJSONConvertible(self.status)
-        ]
+// MARK: - Helper extensions
+extension ServerError: JSONObjectType {
+    public func jsonConvertible() throws -> JSONConvertible {
+        let wrapper = ServerErrorFactory.ServerErrorWrapper(
+            error: self.error,
+            status: self.status)
+        return wrapper.jsonConvertible()
     }
 }
