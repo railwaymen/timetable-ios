@@ -22,7 +22,7 @@ class ProjectsCollectionViewLayout: UICollectionViewFlowLayout {
     private var contentHeight: CGFloat = 0
     private var contentWidth: CGFloat {
         guard let collectionView = self.collectionView else { return 0 }
-        return collectionView.bounds.width - (collectionView.contentInset.left + collectionView.contentInset.right)
+        return collectionView.frame.width - (collectionView.adjustedContentInset.left + collectionView.adjustedContentInset.right)
     }
     
     // MARK: - Overridden
@@ -58,8 +58,8 @@ extension ProjectsCollectionViewLayout {
     private func resizeView() {
         guard let collectionView = self.collectionView else { return }
         
-        let numberOfItemsPerRow = Int(collectionView.frame.width) / Int(self.minWidthForCell)
-        let widthPerItem = self.contentWidth / CGFloat(numberOfItemsPerRow)
+        let numberOfItemsPerRow = Int(self.contentWidth) / Int(self.minWidthForCell)
+        let widthPerItem = (self.contentWidth - CGFloat(numberOfItemsPerRow - 1) * self.cellPadding) / CGFloat(numberOfItemsPerRow)
         var xOffset = [CGFloat]()
         (0..<numberOfItemsPerRow).forEach { xOffset.append(CGFloat($0) * widthPerItem) }
         var column = 0

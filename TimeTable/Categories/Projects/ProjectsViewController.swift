@@ -21,7 +21,7 @@ class ProjectsViewController: UIViewController {
     
     private var viewModel: ProjectsViewModelType!
 
-    private let contentInset = UIEdgeInsets(top: 30, left: 18, bottom: 30, right: 18)
+    private let contentInset = UIEdgeInsets(top: 16, left: 8, bottom: 16, right: 8)
     private let projectCellTableViewHeight: CGFloat = 28
     private let projectCellStaticHeaderHeight: CGFloat = 88
 
