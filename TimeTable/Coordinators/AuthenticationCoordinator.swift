@@ -25,9 +25,7 @@ class AuthenticationCoordinator: NavigationCoordinator {
     var customFinishCompletion: ((ServerConfiguration, ApiClientType) -> Void)?
     
     // MARK: - Initialization
-    init(
-        dependencyContainer: DependencyContainerType
-    ) {
+    init(dependencyContainer: DependencyContainerType) {
         self.dependencyContainer = dependencyContainer
         super.init(window: dependencyContainer.window)
         self.window?.rootViewController = self.navigationController
