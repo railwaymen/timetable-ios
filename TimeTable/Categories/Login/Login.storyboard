@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="prJ-rF-eRP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="prJ-rF-eRP">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -29,7 +29,7 @@
                                     </constraint>
                                 </constraints>
                             </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="Mja-sZ-MsA">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="always" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="Mja-sZ-MsA">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="1366"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="37f-hv-3Dy" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
@@ -232,10 +232,10 @@
                             <constraint firstItem="Mja-sZ-MsA" firstAttribute="top" secondItem="oPN-yH-xSv" secondAttribute="top" id="36q-3L-mEb"/>
                             <constraint firstAttribute="bottom" secondItem="Mja-sZ-MsA" secondAttribute="bottom" id="5S3-BX-bh3"/>
                             <constraint firstItem="ZeQ-6g-scw" firstAttribute="centerX" secondItem="ajj-cK-AHp" secondAttribute="centerX" id="R4g-Xn-oDq"/>
-                            <constraint firstItem="Mja-sZ-MsA" firstAttribute="leading" secondItem="ajj-cK-AHp" secondAttribute="leading" id="S9V-Hi-WGp"/>
+                            <constraint firstItem="Mja-sZ-MsA" firstAttribute="leading" secondItem="oPN-yH-xSv" secondAttribute="leading" id="S9V-Hi-WGp"/>
                             <constraint firstItem="8ok-jl-LPk" firstAttribute="top" secondItem="oPN-yH-xSv" secondAttribute="top" id="USH-Pc-NJA"/>
                             <constraint firstItem="37f-hv-3Dy" firstAttribute="height" relation="greaterThanOrEqual" secondItem="ajj-cK-AHp" secondAttribute="height" priority="900" id="grN-9R-F8u"/>
-                            <constraint firstItem="ajj-cK-AHp" firstAttribute="trailing" secondItem="Mja-sZ-MsA" secondAttribute="trailing" id="mZZ-Ui-cms"/>
+                            <constraint firstAttribute="trailing" secondItem="Mja-sZ-MsA" secondAttribute="trailing" id="mZZ-Ui-cms"/>
                             <constraint firstItem="8ok-jl-LPk" firstAttribute="leading" secondItem="ajj-cK-AHp" secondAttribute="leading" constant="-15" id="q9O-Ee-oIX"/>
                             <constraint firstItem="ZeQ-6g-scw" firstAttribute="centerY" secondItem="ajj-cK-AHp" secondAttribute="centerY" id="v3B-IY-HLw"/>
                             <constraint firstItem="37f-hv-3Dy" firstAttribute="width" secondItem="ajj-cK-AHp" secondAttribute="width" id="xpX-rU-vKe"/>
@@ -255,7 +255,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sJx-7d-v4P" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="7Iy-rI-v4o">
+                <tapGestureRecognizer cancelsTouchesInView="NO" id="7Iy-rI-v4o">
                     <connections>
                         <action selector="viewTapped:" destination="prJ-rF-eRP" id="MfU-fF-iOU"/>
                     </connections>
@@ -267,7 +267,7 @@
     <resources>
         <image name="time_table_background" width="584" height="585"/>
         <namedColor name="Crimson">
-            <color red="0.89411764705882357" green="0.086274509803921567" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.79607843137254897" green="0.078431372549019607" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

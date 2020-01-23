@@ -29,7 +29,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         self.viewModel.viewDidLoad()
     }
-    
+
     // MARK: - Actions
     @IBAction private func loginTextFieldDidChange(_ sender: UITextField) {
         self.viewModel.loginInputValueDidChange(value: sender.text)
@@ -100,8 +100,11 @@ extension LoginViewController: LoginViewModelOutput {
     }
     
     func setBottomContentInset(_ height: CGFloat) {
-        guard self.viewIfLoaded != nil else { return }
-        let bottomSpaceInScrollView = self.scrollView.contentSize.height - self.loginButton.convert(self.loginButton.bounds, to: self.scrollView).maxY
+        guard self.isViewLoaded else { return }
+        self.view.layoutIfNeeded()
+        let bottomPadding: CGFloat = 16
+        let loginButtonFrameInScrollView = self.loginButton.convert(self.loginButton.bounds, to: self.scrollView)
+        let bottomSpaceInScrollView = self.scrollView.contentSize.height - loginButtonFrameInScrollView.maxY - bottomPadding
         self.updateScrollViewInsets(with: max(height - bottomSpaceInScrollView, 0))
     }
 }
@@ -132,6 +135,8 @@ extension LoginViewController {
     private func updateScrollViewInsets(with height: CGFloat = 0) {
         self.scrollView.contentInset.bottom = height
         self.scrollView.scrollIndicatorInsets.bottom = height
+        let offset = self.scrollView.contentSize.height - (self.scrollView.frame.height - height)
+        self.scrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: true)
     }
     
     private func setUpActivityIndicator() {
