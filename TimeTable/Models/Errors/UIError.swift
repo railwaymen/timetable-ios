@@ -20,7 +20,6 @@ enum UIElement: String {
 }
 
 enum UIError: Error {
-    case cannotBeEmptyOr(UIElement, UIElement)
     case cannotBeEmpty(UIElement)
     case invalidFormat(UIElement)
     case timeGreaterThan
@@ -29,9 +28,6 @@ enum UIError: Error {
     
     var localizedDescription: String {
         switch self {
-        case let .cannotBeEmptyOr(component1, component2):
-            return "\(component1.rawValue.localized) " + "conjunction.or".localized + " \(component2.rawValue.localized) "
-                + "ui.error.cannot_be_empty".localized
         case let .cannotBeEmpty(component):
             return "\(component.rawValue.localized) " + "ui.error.cannot_be_empty".localized
         case let .invalidFormat(component):
@@ -47,19 +43,4 @@ enum UIError: Error {
 }
 
 // MARK: - Equatable
-extension UIError: Equatable {
-    static func == (lhs: UIError, rhs: UIError) -> Bool {
-        switch (lhs, rhs) {
-        case let (.cannotBeEmptyOr(lhsElement1, lhsElement2), .cannotBeEmptyOr(rhsElement1, rhsElement2)):
-            return [lhsElement1, lhsElement2].allSatisfy { [rhsElement1, rhsElement2].contains($0) }
-        case (.cannotBeEmpty(let lhsElement), .cannotBeEmpty(let rhsElement)):
-            return lhsElement == rhsElement
-        case (.invalidFormat(let lhsElement), .invalidFormat(let rhsElement)):
-            return lhsElement == rhsElement
-        case (.timeGreaterThan, .timeGreaterThan):
-            return true
-        default:
-            return false
-        }
-    }
-}
+extension UIError: Equatable {}
