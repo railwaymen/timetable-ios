@@ -32,6 +32,8 @@ struct ApiClientError: Error {
             self.type = .timeout
         case NSURLErrorCannotParseResponse, NSURLErrorBadServerResponse:
             self.type = .invalidResponse
+        case 422:
+            self.type = .validationErrors(nil)
         default:
             return nil
         }
@@ -54,7 +56,7 @@ extension ApiClientError {
         case invalidHost(URL?)
         case invalidParameters
         case invalidResponse
-        case validationErrors(ApiValidationErrors)
+        case validationErrors(ApiValidationErrors?)
         case serverError(ServerError)
         case noConnection
         case timeout
@@ -68,7 +70,7 @@ extension ApiClientError {
             case .invalidResponse:
                 return "api.error.invalid_response".localized
             case .validationErrors(let validationErrors):
-                return validationErrors.errors.keys.joined(separator: ".\n")
+                return validationErrors?.errors.keys.joined(separator: ".\n") ?? ""
             case .serverError(let serverError):
                 return  "\(serverError.status) - \(serverError.error)"
             case .noConnection:

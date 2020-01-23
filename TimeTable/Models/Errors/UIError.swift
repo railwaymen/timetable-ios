@@ -25,20 +25,23 @@ enum UIError: Error {
     case invalidFormat(UIElement)
     case timeGreaterThan
     case genericError
+    case loginCredentialsInvalid
     
     var localizedDescription: String {
         switch self {
-        case .cannotBeEmptyOr(let component1, let component2):
+        case let .cannotBeEmptyOr(component1, component2):
             return "\(component1.rawValue.localized) " + "conjunction.or".localized + " \(component2.rawValue.localized) "
                 + "ui.error.cannot_be_empty".localized
-        case .cannotBeEmpty(let component):
+        case let .cannotBeEmpty(component):
             return "\(component.rawValue.localized) " + "ui.error.cannot_be_empty".localized
-        case .invalidFormat(let component):
+        case let .invalidFormat(component):
             return "\(component.rawValue.localized) " + "ui.error.invalid_format".localized
         case .timeGreaterThan:
             return "ui.error.time_greater_than".localized
         case .genericError:
             return "ui.error.generic_error".localized
+        case .loginCredentialsInvalid:
+            return "ui.error.login_credentials_invalid".localized
         }
     }
 }
