@@ -2690,6 +2690,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
 				INFOPLIST_FILE = TimeTable/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

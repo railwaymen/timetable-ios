@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="keO-oL-LbZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="keO-oL-LbZ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -34,8 +34,11 @@
                                     </constraint>
                                 </constraints>
                             </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="aDX-gO-HPG">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="vyY-Nf-RVa">
+                                <rect key="frame" x="197" y="443" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="aDX-gO-HPG">
+                                <rect key="frame" x="-15" y="-14" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HXu-JY-Jb6" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
                                         <rect key="frame" x="20" y="298" width="374" height="300"/>
@@ -227,9 +230,6 @@
                                     <constraint firstItem="HXu-JY-Jb6" firstAttribute="leading" secondItem="aDX-gO-HPG" secondAttribute="leading" constant="20" id="gCz-Sr-vnP"/>
                                 </constraints>
                             </scrollView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="vyY-Nf-RVa">
-                                <rect key="frame" x="197" y="443" width="20" height="20"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -237,11 +237,11 @@
                             <constraint firstItem="aDX-gO-HPG" firstAttribute="top" secondItem="jj8-cY-Ged" secondAttribute="top" id="AOq-xt-Yyy"/>
                             <constraint firstAttribute="bottom" secondItem="aDX-gO-HPG" secondAttribute="bottom" id="Dty-jX-Ycn"/>
                             <constraint firstItem="HXu-JY-Jb6" firstAttribute="height" relation="greaterThanOrEqual" secondItem="sc3-FQ-clT" secondAttribute="height" priority="900" id="kwD-Ks-VV0"/>
-                            <constraint firstItem="sc3-FQ-clT" firstAttribute="trailing" secondItem="aDX-gO-HPG" secondAttribute="trailing" id="o3D-Rx-Kpc"/>
+                            <constraint firstAttribute="trailing" secondItem="aDX-gO-HPG" secondAttribute="trailing" id="o3D-Rx-Kpc"/>
                             <constraint firstItem="vyY-Nf-RVa" firstAttribute="centerY" secondItem="sc3-FQ-clT" secondAttribute="centerY" id="oOv-dh-fxF"/>
                             <constraint firstItem="wJi-Ss-qx2" firstAttribute="leading" secondItem="sc3-FQ-clT" secondAttribute="leading" constant="-15" id="qdc-2i-2ux"/>
                             <constraint firstItem="wJi-Ss-qx2" firstAttribute="top" secondItem="jj8-cY-Ged" secondAttribute="top" id="uIK-dX-9YL"/>
-                            <constraint firstItem="aDX-gO-HPG" firstAttribute="leading" secondItem="sc3-FQ-clT" secondAttribute="leading" id="uZm-b6-vFe"/>
+                            <constraint firstItem="aDX-gO-HPG" firstAttribute="leading" secondItem="jj8-cY-Ged" secondAttribute="leading" id="uZm-b6-vFe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="sc3-FQ-clT"/>
                         <connections>
@@ -269,7 +269,7 @@
     <resources>
         <image name="time_table_background" width="584" height="585"/>
         <namedColor name="Crimson">
-            <color red="0.89411764705882357" green="0.086274509803921567" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.79607843137254897" green="0.078431372549019607" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

@@ -106,6 +106,7 @@ extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
     
     func serverAddressTextFieldDidRequestForReturn() -> Bool {
         self.userInterface?.dismissKeyboard()
+        self.continueButtonTapped()
         return true
     }
     
