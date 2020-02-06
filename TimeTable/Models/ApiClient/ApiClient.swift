@@ -9,15 +9,24 @@
 import Foundation
 import Networking
 
-typealias ApiClientType = (ApiClientNetworkingType & ApiClientSessionType & ApiClientWorkTimesType
-    & ApiClientProjectsType & ApiClientUsersType & ApiClientMatchingFullTimeType)
+typealias ApiClientType =
+    ApiClientNetworkingType
+    & ApiClientSessionType
+    & ApiClientWorkTimesType
+    & ApiClientProjectsType
+    & ApiClientUsersType
+    & ApiClientMatchingFullTimeType
+typealias ApiClientProfileType =
+    ApiClientUsersType
+    & ApiClientNetworkingType
 
 protocol ApiClientNetworkingType: class {
-    var networking: NetworkingType { get set }
+    func setAuthenticationToken(_ token: String)
+    func removeAuthenticationToken()
 }
 
-class ApiClient: ApiClientNetworkingType {
-    var networking: NetworkingType
+class ApiClient {
+    private var networking: NetworkingType
     private let encoder: RequestEncoderType
     private let decoder: JSONDecoderType
     
@@ -28,9 +37,11 @@ class ApiClient: ApiClientNetworkingType {
         decoder: JSONDecoderType
     ) {
         self.networking = networking
-        self.networking.headerFields = ["content-type": "application/json"]
         self.encoder = encoder
         self.decoder = decoder
+        
+        self.networking.headerFields = ["content-type": "application/json"]
+        HTTPCookieStorage.shared.cookieAcceptPolicy = .never
     }
     
     // MARK: - Internal
@@ -107,6 +118,17 @@ class ApiClient: ApiClientNetworkingType {
         } catch {
             completion(.failure(ApiClientError(type: .invalidParameters)))
         }
+    }
+}
+
+// MARK: - ApiClientNetworkingType
+extension ApiClient: ApiClientNetworkingType {
+    func setAuthenticationToken(_ token: String) {
+        self.networking.headerFields?["token"] = token
+    }
+    
+    func removeAuthenticationToken() {
+        self.networking.headerFields?.removeValue(forKey: "token")
     }
 }
 

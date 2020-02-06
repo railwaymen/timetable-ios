@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Networking
 import KeychainAccess
 
 protocol ServerConfigurationCoordinatorDelegate: class {
@@ -157,14 +156,10 @@ extension AuthenticationCoordinator {
     
     private func createApiClient(with configuration: ServerConfiguration) -> ApiClientType? {
         guard let hostURL = configuration.host else { return nil }
-        let networking = Networking(baseURL: hostURL.absoluteString)
-        return ApiClient(
-            networking: networking,
-            encoder: RequestEncoder(encoder: self.dependencyContainer.encoder, serialization: CustomJSONSerialization()),
-            decoder: self.dependencyContainer.decoder)
+        return self.dependencyContainer.apiClientFactory.buildAPIClient(baseURL: hostURL)
     }
     
     private func updateApiClient(with session: SessionDecoder) {
-        self.apiClient?.networking.headerFields?["token"] = session.token
+        self.apiClient?.setAuthenticationToken(session.token)
     }
 }

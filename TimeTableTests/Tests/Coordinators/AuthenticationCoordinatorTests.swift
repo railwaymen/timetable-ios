@@ -114,6 +114,7 @@ class AuthenticationCoordinatorTests: XCTestCase {
     
     func testFinishOnStart() throws {
         //Arrange
+        let expectedToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjIt"
         let sut = self.buildSUT()
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.login] = [.initial: LoginViewControllerMock()]
@@ -122,19 +123,29 @@ class AuthenticationCoordinatorTests: XCTestCase {
             shouldRememberHost: true)
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
+        var optionalConfiguration: ServerConfiguration?
+        var optionalApiClient: ApiClientType?
         //Act
-        sut.start { (configuration, apiClient) in
-            //Assert
-            XCTAssertEqual(configuration.host, self.exampleURL)
-            XCTAssertEqual(configuration.shouldRememberHost, true)
-            XCTAssertEqual(apiClient.networking.headerFields?["token"], "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjIt")
+        sut.start { (returnedConfiguration, returnedApiClient) in
+            optionalConfiguration = returnedConfiguration
+            optionalApiClient = returnedApiClient
         }
         self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.success(sessionReponse))
+        //Assert
+        let configuration = try XCTUnwrap(optionalConfiguration)
+        let apiClient = try XCTUnwrap(optionalApiClient)
+        XCTAssertEqual(configuration.host, self.exampleURL)
+        XCTAssertEqual(configuration.shouldRememberHost, true)
+        let apiClientMock = self.dependencyContainer.apiClientFactoryMock.buildAPIClientReturnValue
+        XCTAssertTrue(apiClient === apiClientMock)
+        XCTAssertEqual(apiClientMock.setAuthenticationTokenParams.count, 1)
+        XCTAssertEqual(apiClientMock.setAuthenticationTokenParams.last?.token, expectedToken)
     }
 
     // MARK: - LoginCoordinatorDelegate
     func testLoginDidFinishWithStateLoggedInCorrectly() throws {
         //Arrange
+        let expectedToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjIt"
         let sut = self.buildSUT()
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.login] = [.initial: LoginViewControllerMock()]
@@ -144,14 +155,24 @@ class AuthenticationCoordinatorTests: XCTestCase {
         self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
-        sut.start { (configuration, apiClient) in
-            //Assert
-            XCTAssertEqual(configuration.host, self.exampleURL)
-            XCTAssertEqual(configuration.shouldRememberHost, true)
-            XCTAssertEqual(apiClient.networking.headerFields?["token"], "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjIt")
+        var optionalConfiguration: ServerConfiguration?
+        var optionalApiClient: ApiClientType?
+        sut.start { (returnedConfiguration, returnedApiClient) in
+            optionalConfiguration = returnedConfiguration
+            optionalApiClient = returnedApiClient
         }
+        self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.success(sessionReponse))
         //Act
         sut.loginDidFinish(with: .loggedInCorrectly(sessionReponse))
+        //Assert
+        let configuration = try XCTUnwrap(optionalConfiguration)
+        let apiClient = try XCTUnwrap(optionalApiClient)
+        XCTAssertEqual(configuration.host, self.exampleURL)
+        XCTAssertEqual(configuration.shouldRememberHost, true)
+        let apiClientMock = self.dependencyContainer.apiClientFactoryMock.buildAPIClientReturnValue
+        XCTAssertTrue(apiClient === apiClientMock)
+        XCTAssertEqual(apiClientMock.setAuthenticationTokenParams.count, 2)
+        XCTAssertEqual(apiClientMock.setAuthenticationTokenParams.last?.token, expectedToken)
     }
     
     // MARK: - State Equatable

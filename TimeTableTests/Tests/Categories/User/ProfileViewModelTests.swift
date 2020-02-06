@@ -143,7 +143,6 @@ class ProfileViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-        XCTAssertEqual(self.accessServiceMock.removeUserCredentialsParams.count, 1)
         XCTAssertEqual(self.coordinatorMock.userProfileDidLogoutUserParams.count, 1)
         XCTAssertEqual(self.errorHandlerMock.throwingParams.count, 0)
     }
@@ -158,7 +157,6 @@ class ProfileViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-        XCTAssertEqual(self.accessServiceMock.removeUserCredentialsParams.count, 1)
         XCTAssertEqual(self.coordinatorMock.userProfileDidLogoutUserParams.count, 1)
     }
 }

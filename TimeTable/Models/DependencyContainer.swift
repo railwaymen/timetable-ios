@@ -20,6 +20,7 @@ protocol DependencyContainerType {
     var encoder: JSONEncoderType { get }
     var decoder: JSONDecoderType { get }
     var apiClient: ApiClientType? { get set }
+    var apiClientFactory: APIClientFactoryType { get }
     var accessService: AccessServiceLoginType? { get set }
     var notificationCenter: NotificationCenterType { get }
     var dispatchGroupFactory: DispatchGroupFactoryType { get }
@@ -37,6 +38,7 @@ struct DependencyContainer: DependencyContainerType {
     let encoder: JSONEncoderType
     let decoder: JSONDecoderType
     var apiClient: ApiClientType?
+    let apiClientFactory: APIClientFactoryType
     var accessService: AccessServiceLoginType?
     let notificationCenter: NotificationCenterType
     let dispatchGroupFactory: DispatchGroupFactoryType
@@ -68,5 +70,9 @@ struct DependencyContainer: DependencyContainerType {
         self.notificationCenter = notificationCenter
         
         self.dispatchGroupFactory = DispatchGroupFactory()
+        self.apiClientFactory = APIClientFactory(
+            encoder: encoder,
+            decoder: decoder,
+            jsonSerialization: CustomJSONSerialization())
     }
 }
