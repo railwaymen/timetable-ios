@@ -1,4 +1,4 @@
-// UIElements
+// MARK: - UIElements
 "element.text_field.server_address" = "Server address";
 "element.text_field.login" = "Login";
 "element.text_field.password" = "Password";
@@ -8,7 +8,7 @@
 "element.text_field.starts_at" = "Start date";
 "element.text_field.ends_at" = "End date";
 
-// UIControls
+// MARK: - UIControls
 "tabbar.title.profile" = "Profile";
 "tabbar.title.timesheet" = "Timesheet";
 "tabbar.title.projects" = "Projects";
@@ -47,13 +47,14 @@
 
 "error.button.refresh" = "REFRESH";
 
-// UIErrors
+// MARK: - UIErrors
 "ui.error.cannot_be_empty" = "- cannot be empty.";
 "ui.error.invalid_format" = "invalid format.";
 "ui.error.time_greater_than" = "Duration time must be greater than 0";
 "ui.error.generic_error" = "Oups! We couldn't finish your request. Please, try again later.";
+"ui.error.login_credentials_invalid" = "The given credentials are invalid. Check if you typed it correctly.";
 
-// APiErrors
+// MARK: - APIErrors
 "api.error.invalid_url" = "Given URL (%@) is invalid";
 "api.error.invalid_parameters" = "Invalid parameters were sent";
 "api.error.invalid_response" = "Invalid response";
@@ -62,13 +63,11 @@
 
 "invalid_email_or_password" = "Invalid email or password";
 
-// Static words
+// MARK: - Static words
 "day.today" = "Today";
 "day.yesterday" = "Yesterday";
 
-"conjunction.or" = "or";
-
-// Tags
+// MARK: - Tags
 "project_im" = "Internal meeting";
 "project_cc" = "Client comunication";
 "project_res" = "Research";

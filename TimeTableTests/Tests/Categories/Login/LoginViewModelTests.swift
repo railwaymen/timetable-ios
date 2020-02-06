@@ -260,7 +260,7 @@ extension LoginViewModelTests {
         }
     }
     
-    func testViewRequestedToLoginContentProviderReturnsAnError() throws {
+    func testViewRequestedToLogin_contentProviderReturnsTestError() throws {
         //Arrange
         let expectedError = TestError(message: "errorOccured")
         let sut = self.buildSUT()
@@ -271,6 +271,38 @@ extension LoginViewModelTests {
         self.contentProviderMock.loginParams.last?.fetchCompletion(.failure(expectedError))
         //Assert
         let error = try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? TestError)
+        XCTAssertEqual(error, expectedError)
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+    }
+    
+    func testViewRequestedToLogin_contentProviderReturnsValidationError() throws {
+        //Arrange
+        let returnedError = ApiClientError(type: .validationErrors(nil))
+        let sut = self.buildSUT()
+        sut.loginInputValueDidChange(value: "login")
+        sut.passwordInputValueDidChange(value: "password")
+        //Act
+        sut.viewRequestedToLogin()
+        self.contentProviderMock.loginParams.last?.fetchCompletion(.failure(returnedError))
+        //Assert
+        let error = try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? UIError)
+        XCTAssertEqual(error, UIError.loginCredentialsInvalid)
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+    }
+    
+    func testViewRequestedToLogin_contentProviderReturnsTimeoutError() throws {
+        //Arrange
+        let expectedError = ApiClientError(type: .timeout)
+        let sut = self.buildSUT()
+        sut.loginInputValueDidChange(value: "login")
+        sut.passwordInputValueDidChange(value: "password")
+        //Act
+        sut.viewRequestedToLogin()
+        self.contentProviderMock.loginParams.last?.fetchCompletion(.failure(expectedError))
+        //Assert
+        let error = try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? ApiClientError)
         XCTAssertEqual(error, expectedError)
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))

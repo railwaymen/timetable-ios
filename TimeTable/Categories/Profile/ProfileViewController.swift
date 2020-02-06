@@ -46,6 +46,7 @@ extension ProfileViewController: ProfileViewModelOutput {
         self.scrollView.set(isHidden: true)
         self.errorView.set(isHidden: true)
         self.viewModel.configure(self.errorView)
+        self.navigationItem.title = "tabbar.title.profile".localized
     }
     
     func update(firstName: String, lastName: String, email: String) {

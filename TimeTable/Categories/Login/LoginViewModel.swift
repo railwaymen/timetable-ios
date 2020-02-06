@@ -137,7 +137,16 @@ extension LoginViewModel: LoginViewModelType {
                     self?.coordinator?.loginDidFinish(with: .loggedInCorrectly(session))
                 case .failure(let error):
                     self?.userInterface?.setActivityIndicator(isHidden: true)
-                    self?.errorHandler.throwing(error: error)
+                    if let apiError = error as? ApiClientError {
+                        switch apiError.type {
+                        case .validationErrors:
+                            self?.errorHandler.throwing(error: UIError.loginCredentialsInvalid)
+                        default:
+                            self?.errorHandler.throwing(error: error)
+                        }
+                    } else {
+                        self?.errorHandler.throwing(error: error)
+                    }
                 }
             },
             saveCompletion: { [weak self] result in

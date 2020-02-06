@@ -42,7 +42,6 @@
 "work_time.text_field.select_day" = "Wybierz dzień";
 "work_time.button.save" = "Zapisz";
 
-"profile.label.profile" = "Profil";
 "profile.button.logout" = "WYLOGUJ";
 
 "error.button.refresh" = "ODŚWIEŻ";
@@ -52,6 +51,7 @@
 "ui.error.invalid_format" = "niepoprawny format.";
 "ui.error.time_greater_than" = "Czas trwania musi być większy od zera";
 "ui.error.generic_error" = "Ups! Niestety nie mogliśmy zrealizować twojego żądania. Spróbuj później.";
+"ui.error.login_credentials_invalid" = "Podane dane są niepoprawne. Upewnij się, czy dobrze je wpisałeś.";
 
 // APiErrors
 "api.error.invalid_url" = "Podany adres (%@) jest niepoprawny";
@@ -65,8 +65,6 @@
 // Static words
 "day.today" = "Dzisiaj";
 "day.yesterday" = "Wczoraj";
-
-"conjunction.or" = "lub";
 
 // Tags
 "project_im" = "Spotkanie wewnętrzne";
