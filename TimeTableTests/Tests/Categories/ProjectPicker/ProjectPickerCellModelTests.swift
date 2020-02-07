@@ -10,6 +10,8 @@ import XCTest
 @testable import TimeTable
 
 class ProjectPickerCellModelTests: XCTestCase {
+    private let projectDecoderFactory = ProjectDecoderFactory()
+    
     private var userInterfaceMock: ProjectPickerCellMock!
     
     override func setUp() {
@@ -17,9 +19,9 @@ class ProjectPickerCellModelTests: XCTestCase {
         self.userInterfaceMock = ProjectPickerCellMock()
     }
     
-    func testViewDidConfigureSetsUpView() {
+    func testViewDidConfigureSetsUpView() throws {
         //Arrange
-        let project = self.buildProjectDecoder()
+        let project = try self.projectDecoderFactory.build()
         let sut = self.buildSUT(project: project)
         //Act
         sut.viewDidConfigure()
@@ -35,19 +37,5 @@ extension ProjectPickerCellModelTests {
         return ProjectPickerCellModel(
             userInterface: self.userInterfaceMock,
             project: project)
-    }
-    
-    private func buildProjectDecoder() -> ProjectDecoder {
-        return ProjectDecoder(
-            identifier: 1,
-            name: "name",
-            color: nil,
-            autofill: nil,
-            countDuration: nil,
-            isActive: nil,
-            isInternal: nil,
-            isLunch: false,
-            workTimesAllowsTask: true,
-            isTaggable: true)
     }
 }

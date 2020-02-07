@@ -9,8 +9,8 @@
 import XCTest
 @testable import TimeTable
 
-// swiftlint:disable type_body_length
 class WorkTimeDecoderTests: XCTestCase {
+    private let projectDecoderFactory = ProjectDecoderFactory()
 
     func testWorkTimeResponse() throws {
         //Arrange
@@ -18,17 +18,13 @@ class WorkTimeDecoderTests: XCTestCase {
         let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
         let date = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 0)
-        let project = ProjectDecoder(
+        let project = try self.projectDecoderFactory.build(wrapper: .init(
             identifier: 3,
             name: "Lorem Ipsum",
             color: UIColor(hexString: "fe0404"),
-            autofill: nil,
-            countDuration: nil,
-            isActive: nil,
-            isInternal: nil,
             isLunch: false,
             workTimesAllowsTask: false,
-            isTaggable: true)
+            isTaggable: true))
         let data = try self.json(from: WorkTimesJSONResource.workTimeResponse)
         //Act
         let sut = try self.decoder.decode(WorkTimeDecoder.self, from: data)
@@ -65,17 +61,13 @@ class WorkTimeDecoderTests: XCTestCase {
         let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
         let date = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 0)
-        let project = ProjectDecoder(
+        let project = try self.projectDecoderFactory.build(wrapper: .init(
             identifier: 3,
             name: "Lorem Ipsum",
             color: UIColor(hexString: "fe0404"),
-            autofill: nil,
-            countDuration: nil,
-            isActive: nil,
-            isInternal: nil,
             isLunch: false,
             workTimesAllowsTask: false,
-            isTaggable: true)
+            isTaggable: true))
         let data = try self.json(from: WorkTimesJSONResource.workTimeBodyNull)
         //Act
         let sut = try self.decoder.decode(WorkTimeDecoder.self, from: data)
@@ -100,17 +92,13 @@ class WorkTimeDecoderTests: XCTestCase {
         let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
         let date = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 0)
-        let project = ProjectDecoder(
+        let project = try self.projectDecoderFactory.build(wrapper: .init(
             identifier: 3,
             name: "Lorem Ipsum",
             color: UIColor(hexString: "fe0404"),
-            autofill: nil,
-            countDuration: nil,
-            isActive: nil,
-            isInternal: nil,
             isLunch: false,
             workTimesAllowsTask: false,
-            isTaggable: true)
+            isTaggable: true))
         let data = try self.json(from: WorkTimesJSONResource.workTimeMissingBodyKey)
         //Act
         let sut = try self.decoder.decode(WorkTimeDecoder.self, from: data)
@@ -135,17 +123,13 @@ class WorkTimeDecoderTests: XCTestCase {
         let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
         let date = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 0)
-        let project = ProjectDecoder(
+        let project = try self.projectDecoderFactory.build(wrapper: .init(
             identifier: 3,
             name: "Lorem Ipsum",
             color: UIColor(hexString: "fe0404"),
-            autofill: nil,
-            countDuration: nil,
-            isActive: nil,
-            isInternal: nil,
             isLunch: false,
             workTimesAllowsTask: false,
-            isTaggable: true)
+            isTaggable: true))
         let data = try self.json(from: WorkTimesJSONResource.workTimeNullTask)
         //Act
         let sut = try self.decoder.decode(WorkTimeDecoder.self, from: data)
@@ -170,17 +154,13 @@ class WorkTimeDecoderTests: XCTestCase {
         let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
         let date = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 0)
-        let project = ProjectDecoder(
+        let project = try self.projectDecoderFactory.build(wrapper: .init(
             identifier: 3,
             name: "Lorem Ipsum",
             color: UIColor(hexString: "fe0404"),
-            autofill: nil,
-            countDuration: nil,
-            isActive: nil,
-            isInternal: nil,
             isLunch: false,
             workTimesAllowsTask: false,
-            isTaggable: true)
+            isTaggable: true))
         let data = try self.json(from: WorkTimesJSONResource.workTimeMissingTaskKey)
         //Act
         let sut = try self.decoder.decode(WorkTimeDecoder.self, from: data)
@@ -205,17 +185,13 @@ class WorkTimeDecoderTests: XCTestCase {
         let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
         let date = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 0)
-        let project = ProjectDecoder(
+        let project = try self.projectDecoderFactory.build(wrapper: .init(
             identifier: 3,
             name: "Lorem Ipsum",
             color: UIColor(hexString: "fe0404"),
-            autofill: nil,
-            countDuration: nil,
-            isActive: nil,
-            isInternal: nil,
             isLunch: false,
             workTimesAllowsTask: false,
-            isTaggable: true)
+            isTaggable: true))
         let data = try self.json(from: WorkTimesJSONResource.workTimeNullTaskPreview)
         //Act
         let sut = try self.decoder.decode(WorkTimeDecoder.self, from: data)
@@ -240,17 +216,13 @@ class WorkTimeDecoderTests: XCTestCase {
         let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
         let date = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 0)
-        let project = ProjectDecoder(
+        let project = try self.projectDecoderFactory.build(wrapper: .init(
             identifier: 3,
             name: "Lorem Ipsum",
             color: UIColor(hexString: "fe0404"),
-            autofill: nil,
-            countDuration: nil,
-            isActive: nil,
-            isInternal: nil,
             isLunch: false,
             workTimesAllowsTask: false,
-            isTaggable: true)
+            isTaggable: true))
         let data = try self.json(from: WorkTimesJSONResource.workTimeMissingTaskPreviewKey)
         //Act
         let sut = try self.decoder.decode(WorkTimeDecoder.self, from: data)
@@ -269,4 +241,3 @@ class WorkTimeDecoderTests: XCTestCase {
         XCTAssertEqual(sut.project, project)
     }
 }
-// swiftlint:enable type_body_length

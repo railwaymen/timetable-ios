@@ -10,6 +10,8 @@ import XCTest
 @testable import TimeTable
 
 class ProjectPickerViewModelTests: XCTestCase {
+    private let projectDecoderFactory = ProjectDecoderFactory()
+    
     private var userInterfaceMock: ProjectPickerViewControllerMock!
     private var coordinatorMock: ProjectPickerCoordinatorMock!
     private var dependencyContainerMock: DependencyContainerMock!
@@ -30,9 +32,9 @@ class ProjectPickerViewModelTests: XCTestCase {
         XCTAssertEqual(self.userInterfaceMock.setUpParams.count, 1)
     }
         
-    func testNumberOfRowsInZeroSection() {
+    func testNumberOfRowsInZeroSection() throws {
         //Arrange
-        let projects = [self.buildProjectDecoder()]
+        let projects = [try self.projectDecoderFactory.build()]
         let sut = self.buildSUT(projects: projects)
         //Act
         let numberOfRows = sut.numberOfRows(in: 0)
@@ -40,9 +42,9 @@ class ProjectPickerViewModelTests: XCTestCase {
         XCTAssertEqual(numberOfRows, 1)
     }
     
-    func testNumberOfRowsInNotExistingSection() {
+    func testNumberOfRowsInNotExistingSection() throws {
         //Arrange
-        let projects = [self.buildProjectDecoder()]
+        let projects = [try self.projectDecoderFactory.build()]
         let sut = self.buildSUT(projects: projects)
         //Act
         let numberOfRows = sut.numberOfRows(in: 92)
@@ -68,10 +70,10 @@ class ProjectPickerViewModelTests: XCTestCase {
         XCTAssertEqual(numberOfRows, 0)
     }
     
-    func testConfigureCellConfiguresCell() {
+    func testConfigureCellConfiguresCell() throws {
         //Arrange
         let cellMock = ProjectPickerCellMock()
-        let projects = [self.buildProjectDecoder()]
+        let projects = [try self.projectDecoderFactory.build()]
         let sut = self.buildSUT(projects: projects)
         //Act
         sut.configure(cell: cellMock, for: IndexPath(row: 0, section: 0))
@@ -98,9 +100,12 @@ class ProjectPickerViewModelTests: XCTestCase {
         XCTAssertEqual(self.userInterfaceMock.reloadDataParams.count, 1)
     }
     
-    func testUpdateSearchResultsForEmptyTextDoesNotFilterProjects() {
+    func testUpdateSearchResultsForEmptyTextDoesNotFilterProjects() throws {
         //Arrange
-        let projects = [self.buildProjectDecoder(id: 1, name: "1"), self.buildProjectDecoder(id: 2, name: "3")]
+        let projects = [
+            try self.projectDecoderFactory.build(wrapper: .init(identifier: 1, name: "1")),
+            try self.projectDecoderFactory.build(wrapper: .init(identifier: 2, name: "3"))
+        ]
         let sut = self.buildSUT(projects: projects)
         //Act
         sut.updateSearchResults(for: "")
@@ -108,9 +113,12 @@ class ProjectPickerViewModelTests: XCTestCase {
         XCTAssertEqual(sut.numberOfRows(in: 0), 2)
     }
     
-    func testUpdateSearchResultsForTextFiltersProjectsByName() {
+    func testUpdateSearchResultsForTextFiltersProjectsByName() throws {
         //Arrange
-        let projects = [self.buildProjectDecoder(id: 1, name: "1"), self.buildProjectDecoder(id: 2, name: "3")]
+        let projects = [
+            try self.projectDecoderFactory.build(wrapper: .init(identifier: 1, name: "1")),
+            try self.projectDecoderFactory.build(wrapper: .init(identifier: 2, name: "3"))
+        ]
         let sut = self.buildSUT(projects: projects)
         //Act
         sut.updateSearchResults(for: "3")
@@ -128,9 +136,12 @@ class ProjectPickerViewModelTests: XCTestCase {
         XCTAssertNil(self.coordinatorMock?.finishFlowParams.last?.project)
     }
     
-    func testCellDidSelectExistingProjectCallsFinishWithProperProject() {
+    func testCellDidSelectExistingProjectCallsFinishWithProperProject() throws {
         //Arrange
-        let projects = [self.buildProjectDecoder(id: 1, name: "1"), self.buildProjectDecoder(id: 2, name: "3")]
+        let projects = [
+            try self.projectDecoderFactory.build(wrapper: .init(identifier: 1, name: "1")),
+            try self.projectDecoderFactory.build(wrapper: .init(identifier: 2, name: "3"))
+        ]
         let sut = self.buildSUT(projects: projects)
         //Act
         sut.cellDidSelect(at: IndexPath(row: 0, section: 0))
@@ -139,9 +150,12 @@ class ProjectPickerViewModelTests: XCTestCase {
         XCTAssertEqual(self.coordinatorMock.finishFlowParams.last?.project, projects[0])
     }
     
-    func testCellDidSelectInporperIndexPathCallsFinishWithoutProject() {
+    func testCellDidSelectInporperIndexPathCallsFinishWithoutProject() throws {
         //Arrange
-        let projects = [self.buildProjectDecoder(id: 1, name: "1"), self.buildProjectDecoder(id: 2, name: "3")]
+        let projects = [
+            try self.projectDecoderFactory.build(wrapper: .init(identifier: 1, name: "1")),
+            try self.projectDecoderFactory.build(wrapper: .init(identifier: 2, name: "3"))
+        ]
         let sut = self.buildSUT(projects: projects)
         //Act
         sut.cellDidSelect(at: IndexPath(row: 0, section: 1))
@@ -169,19 +183,5 @@ extension ProjectPickerViewModelTests {
             coordinator: self.coordinatorMock,
             notificationCenter: self.dependencyContainerMock.notificationCenter,
             projects: projects)
-    }
-    
-    private func buildProjectDecoder(id: Int = 1, name: String = "name") -> ProjectDecoder {
-        return ProjectDecoder(
-            identifier: id,
-            name: name,
-            color: nil,
-            autofill: nil,
-            countDuration: nil,
-            isActive: nil,
-            isInternal: nil,
-            isLunch: false,
-            workTimesAllowsTask: true,
-            isTaggable: true)
     }
 }

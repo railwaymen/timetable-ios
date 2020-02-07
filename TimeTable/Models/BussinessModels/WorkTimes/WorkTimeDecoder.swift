@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct WorkTimeDecoder {
+struct WorkTimeDecoder: Decodable {
     private static var simpleDateFormatter: DateFormatter = DateFormatter(type: .simple)
     
     let identifier: Int64
@@ -24,10 +24,7 @@ struct WorkTimeDecoder {
     let project: ProjectDecoder
     let date: Date
     let tag: ProjectTag
-}
- 
-// MARK: - Decodable
-extension WorkTimeDecoder: Decodable {
+    
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
         case updatedByAdmin
@@ -44,6 +41,7 @@ extension WorkTimeDecoder: Decodable {
         case tag
     }
     
+    // MARK: - Initialization
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.identifier = try container.decode(Int64.self, forKey: .identifier)

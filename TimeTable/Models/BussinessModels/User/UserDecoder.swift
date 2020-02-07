@@ -8,20 +8,26 @@
 
 import Foundation
 
-struct UserDecoder {
+struct UserDecoder: Decodable {
     let identifier: Int
     let firstName: String
     let lastName: String
     let email: String
-}
-
-// MARK: - Decodable
-extension UserDecoder: Decodable {
+    
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
         case firstName
         case lastName
         case email
+    }
+    
+    // MARK: - Initialization
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.identifier = try container.decode(Int.self, forKey: .identifier)
+        self.firstName = try container.decode(String.self, forKey: .firstName)
+        self.lastName = try container.decode(String.self, forKey: .lastName)
+        self.email = try container.decode(String.self, forKey: .email)
     }
 }
 

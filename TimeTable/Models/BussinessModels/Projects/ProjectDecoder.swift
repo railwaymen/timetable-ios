@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct ProjectDecoder {
+struct ProjectDecoder: Decodable {
     let identifier: Int
     let name: String
     let color: UIColor?
@@ -20,34 +20,6 @@ struct ProjectDecoder {
     let workTimesAllowsTask: Bool
     let isTaggable: Bool
     
-    // MARK: - Initialization
-    init(
-        identifier: Int,
-        name: String,
-        color: UIColor?,
-        autofill: Bool?,
-        countDuration: Bool?,
-        isActive: Bool?,
-        isInternal: Bool?,
-        isLunch: Bool,
-        workTimesAllowsTask: Bool,
-        isTaggable: Bool
-    ) {
-        self.identifier = identifier
-        self.name = name
-        self.color = color
-        self.autofill = autofill
-        self.countDuration = countDuration
-        self.isActive = isActive
-        self.isInternal = isInternal
-        self.isLunch = isLunch
-        self.workTimesAllowsTask = workTimesAllowsTask
-        self.isTaggable = isTaggable
-    }
-}
-
-// MARK: - Decodable
-extension ProjectDecoder: Decodable {
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
         case name
@@ -61,6 +33,7 @@ extension ProjectDecoder: Decodable {
         case isTaggable = "taggable"
     }
     
+    // MARK: - Initialization
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.identifier = try container.decode(Int.self, forKey: .identifier)

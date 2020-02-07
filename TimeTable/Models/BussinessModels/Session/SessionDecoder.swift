@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct SessionDecoder {
+struct SessionDecoder: Decodable {
     let identifier: Int
     let firstName: String
     let lastName: String
@@ -16,6 +16,16 @@ struct SessionDecoder {
     let admin: Bool
     let manager: Bool
     let token: String
+    
+    enum CodingKeys: String, CodingKey {
+        case identifier = "id"
+        case firstName
+        case lastName
+        case isLeader
+        case admin
+        case manager
+        case token
+    }
     
     // MARK: - Initialization
     init(entity: UserEntity) {
@@ -26,19 +36,6 @@ struct SessionDecoder {
         self.admin = false
         self.manager = false
         self.token = entity.token
-    }
-}
-
-// MARK: - Decodable
-extension SessionDecoder: Decodable {
-    enum CodingKeys: String, CodingKey {
-        case identifier = "id"
-        case firstName
-        case lastName
-        case isLeader
-        case admin
-        case manager
-        case token
     }
 }
 
