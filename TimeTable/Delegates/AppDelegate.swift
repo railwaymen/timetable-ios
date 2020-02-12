@@ -9,6 +9,7 @@
 import UIKit
 import KeychainAccess
 import CoreStore
+import Firebase
 
 typealias AccessServiceBuilderType = ((ServerConfiguration, JSONEncoderType, JSONDecoderType) -> AccessServiceLoginType)
 
@@ -85,6 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - UIApplicationDelegate
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        FirebaseApp.configure()
         self.window = UIWindow()
         self.window?.makeKeyAndVisible()
         self.appCoordinator.start()

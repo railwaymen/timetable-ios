@@ -49,6 +49,8 @@
 		8A798747237D4DC6003DC028 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A798744237D4DC6003DC028 /* ProfileViewModel.swift */; };
 		8A80A38D23D89C24002643A1 /* APIClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80A38C23D89C24002643A1 /* APIClientFactory.swift */; };
 		8A80A38F23D89ED3002643A1 /* APIClientFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */; };
+		8A8EE1AB23F4455100416D31 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A8EE1AA23F4455100416D31 /* GoogleService-Info.plist */; };
+		8A8EE1AD23F4455900416D31 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A8EE1AC23F4455900416D31 /* GoogleService-Info.plist */; };
 		8A9369B0237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369AF237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift */; };
 		8A9369B2237AA19D005F8199 /* TagCollectionViewCellMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B1237AA19D005F8199 /* TagCollectionViewCellMock.swift */; };
 		8A9369B4237AA293005F8199 /* WorkTimeCellViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */; };
@@ -397,6 +399,8 @@
 		8A798744237D4DC6003DC028 /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		8A80A38C23D89C24002643A1 /* APIClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientFactory.swift; sourceTree = "<group>"; };
 		8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientFactoryMock.swift; sourceTree = "<group>"; };
+		8A8EE1AA23F4455100416D31 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8A8EE1AC23F4455900416D31 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8A9369AF237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUserViewTableViewCellMock.swift; sourceTree = "<group>"; };
 		8A9369B1237AA19D005F8199 /* TagCollectionViewCellMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellMock.swift; sourceTree = "<group>"; };
 		8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCellViewMock.swift; sourceTree = "<group>"; };
@@ -1038,8 +1042,9 @@
 		C1249C6121819E40005DB2A5 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
-				C183F82B21F0A56000B07AB8 /* Fonts */,
+				8A8EE1AA23F4455100416D31 /* GoogleService-Info.plist */,
 				C1B5137821772D1400C3727C /* Info.plist */,
+				C183F82B21F0A56000B07AB8 /* Fonts */,
 				C153AC5B2182F7BB007A35BB /* Localizable.strings */,
 			);
 			path = SupportingFiles;
@@ -1048,6 +1053,7 @@
 		C1249C6221819EF7005DB2A5 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				8A8EE1AC23F4455900416D31 /* GoogleService-Info.plist */,
 				C1B5138321772D1400C3727C /* Info.plist */,
 			);
 			path = SupportingFiles;
@@ -1938,6 +1944,7 @@
 				C1B5136721772D1200C3727C /* Resources */,
 				E7F8FC399274A4FFA26264A9 /* [CP] Embed Pods Frameworks */,
 				C1249C862181D0F6005DB2A5 /* Swiftlint */,
+				8A8EE1A523F4425400416D31 /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -2027,6 +2034,7 @@
 				C1E1F04221AD2372007F9228 /* WorkTimesTableViewHeader.xib in Resources */,
 				C13429AA21A7DB2300F4EA42 /* WorkTimesList.storyboard in Resources */,
 				C153AC592182F7BB007A35BB /* Localizable.strings in Resources */,
+				8A8EE1AB23F4455100416D31 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2067,6 +2075,7 @@
 				C1B771E121EF1E5100EFE06F /* simpleProjectNullCountDurationResponse.json in Resources */,
 				C11F51F321A5AB9C00FD626A /* workTimeInvalidDateFormatResponse.json in Resources */,
 				C12BD9AB21E49C8A00A6EAF0 /* projectRecordNullColorResponse.json in Resources */,
+				8A8EE1AD23F4455900416D31 /* GoogleService-Info.plist in Resources */,
 				C12BD9AF21E49CC900A6EAF0 /* projectRecordNullUserResponse.json in Resources */,
 				C1B771DF21EF1E3E00EFE06F /* simpleProjectMissingInternalKeyResponse.json in Resources */,
 				8A9987CE23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json in Resources */,
@@ -2118,6 +2127,25 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		8A8EE1A523F4425400416D31 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		C1249C862181D0F6005DB2A5 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2568,6 +2596,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				INFOPLIST_FILE = TimeTable/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2734,6 +2763,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
 				INFOPLIST_FILE = TimeTable/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2754,6 +2784,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				INFOPLIST_FILE = TimeTable/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
