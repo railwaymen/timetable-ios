@@ -8,7 +8,7 @@ Simple time tracking iOS application. Check out our [TimeTable Ruby on Rails pro
 
 ## Requirements
 
-- [Bundler](https://bundler.io) 2.1.1
+- [Bundler](https://bundler.io) 2.1.4
 - [Xcode](https://developer.apple.com/xcode/) 11.3.1
 
 ## Installation
@@ -37,15 +37,18 @@ Simple time tracking iOS application. Check out our [TimeTable Ruby on Rails pro
 
 ### Cocoapods
 
-- [CoreStore](https://cocoapods.org/pods/CoreStore) 7.0.1
+- [CoordinatorsFoundation](https://git.railwaymen.org/open/coordinatorsfoundation) 0.2.2
+- [CoreStore](https://cocoapods.org/pods/CoreStore) 7.0.4
+- [Firebase](https://cocoapods.org/pods/Firebase) 6.17.0
+- [JSONFactorable](https://git.railwaymen.org/open/jsonfactorable) 0.2.1 (only tests target)
 - [KeychainAccess](https://cocoapods.org/pods/KeychainAccess) 4.1.0
 - [Networking](https://cocoapods.org/pods/Networking) 5.0.1
-- [SwiftLint](https://cocoapods.org/pods/SwiftLint) 0.37.0
+- [SwiftLint](https://cocoapods.org/pods/SwiftLint) 0.39.1
 
 ### Bundler
 
 - [Cocoapods](https://cocoapods.org) 1.8.4
-- [Fastlane](https://fastlane.tools) 2.137.0
+- [Fastlane](https://fastlane.tools) 2.141.0
 - [Slather](https://github.com/SlatherOrg/slather) 2.4.7
 - [xcode-install](https://github.com/xcpretty/xcode-install) 2.6.3
-- [xcov](https://github.com/nakiostudio/xcov) 1.7.0
+- [xcov](https://github.com/nakiostudio/xcov) 1.7.2
