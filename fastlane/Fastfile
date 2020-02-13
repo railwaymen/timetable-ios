@@ -4,10 +4,20 @@ SCHEME = "TimeTable"
 WORKSPACE = "TimeTable.xcworkspace"
 PROJECT = "TimeTable.xcodeproj"
 
+STAGE_TEAM_ID = ENV["STAGE_TEAM_ID"]
+STAGE_APP_BUNDLE_ID = ENV["STAGE_APP_BUNDLE_ID"]
+STAGE_TESTERS_EMAILS = ENV["STAGE_TESTERS_EMAILS"]
+STAGE_FIREBASE_APP_ID = ENV["STAGE_FIREBASE_APP_ID"]
+
+STAGE_DIR_PATH = "output/TimeTable/stage"
+
 platform :ios do
 
   before_all do
     xcversion(version: "11.3.1")
+    if ENV['CI_PIPELINE_ID']
+      increment_build_number(build_number: "#{ENV['CI_PIPELINE_ID']}")
+    end
   end
 
   after_all do |lane|
@@ -39,6 +49,21 @@ platform :ios do
       output_directory: "output/coverage/slather")
   end
 
+  desc "TimeTable - Submit to Crashlytics stage version."
+  lane :deploy_stage do
+    info_plist_path = "#{STAGE_DIR_PATH}/TimeTable_Stage.ipa"
+    build_stage_ipa
+
+    version_number = get_ipa_info_plist_value(ipa: info_plist_path, key: "CFBundleShortVersionString")
+    build_number = get_ipa_info_plist_value(ipa: info_plist_path, key: "CFBundleVersion")
+    release_notes = "iOS QA - #{version_number} (#{build_number})"
+    firebase_app_distribution(
+        app: STAGE_FIREBASE_APP_ID,
+        testers: STAGE_TESTERS_EMAILS,
+        release_notes: release_notes
+    )
+  end
+
   #PRIVATE LANES
   private_lane :check_style do
 		output_path="output/lint"
@@ -46,6 +71,25 @@ platform :ios do
 
 		sh("cd .. && mkdir -p #{output_path}")
 		ENV["PATH"] = ["Pods/SwiftLint", ENV["PATH"]].join(":")
-		swiftlint(output_file:output_file, reporter: "emoji")
+		swiftlint(output_file: output_file, reporter: "emoji")
 	end
+
+  desc "TimeTable - Build stage ipa."
+  private_lane :build_stage_ipa do
+    sigh(
+      development: true,
+      provisioning_name: "TimeTableStageDevelopment",
+      app_identifier: STAGE_APP_BUNDLE_ID,
+      team_id: STAGE_TEAM_ID,
+      output_path: STAGE_DIR_PATH,
+      filename: "Development.mobileprovision"
+    )
+    gym(
+      scheme: SCHEME,
+      configuration: "Stage",
+      output_name: "TimeTable_Stage",
+      output_directory: STAGE_DIR_PATH,
+      export_method: "development"
+    )
+  end
 end

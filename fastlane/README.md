@@ -21,6 +21,11 @@ or alternatively using `brew cask install fastlane`
 fastlane ios test
 ```
 Run unit tests
+### ios deploy_crashlytics
+```
+fastlane ios deploy_crashlytics
+```
+TimeTable - Submit to Crashlytics stage version.
 
 ----
 

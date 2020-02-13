@@ -8,7 +8,7 @@ Simple time tracking iOS application. Check out our [TimeTable Ruby on Rails pro
 
 ## Requirements
 
-- [Bundler](https://bundler.io) 2.0.2
+- [Bundler](https://bundler.io) 2.1.1
 - [Xcode](https://developer.apple.com/xcode/) 11.3.1
 
 ## Installation

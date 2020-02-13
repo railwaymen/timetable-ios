@@ -1,9 +1,12 @@
 stages:
   - prepare
   - build
+  - deploy
 
 variables:
   LC_ALL: "en_US.UTF-8"
+  PILOT_USERNAME: ${CI_PILOT_USERNAME}
+  SIGH_USERNAME: ${CI_SIGH_USERNAME}
 
 cache:
   key: "bundle_dependencies"
@@ -12,20 +15,20 @@ cache:
 
 .setup: &setup
   - export
-  - rvm --create use ruby-2.6.0@timetable-ios
-  - gem install bundler:2.0.2
-  - bundle install --path vendor/bundle
+  - rvm --create use ruby-2.6.3@timetable-ios
+  - gem install bundler:2.1.1
+  - bundle config set path 'vendor/bundle'
+  - bundle install
   - bundle exec pod cache clean --all
   - bundle exec pod install || bundle exec pod install --repo-update
-
 
 prepare_proj:
   stage: prepare
   script:
     - mkdir -p Configuration
-    - envsubst '$DEBUG_APP_NAME $DEBUG_APP_BUNDLE_ID $APP_TEST_BUNDLE_ID $DEVELOPMENT_TEAM_ID' < Configuration/env_debug.xcconfig.tpl > Configuration/Debug.xcconfig
-    - envsubst '$STAGE_APP_NAME $STAGE_APP_BUNDLE_ID $APP_TEST_BUNDLE_ID $DEVELOPMENT_TEAM_ID' < Configuration/env_stage.xcconfig.tpl > Configuration/Stage.xcconfig
-    - envsubst '$RELEASE_APP_NAME $RELEASE_APP_BUNDLE_ID $APP_TEST_BUNDLE_ID $DEVELOPMENT_TEAM_ID' < Configuration/env_release.xcconfig.tpl > Configuration/Release.xcconfig
+    - envsubst < Configuration/env_debug.xcconfig.tpl > Configuration/Debug.xcconfig
+    - envsubst < Configuration/env_stage.xcconfig.tpl > Configuration/Stage.xcconfig
+    - envsubst < Configuration/env_release.xcconfig.tpl > Configuration/Release.xcconfig
   after_script:
     *setup
   artifacts:
@@ -59,3 +62,21 @@ test_project:
   tags:
     - ios_simulator
   coverage: '/TimeTable\.app\D*\|\D*([\d\.]*)\%/'
+
+deploy_stage:
+  stage: deploy
+  before_script:
+    *setup
+  script:
+    - bundle exec fastlane deploy_stage
+  artifacts:
+    name: "QA_${CI_PROJECT_NAME}_${CI_BUILD_NAME}_${CI_BUILD_REF_NAME}_${CI_BUILD_ID}"
+    expire_in: 1 week
+    paths:
+    - output/TimeTable/stage/*
+  when: on_success
+  only:
+    - develop
+    - /release/v[\d\.]*/
+  tags:
+    - ios
