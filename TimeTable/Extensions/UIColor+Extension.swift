@@ -34,6 +34,10 @@ extension UIColor {
         return color ?? #colorLiteral(red: 0.04705882353, green: 0.8156862745, blue: 0.631372549, alpha: 1)
     }()
     
+    static let disabledButton: UIColor = {
+        return .systemGray
+    }()
+    
     static let defaultBackground: UIColor = {
         if #available(iOS 13, *) {
             return .systemBackground

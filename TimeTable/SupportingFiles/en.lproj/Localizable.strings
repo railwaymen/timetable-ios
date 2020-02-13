@@ -22,8 +22,8 @@
 "login.label.title" = "Log In";
 "login.label.explanation" = "Please enter email and password";
 "login.label.stay_signed_in" = "Stay signed in";
-"login.text_feild.email" = "E-mail";
-"login.text_feild.password" = "Password";
+"login.text_field.username" = "Username";
+"login.text_field.password" = "Password";
 "login.button.log_in" = "Log in";
 "login.button.change_server_address" = "Would you like to change the server address?";
 

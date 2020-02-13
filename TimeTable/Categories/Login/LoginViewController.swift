@@ -64,16 +64,11 @@ extension LoginViewController: LoginViewModelOutput {
     func updateLoginFields(email: String, password: String) {
         self.loginTextField.text = email
         self.passwordTextField.text = password
-        self.passwordTextField.isEnabled = !password.isEmpty
-        self.loginButton.isEnabled = !(email.isEmpty && password.isEmpty)
-    }
-    
-    func passwordInputEnabledState(_ isEnabled: Bool) {
-        self.passwordTextField.isEnabled = isEnabled
     }
     
     func loginButtonEnabledState(_ isEnabled: Bool) {
         self.loginButton.isEnabled = isEnabled
+        self.loginButton.backgroundColor = isEnabled ? .crimson : .disabledButton
     }
     
     func focusOnPasswordTextField() {

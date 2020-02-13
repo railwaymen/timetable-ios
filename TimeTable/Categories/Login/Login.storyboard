@@ -63,7 +63,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.text_feild.email"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.text_field.username"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="loginTextFieldDidChange:" destination="prJ-rF-eRP" eventType="editingChanged" id="Qm5-c9-Psy"/>
@@ -86,7 +86,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.text_feild.password"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="login.text_field.password"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="passwordTextFieldDidChange:" destination="prJ-rF-eRP" eventType="editingChanged" id="IZ7-kt-I9N"/>
