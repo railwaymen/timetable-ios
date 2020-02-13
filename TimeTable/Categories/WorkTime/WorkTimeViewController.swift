@@ -205,7 +205,9 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     
     func setBottomContentInset(_ height: CGFloat) {
         guard self.viewIfLoaded != nil else { return }
-        self.scrollView.contentInset.bottom = height
+        let bottomInset = max(0, height - self.scrollView.safeAreaInsets.bottom)
+        self.scrollView.contentInset.bottom = bottomInset
+        self.scrollView.scrollIndicatorInsets.bottom = bottomInset
     }
     
     func setTagsCollectionView(isHidden: Bool) {
