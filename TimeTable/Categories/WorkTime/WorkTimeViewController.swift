@@ -59,25 +59,19 @@ class WorkTimeViewController: UIViewController {
         self.viewModel?.viewHasBeenTapped()
     }
     
-    @IBAction private func dayTextFieldDidBegin(_ sender: UITextField) {
-        self.viewModel.setDefaultDay()
-    }
+    @IBAction private func dayTextFieldDidBegin(_ sender: UITextField) {}
     
     @objc private func dayTextFieldDidChanged(_ sender: UIDatePicker) {
         self.viewModel.viewChanged(day: sender.date)
     }
     
-    @IBAction private func startAtDateTextFieldDidBegin(_ sender: UITextField) {
-        self.viewModel.setDefaultStartAtDate()
-    }
+    @IBAction private func startAtDateTextFieldDidBegin(_ sender: UITextField) {}
 
     @objc private func startAtDateTextFieldDidChanged(_ sender: UIDatePicker) {
         self.viewModel.viewChanged(startAtDate: sender.date)
     }
     
-    @IBAction private func endAtDateTextFieldDidBegin(_ sender: UITextField) {
-        self.viewModel.setDefaultEndAtDate()
-    }    
+    @IBAction private func endAtDateTextFieldDidBegin(_ sender: UITextField) {}
     
     @objc private func endAtDateTextFieldDidChanged(_ sender: UIDatePicker) {
         self.viewModel.viewChanged(endAtDate: sender.date)

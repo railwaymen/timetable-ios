@@ -98,7 +98,7 @@ extension TaskTests {
     }
 }
 
-// MARK: - isTaggable
+// MARK: - isProjectTaggable
 extension TaskTests {
     func testIsTaggable_withoutProject() throws {
         //Arrange
@@ -112,7 +112,7 @@ extension TaskTests {
             endsAt: nil,
             tag: .development)
         //Act
-        let isTaggable = sut.isTaggable
+        let isTaggable = sut.isProjectTaggable
         //Assert
         XCTAssertFalse(isTaggable)
     }
@@ -131,7 +131,7 @@ extension TaskTests {
             endsAt: nil,
             tag: .development)
         //Act
-        let isTaggable = sut.isTaggable
+        let isTaggable = sut.isProjectTaggable
         //Assert
         XCTAssertTrue(isTaggable)
     }
@@ -150,7 +150,7 @@ extension TaskTests {
             endsAt: nil,
             tag: .development)
         //Act
-        let isTaggable = sut.isTaggable
+        let isTaggable = sut.isProjectTaggable
         //Assert
         XCTAssertFalse(isTaggable)
     }

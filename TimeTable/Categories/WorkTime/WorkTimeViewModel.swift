@@ -32,15 +32,11 @@ protocol WorkTimeViewModelType: class {
     func isTagSelected(at index: IndexPath) -> Bool
     func viewRequestedToFinish()
     func taskNameDidChange(value: String?)
-    func setDefaultTask()
     func taskURLDidChange(value: String?)
     func viewChanged(startAtDate date: Date)
-    func setDefaultDay()
     func viewChanged(day: Date)
-    func setDefaultStartAtDate()
     func viewChanged(endAtDate date: Date)
     func viewRequestedToSave()
-    func setDefaultEndAtDate()
     func viewHasBeenTapped()
 }
 
@@ -77,10 +73,6 @@ class WorkTimeViewModel {
         self.calendar = calendar
         self.notificationCenter = notificationCenter
         self.viewTitle = flowType.viewTitle
-        let lastTaskValidation: (Task?) -> Task? = { lastTask in
-            guard let lastTaskEndAt = lastTask?.endsAt, calendar.isDateInToday(lastTaskEndAt) else { return nil }
-            return lastTask
-        }
         let taskCreation: (_ duplicatedTask: Task?, _ lastTask: Task?) -> Task = { duplicatedTask, lastTask in
             return Task(
                 workTimeIdentifier: nil,
@@ -88,16 +80,16 @@ class WorkTimeViewModel {
                 body: duplicatedTask?.body ?? "",
                 url: duplicatedTask?.url,
                 day: Date(),
-                startsAt: lastTask?.endsAt,
+                startsAt: contentProvider.pickEndTime(ofLastTask: lastTask),
                 endsAt: nil,
                 tag: duplicatedTask?.tag ?? .default)
         }
         switch flowType {
         case let .newEntry(lastTask):
-            self.lastTask = lastTaskValidation(lastTask)
-            self.task = taskCreation(nil, lastTaskValidation(lastTask))
+            self.lastTask = lastTask
+            self.task = taskCreation(nil, lastTask)
         case let .duplicateEntry(duplicatedTask, lastTask):
-            self.lastTask = lastTaskValidation(lastTask)
+            self.lastTask = lastTask
             self.task = taskCreation(duplicatedTask, lastTask)
         case let .editEntry(editedTask):
             self.task = editedTask
@@ -164,14 +156,6 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
         return self.tags[safeIndex: index.row] == self.task.tag
     }
     
-    func setDefaultTask() {
-        guard let firstProject = self.projects.first else { return }
-        if self.task.project == nil {
-            self.task.project = .some(self.lastTask?.project ?? firstProject)
-        }
-        self.updateViewWithCurrentSelectedProject()
-    }
-    
     func viewSelectedTag(at index: IndexPath) {
         guard let selectedTag = self.tags[safeIndex: index.row] else { return }
         self.task.tag = self.task.tag == selectedTag ? .development : selectedTag
@@ -193,12 +177,6 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
         self.task.url = url
     }
     
-    func setDefaultDay() {
-        let date = self.task.day ?? Date()
-        self.task.day = date
-        self.updateDayView(with: date)
-    }
-    
     func viewChanged(day: Date) {
         self.task.day = day
         self.updateDayView(with: day)
@@ -209,25 +187,8 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
         self.updateStartAtDateView(with: date)
     }
     
-    func setDefaultStartAtDate() {
-        let date = self.task.startsAt ?? Date().roundedToFiveMinutes()
-        self.task.startsAt = date
-        self.updateStartAtDateView(with: date)
-    }
-    
     func viewChanged(endAtDate date: Date) {
         self.task.endsAt = date
-        self.updateEndAtDateView(with: date)
-    }
-    
-    func setDefaultEndAtDate() {
-        let date: Date
-        if let toDate = self.task.endsAt {
-            date = toDate
-        } else {
-            date = self.task.startsAt ?? Date().roundedToFiveMinutes()
-            self.task.endsAt = date
-        }
         self.updateEndAtDateView(with: date)
     }
     
@@ -265,37 +226,33 @@ extension WorkTimeViewModel {
             object: nil)
     }
     
+    private func setDefaultTask() {
+        guard let defaultProject = self.projects.first(where: { $0 == self.lastTask?.project }) ?? self.projects.first else { return }
+        if self.task.project == nil {
+            self.task.project = .some(self.lastTask?.project ?? defaultProject)
+        }
+        self.updateViewWithCurrentSelectedProject()
+    }
+    
+    private func setDefaultDay() {
+        let date = self.contentProvider.getDefaultDay(forTask: self.task)
+        self.task.day = date
+        self.updateDayView(with: date)
+    }
+    
     private func updateViewWithCurrentSelectedProject() {
+        let (startDate, endDate) = self.contentProvider.getDefaultTime(forTask: self.task, lastTask: self.lastTask)
+        self.task.startsAt = startDate
+        self.task.endsAt = endDate
         self.userInterface?.setUp(
             title: self.viewTitle,
             isLunch: self.task.project?.isLunch ?? false,
             allowsTask: self.task.allowsTask,
             body: self.task.body,
             urlString: self.task.url?.absoluteString)
-        self.userInterface?.setTagsCollectionView(isHidden: !self.task.isTaggable)
-        let fromDate: Date
-        let toDate: Date
-        switch self.task.type {
-        case let .fullDay(timeInterval)?:
-            fromDate = self.calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
-            toDate = fromDate.addingTimeInterval(timeInterval)
-            self.task.startsAt = fromDate
-            self.task.endsAt = toDate
-        case let .lunch(timeInterval)?:
-            fromDate = self.task.startsAt ?? Date().roundedToFiveMinutes()
-            toDate = fromDate.addingTimeInterval(timeInterval)
-            self.task.startsAt = fromDate
-            self.task.endsAt = toDate
-        case .standard?, .none:
-            fromDate = self.lastTask?.endsAt ?? self.task.startsAt ?? Date().roundedToFiveMinutes()
-            toDate = self.task.endsAt ?? fromDate
-            self.task.startsAt = fromDate
-            self.task.endsAt = toDate
-            self.setDefaultStartAtDate()
-            self.setDefaultEndAtDate()
-        }
-        self.updateStartAtDateView(with: fromDate)
-        self.updateEndAtDateView(with: toDate)
+        self.userInterface?.setTagsCollectionView(isHidden: !self.task.isProjectTaggable)
+        self.updateStartAtDateView(with: startDate)
+        self.updateEndAtDateView(with: endDate)
         self.userInterface?.updateProject(name: self.task.project?.name ?? "work_time.text_field.select_project".localized)
     }
     
@@ -308,14 +265,15 @@ extension WorkTimeViewModel {
         let dateString = DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .short)
         self.userInterface?.updateStartAtDate(with: date, dateString: dateString)
         self.userInterface?.setMinimumDateForTypeEndAtDate(minDate: date)
-        if let startAt = self.task.endsAt, startAt < date {
+        if let endsAt = self.task.endsAt, endsAt < date {
             self.task.endsAt = date
             self.updateEndAtDateView(with: date)
         }
     }
     
     private func updateEndAtDateView(with date: Date) {
-        self.userInterface?.updateEndAtDate(with: date, dateString: DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .short))
+        let dateString = DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .short)
+        self.userInterface?.updateEndAtDate(with: date, dateString: dateString)
     }
     
     private func fetchProjectList() {

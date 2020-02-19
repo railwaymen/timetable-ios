@@ -21,6 +21,25 @@ class WorkTimeContentProviderMock {
         let task: Task
         let completion: SaveTaskCompletion
     }
+    
+    var getDefaultDayReturnValue: Date = Date()
+    private(set) var getDefaultDayParams: [GetDefaultDayParams] = []
+    struct GetDefaultDayParams {
+        let task: Task
+    }
+    
+    var getDefaultTimeReturnValue: (startDate: Date, endDate: Date) = (Date(), Date())
+    private(set) var getDefaultTimeParams: [GetDefaultTimeParams] = []
+    struct GetDefaultTimeParams {
+        let task: Task
+        let lastTask: Task?
+    }
+    
+    var pickEndTimeReturnValue: Date?
+    private(set) var pickEndTimeParams: [PickEndTimeParams] = []
+    struct PickEndTimeParams {
+        let lastTask: Task?
+    }
 }
 
 // MARK: - WorkTimeContentProviderMock
@@ -31,5 +50,20 @@ extension WorkTimeContentProviderMock: WorkTimeContentProviderType {
     
     func save(task: Task, completion: @escaping SaveTaskCompletion) {
         self.saveTaskParams.append(SaveTaskParams(task: task, completion: completion))
+    }
+    
+    func getDefaultDay(forTask task: Task) -> Date {
+        self.getDefaultDayParams.append(GetDefaultDayParams(task: task))
+        return self.getDefaultDayReturnValue
+    }
+    
+    func getDefaultTime(forTask task: Task, lastTask: Task?) -> (startDate: Date, endDate: Date) {
+        self.getDefaultTimeParams.append(GetDefaultTimeParams(task: task, lastTask: lastTask))
+        return self.getDefaultTimeReturnValue
+    }
+    
+    func pickEndTime(ofLastTask lastTask: Task?) -> Date? {
+        self.pickEndTimeParams.append(PickEndTimeParams(lastTask: lastTask))
+        return self.pickEndTimeReturnValue
     }
 }

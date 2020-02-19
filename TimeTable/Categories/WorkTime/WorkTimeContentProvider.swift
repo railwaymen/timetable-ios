@@ -17,16 +17,22 @@ typealias SaveTaskCompletion = (SaveTaskResult) -> Void
 protocol WorkTimeContentProviderType: class {
     func fetchSimpleProjectsList(completion: @escaping FetchSimpleProjectsListCompletion)
     func save(task: Task, completion: @escaping SaveTaskCompletion)
+    func getDefaultTime(forTask task: Task, lastTask: Task?) -> (startDate: Date, endDate: Date)
+    func getDefaultDay(forTask task: Task) -> Date
+    func pickEndTime(ofLastTask lastTask: Task?) -> Date?
 }
 
 class WorkTimeContentProvider {
     private let apiClient: WorkTimeApiClientType
+    private let calendar: CalendarType
     
     // MARK: - Initialization
     init(
-        apiClient: WorkTimeApiClientType
+        apiClient: WorkTimeApiClientType,
+        calendar: CalendarType
     ) {
         self.apiClient = apiClient
+        self.calendar = calendar
     }
 }
 
@@ -56,6 +62,32 @@ extension WorkTimeContentProvider: WorkTimeContentProviderType {
         } catch {
             completion(.failure(error))
         }
+    }
+    
+    func getDefaultTime(forTask task: Task, lastTask: Task?) -> (startDate: Date, endDate: Date) {
+        let startDate: Date
+        let endDate: Date
+        switch task.type {
+        case let .fullDay(timeInterval):
+            startDate = self.calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
+            endDate = startDate.addingTimeInterval(timeInterval)
+        case let .lunch(timeInterval):
+            startDate = task.startsAt ?? Date().roundedToFiveMinutes()
+            endDate = startDate.addingTimeInterval(timeInterval)
+        case .standard, .none:
+            startDate = self.pickEndTime(ofLastTask: lastTask) ?? task.startsAt ?? Date().roundedToFiveMinutes()
+            endDate = task.endsAt ?? startDate
+        }
+        return (startDate, endDate)
+    }
+    
+    func getDefaultDay(forTask task: Task) -> Date {
+        return task.day ?? Date()
+    }
+    
+    func pickEndTime(ofLastTask lastTask: Task?) -> Date? {
+        guard let lastTaskEndAt = lastTask?.endsAt, self.calendar.isDateInToday(lastTaskEndAt) else { return nil }
+        return lastTaskEndAt
     }
 }
 

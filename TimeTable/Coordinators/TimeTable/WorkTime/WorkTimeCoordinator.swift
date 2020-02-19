@@ -77,7 +77,8 @@ extension WorkTimeCoordinator {
         guard let apiClient = self.dependencyContainer.apiClient else { return assertionFailure("Api client is nil") }
         let controller: WorkTimeViewControllerable? = self.dependencyContainer.storyboardsManager.controller(storyboard: .workTime)
         let contentProvider = WorkTimeContentProvider(
-            apiClient: apiClient)
+            apiClient: apiClient,
+            calendar: Calendar.autoupdatingCurrent)
         guard let workTimeViewController = controller else { return }
         let viewModel = WorkTimeViewModel(
             userInterface: workTimeViewController,

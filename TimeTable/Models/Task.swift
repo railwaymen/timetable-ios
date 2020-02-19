@@ -28,7 +28,7 @@ struct Task {
         return project.workTimesAllowsTask
     }
     
-    var isTaggable: Bool {
+    var isProjectTaggable: Bool {
         return self.project?.isTaggable ?? false
     }
     
@@ -88,7 +88,7 @@ extension Task: Encodable {
             try container.encode(startAtDate, forKey: .startsAt)
             let endAtDate = self.combine(day: self.day, time: self.endsAt)
             try container.encode(endAtDate, forKey: .endsAt)
-            try? container.encode(self.isTaggable ? self.tag.rawValue : ProjectTag.default.rawValue, forKey: .tag)
+            try? container.encode(self.isProjectTaggable ? self.tag.rawValue : ProjectTag.default.rawValue, forKey: .tag)
         }
     }
 }

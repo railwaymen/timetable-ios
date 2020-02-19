@@ -87,30 +87,12 @@ extension WorkTimeViewModelTests {
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setUpParams.last?.allowsTask))
     }
     
-    func testViewDidLoadWithLastTaskSetsDateAndTime() throws {
-        //Arrange
-        let lastTask = try self.createTask(workTimeIdentifier: nil)
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: lastTask))
-        let creationDate = Date()
-        let timestampRoundingFactor = 5 * TimeInterval.minute
-        //Act
-        sut.viewDidLoad()
-        //Assert
-        XCTAssertTrue(Calendar.current.isDateInToday(try XCTUnwrap(self.userInterfaceMock.updateDayParams.last?.date)))
-        let startsAtDate = try XCTUnwrap(self.userInterfaceMock.updateStartAtDateParams.last?.date)
-        let endsAtDate = try XCTUnwrap(self.userInterfaceMock.updateEndAtDateParams.last?.date)
-        XCTAssertEqual(startsAtDate.timeIntervalSince1970.remainder(dividingBy: timestampRoundingFactor), 0)
-        XCTAssertEqual(startsAtDate.timeIntervalSince1970, creationDate.timeIntervalSince1970, accuracy: timestampRoundingFactor / 2 + 0.01)
-        XCTAssertEqual(endsAtDate.timeIntervalSince1970.remainder(dividingBy: timestampRoundingFactor), 0)
-        XCTAssertEqual(endsAtDate.timeIntervalSince1970, creationDate.timeIntervalSince1970, accuracy: timestampRoundingFactor / 2 + 0.01)
-        XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, "Select project")
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setUpParams.last?.allowsTask))
-    }
-    
     func testViewDidLoad_withEditedTask() throws {
         //Arrange
         let task = try self.createTask(workTimeIdentifier: 123)
         let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
+        self.contentProviderMock.getDefaultDayReturnValue = try XCTUnwrap(task.day)
+        self.contentProviderMock.getDefaultTimeReturnValue = (try XCTUnwrap(task.startsAt), try XCTUnwrap(task.endsAt))
         //Act
         sut.viewDidLoad()
         //Assert
@@ -146,6 +128,8 @@ extension WorkTimeViewModelTests {
         let task = try self.createTask(workTimeIdentifier: 123, index: 3)
         let lastTask = try self.createTask(workTimeIdentifier: 12, index: 2)
         let sut = self.buildSUT(flowType: .duplicateEntry(duplicatedTask: task, lastTask: lastTask))
+        let time = try XCTUnwrap(lastTask.endsAt)
+        self.contentProviderMock.getDefaultTimeReturnValue = (time, time)
         //Act
         sut.viewDidLoad()
         //Assert
@@ -286,57 +270,6 @@ extension WorkTimeViewModelTests {
     }
 }
 
-// MARK: - setDefaultTask()
-extension WorkTimeViewModelTests {
-    func testSetDefaultTask_whileProjectListIsEmpty() {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        //Act
-        sut.setDefaultTask()
-        //Assert
-        XCTAssertTrue(self.userInterfaceMock.setUpParams.isEmpty)
-        XCTAssertTrue(self.userInterfaceMock.updateProjectParams.isEmpty)
-    }
-    
-    func testSetDefaultTask_afterFetchingProjectsListAndProjectIsNotSelected() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        try self.fetchProjects(sut: sut)
-        //Act
-        sut.setDefaultTask()
-        //Assert
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setUpParams.last?.allowsTask))
-        XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, "asdsa")
-    }
-    
-    func testSetDefaultTask_whileTaskWasSetPreviously() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        try self.fetchProjects(sut: sut)
-        sut.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[1])
-        //Act
-        sut.setDefaultTask()
-        //Assert
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setUpParams.last?.allowsTask))
-        XCTAssertNotEqual(self.userInterfaceMock.updateProjectParams.last?.name, "asdsa")
-    }
-    
-    func testSetDefaultTask_whileTaskIsFullDayOption() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        try self.fetchProjects(sut: sut)
-        sut.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[3])
-        //Act
-        sut.setDefaultTask()
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateStartAtDateParams.count, 8)
-        XCTAssertEqual(self.userInterfaceMock.setMinimumDateForTypeEndAtDateParams.count, 8)
-        XCTAssertEqual(self.userInterfaceMock.updateEndAtDateParams.count, 8)
-    }
-}
-
 // MARK: - projectButtonTapped()
 extension WorkTimeViewModelTests {
     func testProjectButtonTapped_beforeFetch() {
@@ -454,31 +387,6 @@ extension WorkTimeViewModelTests {
         XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? UIError, error)
     }
 }
-
-// MARK: - setDefaultDay()
-extension WorkTimeViewModelTests {
-    func testSetDefaultDay_ifDayWasNotSet() {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        //Act
-        sut.setDefaultDay()
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateDayParams.count, 1)
-    }
-
-    func testSetDefaultDay_notSetCurrentDayIfWasSetBefore() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let day = try self.buildDate(year: 2018, month: 1, day: 17)
-        let dayString = DateFormatter.localizedString(from: day, dateStyle: .short, timeStyle: .none)
-        sut.viewChanged(day: day)
-        //Act
-        sut.setDefaultDay()
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateDayParams.last?.date, day)
-        XCTAssertEqual(self.userInterfaceMock.updateDayParams.last?.dateString, dayString)
-    }
-}
     
 // MARK: - viewChanged(day:)
 extension WorkTimeViewModelTests {
@@ -535,34 +443,6 @@ extension WorkTimeViewModelTests {
     }
 }
 
-// MARK: - setDefaultStartAtDate()
-extension WorkTimeViewModelTests {
-    func testSetDefaultStartAtDate_whileStartAtDateWasNotSet() {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        //Act
-        sut.setDefaultStartAtDate()
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateStartAtDateParams.count, 1)
-        XCTAssertEqual(self.userInterfaceMock.setMinimumDateForTypeEndAtDateParams.count, 1)
-    }
-    
-    func testSetDefaultStartAtDate_whileStartAtDateWasSet() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let startAtDate = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        self.calendarMock.dateBySettingCalendarComponentReturnValue = startAtDate
-        sut.viewChanged(startAtDate: startAtDate)
-        //Act
-        sut.setDefaultStartAtDate()
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateStartAtDateParams.last?.date, startAtDate)
-        XCTAssertEqual(self.userInterfaceMock.updateStartAtDateParams.last?.dateString, "12:02 PM")
-        XCTAssertEqual(self.userInterfaceMock.setMinimumDateForTypeEndAtDateParams.count, 2)
-        XCTAssertEqual(self.userInterfaceMock.setMinimumDateForTypeEndAtDateParams.last?.minDate, startAtDate)
-    }
-}
-
 // MARK: - viewChanged(endAtDate:)
 extension WorkTimeViewModelTests {
     func testViewChangedEndAtDate() throws {
@@ -589,46 +469,6 @@ extension WorkTimeViewModelTests {
         //Assert
         XCTAssertEqual(self.userInterfaceMock.updateEndAtDateParams.last?.date, endAtDate)
         XCTAssertEqual(self.userInterfaceMock.updateEndAtDateParams.last?.dateString, "1:02 PM")
-    }
-}
-
-// MARK: - setDefaultEndAtDate()
-extension WorkTimeViewModelTests {
-    func testSetDefaultEndAtDate() {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        //Act
-        sut.setDefaultEndAtDate()
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateEndAtDateParams.count, 1)
-    }
-    
-    func testSetDefaultEndAtDate_whileEndAtDateWasSet() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let endAtDate = try XCTUnwrap(self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1))
-        self.calendarMock.dateBySettingCalendarComponentReturnValue = endAtDate
-        sut.viewChanged(endAtDate: endAtDate)
-        //Act
-        sut.setDefaultEndAtDate()
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateEndAtDateParams.last?.date, endAtDate)
-        XCTAssertEqual(self.userInterfaceMock.updateEndAtDateParams.last?.dateString, "12:02 PM")
-    }
-    
-    func testSetDefaultEndAtDate_whileStartAtDateWasSet() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let startAtDate = try XCTUnwrap(self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1))
-        self.calendarMock.dateBySettingCalendarComponentReturnValue = startAtDate
-        sut.viewChanged(startAtDate: startAtDate)
-        //Act
-        sut.setDefaultEndAtDate()
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateStartAtDateParams.last?.date, startAtDate)
-        XCTAssertEqual(self.userInterfaceMock.updateStartAtDateParams.last?.dateString, "12:02 PM")
-        XCTAssertEqual(self.userInterfaceMock.setMinimumDateForTypeEndAtDateParams.count, 1)
-        XCTAssertEqual(self.userInterfaceMock.setMinimumDateForTypeEndAtDateParams.last?.minDate, startAtDate)
     }
 }
 
