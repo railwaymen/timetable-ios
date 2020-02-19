@@ -40,7 +40,7 @@ class ProjectsCollectionViewLayout: UICollectionViewFlowLayout {
     }
     
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        return self.cache[indexPath.item]
+        return self.cache[safeIndex: indexPath.item]
     }
     
     override func prepare(forAnimatedBoundsChange oldBounds: CGRect) {
@@ -60,17 +60,19 @@ extension ProjectsCollectionViewLayout {
         
         let numberOfItemsPerRow = Int(self.contentWidth) / Int(self.minWidthForCell)
         let widthPerItem = (self.contentWidth - CGFloat(numberOfItemsPerRow - 1) * self.cellPadding) / CGFloat(numberOfItemsPerRow)
-        var xOffset = [CGFloat]()
-        (0..<numberOfItemsPerRow).forEach { xOffset.append(CGFloat($0) * widthPerItem) }
+        var xOffsets = [CGFloat]()
+        (0..<numberOfItemsPerRow).forEach { xOffsets.append(CGFloat($0) * widthPerItem) }
         var column = 0
-        var yOffset = [CGFloat](repeating: 0, count: numberOfItemsPerRow)
+        var yOffsets = [CGFloat](repeating: 0, count: numberOfItemsPerRow)
         
         var contentHeight: CGFloat = 0
         (0..<collectionView.numberOfItems(inSection: 0)).forEach {
+            guard let xOffset = xOffsets[safeIndex: column],
+                let yOffset = yOffsets[safeIndex: column] else { return assertionFailure() }
             let indexPath = IndexPath(item: $0, section: 0)
             let tableViewHeight = self.delegate?.collectionView(collectionView, heightForUsersTableViewAtIndexPath: indexPath) ?? 0
             let height = self.cellPadding * 2 + tableViewHeight
-            let frame = CGRect(x: xOffset[column], y: yOffset[column], width: widthPerItem, height: height)
+            let frame = CGRect(x: xOffset, y: yOffset, width: widthPerItem, height: height)
             let insetFrame = frame.insetBy(dx: self.cellPadding, dy: self.cellPadding)
             
             let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
@@ -78,7 +80,7 @@ extension ProjectsCollectionViewLayout {
             self.cache.append(attributes)
             
             contentHeight = max(contentHeight, frame.maxY)
-            yOffset[column] = yOffset[column] + height
+            yOffsets[column] = yOffset + height
             
             column = column < (numberOfItemsPerRow - 1) ? (column + 1) : 0
         }

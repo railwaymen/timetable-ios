@@ -68,8 +68,7 @@ extension ProjectsViewModel: ProjectsViewModelType {
     }
     
     func item(at index: IndexPath) -> Project? {
-        guard self.projects.count > index.row else { return nil }
-        return self.projects[index.row]
+        return self.projects[safeIndex: index.row]
     }
     
     func configure(_ view: ErrorViewable) {
