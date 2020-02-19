@@ -10,12 +10,12 @@ import XCTest
 @testable import TimeTable
 
 class DateFactoryMock {
-    var currentDateReturnValue: Date?
+    var currentDateReturnValue: Date = Date()
 }
 
 // MARK: - DateFactoryType
 extension DateFactoryMock: DateFactoryType {
     var currentDate: Date {
-        return self.currentDateReturnValue ?? Date()
+        return self.currentDateReturnValue
     }
 }
