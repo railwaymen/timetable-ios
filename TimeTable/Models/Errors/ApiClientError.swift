@@ -89,17 +89,4 @@ extension ApiClientError: Equatable {
     }
 }
 
-extension ApiClientError.ErrorType: Equatable {
-    static func == (lhs: ApiClientError.ErrorType, rhs: ApiClientError.ErrorType) -> Bool {
-        switch (lhs, rhs) {
-        case (.invalidHost(let lhsURL), .invalidHost(let rhsURL)): return lhsURL == rhsURL
-        case (.invalidParameters, .invalidParameters): return true
-        case (.invalidResponse, .invalidResponse): return true
-        case (.validationErrors(let lhsError), .validationErrors(let rhsError)): return lhsError == rhsError
-        case (.serverError(let lhsError), .serverError(let rhsError)): return lhsError == rhsError
-        case (.noConnection, .noConnection): return true
-        case (.timeout, .timeout): return true
-        default: return false
-        }
-    }
-}
+extension ApiClientError.ErrorType: Equatable {}
