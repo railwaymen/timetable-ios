@@ -19,8 +19,8 @@ class TaskFactory {
         startsAt: Date? = nil,
         endsAt: Date? = nil,
         tag: ProjectTag = .default
-    ) -> Task {
-        return Task(
+    ) -> TaskForm {
+        return TaskForm(
             workTimeIdentifier: workTimeIdentifier,
             project: project,
             body: body,

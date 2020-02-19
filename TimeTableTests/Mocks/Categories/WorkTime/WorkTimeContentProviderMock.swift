@@ -18,27 +18,27 @@ class WorkTimeContentProviderMock {
     
     private(set) var saveTaskParams: [SaveTaskParams] = []
     struct SaveTaskParams {
-        let task: Task
+        let taskForm: TaskFormType
         let completion: SaveTaskCompletion
     }
     
     var getPredefinedDayReturnValue: Date = Date()
     private(set) var getPredefinedDayParams: [GetPredefinedDayParams] = []
     struct GetPredefinedDayParams {
-        let task: Task
+        let task: TaskForm
     }
     
     var getPredefinedTimeBoundsReturnValue: (startDate: Date, endDate: Date) = (Date(), Date())
     private(set) var getPredefinedTimeBoundsParams: [GetPredefinedTimeBoundsParams] = []
     struct GetPredefinedTimeBoundsParams {
-        let task: Task
-        let lastTask: Task?
+        let task: TaskForm
+        let lastTask: TaskForm?
     }
     
     var pickEndTimeReturnValue: Date?
     private(set) var pickEndTimeParams: [PickEndTimeParams] = []
     struct PickEndTimeParams {
-        let lastTask: Task?
+        let lastTask: TaskForm?
     }
 }
 
@@ -48,21 +48,21 @@ extension WorkTimeContentProviderMock: WorkTimeContentProviderType {
         self.fetchSimpleProjectsListParams.append(FetchSimpleProjectsListParams(completion: completion))
     }
     
-    func save(task: Task, completion: @escaping SaveTaskCompletion) {
-        self.saveTaskParams.append(SaveTaskParams(task: task, completion: completion))
+    func save(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion) {
+        self.saveTaskParams.append(SaveTaskParams(taskForm: taskForm, completion: completion))
     }
     
-    func getPredefinedDay(forTask task: Task) -> Date {
+    func getPredefinedDay(forTaskForm task: TaskForm) -> Date {
         self.getPredefinedDayParams.append(GetPredefinedDayParams(task: task))
         return self.getPredefinedDayReturnValue
     }
     
-    func getPredefinedTimeBounds(forTask task: Task, lastTask: Task?) -> (startDate: Date, endDate: Date) {
+    func getPredefinedTimeBounds(forTaskForm task: TaskForm, lastTask: TaskForm?) -> (startDate: Date, endDate: Date) {
         self.getPredefinedTimeBoundsParams.append(GetPredefinedTimeBoundsParams(task: task, lastTask: lastTask))
         return self.getPredefinedTimeBoundsReturnValue
     }
     
-    func pickEndTime(ofLastTask lastTask: Task?) -> Date? {
+    func pickEndTime(ofLastTask lastTask: TaskForm?) -> Date? {
         self.pickEndTimeParams.append(PickEndTimeParams(lastTask: lastTask))
         return self.pickEndTimeReturnValue
     }

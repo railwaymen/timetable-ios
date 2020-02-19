@@ -13,6 +13,7 @@ enum UIElement: String {
     case loginTextField = "element.text_field.login"
     case passwordTextField = "element.text_field.password"
     case projectTextField = "element.text_field.project"
+    case dayTextField = "element.text_field.day"
     case taskNameTextField = "element.text_field.task_name"
     case taskUrlTextField = "element.text_field.task_url"
     case startsAtTextField = "element.text_field.starts_at"

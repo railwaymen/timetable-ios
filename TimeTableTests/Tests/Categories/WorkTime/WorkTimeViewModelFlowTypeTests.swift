@@ -154,8 +154,8 @@ extension WorkTimeViewModelFlowTypeTests {
 
 // MARK: - Private
 extension WorkTimeViewModelFlowTypeTests {
-    private func buildTask(id: Int64) -> Task {
-        return Task(
+    private func buildTask(id: Int64) -> TaskForm {
+        return TaskForm(
             workTimeIdentifier: id,
             body: "body")
     }

@@ -505,11 +505,11 @@ extension WorkTimeViewModelTests {
         try XCTUnwrap(self.contentProviderMock.fetchSimpleProjectsListParams.last).completion(.success((projectDecoders.projects, projectDecoders.tags)))
     }
     
-    private func createTask(workTimeIdentifier: Int64?, index: Int = 3) throws -> Task {
+    private func createTask(workTimeIdentifier: Int64?, index: Int = 3) throws -> TaskForm {
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
         let simpleProjectDecoder = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
         let project = simpleProjectDecoder.projects[index]
-        return Task(
+        return TaskForm(
             workTimeIdentifier: workTimeIdentifier,
             project: project,
             body: "Blah blah blah",
@@ -524,7 +524,7 @@ extension WorkTimeViewModelTests {
         return try XCTUnwrap(Calendar(identifier: .gregorian).date(bySettingHour: hours, minute: minutes, second: 0, of: Date()))
     }
     
-    private func fillAllDataInViewModel(sut: WorkTimeViewModel, task: Task) throws {
+    private func fillAllDataInViewModel(sut: WorkTimeViewModel, task: TaskForm) throws {
         let startAtDate = try XCTUnwrap(task.startsAt)
         let endAtDate = try XCTUnwrap(task.endsAt)
         sut.viewChanged(day: try XCTUnwrap(task.day))
@@ -539,13 +539,13 @@ extension WorkTimeViewModelTests {
     }
 }
 
-private extension Task {
-    func isTaskValidationError(equalTo: TaskValidationError?) -> Bool {
+private extension TaskForm {
+    func isTaskValidationError(equalTo: TaskForm.ValidationError?) -> Bool {
         do {
-            try self.validate()
+            _ = try self.generateEncodableRepresentation()
             return equalTo == nil
         } catch {
-            guard let error = error as? TaskValidationError else { return false }
+            guard let error = error as? TaskForm.ValidationError else { return false }
             return error == equalTo
         }
     }

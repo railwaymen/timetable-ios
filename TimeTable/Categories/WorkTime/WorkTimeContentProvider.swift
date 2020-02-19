@@ -16,10 +16,10 @@ typealias SaveTaskCompletion = (SaveTaskResult) -> Void
 
 protocol WorkTimeContentProviderType: class {
     func fetchSimpleProjectsList(completion: @escaping FetchSimpleProjectsListCompletion)
-    func save(task: Task, completion: @escaping SaveTaskCompletion)
-    func getPredefinedTimeBounds(forTask task: Task, lastTask: Task?) -> (startDate: Date, endDate: Date)
-    func getPredefinedDay(forTask task: Task) -> Date
-    func pickEndTime(ofLastTask lastTask: Task?) -> Date?
+    func save(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion)
+    func getPredefinedTimeBounds(forTaskForm form: TaskForm, lastTask: TaskForm?) -> (startDate: Date, endDate: Date)
+    func getPredefinedDay(forTaskForm form: TaskForm) -> Date
+    func pickEndTime(ofLastTask lastTask: TaskForm?) -> Date?
 }
 
 class WorkTimeContentProvider {
@@ -51,10 +51,10 @@ extension WorkTimeContentProvider: WorkTimeContentProviderType {
         }
     }
     
-    func save(task: Task, completion: @escaping SaveTaskCompletion) {
+    func save(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion) {
         do {
-            try self.validate(task: task)
-            if let workTimeIdentifier = task.workTimeIdentifier {
+            let task = try self.validate(taskForm: taskForm)
+            if let workTimeIdentifier = taskForm.workTimeIdentifier {
                 self.apiClient.updateWorkTime(identifier: workTimeIdentifier, parameters: task, completion: completion)
             } else {
                 self.apiClient.addWorkTime(parameters: task, completion: completion)
@@ -64,10 +64,10 @@ extension WorkTimeContentProvider: WorkTimeContentProviderType {
         }
     }
     
-    func getPredefinedTimeBounds(forTask task: Task, lastTask: Task?) -> (startDate: Date, endDate: Date) {
+    func getPredefinedTimeBounds(forTaskForm task: TaskForm, lastTask: TaskForm?) -> (startDate: Date, endDate: Date) {
         let startDate: Date
         let endDate: Date
-        switch task.type {
+        switch task.projectType {
         case let .fullDay(timeInterval):
             startDate = self.calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
             endDate = startDate.addingTimeInterval(timeInterval)
@@ -81,11 +81,11 @@ extension WorkTimeContentProvider: WorkTimeContentProviderType {
         return (startDate, endDate)
     }
     
-    func getPredefinedDay(forTask task: Task) -> Date {
+    func getPredefinedDay(forTaskForm task: TaskForm) -> Date {
         return task.day ?? Date()
     }
     
-    func pickEndTime(ofLastTask lastTask: Task?) -> Date? {
+    func pickEndTime(ofLastTask lastTask: TaskForm?) -> Date? {
         guard let lastTaskEndAt = lastTask?.endsAt, self.calendar.isDateInToday(lastTaskEndAt) else { return nil }
         return lastTaskEndAt
     }
@@ -93,10 +93,10 @@ extension WorkTimeContentProvider: WorkTimeContentProviderType {
 
 // MARK: - Private
 extension WorkTimeContentProvider {
-    private func validate(task: Task) throws {
+    private func validate(taskForm: TaskFormType) throws -> Task {
         do {
-            try task.validate()
-        } catch let error as TaskValidationError {
+            return try taskForm.generateEncodableRepresentation()
+        } catch let error as TaskForm.ValidationError {
             switch error {
             case .projectIsNil:
                 throw UIError.cannotBeEmpty(.projectTextField)
@@ -104,15 +104,20 @@ extension WorkTimeContentProvider {
                 throw UIError.cannotBeEmpty(.taskUrlTextField)
             case .bodyIsEmpty:
                 throw UIError.cannotBeEmpty(.taskNameTextField)
+            case .dayIsNil:
+                throw UIError.cannotBeEmpty(.dayTextField)
             case .startsAtIsNil:
                 throw UIError.cannotBeEmpty(.startsAtTextField)
             case .endsAtIsNil:
                 throw UIError.cannotBeEmpty(.endsAtTextField)
             case .timeRangeIsIncorrect:
                 throw UIError.timeGreaterThan
+            case .internalError:
+                throw UIError.genericError
             }
         } catch {
             assertionFailure()
+            throw UIError.genericError
         }
     }
 }
