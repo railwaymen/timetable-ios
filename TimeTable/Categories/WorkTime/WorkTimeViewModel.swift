@@ -47,6 +47,7 @@ protocol WorkTimeViewModelType: class {
 class WorkTimeViewModel {
     private weak var userInterface: WorkTimeViewModelOutput?
     private weak var coordinator: WorkTimeCoordinatorType?
+    private let contentProvider: WorkTimeContentProviderType
     private let apiClient: WorkTimeApiClientType
     private let errorHandler: ErrorHandlerType
     private let calendar: CalendarType
@@ -57,21 +58,11 @@ class WorkTimeViewModel {
     private var task: Task
     private var tags: [ProjectTag]
     
-    private lazy var addUpdateCompletionHandler: (Result<Void, Error>) -> Void = { [weak self] result in
-        self?.userInterface?.setActivityIndicator(isHidden: true)
-        switch result {
-        case .success:
-            self?.userInterface?.dismissView()
-            self?.coordinator?.viewDidFinish(isTaskChanged: true)
-        case .failure(let error):
-            self?.errorHandler.throwing(error: error)
-        }
-    }
-    
     // MARK: - Initialization
     init(
         userInterface: WorkTimeViewModelOutput?,
         coordinator: WorkTimeCoordinatorType?,
+        contentProvider: WorkTimeContentProviderType,
         apiClient: WorkTimeApiClientType,
         errorHandler: ErrorHandlerType,
         calendar: CalendarType,
@@ -80,6 +71,7 @@ class WorkTimeViewModel {
     ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
+        self.contentProvider = contentProvider
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.calendar = calendar
@@ -130,7 +122,7 @@ class WorkTimeViewModel {
 
 // MARK: - Structures
 extension WorkTimeViewModel {
-    enum FlowType {
+    enum FlowType: Equatable {
         case newEntry(lastTask: Task?)
         case editEntry(editedTask: Task)
         case duplicateEntry(duplicatedTask: Task, lastTask: Task?)
@@ -240,37 +232,21 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func viewRequestedToSave() {
-        do {
-            try self.validateInputs()
-            self.userInterface?.setActivityIndicator(isHidden: false)
-            if let workTimeIdentifier = self.task.workTimeIdentifier {
-                self.apiClient.updateWorkTime(identifier: workTimeIdentifier, parameters: self.task, completion: self.addUpdateCompletionHandler)
-            } else {
-                self.apiClient.addWorkTime(parameters: self.task, completion: self.addUpdateCompletionHandler)
+        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.contentProvider.save(task: self.task) { [weak self] result in
+            self?.userInterface?.setActivityIndicator(isHidden: true)
+            switch result {
+            case .success:
+                self?.userInterface?.dismissView()
+                self?.coordinator?.viewDidFinish(isTaskChanged: true)
+            case let .failure(error):
+                self?.errorHandler.throwing(error: error)
             }
-        } catch {
-            self.errorHandler.throwing(error: error)
         }
     }
     
     func viewHasBeenTapped() {
         self.userInterface?.dismissKeyboard()
-    }
-}
-
-// MARK: - Equatable
-extension WorkTimeViewModel.FlowType: Equatable {
-    static func == (lhs: WorkTimeViewModel.FlowType, rhs: WorkTimeViewModel.FlowType) -> Bool {
-        switch (lhs, rhs) {
-        case let (.newEntry(lhsLastTask), .newEntry(rhsLastTask)):
-            return lhsLastTask == rhsLastTask
-        case let (.editEntry(lhsEditedTask), .editEntry(rhsEditedTask)):
-            return lhsEditedTask == rhsEditedTask
-        case let (.duplicateEntry(lhsDuplicatedTask, lhsLastTask), .duplicateEntry(rhsDuplicatedTask, rhsLastTask)):
-            return lhsLastTask == rhsLastTask && lhsDuplicatedTask == rhsDuplicatedTask
-        default:
-            return false
-        }
     }
 }
 
@@ -287,29 +263,6 @@ extension WorkTimeViewModel {
             selector: #selector(self.keyboardWillHide),
             name: UIResponder.keyboardWillHideNotification,
             object: nil)
-    }
-    
-    private func validateInputs() throws {
-        do {
-            try self.task.validate()
-        } catch let error as TaskValidationError {
-            switch error {
-            case .projectIsNil:
-                throw UIError.cannotBeEmpty(.projectTextField)
-            case .urlIsNil:
-                throw UIError.cannotBeEmpty(.taskUrlTextField)
-            case .bodyIsEmpty:
-                throw UIError.cannotBeEmpty(.taskNameTextField)
-            case .startsAtIsNil:
-                throw UIError.cannotBeEmpty(.startsAtTextField)
-            case .endsAtIsNil:
-                throw UIError.cannotBeEmpty(.endsAtTextField)
-            case .timeRangeIsIncorrect:
-                throw UIError.timeGreaterThan
-            }
-        } catch {
-            assertionFailure()
-        }
     }
     
     private func updateViewWithCurrentSelectedProject() {
@@ -367,12 +320,12 @@ extension WorkTimeViewModel {
     
     private func fetchProjectList() {
         self.userInterface?.setActivityIndicator(isHidden: false)
-        self.apiClient.fetchSimpleListOfProjects { [weak self] result in
+        self.contentProvider.fetchSimpleProjectsList { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
-            case let .success(simpleProjectDecoder):
-                self?.projects = simpleProjectDecoder.projects.filter { $0.isActive ?? false }
-                self?.tags = simpleProjectDecoder.tags.filter { $0 != .default }
+            case let .success((projects, tags)):
+                self?.projects = projects
+                self?.tags = tags
                 self?.userInterface?.reloadTagsView()
                 self?.setDefaultTask()
             case let .failure(error):

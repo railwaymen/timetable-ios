@@ -49,6 +49,8 @@
 		8A798747237D4DC6003DC028 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A798744237D4DC6003DC028 /* ProfileViewModel.swift */; };
 		8A80A38D23D89C24002643A1 /* APIClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80A38C23D89C24002643A1 /* APIClientFactory.swift */; };
 		8A80A38F23D89ED3002643A1 /* APIClientFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */; };
+		8A82EBF323FD46EC001393A8 /* WorkTimeContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */; };
+		8A82EBF523FD4DC6001393A8 /* WorkTimeContentProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A82EBF423FD4DC6001393A8 /* WorkTimeContentProviderMock.swift */; };
 		8A8EE1AB23F4455100416D31 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A8EE1AA23F4455100416D31 /* GoogleService-Info.plist */; };
 		8A8EE1AD23F4455900416D31 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A8EE1AC23F4455900416D31 /* GoogleService-Info.plist */; };
 		8A9369B0237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369AF237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift */; };
@@ -399,6 +401,8 @@
 		8A798744237D4DC6003DC028 /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		8A80A38C23D89C24002643A1 /* APIClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientFactory.swift; sourceTree = "<group>"; };
 		8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientFactoryMock.swift; sourceTree = "<group>"; };
+		8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContentProvider.swift; sourceTree = "<group>"; };
+		8A82EBF423FD4DC6001393A8 /* WorkTimeContentProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContentProviderMock.swift; sourceTree = "<group>"; };
 		8A8EE1AA23F4455100416D31 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8A8EE1AC23F4455900416D31 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8A9369AF237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUserViewTableViewCellMock.swift; sourceTree = "<group>"; };
@@ -871,6 +875,7 @@
 			children = (
 				8A9369B1237AA19D005F8199 /* TagCollectionViewCellMock.swift */,
 				C178B78C21EF8AE1001DA07F /* WorkTimeViewControllerMock.swift */,
+				8A82EBF423FD4DC6001393A8 /* WorkTimeContentProviderMock.swift */,
 			);
 			path = WorkTime;
 			sourceTree = "<group>";
@@ -1491,6 +1496,7 @@
 				C16B3A78229E742600B6E9E6 /* TagCollectionViewCellViewModel.swift */,
 				C13C88E521E5EA8F00F68C6E /* WorkTimeViewController.swift */,
 				C13C88E721E5F7B600F68C6E /* WorkTimeViewModel.swift */,
+				8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */,
 			);
 			path = WorkTime;
 			sourceTree = "<group>";
@@ -2307,6 +2313,7 @@
 				C1F187B021E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift in Sources */,
 				8AC097242371CCFF00103FAD /* UIApplication+Extension.swift in Sources */,
 				C13C88E821E5F7B600F68C6E /* WorkTimeViewModel.swift in Sources */,
+				8A82EBF323FD46EC001393A8 /* WorkTimeContentProvider.swift in Sources */,
 				8A798746237D4DC6003DC028 /* ProfileViewController.swift in Sources */,
 				C13C2B0421EDD1C5008C9088 /* ServerError.swift in Sources */,
 				C125F1C121DCF17300594CDE /* ProjectCollectionViewCellModel.swift in Sources */,
@@ -2453,6 +2460,7 @@
 				C1E1F04921AD3712007F9228 /* WorkTimesListViewControllerMock.swift in Sources */,
 				C1249C6C2181A23A005DB2A5 /* String+Error.swift in Sources */,
 				C134299B21A6D87900F4EA42 /* CoordinatorMock.swift in Sources */,
+				8A82EBF523FD4DC6001393A8 /* WorkTimeContentProviderMock.swift in Sources */,
 				8AE0001E23747036002F783E /* ProjectPickerCellModelTests.swift in Sources */,
 				C12BD9BE21E4BCDA00A6EAF0 /* ProjectsCoordinatorTests.swift in Sources */,
 				C134297F21A6C66900F4EA42 /* DataStackMock.swift in Sources */,
