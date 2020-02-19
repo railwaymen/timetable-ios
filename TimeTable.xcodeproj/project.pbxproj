@@ -75,6 +75,8 @@
 		8AE55D1B23FD7AAB00F94242 /* TaskFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE55D1A23FD7AAB00F94242 /* TaskFactory.swift */; };
 		8AE55D1D23FD855E00F94242 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE55D1C23FD855E00F94242 /* Task.swift */; };
 		8AE55D1F23FD86A200F94242 /* TaskFormMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE55D1E23FD86A200F94242 /* TaskFormMock.swift */; };
+		8AE55D2123FD92D200F94242 /* DateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE55D2023FD92D200F94242 /* DateFactory.swift */; };
+		8AE55D2323FD933700F94242 /* DateFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE55D2223FD933700F94242 /* DateFactoryMock.swift */; };
 		8AF3073823688C5A00832FDD /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3073723688C5A00832FDD /* DependencyContainer.swift */; };
 		8AF5696D23D71C0900A1D001 /* ProjectDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5696C23D71C0900A1D001 /* ProjectDecoderFactory.swift */; };
 		8AF5696F23D71EA000A1D001 /* JSONFactorable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5696E23D71EA000A1D001 /* JSONFactorable+Extension.swift */; };
@@ -435,6 +437,8 @@
 		8AE55D1A23FD7AAB00F94242 /* TaskFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFactory.swift; sourceTree = "<group>"; };
 		8AE55D1C23FD855E00F94242 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		8AE55D1E23FD86A200F94242 /* TaskFormMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormMock.swift; sourceTree = "<group>"; };
+		8AE55D2023FD92D200F94242 /* DateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFactory.swift; sourceTree = "<group>"; };
+		8AE55D2223FD933700F94242 /* DateFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFactoryMock.swift; sourceTree = "<group>"; };
 		8AF3073723688C5A00832FDD /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		8AF5696C23D71C0900A1D001 /* ProjectDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDecoderFactory.swift; sourceTree = "<group>"; };
 		8AF5696E23D71EA000A1D001 /* JSONFactorable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONFactorable+Extension.swift"; sourceTree = "<group>"; };
@@ -778,6 +782,7 @@
 				C134297C21A6C40000F4EA42 /* AsynchronousDataTransactionMock.swift */,
 				C134299021A6D3BF00F4EA42 /* CoreDataStackMock.swift */,
 				C134297E21A6C66900F4EA42 /* DataStackMock.swift */,
+				8AE55D2223FD933700F94242 /* DateFactoryMock.swift */,
 				8A0707F9236998580019FB8E /* DependencyContainerMock.swift */,
 				8A5D48C32369E20E0082C13D /* DispatchGroupFactoryMock.swift */,
 				8A5D48C12369E1E20082C13D /* DispatchGroupMock.swift */,
@@ -1115,6 +1120,7 @@
 		C1249C752181AAD2005DB2A5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8AE55D2023FD92D200F94242 /* DateFactory.swift */,
 				8AF3073723688C5A00832FDD /* DependencyContainer.swift */,
 				8A5D48BF2369E1A20082C13D /* DispatchGroup+Extension.swift */,
 				8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */,
@@ -2311,6 +2317,7 @@
 				8AD1345A2396B60B00572632 /* AttributedTextView.swift in Sources */,
 				C1F7C2ED2191897A00F4FAF0 /* ApiClientError.swift in Sources */,
 				8A31CD8723742CEA008E590D /* ProjectPickerCellModel.swift in Sources */,
+				8AE55D2123FD92D200F94242 /* DateFactory.swift in Sources */,
 				8A10F841235454DA0004F389 /* UIBarButtonItem+Extension.swift in Sources */,
 				C125F1BE21DCDCB000594CDE /* Project.swift in Sources */,
 				C13429AE21A7E48C00F4EA42 /* WorkTimesListViewModel.swift in Sources */,
@@ -2420,6 +2427,7 @@
 				C12BD99B21E48DD100A6EAF0 /* ProjectsViewControllerMock.swift in Sources */,
 				C1249C7C2181AEB0005DB2A5 /* AppCoordinatorTests.swift in Sources */,
 				C134299721A6D7F700F4EA42 /* BundleMock.swift in Sources */,
+				8AE55D2323FD933700F94242 /* DateFactoryMock.swift in Sources */,
 				8A5D48C22369E1E20082C13D /* DispatchGroupMock.swift in Sources */,
 				C12BD9BB21E4B7B200A6EAF0 /* ApiClientProjectsTests.swift in Sources */,
 				8AE55D1B23FD7AAB00F94242 /* TaskFactory.swift in Sources */,

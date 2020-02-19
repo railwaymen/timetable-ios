@@ -104,4 +104,9 @@ class DependencyContainerMock: DependencyContainerType {
     var dispatchGroupFactory: DispatchGroupFactoryType {
         return self.dispatchGroupFactoryMock
     }
+    
+    var dateFactoryMock = DateFactoryMock()
+    var dateFactory: DateFactoryType {
+        return self.dateFactoryMock
+    }
 }

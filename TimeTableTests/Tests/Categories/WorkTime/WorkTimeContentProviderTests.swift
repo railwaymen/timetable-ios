@@ -16,12 +16,14 @@ class WorkTimeContentProviderTests: XCTestCase {
     
     private var apiClient: ApiClientMock!
     private var calendar: CalendarMock!
+    private var dateFactory: DateFactoryMock!
     private var taskForm: TaskFormMock!
     
     override func setUp() {
         super.setUp()
         self.apiClient = ApiClientMock()
         self.calendar = CalendarMock()
+        self.dateFactory = DateFactoryMock()
         self.taskForm = TaskFormMock()
     }
 }
@@ -315,7 +317,8 @@ extension WorkTimeContentProviderTests {
     private func buildSUT() -> WorkTimeContentProvider {
         return WorkTimeContentProvider(
             apiClient: self.apiClient,
-            calendar: self.calendar)
+            calendar: self.calendar,
+            dateFactory: self.dateFactory)
     }
     
     private func buildTask() throws -> Task {

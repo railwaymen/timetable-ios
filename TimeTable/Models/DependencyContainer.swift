@@ -24,6 +24,7 @@ protocol DependencyContainerType {
     var accessService: AccessServiceLoginType? { get set }
     var notificationCenter: NotificationCenterType { get }
     var dispatchGroupFactory: DispatchGroupFactoryType { get }
+    var dateFactory: DateFactoryType { get }
 }
 
 struct DependencyContainer: DependencyContainerType {
@@ -42,6 +43,7 @@ struct DependencyContainer: DependencyContainerType {
     var accessService: AccessServiceLoginType?
     let notificationCenter: NotificationCenterType
     let dispatchGroupFactory: DispatchGroupFactoryType
+    let dateFactory: DateFactoryType
     
     // MARK: - Initialization
     init(
@@ -74,5 +76,6 @@ struct DependencyContainer: DependencyContainerType {
             encoder: encoder,
             decoder: decoder,
             jsonSerialization: CustomJSONSerialization())
+        self.dateFactory = DateFactory()
     }
 }
