@@ -53,7 +53,6 @@ extension ProjectCollectionViewCellModel: ProjectCollectionViewCellModelType {
 // MARK: - Private
 extension ProjectCollectionViewCellModel {
     private func userName(for indexPath: IndexPath) -> String {
-        guard self.project.users.count > indexPath.row else { return "" }
-        return self.project.users[indexPath.row].name
+        return self.project.users[safeIndex: indexPath.row]?.name ?? ""
     }
 }

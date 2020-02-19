@@ -165,25 +165,23 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func viewRequestedForTag(at index: IndexPath) -> ProjectTag? {
-        return self.tags.count > index.row ? self.tags[index.row] : nil
+        return self.tags[safeIndex: index.row]
     }
     
     func isTagSelected(at index: IndexPath) -> Bool {
-        guard self.tags.count > index.row else { return false }
-        return self.tags[index.row] == self.task.tag
+        return self.tags[safeIndex: index.row] == self.task.tag
     }
     
     func setDefaultTask() {
-        guard !self.projects.isEmpty else { return }
+        guard let firstProject = self.projects.first else { return }
         if self.task.project == nil {
-            self.task.project = .some(self.lastTask?.project ?? self.projects[0])
+            self.task.project = .some(self.lastTask?.project ?? firstProject)
         }
         self.updateViewWithCurrentSelectedProject()
     }
     
     func viewSelectedTag(at index: IndexPath) {
-        guard self.tags.count > index.row else { return }
-        let selectedTag = self.tags[index.row]
+        guard let selectedTag = self.tags[safeIndex: index.row] else { return }
         self.task.tag = self.task.tag == selectedTag ? .development : selectedTag
         self.userInterface?.reloadTagsView()
     }
@@ -325,12 +323,12 @@ extension WorkTimeViewModel {
         let fromDate: Date
         let toDate: Date
         switch self.task.type {
-        case .fullDay(let timeInterval)?:
+        case let .fullDay(timeInterval)?:
             fromDate = self.calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
             toDate = fromDate.addingTimeInterval(timeInterval)
             self.task.startsAt = fromDate
             self.task.endsAt = toDate
-        case .lunch(let timeInterval)?:
+        case let .lunch(timeInterval)?:
             fromDate = self.task.startsAt ?? Date().roundedToFiveMinutes()
             toDate = fromDate.addingTimeInterval(timeInterval)
             self.task.startsAt = fromDate
@@ -372,12 +370,12 @@ extension WorkTimeViewModel {
         self.apiClient.fetchSimpleListOfProjects { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
-            case .success(let simpleProjectDecoder):
+            case let .success(simpleProjectDecoder):
                 self?.projects = simpleProjectDecoder.projects.filter { $0.isActive ?? false }
                 self?.tags = simpleProjectDecoder.tags.filter { $0 != .default }
                 self?.userInterface?.reloadTagsView()
                 self?.setDefaultTask()
-            case .failure(let error):
+            case let .failure(error):
                 self?.errorHandler.throwing(error: error)
             }
         }

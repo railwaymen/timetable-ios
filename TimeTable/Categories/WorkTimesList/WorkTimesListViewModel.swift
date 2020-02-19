@@ -84,7 +84,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     func numberOfRows(in section: Int) -> Int {
-        return (self.dailyWorkTimesArray.count > section) ? self.dailyWorkTimesArray[section].workTimes.count : 0
+        return self.dailyWorkTimesArray[safeIndex: section]?.workTimes.count ?? 0
     }
     
     func viewDidLoad() {
@@ -120,8 +120,8 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     func viewRequestForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType? {
-        guard self.dailyWorkTimesArray.count > section else { return nil }
-        return WorkTimesTableViewHeaderViewModel(userInterface: header, dailyWorkTime: self.dailyWorkTimesArray[section])
+        guard let dailyWorkTime = self.dailyWorkTimesArray[safeIndex: section] else { return nil }
+        return WorkTimesTableViewHeaderViewModel(userInterface: header, dailyWorkTime: dailyWorkTime)
     }
     
     func viewRequestToDuplicate(sourceView: UITableViewCell, at indexPath: IndexPath) {
@@ -232,9 +232,9 @@ extension WorkTimesListViewModel {
             defer { completion?() }
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
-            case .success(let dailyWorkTimes, let matchingFullTime):
+            case let .success(dailyWorkTimes, matchingFullTime):
                 self?.handleFetchSuccess(dailyWorkTimes: dailyWorkTimes, matchingFullTime: matchingFullTime)
-            case .failure(let error):
+            case let .failure(error):
                 self?.handleFetch(error: error)
             }
         }
@@ -277,16 +277,15 @@ extension WorkTimesListViewModel {
     private func string(for date: Date) -> String {
         let components = self.calendar.dateComponents([.month, .year], from: date)
         guard let month = components.month, let year = components.year else { return "" }
-        guard let monthSymbol = DateFormatter().shortMonthSymbols?[month - 1] else { return "" }
+        guard let monthSymbol = DateFormatter().shortMonthSymbols?[safeIndex: month - 1] else { return "" }
         return "\(monthSymbol) \(year)"
     }
     
     private func workTime(for indexPath: IndexPath) -> WorkTimeDecoder? {
-        return self.dailyWorkTime(for: indexPath)?.workTimes.sorted(by: { $0.startsAt > $1.startsAt })[indexPath.row]
+        return self.dailyWorkTime(for: indexPath)?.workTimes.sorted(by: { $0.startsAt > $1.startsAt })[safeIndex: indexPath.row]
     }
     
     private func dailyWorkTime(for indexPath: IndexPath) -> DailyWorkTime? {
-        guard self.dailyWorkTimesArray.count > indexPath.section else { return nil }
-        return self.dailyWorkTimesArray[indexPath.section]
+        return self.dailyWorkTimesArray[safeIndex: indexPath.section]
     }
 }
