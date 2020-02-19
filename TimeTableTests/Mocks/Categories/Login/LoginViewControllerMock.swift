@@ -23,11 +23,6 @@ class LoginViewControllerMock: UIViewController {
         var password: String
     }
     
-    private(set) var passwordInputEnabledStateParams: [PasswordInputEnabledStateParams] = []
-    struct PasswordInputEnabledStateParams {
-        var isEnabled: Bool
-    }
-    
     private(set) var loginButtonEnabledStateParams: [LoginButtonEnabledStateParams] = []
     struct LoginButtonEnabledStateParams {
         var isEnabled: Bool
@@ -69,10 +64,6 @@ extension LoginViewControllerMock: LoginViewModelOutput {
     
     func updateLoginFields(email: String, password: String) {
         self.updateLoginFieldsParams.append(UpdateLoginFieldsParams(email: email, password: password))
-    }
-    
-    func passwordInputEnabledState(_ isEnabled: Bool) {
-        self.passwordInputEnabledStateParams.append(PasswordInputEnabledStateParams(isEnabled: isEnabled))
     }
     
     func loginButtonEnabledState(_ isEnabled: Bool) {

@@ -217,7 +217,7 @@
 		C153AC5E2182FA64007A35BB /* UIButtonExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC5D2182FA64007A35BB /* UIButtonExtensionTests.swift */; };
 		C153AC602182FC4B007A35BB /* UITextFieldExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC5F2182FC4B007A35BB /* UITextFieldExtensionTests.swift */; };
 		C153AC622182FCB7007A35BB /* UILabelExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC612182FCB7007A35BB /* UILabelExtensionTests.swift */; };
-		C153AC6421830AFE007A35BB /* ServerConfiguartionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6321830AFE007A35BB /* ServerConfiguartionViewModel.swift */; };
+		C153AC6421830AFE007A35BB /* ServerConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6321830AFE007A35BB /* ServerConfigurationViewModel.swift */; };
 		C153AC6621831499007A35BB /* NotificationCenter+Extenison.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6521831499007A35BB /* NotificationCenter+Extenison.swift */; };
 		C153AC6921832073007A35BB /* AttributedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6821832073007A35BB /* AttributedView.swift */; };
 		C153AC6B218324DB007A35BB /* UIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6A218324DB007A35BB /* UIError.swift */; };
@@ -571,7 +571,7 @@
 		C153AC5D2182FA64007A35BB /* UIButtonExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtensionTests.swift; sourceTree = "<group>"; };
 		C153AC5F2182FC4B007A35BB /* UITextFieldExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtensionTests.swift; sourceTree = "<group>"; };
 		C153AC612182FCB7007A35BB /* UILabelExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtensionTests.swift; sourceTree = "<group>"; };
-		C153AC6321830AFE007A35BB /* ServerConfiguartionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfiguartionViewModel.swift; sourceTree = "<group>"; };
+		C153AC6321830AFE007A35BB /* ServerConfigurationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationViewModel.swift; sourceTree = "<group>"; };
 		C153AC6521831499007A35BB /* NotificationCenter+Extenison.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extenison.swift"; sourceTree = "<group>"; };
 		C153AC6821832073007A35BB /* AttributedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedView.swift; sourceTree = "<group>"; };
 		C153AC6A218324DB007A35BB /* UIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIError.swift; sourceTree = "<group>"; };
@@ -1360,7 +1360,7 @@
 			children = (
 				C153AC442181E4E7007A35BB /* ServerConfiguration.storyboard */,
 				C153AC462182EBC1007A35BB /* ServerConfigurationViewController.swift */,
-				C153AC6321830AFE007A35BB /* ServerConfiguartionViewModel.swift */,
+				C153AC6321830AFE007A35BB /* ServerConfigurationViewModel.swift */,
 			);
 			path = ServerConfiguration;
 			sourceTree = "<group>";
@@ -2320,7 +2320,7 @@
 				C1C4BA932189AF3300683F71 /* HTTPMethods.swift in Sources */,
 				C153AC6921832073007A35BB /* AttributedView.swift in Sources */,
 				C11B3F3621F7258C00C46BA2 /* DateSelectorView.swift in Sources */,
-				C153AC6421830AFE007A35BB /* ServerConfiguartionViewModel.swift in Sources */,
+				C153AC6421830AFE007A35BB /* ServerConfigurationViewModel.swift in Sources */,
 				8A3FE1B323ABCFEE00CC9CC9 /* TaskValidationError.swift in Sources */,
 				C1ECF09F2192C1AB006038C6 /* JSONDecoder+Extension.swift in Sources */,
 				C1ECF09D2192BB51006038C6 /* RequestEncoder.swift in Sources */,

@@ -131,7 +131,16 @@ class ServerConfigurationViewModelTests: XCTestCase {
         //Act
         sut.serverAddressDidChange(text: nil)
         //Assert
-        XCTAssertTrue(self.userInterfaceMock.continueButtonEnabledStateParams.isEmpty)
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.continueButtonEnabledStateParams.first?.isEnabled))
+    }
+    
+    func testServerAddressDidChangePassedEmptyStringValue() {
+        //Arrange
+        let sut = self.buildSUT()
+        //Act
+        sut.serverAddressDidChange(text: "")
+        //Assert
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.continueButtonEnabledStateParams.first?.isEnabled))
     }
     
     func testServerAddressDidChangePassedCorrectHostName() {

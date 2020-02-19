@@ -93,7 +93,6 @@ extension LoginViewModelTests {
         //Act
         sut.loginInputValueDidChange(value: nil)
         //Assert
-        XCTAssertTrue(self.userInterfaceMock.passwordInputEnabledStateParams.isEmpty)
         XCTAssertTrue(self.userInterfaceMock.loginButtonEnabledStateParams.isEmpty)
     }
     
@@ -103,8 +102,6 @@ extension LoginViewModelTests {
         //Act
         sut.loginInputValueDidChange(value: "login")
         //Assert
-        XCTAssertEqual(self.userInterfaceMock.passwordInputEnabledStateParams.count, 1)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.passwordInputEnabledStateParams.last?.isEnabled))
         XCTAssertEqual(self.userInterfaceMock.loginButtonEnabledStateParams.count, 1)
         XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.loginButtonEnabledStateParams.last?.isEnabled))
     }
@@ -118,7 +115,6 @@ extension LoginViewModelTests {
         //Act
         sut.passwordInputValueDidChange(value: nil)
         //Assert
-        XCTAssertTrue(self.userInterfaceMock.passwordInputEnabledStateParams.isEmpty)
         XCTAssertTrue(self.userInterfaceMock.loginButtonEnabledStateParams.isEmpty)
     }
     
@@ -128,8 +124,6 @@ extension LoginViewModelTests {
         //Act
         sut.passwordInputValueDidChange(value: "password")
         //Assert
-        XCTAssertEqual(self.userInterfaceMock.passwordInputEnabledStateParams.count, 1)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.passwordInputEnabledStateParams.last?.isEnabled))
         XCTAssertEqual(self.userInterfaceMock.loginButtonEnabledStateParams.count, 1)
         XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.loginButtonEnabledStateParams.last?.isEnabled))
     }

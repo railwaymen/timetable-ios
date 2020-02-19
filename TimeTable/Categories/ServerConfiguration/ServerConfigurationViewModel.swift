@@ -74,6 +74,7 @@ extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
         self.serverAddress = oldConfiguration?.host?.absoluteString
         self.shouldRememberHost = oldConfiguration?.shouldRememberHost ?? true
         self.userInterface?.setUpView(checkBoxIsActive: self.shouldRememberHost, serverAddress: self.serverAddress ?? "")
+        self.updateContinueButton()
     }
     
     func continueButtonTapped() {
@@ -100,8 +101,7 @@ extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
     
     func serverAddressDidChange(text: String?) {
         self.serverAddress = text
-        guard let host = self.serverAddress else { return }
-        self.userInterface?.continueButtonEnabledState(URL(string: host) != nil)
+        self.updateContinueButton()
     }
     
     func serverAddressTextFieldDidRequestForReturn() -> Bool {
@@ -138,5 +138,14 @@ extension ServerConfigurationViewModel {
             selector: #selector(self.changeKeyboardFrame),
             name: UIResponder.keyboardWillChangeFrameNotification,
             object: nil)
+    }
+    
+    private func updateContinueButton() {
+        self.userInterface?.continueButtonEnabledState(self.isServerURLValid())
+    }
+    
+    private func isServerURLValid() -> Bool {
+        guard let host = self.serverAddress else { return false }
+        return URL(string: host) != nil
     }
 }

@@ -11,7 +11,6 @@ import UIKit
 protocol LoginViewModelOutput: class {
     func setUpView(checkBoxIsActive: Bool)
     func updateLoginFields(email: String, password: String)
-    func passwordInputEnabledState(_ isEnabled: Bool)
     func loginButtonEnabledState(_ isEnabled: Bool)
     func focusOnPasswordTextField()
     func checkBoxIsActiveState(_ isActive: Bool)
@@ -82,12 +81,13 @@ extension LoginViewModel: LoginViewModelType {
     func viewDidLoad() {
         self.userInterface?.setUpView(checkBoxIsActive: false)
         self.userInterface?.updateLoginFields(email: self.loginCredentials.email, password: self.loginCredentials.password)
+        self.updateLogInButton()
     }
     
     func loginInputValueDidChange(value: String?) {
         guard let loginValue = value else { return }
         self.loginCredentials.email = loginValue
-        self.updateView()
+        self.updateLogInButton()
     }
     
     func loginTextFieldDidRequestForReturn() -> Bool {
@@ -99,7 +99,7 @@ extension LoginViewModel: LoginViewModelType {
     func passwordInputValueDidChange(value: String?) {
         guard let passowrdValue = value else { return }
         self.loginCredentials.password = passowrdValue
-        self.updateView()
+        self.updateLogInButton()
     }
     
     func passwordTextFieldDidRequestForReturn() -> Bool {
@@ -185,9 +185,7 @@ extension LoginViewModel {
             object: nil)
     }
     
-    private func updateView() {
-        let isPasswordEnabled = (!self.loginCredentials.password.isEmpty && self.loginCredentials.email.isEmpty) || !self.loginCredentials.email.isEmpty
-        self.userInterface?.passwordInputEnabledState(isPasswordEnabled)
+    private func updateLogInButton() {
         self.userInterface?.loginButtonEnabledState(!self.loginCredentials.email.isEmpty && !self.loginCredentials.password.isEmpty)
     }
 }
