@@ -264,6 +264,52 @@ extension WorkTimeContentProviderTests {
     }
 }
 
+// MARK: - pickEndTime(ofLastTask:)
+extension WorkTimeContentProviderTests {
+    func testPickEndTimeOfLastTask_nilTask() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        //Act
+        let date = sut.pickEndTime(ofLastTask: nil)
+        //Assert
+        XCTAssertNil(date)
+    }
+    
+    func testPickEndTimeOfLastTask_nilEndsAt() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let lastTask = TaskForm(body: "")
+        //Act
+        let date = sut.pickEndTime(ofLastTask: lastTask)
+        //Assert
+        XCTAssertNil(date)
+    }
+    
+    func testPickEndTimeOfLastTask_endsAtNotToday() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let endsAt = try self.buildDate(year: 2019, month: 5, day: 1)
+        let lastTask = TaskForm(body: "", endsAt: endsAt)
+        self.calendar.isDateInTodayReturnValue = false
+        //Act
+        let date = sut.pickEndTime(ofLastTask: lastTask)
+        //Assert
+        XCTAssertNil(date)
+    }
+    
+    func testPickEndTimeOfLastTask_endsAtToday() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let endsAt = try self.buildDate(year: 2019, month: 5, day: 1)
+        let lastTask = TaskForm(body: "", endsAt: endsAt)
+        self.calendar.isDateInTodayReturnValue = true
+        //Act
+        let date = sut.pickEndTime(ofLastTask: lastTask)
+        //Assert
+        XCTAssertEqual(date, endsAt)
+    }
+}
+
 // MARK: - Private
 extension WorkTimeContentProviderTests {
     private func buildSUT() -> WorkTimeContentProvider {
