@@ -93,7 +93,7 @@ extension WorkTimeCoordinator {
         workTimeViewController.configure(viewModel: viewModel)
         self.navigationController.setViewControllers([workTimeViewController], animated: false)
         self.navigationController.setNavigationBarHidden(false, animated: false)
-        self.navigationController.navigationBar.tintColor = .crimson
+        self.navigationController.navigationBar.tintColor = .tint
         if let sourceView = self.sourceView {
             self.showWorkTimeController(controller: self.navigationController, sourceView: sourceView)
         } else {

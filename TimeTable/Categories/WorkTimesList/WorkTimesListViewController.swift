@@ -25,7 +25,7 @@ class WorkTimesListViewController: UIViewController {
     
     private lazy var refreshControl: UIRefreshControl = {
         let control = UIRefreshControl()
-        control.tintColor = .crimson
+        control.tintColor = .tint
         control.addTarget(self, action: #selector(refreshControlDidActivate), for: .primaryActionTriggered)
         return control
     }()
@@ -191,7 +191,7 @@ extension WorkTimesListViewController {
                     : self.tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
             }
         }
-        deleteAction.backgroundColor = .crimson
+        deleteAction.backgroundColor = .deleteAction
         deleteAction.image = .delete
         return deleteAction
     }

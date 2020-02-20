@@ -36,7 +36,7 @@ class WorkTimesListCoordinator: NavigationCoordinator, TabBarChildCoordinatorTyp
         super.init(window: dependencyContainer.window)
         self.navigationController.setNavigationBarHidden(false, animated: false)
         self.navigationController.navigationBar.prefersLargeTitles = true
-        self.navigationController.navigationBar.tintColor = .crimson
+        self.navigationController.navigationBar.tintColor = .tint
         self.root.tabBarItem = self.tabBarItem
     }
     

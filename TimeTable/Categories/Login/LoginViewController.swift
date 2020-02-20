@@ -68,7 +68,7 @@ extension LoginViewController: LoginViewModelOutput {
     
     func loginButtonEnabledState(_ isEnabled: Bool) {
         self.loginButton.isEnabled = isEnabled
-        self.loginButton.backgroundColor = isEnabled ? .crimson : .disabledButton
+        self.loginButton.backgroundColor = isEnabled ? .enabledButton : .disabledButton
     }
     
     func focusOnPasswordTextField() {

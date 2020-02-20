@@ -22,7 +22,7 @@ class TimeTableTabCoordinator: TabBarCoordinator {
             dependencyContainer: dependencyContainer,
             parent: self)
         
-        self.tabBarController.tabBar.tintColor = .crimson
+        self.tabBarController.tabBar.tintColor = .tint
         dependencyContainer.window?.rootViewController = self.tabBarController
         let children = [projectsCoordinator, workTimeCoordinator, userCoordinator]
         children.forEach {
