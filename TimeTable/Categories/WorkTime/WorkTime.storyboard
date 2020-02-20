@@ -56,9 +56,6 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="work_time.text_field.select_day"/>
                                                 </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="dayTextFieldDidBegin:" destination="vWa-gW-sZm" eventType="editingDidBegin" id="0G3-ml-hON"/>
-                                                </connections>
                                             </textField>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="vs0-xH-GvZ">
                                                 <rect key="frame" x="16" y="117" width="382" height="34"/>
@@ -68,18 +65,12 @@
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits"/>
-                                                        <connections>
-                                                            <action selector="startAtDateTextFieldDidBegin:" destination="vWa-gW-sZm" eventType="editingDidBegin" id="qLu-TK-LFl"/>
-                                                        </connections>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="09:00" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pgu-1o-gtM">
                                                         <rect key="frame" x="199" y="0.0" width="183" height="34"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits"/>
-                                                        <connections>
-                                                            <action selector="endAtDateTextFieldDidBegin:" destination="vWa-gW-sZm" eventType="editingDidBegin" id="QPY-xx-RHO"/>
-                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                             </stackView>

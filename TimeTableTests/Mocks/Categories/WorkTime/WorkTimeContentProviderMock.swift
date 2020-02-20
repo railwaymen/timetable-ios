@@ -22,15 +22,15 @@ class WorkTimeContentProviderMock {
         let completion: SaveTaskCompletion
     }
     
-    var getDefaultDayReturnValue: Date = Date()
-    private(set) var getDefaultDayParams: [GetDefaultDayParams] = []
-    struct GetDefaultDayParams {
+    var getPredefinedDayReturnValue: Date = Date()
+    private(set) var getPredefinedDayParams: [GetPredefinedDayParams] = []
+    struct GetPredefinedDayParams {
         let task: Task
     }
     
-    var getDefaultTimeReturnValue: (startDate: Date, endDate: Date) = (Date(), Date())
-    private(set) var getDefaultTimeParams: [GetDefaultTimeParams] = []
-    struct GetDefaultTimeParams {
+    var getPredefinedTimeBoundsReturnValue: (startDate: Date, endDate: Date) = (Date(), Date())
+    private(set) var getPredefinedTimeBoundsParams: [GetPredefinedTimeBoundsParams] = []
+    struct GetPredefinedTimeBoundsParams {
         let task: Task
         let lastTask: Task?
     }
@@ -52,14 +52,14 @@ extension WorkTimeContentProviderMock: WorkTimeContentProviderType {
         self.saveTaskParams.append(SaveTaskParams(task: task, completion: completion))
     }
     
-    func getDefaultDay(forTask task: Task) -> Date {
-        self.getDefaultDayParams.append(GetDefaultDayParams(task: task))
-        return self.getDefaultDayReturnValue
+    func getPredefinedDay(forTask task: Task) -> Date {
+        self.getPredefinedDayParams.append(GetPredefinedDayParams(task: task))
+        return self.getPredefinedDayReturnValue
     }
     
-    func getDefaultTime(forTask task: Task, lastTask: Task?) -> (startDate: Date, endDate: Date) {
-        self.getDefaultTimeParams.append(GetDefaultTimeParams(task: task, lastTask: lastTask))
-        return self.getDefaultTimeReturnValue
+    func getPredefinedTimeBounds(forTask task: Task, lastTask: Task?) -> (startDate: Date, endDate: Date) {
+        self.getPredefinedTimeBoundsParams.append(GetPredefinedTimeBoundsParams(task: task, lastTask: lastTask))
+        return self.getPredefinedTimeBoundsReturnValue
     }
     
     func pickEndTime(ofLastTask lastTask: Task?) -> Date? {

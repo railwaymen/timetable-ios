@@ -235,13 +235,13 @@ extension WorkTimeViewModel {
     }
     
     private func setDefaultDay() {
-        let date = self.contentProvider.getDefaultDay(forTask: self.task)
+        let date = self.contentProvider.getPredefinedDay(forTask: self.task)
         self.task.day = date
         self.updateDayView(with: date)
     }
     
     private func updateViewWithCurrentSelectedProject() {
-        let (startDate, endDate) = self.contentProvider.getDefaultTime(forTask: self.task, lastTask: self.lastTask)
+        let (startDate, endDate) = self.contentProvider.getPredefinedTimeBounds(forTask: self.task, lastTask: self.lastTask)
         self.task.startsAt = startDate
         self.task.endsAt = endDate
         self.userInterface?.setUp(

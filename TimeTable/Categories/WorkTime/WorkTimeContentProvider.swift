@@ -17,8 +17,8 @@ typealias SaveTaskCompletion = (SaveTaskResult) -> Void
 protocol WorkTimeContentProviderType: class {
     func fetchSimpleProjectsList(completion: @escaping FetchSimpleProjectsListCompletion)
     func save(task: Task, completion: @escaping SaveTaskCompletion)
-    func getDefaultTime(forTask task: Task, lastTask: Task?) -> (startDate: Date, endDate: Date)
-    func getDefaultDay(forTask task: Task) -> Date
+    func getPredefinedTimeBounds(forTask task: Task, lastTask: Task?) -> (startDate: Date, endDate: Date)
+    func getPredefinedDay(forTask task: Task) -> Date
     func pickEndTime(ofLastTask lastTask: Task?) -> Date?
 }
 
@@ -64,7 +64,7 @@ extension WorkTimeContentProvider: WorkTimeContentProviderType {
         }
     }
     
-    func getDefaultTime(forTask task: Task, lastTask: Task?) -> (startDate: Date, endDate: Date) {
+    func getPredefinedTimeBounds(forTask task: Task, lastTask: Task?) -> (startDate: Date, endDate: Date) {
         let startDate: Date
         let endDate: Date
         switch task.type {
@@ -81,7 +81,7 @@ extension WorkTimeContentProvider: WorkTimeContentProviderType {
         return (startDate, endDate)
     }
     
-    func getDefaultDay(forTask task: Task) -> Date {
+    func getPredefinedDay(forTask task: Task) -> Date {
         return task.day ?? Date()
     }
     

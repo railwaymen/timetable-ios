@@ -91,8 +91,8 @@ extension WorkTimeViewModelTests {
         //Arrange
         let task = try self.createTask(workTimeIdentifier: 123)
         let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
-        self.contentProviderMock.getDefaultDayReturnValue = try XCTUnwrap(task.day)
-        self.contentProviderMock.getDefaultTimeReturnValue = (try XCTUnwrap(task.startsAt), try XCTUnwrap(task.endsAt))
+        self.contentProviderMock.getPredefinedDayReturnValue = try XCTUnwrap(task.day)
+        self.contentProviderMock.getPredefinedTimeBoundsReturnValue = (try XCTUnwrap(task.startsAt), try XCTUnwrap(task.endsAt))
         //Act
         sut.viewDidLoad()
         //Assert
@@ -129,7 +129,7 @@ extension WorkTimeViewModelTests {
         let lastTask = try self.createTask(workTimeIdentifier: 12, index: 2)
         let sut = self.buildSUT(flowType: .duplicateEntry(duplicatedTask: task, lastTask: lastTask))
         let time = try XCTUnwrap(lastTask.endsAt)
-        self.contentProviderMock.getDefaultTimeReturnValue = (time, time)
+        self.contentProviderMock.getPredefinedTimeBoundsReturnValue = (time, time)
         //Act
         sut.viewDidLoad()
         //Assert
