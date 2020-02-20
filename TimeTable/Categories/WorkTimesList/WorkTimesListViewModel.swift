@@ -148,7 +148,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
         self.messagePresenter?.requestDecision(
             title: "work_times.delete_alert.title".localized,
             message: "work_times.delete_alert.message".localized,
-            cancelButtonConfig: ButtonConfig(title: "work_times.delete_alert.cancel".localized, style: .cancel, action: nil),
+            cancelButtonConfig: ButtonConfig(title: "work_times.delete_alert.cancel".localized, style: .cancel, action: { completion(false) }),
             confirmButtonConfig: ButtonConfig(title: "work_times.delete_alert.confirm".localized, style: .destructive, action: { [weak self] in
                 guard let self = self else { return completion(false) }
                 self.contentProvider.delete(workTime: workTime) { [weak self] result in
