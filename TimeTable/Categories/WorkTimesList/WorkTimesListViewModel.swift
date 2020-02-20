@@ -47,7 +47,7 @@ class WorkTimesListViewModel {
     private let calendar: CalendarType
     private let messagePresenter: MessagePresenterType?
     
-    private var selectedMonth: Date?
+    private var selectedMonth: Date
     private var dailyWorkTimesArray: [DailyWorkTime]
     private weak var errorViewModel: ErrorViewModelParentType?
     
@@ -69,7 +69,7 @@ class WorkTimesListViewModel {
         
         self.dailyWorkTimesArray = []
         let components = calendar.dateComponents([.month, .year], from: Date())
-        self.selectedMonth = calendar.date(from: components)
+        self.selectedMonth = calendar.date(from: components) ?? Date()
     }
 }
 
@@ -99,7 +99,8 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     
     func configure(_ view: ErrorViewable) {
         let viewModel = ErrorViewModel(userInterface: view, error: UIError.genericError) { [weak self] in
-            self?.fetchWorkTimesData(forCurrentMonth: self?.selectedMonth)
+            guard let self = self else { return }
+            self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
         }
         view.configure(viewModel: viewModel)
         self.errorViewModel = viewModel
@@ -138,8 +139,8 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
         self.coordinator?.workTimesRequestedForWorkTimeView(
             sourceView: sourceView,
             flowType: .duplicateEntry(duplicatedTask: task, lastTask: lastTask)) { [weak self] isTaskChanged in
-                guard isTaskChanged else { return }
-                self?.fetchWorkTimesData(forCurrentMonth: self?.selectedMonth)
+                guard let self = self, isTaskChanged else { return }
+                self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
             }
     }
     
@@ -167,16 +168,16 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     func viewRequestForNewWorkTimeView(sourceView: UIView) {
         let lastTask = self.createTaskForm(for: IndexPath(row: 0, section: 0))
         self.coordinator?.workTimesRequestedForWorkTimeView(sourceView: sourceView, flowType: .newEntry(lastTask: lastTask)) { [weak self] isTaskChanged in
-            guard isTaskChanged else { return }
-            self?.fetchWorkTimesData(forCurrentMonth: self?.selectedMonth)
+            guard let self = self, isTaskChanged else { return }
+            self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
         }
     }
     
     func viewRequestedForEditEntry(sourceView: UITableViewCell, at indexPath: IndexPath) {
         guard let task = self.createTaskForm(for: indexPath) else { return }
         self.coordinator?.workTimesRequestedForWorkTimeView(sourceView: sourceView, flowType: .editEntry(editedTask: task)) { [weak self] isTaskChanged in
-            guard isTaskChanged else { return }
-            self?.fetchWorkTimesData(forCurrentMonth: self?.selectedMonth)
+            guard let self = self, isTaskChanged else { return }
+            self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
         }
     }
     
@@ -226,8 +227,7 @@ extension WorkTimesListViewModel {
     }
     
     private func fetchAndChangeSelectedMonth(with components: DateComponents) {
-        guard let date = self.selectedMonth else { return }
-        let newSelectedMonth = self.calendar.date(byAdding: components, to: date)
+        guard let newSelectedMonth = self.calendar.date(byAdding: components, to: self.selectedMonth) else { return }
         self.selectedMonth = newSelectedMonth
         self.updateDateSelectorView(withCurrentDate: newSelectedMonth)
         self.fetchWorkTimesData(forCurrentMonth: newSelectedMonth)
@@ -243,8 +243,11 @@ extension WorkTimesListViewModel {
         self.userInterface?.updateDateSelector(currentDateString: currentDateString, previousDateString: previousDateString, nextDateString: nextDateString)
     }
     
-    private func fetchWorkTimesData(forCurrentMonth date: Date?, completion: (() -> Void)? = nil) {
+    private func fetchWorkTimesData(forCurrentMonth date: Date, completion: (() -> Void)? = nil) {
         self.userInterface?.setActivityIndicator(isHidden: false)
+        self.dailyWorkTimesArray.removeAll()
+        self.userInterface?.updateMatchingFullTimeLabels(workedHours: "", shouldWorkHours: "", duration: "")
+        self.userInterface?.updateView()
         self.contentProvider.fetchWorkTimesData(for: date) { [weak self] result in
             defer { completion?() }
             self?.userInterface?.setActivityIndicator(isHidden: true)
