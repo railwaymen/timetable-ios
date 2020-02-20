@@ -114,7 +114,7 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
         self.errorView.set(isHidden: true)
     }
     
-    func updateView() {
+    func reloadData() {
         self.tableView.reloadData()
     }
     
@@ -145,6 +145,22 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
     func setActivityIndicator(isHidden: Bool) {
         isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
         self.activityIndicator.set(isHidden: isHidden)
+    }
+    
+    func insertSections(_ sections: IndexSet) {
+        self.tableView.insertSections(sections, with: .fade)
+    }
+    
+    func removeSections(_ sections: IndexSet) {
+        self.tableView.deleteSections(sections, with: .fade)
+    }
+    
+    func insertRows(at indexPaths: [IndexPath]) {
+        self.tableView.insertRows(at: indexPaths, with: .fade)
+    }
+    
+    func removeRows(at indexPaths: [IndexPath]) {
+        self.tableView.deleteRows(at: indexPaths, with: .fade)
     }
     
     func performBatchUpdates(_ updates: (() -> Void)?) {
