@@ -17,9 +17,9 @@ typealias SaveTaskCompletion = (SaveTaskResult) -> Void
 protocol WorkTimeContentProviderType: class {
     func fetchSimpleProjectsList(completion: @escaping FetchSimpleProjectsListCompletion)
     func save(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion)
-    func getPredefinedTimeBounds(forTaskForm form: TaskForm, lastTask: TaskForm?) -> (startDate: Date, endDate: Date)
+    func getPredefinedTimeBounds(forTaskForm form: TaskFormType, lastTask: TaskFormType?) -> (startDate: Date, endDate: Date)
     func getPredefinedDay(forTaskForm form: TaskForm) -> Date
-    func pickEndTime(ofLastTask lastTask: TaskForm?) -> Date?
+    func pickEndTime(ofLastTask lastTask: TaskFormType?) -> Date?
 }
 
 class WorkTimeContentProvider {
@@ -71,7 +71,7 @@ extension WorkTimeContentProvider: WorkTimeContentProviderType {
         }
     }
     
-    func getPredefinedTimeBounds(forTaskForm task: TaskForm, lastTask: TaskForm?) -> (startDate: Date, endDate: Date) {
+    func getPredefinedTimeBounds(forTaskForm task: TaskFormType, lastTask: TaskFormType?) -> (startDate: Date, endDate: Date) {
         let startDate: Date
         let endDate: Date
         switch task.projectType {
@@ -92,7 +92,7 @@ extension WorkTimeContentProvider: WorkTimeContentProviderType {
         return task.day ?? self.currentDate
     }
     
-    func pickEndTime(ofLastTask lastTask: TaskForm?) -> Date? {
+    func pickEndTime(ofLastTask lastTask: TaskFormType?) -> Date? {
         guard let lastTaskEndAt = lastTask?.endsAt, self.calendar.isDateInToday(lastTaskEndAt) else { return nil }
         return lastTaskEndAt
     }

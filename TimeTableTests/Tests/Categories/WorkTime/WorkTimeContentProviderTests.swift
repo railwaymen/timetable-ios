@@ -9,6 +9,7 @@
 import XCTest
 @testable import TimeTable
 
+// swiftlint:disable file_length
 class WorkTimeContentProviderTests: XCTestCase {
     private let projectFactory = ProjectDecoderFactory()
     private let simpleProjectDecoderFactory = SimpleProjectDecoderFactory()
@@ -266,6 +267,189 @@ extension WorkTimeContentProviderTests {
     }
 }
 
+// MARK: - getPredefinedTimeBounds(forTaskForm:lastTask:)
+extension WorkTimeContentProviderTests {
+    
+    // MARK: projectType == .fullDay
+    
+    func testGetPredefinedTimeBounds_fullDayProject() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        self.dateFactory.currentDateReturnValue = try self.buildDate(year: 2011, month: 2, day: 23)
+        let expectedStartDate = try self.buildDate(year: 2011, month: 2, day: 23, hour: 9, minute: 0, second: 0)
+        self.calendar.dateBySettingHourReturnValue = expectedStartDate
+        self.taskForm.projectTypeReturnValue = .fullDay(100)
+        //Act
+        let (startDate, endDate) = sut.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: nil)
+        //Assert
+        XCTAssertEqual(self.calendar.dateBySettingHourParams.count, 1)
+        XCTAssertEqual(startDate, expectedStartDate)
+        XCTAssertEqual(endDate, try self.buildDate(year: 2011, month: 2, day: 23, hour: 9, minute: 1, second: 40))
+    }
+    
+    func testGetPredefinedTimeBounds_fullDayProject_withoutCalendarDate() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let currentDate = try self.buildDate(year: 2011, month: 2, day: 23, hour: 6, minute: 32, second: 2)
+        self.dateFactory.currentDateReturnValue = currentDate
+        self.taskForm.projectTypeReturnValue = .fullDay(100)
+        //Act
+        let (startDate, endDate) = sut.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: nil)
+        //Assert
+        XCTAssertEqual(self.calendar.dateBySettingHourParams.count, 1)
+        XCTAssertEqual(startDate, currentDate)
+        XCTAssertEqual(endDate, try self.buildDate(year: 2011, month: 2, day: 23, hour: 6, minute: 33, second: 42))
+    }
+    
+    // MARK: projectType == .lunch
+    
+    func testGetPredefinedTimeBounds_lunchProject() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let currentDate = try self.buildDate(year: 2011, month: 2, day: 23, hour: 6, minute: 32, second: 2)
+        self.taskForm.projectTypeReturnValue = .lunch(100)
+        self.taskForm.startsAt = currentDate
+        //Act
+        let (startDate, endDate) = sut.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: nil)
+        //Assert
+        XCTAssertEqual(startDate, currentDate)
+        XCTAssertEqual(endDate, currentDate.addingTimeInterval(100))
+    }
+    
+    func testGetPredefinedTimeBounds_lunchProject_withoutTaskStartTime() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let currentDate = try self.buildDate(year: 2011, month: 2, day: 23, hour: 6, minute: 32, second: 2)
+        self.dateFactory.currentDateReturnValue = currentDate
+        self.taskForm.projectTypeReturnValue = .lunch(100)
+        //Act
+        let (startDate, endDate) = sut.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: nil)
+        //Assert
+        XCTAssertEqual(startDate, currentDate.roundedToFiveMinutes())
+        XCTAssertEqual(endDate, currentDate.roundedToFiveMinutes().addingTimeInterval(100))
+    }
+    
+    // MARK: projectType == .standard
+
+    func testGetPredefinedTimeBounds_standardProject_lastTaskEndTimeAndTaskEndTimeExist() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let expectedStartDate = try self.buildDate(year: 2011, month: 2, day: 23, hour: 6, minute: 32, second: 2)
+        let expectedEndDate = try self.buildDate(year: 2019, month: 6, day: 16, hour: 2, minute: 5, second: 1)
+        self.taskForm.projectTypeReturnValue = .standard
+        self.taskForm.endsAt = expectedEndDate
+        self.calendar.isDateInTodayReturnValue = true
+        let lastTaskForm = TaskFormMock()
+        lastTaskForm.endsAt = expectedStartDate
+        //Act
+        let (startDate, endDate) = sut.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: lastTaskForm)
+        //Assert
+        XCTAssertEqual(startDate, expectedStartDate)
+        XCTAssertEqual(endDate, expectedEndDate)
+    }
+    
+    func testGetPredefinedTimeBounds_standardProject_lastTaskEndTimeExists() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let currentDate = try self.buildDate(year: 2011, month: 2, day: 23, hour: 6, minute: 32, second: 2)
+        self.taskForm.projectTypeReturnValue = .standard
+        self.calendar.isDateInTodayReturnValue = true
+        let lastTaskForm = TaskFormMock()
+        lastTaskForm.endsAt = currentDate
+        //Act
+        let (startDate, endDate) = sut.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: lastTaskForm)
+        //Assert
+        XCTAssertEqual(startDate, currentDate)
+        XCTAssertEqual(endDate, currentDate)
+    }
+    
+    func testGetPredefinedTimeBounds_standardProject_taskStartTimeExists() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let currentDate = try self.buildDate(year: 2011, month: 2, day: 23, hour: 6, minute: 32, second: 2)
+        self.taskForm.projectTypeReturnValue = .standard
+        self.taskForm.startsAt = currentDate
+        //Act
+        let (startDate, endDate) = sut.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: nil)
+        //Assert
+        XCTAssertEqual(startDate, currentDate)
+        XCTAssertEqual(endDate, currentDate)
+    }
+    
+    func testGetPredefinedTimeBounds_standardProject_getsCurrentDate() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let currentDate = try self.buildDate(year: 2011, month: 2, day: 23, hour: 6, minute: 32, second: 2)
+        self.taskForm.projectTypeReturnValue = .standard
+        self.dateFactory.currentDateReturnValue = currentDate
+        //Act
+        let (startDate, endDate) = sut.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: nil)
+        //Assert
+        XCTAssertEqual(startDate, currentDate.roundedToFiveMinutes())
+        XCTAssertEqual(endDate, currentDate.roundedToFiveMinutes())
+    }
+    
+    // MARK: projectType == .none
+    
+    func testGetPredefinedTimeBounds_nilProject_lastTaskEndTimeAndTaskEndTimeExist() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let expectedStartDate = try self.buildDate(year: 2011, month: 2, day: 23, hour: 6, minute: 32, second: 2)
+        let expectedEndDate = try self.buildDate(year: 2019, month: 6, day: 16, hour: 2, minute: 5, second: 1)
+        self.taskForm.projectTypeReturnValue = nil
+        self.taskForm.endsAt = expectedEndDate
+        self.calendar.isDateInTodayReturnValue = true
+        let lastTaskForm = TaskFormMock()
+        lastTaskForm.endsAt = expectedStartDate
+        //Act
+        let (startDate, endDate) = sut.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: lastTaskForm)
+        //Assert
+        XCTAssertEqual(startDate, expectedStartDate)
+        XCTAssertEqual(endDate, expectedEndDate)
+    }
+    
+    func testGetPredefinedTimeBounds_nilProject_lastTaskEndTimeExists() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let currentDate = try self.buildDate(year: 2011, month: 2, day: 23, hour: 6, minute: 32, second: 2)
+        self.taskForm.projectTypeReturnValue = nil
+        self.calendar.isDateInTodayReturnValue = true
+        let lastTaskForm = TaskFormMock()
+        lastTaskForm.endsAt = currentDate
+        //Act
+        let (startDate, endDate) = sut.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: lastTaskForm)
+        //Assert
+        XCTAssertEqual(startDate, currentDate)
+        XCTAssertEqual(endDate, currentDate)
+    }
+    
+    func testGetPredefinedTimeBounds_nilProject_taskStartTimeExists() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let currentDate = try self.buildDate(year: 2011, month: 2, day: 23, hour: 6, minute: 32, second: 2)
+        self.taskForm.projectTypeReturnValue = nil
+        self.taskForm.startsAt = currentDate
+        //Act
+        let (startDate, endDate) = sut.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: nil)
+        //Assert
+        XCTAssertEqual(startDate, currentDate)
+        XCTAssertEqual(endDate, currentDate)
+    }
+    
+    func testGetPredefinedTimeBounds_nilProject_getsCurrentDate() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let currentDate = try self.buildDate(year: 2011, month: 2, day: 23, hour: 6, minute: 32, second: 2)
+        self.taskForm.projectTypeReturnValue = nil
+        self.dateFactory.currentDateReturnValue = currentDate
+        //Act
+        let (startDate, endDate) = sut.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: nil)
+        //Assert
+        XCTAssertEqual(startDate, currentDate.roundedToFiveMinutes())
+        XCTAssertEqual(endDate, currentDate.roundedToFiveMinutes())
+    }
+}
+
 // MARK: - getPredefinedDay(forTaskForm:)
 extension WorkTimeContentProviderTests {
     func testGetPredefinedDay_taskHasDay() throws {
@@ -355,3 +539,4 @@ extension WorkTimeContentProviderTests {
             endsAt: Date())
     }
 }
+// swiftlint:enable file_length
