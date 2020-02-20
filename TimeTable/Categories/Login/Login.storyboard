@@ -19,7 +19,7 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="time_table_background" translatesAutoresizingMaskIntoConstraints="NO" id="8ok-jl-LPk">
                                 <rect key="frame" x="-15" y="0.0" width="250" height="250"/>
-                                <color key="tintColor" name="Crimson"/>
+                                <color key="tintColor" name="Tint"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="CYg-em-sI3">
                                         <variation key="heightClass=regular-widthClass=regular" constant="400"/>
@@ -146,12 +146,12 @@
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i9V-Qh-o4R" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="274.5" width="374" height="40"/>
-                                                        <color key="backgroundColor" name="Crimson"/>
+                                                        <color key="backgroundColor" red="0.80000000000000004" green="0.078431372550000003" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="4Qg-ZN-nWs"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                                        <color key="tintColor" name="Crimson"/>
+                                                        <color key="tintColor" name="Tint"/>
                                                         <state key="normal" title="Button">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -268,6 +268,9 @@
         <image name="time_table_background" width="584" height="585"/>
         <namedColor name="Crimson">
             <color red="0.79607843137254897" green="0.078431372549019607" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Tint">
+            <color red="0.79600000381469727" green="0.078000001609325409" blue="0.16500000655651093" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
