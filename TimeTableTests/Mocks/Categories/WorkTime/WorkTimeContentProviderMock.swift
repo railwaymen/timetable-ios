@@ -31,14 +31,14 @@ class WorkTimeContentProviderMock {
     var getPredefinedTimeBoundsReturnValue: (startDate: Date, endDate: Date) = (Date(), Date())
     private(set) var getPredefinedTimeBoundsParams: [GetPredefinedTimeBoundsParams] = []
     struct GetPredefinedTimeBoundsParams {
-        let task: TaskForm
-        let lastTask: TaskForm?
+        let task: TaskFormType
+        let lastTask: TaskFormType?
     }
     
     var pickEndTimeReturnValue: Date?
     private(set) var pickEndTimeParams: [PickEndTimeParams] = []
     struct PickEndTimeParams {
-        let lastTask: TaskForm?
+        let lastTask: TaskFormType?
     }
 }
 
@@ -57,12 +57,12 @@ extension WorkTimeContentProviderMock: WorkTimeContentProviderType {
         return self.getPredefinedDayReturnValue
     }
     
-    func getPredefinedTimeBounds(forTaskForm task: TaskForm, lastTask: TaskForm?) -> (startDate: Date, endDate: Date) {
+    func getPredefinedTimeBounds(forTaskForm task: TaskFormType, lastTask: TaskFormType?) -> (startDate: Date, endDate: Date) {
         self.getPredefinedTimeBoundsParams.append(GetPredefinedTimeBoundsParams(task: task, lastTask: lastTask))
         return self.getPredefinedTimeBoundsReturnValue
     }
     
-    func pickEndTime(ofLastTask lastTask: TaskForm?) -> Date? {
+    func pickEndTime(ofLastTask lastTask: TaskFormType?) -> Date? {
         self.pickEndTimeParams.append(PickEndTimeParams(lastTask: lastTask))
         return self.pickEndTimeReturnValue
     }

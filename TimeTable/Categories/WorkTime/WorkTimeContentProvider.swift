@@ -17,22 +17,29 @@ typealias SaveTaskCompletion = (SaveTaskResult) -> Void
 protocol WorkTimeContentProviderType: class {
     func fetchSimpleProjectsList(completion: @escaping FetchSimpleProjectsListCompletion)
     func save(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion)
-    func getPredefinedTimeBounds(forTaskForm form: TaskForm, lastTask: TaskForm?) -> (startDate: Date, endDate: Date)
+    func getPredefinedTimeBounds(forTaskForm form: TaskFormType, lastTask: TaskFormType?) -> (startDate: Date, endDate: Date)
     func getPredefinedDay(forTaskForm form: TaskForm) -> Date
-    func pickEndTime(ofLastTask lastTask: TaskForm?) -> Date?
+    func pickEndTime(ofLastTask lastTask: TaskFormType?) -> Date?
 }
 
 class WorkTimeContentProvider {
     private let apiClient: WorkTimeApiClientType
     private let calendar: CalendarType
+    private let dateFactory: DateFactoryType
+    
+    private var currentDate: Date {
+        self.dateFactory.currentDate
+    }
     
     // MARK: - Initialization
     init(
         apiClient: WorkTimeApiClientType,
-        calendar: CalendarType
+        calendar: CalendarType,
+        dateFactory: DateFactoryType
     ) {
         self.apiClient = apiClient
         self.calendar = calendar
+        self.dateFactory = dateFactory
     }
 }
 
@@ -64,28 +71,28 @@ extension WorkTimeContentProvider: WorkTimeContentProviderType {
         }
     }
     
-    func getPredefinedTimeBounds(forTaskForm task: TaskForm, lastTask: TaskForm?) -> (startDate: Date, endDate: Date) {
+    func getPredefinedTimeBounds(forTaskForm task: TaskFormType, lastTask: TaskFormType?) -> (startDate: Date, endDate: Date) {
         let startDate: Date
         let endDate: Date
         switch task.projectType {
         case let .fullDay(timeInterval):
-            startDate = self.calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
+            startDate = self.calendar.date(bySettingHour: 9, minute: 0, second: 0, of: self.currentDate) ?? self.currentDate
             endDate = startDate.addingTimeInterval(timeInterval)
         case let .lunch(timeInterval):
-            startDate = task.startsAt ?? Date().roundedToFiveMinutes()
+            startDate = task.startsAt ?? self.currentDate.roundedToFiveMinutes()
             endDate = startDate.addingTimeInterval(timeInterval)
         case .standard, .none:
-            startDate = self.pickEndTime(ofLastTask: lastTask) ?? task.startsAt ?? Date().roundedToFiveMinutes()
+            startDate = self.pickEndTime(ofLastTask: lastTask) ?? task.startsAt ?? self.currentDate.roundedToFiveMinutes()
             endDate = task.endsAt ?? startDate
         }
         return (startDate, endDate)
     }
     
     func getPredefinedDay(forTaskForm task: TaskForm) -> Date {
-        return task.day ?? Date()
+        return task.day ?? self.currentDate
     }
     
-    func pickEndTime(ofLastTask lastTask: TaskForm?) -> Date? {
+    func pickEndTime(ofLastTask lastTask: TaskFormType?) -> Date? {
         guard let lastTaskEndAt = lastTask?.endsAt, self.calendar.isDateInToday(lastTaskEndAt) else { return nil }
         return lastTaskEndAt
     }
