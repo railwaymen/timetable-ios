@@ -26,9 +26,9 @@ enum ProjectTag: String {
     var color: UIColor {
         switch self {
         case .development: return .white
-        case .clientCommunication: return .purpleHeart
-        case .internalMeeting: return .flushOrange
-        case .research: return .caribbeanGreen
+        case .clientCommunication: return .clientCommunicationTag
+        case .internalMeeting: return .internalMeetingTag
+        case .research: return .researchTag
         }
     }
 }

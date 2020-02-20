@@ -29,7 +29,7 @@ extension MessagePresenter: MessagePresenterType {
             alert.dismiss(animated: true)
         }
         alert.addAction(action)
-        alert.view.tintColor = .crimson
+        alert.view.tintColor = .tint
         if let presentedViewController = self.window?.rootViewController?.presentedViewController {
             presentedViewController.present(alert, animated: true)
         } else {

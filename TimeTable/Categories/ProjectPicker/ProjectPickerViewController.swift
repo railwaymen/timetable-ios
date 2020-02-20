@@ -108,7 +108,7 @@ extension ProjectPickerViewController {
     private func setUpSearchController() {
         self.searchController = UISearchController()
         self.navigationItem.searchController = self.searchController
-        self.searchController.searchBar.tintColor = .crimson
+        self.searchController.searchBar.tintColor = .tint
         self.searchController.searchResultsUpdater = self
         self.searchController.obscuresBackgroundDuringPresentation = false
     }
@@ -122,6 +122,6 @@ extension ProjectPickerViewController {
         }
         let closeButton = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(self.closeButtonTapped))
         self.navigationItem.setRightBarButton(closeButton, animated: false)
-        self.navigationController?.navigationBar.tintColor = .crimson
+        self.navigationController?.navigationBar.tintColor = .tint
     }
 }

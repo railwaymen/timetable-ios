@@ -14,7 +14,7 @@ import UIKit
         didSet {
             self.setImage(self.isActive ? UIImage(named: "check") : nil, for: .normal)
             self.backgroundColor = self.isActive ? .white : .clear
-            self.tintColor = .crimson
+            self.tintColor = .tint
         }
     }
 

@@ -10,32 +10,44 @@ import UIKit
 
 extension UIColor {
     
-    static let crimson: UIColor = { // CB142A
-        let color = UIColor(named: "Crimson")
+    static let tint: UIColor = {
+        let color = UIColor(named: "Tint")
         assert(color != nil)
         return color ?? #colorLiteral(red: 0.7960784314, green: 0.07843137255, blue: 0.1647058824, alpha: 1)
     }()
     
-    static let flushOrange: UIColor = { // E0B73F
-        let color = UIColor(named: "Flush Orange")
+    static let internalMeetingTag: UIColor = {
+        let color = UIColor(named: "Internal Meeting Tag")
         assert(color != nil)
         return color ?? #colorLiteral(red: 1, green: 0.5254901961, blue: 0, alpha: 1)
     }()
     
-    static let purpleHeart: UIColor = { // A54294
-        let color = UIColor(named: "Purple Heart")
+    static let clientCommunicationTag: UIColor = {
+        let color = UIColor(named: "Client Communication Tag")
         assert(color != nil)
         return color ?? #colorLiteral(red: 0.4431372549, green: 0.1294117647, blue: 0.8549019608, alpha: 1)
     }()
     
-    static let caribbeanGreen: UIColor = { // 86D64A
-        let color = UIColor(named: "Caribbean Green")
+    static let researchTag: UIColor = {
+        let color = UIColor(named: "Research Tag")
         assert(color != nil)
         return color ?? #colorLiteral(red: 0.04705882353, green: 0.8156862745, blue: 0.631372549, alpha: 1)
     }()
     
+    static let enabledButton: UIColor = {
+        let color = UIColor(named: "Enabled Button")
+        assert(color != nil)
+        return color ?? #colorLiteral(red: 0.7960784314, green: 0.07843137255, blue: 0.1647058824, alpha: 1)
+    }()
+    
     static let disabledButton: UIColor = {
         return .systemGray
+    }()
+    
+    static let deleteAction: UIColor = {
+        let color = UIColor(named: "Delete Action")
+        assert(color != nil)
+        return color ?? #colorLiteral(red: 0.7960784314, green: 0.07843137255, blue: 0.1647058824, alpha: 1)
     }()
     
     static let defaultBackground: UIColor = {

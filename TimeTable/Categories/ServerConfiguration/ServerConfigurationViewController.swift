@@ -78,7 +78,7 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
     
     func continueButtonEnabledState(_ isEnabled: Bool) {
         self.continueButton.isEnabled = isEnabled
-        self.continueButton.backgroundColor = isEnabled ? .crimson : .disabledButton
+        self.continueButton.backgroundColor = isEnabled ? .enabledButton : .disabledButton
     }
     
     func checkBoxIsActiveState(_ isActive: Bool) {
