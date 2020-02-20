@@ -16,6 +16,7 @@ class WorkTimeViewModelTests: XCTestCase {
     
     private var userInterfaceMock: WorkTimeViewControllerMock!
     private var coordinatorMock: WorkTimeCoordinatorMock!
+    private var contentProviderMock: WorkTimeContentProviderMock!
     private var apiClientMock: ApiClientMock!
     private var errorHandlerMock: ErrorHandlerMock!
     private var calendarMock: CalendarMock!
@@ -24,10 +25,11 @@ class WorkTimeViewModelTests: XCTestCase {
     override func setUp() {
         super.setUp()
         self.userInterfaceMock = WorkTimeViewControllerMock()
+        self.coordinatorMock = WorkTimeCoordinatorMock()
+        self.contentProviderMock = WorkTimeContentProviderMock()
         self.apiClientMock = ApiClientMock()
         self.errorHandlerMock = ErrorHandlerMock()
         self.calendarMock = CalendarMock()
-        self.coordinatorMock = WorkTimeCoordinatorMock()
         self.notificationCenterMock = NotificationCenterMock()
     }
 }
@@ -85,30 +87,12 @@ extension WorkTimeViewModelTests {
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setUpParams.last?.allowsTask))
     }
     
-    func testViewDidLoadWithLastTaskSetsDateAndTime() throws {
-        //Arrange
-        let lastTask = try self.createTask(workTimeIdentifier: nil)
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: lastTask))
-        let creationDate = Date()
-        let timestampRoundingFactor = 5 * TimeInterval.minute
-        //Act
-        sut.viewDidLoad()
-        //Assert
-        XCTAssertTrue(Calendar.current.isDateInToday(try XCTUnwrap(self.userInterfaceMock.updateDayParams.last?.date)))
-        let startsAtDate = try XCTUnwrap(self.userInterfaceMock.updateStartAtDateParams.last?.date)
-        let endsAtDate = try XCTUnwrap(self.userInterfaceMock.updateEndAtDateParams.last?.date)
-        XCTAssertEqual(startsAtDate.timeIntervalSince1970.remainder(dividingBy: timestampRoundingFactor), 0)
-        XCTAssertEqual(startsAtDate.timeIntervalSince1970, creationDate.timeIntervalSince1970, accuracy: timestampRoundingFactor / 2 + 0.01)
-        XCTAssertEqual(endsAtDate.timeIntervalSince1970.remainder(dividingBy: timestampRoundingFactor), 0)
-        XCTAssertEqual(endsAtDate.timeIntervalSince1970, creationDate.timeIntervalSince1970, accuracy: timestampRoundingFactor / 2 + 0.01)
-        XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, "Select project")
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setUpParams.last?.allowsTask))
-    }
-    
     func testViewDidLoad_withEditedTask() throws {
         //Arrange
         let task = try self.createTask(workTimeIdentifier: 123)
         let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
+        self.contentProviderMock.getPredefinedDayReturnValue = try XCTUnwrap(task.day)
+        self.contentProviderMock.getPredefinedTimeBoundsReturnValue = (try XCTUnwrap(task.startsAt), try XCTUnwrap(task.endsAt))
         //Act
         sut.viewDidLoad()
         //Assert
@@ -144,6 +128,8 @@ extension WorkTimeViewModelTests {
         let task = try self.createTask(workTimeIdentifier: 123, index: 3)
         let lastTask = try self.createTask(workTimeIdentifier: 12, index: 2)
         let sut = self.buildSUT(flowType: .duplicateEntry(duplicatedTask: task, lastTask: lastTask))
+        let time = try XCTUnwrap(lastTask.endsAt)
+        self.contentProviderMock.getPredefinedTimeBoundsReturnValue = (time, time)
         //Act
         sut.viewDidLoad()
         //Assert
@@ -158,73 +144,47 @@ extension WorkTimeViewModelTests {
     }
     
     // MARK: Fetch
-    func testViewDidLoad_fetchSimpleList_showsActivityIndicatorBeforeFetch() throws {
+    func testViewDidLoad_fetchProjectsList_makesRequest() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         //Act
         sut.viewDidLoad()
         //Assert
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
         XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertEqual(self.contentProviderMock.fetchSimpleProjectsListParams.count, 1)
     }
     
-    func testViewDidLoad_fetchSimpleList_hidesActivityIndicatorAfterSuccessfulFetch() throws {
+    func testViewDidLoad_fetchProjectsList_resultSuccess() throws {
         //Arrange
-        let data = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
-        let projectDecoders = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        let project = try self.projectDecoderFactory.build()
+        let tags: [ProjectTag] = [.default, .internalMeeting]
         //Act
         sut.viewDidLoad()
-        self.apiClientMock.fetchSimpleListOfProjectsParams.last?.completion(.success(projectDecoders))
+        try XCTUnwrap(self.contentProviderMock.fetchSimpleProjectsListParams.last).completion(.success(([project], tags)))
         //Assert
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-    }
-    
-    func testViewDidLoad_fetchSimpleList_hidesActivityIndicatorAfterFailedFetch() {
-        //Arrange
-        let error = ApiClientError(type: .invalidParameters)
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        //Act
-        sut.viewDidLoad()
-        self.apiClientMock.fetchSimpleListOfProjectsParams.last?.completion(.failure(error))
-        //Assert
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-    }
-    
-    func testViewDidLoad_fetchSimpleList_callsErrorHandlerOnFetchFailure() throws {
-        //Arrange
-        let error = ApiClientError(type: .invalidParameters)
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        //Act
-        sut.viewDidLoad()
-        self.apiClientMock.fetchSimpleListOfProjectsParams.last?.completion(.failure(error))
-        //Assert
-        let throwedError = try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? ApiClientError)
-        XCTAssertEqual(throwedError, error)
-    }
-    
-    func testViewDidLoad_fetchSimpleList_updatesUserInterface() throws {
-        //Arrange
-        let data = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
-        let projectDecoders = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        //Act
-        sut.viewDidLoad()
-        self.apiClientMock.fetchSimpleListOfProjectsParams.last?.completion(.success(projectDecoders))
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, "asdsa")
-    }
-    
-    func testViewDidLoad_fetchSimpleList_withLastTaskUpdatesUserInterface() throws {
-        //Arrange
-        let lastTask = try self.createTask(workTimeIdentifier: 2)
-        self.calendarMock.isDateInTodayReturnValue = true
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: lastTask))
-        //Act
-        try self.fetchProjects(sut: sut)
-        //Assert
+        XCTAssertEqual(self.userInterfaceMock.reloadTagsViewParams.count, 1)
         XCTAssertEqual(self.userInterfaceMock.setUpParams.count, 2)
         XCTAssertEqual(self.userInterfaceMock.updateProjectParams.count, 2)
-        XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, lastTask.project?.name)
+        XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, project.name)
+    }
+    
+    func testViewDidLoad_fetchProjectsList_resultFailure_apiClientError() throws {
+        //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        let error = ApiClientError(type: .noConnection)
+        //Act
+        sut.viewDidLoad()
+        try XCTUnwrap(self.contentProviderMock.fetchSimpleProjectsListParams.last).completion(.failure(error))
+        //Assert
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertEqual(self.userInterfaceMock.reloadTagsViewParams.count, 0)
+        XCTAssertEqual(self.errorHandlerMock.throwingParams.count, 1)
+        XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? ApiClientError, error)
     }
 }
 
@@ -235,12 +195,11 @@ extension WorkTimeViewModelTests {
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         sut.viewDidLoad()
         let tags: [ProjectTag] = [.default, .internalMeeting]
-        let simpleProjectDecoder = try self.simpleProjectDecoderFactory.build(wrapper: .init(projects: [], tags: tags))
-        self.apiClientMock.fetchSimpleListOfProjectsParams.last?.completion(.success(simpleProjectDecoder))
+        try XCTUnwrap(self.contentProviderMock.fetchSimpleProjectsListParams.last).completion(.success(([], tags)))
         //Act
         let numberOfTags = sut.viewRequestedForNumberOfTags()
         //Assert
-        XCTAssertEqual(numberOfTags, 1)
+        XCTAssertEqual(numberOfTags, 2)
     }
 }
 
@@ -251,10 +210,9 @@ extension WorkTimeViewModelTests {
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         sut.viewDidLoad()
         let tags: [ProjectTag] = [.default, .internalMeeting]
-        let simpleProjectDecoder = try self.simpleProjectDecoderFactory.build(wrapper: .init(projects: [], tags: tags))
-        self.apiClientMock.fetchSimpleListOfProjectsParams.last?.completion(.success(simpleProjectDecoder))
+        try XCTUnwrap(self.contentProviderMock.fetchSimpleProjectsListParams.last).completion(.success(([], tags)))
         //Act
-        let tag = sut.viewRequestedForTag(at: IndexPath(row: 0, section: 0))
+        let tag = sut.viewRequestedForTag(at: IndexPath(row: 1, section: 0))
         //Assert
         XCTAssertEqual(tag, .internalMeeting)
     }
@@ -276,9 +234,8 @@ extension WorkTimeViewModelTests {
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         sut.viewDidLoad()
         let tags: [ProjectTag] = [.default, .internalMeeting]
-        let simpleProjectDecoder = try self.simpleProjectDecoderFactory.build(wrapper: .init(projects: [], tags: tags))
-        self.apiClientMock.fetchSimpleListOfProjectsParams.last?.completion(.success(simpleProjectDecoder))
-        let indexPath = IndexPath(row: 0, section: 0)
+        try XCTUnwrap(self.contentProviderMock.fetchSimpleProjectsListParams.last).completion(.success(([], tags)))
+        let indexPath = IndexPath(row: 1, section: 0)
         //Act
         sut.viewSelectedTag(at: indexPath)
         //Assert
@@ -291,9 +248,8 @@ extension WorkTimeViewModelTests {
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         sut.viewDidLoad()
         let tags: [ProjectTag] = [.default, .internalMeeting]
-        let simpleProjectDecoder = try self.simpleProjectDecoderFactory.build(wrapper: .init(projects: [], tags: tags))
-        self.apiClientMock.fetchSimpleListOfProjectsParams.last?.completion(.success(simpleProjectDecoder))
-        let indexPath = IndexPath(row: 0, section: 0)
+        try XCTUnwrap(self.contentProviderMock.fetchSimpleProjectsListParams.last).completion(.success(([], tags)))
+        let indexPath = IndexPath(row: 1, section: 0)
         //Act
         sut.viewSelectedTag(at: indexPath)
         sut.viewSelectedTag(at: indexPath)
@@ -311,57 +267,6 @@ extension WorkTimeViewModelTests {
         //Assert
         XCTAssertEqual(self.userInterfaceMock.reloadTagsViewParams.count, 0)
         XCTAssertFalse(sut.isTagSelected(at: indexPath))
-    }
-}
-
-// MARK: - setDefaultTask()
-extension WorkTimeViewModelTests {
-    func testSetDefaultTask_whileProjectListIsEmpty() {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        //Act
-        sut.setDefaultTask()
-        //Assert
-        XCTAssertTrue(self.userInterfaceMock.setUpParams.isEmpty)
-        XCTAssertTrue(self.userInterfaceMock.updateProjectParams.isEmpty)
-    }
-    
-    func testSetDefaultTask_afterFetchingProjectsListAndProjectIsNotSelected() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        try self.fetchProjects(sut: sut)
-        //Act
-        sut.setDefaultTask()
-        //Assert
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setUpParams.last?.allowsTask))
-        XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, "asdsa")
-    }
-    
-    func testSetDefaultTask_whileTaskWasSetPreviously() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        try self.fetchProjects(sut: sut)
-        sut.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[1])
-        //Act
-        sut.setDefaultTask()
-        //Assert
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setUpParams.last?.allowsTask))
-        XCTAssertNotEqual(self.userInterfaceMock.updateProjectParams.last?.name, "asdsa")
-    }
-    
-    func testSetDefaultTask_whileTaskIsFullDayOption() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        try self.fetchProjects(sut: sut)
-        sut.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects[3])
-        //Act
-        sut.setDefaultTask()
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateStartAtDateParams.count, 6)
-        XCTAssertEqual(self.userInterfaceMock.setMinimumDateForTypeEndAtDateParams.count, 6)
-        XCTAssertEqual(self.userInterfaceMock.updateEndAtDateParams.count, 6)
     }
 }
 
@@ -425,103 +330,61 @@ extension WorkTimeViewModelTests {
 
 // MARK: - viewRequestedToSave()
 extension WorkTimeViewModelTests {
-    func testViewRequestedToSave_whileProjectIsNil() throws {
-        //Arrange
-        let task = Task(workTimeIdentifier: nil, project: nil, body: "", url: nil, day: nil, startsAt: nil, endsAt: nil, tag: .default)
-        guard task.isTaskValidationError(equalTo: .projectIsNil) else { return XCTFail() }
-        let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
-        //Act
-        sut.viewRequestedToSave()
-        //Assert
-        XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? UIError, UIError.cannotBeEmpty(UIElement.projectTextField))
-    }
-
-    func testViewRequestedToSave_whileTaskBodyIsNil() throws {
-        //Arrange
-        let project = try self.projectDecoderFactory.build(wrapper: .init(countDuration: nil, isLunch: false, workTimesAllowsTask: true))
-        let task = Task(workTimeIdentifier: nil, project: project, body: "", url: nil, day: nil, startsAt: nil, endsAt: nil, tag: .default)
-        guard task.isTaskValidationError(equalTo: .bodyIsEmpty) else { return XCTFail() }
-        let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
-        //Act
-        sut.viewRequestedToSave()
-        //Assert
-        XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? UIError, UIError.cannotBeEmpty(UIElement.taskNameTextField))
-    }
-    
-    func testViewRequestedToSave_whileTaskURLIsNil() throws {
-        //Arrange
-        let project = try self.projectDecoderFactory.build(wrapper: .init(countDuration: nil, isLunch: false, workTimesAllowsTask: true))
-        let task = Task(workTimeIdentifier: nil, project: project, body: "Some", url: nil, day: nil, startsAt: nil, endsAt: nil, tag: .default)
-        guard task.isTaskValidationError(equalTo: .urlIsNil) else { return XCTFail() }
-        let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
-        //Act
-        sut.viewRequestedToSave()
-        //Assert
-        XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? UIError, UIError.cannotBeEmpty(UIElement.taskUrlTextField))
-    }
-    
-    func testViewRequestedToSave_startsAtIsNil() throws {
-        //Arrange
-        let project = try self.projectDecoderFactory.build(wrapper: .init(countDuration: nil, isLunch: true, workTimesAllowsTask: true))
-        let task = Task(workTimeIdentifier: nil, project: project, body: "", url: nil, day: nil, startsAt: nil, endsAt: nil, tag: .default)
-        guard task.isTaskValidationError(equalTo: .startsAtIsNil) else { return XCTFail() }
-        let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
-        //Act
-        sut.viewRequestedToSave()
-        //Assert
-        XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? UIError, UIError.cannotBeEmpty(UIElement.startsAtTextField))
-    }
-    
-    func testViewRequestedToSave_endsAtIsNil() throws {
-        //Arrange
-        let startsAtDate = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let project = try self.projectDecoderFactory.build(wrapper: .init(countDuration: nil, isLunch: true, workTimesAllowsTask: true))
-        let task = Task(workTimeIdentifier: nil, project: project, body: "", url: nil, day: nil, startsAt: startsAtDate, endsAt: nil, tag: .default)
-        guard task.isTaskValidationError(equalTo: .endsAtIsNil) else { return XCTFail() }
-        let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
-        //Act
-        sut.viewRequestedToSave()
-        //Assert
-        XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? UIError, UIError.cannotBeEmpty(UIElement.endsAtTextField))
-    }
-    
-    func testViewRequestedToSave_whileTaskStartAtDateIsGreaterThanEndAtDate() throws {
-        //Arrange
-        let startsAtDate = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let endsAtDate = try self.buildDate(year: 2018, month: 1, day: 16, hour: 12, minute: 2, second: 1)
-        let project = try self.projectDecoderFactory.build(wrapper: .init(countDuration: nil, isLunch: true, workTimesAllowsTask: true))
-        let task = Task(workTimeIdentifier: nil, project: project, body: "", url: nil, day: nil, startsAt: startsAtDate, endsAt: endsAtDate, tag: .default)
-        guard task.isTaskValidationError(equalTo: .timeRangeIsIncorrect) else { return XCTFail() }
-        let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
-        //Act
-        sut.viewRequestedToSave()
-        //Assert
-        XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? UIError, UIError.timeGreaterThan)
-    }
-}
-
-// MARK: - setDefaultDay()
-extension WorkTimeViewModelTests {
-    func testSetDefaultDay_ifDayWasNotSet() {
+    func testViewRequestedToSave_callsContentProvider() {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         //Act
-        sut.setDefaultDay()
+        sut.viewRequestedToSave()
         //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateDayParams.count, 1)
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertEqual(self.contentProviderMock.saveTaskParams.count, 1)
     }
-
-    func testSetDefaultDay_notSetCurrentDayIfWasSetBefore() throws {
+    
+    func testViewRequestedToSave_resultSuccess() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let day = try self.buildDate(year: 2018, month: 1, day: 17)
-        let dayString = DateFormatter.localizedString(from: day, dateStyle: .short, timeStyle: .none)
-        sut.viewChanged(day: day)
         //Act
-        sut.setDefaultDay()
+        sut.viewRequestedToSave()
+        try XCTUnwrap(self.contentProviderMock.saveTaskParams.last).completion(.success(Void()))
         //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateDayParams.last?.date, day)
-        XCTAssertEqual(self.userInterfaceMock.updateDayParams.last?.dateString, dayString)
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertEqual(self.userInterfaceMock.dismissViewParams.count, 1)
+        XCTAssertEqual(self.coordinatorMock.viewDidFinishParams.count, 1)
+        XCTAssertTrue(try XCTUnwrap(self.coordinatorMock.viewDidFinishParams.last?.isTaskChanged))
+    }
+    
+    func testViewRequestedToSave_resultFailure_apiClientError() throws {
+        //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        let error = ApiClientError(type: .noConnection)
+        //Act
+        sut.viewRequestedToSave()
+        try XCTUnwrap(self.contentProviderMock.saveTaskParams.last).completion(.failure(error))
+        //Assert
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertEqual(self.userInterfaceMock.dismissViewParams.count, 0)
+        XCTAssertEqual(self.coordinatorMock.viewDidFinishParams.count, 0)
+        XCTAssertEqual(self.errorHandlerMock.throwingParams.count, 1)
+        XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? ApiClientError, error)
+    }
+    
+    func testViewRequestedToSave_resultFailure_uiError() throws {
+        //Arrange
+        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        let error = UIError.genericError
+        //Act
+        sut.viewRequestedToSave()
+        try XCTUnwrap(self.contentProviderMock.saveTaskParams.last).completion(.failure(error))
+        //Assert
+        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertEqual(self.userInterfaceMock.dismissViewParams.count, 0)
+        XCTAssertEqual(self.coordinatorMock.viewDidFinishParams.count, 0)
+        XCTAssertEqual(self.errorHandlerMock.throwingParams.count, 1)
+        XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? UIError, error)
     }
 }
     
@@ -580,34 +443,6 @@ extension WorkTimeViewModelTests {
     }
 }
 
-// MARK: - setDefaultStartAtDate()
-extension WorkTimeViewModelTests {
-    func testSetDefaultStartAtDate_whileStartAtDateWasNotSet() {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        //Act
-        sut.setDefaultStartAtDate()
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateStartAtDateParams.count, 1)
-        XCTAssertEqual(self.userInterfaceMock.setMinimumDateForTypeEndAtDateParams.count, 1)
-    }
-    
-    func testSetDefaultStartAtDate_whileStartAtDateWasSet() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let startAtDate = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        self.calendarMock.dateBySettingCalendarComponentReturnValue = startAtDate
-        sut.viewChanged(startAtDate: startAtDate)
-        //Act
-        sut.setDefaultStartAtDate()
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateStartAtDateParams.last?.date, startAtDate)
-        XCTAssertEqual(self.userInterfaceMock.updateStartAtDateParams.last?.dateString, "12:02 PM")
-        XCTAssertEqual(self.userInterfaceMock.setMinimumDateForTypeEndAtDateParams.count, 2)
-        XCTAssertEqual(self.userInterfaceMock.setMinimumDateForTypeEndAtDateParams.last?.minDate, startAtDate)
-    }
-}
-
 // MARK: - viewChanged(endAtDate:)
 extension WorkTimeViewModelTests {
     func testViewChangedEndAtDate() throws {
@@ -637,89 +472,6 @@ extension WorkTimeViewModelTests {
     }
 }
 
-// MARK: - setDefaultEndAtDate()
-extension WorkTimeViewModelTests {
-    func testSetDefaultEndAtDate() {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        //Act
-        sut.setDefaultEndAtDate()
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateEndAtDateParams.count, 1)
-    }
-    
-    func testSetDefaultEndAtDate_whileEndAtDateWasSet() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let endAtDate = try XCTUnwrap(self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1))
-        self.calendarMock.dateBySettingCalendarComponentReturnValue = endAtDate
-        sut.viewChanged(endAtDate: endAtDate)
-        //Act
-        sut.setDefaultEndAtDate()
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateEndAtDateParams.last?.date, endAtDate)
-        XCTAssertEqual(self.userInterfaceMock.updateEndAtDateParams.last?.dateString, "12:02 PM")
-    }
-    
-    func testSetDefaultEndAtDate_whileStartAtDateWasSet() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let startAtDate = try XCTUnwrap(self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1))
-        self.calendarMock.dateBySettingCalendarComponentReturnValue = startAtDate
-        sut.viewChanged(startAtDate: startAtDate)
-        //Act
-        sut.setDefaultEndAtDate()
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateStartAtDateParams.last?.date, startAtDate)
-        XCTAssertEqual(self.userInterfaceMock.updateStartAtDateParams.last?.dateString, "12:02 PM")
-        XCTAssertEqual(self.userInterfaceMock.setMinimumDateForTypeEndAtDateParams.count, 1)
-        XCTAssertEqual(self.userInterfaceMock.setMinimumDateForTypeEndAtDateParams.last?.minDate, startAtDate)
-    }
-}
-
-// MARK: - viewRequestedToSave()
-extension WorkTimeViewModelTests {
-    func testViewRequestedToSave_apiClientThrowsError() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let error = ApiClientError(type: .invalidParameters)
-        try self.fetchProjects(sut: sut)
-        let task = try self.createTask(workTimeIdentifier: nil)
-        try self.fillAllDataInViewModel(sut: sut, task: task)
-        //Act
-        sut.viewRequestedToSave()
-        self.apiClientMock.addWorkTimeParams.last?.completion(.failure(error))
-        //Assert
-        XCTAssertEqual((self.errorHandlerMock.throwingParams.last?.error as? ApiClientError)?.type, error.type)
-    }
-    
-    func testViewRequestedToSave_apiClientSucceed() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        try self.fetchProjects(sut: sut)
-        let task = try self.createTask(workTimeIdentifier: nil)
-        try self.fillAllDataInViewModel(sut: sut, task: task)
-        //Act
-        sut.viewRequestedToSave()
-        self.apiClientMock.addWorkTimeParams.last?.completion(.success(Void()))
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.dismissViewParams.count, 1)
-    }
-    
-    func testViewRequestedToSaveApiClient_updatesExistingWorkItem() throws {
-        //Arrange
-        let task = try self.createTask(workTimeIdentifier: 1)
-        let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
-        try self.fetchProjects(sut: sut)
-        try self.fillAllDataInViewModel(sut: sut, task: task)
-        //Act
-        sut.viewRequestedToSave()
-        self.apiClientMock.updateWorkTimeParams.last?.completion(.success(Void()))
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.dismissViewParams.count, 1)
-    }
-}
-
 // MARK: - viewHasBeenTapped()
 extension WorkTimeViewModelTests {
     func testViewHasBeenTapped_callsDismissKeyboardOnTheUserInterface() {
@@ -738,6 +490,7 @@ extension WorkTimeViewModelTests {
         return WorkTimeViewModel(
             userInterface: self.userInterfaceMock,
             coordinator: self.coordinatorMock,
+            contentProvider: self.contentProviderMock,
             apiClient: self.apiClientMock,
             errorHandler: self.errorHandlerMock,
             calendar: self.calendarMock,
@@ -749,7 +502,7 @@ extension WorkTimeViewModelTests {
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
         let projectDecoders = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
         sut.viewDidLoad()
-        try XCTUnwrap(self.apiClientMock.fetchSimpleListOfProjectsParams.last).completion(.success(projectDecoders))
+        try XCTUnwrap(self.contentProviderMock.fetchSimpleProjectsListParams.last).completion(.success((projectDecoders.projects, projectDecoders.tags)))
     }
     
     private func createTask(workTimeIdentifier: Int64?, index: Int = 3) throws -> Task {

@@ -59,25 +59,13 @@ class WorkTimeViewController: UIViewController {
         self.viewModel?.viewHasBeenTapped()
     }
     
-    @IBAction private func dayTextFieldDidBegin(_ sender: UITextField) {
-        self.viewModel.setDefaultDay()
-    }
-    
     @objc private func dayTextFieldDidChanged(_ sender: UIDatePicker) {
         self.viewModel.viewChanged(day: sender.date)
     }
     
-    @IBAction private func startAtDateTextFieldDidBegin(_ sender: UITextField) {
-        self.viewModel.setDefaultStartAtDate()
-    }
-
     @objc private func startAtDateTextFieldDidChanged(_ sender: UIDatePicker) {
         self.viewModel.viewChanged(startAtDate: sender.date)
     }
-    
-    @IBAction private func endAtDateTextFieldDidBegin(_ sender: UITextField) {
-        self.viewModel.setDefaultEndAtDate()
-    }    
     
     @objc private func endAtDateTextFieldDidChanged(_ sender: UIDatePicker) {
         self.viewModel.viewChanged(endAtDate: sender.date)
@@ -94,9 +82,10 @@ extension WorkTimeViewController: UICollectionViewDelegate {
         }
         guard let tag = self.viewModel.viewRequestedForTag(at: indexPath) else { return UICollectionViewCell() }
         let isSelected = self.viewModel.isTagSelected(at: indexPath)
-        let viewModel = TagCollectionViewCellViewModel(userInterface: cell,
-                                                       projectTag: tag,
-                                                       isSelected: isSelected)
+        let viewModel = TagCollectionViewCellViewModel(
+            userInterface: cell,
+            projectTag: tag,
+            isSelected: isSelected)
         cell.configure(viewModel: viewModel)
         
         return cell

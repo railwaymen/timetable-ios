@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Task {
+struct Task: Encodable {
     var workTimeIdentifier: Int64?
     var project: ProjectDecoder?
     var body: String
@@ -18,6 +18,16 @@ struct Task {
     var endsAt: Date?
     var tag: ProjectTag = .default
     
+    private enum CodingKeys: String, CodingKey {
+        case projectId
+        case body
+        case task
+        case startsAt
+        case endsAt
+        case tag
+    }
+    
+    // MARK: - Getters
     var title: String {
         guard let project = self.project else { return "work_time.text_field.select_project".localized }
         return project.name
@@ -28,7 +38,7 @@ struct Task {
         return project.workTimesAllowsTask
     }
     
-    var isTaggable: Bool {
+    var isProjectTaggable: Bool {
         return self.project?.isTaggable ?? false
     }
     
@@ -42,6 +52,7 @@ struct Task {
         return .standard
     }
     
+    // MARK: - Internal
     func validate() throws {
         guard let project = self.project else { throw TaskValidationError.projectIsNil }
         if !project.isLunch && project.countDuration ?? true {
@@ -52,28 +63,8 @@ struct Task {
         guard let endsAt = self.endsAt else { throw TaskValidationError.endsAtIsNil }
         guard startsAt < endsAt else { throw TaskValidationError.timeRangeIsIncorrect }
     }
-}
-
-// MARK: - Structures
-extension Task {
-    enum ProjectType {
-        case standard
-        case lunch(TimeInterval)
-        case fullDay(TimeInterval)
-    }
-}
-
-// MARK: - Encodable
-extension Task: Encodable {
-    enum CodingKeys: String, CodingKey {
-        case projectId
-        case body
-        case task
-        case startsAt
-        case endsAt
-        case tag
-    }
     
+    // MARK: - Encodable
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
@@ -88,8 +79,17 @@ extension Task: Encodable {
             try container.encode(startAtDate, forKey: .startsAt)
             let endAtDate = self.combine(day: self.day, time: self.endsAt)
             try container.encode(endAtDate, forKey: .endsAt)
-            try? container.encode(self.isTaggable ? self.tag.rawValue : ProjectTag.default.rawValue, forKey: .tag)
+            try? container.encode(self.isProjectTaggable ? self.tag.rawValue : ProjectTag.default.rawValue, forKey: .tag)
         }
+    }
+}
+
+// MARK: - Structures
+extension Task {
+    enum ProjectType {
+        case standard
+        case lunch(TimeInterval)
+        case fullDay(TimeInterval)
     }
 }
 
