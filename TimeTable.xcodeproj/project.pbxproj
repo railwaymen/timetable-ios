@@ -45,6 +45,11 @@
 		8A5D48C22369E1E20082C13D /* DispatchGroupMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48C12369E1E20082C13D /* DispatchGroupMock.swift */; };
 		8A5D48C42369E20E0082C13D /* DispatchGroupFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48C32369E20E0082C13D /* DispatchGroupFactoryMock.swift */; };
 		8A5D48C62369ED990082C13D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48C52369ED990082C13D /* UIImage+Extension.swift */; };
+		8A5EF31823FE7D0800AE4309 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EF31723FE7D0800AE4309 /* UITableView+Extension.swift */; };
+		8A5EF31A23FE806900AE4309 /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EF31923FE806900AE4309 /* UICollectionView+Extension.swift */; };
+		8A5EF31C23FE808800AE4309 /* ReusableCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EF31B23FE808800AE4309 /* ReusableCellType.swift */; };
+		8A5EF31E23FE812C00AE4309 /* ProjectCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A5EF31D23FE812C00AE4309 /* ProjectCollectionViewCell.xib */; };
+		8A5EF32023FE81AC00AE4309 /* ProjectUserViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A5EF31F23FE81AC00AE4309 /* ProjectUserViewTableViewCell.xib */; };
 		8A6B6D81237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B6D80237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift */; };
 		8A798745237D4DC6003DC028 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A798742237D4DC6003DC028 /* Profile.storyboard */; };
 		8A798746237D4DC6003DC028 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A798743237D4DC6003DC028 /* ProfileViewController.swift */; };
@@ -404,6 +409,11 @@
 		8A5D48C12369E1E20082C13D /* DispatchGroupMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupMock.swift; sourceTree = "<group>"; };
 		8A5D48C32369E20E0082C13D /* DispatchGroupFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupFactoryMock.swift; sourceTree = "<group>"; };
 		8A5D48C52369ED990082C13D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		8A5EF31723FE7D0800AE4309 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
+		8A5EF31923FE806900AE4309 /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
+		8A5EF31B23FE808800AE4309 /* ReusableCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCellType.swift; sourceTree = "<group>"; };
+		8A5EF31D23FE812C00AE4309 /* ProjectCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectCollectionViewCell.xib; sourceTree = "<group>"; };
+		8A5EF31F23FE81AC00AE4309 /* ProjectUserViewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectUserViewTableViewCell.xib; sourceTree = "<group>"; };
 		8A6B6D80237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCellViewModelParentMock.swift; sourceTree = "<group>"; };
 		8A798742237D4DC6003DC028 /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		8A798743237D4DC6003DC028 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -1127,6 +1137,7 @@
 				8A09DCB723673E58003FC2A6 /* DispatchQueueManager.swift */,
 				C175B56B227CAACA006D9944 /* MessagePresenter.swift */,
 				C125F1BD21DCDCB000594CDE /* Project.swift */,
+				8A5EF31B23FE808800AE4309 /* ReusableCellType.swift */,
 				C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */,
 				8AE55D1C23FD855E00F94242 /* Task.swift */,
 				C152C22121E89CB8003ABD88 /* TaskForm.swift */,
@@ -1199,6 +1210,7 @@
 			children = (
 				C125F1BB21DCDA8800594CDE /* ProjectCollectionViewCell.swift */,
 				C125F1C021DCF17300594CDE /* ProjectCollectionViewCellModel.swift */,
+				8A5EF31D23FE812C00AE4309 /* ProjectCollectionViewCell.xib */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -1409,9 +1421,11 @@
 				8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */,
 				8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */,
 				C153AC502182EFEC007A35BB /* UIButton+Extension.swift */,
+				8A5EF31923FE806900AE4309 /* UICollectionView+Extension.swift */,
 				C12CA56921A57ADD0082FEB7 /* UIColor+Extension.swift */,
 				8A5D48C52369ED990082C13D /* UIImage+Extension.swift */,
 				C153AC492182EE9F007A35BB /* UILabel+Extension .swift */,
+				8A5EF31723FE7D0800AE4309 /* UITableView+Extension.swift */,
 				C153AC522182F1E3007A35BB /* UITextField+Extension.swift */,
 				C14EB02A2372E261007F07D0 /* UIView+Extension.swift */,
 				C1E6B34D219EF30600019DC2 /* URL+Extension.swift */,
@@ -1857,6 +1871,7 @@
 			isa = PBXGroup;
 			children = (
 				C1F187AF21E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift */,
+				8A5EF31F23FE81AC00AE4309 /* ProjectUserViewTableViewCell.xib */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -2058,6 +2073,8 @@
 				C1F926EA218846F80004A9BC /* Login.storyboard in Resources */,
 				8A31CD8D23742E43008E590D /* ProjectPickerCell.xib in Resources */,
 				C125F1BA21DCCF5D00594CDE /* Projects.storyboard in Resources */,
+				8A5EF32023FE81AC00AE4309 /* ProjectUserViewTableViewCell.xib in Resources */,
+				8A5EF31E23FE812C00AE4309 /* ProjectCollectionViewCell.xib in Resources */,
 				C1E1F04221AD2372007F9228 /* WorkTimesTableViewHeader.xib in Resources */,
 				C13429AA21A7DB2300F4EA42 /* WorkTimesList.storyboard in Resources */,
 				C153AC592182F7BB007A35BB /* Localizable.strings in Resources */,
@@ -2291,12 +2308,14 @@
 				C16B3A79229E742600B6E9E6 /* TagCollectionViewCellViewModel.swift in Sources */,
 				C1F7C2E221904E0900F4FAF0 /* UserDefaults+Extension.swift in Sources */,
 				C198BD1F21FF3FC900B5F847 /* ApiClient+MatchingFullTime.swift in Sources */,
+				8A5EF31A23FE806900AE4309 /* UICollectionView+Extension.swift in Sources */,
 				C1FA05DB219423FC00BD8C9D /* UserEntity.swift in Sources */,
 				C1249C822181B547005DB2A5 /* ErrorHandlerType.swift in Sources */,
 				C125F1B821DCCF5100594CDE /* ProjectsViewModel.swift in Sources */,
 				C134296721A6951C00F4EA42 /* ApiClient+WorkTimes.swift in Sources */,
 				C125C4DB21871C7A00FBA0DD /* ServerConfiguration.swift in Sources */,
 				C14EB0272372E113007F07D0 /* ErrorView.swift in Sources */,
+				8A5EF31823FE7D0800AE4309 /* UITableView+Extension.swift in Sources */,
 				C1CE041521F5E01200E80517 /* AttributedTextField.swift in Sources */,
 				C1FE49EA21AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift in Sources */,
 				C1E6B34E219EF30600019DC2 /* URL+Extension.swift in Sources */,
@@ -2309,6 +2328,7 @@
 				C101603222003A9500DCE817 /* WorkTimesListContentProvider.swift in Sources */,
 				C1F926E4218838720004A9BC /* LoginViewController.swift in Sources */,
 				C1E6B352219F014600019DC2 /* Bundle+Extension.swift in Sources */,
+				8A5EF31C23FE808800AE4309 /* ReusableCellType.swift in Sources */,
 				C1AFFFE321A2D16F00A7A632 /* TimeTableCoordinator.swift in Sources */,
 				C134296921A6964B00F4EA42 /* WorkTimesParameters.swift in Sources */,
 				C101603422003D4000DCE817 /* MatchingFullTimeEncoder.swift in Sources */,

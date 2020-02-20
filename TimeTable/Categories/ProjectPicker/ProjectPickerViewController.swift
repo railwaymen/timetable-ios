@@ -39,8 +39,7 @@ extension ProjectPickerViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let dequeuedCell = tableView.dequeueReusableCell(withIdentifier: ProjectPickerCell.reuseIdentifier),
-            let cell = dequeuedCell as? ProjectPickerCellable else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(ProjectPickerCell.self, for: indexPath) else { return UITableViewCell() }
         self.viewModel.configure(cell: cell, for: indexPath)
         return cell
     }
@@ -99,9 +98,7 @@ extension ProjectPickerViewController {
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.register(
-            UINib(nibName: String(describing: ProjectPickerCell.self), bundle: nil),
-            forCellReuseIdentifier: ProjectPickerCell.reuseIdentifier)
+        self.tableView.register(ProjectPickerCell.self)
         self.tableView.keyboardDismissMode = .interactive
     }
     

@@ -12,17 +12,13 @@ protocol ProjectCollectionViewCellType: class {
     func configure(viewModel: ProjectCollectionViewCellModelType)
 }
 
-class ProjectCollectionViewCell: UICollectionViewCell {
-    static let reuseIdentifier = "ProjectCollectionViewCellReuseIdentifier"
-    
+class ProjectCollectionViewCell: UICollectionViewCell, ReusableCellType {    
     @IBOutlet private var attributedBackgroundView: AttributedView!
     @IBOutlet private var projectNameLabel: UILabel!
     @IBOutlet private var leaderNameLabel: UILabel!
     @IBOutlet private var projectColorView: AttributedView!
     @IBOutlet private var tableView: UITableView!
-    
-    private let cellIdentifier = "ProjectUserTableViewCellReuseIdentifier"
-    
+        
     private var viewModel: ProjectCollectionViewCellModelType!
     private lazy var shadowLayer = self.generateShadowLayer()
     
@@ -42,9 +38,7 @@ extension ProjectCollectionViewCell: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as? ProjectUserViewTableViewCellable else {
-            return UITableViewCell()
-        }
+        guard let cell = tableView.dequeueReusableCell(ProjectUserViewTableViewCell.self, for: indexPath) else { return UITableViewCell() }
         self.viewModel.configure(view: cell, for: indexPath)
         return cell
     }
@@ -60,6 +54,8 @@ extension ProjectCollectionViewCell: UITableViewDelegate {
 // MARK: - ProjectCollectionViewCellModelOutput
 extension ProjectCollectionViewCell: ProjectCollectionViewCellModelOutput {
     func setUpView() {
+        self.tableView.register(ProjectUserViewTableViewCell.self)
+        self.tableView.tableFooterView = UIView()
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.reloadData()

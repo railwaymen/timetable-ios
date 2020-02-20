@@ -14,7 +14,7 @@ protocol ProjectUserViewTableViewCellType: class {
     func configure(withName name: String)
 }
 
-class ProjectUserViewTableViewCell: UITableViewCell {
+class ProjectUserViewTableViewCell: UITableViewCell, ReusableCellType {
     @IBOutlet private var userNameLabel: UILabel!
 }
 
