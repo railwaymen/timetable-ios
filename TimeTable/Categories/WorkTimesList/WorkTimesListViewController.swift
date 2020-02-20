@@ -52,7 +52,7 @@ class WorkTimesListViewController: UIViewController {
         }
     }
 }
- 
+
 // MARK: - UITableViewDataSource
 extension WorkTimesListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -73,7 +73,7 @@ extension WorkTimesListViewController: UITableViewDataSource {
         return true
     }
 }
- 
+
 // MARK: - UITableViewDelegate
 extension WorkTimesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -166,7 +166,7 @@ extension WorkTimesListViewController: WorkTimesListViewControllerType {
 // MARK: - DateSelectorViewDelegate
 extension WorkTimesListViewController: DateSelectorViewDelegate {
     func dateSelectorRequestedForPreviousDate() {
-         self.viewModel.viewRequestForPreviousMonth()
+        self.viewModel.viewRequestForPreviousMonth()
     }
     
     func dateSelectorRequestedForNextDate() {

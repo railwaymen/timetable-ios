@@ -123,7 +123,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         sut.viewDidLoad()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
         //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateViewParams.count, 1)
+        XCTAssertEqual(self.userInterfaceMock.updateViewParams.count, 2)
     }
     
     func testViewDidLoadRunsFetchWorkTimesSuccessCallsShowTableViewOnUserInterface() throws {
