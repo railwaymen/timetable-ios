@@ -73,8 +73,9 @@ extension ProjectPickerViewModel: ProjectPickerViewModelType {
     
     func configure(cell: ProjectPickerCellable, for indexPath: IndexPath) {
         guard let project = self.project(at: indexPath) else { return }
-        let viewModel = ProjectPickerCellModel(userInterface: cell,
-                                               project: project)
+        let viewModel = ProjectPickerCellModel(
+            userInterface: cell,
+            project: project)
         cell.configure(viewModel: viewModel)
     }
     

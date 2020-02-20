@@ -58,8 +58,9 @@ class ProjectPickerCoordinator: NavigationCoordinator {
 // MARK: - ProjectPickerCoordinatorType
 extension ProjectPickerCoordinator: ProjectPickerCoordinatorType {
     func finishFlow(project: ProjectDecoder?) {
-        self.navigationController.dismiss(animated: true)
-        self.finish(project: project)
+        self.navigationController.dismiss(animated: true) { [weak self] in
+            self?.finish(project: project)
+        }
     }
 }
 
