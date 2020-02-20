@@ -71,15 +71,7 @@ class ApiClientWorkTimesTests: XCTestCase {
         var successCalled = false
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let task = Task(
-            workTimeIdentifier: nil,
-            project: projectDecoder,
-            body: "body",
-            url: nil,
-            day: nil,
-            startsAt: nil,
-            endsAt: nil,
-            tag: .development)
+        let task = Task(project: projectDecoder, body: "body", startsAt: Date(), endsAt: Date())
         //Act
         sut.addWorkTime(parameters: task) { result in
             switch result {
@@ -101,15 +93,7 @@ class ApiClientWorkTimesTests: XCTestCase {
         let error = TestError(message: "fetch failed")
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let task = Task(
-            workTimeIdentifier: nil,
-            project: projectDecoder,
-            body: "body",
-            url: nil,
-            day: nil,
-            startsAt: nil,
-            endsAt: nil,
-            tag: .development)
+        let task = Task(project: projectDecoder, body: "body", startsAt: Date(), endsAt: Date())
         //Act
         sut.addWorkTime(parameters: task) { result in
             switch result {
@@ -169,15 +153,7 @@ class ApiClientWorkTimesTests: XCTestCase {
         var successCalled = false
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let task = Task(
-            workTimeIdentifier: nil,
-            project: projectDecoder,
-            body: "body",
-            url: nil,
-            day: nil,
-            startsAt: nil,
-            endsAt: nil,
-            tag: .development)
+        let task = Task(project: projectDecoder, body: "body", startsAt: Date(), endsAt: Date())
         //Act
         sut.updateWorkTime(identifier: 1, parameters: task) { result in
             switch result {
@@ -199,15 +175,7 @@ class ApiClientWorkTimesTests: XCTestCase {
         let error = TestError(message: "fetch failed")
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let task = Task(
-            workTimeIdentifier: nil,
-            project: projectDecoder,
-            body: "body",
-            url: nil,
-            day: nil,
-            startsAt: nil,
-            endsAt: nil,
-            tag: .development)
+        let task = Task(project: projectDecoder, body: "body", startsAt: Date(), endsAt: Date())
         //Act
         sut.updateWorkTime(identifier: 1, parameters: task) { result in
             switch result {

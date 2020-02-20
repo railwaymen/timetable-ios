@@ -123,18 +123,14 @@ class ApiClientTests: XCTestCase {
         let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
         let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
-        let day = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 16)
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let task = Task(
-            workTimeIdentifier: nil,
             project: projectDecoder,
-            body: "TEST",
+            body: "body",
             url: self.exampleURL,
-            day: day,
             startsAt: startsAt,
-            endsAt: endsAt,
-            tag: .development)
+            endsAt: endsAt)
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
         sut.post(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
@@ -159,18 +155,14 @@ class ApiClientTests: XCTestCase {
         let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
         let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
-        let day = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 16)
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try decoder.decode(ProjectDecoder.self, from: data)
         let task = Task(
-            workTimeIdentifier: nil,
             project: projectDecoder,
-            body: "TEST",
+            body: "body",
             url: self.exampleURL,
-            day: day,
             startsAt: startsAt,
-            endsAt: endsAt,
-            tag: .development)
+            endsAt: endsAt)
         //Act
         sut.post(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
@@ -192,18 +184,14 @@ class ApiClientTests: XCTestCase {
         let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
         let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
-        let day = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 16)
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let task = Task(
-            workTimeIdentifier: nil,
             project: projectDecoder,
-            body: "TEST",
+            body: "body",
             url: self.exampleURL,
-            day: day,
             startsAt: startsAt,
-            endsAt: endsAt,
-            tag: .development)
+            endsAt: endsAt)
         //Act
         sut.post(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
@@ -404,18 +392,14 @@ class ApiClientTests: XCTestCase {
         let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
         let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
-        let day = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 16)
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let task = Task(
-            workTimeIdentifier: nil,
             project: projectDecoder,
-            body: "TEST",
+            body: "body",
             url: self.exampleURL,
-            day: day,
             startsAt: startsAt,
-            endsAt: endsAt,
-            tag: .development)
+            endsAt: endsAt)
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
         sut.put(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
@@ -439,18 +423,14 @@ class ApiClientTests: XCTestCase {
         let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
         let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
-        let day = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 16)
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let task = Task(
-            workTimeIdentifier: nil,
             project: projectDecoder,
-            body: "TEST",
+            body: "body",
             url: self.exampleURL,
-            day: day,
             startsAt: startsAt,
-            endsAt: endsAt,
-            tag: .development)
+            endsAt: endsAt)
         //Act
         sut.put(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
@@ -473,18 +453,14 @@ class ApiClientTests: XCTestCase {
         let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
         let startsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 15)
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
-        let day = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 16)
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
         let task = Task(
-            workTimeIdentifier: nil,
             project: projectDecoder,
-            body: "TEST",
+            body: "body",
             url: self.exampleURL,
-            day: day,
             startsAt: startsAt,
-            endsAt: endsAt,
-            tag: .development)
+            endsAt: endsAt)
         //Act
         sut.put(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {

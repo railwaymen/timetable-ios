@@ -5,6 +5,7 @@
 "element.text_field.project" = "Projekt";
 "element.text_field.task_url" = "URL zadania";
 "element.text_field.task_name" = "Nazwa zadania";
+"element.text_field.day" = "Dzień";
 "element.text_field.starts_at" = "Data początkowa";
 "element.text_field.ends_at" = "Data końcowa";
 

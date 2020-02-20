@@ -125,8 +125,8 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     func viewRequestToDuplicate(sourceView: UITableViewCell, at indexPath: IndexPath) {
-        guard let task = self.createTask(for: indexPath) else { return }
-        let lastTask = self.createTask(for: IndexPath(row: 0, section: 0))
+        guard let task = self.createTaskForm(for: indexPath) else { return }
+        let lastTask = self.createTaskForm(for: IndexPath(row: 0, section: 0))
         self.coordinator?.workTimesRequestedForWorkTimeView(
             sourceView: sourceView,
             flowType: .duplicateEntry(duplicatedTask: task, lastTask: lastTask)) { [weak self] isTaskChanged in
@@ -149,7 +149,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     func viewRequestForNewWorkTimeView(sourceView: UIView) {
-        let lastTask = self.createTask(for: IndexPath(row: 0, section: 0))
+        let lastTask = self.createTaskForm(for: IndexPath(row: 0, section: 0))
         self.coordinator?.workTimesRequestedForWorkTimeView(sourceView: sourceView, flowType: .newEntry(lastTask: lastTask)) { [weak self] isTaskChanged in
             guard isTaskChanged else { return }
             self?.fetchWorkTimesData(forCurrentMonth: self?.selectedMonth)
@@ -157,7 +157,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     func viewRequestedForEditEntry(sourceView: UITableViewCell, at indexPath: IndexPath) {
-        guard let task = self.createTask(for: indexPath) else { return }
+        guard let task = self.createTaskForm(for: indexPath) else { return }
         self.coordinator?.workTimesRequestedForWorkTimeView(sourceView: sourceView, flowType: .editEntry(editedTask: task)) { [weak self] isTaskChanged in
             guard isTaskChanged else { return }
             self?.fetchWorkTimesData(forCurrentMonth: self?.selectedMonth)
@@ -179,7 +179,7 @@ extension WorkTimesListViewModel: WorkTimeCellViewModelParentType {
 
 // MARK: - Private
 extension WorkTimesListViewModel {
-    private func createTask(for indexPath: IndexPath) -> Task? {
+    private func createTaskForm(for indexPath: IndexPath) -> TaskForm? {
         guard let dailyWorkTime = self.dailyWorkTime(for: indexPath) else { return nil }
         guard let workTime = self.workTime(for: indexPath) else { return nil }
         let url: URL?
@@ -188,7 +188,7 @@ extension WorkTimesListViewModel {
         } else {
             url = nil
         }
-        return Task(
+        return TaskForm(
             workTimeIdentifier: workTime.identifier,
             project: workTime.project,
             body: workTime.body ?? "",

@@ -9,7 +9,6 @@
 import XCTest
 @testable import TimeTable
 
-// swiftlint:disable file_length
 class TaskTests: XCTestCase {
     private var url: URL = URL(string: "www.example.com")!
     
@@ -24,7 +23,7 @@ class TaskTests: XCTestCase {
 extension TaskTests {
     func testTitle_withoutProject() {
         //Arrange
-        let sut = Task(
+        let sut = TaskForm(
             workTimeIdentifier: nil,
             project: nil,
             body: "body",
@@ -43,7 +42,7 @@ extension TaskTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let sut = Task(
+        let sut = TaskForm(
             workTimeIdentifier: nil,
             project: projectDecoder,
             body: "body",
@@ -63,7 +62,7 @@ extension TaskTests {
 extension TaskTests {
     func testAllowTask_withoutProject() {
         //Arrange
-        let sut = Task(
+        let sut = TaskForm(
             workTimeIdentifier: nil,
             project: nil,
             body: "body",
@@ -82,7 +81,7 @@ extension TaskTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let sut = Task(
+        let sut = TaskForm(
             workTimeIdentifier: nil,
             project: projectDecoder,
             body: "body",
@@ -102,7 +101,7 @@ extension TaskTests {
 extension TaskTests {
     func testIsTaggable_withoutProject() throws {
         //Arrange
-        let sut = Task(
+        let sut = TaskForm(
             workTimeIdentifier: nil,
             project: nil,
             body: "body",
@@ -121,7 +120,7 @@ extension TaskTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithIsTaggableTrueResponse)
         let project = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let sut = Task(
+        let sut = TaskForm(
             workTimeIdentifier: nil,
             project: project,
             body: "body",
@@ -140,7 +139,7 @@ extension TaskTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithIsTaggableFalseResponse)
         let project = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let sut = Task(
+        let sut = TaskForm(
             workTimeIdentifier: nil,
             project: project,
             body: "body",
@@ -156,11 +155,11 @@ extension TaskTests {
     }
 }
 
-// MARK: - type
+// MARK: - projectType
 extension TaskTests {
     func testType_withoutProject() {
         //Arrange
-        let sut = Task(
+        let sut = TaskForm(
             workTimeIdentifier: nil,
             project: nil,
             body: "body",
@@ -170,7 +169,7 @@ extension TaskTests {
             endsAt: nil,
             tag: .development)
         //Act
-        let type = sut.type
+        let type = sut.projectType
         //Assert
         XCTAssertNil(type)
     }
@@ -179,7 +178,7 @@ extension TaskTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let sut = Task(
+        let sut = TaskForm(
             workTimeIdentifier: nil,
             project: projectDecoder,
             body: "body",
@@ -189,7 +188,7 @@ extension TaskTests {
             endsAt: nil,
             tag: .development)
         //Act
-        let type = try XCTUnwrap(sut.type)
+        let type = try XCTUnwrap(sut.projectType)
         //Assert
         switch type {
         case .standard: break
@@ -201,7 +200,7 @@ extension TaskTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithAutofillTrueResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let sut = Task(
+        let sut = TaskForm(
             workTimeIdentifier: nil,
             project: projectDecoder,
             body: "body",
@@ -211,7 +210,7 @@ extension TaskTests {
             endsAt: nil,
             tag: .development)
         //Act
-        let type = try XCTUnwrap(sut.type)
+        let type = try XCTUnwrap(sut.projectType)
         //Assert
         switch type {
         case .fullDay(let timeInterval):
@@ -224,7 +223,7 @@ extension TaskTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithALunchTrueResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
-        let sut = Task(
+        let sut = TaskForm(
             workTimeIdentifier: nil,
             project: projectDecoder,
             body: "body",
@@ -234,7 +233,7 @@ extension TaskTests {
             endsAt: nil,
             tag: .development)
         //Act
-        let type = try XCTUnwrap(sut.type)
+        let type = try XCTUnwrap(sut.projectType)
         //Assert
         switch type {
         case .lunch(let timeInterval):
@@ -250,49 +249,67 @@ extension TaskTests {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
+        let body = "body"
+        let tag = ProjectTag.development
+        let day = try self.buildDate(year: 2018, month: 2, day: 2, hour: 1, minute: 2, second: 33)
         let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
         let endsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 10, minute: 8, second: 57)
-        let sut = Task(
+        let sut = TaskForm(
             workTimeIdentifier: 1,
             project: projectDecoder,
-            body: "body",
+            body: body,
             url: self.url,
-            day: startsAt,
+            day: day,
             startsAt: startsAt,
             endsAt: endsAt,
-            tag: .development)
+            tag: tag)
         //Act
+        let task = try sut.generateEncodableRepresentation()
         //Assert
-        XCTAssertNoThrow(try sut.validate())
+        XCTAssertEqual(task.project, projectDecoder)
+        XCTAssertEqual(task.body, body)
+        XCTAssertEqual(task.url, self.url)
+        XCTAssertEqual(task.startsAt, try self.buildDate(year: 2018, month: 2, day: 2, hour: 9, minute: 8, second: 0))
+        XCTAssertEqual(task.endsAt, try self.buildDate(year: 2018, month: 2, day: 2, hour: 10, minute: 8, second: 0))
+        XCTAssertEqual(task.tag, tag)
     }
     
     func testValidate_lunchFullData() throws {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectWithALunchTrueResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
+        let body = ""
+        let tag = ProjectTag.development
+        let day = try self.buildDate(year: 2018, month: 2, day: 2, hour: 1, minute: 2, second: 33)
         let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
         let endsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 10, minute: 8, second: 57)
-        let sut = Task(
+        let sut = TaskForm(
             workTimeIdentifier: 1,
             project: projectDecoder,
-            body: "",
+            body: body,
             url: nil,
-            day: startsAt,
+            day: day,
             startsAt: startsAt,
             endsAt: endsAt,
-            tag: .development)
+            tag: tag)
         //Act
+        let task = try sut.generateEncodableRepresentation()
         //Assert
-        XCTAssertNoThrow(try sut.validate())
+        XCTAssertEqual(task.project, projectDecoder)
+        XCTAssertEqual(task.body, body)
+        XCTAssertNil(task.url)
+        XCTAssertEqual(task.startsAt, try self.buildDate(year: 2018, month: 2, day: 2, hour: 9, minute: 8, second: 0))
+        XCTAssertEqual(task.endsAt, try self.buildDate(year: 2018, month: 2, day: 2, hour: 10, minute: 8, second: 0))
+        XCTAssertEqual(task.tag, tag)
     }
     
     func testValidate_nilProject() throws {
         //Arrange
-        let sut = Task(body: "")
+        let sut = TaskForm(body: "")
         //Act
         //Assert
-        XCTAssertThrowsError(try sut.validate()) { error in
-            XCTAssertEqual(error as? TaskValidationError, TaskValidationError.projectIsNil)
+        XCTAssertThrowsError(try sut.generateEncodableRepresentation()) { error in
+            XCTAssertEqual(error as? TaskForm.ValidationError, TaskForm.ValidationError.projectIsNil)
         }
     }
     
@@ -300,13 +317,13 @@ extension TaskTests {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
-        let sut = Task(
+        let sut = TaskForm(
             project: projectDecoder,
             body: "")
         //Act
         //Assert
-        XCTAssertThrowsError(try sut.validate()) { error in
-            XCTAssertEqual(error as? TaskValidationError, TaskValidationError.bodyIsEmpty)
+        XCTAssertThrowsError(try sut.generateEncodableRepresentation()) { error in
+            XCTAssertEqual(error as? TaskForm.ValidationError, TaskForm.ValidationError.bodyIsEmpty)
         }
     }
     
@@ -314,14 +331,30 @@ extension TaskTests {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
-        let sut = Task(
+        let sut = TaskForm(
             project: projectDecoder,
             body: "body",
             url: nil)
         //Act
         //Assert
-        XCTAssertThrowsError(try sut.validate()) { error in
-            XCTAssertEqual(error as? TaskValidationError, TaskValidationError.urlIsNil)
+        XCTAssertThrowsError(try sut.generateEncodableRepresentation()) { error in
+            XCTAssertEqual(error as? TaskForm.ValidationError, TaskForm.ValidationError.urlIsNil)
+        }
+    }
+    
+    func testValidate_nilDay() throws {
+        //Arrange
+        let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
+        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
+        let sut = TaskForm(
+            project: projectDecoder,
+            body: "body",
+            url: self.url,
+            startsAt: nil)
+        //Act
+        //Assert
+        XCTAssertThrowsError(try sut.generateEncodableRepresentation()) { error in
+            XCTAssertEqual(error as? TaskForm.ValidationError, TaskForm.ValidationError.dayIsNil)
         }
     }
     
@@ -329,15 +362,17 @@ extension TaskTests {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
-        let sut = Task(
+        let day = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
+        let sut = TaskForm(
             project: projectDecoder,
             body: "body",
             url: self.url,
+            day: day,
             startsAt: nil)
         //Act
         //Assert
-        XCTAssertThrowsError(try sut.validate()) { error in
-            XCTAssertEqual(error as? TaskValidationError, TaskValidationError.startsAtIsNil)
+        XCTAssertThrowsError(try sut.generateEncodableRepresentation()) { error in
+            XCTAssertEqual(error as? TaskForm.ValidationError, TaskForm.ValidationError.startsAtIsNil)
         }
     }
     
@@ -346,7 +381,7 @@ extension TaskTests {
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
         let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
-        let sut = Task(
+        let sut = TaskForm(
             workTimeIdentifier: 1,
             project: projectDecoder,
             body: "body",
@@ -356,115 +391,8 @@ extension TaskTests {
             endsAt: nil)
         //Act
         //Assert
-        XCTAssertThrowsError(try sut.validate()) { error in
-            XCTAssertEqual(error as? TaskValidationError, TaskValidationError.endsAtIsNil)
+        XCTAssertThrowsError(try sut.generateEncodableRepresentation()) { error in
+            XCTAssertEqual(error as? TaskForm.ValidationError, TaskForm.ValidationError.endsAtIsNil)
         }
     }
 }
-
-// MARK: - encode
-extension TaskTests {
-    func testEncoding_fullModel() throws {
-        //Arrange
-        let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectWithALunchTrueResponse)
-        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
-        let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
-        let endsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 10, minute: 8, second: 57)
-        let sut = Task(
-            workTimeIdentifier: 1,
-            project: projectDecoder,
-            body: "body",
-            url: self.url,
-            day: startsAt,
-            startsAt: startsAt,
-            endsAt: endsAt,
-            tag: .development)
-        //Act
-        let data = try self.encoder.encode(sut)
-        //Assert
-        let task = try XCTUnwrap(JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any])
-        XCTAssertEqual(task["project_id"] as? Int64, 11)
-        XCTAssertEqual(task["body"] as? String, "body")
-        XCTAssertEqual(task["task"] as? String, "www.example.com")
-        XCTAssertEqual(task["starts_at"] as? String, "2019-11-12T09:08:00.000\(self.timeZoneString)")
-        XCTAssertEqual(task["ends_at"] as? String, "2019-11-12T10:08:00.000\(self.timeZoneString)")
-        XCTAssertEqual(task["tag"] as? String, "dev")
-    }
-    
-    func testEncoding_forTaggableProject() throws {
-        //Arrange
-        let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectWithIsTaggableTrueResponse)
-        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
-        let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
-        let endsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 10, minute: 8, second: 57)
-        let sut = Task(
-            workTimeIdentifier: 1,
-            project: projectDecoder,
-            body: "body",
-            url: self.url,
-            day: startsAt,
-            startsAt: startsAt,
-            endsAt: endsAt,
-            tag: .internalMeeting)
-        //Act
-        let data = try self.encoder.encode(sut)
-        //Assert
-        let task = try XCTUnwrap(JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any])
-        XCTAssertEqual(task["project_id"] as? Int64, 11)
-        XCTAssertEqual(task["body"] as? String, "body")
-        XCTAssertEqual(task["task"] as? String, "www.example.com")
-        XCTAssertEqual(task["starts_at"] as? String, "2019-11-12T09:08:00.000\(self.timeZoneString)")
-        XCTAssertEqual(task["ends_at"] as? String, "2019-11-12T10:08:00.000\(self.timeZoneString)")
-        XCTAssertEqual(task["tag"] as? String, "im")
-    }
-    
-    func testEncoding_forNotTaggableProject() throws {
-        //Arrange
-        let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectWithIsTaggableFalseResponse)
-        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
-        let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
-        let endsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 10, minute: 8, second: 57)
-        let sut = Task(
-            workTimeIdentifier: 1,
-            project: projectDecoder,
-            body: "body",
-            url: self.url,
-            day: startsAt,
-            startsAt: startsAt,
-            endsAt: endsAt,
-            tag: .internalMeeting)
-        //Act
-        let data = try self.encoder.encode(sut)
-        //Assert
-        let task = try XCTUnwrap(JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any])
-        XCTAssertEqual(task["project_id"] as? Int64, 11)
-        XCTAssertEqual(task["body"] as? String, "body")
-        XCTAssertEqual(task["task"] as? String, "www.example.com")
-        XCTAssertEqual(task["starts_at"] as? String, "2019-11-12T09:08:00.000\(self.timeZoneString)")
-        XCTAssertEqual(task["ends_at"] as? String, "2019-11-12T10:08:00.000\(self.timeZoneString)")
-        XCTAssertEqual(task["tag"] as? String, "dev")
-    }
-    
-    func testEncoding_withoutProject() throws {
-        //Arrange
-        let sut = Task(
-            workTimeIdentifier: nil,
-            project: nil,
-            body: "body",
-            url: nil,
-            day: nil,
-            startsAt: nil,
-            endsAt: nil,
-            tag: .development)
-        var thrownError: Error?
-        //Act
-        do {
-            _ = try self.encoder.encode(sut)
-        } catch {
-            thrownError = error
-        }
-        //Assert
-        XCTAssertNotNil(thrownError)
-    }
-}
-// swiftlint:enable file_length

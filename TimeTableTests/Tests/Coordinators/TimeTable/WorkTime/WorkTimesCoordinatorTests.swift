@@ -44,8 +44,8 @@ extension WorkTimesListCoordinatorTests {
         return WorkTimesListCoordinator(dependencyContainer: self.dependencyContainer)
     }
     
-    private func createTask() -> Task {
-        return Task(
+    private func createTask() -> TaskForm {
+        return TaskForm(
             workTimeIdentifier: 1,
             project: nil,
             body: "body",
