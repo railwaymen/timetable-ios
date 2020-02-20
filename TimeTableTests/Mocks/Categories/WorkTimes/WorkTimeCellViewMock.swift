@@ -15,29 +15,29 @@ class WorkTimeCellViewMock: UITableViewCell {
     
     private(set) var updateViewParams: [UpdateViewParams] = []
     struct UpdateViewParams {
-        var data: WorkTimeCellViewModel.ViewData
+        var data: WorkTimeTableViewCellModel.ViewData
     }
     
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
-        var viewModel: WorkTimeCellViewModelType
+        var viewModel: WorkTimeTableViewCellModelType
     }
 }
 
-// MARK: - WorkTimeCellViewModelOutput
-extension WorkTimeCellViewMock: WorkTimeCellViewModelOutput {
+// MARK: - WorkTimeTableViewCellModelOutput
+extension WorkTimeCellViewMock: WorkTimeTableViewCellModelOutput {
     func setUp() {
         self.setUpParams.append(SetUpParams())
     }
     
-    func updateView(data: WorkTimeCellViewModel.ViewData) {
+    func updateView(data: WorkTimeTableViewCellModel.ViewData) {
         self.updateViewParams.append(UpdateViewParams(data: data))
     }
 }
     
 // MARK: - WorkTimeTableViewCellType
 extension WorkTimeCellViewMock: WorkTimeTableViewCellType {
-    func configure(viewModel: WorkTimeCellViewModelType) {
+    func configure(viewModel: WorkTimeTableViewCellModelType) {
         self.configureParams.append(ConfigureParams(viewModel: viewModel))
     }
 }

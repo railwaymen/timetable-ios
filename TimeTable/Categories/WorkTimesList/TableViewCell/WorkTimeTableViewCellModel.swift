@@ -1,5 +1,5 @@
 //
-//  WorkTimesCellViewModel.swift
+//  WorkTimeTableViewCellModel.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 23/11/2018.
@@ -8,25 +8,25 @@
 
 import UIKit
 
-protocol WorkTimeCellViewModelParentType: class {
+protocol WorkTimeTableViewCellModelParentType: class {
     func openTask(for workTime: WorkTimeDecoder)
 }
 
-protocol WorkTimeCellViewModelOutput: class {
+protocol WorkTimeTableViewCellModelOutput: class {
     func setUp()
-    func updateView(data: WorkTimeCellViewModel.ViewData)
+    func updateView(data: WorkTimeTableViewCellModel.ViewData)
 }
 
-protocol WorkTimeCellViewModelType: class {
+protocol WorkTimeTableViewCellModelType: class {
     func viewConfigured()
     func prepareForReuse()
     func taskButtonTapped()
 }
 
-class WorkTimeCellViewModel {
+class WorkTimeTableViewCellModel {
     private let workTime: WorkTimeDecoder
-    private weak var userInterface: WorkTimeCellViewModelOutput?
-    private weak var parent: WorkTimeCellViewModelParentType?
+    private weak var userInterface: WorkTimeTableViewCellModelOutput?
+    private weak var parent: WorkTimeTableViewCellModelParentType?
     
     private lazy var dateComponentsFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
@@ -39,8 +39,8 @@ class WorkTimeCellViewModel {
     // MARK: - Initialization
     init(
         workTime: WorkTimeDecoder,
-        userInterface: WorkTimeCellViewModelOutput,
-        parent: WorkTimeCellViewModelParentType
+        userInterface: WorkTimeTableViewCellModelOutput,
+        parent: WorkTimeTableViewCellModelParentType
     ) {
         self.workTime = workTime
         self.userInterface = userInterface
@@ -49,7 +49,7 @@ class WorkTimeCellViewModel {
 }
 
 // MARK: - Structures
-extension WorkTimeCellViewModel {
+extension WorkTimeTableViewCellModel {
     struct ViewData {
         let durationText: String?
         let bodyText: String?
@@ -62,8 +62,8 @@ extension WorkTimeCellViewModel {
     }
 }
 
-// MARK: - WorkTimeCellViewModelType
-extension WorkTimeCellViewModel: WorkTimeCellViewModelType {
+// MARK: - WorkTimeTableViewCellModelType
+extension WorkTimeTableViewCellModel: WorkTimeTableViewCellModelType {
     func viewConfigured() {
         self.userInterface?.setUp()
         self.updateView()
@@ -79,14 +79,14 @@ extension WorkTimeCellViewModel: WorkTimeCellViewModelType {
 }
 
 // MARK: - Private
-extension WorkTimeCellViewModel {
+extension WorkTimeTableViewCellModel {
     private func updateView() {
         let duration = TimeInterval(self.workTime.duration)
         let durationText = self.dateComponentsFormatter.string(from: duration)
         let startsAtText = DateFormatter.localizedString(from: self.workTime.startsAt, dateStyle: .none, timeStyle: .short)
         let endsAtText = DateFormatter.localizedString(from: self.workTime.endsAt, dateStyle: .none, timeStyle: .short)
         let fromToDateText = "\(startsAtText) - \(endsAtText)"
-        let data = WorkTimeCellViewModel.ViewData(
+        let data = WorkTimeTableViewCellModel.ViewData(
             durationText: durationText,
             bodyText: self.workTime.body,
             taskUrlText: self.workTime.taskPreview,

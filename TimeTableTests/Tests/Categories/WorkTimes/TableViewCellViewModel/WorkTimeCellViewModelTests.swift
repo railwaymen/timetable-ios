@@ -67,8 +67,8 @@ class WorkTimeCellViewModelTests: XCTestCase {
 
 // MARK: - Private
 extension WorkTimeCellViewModelTests {
-    private func buildSUT(workTime: WorkTimeDecoder) -> WorkTimeCellViewModel {
-        return WorkTimeCellViewModel(
+    private func buildSUT(workTime: WorkTimeDecoder) -> WorkTimeTableViewCellModel {
+        return WorkTimeTableViewCellModel(
             workTime: workTime,
             userInterface: self.userInterface,
             parent: self.parent)

@@ -203,17 +203,17 @@ class WorkTimesListViewModelTests: XCTestCase {
         XCTAssertEqual(self.userInterfaceMock.updateDateSelectorParams.last?.previousDateString, "Mar 2019")
     }
     
-    func testViewRequestForCellModelOnInitialization() throws {
+    func testConfigureCell_withoutWorkTimes() throws {
         //Arrange
         let sut = try self.buildSUT()
         let mockedCell = WorkTimeCellViewMock()
         //Act
-        let cellViewModel = sut.viewRequestForCellModel(at: IndexPath(row: 0, section: 0), cell: mockedCell)
+        sut.configure(mockedCell, for: IndexPath(row: 0, section: 0))
         //Assert
-        XCTAssertNil(cellViewModel)
+        XCTAssertEqual(mockedCell.configureParams.count, 0)
     }
     
-    func testViewRequestForCellModelAfterFetchingWorkTimes() throws {
+    func testConfigureCell_afterFetchingWorkTimes() throws {
         //Arrange
         let mockedCell = WorkTimeCellViewMock()
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
@@ -222,9 +222,9 @@ class WorkTimesListViewModelTests: XCTestCase {
         sut.viewDidLoad()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
         //Act
-        let cellViewModel = sut.viewRequestForCellModel(at: IndexPath(row: 0, section: 0), cell: mockedCell)
+        sut.configure(mockedCell, for: IndexPath(row: 0, section: 0))
         //Assert
-        XCTAssertNotNil(cellViewModel)
+        XCTAssertEqual(mockedCell.configureParams.count, 1)
     }
     
     func testViewRequestForHeaderModelOnInitialization() throws {

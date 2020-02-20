@@ -86,57 +86,7 @@
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                     <inset key="sectionInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
-                                                <cells>
-                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TagReuseIdentifier" id="WBP-RP-p1w" customClass="TagCollectionViewCell" customModule="TimeTable" customModuleProvider="target">
-                                                        <rect key="frame" x="20" y="5.666666666666667" width="149" height="35"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                            <rect key="frame" x="0.0" y="0.0" width="149" height="35"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                            <subviews>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sKD-2G-19j" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="149" height="35"/>
-                                                                    <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aU6-sg-8eA">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="149" height="35"/>
-                                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
-                                                                            <color key="textColor" red="0.41176470590000003" green="0.16078431369999999" blue="0.23529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                            <nil key="highlightedColor"/>
-                                                                        </label>
-                                                                    </subviews>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="trailing" secondItem="aU6-sg-8eA" secondAttribute="trailing" id="00B-Da-HY5"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="aU6-sg-8eA" secondAttribute="bottom" id="BGi-Ei-oh0"/>
-                                                                        <constraint firstItem="aU6-sg-8eA" firstAttribute="centerY" secondItem="sKD-2G-19j" secondAttribute="centerY" id="UsV-O5-fuz"/>
-                                                                        <constraint firstItem="aU6-sg-8eA" firstAttribute="top" secondItem="sKD-2G-19j" secondAttribute="top" id="nyj-4q-pKv"/>
-                                                                        <constraint firstItem="aU6-sg-8eA" firstAttribute="leading" secondItem="sKD-2G-19j" secondAttribute="leading" id="oLs-At-qgz"/>
-                                                                    </constraints>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                            <color key="value" red="0.41176470590000003" green="0.16078431369999999" blue="0.23529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                            <real key="value" value="2"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                            <real key="value" value="17.5"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                    </userDefinedRuntimeAttributes>
-                                                                </view>
-                                                            </subviews>
-                                                        </view>
-                                                        <constraints>
-                                                            <constraint firstItem="sKD-2G-19j" firstAttribute="leading" secondItem="WBP-RP-p1w" secondAttribute="leading" id="1T5-GP-mLQ"/>
-                                                            <constraint firstItem="sKD-2G-19j" firstAttribute="top" secondItem="WBP-RP-p1w" secondAttribute="top" id="bBG-60-lCz"/>
-                                                            <constraint firstAttribute="bottom" secondItem="sKD-2G-19j" secondAttribute="bottom" id="mRJ-jd-v08"/>
-                                                            <constraint firstAttribute="trailing" secondItem="sKD-2G-19j" secondAttribute="trailing" id="v1X-N2-mVV"/>
-                                                        </constraints>
-                                                        <connections>
-                                                            <outlet property="titleLabel" destination="aU6-sg-8eA" id="0UU-Xx-q52"/>
-                                                            <outlet property="view" destination="sKD-2G-19j" id="fYF-XY-IGw"/>
-                                                        </connections>
-                                                    </collectionViewCell>
-                                                </cells>
+                                                <cells/>
                                                 <connections>
                                                     <outlet property="delegate" destination="vWa-gW-sZm" id="t3Q-vv-jr8"/>
                                                 </connections>

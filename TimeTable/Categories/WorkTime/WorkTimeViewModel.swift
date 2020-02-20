@@ -25,6 +25,7 @@ protocol WorkTimeViewModelOutput: class {
 
 protocol WorkTimeViewModelType: class {
     func viewDidLoad()
+    func configure(_ cell: TagCollectionViewCellable, for indexPath: IndexPath)
     func projectButtonTapped()
     func viewRequestedForNumberOfTags() -> Int
     func viewRequestedForTag(at index: IndexPath) -> ProjectTag?
@@ -134,6 +135,15 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
         self.setDefaultDay()
         self.updateViewWithCurrentSelectedProject()
         self.fetchProjectList()
+    }
+    
+    func configure(_ cell: TagCollectionViewCellable, for indexPath: IndexPath) {
+        guard let tag = self.viewRequestedForTag(at: indexPath) else { return }
+        let viewModel = TagCollectionViewCellViewModel(
+            userInterface: cell,
+            projectTag: tag,
+            isSelected: self.isTagSelected(at: indexPath))
+        cell.configure(viewModel: viewModel)
     }
     
     func projectButtonTapped() {

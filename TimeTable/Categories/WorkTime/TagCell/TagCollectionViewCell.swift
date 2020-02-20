@@ -14,9 +14,7 @@ protocol TagCollectionViewCellType: class {
     func configure(viewModel: TagCollectionViewCellViewModelType)
 }
 
-class TagCollectionViewCell: UICollectionViewCell {
-    static let reuseIdentifier = "TagReuseIdentifier"
-    
+class TagCollectionViewCell: UICollectionViewCell, ReusableCellType {
     @IBOutlet private var view: AttributedView!
     @IBOutlet private var titleLabel: UILabel!
     
