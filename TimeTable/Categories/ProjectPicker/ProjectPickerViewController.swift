@@ -106,11 +106,11 @@ extension ProjectPickerViewController {
     }
     
     private func setUpSearchController() {
-        self.searchController = UISearchController()
-        self.navigationItem.searchController = self.searchController
+        self.searchController = UISearchController(searchResultsController: nil)
         self.searchController.searchBar.tintColor = .tint
         self.searchController.searchResultsUpdater = self
         self.searchController.obscuresBackgroundDuringPresentation = false
+        self.navigationItem.searchController = self.searchController
     }
     
     private func setUpBarItems() {
