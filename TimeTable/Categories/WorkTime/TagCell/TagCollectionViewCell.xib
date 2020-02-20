@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="" id="g0I-pw-Bgk" customClass="TagCollectionViewCell" customModule="TimeTable" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="149" height="35"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="149" height="35"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HPN-er-1Ah" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="149" height="35"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="O1I-Oe-ie3">
+                                <rect key="frame" x="0.0" y="0.0" width="149" height="35"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                                <color key="textColor" red="0.41176470590000003" green="0.16078431369999999" blue="0.23529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="O1I-Oe-ie3" firstAttribute="top" secondItem="HPN-er-1Ah" secondAttribute="top" id="1U5-Iq-jnC"/>
+                            <constraint firstItem="O1I-Oe-ie3" firstAttribute="leading" secondItem="HPN-er-1Ah" secondAttribute="leading" id="6eY-db-WVl"/>
+                            <constraint firstItem="O1I-Oe-ie3" firstAttribute="centerY" secondItem="HPN-er-1Ah" secondAttribute="centerY" id="SyC-uJ-LTU"/>
+                            <constraint firstAttribute="trailing" secondItem="O1I-Oe-ie3" secondAttribute="trailing" id="c3Q-8d-oYa"/>
+                            <constraint firstAttribute="bottom" secondItem="O1I-Oe-ie3" secondAttribute="bottom" id="o85-5d-TFC"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" red="0.41176470590000003" green="0.16078431369999999" blue="0.23529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="17.5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="HPN-er-1Ah" secondAttribute="bottom" id="DRM-Zu-qT2"/>
+                <constraint firstItem="HPN-er-1Ah" firstAttribute="leading" secondItem="g0I-pw-Bgk" secondAttribute="leading" id="IdZ-sH-pRp"/>
+                <constraint firstAttribute="trailing" secondItem="HPN-er-1Ah" secondAttribute="trailing" id="Ip0-B7-nzm"/>
+                <constraint firstItem="HPN-er-1Ah" firstAttribute="top" secondItem="g0I-pw-Bgk" secondAttribute="top" id="U8f-QL-Stt"/>
+            </constraints>
+            <connections>
+                <outlet property="titleLabel" destination="O1I-Oe-ie3" id="e9y-Ya-uxB"/>
+                <outlet property="view" destination="HPN-er-1Ah" id="PNx-hP-mJc"/>
+            </connections>
+            <point key="canvasLocation" x="138" y="154"/>
+        </collectionViewCell>
+    </objects>
+</document>

@@ -1,5 +1,5 @@
 //
-//  TagCollectionViewCellViewModelTests.swift
+//  TagCollectionViewCellModelTests.swift
 //  TimeTableTests
 //
 //  Created by Bartłomiej Świerad on 13/09/2019.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import TimeTable
 
-class TagCollectionViewCellViewModelTests: XCTestCase {
+class TagCollectionViewCellModelTests: XCTestCase {
     private var userInterfaceMock: TagCollectionViewCellMock!
     
     override func setUp() {
@@ -32,9 +32,9 @@ class TagCollectionViewCellViewModelTests: XCTestCase {
 }
 
 // MARK: - Private
-extension TagCollectionViewCellViewModelTests {
-    private func buildSUT(tag: ProjectTag = .development, isSelected: Bool = false) -> TagCollectionViewCellViewModel {
-        return TagCollectionViewCellViewModel(
+extension TagCollectionViewCellModelTests {
+    private func buildSUT(tag: ProjectTag = .development, isSelected: Bool = false) -> TagCollectionViewCellModel {
+        return TagCollectionViewCellModel(
             userInterface: self.userInterfaceMock,
             projectTag: tag,
             isSelected: isSelected)

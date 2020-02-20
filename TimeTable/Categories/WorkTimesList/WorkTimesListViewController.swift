@@ -64,11 +64,9 @@ extension WorkTimesListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: WorkTimeTableViewCell.reuseIdentifier, for: indexPath) as? WorkTimeTableViewCellable
-        guard let workTimeCell = cell else { return UITableViewCell() }
-        guard let cellViewModel = self.viewModel.viewRequestForCellModel(at: indexPath, cell: workTimeCell) else { return UITableViewCell() }
-        workTimeCell.configure(viewModel: cellViewModel)
-        return workTimeCell
+        guard let cell = tableView.dequeueReusableCell(WorkTimeTableViewCell.self, for: indexPath) else { return UITableViewCell() }
+        self.viewModel.configure(cell, for: indexPath)
+        return cell
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -213,6 +211,8 @@ extension WorkTimesListViewController {
         
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = tableViewEstimatedRowHeight
+        
+        self.tableView.register(WorkTimeTableViewCell.self)
         
         let nib = UINib(nibName: WorkTimesTableViewHeader.className, bundle: nil)
         self.tableView.register(nib, forHeaderFooterViewReuseIdentifier: WorkTimesTableViewHeader.reuseIdentifier)

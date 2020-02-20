@@ -19,12 +19,12 @@ class TagCollectionViewCellMock: UICollectionViewCell {
     
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
-        var viewModel: TagCollectionViewCellViewModelType
+        var viewModel: TagCollectionViewCellModelType
     }
 }
 
-// MARK: - TagCollectionViewCellViewModelOutput
-extension TagCollectionViewCellMock: TagCollectionViewCellViewModelOutput {
+// MARK: - TagCollectionViewCellModelOutput
+extension TagCollectionViewCellMock: TagCollectionViewCellModelOutput {
     func setUp(title: String?, color: UIColor, isSelected: Bool) {
         self.setUpParams.append(SetUpParams(title: title, color: color, isSelected: isSelected))
     }
@@ -32,7 +32,7 @@ extension TagCollectionViewCellMock: TagCollectionViewCellViewModelOutput {
 
 // MARK: - TagCollectionViewCellType
 extension TagCollectionViewCellMock: TagCollectionViewCellType {
-    func configure(viewModel: TagCollectionViewCellViewModelType) {
+    func configure(viewModel: TagCollectionViewCellModelType) {
         self.configureParams.append(ConfigureParams(viewModel: viewModel))
     }
 }

@@ -16,8 +16,8 @@ class WorkTimeCellViewModelParentMock {
     }
 }
 
-// MARK: - WorkTimeCellViewModelParentType
-extension WorkTimeCellViewModelParentMock: WorkTimeCellViewModelParentType {
+// MARK: - WorkTimeTableViewCellViewModelParentType
+extension WorkTimeCellViewModelParentMock: WorkTimeTableViewCellModelParentType {
     func openTask(for workTime: WorkTimeDecoder) {
         self.openTaskParams.append(OpenTaskParams(workTime: workTime))
     }

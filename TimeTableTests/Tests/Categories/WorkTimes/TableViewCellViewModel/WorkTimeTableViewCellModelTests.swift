@@ -1,5 +1,5 @@
 //
-//  WorkTimeCellViewModelTests.swift
+//  WorkTimeTableViewCellModelTests.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 12/12/2018.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import TimeTable
 
-class WorkTimeCellViewModelTests: XCTestCase {
+class WorkTimeTableViewCellModelTests: XCTestCase {
     private var userInterface: WorkTimeCellViewMock!
     private var parent: WorkTimeCellViewModelParentMock!
 
@@ -66,9 +66,9 @@ class WorkTimeCellViewModelTests: XCTestCase {
 }
 
 // MARK: - Private
-extension WorkTimeCellViewModelTests {
-    private func buildSUT(workTime: WorkTimeDecoder) -> WorkTimeCellViewModel {
-        return WorkTimeCellViewModel(
+extension WorkTimeTableViewCellModelTests {
+    private func buildSUT(workTime: WorkTimeDecoder) -> WorkTimeTableViewCellModel {
+        return WorkTimeTableViewCellModel(
             workTime: workTime,
             userInterface: self.userInterface,
             parent: self.parent)

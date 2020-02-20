@@ -75,19 +75,8 @@ class WorkTimeViewController: UIViewController {
 // MARK: - UICollectionViewDelegate
 extension WorkTimeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: TagCollectionViewCell.reuseIdentifier,
-            for: indexPath) as? TagCollectionViewCellable else {
-                return UICollectionViewCell()
-        }
-        guard let tag = self.viewModel.viewRequestedForTag(at: indexPath) else { return UICollectionViewCell() }
-        let isSelected = self.viewModel.isTagSelected(at: indexPath)
-        let viewModel = TagCollectionViewCellViewModel(
-            userInterface: cell,
-            projectTag: tag,
-            isSelected: isSelected)
-        cell.configure(viewModel: viewModel)
-        
+        guard let cell = collectionView.dequeueReusableCell(TagCollectionViewCell.self, for: indexPath) else { return UICollectionViewCell() }
+        self.viewModel.configure(cell, for: indexPath)
         return cell
     }
     
@@ -112,10 +101,6 @@ extension WorkTimeViewController: UITextViewDelegate {
 
 // MARK: - WorkTimeViewModelOutput
 extension WorkTimeViewController: WorkTimeViewModelOutput {
-    func reloadTagsView() {
-        self.tagsCollectionView.reloadData()
-    }
-    
     func setUp(title: String, isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?) {
         self.title = title
         let systemItem: UIBarButtonItem.SystemItem
@@ -150,10 +135,15 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         self.endAtDatePicker.addTarget(self, action: #selector(self.endAtDateTextFieldDidChanged), for: .valueChanged)
         self.endAtDateTextField.inputView = self.endAtDatePicker
         
+        self.tagsCollectionView.register(TagCollectionViewCell.self)
         self.tagsCollectionView.delegate = self
         self.tagsCollectionView.dataSource = self
         
         self.setUpActivityIndicator()
+    }
+    
+    func reloadTagsView() {
+        self.tagsCollectionView.reloadData()
     }
     
     func dismissView() {

@@ -46,8 +46,7 @@ extension ProjectsViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let reusedCell = collectionView.dequeueReusableCell(withReuseIdentifier: ProjectCollectionViewCell.reuseIdentifier, for: indexPath)
-        guard let cell = reusedCell as? ProjectCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(ProjectCollectionViewCell.self, for: indexPath) else { return UICollectionViewCell() }
         guard let project = self.viewModel.item(at: indexPath) else { return UICollectionViewCell() }
         let cellViewModel = ProjectCollectionViewCellModel(userInterface: cell, project: project)
         cell.configure(viewModel: cellViewModel)
@@ -70,6 +69,7 @@ extension ProjectsViewController: ProjectsCollectionViewLayoutDelegate {
 extension ProjectsViewController: ProjectsViewModelOutput {
     func setUpView() {
         self.collectionView.contentInset = self.contentInset
+        self.collectionView.register(ProjectCollectionViewCell.self)
         if let layout = self.collectionView.collectionViewLayout as? ProjectsCollectionViewLayout {
             layout.delegate = self
         }

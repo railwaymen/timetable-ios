@@ -8,31 +8,29 @@
 
 import UIKit
 
-typealias TagCollectionViewCellable = UICollectionViewCell & TagCollectionViewCellType & TagCollectionViewCellViewModelOutput
+typealias TagCollectionViewCellable = UICollectionViewCell & TagCollectionViewCellType & TagCollectionViewCellModelOutput
 
 protocol TagCollectionViewCellType: class {
-    func configure(viewModel: TagCollectionViewCellViewModelType)
+    func configure(viewModel: TagCollectionViewCellModelType)
 }
 
-class TagCollectionViewCell: UICollectionViewCell {
-    static let reuseIdentifier = "TagReuseIdentifier"
-    
+class TagCollectionViewCell: UICollectionViewCell, ReusableCellType {
     @IBOutlet private var view: AttributedView!
     @IBOutlet private var titleLabel: UILabel!
     
-    private var viewModel: TagCollectionViewCellViewModelType!
+    private var viewModel: TagCollectionViewCellModelType!
 }
 
 // MARK: - TagCollectionViewCellType
 extension TagCollectionViewCell: TagCollectionViewCellType {
-    func configure(viewModel: TagCollectionViewCellViewModelType) {
+    func configure(viewModel: TagCollectionViewCellModelType) {
         self.viewModel = viewModel
         self.viewModel.configure()
     }
 }
 
-// MARK: - TagCollectionViewCellViewModelOutput
-extension TagCollectionViewCell: TagCollectionViewCellViewModelOutput {
+// MARK: - TagCollectionViewCellModelOutput
+extension TagCollectionViewCell: TagCollectionViewCellModelOutput {
     func setUp(title: String?, color: UIColor, isSelected: Bool) {
         self.titleLabel.text = title
         self.titleLabel.textColor = isSelected ? .white : color

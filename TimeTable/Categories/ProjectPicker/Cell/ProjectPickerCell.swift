@@ -14,9 +14,7 @@ protocol ProjectPickerCellType: class {
     func configure(viewModel: ProjectPickerCellModelType)
 }
 
-class ProjectPickerCell: UITableViewCell {
-    static let reuseIdentifier = "ProjectPickerCellReuseIdentifier"
-    
+class ProjectPickerCell: UITableViewCell, ReusableCellType {
     @IBOutlet private var titleLabel: UILabel!
 
     private var viewModel: ProjectPickerCellModelType!

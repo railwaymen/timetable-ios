@@ -8,15 +8,13 @@
 
 import UIKit
 
-typealias WorkTimeTableViewCellable = (UITableViewCell & WorkTimeTableViewCellType & WorkTimeCellViewModelOutput)
+typealias WorkTimeTableViewCellable = (UITableViewCell & WorkTimeTableViewCellType & WorkTimeTableViewCellModelOutput)
 
 protocol WorkTimeTableViewCellType: class {
-    func configure(viewModel: WorkTimeCellViewModelType)
+    func configure(viewModel: WorkTimeTableViewCellModelType)
 }
 
-class WorkTimeTableViewCell: UITableViewCell {
-    static let reuseIdentifier = "WorkTimeStandardTableViewCellReuseIdentifier"
-    
+class WorkTimeTableViewCell: UITableViewCell, ReusableCellType {    
     @IBOutlet private var shadowView: UIView!
     @IBOutlet private var roundedContainerView: AttributedView!
     @IBOutlet private var projectViews: [UIView]!
@@ -29,7 +27,7 @@ class WorkTimeTableViewCell: UITableViewCell {
     @IBOutlet private var tagView: AttributedView!
     @IBOutlet private var tagLabel: UILabel!
         
-    private var viewModel: WorkTimeCellViewModelType?
+    private var viewModel: WorkTimeTableViewCellModelType?
     
     // MARK: - Overridden
     override func prepareForReuse() {
@@ -43,8 +41,8 @@ class WorkTimeTableViewCell: UITableViewCell {
     }
 }
 
-// MARK: - WorkTimeCellViewModelOutput
-extension WorkTimeTableViewCell: WorkTimeCellViewModelOutput {
+// MARK: - WorkTimeTableViewCellModelOutput
+extension WorkTimeTableViewCell: WorkTimeTableViewCellModelOutput {
     func setUp() {
         self.shadowView.layer.shadowRadius = 4
         self.shadowView.layer.shadowColor = UIColor.defaultLabel.withAlphaComponent(0.07).cgColor
@@ -53,7 +51,7 @@ extension WorkTimeTableViewCell: WorkTimeCellViewModelOutput {
         self.shadowView.layer.cornerRadius = self.roundedContainerView.cornerRadius
     }
     
-    func updateView(data: WorkTimeCellViewModel.ViewData) {
+    func updateView(data: WorkTimeTableViewCellModel.ViewData) {
         self.fromToDateLabel.text = data.fromToDateText
         self.durationLabel.text = data.durationText
         self.bodyLabel.text = data.bodyText
@@ -71,7 +69,7 @@ extension WorkTimeTableViewCell: WorkTimeCellViewModelOutput {
 
 // MARK: - WorkTimeTableViewCellType
 extension WorkTimeTableViewCell: WorkTimeTableViewCellType {
-    func configure(viewModel: WorkTimeCellViewModelType) {
+    func configure(viewModel: WorkTimeTableViewCellModelType) {
         self.viewModel = viewModel
         self.viewModel?.viewConfigured()
     }
