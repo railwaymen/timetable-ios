@@ -139,8 +139,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
         self.coordinator?.workTimesRequestedForWorkTimeView(
             sourceView: sourceView,
             flowType: .duplicateEntry(duplicatedTask: task, lastTask: lastTask)) { [weak self] isTaskChanged in
-                guard isTaskChanged,
-                    let self = self else { return }
+                guard let self = self, isTaskChanged else { return }
                 self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
             }
     }
@@ -169,8 +168,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     func viewRequestForNewWorkTimeView(sourceView: UIView) {
         let lastTask = self.createTaskForm(for: IndexPath(row: 0, section: 0))
         self.coordinator?.workTimesRequestedForWorkTimeView(sourceView: sourceView, flowType: .newEntry(lastTask: lastTask)) { [weak self] isTaskChanged in
-            guard isTaskChanged,
-                let self = self else { return }
+            guard let self = self, isTaskChanged else { return }
             self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
         }
     }
@@ -178,8 +176,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     func viewRequestedForEditEntry(sourceView: UITableViewCell, at indexPath: IndexPath) {
         guard let task = self.createTaskForm(for: indexPath) else { return }
         self.coordinator?.workTimesRequestedForWorkTimeView(sourceView: sourceView, flowType: .editEntry(editedTask: task)) { [weak self] isTaskChanged in
-            guard isTaskChanged,
-                let self = self else { return }
+            guard let self = self, isTaskChanged else { return }
             self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
         }
     }
