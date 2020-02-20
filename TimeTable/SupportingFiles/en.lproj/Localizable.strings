@@ -28,6 +28,10 @@
 "login.button.log_in" = "Log in";
 "login.button.change_server_address" = "Would you like to change the server address?";
 
+"work_times.delete_alert.title" = "Delete time entry";
+"work_times.delete_alert.message" = "Are you sure, you want to delete the time entry?";
+"work_times.delete_alert.cancel" = "Cancel";
+"work_times.delete_alert.confirm" = "Delete permanently";
 "work_times.label.month_total" = "Month total";
 
 "work_time.title.new" = "Add new entry";

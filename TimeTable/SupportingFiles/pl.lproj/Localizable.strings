@@ -28,6 +28,10 @@
 "login.button.log_in" = "Zaloguj";
 "login.button.change_server_address" = "Chcesz zmienić adres serwera?";
 
+"work_times.delete_alert.title" = "Usuń wpis";
+"work_times.delete_alert.message" = "Jesteś pewien, że chcesz trwale usunąć wpis?";
+"work_times.delete_alert.cancel" = "Anuluj";
+"work_times.delete_alert.confirm" = "Usuń trwale";
 "work_times.label.month_total" = "Suma w miesiącu";
 
 "work_time.title.new" = "Dodaj nowy wpis";
