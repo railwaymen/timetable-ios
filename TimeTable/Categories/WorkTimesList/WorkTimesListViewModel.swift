@@ -182,7 +182,15 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     func viewRequestToRefresh(completion: @escaping () -> Void) {
-        self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth, completion: completion)
+        self.contentProvider.fetchWorkTimesData(for: self.selectedMonth) { [weak self] result in
+            defer { completion() }
+            switch result {
+            case let .success(dailyWorkTimes, matchingFullTime):
+                self?.handleFetchSuccess(dailyWorkTimes: dailyWorkTimes, matchingFullTime: matchingFullTime)
+            case let .failure(error):
+                self?.handleFetch(error: error)
+            }
+        }
     }
 }
 
@@ -243,13 +251,12 @@ extension WorkTimesListViewModel {
         self.userInterface?.updateDateSelector(currentDateString: currentDateString, previousDateString: previousDateString, nextDateString: nextDateString)
     }
     
-    private func fetchWorkTimesData(forCurrentMonth date: Date, completion: (() -> Void)? = nil) {
+    private func fetchWorkTimesData(forCurrentMonth date: Date) {
         self.userInterface?.setActivityIndicator(isHidden: false)
         self.dailyWorkTimesArray.removeAll()
         self.userInterface?.updateMatchingFullTimeLabels(workedHours: "", shouldWorkHours: "", duration: "")
         self.userInterface?.updateView()
         self.contentProvider.fetchWorkTimesData(for: date) { [weak self] result in
-            defer { completion?() }
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case let .success(dailyWorkTimes, matchingFullTime):

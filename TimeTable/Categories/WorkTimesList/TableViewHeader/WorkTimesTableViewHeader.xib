@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,6 +14,10 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qlk-5b-Fgy">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                </view>
                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uvp-Ht-etH">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="FJE-yF-ezG">
@@ -35,11 +39,13 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="Qlk-5b-Fgy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="555-wc-h04"/>
                 <constraint firstItem="uvp-Ht-etH" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="ABR-cv-NA4"/>
                 <constraint firstItem="uvp-Ht-etH" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Mwd-mU-hyz"/>
+                <constraint firstItem="Qlk-5b-Fgy" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="Qz8-gd-B7L"/>
                 <constraint firstItem="zA8-8k-Ly2" firstAttribute="centerY" secondItem="eGw-4p-xFE" secondAttribute="centerY" id="S3V-1N-lD9"/>
+                <constraint firstItem="Qlk-5b-Fgy" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="TvA-fH-BMH"/>
                 <constraint firstItem="uvp-Ht-etH" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="VkX-AO-2q4"/>
                 <constraint firstItem="eGw-4p-xFE" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="XRd-w2-wnM">
                     <variation key="heightClass=regular-widthClass=regular" constant="60"/>
@@ -51,6 +57,7 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="zA8-8k-Ly2" secondAttribute="trailing" constant="16" id="pZ7-sf-56o">
                     <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                 </constraint>
+                <constraint firstItem="Qlk-5b-Fgy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="tqj-Ro-z3f"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

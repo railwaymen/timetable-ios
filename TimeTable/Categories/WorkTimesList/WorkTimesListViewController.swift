@@ -22,14 +22,7 @@ class WorkTimesListViewController: UIViewController {
     @IBOutlet private var shouldWorkHoursLabel: UILabel!
     @IBOutlet private var durationLabel: UILabel!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
-    
-    private lazy var refreshControl: UIRefreshControl = {
-        let control = UIRefreshControl()
-        control.tintColor = .tint
-        control.addTarget(self, action: #selector(refreshControlDidActivate), for: .primaryActionTriggered)
-        return control
-    }()
-    
+
     private let tableViewEstimatedRowHeight: CGFloat = 150
     private let heightForHeader: CGFloat = 50
     private var viewModel: WorkTimesListViewModelType!
@@ -48,7 +41,9 @@ class WorkTimesListViewController: UIViewController {
     
     @objc private func refreshControlDidActivate() {
         self.viewModel.viewRequestToRefresh { [weak self] in
-            self?.refreshControl.endRefreshing()
+            DispatchQueue.main.async { [weak self] in
+                self?.tableView?.refreshControl?.endRefreshing()
+            }
         }
     }
 }
@@ -111,6 +106,7 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
     func setUpView() {
         self.dateSelectorView.delegate = self
         self.setUpTableView()
+        self.setUpRefreshControl()
         self.setUpNavigationItem()
         self.setUpActivityIndicator()
         self.viewModel.configure(errorView)
@@ -216,8 +212,12 @@ extension WorkTimesListViewController {
         
         let nib = UINib(nibName: WorkTimesTableViewHeader.className, bundle: nil)
         self.tableView.register(nib, forHeaderFooterViewReuseIdentifier: WorkTimesTableViewHeader.reuseIdentifier)
-        
-        self.tableView.refreshControl = self.refreshControl
+    }
+    
+    private func setUpRefreshControl() {
+        let control = UIRefreshControl()
+        control.addTarget(self, action: #selector(self.refreshControlDidActivate), for: .valueChanged)
+        self.tableView.refreshControl = control
     }
     
     private func setUpNavigationItem() {
