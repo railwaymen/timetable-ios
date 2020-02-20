@@ -259,7 +259,7 @@
 		C18A189E21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189D21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json */; };
 		C18A18A121EF88B300CB6E32 /* WorkTimeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18A18A021EF88B300CB6E32 /* WorkTimeViewModelTests.swift */; };
 		C19706DF21C13056007AFED4 /* WorkTimesCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19706DE21C13056007AFED4 /* WorkTimesCoordinatorTests.swift */; };
-		C19706E221C132C9007AFED4 /* WorkTimeCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19706E121C132C9007AFED4 /* WorkTimeCellViewModelTests.swift */; };
+		C19706E221C132C9007AFED4 /* WorkTimeTableViewCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19706E121C132C9007AFED4 /* WorkTimeTableViewCellModelTests.swift */; };
 		C19706E421C13908007AFED4 /* CalendarExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19706E321C13908007AFED4 /* CalendarExtensionTests.swift */; };
 		C198BD1D21FF3DD200B5F847 /* MatchingFullTimeDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198BD1C21FF3DD200B5F847 /* MatchingFullTimeDecoder.swift */; };
 		C198BD1F21FF3FC900B5F847 /* ApiClient+MatchingFullTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198BD1E21FF3FC900B5F847 /* ApiClient+MatchingFullTime.swift */; };
@@ -631,7 +631,7 @@
 		C18A189D21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithALunchTrueResponse.json; sourceTree = "<group>"; };
 		C18A18A021EF88B300CB6E32 /* WorkTimeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeViewModelTests.swift; sourceTree = "<group>"; };
 		C19706DE21C13056007AFED4 /* WorkTimesCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesCoordinatorTests.swift; sourceTree = "<group>"; };
-		C19706E121C132C9007AFED4 /* WorkTimeCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCellViewModelTests.swift; sourceTree = "<group>"; };
+		C19706E121C132C9007AFED4 /* WorkTimeTableViewCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeTableViewCellModelTests.swift; sourceTree = "<group>"; };
 		C19706E321C13908007AFED4 /* CalendarExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarExtensionTests.swift; sourceTree = "<group>"; };
 		C198BD1C21FF3DD200B5F847 /* MatchingFullTimeDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFullTimeDecoder.swift; sourceTree = "<group>"; };
 		C198BD1E21FF3FC900B5F847 /* ApiClient+MatchingFullTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiClient+MatchingFullTime.swift"; sourceTree = "<group>"; };
@@ -1598,7 +1598,7 @@
 		C19706E021C132B8007AFED4 /* TableViewCellViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				C19706E121C132C9007AFED4 /* WorkTimeCellViewModelTests.swift */,
+				C19706E121C132C9007AFED4 /* WorkTimeTableViewCellModelTests.swift */,
 			);
 			path = TableViewCellViewModel;
 			sourceTree = "<group>";
@@ -2484,7 +2484,7 @@
 				8A0707FC23699BE50019FB8E /* NotificationCenterMock.swift in Sources */,
 				C11D0CF7220816D800066CA9 /* MatchingFullTimeEncoderTests.swift in Sources */,
 				8AF5696F23D71EA000A1D001 /* JSONFactorable+Extension.swift in Sources */,
-				C19706E221C132C9007AFED4 /* WorkTimeCellViewModelTests.swift in Sources */,
+				C19706E221C132C9007AFED4 /* WorkTimeTableViewCellModelTests.swift in Sources */,
 				C1FA05E4219440C700BD8C9D /* LoginContentProviderTests.swift in Sources */,
 				C19706E421C13908007AFED4 /* CalendarExtensionTests.swift in Sources */,
 				C134298521A6C79600F4EA42 /* ErrorHandlerMock.swift in Sources */,
