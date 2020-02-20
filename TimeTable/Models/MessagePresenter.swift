@@ -8,8 +8,15 @@
 
 import UIKit
 
+struct ButtonConfig {
+    let title: String
+    let style: UIAlertAction.Style
+    let action: (() -> Void)?
+}
+
 protocol MessagePresenterType: class {
     func presentAlertController(withMessage message: String)
+    func requestDecision(title: String?, message: String?, cancelButtonConfig: ButtonConfig, confirmButtonConfig: ButtonConfig)
 }
 
 class MessagePresenter {
@@ -30,10 +37,31 @@ extension MessagePresenter: MessagePresenterType {
         }
         alert.addAction(action)
         alert.view.tintColor = .tint
-        if let presentedViewController = self.window?.rootViewController?.presentedViewController {
-            presentedViewController.present(alert, animated: true)
-        } else {
-            self.window?.rootViewController?.present(alert, animated: true)
+        self.present(alert)
+    }
+    
+    func requestDecision(title: String?, message: String?, cancelButtonConfig: ButtonConfig, confirmButtonConfig: ButtonConfig) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: cancelButtonConfig.title, style: cancelButtonConfig.style) { [unowned alert] _ in
+            alert.dismiss(animated: true) {
+                cancelButtonConfig.action?()
+            }
         }
+        alert.addAction(cancelAction)
+        let confirmAction = UIAlertAction(title: confirmButtonConfig.title, style: confirmButtonConfig.style) { [unowned alert] _ in
+            alert.dismiss(animated: true) {
+                confirmButtonConfig.action?()
+            }
+        }
+        alert.addAction(confirmAction)
+        alert.view.tintColor = .tint
+        self.present(alert)
+    }
+}
+
+// MARK: - Private
+extension MessagePresenter {
+    private func present(_ viewController: UIViewController) {
+        self.window?.rootViewController?.topController().present(viewController, animated: true)
     }
 }

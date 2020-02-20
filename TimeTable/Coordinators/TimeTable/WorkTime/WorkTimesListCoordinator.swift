@@ -77,7 +77,8 @@ extension WorkTimesListCoordinator {
             userInterface: workTimesListViewController,
             coordinator: self,
             contentProvider: contentProvider,
-            errorHandler: self.dependencyContainer.errorHandler)
+            errorHandler: self.dependencyContainer.errorHandler,
+            messagePresenter: self.dependencyContainer.messagePresenter)
         controller?.configure(viewModel: viewModel)
         self.navigationController.setViewControllers([workTimesListViewController], animated: false)
     }

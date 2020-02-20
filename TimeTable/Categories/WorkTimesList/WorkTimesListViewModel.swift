@@ -45,6 +45,7 @@ class WorkTimesListViewModel {
     private let contentProvider: WorkTimesListContentProviderType
     private let errorHandler: ErrorHandlerType
     private let calendar: CalendarType
+    private let messagePresenter: MessagePresenterType?
     
     private var selectedMonth: Date?
     private var dailyWorkTimesArray: [DailyWorkTime]
@@ -56,13 +57,16 @@ class WorkTimesListViewModel {
         coordinator: WorkTimesListCoordinatorDelegate?,
         contentProvider: WorkTimesListContentProviderType,
         errorHandler: ErrorHandlerType,
-        calendar: CalendarType = Calendar.autoupdatingCurrent
+        calendar: CalendarType = Calendar.autoupdatingCurrent,
+        messagePresenter: MessagePresenterType?
     ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
         self.contentProvider = contentProvider
         self.errorHandler = errorHandler
         self.calendar = calendar
+        self.messagePresenter = messagePresenter
+        
         self.dailyWorkTimesArray = []
         let components = calendar.dateComponents([.month, .year], from: Date())
         self.selectedMonth = calendar.date(from: components)
@@ -141,15 +145,23 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     
     func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void) {
         guard let workTime = self.workTime(for: index) else { return completion(false) }
-        self.contentProvider.delete(workTime: workTime) { [weak self] result in
-            switch result {
-            case .success:
-                self?.removeDailyWorkTime(at: index, workTime: workTime, completion: completion)
-            case .failure(let error):
-                self?.errorHandler.throwing(error: error)
-                completion(false)
-            }
-        }
+        self.messagePresenter?.requestDecision(
+            title: "work_times.delete_alert.title".localized,
+            message: "work_times.delete_alert.message".localized,
+            cancelButtonConfig: ButtonConfig(title: "work_times.delete_alert.cancel".localized, style: .cancel, action: nil),
+            confirmButtonConfig: ButtonConfig(title: "work_times.delete_alert.confirm".localized, style: .destructive, action: { [weak self] in
+                guard let self = self else { return completion(false) }
+                self.contentProvider.delete(workTime: workTime) { [weak self] result in
+                    guard let self = self else { return completion(false) }
+                    switch result {
+                    case .success:
+                        self.removeDailyWorkTime(at: index, workTime: workTime, completion: completion)
+                    case let .failure(error):
+                        self.errorHandler.throwing(error: error)
+                        completion(false)
+                    }
+                }
+            }))
     }
     
     func viewRequestForNewWorkTimeView(sourceView: UIView) {
@@ -204,9 +216,10 @@ extension WorkTimesListViewModel {
     }
     
     private func removeDailyWorkTime(at indexPath: IndexPath, workTime: WorkTimeDecoder, completion: @escaping (Bool) -> Void) {
-        guard let dailyWorkTime = self.dailyWorkTime(for: indexPath) else { return completion(false) }
+        guard let dailyWorkTime = self.dailyWorkTime(for: indexPath),
+            let userInterface = self.userInterface else { return completion(false) }
         let isDeleted = dailyWorkTime.remove(workTime: workTime)
-        self.userInterface?.performBatchUpdates { [weak self] in
+        userInterface.performBatchUpdates { [weak self] in
             completion(isDeleted)
             self?.dailyWorkTimesArray.removeAll { $0.workTimes.isEmpty }
         }
