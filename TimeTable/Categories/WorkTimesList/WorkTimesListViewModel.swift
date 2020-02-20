@@ -152,12 +152,12 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
             confirmButtonConfig: ButtonConfig(title: "work_times.delete_alert.confirm".localized, style: .destructive, action: { [weak self] in
                 guard let self = self else { return completion(false) }
                 self.contentProvider.delete(workTime: workTime) { [weak self] result in
+                    guard let self = self else { return completion(false) }
                     switch result {
                     case .success:
-                        guard let self = self else { return completion(false) }
                         self.removeDailyWorkTime(at: index, workTime: workTime, completion: completion)
                     case let .failure(error):
-                        self?.errorHandler.throwing(error: error)
+                        self.errorHandler.throwing(error: error)
                         completion(false)
                     }
                 }
