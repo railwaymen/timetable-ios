@@ -139,7 +139,7 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     
     func configure(_ cell: TagCollectionViewCellable, for indexPath: IndexPath) {
         guard let tag = self.viewRequestedForTag(at: indexPath) else { return }
-        let viewModel = TagCollectionViewCellViewModel(
+        let viewModel = TagCollectionViewCellModel(
             userInterface: cell,
             projectTag: tag,
             isSelected: self.isTagSelected(at: indexPath))
