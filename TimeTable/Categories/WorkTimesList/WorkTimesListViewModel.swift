@@ -11,12 +11,16 @@ import UIKit
 
 protocol WorkTimesListViewModelOutput: class {
     func setUpView()
-    func updateView()
+    func reloadData()
     func updateDateSelector(currentDateString: String, previousDateString: String, nextDateString: String)
     func updateMatchingFullTimeLabels(workedHours: String, shouldWorkHours: String, duration: String)
     func setActivityIndicator(isHidden: Bool)
     func showTableView()
     func showErrorView()
+    func insertSections(_ sections: IndexSet)
+    func removeSections(_ sections: IndexSet)
+    func insertRows(at indexPaths: [IndexPath])
+    func removeRows(at indexPaths: [IndexPath])
     func performBatchUpdates(_ updates: (() -> Void)?)
 }
 
@@ -48,7 +52,22 @@ class WorkTimesListViewModel {
     private let messagePresenter: MessagePresenterType?
     
     private var selectedMonth: Date
-    private var dailyWorkTimesArray: [DailyWorkTime]
+    private var dailyWorkTimesArray: [DailyWorkTime] {
+        didSet {
+            guard #available(iOS 13, *) else {
+                self.userInterface?.reloadData()
+                return
+            }
+            let (insertedSections, removedSections) = self.getSectionsDiff(oldValue: oldValue)
+            let (insertedRows, removedRows) = self.getRowsDiff(oldValue: oldValue)
+            self.userInterface?.performBatchUpdates { [weak userInterface] in
+                userInterface?.removeSections(removedSections)
+                userInterface?.removeRows(at: removedRows)
+                userInterface?.insertRows(at: insertedRows)
+                userInterface?.insertSections(insertedSections)
+            }
+        }
+    }
     private weak var errorViewModel: ErrorViewModelParentType?
     
     // MARK: - Initialization
@@ -182,7 +201,15 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     func viewRequestToRefresh(completion: @escaping () -> Void) {
-        self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth, completion: completion)
+        self.contentProvider.fetchWorkTimesData(for: self.selectedMonth) { [weak self] result in
+            defer { completion() }
+            switch result {
+            case let .success(dailyWorkTimes, matchingFullTime):
+                self?.handleFetchSuccess(dailyWorkTimes: dailyWorkTimes, matchingFullTime: matchingFullTime)
+            case let .failure(error):
+                self?.handleFetch(error: error)
+            }
+        }
     }
 }
 
@@ -243,13 +270,11 @@ extension WorkTimesListViewModel {
         self.userInterface?.updateDateSelector(currentDateString: currentDateString, previousDateString: previousDateString, nextDateString: nextDateString)
     }
     
-    private func fetchWorkTimesData(forCurrentMonth date: Date, completion: (() -> Void)? = nil) {
+    private func fetchWorkTimesData(forCurrentMonth date: Date) {
         self.userInterface?.setActivityIndicator(isHidden: false)
         self.dailyWorkTimesArray.removeAll()
         self.userInterface?.updateMatchingFullTimeLabels(workedHours: "", shouldWorkHours: "", duration: "")
-        self.userInterface?.updateView()
         self.contentProvider.fetchWorkTimesData(for: date) { [weak self] result in
-            defer { completion?() }
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case let .success(dailyWorkTimes, matchingFullTime):
@@ -280,7 +305,6 @@ extension WorkTimesListViewModel {
             workedHours: time.workedHours,
             shouldWorkHours: time.shouldWorkHours,
             duration: time.duration)
-        self.userInterface?.updateView()
         self.userInterface?.showTableView()
     }
     
@@ -299,6 +323,43 @@ extension WorkTimesListViewModel {
         guard let month = components.month, let year = components.year else { return "" }
         guard let monthSymbol = DateFormatter().shortMonthSymbols?[safeIndex: month - 1] else { return "" }
         return "\(monthSymbol) \(year)"
+    }
+    
+    @available(iOS 13, *)
+    private func getSectionsDiff(oldValue: [DailyWorkTime]) -> (insertions: IndexSet, removals: IndexSet) {
+        let diff = self.dailyWorkTimesArray.difference(from: oldValue)
+        var insertions: IndexSet = IndexSet()
+        var removals: IndexSet = IndexSet()
+        diff.forEach { change in
+            switch change {
+            case let .insert(offset, _, _):
+                insertions.insert(offset)
+            case let .remove(offset, _, _):
+                removals.insert(offset)
+            }
+        }
+        return (insertions, removals)
+    }
+    
+    @available(iOS 13, *)
+    private func getRowsDiff(oldValue: [DailyWorkTime]) -> (insertions: [IndexPath], removals: [IndexPath]) {
+        var insertions: [IndexPath] = []
+        var removals: [IndexPath] = []
+        
+        self.dailyWorkTimesArray.enumerated().forEach { (newSection, dailyWorkTime) in
+            guard let oldSection = oldValue.firstIndex(of: dailyWorkTime),
+                let oldDailyWorkTime = oldValue[safeIndex: oldSection] else { return }
+            let diff = dailyWorkTime.workTimes.difference(from: oldDailyWorkTime.workTimes)
+            diff.forEach { change in
+                switch change {
+                case let .insert(offset, _, _):
+                    insertions.append(IndexPath(row: offset, section: newSection))
+                case let .remove(offset, _, _):
+                    removals.append(IndexPath(row: offset, section: oldSection))
+                }
+            }
+        }
+        return (insertions, removals)
     }
     
     private func workTime(for indexPath: IndexPath) -> WorkTimeDecoder? {

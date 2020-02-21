@@ -25,3 +25,10 @@ class DailyWorkTime {
         return true
     }
 }
+
+// MARK: - Equatable
+extension DailyWorkTime: Equatable {
+    static func == (lhs: DailyWorkTime, rhs: DailyWorkTime) -> Bool {
+        return lhs.day == rhs.day
+    }
+}

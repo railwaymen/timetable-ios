@@ -22,14 +22,7 @@ class WorkTimesListViewController: UIViewController {
     @IBOutlet private var shouldWorkHoursLabel: UILabel!
     @IBOutlet private var durationLabel: UILabel!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
-    
-    private lazy var refreshControl: UIRefreshControl = {
-        let control = UIRefreshControl()
-        control.tintColor = .tint
-        control.addTarget(self, action: #selector(refreshControlDidActivate), for: .primaryActionTriggered)
-        return control
-    }()
-    
+
     private let tableViewEstimatedRowHeight: CGFloat = 150
     private let heightForHeader: CGFloat = 50
     private var viewModel: WorkTimesListViewModelType!
@@ -48,7 +41,9 @@ class WorkTimesListViewController: UIViewController {
     
     @objc private func refreshControlDidActivate() {
         self.viewModel.viewRequestToRefresh { [weak self] in
-            self?.refreshControl.endRefreshing()
+            DispatchQueue.main.async { [weak self] in
+                self?.tableView?.refreshControl?.endRefreshing()
+            }
         }
     }
 }
@@ -111,6 +106,7 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
     func setUpView() {
         self.dateSelectorView.delegate = self
         self.setUpTableView()
+        self.setUpRefreshControl()
         self.setUpNavigationItem()
         self.setUpActivityIndicator()
         self.viewModel.configure(errorView)
@@ -118,7 +114,7 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
         self.errorView.set(isHidden: true)
     }
     
-    func updateView() {
+    func reloadData() {
         self.tableView.reloadData()
     }
     
@@ -149,6 +145,22 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
     func setActivityIndicator(isHidden: Bool) {
         isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
         self.activityIndicator.set(isHidden: isHidden)
+    }
+    
+    func insertSections(_ sections: IndexSet) {
+        self.tableView.insertSections(sections, with: .fade)
+    }
+    
+    func removeSections(_ sections: IndexSet) {
+        self.tableView.deleteSections(sections, with: .fade)
+    }
+    
+    func insertRows(at indexPaths: [IndexPath]) {
+        self.tableView.insertRows(at: indexPaths, with: .fade)
+    }
+    
+    func removeRows(at indexPaths: [IndexPath]) {
+        self.tableView.deleteRows(at: indexPaths, with: .fade)
     }
     
     func performBatchUpdates(_ updates: (() -> Void)?) {
@@ -216,8 +228,12 @@ extension WorkTimesListViewController {
         
         let nib = UINib(nibName: WorkTimesTableViewHeader.className, bundle: nil)
         self.tableView.register(nib, forHeaderFooterViewReuseIdentifier: WorkTimesTableViewHeader.reuseIdentifier)
-        
-        self.tableView.refreshControl = self.refreshControl
+    }
+    
+    private func setUpRefreshControl() {
+        let control = UIRefreshControl()
+        control.addTarget(self, action: #selector(self.refreshControlDidActivate), for: .valueChanged)
+        self.tableView.refreshControl = control
     }
     
     private func setUpNavigationItem() {

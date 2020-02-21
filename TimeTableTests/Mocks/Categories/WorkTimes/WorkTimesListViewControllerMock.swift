@@ -43,6 +43,26 @@ class WorkTimesListViewControllerMock: UIViewController {
     private(set) var showErrorViewParams: [ShowErrorViewParams] = []
     struct ShowErrorViewParams {}
     
+    private(set) var insertSectionsParams: [InsertSectionsParams] = []
+    struct InsertSectionsParams {
+        let sections: IndexSet
+    }
+    
+    private(set) var removeSectionsParams: [RemoveSectionsParams] = []
+    struct RemoveSectionsParams {
+        let sections: IndexSet
+    }
+    
+    private(set) var insertRowsParams: [InsertRowsParams] = []
+    struct InsertRowsParams {
+        let indexPaths: [IndexPath]
+    }
+    
+    private(set) var removeRowsParams: [RemoveRowsParams] = []
+    struct RemoveRowsParams {
+        let indexPaths: [IndexPath]
+    }
+    
     private(set) var performBatchUpdatesParams: [PerformBatchUpdatesParams] = []
     struct PerformBatchUpdatesParams {
         var updates: (() -> Void)?
@@ -61,7 +81,7 @@ extension WorkTimesListViewControllerMock: WorkTimesListViewModelOutput {
         self.setUpViewParams.append(SetUpViewParams())
     }
     
-    func updateView() {
+    func reloadData() {
         self.updateViewParams.append(UpdateViewParams())
     }
     
@@ -91,6 +111,22 @@ extension WorkTimesListViewControllerMock: WorkTimesListViewModelOutput {
     
     func showErrorView() {
         self.showErrorViewParams.append(ShowErrorViewParams())
+    }
+    
+    func insertSections(_ sections: IndexSet) {
+        self.insertSectionsParams.append(InsertSectionsParams(sections: sections))
+    }
+    
+    func removeSections(_ sections: IndexSet) {
+        self.removeSectionsParams.append(RemoveSectionsParams(sections: sections))
+    }
+    
+    func insertRows(at indexPaths: [IndexPath]) {
+        self.insertRowsParams.append(InsertRowsParams(indexPaths: indexPaths))
+    }
+    
+    func removeRows(at indexPaths: [IndexPath]) {
+        self.removeRowsParams.append(RemoveRowsParams(indexPaths: indexPaths))
     }
     
     func performBatchUpdates(_ updates: (() -> Void)?) {
