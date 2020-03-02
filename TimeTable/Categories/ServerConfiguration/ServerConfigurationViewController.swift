@@ -104,9 +104,9 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
         guard self.isViewLoaded else { return }
         self.view.layoutIfNeeded()
         let bottomPadding: CGFloat = 16
-        let continueButtonFrameInScrollView = self.continueButton.convert(self.continueButton.bounds, to: self.scrollView)
-        let bottomSpaceInScrollView = self.scrollView.contentSize.height - continueButtonFrameInScrollView.maxY - bottomPadding
-        self.updateScrollViewInsets(with: max(height - bottomSpaceInScrollView, 0))
+        let verticalSpacing = self.continueButton.convert(self.continueButton.bounds, to: self.serverAddressTextField).minY
+            -  self.serverAddressTextField.frame.height
+        self.updateScrollViewInsets(with: max(height + verticalSpacing + bottomPadding, 0))
     }
 }
 
@@ -115,8 +115,6 @@ extension ServerConfigurationViewController {
     private func updateScrollViewInsets(with height: CGFloat = 0) {
         self.scrollView.contentInset.bottom = height
         self.scrollView.scrollIndicatorInsets.bottom = height
-        let offset = self.scrollView.contentSize.height - (self.scrollView.frame.height - height)
-        self.scrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: true)
     }
     
     private func setUpActivityIndicator() {
