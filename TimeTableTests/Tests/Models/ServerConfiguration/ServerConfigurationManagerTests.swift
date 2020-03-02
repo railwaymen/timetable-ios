@@ -25,56 +25,10 @@ class ServerConfigurationManagerTests: XCTestCase {
         self.userDefaults.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
         super.tearDown()
     }
-    
-    func testVerifyConfigurationWhileResponseIsNil() throws {
-        //Arrange
-        let sut = self.buildSUT()
-        self.urlSessionMock.dataTaskReturnValue = URLSessionDataTaskMock()
-        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: false)
-        var expectedError: Error?
-        //Act
-        sut.verify(configuration: configuration) { result in
-            switch result {
-            case .success:
-                XCTFail()
-            case .failure(let error):
-                expectedError = error
-            }
-        }
-        self.urlSessionMock.dataTaskParams.last?.completionHandler(nil, nil, nil)
-        //Assert
-        switch (expectedError as? ApiClientError)?.type {
-        case .invalidHost(let host)?:
-            XCTAssertEqual(host, self.exampleURL)
-        default: XCTFail()
-        }
-    }
-    
-    func testVerifyConfigurationWhileErrorOccured() throws {
-        //Arrange
-        let sut = self.buildSUT()
-        self.urlSessionMock.dataTaskReturnValue = URLSessionDataTaskMock()
-        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: false)
-        let fakeResponse = HTTPURLResponse(url: self.exampleURL, statusCode: 200, httpVersion: nil, headerFields: nil)
-        var expectedError: Error?
-        //Act
-        sut.verify(configuration: configuration) { result in
-            switch result {
-            case .success:
-                XCTFail()
-            case .failure(let error):
-                expectedError = error
-            }
-        }
-        self.urlSessionMock.dataTaskParams.last?.completionHandler(nil, fakeResponse, TestError(message: ""))
-        //Assert
-        switch (expectedError as? ApiClientError)?.type {
-        case .invalidHost(let host)?:
-            XCTAssertEqual(host, exampleURL)
-        default: XCTFail()
-        }
-    }
-    
+}
+
+// MARK: - getOldConfiguration() -> ServerConfiguration?
+extension ServerConfigurationManagerTests {
     func testGetOldConfigurationWhileHostUrlWasNotSaved() throws {
         //Arrange
         let sut = self.buildSUT()
@@ -132,6 +86,58 @@ class ServerConfigurationManagerTests: XCTestCase {
         let oldConfiguration = sut.getOldConfiguration()
         //Assert
         XCTAssertNil(oldConfiguration)
+    }
+}
+
+// MARK: - verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void, Error>) -> Void))
+extension ServerConfigurationManagerTests {
+    func testVerifyConfigurationWhileResponseIsNil() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        self.urlSessionMock.dataTaskReturnValue = URLSessionDataTaskMock()
+        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: false)
+        var expectedError: Error?
+        //Act
+        sut.verify(configuration: configuration) { result in
+            switch result {
+            case .success:
+                XCTFail()
+            case .failure(let error):
+                expectedError = error
+            }
+        }
+        self.urlSessionMock.dataTaskParams.last?.completionHandler(nil, nil, nil)
+        //Assert
+        switch (expectedError as? ApiClientError)?.type {
+        case .invalidHost(let host)?:
+            XCTAssertEqual(host, self.exampleURL)
+        default: XCTFail()
+        }
+    }
+    
+    func testVerifyConfigurationWhileErrorOccured() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        self.urlSessionMock.dataTaskReturnValue = URLSessionDataTaskMock()
+        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: false)
+        let fakeResponse = HTTPURLResponse(url: self.exampleURL, statusCode: 200, httpVersion: nil, headerFields: nil)
+        var expectedError: Error?
+        //Act
+        sut.verify(configuration: configuration) { result in
+            switch result {
+            case .success:
+                XCTFail()
+            case .failure(let error):
+                expectedError = error
+            }
+        }
+        self.urlSessionMock.dataTaskParams.last?.completionHandler(nil, fakeResponse, TestError(message: ""))
+        //Assert
+        switch (expectedError as? ApiClientError)?.type {
+        case .invalidHost(let host)?:
+            XCTAssertEqual(host, exampleURL)
+        default: XCTFail()
+        }
     }
     
     func testVerifyConfigurationWhileStatusCodeIsInvalid() throws {
