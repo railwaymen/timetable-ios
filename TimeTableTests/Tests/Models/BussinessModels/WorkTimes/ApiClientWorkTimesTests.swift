@@ -20,8 +20,10 @@ class ApiClientWorkTimesTests: XCTestCase {
         self.requestEncoderMock = RequestEncoderMock()
         self.jsonDecoderMock = JSONDecoderMock()
     }
+}
 
-    // MARK: - ApiClientWorkTimesType
+// MARK: - fetchWorkTimes(parameters: WorkTimesParameters, completion: @escaping ((Result<[WorkTimeDecoder], Error>) -> Void))
+extension ApiClientWorkTimesTests {
     func testFetchSucceed() throws {
         //Arrange
         let sut = self.buildSUT()
@@ -64,7 +66,10 @@ class ApiClientWorkTimesTests: XCTestCase {
         let testError = try XCTUnwrap(expectedError as? TestError)
         XCTAssertEqual(testError, error)
     }
-    
+}
+
+// MARK: - addWorkTime(parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void))
+extension ApiClientWorkTimesTests {
     func testAddWorkTimeSucceed() throws {
         //Arrange
         let sut = self.buildSUT()
@@ -108,7 +113,10 @@ class ApiClientWorkTimesTests: XCTestCase {
         let testError = try XCTUnwrap(expectedError as? TestError)
         XCTAssertEqual(testError, error)
     }
-    
+}
+
+// MARK: - deleteWorkTime(identifier: Int64, completion: @escaping ((Result<Void, Error>) -> Void))
+extension ApiClientWorkTimesTests {
     func testDeleteWorkTimeSucceed() {
         //Arrange
         let sut = self.buildSUT()
@@ -146,7 +154,10 @@ class ApiClientWorkTimesTests: XCTestCase {
         let testError = try XCTUnwrap(expectedError as? TestError)
         XCTAssertEqual(testError, error)
     }
-    
+}
+
+// MARK: - updateWorkTime(identifier: Int64, parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void))
+extension ApiClientWorkTimesTests {
     func testUpdateWorkTime_succeed() throws {
         //Arrange
         let sut = self.buildSUT()

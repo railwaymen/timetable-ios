@@ -11,7 +11,10 @@ import XCTest
 
 class WorkTimeDecoderTests: XCTestCase {
     private let projectDecoderFactory = ProjectDecoderFactory()
+}
 
+// MARK: - Decodable
+extension WorkTimeDecoderTests {
     func testWorkTimeResponse() throws {
         //Arrange
         let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
