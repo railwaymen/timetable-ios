@@ -65,8 +65,11 @@ struct TaskForm: TaskFormType {
     func generateEncodableRepresentation() throws -> Task {
         guard let project = self.project else { throw ValidationError.projectIsNil }
         if !project.isLunch && project.countDuration ?? true {
-            guard !self.body.isEmpty else { throw ValidationError.bodyIsEmpty }
-            guard !self.allowsTask || self.url != nil else { throw ValidationError.urlIsNil }
+            if self.allowsTask {
+                guard !self.body.isEmpty || self.url != nil else { throw ValidationError.bodyIsEmpty }
+            } else {
+                guard !self.body.isEmpty else { throw ValidationError.bodyIsEmpty }
+            }
         }
         guard let day = self.day else { throw ValidationError.dayIsNil }
         guard let startsAt = self.startsAt else { throw ValidationError.startsAtIsNil }
