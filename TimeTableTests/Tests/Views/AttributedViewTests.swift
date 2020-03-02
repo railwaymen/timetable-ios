@@ -9,8 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class AttributedViewTests: XCTestCase {
-    
+class AttributedViewTests: XCTestCase {}
+
+// MARK: - borderWidth: CGFloat
+extension AttributedViewTests {
     func testBorderWidth() {
         //Arrange
         let sut = AttributedView()
@@ -20,7 +22,10 @@ class AttributedViewTests: XCTestCase {
         //Assert
         XCTAssertEqual(borderWidth, 2)
     }
-    
+}
+
+// MARK: - cornerRadius: CGFloat
+extension AttributedViewTests {
     func testCornerRadius() {
         //Arrange
         let sut = AttributedView()
@@ -32,7 +37,10 @@ class AttributedViewTests: XCTestCase {
         XCTAssertEqual(cornerRadius, 5)
         XCTAssertTrue(masksToBounds)
     }
-    
+}
+
+// MARK: - borderColor: UIColor?
+extension AttributedViewTests {
     func testBorderColor() {
         //Arrange
         let sut = AttributedView()

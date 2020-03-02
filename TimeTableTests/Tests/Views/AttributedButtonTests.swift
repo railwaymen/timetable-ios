@@ -9,8 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class AttributedButtonTests: XCTestCase {
-    
+class AttributedButtonTests: XCTestCase {}
+
+// MARK: - cornerRadius: CGFloat
+extension AttributedButtonTests {
     func testCornerRadious() {
         //Arrange
         let sut = AttributedButton()
@@ -22,7 +24,10 @@ class AttributedButtonTests: XCTestCase {
         XCTAssertEqual(cornerRadius, 5)
         XCTAssertTrue(masksToBounds)
     }
-    
+}
+
+// MARK: - borderWidth: CGFloat
+extension AttributedButtonTests {
     func testBorderWidth() {
         //Arrange
         let sut = AttributedButton()
@@ -32,7 +37,10 @@ class AttributedButtonTests: XCTestCase {
         //Assert
         XCTAssertEqual(borderWidth, 2)
     }
-    
+}
+
+// MARK: - borderColor: UIColor?
+extension AttributedButtonTests {
     func testBorderColor() {
         //Arrange
         let sut = AttributedButton()

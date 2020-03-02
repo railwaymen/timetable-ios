@@ -9,8 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class CheckBoxButtonTests: XCTestCase {
-    
+class CheckBoxButtonTests: XCTestCase {}
+
+// MARK: - isActive: Bool
+extension CheckBoxButtonTests {
     func testIsActiveTrue() {
         //Arrange
         let sut = CheckBoxButton()
@@ -30,7 +32,10 @@ class CheckBoxButtonTests: XCTestCase {
         //Assert
         XCTAssertNil(image)
     }
-    
+}
+
+// MARK: - borderWidth: CGFloat
+extension CheckBoxButtonTests {
     func testBorderWidth() {
         //Arrange
         let sut = CheckBoxButton()
@@ -40,7 +45,10 @@ class CheckBoxButtonTests: XCTestCase {
         //Assert
         XCTAssertEqual(borderWidth, 2)
     }
-    
+}
+
+// MARK: - cornerRadius: CGFloat
+extension CheckBoxButtonTests {
     func testCornerRadious() {
         //Arrange
         let sut = CheckBoxButton()
@@ -52,7 +60,10 @@ class CheckBoxButtonTests: XCTestCase {
         XCTAssertEqual(cornerRadius, 5)
         XCTAssertTrue(masksToBounds)
     }
-    
+}
+
+// MARK: - borderColor: UIColor?
+extension CheckBoxButtonTests {
     func testBorderColor() {
         //Arrange
         let sut = CheckBoxButton()

@@ -9,9 +9,23 @@
 import XCTest
 @testable import TimeTable
 
-class AttributedTextFieldTests: XCTestCase {
+class AttributedTextFieldTests: XCTestCase {}
+
+// MARK: - placeholderColor: UIColor
+extension AttributedTextFieldTests {
+    func testPlaceholderColor_placeholderNil() throws {
+        //Arrange
+        let expectedColor = UIColor.gray
+        let sut = AttributedTextField()
+        sut.placeholder = nil
+        //Act
+        sut.placeholderColor = expectedColor
+        //Assert
+        let color = sut.attributedPlaceholder?.attribute(.foregroundColor, at: 0, effectiveRange: nil) as? UIColor
+        XCTAssertNil(color)
+    }
     
-    func testPlaceholderColor() throws {
+    func testPlaceholderColor_placeholderNotNil() throws {
         //Arrange
         let expectedColor = UIColor.gray
         let sut = AttributedTextField()
