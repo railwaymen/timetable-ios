@@ -292,7 +292,7 @@
 		C1B771ED21EF1EC300EFE06F /* simpleProjectNullWorkTimesAllowsTaskResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771EC21EF1EC300EFE06F /* simpleProjectNullWorkTimesAllowsTaskResponse.json */; };
 		C1B771EF21EF1EE000EFE06F /* simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771EE21EF1EE000EFE06F /* simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json */; };
 		C1B771F321EF2A2A00EFE06F /* simpleProjectArrayResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771F221EF2A2A00EFE06F /* simpleProjectArrayResponse.json */; };
-		C1B771F521EF2C5800EFE06F /* TaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B771F421EF2C5800EFE06F /* TaskTests.swift */; };
+		C1B771F521EF2C5800EFE06F /* TaskFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B771F421EF2C5800EFE06F /* TaskFormTests.swift */; };
 		C1B771F721EF39FA00EFE06F /* ApiValidationErrorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B771F621EF39FA00EFE06F /* ApiValidationErrorsTests.swift */; };
 		C1B771FB21EF41C300EFE06F /* emptyErrosKeysResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771FA21EF41C300EFE06F /* emptyErrosKeysResponse.json */; };
 		C1B771FD21EF421900EFE06F /* baseErrorKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771FC21EF421900EFE06F /* baseErrorKeyResponse.json */; };
@@ -669,7 +669,7 @@
 		C1B771EC21EF1EC300EFE06F /* simpleProjectNullWorkTimesAllowsTaskResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectNullWorkTimesAllowsTaskResponse.json; sourceTree = "<group>"; };
 		C1B771EE21EF1EE000EFE06F /* simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json; sourceTree = "<group>"; };
 		C1B771F221EF2A2A00EFE06F /* simpleProjectArrayResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectArrayResponse.json; sourceTree = "<group>"; };
-		C1B771F421EF2C5800EFE06F /* TaskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTests.swift; sourceTree = "<group>"; };
+		C1B771F421EF2C5800EFE06F /* TaskFormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormTests.swift; sourceTree = "<group>"; };
 		C1B771F621EF39FA00EFE06F /* ApiValidationErrorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiValidationErrorsTests.swift; sourceTree = "<group>"; };
 		C1B771FA21EF41C300EFE06F /* emptyErrosKeysResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = emptyErrosKeysResponse.json; sourceTree = "<group>"; };
 		C1B771FC21EF421900EFE06F /* baseErrorKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = baseErrorKeyResponse.json; sourceTree = "<group>"; };
@@ -1172,7 +1172,7 @@
 			children = (
 				C12BD9B621E4A01700A6EAF0 /* ProjectTests.swift */,
 				C1249C792181AC49005DB2A5 /* StoryboardsManagerTests.swift */,
-				C1B771F421EF2C5800EFE06F /* TaskTests.swift */,
+				C1B771F421EF2C5800EFE06F /* TaskFormTests.swift */,
 				C1AFFFD721A2ACB100A7A632 /* AccessService */,
 				C1531F052191CD2800602A0C /* ApiClient */,
 				C12CA57921A58FD20082FEB7 /* BussinessModels */,
@@ -2440,7 +2440,7 @@
 				C12CA58221A599E60082FEB7 /* WorkTimeDecoderTests.swift in Sources */,
 				8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift in Sources */,
 				8A137C3B23FD74E4001569BB /* Asserts.swift in Sources */,
-				C1B771F521EF2C5800EFE06F /* TaskTests.swift in Sources */,
+				C1B771F521EF2C5800EFE06F /* TaskFormTests.swift in Sources */,
 				C10FD88921F1F36300A233C5 /* ApiClientUsersTests.swift in Sources */,
 				C134298F21A6D39C00F4EA42 /* LoginViewControllerMock.swift in Sources */,
 				8A3FE1B123ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift in Sources */,

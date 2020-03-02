@@ -1,5 +1,5 @@
 //
-//  TaskTests.swift
+//  TaskFormTests.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 16/01/2019.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import TimeTable
 
-class TaskTests: XCTestCase {
+class TaskFormTests: XCTestCase {
     private var url: URL = URL(string: "www.example.com")!
     
     private var timeZoneString: String {
@@ -20,7 +20,7 @@ class TaskTests: XCTestCase {
 }
 
 // MARK: - title
-extension TaskTests {
+extension TaskFormTests {
     func testTitle_withoutProject() {
         //Arrange
         let sut = TaskForm(
@@ -59,7 +59,7 @@ extension TaskTests {
 }
 
 // MARK: - allowsTask
-extension TaskTests {
+extension TaskFormTests {
     func testAllowTask_withoutProject() {
         //Arrange
         let sut = TaskForm(
@@ -98,7 +98,7 @@ extension TaskTests {
 }
 
 // MARK: - isProjectTaggable
-extension TaskTests {
+extension TaskFormTests {
     func testIsTaggable_withoutProject() throws {
         //Arrange
         let sut = TaskForm(
@@ -156,7 +156,7 @@ extension TaskTests {
 }
 
 // MARK: - projectType
-extension TaskTests {
+extension TaskFormTests {
     func testType_withoutProject() {
         //Arrange
         let sut = TaskForm(
@@ -244,7 +244,7 @@ extension TaskTests {
 }
 
 // MARK: - validate()
-extension TaskTests {
+extension TaskFormTests {
     func testValidate_fullData() throws {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
@@ -331,15 +331,29 @@ extension TaskTests {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
+        let body = "body"
+        let tag = ProjectTag.development
+        let day = try self.buildDate(year: 2018, month: 2, day: 2, hour: 1, minute: 2, second: 33)
+        let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
+        let endsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 10, minute: 8, second: 57)
         let sut = TaskForm(
+            workTimeIdentifier: 1,
             project: projectDecoder,
-            body: "body",
-            url: nil)
+            body: body,
+            url: nil,
+            day: day,
+            startsAt: startsAt,
+            endsAt: endsAt,
+            tag: tag)
         //Act
+        let task = try sut.generateEncodableRepresentation()
         //Assert
-        XCTAssertThrowsError(try sut.generateEncodableRepresentation()) { error in
-            XCTAssertEqual(error as? TaskForm.ValidationError, TaskForm.ValidationError.urlIsNil)
-        }
+        XCTAssertEqual(task.project, projectDecoder)
+        XCTAssertEqual(task.body, body)
+        XCTAssertNil(task.url)
+        XCTAssertEqual(task.startsAt, try self.buildDate(year: 2018, month: 2, day: 2, hour: 9, minute: 8, second: 0))
+        XCTAssertEqual(task.endsAt, try self.buildDate(year: 2018, month: 2, day: 2, hour: 10, minute: 8, second: 0))
+        XCTAssertEqual(task.tag, tag)
     }
     
     func testValidate_nilDay() throws {
