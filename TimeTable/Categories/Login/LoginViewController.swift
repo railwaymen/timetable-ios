@@ -98,9 +98,8 @@ extension LoginViewController: LoginViewModelOutput {
         guard self.isViewLoaded else { return }
         self.view.layoutIfNeeded()
         let bottomPadding: CGFloat = 16
-        let loginButtonFrameInScrollView = self.loginButton.convert(self.loginButton.bounds, to: self.scrollView)
-        let bottomSpaceInScrollView = self.scrollView.contentSize.height - loginButtonFrameInScrollView.maxY - bottomPadding
-        self.updateScrollViewInsets(with: max(height - bottomSpaceInScrollView, 0))
+        let verticalSpacing = self.loginButton.convert(self.loginButton.bounds, to: self.passwordTextField).minY
+        self.updateScrollViewInsets(with: max(height + verticalSpacing + bottomPadding, 0))
     }
 }
 
@@ -130,8 +129,6 @@ extension LoginViewController {
     private func updateScrollViewInsets(with height: CGFloat = 0) {
         self.scrollView.contentInset.bottom = height
         self.scrollView.scrollIndicatorInsets.bottom = height
-        let offset = self.scrollView.contentSize.height - (self.scrollView.frame.height - height)
-        self.scrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: true)
     }
     
     private func setUpActivityIndicator() {
