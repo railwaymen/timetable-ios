@@ -19,8 +19,7 @@ protocol WorkTimesListViewModelOutput: class {
     func showErrorView()
     func insertSections(_ sections: IndexSet)
     func removeSections(_ sections: IndexSet)
-    func insertRows(at indexPaths: [IndexPath])
-    func removeRows(at indexPaths: [IndexPath])
+    func reloadSections(_ sections: IndexSet)
     func performBatchUpdates(_ updates: (() -> Void)?)
 }
 
@@ -60,11 +59,11 @@ class WorkTimesListViewModel {
             }
             let (insertedSections, removedSections) = self.getSectionsDiff(oldValue: oldValue)
             let (insertedRows, removedRows) = self.getRowsDiff(oldValue: oldValue)
+            let updatedSections = IndexSet((insertedRows + removedRows).map { $0.section })
             self.userInterface?.performBatchUpdates { [weak userInterface] in
                 userInterface?.removeSections(removedSections)
-                userInterface?.removeRows(at: removedRows)
-                userInterface?.insertRows(at: insertedRows)
                 userInterface?.insertSections(insertedSections)
+                userInterface?.reloadSections(updatedSections)
             }
         }
     }
