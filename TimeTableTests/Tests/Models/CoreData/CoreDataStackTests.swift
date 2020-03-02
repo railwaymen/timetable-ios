@@ -23,7 +23,10 @@ class CoreDataStackTests: XCTestCase {
             XCTFail()
         }
     }
-    
+}
+
+// MARK: - init(buildStack: ((_ xcodeModelName: String, _ fileName: String) throws -> DataStackType)) throws
+extension CoreDataStackTests {
     func testInitializationThrowsAnError() {
         //Arrange
         let testError = TestError(message: "error")
@@ -55,7 +58,15 @@ class CoreDataStackTests: XCTestCase {
             return self.dataStackMock
         }
     }
+}
+
+// MARK: - deleteUser(forIdentifier identifier: Int64, completion: @escaping (Result<Void, Swift.Error>) -> Void)
+extension CoreDataStackTests {
     
+}
+
+// MARK: - fetchUser(forIdentifier identifier: Int64, completion: @escaping (Result<UserEntity, Swift.Error>) -> Void)
+extension CoreDataStackTests {
     func testFetchUserForIdentifierFailsWhileWasNotSaveToTheStore() throws {
         //Arrange
         var expectedError: Error?
@@ -95,7 +106,15 @@ class CoreDataStackTests: XCTestCase {
         //Assert
         XCTAssertEqual(expectedEntity, user)
     }
+}
+
+// MARK: - fetchAllUsers(completion: @escaping (Result<[UserEntity], Swift.Error>) -> Void)
+extension CoreDataStackTests {
     
+}
+
+// MARK: - save<CDT: NSManagedObject>(userDecoder:_, coreDataTypeTranslation:_, completion:_) -> Void
+extension CoreDataStackTests {
     func testSaveUserDecoderFinishWithError() throws {
         //Arrange
         var expecetdError: Error?

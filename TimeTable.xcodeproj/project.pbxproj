@@ -1954,8 +1954,8 @@
 		C1FA05E72194465900BD8C9D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				C16CA645219AB89000133358 /* Translators */,
 				C1FA05E52194464D00BD8C9D /* CoreDataStackTests.swift */,
+				C16CA645219AB89000133358 /* Translators */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
