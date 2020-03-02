@@ -9,8 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class ApiValidationErrorsTests: XCTestCase {
-    
+class ApiValidationErrorsTests: XCTestCase {}
+
+// MARK: - Decodable
+extension ApiValidationErrorsTests {
     func testEmptyErrosKeysResponse() throws {
         //Arrange
         let data = try self.json(from: ApiValidationJSONResource.emptyErrosKeysResponse)
