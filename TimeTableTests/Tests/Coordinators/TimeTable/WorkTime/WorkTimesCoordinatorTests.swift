@@ -18,8 +18,8 @@ class WorkTimesListCoordinatorTests: XCTestCase {
     }
 }
 
-extension WorkTimesListCoordinatorTests {
 // MARK: - start(finishHandler: (() -> Void)?)
+extension WorkTimesListCoordinatorTests {
     func testRunMainFlowDoesNotRunMainFlowWhileWorkTimesControllerIsNil() {
         //Arrange
         let sut = self.buildSUT()

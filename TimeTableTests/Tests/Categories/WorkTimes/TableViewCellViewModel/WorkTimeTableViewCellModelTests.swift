@@ -20,7 +20,7 @@ class WorkTimeTableViewCellModelTests: XCTestCase {
     }
 }
 
-// MARK: - viewConfigured
+// MARK: - viewConfigured()
 extension WorkTimeTableViewCellModelTests {
     func testViewConfiguredCallsUpdateView() throws {
         //Arrange
