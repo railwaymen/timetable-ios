@@ -155,12 +155,8 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
         self.tableView.deleteSections(sections, with: .fade)
     }
     
-    func insertRows(at indexPaths: [IndexPath]) {
-        self.tableView.insertRows(at: indexPaths, with: .fade)
-    }
-    
-    func removeRows(at indexPaths: [IndexPath]) {
-        self.tableView.deleteRows(at: indexPaths, with: .fade)
+    func reloadSections(_ sections: IndexSet) {
+        self.tableView.reloadSections(sections, with: .fade)
     }
     
     func performBatchUpdates(_ updates: (() -> Void)?) {

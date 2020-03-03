@@ -53,14 +53,9 @@ class WorkTimesListViewControllerMock: UIViewController {
         let sections: IndexSet
     }
     
-    private(set) var insertRowsParams: [InsertRowsParams] = []
-    struct InsertRowsParams {
-        let indexPaths: [IndexPath]
-    }
-    
-    private(set) var removeRowsParams: [RemoveRowsParams] = []
-    struct RemoveRowsParams {
-        let indexPaths: [IndexPath]
+    private(set) var reloadSectionsParams: [ReloadSectionsParams] = []
+    struct ReloadSectionsParams {
+        let sections: IndexSet
     }
     
     private(set) var performBatchUpdatesParams: [PerformBatchUpdatesParams] = []
@@ -121,12 +116,8 @@ extension WorkTimesListViewControllerMock: WorkTimesListViewModelOutput {
         self.removeSectionsParams.append(RemoveSectionsParams(sections: sections))
     }
     
-    func insertRows(at indexPaths: [IndexPath]) {
-        self.insertRowsParams.append(InsertRowsParams(indexPaths: indexPaths))
-    }
-    
-    func removeRows(at indexPaths: [IndexPath]) {
-        self.removeRowsParams.append(RemoveRowsParams(indexPaths: indexPaths))
+    func reloadSections(_ sections: IndexSet) {
+        self.reloadSectionsParams.append(ReloadSectionsParams(sections: sections))
     }
     
     func performBatchUpdates(_ updates: (() -> Void)?) {

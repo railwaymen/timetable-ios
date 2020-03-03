@@ -22,6 +22,6 @@ extension DateFormatter {
 extension DateFormatter {
     enum DateType: String {
         case simple = "yyyy-MM-dd"
-        case dateAndTimeExtended = "yyyy-MM-dd'T'HH:mm:ss.SSSXX"
+        case dateAndTimeExtended = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
     }
 }

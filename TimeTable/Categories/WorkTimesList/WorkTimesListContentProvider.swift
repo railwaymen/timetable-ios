@@ -63,7 +63,6 @@ extension WorkTimesListContentProvider: WorkTimesListContentProviderType {
             dispatchGroup.leave()
         }
         
-        // Done
         dispatchGroup.notify(qos: .userInitiated, queue: .main) {
             if let error = fetchError {
                 completion(.failure(error))
