@@ -9,8 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class MatchingFullTimeDecoderTests: XCTestCase {
- 
+class MatchingFullTimeDecoderTests: XCTestCase {}
+
+// MARK: - Decodable
+extension MatchingFullTimeDecoderTests {
     func testDecoding_matchingFullTimeFullResponse() throws {
         //Arrange
         let data = try self.json(from: MatchingFullTimeJSONResource.matchingFullTimeFullResponse)
