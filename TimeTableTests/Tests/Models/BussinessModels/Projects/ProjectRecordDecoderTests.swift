@@ -9,8 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class ProjectRecordDecoderTests: XCTestCase {
-    
+class ProjectRecordDecoderTests: XCTestCase {}
+
+// MARK: - Decodable
+extension ProjectRecordDecoderTests {
     func testParsingProjectRecordResponseSucceed() throws {
         //Arrange
         let user = ProjectRecordDecoder.User(name: "Admin Admin")

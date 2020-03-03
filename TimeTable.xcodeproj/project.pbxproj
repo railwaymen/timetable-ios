@@ -1262,8 +1262,8 @@
 				C125F1B221DCCBE700594CDE /* ApiClient+Projects.swift */,
 				C12CA56721A578870082FEB7 /* ProjectDecoder.swift */,
 				C125F1AE21DCC95200594CDE /* ProjectRecordDecoder.swift */,
-				C16B3A72229E696C00B6E9E6 /* SimpleProjectDecoder.swift */,
 				C16B3A74229E6A0700B6E9E6 /* ProjectTag.swift */,
+				C16B3A72229E696C00B6E9E6 /* SimpleProjectDecoder.swift */,
 			);
 			path = Projects;
 			sourceTree = "<group>";
@@ -1609,9 +1609,9 @@
 		C198BD1B21FF3DB800B5F847 /* MatchingFulltime */ = {
 			isa = PBXGroup;
 			children = (
+				C198BD1E21FF3FC900B5F847 /* ApiClient+MatchingFullTime.swift */,
 				C198BD1C21FF3DD200B5F847 /* MatchingFullTimeDecoder.swift */,
 				C101603322003D4000DCE817 /* MatchingFullTimeEncoder.swift */,
-				C198BD1E21FF3FC900B5F847 /* ApiClient+MatchingFullTime.swift */,
 			);
 			path = MatchingFulltime;
 			sourceTree = "<group>";
