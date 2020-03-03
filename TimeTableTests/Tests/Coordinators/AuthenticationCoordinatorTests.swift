@@ -20,7 +20,10 @@ class AuthenticationCoordinatorTests: XCTestCase {
         self.dependencyContainer = DependencyContainerMock()
         self.dependencyContainer.window = UIWindow()
     }
-    
+}
+
+// MARK: - start(finishCompletion: ((ServerConfiguration, ApiClientType) -> Void)?)
+extension AuthenticationCoordinatorTests {
     func testStartDoesNotRunServerConfigurationFlowWhileReturnedControllerIsInvalid() {
         //Arrange
         let sut = self.buildSUT()
@@ -141,8 +144,10 @@ class AuthenticationCoordinatorTests: XCTestCase {
         XCTAssertEqual(apiClientMock.setAuthenticationTokenParams.count, 1)
         XCTAssertEqual(apiClientMock.setAuthenticationTokenParams.last?.token, expectedToken)
     }
+}
 
-    // MARK: - LoginCoordinatorDelegate
+// MARK: - loginDidFinish(with state: AuthenticationCoordinator.State)
+extension AuthenticationCoordinatorTests {
     func testLoginDidFinishWithStateLoggedInCorrectly() throws {
         //Arrange
         let expectedToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjIt"
@@ -174,8 +179,10 @@ class AuthenticationCoordinatorTests: XCTestCase {
         XCTAssertEqual(apiClientMock.setAuthenticationTokenParams.count, 2)
         XCTAssertEqual(apiClientMock.setAuthenticationTokenParams.last?.token, expectedToken)
     }
+}
     
-    // MARK: - State Equatable
+// MARK: - State.Equatable
+extension AuthenticationCoordinatorTests {
     func testAuthenticationCoordinatorStateEquatableChangeAddress() {
         //Act
         let firstState = AuthenticationCoordinator.State.changeAddress

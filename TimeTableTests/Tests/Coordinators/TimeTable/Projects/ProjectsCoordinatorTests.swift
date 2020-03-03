@@ -16,7 +16,10 @@ class ProjectsCoordinatorTests: XCTestCase {
         super.setUp()
         self.dependencyContainer = DependencyContainerMock()
     }
-    
+}
+
+// MARK: - start(finishHandler: (() -> Void)?)
+extension ProjectsCoordinatorTests {
     func testRunMainFlowDoesNotRunMainFlowWhileProjectsControllerIsNil() {
         //Arrange
         let sut = self.buildSUT()
