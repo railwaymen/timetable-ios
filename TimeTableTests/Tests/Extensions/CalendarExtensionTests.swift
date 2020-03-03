@@ -9,8 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class CalendarExtensionTests: XCTestCase {
-    
+class CalendarExtensionTests: XCTestCase {}
+
+// MARK: - date(byAdding components: DateComponents, to date: Date) -> Date?
+extension CalendarExtensionTests {
     func testDateByAddingComponentsToDate() throws {
         //Arrange
         let sut: CalendarType = Calendar(identifier: .iso8601)
@@ -22,7 +24,10 @@ class CalendarExtensionTests: XCTestCase {
         //Assert
         XCTAssertEqual(result, expectedDate)
     }
-    
+}
+
+// MARK: - date(byAdding component: Calendar.Component, value: Int, to date: Date) -> Date?
+extension CalendarExtensionTests {
     func testDateByAddingComponentsWithIntValueToDate() throws {
         //Arrange
         let sut: CalendarType = Calendar(identifier: .iso8601)

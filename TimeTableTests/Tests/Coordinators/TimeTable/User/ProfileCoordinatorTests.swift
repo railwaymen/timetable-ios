@@ -18,7 +18,10 @@ class ProfileCoordinatorTests: XCTestCase {
         self.dependencyContainer = DependencyContainerMock()
         self.parentMock = ProfileCoordinatorParentMock()
     }
-    
+}
+ 
+// MARK: - start(finishHandler: (() -> Void)?)
+extension ProfileCoordinatorTests {
     func testStartSetsNavigationBarHidden() {
         //Arrange
         let sut = self.buildSUT()
@@ -47,7 +50,10 @@ class ProfileCoordinatorTests: XCTestCase {
         //Assert
         XCTAssertNotNil(sut.navigationController.children[0] as? ProfileViewControllerable)
     }
-    
+}
+
+// MARK: - userProfileDidLogoutUser()
+extension ProfileCoordinatorTests {
     func testUserProfileDidLogoutUser() {
         //Arrange
         let sut = self.buildSUT()

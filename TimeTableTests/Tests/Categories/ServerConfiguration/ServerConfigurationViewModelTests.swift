@@ -24,7 +24,10 @@ class ServerConfigurationViewModelTests: XCTestCase {
         self.serverConfigurationManagerMock = ServerConfigurationManagerMock()
         self.notificationCenterMock = NotificationCenterMock()
     }
-    
+}
+ 
+// MARK: - viewDidLoad()
+extension ServerConfigurationViewModelTests {
     func testViewDidLoadCallSetupViewOnTheUserInterface() {
         //Arrange
         let sut = self.buildSUT()
@@ -35,7 +38,10 @@ class ServerConfigurationViewModelTests: XCTestCase {
         XCTAssertEqual(self.userInterfaceMock.setUpViewParams.last?.serverAddress, "")
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setUpViewParams.last?.checkBoxIsActive))
     }
-    
+}
+
+// MARK: - continueButtonTapped()
+extension ServerConfigurationViewModelTests {
     func testViewRequestedToContinueThrowErrorWhileServerAddressIsNull() {
         //Arrange
         let sut = self.buildSUT()
@@ -124,7 +130,10 @@ class ServerConfigurationViewModelTests: XCTestCase {
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
     }
-    
+}
+
+// MARK: - serverAddressDidChange(text: String?)
+extension ServerConfigurationViewModelTests {
     func testServerAddressDidChangePassedNilValue() {
         //Arrange
         let sut = self.buildSUT()
@@ -152,7 +161,10 @@ class ServerConfigurationViewModelTests: XCTestCase {
         XCTAssertEqual(self.userInterfaceMock.continueButtonEnabledStateParams.count, 1)
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.continueButtonEnabledStateParams.last?.isEnabled))
     }
-    
+}
+
+// MARK: - serverAddressTextFieldDidRequestForReturn() -> Bool
+extension ServerConfigurationViewModelTests {
     func testServerAddressTextFieldDidRequestedForReturnDissmissKeyboard() {
         //Arrange
         let sut = self.buildSUT()
@@ -170,7 +182,10 @@ class ServerConfigurationViewModelTests: XCTestCase {
         //Assert
         XCTAssertTrue(value)
     }
-    
+}
+
+// MARK: - viewTapped()
+extension ServerConfigurationViewModelTests {
     func testViewHasBeenTappedCallDissmissKeyboardOnUserInteface() {
         //Arrange
         let sut = self.buildSUT()

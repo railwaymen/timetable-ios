@@ -11,7 +11,7 @@ import XCTest
 
 class DateExtensionTests: XCTestCase {}
 
-// MARK: - roundedToFiveMinutes
+// MARK: - roundedToFiveMinutes() -> Date
 extension DateExtensionTests {
     func testRoundedToFiveMinutes_rounded() throws {
         //Arrange

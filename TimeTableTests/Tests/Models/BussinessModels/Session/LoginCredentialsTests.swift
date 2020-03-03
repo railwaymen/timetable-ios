@@ -9,8 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class LoginCredentialsTests: XCTestCase {
+class LoginCredentialsTests: XCTestCase {}
 
+// MARK: - Encodable
+extension LoginCredentialsTests {
     func testCreatedSessionRequestIsCorrect() throws {
         //Arrange
         let sut = LoginCredentials(email: "user1@example.com", password: "password")

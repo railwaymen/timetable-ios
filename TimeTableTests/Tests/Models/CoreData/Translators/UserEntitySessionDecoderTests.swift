@@ -23,7 +23,10 @@ class UserEntitySessionDecoderTests: XCTestCase {
             XCTFail()
         }
     }
-    
+}
+
+// MARK: - createUser(from userDecoder: SessionDecoder, transaction: AsynchronousDataTransactionType) -> UserEntity
+extension UserEntitySessionDecoderTests {
     func testCreateUser() throws {
         //Arrange
         let data = try self.json(from: SessionJSONResource.signInResponse)

@@ -20,7 +20,10 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
         self.requestEncoderMock = RequestEncoderMock()
         self.jsonDecoderMock = JSONDecoderMock()
     }
-    
+}
+
+// MARK: - fetchMatchingFullTime(parameters: MatchingFullTimeEncoder, completion: @escaping ((Result<MatchingFullTimeDecoder, Error>) -> Void))
+extension ApiClientMatchingFullTimeTests {
     func testFetchMatchingFullTimeSucceed() throws {
         //Arrange
         let sut = self.buildSUT()

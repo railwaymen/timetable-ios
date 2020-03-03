@@ -16,7 +16,10 @@ class WorkTimesListCoordinatorTests: XCTestCase {
         self.dependencyContainer = DependencyContainerMock()
         super.setUp()
     }
-    
+}
+
+// MARK: - start(finishHandler: (() -> Void)?)
+extension WorkTimesListCoordinatorTests {
     func testRunMainFlowDoesNotRunMainFlowWhileWorkTimesControllerIsNil() {
         //Arrange
         let sut = self.buildSUT()

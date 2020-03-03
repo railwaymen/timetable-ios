@@ -11,7 +11,10 @@ import XCTest
 
 class ApiClientErrorTests: XCTestCase {
     private let serverErrorFactory = ServerErrorFactory()
-    
+}
+
+// MARK: - localizedDescription: String
+extension ApiClientErrorTests {
     func testLocalizedDescriptionIfInvalidHostHasBeenGiven() throws {
         //Arrange
         let sut =  ApiClientError(type: .invalidHost(self.exampleURL))
@@ -72,7 +75,76 @@ class ApiClientErrorTests: XCTestCase {
         //Assert
         XCTAssertEqual(localizedString, "500 - Internal server sut")
     }
+}
+
+// MARK: - init?(code: Int)
+extension ApiClientErrorTests {
+    func testInit_CodeNSURLErrorNotConnectedToInternet() {
+        //Arrange
+        let code = NSURLErrorNotConnectedToInternet
+        //Act
+        let sut = ApiClientError(code: code)
+        //Assert
+        XCTAssertEqual(sut?.type, .noConnection)
+    }
     
+    func testInit_CodeNSURLErrorNetworkConnectionLost() {
+        //Arrange
+        let code = NSURLErrorNetworkConnectionLost
+        //Act
+        let sut = ApiClientError(code: code)
+        //Assert
+        XCTAssertEqual(sut?.type, .noConnection)
+    }
+    
+    func testInit_CodeNSURLErrorTimedOut() {
+        //Arrange
+        let code = NSURLErrorTimedOut
+        //Act
+        let sut = ApiClientError(code: code)
+        //Assert
+        XCTAssertEqual(sut?.type, .timeout)
+    }
+    
+    func testInit_CodeNSURLErrorCannotParseResponse() {
+        //Arrange
+        let code = NSURLErrorCannotParseResponse
+        //Act
+        let sut = ApiClientError(code: code)
+        //Assert
+        XCTAssertEqual(sut?.type, .invalidResponse)
+    }
+    
+    func testInit_CodeNSURLErrorBadServerResponse() {
+        //Arrange
+        let code = NSURLErrorBadServerResponse
+        //Act
+        let sut = ApiClientError(code: code)
+        //Assert
+        XCTAssertEqual(sut?.type, .invalidResponse)
+    }
+    
+    func testInit_Code422() {
+        //Arrange
+        let code = 422
+        //Act
+        let sut = ApiClientError(code: code)
+        //Assert
+        XCTAssertEqual(sut?.type, .validationErrors(nil))
+    }
+    
+    func testInit_CodeOutOfRange() {
+        //Arrange
+        let code = 0
+        //Act
+        let sut = ApiClientError(code: code)
+        //Assert
+        XCTAssertNil(sut)
+    }
+}
+
+// MARK: - init?(data: Data)
+extension ApiClientErrorTests {
     func testInitFromDataForTypeOfApiValidationErrors() throws {
         //Arrange
         let data = try self.json(from: ApiValidationJSONResource.baseErrorKeyResponse)

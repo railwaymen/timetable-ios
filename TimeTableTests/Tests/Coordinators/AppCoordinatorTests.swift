@@ -25,7 +25,10 @@ class AppCoordinatorTests: XCTestCase {
             XCTFail()
         }
     }
-    
+}
+
+// MARK: - start(finishHandler: (() -> Void)?)
+extension AppCoordinatorTests {
     func testStart_appCoordinatorDoNotContainChildControllers() throws {
         //Arrange
         let sut = self.buildSUT()
@@ -80,7 +83,10 @@ class AppCoordinatorTests: XCTestCase {
         //Assert
         XCTAssertNotNil(sut.children.first as? AuthenticationCoordinator)
     }
-    
+}
+
+// MARK: - finish()
+extension AppCoordinatorTests {
     func testServerConfigurationCoordinatorFinishBlockRunAuthenticatioFlow() throws {
         //Arrange
         let sut = self.buildSUT()

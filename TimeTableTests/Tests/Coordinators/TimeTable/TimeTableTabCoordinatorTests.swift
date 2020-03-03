@@ -16,7 +16,10 @@ class TimeTableTabCoordinatorTests: XCTestCase {
         super.setUp()
         self.dependencyContainer = DependencyContainerMock()
     }
+}
 
+// MARK: - start(finishHandler: (() -> Void)?)
+extension TimeTableTabCoordinatorTests {
     func testCountOfChildrensOnStart() {
         //Arrange
         let sut = self.buildSUT()

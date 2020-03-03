@@ -9,8 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class UIErrorTests: XCTestCase {
+class UIErrorTests: XCTestCase {}
 
+// MARK: - localizedDescription: String
+extension UIErrorTests {
     func testLocalizedDescriptionIfCannotBeErrorIsCalled() {
         //Arrange
         let sut = UIError.cannotBeEmpty(.serverAddressTextField)
@@ -40,7 +42,10 @@ class UIErrorTests: XCTestCase {
         //Assert
         XCTAssertEqual(localizedString, expectedResult)
     }
-    
+}
+
+// MARK: - Equatable
+extension UIErrorTests {
     func testEquatableForCannotBeEmptyWhileElementsAreEqual() {
         //Arrange
         let sut1 = UIError.cannotBeEmpty(.loginTextField)

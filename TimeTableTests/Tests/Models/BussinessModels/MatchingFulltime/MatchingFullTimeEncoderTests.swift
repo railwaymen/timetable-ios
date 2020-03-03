@@ -9,8 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class MatchingFullTimeEncoderTests: XCTestCase {
+class MatchingFullTimeEncoderTests: XCTestCase {}
 
+// MARK: - Encodable
+extension MatchingFullTimeEncoderTests {
     func testEncoding_fullModel() throws {
         //Arrange
         let date = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)

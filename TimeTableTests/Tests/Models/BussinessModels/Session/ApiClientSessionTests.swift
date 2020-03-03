@@ -20,8 +20,10 @@ class ApiClientSessionTests: XCTestCase {
         self.requestEncoderMock = RequestEncoderMock()
         self.jsonDecoderMock = JSONDecoderMock()
     }
-    
-    // MARK: - ApiClientSessionType
+}
+
+// MARK: - signIn(with credentials: LoginCredentials, completion: @escaping ((Result<SessionDecoder, Error>) -> Void))
+extension ApiClientSessionTests {
     func testSignInSucceed() throws {
         //Arrange
         let data = try self.json(from: SessionJSONResource.signInResponse)

@@ -28,7 +28,10 @@ class WorkTimesListViewModelTests: XCTestCase {
         self.calendarMock = CalendarMock()
         self.messagePresenterMock = MessagePresenterMock()
     }
-    
+}
+
+// MARK: - numberOfSections()
+extension WorkTimesListViewModelTests {
     func testNumberOfSectionsOnInitialization() throws {
         //Arrange
         let sut = try self.buildSUT()
@@ -50,7 +53,10 @@ class WorkTimesListViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(sections, 1)
     }
-    
+}
+
+// MARK: - numberOfRows(in section: Int) -> Int
+extension WorkTimesListViewModelTests {
     func testNumberOfRowsInSectionOnInitialization() throws {
         //Arrange
         let sut = try self.buildSUT()
@@ -72,7 +78,10 @@ class WorkTimesListViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(rows, 2)
     }
-    
+}
+ 
+// MARK: - viewDidLoad()
+extension WorkTimesListViewModelTests {
     func testViewDidLoad() throws {
         //Arrange
         let sut = try self.buildSUT()
@@ -160,7 +169,10 @@ class WorkTimesListViewModelTests: XCTestCase {
         let error = try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? TestError)
         XCTAssertEqual(error, expectedError)
     }
-    
+}
+
+// MARK: - viewRequestForPreviousMonth()
+extension WorkTimesListViewModelTests {
     func testViewRequestForPreviousMonthWhileSelectedMonthIsNilValue() throws {
         //Arrange
         let sut = try self.buildSUT(isSelectedDate: false)
@@ -191,7 +203,10 @@ class WorkTimesListViewModelTests: XCTestCase {
         //Assert
         XCTAssertTrue(self.userInterfaceMock.updateMatchingFullTimeLabelsParams.isEmpty)
     }
-    
+}
+
+// MARK: - viewRequestForNextMonth()
+extension WorkTimesListViewModelTests {
     func testViewRequestForNextMonthWhileSelectedMonth() throws {
         //Arrange
         let sut = try self.buildSUT()
@@ -204,7 +219,10 @@ class WorkTimesListViewModelTests: XCTestCase {
         XCTAssertEqual(self.userInterfaceMock.updateDateSelectorParams.last?.nextDateString, "Mar 2019")
         XCTAssertEqual(self.userInterfaceMock.updateDateSelectorParams.last?.previousDateString, "Mar 2019")
     }
-    
+}
+
+// MARK: - configure(_ cell: WorkTimeTableViewCellable, for indexPath: IndexPath)
+extension WorkTimesListViewModelTests {
     func testConfigureCell_withoutWorkTimes() throws {
         //Arrange
         let sut = try self.buildSUT()
@@ -228,7 +246,10 @@ class WorkTimesListViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(mockedCell.configureParams.count, 1)
     }
-    
+}
+
+// MARK: - viewRequestForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType?
+extension WorkTimesListViewModelTests {
     func testViewRequestForHeaderModelOnInitialization() throws {
         //Arrange
         let sut = try self.buildSUT()
@@ -252,7 +273,10 @@ class WorkTimesListViewModelTests: XCTestCase {
         //Assert
         XCTAssertNotNil(headerViewModel)
     }
-    
+}
+
+// MARK: - viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void)
+extension WorkTimesListViewModelTests {
     func testViewRequestToDeleteWorkTime_invalidIndexPath() throws {
         //Arrange
         let sut = try self.buildSUT()
@@ -295,7 +319,10 @@ class WorkTimesListViewModelTests: XCTestCase {
         }
         self.contentProvider.deleteWorkTimeParams.last?.completion(.success(Void()))
     }
+}
 
+// MARK: - viewRequestForCellType(at index: IndexPath) -> WorkTimesListViewModel.CellType
+extension WorkTimesListViewModelTests {
     func testViewRequestForCellTypeBeforeViewWillAppear() throws {
         //Arrange
         let indexPath = IndexPath(row: 0, section: 0)
@@ -323,7 +350,10 @@ class WorkTimesListViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(type, .taskURL)
     }
-    
+}
+
+// MARK: - viewRequestForNewWorkTimeView(sourceView: UIView)
+extension WorkTimesListViewModelTests {
     func testViewRequestForNewWorkTimeView() throws {
         //Arrange
         let button = UIButton()
@@ -333,7 +363,10 @@ class WorkTimesListViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.flowType, .newEntry(lastTask: nil))
     }
-    
+}
+ 
+// MARK: - viewRequestedForEditEntry(sourceView: UITableViewCell, at indexPath: IndexPath)
+extension WorkTimesListViewModelTests {
     func testViewRequestedForEditEntry_withoutDailyWorkTimes() throws {
         //Arrange
         let cell = UITableViewCell()
@@ -368,7 +401,10 @@ class WorkTimesListViewModelTests: XCTestCase {
         XCTAssertEqual(editedTask.startsAt, workTime.startsAt)
         XCTAssertEqual(editedTask.endsAt, workTime.endsAt)
     }
-    
+}
+
+// MARK: - viewRequestToDuplicate(sourceView: UITableViewCell, at indexPath: IndexPath)
+extension WorkTimesListViewModelTests {
     func testViewRequestToDuplicate() throws {
         //Arrange
         let indexPath = IndexPath(row: 1, section: 0)
@@ -403,7 +439,10 @@ class WorkTimesListViewModelTests: XCTestCase {
         XCTAssertEqual(lastTask?.startsAt, firstWorkTime.startsAt)
         XCTAssertEqual(lastTask?.endsAt, firstWorkTime.endsAt)
     }
-    
+}
+
+// MARK: - viewRequestToRefresh(completion: @escaping () -> Void)
+extension WorkTimesListViewModelTests {
     func testViewRequestToRefreshCallsFetch() throws {
         //Arrange
         let sut = try self.buildSUT()

@@ -11,9 +11,10 @@ import UIKit
 typealias WorkTimesListApiClient = (ApiClientProjectsType & ApiClientWorkTimesType & ApiClientUsersType & ApiClientMatchingFullTimeType)
 
 protocol WorkTimesListCoordinatorDelegate: class {
-    func workTimesRequestedForWorkTimeView(sourceView: UIView,
-                                           flowType: WorkTimeViewModel.FlowType,
-                                           finishHandler: @escaping (_ isTaskChanged: Bool) -> Void)
+    func workTimesRequestedForWorkTimeView(
+        sourceView: UIView,
+        flowType: WorkTimeViewModel.FlowType,
+        finishHandler: @escaping (_ isTaskChanged: Bool) -> Void)
     func workTimesRequestedForSafari(url: URL)
 }
 

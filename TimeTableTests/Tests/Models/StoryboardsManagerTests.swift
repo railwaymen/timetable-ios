@@ -9,8 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class StoryboardsManagerTests: XCTestCase {
+class StoryboardsManagerTests: XCTestCase {}
 
+// MARK: - controller<T>(storyboard: StoryboardsManager.StoryboardName, controllerIdentifier: ControllerIdentifier) -> T?
+extension StoryboardsManagerTests {
     func testIfMainStoryboardExists() {
         //Arrange
         let sut = StoryboardsManager()

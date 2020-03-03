@@ -16,7 +16,10 @@ class ProjectCollectionViewCellModelTests: XCTestCase {
         self.userInterfaceMock = ProjectCollectionViewCellMock()
         super.setUp()
     }
-    
+}
+
+// MARK: - configure()
+extension ProjectCollectionViewCellModelTests {
     func testConfigureSetUpsView() throws {
         //Arrange
         let sut = try self.buildSUT()
@@ -54,7 +57,10 @@ class ProjectCollectionViewCellModelTests: XCTestCase {
         XCTAssertEqual(self.userInterfaceMock.updateViewParams.last?.projectColor, color)
         XCTAssertEqual(self.userInterfaceMock.updateViewParams.last?.projectName, "Test Name")
     }
-    
+}
+
+// MARK: - numberOfRows() -> Int
+extension ProjectCollectionViewCellModelTests {
     func testNumberOfRows() throws {
         //Arrange
         let sut = try self.buildSUT()
@@ -63,7 +69,10 @@ class ProjectCollectionViewCellModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(number, 1)
     }
-    
+}
+
+// MARK: - configure(view: ProjectUserViewTableViewCellType, for indexPath: IndexPath)
+extension ProjectCollectionViewCellModelTests {
     func testUserNameReturnsEmptyStringWhileUsersArrayForTheProjectIsEmpty() throws {
         //Arrange
         let data = try self.json(from: ProjectRecordJSONResource.projectRecordNullUserResponse)

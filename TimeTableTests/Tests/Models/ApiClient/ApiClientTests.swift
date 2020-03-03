@@ -22,8 +22,10 @@ class ApiClientTests: XCTestCase {
         self.requestEncoderMock = RequestEncoderMock()
         self.jsonDecoderMock = JSONDecoderMock()
     }
+}
 
-    // MARK: - ApiClientNetworkingType
+// MARK: - post<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Swift.Result<D, Error>) -> Void))
+extension ApiClientTests {
     func testPostReturnsAnErrorWhileGivenWrapperCannotBeEncodedToDictionary() {
         //ArrangeC
         var expectedError: Error?
@@ -115,7 +117,10 @@ class ApiClientTests: XCTestCase {
         default: XCTFail()
         }
     }
-    
+}
+  
+// MARK: - post<E: Encodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Swift.Result<Void, Error>) -> Void))
+extension ApiClientTests {
     func testPostWithoutDecodableResponseReturnsAnErrorWhileGivenWrapperCannotBeEncodedToDictionary() throws {
         //Arrange
         var expectedError: Error?
@@ -205,7 +210,10 @@ class ApiClientTests: XCTestCase {
         //Assert
         XCTAssertTrue(successCalled)
     }
+}
 
+// MARK: - func get<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Swift.Result<D, Error>) -> Void))
+extension ApiClientTests {
     func testGetReturnsAnErrorWhileGivenWrapperCannotBeEncodedToDictionary() {
         //Arrange
         var expectedError: Error?
@@ -293,7 +301,10 @@ class ApiClientTests: XCTestCase {
         default: XCTFail()
         }
     }
-    
+}
+
+// MARK: - put<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Swift.Result<D, Error>) -> Void))
+extension ApiClientTests {
     func testPutReturnsAnErrorWhileGivenWrapperCannotBeEncodedToDictionary() {
         //ArrangeC
         var expectedError: Error?
@@ -384,7 +395,10 @@ class ApiClientTests: XCTestCase {
         let testError = try XCTUnwrap(expectedError as? ApiClientError)
         XCTAssertEqual(testError.type, .invalidResponse)
     }
-    
+}
+
+// MARK: - func put<E: Encodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Swift.Result<Void, Error>) -> Void))
+extension ApiClientTests {
     func testPutWithoutDecodableResponseReturnsAnErrorWhileGivenWrapperCannotBeEncodedToDictionary() throws {
         //Arrange
         var expectedError: Error?

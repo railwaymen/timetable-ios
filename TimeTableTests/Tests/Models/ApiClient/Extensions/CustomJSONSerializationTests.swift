@@ -9,8 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class CustomJSONSerializationTests: XCTestCase {
-    
+class CustomJSONSerializationTests: XCTestCase {}
+
+// MARK: - jsonObject(with data: Data, options: JSONSerialization.ReadingOptions) throws -> Any
+extension CustomJSONSerializationTests {
     func testJsonObject() throws {
         //Arrange
         let sut = CustomJSONSerialization()

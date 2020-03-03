@@ -20,8 +20,10 @@ class ApiClientProjectsTests: XCTestCase {
         self.requestEncoderMock = RequestEncoderMock()
         self.jsonDecoderMock = JSONDecoderMock()
     }
-    
-    // MARK: - ApiClientSessionType
+}
+
+// MARK: - fetchAllProjects(completion: @escaping ((Result<[ProjectRecordDecoder], Error>) -> Void))
+extension ApiClientProjectsTests {
     func testFetchAllProjectsSucceed() throws {
         //Arrange
         let sut = self.buildSUT()
@@ -61,7 +63,10 @@ class ApiClientProjectsTests: XCTestCase {
         let testError = try XCTUnwrap(expectedError as? TestError)
         XCTAssertEqual(testError, error)
     }
-    
+}
+
+// MARK: - fetchSimpleListOfProjects(completion: @escaping ((Result<SimpleProjectDecoder, Error>) -> Void))
+extension ApiClientProjectsTests {
     func testFetchSimpleProjectArrayResponseSucceed() throws {
         //Arrange
         let sut = self.buildSUT()

@@ -9,8 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class ErrorHandlerTypeTests: XCTestCase {
+class ErrorHandlerTypeTests: XCTestCase {}
 
+// MARK: - func throwing(error: Error)
+extension ErrorHandlerTypeTests {
     func testThrowingErrorWithoutHandlingFinallyBlock() {
         //Arrange
         let error: TestError = TestError(message: "catching error")

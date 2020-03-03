@@ -14,7 +14,10 @@ class WorkTimesParametersTests: XCTestCase {
     private lazy var dateFormatter: DateFormatter = {
         return DateFormatter(type: .dateAndTimeExtended)
     }()
-    
+}
+
+// MARK: - Encodable
+extension WorkTimesParametersTests {
     func testEncoding_fullModel() throws {
         //Arrange
         let projectIdentifier = 3
@@ -87,7 +90,10 @@ class WorkTimesParametersTests: XCTestCase {
         XCTAssertEqual(expectedFromDate, fromDate)
         XCTAssertNil(requestDictionary?["to"])
     }
-    
+}
+
+// MARK: - Equatable
+extension WorkTimesParametersTests {
     func testWorkTimesAreEquatableWhileAllParametersAreNil() {
         //Arrange
         let sut1 = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
