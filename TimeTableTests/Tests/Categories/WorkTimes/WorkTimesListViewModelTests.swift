@@ -10,7 +10,6 @@ import XCTest
 @testable import TimeTable
 
 // swiftlint:disable file_length
-// swiftlint:disable type_body_length
 class WorkTimesListViewModelTests: XCTestCase {
     private var userInterfaceMock: WorkTimesListViewControllerMock!
     private var coordinatorMock: WorkTimesListCoordinatorMock!
@@ -514,5 +513,4 @@ extension WorkTimesListViewModelTests {
         return DailyWorkTime(day: date, workTimes: workTimes)
     }
 }
-// swiftlint:enable type_body_length
 // swiftlint:enable file_length

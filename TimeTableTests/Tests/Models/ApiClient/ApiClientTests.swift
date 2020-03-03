@@ -10,7 +10,6 @@ import XCTest
 @testable import TimeTable
 
 // swiftlint:disable file_length
-// swiftlint:disable type_body_length
 class ApiClientTests: XCTestCase {
     private var networkingMock: NetworkingMock!
     private var requestEncoderMock: RequestEncoderMock!
@@ -499,5 +498,4 @@ extension ApiClientTests {
             decoder: self.jsonDecoderMock)
     }
 }
-// swiftlint:enable type_body_length
 // swiftlint:enable file_length

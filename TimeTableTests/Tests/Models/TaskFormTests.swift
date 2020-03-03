@@ -6,6 +6,7 @@
 //  Copyright © 2019 Railwaymen. All rights reserved.
 //
 
+// swiftlint:disable file_length
 import XCTest
 @testable import TimeTable
 
@@ -410,3 +411,4 @@ extension TaskFormTests {
         }
     }
 }
+// swiftlint:enable file_length
