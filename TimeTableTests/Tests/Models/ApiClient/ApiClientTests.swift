@@ -10,7 +10,6 @@ import XCTest
 @testable import TimeTable
 
 // swiftlint:disable file_length
-// swiftlint:disable type_body_length
 class ApiClientTests: XCTestCase {
     private var networkingMock: NetworkingMock!
     private var requestEncoderMock: RequestEncoderMock!
@@ -490,6 +489,41 @@ extension ApiClientTests {
     }
 }
 
+// MARK: - setAuthenticationToken(_ token: String)
+extension ApiClientTests {
+    func testSetAuthenticationToken_emptyString() {
+        //Arrange
+        let sut = self.buildSUT()
+        //Act
+        sut.setAuthenticationToken("")
+        //Assert
+        XCTAssertEqual(self.networkingMock.headerFields?["token"], "")
+    }
+    
+    func testSetAuthenticationToken_testString() {
+        //Arrange
+        let sut = self.buildSUT()
+        //Act
+        sut.setAuthenticationToken("token_123")
+        //Assert
+        XCTAssertEqual(self.networkingMock.headerFields?["token"], "token_123")
+    }
+}
+
+// MARK: - removeAuthenticationToken()
+extension ApiClientTests {
+    func testRemoveAuthenticationToken() {
+        //Arrange
+        let sut = self.buildSUT()
+        sut.setAuthenticationToken("token_123")
+        XCTAssertEqual(self.networkingMock.headerFields?["token"], "token_123")
+        //Act
+        sut.removeAuthenticationToken()
+        //Assert
+        XCTAssertNil(self.networkingMock.headerFields?["token"])
+    }
+}
+
 // MARK: - Private
 extension ApiClientTests {
     private func buildSUT() -> ApiClient {
@@ -499,5 +533,4 @@ extension ApiClientTests {
             decoder: self.jsonDecoderMock)
     }
 }
-// swiftlint:enable type_body_length
 // swiftlint:enable file_length

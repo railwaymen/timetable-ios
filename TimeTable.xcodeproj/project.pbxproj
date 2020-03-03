@@ -209,6 +209,7 @@
 		C13429B421A7FB1B00F4EA42 /* WorkTimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13429B321A7FB1B00F4EA42 /* WorkTimeTableViewCell.swift */; };
 		C13429B621A8307200F4EA42 /* workTimeMissingBodyKey.json in Resources */ = {isa = PBXBuildFile; fileRef = C13429B521A8307200F4EA42 /* workTimeMissingBodyKey.json */; };
 		C13429B821A8308600F4EA42 /* workTimeBodyNull.json in Resources */ = {isa = PBXBuildFile; fileRef = C13429B721A8308600F4EA42 /* workTimeBodyNull.json */; };
+		C13B2D41240E864C00FA4441 /* EndpointsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13B2D40240E864C00FA4441 /* EndpointsTests.swift */; };
 		C13C2B0421EDD1C5008C9088 /* ServerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C2B0321EDD1C5008C9088 /* ServerError.swift */; };
 		C13C2B0621EDE589008C9088 /* WorkTimesListCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C2B0521EDE589008C9088 /* WorkTimesListCoordinatorMock.swift */; };
 		C13C88E621E5EA8F00F68C6E /* WorkTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C88E521E5EA8F00F68C6E /* WorkTimeViewController.swift */; };
@@ -578,6 +579,7 @@
 		C13429B321A7FB1B00F4EA42 /* WorkTimeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeTableViewCell.swift; sourceTree = "<group>"; };
 		C13429B521A8307200F4EA42 /* workTimeMissingBodyKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimeMissingBodyKey.json; sourceTree = "<group>"; };
 		C13429B721A8308600F4EA42 /* workTimeBodyNull.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimeBodyNull.json; sourceTree = "<group>"; };
+		C13B2D40240E864C00FA4441 /* EndpointsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointsTests.swift; sourceTree = "<group>"; };
 		C13C2B0321EDD1C5008C9088 /* ServerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerError.swift; sourceTree = "<group>"; };
 		C13C2B0521EDE589008C9088 /* WorkTimesListCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListCoordinatorMock.swift; sourceTree = "<group>"; };
 		C13C88E521E5EA8F00F68C6E /* WorkTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeViewController.swift; sourceTree = "<group>"; };
@@ -1402,6 +1404,7 @@
 			isa = PBXGroup;
 			children = (
 				C1531F062191CD4B00602A0C /* ApiClientTests.swift */,
+				C13B2D40240E864C00FA4441 /* EndpointsTests.swift */,
 				C1ECF0A92192CC25006038C6 /* RequestEncoderTests.swift */,
 				C1ECF0A62192C409006038C6 /* Extensions */,
 			);
@@ -2462,6 +2465,7 @@
 				C178B78D21EF8AE1001DA07F /* WorkTimeViewControllerMock.swift in Sources */,
 				C19D88A52202FE54007CC867 /* WorkTimesListContentProviderMock.swift in Sources */,
 				C134297B21A6C27700F4EA42 /* KeychainAccessMock.swift in Sources */,
+				C13B2D41240E864C00FA4441 /* EndpointsTests.swift in Sources */,
 				8A065B5D237ABDBB0072A21E /* UserJSONResource.swift in Sources */,
 				C13C2B0621EDE589008C9088 /* WorkTimesListCoordinatorMock.swift in Sources */,
 				C12BD99B21E48DD100A6EAF0 /* ProjectsViewControllerMock.swift in Sources */,
