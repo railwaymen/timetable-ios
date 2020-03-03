@@ -9,8 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class URLSessionExtensionTests: XCTestCase {
-    
+class URLSessionExtensionTests: XCTestCase {}
+
+// MARK: - dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskType
+extension URLSessionExtensionTests {
     func testDataTask_createsProperDataTask() throws {
         //Arrange
         let url = URL(string: "www.example.com")!

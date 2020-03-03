@@ -9,9 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class URLExtensionTests: XCTestCase {
+class URLExtensionTests: XCTestCase {}
 
-    // MARK: - isHTTP
+// MARK: - isHTTP: Bool
+extension URLExtensionTests {
     func testIsHTTP_withHttpPrefix() throws {
         //Arrange
         let sut = try XCTUnwrap(URL(string: "http://www.example.com"))
@@ -38,8 +39,10 @@ class URLExtensionTests: XCTestCase {
         //Assert
         XCTAssertFalse(result)
     }
-    
-    // MARK: - isHTTPS
+}
+
+// MARK: - isHTTPS: Bool
+extension URLExtensionTests {
     func testIsHTTPS_withHttpPrefix() throws {
         //Arrange
         let sut = try XCTUnwrap(URL(string: "http://www.example.com"))

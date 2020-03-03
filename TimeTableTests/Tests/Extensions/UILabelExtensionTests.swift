@@ -9,8 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class UILabelExtensionTests: XCTestCase {
-    
+class UILabelExtensionTests: XCTestCase {}
+
+// MARK: - localizedStringKey: String?
+extension UILabelExtensionTests {
     func testIfLocalizedStringIsSetProperly() {
         //Arrange
         let sut = UILabel()

@@ -9,8 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class NSRegularExpressionExtensionTests: XCTestCase {
-    
+class NSRegularExpressionExtensionTests: XCTestCase {}
+
+// MARK: - matches(in string: String) -> [NSTextCheckingResult]
+extension NSRegularExpressionExtensionTests {
     func testInitWithPattern() {
         //Arrange
         let testString = "example.com.com.example"

@@ -9,8 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class UITextFieldExtensionTests: XCTestCase {
-    
+class UITextFieldExtensionTests: XCTestCase {}
+
+// MARK: - localizedStringKey: String?
+extension UITextFieldExtensionTests {
     func testIfLocalizedStringIsSetProperly() {
         //Arrange
         let sut = UITextField()

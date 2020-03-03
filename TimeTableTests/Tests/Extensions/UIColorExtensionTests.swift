@@ -9,8 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class UIColorExtensionTests: XCTestCase {
-    
+class UIColorExtensionTests: XCTestCase {}
+
+// MARK: - init(hexString: String, alpha: CGFloat)
+extension UIColorExtensionTests {
     func testConvenienceInitFromHexString() {
         //Arrange
         let rgb: (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) = (231, 20, 40, 1)

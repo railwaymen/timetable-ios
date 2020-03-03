@@ -9,9 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class StringExtensionTests: XCTestCase {
+class StringExtensionTests: XCTestCase {}
     
-    // MARK: - localized
+// MARK: - localized: String
+extension StringExtensionTests {
     func testLocalized() {
         //Arrange
         let sut = "ui.error.invalid_format"
@@ -20,8 +21,10 @@ class StringExtensionTests: XCTestCase {
         //Assert
         XCTAssertEqual(localized, NSLocalizedString(sut, comment: ""))
     }
+}
     
-    // MARK: - apiSuffix
+// MARK: - apiSuffix() -> String
+extension StringExtensionTests {
     func testApiSuffix_withApiWithoutSlash() {
         //Arrange
         let sut = "http://example.com/api"
@@ -93,8 +96,10 @@ class StringExtensionTests: XCTestCase {
         //Assert
         XCTAssertEqual(result, "http://example.com/api")
     }
-    
-    // MARK: - httpPrefix
+}
+
+// MARK: - func httpPrefix() -> String
+extension StringExtensionTests {
     func testHttpPrefix_withoutPrefix() {
         //Arrange
         let sut = "example.com"

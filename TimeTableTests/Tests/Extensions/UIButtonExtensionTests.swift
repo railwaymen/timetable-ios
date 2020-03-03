@@ -9,8 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class UIButtonExtensionTests: XCTestCase {
-    
+class UIButtonExtensionTests: XCTestCase {}
+
+// MARK: - localizedStringKey: String?
+extension UIButtonExtensionTests {
     func testIfLocalizedStringIsSetProperly() {
         //Arrange
         let sut = UIButton()
