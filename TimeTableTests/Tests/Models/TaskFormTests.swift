@@ -19,7 +19,7 @@ class TaskFormTests: XCTestCase {
     }
 }
 
-// MARK: - title
+// MARK: - title: String
 extension TaskFormTests {
     func testTitle_withoutProject() {
         //Arrange
@@ -58,7 +58,7 @@ extension TaskFormTests {
     }
 }
 
-// MARK: - allowsTask
+// MARK: - allowsTask: Bool
 extension TaskFormTests {
     func testAllowTask_withoutProject() {
         //Arrange
@@ -97,7 +97,7 @@ extension TaskFormTests {
     }
 }
 
-// MARK: - isProjectTaggable
+// MARK: - isProjectTaggable: Bool
 extension TaskFormTests {
     func testIsTaggable_withoutProject() throws {
         //Arrange
@@ -155,7 +155,7 @@ extension TaskFormTests {
     }
 }
 
-// MARK: - projectType
+// MARK: - projectType: ProjectType?
 extension TaskFormTests {
     func testType_withoutProject() {
         //Arrange
@@ -243,9 +243,9 @@ extension TaskFormTests {
     }
 }
 
-// MARK: - validate()
+// MARK: - generateEncodableRepresentation()
 extension TaskFormTests {
-    func testValidate_fullData() throws {
+    func testGenerateEncodableRepresentation_fullData() throws {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
@@ -274,7 +274,7 @@ extension TaskFormTests {
         XCTAssertEqual(task.tag, tag)
     }
     
-    func testValidate_lunchFullData() throws {
+    func testGenerateEncodableRepresentation_lunchFullData() throws {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectWithALunchTrueResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
@@ -303,7 +303,7 @@ extension TaskFormTests {
         XCTAssertEqual(task.tag, tag)
     }
     
-    func testValidate_nilProject() throws {
+    func testGenerateEncodableRepresentation_nilProject() throws {
         //Arrange
         let sut = TaskForm(body: "")
         //Act
@@ -313,7 +313,7 @@ extension TaskFormTests {
         }
     }
     
-    func testValidate_emptyBody() throws {
+    func testGenerateEncodableRepresentation_emptyBody() throws {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
@@ -327,7 +327,7 @@ extension TaskFormTests {
         }
     }
     
-    func testValidate_nilURL() throws {
+    func testGenerateEncodableRepresentation_nilURL() throws {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
@@ -356,7 +356,7 @@ extension TaskFormTests {
         XCTAssertEqual(task.tag, tag)
     }
     
-    func testValidate_nilDay() throws {
+    func testGenerateEncodableRepresentation_nilDay() throws {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
@@ -372,7 +372,7 @@ extension TaskFormTests {
         }
     }
     
-    func testValidate_nilStartsAt() throws {
+    func testGenerateEncodableRepresentation_nilStartsAt() throws {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
@@ -390,7 +390,7 @@ extension TaskFormTests {
         }
     }
     
-    func testValidate_nilEndsAt() throws {
+    func testGenerateEncodableRepresentation_nilEndsAt() throws {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)

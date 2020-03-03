@@ -9,8 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class ProjectTests: XCTestCase {
-        
+class ProjectTests: XCTestCase {}
+      
+// MARK: - Initialization
+extension ProjectTests {
     func testInitializationWithFullProjectRecord() throws {
         //Arrange
         let color = UIColor(hexString: "0c0c0c")
