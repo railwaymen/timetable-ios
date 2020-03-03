@@ -9,8 +9,10 @@
 import XCTest
 @testable import TimeTable
 
-class SessionDecoderTests: XCTestCase {
+class SessionDecoderTests: XCTestCase {}
     
+// MARK: - Decodable
+extension SessionDecoderTests {
     func testParsingSignInResponse() throws {
         //Arrange
         let data = try self.json(from: SessionJSONResource.signInResponse)
