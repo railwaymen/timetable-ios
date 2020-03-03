@@ -20,8 +20,10 @@ class ApiClientUsersTests: XCTestCase {
         self.requestEncoderMock = RequestEncoderMock()
         self.jsonDecoderMock = JSONDecoderMock()
     }
-    
-    // MARK: - ApiClientSessionType
+}
+
+// MARK: - fetchUserProfile(forIdetifier identifier: Int64, completion: @escaping ((Result<UserDecoder, Error>) -> Void))
+extension ApiClientUsersTests {
     func testFetchUserSucceed() throws {
         //Arrange
         let data = try self.json(from: UserJSONResource.userFullResponse)
