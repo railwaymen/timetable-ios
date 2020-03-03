@@ -18,7 +18,10 @@ class RequestEncoderTests: XCTestCase {
         self.encoderMock = JSONEncoderMock()
         self.jsonSerializationMock = JSONSerializationMock()
     }
+}
 
+// MARK: - func encode<T: Encodable>(wrapper: T) throws -> Data
+extension RequestEncoderTests {
     func testEncodeWhileWhileErrorNotOccured() throws {
         //Arrange
         let sut = self.buildSUT()
@@ -45,7 +48,10 @@ class RequestEncoderTests: XCTestCase {
             XCTAssertEqual(expectedError, TestError(message: "encode error"))
         }
     }
-    
+}
+
+// MARK: - encodeToDictionary<T: Encodable>(wrapper: T) throws -> [String: Any]
+extension RequestEncoderTests {
     func testEncodeToDictionaryThrowAnErrorWhileEncodingTheWrapper() {
         //Arrange
         let sut = self.buildSUT()
