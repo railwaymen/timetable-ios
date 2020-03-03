@@ -996,7 +996,6 @@
 		C10FD87D21F1ED8300A233C5 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				C10FD87E21F1EDA100A233C5 /* ApiClient+Users.swift */,
 				C10FD88021F1F15100A233C5 /* UserDecoder.swift */,
 			);
 			path = User;
@@ -1005,7 +1004,6 @@
 		C10FD88221F1F27800A233C5 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				C10FD88821F1F36300A233C5 /* ApiClientUsersTests.swift */,
 				C10FD88321F1F28200A233C5 /* UserDecoderTests.swift */,
 			);
 			path = User;
@@ -1030,7 +1028,6 @@
 		C11D0CF5220816BE00066CA9 /* MatchingFulltime */ = {
 			isa = PBXGroup;
 			children = (
-				C11D0CF8220820BD00066CA9 /* ApiClientMatchingFullTimeTests.swift */,
 				C11D0CFA220820F200066CA9 /* MatchingFullTimeDecoderTests.swift */,
 				C11D0CF6220816D800066CA9 /* MatchingFullTimeEncoderTests.swift */,
 			);
@@ -1261,7 +1258,6 @@
 		C12CA56621A5786E0082FEB7 /* Projects */ = {
 			isa = PBXGroup;
 			children = (
-				C125F1B221DCCBE700594CDE /* ApiClient+Projects.swift */,
 				C12CA56721A578870082FEB7 /* ProjectDecoder.swift */,
 				C125F1AE21DCC95200594CDE /* ProjectRecordDecoder.swift */,
 				C16B3A74229E6A0700B6E9E6 /* ProjectTag.swift */,
@@ -1273,7 +1269,6 @@
 		C12CA56D21A58BD70082FEB7 /* Projects */ = {
 			isa = PBXGroup;
 			children = (
-				C12BD9BA21E4B7B200A6EAF0 /* ApiClientProjectsTests.swift */,
 				C12CA56E21A58BE70082FEB7 /* ProjectDecoderTests.swift */,
 				C12BD9A021E49AE500A6EAF0 /* ProjectRecordDecoderTests.swift */,
 			);
@@ -1293,7 +1288,6 @@
 		C12CA57721A58F860082FEB7 /* WorkTimes */ = {
 			isa = PBXGroup;
 			children = (
-				C134296621A6951C00F4EA42 /* ApiClient+WorkTimes.swift */,
 				C12CA57A21A5900B0082FEB7 /* WorkTimeDecoder.swift */,
 				C134296821A6964B00F4EA42 /* WorkTimesParameters.swift */,
 			);
@@ -1345,7 +1339,6 @@
 		C12CA57F21A599CB0082FEB7 /* WorkTimes */ = {
 			isa = PBXGroup;
 			children = (
-				C134296421A694F300F4EA42 /* ApiClientWorkTimesTests.swift */,
 				C12CA58121A599E60082FEB7 /* WorkTimeDecoderTests.swift */,
 				C134296A21A6ABF200F4EA42 /* WorkTimesParametersTests.swift */,
 			);
@@ -1392,6 +1385,10 @@
 			isa = PBXGroup;
 			children = (
 				C1F7C2EA2191858800F4FAF0 /* ApiClient.swift */,
+				C125F1B221DCCBE700594CDE /* ApiClient+Projects.swift */,
+				C134295D21A6934C00F4EA42 /* ApiClient+Session.swift */,
+				C10FD87E21F1EDA100A233C5 /* ApiClient+Users.swift */,
+				C134296621A6951C00F4EA42 /* ApiClient+WorkTimes.swift */,
 				8A80A38C23D89C24002643A1 /* APIClientFactory.swift */,
 				C1531F032191C58000602A0C /* Endpoints.swift */,
 				C1ECF09C2192BB51006038C6 /* RequestEncoder.swift */,
@@ -1403,7 +1400,12 @@
 		C1531F052191CD2800602A0C /* ApiClient */ = {
 			isa = PBXGroup;
 			children = (
+				C11D0CF8220820BD00066CA9 /* ApiClientMatchingFullTimeTests.swift */,
+				C12BD9BA21E4B7B200A6EAF0 /* ApiClientProjectsTests.swift */,
+				C134295F21A6937E00F4EA42 /* ApiClientSessionTests.swift */,
 				C1531F062191CD4B00602A0C /* ApiClientTests.swift */,
+				C10FD88821F1F36300A233C5 /* ApiClientUsersTests.swift */,
+				C134296421A694F300F4EA42 /* ApiClientWorkTimesTests.swift */,
 				C13B2D40240E864C00FA4441 /* EndpointsTests.swift */,
 				C1ECF0A92192CC25006038C6 /* RequestEncoderTests.swift */,
 				C1ECF0A62192C409006038C6 /* Extensions */,
@@ -1794,7 +1796,6 @@
 		C1B8FA46218C95D3009D10B4 /* Session */ = {
 			isa = PBXGroup;
 			children = (
-				C134295F21A6937E00F4EA42 /* ApiClientSessionTests.swift */,
 				C1B8FA48218C963A009D10B4 /* LoginCredentialsTests.swift */,
 				C1B8FA4A218C964C009D10B4 /* SessionDecoderTests.swift */,
 			);
@@ -1804,7 +1805,6 @@
 		C1B8FA47218C9617009D10B4 /* Session */ = {
 			isa = PBXGroup;
 			children = (
-				C134295D21A6934C00F4EA42 /* ApiClient+Session.swift */,
 				C1B8FA40218C91F3009D10B4 /* LoginCredentials.swift */,
 				C1B8FA43218C929F009D10B4 /* SessionDecoder.swift */,
 			);
