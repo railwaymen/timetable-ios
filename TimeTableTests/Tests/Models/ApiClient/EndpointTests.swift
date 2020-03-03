@@ -1,5 +1,5 @@
 //
-//  EndpointsTests.swift
+//  EndpointTests.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 03/03/2020.
@@ -9,55 +9,55 @@
 import XCTest
 @testable import TimeTable
 
-class EndpointsTests: XCTestCase {}
+class EndpointTests: XCTestCase {}
 
 // MARK: - value: String
-extension EndpointsTests {
+extension EndpointTests {
     func testValue_matchingFullTime() {
         //Act
-        let value = Endpoints.matchingFullTime.value
+        let value = Endpoint.matchingFullTime.value
         //Assert
         XCTAssertEqual(value, "/accounting_periods/matching_fulltime")
     }
     
     func testValue_projects() {
         //Act
-        let value = Endpoints.projects.value
+        let value = Endpoint.projects.value
         //Assert
         XCTAssertEqual(value, "/projects")
     }
     
     func testValue_projectsSimpleList() {
         //Act
-        let value = Endpoints.projectsSimpleList.value
+        let value = Endpoint.projectsSimpleList.value
         //Assert
         XCTAssertEqual(value, "/projects/simple")
     }
     
     func testValue_signIn() {
         //Act
-        let value = Endpoints.signIn.value
+        let value = Endpoint.signIn.value
         //Assert
         XCTAssertEqual(value, "/users/sign_in")
     }
     
     func testValue_workTime() {
         //Act
-        let value = Endpoints.workTime(1).value
+        let value = Endpoint.workTime(1).value
         //Assert
         XCTAssertEqual(value, "/work_times/1")
     }
     
     func testValue_workTimes() {
         //Act
-        let value = Endpoints.workTimes.value
+        let value = Endpoint.workTimes.value
         //Assert
         XCTAssertEqual(value, "/work_times")
     }
     
     func testValue_user() {
         //Act
-        let value = Endpoints.user(12).value
+        let value = Endpoint.user(12).value
         //Assert
         XCTAssertEqual(value, "/users/12")
     }

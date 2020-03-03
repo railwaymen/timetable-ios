@@ -1,5 +1,5 @@
 //
-//  Endpoints.swift
+//  Endpoint.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 06/11/2018.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Endpoints {
+enum Endpoint {
     case matchingFullTime
     case projects
     case projectsSimpleList
