@@ -1,5 +1,5 @@
 //
-//  WorkTimesContentProviderTests.swift
+//  WorkTimesListContentProviderTests.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 04/02/2019.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import TimeTable
 
-class WorkTimesContentProviderTests: XCTestCase {
+class WorkTimesListContentProviderTests: XCTestCase {
     private var apiClientMock: ApiClientMock!
     private var accessServiceMock: AccessServiceMock!
     private var calendarMock: CalendarMock!
@@ -25,7 +25,10 @@ class WorkTimesContentProviderTests: XCTestCase {
         self.dispatchGroupFactoryMock.createDispatchGroupReturnValue = self.dispatchGroupMock
         super.setUp()
     }
-    
+}
+
+// MARK: - fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder), Error>) -> Void)
+extension WorkTimesListContentProviderTests {
     func testFetchWorkTimeDataMakesRequest() {
         //Arrange
         let sut = self.buildSUT()
@@ -185,7 +188,10 @@ class WorkTimesContentProviderTests: XCTestCase {
         XCTAssertEqual(expectedResponse?.0.count, 1)
         XCTAssertEqual(try XCTUnwrap(expectedResponse?.1), matchingFullTime)
     }
-    
+}
+
+// MARK: - delete(workTime: WorkTimeDecoder, completion: @escaping (Result<Void, Error>) -> Void)
+extension WorkTimesListContentProviderTests {
     func testDelete() throws {
         //Arrange
         let sut = self.buildSUT()
@@ -207,7 +213,7 @@ class WorkTimesContentProviderTests: XCTestCase {
 }
 
 // MARK: - Private
-extension WorkTimesContentProviderTests {
+extension WorkTimesListContentProviderTests {
     private func buildSUT() -> WorkTimesListContentProvider {
         return WorkTimesListContentProvider(
             apiClient: self.apiClientMock,

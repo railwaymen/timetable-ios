@@ -26,7 +26,10 @@ class ProfileViewModelTests: XCTestCase {
         self.coreDataStackMock = CoreDataStackMock()
         self.errorHandlerMock = ErrorHandlerMock()
     }
-    
+}
+
+// MARK: - viewDidLoad()
+extension ProfileViewModelTests {
     func testViewDidLoadCallsSetUpViewOnTheUserInterface() {
         //Arrange
         let sut = self.buildSUT()
@@ -93,7 +96,10 @@ class ProfileViewModelTests: XCTestCase {
         XCTAssertEqual(self.userInterfaceMock.updateParams.last?.email, "john.little@example.com")
         XCTAssertEqual(self.userInterfaceMock.showScrollViewParams.count, 1)
     }
-    
+}
+
+// MARK: - viewRequestedForLogout()
+extension ProfileViewModelTests {
     func testViewRequestedForLogoutReturnsWhileUserIdentifierIsNil() {
         //Arrange
         let sut = self.buildSUT()

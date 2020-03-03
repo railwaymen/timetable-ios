@@ -18,7 +18,10 @@ class WorkTimeTableViewCellModelTests: XCTestCase {
         self.userInterface = WorkTimeCellViewMock()
         self.parent = WorkTimeCellViewModelParentMock()
     }
-    
+}
+
+// MARK: - viewConfigured
+extension WorkTimeTableViewCellModelTests {
     func testViewConfiguredCallsUpdateView() throws {
         //Arrange
         let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
@@ -34,7 +37,10 @@ class WorkTimeTableViewCellModelTests: XCTestCase {
         XCTAssertEqual(self.userInterface.updateViewParams.last?.data.taskUrlText, "task1")
         XCTAssertEqual(self.userInterface.updateViewParams.last?.data.fromToDateText, "3:00 PM - 4:00 PM")
     }
-    
+}
+
+// MARK: - prepareForReuse()
+extension WorkTimeTableViewCellModelTests {
     func testPrepareForReuseCallsUpdateView() throws {
         //Arrange
         let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
@@ -50,7 +56,10 @@ class WorkTimeTableViewCellModelTests: XCTestCase {
         XCTAssertEqual(self.userInterface.updateViewParams.last?.data.taskUrlText, "task2")
         XCTAssertEqual(self.userInterface.updateViewParams.last?.data.fromToDateText, "12:00 PM - 2:00 PM")
     }
-    
+}
+ 
+// MARK: - taskButtonTapped()
+extension WorkTimeTableViewCellModelTests {
     func testTaskButtonTappedWithValidURLCallsParentOpenTask() throws {
         //Arrange
         let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)

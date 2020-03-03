@@ -18,7 +18,10 @@ class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
         self.userInterface = WorkTimesTableViewHeaderViewMock()
         self.calendar = CalendarMock()
     }
-    
+}
+
+// MARK: - viewConfigured()
+extension WorkTimesTableViewHeaderViewModelTests {
     func testViewConfiguredWithTodayDate() throws {
         //Arrange
         let date = try self.buildDate(year: 2018, month: 11, day: 21)

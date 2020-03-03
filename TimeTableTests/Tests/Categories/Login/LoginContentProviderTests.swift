@@ -28,7 +28,10 @@ class LoginContentProviderTests: XCTestCase {
             XCTFail()
         }
     }
-    
+}
+
+// MARK: - login(with credentials:_, fetchCompletion:_, saveCompletion:_)
+extension LoginContentProviderTests {
     func testLoginApiClientReturnsAnError() {
         //Arrange
         var expectedError: Error?

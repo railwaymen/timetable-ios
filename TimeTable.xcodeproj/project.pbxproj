@@ -113,7 +113,7 @@
 		C11D0CFF2208241C00066CA9 /* matchingFullTimeMissingPeriodKey.json in Resources */ = {isa = PBXBuildFile; fileRef = C11D0CFE2208241C00066CA9 /* matchingFullTimeMissingPeriodKey.json */; };
 		C11D0D012208243C00066CA9 /* matchingFullTimeMissingShouldWorkedKey.json in Resources */ = {isa = PBXBuildFile; fileRef = C11D0D002208243C00066CA9 /* matchingFullTimeMissingShouldWorkedKey.json */; };
 		C11D0D032208244E00066CA9 /* matchingFullTimeNullShouldWorked.json in Resources */ = {isa = PBXBuildFile; fileRef = C11D0D022208244E00066CA9 /* matchingFullTimeNullShouldWorked.json */; };
-		C11D0D0522082A4400066CA9 /* WorkTimesContentProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11D0D0422082A4400066CA9 /* WorkTimesContentProviderTests.swift */; };
+		C11D0D0522082A4400066CA9 /* WorkTimesListContentProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11D0D0422082A4400066CA9 /* WorkTimesListContentProviderTests.swift */; };
 		C11F51F121A59DF300FD626A /* workTimeResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C11F51F021A59DF300FD626A /* workTimeResponse.json */; };
 		C11F51F321A5AB9C00FD626A /* workTimeInvalidDateFormatResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C11F51F221A5AB9C00FD626A /* workTimeInvalidDateFormatResponse.json */; };
 		C11F51F521A5AC5800FD626A /* DateFormatterExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11F51F421A5AC5800FD626A /* DateFormatterExtensionTests.swift */; };
@@ -482,7 +482,7 @@
 		C11D0CFE2208241C00066CA9 /* matchingFullTimeMissingPeriodKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = matchingFullTimeMissingPeriodKey.json; sourceTree = "<group>"; };
 		C11D0D002208243C00066CA9 /* matchingFullTimeMissingShouldWorkedKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = matchingFullTimeMissingShouldWorkedKey.json; sourceTree = "<group>"; };
 		C11D0D022208244E00066CA9 /* matchingFullTimeNullShouldWorked.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = matchingFullTimeNullShouldWorked.json; sourceTree = "<group>"; };
-		C11D0D0422082A4400066CA9 /* WorkTimesContentProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesContentProviderTests.swift; sourceTree = "<group>"; };
+		C11D0D0422082A4400066CA9 /* WorkTimesListContentProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListContentProviderTests.swift; sourceTree = "<group>"; };
 		C11F51F021A59DF300FD626A /* workTimeResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimeResponse.json; sourceTree = "<group>"; };
 		C11F51F221A5AB9C00FD626A /* workTimeInvalidDateFormatResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimeInvalidDateFormatResponse.json; sourceTree = "<group>"; };
 		C11F51F421A5AC5800FD626A /* DateFormatterExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterExtensionTests.swift; sourceTree = "<group>"; };
@@ -1841,7 +1841,7 @@
 		C1E1F04521AD36A0007F9228 /* WorkTimes */ = {
 			isa = PBXGroup;
 			children = (
-				C11D0D0422082A4400066CA9 /* WorkTimesContentProviderTests.swift */,
+				C11D0D0422082A4400066CA9 /* WorkTimesListContentProviderTests.swift */,
 				C1E1F04621AD36B3007F9228 /* WorkTimesListViewModelTests.swift */,
 				C19706E021C132B8007AFED4 /* TableViewCellViewModel */,
 				C1E1F05221AD5FB9007F9228 /* TableViewHeader */,
@@ -2482,7 +2482,7 @@
 				C134297921A6C21900F4EA42 /* NetworkingMock.swift in Sources */,
 				8A5D48C42369E20E0082C13D /* DispatchGroupFactoryMock.swift in Sources */,
 				C17EA3BA2189E9BA00A3F0CD /* ApiClientErrorTests.swift in Sources */,
-				C11D0D0522082A4400066CA9 /* WorkTimesContentProviderTests.swift in Sources */,
+				C11D0D0522082A4400066CA9 /* WorkTimesListContentProviderTests.swift in Sources */,
 				8A065B51237AB9340072A21E /* ApiValidationJSONResource.swift in Sources */,
 				C134298321A6C73000F4EA42 /* URLSessionDataTaskMock.swift in Sources */,
 				8A0707FC23699BE50019FB8E /* NotificationCenterMock.swift in Sources */,

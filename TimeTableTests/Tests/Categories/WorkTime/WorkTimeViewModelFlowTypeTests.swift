@@ -13,7 +13,7 @@ class WorkTimeViewModelFlowTypeTests: XCTestCase {
     typealias SUT = WorkTimeViewModel.FlowType
 }
 
-// MARK: - viewTitle
+// MARK: - viewTitle: String
 extension WorkTimeViewModelFlowTypeTests {
     func testViewTitle_newEntry() {
         //Arrange

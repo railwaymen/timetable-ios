@@ -22,7 +22,10 @@ class ProjectPickerViewModelTests: XCTestCase {
         self.coordinatorMock = ProjectPickerCoordinatorMock()
         self.dependencyContainerMock = DependencyContainerMock()
     }
-    
+}
+
+// MARK: - loadView()
+extension ProjectPickerViewModelTests {
     func testLoadViewSetsUpView() {
         //Arrange
         let sut = self.buildSUT()
@@ -31,7 +34,10 @@ class ProjectPickerViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setUpParams.count, 1)
     }
-        
+}
+
+// MARK: - numberOfRows(in section: Int) -> Int
+extension ProjectPickerViewModelTests {
     func testNumberOfRowsInZeroSection() throws {
         //Arrange
         let projects = [try self.projectDecoderFactory.build()]
@@ -69,7 +75,10 @@ class ProjectPickerViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(numberOfRows, 0)
     }
-    
+}
+
+// MARK: - configure(cell: ProjectPickerCellable, for indexPath: IndexPath)
+extension ProjectPickerViewModelTests {
     func testConfigureCellConfiguresCell() throws {
         //Arrange
         let cellMock = ProjectPickerCellMock()
@@ -90,7 +99,10 @@ class ProjectPickerViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(cellMock.configureParams.count, 0)
     }
-    
+}
+
+// MARK: - updateSearchResults(for text: String)
+extension ProjectPickerViewModelTests {
     func testUpdateSearchResultsReloadsData() {
         //Arrange
         let sut = self.buildSUT()
@@ -125,7 +137,10 @@ class ProjectPickerViewModelTests: XCTestCase {
         //Assert
         XCTAssertEqual(sut.numberOfRows(in: 0), 1)
     }
-    
+}
+
+// MARK: - cellDidSelect(at indexPath: IndexPath)
+extension ProjectPickerViewModelTests {
     func testCellDidSelectWithoutProjectsCallsFinishWithoutProject() {
         //Arrange
         let sut = self.buildSUT()
@@ -163,7 +178,10 @@ class ProjectPickerViewModelTests: XCTestCase {
         XCTAssertEqual(self.coordinatorMock.finishFlowParams.count, 1)
         XCTAssertNil(self.coordinatorMock.finishFlowParams.last?.project)
     }
-    
+}
+
+// MARK: - closeButtonTapped()
+extension ProjectPickerViewModelTests {
     func testCloseButtonTappedFinishesFlow() {
         //Arrange
         let sut = self.buildSUT()

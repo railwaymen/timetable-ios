@@ -16,7 +16,10 @@ class TagCollectionViewCellModelTests: XCTestCase {
         super.setUp()
         self.userInterfaceMock = TagCollectionViewCellMock()
     }
-    
+}
+
+// MARK: - configure()
+extension TagCollectionViewCellModelTests {
     func testConfigure() {
         //Arrange
         let tag = ProjectTag.internalMeeting

@@ -18,7 +18,10 @@ class ProjectPickerCellModelTests: XCTestCase {
         super.setUp()
         self.userInterfaceMock = ProjectPickerCellMock()
     }
-    
+}
+
+// MARK: - viewDidConfigure()
+extension ProjectPickerCellModelTests {
     func testViewDidConfigureSetsUpView() throws {
         //Arrange
         let project = try self.projectDecoderFactory.build()
