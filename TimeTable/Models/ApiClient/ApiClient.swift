@@ -45,7 +45,7 @@ class ApiClient {
     }
     
     // MARK: - Internal
-    func post<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Swift.Result<D, Error>) -> Void)) {
+    func post<E: Encodable, D: Decodable>(_ endpoint: Endpoint, parameters: E?, completion: @escaping ((Swift.Result<D, Error>) -> Void)) {
         do {
             let parameters = try self.encoder.encodeToDictionary(wrapper: parameters)
             _ = self.networking.post(endpoint.value, parameters: parameters) { [weak self] response in
@@ -56,7 +56,7 @@ class ApiClient {
         }
     }
     
-    func post<E: Encodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Swift.Result<Void, Error>) -> Void)) {
+    func post<E: Encodable>(_ endpoint: Endpoint, parameters: E?, completion: @escaping ((Swift.Result<Void, Error>) -> Void)) {
         do {
             let parameters = try self.encoder.encodeToDictionary(wrapper: parameters)
             _ = self.networking.post(endpoint.value, parameters: parameters) { response in
@@ -72,13 +72,13 @@ class ApiClient {
         }
     }
     
-    func get<D: Decodable>(_ endpoint: Endpoints, completion: @escaping ((Swift.Result<D, Error>) -> Void)) {
+    func get<D: Decodable>(_ endpoint: Endpoint, completion: @escaping ((Swift.Result<D, Error>) -> Void)) {
         self.networking.get(endpoint.value, parameters: nil, cachingLevel: .none) { [weak self] response in
             self?.handle(response: response, completion: completion)
         }
     }
     
-    func get<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Swift.Result<D, Error>) -> Void)) {
+    func get<E: Encodable, D: Decodable>(_ endpoint: Endpoint, parameters: E?, completion: @escaping ((Swift.Result<D, Error>) -> Void)) {
         do {
             let parameters = try self.encoder.encodeToDictionary(wrapper: parameters)
             self.networking.get(endpoint.value, parameters: parameters, cachingLevel: .none) { [weak self] response in
@@ -89,11 +89,11 @@ class ApiClient {
         }
     }
     
-    func delete(_ endpoint: Endpoints, completion: @escaping ((Swift.Result<Void, Error>) -> Void)) {
+    func delete(_ endpoint: Endpoint, completion: @escaping ((Swift.Result<Void, Error>) -> Void)) {
         self.networking.delete(endpoint.value, completion: completion)
     }
     
-    func put<E: Encodable, D: Decodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Swift.Result<D, Error>) -> Void)) {
+    func put<E: Encodable, D: Decodable>(_ endpoint: Endpoint, parameters: E?, completion: @escaping ((Swift.Result<D, Error>) -> Void)) {
         do {
             let parameters = try self.encoder.encodeToDictionary(wrapper: parameters)
             _ = self.networking.put(endpoint.value, parameters: parameters) { [weak self] response in
@@ -104,7 +104,7 @@ class ApiClient {
         }
     }
     
-    func put<E: Encodable>(_ endpoint: Endpoints, parameters: E?, completion: @escaping ((Swift.Result<Void, Error>) -> Void)) {
+    func put<E: Encodable>(_ endpoint: Endpoint, parameters: E?, completion: @escaping ((Swift.Result<Void, Error>) -> Void)) {
         do {
             let parameters = try self.encoder.encodeToDictionary(wrapper: parameters)
             _ = self.networking.put(endpoint.value, parameters: parameters) { response in

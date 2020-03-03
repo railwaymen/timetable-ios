@@ -14,6 +14,6 @@ protocol ApiClientSessionType: class {
 
 extension ApiClient: ApiClientSessionType {
     func signIn(with credentials: LoginCredentials, completion: @escaping ((Result<SessionDecoder, Error>) -> Void)) {
-        self.post(Endpoints.signIn, parameters: credentials, completion: completion)
+        self.post(Endpoint.signIn, parameters: credentials, completion: completion)
     }
 }

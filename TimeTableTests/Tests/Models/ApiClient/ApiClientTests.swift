@@ -32,7 +32,7 @@ extension ApiClientTests {
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
-        sut.post(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
+        sut.post(Endpoint.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -53,7 +53,7 @@ extension ApiClientTests {
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
         let sut = self.buildSUT()
         //Act
-        sut.post(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
+        sut.post(Endpoint.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -73,7 +73,7 @@ extension ApiClientTests {
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sut = self.buildSUT()
         //Act
-        sut.post(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
+        sut.post(Endpoint.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success(let decoder):
                 expectedDecoder = decoder
@@ -100,7 +100,7 @@ extension ApiClientTests {
         let data = try JSONSerialization.data(withJSONObject: ["test": "test"], options: .prettyPrinted)
         let sut = self.buildSUT()
         //Act
-        sut.post(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
+        sut.post(Endpoint.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success:
                 XCTFail()
@@ -137,7 +137,7 @@ extension ApiClientTests {
             endsAt: endsAt)
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
-        sut.post(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
+        sut.post(Endpoint.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -168,7 +168,7 @@ extension ApiClientTests {
             startsAt: startsAt,
             endsAt: endsAt)
         //Act
-        sut.post(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
+        sut.post(Endpoint.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -197,7 +197,7 @@ extension ApiClientTests {
             startsAt: startsAt,
             endsAt: endsAt)
         //Act
-        sut.post(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
+        sut.post(Endpoint.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
             case .success:
                 successCalled = true
@@ -220,7 +220,7 @@ extension ApiClientTests {
         let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
-        sut.get(Endpoints.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
+        sut.get(Endpoint.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -241,7 +241,7 @@ extension ApiClientTests {
         let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
         let sut = self.buildSUT()
         //Act
-        sut.get(Endpoints.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
+        sut.get(Endpoint.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -262,7 +262,7 @@ extension ApiClientTests {
         let decoders = try self.decoder.decode([WorkTimeDecoder].self, from: data)
         let sut = self.buildSUT()
         //Act
-        sut.get(Endpoints.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
+        sut.get(Endpoint.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
             switch result {
             case .success(let decoder):
                 expectedDecoder = decoder
@@ -284,7 +284,7 @@ extension ApiClientTests {
         let data = try JSONSerialization.data(withJSONObject: ["test": "test"], options: .prettyPrinted)
         let sut = self.buildSUT()
         //Act
-        sut.get(Endpoints.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
+        sut.get(Endpoint.workTimes, parameters: parameters) { (result: Result<[WorkTimeDecoder], Error>) in
             switch result {
             case .success:
                 XCTFail()
@@ -311,7 +311,7 @@ extension ApiClientTests {
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
-        sut.put(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
+        sut.put(Endpoint.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success: XCTFail()
             case .failure(let error):
@@ -332,7 +332,7 @@ extension ApiClientTests {
         let parameters = LoginCredentials(email: "user1@example.com", password: "password")
         let sut = self.buildSUT()
         //Act
-        sut.put(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
+        sut.put(Endpoint.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success:
                 XCTFail()
@@ -353,7 +353,7 @@ extension ApiClientTests {
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sut = self.buildSUT()
         //Act
-        sut.put(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
+        sut.put(Endpoint.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success(let decoder):
                 expectedDecoder = decoder
@@ -380,7 +380,7 @@ extension ApiClientTests {
         let data = try JSONSerialization.data(withJSONObject: ["test": "test"], options: .prettyPrinted)
         let sut = self.buildSUT()
         //Act
-        sut.put(Endpoints.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
+        sut.put(Endpoint.signIn, parameters: parameters) { (result: Result<SessionDecoder, Error>) in
             switch result {
             case .success:
                 XCTFail()
@@ -415,7 +415,7 @@ extension ApiClientTests {
             endsAt: endsAt)
         self.requestEncoderMock.encodeToDictionaryThrowError = TestError(message: "test")
         //Act
-        sut.put(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
+        sut.put(Endpoint.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
             case .success:
                 XCTFail()
@@ -445,7 +445,7 @@ extension ApiClientTests {
             startsAt: startsAt,
             endsAt: endsAt)
         //Act
-        sut.put(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
+        sut.put(Endpoint.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
             case .success:
                 XCTFail()
@@ -475,7 +475,7 @@ extension ApiClientTests {
             startsAt: startsAt,
             endsAt: endsAt)
         //Act
-        sut.put(Endpoints.workTimes, parameters: task) { (result: Result<Void, Error>) in
+        sut.put(Endpoint.workTimes, parameters: task) { (result: Result<Void, Error>) in
             switch result {
             case .success:
                 successCalled = true
