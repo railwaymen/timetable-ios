@@ -13,6 +13,7 @@ def universal_pods
   pod 'KeychainAccess', '~> 4.1'
   pod 'Networking', '~> 5.0.1'
   pod 'SwiftLint', '~> 0.39'
+  pod 'Restler', '~> 0.2.1'
 end
 
 

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Networking
+import Restler
 
 protocol APIClientFactoryType: class {
     func buildAPIClient(baseURL: URL) -> ApiClientType
@@ -33,10 +33,9 @@ class APIClientFactory {
 // MARK: - APIClientFactoryType
 extension APIClientFactory: APIClientFactoryType {
     func buildAPIClient(baseURL: URL) -> ApiClientType {
-        let networking = Networking(baseURL: baseURL.absoluteString)
-        return ApiClient(
-            networking: networking,
-            encoder: RequestEncoder(encoder: self.encoder, serialization: self.jsonSerialization),
-            decoder: self.decoder)
+        return ApiClient(restler: Restler(
+            baseURL: baseURL,
+            encoder: self.encoder,
+            decoder: self.decoder))
     }
 }

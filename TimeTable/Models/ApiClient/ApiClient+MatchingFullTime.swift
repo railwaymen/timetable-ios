@@ -14,6 +14,12 @@ protocol ApiClientMatchingFullTimeType: class {
 
 extension ApiClient: ApiClientMatchingFullTimeType {
     func fetchMatchingFullTime(parameters: MatchingFullTimeEncoder, completion: @escaping ((Result<MatchingFullTimeDecoder, Error>) -> Void)) {
-        self.get(.matchingFullTime, parameters: parameters, completion: completion)
+        _ = self.restler
+            .get(Endpoint.matchingFullTime)
+            .query(parameters)
+            .failureDecode(ApiClientError.self)
+            .decode(MatchingFullTimeDecoder.self)
+            .onCompletion(completion)
+            .start()
     }
 }

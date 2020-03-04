@@ -11,8 +11,8 @@ import Foundation
 struct MatchingFullTimeEncoder {
     static var dateFormatter: DateFormatter = DateFormatter(type: .simple)
     
-    let date: Date?
-    let userId: Int64?
+    let date: Date
+    let userId: Int64
 }
 
 // MARK: - Encodable
@@ -24,24 +24,8 @@ extension MatchingFullTimeEncoder: Encodable {
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        
-        guard let date = self.date else {
-            throw EncodingError.invalidValue(
-                MatchingFullTimeEncoder.self,
-                EncodingError.Context(
-                    codingPath: [CodingKeys.date],
-                    debugDescription: "date"))
-        }
-        
-        let dateString =  MatchingFullTimeEncoder.dateFormatter.string(from: date)
+        let dateString = MatchingFullTimeEncoder.dateFormatter.string(from: self.date)
         try container.encode(dateString, forKey: .date)
-        guard let identifier = self.userId else {
-            throw EncodingError.invalidValue(
-                MatchingFullTimeEncoder.self,
-                EncodingError.Context(
-                    codingPath: [CodingKeys.userId],
-                    debugDescription: "user_id"))
-        }
-        try container.encode(identifier, forKey: .userId)
+        try container.encode(self.userId, forKey: .userId)
     }
 }

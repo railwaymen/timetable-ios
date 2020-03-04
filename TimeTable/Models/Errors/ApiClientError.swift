@@ -8,8 +8,9 @@
 
 import Foundation
 import Networking
+import Restler
 
-struct ApiClientError: Error {
+struct ApiClientError: Error, RestlerErrorDecodable {
     private static var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
@@ -44,6 +45,29 @@ struct ApiClientError: Error {
             self.type = .validationErrors(validationErrors)
         } else if let serverError = try? ApiClientError.decoder.decode(ServerError.self, from: data) {
             self.type = .serverError(serverError)
+        } else {
+            return nil
+        }
+    }
+    
+    init?(response: Restler.Response) {
+        if let data = response.data, let validationErrors = try? ApiClientError.decoder.decode(ApiValidationErrors.self, from: data) {
+            self.type = .validationErrors(validationErrors)
+        } else if let data = response.data, let serverError = try? ApiClientError.decoder.decode(ServerError.self, from: data) {
+            self.type = .serverError(serverError)
+        } else if let code = response.response?.statusCode {
+            switch code {
+            case NSURLErrorNotConnectedToInternet, NSURLErrorNetworkConnectionLost:
+                self.type = .noConnection
+            case NSURLErrorTimedOut:
+                self.type = .timeout
+            case NSURLErrorCannotParseResponse, NSURLErrorBadServerResponse:
+                self.type = .invalidResponse
+            case 422:
+                self.type = .validationErrors(nil)
+            default:
+                return nil
+            }
         } else {
             return nil
         }

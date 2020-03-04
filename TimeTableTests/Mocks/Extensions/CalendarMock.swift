@@ -11,7 +11,7 @@ import Foundation
 
 // swiftlint:disable function_parameter_count
 class CalendarMock {
-    var dateComponentsReturnValue: DateComponents!
+    var dateComponentsReturnValue: DateComponents?
     private(set) var dateComponentsParams: [DateComponentsParams] = []
     struct DateComponentsParams {
         var components: Set<Calendar.Component>
@@ -78,7 +78,7 @@ class CalendarMock {
 extension CalendarMock: CalendarType {
     func dateComponents(_ components: Set<Calendar.Component>, from date: Date) -> DateComponents {
         self.dateComponentsParams.append(DateComponentsParams(components: components, date: date))
-        return self.dateComponentsReturnValue
+        return self.dateComponentsReturnValue ?? Calendar(identifier: .iso8601).dateComponents(components, from: date)
     }
     
     func date(from components: DateComponents) -> Date? {

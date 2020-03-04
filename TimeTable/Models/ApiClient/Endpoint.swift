@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import Restler
 
-enum Endpoint {
+enum Endpoint: RestlerEndpointable {
     case matchingFullTime
     case projects
     case projectsSimpleList
@@ -27,5 +28,9 @@ enum Endpoint {
         case .workTimes: return "/work_times"
         case .user(let identifier): return "/users/\(identifier)"
         }
+    }
+    
+    var stringValue: String {
+        self.value
     }
 }
