@@ -17,7 +17,6 @@ extension ApiClient: ApiClientProjectsType {
     func fetchAllProjects(completion: @escaping ((Result<[ProjectRecordDecoder], Error>) -> Void)) {
         _ = self.restler
             .get(Endpoint.projects)
-            .failureDecode(ApiClientError.self)
             .decode([ProjectRecordDecoder].self)
             .onCompletion(completion)
             .start()
@@ -26,7 +25,6 @@ extension ApiClient: ApiClientProjectsType {
     func fetchSimpleListOfProjects(completion: @escaping ((Result<SimpleProjectDecoder, Error>) -> Void)) {
         _ = self.restler
             .get(Endpoint.projectsSimpleList)
-            .failureDecode(ApiClientError.self)
             .decode(SimpleProjectDecoder.self)
             .onCompletion(completion)
             .start()

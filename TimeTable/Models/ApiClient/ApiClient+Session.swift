@@ -17,7 +17,6 @@ extension ApiClient: ApiClientSessionType {
         _ = self.restler
             .post(Endpoint.signIn)
             .body(credentials)
-            .failureDecode(ApiClientError.self)
             .decode(SessionDecoder.self)
             .onCompletion(completion)
             .start()

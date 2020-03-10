@@ -20,7 +20,6 @@ extension ApiClient: ApiClientWorkTimesType {
         _ = self.restler
             .get(Endpoint.workTimes)
             .query(parameters)
-            .failureDecode(ApiClientError.self)
             .decode([WorkTimeDecoder].self)
             .onCompletion(completion)
             .start()
@@ -30,7 +29,6 @@ extension ApiClient: ApiClientWorkTimesType {
         _ = self.restler
             .post(Endpoint.workTimes)
             .body(parameters)
-            .failureDecode(ApiClientError.self)
             .decode(Void.self)
             .onCompletion(completion)
             .start()
@@ -39,7 +37,6 @@ extension ApiClient: ApiClientWorkTimesType {
     func deleteWorkTime(identifier: Int64, completion: @escaping ((Result<Void, Error>) -> Void)) {
         _ = self.restler
             .delete(Endpoint.workTime(identifier))
-            .failureDecode(ApiClientError.self)
             .decode(Void.self)
             .onCompletion(completion)
             .start()
@@ -49,7 +46,6 @@ extension ApiClient: ApiClientWorkTimesType {
         _ = self.restler
             .put(Endpoint.workTime(identifier))
             .body(parameters)
-            .failureDecode(ApiClientError.self)
             .decode(Void.self)
             .onCompletion(completion)
             .start()

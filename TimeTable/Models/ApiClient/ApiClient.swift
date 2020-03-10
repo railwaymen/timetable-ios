@@ -34,6 +34,8 @@ class ApiClient {
         self.restler = restler
         
         self.restler.header[.contentType] = "application/json"
+        self.restler.errorParser.decode(ApiClientError.self)
+        
         HTTPCookieStorage.shared.cookieAcceptPolicy = .never
     }
 }

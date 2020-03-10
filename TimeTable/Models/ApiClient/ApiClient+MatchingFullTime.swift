@@ -17,7 +17,6 @@ extension ApiClient: ApiClientMatchingFullTimeType {
         _ = self.restler
             .get(Endpoint.matchingFullTime)
             .query(parameters)
-            .failureDecode(ApiClientError.self)
             .decode(MatchingFullTimeDecoder.self)
             .onCompletion(completion)
             .start()

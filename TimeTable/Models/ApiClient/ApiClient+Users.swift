@@ -16,7 +16,6 @@ extension ApiClient: ApiClientUsersType {
     func fetchUserProfile(forIdetifier identifier: Int64, completion: @escaping ((Result<UserDecoder, Error>) -> Void)) {
         _ = self.restler
             .get(Endpoint.user(identifier))
-            .failureDecode(ApiClientError.self)
             .decode(UserDecoder.self)
             .onCompletion(completion)
             .start()
