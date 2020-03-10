@@ -54,4 +54,5 @@ extension ProjectRecordDecoder {
 }
 
 // MARK: - Equatable
+extension ProjectRecordDecoder: Equatable {}
 extension ProjectRecordDecoder.User: Equatable {}

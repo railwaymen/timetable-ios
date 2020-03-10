@@ -19,53 +19,40 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
 }
 
 // MARK: - fetchMatchingFullTime(parameters: MatchingFullTimeEncoder, completion: @escaping ((Result<MatchingFullTimeDecoder, Error>) -> Void))
-//extension ApiClientMatchingFullTimeTests {
-//    func testFetchMatchingFullTimeSucceed() throws {
-//        //Arrange
-//        let sut = self.buildSUT()
-//        let data = try self.json(from: MatchingFullTimeJSONResource.matchingFullTimeFullResponse)
-//        var matchingFullTimeDecoder: MatchingFullTimeDecoder?
-//        let date = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-//        let matchingFullTime = MatchingFullTimeEncoder(date: date, userId: 1)
-//        //Act
-//        sut.fetchMatchingFullTime(parameters: matchingFullTime) { result in
-//            switch result {
-//            case .success(let decoder):
-//                matchingFullTimeDecoder = decoder
-//            case .failure:
-//                XCTFail()
-//            }
-//        }
-//        self.networkingMock.getParams.last?.completion(.success(data))
-//        //Assert
-//        XCTAssertEqual(matchingFullTimeDecoder?.period?.identifier, 1383)
-//        XCTAssertEqual(matchingFullTimeDecoder?.period?.countedDuration, TimeInterval(620100))
-//        XCTAssertEqual(matchingFullTimeDecoder?.period?.duration, TimeInterval(633600))
-//        XCTAssertEqual(matchingFullTimeDecoder?.shouldWorked, TimeInterval(633600))
-//    }
-//    
-//    func testFetchMatchingFullTimeFailed() throws {
-//        //Arrange
-//        let sut = self.buildSUT()
-//        let error = TestError(message: "fetch matching full time failed")
-//        var expectedError: Error?
-//        let date = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-//        let matchingFullTime = MatchingFullTimeEncoder(date: date, userId: 1)
-//        //Act
-//        sut.fetchMatchingFullTime(parameters: matchingFullTime) { result in
-//            switch result {
-//            case .success:
-//                XCTFail()
-//            case .failure(let error):
-//                expectedError = error
-//            }
-//        }
-//        self.networkingMock.getParams.last?.completion(.failure(error))
-//        //Assert
-//        let testError = try XCTUnwrap(expectedError as? TestError)
-//        XCTAssertEqual(testError, error)
-//    }
-//}
+extension ApiClientMatchingFullTimeTests {
+    func testFetchMatchingFullTimeSucceed() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let data = try self.json(from: MatchingFullTimeJSONResource.matchingFullTimeFullResponse)
+        let decoder = try self.decoder.decode(MatchingFullTimeDecoder.self, from: data)
+        let date = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
+        let matchingFullTime = MatchingFullTimeEncoder(date: date, userId: 1)
+        var completionResult: Result<MatchingFullTimeDecoder, Error>?
+        //Act
+        sut.fetchMatchingFullTime(parameters: matchingFullTime) { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.restler.getReturnValue.getDecodeReturnedMock()?.onCompletionParams.last).handler(.success(decoder))
+        //Assert
+        XCTAssertEqual(try XCTUnwrap(completionResult).get(), decoder)
+    }
+    
+    func testFetchMatchingFullTimeFailed() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let error = TestError(message: "fetch matching full time failed")
+        let date = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
+        let matchingFullTime = MatchingFullTimeEncoder(date: date, userId: 1)
+        var completionResult: Result<MatchingFullTimeDecoder, Error>?
+        //Act
+        sut.fetchMatchingFullTime(parameters: matchingFullTime) { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.restler.getReturnValue.getDecodeReturnedMock(type: MatchingFullTimeDecoder.self)?.onCompletionParams.last).handler(.failure(error))
+        //Assert
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
+    }
+}
 
 // MARK: - Private
 extension ApiClientMatchingFullTimeTests {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct SimpleProjectDecoder: Decodable {
+struct SimpleProjectDecoder: Decodable, Equatable {
     let projects: [ProjectDecoder]
     let tags: [ProjectTag]
     

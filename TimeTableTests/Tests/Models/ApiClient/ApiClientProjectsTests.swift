@@ -19,90 +19,68 @@ class ApiClientProjectsTests: XCTestCase {
 }
 
 // MARK: - fetchAllProjects(completion: @escaping ((Result<[ProjectRecordDecoder], Error>) -> Void))
-//extension ApiClientProjectsTests {
-//    func testFetchAllProjectsSucceed() throws {
-//        //Arrange
-//        let sut = self.buildSUT()
-//        let data = try self.json(from: ProjectRecordJSONResource.projectsRecordsResponse)
-//        let decoder = try self.decoder.decode([ProjectRecordDecoder].self, from: data)
-//        var expectedProjectsRecordsDecoder: [ProjectRecordDecoder]?
-//        //Act
-//        sut.fetchAllProjects { result in
-//            switch result {
-//            case .success(let projectsRecordsDecoder):
-//                expectedProjectsRecordsDecoder = projectsRecordsDecoder
-//            case .failure:
-//                XCTFail()
-//            }
-//        }
-//        self.networkingMock.getParams.last?.completion(.success(data))
-//        //Assert
-//        XCTAssertEqual(expectedProjectsRecordsDecoder?.count, decoder.count)
-//    }
-//
-//    func testFetchAllProjectsFailed() throws {
-//        //Arrange
-//        let sut = self.buildSUT()
-//        var expectedError: Error?
-//        let error = TestError(message: "fetch projects failed")
-//        //Act
-//        sut.fetchAllProjects { result in
-//            switch result {
-//            case .success:
-//                XCTFail()
-//            case .failure(let error):
-//                expectedError = error
-//            }
-//        }
-//        self.networkingMock.getParams.last?.completion(.failure(error))
-//        //Assert
-//        let testError = try XCTUnwrap(expectedError as? TestError)
-//        XCTAssertEqual(testError, error)
-//    }
-//}
-//
+extension ApiClientProjectsTests {
+    func testFetchAllProjectsSucceed() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let data = try self.json(from: ProjectRecordJSONResource.projectsRecordsResponse)
+        let decoder = try self.decoder.decode([ProjectRecordDecoder].self, from: data)
+        var completionResult: Result<[ProjectRecordDecoder], Error>?
+        //Act
+        sut.fetchAllProjects { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.restler.getReturnValue.getDecodeReturnedMock()?.onCompletionParams.last).handler(.success(decoder))
+        //Assert
+        XCTAssertEqual(try XCTUnwrap(completionResult).get(), decoder)
+    }
+
+    func testFetchAllProjectsFailed() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let error = TestError(message: "fetch projects failed")
+        var completionResult: Result<[ProjectRecordDecoder], Error>?
+        //Act
+        sut.fetchAllProjects { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.restler.getReturnValue.getDecodeReturnedMock(type: [ProjectRecordDecoder].self)?.onCompletionParams.last).handler(.failure(error))
+        //Assert
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
+    }
+}
+
 // MARK: - fetchSimpleListOfProjects(completion: @escaping ((Result<SimpleProjectDecoder, Error>) -> Void))
-//extension ApiClientProjectsTests {
-//    func testFetchSimpleProjectArrayResponseSucceed() throws {
-//        //Arrange
-//        let sut = self.buildSUT()
-//        let data = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
-//        let decoder = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
-//        var expectedSimpleProjectDecoder: SimpleProjectDecoder?
-//        //Act
-//        sut.fetchSimpleListOfProjects { result in
-//            switch result {
-//            case .success(let simpleProjectDecoder):
-//                expectedSimpleProjectDecoder = simpleProjectDecoder
-//            case .failure:
-//                XCTFail()
-//            }
-//        }
-//        self.networkingMock.getParams.last?.completion(.success(data))
-//        //Assert
-//        XCTAssertEqual(expectedSimpleProjectDecoder?.projects.count, decoder.projects.count)
-//    }
-//
-//    func testFetchSimpleProjectArrayResponseFailed() throws {
-//        //Arrange
-//        let sut = self.buildSUT()
-//        var expectedError: Error?
-//        let error = TestError(message: "fetch projects failed")
-//        //Act
-//        sut.fetchSimpleListOfProjects { result in
-//            switch result {
-//            case .success:
-//                XCTFail()
-//            case .failure(let error):
-//                expectedError = error
-//            }
-//        }
-//        self.networkingMock.getParams.last?.completion(.failure(error))
-//        //Assert
-//        let testError = try XCTUnwrap(expectedError as? TestError)
-//        XCTAssertEqual(testError, error)
-//    }
-//}
+extension ApiClientProjectsTests {
+    func testFetchSimpleProjectArrayResponseSucceed() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let data = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
+        let decoder = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
+        var completionResult: Result<SimpleProjectDecoder, Error>?
+        //Act
+        sut.fetchSimpleListOfProjects { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.restler.getReturnValue.getDecodeReturnedMock()?.onCompletionParams.last).handler(.success(decoder))
+        //Assert
+        XCTAssertEqual(try XCTUnwrap(completionResult).get(), decoder)
+    }
+
+    func testFetchSimpleProjectArrayResponseFailed() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let error = TestError(message: "fetch projects failed")
+        var completionResult: Result<SimpleProjectDecoder, Error>?
+        //Act
+        sut.fetchSimpleListOfProjects { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.restler.getReturnValue.getDecodeReturnedMock(type: SimpleProjectDecoder.self)?.onCompletionParams.last).handler(.failure(error))
+        //Assert
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
+    }
+}
 
 // MARK: - Private
 extension ApiClientProjectsTests {

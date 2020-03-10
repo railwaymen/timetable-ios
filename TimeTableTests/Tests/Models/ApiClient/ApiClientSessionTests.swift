@@ -19,49 +19,38 @@ class ApiClientSessionTests: XCTestCase {
 }
 
 // MARK: - signIn(with credentials: LoginCredentials, completion: @escaping ((Result<SessionDecoder, Error>) -> Void))
-//extension ApiClientSessionTests {
-//    func testSignInSucceed() throws {
-//        //Arrange
-//        let data = try self.json(from: SessionJSONResource.signInResponse)
-//        let decoder = try self.decoder.decode(SessionDecoder.self, from: data)
-//        var expectedSessionDecoder: SessionDecoder?
-//        let parameters = LoginCredentials(email: "user1@example.com", password: "password")
-//        let sut = self.buildSUT()
-//        //Act
-//        sut.signIn(with: parameters) { result in
-//            switch result {
-//            case .success(let sessionDecoder):
-//                expectedSessionDecoder = sessionDecoder
-//            case .failure:
-//                XCTFail()
-//            }
-//        }
-//        self.networkingMock.postParams.last?.completion(.success(data))
-//        //Assert
-//        XCTAssertEqual(try XCTUnwrap(expectedSessionDecoder), decoder)
-//    }
-//    
-//    func testSignInFailed() throws {
-//        //Arrange
-//        var expectedError: Error?
-//        let error = TestError(message: "sign in failed")
-//        let parameters = LoginCredentials(email: "user1@example.com", password: "password")
-//        let sut = self.buildSUT()
-//        //Act
-//        sut.signIn(with: parameters) { result in
-//            switch result {
-//            case .success:
-//                XCTFail()
-//            case .failure(let error):
-//                expectedError = error
-//            }
-//        }
-//        self.networkingMock.postParams.last?.completion(.failure(error))
-//        //Assert
-//        let testError = try XCTUnwrap(expectedError as? TestError)
-//        XCTAssertEqual(testError, error)
-//    }
-//}
+extension ApiClientSessionTests {
+    func testSignInSucceed() throws {
+        //Arrange
+        let data = try self.json(from: SessionJSONResource.signInResponse)
+        let decoder = try self.decoder.decode(SessionDecoder.self, from: data)
+        let parameters = LoginCredentials(email: "user1@example.com", password: "password")
+        let sut = self.buildSUT()
+        var completionResult: Result<SessionDecoder, Error>?
+        //Act
+        sut.signIn(with: parameters) { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.restler.postReturnValue.getDecodeReturnedMock()?.onCompletionParams.last).handler(.success(decoder))
+        //Assert
+        XCTAssertEqual(try XCTUnwrap(completionResult).get(), decoder)
+    }
+    
+    func testSignInFailed() throws {
+        //Arrange
+        let error = TestError(message: "sign in failed")
+        let parameters = LoginCredentials(email: "user1@example.com", password: "password")
+        let sut = self.buildSUT()
+        var completionResult: Result<SessionDecoder, Error>?
+        //Act
+        sut.signIn(with: parameters) { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.restler.postReturnValue.getDecodeReturnedMock(type: SessionDecoder.self)?.onCompletionParams.last).handler(.failure(error))
+        //Assert
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
+    }
+}
 
 // MARK: - Private
 extension ApiClientSessionTests {
