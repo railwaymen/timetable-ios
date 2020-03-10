@@ -82,9 +82,8 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
-  - Networking (5.0.1)
   - PromisesObjC (1.2.8)
-  - Restler (0.2.1)
+  - Restler (0.2.2)
   - SwiftLint (0.39.1)
 
 DEPENDENCIES:
@@ -95,8 +94,7 @@ DEPENDENCIES:
   - Firebase/Crashlytics
   - JSONFactorable (~> 0.2.0)
   - KeychainAccess (~> 4.1)
-  - Networking (~> 5.0.1)
-  - Restler (~> 0.2.1)
+  - Restler (~> 0.2.2)
   - SwiftLint (~> 0.39)
 
 SPEC REPOS:
@@ -117,7 +115,6 @@ SPEC REPOS:
     - GoogleUtilities
     - KeychainAccess
     - nanopb
-    - Networking
     - PromisesObjC
     - SwiftLint
   "ssh://git@git.railwaymen.org:10522/open/rwm_podspec.git":
@@ -144,11 +141,10 @@ SPEC CHECKSUMS:
   JSONFactorable: 45138defec5ba34da52e9bd73956e5be22b774e5
   KeychainAccess: 445e28864fe6d3458b41fa211bcdc39890e8bd5a
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
-  Networking: 0a77e3315c32133e3aefb8dd2bd027ff536fd25d
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
-  Restler: 593fa4623528c0a0cf7f344bcc60996f521f352e
+  Restler: fe47fe0e07499710b576a74c5ed59722d762922c
   SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
 
-PODFILE CHECKSUM: 5df8cb8c41453dc24cc71dcacb874916bd0ebb68
+PODFILE CHECKSUM: ebdddb7193e79ef634496cbacc2f3639157589b4
 
 COCOAPODS: 1.8.4

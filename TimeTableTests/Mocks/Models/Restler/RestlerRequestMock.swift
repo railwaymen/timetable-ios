@@ -30,7 +30,7 @@ class RestlerRequestMock<T>: Restler.Request<T> {
     private(set) var startParams: [StartParams] = []
     struct StartParams {}
     
-    // MARK: - Functions
+    // MARK: - Overridden functions
     override func onSuccess(_ handler: @escaping (T) -> Void) -> Self {
         self.onSuccessParams.append(OnSuccessParams(handler: handler))
         return self

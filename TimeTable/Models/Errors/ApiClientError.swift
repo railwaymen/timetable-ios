@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Networking
 import Restler
 
 struct ApiClientError: Error, RestlerErrorDecodable {
@@ -23,31 +22,6 @@ struct ApiClientError: Error, RestlerErrorDecodable {
     // MARK: - Initialization
     init(type: ErrorType) {
         self.type = type
-    }
-    
-    init?(code: Int) {
-        switch code {
-        case NSURLErrorNotConnectedToInternet, NSURLErrorNetworkConnectionLost:
-            self.type = .noConnection
-        case NSURLErrorTimedOut:
-            self.type = .timeout
-        case NSURLErrorCannotParseResponse, NSURLErrorBadServerResponse:
-            self.type = .invalidResponse
-        case 422:
-            self.type = .validationErrors(nil)
-        default:
-            return nil
-        }
-    }
-    
-    init?(data: Data) {
-        if let validationErrors = try? ApiClientError.decoder.decode(ApiValidationErrors.self, from: data) {
-            self.type = .validationErrors(validationErrors)
-        } else if let serverError = try? ApiClientError.decoder.decode(ServerError.self, from: data) {
-            self.type = .serverError(serverError)
-        } else {
-            return nil
-        }
     }
     
     init?(response: Restler.Response) {
