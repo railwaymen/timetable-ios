@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import Restler
 
-protocol JSONEncoderType: class {
+protocol JSONEncoderType: RestlerJSONEncoderType {
     var dateEncodingStrategy: JSONEncoder.DateEncodingStrategy { get set }
     func encode<T>(_ value: T) throws -> Data where T: Encodable
 }

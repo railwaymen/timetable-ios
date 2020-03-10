@@ -10,15 +10,11 @@ import XCTest
 @testable import TimeTable
 
 class ApiClientMatchingFullTimeTests: XCTestCase {
-    private var networkingMock: NetworkingMock!
-    private var requestEncoderMock: RequestEncoderMock!
-    private var jsonDecoderMock: JSONDecoderMock!
+    private var restler: RestlerMock!
     
     override func setUp() {
         super.setUp()
-        self.networkingMock = NetworkingMock()
-        self.requestEncoderMock = RequestEncoderMock()
-        self.jsonDecoderMock = JSONDecoderMock()
+        self.restler = RestlerMock()
     }
 }
 
@@ -28,55 +24,39 @@ extension ApiClientMatchingFullTimeTests {
         //Arrange
         let sut = self.buildSUT()
         let data = try self.json(from: MatchingFullTimeJSONResource.matchingFullTimeFullResponse)
-        var matchingFullTimeDecoder: MatchingFullTimeDecoder?
+        let decoder = try self.decoder.decode(MatchingFullTimeDecoder.self, from: data)
         let date = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let matchingFullTime = MatchingFullTimeEncoder(date: date, userId: 1)
+        var completionResult: Result<MatchingFullTimeDecoder, Error>?
         //Act
         sut.fetchMatchingFullTime(parameters: matchingFullTime) { result in
-            switch result {
-            case .success(let decoder):
-                matchingFullTimeDecoder = decoder
-            case .failure:
-                XCTFail()
-            }
+            completionResult = result
         }
-        self.networkingMock.getParams.last?.completion(.success(data))
+        try XCTUnwrap(self.restler.getReturnValue.getDecodeReturnedMock()?.onCompletionParams.last).handler(.success(decoder))
         //Assert
-        XCTAssertEqual(matchingFullTimeDecoder?.period?.identifier, 1383)
-        XCTAssertEqual(matchingFullTimeDecoder?.period?.countedDuration, TimeInterval(620100))
-        XCTAssertEqual(matchingFullTimeDecoder?.period?.duration, TimeInterval(633600))
-        XCTAssertEqual(matchingFullTimeDecoder?.shouldWorked, TimeInterval(633600))
+        XCTAssertEqual(try XCTUnwrap(completionResult).get(), decoder)
     }
     
     func testFetchMatchingFullTimeFailed() throws {
         //Arrange
         let sut = self.buildSUT()
         let error = TestError(message: "fetch matching full time failed")
-        var expectedError: Error?
         let date = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
         let matchingFullTime = MatchingFullTimeEncoder(date: date, userId: 1)
+        var completionResult: Result<MatchingFullTimeDecoder, Error>?
         //Act
         sut.fetchMatchingFullTime(parameters: matchingFullTime) { result in
-            switch result {
-            case .success:
-                XCTFail()
-            case .failure(let error):
-                expectedError = error
-            }
+            completionResult = result
         }
-        self.networkingMock.getParams.last?.completion(.failure(error))
+        try XCTUnwrap(self.restler.getReturnValue.getDecodeReturnedMock(type: MatchingFullTimeDecoder.self)?.onCompletionParams.last).handler(.failure(error))
         //Assert
-        let testError = try XCTUnwrap(expectedError as? TestError)
-        XCTAssertEqual(testError, error)
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
     }
 }
 
 // MARK: - Private
 extension ApiClientMatchingFullTimeTests {
     private func buildSUT() -> ApiClientMatchingFullTimeType {
-        return ApiClient(
-            networking: self.networkingMock,
-            encoder: self.requestEncoderMock,
-            decoder: self.jsonDecoderMock)
+        return ApiClient(restler: self.restler)
     }
 }

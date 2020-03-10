@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Restler
 @testable import TimeTable
 
 class ApiClientErrorTests: XCTestCase {
@@ -101,96 +102,5 @@ extension ApiClientErrorTests {
         let localizedString = sut.type.localizedDescription
         //Assert
         XCTAssertEqual(localizedString, "api.error.timeout".localized)
-    }
-}
-
-// MARK: - init?(code: Int)
-extension ApiClientErrorTests {
-    func testInit_codeNSURLErrorNotConnectedToInternet() {
-        //Arrange
-        let code = NSURLErrorNotConnectedToInternet
-        //Act
-        let sut = ApiClientError(code: code)
-        //Assert
-        XCTAssertEqual(sut?.type, .noConnection)
-    }
-    
-    func testInit_codeNSURLErrorNetworkConnectionLost() {
-        //Arrange
-        let code = NSURLErrorNetworkConnectionLost
-        //Act
-        let sut = ApiClientError(code: code)
-        //Assert
-        XCTAssertEqual(sut?.type, .noConnection)
-    }
-    
-    func testInit_codeNSURLErrorTimedOut() {
-        //Arrange
-        let code = NSURLErrorTimedOut
-        //Act
-        let sut = ApiClientError(code: code)
-        //Assert
-        XCTAssertEqual(sut?.type, .timeout)
-    }
-    
-    func testInit_codeNSURLErrorCannotParseResponse() {
-        //Arrange
-        let code = NSURLErrorCannotParseResponse
-        //Act
-        let sut = ApiClientError(code: code)
-        //Assert
-        XCTAssertEqual(sut?.type, .invalidResponse)
-    }
-    
-    func testInit_codeNSURLErrorBadServerResponse() {
-        //Arrange
-        let code = NSURLErrorBadServerResponse
-        //Act
-        let sut = ApiClientError(code: code)
-        //Assert
-        XCTAssertEqual(sut?.type, .invalidResponse)
-    }
-    
-    func testInit_code422() {
-        //Arrange
-        let code = 422
-        //Act
-        let sut = ApiClientError(code: code)
-        //Assert
-        XCTAssertEqual(sut?.type, .validationErrors(nil))
-    }
-    
-    func testInit_codeOutOfRange() {
-        //Arrange
-        let code = 0
-        //Act
-        let sut = ApiClientError(code: code)
-        //Assert
-        XCTAssertNil(sut)
-    }
-}
-
-// MARK: - init?(data: Data)
-extension ApiClientErrorTests {
-    func testInitFromData_typeOfApiValidationErrors() throws {
-        //Arrange
-        let data = try self.json(from: ApiValidationJSONResource.baseErrorKeyResponse)
-        let apiValidationErrors = try self.decoder.decode(ApiValidationErrors.self, from: data)
-        let expectedError = ApiClientError(type: .validationErrors(apiValidationErrors))
-        //Act
-        let sut = ApiClientError(data: data)
-        //Assert
-        XCTAssertEqual(sut, expectedError)
-    }
-    
-    func testInitFromData_typeOfServerError() throws {
-        //Arrange
-        let serverError = try self.serverErrorFactory.build(wrapper: .init(error: "Internal Server Error", status: 500))
-        let expectedError = ApiClientError(type: .serverError(serverError))
-        let data = try self.json(from: ApiValidationJSONResource.serverErrorResponse)
-        //Act
-        let sut = ApiClientError(data: data)
-        //Assert
-        XCTAssertEqual(sut, expectedError)
     }
 }

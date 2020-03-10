@@ -26,33 +26,4 @@ extension MatchingFullTimeEncoderTests {
         XCTAssertEqual(dateString, "2018-01-17")
         XCTAssertEqual(userId, 1)
     }
-    
-    func testEncoding_nilDate() throws {
-        //Arrange
-        let sut = MatchingFullTimeEncoder(date: nil, userId: 1)
-        var thrownError: Error?
-        //Act
-        do {
-            _ = try self.encoder.encode(sut)
-        } catch {
-            thrownError = error
-        }
-        //Assert
-        XCTAssertTrue(thrownError is EncodingError)
-    }
-    
-    func testEncoding_nilUserId() throws {
-        //Arrange
-        let date = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let sut = MatchingFullTimeEncoder(date: date, userId: nil)
-        var thrownError: Error?
-        //Act
-        do {
-            _ = try self.encoder.encode(sut)
-        } catch {
-            thrownError = error
-        }
-        //Assert
-        XCTAssertTrue(thrownError is EncodingError)
-    }
 }

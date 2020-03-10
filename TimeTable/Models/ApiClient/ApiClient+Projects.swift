@@ -15,10 +15,18 @@ protocol ApiClientProjectsType: class {
 
 extension ApiClient: ApiClientProjectsType {
     func fetchAllProjects(completion: @escaping ((Result<[ProjectRecordDecoder], Error>) -> Void)) {
-        self.get(.projects, completion: completion)
+        _ = self.restler
+            .get(Endpoint.projects)
+            .decode([ProjectRecordDecoder].self)
+            .onCompletion(completion)
+            .start()
     }
     
     func fetchSimpleListOfProjects(completion: @escaping ((Result<SimpleProjectDecoder, Error>) -> Void)) {
-        self.get(.projectsSimpleList, completion: completion)
+        _ = self.restler
+            .get(Endpoint.projectsSimpleList)
+            .decode(SimpleProjectDecoder.self)
+            .onCompletion(completion)
+            .start()
     }
 }

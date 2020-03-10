@@ -39,7 +39,7 @@ extension WorkTimesListContentProvider: WorkTimesListContentProviderType {
         var dailyWorkTimes: [DailyWorkTime] = []
         var matchingFullTime: MatchingFullTimeDecoder?
         var fetchError: Error?
-        let dispatchGroup = dispatchGroupFactory.createDispatchGroup()
+        let dispatchGroup = self.dispatchGroupFactory.createDispatchGroup()
         
         dispatchGroup.enter()
         self.fetchWorkTimes(date: date) { result in
@@ -105,8 +105,9 @@ extension WorkTimesListContentProvider {
     }
     
     private func fetchMatchingFullTime(date: Date?, completion: @escaping (Result<MatchingFullTimeDecoder, Error>) -> Void) {
-        let userIdentifier = self.accessService.getLastLoggedInUserIdentifier()
-        let parameters = MatchingFullTimeEncoder(date: date, userId: userIdentifier)
+        guard let unwrappedDate = date,
+            let userID = self.accessService.getLastLoggedInUserIdentifier() else { return completion(.failure(ApiClientError(type: .invalidParameters))) }
+        let parameters = MatchingFullTimeEncoder(date: unwrappedDate, userId: userID)
         self.apiClient.fetchMatchingFullTime(parameters: parameters, completion: completion)
     }
     

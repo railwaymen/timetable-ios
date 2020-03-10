@@ -17,18 +17,37 @@ protocol ApiClientWorkTimesType: class {
 
 extension ApiClient: ApiClientWorkTimesType {
     func fetchWorkTimes(parameters: WorkTimesParameters, completion: @escaping ((Result<[WorkTimeDecoder], Error>) -> Void)) {
-        self.get(.workTimes, parameters: parameters, completion: completion)
+        _ = self.restler
+            .get(Endpoint.workTimes)
+            .query(parameters)
+            .decode([WorkTimeDecoder].self)
+            .onCompletion(completion)
+            .start()
     }
     
     func addWorkTime(parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void)) {
-        self.post(.workTimes, parameters: parameters, completion: completion)
+        _ = self.restler
+            .post(Endpoint.workTimes)
+            .body(parameters)
+            .decode(Void.self)
+            .onCompletion(completion)
+            .start()
     }
     
     func deleteWorkTime(identifier: Int64, completion: @escaping ((Result<Void, Error>) -> Void)) {
-        self.delete(.workTime(identifier), completion: completion)
+        _ = self.restler
+            .delete(Endpoint.workTime(identifier))
+            .decode(Void.self)
+            .onCompletion(completion)
+            .start()
     }
     
     func updateWorkTime(identifier: Int64, parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void)) {
-        self.put(.workTime(identifier), parameters: parameters, completion: completion)
+        _ = self.restler
+            .put(Endpoint.workTime(identifier))
+            .body(parameters)
+            .decode(Void.self)
+            .onCompletion(completion)
+            .start()
     }
 }

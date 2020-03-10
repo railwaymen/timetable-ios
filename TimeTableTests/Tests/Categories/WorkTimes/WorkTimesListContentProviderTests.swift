@@ -17,13 +17,13 @@ class WorkTimesListContentProviderTests: XCTestCase {
     private var dispatchGroupFactoryMock: DispatchGroupFactoryMock!
     
     override func setUp() {
+        super.setUp()
         self.apiClientMock = ApiClientMock()
         self.accessServiceMock = AccessServiceMock()
         self.calendarMock = CalendarMock()
         self.dispatchGroupMock = DispatchGroupMock()
         self.dispatchGroupFactoryMock = DispatchGroupFactoryMock()
         self.dispatchGroupFactoryMock.createDispatchGroupReturnValue = self.dispatchGroupMock
-        super.setUp()
     }
 }
 
@@ -34,7 +34,7 @@ extension WorkTimesListContentProviderTests {
         let sut = self.buildSUT()
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
-        sut.fetchWorkTimesData(for: nil) { _ in
+        sut.fetchWorkTimesData(for: Date()) { _ in
             XCTFail()
         }
         //Assert

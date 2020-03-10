@@ -14,6 +14,10 @@ protocol ApiClientUsersType: class {
 
 extension ApiClient: ApiClientUsersType {
     func fetchUserProfile(forIdetifier identifier: Int64, completion: @escaping ((Result<UserDecoder, Error>) -> Void)) {
-        self.get(Endpoint.user(identifier), completion: completion)
+        _ = self.restler
+            .get(Endpoint.user(identifier))
+            .decode(UserDecoder.self)
+            .onCompletion(completion)
+            .start()
     }
 }
