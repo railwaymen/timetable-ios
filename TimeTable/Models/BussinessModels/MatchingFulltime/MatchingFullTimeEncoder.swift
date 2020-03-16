@@ -7,19 +7,24 @@
 //
 
 import Foundation
+import Restler
 
-struct MatchingFullTimeEncoder {
+struct MatchingFullTimeEncoder: Encodable, RestlerQueryEncodable {
     static var dateFormatter: DateFormatter = DateFormatter(type: .simple)
     
     let date: Date
     let userId: Int64
-}
-
-// MARK: - Encodable
-extension MatchingFullTimeEncoder: Encodable {
+    
     enum CodingKeys: String, CodingKey {
         case date
         case userId
+    }
+    
+    func encodeToQuery(using encoder: RestlerQueryEncoderType) throws {
+        let container = encoder.container(using: CodingKeys.self)
+        let dateString = MatchingFullTimeEncoder.dateFormatter.string(from: self.date)
+        try container.encode(dateString, forKey: .date)
+        try container.encode(self.userId, forKey: .userId)
     }
     
     func encode(to encoder: Encoder) throws {

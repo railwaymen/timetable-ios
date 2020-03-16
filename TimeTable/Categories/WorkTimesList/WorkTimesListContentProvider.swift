@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Restler
 
 protocol WorkTimesListContentProviderType: class {
     func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder), Error>) -> Void)
@@ -18,6 +19,12 @@ class WorkTimesListContentProvider {
     private let accessService: AccessServiceUserIDType
     private let calendar: CalendarType
     private let dispatchGroupFactory: DispatchGroupFactoryType
+    
+    private var fetchListTask: RestlerTaskType? {
+        willSet {
+            self.fetchListTask?.cancel()
+        }
+    }
     
     // MARK: - Initialization
     init(
@@ -84,9 +91,9 @@ extension WorkTimesListContentProvider {
     private func fetchWorkTimes(date: Date?, completion: @escaping (Result<[DailyWorkTime], Error>) -> Void) {
         let dates = self.getStartAndEndDate(for: date)
         let parameters = WorkTimesParameters(fromDate: dates.startOfMonth, toDate: dates.endOfMonth, projectId: nil)
-        self.apiClient.fetchWorkTimes(parameters: parameters) { result in
+        self.fetchListTask = self.apiClient.fetchWorkTimes(parameters: parameters) { result in
             switch result {
-            case .success(let workTimes):
+            case let .success(workTimes):
                 let dailyWorkTimesArray = workTimes.reduce([DailyWorkTime](), { (array, workTime) in
                     var newArray = array
                     if let dailyWorkTimes = newArray.first(where: { $0.day == workTime.date }) {
@@ -98,8 +105,12 @@ extension WorkTimesListContentProvider {
                     return newArray
                 }).sorted(by: { $0.day > $1.day })
                 completion(.success(dailyWorkTimesArray))
-            case .failure(let error):
-                completion(.failure(error))
+            case let .failure(error):
+                if case let .request(type, _) = error as? Restler.Error, type == .requestCancelled {
+                    completion(.success([]))
+                } else {
+                    completion(.failure(error))
+                }
             }
         }
     }

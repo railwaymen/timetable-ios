@@ -28,7 +28,7 @@ extension ApiClientWorkTimesTests {
         let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
         var completionResult: Result<[WorkTimeDecoder], Error>?
         //Act
-        sut.fetchWorkTimes(parameters: parameters) { result in
+        _ = sut.fetchWorkTimes(parameters: parameters) { result in
             completionResult = result
         }
         try XCTUnwrap(self.restler.getReturnValue.getDecodeReturnedMock()?.onCompletionParams.last).handler(.success(decoders))
@@ -43,7 +43,7 @@ extension ApiClientWorkTimesTests {
         let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
         var completionResult: Result<[WorkTimeDecoder], Error>?
         //Act
-        sut.fetchWorkTimes(parameters: parameters) { result in
+        _ = sut.fetchWorkTimes(parameters: parameters) { result in
             completionResult = result
         }
         try XCTUnwrap(self.restler.getReturnValue.getDecodeReturnedMock(type: [WorkTimeDecoder].self)?.onCompletionParams.last).handler(.failure(error))

@@ -18,7 +18,7 @@ enum Endpoint: RestlerEndpointable {
     case workTimes
     case user(Int64)
     
-    var stringValue: String {
+    var restlerEndpointValue: String {
         switch self {
         case .matchingFullTime: return "/accounting_periods/matching_fulltime"
         case .projects: return "/projects"

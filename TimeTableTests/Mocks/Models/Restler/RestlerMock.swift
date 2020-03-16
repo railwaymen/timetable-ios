@@ -37,6 +37,12 @@ class RestlerMock {
         let endpoint: RestlerEndpointable
     }
     
+    var patchReturnValue: RestlerRequestBuilderMock = RestlerRequestBuilderMock()
+    private(set) var patchParams: [PatchParams] = []
+    struct PatchParams {
+        let endpoint: RestlerEndpointable
+    }
+    
     var deleteReturnValue: RestlerRequestBuilderMock = RestlerRequestBuilderMock()
     private(set) var deleteParams: [DeleteParams] = []
     struct DeleteParams {
@@ -59,6 +65,11 @@ extension RestlerMock: RestlerType {
     func put(_ endpoint: RestlerEndpointable) -> RestlerRequestBuilderType {
         self.putParams.append(PutParams(endpoint: endpoint))
         return self.putReturnValue
+    }
+    
+    func patch(_ endpoint: RestlerEndpointable) -> RestlerRequestBuilderType {
+        self.patchParams.append(PatchParams(endpoint: endpoint))
+        return self.patchReturnValue
     }
     
     func delete(_ endpoint: RestlerEndpointable) -> RestlerRequestBuilderType {
