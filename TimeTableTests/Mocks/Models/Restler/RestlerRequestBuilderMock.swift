@@ -23,9 +23,15 @@ class RestlerRequestBuilderMock {
         let object: Any
     }
     
+    private(set) var multipartParams: [MultipartParams] = []
+    struct MultipartParams {
+        let object: Any
+        let boundary: String?
+    }
+    
     private(set) var setInHeaderParams: [SetInHeaderParams] = []
     struct SetInHeaderParams {
-        let value: String
+        let value: String?
         let key: Restler.Header.Key
     }
     
@@ -48,7 +54,7 @@ class RestlerRequestBuilderMock {
 
 // MARK: - RestlerRequestBuilderType
 extension RestlerRequestBuilderMock: RestlerRequestBuilderType {
-    func query<E>(_ object: E) -> Self where E: Encodable {
+    func query<E>(_ object: E) -> Self where E: RestlerQueryEncodable {
         self.queryParams.append(QueryParams(object: object))
         return self
     }
@@ -58,7 +64,12 @@ extension RestlerRequestBuilderMock: RestlerRequestBuilderType {
         return self
     }
     
-    func setInHeader(_ value: String, forKey key: Restler.Header.Key) -> Self {
+    func multipart<E>(_ object: E, boundary: String?) -> Self where E: RestlerMultipartEncodable {
+        self.multipartParams.append(MultipartParams(object: object, boundary: boundary))
+        return self
+    }
+    
+    func setInHeader(_ value: String?, forKey key: Restler.Header.Key) -> Self {
         self.setInHeaderParams.append(SetInHeaderParams(value: value, key: key))
         return self
     }

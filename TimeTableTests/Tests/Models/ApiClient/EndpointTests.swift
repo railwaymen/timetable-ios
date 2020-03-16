@@ -13,51 +13,51 @@ class EndpointTests: XCTestCase {}
 
 // MARK: - stringValue: String
 extension EndpointTests {
-    func testStringValue_matchingFullTime() {
+    func testRestlerEndpointValue_matchingFullTime() {
         //Act
-        let value = Endpoint.matchingFullTime.stringValue
+        let value = Endpoint.matchingFullTime.restlerEndpointValue
         //Assert
         XCTAssertEqual(value, "/accounting_periods/matching_fulltime")
     }
     
-    func testStringValue_projects() {
+    func testRestlerEndpointValue_projects() {
         //Act
-        let value = Endpoint.projects.stringValue
+        let value = Endpoint.projects.restlerEndpointValue
         //Assert
         XCTAssertEqual(value, "/projects")
     }
     
-    func testStringValue_projectsSimpleList() {
+    func testRestlerEndpointValue_projectsSimpleList() {
         //Act
-        let value = Endpoint.projectsSimpleList.stringValue
+        let value = Endpoint.projectsSimpleList.restlerEndpointValue
         //Assert
         XCTAssertEqual(value, "/projects/simple")
     }
     
-    func testStringValue_signIn() {
+    func testRestlerEndpointValue_signIn() {
         //Act
-        let value = Endpoint.signIn.stringValue
+        let value = Endpoint.signIn.restlerEndpointValue
         //Assert
         XCTAssertEqual(value, "/users/sign_in")
     }
     
-    func testStringValue_workTime() {
+    func testRestlerEndpointValue_workTime() {
         //Act
-        let value = Endpoint.workTime(1).stringValue
+        let value = Endpoint.workTime(1).restlerEndpointValue
         //Assert
         XCTAssertEqual(value, "/work_times/1")
     }
     
-    func testStringValue_workTimes() {
+    func testRestlerEndpointValue_workTimes() {
         //Act
-        let value = Endpoint.workTimes.stringValue
+        let value = Endpoint.workTimes.restlerEndpointValue
         //Assert
         XCTAssertEqual(value, "/work_times")
     }
     
-    func testStringValue_user() {
+    func testRestlerEndpointValue_user() {
         //Act
-        let value = Endpoint.user(12).stringValue
+        let value = Endpoint.user(12).restlerEndpointValue
         //Assert
         XCTAssertEqual(value, "/users/12")
     }

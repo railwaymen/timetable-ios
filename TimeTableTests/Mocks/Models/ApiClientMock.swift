@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Restler
 @testable import TimeTable
 
 class ApiClientMock {
@@ -27,6 +28,7 @@ class ApiClientMock {
     }
     
     // MARK: - ApiClientWorkTimesType
+    var fetchWorkTimesReturnValue: RestlerTaskType?
     private(set) var fetchWorkTimesParams: [FetchWorkTimesParams] = []
     struct FetchWorkTimesParams {
         var parameters: WorkTimesParameters
@@ -98,8 +100,9 @@ extension ApiClientMock: ApiClientSessionType {
 
 // MARK: - ApiClientWorkTimesType
 extension ApiClientMock: ApiClientWorkTimesType {
-    func fetchWorkTimes(parameters: WorkTimesParameters, completion: @escaping ((Result<[WorkTimeDecoder], Error>) -> Void)) {
+    func fetchWorkTimes(parameters: WorkTimesParameters, completion: @escaping ((Result<[WorkTimeDecoder], Error>) -> Void)) -> RestlerTaskType? {
         self.fetchWorkTimesParams.append(FetchWorkTimesParams(parameters: parameters, completion: completion))
+        return self.fetchWorkTimesReturnValue
     }
     
     func addWorkTime(parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void)) {

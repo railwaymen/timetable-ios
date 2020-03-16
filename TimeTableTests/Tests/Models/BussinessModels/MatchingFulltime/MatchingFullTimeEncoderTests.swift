@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Restler
 @testable import TimeTable
 
 class MatchingFullTimeEncoderTests: XCTestCase {}
