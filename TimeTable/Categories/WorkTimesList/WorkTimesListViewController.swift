@@ -78,7 +78,8 @@ extension WorkTimesListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let duplicateAction = self.buildDuplicateContextualAction(indexPath: indexPath)
-        return UISwipeActionsConfiguration(actions: [duplicateAction])
+        let historyAction = self.buildHistoryContextualAction(indexPath: indexPath)
+        return UISwipeActionsConfiguration(actions: [duplicateAction, historyAction])
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -203,14 +204,26 @@ extension WorkTimesListViewController {
     }
     
     private func buildDuplicateContextualAction(indexPath: IndexPath) -> UIContextualAction {
-        let duplicateAction = UIContextualAction(style: .normal, title: nil) { (_, _, completion) in
-            guard let cell = self.tableView.cellForRow(at: indexPath) else { return }
+        let duplicateAction = UIContextualAction(style: .normal, title: nil) { [weak self] (_, _, completion) in
+            guard let self = self else { return completion(false) }
+            guard let cell = self.tableView.cellForRow(at: indexPath) else { return completion(false) }
             self.viewModel.viewRequestToDuplicate(sourceView: cell, at: indexPath)
             completion(true)
         }
         duplicateAction.backgroundColor = .gray
         duplicateAction.image = .duplicate
         return duplicateAction
+    }
+    
+    private func buildHistoryContextualAction(indexPath: IndexPath) -> UIContextualAction {
+        let action = UIContextualAction(style: .normal, title: nil) { [weak self] (_, _, completion) in
+            guard let self = self else { return completion(false) }
+            self.viewModel.viewRequestTaskHistory(indexPath: indexPath)
+            completion(true)
+        }
+        action.backgroundColor = .systemBlue
+        action.image = .history
+        return action
     }
     
     private func setUpTableView() {

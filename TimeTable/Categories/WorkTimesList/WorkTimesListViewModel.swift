@@ -35,6 +35,7 @@ protocol WorkTimesListViewModelType: class {
     func viewRequestForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType?
     func viewRequestToDuplicate(sourceView: UITableViewCell, at indexPath: IndexPath)
     func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void)
+    func viewRequestTaskHistory(indexPath: IndexPath)
     func viewRequestForNewWorkTimeView(sourceView: UIView)
     func viewRequestedForEditEntry(sourceView: UITableViewCell, at indexPath: IndexPath)
     func viewRequestToRefresh(completion: @escaping () -> Void)
@@ -181,6 +182,11 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
                     }
                 }
             }))
+    }
+    
+    func viewRequestTaskHistory(indexPath: IndexPath) {
+        // TODO
+        print("history")
     }
     
     func viewRequestForNewWorkTimeView(sourceView: UIView) {

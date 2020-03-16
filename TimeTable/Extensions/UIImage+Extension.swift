@@ -48,4 +48,6 @@ extension UIImage {
         }
         return image
     }()
+     
+    static let history: UIImage = #imageLiteral(resourceName: "history_icon")
 }
