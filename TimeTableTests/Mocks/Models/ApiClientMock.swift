@@ -35,6 +35,13 @@ class ApiClientMock {
         var completion: ((Result<[WorkTimeDecoder], Error>) -> Void)
     }
     
+    var fetchWorkTimeDetailsReturnValue: RestlerTaskType?
+    private(set) var fetchWorkTimeDetailsParams: [FetchWorkTimeDetailsParams] = []
+    struct FetchWorkTimeDetailsParams {
+        let identifier: Int64
+        let completion: (Result<WorkTimeDecoder, Error>) -> Void
+    }
+    
     private(set) var addWorkTimeParams: [AddWorkTimeParams] = []
     struct AddWorkTimeParams {
         var parameters: Task
@@ -103,6 +110,11 @@ extension ApiClientMock: ApiClientWorkTimesType {
     func fetchWorkTimes(parameters: WorkTimesParameters, completion: @escaping ((Result<[WorkTimeDecoder], Error>) -> Void)) -> RestlerTaskType? {
         self.fetchWorkTimesParams.append(FetchWorkTimesParams(parameters: parameters, completion: completion))
         return self.fetchWorkTimesReturnValue
+    }
+    
+    func fetchWorkTimeDetails(identifier: Int64, completion: @escaping (Result<WorkTimeDecoder, Error>) -> Void) -> RestlerTaskType? {
+        self.fetchWorkTimeDetailsParams.append(FetchWorkTimeDetailsParams(identifier: identifier, completion: completion))
+        return self.fetchWorkTimeDetailsReturnValue
     }
     
     func addWorkTime(parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void)) {

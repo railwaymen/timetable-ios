@@ -17,7 +17,7 @@ struct TaskVersion: Decodable {
     let startsAt: NilableDiffElement<Date>
     let endsAt: NilableDiffElement<Date>
     let tag: NilableDiffElement<ProjectTag>
-    let duration: NilableDiffElement<TimeInterval>
+    let duration: NilableDiffElement<Int64>
     
     private enum CodingKeys: String, CodingKey {
         case event

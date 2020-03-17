@@ -48,10 +48,13 @@ extension TaskHistoryCoordinator: TaskHistoryCoordinatorType {
 // MARK: - Private
 extension TaskHistoryCoordinator {
     private func runMainFlow() {
+        guard let apiClient = self.dependencyContainer.apiClient else { return assertionFailure("API client mustn't be nil") }
         guard let controller: TaskHistoryViewController = self.dependencyContainer.storyboardsManager.controller(storyboard: .taskHistory) else { return }
         let viewModel = TaskHistoryViewModel(
             userInterface: controller,
             coordinator: self,
+            apiClient: apiClient,
+            errorHandler: self.dependencyContainer.errorHandler,
             taskForm: self.taskForm)
         controller.configure(viewModel: viewModel)
         self.navigationController.setViewControllers([controller], animated: false)

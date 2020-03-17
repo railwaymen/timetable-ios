@@ -67,6 +67,58 @@ struct WorkTimeDecoder: Decodable {
             throw DecodingError.dataCorruptedError(forKey: .date, in: container, debugDescription: "decoding_error.wrong_date_format.yyyy-MM-dd")
         }
     }
+    
+    private init(
+        identifier: Int64,
+        updatedByAdmin: Bool,
+        projectId: Int,
+        startsAt: Date,
+        endsAt: Date,
+        duration: Int64,
+        body: String?,
+        task: String?,
+        taskPreview: String?,
+        userId: Int,
+        project: ProjectDecoder,
+        date: Date,
+        tag: ProjectTag,
+        versions: [TaskVersion]
+    ) {
+        self.identifier = identifier
+        self.updatedByAdmin = updatedByAdmin
+        self.projectId = projectId
+        self.startsAt = startsAt
+        self.endsAt = endsAt
+        self.duration = duration
+        self.body = body
+        self.task = task
+        self.taskPreview = taskPreview
+        self.userId = userId
+        self.project = project
+        self.date = date
+        self.tag = tag
+        self.versions = versions
+    }
+    
+    // MARK: - Internal
+    func workTime(forVersion index: Int) -> WorkTimeDecoder? {
+        guard let version = self.versions[safeIndex: index] else { return nil }
+        return WorkTimeDecoder(
+            identifier: self.identifier,
+            updatedByAdmin: self.updatedByAdmin,
+            projectId: self.projectId,
+            startsAt: version.startsAt.current ?? version.startsAt.previous ?? self.startsAt,
+            endsAt: version.endsAt.current ?? version.endsAt.previous ?? self.endsAt,
+            duration: version.duration.current ?? version.duration.previous ?? self.duration,
+            body: version.body.current ?? version.body.previous,
+            task: self.task,
+            taskPreview: self.taskPreview,
+            userId: self.userId,
+            project: self.project,
+            date: self.date,
+            tag: version.tag.current ?? version.tag.previous ?? self.tag,
+            versions: self.versions)
+    }
 }
 
 // MARK: - Equatable

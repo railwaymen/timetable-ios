@@ -57,7 +57,7 @@ extension TaskHistoryViewController: TaskHistoryViewModelOutput {
     func setUp() {
         self.setUpCloseButton()
         self.setUpActivityIndicator()
-        self.setActivityIndicator(isHidden: false)
+        self.setUpTableView()
     }
     
     func reloadData() {
