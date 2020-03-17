@@ -60,6 +60,10 @@
 		8A798745237D4DC6003DC028 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A798742237D4DC6003DC028 /* Profile.storyboard */; };
 		8A798746237D4DC6003DC028 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A798743237D4DC6003DC028 /* ProfileViewController.swift */; };
 		8A798747237D4DC6003DC028 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A798744237D4DC6003DC028 /* ProfileViewModel.swift */; };
+		8A79A2412420C3160048B44B /* TaskHistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2402420C3160048B44B /* TaskHistoryCoordinator.swift */; };
+		8A79A2442420C40F0048B44B /* TaskHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2432420C40F0048B44B /* TaskHistoryViewController.swift */; };
+		8A79A2462420C4FD0048B44B /* TaskHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2452420C4FD0048B44B /* TaskHistoryViewModel.swift */; };
+		8A79A2482420C6460048B44B /* TaskHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2472420C6460048B44B /* TaskHistory.storyboard */; };
 		8A80A38D23D89C24002643A1 /* APIClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80A38C23D89C24002643A1 /* APIClientFactory.swift */; };
 		8A80A38F23D89ED3002643A1 /* APIClientFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */; };
 		8A82EBF323FD46EC001393A8 /* WorkTimeContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */; };
@@ -430,6 +434,10 @@
 		8A798742237D4DC6003DC028 /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		8A798743237D4DC6003DC028 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		8A798744237D4DC6003DC028 /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		8A79A2402420C3160048B44B /* TaskHistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHistoryCoordinator.swift; sourceTree = "<group>"; };
+		8A79A2432420C40F0048B44B /* TaskHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHistoryViewController.swift; sourceTree = "<group>"; };
+		8A79A2452420C4FD0048B44B /* TaskHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHistoryViewModel.swift; sourceTree = "<group>"; };
+		8A79A2472420C6460048B44B /* TaskHistory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TaskHistory.storyboard; sourceTree = "<group>"; };
 		8A80A38C23D89C24002643A1 /* APIClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientFactory.swift; sourceTree = "<group>"; };
 		8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientFactoryMock.swift; sourceTree = "<group>"; };
 		8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContentProvider.swift; sourceTree = "<group>"; };
@@ -973,6 +981,16 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		8A79A2422420C4000048B44B /* TaskHistory */ = {
+			isa = PBXGroup;
+			children = (
+				8A79A2472420C6460048B44B /* TaskHistory.storyboard */,
+				8A79A2432420C40F0048B44B /* TaskHistoryViewController.swift */,
+				8A79A2452420C4FD0048B44B /* TaskHistoryViewModel.swift */,
+			);
+			path = TaskHistory;
+			sourceTree = "<group>";
+		};
 		8A839D0E23570FBD002F3464 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -1078,6 +1096,7 @@
 				8A31CD7E23741F93008E590D /* ProjectPicker */,
 				C125F1B421DCCF2F00594CDE /* Projects */,
 				C153AC432181E4CC007A35BB /* ServerConfiguration */,
+				8A79A2422420C4000048B44B /* TaskHistory */,
 				C1784DDB21E4E01B00C83E2A /* WorkTime */,
 				C13429A821A7D9AC00F4EA42 /* WorkTimesList */,
 			);
@@ -1660,6 +1679,7 @@
 			isa = PBXGroup;
 			children = (
 				8A31CD7C23741BFC008E590D /* ProjectPickerCoordinator.swift */,
+				8A79A2402420C3160048B44B /* TaskHistoryCoordinator.swift */,
 				8A10F83A2350C7AF0004F389 /* WorkTimeCoordinator.swift */,
 				C1AACFD721A4387F0023FD32 /* WorkTimesListCoordinator.swift */,
 			);
@@ -2100,6 +2120,7 @@
 				8A5EF32323FE84B900AE4309 /* TagCollectionViewCell.xib in Resources */,
 				C1784DDD21E4E03600C83E2A /* WorkTime.storyboard in Resources */,
 				8AA5C5DD235F34340083E121 /* Colors.xcassets in Resources */,
+				8A79A2482420C6460048B44B /* TaskHistory.storyboard in Resources */,
 				C14EB0292372E1A8007F07D0 /* ErrorView.xib in Resources */,
 				C1B5137721772D1400C3727C /* LaunchScreen.storyboard in Resources */,
 				C153AC452181E4E7007A35BB /* ServerConfiguration.storyboard in Resources */,
@@ -2308,9 +2329,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A79A2412420C3160048B44B /* TaskHistoryCoordinator.swift in Sources */,
 				C13429B221A7F9F400F4EA42 /* WorkTimeTableViewCellModel.swift in Sources */,
 				C125F1B321DCCBE700594CDE /* ApiClient+Projects.swift in Sources */,
 				C13429B421A7FB1B00F4EA42 /* WorkTimeTableViewCell.swift in Sources */,
+				8A79A2462420C4FD0048B44B /* TaskHistoryViewModel.swift in Sources */,
 				C1B8FA41218C91F3009D10B4 /* LoginCredentials.swift in Sources */,
 				C1F926E6218838B80004A9BC /* LoginViewModel.swift in Sources */,
 				C1E6B350219EF52000019DC2 /* KeyChainType.swift in Sources */,
@@ -2386,6 +2409,7 @@
 				C125F1BC21DCDA8800594CDE /* ProjectCollectionViewCell.swift in Sources */,
 				C12CA57B21A5900B0082FEB7 /* WorkTimeDecoder.swift in Sources */,
 				C1C4BA912189AE0900683F71 /* ApiValidationErrors.swift in Sources */,
+				8A79A2442420C40F0048B44B /* TaskHistoryViewController.swift in Sources */,
 				C1249C772181AAE4005DB2A5 /* StoryboardsManager.swift in Sources */,
 				C1F187B021E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift in Sources */,
 				8AC097242371CCFF00103FAD /* UIApplication+Extension.swift in Sources */,

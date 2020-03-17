@@ -185,8 +185,8 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     func viewRequestTaskHistory(indexPath: IndexPath) {
-        // TODO
-        print("history")
+        guard let taskForm = self.createTaskForm(for: indexPath) else { return }
+        self.coordinator?.workTimesRequestedForTaskHistory(taskForm: taskForm)
     }
     
     func viewRequestForNewWorkTimeView(sourceView: UIView) {
