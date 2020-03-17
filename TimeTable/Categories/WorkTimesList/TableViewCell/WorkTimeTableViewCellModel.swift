@@ -9,7 +9,7 @@
 import UIKit
 
 protocol WorkTimeTableViewCellModelParentType: class {
-    func openTask(for workTime: WorkTimeDecoder)
+    func openTask(for workTime: WorkTimeDisplayed)
 }
 
 protocol WorkTimeTableViewCellModelOutput: class {
@@ -24,9 +24,10 @@ protocol WorkTimeTableViewCellModelType: class {
 }
 
 class WorkTimeTableViewCellModel {
-    private let workTime: WorkTimeDecoder
     private weak var userInterface: WorkTimeTableViewCellModelOutput?
     private weak var parent: WorkTimeTableViewCellModelParentType?
+    private let dateFormatterBuilder: DateFormatterBuilderType
+    private let workTime: WorkTimeDisplayed
     
     private lazy var dateComponentsFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
@@ -36,15 +37,31 @@ class WorkTimeTableViewCellModel {
         return formatter
     }()
     
+    private var updateAtDateFormatter: DateFormatterType {
+        self.dateFormatterBuilder
+            .dateStyle(.long)
+            .timeStyle(.short)
+            .setRelativeDateFormatting(true)
+            .build()
+    }
+    
+    private var timeFormatter: DateFormatterType {
+        self.dateFormatterBuilder
+            .timeStyle(.short)
+            .build()
+    }
+    
     // MARK: - Initialization
     init(
-        workTime: WorkTimeDecoder,
         userInterface: WorkTimeTableViewCellModelOutput,
-        parent: WorkTimeTableViewCellModelParentType
+        parent: WorkTimeTableViewCellModelParentType,
+        dateFormatterBuilder: DateFormatterBuilderType = DateFormatterBuilder(),
+        workTime: WorkTimeDisplayed
     ) {
-        self.workTime = workTime
         self.userInterface = userInterface
         self.parent = parent
+        self.dateFormatterBuilder = dateFormatterBuilder
+        self.workTime = workTime
     }
 }
 
@@ -59,6 +76,7 @@ extension WorkTimeTableViewCellModel {
         let projectColor: UIColor?
         let tagTitle: String?
         let tagColor: UIColor?
+        let edition: (author: String, date: String)?
     }
 }
 
@@ -81,20 +99,31 @@ extension WorkTimeTableViewCellModel: WorkTimeTableViewCellModelType {
 // MARK: - Private
 extension WorkTimeTableViewCellModel {
     private func updateView() {
-        let duration = TimeInterval(self.workTime.duration)
-        let durationText = self.dateComponentsFormatter.string(from: duration)
-        let startsAtText = DateFormatter.localizedString(from: self.workTime.startsAt, dateStyle: .none, timeStyle: .short)
-        let endsAtText = DateFormatter.localizedString(from: self.workTime.endsAt, dateStyle: .none, timeStyle: .short)
+        let viewData = self.getViewData()
+        self.userInterface?.updateView(data: viewData)
+    }
+    
+    private func getViewData() -> ViewData {
+        let durationText = self.dateComponentsFormatter.string(from: self.workTime.duration)
+        let startsAtText = self.timeFormatter.string(from: self.workTime.startsAt)
+        let endsAtText = self.timeFormatter.string(from: self.workTime.endsAt)
         let fromToDateText = "\(startsAtText) - \(endsAtText)"
-        let data = WorkTimeTableViewCellModel.ViewData(
+        let editionData = self.getEditionData()
+        return WorkTimeTableViewCellModel.ViewData(
             durationText: durationText,
             bodyText: self.workTime.body,
             taskUrlText: self.workTime.taskPreview,
             fromToDateText: fromToDateText,
-            projectTitle: self.workTime.project.name,
-            projectColor: self.workTime.project.color,
+            projectTitle: self.workTime.projectName,
+            projectColor: self.workTime.projectColor,
             tagTitle: self.workTime.tag.localized,
-            tagColor: self.workTime.tag.color)
-        self.userInterface?.updateView(data: data)
+            tagColor: self.workTime.tag.color,
+            edition: editionData)
+    }
+    
+    private func getEditionData() -> (String, String)? {
+        guard let author = self.workTime.updatedBy, let updatedAt = self.workTime.updatedAt else { return nil }
+        let updatedAtText = self.updateAtDateFormatter.string(from: updatedAt)
+        return (author, updatedAtText)
     }
 }

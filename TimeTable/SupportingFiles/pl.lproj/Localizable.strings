@@ -47,6 +47,8 @@
 "work_time.text_field.select_day" = "Wybierz dzień";
 "work_time.button.save" = "Zapisz";
 
+"task_history.title" = "Historia edycji";
+
 "profile.button.logout" = "WYLOGUJ";
 
 "error.button.refresh" = "ODŚWIEŻ";

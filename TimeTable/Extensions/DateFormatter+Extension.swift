@@ -8,6 +8,11 @@
 
 import Foundation
 
+protocol DateFormatterType: class {
+    func string(from: Date) -> String
+    func date(from: String) -> Date?
+}
+
 extension DateFormatter {
     
     // MARK: - Initialization
@@ -25,3 +30,6 @@ extension DateFormatter {
         case dateAndTimeExtended = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
     }
 }
+
+// MARK: - DateFormatterType
+extension DateFormatter: DateFormatterType {}

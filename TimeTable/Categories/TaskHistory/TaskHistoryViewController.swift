@@ -56,6 +56,7 @@ extension TaskHistoryViewController: UITableViewDelegate {
 extension TaskHistoryViewController: TaskHistoryViewModelOutput {
     func setUp() {
         self.setUpCloseButton()
+        self.setUpTitle()
         self.setUpActivityIndicator()
         self.setUpTableView()
     }
@@ -67,6 +68,8 @@ extension TaskHistoryViewController: TaskHistoryViewModelOutput {
     func setActivityIndicator(isHidden: Bool) {
         self.activityIndicator.hidesWhenStopped = true
         isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
+        self.activityIndicator.frame.size.height = isHidden ? 0 : 120
+        self.activityIndicator.layoutIfNeeded()
     }
 }
 
@@ -85,7 +88,6 @@ extension TaskHistoryViewController {
         } else {
             self.activityIndicator.style = .gray
         }
-        self.activityIndicator.frame.size.height = 120
     }
     
     private func setUpTableView() {
@@ -97,5 +99,9 @@ extension TaskHistoryViewController {
     private func setUpCloseButton() {
         let closeButton = UIBarButtonItem(barButtonSystemItem: .closeButton, target: self, action: #selector(self.closeButtonTapped))
         self.navigationItem.setRightBarButton(closeButton, animated: false)
+    }
+    
+    private func setUpTitle() {
+        self.navigationItem.title = "task_history.title".localized
     }
 }

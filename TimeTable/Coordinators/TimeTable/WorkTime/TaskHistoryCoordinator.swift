@@ -9,6 +9,7 @@
 import UIKit
 
 protocol TaskHistoryCoordinatorType: class {
+    func openWithSafari(url: URL)
     func dismiss()
 }
 
@@ -38,6 +39,10 @@ class TaskHistoryCoordinator: NavigationCoordinator {
 
 // MARK: - TaskHistoryCoordinatorType
 extension TaskHistoryCoordinator: TaskHistoryCoordinatorType {
+    func openWithSafari(url: URL) {
+        self.dependencyContainer.application?.open(url)
+    }
+    
     func dismiss() {
         self.navigationController.dismiss(animated: true) { [weak self] in
             self?.finish()

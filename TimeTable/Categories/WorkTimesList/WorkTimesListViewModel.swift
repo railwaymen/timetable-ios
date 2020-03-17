@@ -141,9 +141,9 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     func configure(_ cell: WorkTimeTableViewCellable, for indexPath: IndexPath) {
         guard let workTime = self.workTime(for: indexPath) else { return }
         let viewModel = WorkTimeTableViewCellModel(
-            workTime: workTime,
             userInterface: cell,
-            parent: self)
+            parent: self,
+            workTime: WorkTimeDisplayed(workTime: workTime))
         cell.configure(viewModel: viewModel)
     }
     
@@ -220,7 +220,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
 
 // MARK: - WorkTimeTableViewCellViewModelParentType
 extension WorkTimesListViewModel: WorkTimeTableViewCellModelParentType {
-    func openTask(for workTime: WorkTimeDecoder) {
+    func openTask(for workTime: WorkTimeDisplayed) {
         guard let task = workTime.task, let url = URL(string: task) else { return }
         self.coordinator?.workTimesRequestedForSafari(url: url)
     }
