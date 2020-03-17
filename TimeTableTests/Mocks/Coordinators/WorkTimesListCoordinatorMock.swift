@@ -17,9 +17,14 @@ class WorkTimesListCoordinatorMock {
         var finishHandler: (Bool) -> Void
     }
     
-    private(set) var workTimesRequestedForSafari: [WorkTimesRequestedForSafari] = []
-    struct WorkTimesRequestedForSafari {
+    private(set) var workTimesRequestedForSafariParams: [WorkTimesRequestedForSafariParams] = []
+    struct WorkTimesRequestedForSafariParams {
         var url: URL
+    }
+    
+    private(set) var workTimesRequestedForTaskHistoryParams: [WorkTimesRequestedForTaskHistoryParams] = []
+    struct WorkTimesRequestedForTaskHistoryParams {
+        let taskForm: TaskForm
     }
 }
 
@@ -34,6 +39,10 @@ extension WorkTimesListCoordinatorMock: WorkTimesListCoordinatorDelegate {
     }
     
     func workTimesRequestedForSafari(url: URL) {
-        self.workTimesRequestedForSafari.append(WorkTimesRequestedForSafari(url: url))
+        self.workTimesRequestedForSafariParams.append(WorkTimesRequestedForSafariParams(url: url))
+    }
+    
+    func workTimesRequestedForTaskHistory(taskForm: TaskForm) {
+        self.workTimesRequestedForTaskHistoryParams.append(WorkTimesRequestedForTaskHistoryParams(taskForm: taskForm))
     }
 }
