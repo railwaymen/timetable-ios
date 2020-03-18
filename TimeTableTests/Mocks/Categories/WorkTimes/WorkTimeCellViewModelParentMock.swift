@@ -12,13 +12,13 @@ import Foundation
 class WorkTimeCellViewModelParentMock {
     private(set) var openTaskParams: [OpenTaskParams] = []
     struct OpenTaskParams {
-        var workTime: WorkTimeDecoder
+        var workTime: WorkTimeDisplayed
     }
 }
 
 // MARK: - WorkTimeTableViewCellViewModelParentType
 extension WorkTimeCellViewModelParentMock: WorkTimeTableViewCellModelParentType {
-    func openTask(for workTime: WorkTimeDecoder) {
+    func openTask(for workTime: WorkTimeDisplayed) {
         self.openTaskParams.append(OpenTaskParams(workTime: workTime))
     }
 }

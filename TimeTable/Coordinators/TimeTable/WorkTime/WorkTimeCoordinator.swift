@@ -40,6 +40,7 @@ class WorkTimeCoordinator: NavigationCoordinator {
     override func start(finishHandler: (() -> Void)?) {
         super.start(finishHandler: finishHandler)
         self.runMainFlow()
+        self.setUpNativationController()
     }
     
     override func finish() {
@@ -52,6 +53,7 @@ class WorkTimeCoordinator: NavigationCoordinator {
         super.start(finishHandler: nil)
         self.customFinishHandler = finishHandler
         self.runMainFlow()
+        self.setUpNativationController()
     }
     
     func finish(isTaskChanged: Bool) {
@@ -92,8 +94,6 @@ extension WorkTimeCoordinator {
             flowType: self.flowType)
         workTimeViewController.configure(viewModel: viewModel)
         self.navigationController.setViewControllers([workTimeViewController], animated: false)
-        self.navigationController.setNavigationBarHidden(false, animated: false)
-        self.navigationController.navigationBar.tintColor = .tint
         if let sourceView = self.sourceView {
             self.showWorkTimeController(controller: self.navigationController, sourceView: sourceView)
         } else {
@@ -120,5 +120,10 @@ extension WorkTimeCoordinator {
         controller.popoverPresentationController?.sourceView = sourceView
         controller.popoverPresentationController?.sourceRect = CGRect(x: sourceView.bounds.minX, y: sourceView.bounds.midY, width: 0, height: 0)
         self.parentViewController?.children.last?.present(controller, animated: true)
+    }
+    
+    private func setUpNativationController() {
+        self.navigationController.setNavigationBarHidden(false, animated: false)
+        self.navigationController.navigationBar.tintColor = .tint
     }
 }

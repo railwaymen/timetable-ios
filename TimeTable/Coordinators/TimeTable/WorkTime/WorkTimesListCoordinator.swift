@@ -16,6 +16,7 @@ protocol WorkTimesListCoordinatorDelegate: class {
         flowType: WorkTimeViewModel.FlowType,
         finishHandler: @escaping (_ isTaskChanged: Bool) -> Void)
     func workTimesRequestedForSafari(url: URL)
+    func workTimesRequestedForTaskHistory(taskForm: TaskForm)
 }
 
 class WorkTimesListCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
@@ -61,6 +62,10 @@ extension WorkTimesListCoordinator: WorkTimesListCoordinatorDelegate {
     func workTimesRequestedForSafari(url: URL) {
         self.dependencyContainer.application?.open(url)
     }
+    
+    func workTimesRequestedForTaskHistory(taskForm: TaskForm) {
+        self.runTaskHistoryFlow(taskForm: taskForm)
+    }
 }
 
 // MARK: - Private
@@ -98,6 +103,18 @@ extension WorkTimesListCoordinator {
         coordinator.start { [weak self, weak coordinator] isTaskChanged in
             self?.remove(child: coordinator)
             finishHandler(isTaskChanged)
+        }
+    }
+    
+    private func runTaskHistoryFlow(taskForm: TaskForm) {
+        let parentViewController = self.navigationController.topViewController ?? self.navigationController
+        let coordinator = TaskHistoryCoordinator(
+            dependencyContainer: self.dependencyContainer,
+            parentViewController: parentViewController,
+            taskForm: taskForm)
+        self.add(child: coordinator)
+        coordinator.start { [weak self, weak coordinator] in
+            self?.remove(child: coordinator)
         }
     }
 }

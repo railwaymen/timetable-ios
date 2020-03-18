@@ -56,7 +56,7 @@ extension ProfileViewController: ProfileViewModelOutput {
     }
     
     func setActivityIndicator(isHidden: Bool) {
-        isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
+        self.activityIndicator.set(isAnimating: !isHidden)
         self.activityIndicator.set(isHidden: isHidden)
     }
     

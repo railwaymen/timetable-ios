@@ -47,6 +47,8 @@
 "work_time.text_field.select_day" = "Select day";
 "work_time.button.save" = "Save";
 
+"task_history.title" = "Task history";
+
 "profile.label.profile" = "Profile";
 "profile.button.logout" = "LOGOUT";
 

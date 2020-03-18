@@ -35,6 +35,7 @@ protocol WorkTimesListViewModelType: class {
     func viewRequestForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType?
     func viewRequestToDuplicate(sourceView: UITableViewCell, at indexPath: IndexPath)
     func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void)
+    func viewRequestTaskHistory(indexPath: IndexPath)
     func viewRequestForNewWorkTimeView(sourceView: UIView)
     func viewRequestedForEditEntry(sourceView: UITableViewCell, at indexPath: IndexPath)
     func viewRequestToRefresh(completion: @escaping () -> Void)
@@ -140,9 +141,9 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     func configure(_ cell: WorkTimeTableViewCellable, for indexPath: IndexPath) {
         guard let workTime = self.workTime(for: indexPath) else { return }
         let viewModel = WorkTimeTableViewCellModel(
-            workTime: workTime,
             userInterface: cell,
-            parent: self)
+            parent: self,
+            workTime: WorkTimeDisplayed(workTime: workTime))
         cell.configure(viewModel: viewModel)
     }
     
@@ -183,6 +184,11 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
             }))
     }
     
+    func viewRequestTaskHistory(indexPath: IndexPath) {
+        guard let taskForm = self.createTaskForm(for: indexPath) else { return }
+        self.coordinator?.workTimesRequestedForTaskHistory(taskForm: taskForm)
+    }
+    
     func viewRequestForNewWorkTimeView(sourceView: UIView) {
         let lastTask = self.createTaskForm(for: IndexPath(row: 0, section: 0))
         self.coordinator?.workTimesRequestedForWorkTimeView(sourceView: sourceView, flowType: .newEntry(lastTask: lastTask)) { [weak self] isTaskChanged in
@@ -214,7 +220,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
 
 // MARK: - WorkTimeTableViewCellViewModelParentType
 extension WorkTimesListViewModel: WorkTimeTableViewCellModelParentType {
-    func openTask(for workTime: WorkTimeDecoder) {
+    func openTask(for workTime: WorkTimeDisplayed) {
         guard let task = workTime.task, let url = URL(string: task) else { return }
         self.coordinator?.workTimesRequestedForSafari(url: url)
     }

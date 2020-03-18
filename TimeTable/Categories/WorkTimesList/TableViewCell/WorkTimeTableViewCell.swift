@@ -26,7 +26,10 @@ class WorkTimeTableViewCell: UITableViewCell, ReusableCellType {
     @IBOutlet private var taskButton: UIButton!
     @IBOutlet private var tagView: AttributedView!
     @IBOutlet private var tagLabel: UILabel!
-        
+    @IBOutlet private var editedByLabel: UILabel!
+    @IBOutlet private var updatedAtLabel: UILabel!
+    @IBOutlet private var editionViewHeightConstraint: NSLayoutConstraint!
+    
     private var viewModel: WorkTimeTableViewCellModelType?
     
     // MARK: - Overridden
@@ -52,6 +55,10 @@ extension WorkTimeTableViewCell: WorkTimeTableViewCellModelOutput {
     }
     
     func updateView(data: WorkTimeTableViewCellModel.ViewData) {
+        self.editionViewHeightConstraint.constant = 0
+        self.editionViewHeightConstraint.isActive = data.edition == nil
+        self.editedByLabel.text = data.edition?.author
+        self.updatedAtLabel.text = data.edition?.date
         self.fromToDateLabel.text = data.fromToDateText
         self.durationLabel.text = data.durationText
         self.bodyLabel.text = data.bodyText

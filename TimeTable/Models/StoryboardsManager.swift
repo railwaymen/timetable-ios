@@ -25,6 +25,7 @@ extension StoryboardsManager {
     enum StoryboardName: String, Hashable {
         case serverConfiguration = "ServerConfiguration"
         case login = "Login"
+        case taskHistory = "TaskHistory"
         case workTime = "WorkTime"
         case workTimesList = "WorkTimesList"
         case projects = "Projects"

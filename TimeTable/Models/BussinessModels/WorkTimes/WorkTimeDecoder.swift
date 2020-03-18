@@ -24,6 +24,7 @@ struct WorkTimeDecoder: Decodable {
     let project: ProjectDecoder
     let date: Date
     let tag: ProjectTag
+    let versions: [TaskVersion]
     
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
@@ -39,6 +40,7 @@ struct WorkTimeDecoder: Decodable {
         case project
         case date
         case tag
+        case versions
     }
     
     // MARK: - Initialization
@@ -56,6 +58,7 @@ struct WorkTimeDecoder: Decodable {
         self.userId = try container.decode(Int.self, forKey: .userId)
         self.project = try container.decode(ProjectDecoder.self, forKey: .project)
         self.tag = try container.decode(ProjectTag.self, forKey: .tag)
+        self.versions = (try? container.decode([TaskVersion].self, forKey: .versions)) ?? []
         
         let dateString = try container.decode(String.self, forKey: .date)
         if let date = WorkTimeDecoder.simpleDateFormatter.date(from: dateString) {
@@ -70,16 +73,5 @@ struct WorkTimeDecoder: Decodable {
 extension WorkTimeDecoder: Equatable {
     static func == (lhs: WorkTimeDecoder, rhs: WorkTimeDecoder) -> Bool {
         return lhs.identifier == rhs.identifier
-            && lhs.updatedByAdmin == rhs.updatedByAdmin
-            && lhs.projectId == rhs.projectId
-            && lhs.startsAt == rhs.startsAt
-            && lhs.endsAt == rhs.endsAt
-            && lhs.duration == rhs.duration
-            && lhs.body == rhs.body
-            && lhs.task == rhs.task
-            && lhs.taskPreview == rhs.taskPreview
-            && lhs.date == rhs.date
-            && lhs.userId == rhs.userId
-            && lhs.project == rhs.project
     }
 }

@@ -13,3 +13,13 @@ extension UIBarButtonItem {
         return self.value(forKey: "view") as? UIView
     }
 }
+
+extension UIBarButtonItem.SystemItem {
+    static var closeButton: UIBarButtonItem.SystemItem {
+        if #available(iOS 13, *) {
+            return .close
+        } else {
+            return .cancel
+        }
+    }
+}

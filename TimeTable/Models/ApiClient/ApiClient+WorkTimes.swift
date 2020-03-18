@@ -11,6 +11,7 @@ import Restler
 
 protocol ApiClientWorkTimesType: class {
     func fetchWorkTimes(parameters: WorkTimesParameters, completion: @escaping ((Result<[WorkTimeDecoder], Error>) -> Void)) -> RestlerTaskType?
+    func fetchWorkTimeDetails(identifier: Int64, completion: @escaping (Result<WorkTimeDecoder, Error>) -> Void) -> RestlerTaskType?
     func addWorkTime(parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void))
     func deleteWorkTime(identifier: Int64, completion: @escaping ((Result<Void, Error>) -> Void))
     func updateWorkTime(identifier: Int64, parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void))
@@ -22,6 +23,14 @@ extension ApiClient: ApiClientWorkTimesType {
             .get(Endpoint.workTimes)
             .query(parameters)
             .decode([WorkTimeDecoder].self)
+            .onCompletion(completion)
+            .start()
+    }
+    
+    func fetchWorkTimeDetails(identifier: Int64, completion: @escaping (Result<WorkTimeDecoder, Error>) -> Void) -> RestlerTaskType? {
+        return self.restler
+            .get(Endpoint.workTime(identifier))
+            .decode(WorkTimeDecoder.self)
             .onCompletion(completion)
             .start()
     }

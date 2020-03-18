@@ -9,21 +9,9 @@
 import XCTest
 import Foundation
 
-protocol JSONFileResource: RawRepresentable {
-    var fileName: String { get }
-}
+protocol JSONFileResource: RawRepresentable where RawValue == String {}
 
-extension XCTestCase {
-    func json<T>(from element: T, file: StaticString = #file, line: UInt = #line) throws -> Data where T: JSONFileResource {
-        guard let url = Bundle(for: type(of: self)).url(forResource: element.fileName, withExtension: "json") else {
-            XCTFail(file: file, line: line)
-            throw "Missing json: \(element)"
-        }
-        return try Data(contentsOf: url)
-    }
-}
-
-extension JSONFileResource where RawValue == String {
+extension JSONFileResource {
     var fileName: String {
         return self.rawValue
     }

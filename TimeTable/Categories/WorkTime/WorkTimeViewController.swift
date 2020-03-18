@@ -103,13 +103,7 @@ extension WorkTimeViewController: UITextViewDelegate {
 extension WorkTimeViewController: WorkTimeViewModelOutput {
     func setUp(title: String, isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?) {
         self.title = title
-        let systemItem: UIBarButtonItem.SystemItem
-        if #available(iOS 13, *) {
-            systemItem = .close
-        } else {
-            systemItem = .cancel
-        }
-        let closeButton = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(self.cancelButtonTapped))
+        let closeButton = UIBarButtonItem(barButtonSystemItem: .closeButton, target: self, action: #selector(self.cancelButtonTapped))
         self.navigationItem.setRightBarButton(closeButton, animated: false)
         
         self.bodyView.set(isHidden: isLunch)
@@ -178,7 +172,7 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     }
     
     func setActivityIndicator(isHidden: Bool) {
-        isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
+        self.activityIndicator.set(isAnimating: !isHidden)
         self.activityIndicator.set(isHidden: isHidden)
     }
     

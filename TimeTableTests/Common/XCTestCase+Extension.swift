@@ -1,5 +1,5 @@
 //
-//  XCTests+Extension.swift
+//  XCTestCase+Extension.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 08/11/2018.
@@ -28,6 +28,16 @@ extension XCTestCase {
     
     var exampleURL: URL {
         return URL(string: "www.example.com")!
+    }
+    
+    // MARK: - Functions
+    func json<T>(from element: T, file: StaticString = #file, line: UInt = #line) throws -> Data where T: JSONFileResource {
+        guard let url = Bundle(for: type(of: self)).url(forResource: element.fileName, withExtension: "json") else {
+            let error = "Missing json \(element)"
+            XCTFail(error, file: file, line: line)
+            throw error
+        }
+        return try Data(contentsOf: url)
     }
     
     func createInMemoryStorage() throws -> NSManagedObjectContext {
