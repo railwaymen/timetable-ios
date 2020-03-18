@@ -16,12 +16,15 @@ protocol DateFormatterBuilderType: class {
     func build() -> DateFormatterType
 }
 
-class DateFormatterBuilder: DateFormatterBuilderType {
+class DateFormatterBuilder {
     private var dateFormat: String?
     private var dateStyle: DateFormatter.Style = .none
     private var timeStyle: DateFormatter.Style = .none
     private var doesRelativeDateFormatting: Bool = false
-    
+}
+
+// MARK: - DateFormatterBuilderType
+extension DateFormatterBuilder: DateFormatterBuilderType {
     func dateFormat(_ format: String) -> Self {
         self.dateFormat = format
         return self

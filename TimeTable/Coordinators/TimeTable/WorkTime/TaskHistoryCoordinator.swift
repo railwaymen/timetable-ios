@@ -34,6 +34,7 @@ class TaskHistoryCoordinator: NavigationCoordinator {
     override func start(finishHandler: FinishHandlerType?) {
         super.start(finishHandler: finishHandler)
         self.runMainFlow()
+        self.setUpNativationController()
     }
 }
 
@@ -64,5 +65,10 @@ extension TaskHistoryCoordinator {
         controller.configure(viewModel: viewModel)
         self.navigationController.setViewControllers([controller], animated: false)
         self.parentViewController?.present(self.navigationController, animated: true)
+    }
+    
+    private func setUpNativationController() {
+        self.navigationController.setNavigationBarHidden(false, animated: false)
+        self.navigationController.navigationBar.tintColor = .tint
     }
 }

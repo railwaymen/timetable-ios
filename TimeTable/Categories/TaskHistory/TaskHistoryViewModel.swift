@@ -97,13 +97,12 @@ extension TaskHistoryViewModel {
         self.userInterface?.setActivityIndicator(isHidden: false)
         self.fetchTask = self.apiClient.fetchWorkTimeDetails(identifier: identifier) { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)
-            guard let self = self else { return }
             switch result {
             case let .success(decoder):
-                self.workTime = decoder
-                self.userInterface?.reloadData()
+                self?.workTime = decoder
+                self?.userInterface?.reloadData()
             case let .failure(error):
-                self.errorHandler.throwing(error: error)
+                self?.errorHandler.throwing(error: error)
             }
         }
     }

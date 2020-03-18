@@ -144,7 +144,7 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
     }
     
     func setActivityIndicator(isHidden: Bool) {
-        isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
+        self.activityIndicator.set(isAnimating: !isHidden)
         self.activityIndicator.set(isHidden: isHidden)
     }
     
@@ -205,8 +205,8 @@ extension WorkTimesListViewController {
     
     private func buildDuplicateContextualAction(indexPath: IndexPath) -> UIContextualAction {
         let duplicateAction = UIContextualAction(style: .normal, title: nil) { [weak self] (_, _, completion) in
-            guard let self = self else { return completion(false) }
-            guard let cell = self.tableView.cellForRow(at: indexPath) else { return completion(false) }
+            guard let self = self,
+                let cell = self.tableView.cellForRow(at: indexPath) else { return completion(false) }
             self.viewModel.viewRequestToDuplicate(sourceView: cell, at: indexPath)
             completion(true)
         }

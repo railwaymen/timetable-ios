@@ -47,11 +47,6 @@ extension TaskHistoryViewController: UITableViewDataSource {
     }
 }
 
-// MARK: - UITableViewDelegate
-extension TaskHistoryViewController: UITableViewDelegate {
-    
-}
-
 // MARK: - TaskHistoryViewModelOutput
 extension TaskHistoryViewController: TaskHistoryViewModelOutput {
     func setUp() {
@@ -66,8 +61,8 @@ extension TaskHistoryViewController: TaskHistoryViewModelOutput {
     }
     
     func setActivityIndicator(isHidden: Bool) {
-        self.activityIndicator.hidesWhenStopped = true
-        isHidden ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
+        self.activityIndicator.set(isHidden: isHidden)
+        self.activityIndicator.set(isAnimating: !isHidden)
         self.activityIndicator.frame.size.height = isHidden ? 0 : 120
         self.activityIndicator.layoutIfNeeded()
     }
@@ -93,7 +88,6 @@ extension TaskHistoryViewController {
     private func setUpTableView() {
         self.tableView.register(WorkTimeTableViewCell.self)
         self.tableView.dataSource = self
-        self.tableView.delegate = self
     }
     
     private func setUpCloseButton() {

@@ -102,6 +102,7 @@
 		8A79A2C724220BB20048B44B /* DateFormatterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2C624220BB20048B44B /* DateFormatterBuilder.swift */; };
 		8A79A2C92422103A0048B44B /* DateFormatterBuilderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2C82422103A0048B44B /* DateFormatterBuilderMock.swift */; };
 		8A79A2CB2422105F0048B44B /* DateFormatterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2CA2422105F0048B44B /* DateFormatterMock.swift */; };
+		8A79A2CD242231890048B44B /* UIActivityIndicatorView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2CC242231890048B44B /* UIActivityIndicatorView+Extension.swift */; };
 		8A80A38D23D89C24002643A1 /* APIClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80A38C23D89C24002643A1 /* APIClientFactory.swift */; };
 		8A80A38F23D89ED3002643A1 /* APIClientFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */; };
 		8A82EBF323FD46EC001393A8 /* WorkTimeContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */; };
@@ -396,7 +397,7 @@
 		C1FA05E221943E0700BD8C9D /* DataStackType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA05E121943E0700BD8C9D /* DataStackType.swift */; };
 		C1FA05E4219440C700BD8C9D /* LoginContentProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA05E3219440C700BD8C9D /* LoginContentProviderTests.swift */; };
 		C1FA05E62194464D00BD8C9D /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA05E52194464D00BD8C9D /* CoreDataStackTests.swift */; };
-		C1FA05E921945DA400BD8C9D /* XCTests+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA05E821945DA400BD8C9D /* XCTests+Extension.swift */; };
+		C1FA05E921945DA400BD8C9D /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA05E821945DA400BD8C9D /* XCTestCase+Extension.swift */; };
 		C1FA05EB219475FF00BD8C9D /* AsynchronousDataTransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA05EA219475FF00BD8C9D /* AsynchronousDataTransactionType.swift */; };
 		C1FE49E821AC458F00E37E28 /* WorkTimesTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FE49E721AC458F00E37E28 /* WorkTimesTableViewHeader.swift */; };
 		C1FE49EA21AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FE49E921AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift */; };
@@ -514,6 +515,7 @@
 		8A79A2C624220BB20048B44B /* DateFormatterBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterBuilder.swift; sourceTree = "<group>"; };
 		8A79A2C82422103A0048B44B /* DateFormatterBuilderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterBuilderMock.swift; sourceTree = "<group>"; };
 		8A79A2CA2422105F0048B44B /* DateFormatterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterMock.swift; sourceTree = "<group>"; };
+		8A79A2CC242231890048B44B /* UIActivityIndicatorView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicatorView+Extension.swift"; sourceTree = "<group>"; };
 		8A80A38C23D89C24002643A1 /* APIClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientFactory.swift; sourceTree = "<group>"; };
 		8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientFactoryMock.swift; sourceTree = "<group>"; };
 		8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContentProvider.swift; sourceTree = "<group>"; };
@@ -818,7 +820,7 @@
 		C1FA05E121943E0700BD8C9D /* DataStackType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStackType.swift; sourceTree = "<group>"; };
 		C1FA05E3219440C700BD8C9D /* LoginContentProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginContentProviderTests.swift; sourceTree = "<group>"; };
 		C1FA05E52194464D00BD8C9D /* CoreDataStackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
-		C1FA05E821945DA400BD8C9D /* XCTests+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTests+Extension.swift"; sourceTree = "<group>"; };
+		C1FA05E821945DA400BD8C9D /* XCTestCase+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extension.swift"; sourceTree = "<group>"; };
 		C1FA05EA219475FF00BD8C9D /* AsynchronousDataTransactionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsynchronousDataTransactionType.swift; sourceTree = "<group>"; };
 		C1FE49E721AC458F00E37E28 /* WorkTimesTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesTableViewHeader.swift; sourceTree = "<group>"; };
 		C1FE49E921AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesTableViewHeaderViewModel.swift; sourceTree = "<group>"; };
@@ -1292,7 +1294,7 @@
 				C1249C6B2181A23A005DB2A5 /* String+Error.swift */,
 				C134296221A693F400F4EA42 /* TestError.swift */,
 				8A99EBC023D9B95600CC9BA8 /* UIColor+Extension.swift */,
-				C1FA05E821945DA400BD8C9D /* XCTests+Extension.swift */,
+				C1FA05E821945DA400BD8C9D /* XCTestCase+Extension.swift */,
 				8A137C3C23FD7538001569BB /* UniqueValuedEnumerator.swift */,
 			);
 			path = Common;
@@ -1610,6 +1612,7 @@
 				C1EF3A04219303A7000E3511 /* NSRegularExpression+Extension.swift */,
 				C153AC4B2182EF40007A35BB /* String+Extension.swift */,
 				8A31A85F238E927E008DCC08 /* TimeInterval+Extension.swift */,
+				8A79A2CC242231890048B44B /* UIActivityIndicatorView+Extension.swift */,
 				8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */,
 				8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */,
 				C153AC502182EFEC007A35BB /* UIButton+Extension.swift */,
@@ -2498,6 +2501,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A79A2412420C3160048B44B /* TaskHistoryCoordinator.swift in Sources */,
+				8A79A2CD242231890048B44B /* UIActivityIndicatorView+Extension.swift in Sources */,
 				C13429B221A7F9F400F4EA42 /* WorkTimeTableViewCellModel.swift in Sources */,
 				C125F1B321DCCBE700594CDE /* ApiClient+Projects.swift in Sources */,
 				C13429B421A7FB1B00F4EA42 /* WorkTimeTableViewCell.swift in Sources */,
@@ -2691,7 +2695,7 @@
 				8A55BA772372D02D004FFA97 /* UIApplicationMock.swift in Sources */,
 				C11F51F521A5AC5800FD626A /* DateFormatterExtensionTests.swift in Sources */,
 				C1E1F04D21AD3EB8007F9228 /* CalendarMock.swift in Sources */,
-				C1FA05E921945DA400BD8C9D /* XCTests+Extension.swift in Sources */,
+				C1FA05E921945DA400BD8C9D /* XCTestCase+Extension.swift in Sources */,
 				C134296321A693F400F4EA42 /* TestError.swift in Sources */,
 				C153AC602182FC4B007A35BB /* UITextFieldExtensionTests.swift in Sources */,
 				C12BD9B721E4A01700A6EAF0 /* ProjectTests.swift in Sources */,
