@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TaskHistoryCoordinatorType: class {
-    func openWithSafari(url: URL)
+    func configure(_ cell: WorkTimeTableViewCellable, with workTime: WorkTimeDisplayed)
     func dismiss()
 }
 
@@ -40,14 +40,26 @@ class TaskHistoryCoordinator: NavigationCoordinator {
 
 // MARK: - TaskHistoryCoordinatorType
 extension TaskHistoryCoordinator: TaskHistoryCoordinatorType {
-    func openWithSafari(url: URL) {
-        self.dependencyContainer.application?.open(url)
+    func configure(_ cell: WorkTimeTableViewCellable, with workTime: WorkTimeDisplayed) {
+        let viewModel = WorkTimeTableViewCellModel(
+            userInterface: cell,
+            parent: self,
+            workTime: workTime)
+        cell.configure(viewModel: viewModel)
     }
     
     func dismiss() {
         self.navigationController.dismiss(animated: true) { [weak self] in
             self?.finish()
         }
+    }
+}
+
+// MARK: - WorkTimeTableViewCellModelParentType
+extension TaskHistoryCoordinator: WorkTimeTableViewCellModelParentType {
+    func openTask(for workTime: WorkTimeDisplayed) {
+        guard let task = workTime.task, let url = URL(string: task) else { return }
+        self.openWithSafari(url: url)
     }
 }
 
@@ -70,5 +82,9 @@ extension TaskHistoryCoordinator {
     private func setUpNativationController() {
         self.navigationController.setNavigationBarHidden(false, animated: false)
         self.navigationController.navigationBar.tintColor = .tint
+    }
+    
+    private func openWithSafari(url: URL) {
+        self.dependencyContainer.application?.open(url)
     }
 }

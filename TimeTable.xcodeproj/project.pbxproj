@@ -103,6 +103,9 @@
 		8A79A2C92422103A0048B44B /* DateFormatterBuilderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2C82422103A0048B44B /* DateFormatterBuilderMock.swift */; };
 		8A79A2CB2422105F0048B44B /* DateFormatterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2CA2422105F0048B44B /* DateFormatterMock.swift */; };
 		8A79A2CD242231890048B44B /* UIActivityIndicatorView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2CC242231890048B44B /* UIActivityIndicatorView+Extension.swift */; };
+		8A79A2D0242243280048B44B /* TaskHistoryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2CF242243280048B44B /* TaskHistoryViewModelTests.swift */; };
+		8A79A2D32422460C0048B44B /* TaskHistoryViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2D22422460C0048B44B /* TaskHistoryViewControllerMock.swift */; };
+		8A79A2D524224A040048B44B /* TaskHistoryCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2D424224A040048B44B /* TaskHistoryCoordinatorMock.swift */; };
 		8A80A38D23D89C24002643A1 /* APIClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80A38C23D89C24002643A1 /* APIClientFactory.swift */; };
 		8A80A38F23D89ED3002643A1 /* APIClientFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */; };
 		8A82EBF323FD46EC001393A8 /* WorkTimeContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */; };
@@ -516,6 +519,9 @@
 		8A79A2C82422103A0048B44B /* DateFormatterBuilderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterBuilderMock.swift; sourceTree = "<group>"; };
 		8A79A2CA2422105F0048B44B /* DateFormatterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterMock.swift; sourceTree = "<group>"; };
 		8A79A2CC242231890048B44B /* UIActivityIndicatorView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicatorView+Extension.swift"; sourceTree = "<group>"; };
+		8A79A2CF242243280048B44B /* TaskHistoryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHistoryViewModelTests.swift; sourceTree = "<group>"; };
+		8A79A2D22422460C0048B44B /* TaskHistoryViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHistoryViewControllerMock.swift; sourceTree = "<group>"; };
+		8A79A2D424224A040048B44B /* TaskHistoryCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHistoryCoordinatorMock.swift; sourceTree = "<group>"; };
 		8A80A38C23D89C24002643A1 /* APIClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientFactory.swift; sourceTree = "<group>"; };
 		8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientFactoryMock.swift; sourceTree = "<group>"; };
 		8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContentProvider.swift; sourceTree = "<group>"; };
@@ -955,6 +961,7 @@
 				8AE000172374654D002F783E /* ProjectPickerCoordinatorMock.swift */,
 				8AE00012237464A1002F783E /* WorkTimeCoordinatorMock.swift */,
 				C13C2B0521EDE589008C9088 /* WorkTimesListCoordinatorMock.swift */,
+				8A79A2D424224A040048B44B /* TaskHistoryCoordinatorMock.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -967,6 +974,7 @@
 				8A6B6D87237AB613007D8D93 /* ProjectPicker */,
 				8A6B6D88237AB61E007D8D93 /* Projects */,
 				8A6B6D89237AB629007D8D93 /* ServerConfiguration */,
+				8A79A2D1242245FD0048B44B /* TaskHistory */,
 				8A6B6D8B237AB64B007D8D93 /* WorkTime */,
 				8A6B6D8C237AB65D007D8D93 /* WorkTimes */,
 			);
@@ -1121,6 +1129,22 @@
 				8A79A2962420F73B0048B44B /* taskVersionNullPreviousTag.json */,
 				8A79A2A72420F73C0048B44B /* taskVersionNullProjectName.json */,
 				8A79A2942420F73B0048B44B /* taskVersionUnknownEvent.json */,
+			);
+			path = TaskHistory;
+			sourceTree = "<group>";
+		};
+		8A79A2CE242243120048B44B /* TaskHistory */ = {
+			isa = PBXGroup;
+			children = (
+				8A79A2CF242243280048B44B /* TaskHistoryViewModelTests.swift */,
+			);
+			path = TaskHistory;
+			sourceTree = "<group>";
+		};
+		8A79A2D1242245FD0048B44B /* TaskHistory */ = {
+			isa = PBXGroup;
+			children = (
+				8A79A2D22422460C0048B44B /* TaskHistoryViewControllerMock.swift */,
 			);
 			path = TaskHistory;
 			sourceTree = "<group>";
@@ -1675,10 +1699,11 @@
 		C153AC7021834F08007A35BB /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				8AE0001423746503002F783E /* ProjectPicker */,
 				C122601821898BC3007D64A3 /* Login */,
+				8AE0001423746503002F783E /* ProjectPicker */,
 				C12BD99721E48D3D00A6EAF0 /* Projects */,
 				C153AC7121834F13007A35BB /* ServerConfiguration */,
+				8A79A2CE242243120048B44B /* TaskHistory */,
 				C10FD88A21F1FB1700A233C5 /* User */,
 				C18A189F21EF889B00CB6E32 /* WorkTime */,
 				C1E1F04521AD36A0007F9228 /* WorkTimes */,
@@ -2188,6 +2213,8 @@
 			dependencies = (
 			);
 			name = TimeTable;
+			packageProductDependencies = (
+			);
 			productName = TimeTable;
 			productReference = C1B5136921772D1200C3727C /* TimeTable.app */;
 			productType = "com.apple.product-type.application";
@@ -2243,6 +2270,8 @@
 				pl,
 			);
 			mainGroup = C1B5136021772D1200C3727C;
+			packageReferences = (
+			);
 			productRefGroup = C1B5136A21772D1200C3727C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -2656,6 +2685,7 @@
 				C10FD88421F1F28200A233C5 /* UserDecoderTests.swift in Sources */,
 				C12CA58221A599E60082FEB7 /* WorkTimeDecoderTests.swift in Sources */,
 				8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift in Sources */,
+				8A79A2D32422460C0048B44B /* TaskHistoryViewControllerMock.swift in Sources */,
 				8A137C3B23FD74E4001569BB /* Asserts.swift in Sources */,
 				C1B771F521EF2C5800EFE06F /* TaskFormTests.swift in Sources */,
 				C10FD88921F1F36300A233C5 /* ApiClientUsersTests.swift in Sources */,
@@ -2709,11 +2739,13 @@
 				8AF5696F23D71EA000A1D001 /* JSONFactorable+Extension.swift in Sources */,
 				C19706E221C132C9007AFED4 /* WorkTimeTableViewCellModelTests.swift in Sources */,
 				C1FA05E4219440C700BD8C9D /* LoginContentProviderTests.swift in Sources */,
+				8A79A2D524224A040048B44B /* TaskHistoryCoordinatorMock.swift in Sources */,
 				8A79A2CB2422105F0048B44B /* DateFormatterMock.swift in Sources */,
 				C19706E421C13908007AFED4 /* CalendarExtensionTests.swift in Sources */,
 				C134298521A6C79600F4EA42 /* ErrorHandlerMock.swift in Sources */,
 				C10FD89021F1FE3800A233C5 /* ProfileCoordinatorMock.swift in Sources */,
 				C1F7C2E721908DD400F4FAF0 /* AttributedButtonTests.swift in Sources */,
+				8A79A2D0242243280048B44B /* TaskHistoryViewModelTests.swift in Sources */,
 				C1249C852181B567005DB2A5 /* ErrorHandlerTests.swift in Sources */,
 				C10FD88E21F1FB6200A233C5 /* ProfileViewControllerMock.swift in Sources */,
 				C12260172188927A007D64A3 /* AuthenticationCoordinatorTests.swift in Sources */,

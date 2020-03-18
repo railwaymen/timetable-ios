@@ -61,32 +61,21 @@ extension TaskHistoryViewModel: TaskHistoryViewModelType {
     }
     
     func numberOfSections() -> Int {
-        return self.workTime?.versions.count ?? 0
+        return 1
     }
     
     func numberOfRows(in section: Int) -> Int {
-        return 1
+        guard section == 0 else { return 0 }
+        return self.workTime?.versions.count ?? 0
     }
     
     func configure(_ cell: WorkTimeTableViewCellable, for indexPath: IndexPath) {
         guard let workTime = self.workTime(for: indexPath) else { return }
-        let viewModel = WorkTimeTableViewCellModel(
-            userInterface: cell,
-            parent: self,
-            workTime: workTime)
-        cell.configure(viewModel: viewModel)
+        self.coordinator?.configure(cell, with: workTime)
     }
     
     func closeButtonTapped() {
         self.coordinator?.dismiss()
-    }
-}
-
-// MARK: - WorkTimeTableViewCellModelParentType
-extension TaskHistoryViewModel: WorkTimeTableViewCellModelParentType {
-    func openTask(for workTime: WorkTimeDisplayed) {
-        guard let task = workTime.task, let url = URL(string: task) else { return }
-        self.coordinator?.openWithSafari(url: url)
     }
 }
 
@@ -108,9 +97,9 @@ extension TaskHistoryViewModel {
     }
     
     private func workTime(for indexPath: IndexPath) -> WorkTimeDisplayed? {
-        guard indexPath.row == 0,
+        guard indexPath.section == 0,
             let workTime = self.workTime else { return nil }
-        let itemFromEnd = workTime.versions.count - indexPath.section - 1
+        let itemFromEnd = workTime.versions.count - indexPath.row - 1
         guard let version = workTime.versions[safeIndex: itemFromEnd] else { return nil }
         return WorkTimeDisplayed(workTime: workTime, version: version)
     }
