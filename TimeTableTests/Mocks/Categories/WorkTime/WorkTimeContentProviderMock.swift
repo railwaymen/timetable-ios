@@ -22,6 +22,12 @@ class WorkTimeContentProviderMock {
         let completion: SaveTaskCompletion
     }
     
+    private(set) var saveTaskWithFillingParams: [SaveTaskWithFillingParams] = []
+    struct SaveTaskWithFillingParams {
+        let taskForm: TaskFormType
+        let completion: SaveTaskCompletion
+    }
+    
     var getPredefinedDayReturnValue: Date = Date()
     private(set) var getPredefinedDayParams: [GetPredefinedDayParams] = []
     struct GetPredefinedDayParams {
@@ -50,6 +56,10 @@ extension WorkTimeContentProviderMock: WorkTimeContentProviderType {
     
     func save(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion) {
         self.saveTaskParams.append(SaveTaskParams(taskForm: taskForm, completion: completion))
+    }
+    
+    func saveWithFilling(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion) {
+        self.saveTaskWithFillingParams.append(SaveTaskWithFillingParams(taskForm: taskForm, completion: completion))
     }
     
     func getPredefinedDay(forTaskForm task: TaskForm) -> Date {

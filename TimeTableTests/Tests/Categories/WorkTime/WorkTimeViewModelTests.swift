@@ -76,7 +76,7 @@ extension WorkTimeViewModelTests {
  
 // MARK: - viewDidLoad()
 extension WorkTimeViewModelTests {
-    func testViewDidLoadSetUpUserInterfaceWithCurrentSelectedProject() throws {
+    func testViewDidLoad_setsUpUIWithCurrentSelectedProject() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         //Act
@@ -84,7 +84,7 @@ extension WorkTimeViewModelTests {
         //Assert
         XCTAssertEqual(self.userInterfaceMock.updateDayParams.count, 1)
         XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, "Select project")
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setUpParams.last?.allowsTask))
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setSaveWithFillingButtonParams.last?.isHidden))
     }
     
     func testViewDidLoad_withEditedTask() throws {
@@ -100,10 +100,9 @@ extension WorkTimeViewModelTests {
         XCTAssertEqual(self.userInterfaceMock.updateStartAtDateParams.last?.date, task.startsAt)
         XCTAssertEqual(self.userInterfaceMock.updateEndAtDateParams.last?.date, task.endsAt)
         XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, task.project?.name)
-        XCTAssertEqual(self.userInterfaceMock.setUpParams.last?.body, task.body)
-        XCTAssertNotNil(self.userInterfaceMock.setUpParams.last?.urlString)
-        XCTAssertEqual(self.userInterfaceMock.setUpParams.last?.urlString, task.url?.absoluteString)
-        XCTAssertEqual(try XCTUnwrap(self.userInterfaceMock.setUpParams.last?.allowsTask), task.allowsTask)
+        XCTAssertEqual(self.userInterfaceMock.setBodyParams.last?.text, task.body)
+        XCTAssertEqual(try XCTUnwrap(self.userInterfaceMock.setTaskParams.last?.urlString), task.url?.absoluteString)
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setSaveWithFillingButtonParams.last?.isHidden))
     }
     
     func testViewDidLoad_withDuplicatedTaskWithoutLastTask() throws {
@@ -117,10 +116,9 @@ extension WorkTimeViewModelTests {
         XCTAssertNotEqual(self.userInterfaceMock.updateStartAtDateParams.last?.date, task.startsAt)
         XCTAssertNotEqual(self.userInterfaceMock.updateEndAtDateParams.last?.date, task.endsAt)
         XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, task.project?.name)
-        XCTAssertEqual(self.userInterfaceMock.setUpParams.last?.body, task.body)
-        XCTAssertNotNil(self.userInterfaceMock.setUpParams.last?.urlString)
-        XCTAssertEqual(self.userInterfaceMock.setUpParams.last?.urlString, task.url?.absoluteString)
-        XCTAssertEqual(try XCTUnwrap(self.userInterfaceMock.setUpParams.last?.allowsTask), task.allowsTask)
+        XCTAssertEqual(self.userInterfaceMock.setBodyParams.last?.text, task.body)
+        XCTAssertEqual(try XCTUnwrap(self.userInterfaceMock.setTaskParams.last?.urlString), task.url?.absoluteString)
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setSaveWithFillingButtonParams.last?.isHidden))
     }
     
     func testViewDidLoad_withDuplicatedTaskWithLastTask() throws {
@@ -137,10 +135,9 @@ extension WorkTimeViewModelTests {
         XCTAssertEqual(self.userInterfaceMock.updateStartAtDateParams.last?.date, lastTask.endsAt)
         XCTAssertEqual(self.userInterfaceMock.updateEndAtDateParams.last?.date, lastTask.endsAt)
         XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, task.project?.name)
-        XCTAssertEqual(self.userInterfaceMock.setUpParams.last?.body, task.body)
-        XCTAssertNotNil(self.userInterfaceMock.setUpParams.last?.urlString)
-        XCTAssertEqual(self.userInterfaceMock.setUpParams.last?.urlString, task.url?.absoluteString)
-        XCTAssertEqual(try XCTUnwrap(self.userInterfaceMock.setUpParams.last?.allowsTask), task.allowsTask)
+        XCTAssertEqual(self.userInterfaceMock.setBodyParams.last?.text, task.body)
+        XCTAssertEqual(try XCTUnwrap(self.userInterfaceMock.setTaskParams.last?.urlString), task.url?.absoluteString)
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setSaveWithFillingButtonParams.last?.isHidden))
     }
     
     // MARK: Fetch
@@ -167,7 +164,7 @@ extension WorkTimeViewModelTests {
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
         XCTAssertEqual(self.userInterfaceMock.reloadTagsViewParams.count, 1)
-        XCTAssertEqual(self.userInterfaceMock.setUpParams.count, 2)
+        XCTAssertEqual(self.userInterfaceMock.setUpParams.count, 1)
         XCTAssertEqual(self.userInterfaceMock.updateProjectParams.count, 2)
         XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, project.name)
     }
