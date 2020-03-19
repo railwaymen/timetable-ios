@@ -1,12 +1,24 @@
 {
-    "id": 16281,
     "project_id": 11,
     "name": "Test Name",
     "color": "0c0c0c",
-    "user": {
-        "name": "Admin Admin"
-    },
-    "leader": {
-        "name": "Rosalind Auer"
-    }
+    "leader_first_name": "Leader",
+    "leader_last_name": "Best",
+    "users": [
+        {
+            "id": 1,
+            "first_name": "John",
+            "last_name": "Smith"
+        },
+        {
+            "id": 2,
+            "first_name": "Marie",
+            "last_name": "Zelie"
+        },
+        {
+            "id": 3,
+            "first_name": "David",
+            "last_name": "Guetta"
+        }
+    ]
 }

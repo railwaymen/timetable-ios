@@ -51,7 +51,7 @@ class WorkTimeViewModel {
     private let notificationCenter: NotificationCenterType
     private let lastTask: TaskForm?
     private let viewTitle: String
-    private var projects: [ProjectDecoder]
+    private var projects: [SimpleProjectRecordDecoder]
     private var taskForm: TaskForm
     private var tags: [ProjectTag]
     

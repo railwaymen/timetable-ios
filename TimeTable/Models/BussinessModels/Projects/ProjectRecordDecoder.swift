@@ -9,50 +9,115 @@
 import Foundation
 import UIKit
 
-struct ProjectRecordDecoder: Decodable {
+protocol ProjectRecordDecoderFields {
+    var identifier: Int { get }
+    var name: String { get }
+    var color: UIColor? { get }
+    var leader: ProjectRecordDecoder.Leader { get }
+    var users: [ProjectRecordDecoder.User] { get }
+}
+
+protocol ProjectRecordDecoderLeaderFields {
+    var firstName: String? { get }
+    var lastName: String? { get }
+}
+
+protocol ProjectRecordDecoderUserFields {
+    var identifier: Int { get }
+    var firstName: String { get }
+    var lastName: String { get }
+}
+
+struct ProjectRecordDecoder: Decodable, ProjectRecordDecoderFields {
     let identifier: Int
-    let projectId: Int
     let name: String
     let color: UIColor?
-    let user: User?
-    let leader: User?
+    let leader: Leader
+    let users: [User]
     
     enum CodingKeys: String, CodingKey {
-        case identifier = "id"
-        case projectId
+        case identifier = "projectId"
         case name
         case color
-        case user
-        case leader
+        case users
     }
     
     // MARK: - Initialization
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.identifier = try container.decode(Int.self, forKey: .identifier)
-        self.projectId = try container.decode(Int.self, forKey: .projectId)
         self.name = try container.decode(String.self, forKey: .name)
         if let colorHexString = try? container.decode(String.self, forKey: .color) {
             self.color = UIColor(hexString: colorHexString)
         } else {
             self.color = nil
         }
-        self.user = try? container.decode(User.self, forKey: .user)
-        self.leader = try? container.decode(User.self, forKey: .leader)
+        self.leader = try Leader(from: decoder)
+        self.users = (try? container.decode([User].self, forKey: .users)) ?? []
     }
 }
 
 // MARK: - Structures
 extension ProjectRecordDecoder {
-    struct User: Decodable {
-        let name: String
+    struct Leader: Decodable, ProjectRecordDecoderLeaderFields {
+        let firstName: String?
+        let lastName: String?
         
         enum CodingKeys: String, CodingKey {
-            case name
+            case firstName = "leaderFirstName"
+            case lastName = "leaderLastName"
+        }
+        
+        // MARK: Getters
+        var name: String {
+            if let firstName = self.firstName,
+                let lastName = self.lastName {
+                return firstName + " " + lastName
+            } else if let firstName = self.firstName {
+                return firstName
+            } else if let lastName = self.lastName {
+                return lastName
+            }
+            return ""
+        }
+        
+        // MARK: Initialization
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.firstName = try? container.decode(String.self, forKey: .firstName)
+            self.lastName = try? container.decode(String.self, forKey: .lastName)
+        }
+    }
+    
+    struct User: Decodable, ProjectRecordDecoderUserFields {
+        let identifier: Int
+        let firstName: String
+        let lastName: String
+        
+        enum CodingKeys: String, CodingKey {
+            case identifier = "id"
+            case firstName
+            case lastName
+        }
+        
+        // MARK: - Getters
+        var name: String {
+            self.firstName + " " + self.lastName
         }
     }
 }
 
 // MARK: - Equatable
-extension ProjectRecordDecoder: Equatable {}
-extension ProjectRecordDecoder.User: Equatable {}
+extension ProjectRecordDecoder: Equatable {
+    static func == (lhs: ProjectRecordDecoder, rhs: ProjectRecordDecoder) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+}
+
+extension ProjectRecordDecoder.Leader: Equatable {}
+
+extension ProjectRecordDecoder.User: Equatable {
+    static func == (lhs: ProjectRecordDecoder.User, rhs: ProjectRecordDecoder.User) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+}

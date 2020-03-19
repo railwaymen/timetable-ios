@@ -12,10 +12,14 @@ enum ProjectRecordJSONResource: String, JSONFileResource {
     case projectRecordResponse
     case projectRecordNullColorResponse
     case projectRecordMissingColorKeyResponse
-    case projectRecordNullUserResponse
-    case projectRecordMissingUserKeyResponse
-    case projectRecordNullLeaderResponse
-    case projectRecordMissingLeaderKey
+    
+    case projectRecordNullLeaderFirstNameResponse
+    case projectRecordMissingLeaderFirstNameKeyResponse
+    case projectRecordNullLeaderLastNameResponse
+    case projectRecordMissingLeaderLastNameKeyResponse
+    
+    case projectRecordNullUsersResponse
+    case projectRecordMissingUsersKeyResponse
     
     case projectsRecordsResponse
 }

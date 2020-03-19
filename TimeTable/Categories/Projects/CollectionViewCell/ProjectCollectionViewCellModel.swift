@@ -22,12 +22,12 @@ protocol ProjectCollectionViewCellModelOutput: class {
 
 class ProjectCollectionViewCellModel {
     private weak var userInterface: ProjectCollectionViewCellModelOutput?
-    private let project: Project
+    private let project: ProjectRecordDecoder
     
     // MARK: - Initialization
     init(
         userInterface: ProjectCollectionViewCellModelOutput?,
-        project: Project
+        project: ProjectRecordDecoder
     ) {
         self.userInterface = userInterface
         self.project = project
@@ -38,7 +38,10 @@ class ProjectCollectionViewCellModel {
 extension ProjectCollectionViewCellModel: ProjectCollectionViewCellModelType {
     func configure() {
         self.userInterface?.setUpView()
-        self.userInterface?.updateView(with: self.project.name, leaderName: self.project.leader?.name ?? "", projectColor: self.project.color)
+        self.userInterface?.updateView(
+            with: self.project.name,
+            leaderName: self.project.leader.name,
+            projectColor: self.project.color ?? .clear)
     }
     
     func numberOfRows() -> Int {

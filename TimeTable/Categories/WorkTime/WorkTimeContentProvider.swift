@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias FetchSimpleProjectsListResult = Result<(projects: [ProjectDecoder], tags: [ProjectTag]), Error>
+typealias FetchSimpleProjectsListResult = Result<(projects: [SimpleProjectRecordDecoder], tags: [ProjectTag]), Error>
 typealias FetchSimpleProjectsListCompletion = (FetchSimpleProjectsListResult) -> Void
 
 typealias SaveTaskResult = Result<Void, Error>

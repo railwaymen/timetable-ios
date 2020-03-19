@@ -1,5 +1,5 @@
 //
-//  ProjectDecoderFactory.swift
+//  SimpleProjectRecordDecoderFactory.swift
 //  TimeTableTests
 //
 //  Created by Bartłomiej Świerad on 21/01/2020.
@@ -10,15 +10,15 @@ import XCTest
 import JSONFactorable
 @testable import TimeTable
 
-class ProjectDecoderFactory: JSONFactorable {
-    func build(wrapper: ProjectDecoderWrapper = ProjectDecoderWrapper()) throws -> ProjectDecoder {
+class SimpleProjectRecordDecoderFactory: JSONFactorable {
+    func build(wrapper: Wrapper = Wrapper()) throws -> SimpleProjectRecordDecoder {
         return try self.buildObject(of: wrapper.jsonConvertible())
     }
 }
 
 // MARK: - Structures
-extension ProjectDecoderFactory {
-    struct ProjectDecoderWrapper {
+extension SimpleProjectRecordDecoderFactory {
+    struct Wrapper {
         let identifier: Int
         let name: String
         let color: UIColor?
@@ -72,9 +72,9 @@ extension ProjectDecoderFactory {
 }
 
 // MARK: - Helper extensions
-extension ProjectDecoder: JSONObjectType {
+extension SimpleProjectRecordDecoder: JSONObjectType {
     public func jsonConvertible() throws -> JSONConvertible {
-        let wrapper = ProjectDecoderFactory.ProjectDecoderWrapper(
+        let wrapper = SimpleProjectRecordDecoderFactory.Wrapper(
             identifier: self.identifier,
             name: self.name,
             color: self.color,

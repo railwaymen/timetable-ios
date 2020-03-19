@@ -11,7 +11,7 @@ import XCTest
 
 // swiftlint:disable file_length
 class WorkTimeViewModelTests: XCTestCase {
-    private let projectDecoderFactory = ProjectDecoderFactory()
+    private let projectDecoderFactory = SimpleProjectRecordDecoderFactory()
     private let simpleProjectDecoderFactory = SimpleProjectDecoderFactory()
     
     private var userInterfaceMock: WorkTimeViewControllerMock!

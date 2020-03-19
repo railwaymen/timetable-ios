@@ -106,6 +106,16 @@
 		8A79A2D0242243280048B44B /* TaskHistoryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2CF242243280048B44B /* TaskHistoryViewModelTests.swift */; };
 		8A79A2D32422460C0048B44B /* TaskHistoryViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2D22422460C0048B44B /* TaskHistoryViewControllerMock.swift */; };
 		8A79A2D524224A040048B44B /* TaskHistoryCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2D424224A040048B44B /* TaskHistoryCoordinatorMock.swift */; };
+		8A79A2E72423696B0048B44B /* projectRecordNullLeaderFirstNameResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2E62423696B0048B44B /* projectRecordNullLeaderFirstNameResponse.json */; };
+		8A79A2E9242369870048B44B /* projectRecordMissingLeaderFirstNameKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2E8242369870048B44B /* projectRecordMissingLeaderFirstNameKeyResponse.json */; };
+		8A79A2EB242369970048B44B /* projectRecordNullLeaderLastNameResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2EA242369970048B44B /* projectRecordNullLeaderLastNameResponse.json */; };
+		8A79A2ED242369AD0048B44B /* projectRecordMissingLeaderLastNameKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2EC242369AD0048B44B /* projectRecordMissingLeaderLastNameKeyResponse.json */; };
+		8A79A2EF242369BC0048B44B /* projectRecordNullUsersResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2EE242369BC0048B44B /* projectRecordNullUsersResponse.json */; };
+		8A79A2F1242369E00048B44B /* projectRecordMissingUsersKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2F0242369E00048B44B /* projectRecordMissingUsersKeyResponse.json */; };
+		8A79A2F324237F760048B44B /* ProjectRecordDecoderLeaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2F224237F760048B44B /* ProjectRecordDecoderLeaderTests.swift */; };
+		8A79A2F5242382C40048B44B /* ProjectRecordDecoderUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2F4242382C40048B44B /* ProjectRecordDecoderUserTests.swift */; };
+		8A79A2F72423842A0048B44B /* ProjectRecordUserJSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2F62423842A0048B44B /* ProjectRecordUserJSONResource.swift */; };
+		8A79A2FA242384560048B44B /* projectRecordUserFullResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2F9242384560048B44B /* projectRecordUserFullResponse.json */; };
 		8A80A38D23D89C24002643A1 /* APIClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80A38C23D89C24002643A1 /* APIClientFactory.swift */; };
 		8A80A38F23D89ED3002643A1 /* APIClientFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */; };
 		8A82EBF323FD46EC001393A8 /* WorkTimeContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */; };
@@ -136,7 +146,7 @@
 		8AE55D2123FD92D200F94242 /* DateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE55D2023FD92D200F94242 /* DateFactory.swift */; };
 		8AE55D2323FD933700F94242 /* DateFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE55D2223FD933700F94242 /* DateFactoryMock.swift */; };
 		8AF3073823688C5A00832FDD /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3073723688C5A00832FDD /* DependencyContainer.swift */; };
-		8AF5696D23D71C0900A1D001 /* ProjectDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5696C23D71C0900A1D001 /* ProjectDecoderFactory.swift */; };
+		8AF5696D23D71C0900A1D001 /* SimpleProjectRecordDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5696C23D71C0900A1D001 /* SimpleProjectRecordDecoderFactory.swift */; };
 		8AF5696F23D71EA000A1D001 /* JSONFactorable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5696E23D71EA000A1D001 /* JSONFactorable+Extension.swift */; };
 		8AF5697123D7222800A1D001 /* ProjectRecordDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5697023D7222800A1D001 /* ProjectRecordDecoderFactory.swift */; };
 		8AF5697323D7248D00A1D001 /* SimpleProjectDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5697223D7248D00A1D001 /* SimpleProjectDecoderFactory.swift */; };
@@ -189,7 +199,6 @@
 		C125F1B821DCCF5100594CDE /* ProjectsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C125F1B721DCCF5100594CDE /* ProjectsViewModel.swift */; };
 		C125F1BA21DCCF5D00594CDE /* Projects.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C125F1B921DCCF5D00594CDE /* Projects.storyboard */; };
 		C125F1BC21DCDA8800594CDE /* ProjectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C125F1BB21DCDA8800594CDE /* ProjectCollectionViewCell.swift */; };
-		C125F1BE21DCDCB000594CDE /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = C125F1BD21DCDCB000594CDE /* Project.swift */; };
 		C125F1C121DCF17300594CDE /* ProjectCollectionViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C125F1C021DCF17300594CDE /* ProjectCollectionViewCellModel.swift */; };
 		C12BD99921E48D5700A6EAF0 /* ProjectsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12BD99821E48D5700A6EAF0 /* ProjectsViewModelTests.swift */; };
 		C12BD99B21E48DD100A6EAF0 /* ProjectsViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12BD99A21E48DD100A6EAF0 /* ProjectsViewControllerMock.swift */; };
@@ -198,20 +207,15 @@
 		C12BD9A921E49C4600A6EAF0 /* projectRecordResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C12BD9A821E49C4600A6EAF0 /* projectRecordResponse.json */; };
 		C12BD9AB21E49C8A00A6EAF0 /* projectRecordNullColorResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C12BD9AA21E49C8A00A6EAF0 /* projectRecordNullColorResponse.json */; };
 		C12BD9AD21E49CAA00A6EAF0 /* projectRecordMissingColorKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C12BD9AC21E49CAA00A6EAF0 /* projectRecordMissingColorKeyResponse.json */; };
-		C12BD9AF21E49CC900A6EAF0 /* projectRecordNullUserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C12BD9AE21E49CC900A6EAF0 /* projectRecordNullUserResponse.json */; };
-		C12BD9B121E49CDD00A6EAF0 /* projectRecordMissingUserKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C12BD9B021E49CDD00A6EAF0 /* projectRecordMissingUserKeyResponse.json */; };
-		C12BD9B321E49CF100A6EAF0 /* projectRecordNullLeaderResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C12BD9B221E49CF100A6EAF0 /* projectRecordNullLeaderResponse.json */; };
-		C12BD9B521E49D0800A6EAF0 /* projectRecordMissingLeaderKey.json in Resources */ = {isa = PBXBuildFile; fileRef = C12BD9B421E49D0800A6EAF0 /* projectRecordMissingLeaderKey.json */; };
-		C12BD9B721E4A01700A6EAF0 /* ProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12BD9B621E4A01700A6EAF0 /* ProjectTests.swift */; };
 		C12BD9B921E4B20400A6EAF0 /* projectsRecordsResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C12BD9B821E4B20400A6EAF0 /* projectsRecordsResponse.json */; };
 		C12BD9BB21E4B7B200A6EAF0 /* ApiClientProjectsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12BD9BA21E4B7B200A6EAF0 /* ApiClientProjectsTests.swift */; };
 		C12BD9BE21E4BCDA00A6EAF0 /* ProjectsCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12BD9BD21E4BCDA00A6EAF0 /* ProjectsCoordinatorTests.swift */; };
 		C12BD9C121E4C44900A6EAF0 /* ProjectCollectionViewCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12BD9C021E4C44900A6EAF0 /* ProjectCollectionViewCellModelTests.swift */; };
 		C12BD9C321E4C48900A6EAF0 /* ProjectCollectionViewCellMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12BD9C221E4C48900A6EAF0 /* ProjectCollectionViewCellMock.swift */; };
-		C12CA56821A578870082FEB7 /* ProjectDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12CA56721A578870082FEB7 /* ProjectDecoder.swift */; };
+		C12CA56821A578870082FEB7 /* SimpleProjectRecordDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12CA56721A578870082FEB7 /* SimpleProjectRecordDecoder.swift */; };
 		C12CA56A21A57ADD0082FEB7 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12CA56921A57ADD0082FEB7 /* UIColor+Extension.swift */; };
 		C12CA56C21A57BAA0082FEB7 /* UIColorExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12CA56B21A57BAA0082FEB7 /* UIColorExtensionTests.swift */; };
-		C12CA56F21A58BE70082FEB7 /* ProjectDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12CA56E21A58BE70082FEB7 /* ProjectDecoderTests.swift */; };
+		C12CA56F21A58BE70082FEB7 /* SimpleProjectRecordDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12CA56E21A58BE70082FEB7 /* SimpleProjectRecordDecoderTests.swift */; };
 		C12CA57221A58D020082FEB7 /* workTimesProjectResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C12CA57121A58D020082FEB7 /* workTimesProjectResponse.json */; };
 		C12CA57421A58D150082FEB7 /* workTimesProjectNullColorResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C12CA57321A58D150082FEB7 /* workTimesProjectNullColorResponse.json */; };
 		C12CA57621A58D2E0082FEB7 /* workTimesProjectMissingColorKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C12CA57521A58D2E0082FEB7 /* workTimesProjectMissingColorKeyResponse.json */; };
@@ -522,6 +526,16 @@
 		8A79A2CF242243280048B44B /* TaskHistoryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHistoryViewModelTests.swift; sourceTree = "<group>"; };
 		8A79A2D22422460C0048B44B /* TaskHistoryViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHistoryViewControllerMock.swift; sourceTree = "<group>"; };
 		8A79A2D424224A040048B44B /* TaskHistoryCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHistoryCoordinatorMock.swift; sourceTree = "<group>"; };
+		8A79A2E62423696B0048B44B /* projectRecordNullLeaderFirstNameResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = projectRecordNullLeaderFirstNameResponse.json; sourceTree = "<group>"; };
+		8A79A2E8242369870048B44B /* projectRecordMissingLeaderFirstNameKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = projectRecordMissingLeaderFirstNameKeyResponse.json; sourceTree = "<group>"; };
+		8A79A2EA242369970048B44B /* projectRecordNullLeaderLastNameResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = projectRecordNullLeaderLastNameResponse.json; sourceTree = "<group>"; };
+		8A79A2EC242369AD0048B44B /* projectRecordMissingLeaderLastNameKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = projectRecordMissingLeaderLastNameKeyResponse.json; sourceTree = "<group>"; };
+		8A79A2EE242369BC0048B44B /* projectRecordNullUsersResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = projectRecordNullUsersResponse.json; sourceTree = "<group>"; };
+		8A79A2F0242369E00048B44B /* projectRecordMissingUsersKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = projectRecordMissingUsersKeyResponse.json; sourceTree = "<group>"; };
+		8A79A2F224237F760048B44B /* ProjectRecordDecoderLeaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRecordDecoderLeaderTests.swift; sourceTree = "<group>"; };
+		8A79A2F4242382C40048B44B /* ProjectRecordDecoderUserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRecordDecoderUserTests.swift; sourceTree = "<group>"; };
+		8A79A2F62423842A0048B44B /* ProjectRecordUserJSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRecordUserJSONResource.swift; sourceTree = "<group>"; };
+		8A79A2F9242384560048B44B /* projectRecordUserFullResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = projectRecordUserFullResponse.json; sourceTree = "<group>"; };
 		8A80A38C23D89C24002643A1 /* APIClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientFactory.swift; sourceTree = "<group>"; };
 		8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientFactoryMock.swift; sourceTree = "<group>"; };
 		8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContentProvider.swift; sourceTree = "<group>"; };
@@ -555,7 +569,7 @@
 		8AE55D2023FD92D200F94242 /* DateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFactory.swift; sourceTree = "<group>"; };
 		8AE55D2223FD933700F94242 /* DateFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFactoryMock.swift; sourceTree = "<group>"; };
 		8AF3073723688C5A00832FDD /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
-		8AF5696C23D71C0900A1D001 /* ProjectDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDecoderFactory.swift; sourceTree = "<group>"; };
+		8AF5696C23D71C0900A1D001 /* SimpleProjectRecordDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleProjectRecordDecoderFactory.swift; sourceTree = "<group>"; };
 		8AF5696E23D71EA000A1D001 /* JSONFactorable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONFactorable+Extension.swift"; sourceTree = "<group>"; };
 		8AF5697023D7222800A1D001 /* ProjectRecordDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRecordDecoderFactory.swift; sourceTree = "<group>"; };
 		8AF5697223D7248D00A1D001 /* SimpleProjectDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleProjectDecoderFactory.swift; sourceTree = "<group>"; };
@@ -607,7 +621,6 @@
 		C125F1B721DCCF5100594CDE /* ProjectsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewModel.swift; sourceTree = "<group>"; };
 		C125F1B921DCCF5D00594CDE /* Projects.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Projects.storyboard; sourceTree = "<group>"; };
 		C125F1BB21DCDA8800594CDE /* ProjectCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCollectionViewCell.swift; sourceTree = "<group>"; };
-		C125F1BD21DCDCB000594CDE /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		C125F1C021DCF17300594CDE /* ProjectCollectionViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCollectionViewCellModel.swift; sourceTree = "<group>"; };
 		C12BD99821E48D5700A6EAF0 /* ProjectsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewModelTests.swift; sourceTree = "<group>"; };
 		C12BD99A21E48DD100A6EAF0 /* ProjectsViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewControllerMock.swift; sourceTree = "<group>"; };
@@ -616,20 +629,15 @@
 		C12BD9A821E49C4600A6EAF0 /* projectRecordResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = projectRecordResponse.json; sourceTree = "<group>"; };
 		C12BD9AA21E49C8A00A6EAF0 /* projectRecordNullColorResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = projectRecordNullColorResponse.json; sourceTree = "<group>"; };
 		C12BD9AC21E49CAA00A6EAF0 /* projectRecordMissingColorKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = projectRecordMissingColorKeyResponse.json; sourceTree = "<group>"; };
-		C12BD9AE21E49CC900A6EAF0 /* projectRecordNullUserResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = projectRecordNullUserResponse.json; sourceTree = "<group>"; };
-		C12BD9B021E49CDD00A6EAF0 /* projectRecordMissingUserKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = projectRecordMissingUserKeyResponse.json; sourceTree = "<group>"; };
-		C12BD9B221E49CF100A6EAF0 /* projectRecordNullLeaderResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = projectRecordNullLeaderResponse.json; sourceTree = "<group>"; };
-		C12BD9B421E49D0800A6EAF0 /* projectRecordMissingLeaderKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = projectRecordMissingLeaderKey.json; sourceTree = "<group>"; };
-		C12BD9B621E4A01700A6EAF0 /* ProjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTests.swift; sourceTree = "<group>"; };
 		C12BD9B821E4B20400A6EAF0 /* projectsRecordsResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = projectsRecordsResponse.json; sourceTree = "<group>"; };
 		C12BD9BA21E4B7B200A6EAF0 /* ApiClientProjectsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientProjectsTests.swift; sourceTree = "<group>"; };
 		C12BD9BD21E4BCDA00A6EAF0 /* ProjectsCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsCoordinatorTests.swift; sourceTree = "<group>"; };
 		C12BD9C021E4C44900A6EAF0 /* ProjectCollectionViewCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCollectionViewCellModelTests.swift; sourceTree = "<group>"; };
 		C12BD9C221E4C48900A6EAF0 /* ProjectCollectionViewCellMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCollectionViewCellMock.swift; sourceTree = "<group>"; };
-		C12CA56721A578870082FEB7 /* ProjectDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDecoder.swift; sourceTree = "<group>"; };
+		C12CA56721A578870082FEB7 /* SimpleProjectRecordDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleProjectRecordDecoder.swift; sourceTree = "<group>"; };
 		C12CA56921A57ADD0082FEB7 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		C12CA56B21A57BAA0082FEB7 /* UIColorExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensionTests.swift; sourceTree = "<group>"; };
-		C12CA56E21A58BE70082FEB7 /* ProjectDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDecoderTests.swift; sourceTree = "<group>"; };
+		C12CA56E21A58BE70082FEB7 /* SimpleProjectRecordDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleProjectRecordDecoderTests.swift; sourceTree = "<group>"; };
 		C12CA57121A58D020082FEB7 /* workTimesProjectResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimesProjectResponse.json; sourceTree = "<group>"; };
 		C12CA57321A58D150082FEB7 /* workTimesProjectNullColorResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimesProjectNullColorResponse.json; sourceTree = "<group>"; };
 		C12CA57521A58D2E0082FEB7 /* workTimesProjectMissingColorKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimesProjectMissingColorKeyResponse.json; sourceTree = "<group>"; };
@@ -1149,6 +1157,14 @@
 			path = TaskHistory;
 			sourceTree = "<group>";
 		};
+		8A79A2F8242384460048B44B /* User */ = {
+			isa = PBXGroup;
+			children = (
+				8A79A2F9242384560048B44B /* projectRecordUserFullResponse.json */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		8A839D0E23570FBD002F3464 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -1172,7 +1188,7 @@
 		8AF5696B23D71BE700A1D001 /* Factories */ = {
 			isa = PBXGroup;
 			children = (
-				8AF5696C23D71C0900A1D001 /* ProjectDecoderFactory.swift */,
+				8AF5696C23D71C0900A1D001 /* SimpleProjectRecordDecoderFactory.swift */,
 				8AF5697023D7222800A1D001 /* ProjectRecordDecoderFactory.swift */,
 				8AF5697C23D759AE00A1D001 /* ServerErrorFactory.swift */,
 				8AF5697623D751F400A1D001 /* SessionDecoderFactory.swift */,
@@ -1344,7 +1360,6 @@
 				8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */,
 				8A09DCB723673E58003FC2A6 /* DispatchQueueManager.swift */,
 				C175B56B227CAACA006D9944 /* MessagePresenter.swift */,
-				C125F1BD21DCDCB000594CDE /* Project.swift */,
 				8A5EF31B23FE808800AE4309 /* ReusableCellType.swift */,
 				C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */,
 				8AE55D1C23FD855E00F94242 /* Task.swift */,
@@ -1362,7 +1377,6 @@
 		C1249C782181AC35005DB2A5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C12BD9B621E4A01700A6EAF0 /* ProjectTests.swift */,
 				C1249C792181AC49005DB2A5 /* StoryboardsManagerTests.swift */,
 				C1B771F421EF2C5800EFE06F /* TaskFormTests.swift */,
 				C1AFFFD721A2ACB100A7A632 /* AccessService */,
@@ -1451,7 +1465,7 @@
 		C12CA56621A5786E0082FEB7 /* Projects */ = {
 			isa = PBXGroup;
 			children = (
-				C12CA56721A578870082FEB7 /* ProjectDecoder.swift */,
+				C12CA56721A578870082FEB7 /* SimpleProjectRecordDecoder.swift */,
 				C125F1AE21DCC95200594CDE /* ProjectRecordDecoder.swift */,
 				C16B3A74229E6A0700B6E9E6 /* ProjectTag.swift */,
 				C16B3A72229E696C00B6E9E6 /* SimpleProjectDecoder.swift */,
@@ -1462,8 +1476,10 @@
 		C12CA56D21A58BD70082FEB7 /* Projects */ = {
 			isa = PBXGroup;
 			children = (
-				C12CA56E21A58BE70082FEB7 /* ProjectDecoderTests.swift */,
+				C12CA56E21A58BE70082FEB7 /* SimpleProjectRecordDecoderTests.swift */,
 				C12BD9A021E49AE500A6EAF0 /* ProjectRecordDecoderTests.swift */,
+				8A79A2F224237F760048B44B /* ProjectRecordDecoderLeaderTests.swift */,
+				8A79A2F4242382C40048B44B /* ProjectRecordDecoderUserTests.swift */,
 			);
 			path = Projects;
 			sourceTree = "<group>";
@@ -1929,14 +1945,17 @@
 		C1B771CF21EF1C4300EFE06F /* ProjectRecord */ = {
 			isa = PBXGroup;
 			children = (
+				C12BD9AC21E49CAA00A6EAF0 /* projectRecordMissingColorKeyResponse.json */,
+				8A79A2E8242369870048B44B /* projectRecordMissingLeaderFirstNameKeyResponse.json */,
+				8A79A2EC242369AD0048B44B /* projectRecordMissingLeaderLastNameKeyResponse.json */,
+				8A79A2F0242369E00048B44B /* projectRecordMissingUsersKeyResponse.json */,
+				C12BD9AA21E49C8A00A6EAF0 /* projectRecordNullColorResponse.json */,
+				8A79A2E62423696B0048B44B /* projectRecordNullLeaderFirstNameResponse.json */,
+				8A79A2EA242369970048B44B /* projectRecordNullLeaderLastNameResponse.json */,
+				8A79A2EE242369BC0048B44B /* projectRecordNullUsersResponse.json */,
 				C12BD9A821E49C4600A6EAF0 /* projectRecordResponse.json */,
 				C12BD9B821E4B20400A6EAF0 /* projectsRecordsResponse.json */,
-				C12BD9AA21E49C8A00A6EAF0 /* projectRecordNullColorResponse.json */,
-				C12BD9AC21E49CAA00A6EAF0 /* projectRecordMissingColorKeyResponse.json */,
-				C12BD9AE21E49CC900A6EAF0 /* projectRecordNullUserResponse.json */,
-				C12BD9B021E49CDD00A6EAF0 /* projectRecordMissingUserKeyResponse.json */,
-				C12BD9B221E49CF100A6EAF0 /* projectRecordNullLeaderResponse.json */,
-				C12BD9B421E49D0800A6EAF0 /* projectRecordMissingLeaderKey.json */,
+				8A79A2F8242384460048B44B /* User */,
 			);
 			path = ProjectRecord;
 			sourceTree = "<group>";
@@ -2029,6 +2048,7 @@
 				8A79A2512420DED60048B44B /* TaskHistory */,
 				C10FD88521F1F2FF00A233C5 /* User */,
 				C12CA57E21A599BE0082FEB7 /* WorkTimes */,
+				8A79A2F62423842A0048B44B /* ProjectRecordUserJSONResource.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -2330,15 +2350,17 @@
 				8A79A2C02420F73C0048B44B /* taskVersionNullCurrentTag.json in Resources */,
 				8A79A2AE2420F73C0048B44B /* taskVersionNullPreviousTag.json in Resources */,
 				C134299D21A6DC6B00F4EA42 /* workTimeNullTask.json in Resources */,
-				C12BD9B521E49D0800A6EAF0 /* projectRecordMissingLeaderKey.json in Resources */,
 				C1B7720321EF423900EFE06F /* durationErrorKeyResponse.json in Resources */,
 				C1B771D521EF1DD200EFE06F /* simpleProjectNullColorResponse.json in Resources */,
+				8A79A2F1242369E00048B44B /* projectRecordMissingUsersKeyResponse.json in Resources */,
 				C12CA57221A58D020082FEB7 /* workTimesProjectResponse.json in Resources */,
 				C1B771E321EF1E6800EFE06F /* simpleProjectMissingCountDurationKeyResponse.json in Resources */,
 				8A79A2AC2420F73C0048B44B /* taskVersionUnknownEvent.json in Resources */,
 				C18A189C21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json in Resources */,
 				C1B7720121EF423000EFE06F /* endsAtErrorKeyResponse.json in Resources */,
 				C1B771EB21EF1EB100EFE06F /* simpleProjectMissingLunchKeyResponse.json in Resources */,
+				8A79A2FA242384560048B44B /* projectRecordUserFullResponse.json in Resources */,
+				8A79A2E9242369870048B44B /* projectRecordMissingLeaderFirstNameKeyResponse.json in Resources */,
 				8A79A2BF2420F73C0048B44B /* taskVersionNullProjectName.json in Resources */,
 				C12CA57621A58D2E0082FEB7 /* workTimesProjectMissingColorKeyResponse.json in Resources */,
 				8A79A2B32420F73C0048B44B /* taskVersionMissingCurrentTagKey.json in Resources */,
@@ -2348,6 +2370,7 @@
 				8A79A2532420DEEB0048B44B /* taskVersionFullModel.json in Resources */,
 				C1B771FB21EF41C300EFE06F /* emptyErrosKeysResponse.json in Resources */,
 				8A79A2912420F0DE0048B44B /* taskVersionMissingCurrentDurationKey.json in Resources */,
+				8A79A2E72423696B0048B44B /* projectRecordNullLeaderFirstNameResponse.json in Resources */,
 				8A79A2B92420F73C0048B44B /* taskVersionMissingPreviousTagKey.json in Resources */,
 				8A79A2BC2420F73C0048B44B /* taskVersionMissingPreviousStartsAtKey.json in Resources */,
 				C1B771E921EF1EA200EFE06F /* simpleProjectNullLunchResponse.json in Resources */,
@@ -2364,7 +2387,7 @@
 				C11F51F321A5AB9C00FD626A /* workTimeInvalidDateFormatResponse.json in Resources */,
 				C12BD9AB21E49C8A00A6EAF0 /* projectRecordNullColorResponse.json in Resources */,
 				8A8EE1AD23F4455900416D31 /* GoogleService-Info.plist in Resources */,
-				C12BD9AF21E49CC900A6EAF0 /* projectRecordNullUserResponse.json in Resources */,
+				8A79A2ED242369AD0048B44B /* projectRecordMissingLeaderLastNameKeyResponse.json in Resources */,
 				8A79A2712420EF2F0048B44B /* taskVersionMissingCurrentBodyKey.json in Resources */,
 				C1B771DF21EF1E3E00EFE06F /* simpleProjectMissingInternalKeyResponse.json in Resources */,
 				8A9987CE23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json in Resources */,
@@ -2380,7 +2403,6 @@
 				C13429A121A6DC9900F4EA42 /* workTimeNullTaskPreview.json in Resources */,
 				8A79A2812420F01A0048B44B /* taskVersionMissingCurrentEndsAtKey.json in Resources */,
 				8A79A2B22420F73C0048B44B /* taskVersionNullCurrentStartsAt.json in Resources */,
-				C12BD9B321E49CF100A6EAF0 /* projectRecordNullLeaderResponse.json in Resources */,
 				C13429A521A6DF1400F4EA42 /* workTimesResponse.json in Resources */,
 				C12BD9A921E49C4600A6EAF0 /* projectRecordResponse.json in Resources */,
 				C1B771EF21EF1EE000EFE06F /* simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json in Resources */,
@@ -2388,11 +2410,12 @@
 				C1E1F04F21AD52BA007F9228 /* workTimesResponseNotSorted.json in Resources */,
 				C134299F21A6DC7600F4EA42 /* workTimeMissingTaskKey.json in Resources */,
 				8A79A2682420EBD90048B44B /* taskVersionMissingCurrentProjectNameKey.json in Resources */,
+				8A79A2EF242369BC0048B44B /* projectRecordNullUsersResponse.json in Resources */,
+				8A79A2EB242369970048B44B /* projectRecordNullLeaderLastNameResponse.json in Resources */,
 				8A9987D023951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json in Resources */,
 				C18A189E21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json in Resources */,
 				8A79A2B52420F73C0048B44B /* taskVersionNullPreviousProjectName.json in Resources */,
 				C11D0D012208243C00066CA9 /* matchingFullTimeMissingShouldWorkedKey.json in Resources */,
-				C12BD9B121E49CDD00A6EAF0 /* projectRecordMissingUserKeyResponse.json in Resources */,
 				8A79A2BA2420F73C0048B44B /* taskVersionNullCurrentEndsAt.json in Resources */,
 				8A79A2B82420F73C0048B44B /* taskVersionMissingEventKey.json in Resources */,
 				C13429B821A8308600F4EA42 /* workTimeBodyNull.json in Resources */,
@@ -2602,9 +2625,8 @@
 				8A31CD8723742CEA008E590D /* ProjectPickerCellModel.swift in Sources */,
 				8AE55D2123FD92D200F94242 /* DateFactory.swift in Sources */,
 				8A10F841235454DA0004F389 /* UIBarButtonItem+Extension.swift in Sources */,
-				C125F1BE21DCDCB000594CDE /* Project.swift in Sources */,
 				C13429AE21A7E48C00F4EA42 /* WorkTimesListViewModel.swift in Sources */,
-				C12CA56821A578870082FEB7 /* ProjectDecoder.swift in Sources */,
+				C12CA56821A578870082FEB7 /* SimpleProjectRecordDecoder.swift in Sources */,
 				8A31CD8023741FD0008E590D /* ProjectPickerViewController.swift in Sources */,
 				C1F69B2E21903818005D9114 /* LoginContentProvider.swift in Sources */,
 				C152C22221E89CB8003ABD88 /* TaskForm.swift in Sources */,
@@ -2691,6 +2713,8 @@
 				C10FD88921F1F36300A233C5 /* ApiClientUsersTests.swift in Sources */,
 				C134298F21A6D39C00F4EA42 /* LoginViewControllerMock.swift in Sources */,
 				8A3FE1B123ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift in Sources */,
+				8A79A2F324237F760048B44B /* ProjectRecordDecoderLeaderTests.swift in Sources */,
+				8A79A2F5242382C40048B44B /* ProjectRecordDecoderUserTests.swift in Sources */,
 				C1E1F05421AD5FD2007F9228 /* WorkTimesTableViewHeaderViewModelTests.swift in Sources */,
 				C11D0CF9220820BD00066CA9 /* ApiClientMatchingFullTimeTests.swift in Sources */,
 				C1B771F721EF39FA00EFE06F /* ApiValidationErrorsTests.swift in Sources */,
@@ -2714,6 +2738,7 @@
 				8A065B5D237ABDBB0072A21E /* UserJSONResource.swift in Sources */,
 				C13C2B0621EDE589008C9088 /* WorkTimesListCoordinatorMock.swift in Sources */,
 				C12BD99B21E48DD100A6EAF0 /* ProjectsViewControllerMock.swift in Sources */,
+				8A79A2F72423842A0048B44B /* ProjectRecordUserJSONResource.swift in Sources */,
 				C1249C7C2181AEB0005DB2A5 /* AppCoordinatorTests.swift in Sources */,
 				C134299721A6D7F700F4EA42 /* BundleMock.swift in Sources */,
 				8AE55D2323FD933700F94242 /* DateFactoryMock.swift in Sources */,
@@ -2728,7 +2753,6 @@
 				C1FA05E921945DA400BD8C9D /* XCTestCase+Extension.swift in Sources */,
 				C134296321A693F400F4EA42 /* TestError.swift in Sources */,
 				C153AC602182FC4B007A35BB /* UITextFieldExtensionTests.swift in Sources */,
-				C12BD9B721E4A01700A6EAF0 /* ProjectTests.swift in Sources */,
 				8A5D48C42369E20E0082C13D /* DispatchGroupFactoryMock.swift in Sources */,
 				C17EA3BA2189E9BA00A3F0CD /* ApiClientErrorTests.swift in Sources */,
 				C11D0D0522082A4400066CA9 /* WorkTimesListContentProviderTests.swift in Sources */,
@@ -2751,7 +2775,7 @@
 				C12260172188927A007D64A3 /* AuthenticationCoordinatorTests.swift in Sources */,
 				C134296021A6937E00F4EA42 /* ApiClientSessionTests.swift in Sources */,
 				C153AC622182FCB7007A35BB /* UILabelExtensionTests.swift in Sources */,
-				C12CA56F21A58BE70082FEB7 /* ProjectDecoderTests.swift in Sources */,
+				C12CA56F21A58BE70082FEB7 /* SimpleProjectRecordDecoderTests.swift in Sources */,
 				8AE0001623746520002F783E /* ProjectPickerViewModelTests.swift in Sources */,
 				8AE55D1F23FD86A200F94242 /* TaskFormMock.swift in Sources */,
 				C134297321A6BE3800F4EA42 /* JSONSerializationMock.swift in Sources */,
@@ -2761,7 +2785,7 @@
 				C134296F21A6BCCD00F4EA42 /* RequestEncoderMock.swift in Sources */,
 				8A99EBC123D9B95600CC9BA8 /* UIColor+Extension.swift in Sources */,
 				8A79A2502420DE4C0048B44B /* TaskVersionJSONResource.swift in Sources */,
-				8AF5696D23D71C0900A1D001 /* ProjectDecoderFactory.swift in Sources */,
+				8AF5696D23D71C0900A1D001 /* SimpleProjectRecordDecoderFactory.swift in Sources */,
 				C134299121A6D3BF00F4EA42 /* CoreDataStackMock.swift in Sources */,
 				C1531F072191CD4B00602A0C /* ApiClientTests.swift in Sources */,
 				C134297121A6BDF100F4EA42 /* JSONEncoderMock.swift in Sources */,

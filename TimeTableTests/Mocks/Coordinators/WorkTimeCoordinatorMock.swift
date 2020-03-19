@@ -12,7 +12,7 @@ import Foundation
 class WorkTimeCoordinatorMock {
     private(set) var showProjectPickerParams: [ShowProjectPickerParams] = []
     struct ShowProjectPickerParams {
-        var projects: [ProjectDecoder]
+        var projects: [SimpleProjectRecordDecoder]
         var finishHandler: ProjectPickerCoordinator.CustomFinishHandlerType
     }
     
@@ -24,7 +24,7 @@ class WorkTimeCoordinatorMock {
 
 // MARK: - WorkTimeCoordinatorType
 extension WorkTimeCoordinatorMock: WorkTimeCoordinatorType {
-    func showProjectPicker(projects: [ProjectDecoder], finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType) {
+    func showProjectPicker(projects: [SimpleProjectRecordDecoder], finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType) {
         self.showProjectPickerParams.append(ShowProjectPickerParams(projects: projects, finishHandler: finishHandler))
     }
     

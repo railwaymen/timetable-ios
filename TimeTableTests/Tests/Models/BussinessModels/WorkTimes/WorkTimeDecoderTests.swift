@@ -10,7 +10,7 @@ import XCTest
 @testable import TimeTable
 
 class WorkTimeDecoderTests: XCTestCase {
-    private let projectDecoderFactory = ProjectDecoderFactory()
+    private let projectDecoderFactory = SimpleProjectRecordDecoderFactory()
 }
 
 // MARK: - Decodable

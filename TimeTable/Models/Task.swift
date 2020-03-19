@@ -9,7 +9,7 @@
 import Foundation
 
 struct Task: Encodable {
-    var project: ProjectDecoder
+    var project: SimpleProjectRecordDecoder
     var body: String
     var url: URL?
     var startsAt: Date

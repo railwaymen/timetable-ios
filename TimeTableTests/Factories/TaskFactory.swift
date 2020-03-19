@@ -12,7 +12,7 @@ import XCTest
 class TaskFactory {
     func build(
         workTimeIdentifier: Int64? = nil,
-        project: ProjectDecoder? = nil,
+        project: SimpleProjectRecordDecoder? = nil,
         body: String = "",
         url: URL? = nil,
         day: Date? = nil,

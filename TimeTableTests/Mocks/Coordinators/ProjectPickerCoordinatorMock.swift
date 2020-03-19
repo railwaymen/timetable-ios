@@ -12,13 +12,13 @@ import XCTest
 class ProjectPickerCoordinatorMock {
     private(set) var finishFlowParams: [FinishFlowParams] = []
     struct FinishFlowParams {
-        var project: ProjectDecoder?
+        var project: SimpleProjectRecordDecoder?
     }
 }
 
 // MARK: - ProjectPickerCoordinatorType
 extension ProjectPickerCoordinatorMock: ProjectPickerCoordinatorType {
-    func finishFlow(project: ProjectDecoder?) {
+    func finishFlow(project: SimpleProjectRecordDecoder?) {
         self.finishFlowParams.append(FinishFlowParams(project: project))
     }
 }

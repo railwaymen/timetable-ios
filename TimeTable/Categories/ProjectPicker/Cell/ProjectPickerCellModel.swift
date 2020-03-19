@@ -18,12 +18,12 @@ protocol ProjectPickerCellModelType: class {
 
 class ProjectPickerCellModel {
     private weak var userInterface: ProjectPickerCellModelOutput?
-    private let project: ProjectDecoder
+    private let project: SimpleProjectRecordDecoder
     
     // MARK: - Initialization
     init(
         userInterface: ProjectPickerCellModelOutput?,
-        project: ProjectDecoder
+        project: SimpleProjectRecordDecoder
     ) {
         self.userInterface = userInterface
         self.project = project

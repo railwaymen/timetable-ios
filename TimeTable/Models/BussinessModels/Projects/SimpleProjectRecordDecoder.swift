@@ -1,5 +1,5 @@
 //
-//  ProjectDecoder.swift
+//  SimpleProjectRecordDecoder.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 21/11/2018.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct ProjectDecoder: Decodable {
+struct SimpleProjectRecordDecoder: Decodable {
     let identifier: Int
     let name: String
     let color: UIColor?
@@ -54,8 +54,8 @@ struct ProjectDecoder: Decodable {
 }
 
 // MARK: - Equatable
-extension ProjectDecoder: Equatable {
-    public static func == (lhs: ProjectDecoder, rhs: ProjectDecoder) -> Bool {
+extension SimpleProjectRecordDecoder: Equatable {
+    public static func == (lhs: SimpleProjectRecordDecoder, rhs: SimpleProjectRecordDecoder) -> Bool {
         return lhs.identifier == rhs.identifier
     }
 }

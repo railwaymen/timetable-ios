@@ -19,11 +19,11 @@ class SimpleProjectDecoderFactory: JSONFactorable {
 // MARK: - Structures
 extension SimpleProjectDecoderFactory {
     struct SimpleProjectDecoderWrapper {
-        let projects: [ProjectDecoder]
+        let projects: [SimpleProjectRecordDecoder]
         let tags: [ProjectTag]
         
         init(
-            projects: [ProjectDecoder] = [],
+            projects: [SimpleProjectRecordDecoder] = [],
             tags: [ProjectTag] = []
         ) {
             self.projects = projects
