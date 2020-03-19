@@ -73,7 +73,7 @@ struct WorkTimeDisplayed {
         self.taskPreview = nil
         self.projectName = version.projectName.newest ?? workTime.project.name
         self.projectColor = nil
-        self.tag = version.tag.newest ?? workTime.tag
+        self.tag = version.tag.newest ?? .default
         self.startsAt = version.startsAt.newest ?? workTime.startsAt
         self.endsAt = version.endsAt.newest ?? workTime.endsAt
         self.duration = TimeInterval(version.duration.newest ?? workTime.duration)

@@ -131,7 +131,11 @@ extension WorkTimesListViewModelTests {
         sut.viewDidLoad()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
         //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateViewParams.count, 0)
+        if #available(iOS 13, *) {
+            XCTAssertEqual(self.userInterfaceMock.updateViewParams.count, 0)
+        } else {
+            XCTAssertEqual(self.userInterfaceMock.updateViewParams.count, 2)
+        }
     }
     
     func testViewDidLoadRunsFetchWorkTimesSuccessCallsShowTableViewOnUserInterface() throws {
