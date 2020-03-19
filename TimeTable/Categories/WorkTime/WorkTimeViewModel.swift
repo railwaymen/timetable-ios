@@ -12,8 +12,8 @@ protocol WorkTimeViewModelOutput: class {
     func setUp(withTitle title: String)
     func setBodyView(isHidden: Bool)
     func setTaskURLView(isHidden: Bool)
-    func setBody(text: String?)
-    func setTask(urlString: String?)
+    func setBody(text: String)
+    func setTask(urlString: String)
     func setSaveWithFillingButton(isHidden: Bool)
     func dismissView()
     func reloadTagsView()
@@ -273,10 +273,10 @@ extension WorkTimeViewModel {
         self.userInterface?.setBodyView(isHidden: isLunch)
         self.userInterface?.setTaskURLView(isHidden: !self.taskForm.allowsTask || isLunch)
         self.userInterface?.setBody(text: self.taskForm.body)
-        self.userInterface?.setTask(urlString: self.taskForm.url?.absoluteString)
+        self.userInterface?.setTask(urlString: self.taskForm.url?.absoluteString ?? "")
         self.userInterface?.setTagsCollectionView(isHidden: !self.taskForm.isProjectTaggable)
-        self.updateStartAtDateView(with: startDate)
         self.updateEndAtDateView(with: endDate)
+        self.updateStartAtDateView(with: startDate)
         self.userInterface?.updateProject(name: self.taskForm.project?.name ?? "work_time.text_field.select_project".localized)
     }
     

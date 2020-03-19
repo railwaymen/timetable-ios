@@ -129,11 +129,11 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         self.taskURLView.set(isHidden: isHidden)
     }
     
-    func setBody(text: String?) {
+    func setBody(text: String) {
         self.bodyTextView.text = text
     }
     
-    func setTask(urlString: String?) {
+    func setTask(urlString: String) {
         self.taskURLTextField.text = urlString
     }
     

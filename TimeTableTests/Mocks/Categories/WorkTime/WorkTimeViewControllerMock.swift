@@ -29,12 +29,12 @@ class WorkTimeViewControllerMock: UIViewController {
     
     private(set) var setBodyParams: [SetBodyParams] = []
     struct SetBodyParams {
-        let text: String?
+        let text: String
     }
     
     private(set) var setTaskParams: [SetTaskParams] = []
     struct SetTaskParams {
-        let urlString: String?
+        let urlString: String
     }
     
     private(set) var setSaveWithFillingButtonParams: [SetSaveWithFillingButtonParams] = []
@@ -115,11 +115,11 @@ extension WorkTimeViewControllerMock: WorkTimeViewModelOutput {
         self.setTaskURLViewParams.append(SetTaskURLViewParams(isHidden: isHidden))
     }
     
-    func setBody(text: String?) {
+    func setBody(text: String) {
         self.setBodyParams.append(SetBodyParams(text: text))
     }
     
-    func setTask(urlString: String?) {
+    func setTask(urlString: String) {
         self.setTaskParams.append(SetTaskParams(urlString: urlString))
     }
     
