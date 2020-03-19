@@ -9,7 +9,11 @@
 import UIKit
 
 protocol WorkTimeViewModelOutput: class {
-    func setUp(title: String, isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?)
+    func setUp(withTitle title: String)
+    func setBodyView(isHidden: Bool)
+    func setTaskURLView(isHidden: Bool)
+    func setBody(text: String?)
+    func setTask(urlString: String?)
     func dismissView()
     func reloadTagsView()
     func dismissKeyboard()
@@ -133,6 +137,7 @@ extension WorkTimeViewModel {
 extension WorkTimeViewModel: WorkTimeViewModelType {
     func viewDidLoad() {
         self.setDefaultDay()
+        self.userInterface?.setUp(withTitle: self.viewTitle)
         self.updateViewWithCurrentSelectedProject()
         self.fetchProjectList()
     }
@@ -254,12 +259,11 @@ extension WorkTimeViewModel {
         let (startDate, endDate) = self.contentProvider.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: self.lastTask)
         self.taskForm.startsAt = startDate
         self.taskForm.endsAt = endDate
-        self.userInterface?.setUp(
-            title: self.viewTitle,
-            isLunch: self.taskForm.project?.isLunch ?? false,
-            allowsTask: self.taskForm.allowsTask,
-            body: self.taskForm.body,
-            urlString: self.taskForm.url?.absoluteString)
+        let isLunch = self.taskForm.project?.isLunch ?? false
+        self.userInterface?.setBodyView(isHidden: isLunch)
+        self.userInterface?.setTaskURLView(isHidden: !self.taskForm.allowsTask || isLunch)
+        self.userInterface?.setBody(text: self.taskForm.body)
+        self.userInterface?.setTask(urlString: self.taskForm.url?.absoluteString)
         self.userInterface?.setTagsCollectionView(isHidden: !self.taskForm.isProjectTaggable)
         self.updateStartAtDateView(with: startDate)
         self.updateEndAtDateView(with: endDate)
