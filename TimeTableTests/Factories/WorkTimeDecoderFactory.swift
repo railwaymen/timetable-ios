@@ -12,7 +12,7 @@ import JSONFactorable
 
 class WorkTimeDecoderFactory: JSONFactorable {
     func build(wrapper: WorkTimeDecoderWrapper? = nil) throws -> WorkTimeDecoder {
-        let finalWrapper = try wrapper ?? WorkTimeDecoderWrapper(project: try ProjectDecoderFactory().build())
+        let finalWrapper = try wrapper ?? WorkTimeDecoderWrapper(project: try SimpleProjectRecordDecoderFactory().build())
         return try self.buildObject(of: finalWrapper.jsonConvertible())
     }
 }
@@ -30,7 +30,7 @@ extension WorkTimeDecoderFactory {
         let task: String?
         let taskPreview: String?
         let userId: Int
-        let project: ProjectDecoder
+        let project: SimpleProjectRecordDecoder
         let date: Date
         let tag: ProjectTag
         
@@ -45,7 +45,7 @@ extension WorkTimeDecoderFactory {
             task: String? = nil,
             taskPreview: String? = nil,
             userId: Int = 0,
-            project: ProjectDecoder,
+            project: SimpleProjectRecordDecoder,
             date: Date = Date(),
             tag: ProjectTag = .default
         ) {

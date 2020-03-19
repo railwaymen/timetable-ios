@@ -9,14 +9,14 @@
 import UIKit
 
 protocol ProjectPickerCoordinatorType: class {
-    func finishFlow(project: ProjectDecoder?)
+    func finishFlow(project: SimpleProjectRecordDecoder?)
 }
 
 class ProjectPickerCoordinator: NavigationCoordinator {
-    typealias CustomFinishHandlerType = (ProjectDecoder?) -> Void
+    typealias CustomFinishHandlerType = (SimpleProjectRecordDecoder?) -> Void
     private let dependencyContainer: DependencyContainerType
     private weak var parentViewController: UIViewController?
-    private let projects: [ProjectDecoder]
+    private let projects: [SimpleProjectRecordDecoder]
     
     private var customFinishHandler: CustomFinishHandlerType?
     
@@ -24,7 +24,7 @@ class ProjectPickerCoordinator: NavigationCoordinator {
     init(
         dependencyContainer: DependencyContainerType,
         parentViewController: UIViewController,
-        projects: [ProjectDecoder]
+        projects: [SimpleProjectRecordDecoder]
     ) {
         self.dependencyContainer = dependencyContainer
         self.parentViewController = parentViewController
@@ -49,7 +49,7 @@ class ProjectPickerCoordinator: NavigationCoordinator {
         self.start()
     }
     
-    func finish(project: ProjectDecoder?) {
+    func finish(project: SimpleProjectRecordDecoder?) {
         self.customFinishHandler?(project)
         super.finish()
     }
@@ -57,7 +57,7 @@ class ProjectPickerCoordinator: NavigationCoordinator {
 
 // MARK: - ProjectPickerCoordinatorType
 extension ProjectPickerCoordinator: ProjectPickerCoordinatorType {
-    func finishFlow(project: ProjectDecoder?) {
+    func finishFlow(project: SimpleProjectRecordDecoder?) {
         self.navigationController.dismiss(animated: true) { [weak self] in
             self?.finish(project: project)
         }

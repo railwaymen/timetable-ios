@@ -10,7 +10,7 @@ import XCTest
 @testable import TimeTable
 
 class ProjectPickerCellModelTests: XCTestCase {
-    private let projectDecoderFactory = ProjectDecoderFactory()
+    private let projectDecoderFactory = SimpleProjectRecordDecoderFactory()
     
     private var userInterfaceMock: ProjectPickerCellMock!
     
@@ -36,7 +36,7 @@ extension ProjectPickerCellModelTests {
 
 // MARK: - Private
 extension ProjectPickerCellModelTests {
-    private func buildSUT(project: ProjectDecoder) -> ProjectPickerCellModel {
+    private func buildSUT(project: SimpleProjectRecordDecoder) -> ProjectPickerCellModel {
         return ProjectPickerCellModel(
             userInterface: self.userInterfaceMock,
             project: project)

@@ -1,7 +1,8 @@
 {
     "project_id": 11,
     "name": "Test Name",
-    "leader_first_name": "Leader",
+    "color": "0c0c0c",
+    "leader_first_name": null,
     "leader_last_name": "Best",
     "users": [
         {

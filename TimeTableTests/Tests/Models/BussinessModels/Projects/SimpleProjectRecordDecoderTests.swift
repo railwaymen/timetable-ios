@@ -1,5 +1,5 @@
 //
-//  ProjectDecoderTests.swift
+//  SimpleProjectRecordDecoderTests.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 21/11/2018.
@@ -10,15 +10,15 @@ import XCTest
 @testable import TimeTable
 
 // swiftlint:disable identifier_name
-class ProjectDecoderTests: XCTestCase {}
+class SimpleProjectRecordDecoderTests: XCTestCase {}
 
 // MARK: - Decodable
-extension ProjectDecoderTests {
+extension SimpleProjectRecordDecoderTests {
     func testDecoding_workTimesProjectResponse() throws {
         //Arrange
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectResponse)
         //Act
-        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 3)
         XCTAssertEqual(sut.name, "Lorem ipsum")
@@ -36,7 +36,7 @@ extension ProjectDecoderTests {
         //Arrange
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectNullColorResponse)
         //Act
-        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 3)
         XCTAssertEqual(sut.name, "Lorem ipsum")
@@ -54,7 +54,7 @@ extension ProjectDecoderTests {
         //Arrange
         let data = try self.json(from: WorkTimesProjectJSONResource.workTimesProjectMissingColorKeyResponse)
         //Act
-        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 3)
         XCTAssertEqual(sut.name, "Lorem ipsum")
@@ -72,7 +72,7 @@ extension ProjectDecoderTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         //Act
-        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 11)
         XCTAssertEqual(sut.name, "asdsa")
@@ -90,7 +90,7 @@ extension ProjectDecoderTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectNullColorResponse)
         //Act
-        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 11)
         XCTAssertEqual(sut.name, "asdsa")
@@ -108,7 +108,7 @@ extension ProjectDecoderTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectMissingColorKeyResponse)
         //Act
-        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 11)
         XCTAssertEqual(sut.name, "asdsa")
@@ -126,7 +126,7 @@ extension ProjectDecoderTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectNullAutofillResponse)
         //Act
-        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 11)
         XCTAssertEqual(sut.name, "asdsa")
@@ -144,7 +144,7 @@ extension ProjectDecoderTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectMissingAutofillKeyResponse)
         //Act
-        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 11)
         XCTAssertEqual(sut.name, "asdsa")
@@ -162,7 +162,7 @@ extension ProjectDecoderTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectNullInternalResponse)
         //Act
-        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 11)
         XCTAssertEqual(sut.name, "asdsa")
@@ -180,7 +180,7 @@ extension ProjectDecoderTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectMissingInternalKeyResponse)
         //Act
-        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 11)
         XCTAssertEqual(sut.name, "asdsa")
@@ -198,7 +198,7 @@ extension ProjectDecoderTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectNullCountDurationResponse)
         //Act
-        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 11)
         XCTAssertEqual(sut.name, "asdsa")
@@ -216,7 +216,7 @@ extension ProjectDecoderTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectMissingCountDurationKeyResponse)
         //Act
-        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 11)
         XCTAssertEqual(sut.name, "asdsa")
@@ -234,7 +234,7 @@ extension ProjectDecoderTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectNullActiveResponse)
         //Act
-        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 11)
         XCTAssertEqual(sut.name, "asdsa")
@@ -252,7 +252,7 @@ extension ProjectDecoderTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectMissingActiveKeyResponse)
         //Act
-        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 11)
         XCTAssertEqual(sut.name, "asdsa")
@@ -270,7 +270,7 @@ extension ProjectDecoderTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithIsTaggableTrueResponse)
         //Act
-        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 11)
         XCTAssertEqual(sut.name, "asdsa")
@@ -288,7 +288,7 @@ extension ProjectDecoderTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithIsTaggableFalseResponse)
         //Act
-        let sut = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.identifier, 11)
         XCTAssertEqual(sut.name, "asdsa")
@@ -306,7 +306,7 @@ extension ProjectDecoderTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectNullLunchResponse)
         //Act
-        let sut = try? self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try? self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertNil(sut)
     }
@@ -315,7 +315,7 @@ extension ProjectDecoderTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectMissingLunchKeyResponse)
         //Act
-        let sut = try? self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try? self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertNil(sut)
     }
@@ -324,7 +324,7 @@ extension ProjectDecoderTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectNullWorkTimesAllowsTaskResponse)
         //Act
-        let sut = try? self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try? self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertNil(sut)
     }
@@ -333,7 +333,7 @@ extension ProjectDecoderTests {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectMissingWorkTimesAllowsTaskKeyResponse)
         //Act
-        let sut = try? self.decoder.decode(ProjectDecoder.self, from: data)
+        let sut = try? self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
         XCTAssertNil(sut)
     }

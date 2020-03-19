@@ -58,7 +58,7 @@ extension ApiClientWorkTimesTests {
         //Arrange
         let sut = self.buildSUT()
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
-        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         let task = Task(project: projectDecoder, body: "body", startsAt: Date(), endsAt: Date())
         var completionResult: Result<Void, Error>?
         //Act
@@ -75,7 +75,7 @@ extension ApiClientWorkTimesTests {
         let sut = self.buildSUT()
         let error = TestError(message: "fetch failed")
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
-        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         let task = Task(project: projectDecoder, body: "body", startsAt: Date(), endsAt: Date())
         var completionResult: Result<Void, Error>?
         //Act
@@ -124,7 +124,7 @@ extension ApiClientWorkTimesTests {
         //Arrange
         let sut = self.buildSUT()
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
-        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         let task = Task(project: projectDecoder, body: "body", startsAt: Date(), endsAt: Date())
         var completionResult: Result<Void, Error>?
         //Act
@@ -141,7 +141,7 @@ extension ApiClientWorkTimesTests {
         let sut = self.buildSUT()
         let error = TestError(message: "fetch failed")
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
-        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         let task = Task(project: projectDecoder, body: "body", startsAt: Date(), endsAt: Date())
         var completionResult: Result<Void, Error>?
         //Act

@@ -9,7 +9,7 @@
 import Foundation
 
 struct SimpleProjectDecoder: Decodable, Equatable {
-    let projects: [ProjectDecoder]
+    let projects: [SimpleProjectRecordDecoder]
     let tags: [ProjectTag]
     
     enum CodingKeys: String, CodingKey {
@@ -20,7 +20,7 @@ struct SimpleProjectDecoder: Decodable, Equatable {
     // MARK: - Initialization
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.projects = try container.decode([ProjectDecoder].self, forKey: .projects)
+        self.projects = try container.decode([SimpleProjectRecordDecoder].self, forKey: .projects)
         self.tags = try container.decode([ProjectTag].self, forKey: .tags)
     }
 }

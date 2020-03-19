@@ -11,7 +11,7 @@ import XCTest
 
 // swiftlint:disable file_length
 class WorkTimeContentProviderTests: XCTestCase {
-    private let projectFactory = ProjectDecoderFactory()
+    private let projectFactory = SimpleProjectRecordDecoderFactory()
     private let simpleProjectDecoderFactory = SimpleProjectDecoderFactory()
     private let taskFactory = TaskFactory()
     

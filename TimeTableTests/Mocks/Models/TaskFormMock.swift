@@ -13,7 +13,7 @@ class TaskFormMock {
     
     // MARK: - TaskFormType
     var workTimeIdentifier: Int64?
-    var project: ProjectDecoder?
+    var project: SimpleProjectRecordDecoder?
     var body: String = ""
     var url: URL?
     var day: Date?

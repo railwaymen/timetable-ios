@@ -21,7 +21,7 @@ struct WorkTimeDecoder: Decodable {
     let task: String?
     let taskPreview: String?
     let userId: Int
-    let project: ProjectDecoder
+    let project: SimpleProjectRecordDecoder
     let date: Date
     let tag: ProjectTag
     let versions: [TaskVersion]
@@ -56,7 +56,7 @@ struct WorkTimeDecoder: Decodable {
         self.task = try? container.decode(String.self, forKey: .task)
         self.taskPreview = try? container.decode(String.self, forKey: .taskPreview)
         self.userId = try container.decode(Int.self, forKey: .userId)
-        self.project = try container.decode(ProjectDecoder.self, forKey: .project)
+        self.project = try container.decode(SimpleProjectRecordDecoder.self, forKey: .project)
         self.tag = try container.decode(ProjectTag.self, forKey: .tag)
         self.versions = (try? container.decode([TaskVersion].self, forKey: .versions)) ?? []
         

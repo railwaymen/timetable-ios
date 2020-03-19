@@ -28,14 +28,14 @@ class ProjectPickerViewModel {
     private weak var coordinator: ProjectPickerCoordinatorType?
     private let notificationCenter: NotificationCenterType
     
-    private let projects: [ProjectDecoder]
-    private var filteredProjects: [ProjectDecoder] = []
+    private let projects: [SimpleProjectRecordDecoder]
+    private var filteredProjects: [SimpleProjectRecordDecoder] = []
     
     // MARK: - Initialization
     init(userInterface: ProjectPickerViewModelOutput?,
          coordinator: ProjectPickerCoordinatorType?,
          notificationCenter: NotificationCenterType,
-         projects: [ProjectDecoder]) {
+         projects: [SimpleProjectRecordDecoder]) {
         self.userInterface = userInterface
         self.coordinator = coordinator
         self.notificationCenter = notificationCenter
@@ -121,12 +121,12 @@ extension ProjectPickerViewModel {
             }
     }
     
-    private func project(at indexPath: IndexPath) -> ProjectDecoder? {
+    private func project(at indexPath: IndexPath) -> SimpleProjectRecordDecoder? {
         guard indexPath.section == 0 else { return nil }
         return self.filteredProjects[safeIndex: indexPath.row]
     }
     
-    private func finish(with project: ProjectDecoder?) {
+    private func finish(with project: SimpleProjectRecordDecoder?) {
         self.coordinator?.finishFlow(project: project)
     }
 }

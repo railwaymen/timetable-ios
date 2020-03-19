@@ -10,7 +10,7 @@ import Foundation
 
 protocol TaskFormType {
     var workTimeIdentifier: Int64? { get set }
-    var project: ProjectDecoder? { get set }
+    var project: SimpleProjectRecordDecoder? { get set }
     var body: String { get set }
     var url: URL? { get set }
     var day: Date? { get set }
@@ -28,7 +28,7 @@ protocol TaskFormType {
 
 struct TaskForm: TaskFormType {
     var workTimeIdentifier: Int64?
-    var project: ProjectDecoder?
+    var project: SimpleProjectRecordDecoder?
     var body: String
     var url: URL?
     var day: Date?

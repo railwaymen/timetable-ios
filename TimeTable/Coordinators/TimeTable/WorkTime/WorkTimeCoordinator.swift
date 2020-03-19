@@ -11,7 +11,7 @@ import UIKit
 typealias WorkTimeApiClientType = ApiClientWorkTimesType & ApiClientProjectsType
 
 protocol WorkTimeCoordinatorType: class {
-    func showProjectPicker(projects: [ProjectDecoder], finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType)
+    func showProjectPicker(projects: [SimpleProjectRecordDecoder], finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType)
     func viewDidFinish(isTaskChanged: Bool)
 }
 
@@ -64,7 +64,7 @@ class WorkTimeCoordinator: NavigationCoordinator {
 
 // MARK: - WorkTimeCoordinatorType
 extension WorkTimeCoordinator: WorkTimeCoordinatorType {
-    func showProjectPicker(projects: [ProjectDecoder], finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType) {
+    func showProjectPicker(projects: [SimpleProjectRecordDecoder], finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType) {
         self.runProjectPickerFlow(projects: projects, finishHandler: finishHandler)
     }
     
@@ -101,7 +101,7 @@ extension WorkTimeCoordinator {
         }
     }
     
-    private func runProjectPickerFlow(projects: [ProjectDecoder], finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType) {
+    private func runProjectPickerFlow(projects: [SimpleProjectRecordDecoder], finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType) {
         let coordinator = ProjectPickerCoordinator(
             dependencyContainer: self.dependencyContainer,
             parentViewController: self.navigationController,

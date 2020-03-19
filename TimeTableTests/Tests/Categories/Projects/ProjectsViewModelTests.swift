@@ -110,7 +110,7 @@ extension ProjectsViewModelTests {
         //Act
         let numberOfItems = sut.numberOfItems()
         //Assert
-        XCTAssertEqual(numberOfItems, 2)
+        XCTAssertEqual(numberOfItems, 3)
     }
 }
 
@@ -128,9 +128,6 @@ extension ProjectsViewModelTests {
     
     func testItemAtIndex_withProjects_firstRow() throws {
         //Arrange
-        let color = UIColor(hexString: "00000c")
-        let user = Project.User(name: "John Test")
-        let leader = Project.User(name: "Leader Leader")
         let data = try self.json(from: ProjectRecordJSONResource.projectsRecordsResponse)
         let records = try self.decoder.decode([ProjectRecordDecoder].self, from: data)
         let sut = self.buildSUT()
@@ -140,20 +137,19 @@ extension ProjectsViewModelTests {
         //Act
         let project = sut.item(at: indexPath)
         //Assert
-        XCTAssertEqual(project?.name, "Test Test")
-        XCTAssertEqual(project?.color, color)
-        XCTAssertEqual(project?.identifier, 12)
-        XCTAssertEqual(project?.users.count, 1)
-        XCTAssertEqual(try XCTUnwrap(project?.users.first), user)
-        XCTAssertEqual(project?.leader, leader)
+        XCTAssertEqual(project?.name, "Test Name")
+        XCTAssertEqual(project?.color, UIColor(hexString: "0c0c0c"))
+        XCTAssertEqual(project?.identifier, 11)
+        XCTAssertEqual(project?.users.count, 3)
+        XCTAssertEqual(project?.users.first?.identifier, 1)
+        XCTAssertEqual(project?.users.first?.firstName, "John")
+        XCTAssertEqual(project?.users.first?.lastName, "Smith")
+        XCTAssertEqual(project?.leader.firstName, "Leader")
+        XCTAssertEqual(project?.leader.lastName, "Best")
     }
     
     func testItemAtIndex_withProjects_secondRow() throws {
         //Arrange
-        let color = UIColor(hexString: "0c0c0c")
-        let firstUser = Project.User(name: "User User")
-        let lastUser = Project.User(name: "Admin Admin")
-        let leader = Project.User(name: "Rosalind Auer")
         let data = try self.json(from: ProjectRecordJSONResource.projectsRecordsResponse)
         let records = try self.decoder.decode([ProjectRecordDecoder].self, from: data)
         let sut = self.buildSUT()
@@ -164,12 +160,11 @@ extension ProjectsViewModelTests {
         let project = sut.item(at: indexPath)
         //Assert
         XCTAssertEqual(project?.name, "Test Name")
-        XCTAssertEqual(project?.identifier, 11)
-        XCTAssertEqual(project?.color, color)
-        XCTAssertEqual(project?.users.count, 2)
-        XCTAssertEqual(try XCTUnwrap(project?.users.first), firstUser)
-        XCTAssertEqual(try XCTUnwrap(project?.users.last), lastUser)
-        XCTAssertEqual(project?.leader, leader)
+        XCTAssertEqual(project?.identifier, 12)
+        XCTAssertEqual(project?.color, UIColor(hexString: "0c0c0c"))
+        XCTAssertEqual(project?.users.count, 0)
+        XCTAssertEqual(project?.leader.firstName, "Second")
+        XCTAssertEqual(project?.leader.lastName, "Best")
     }
 }
 
@@ -200,7 +195,7 @@ extension ProjectsViewModelTests {
         XCTAssertEqual(completionCalledCount, 1)
         XCTAssertEqual(self.userInterfaceMock.updateViewParams.count, 1)
         XCTAssertEqual(self.userInterfaceMock.showCollectionViewParams.count, 1)
-        XCTAssertEqual(sut.numberOfItems(), 2)
+        XCTAssertEqual(sut.numberOfItems(), 3)
     }
     
     func testRefreshData_fetchFailed_timeout() throws {

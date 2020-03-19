@@ -42,7 +42,7 @@ extension TaskFormTests {
     func testTitle_withProject() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
-        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         let sut = TaskForm(
             workTimeIdentifier: nil,
             project: projectDecoder,
@@ -81,7 +81,7 @@ extension TaskFormTests {
     func testAllowTask_withProject() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
-        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         let sut = TaskForm(
             workTimeIdentifier: nil,
             project: projectDecoder,
@@ -120,7 +120,7 @@ extension TaskFormTests {
     func testIsTaggable_withTaggableProject() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithIsTaggableTrueResponse)
-        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let project = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         let sut = TaskForm(
             workTimeIdentifier: nil,
             project: project,
@@ -139,7 +139,7 @@ extension TaskFormTests {
     func testIsTaggable_withNotTaggableProject() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithIsTaggableFalseResponse)
-        let project = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let project = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         let sut = TaskForm(
             workTimeIdentifier: nil,
             project: project,
@@ -178,7 +178,7 @@ extension TaskFormTests {
     func testType_projectWithStandardType() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
-        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         let sut = TaskForm(
             workTimeIdentifier: nil,
             project: projectDecoder,
@@ -200,7 +200,7 @@ extension TaskFormTests {
     func testType_projectWithFullDayType() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithAutofillTrueResponse)
-        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         let sut = TaskForm(
             workTimeIdentifier: nil,
             project: projectDecoder,
@@ -223,7 +223,7 @@ extension TaskFormTests {
     func testType_projectWithLunchType() throws {
         //Arrange
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithALunchTrueResponse)
-        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: data)
+        let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         let sut = TaskForm(
             workTimeIdentifier: nil,
             project: projectDecoder,
@@ -249,7 +249,7 @@ extension TaskFormTests {
     func testGenerateEncodableRepresentation_fullData() throws {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
-        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
+        let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: projectData)
         let body = "body"
         let tag = ProjectTag.development
         let day = try self.buildDate(year: 2018, month: 2, day: 2, hour: 1, minute: 2, second: 33)
@@ -278,7 +278,7 @@ extension TaskFormTests {
     func testGenerateEncodableRepresentation_lunchFullData() throws {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectWithALunchTrueResponse)
-        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
+        let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: projectData)
         let body = ""
         let tag = ProjectTag.development
         let day = try self.buildDate(year: 2018, month: 2, day: 2, hour: 1, minute: 2, second: 33)
@@ -317,7 +317,7 @@ extension TaskFormTests {
     func testGenerateEncodableRepresentation_emptyBody() throws {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
-        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
+        let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: projectData)
         let sut = TaskForm(
             project: projectDecoder,
             body: "")
@@ -331,7 +331,7 @@ extension TaskFormTests {
     func testGenerateEncodableRepresentation_nilURL() throws {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
-        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
+        let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: projectData)
         let body = "body"
         let tag = ProjectTag.development
         let day = try self.buildDate(year: 2018, month: 2, day: 2, hour: 1, minute: 2, second: 33)
@@ -360,7 +360,7 @@ extension TaskFormTests {
     func testGenerateEncodableRepresentation_nilDay() throws {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
-        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
+        let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: projectData)
         let sut = TaskForm(
             project: projectDecoder,
             body: "body",
@@ -376,7 +376,7 @@ extension TaskFormTests {
     func testGenerateEncodableRepresentation_nilStartsAt() throws {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
-        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
+        let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: projectData)
         let day = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
         let sut = TaskForm(
             project: projectDecoder,
@@ -394,7 +394,7 @@ extension TaskFormTests {
     func testGenerateEncodableRepresentation_nilEndsAt() throws {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
-        let projectDecoder = try self.decoder.decode(ProjectDecoder.self, from: projectData)
+        let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: projectData)
         let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
         let sut = TaskForm(
             workTimeIdentifier: 1,
