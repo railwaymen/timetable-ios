@@ -56,7 +56,7 @@ class WorkTimeViewController: UIViewController {
     }
     
     @IBAction private func saveWithFillingButtonTapped(_ sender: UIButton) {
-        // TODO
+        self.viewModel.viewRequestedToSaveWithFilling()
     }
     
     @IBAction private func viewTapped(_ sender: UITapGestureRecognizer) {

@@ -42,6 +42,7 @@ protocol WorkTimeViewModelType: class {
     func viewChanged(day: Date)
     func viewChanged(endAtDate date: Date)
     func viewRequestedToSave()
+    func viewRequestedToSaveWithFilling()
     func viewHasBeenTapped()
 }
 
@@ -208,17 +209,11 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func viewRequestedToSave() {
-        self.userInterface?.setActivityIndicator(isHidden: false)
-        self.contentProvider.save(taskForm: self.taskForm) { [weak self] result in
-            self?.userInterface?.setActivityIndicator(isHidden: true)
-            switch result {
-            case .success:
-                self?.userInterface?.dismissView()
-                self?.coordinator?.viewDidFinish(isTaskChanged: true)
-            case let .failure(error):
-                self?.errorHandler.throwing(error: error)
-            }
-        }
+        self.saveTask(withFilling: false)
+    }
+    
+    func viewRequestedToSaveWithFilling() {
+        self.saveTask(withFilling: true)
     }
     
     func viewHasBeenTapped() {
@@ -300,6 +295,27 @@ extension WorkTimeViewModel {
                 self?.tags = tags
                 self?.userInterface?.reloadTagsView()
                 self?.setDefaultTask()
+            case let .failure(error):
+                self?.errorHandler.throwing(error: error)
+            }
+        }
+    }
+    
+    private func saveTask(withFilling: Bool) {
+        let completion: SaveTaskCompletion = self.getSaveCompletion()
+        self.userInterface?.setActivityIndicator(isHidden: false)
+        withFilling
+            ? self.contentProvider.saveWithFilling(taskForm: self.taskForm, completion: completion)
+            : self.contentProvider.save(taskForm: self.taskForm, completion: completion)
+    }
+    
+    private func getSaveCompletion() -> SaveTaskCompletion {
+        return { [weak self] result in
+            self?.userInterface?.setActivityIndicator(isHidden: true)
+            switch result {
+            case .success:
+                self?.userInterface?.dismissView()
+                self?.coordinator?.viewDidFinish(isTaskChanged: true)
             case let .failure(error):
                 self?.errorHandler.throwing(error: error)
             }
