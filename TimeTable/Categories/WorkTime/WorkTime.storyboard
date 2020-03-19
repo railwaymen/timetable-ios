@@ -273,6 +273,7 @@
                         <outlet property="dayTextField" destination="s85-fU-VBR" id="F63-Zq-OUV"/>
                         <outlet property="endAtDateTextField" destination="Pgu-1o-gtM" id="dZK-DO-5C1"/>
                         <outlet property="projectButton" destination="qy7-kP-lwM" id="N6u-fk-fZe"/>
+                        <outlet property="saveWithFillingButton" destination="6ta-Ew-UlV" id="zrd-bJ-L01"/>
                         <outlet property="scrollView" destination="bjN-hl-pu3" id="3bW-4d-ap5"/>
                         <outlet property="startAtDateTextField" destination="GPe-vx-7eJ" id="T6d-7v-C73"/>
                         <outlet property="tagsCollectionView" destination="05z-uo-ywe" id="knM-oA-b0k"/>

@@ -25,6 +25,7 @@ class WorkTimeViewController: UIViewController {
     @IBOutlet private var bodyTextView: UITextView!
     @IBOutlet private var taskURLView: UIView!
     @IBOutlet private var taskURLTextField: UITextField!
+    @IBOutlet private var saveWithFillingButton: AttributedButton!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private var dayPicker: UIDatePicker!
@@ -134,6 +135,10 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     
     func setTask(urlString: String?) {
         self.taskURLTextField.text = urlString
+    }
+    
+    func setSaveWithFillingButton(isHidden: Bool) {
+        self.saveWithFillingButton.set(isHidden: isHidden)
     }
     
     func reloadTagsView() {

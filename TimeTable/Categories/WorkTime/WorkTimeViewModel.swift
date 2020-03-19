@@ -14,6 +14,7 @@ protocol WorkTimeViewModelOutput: class {
     func setTaskURLView(isHidden: Bool)
     func setBody(text: String?)
     func setTask(urlString: String?)
+    func setSaveWithFillingButton(isHidden: Bool)
     func dismissView()
     func reloadTagsView()
     func dismissKeyboard()
@@ -55,7 +56,7 @@ class WorkTimeViewModel {
     private let calendar: CalendarType
     private let notificationCenter: NotificationCenterType
     private let lastTask: TaskForm?
-    private let viewTitle: String
+    private let flowType: FlowType
     private var projects: [SimpleProjectRecordDecoder]
     private var taskForm: TaskForm
     private var tags: [ProjectTag]
@@ -78,7 +79,7 @@ class WorkTimeViewModel {
         self.errorHandler = errorHandler
         self.calendar = calendar
         self.notificationCenter = notificationCenter
-        self.viewTitle = flowType.viewTitle
+        self.flowType = flowType
         let taskCreation: (_ duplicatedTask: TaskForm?, _ lastTask: TaskForm?) -> TaskForm = { duplicatedTask, lastTask in
             return TaskForm(
                 workTimeIdentifier: nil,
@@ -105,6 +106,10 @@ class WorkTimeViewModel {
         self.tags = []
         
         self.setUpNotification()
+    }
+    
+    deinit {
+        self.notificationCenter.removeObserver(self)
     }
     
     // MARK: - Notifications
@@ -138,8 +143,7 @@ extension WorkTimeViewModel {
 extension WorkTimeViewModel: WorkTimeViewModelType {
     func viewDidLoad() {
         self.setDefaultDay()
-        self.userInterface?.setUp(withTitle: self.viewTitle)
-        self.updateViewWithCurrentSelectedProject()
+        self.setUpUI()
         self.fetchProjectList()
     }
     
@@ -234,6 +238,17 @@ extension WorkTimeViewModel {
             selector: #selector(self.keyboardWillHide),
             name: UIResponder.keyboardWillHideNotification,
             object: nil)
+    }
+    
+    private func setUpUI() {
+        self.userInterface?.setUp(withTitle: self.flowType.viewTitle)
+        switch self.flowType {
+        case .editEntry:
+            self.userInterface?.setSaveWithFillingButton(isHidden: true)
+        case .newEntry, .duplicateEntry:
+            self.userInterface?.setSaveWithFillingButton(isHidden: false)
+        }
+        self.updateViewWithCurrentSelectedProject()
     }
     
     private func setDefaultTask() {
