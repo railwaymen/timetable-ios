@@ -116,6 +116,7 @@
 		8A79A2F5242382C40048B44B /* ProjectRecordDecoderUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2F4242382C40048B44B /* ProjectRecordDecoderUserTests.swift */; };
 		8A79A2F72423842A0048B44B /* ProjectRecordUserJSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2F62423842A0048B44B /* ProjectRecordUserJSONResource.swift */; };
 		8A79A2FA242384560048B44B /* projectRecordUserFullResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2F9242384560048B44B /* projectRecordUserFullResponse.json */; };
+		8A79A2FC2424BFF90048B44B /* DatePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2FB2424BFF90048B44B /* DatePickerTextField.swift */; };
 		8A80A38D23D89C24002643A1 /* APIClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80A38C23D89C24002643A1 /* APIClientFactory.swift */; };
 		8A80A38F23D89ED3002643A1 /* APIClientFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */; };
 		8A82EBF323FD46EC001393A8 /* WorkTimeContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */; };
@@ -536,6 +537,7 @@
 		8A79A2F4242382C40048B44B /* ProjectRecordDecoderUserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRecordDecoderUserTests.swift; sourceTree = "<group>"; };
 		8A79A2F62423842A0048B44B /* ProjectRecordUserJSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRecordUserJSONResource.swift; sourceTree = "<group>"; };
 		8A79A2F9242384560048B44B /* projectRecordUserFullResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = projectRecordUserFullResponse.json; sourceTree = "<group>"; };
+		8A79A2FB2424BFF90048B44B /* DatePickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTextField.swift; sourceTree = "<group>"; };
 		8A80A38C23D89C24002643A1 /* APIClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientFactory.swift; sourceTree = "<group>"; };
 		8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientFactoryMock.swift; sourceTree = "<group>"; };
 		8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContentProvider.swift; sourceTree = "<group>"; };
@@ -1707,6 +1709,7 @@
 				8AD134592396B60B00572632 /* AttributedTextView.swift */,
 				C153AC6821832073007A35BB /* AttributedView.swift */,
 				C125C4D62187086C00FBA0DD /* CheckBoxButton.swift */,
+				8A79A2FB2424BFF90048B44B /* DatePickerTextField.swift */,
 				C1F187B121E37C760037B8C2 /* ProjectsCollectionViewLayout.swift */,
 			);
 			path = Views;
@@ -2593,6 +2596,7 @@
 				C1F7C2E221904E0900F4FAF0 /* UserDefaults+Extension.swift in Sources */,
 				C198BD1F21FF3FC900B5F847 /* ApiClient+MatchingFullTime.swift in Sources */,
 				8A5EF31A23FE806900AE4309 /* UICollectionView+Extension.swift in Sources */,
+				8A79A2FC2424BFF90048B44B /* DatePickerTextField.swift in Sources */,
 				C1FA05DB219423FC00BD8C9D /* UserEntity.swift in Sources */,
 				C1249C822181B547005DB2A5 /* ErrorHandlerType.swift in Sources */,
 				C125F1B821DCCF5100594CDE /* ProjectsViewModel.swift in Sources */,

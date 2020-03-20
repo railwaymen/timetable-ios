@@ -104,6 +104,13 @@ extension WorkTimeViewController: UITextViewDelegate {
     }
 }
 
+// MARK: - UITextFieldDelegate
+extension WorkTimeViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return false
+    }
+}
+
 // MARK: - WorkTimeViewModelOutput
 extension WorkTimeViewController: WorkTimeViewModelOutput {
     func setUp(withTitle title: String) {
@@ -112,13 +119,13 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         self.setUpActivityIndicator()
         
         self.setUpDayPicker()
-        self.dayTextField.inputView = self.dayPicker
+        self.setUpDayTextField()
         
         self.setUpStartsAtPicker()
-        self.startAtDateTextField.inputView = self.startAtDatePicker
+        self.setUpStartAtTextField()
 
         self.setUpEndsAtPicker()
-        self.endAtDateTextField.inputView = self.endAtDatePicker
+        self.setUpEndAtTextField()
     }
     
     func setBodyView(isHidden: Bool) {
@@ -220,17 +227,33 @@ extension WorkTimeViewController {
     }
     
     private func setUpStartsAtPicker() {
-        self.startAtDatePicker = UIDatePicker()
-        self.startAtDatePicker.datePickerMode = .time
-        self.startAtDatePicker.minuteInterval = 5
-        self.startAtDatePicker.addTarget(self, action: #selector(self.startAtDateTextFieldDidChanged), for: .valueChanged)
+        self.setUpTimePicker(&self.startAtDatePicker, selector: #selector(self.startAtDateTextFieldDidChanged))
     }
     
     private func setUpEndsAtPicker() {
-        self.endAtDatePicker = UIDatePicker()
-        self.endAtDatePicker.datePickerMode = .time
-        self.endAtDatePicker.minuteInterval = 5
-        self.endAtDatePicker.addTarget(self, action: #selector(self.endAtDateTextFieldDidChanged), for: .valueChanged)
+        self.setUpTimePicker(&self.endAtDatePicker, selector: #selector(self.endAtDateTextFieldDidChanged))
+    }
+    
+    private func setUpTimePicker(_ picker: inout UIDatePicker?, selector: Selector) {
+        picker = UIDatePicker()
+        picker?.datePickerMode = .time
+        picker?.minuteInterval = 5
+        picker?.addTarget(self, action: selector, for: .valueChanged)
+    }
+    
+    private func setUpDayTextField() {
+        self.dayTextField.inputView = self.dayPicker
+        self.dayTextField.delegate = self
+    }
+    
+    private func setUpStartAtTextField() {
+        self.startAtDateTextField.inputView = self.startAtDatePicker
+        self.startAtDateTextField.delegate = self
+    }
+    
+    private func setUpEndAtTextField() {
+        self.endAtDateTextField.inputView = self.endAtDatePicker
+        self.endAtDateTextField.delegate = self
     }
     
     private func setUpTagsCollectionView() {
