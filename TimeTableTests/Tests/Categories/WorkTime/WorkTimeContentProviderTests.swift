@@ -9,7 +9,6 @@
 import XCTest
 @testable import TimeTable
 
-// swiftlint:disable file_length
 class WorkTimeContentProviderTests: XCTestCase {
     private let projectFactory = SimpleProjectRecordDecoderFactory()
     private let simpleProjectDecoderFactory = SimpleProjectDecoderFactory()
@@ -263,6 +262,67 @@ extension WorkTimeContentProviderTests {
         try XCTUnwrap(self.apiClient.addWorkTimeParams.last).completion(.failure(error))
         //Assert
         XCTAssertEqual(self.apiClient.addWorkTimeParams.count, 1)
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
+    }
+}
+
+// MARK: - saveWithFilling(taskForm:completion:)
+extension WorkTimeContentProviderTests {
+    func testSaveTaskWithFilling_formValidationError_projectIsNil() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        self.taskForm.generateEncodableRepresentationThrownError = TaskForm.ValidationError.projectIsNil
+        var completionResult: SaveTaskResult?
+        //Act
+        sut.saveWithFilling(taskForm: self.taskForm) { result in
+            completionResult = result
+        }
+        //Assert
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: UIError.cannotBeEmpty(.projectTextField))
+    }
+    
+    func testSaveTaskWithFilling_addsNewTask() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        self.taskForm.generateEncodableRepresentationReturnValue = try self.buildTask()
+        var completionResult: SaveTaskResult?
+        //Act
+        sut.saveWithFilling(taskForm: self.taskForm) { result in
+            completionResult = result
+        }
+        //Assert
+        XCTAssertNil(completionResult)
+        XCTAssertEqual(self.apiClient.addWorkTimeWithFillingParams.count, 1)
+    }
+    
+    func testSaveTaskWithFilling_addTaskRequestSuccess() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        self.taskForm.generateEncodableRepresentationReturnValue = try self.buildTask()
+        var completionResult: SaveTaskResult?
+        //Act
+        sut.saveWithFilling(taskForm: self.taskForm) { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.apiClient.addWorkTimeWithFillingParams.last).completion(.success(Void()))
+        //Assert
+        XCTAssertEqual(self.apiClient.addWorkTimeWithFillingParams.count, 1)
+        XCTAssertNoThrow(try XCTUnwrap(completionResult).get())
+    }
+    
+    func testSaveTaskWithFilling_addTaskRequestFailure() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let error = TestError(message: "error")
+        self.taskForm.generateEncodableRepresentationReturnValue = try self.buildTask()
+        var completionResult: SaveTaskResult?
+        //Act
+        sut.saveWithFilling(taskForm: self.taskForm) { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.apiClient.addWorkTimeWithFillingParams.last).completion(.failure(error))
+        //Assert
+        XCTAssertEqual(self.apiClient.addWorkTimeWithFillingParams.count, 1)
         AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
     }
 }
@@ -539,4 +599,4 @@ extension WorkTimeContentProviderTests {
             endsAt: Date())
     }
 }
-// swiftlint:enable file_length
+// swiftlint:disable:this file_length

@@ -47,10 +47,6 @@ class RestlerRequestBuilderMock {
     }
     
     // MARK: - Internal
-//    func getDecodeReturnedMock<T>(at index: Int = 0, type: T.Type = T.self) -> RestlerRequestMock<T>? {
-//        return self.decodeReturnedMocks[safeIndex: index] as? RestlerRequestMock<T>
-//    }
-//    
     func callCompletion<T>(type: T.Type, result: Result<T, Error>, file: StaticString = #file, line: UInt = #line) throws {
         guard let request = self.decodeReturnedMocks.last as? RestlerRequestMock<T> else {
             let error = "Decode hasn't return value with a specified type."
