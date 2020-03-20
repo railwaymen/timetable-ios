@@ -107,7 +107,14 @@ extension WorkTimeViewController: UITextViewDelegate {
 // MARK: - UITextFieldDelegate
 extension WorkTimeViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return false
+        return !(textField === self.dayTextField
+            || textField === self.startAtDateTextField
+            || textField === self.endAtDateTextField)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
     }
 }
 
@@ -126,6 +133,8 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
 
         self.setUpEndsAtPicker()
         self.setUpEndAtTextField()
+        
+        self.taskURLTextField.delegate = self
     }
     
     func setBodyView(isHidden: Bool) {
