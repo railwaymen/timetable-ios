@@ -34,6 +34,10 @@ public class ErrorHandler: ErrorHandlerType {
     public func catchingError(action: @escaping HandleAction<Error>) -> ErrorHandlerType {
         return ErrorHandler(action: action, parent: self)
     }
+    
+    public func stopInDebug(message: String, file: StaticString, line: UInt) {
+        assertionFailure(message, file: file, line: line)
+    }
 }
 
 // MARK: - Private

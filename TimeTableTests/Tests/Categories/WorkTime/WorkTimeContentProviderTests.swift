@@ -11,12 +11,13 @@ import XCTest
 
 class WorkTimeContentProviderTests: XCTestCase {
     private let projectFactory = SimpleProjectRecordDecoderFactory()
-    private let simpleProjectDecoderFactory = SimpleProjectDecoderFactory()
     private let taskFactory = TaskFactory()
     
     private var apiClient: ApiClientMock!
     private var calendar: CalendarMock!
     private var dateFactory: DateFactoryMock!
+    private var dispatchGroupFactory: DispatchGroupFactoryMock!
+    private var errorHandler: ErrorHandlerMock!
     private var taskForm: TaskFormMock!
     
     override func setUp() {
@@ -24,44 +25,228 @@ class WorkTimeContentProviderTests: XCTestCase {
         self.apiClient = ApiClientMock()
         self.calendar = CalendarMock()
         self.dateFactory = DateFactoryMock()
+        self.dispatchGroupFactory = DispatchGroupFactoryMock()
+        self.errorHandler = ErrorHandlerMock()
         self.taskForm = TaskFormMock()
     }
 }
 
-// MARK: - fetchSimpleProjectsList(completion:)
+// MARK: - fetchData(completion:)
 extension WorkTimeContentProviderTests {
-    func testFetchSimpleProjectsList_resultSuccess() throws {
+    func testFetchData_groupsEnterBeforeCalls() {
         //Arrange
         let sut = self.buildSUT()
-        let projectWithoutIsActive = try self.projectFactory.build(wrapper: .init(isActive: nil))
-        let activeProject = try self.projectFactory.build(wrapper: .init(isActive: true))
-        let inactiveProject = try self.projectFactory.build(wrapper: .init(isActive: false))
-        let projects = [activeProject, inactiveProject, projectWithoutIsActive]
-        let tags: [ProjectTag] = [.default, .internalMeeting]
-        let simpleProject = try self.simpleProjectDecoderFactory.build(wrapper: .init(projects: projects, tags: tags))
-        var completionResult: FetchSimpleProjectsListResult?
+        let group = DispatchGroupMock()
+        self.dispatchGroupFactory.createDispatchGroupReturnValue = group
+        var completionResult: FetchDataResult?
         //Act
-        sut.fetchSimpleProjectsList { result in
+        sut.fetchData { result in
             completionResult = result
         }
-        try XCTUnwrap(self.apiClient.fetchSimpleListOfProjectsParams.last).completion(.success(simpleProject))
         //Assert
-        XCTAssertEqual(try XCTUnwrap(completionResult).get().projects, [activeProject])
-        XCTAssertEqual(try XCTUnwrap(completionResult).get().tags, [.internalMeeting])
+        XCTAssertNil(completionResult)
+        XCTAssertEqual(group.enterParams.count, 2)
     }
     
-    func testFetchSimpleProjectsList_resultFailure() throws {
+    func testFetchData_callsSimpleListOfProjectsFetch() {
         //Arrange
         let sut = self.buildSUT()
-        let error = ApiClientError(type: .invalidResponse)
-        var completionResult: FetchSimpleProjectsListResult?
+        var completionResult: FetchDataResult?
         //Act
-        sut.fetchSimpleProjectsList { result in
+        sut.fetchData { result in
             completionResult = result
         }
-        try XCTUnwrap(self.apiClient.fetchSimpleListOfProjectsParams.last).completion(.failure(error))
         //Assert
-        AssertResult(try XCTUnwrap(completionResult), errorCaseIs: error)
+        XCTAssertNil(completionResult)
+        XCTAssertEqual(self.apiClient.fetchSimpleListOfProjectsParams.count, 1)
+    }
+    
+    func testFetchData_callsTagsFetch() {
+        //Arrange
+        let sut = self.buildSUT()
+        var completionResult: FetchDataResult?
+        //Act
+        sut.fetchData { result in
+            completionResult = result
+        }
+        //Assert
+        XCTAssertNil(completionResult)
+        XCTAssertEqual(self.apiClient.fetchTagsParams.count, 1)
+    }
+    
+    func testFetchData_fetchSimpleListOfProjects_success_leavesGroup() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let group = DispatchGroupMock()
+        self.dispatchGroupFactory.createDispatchGroupReturnValue = group
+        var completionResult: FetchDataResult?
+        //Act
+        sut.fetchData { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.apiClient.fetchSimpleListOfProjectsParams.last).completion(.success([]))
+        //Assert
+        XCTAssertNil(completionResult)
+        XCTAssertEqual(group.leaveParams.count, 1)
+    }
+    
+    func testFetchData_fetchSimpleListOfProjects_failure_leavesGroup() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let group = DispatchGroupMock()
+        self.dispatchGroupFactory.createDispatchGroupReturnValue = group
+        var completionResult: FetchDataResult?
+        //Act
+        sut.fetchData { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.apiClient.fetchSimpleListOfProjectsParams.last).completion(.failure(TestError(message: "test")))
+        //Assert
+        XCTAssertNil(completionResult)
+        XCTAssertEqual(group.leaveParams.count, 1)
+    }
+    
+    func testFetchData_fetchTags_success_leavesGroup() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let data = try self.json(from: ProjectTagJSONResource.projectTagsResponse)
+        let tagsDecoder = try self.decoder.decode(ProjectTagsDecoder.self, from: data)
+        let group = DispatchGroupMock()
+        self.dispatchGroupFactory.createDispatchGroupReturnValue = group
+        var completionResult: FetchDataResult?
+        //Act
+        sut.fetchData { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.apiClient.fetchTagsParams.last).completion(.success(tagsDecoder))
+        //Assert
+        XCTAssertNil(completionResult)
+        XCTAssertEqual(group.leaveParams.count, 1)
+    }
+    
+    func testFetchData_fetchTags_failure_leavesGroup() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let group = DispatchGroupMock()
+        self.dispatchGroupFactory.createDispatchGroupReturnValue = group
+        var completionResult: FetchDataResult?
+        //Act
+        sut.fetchData { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.apiClient.fetchTagsParams.last).completion(.failure(TestError(message: "test")))
+        //Assert
+        XCTAssertNil(completionResult)
+        XCTAssertEqual(group.leaveParams.count, 1)
+    }
+    
+    func testFetchData_callsGroupNotify() {
+        //Arrange
+        let sut = self.buildSUT()
+        let group = DispatchGroupMock()
+        self.dispatchGroupFactory.createDispatchGroupReturnValue = group
+        var completionResult: FetchDataResult?
+        //Act
+        sut.fetchData { result in
+            completionResult = result
+        }
+        //Assert
+        XCTAssertNil(completionResult)
+        XCTAssertEqual(group.notifyParams.count, 1)
+        XCTAssertEqual(group.notifyParams.last?.qos, .userInteractive)
+        XCTAssertEqual(group.notifyParams.last?.queue, .main)
+    }
+    
+    func testFetchData_fetchCompletion_success_callsSuccessCompletion() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let projectsData = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
+        let projects = try self.decoder.decode([SimpleProjectRecordDecoder].self, from: projectsData)
+        let tagsData = try self.json(from: ProjectTagJSONResource.projectTagsResponse)
+        let tagsDecoder = try self.decoder.decode(ProjectTagsDecoder.self, from: tagsData)
+        var completionResult: FetchDataResult?
+        //Act
+        sut.fetchData { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.apiClient.fetchSimpleListOfProjectsParams.last).completion(.success(projects))
+        try XCTUnwrap(self.apiClient.fetchTagsParams.last).completion(.success(tagsDecoder))
+        //Assert
+        let response = try XCTUnwrap(completionResult).get()
+        XCTAssertEqual(response.projects, projects)
+        XCTAssertEqual(response.tags, tagsDecoder.tags)
+    }
+    
+    func testFetchData_fetchCompletion_projectsFetchFailure_passesErrorInCompletion() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let projectsError = TestError(message: "projects error")
+        let tagsData = try self.json(from: ProjectTagJSONResource.projectTagsResponse)
+        let tagsDecoder = try self.decoder.decode(ProjectTagsDecoder.self, from: tagsData)
+        var completionResult: FetchDataResult?
+        //Act
+        sut.fetchData { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.apiClient.fetchSimpleListOfProjectsParams.last).completion(.failure(projectsError))
+        try XCTUnwrap(self.apiClient.fetchTagsParams.last).completion(.success(tagsDecoder))
+        //Assert
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: projectsError)
+    }
+    
+    func testFetchData_fetchCompletion_tagsFetchFailure_passesErrorInCompletion() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let projectsData = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
+        let projects = try self.decoder.decode([SimpleProjectRecordDecoder].self, from: projectsData)
+        let tagsError = TestError(message: "projects error")
+        var completionResult: FetchDataResult?
+        //Act
+        sut.fetchData { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.apiClient.fetchSimpleListOfProjectsParams.last).completion(.success(projects))
+        try XCTUnwrap(self.apiClient.fetchTagsParams.last).completion(.failure(tagsError))
+        //Assert
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: tagsError)
+    }
+    
+    func testFetchData_fetchCompletion_success_noResponseForTags_callsAssert() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let projectsData = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
+        let projects = try self.decoder.decode([SimpleProjectRecordDecoder].self, from: projectsData)
+        let group = DispatchGroupMock()
+        self.dispatchGroupFactory.createDispatchGroupReturnValue = group
+        var completionResult: FetchDataResult?
+        //Act
+        sut.fetchData { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.apiClient.fetchSimpleListOfProjectsParams.last).completion(.success(projects))
+        try XCTUnwrap(group.notifyParams.last).work()
+        //Assert
+        XCTAssertEqual(self.errorHandler.stopInDebugParams.count, 1)
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: AppError.internalError)
+    }
+    
+    func testFetchData_fetchCompletion_success_noResponseForProjects_callsAssert() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let tagsData = try self.json(from: ProjectTagJSONResource.projectTagsResponse)
+        let tagsDecoder = try self.decoder.decode(ProjectTagsDecoder.self, from: tagsData)
+        let group = DispatchGroupMock()
+        self.dispatchGroupFactory.createDispatchGroupReturnValue = group
+        var completionResult: FetchDataResult?
+        //Act
+        sut.fetchData { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.apiClient.fetchTagsParams.last).completion(.success(tagsDecoder))
+        try XCTUnwrap(group.notifyParams.last).work()
+        //Assert
+        XCTAssertEqual(self.errorHandler.stopInDebugParams.count, 1)
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: AppError.internalError)
     }
 }
 
@@ -588,7 +773,9 @@ extension WorkTimeContentProviderTests {
         return WorkTimeContentProvider(
             apiClient: self.apiClient,
             calendar: self.calendar,
-            dateFactory: self.dateFactory)
+            dateFactory: self.dateFactory,
+            dispatchGroupFactory: self.dispatchGroupFactory,
+            errorHandler: self.errorHandler)
     }
     
     private func buildTask() throws -> Task {

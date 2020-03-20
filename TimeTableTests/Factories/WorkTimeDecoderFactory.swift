@@ -85,6 +85,12 @@ extension WorkTimeDecoderFactory {
 }
 
 // MARK: - Helper extensions
+extension ProjectTag: JSONObjectType {
+    public func jsonConvertible() throws -> JSONConvertible {
+        return self.rawValue
+    }
+}
+
 extension WorkTimeDecoder: JSONObjectType {
     public func jsonConvertible() throws -> JSONConvertible {
         let wrapper = WorkTimeDecoderFactory.WorkTimeDecoderWrapper(

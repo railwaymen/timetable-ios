@@ -20,6 +20,13 @@ class ErrorHandlerMock {
     struct CatchingErrorParams {
         var action: HandleAction<Error>
     }
+    
+    private(set) var stopInDebugParams: [StopInDebugParams] = []
+    struct StopInDebugParams {
+        let message: String
+        let file: StaticString
+        let line: UInt
+    }
 }
 
 // MARK: - ErrorHandlerType
@@ -31,5 +38,9 @@ extension ErrorHandlerMock: ErrorHandlerType {
     func catchingError(action: @escaping HandleAction<Error>) -> ErrorHandlerType {
         self.catchingErrorParams.append(CatchingErrorParams(action: action))
         return self
+    }
+    
+    func stopInDebug(message: String, file: StaticString, line: UInt) {
+        self.stopInDebugParams.append(StopInDebugParams(message: message, file: file, line: line))
     }
 }

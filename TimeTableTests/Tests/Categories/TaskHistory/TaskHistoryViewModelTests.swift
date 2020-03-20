@@ -38,6 +38,16 @@ extension TaskHistoryViewModelTests {
         XCTAssertEqual(self.userInterface.setUpParams.count, 1)
     }
     
+    func testViewDidLoad_fetchWorkTimeDetails_before_taskWithoutWorkTimeID_stopsInDebug() {
+        //Arrange
+        let sut = self.buildSUT()
+        self.taskForm.workTimeIdentifier = nil
+        //Act
+        sut.viewDidLoad()
+        //Assert
+        XCTAssertEqual(self.errorHandler.stopInDebugParams.count, 1)
+    }
+    
     func testViewDidLoad_fetchWorkTimeDetails_before_showsActivityIndicator() {
         //Arrange
         let sut = self.buildSUT()

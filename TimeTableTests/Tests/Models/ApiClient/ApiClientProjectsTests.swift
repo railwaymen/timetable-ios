@@ -56,13 +56,13 @@ extension ApiClientProjectsTests {
         //Arrange
         let sut = self.buildSUT()
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
-        let decoder = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
-        var completionResult: Result<SimpleProjectDecoder, Error>?
+        let decoder = try self.decoder.decode([SimpleProjectRecordDecoder].self, from: data)
+        var completionResult: Result<[SimpleProjectRecordDecoder], Error>?
         //Act
         sut.fetchSimpleListOfProjects { result in
             completionResult = result
         }
-        try self.restler.getReturnValue.callCompletion(type: SimpleProjectDecoder.self, result: .success(decoder))
+        try self.restler.getReturnValue.callCompletion(type: [SimpleProjectRecordDecoder].self, result: .success(decoder))
         //Assert
         XCTAssertEqual(try XCTUnwrap(completionResult).get(), decoder)
     }
@@ -71,12 +71,12 @@ extension ApiClientProjectsTests {
         //Arrange
         let sut = self.buildSUT()
         let error = TestError(message: "fetch projects failed")
-        var completionResult: Result<SimpleProjectDecoder, Error>?
+        var completionResult: Result<[SimpleProjectRecordDecoder], Error>?
         //Act
         sut.fetchSimpleListOfProjects { result in
             completionResult = result
         }
-        try self.restler.getReturnValue.callCompletion(type: SimpleProjectDecoder.self, result: .failure(error))
+        try self.restler.getReturnValue.callCompletion(type: [SimpleProjectRecordDecoder].self, result: .failure(error))
         //Assert
         AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
     }

@@ -11,7 +11,6 @@ import XCTest
 
 class WorkTimeViewModelTests: XCTestCase {
     private let projectDecoderFactory = SimpleProjectRecordDecoderFactory()
-    private let simpleProjectDecoderFactory = SimpleProjectDecoderFactory()
     
     private var userInterfaceMock: WorkTimeViewControllerMock!
     private var coordinatorMock: WorkTimeCoordinatorMock!
@@ -322,7 +321,7 @@ extension WorkTimeViewModelTests {
         //Act
         let numberOfTags = sut.viewRequestedForNumberOfTags()
         //Assert
-        XCTAssertEqual(numberOfTags, 2)
+        XCTAssertEqual(numberOfTags, 1)
     }
 }
 
@@ -335,7 +334,7 @@ extension WorkTimeViewModelTests {
         let tags: [ProjectTag] = [.default, .internalMeeting]
         try XCTUnwrap(self.contentProviderMock.fetchSimpleProjectsListParams.last).completion(.success(([], tags)))
         //Act
-        let tag = sut.viewRequestedForTag(at: IndexPath(row: 1, section: 0))
+        let tag = sut.viewRequestedForTag(at: IndexPath(row: 0, section: 0))
         //Assert
         XCTAssertEqual(tag, .internalMeeting)
     }
@@ -358,7 +357,7 @@ extension WorkTimeViewModelTests {
         sut.viewDidLoad()
         let tags: [ProjectTag] = [.default, .internalMeeting]
         try XCTUnwrap(self.contentProviderMock.fetchSimpleProjectsListParams.last).completion(.success(([], tags)))
-        let indexPath = IndexPath(row: 1, section: 0)
+        let indexPath = IndexPath(row: 0, section: 0)
         //Act
         sut.viewSelectedTag(at: indexPath)
         //Assert
@@ -372,7 +371,7 @@ extension WorkTimeViewModelTests {
         sut.viewDidLoad()
         let tags: [ProjectTag] = [.default, .internalMeeting]
         try XCTUnwrap(self.contentProviderMock.fetchSimpleProjectsListParams.last).completion(.success(([], tags)))
-        let indexPath = IndexPath(row: 1, section: 0)
+        let indexPath = IndexPath(row: 0, section: 0)
         //Act
         sut.viewSelectedTag(at: indexPath)
         sut.viewSelectedTag(at: indexPath)
@@ -720,15 +719,17 @@ extension WorkTimeViewModelTests {
     
     private func fetchProjects(sut: WorkTimeViewModel) throws {
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
-        let projectDecoders = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
+        let projectDecoders = try self.decoder.decode([SimpleProjectRecordDecoder].self, from: data)
+        let tagsData = try self.json(from: ProjectTagJSONResource.projectTagsResponse)
+        let tagsDecoder: ProjectTagsDecoder = try self.decoder.decode(ProjectTagsDecoder.self, from: tagsData)
         sut.viewDidLoad()
-        try XCTUnwrap(self.contentProviderMock.fetchSimpleProjectsListParams.last).completion(.success((projectDecoders.projects, projectDecoders.tags)))
+        try XCTUnwrap(self.contentProviderMock.fetchSimpleProjectsListParams.last).completion(.success((projectDecoders, tagsDecoder.tags)))
     }
     
     private func createTask(workTimeIdentifier: Int64?, index: Int = 3) throws -> TaskForm {
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
-        let simpleProjectDecoder = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
-        let project = simpleProjectDecoder.projects[index]
+        let simpleProjectDecoder = try self.decoder.decode([SimpleProjectRecordDecoder].self, from: data)
+        let project = try XCTUnwrap(simpleProjectDecoder[safeIndex: index])
         return TaskForm(
             workTimeIdentifier: workTimeIdentifier,
             project: project,
