@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ProjectTagsDecoder: Decodable {
+struct ProjectTagsDecoder: Decodable, Equatable {
     let tags: [ProjectTag]
     
     // MARK: - Initialization

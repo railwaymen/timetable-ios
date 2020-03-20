@@ -87,7 +87,7 @@ extension WorkTimeContentProvider: WorkTimeContentProviderType {
             } else if let error = projectsError ?? tagsError {
                 completion(.failure(error))
             } else {
-                errorHandler.stopInDebug()
+                errorHandler.stopInDebug("Expected response from both requests.")
                 completion(.failure(AppError.internalError))
             }
         }
