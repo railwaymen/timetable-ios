@@ -13,7 +13,7 @@ class WorkTimeContentProviderMock {
     // MARK: - WorkTimeContentProviderMock
     private(set) var fetchSimpleProjectsListParams: [FetchSimpleProjectsListParams] = []
     struct FetchSimpleProjectsListParams {
-        let completion: FetchSimpleProjectsListCompletion
+        let completion: FetchDataCompletion
     }
     
     private(set) var saveTaskParams: [SaveTaskParams] = []
@@ -50,7 +50,7 @@ class WorkTimeContentProviderMock {
 
 // MARK: - WorkTimeContentProviderMock
 extension WorkTimeContentProviderMock: WorkTimeContentProviderType {
-    func fetchSimpleProjectsList(completion: @escaping FetchSimpleProjectsListCompletion) {
+    func fetchData(completion: @escaping FetchDataCompletion) {
         self.fetchSimpleProjectsListParams.append(FetchSimpleProjectsListParams(completion: completion))
     }
     

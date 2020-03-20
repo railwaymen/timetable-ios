@@ -83,7 +83,9 @@ extension WorkTimeCoordinator {
         let contentProvider = WorkTimeContentProvider(
             apiClient: apiClient,
             calendar: Calendar.autoupdatingCurrent,
-            dateFactory: self.dependencyContainer.dateFactory)
+            dateFactory: self.dependencyContainer.dateFactory,
+            dispatchGroupFactory: self.dependencyContainer.dispatchGroupFactory,
+            errorHandler: self.dependencyContainer.errorHandler)
         guard let workTimeViewController = controller else { return }
         let viewModel = WorkTimeViewModel(
             userInterface: workTimeViewController,

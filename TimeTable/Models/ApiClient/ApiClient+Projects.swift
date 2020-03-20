@@ -10,7 +10,8 @@ import Foundation
 
 protocol ApiClientProjectsType: class {
     func fetchAllProjects(completion: @escaping ((Result<[ProjectRecordDecoder], Error>) -> Void))
-    func fetchSimpleListOfProjects(completion: @escaping ((Result<SimpleProjectDecoder, Error>) -> Void))
+    func fetchSimpleListOfProjects(completion: @escaping ((Result<[SimpleProjectRecordDecoder], Error>) -> Void))
+    func fetchTags(completion: @escaping (Result<ProjectTagsDecoder, Error>) -> Void)
 }
 
 extension ApiClient: ApiClientProjectsType {
@@ -22,10 +23,18 @@ extension ApiClient: ApiClientProjectsType {
             .start()
     }
     
-    func fetchSimpleListOfProjects(completion: @escaping ((Result<SimpleProjectDecoder, Error>) -> Void)) {
+    func fetchSimpleListOfProjects(completion: @escaping ((Result<[SimpleProjectRecordDecoder], Error>) -> Void)) {
         _ = self.restler
             .get(Endpoint.projectsSimpleList)
-            .decode(SimpleProjectDecoder.self)
+            .decode([SimpleProjectRecordDecoder].self)
+            .onCompletion(completion)
+            .start()
+    }
+    
+    func fetchTags(completion: @escaping (Result<ProjectTagsDecoder, Error>) -> Void) {
+        _ = self.restler
+            .get(Endpoint.tags)
+            .decode(ProjectTagsDecoder.self)
             .onCompletion(completion)
             .start()
     }

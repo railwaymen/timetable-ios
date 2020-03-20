@@ -8,14 +8,14 @@
 
 import Foundation
 
-typealias FetchSimpleProjectsListResult = Result<(projects: [SimpleProjectRecordDecoder], tags: [ProjectTag]), Error>
-typealias FetchSimpleProjectsListCompletion = (FetchSimpleProjectsListResult) -> Void
+typealias FetchDataResult = Result<(projects: [SimpleProjectRecordDecoder], tags: [ProjectTag]), Error>
+typealias FetchDataCompletion = (FetchDataResult) -> Void
 
 typealias SaveTaskResult = Result<Void, Error>
 typealias SaveTaskCompletion = (SaveTaskResult) -> Void
 
 protocol WorkTimeContentProviderType: class {
-    func fetchSimpleProjectsList(completion: @escaping FetchSimpleProjectsListCompletion)
+    func fetchData(completion: @escaping FetchDataCompletion)
     func save(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion)
     func saveWithFilling(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion)
     func getPredefinedTimeBounds(forTaskForm form: TaskFormType, lastTask: TaskFormType?) -> (startDate: Date, endDate: Date)
@@ -27,6 +27,8 @@ class WorkTimeContentProvider {
     private let apiClient: WorkTimeApiClientType
     private let calendar: CalendarType
     private let dateFactory: DateFactoryType
+    private let dispatchGroupFactory: DispatchGroupFactoryType
+    private let errorHandler: ErrorHandlerType
     
     private var currentDate: Date {
         self.dateFactory.currentDate
@@ -36,25 +38,57 @@ class WorkTimeContentProvider {
     init(
         apiClient: WorkTimeApiClientType,
         calendar: CalendarType,
-        dateFactory: DateFactoryType
+        dateFactory: DateFactoryType,
+        dispatchGroupFactory: DispatchGroupFactoryType,
+        errorHandler: ErrorHandlerType
     ) {
         self.apiClient = apiClient
         self.calendar = calendar
         self.dateFactory = dateFactory
+        self.dispatchGroupFactory = dispatchGroupFactory
+        self.errorHandler = errorHandler
     }
 }
 
 // MARK: - WorkTimeContentProviderType
 extension WorkTimeContentProvider: WorkTimeContentProviderType {
-    func fetchSimpleProjectsList(completion: @escaping FetchSimpleProjectsListCompletion) {
+    func fetchData(completion: @escaping FetchDataCompletion) {
+        let group = self.dispatchGroupFactory.createDispatchGroup()
+        var projectsResponse: [SimpleProjectRecordDecoder]?
+        var projectsError: Error?
+        var tagsResponse: ProjectTagsDecoder?
+        var tagsError: Error?
+        
+        group.enter()
         self.apiClient.fetchSimpleListOfProjects { result in
             switch result {
             case let .success(decoder):
-                let projects = decoder.projects.filter { $0.isActive ?? false }
-                let tags = decoder.tags.filter { $0 != .default }
-                completion(.success((projects, tags)))
+                projectsResponse = decoder.filter { $0.isActive ?? true }
             case let .failure(error):
+                projectsError = error
+            }
+            group.leave()
+        }
+        
+        group.enter()
+        self.apiClient.fetchTags { result in
+            switch result {
+            case let .success(decoder):
+                tagsResponse = decoder
+            case let .failure(error):
+                tagsError = error
+            }
+            group.leave()
+        }
+        
+        group.notify(qos: .userInteractive, queue: .main) { [errorHandler] in
+            if let projects = projectsResponse, let tagsDecoder = tagsResponse {
+                completion(.success((projects, tagsDecoder.tags)))
+            } else if let error = projectsError ?? tagsError {
                 completion(.failure(error))
+            } else {
+                errorHandler.stopInDebug("Expected response from both requests.")
+                completion(.failure(AppError.internalError))
             }
         }
     }
@@ -133,7 +167,7 @@ extension WorkTimeContentProvider {
                 throw UIError.genericError
             }
         } catch {
-            assertionFailure()
+            self.errorHandler.stopInDebug()
             throw UIError.genericError
         }
     }

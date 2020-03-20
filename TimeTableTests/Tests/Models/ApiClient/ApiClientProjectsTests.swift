@@ -18,9 +18,9 @@ class ApiClientProjectsTests: XCTestCase {
     }
 }
 
-// MARK: - fetchAllProjects(completion: @escaping ((Result<[ProjectRecordDecoder], Error>) -> Void))
+// MARK: - fetchAllProjects(completion:)
 extension ApiClientProjectsTests {
-    func testFetchAllProjectsSucceed() throws {
+    func testFetchAllProjects_successCompletion() throws {
         //Arrange
         let sut = self.buildSUT()
         let data = try self.json(from: ProjectRecordJSONResource.projectsRecordsResponse)
@@ -35,7 +35,7 @@ extension ApiClientProjectsTests {
         XCTAssertEqual(try XCTUnwrap(completionResult).get(), decoder)
     }
 
-    func testFetchAllProjectsFailed() throws {
+    func testFetchAllProjects_failureCompletion() throws {
         //Arrange
         let sut = self.buildSUT()
         let error = TestError(message: "fetch projects failed")
@@ -50,33 +50,79 @@ extension ApiClientProjectsTests {
     }
 }
 
-// MARK: - fetchSimpleListOfProjects(completion: @escaping ((Result<SimpleProjectDecoder, Error>) -> Void))
+// MARK: - fetchSimpleListOfProjects(completion:)
 extension ApiClientProjectsTests {
-    func testFetchSimpleProjectArrayResponseSucceed() throws {
+    func testFetchSimpleListOfProjects_successCompletion() throws {
         //Arrange
         let sut = self.buildSUT()
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
-        let decoder = try self.decoder.decode(SimpleProjectDecoder.self, from: data)
-        var completionResult: Result<SimpleProjectDecoder, Error>?
+        let decoder = try self.decoder.decode([SimpleProjectRecordDecoder].self, from: data)
+        var completionResult: Result<[SimpleProjectRecordDecoder], Error>?
         //Act
         sut.fetchSimpleListOfProjects { result in
             completionResult = result
         }
-        try self.restler.getReturnValue.callCompletion(type: SimpleProjectDecoder.self, result: .success(decoder))
+        try self.restler.getReturnValue.callCompletion(type: [SimpleProjectRecordDecoder].self, result: .success(decoder))
         //Assert
         XCTAssertEqual(try XCTUnwrap(completionResult).get(), decoder)
     }
 
-    func testFetchSimpleProjectArrayResponseFailed() throws {
+    func testFetchSimpleListOfProjects_failureCompletion() throws {
         //Arrange
         let sut = self.buildSUT()
         let error = TestError(message: "fetch projects failed")
-        var completionResult: Result<SimpleProjectDecoder, Error>?
+        var completionResult: Result<[SimpleProjectRecordDecoder], Error>?
         //Act
         sut.fetchSimpleListOfProjects { result in
             completionResult = result
         }
-        try self.restler.getReturnValue.callCompletion(type: SimpleProjectDecoder.self, result: .failure(error))
+        try self.restler.getReturnValue.callCompletion(type: [SimpleProjectRecordDecoder].self, result: .failure(error))
+        //Assert
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
+    }
+}
+
+// MARK: - fetchTags(completion:)
+extension ApiClientProjectsTests {
+    func testFetchTags_makesGetRequestToProperEndpoint() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        var completionResult: Result<ProjectTagsDecoder, Error>?
+        //Act
+        sut.fetchTags { result in
+            completionResult = result
+        }
+        //Assert
+        XCTAssertNil(completionResult)
+        XCTAssertEqual(self.restler.getParams.count, 1)
+        XCTAssertEqual(self.restler.getParams.last?.endpoint as? Endpoint, Endpoint.tags)
+    }
+    
+    func testFetchTags_successCompletion() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let data = try self.json(from: ProjectTagJSONResource.projectTagsResponse)
+        let decoder = try self.decoder.decode(ProjectTagsDecoder.self, from: data)
+        var completionResult: Result<ProjectTagsDecoder, Error>?
+        //Act
+        sut.fetchTags { result in
+            completionResult = result
+        }
+        try self.restler.getReturnValue.callCompletion(type: ProjectTagsDecoder.self, result: .success(decoder))
+        //Assert
+        XCTAssertEqual(try XCTUnwrap(completionResult).get(), decoder)
+    }
+    
+    func testFetchTags_failureCompletion() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let error = TestError(message: "fetch projects failed")
+        var completionResult: Result<ProjectTagsDecoder, Error>?
+        //Act
+        sut.fetchTags { result in
+            completionResult = result
+        }
+        try self.restler.getReturnValue.callCompletion(type: ProjectTagsDecoder.self, result: .failure(error))
         //Assert
         AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
     }

@@ -75,7 +75,12 @@ class ApiClientMock {
     
     private(set) var fetchSimpleListOfProjectsParams: [FetchSimpleListOfProjectsParams] = []
     struct FetchSimpleListOfProjectsParams {
-        let completion: ((Result<SimpleProjectDecoder, Error>) -> Void)
+        let completion: ((Result<[SimpleProjectRecordDecoder], Error>) -> Void)
+    }
+    
+    private(set) var fetchTagsParams: [FetchTagsParams] = []
+    struct FetchTagsParams {
+        let completion: ((Result<ProjectTagsDecoder, Error>) -> Void)
     }
     
     // MARK: - ApiClientUsersType
@@ -146,8 +151,12 @@ extension ApiClientMock: ApiClientProjectsType {
         self.fetchAllProjectsParams.append(FetchAllProjectsParams(completion: completion))
     }
     
-    func fetchSimpleListOfProjects(completion: @escaping ((Result<SimpleProjectDecoder, Error>) -> Void)) {
+    func fetchSimpleListOfProjects(completion: @escaping ((Result<[SimpleProjectRecordDecoder], Error>) -> Void)) {
         self.fetchSimpleListOfProjectsParams.append(FetchSimpleListOfProjectsParams(completion: completion))
+    }
+    
+    func fetchTags(completion: @escaping (Result<ProjectTagsDecoder, Error>) -> Void) {
+        self.fetchTagsParams.append(FetchTagsParams(completion: completion))
     }
 }
 

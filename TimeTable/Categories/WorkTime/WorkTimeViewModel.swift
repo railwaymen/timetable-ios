@@ -300,12 +300,12 @@ extension WorkTimeViewModel {
     
     private func fetchProjectList() {
         self.userInterface?.setActivityIndicator(isHidden: false)
-        self.contentProvider.fetchSimpleProjectsList { [weak self] result in
+        self.contentProvider.fetchData { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case let .success((projects, tags)):
                 self?.projects = projects
-                self?.tags = tags
+                self?.tags = tags.filter { $0 != .default }
                 self?.userInterface?.reloadTagsView()
                 self?.setDefaultTask()
             case let .failure(error):
