@@ -12,7 +12,7 @@ typealias WorkTimeApiClientType = ApiClientWorkTimesType & ApiClientProjectsType
 
 protocol WorkTimeCoordinatorType: class {
     func showProjectPicker(projects: [SimpleProjectRecordDecoder], finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType)
-    func viewDidFinish(isTaskChanged: Bool)
+    func dismissView(isTaskChanged: Bool)
 }
 
 class WorkTimeCoordinator: NavigationCoordinator {
@@ -68,8 +68,10 @@ extension WorkTimeCoordinator: WorkTimeCoordinatorType {
         self.runProjectPickerFlow(projects: projects, finishHandler: finishHandler)
     }
     
-    func viewDidFinish(isTaskChanged: Bool) {
-        self.finish(isTaskChanged: isTaskChanged)
+    func dismissView(isTaskChanged: Bool) {
+        self.navigationController.dismiss(animated: true) { [weak self] in
+            self?.finish(isTaskChanged: isTaskChanged)
+        }
     }
 }
 

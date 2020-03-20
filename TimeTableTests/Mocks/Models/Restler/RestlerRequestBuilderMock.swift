@@ -6,7 +6,7 @@
 //  Copyright © 2020 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import XCTest
 import Restler
 @testable import TimeTable
 
@@ -47,8 +47,32 @@ class RestlerRequestBuilderMock {
     }
     
     // MARK: - Internal
-    func getDecodeReturnedMock<T>(at index: Int = 0, type: T.Type = T.self) -> RestlerRequestMock<T>? {
-        return self.decodeReturnedMocks[safeIndex: index] as? RestlerRequestMock<T>
+    func callCompletion<T>(type: T.Type, result: Result<T, Error>, file: StaticString = #file, line: UInt = #line) throws {
+        guard let request = self.decodeReturnedMocks.last as? RestlerRequestMock<T> else {
+            let error = "Decode hasn't return value with a specified type."
+            XCTFail(error, file: file, line: line)
+            throw error
+        }
+        var isCalledAnything = false
+        switch result {
+        case let .success(object):
+            guard let successHandler = request.onSuccessParams.last?.handler else { break }
+            successHandler(object)
+            isCalledAnything = true
+        case let .failure(error):
+            guard let failureHandler = request.onFailureParams.last?.handler else { break }
+            failureHandler(error)
+            isCalledAnything = true
+        }
+        if let completionHandler = request.onCompletionParams.last?.handler {
+            completionHandler(result)
+            isCalledAnything = true
+        }
+        guard isCalledAnything else {
+            let error = "None handler has been called."
+            XCTFail(error, file: file, line: line)
+            throw error
+        }
     }
 }
 

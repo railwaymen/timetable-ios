@@ -16,8 +16,8 @@ class WorkTimeCoordinatorMock {
         var finishHandler: ProjectPickerCoordinator.CustomFinishHandlerType
     }
     
-    private(set) var viewDidFinishParams: [ViewDidFinishParams] = []
-    struct ViewDidFinishParams {
+    private(set) var dismissViewParams: [DismissViewParams] = []
+    struct DismissViewParams {
         var isTaskChanged: Bool
     }
 }
@@ -28,7 +28,7 @@ extension WorkTimeCoordinatorMock: WorkTimeCoordinatorType {
         self.showProjectPickerParams.append(ShowProjectPickerParams(projects: projects, finishHandler: finishHandler))
     }
     
-    func viewDidFinish(isTaskChanged: Bool) {
-        self.viewDidFinishParams.append(ViewDidFinishParams(isTaskChanged: isTaskChanged))
+    func dismissView(isTaskChanged: Bool) {
+        self.dismissViewParams.append(DismissViewParams(isTaskChanged: isTaskChanged))
     }
 }

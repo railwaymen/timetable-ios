@@ -30,7 +30,7 @@ extension ApiClientUsersTests {
         sut.fetchUserProfile(forIdetifier: 2) { result in
             completionResult = result
         }
-        try XCTUnwrap(self.restler.getReturnValue.getDecodeReturnedMock()?.onCompletionParams.last).handler(.success(decoder))
+        try self.restler.getReturnValue.callCompletion(type: UserDecoder.self, result: .success(decoder))
         //Assert
         XCTAssertEqual(try XCTUnwrap(completionResult).get(), decoder)
     }
@@ -44,7 +44,7 @@ extension ApiClientUsersTests {
         sut.fetchUserProfile(forIdetifier: 2) { result in
             completionResult = result
         }
-        try XCTUnwrap(self.restler.getReturnValue.getDecodeReturnedMock(type: UserDecoder.self)?.onCompletionParams.last).handler(.failure(error))
+        try self.restler.getReturnValue.callCompletion(type: UserDecoder.self, result: .failure(error))
         //Assert
         AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
     }

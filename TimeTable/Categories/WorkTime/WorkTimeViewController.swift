@@ -25,6 +25,7 @@ class WorkTimeViewController: UIViewController {
     @IBOutlet private var bodyTextView: UITextView!
     @IBOutlet private var taskURLView: UIView!
     @IBOutlet private var taskURLTextField: UITextField!
+    @IBOutlet private var saveWithFillingButton: AttributedButton!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private var dayPicker: UIDatePicker!
@@ -53,6 +54,10 @@ class WorkTimeViewController: UIViewController {
     
     @IBAction private func saveButtonTapped(_ sender: UIButton) {
         self.viewModel.viewRequestedToSave()
+    }
+    
+    @IBAction private func saveWithFillingButtonTapped(_ sender: UIButton) {
+        self.viewModel.viewRequestedToSaveWithFilling()
     }
     
     @IBAction private func viewTapped(_ sender: UITapGestureRecognizer) {
@@ -101,47 +106,43 @@ extension WorkTimeViewController: UITextViewDelegate {
 
 // MARK: - WorkTimeViewModelOutput
 extension WorkTimeViewController: WorkTimeViewModelOutput {
-    func setUp(title: String, isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?) {
-        self.title = title
-        let closeButton = UIBarButtonItem(barButtonSystemItem: .closeButton, target: self, action: #selector(self.cancelButtonTapped))
-        self.navigationItem.setRightBarButton(closeButton, animated: false)
+    func setUp(withTitle title: String) {
+        self.setUpNavigationBarItems(title: title)
+        self.setUpTagsCollectionView()
+        self.setUpActivityIndicator()
         
-        self.bodyView.set(isHidden: isLunch)
-        self.bodyTextView.text = body
-        
-        self.taskURLView.set(isHidden: !allowsTask || isLunch)
-        self.taskURLTextField.text = urlString
-        
-        self.dayPicker = UIDatePicker()
-        self.dayPicker.datePickerMode = .date
-        self.dayPicker.addTarget(self, action: #selector(self.dayTextFieldDidChanged), for: .valueChanged)
+        self.setUpDayPicker()
         self.dayTextField.inputView = self.dayPicker
         
-        self.startAtDatePicker = UIDatePicker()
-        self.startAtDatePicker.datePickerMode = .time
-        self.startAtDatePicker.minuteInterval = 5
-        self.startAtDatePicker.addTarget(self, action: #selector(self.startAtDateTextFieldDidChanged), for: .valueChanged)
+        self.setUpStartsAtPicker()
         self.startAtDateTextField.inputView = self.startAtDatePicker
 
-        self.endAtDatePicker = UIDatePicker()
-        self.endAtDatePicker.datePickerMode = .time
-        self.endAtDatePicker.minuteInterval = 5
-        self.endAtDatePicker.addTarget(self, action: #selector(self.endAtDateTextFieldDidChanged), for: .valueChanged)
+        self.setUpEndsAtPicker()
         self.endAtDateTextField.inputView = self.endAtDatePicker
-        
-        self.tagsCollectionView.register(TagCollectionViewCell.self)
-        self.tagsCollectionView.delegate = self
-        self.tagsCollectionView.dataSource = self
-        
-        self.setUpActivityIndicator()
+    }
+    
+    func setBodyView(isHidden: Bool) {
+        self.bodyView.set(isHidden: isHidden)
+    }
+    
+    func setTaskURLView(isHidden: Bool) {
+        self.taskURLView.set(isHidden: isHidden)
+    }
+    
+    func setBody(text: String) {
+        self.bodyTextView.text = text
+    }
+    
+    func setTask(urlString: String) {
+        self.taskURLTextField.text = urlString
+    }
+    
+    func setSaveWithFillingButton(isHidden: Bool) {
+        self.saveWithFillingButton.set(isHidden: isHidden)
     }
     
     func reloadTagsView() {
         self.tagsCollectionView.reloadData()
-    }
-    
-    func dismissView() {
-        self.dismiss(animated: true)
     }
     
     func dismissKeyboard() {
@@ -204,5 +205,37 @@ extension WorkTimeViewController {
             self.activityIndicator.style = .gray
         }
         self.setActivityIndicator(isHidden: true)
+    }
+    
+    private func setUpNavigationBarItems(title: String) {
+        self.title = title
+        let closeButton = UIBarButtonItem(barButtonSystemItem: .closeButton, target: self, action: #selector(self.cancelButtonTapped))
+        self.navigationItem.setRightBarButton(closeButton, animated: false)
+    }
+    
+    private func setUpDayPicker() {
+        self.dayPicker = UIDatePicker()
+        self.dayPicker.datePickerMode = .date
+        self.dayPicker.addTarget(self, action: #selector(self.dayTextFieldDidChanged), for: .valueChanged)
+    }
+    
+    private func setUpStartsAtPicker() {
+        self.startAtDatePicker = UIDatePicker()
+        self.startAtDatePicker.datePickerMode = .time
+        self.startAtDatePicker.minuteInterval = 5
+        self.startAtDatePicker.addTarget(self, action: #selector(self.startAtDateTextFieldDidChanged), for: .valueChanged)
+    }
+    
+    private func setUpEndsAtPicker() {
+        self.endAtDatePicker = UIDatePicker()
+        self.endAtDatePicker.datePickerMode = .time
+        self.endAtDatePicker.minuteInterval = 5
+        self.endAtDatePicker.addTarget(self, action: #selector(self.endAtDateTextFieldDidChanged), for: .valueChanged)
+    }
+    
+    private func setUpTagsCollectionView() {
+        self.tagsCollectionView.register(TagCollectionViewCell.self)
+        self.tagsCollectionView.delegate = self
+        self.tagsCollectionView.dataSource = self
     }
 }

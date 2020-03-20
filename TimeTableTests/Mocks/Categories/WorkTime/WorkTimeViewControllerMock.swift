@@ -15,14 +15,32 @@ class WorkTimeViewControllerMock: UIViewController {
     private(set) var setUpParams: [SetUpParams] = []
     struct SetUpParams {
         var title: String
-        var isLunch: Bool
-        var allowsTask: Bool
-        var body: String?
-        var urlString: String?
     }
     
-    private(set) var dismissViewParams: [DismissViewParams] = []
-    struct DismissViewParams {}
+    private(set) var setBodyViewParams: [SetBodyViewParams] = []
+    struct SetBodyViewParams {
+        let isHidden: Bool
+    }
+    
+    private(set) var setTaskURLViewParams: [SetTaskURLViewParams] = []
+    struct SetTaskURLViewParams {
+        let isHidden: Bool
+    }
+    
+    private(set) var setBodyParams: [SetBodyParams] = []
+    struct SetBodyParams {
+        let text: String
+    }
+    
+    private(set) var setTaskParams: [SetTaskParams] = []
+    struct SetTaskParams {
+        let urlString: String
+    }
+    
+    private(set) var setSaveWithFillingButtonParams: [SetSaveWithFillingButtonParams] = []
+    struct SetSaveWithFillingButtonParams {
+        let isHidden: Bool
+    }
     
     private(set) var reloadTagsViewParams: [ReloadTagsViewParams] = []
     struct ReloadTagsViewParams {}
@@ -82,12 +100,28 @@ class WorkTimeViewControllerMock: UIViewController {
 
 // MARK: - WorkTimeViewModelOutput
 extension WorkTimeViewControllerMock: WorkTimeViewModelOutput {
-    func setUp(title: String, isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?) {
-        self.setUpParams.append(SetUpParams(title: title, isLunch: isLunch, allowsTask: allowsTask, body: body, urlString: urlString))
+    func setUp(withTitle title: String) {
+        self.setUpParams.append(SetUpParams(title: title))
     }
     
-    func dismissView() {
-        self.dismissViewParams.append(DismissViewParams())
+    func setBodyView(isHidden: Bool) {
+        self.setBodyViewParams.append(SetBodyViewParams(isHidden: isHidden))
+    }
+    
+    func setTaskURLView(isHidden: Bool) {
+        self.setTaskURLViewParams.append(SetTaskURLViewParams(isHidden: isHidden))
+    }
+    
+    func setBody(text: String) {
+        self.setBodyParams.append(SetBodyParams(text: text))
+    }
+    
+    func setTask(urlString: String) {
+        self.setTaskParams.append(SetTaskParams(urlString: urlString))
+    }
+    
+    func setSaveWithFillingButton(isHidden: Bool) {
+        self.setSaveWithFillingButtonParams.append(SetSaveWithFillingButtonParams(isHidden: isHidden))
     }
     
     func reloadTagsView() {

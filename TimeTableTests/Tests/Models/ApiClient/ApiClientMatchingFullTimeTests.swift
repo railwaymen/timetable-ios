@@ -32,7 +32,7 @@ extension ApiClientMatchingFullTimeTests {
         sut.fetchMatchingFullTime(parameters: matchingFullTime) { result in
             completionResult = result
         }
-        try XCTUnwrap(self.restler.getReturnValue.getDecodeReturnedMock()?.onCompletionParams.last).handler(.success(decoder))
+        try self.restler.getReturnValue.callCompletion(type: MatchingFullTimeDecoder.self, result: .success(decoder))
         //Assert
         XCTAssertEqual(try XCTUnwrap(completionResult).get(), decoder)
     }
@@ -48,7 +48,7 @@ extension ApiClientMatchingFullTimeTests {
         sut.fetchMatchingFullTime(parameters: matchingFullTime) { result in
             completionResult = result
         }
-        try XCTUnwrap(self.restler.getReturnValue.getDecodeReturnedMock(type: MatchingFullTimeDecoder.self)?.onCompletionParams.last).handler(.failure(error))
+        try self.restler.getReturnValue.callCompletion(type: MatchingFullTimeDecoder.self, result: .failure(error))
         //Assert
         AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
     }

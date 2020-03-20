@@ -17,6 +17,7 @@ typealias SaveTaskCompletion = (SaveTaskResult) -> Void
 protocol WorkTimeContentProviderType: class {
     func fetchSimpleProjectsList(completion: @escaping FetchSimpleProjectsListCompletion)
     func save(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion)
+    func saveWithFilling(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion)
     func getPredefinedTimeBounds(forTaskForm form: TaskFormType, lastTask: TaskFormType?) -> (startDate: Date, endDate: Date)
     func getPredefinedDay(forTaskForm form: TaskForm) -> Date
     func pickEndTime(ofLastTask lastTask: TaskFormType?) -> Date?
@@ -66,6 +67,15 @@ extension WorkTimeContentProvider: WorkTimeContentProviderType {
             } else {
                 self.apiClient.addWorkTime(parameters: task, completion: completion)
             }
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    
+    func saveWithFilling(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion) {
+        do {
+            let task = try self.validate(taskForm: taskForm)
+            self.apiClient.addWorkTimeWithFilling(task: task, completion: completion)
         } catch {
             completion(.failure(error))
         }

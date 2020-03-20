@@ -31,7 +31,7 @@ extension ApiClientSessionTests {
         sut.signIn(with: parameters) { result in
             completionResult = result
         }
-        try XCTUnwrap(self.restler.postReturnValue.getDecodeReturnedMock()?.onCompletionParams.last).handler(.success(decoder))
+        try self.restler.postReturnValue.callCompletion(type: SessionDecoder.self, result: .success(decoder))
         //Assert
         XCTAssertEqual(try XCTUnwrap(completionResult).get(), decoder)
     }
@@ -46,7 +46,7 @@ extension ApiClientSessionTests {
         sut.signIn(with: parameters) { result in
             completionResult = result
         }
-        try XCTUnwrap(self.restler.postReturnValue.getDecodeReturnedMock(type: SessionDecoder.self)?.onCompletionParams.last).handler(.failure(error))
+        try self.restler.postReturnValue.callCompletion(type: SessionDecoder.self, result: .failure(error))
         //Assert
         AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
     }

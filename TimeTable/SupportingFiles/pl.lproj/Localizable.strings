@@ -46,6 +46,7 @@
 "work_time.text_field.select_project" = "Wybierz projekt";
 "work_time.text_field.select_day" = "Wybierz dzień";
 "work_time.button.save" = "Zapisz";
+"work_time.button.save_with_filling" = "Zapisz z wypełnieniem";
 
 "task_history.title" = "Historia edycji";
 

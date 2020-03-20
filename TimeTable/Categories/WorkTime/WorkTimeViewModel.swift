@@ -9,8 +9,12 @@
 import UIKit
 
 protocol WorkTimeViewModelOutput: class {
-    func setUp(title: String, isLunch: Bool, allowsTask: Bool, body: String?, urlString: String?)
-    func dismissView()
+    func setUp(withTitle title: String)
+    func setBodyView(isHidden: Bool)
+    func setTaskURLView(isHidden: Bool)
+    func setBody(text: String)
+    func setTask(urlString: String)
+    func setSaveWithFillingButton(isHidden: Bool)
     func reloadTagsView()
     func dismissKeyboard()
     func setMinimumDateForTypeEndAtDate(minDate: Date)
@@ -38,6 +42,7 @@ protocol WorkTimeViewModelType: class {
     func viewChanged(day: Date)
     func viewChanged(endAtDate date: Date)
     func viewRequestedToSave()
+    func viewRequestedToSaveWithFilling()
     func viewHasBeenTapped()
 }
 
@@ -50,7 +55,7 @@ class WorkTimeViewModel {
     private let calendar: CalendarType
     private let notificationCenter: NotificationCenterType
     private let lastTask: TaskForm?
-    private let viewTitle: String
+    private let flowType: FlowType
     private var projects: [SimpleProjectRecordDecoder]
     private var taskForm: TaskForm
     private var tags: [ProjectTag]
@@ -73,7 +78,7 @@ class WorkTimeViewModel {
         self.errorHandler = errorHandler
         self.calendar = calendar
         self.notificationCenter = notificationCenter
-        self.viewTitle = flowType.viewTitle
+        self.flowType = flowType
         let taskCreation: (_ duplicatedTask: TaskForm?, _ lastTask: TaskForm?) -> TaskForm = { duplicatedTask, lastTask in
             return TaskForm(
                 workTimeIdentifier: nil,
@@ -100,6 +105,10 @@ class WorkTimeViewModel {
         self.tags = []
         
         self.setUpNotification()
+    }
+    
+    deinit {
+        self.notificationCenter.removeObserver(self)
     }
     
     // MARK: - Notifications
@@ -133,7 +142,7 @@ extension WorkTimeViewModel {
 extension WorkTimeViewModel: WorkTimeViewModelType {
     func viewDidLoad() {
         self.setDefaultDay()
-        self.updateViewWithCurrentSelectedProject()
+        self.setUpUI()
         self.fetchProjectList()
     }
     
@@ -173,8 +182,7 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func viewRequestedToFinish() {
-        self.userInterface?.dismissView()
-        self.coordinator?.viewDidFinish(isTaskChanged: false)
+        self.coordinator?.dismissView(isTaskChanged: false)
     }
     
     func taskNameDidChange(value: String?) {
@@ -203,17 +211,11 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func viewRequestedToSave() {
-        self.userInterface?.setActivityIndicator(isHidden: false)
-        self.contentProvider.save(taskForm: self.taskForm) { [weak self] result in
-            self?.userInterface?.setActivityIndicator(isHidden: true)
-            switch result {
-            case .success:
-                self?.userInterface?.dismissView()
-                self?.coordinator?.viewDidFinish(isTaskChanged: true)
-            case let .failure(error):
-                self?.errorHandler.throwing(error: error)
-            }
-        }
+        self.saveTask(withFilling: false)
+    }
+    
+    func viewRequestedToSaveWithFilling() {
+        self.saveTask(withFilling: true)
     }
     
     func viewHasBeenTapped() {
@@ -236,6 +238,17 @@ extension WorkTimeViewModel {
             object: nil)
     }
     
+    private func setUpUI() {
+        self.userInterface?.setUp(withTitle: self.flowType.viewTitle)
+        switch self.flowType {
+        case .editEntry:
+            self.userInterface?.setSaveWithFillingButton(isHidden: true)
+        case .newEntry, .duplicateEntry:
+            self.userInterface?.setSaveWithFillingButton(isHidden: false)
+        }
+        self.updateViewWithCurrentSelectedProject()
+    }
+    
     private func setDefaultTask() {
         guard let defaultProject = self.projects.first(where: { $0 == self.lastTask?.project }) ?? self.projects.first else { return }
         if self.taskForm.project == nil {
@@ -254,15 +267,14 @@ extension WorkTimeViewModel {
         let (startDate, endDate) = self.contentProvider.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: self.lastTask)
         self.taskForm.startsAt = startDate
         self.taskForm.endsAt = endDate
-        self.userInterface?.setUp(
-            title: self.viewTitle,
-            isLunch: self.taskForm.project?.isLunch ?? false,
-            allowsTask: self.taskForm.allowsTask,
-            body: self.taskForm.body,
-            urlString: self.taskForm.url?.absoluteString)
+        let isLunch = self.taskForm.project?.isLunch ?? false
+        self.userInterface?.setBodyView(isHidden: isLunch)
+        self.userInterface?.setTaskURLView(isHidden: !self.taskForm.allowsTask || isLunch)
+        self.userInterface?.setBody(text: self.taskForm.body)
+        self.userInterface?.setTask(urlString: self.taskForm.url?.absoluteString ?? "")
         self.userInterface?.setTagsCollectionView(isHidden: !self.taskForm.isProjectTaggable)
-        self.updateStartAtDateView(with: startDate)
         self.updateEndAtDateView(with: endDate)
+        self.updateStartAtDateView(with: startDate)
         self.userInterface?.updateProject(name: self.taskForm.project?.name ?? "work_time.text_field.select_project".localized)
     }
     
@@ -296,6 +308,26 @@ extension WorkTimeViewModel {
                 self?.tags = tags
                 self?.userInterface?.reloadTagsView()
                 self?.setDefaultTask()
+            case let .failure(error):
+                self?.errorHandler.throwing(error: error)
+            }
+        }
+    }
+    
+    private func saveTask(withFilling: Bool) {
+        let completion: SaveTaskCompletion = self.getSaveCompletion()
+        self.userInterface?.setActivityIndicator(isHidden: false)
+        withFilling
+            ? self.contentProvider.saveWithFilling(taskForm: self.taskForm, completion: completion)
+            : self.contentProvider.save(taskForm: self.taskForm, completion: completion)
+    }
+    
+    private func getSaveCompletion() -> SaveTaskCompletion {
+        return { [weak self] result in
+            self?.userInterface?.setActivityIndicator(isHidden: true)
+            switch result {
+            case .success:
+                self?.coordinator?.dismissView(isTaskChanged: true)
             case let .failure(error):
                 self?.errorHandler.throwing(error: error)
             }
