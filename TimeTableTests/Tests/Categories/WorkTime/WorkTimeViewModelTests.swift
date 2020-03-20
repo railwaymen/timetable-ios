@@ -149,7 +149,7 @@ extension WorkTimeViewModelTests {
     func testViewDidLoad_newEntry_withoutLastTask_setsStartDate() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let startTime = try self.buildDate(year: 2019, month: 5, day: 11, hour: 9, minute: 11, second: 0)
+        let startTime = try self.buildTime(hours: 9, minutes: 11)
         let formattedTime = DateFormatterBuilder().timeStyle(.short).build().string(from: startTime)
         self.contentProviderMock.getPredefinedTimeBoundsReturnValue = (startTime, Date())
         //Act
@@ -163,7 +163,7 @@ extension WorkTimeViewModelTests {
     func testViewDidLoad_newEntry_withoutLastTask_setsMinimumEndAtDate() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let startTime = try self.buildDate(year: 2019, month: 5, day: 11, hour: 9, minute: 11, second: 0)
+        let startTime = try self.buildTime(hours: 9, minutes: 11)
         self.contentProviderMock.getPredefinedTimeBoundsReturnValue = (startTime, Date())
         //Act
         sut.viewDidLoad()
@@ -175,8 +175,8 @@ extension WorkTimeViewModelTests {
     func testViewDidLoad_newEntry_withoutLastTask_startDateLessThanEndDate_setsProperEndDate() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let startTime = try self.buildDate(year: 2019, month: 5, day: 11, hour: 8, minute: 11, second: 0)
-        let endTime = try self.buildDate(year: 2019, month: 5, day: 11, hour: 9, minute: 11, second: 0)
+        let startTime = try self.buildTime(hours: 8, minutes: 11)
+        let endTime = try self.buildTime(hours: 9, minutes: 11)
         let formattedTime = DateFormatterBuilder().timeStyle(.short).build().string(from: endTime)
         self.contentProviderMock.getPredefinedTimeBoundsReturnValue = (startTime, endTime)
         //Act
@@ -190,8 +190,8 @@ extension WorkTimeViewModelTests {
     func testViewDidLoad_newEntry_withoutLastTask_startDateGreaterThanEndDate_setsProperEndDate() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let startTime = try self.buildDate(year: 2019, month: 5, day: 11, hour: 10, minute: 11, second: 0)
-        let endTime = try self.buildDate(year: 2019, month: 5, day: 11, hour: 9, minute: 11, second: 0)
+        let startTime = try self.buildTime(hours: 10, minutes: 11)
+        let endTime = try self.buildTime(hours: 9, minutes: 11)
         let formattedTime = DateFormatterBuilder().timeStyle(.short).build().string(from: startTime)
         self.contentProviderMock.getPredefinedTimeBoundsReturnValue = (startTime, endTime)
         //Act
@@ -735,27 +735,13 @@ extension WorkTimeViewModelTests {
             body: "Blah blah blah",
             url: try XCTUnwrap(URL(string: "http://example.com")),
             day: Date(),
-            startsAt: try self.createTime(hours: 8, minutes: 0),
-            endsAt: try self.createTime(hours: 9, minutes: 30),
+            startsAt: try self.buildTime(hours: 8, minutes: 0),
+            endsAt: try self.buildTime(hours: 9, minutes: 30),
             tag: .default)
     }
     
-    private func createTime(hours: Int, minutes: Int) throws -> Date {
+    private func buildTime(hours: Int, minutes: Int) throws -> Date {
         return try XCTUnwrap(Calendar(identifier: .gregorian).date(bySettingHour: hours, minute: minutes, second: 0, of: Date()))
-    }
-    
-    private func fillAllDataInViewModel(sut: WorkTimeViewModel, task: TaskForm) throws {
-        let startAtDate = try XCTUnwrap(task.startsAt)
-        let endAtDate = try XCTUnwrap(task.endsAt)
-        sut.viewChanged(day: try XCTUnwrap(task.day))
-        self.calendarMock.dateBySettingCalendarComponentReturnValue = startAtDate
-        sut.viewChanged(startAtDate: startAtDate)
-        self.calendarMock.dateBySettingCalendarComponentReturnValue = endAtDate
-        sut.viewChanged(endAtDate: endAtDate)
-        sut.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(self.coordinatorMock.showProjectPickerParams.last?.projects.first)
-        sut.taskNameDidChange(value: "body")
-        sut.taskURLDidChange(value: "www.example.com")
     }
 }
 // swiftlint:disable:this file_length
