@@ -42,9 +42,6 @@ class WorkTimeViewControllerMock: UIViewController {
         let isHidden: Bool
     }
     
-    private(set) var dismissViewParams: [DismissViewParams] = []
-    struct DismissViewParams {}
-    
     private(set) var reloadTagsViewParams: [ReloadTagsViewParams] = []
     struct ReloadTagsViewParams {}
     
@@ -125,10 +122,6 @@ extension WorkTimeViewControllerMock: WorkTimeViewModelOutput {
     
     func setSaveWithFillingButton(isHidden: Bool) {
         self.setSaveWithFillingButtonParams.append(SetSaveWithFillingButtonParams(isHidden: isHidden))
-    }
-    
-    func dismissView() {
-        self.dismissViewParams.append(DismissViewParams())
     }
     
     func reloadTagsView() {

@@ -15,7 +15,6 @@ protocol WorkTimeViewModelOutput: class {
     func setBody(text: String)
     func setTask(urlString: String)
     func setSaveWithFillingButton(isHidden: Bool)
-    func dismissView()
     func reloadTagsView()
     func dismissKeyboard()
     func setMinimumDateForTypeEndAtDate(minDate: Date)
@@ -183,8 +182,7 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func viewRequestedToFinish() {
-        self.userInterface?.dismissView()
-        self.coordinator?.viewDidFinish(isTaskChanged: false)
+        self.coordinator?.dismissView(isTaskChanged: false)
     }
     
     func taskNameDidChange(value: String?) {
@@ -329,8 +327,7 @@ extension WorkTimeViewModel {
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .success:
-                self?.userInterface?.dismissView()
-                self?.coordinator?.viewDidFinish(isTaskChanged: true)
+                self?.coordinator?.dismissView(isTaskChanged: true)
             case let .failure(error):
                 self?.errorHandler.throwing(error: error)
             }

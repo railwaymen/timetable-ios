@@ -145,10 +145,6 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         self.tagsCollectionView.reloadData()
     }
     
-    func dismissView() {
-        self.dismiss(animated: true)
-    }
-    
     func dismissKeyboard() {
         self.view.endEditing(true)
     }
