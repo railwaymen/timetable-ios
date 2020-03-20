@@ -30,7 +30,7 @@ extension ApiClientProjectsTests {
         sut.fetchAllProjects { result in
             completionResult = result
         }
-        try XCTUnwrap(self.restler.getReturnValue.getDecodeReturnedMock()?.onCompletionParams.last).handler(.success(decoder))
+        try self.restler.getReturnValue.callCompletion(type: [ProjectRecordDecoder].self, result: .success(decoder))
         //Assert
         XCTAssertEqual(try XCTUnwrap(completionResult).get(), decoder)
     }
@@ -44,7 +44,7 @@ extension ApiClientProjectsTests {
         sut.fetchAllProjects { result in
             completionResult = result
         }
-        try XCTUnwrap(self.restler.getReturnValue.getDecodeReturnedMock(type: [ProjectRecordDecoder].self)?.onCompletionParams.last).handler(.failure(error))
+        try self.restler.getReturnValue.callCompletion(type: [ProjectRecordDecoder].self, result: .failure(error))
         //Assert
         AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
     }
@@ -62,7 +62,7 @@ extension ApiClientProjectsTests {
         sut.fetchSimpleListOfProjects { result in
             completionResult = result
         }
-        try XCTUnwrap(self.restler.getReturnValue.getDecodeReturnedMock()?.onCompletionParams.last).handler(.success(decoder))
+        try self.restler.getReturnValue.callCompletion(type: SimpleProjectDecoder.self, result: .success(decoder))
         //Assert
         XCTAssertEqual(try XCTUnwrap(completionResult).get(), decoder)
     }
@@ -76,7 +76,7 @@ extension ApiClientProjectsTests {
         sut.fetchSimpleListOfProjects { result in
             completionResult = result
         }
-        try XCTUnwrap(self.restler.getReturnValue.getDecodeReturnedMock(type: SimpleProjectDecoder.self)?.onCompletionParams.last).handler(.failure(error))
+        try self.restler.getReturnValue.callCompletion(type: SimpleProjectDecoder.self, result: .failure(error))
         //Assert
         AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
     }

@@ -18,7 +18,7 @@ class ApiClientWorkTimesTests: XCTestCase {
     }
 }
 
-// MARK: - fetchWorkTimes(parameters: WorkTimesParameters, completion: @escaping ((Result<[WorkTimeDecoder], Error>) -> Void))
+// MARK: - fetchWorkTimes(parameters:completion:)
 extension ApiClientWorkTimesTests {
     func testFetchSucceed() throws {
         //Arrange
@@ -31,7 +31,7 @@ extension ApiClientWorkTimesTests {
         _ = sut.fetchWorkTimes(parameters: parameters) { result in
             completionResult = result
         }
-        try XCTUnwrap(self.restler.getReturnValue.getDecodeReturnedMock()?.onCompletionParams.last).handler(.success(decoders))
+        try self.restler.getReturnValue.callCompletion(type: [WorkTimeDecoder].self, result: .success(decoders))
         //Assert
         XCTAssertEqual(try XCTUnwrap(completionResult).get(), decoders)
     }
@@ -46,26 +46,66 @@ extension ApiClientWorkTimesTests {
         _ = sut.fetchWorkTimes(parameters: parameters) { result in
             completionResult = result
         }
-        try XCTUnwrap(self.restler.getReturnValue.getDecodeReturnedMock(type: [WorkTimeDecoder].self)?.onCompletionParams.last).handler(.failure(error))
+        try self.restler.getReturnValue.callCompletion(type: [WorkTimeDecoder].self, result: .failure(error))
         //Assert
         AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
     }
 }
 
-// MARK: - addWorkTime(parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void))
+// MARK: - fetchWorkTimeDetails(identifier:completion:)
+extension ApiClientWorkTimesTests {
+    func testFetchDetails_requestsProperEndpoint() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        //Act
+        _ = sut.fetchWorkTimeDetails(identifier: 1) { _ in }
+        //Assert
+        XCTAssertEqual(self.restler.getParams.count, 1)
+        XCTAssertEqual(self.restler.getParams.last?.endpoint as? Endpoint, Endpoint.workTime(1))
+    }
+    
+    func testFetchDetails_success() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let data = try self.json(from: WorkTimesJSONResource.workTimeResponse)
+        let decoder = try self.decoder.decode(WorkTimeDecoder.self, from: data)
+        var completionResult: Result<WorkTimeDecoder, Error>?
+        //Act
+        _ = sut.fetchWorkTimeDetails(identifier: 1) { result in
+            completionResult = result
+        }
+        try self.restler.getReturnValue.callCompletion(type: WorkTimeDecoder.self, result: .success(decoder))
+        //Assert
+        XCTAssertEqual(try XCTUnwrap(completionResult).get(), decoder)
+    }
+    
+    func testFetchDetails_failure() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let error = TestError(message: "test error123")
+        var completionResult: Result<WorkTimeDecoder, Error>?
+        //Act
+        _ = sut.fetchWorkTimeDetails(identifier: 1) { result in
+            completionResult = result
+        }
+        try self.restler.getReturnValue.callCompletion(type: WorkTimeDecoder.self, result: .failure(error))
+        //Assert
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
+    }
+}
+
+// MARK: - addWorkTime(parameters:completion:)
 extension ApiClientWorkTimesTests {
     func testAddWorkTimeSucceed() throws {
         //Arrange
         let sut = self.buildSUT()
-        let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
-        let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
-        let task = Task(project: projectDecoder, body: "body", startsAt: Date(), endsAt: Date())
+        let task = try self.buildTask()
         var completionResult: Result<Void, Error>?
         //Act
         sut.addWorkTime(parameters: task) { result in
             completionResult = result
         }
-        try XCTUnwrap(self.restler.postReturnValue.getDecodeReturnedMock(type: Void.self)?.onCompletionParams.last).handler(.success(Void()))
+        try self.restler.postReturnValue.callCompletion(type: Void.self, result: .success(Void()))
         //Assert
         XCTAssertNotNil(try XCTUnwrap(completionResult).get())
     }
@@ -74,21 +114,62 @@ extension ApiClientWorkTimesTests {
         //Arrange
         let sut = self.buildSUT()
         let error = TestError(message: "fetch failed")
-        let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
-        let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
-        let task = Task(project: projectDecoder, body: "body", startsAt: Date(), endsAt: Date())
+        let task = try self.buildTask()
         var completionResult: Result<Void, Error>?
         //Act
         sut.addWorkTime(parameters: task) { result in
             completionResult = result
         }
-        try XCTUnwrap(self.restler.postReturnValue.getDecodeReturnedMock(type: Void.self)?.onCompletionParams.last).handler(.failure(error))
+        try self.restler.postReturnValue.callCompletion(type: Void.self, result: .failure(error))
         //Assert
         AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
     }
 }
 
-// MARK: - deleteWorkTime(identifier: Int64, completion: @escaping ((Result<Void, Error>) -> Void))
+// MARK: - addWorkTimeWithFilling(task:completion:)
+extension ApiClientWorkTimesTests {
+    func testAddWorkTimeWithFilling_requestsProperEndpoint() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let task = try self.buildTask()
+        //Act
+        sut.addWorkTimeWithFilling(task: task) { _ in }
+        //Assert
+        XCTAssertEqual(self.restler.postParams.count, 1)
+        XCTAssertEqual(self.restler.postParams.last?.endpoint as? Endpoint, Endpoint.workTimesCreateWithFilling)
+    }
+    
+    func testAddWorkTimeWithFilling_success() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let task = try self.buildTask()
+        var completionResult: Result<Void, Error>?
+        //Act
+        sut.addWorkTimeWithFilling(task: task) { result in
+            completionResult = result
+        }
+        try self.restler.postReturnValue.callCompletion(type: Void.self, result: .success(Void()))
+        //Assert
+        XCTAssertNotNil(try XCTUnwrap(completionResult).get())
+    }
+    
+    func testAddWorkTimeWithFilling_failure() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let error = TestError(message: "fetch failed")
+        let task = try self.buildTask()
+        var completionResult: Result<Void, Error>?
+        //Act
+        sut.addWorkTimeWithFilling(task: task) { result in
+            completionResult = result
+        }
+        try self.restler.postReturnValue.callCompletion(type: Void.self, result: .failure(error))
+        //Assert
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
+    }
+}
+
+// MARK: - deleteWorkTime(identifier:completion:)
 extension ApiClientWorkTimesTests {
     func testDeleteWorkTimeSucceed() throws {
         //Arrange
@@ -98,7 +179,7 @@ extension ApiClientWorkTimesTests {
         sut.deleteWorkTime(identifier: 2) { result in
             completionResult = result
         }
-        try XCTUnwrap(self.restler.deleteReturnValue.getDecodeReturnedMock(type: Void.self)?.onCompletionParams.last).handler(.success(Void()))
+        try self.restler.deleteReturnValue.callCompletion(type: Void.self, result: .success(Void()))
         //Assert
         XCTAssertNotNil(try XCTUnwrap(completionResult).get())
     }
@@ -112,26 +193,24 @@ extension ApiClientWorkTimesTests {
         sut.deleteWorkTime(identifier: 2) { result in
             completionResult = result
         }
-        try XCTUnwrap(self.restler.deleteReturnValue.getDecodeReturnedMock(type: Void.self)?.onCompletionParams.last).handler(.failure(error))
+        try self.restler.deleteReturnValue.callCompletion(type: Void.self, result: .failure(error))
         //Assert
         AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
     }
 }
 
-// MARK: - updateWorkTime(identifier: Int64, parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void))
+// MARK: - updateWorkTime(identifier:parameters:completion:)
 extension ApiClientWorkTimesTests {
     func testUpdateWorkTime_succeed() throws {
         //Arrange
         let sut = self.buildSUT()
-        let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
-        let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
-        let task = Task(project: projectDecoder, body: "body", startsAt: Date(), endsAt: Date())
+        let task = try self.buildTask()
         var completionResult: Result<Void, Error>?
         //Act
         sut.updateWorkTime(identifier: 1, parameters: task) { result in
             completionResult = result
         }
-        try XCTUnwrap(self.restler.putReturnValue.getDecodeReturnedMock(type: Void.self)?.onCompletionParams.last).handler(.success(Void()))
+        try self.restler.putReturnValue.callCompletion(type: Void.self, result: .success(Void()))
         //Assert
         XCTAssertNotNil(try XCTUnwrap(completionResult).get())
     }
@@ -140,15 +219,13 @@ extension ApiClientWorkTimesTests {
         //Arrange
         let sut = self.buildSUT()
         let error = TestError(message: "fetch failed")
-        let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
-        let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
-        let task = Task(project: projectDecoder, body: "body", startsAt: Date(), endsAt: Date())
+        let task = try self.buildTask()
         var completionResult: Result<Void, Error>?
         //Act
         sut.updateWorkTime(identifier: 1, parameters: task) { result in
             completionResult = result
         }
-        try XCTUnwrap(self.restler.putReturnValue.getDecodeReturnedMock(type: Void.self)?.onCompletionParams.last).handler(.failure(error))
+        try self.restler.putReturnValue.callCompletion(type: Void.self, result: .failure(error))
         //Assert
         AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
     }
@@ -158,5 +235,11 @@ extension ApiClientWorkTimesTests {
 extension ApiClientWorkTimesTests {
     private func buildSUT() -> ApiClientWorkTimesType {
         return ApiClient(restler: self.restler)
+    }
+    
+    private func buildTask() throws -> Task {
+        let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
+        let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
+        return Task(project: projectDecoder, body: "body", startsAt: Date(), endsAt: Date())
     }
 }

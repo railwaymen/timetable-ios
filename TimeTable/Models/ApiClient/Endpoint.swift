@@ -9,7 +9,7 @@
 import Foundation
 import Restler
 
-enum Endpoint: RestlerEndpointable {
+enum Endpoint: RestlerEndpointable, Equatable {
     case matchingFullTime
     case projects
     case projectsSimpleList
