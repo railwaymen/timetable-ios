@@ -15,6 +15,7 @@ protocol WorkTimeContainerContentType: class {
 protocol WorkTimeContainerViewModelOutput: class {
     func setUp(withTitle title: String)
     func showForm()
+    func showError()
     func hideAllContainerViews()
     func setActivityIndicator(isHidden: Bool)
 }
@@ -22,6 +23,7 @@ protocol WorkTimeContainerViewModelOutput: class {
 protocol WorkTimeContainerViewModelType: class {
     func viewDidLoad()
     func configure(_ viewController: WorkTimeViewControllerable)
+    func configure(_ view: ErrorViewable)
     func closeButtonTapped()
 }
 
@@ -33,6 +35,7 @@ class WorkTimeContainerViewModel {
     private let flowType: WorkTimeViewModel.FlowType
     
     private weak var contentDelegate: WorkTimeContainerContentType?
+    private weak var errorDelegate: ErrorViewModelParentType?
     
     // MARK: - Initialization
     init(
@@ -62,6 +65,12 @@ extension WorkTimeContainerViewModel: WorkTimeContainerViewModelType {
         self.contentDelegate = self.coordinator?.configure(contentViewController: viewController)
     }
     
+    func configure(_ view: ErrorViewable) {
+        self.errorDelegate = self.coordinator?.configure(errorView: view) { [weak self] in
+            self?.fetchData()
+        }
+    }
+    
     func closeButtonTapped() {
         self.coordinator?.dismissView(isTaskChanged: false)
     }
@@ -79,8 +88,9 @@ extension WorkTimeContainerViewModel {
                     projects: projects,
                     tags: tags.filter { $0 != .default })
                 self?.userInterface?.showForm()
-            case let .failure(error) :
+            case let .failure(error):
                 self?.errorHandler.throwing(error: error)
+                self?.userInterface?.showError()
             }
         }
     }

@@ -16,6 +16,13 @@ class WorkTimeCoordinatorMock {
         let viewController: WorkTimeViewControllerable
     }
     
+    var configureErrorViewReturnValue: ErrorViewModelParentType?
+    private(set) var configureErrorViewParams: [ConfigureErrorViewParams] = []
+    struct ConfigureErrorViewParams {
+        let errorView: ErrorViewable
+        let action: () -> Void
+    }
+    
     private(set) var showProjectPickerParams: [ShowProjectPickerParams] = []
     struct ShowProjectPickerParams {
         var projects: [SimpleProjectRecordDecoder]
@@ -33,6 +40,12 @@ extension WorkTimeCoordinatorMock: WorkTimeCoordinatorType {
     func configure(contentViewController: WorkTimeViewControllerable) -> WorkTimeContainerContentType? {
         self.configureContentViewControllerParams.append(ConfigureContentViewControllerParams(viewController: contentViewController))
         return self.configureContentViewControllerReturnValue
+    }
+    
+    func configure(errorView: ErrorViewable, action: @escaping () -> Void) -> ErrorViewModelParentType {
+        self.configureErrorViewParams.append(ConfigureErrorViewParams(errorView: errorView, action: action))
+        return self.configureErrorViewReturnValue
+            ?? ErrorViewModel(userInterface: errorView, error: UIError.genericError, actionHandler: action)
     }
     
     func showProjectPicker(projects: [SimpleProjectRecordDecoder], finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType) {

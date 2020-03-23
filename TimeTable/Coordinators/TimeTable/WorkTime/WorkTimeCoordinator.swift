@@ -12,6 +12,7 @@ typealias WorkTimeApiClientType = ApiClientWorkTimesType & ApiClientProjectsType
 
 protocol WorkTimeCoordinatorType: class {
     func configure(contentViewController: WorkTimeViewControllerable) -> WorkTimeContainerContentType?
+    func configure(errorView: ErrorViewable, action: @escaping () -> Void) -> ErrorViewModelParentType
     func showProjectPicker(projects: [SimpleProjectRecordDecoder], finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType)
     func dismissView(isTaskChanged: Bool)
 }
@@ -89,6 +90,15 @@ extension WorkTimeCoordinator: WorkTimeCoordinatorType {
             notificationCenter: self.dependencyContainer.notificationCenter,
             flowType: self.flowType)
         contentViewController.configure(viewModel: viewModel)
+        return viewModel
+    }
+    
+    func configure(errorView: ErrorViewable, action: @escaping () -> Void) -> ErrorViewModelParentType {
+        let viewModel = ErrorViewModel(
+            userInterface: errorView,
+            error: UIError.genericError,
+            actionHandler: action)
+        errorView.configure(viewModel: viewModel)
         return viewModel
     }
     

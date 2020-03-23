@@ -16,9 +16,14 @@ protocol WorkTimeContainerViewControllerType: class {
 
 class WorkTimeContainerViewController: UIViewController {
     @IBOutlet private var formView: UIView!
+    @IBOutlet private var errorView: ErrorView!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private var viewModel: WorkTimeContainerViewModelType!
+    
+    private var currentlyVisibleView: UIView? {
+        return [self.formView, self.errorView].first(where: { !($0?.isHidden ?? true) })
+    }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -42,21 +47,22 @@ class WorkTimeContainerViewController: UIViewController {
 // MARK: - WorkTimeContainerViewModelOutput
 extension WorkTimeContainerViewController: WorkTimeContainerViewModelOutput {
     func setUp(withTitle title: String) {
+        self.viewModel.configure(self.errorView)
         self.setUpNavigationBarItems(title: title)
         self.setUpActivityIndicator()
     }
     
     func showForm() {
-        UIView.transition(
-            with: self.formView,
-            duration: 0.3,
-            animations: { [weak self] in
-                self?.formView.set(isHidden: false)
-        })
+        self.showWithAnimation(view: self.formView)
+    }
+    
+    func showError() {
+        self.showWithAnimation(view: self.errorView)
     }
     
     func hideAllContainerViews() {
         self.formView.set(isHidden: true)
+        self.errorView.set(isHidden: true)
     }
     
     func setActivityIndicator(isHidden: Bool) {
@@ -87,5 +93,25 @@ extension WorkTimeContainerViewController {
         self.title = title
         let closeButton = UIBarButtonItem(barButtonSystemItem: .closeButton, target: self, action: #selector(self.closeButtonTapped))
         self.navigationItem.setRightBarButton(closeButton, animated: false)
+    }
+    
+    private func showWithAnimation(view: UIView) {
+        let duration: TimeInterval = 0.3
+        let options: UIView.AnimationOptions = [.showHideTransitionViews, .transitionCrossDissolve]
+        if let previousView = self.currentlyVisibleView {
+            UIView.transition(
+                from: previousView,
+                to: view,
+                duration: duration,
+                options: options)
+        } else {
+            UIView.transition(
+                with: view,
+                duration: duration,
+                options: options,
+                animations: {
+                    view.set(isHidden: false)
+            })
+        }
     }
 }

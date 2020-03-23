@@ -364,19 +364,6 @@ extension WorkTimeViewModelTests {
     }
 }
 
-// MARK: - viewRequestedToFinish()
-extension WorkTimeViewModelTests {
-    func testViewRequestedToFinish_dismissesView() {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        //Act
-        sut.viewRequestedToFinish()
-        //Assert
-        XCTAssertEqual(self.coordinatorMock.dismissViewParams.count, 1)
-        XCTAssertFalse(try XCTUnwrap(self.coordinatorMock.dismissViewParams.last?.isTaskChanged))
-    }
-}
-
 // MARK: - viewRequestedToSave()
 extension WorkTimeViewModelTests {
     func testViewRequestedToSave_beforeRequest_showsActivityIndicator() {

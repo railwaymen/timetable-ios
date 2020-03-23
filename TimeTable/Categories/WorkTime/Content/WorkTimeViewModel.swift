@@ -35,7 +35,6 @@ protocol WorkTimeViewModelType: class {
     func viewRequestedForTag(at index: IndexPath) -> ProjectTag?
     func viewSelectedTag(at index: IndexPath)
     func isTagSelected(at index: IndexPath) -> Bool
-    func viewRequestedToFinish()
     func taskNameDidChange(value: String?)
     func taskURLDidChange(value: String?)
     func viewChanged(startAtDate date: Date)
@@ -176,10 +175,6 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
         guard let selectedTag = self.tags[safeIndex: index.row] else { return }
         self.taskForm.tag = self.taskForm.tag == selectedTag ? .development : selectedTag
         self.userInterface?.reloadTagsView()
-    }
-    
-    func viewRequestedToFinish() {
-        self.coordinator?.dismissView(isTaskChanged: false)
     }
     
     func taskNameDidChange(value: String?) {
