@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Restler
 
 typealias FetchDataResult = Result<(projects: [SimpleProjectRecordDecoder], tags: [ProjectTag]), Error>
 typealias FetchDataCompletion = (FetchDataResult) -> Void
@@ -29,6 +30,12 @@ class WorkTimeContentProvider {
     private let dateFactory: DateFactoryType
     private let dispatchGroupFactory: DispatchGroupFactoryType
     private let errorHandler: ErrorHandlerType
+    
+    private var saveTask: RestlerTaskType? {
+        willSet {
+            self.saveTask?.cancel()
+        }
+    }
     
     private var currentDate: Date {
         self.dateFactory.currentDate
@@ -54,31 +61,37 @@ class WorkTimeContentProvider {
 extension WorkTimeContentProvider: WorkTimeContentProviderType {
     func fetchData(completion: @escaping FetchDataCompletion) {
         let group = self.dispatchGroupFactory.createDispatchGroup()
+        var projectsTask: RestlerTaskType?
+        var tagsTask: RestlerTaskType?
         var projectsResponse: [SimpleProjectRecordDecoder]?
         var projectsError: Error?
         var tagsResponse: ProjectTagsDecoder?
         var tagsError: Error?
         
         group.enter()
-        self.apiClient.fetchSimpleListOfProjects { result in
+        projectsTask = self.apiClient.fetchSimpleListOfProjects { result in
+            defer { group.leave() }
+            guard projectsTask?.state != .canceling else { return }
             switch result {
             case let .success(decoder):
                 projectsResponse = decoder.filter { $0.isActive ?? true }
             case let .failure(error):
                 projectsError = error
+                tagsTask?.cancel()
             }
-            group.leave()
         }
         
         group.enter()
-        self.apiClient.fetchTags { result in
+        tagsTask = self.apiClient.fetchTags { result in
+            defer { group.leave() }
+            guard tagsTask?.state != .canceling else { return }
             switch result {
             case let .success(decoder):
                 tagsResponse = decoder
             case let .failure(error):
                 tagsError = error
+                projectsTask?.cancel()
             }
-            group.leave()
         }
         
         group.notify(qos: .userInteractive, queue: .main) { [errorHandler] in
@@ -97,9 +110,9 @@ extension WorkTimeContentProvider: WorkTimeContentProviderType {
         do {
             let task = try self.validate(taskForm: taskForm)
             if let workTimeIdentifier = taskForm.workTimeIdentifier {
-                self.apiClient.updateWorkTime(identifier: workTimeIdentifier, parameters: task, completion: completion)
+                self.saveTask = self.apiClient.updateWorkTime(identifier: workTimeIdentifier, parameters: task, completion: completion)
             } else {
-                self.apiClient.addWorkTime(parameters: task, completion: completion)
+                self.saveTask = self.apiClient.addWorkTime(parameters: task, completion: completion)
             }
         } catch {
             completion(.failure(error))
@@ -109,7 +122,7 @@ extension WorkTimeContentProvider: WorkTimeContentProviderType {
     func saveWithFilling(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion) {
         do {
             let task = try self.validate(taskForm: taskForm)
-            self.apiClient.addWorkTimeWithFilling(task: task, completion: completion)
+            self.saveTask = self.apiClient.addWorkTimeWithFilling(task: task, completion: completion)
         } catch {
             completion(.failure(error))
         }

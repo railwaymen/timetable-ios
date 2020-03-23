@@ -42,12 +42,14 @@ class ApiClientMock {
         let completion: (Result<WorkTimeDecoder, Error>) -> Void
     }
     
+    var addWorkTimeReturnValue: RestlerTaskType?
     private(set) var addWorkTimeParams: [AddWorkTimeParams] = []
     struct AddWorkTimeParams {
         let parameters: Task
         let completion: ((Result<Void, Error>) -> Void)
     }
     
+    var addWorkTimeWithFillingReturnValue: RestlerTaskType?
     private(set) var addWorkTimeWithFillingParams: [AddWorkTimeWithFillingParams] = []
     struct AddWorkTimeWithFillingParams {
         let task: Task
@@ -60,6 +62,7 @@ class ApiClientMock {
         let completion: ((Result<Void, Error>) -> Void)
     }
     
+    var updateWorkTimeReturnValue: RestlerTaskType?
     private(set) var updateWorkTimeParams: [UpdateWorkTimeParams] = []
     struct UpdateWorkTimeParams {
         let identifier: Int64
@@ -73,11 +76,13 @@ class ApiClientMock {
         let completion: ((Result<[ProjectRecordDecoder], Error>) -> Void)
     }
     
+    var fetchSimpleListOfProjectsReturnValue: RestlerTaskType?
     private(set) var fetchSimpleListOfProjectsParams: [FetchSimpleListOfProjectsParams] = []
     struct FetchSimpleListOfProjectsParams {
         let completion: ((Result<[SimpleProjectRecordDecoder], Error>) -> Void)
     }
     
+    var fetchTagsReturnValue: RestlerTaskType?
     private(set) var fetchTagsParams: [FetchTagsParams] = []
     struct FetchTagsParams {
         let completion: ((Result<ProjectTagsDecoder, Error>) -> Void)
@@ -128,20 +133,23 @@ extension ApiClientMock: ApiClientWorkTimesType {
         return self.fetchWorkTimeDetailsReturnValue
     }
     
-    func addWorkTime(parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void)) {
+    func addWorkTime(parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void)) -> RestlerTaskType? {
         self.addWorkTimeParams.append(AddWorkTimeParams(parameters: parameters, completion: completion))
+        return self.addWorkTimeReturnValue
     }
     
-    func addWorkTimeWithFilling(task: Task, completion: @escaping (Result<Void, Error>) -> Void) {
+    func addWorkTimeWithFilling(task: Task, completion: @escaping (Result<Void, Error>) -> Void) -> RestlerTaskType? {
         self.addWorkTimeWithFillingParams.append(AddWorkTimeWithFillingParams(task: task, completion: completion))
+        return self.addWorkTimeWithFillingReturnValue
     }
     
     func deleteWorkTime(identifier: Int64, completion: @escaping ((Result<Void, Error>) -> Void)) {
         self.deleteWorkTimeParams.append(DeleteWorkTimeParams(identifier: identifier, completion: completion))
     }
     
-    func updateWorkTime(identifier: Int64, parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void)) {
+    func updateWorkTime(identifier: Int64, parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void)) -> RestlerTaskType? {
         self.updateWorkTimeParams.append(UpdateWorkTimeParams(identifier: identifier, parameters: parameters, completion: completion))
+        return self.updateWorkTimeReturnValue
     }
 }
 
@@ -151,12 +159,14 @@ extension ApiClientMock: ApiClientProjectsType {
         self.fetchAllProjectsParams.append(FetchAllProjectsParams(completion: completion))
     }
     
-    func fetchSimpleListOfProjects(completion: @escaping ((Result<[SimpleProjectRecordDecoder], Error>) -> Void)) {
+    func fetchSimpleListOfProjects(completion: @escaping ((Result<[SimpleProjectRecordDecoder], Error>) -> Void)) -> RestlerTaskType? {
         self.fetchSimpleListOfProjectsParams.append(FetchSimpleListOfProjectsParams(completion: completion))
+        return self.fetchSimpleListOfProjectsReturnValue
     }
     
-    func fetchTags(completion: @escaping (Result<ProjectTagsDecoder, Error>) -> Void) {
+    func fetchTags(completion: @escaping (Result<ProjectTagsDecoder, Error>) -> Void) -> RestlerTaskType? {
         self.fetchTagsParams.append(FetchTagsParams(completion: completion))
+        return self.fetchTagsReturnValue
     }
 }
 
