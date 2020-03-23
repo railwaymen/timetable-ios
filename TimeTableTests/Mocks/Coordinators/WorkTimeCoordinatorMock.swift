@@ -10,6 +10,12 @@ import Foundation
 @testable import TimeTable
 
 class WorkTimeCoordinatorMock {
+    var configureContentViewControllerReturnValue: WorkTimeContainerContentType?
+    private(set) var configureContentViewControllerParams: [ConfigureContentViewControllerParams] = []
+    struct ConfigureContentViewControllerParams {
+        let viewController: WorkTimeViewControllerable
+    }
+    
     private(set) var showProjectPickerParams: [ShowProjectPickerParams] = []
     struct ShowProjectPickerParams {
         var projects: [SimpleProjectRecordDecoder]
@@ -24,6 +30,11 @@ class WorkTimeCoordinatorMock {
 
 // MARK: - WorkTimeCoordinatorType
 extension WorkTimeCoordinatorMock: WorkTimeCoordinatorType {
+    func configure(contentViewController: WorkTimeViewControllerable) -> WorkTimeContainerContentType? {
+        self.configureContentViewControllerParams.append(ConfigureContentViewControllerParams(viewController: contentViewController))
+        return self.configureContentViewControllerReturnValue
+    }
+    
     func showProjectPicker(projects: [SimpleProjectRecordDecoder], finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType) {
         self.showProjectPickerParams.append(ShowProjectPickerParams(projects: projects, finishHandler: finishHandler))
     }

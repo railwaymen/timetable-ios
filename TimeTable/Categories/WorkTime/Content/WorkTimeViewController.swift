@@ -40,10 +40,6 @@ class WorkTimeViewController: UIViewController {
     }
     
     // MARK: - Actions
-    @objc private func cancelButtonTapped() {
-        self.viewModel.viewRequestedToFinish()
-    }
-    
     @IBAction private func projectButtonTapped(_ sender: Any) {
         self.viewModel.projectButtonTapped()
     }
@@ -120,8 +116,7 @@ extension WorkTimeViewController: UITextFieldDelegate {
 
 // MARK: - WorkTimeViewModelOutput
 extension WorkTimeViewController: WorkTimeViewModelOutput {
-    func setUp(withTitle title: String) {
-        self.setUpNavigationBarItems(title: title)
+    func setUp() {
         self.setUpTagsCollectionView()
         self.setUpActivityIndicator()
         
@@ -190,7 +185,6 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     
     func setActivityIndicator(isHidden: Bool) {
         self.activityIndicator.set(isAnimating: !isHidden)
-        self.activityIndicator.set(isHidden: isHidden)
     }
     
     func setBottomContentInset(_ height: CGFloat) {
@@ -220,13 +214,8 @@ extension WorkTimeViewController {
         } else {
             self.activityIndicator.style = .gray
         }
+        self.activityIndicator.hidesWhenStopped = true
         self.setActivityIndicator(isHidden: true)
-    }
-    
-    private func setUpNavigationBarItems(title: String) {
-        self.title = title
-        let closeButton = UIBarButtonItem(barButtonSystemItem: .closeButton, target: self, action: #selector(self.cancelButtonTapped))
-        self.navigationItem.setRightBarButton(closeButton, animated: false)
     }
     
     private func setUpDayPicker() {

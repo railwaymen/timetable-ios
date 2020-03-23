@@ -15,8 +15,13 @@ typealias FetchDataCompletion = (FetchDataResult) -> Void
 typealias SaveTaskResult = Result<Void, Error>
 typealias SaveTaskCompletion = (SaveTaskResult) -> Void
 
-protocol WorkTimeContentProviderType: class {
+typealias WorkTimeContentProviderable = WorkTimeContainerContentProviderType & WorkTimeContentProviderType
+
+protocol WorkTimeContainerContentProviderType: class {
     func fetchData(completion: @escaping FetchDataCompletion)
+}
+
+protocol WorkTimeContentProviderType: class {
     func save(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion)
     func saveWithFilling(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion)
     func getPredefinedTimeBounds(forTaskForm form: TaskFormType, lastTask: TaskFormType?) -> (startDate: Date, endDate: Date)
@@ -57,8 +62,8 @@ class WorkTimeContentProvider {
     }
 }
 
-// MARK: - WorkTimeContentProviderType
-extension WorkTimeContentProvider: WorkTimeContentProviderType {
+// MARK: - WorkTimeContainerContentProviderType
+extension WorkTimeContentProvider: WorkTimeContainerContentProviderType {
     func fetchData(completion: @escaping FetchDataCompletion) {
         let group = self.dispatchGroupFactory.createDispatchGroup()
         var projectsTask: RestlerTaskType?
@@ -105,7 +110,10 @@ extension WorkTimeContentProvider: WorkTimeContentProviderType {
             }
         }
     }
-    
+}
+
+// MARK: - WorkTimeContentProviderType
+extension WorkTimeContentProvider: WorkTimeContentProviderType {
     func save(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion) {
         do {
             let task = try self.validate(taskForm: taskForm)

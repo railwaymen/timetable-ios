@@ -13,9 +13,7 @@ class WorkTimeViewControllerMock: UIViewController {
     
     // MARK: - WorkTimeViewModelOutput
     private(set) var setUpParams: [SetUpParams] = []
-    struct SetUpParams {
-        var title: String
-    }
+    struct SetUpParams {}
     
     private(set) var setBodyViewParams: [SetBodyViewParams] = []
     struct SetBodyViewParams {
@@ -50,58 +48,58 @@ class WorkTimeViewControllerMock: UIViewController {
     
     private(set) var setMinimumDateForTypeEndAtDateParams: [SetMinimumDateForTypeEndAtDateParams] = []
     struct SetMinimumDateForTypeEndAtDateParams {
-        var minDate: Date
+        let minDate: Date
     }
     
     private(set) var updateDayParams: [UpdateDayParams] = []
     struct UpdateDayParams {
-        var date: Date
-        var dateString: String
+        let date: Date
+        let dateString: String
     }
     
     private(set) var updateStartAtDateParams: [UpdateStartAtDateParams] = []
     struct UpdateStartAtDateParams {
-        var date: Date
-        var dateString: String
+        let date: Date
+        let dateString: String
     }
 
     private(set) var updateEndAtDateParams: [UpdateEndAtDateParams] = []
     struct UpdateEndAtDateParams {
-        var date: Date
-        var dateString: String
+        let date: Date
+        let dateString: String
     }
     
     private(set) var updateProjectParams: [UpdateProjectParams] = []
     struct UpdateProjectParams {
-        var name: String
+        let name: String
     }
     
     private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
     struct SetActivityIndicatorParams {
-        var isHidden: Bool
+        let isHidden: Bool
     }
     
     private(set) var setBottomContentInsetParams: [SetBottomContentInsetParams] = []
     struct SetBottomContentInsetParams {
-        var height: CGFloat
+        let height: CGFloat
     }
     
     private(set) var setTagsCollectionViewParams: [SetTagsCollectionViewParams] = []
     struct SetTagsCollectionViewParams {
-        var isHidden: Bool
+        let isHidden: Bool
     }
     
     // MARK: - WorkTimeViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
-        var viewModel: WorkTimeViewModelType
+        let viewModel: WorkTimeViewModelType
     }
 }
 
 // MARK: - WorkTimeViewModelOutput
 extension WorkTimeViewControllerMock: WorkTimeViewModelOutput {
-    func setUp(withTitle title: String) {
-        self.setUpParams.append(SetUpParams(title: title))
+    func setUp() {
+        self.setUpParams.append(SetUpParams())
     }
     
     func setBodyView(isHidden: Bool) {

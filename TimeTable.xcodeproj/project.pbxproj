@@ -40,6 +40,8 @@
 		8A31CD8923742D15008E590D /* ProjectPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CD8823742D15008E590D /* ProjectPickerCell.swift */; };
 		8A31CD8D23742E43008E590D /* ProjectPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A31CD8C23742E43008E590D /* ProjectPickerCell.xib */; };
 		8A3F0C542428B07E00564D6D /* RestlerTaskMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3F0C532428B07E00564D6D /* RestlerTaskMock.swift */; };
+		8A3F0C572428CDAE00564D6D /* WorkTimeContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3F0C562428CDAE00564D6D /* WorkTimeContainerViewController.swift */; };
+		8A3F0C592428CEE300564D6D /* WorkTimeContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3F0C582428CEE300564D6D /* WorkTimeContainerViewModel.swift */; };
 		8A3FE1B123ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3FE1B023ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift */; };
 		8A523C8E2395091900215C61 /* DateExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A523C8D2395091900215C61 /* DateExtensionTests.swift */; };
 		8A55BA772372D02D004FFA97 /* UIApplicationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */; };
@@ -466,6 +468,8 @@
 		8A31CD8823742D15008E590D /* ProjectPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCell.swift; sourceTree = "<group>"; };
 		8A31CD8C23742E43008E590D /* ProjectPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectPickerCell.xib; sourceTree = "<group>"; };
 		8A3F0C532428B07E00564D6D /* RestlerTaskMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestlerTaskMock.swift; sourceTree = "<group>"; };
+		8A3F0C562428CDAE00564D6D /* WorkTimeContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContainerViewController.swift; sourceTree = "<group>"; };
+		8A3F0C582428CEE300564D6D /* WorkTimeContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContainerViewModel.swift; sourceTree = "<group>"; };
 		8A3FE1B023ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeViewModelFlowTypeTests.swift; sourceTree = "<group>"; };
 		8A523C8D2395091900215C61 /* DateExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensionTests.swift; sourceTree = "<group>"; };
 		8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationMock.swift; sourceTree = "<group>"; };
@@ -917,6 +921,16 @@
 				8A31CD8C23742E43008E590D /* ProjectPickerCell.xib */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		8A3F0C552428CD7F00564D6D /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */,
+				C13C88E521E5EA8F00F68C6E /* WorkTimeViewController.swift */,
+				C13C88E721E5F7B600F68C6E /* WorkTimeViewModel.swift */,
+			);
+			path = Content;
 			sourceTree = "<group>";
 		};
 		8A5EF32123FE848B00AE4309 /* TagCell */ = {
@@ -1788,9 +1802,9 @@
 			isa = PBXGroup;
 			children = (
 				C1784DDC21E4E03600C83E2A /* WorkTime.storyboard */,
-				8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */,
-				C13C88E521E5EA8F00F68C6E /* WorkTimeViewController.swift */,
-				C13C88E721E5F7B600F68C6E /* WorkTimeViewModel.swift */,
+				8A3F0C562428CDAE00564D6D /* WorkTimeContainerViewController.swift */,
+				8A3F0C582428CEE300564D6D /* WorkTimeContainerViewModel.swift */,
+				8A3F0C552428CD7F00564D6D /* Content */,
 				8A5EF32123FE848B00AE4309 /* TagCell */,
 			);
 			path = WorkTime;
@@ -2641,6 +2655,7 @@
 				C1F187B221E37C760037B8C2 /* ProjectsCollectionViewLayout.swift in Sources */,
 				C101603222003A9500DCE817 /* WorkTimesListContentProvider.swift in Sources */,
 				C1F926E4218838720004A9BC /* LoginViewController.swift in Sources */,
+				8A3F0C572428CDAE00564D6D /* WorkTimeContainerViewController.swift in Sources */,
 				C1E6B352219F014600019DC2 /* Bundle+Extension.swift in Sources */,
 				8A79A2FE2424DC250048B44B /* ProjectTagsDecoder.swift in Sources */,
 				8A5EF31C23FE808800AE4309 /* ReusableCellType.swift in Sources */,
@@ -2689,6 +2704,7 @@
 				C153AC6921832073007A35BB /* AttributedView.swift in Sources */,
 				C11B3F3621F7258C00C46BA2 /* DateSelectorView.swift in Sources */,
 				C153AC6421830AFE007A35BB /* ServerConfigurationViewModel.swift in Sources */,
+				8A3F0C592428CEE300564D6D /* WorkTimeContainerViewModel.swift in Sources */,
 				C1ECF09F2192C1AB006038C6 /* JSONDecoder+Extension.swift in Sources */,
 				C1ECF09D2192BB51006038C6 /* RequestEncoder.swift in Sources */,
 				C153AC512182EFEC007A35BB /* UIButton+Extension.swift in Sources */,

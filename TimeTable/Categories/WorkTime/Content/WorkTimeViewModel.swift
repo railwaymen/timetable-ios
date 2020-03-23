@@ -9,7 +9,7 @@
 import UIKit
 
 protocol WorkTimeViewModelOutput: class {
-    func setUp(withTitle title: String)
+    func setUp()
     func setBodyView(isHidden: Bool)
     func setTaskURLView(isHidden: Bool)
     func setBody(text: String)
@@ -50,12 +50,12 @@ class WorkTimeViewModel {
     private weak var userInterface: WorkTimeViewModelOutput?
     private weak var coordinator: WorkTimeCoordinatorType?
     private let contentProvider: WorkTimeContentProviderType
-    private let apiClient: WorkTimeApiClientType
     private let errorHandler: ErrorHandlerType
     private let calendar: CalendarType
     private let notificationCenter: NotificationCenterType
     private let lastTask: TaskForm?
     private let flowType: FlowType
+    
     private var projects: [SimpleProjectRecordDecoder]
     private var taskForm: TaskForm
     private var tags: [ProjectTag]
@@ -65,7 +65,6 @@ class WorkTimeViewModel {
         userInterface: WorkTimeViewModelOutput?,
         coordinator: WorkTimeCoordinatorType?,
         contentProvider: WorkTimeContentProviderType,
-        apiClient: WorkTimeApiClientType,
         errorHandler: ErrorHandlerType,
         calendar: CalendarType,
         notificationCenter: NotificationCenterType,
@@ -74,7 +73,6 @@ class WorkTimeViewModel {
         self.userInterface = userInterface
         self.coordinator = coordinator
         self.contentProvider = contentProvider
-        self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.calendar = calendar
         self.notificationCenter = notificationCenter
@@ -143,7 +141,6 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     func viewDidLoad() {
         self.setDefaultDay()
         self.setUpUI()
-        self.fetchProjectList()
     }
     
     func configure(_ cell: TagCollectionViewCellable, for indexPath: IndexPath) {
@@ -223,6 +220,16 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     }
 }
 
+// MARK: - WorkTimeContainerContentType
+extension WorkTimeViewModel: WorkTimeContainerContentType {
+    func containerDidUpdate(projects: [SimpleProjectRecordDecoder], tags: [ProjectTag]) {
+        self.projects = projects
+        self.tags = tags
+        self.userInterface?.reloadTagsView()
+        self.setDefaultTask()
+    }
+}
+
 // MARK: - Private
 extension WorkTimeViewModel {
     private func setUpNotification() {
@@ -239,7 +246,7 @@ extension WorkTimeViewModel {
     }
     
     private func setUpUI() {
-        self.userInterface?.setUp(withTitle: self.flowType.viewTitle)
+        self.userInterface?.setUp()
         switch self.flowType {
         case .editEntry:
             self.userInterface?.setSaveWithFillingButton(isHidden: true)
@@ -296,22 +303,6 @@ extension WorkTimeViewModel {
     private func updateEndAtDateView(with date: Date) {
         let dateString = DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .short)
         self.userInterface?.updateEndAtDate(with: date, dateString: dateString)
-    }
-    
-    private func fetchProjectList() {
-        self.userInterface?.setActivityIndicator(isHidden: false)
-        self.contentProvider.fetchData { [weak self] result in
-            self?.userInterface?.setActivityIndicator(isHidden: true)
-            switch result {
-            case let .success((projects, tags)):
-                self?.projects = projects
-                self?.tags = tags.filter { $0 != .default }
-                self?.userInterface?.reloadTagsView()
-                self?.setDefaultTask()
-            case let .failure(error):
-                self?.errorHandler.throwing(error: error)
-            }
-        }
     }
     
     private func saveTask(withFilling: Bool) {
