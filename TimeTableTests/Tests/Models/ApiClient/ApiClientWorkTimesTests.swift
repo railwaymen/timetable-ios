@@ -102,7 +102,7 @@ extension ApiClientWorkTimesTests {
         let task = try self.buildTask()
         var completionResult: Result<Void, Error>?
         //Act
-        sut.addWorkTime(parameters: task) { result in
+        _ = sut.addWorkTime(parameters: task) { result in
             completionResult = result
         }
         try self.restler.postReturnValue.callCompletion(type: Void.self, result: .success(Void()))
@@ -117,7 +117,7 @@ extension ApiClientWorkTimesTests {
         let task = try self.buildTask()
         var completionResult: Result<Void, Error>?
         //Act
-        sut.addWorkTime(parameters: task) { result in
+        _ = sut.addWorkTime(parameters: task) { result in
             completionResult = result
         }
         try self.restler.postReturnValue.callCompletion(type: Void.self, result: .failure(error))
@@ -133,7 +133,7 @@ extension ApiClientWorkTimesTests {
         let sut = self.buildSUT()
         let task = try self.buildTask()
         //Act
-        sut.addWorkTimeWithFilling(task: task) { _ in }
+        _ = sut.addWorkTimeWithFilling(task: task) { _ in }
         //Assert
         XCTAssertEqual(self.restler.postParams.count, 1)
         XCTAssertEqual(self.restler.postParams.last?.endpoint as? Endpoint, Endpoint.workTimesCreateWithFilling)
@@ -145,7 +145,7 @@ extension ApiClientWorkTimesTests {
         let task = try self.buildTask()
         var completionResult: Result<Void, Error>?
         //Act
-        sut.addWorkTimeWithFilling(task: task) { result in
+        _ = sut.addWorkTimeWithFilling(task: task) { result in
             completionResult = result
         }
         try self.restler.postReturnValue.callCompletion(type: Void.self, result: .success(Void()))
@@ -160,7 +160,7 @@ extension ApiClientWorkTimesTests {
         let task = try self.buildTask()
         var completionResult: Result<Void, Error>?
         //Act
-        sut.addWorkTimeWithFilling(task: task) { result in
+        _ = sut.addWorkTimeWithFilling(task: task) { result in
             completionResult = result
         }
         try self.restler.postReturnValue.callCompletion(type: Void.self, result: .failure(error))
@@ -207,7 +207,7 @@ extension ApiClientWorkTimesTests {
         let task = try self.buildTask()
         var completionResult: Result<Void, Error>?
         //Act
-        sut.updateWorkTime(identifier: 1, parameters: task) { result in
+        _ = sut.updateWorkTime(identifier: 1, parameters: task) { result in
             completionResult = result
         }
         try self.restler.putReturnValue.callCompletion(type: Void.self, result: .success(Void()))
@@ -222,7 +222,7 @@ extension ApiClientWorkTimesTests {
         let task = try self.buildTask()
         var completionResult: Result<Void, Error>?
         //Act
-        sut.updateWorkTime(identifier: 1, parameters: task) { result in
+        _ = sut.updateWorkTime(identifier: 1, parameters: task) { result in
             completionResult = result
         }
         try self.restler.putReturnValue.callCompletion(type: Void.self, result: .failure(error))

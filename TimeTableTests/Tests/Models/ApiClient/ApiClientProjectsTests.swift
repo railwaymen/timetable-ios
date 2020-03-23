@@ -59,7 +59,7 @@ extension ApiClientProjectsTests {
         let decoder = try self.decoder.decode([SimpleProjectRecordDecoder].self, from: data)
         var completionResult: Result<[SimpleProjectRecordDecoder], Error>?
         //Act
-        sut.fetchSimpleListOfProjects { result in
+        _ = sut.fetchSimpleListOfProjects { result in
             completionResult = result
         }
         try self.restler.getReturnValue.callCompletion(type: [SimpleProjectRecordDecoder].self, result: .success(decoder))
@@ -73,7 +73,7 @@ extension ApiClientProjectsTests {
         let error = TestError(message: "fetch projects failed")
         var completionResult: Result<[SimpleProjectRecordDecoder], Error>?
         //Act
-        sut.fetchSimpleListOfProjects { result in
+        _ = sut.fetchSimpleListOfProjects { result in
             completionResult = result
         }
         try self.restler.getReturnValue.callCompletion(type: [SimpleProjectRecordDecoder].self, result: .failure(error))
@@ -89,7 +89,7 @@ extension ApiClientProjectsTests {
         let sut = self.buildSUT()
         var completionResult: Result<ProjectTagsDecoder, Error>?
         //Act
-        sut.fetchTags { result in
+        _ = sut.fetchTags { result in
             completionResult = result
         }
         //Assert
@@ -105,7 +105,7 @@ extension ApiClientProjectsTests {
         let decoder = try self.decoder.decode(ProjectTagsDecoder.self, from: data)
         var completionResult: Result<ProjectTagsDecoder, Error>?
         //Act
-        sut.fetchTags { result in
+        _ = sut.fetchTags { result in
             completionResult = result
         }
         try self.restler.getReturnValue.callCompletion(type: ProjectTagsDecoder.self, result: .success(decoder))
@@ -119,7 +119,7 @@ extension ApiClientProjectsTests {
         let error = TestError(message: "fetch projects failed")
         var completionResult: Result<ProjectTagsDecoder, Error>?
         //Act
-        sut.fetchTags { result in
+        _ = sut.fetchTags { result in
             completionResult = result
         }
         try self.restler.getReturnValue.callCompletion(type: ProjectTagsDecoder.self, result: .failure(error))

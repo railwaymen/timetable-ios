@@ -39,6 +39,7 @@
 		8A31CD8723742CEA008E590D /* ProjectPickerCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CD8623742CEA008E590D /* ProjectPickerCellModel.swift */; };
 		8A31CD8923742D15008E590D /* ProjectPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CD8823742D15008E590D /* ProjectPickerCell.swift */; };
 		8A31CD8D23742E43008E590D /* ProjectPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A31CD8C23742E43008E590D /* ProjectPickerCell.xib */; };
+		8A3F0C542428B07E00564D6D /* RestlerTaskMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3F0C532428B07E00564D6D /* RestlerTaskMock.swift */; };
 		8A3FE1B123ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3FE1B023ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift */; };
 		8A523C8E2395091900215C61 /* DateExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A523C8D2395091900215C61 /* DateExtensionTests.swift */; };
 		8A55BA772372D02D004FFA97 /* UIApplicationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */; };
@@ -464,6 +465,7 @@
 		8A31CD8623742CEA008E590D /* ProjectPickerCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCellModel.swift; sourceTree = "<group>"; };
 		8A31CD8823742D15008E590D /* ProjectPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCell.swift; sourceTree = "<group>"; };
 		8A31CD8C23742E43008E590D /* ProjectPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectPickerCell.xib; sourceTree = "<group>"; };
+		8A3F0C532428B07E00564D6D /* RestlerTaskMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestlerTaskMock.swift; sourceTree = "<group>"; };
 		8A3FE1B023ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeViewModelFlowTypeTests.swift; sourceTree = "<group>"; };
 		8A523C8D2395091900215C61 /* DateExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensionTests.swift; sourceTree = "<group>"; };
 		8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationMock.swift; sourceTree = "<group>"; };
@@ -892,6 +894,7 @@
 				8AA3E5C8241648FB00322AEF /* RestlerMock.swift */,
 				8A31BFB424177B42004A1CE8 /* RestlerRequestBuilderMock.swift */,
 				8A31BFB624177BB2004A1CE8 /* RestlerRequestMock.swift */,
+				8A3F0C532428B07E00564D6D /* RestlerTaskMock.swift */,
 			);
 			path = Restler;
 			sourceTree = "<group>";
@@ -2870,6 +2873,7 @@
 				C122601A21898BD7007D64A3 /* LoginViewModelTests.swift in Sources */,
 				8AF5697723D751F400A1D001 /* SessionDecoderFactory.swift in Sources */,
 				8A9369B0237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift in Sources */,
+				8A3F0C542428B07E00564D6D /* RestlerTaskMock.swift in Sources */,
 				C1B8FA4B218C964C009D10B4 /* SessionDecoderTests.swift in Sources */,
 				8A9369B2237AA19D005F8199 /* TagCollectionViewCellMock.swift in Sources */,
 				C12BD9A121E49AE500A6EAF0 /* ProjectRecordDecoderTests.swift in Sources */,

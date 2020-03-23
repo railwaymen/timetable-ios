@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Restler
 @testable import TimeTable
 
 class WorkTimeContentProviderTests: XCTestCase {
@@ -74,6 +75,25 @@ extension WorkTimeContentProviderTests {
         XCTAssertEqual(self.apiClient.fetchTagsParams.count, 1)
     }
     
+    func testFetchData_fetchSimpleListOfProjects_canceled_leavesGroup() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let group = DispatchGroupMock()
+        self.dispatchGroupFactory.createDispatchGroupReturnValue = group
+        let projectTask = RestlerTaskMock()
+        projectTask.stateReturnValue = .canceling
+        self.apiClient.fetchSimpleListOfProjectsReturnValue = projectTask
+        var completionResult: FetchDataResult?
+        //Act
+        sut.fetchData { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.apiClient.fetchSimpleListOfProjectsParams.last).completion(.failure(TestError(message: "test")))
+        //Assert
+        XCTAssertNil(completionResult)
+        XCTAssertEqual(group.leaveParams.count, 1)
+    }
+    
     func testFetchData_fetchSimpleListOfProjects_success_leavesGroup() throws {
         //Arrange
         let sut = self.buildSUT()
@@ -101,6 +121,43 @@ extension WorkTimeContentProviderTests {
             completionResult = result
         }
         try XCTUnwrap(self.apiClient.fetchSimpleListOfProjectsParams.last).completion(.failure(TestError(message: "test")))
+        //Assert
+        XCTAssertNil(completionResult)
+        XCTAssertEqual(group.leaveParams.count, 1)
+    }
+    
+    func testFetchData_fetchSimpleListOfProjects_failure_cancelsTagsFetch() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let group = DispatchGroupMock()
+        self.dispatchGroupFactory.createDispatchGroupReturnValue = group
+        let tagsTask = RestlerTaskMock()
+        self.apiClient.fetchTagsReturnValue = tagsTask
+        var completionResult: FetchDataResult?
+        //Act
+        sut.fetchData { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.apiClient.fetchSimpleListOfProjectsParams.last).completion(.failure(TestError(message: "test")))
+        //Assert
+        XCTAssertNil(completionResult)
+        XCTAssertEqual(tagsTask.cancelParams.count, 1)
+    }
+    
+    func testFetchData_fetchTags_canceled_leavesGroup() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let group = DispatchGroupMock()
+        self.dispatchGroupFactory.createDispatchGroupReturnValue = group
+        let tagsTask = RestlerTaskMock()
+        tagsTask.stateReturnValue = .canceling
+        self.apiClient.fetchTagsReturnValue = tagsTask
+        var completionResult: FetchDataResult?
+        //Act
+        sut.fetchData { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.apiClient.fetchTagsParams.last).completion(.failure(TestError(message: "test")))
         //Assert
         XCTAssertNil(completionResult)
         XCTAssertEqual(group.leaveParams.count, 1)
@@ -138,6 +195,24 @@ extension WorkTimeContentProviderTests {
         //Assert
         XCTAssertNil(completionResult)
         XCTAssertEqual(group.leaveParams.count, 1)
+    }
+    
+    func testFetchData_fetchTags_failure_cancelsTagsFetch() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let group = DispatchGroupMock()
+        self.dispatchGroupFactory.createDispatchGroupReturnValue = group
+        let projectsTask = RestlerTaskMock()
+        self.apiClient.fetchSimpleListOfProjectsReturnValue = projectsTask
+        var completionResult: FetchDataResult?
+        //Act
+        sut.fetchData { result in
+            completionResult = result
+        }
+        try XCTUnwrap(self.apiClient.fetchTagsParams.last).completion(.failure(TestError(message: "test")))
+        //Assert
+        XCTAssertNil(completionResult)
+        XCTAssertEqual(projectsTask.cancelParams.count, 1)
     }
     
     func testFetchData_callsGroupNotify() {
