@@ -11,6 +11,8 @@ import UIKit
 typealias WorkTimeApiClientType = ApiClientWorkTimesType & ApiClientProjectsType
 
 protocol WorkTimeCoordinatorType: class {
+    func configure(contentViewController: WorkTimeViewControllerable) -> WorkTimeContainerContentType?
+    func configure(errorView: ErrorViewable, action: @escaping () -> Void) -> ErrorViewModelParentType
     func showProjectPicker(projects: [SimpleProjectRecordDecoder], finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType)
     func dismissView(isTaskChanged: Bool)
 }
@@ -22,6 +24,19 @@ class WorkTimeCoordinator: NavigationCoordinator {
     private let flowType: WorkTimeViewModel.FlowType
     
     private var customFinishHandler: ((_ isTaskChanged: Bool) -> Void)?
+    
+    private var contentProvider: WorkTimeContentProviderable? {
+        guard let apiClient = self.dependencyContainer.apiClient else {
+            self.dependencyContainer.errorHandler.stopInDebug("API client is nil")
+            return nil
+        }
+        return WorkTimeContentProvider(
+            apiClient: apiClient,
+            calendar: Calendar.autoupdatingCurrent,
+            dateFactory: self.dependencyContainer.dateFactory,
+            dispatchGroupFactory: self.dependencyContainer.dispatchGroupFactory,
+            errorHandler: self.dependencyContainer.errorHandler)
+    }
     
     // MARK: - Initialization
     init(
@@ -64,6 +79,29 @@ class WorkTimeCoordinator: NavigationCoordinator {
 
 // MARK: - WorkTimeCoordinatorType
 extension WorkTimeCoordinator: WorkTimeCoordinatorType {
+    func configure(contentViewController: WorkTimeViewControllerable) -> WorkTimeContainerContentType? {
+        guard let contentProvider = self.contentProvider else { return nil }
+        let viewModel = WorkTimeViewModel(
+            userInterface: contentViewController,
+            coordinator: self,
+            contentProvider: contentProvider,
+            errorHandler: self.dependencyContainer.errorHandler,
+            calendar: Calendar.autoupdatingCurrent,
+            notificationCenter: self.dependencyContainer.notificationCenter,
+            flowType: self.flowType)
+        contentViewController.configure(viewModel: viewModel)
+        return viewModel
+    }
+    
+    func configure(errorView: ErrorViewable, action: @escaping () -> Void) -> ErrorViewModelParentType {
+        let viewModel = ErrorViewModel(
+            userInterface: errorView,
+            error: UIError.genericError,
+            actionHandler: action)
+        errorView.configure(viewModel: viewModel)
+        return viewModel
+    }
+    
     func showProjectPicker(projects: [SimpleProjectRecordDecoder], finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType) {
         self.runProjectPickerFlow(projects: projects, finishHandler: finishHandler)
     }
@@ -78,26 +116,19 @@ extension WorkTimeCoordinator: WorkTimeCoordinatorType {
 // MARK: - Private
 extension WorkTimeCoordinator {
     private func runMainFlow() {
-        guard let apiClient = self.dependencyContainer.apiClient else { return assertionFailure("Api client is nil") }
-        let controller: WorkTimeViewControllerable? = self.dependencyContainer.storyboardsManager.controller(storyboard: .workTime)
-        let contentProvider = WorkTimeContentProvider(
-            apiClient: apiClient,
-            calendar: Calendar.autoupdatingCurrent,
-            dateFactory: self.dependencyContainer.dateFactory,
-            dispatchGroupFactory: self.dependencyContainer.dispatchGroupFactory,
-            errorHandler: self.dependencyContainer.errorHandler)
-        guard let workTimeViewController = controller else { return }
-        let viewModel = WorkTimeViewModel(
-            userInterface: workTimeViewController,
+        guard let contentProvider = self.contentProvider else { return }
+        guard let controller: WorkTimeContainerViewControllerable = self.dependencyContainer.storyboardsManager.controller(storyboard: .workTime) else {
+            self.dependencyContainer.errorHandler.stopInDebug("There's no matching view controller")
+            return
+        }
+        let viewModel = WorkTimeContainerViewModel(
+            userInterface: controller,
             coordinator: self,
             contentProvider: contentProvider,
-            apiClient: apiClient,
             errorHandler: self.dependencyContainer.errorHandler,
-            calendar: Calendar.autoupdatingCurrent,
-            notificationCenter: self.dependencyContainer.notificationCenter,
             flowType: self.flowType)
-        workTimeViewController.configure(viewModel: viewModel)
-        self.navigationController.setViewControllers([workTimeViewController], animated: false)
+        controller.configure(viewModel: viewModel)
+        self.navigationController.setViewControllers([controller], animated: false)
         if let sourceView = self.sourceView {
             self.showWorkTimeController(controller: self.navigationController, sourceView: sourceView)
         } else {

@@ -15,7 +15,6 @@ class WorkTimeViewModelTests: XCTestCase {
     private var userInterfaceMock: WorkTimeViewControllerMock!
     private var coordinatorMock: WorkTimeCoordinatorMock!
     private var contentProviderMock: WorkTimeContentProviderMock!
-    private var apiClientMock: ApiClientMock!
     private var errorHandlerMock: ErrorHandlerMock!
     private var calendarMock: CalendarMock!
     private var notificationCenterMock: NotificationCenterMock!
@@ -25,7 +24,6 @@ class WorkTimeViewModelTests: XCTestCase {
         self.userInterfaceMock = WorkTimeViewControllerMock()
         self.coordinatorMock = WorkTimeCoordinatorMock()
         self.contentProviderMock = WorkTimeContentProviderMock()
-        self.apiClientMock = ApiClientMock()
         self.errorHandlerMock = ErrorHandlerMock()
         self.calendarMock = CalendarMock()
         self.notificationCenterMock = NotificationCenterMock()
@@ -264,50 +262,6 @@ extension WorkTimeViewModelTests {
         XCTAssertEqual(try XCTUnwrap(self.userInterfaceMock.setTaskParams.last?.urlString), task.url?.absoluteString)
         XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setSaveWithFillingButtonParams.last?.isHidden))
     }
-    
-    // MARK: Fetch
-    func testViewDidLoad_fetchProjectsList_makesRequest() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        //Act
-        sut.viewDidLoad()
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
-        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-        XCTAssertEqual(self.contentProviderMock.fetchSimpleProjectsListParams.count, 1)
-    }
-    
-    func testViewDidLoad_fetchProjectsList_resultSuccess() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let project = try self.projectDecoderFactory.build()
-        let tags: [ProjectTag] = [.default, .internalMeeting]
-        //Act
-        sut.viewDidLoad()
-        try XCTUnwrap(self.contentProviderMock.fetchSimpleProjectsListParams.last).completion(.success(([project], tags)))
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-        XCTAssertEqual(self.userInterfaceMock.reloadTagsViewParams.count, 1)
-        XCTAssertEqual(self.userInterfaceMock.setUpParams.count, 1)
-        XCTAssertEqual(self.userInterfaceMock.updateProjectParams.count, 2)
-        XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, project.name)
-    }
-    
-    func testViewDidLoad_fetchProjectsList_resultFailure_apiClientError() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let error = ApiClientError(type: .noConnection)
-        //Act
-        sut.viewDidLoad()
-        try XCTUnwrap(self.contentProviderMock.fetchSimpleProjectsListParams.last).completion(.failure(error))
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-        XCTAssertEqual(self.userInterfaceMock.reloadTagsViewParams.count, 0)
-        XCTAssertEqual(self.errorHandlerMock.throwingParams.count, 1)
-        XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? ApiClientError, error)
-    }
 }
 
 // MARK: - viewRequestedForNumberOfTags()
@@ -315,13 +269,12 @@ extension WorkTimeViewModelTests {
     func testViewRequestedForNumberOfTags() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        sut.viewDidLoad()
         let tags: [ProjectTag] = [.default, .internalMeeting]
-        try XCTUnwrap(self.contentProviderMock.fetchSimpleProjectsListParams.last).completion(.success(([], tags)))
+        sut.containerDidUpdate(projects: [], tags: tags)
         //Act
         let numberOfTags = sut.viewRequestedForNumberOfTags()
         //Assert
-        XCTAssertEqual(numberOfTags, 1)
+        XCTAssertEqual(numberOfTags, 2)
     }
 }
 
@@ -330,11 +283,10 @@ extension WorkTimeViewModelTests {
     func testViewRequestedForTag() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        sut.viewDidLoad()
         let tags: [ProjectTag] = [.default, .internalMeeting]
-        try XCTUnwrap(self.contentProviderMock.fetchSimpleProjectsListParams.last).completion(.success(([], tags)))
+        sut.containerDidUpdate(projects: [], tags: tags)
         //Act
-        let tag = sut.viewRequestedForTag(at: IndexPath(row: 0, section: 0))
+        let tag = sut.viewRequestedForTag(at: IndexPath(row: 1, section: 0))
         //Assert
         XCTAssertEqual(tag, .internalMeeting)
     }
@@ -354,10 +306,9 @@ extension WorkTimeViewModelTests {
     func testViewSelectedTag() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        sut.viewDidLoad()
         let tags: [ProjectTag] = [.default, .internalMeeting]
-        try XCTUnwrap(self.contentProviderMock.fetchSimpleProjectsListParams.last).completion(.success(([], tags)))
-        let indexPath = IndexPath(row: 0, section: 0)
+        sut.containerDidUpdate(projects: [], tags: tags)
+        let indexPath = IndexPath(row: 1, section: 0)
         //Act
         sut.viewSelectedTag(at: indexPath)
         //Assert
@@ -368,10 +319,9 @@ extension WorkTimeViewModelTests {
     func testViewSelectedTag_secondTime() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        sut.viewDidLoad()
         let tags: [ProjectTag] = [.default, .internalMeeting]
-        try XCTUnwrap(self.contentProviderMock.fetchSimpleProjectsListParams.last).completion(.success(([], tags)))
-        let indexPath = IndexPath(row: 0, section: 0)
+        sut.containerDidUpdate(projects: [], tags: tags)
+        let indexPath = IndexPath(row: 1, section: 0)
         //Act
         sut.viewSelectedTag(at: indexPath)
         sut.viewSelectedTag(at: indexPath)
@@ -411,41 +361,6 @@ extension WorkTimeViewModelTests {
         sut.projectButtonTapped()
         //Assert
         XCTAssertFalse(try XCTUnwrap(self.coordinatorMock.showProjectPickerParams.last?.projects.isEmpty))
-    }
-    
-    func testProjectButtonTapped_finishHandlerDoesNotUpdateIfProjectIsNil() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        try self.fetchProjects(sut: sut)
-        //Act
-        sut.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(nil)
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateProjectParams.count, 2)
-    }
-    
-    func testProjectButtonTapped_finishHandlerUpdatesIfProjectIsNotNil() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        try self.fetchProjects(sut: sut)
-        //Act
-        sut.projectButtonTapped()
-        self.coordinatorMock.showProjectPickerParams.last?.finishHandler(coordinatorMock.showProjectPickerParams.last?.projects[1])
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateProjectParams.count, 3)
-    }
-}
-
-// MARK: - viewRequestedToFinish()
-extension WorkTimeViewModelTests {
-    func testViewRequestedToFinish_dismissesView() {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        //Act
-        sut.viewRequestedToFinish()
-        //Assert
-        XCTAssertEqual(self.coordinatorMock.dismissViewParams.count, 1)
-        XCTAssertFalse(try XCTUnwrap(self.coordinatorMock.dismissViewParams.last?.isTaskChanged))
     }
 }
 
@@ -710,7 +625,6 @@ extension WorkTimeViewModelTests {
             userInterface: self.userInterfaceMock,
             coordinator: self.coordinatorMock,
             contentProvider: self.contentProviderMock,
-            apiClient: self.apiClientMock,
             errorHandler: self.errorHandlerMock,
             calendar: self.calendarMock,
             notificationCenter: self.notificationCenterMock,
@@ -722,8 +636,7 @@ extension WorkTimeViewModelTests {
         let projectDecoders = try self.decoder.decode([SimpleProjectRecordDecoder].self, from: data)
         let tagsData = try self.json(from: ProjectTagJSONResource.projectTagsResponse)
         let tagsDecoder: ProjectTagsDecoder = try self.decoder.decode(ProjectTagsDecoder.self, from: tagsData)
-        sut.viewDidLoad()
-        try XCTUnwrap(self.contentProviderMock.fetchSimpleProjectsListParams.last).completion(.success((projectDecoders, tagsDecoder.tags)))
+        sut.containerDidUpdate(projects: projectDecoders, tags: tagsDecoder.tags)
     }
     
     private func createTask(workTimeIdentifier: Int64?, index: Int = 3) throws -> TaskForm {
