@@ -33,9 +33,8 @@ class WorkTimeContainerViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        if let viewController = segue.destination as? WorkTimeViewControllerable {
-            self.viewModel.configure(viewController)
-        }
+        guard let viewController = segue.destination as? WorkTimeViewControllerable else { return }
+        self.viewModel.configure(viewController)
     }
     
     // MARK: - Actions
