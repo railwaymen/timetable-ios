@@ -182,7 +182,8 @@ extension WorkTimesListViewModelTests {
         //Act
         sut.viewRequestForPreviousMonth()
         //Assert
-        XCTAssertTrue(self.userInterfaceMock.updateMatchingFullTimeLabelsParams.isEmpty)
+        XCTAssertTrue(self.userInterfaceMock.updateAccountingPeriodLabelParams.isEmpty)
+        XCTAssertTrue(self.userInterfaceMock.updateHoursLabelParams.isEmpty)
     }
     
     func testViewRequestForPreviousMonthWhileSelectedMonth() throws {
@@ -204,7 +205,8 @@ extension WorkTimesListViewModelTests {
         let sut = try self.buildSUT(isSelectedDate: false)
         sut.viewRequestForPreviousMonth()
         //Assert
-        XCTAssertTrue(self.userInterfaceMock.updateMatchingFullTimeLabelsParams.isEmpty)
+        XCTAssertTrue(self.userInterfaceMock.updateAccountingPeriodLabelParams.isEmpty)
+        XCTAssertTrue(self.userInterfaceMock.updateHoursLabelParams.isEmpty)
     }
 }
 

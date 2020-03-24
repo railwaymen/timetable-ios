@@ -25,11 +25,14 @@ class WorkTimesListViewControllerMock: UIViewController {
         var nextDateString: String
     }
     
-    private(set) var updateMatchingFullTimeLabelsParams: [UpdateMatchingFullTimeLabelsParams] = []
-    struct UpdateMatchingFullTimeLabelsParams {
-        var workedHours: String
-        var shouldWorkHours: String
-        var duration: String
+    private(set) var updateHoursLabelParams: [UpdateHoursLabelParams] = []
+    struct UpdateHoursLabelParams {
+        let workedHours: String?
+    }
+    
+    private(set) var updateAccountingPeriodLabelParams: [UpdateAccountingPeriodLabelParams] = []
+    struct UpdateAccountingPeriodLabelParams {
+        let text: String?
     }
     
     private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
@@ -72,6 +75,7 @@ class WorkTimesListViewControllerMock: UIViewController {
 
 // MARK: - WorkTimesListViewModelOutput
 extension WorkTimesListViewControllerMock: WorkTimesListViewModelOutput {
+
     func setUpView() {
         self.setUpViewParams.append(SetUpViewParams())
     }
@@ -87,13 +91,13 @@ extension WorkTimesListViewControllerMock: WorkTimesListViewModelOutput {
             previousDateString: previousDateString,
             nextDateString: nextDateString))
     }
+   
+    func updateHoursLabel(workedHours: String?) {
+        self.updateHoursLabelParams.append(UpdateHoursLabelParams(workedHours: workedHours))
+    }
     
-    func updateMatchingFullTimeLabels(workedHours: String, shouldWorkHours: String, duration: String) {
-        self.updateMatchingFullTimeLabelsParams.append(
-            UpdateMatchingFullTimeLabelsParams(
-                workedHours: workedHours,
-                shouldWorkHours: shouldWorkHours,
-                duration: duration))
+    func updateAccountingPeriodLabel(text: String?) {
+        self.updateAccountingPeriodLabelParams.append(UpdateAccountingPeriodLabelParams(text: text))
     }
     
     func setActivityIndicator(isHidden: Bool) {
