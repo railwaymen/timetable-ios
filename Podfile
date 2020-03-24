@@ -23,3 +23,8 @@ target 'TimeTableTests' do
   pod 'JSONFactorable', '~> 0.2.0'
   universal_pods
 end
+
+target 'TimeTableUITests' do
+  pod 'Swifter', '~> 1.4.7'
+  universal_pods
+end

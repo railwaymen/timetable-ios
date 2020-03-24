@@ -8,6 +8,7 @@
 
 import UIKit
 import KeychainAccess
+import CoordinatorsFoundation
 
 protocol ServerConfigurationCoordinatorDelegate: class {
     func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration)
@@ -29,7 +30,8 @@ class AuthenticationCoordinator: NavigationCoordinator {
         self.dependencyContainer = dependencyContainer
         super.init(window: dependencyContainer.window)
         self.window?.rootViewController = self.navigationController
-        self.setNavigationBar()
+        self.setUpNavigationController()
+        self.setUpNavigationBar()
     }
 
     // MARK: - Overridden
@@ -38,6 +40,26 @@ class AuthenticationCoordinator: NavigationCoordinator {
             self.customFinishCompletion?(configuration, apiClient)
         }
         super.finish()
+    }
+    
+    override func openDeepLink(option: DeepLinkOption) {
+        #if TEST
+        guard case let .testPage(type) = option else { return }
+        switch type {
+        case .serverConfiguration:
+            self.runServerConfigurationFlow(animated: false)
+        case .login:
+            self.runServerConfigurationFlow(animated: false)
+            guard let url = self.dependencyContainer.environmentReader.getURL(forKey: .serverURL) else { return }
+            let serverConfiguration = ServerConfiguration(host: url, shouldRememberHost: false)
+            self.serverConfiguration = serverConfiguration
+            self.runAuthenticationFlow(
+                with: serverConfiguration,
+                animated: false)
+        default:
+            return
+        }
+        #endif
     }
     
     // MARK: - Internal
@@ -62,6 +84,7 @@ class AuthenticationCoordinator: NavigationCoordinator {
             }
         }
     }
+    
 }
 
 // MARK: - Structures
@@ -109,17 +132,20 @@ extension AuthenticationCoordinator.State: Equatable {
 
 // MARK: - Private
 extension AuthenticationCoordinator {
-    private func setNavigationBar() {
+    private func setUpNavigationController() {
         self.navigationController.interactivePopGestureRecognizer?.delegate = nil
+        self.navigationController.view.backgroundColor = .clear
+    }
+    
+    private func setUpNavigationBar() {
         self.navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController.navigationBar.isTranslucent = true
         self.navigationController.navigationBar.shadowImage = UIImage()
-        self.navigationController.view.backgroundColor = .clear
         self.navigationController.navigationBar.backgroundColor = .clear
         self.navigationController.navigationBar.tintColor = .defaultLabel
     }
     
-    private func runServerConfigurationFlow() {
+    private func runServerConfigurationFlow(animated: Bool = true) {
         let controller: ServerConfigurationViewControllerable? = self.dependencyContainer.storyboardsManager.controller(storyboard: .serverConfiguration)
         guard let serverSettingsViewController = controller else { return }
         let viewModel = ServerConfigurationViewModel(
@@ -129,7 +155,7 @@ extension AuthenticationCoordinator {
             errorHandler: self.dependencyContainer.errorHandler,
             notificationCenter: self.dependencyContainer.notificationCenter)
         serverSettingsViewController.configure(viewModel: viewModel)
-        self.navigationController.setViewControllers([serverSettingsViewController], animated: true)
+        self.navigationController.setViewControllers([serverSettingsViewController], animated: animated)
     }
     
     private func runAuthenticationFlow(with configuration: ServerConfiguration, animated: Bool) {

@@ -27,6 +27,11 @@
 		8A137C3923FD71D0001569BB /* WorkTimeContentProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A137C3823FD71D0001569BB /* WorkTimeContentProviderTests.swift */; };
 		8A137C3B23FD74E4001569BB /* Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A137C3A23FD74E4001569BB /* Asserts.swift */; };
 		8A137C3D23FD7538001569BB /* UniqueValuedEnumerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A137C3C23FD7538001569BB /* UniqueValuedEnumerator.swift */; };
+		8A18F7AE242A1C2000D06059 /* MockServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A18F7AD242A1C2000D06059 /* MockServer.swift */; };
+		8A18F7B5242A567000D06059 /* ServerConfigurationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A18F7B4242A567000D06059 /* ServerConfigurationUITests.swift */; };
+		8A18F7B7242A575500D06059 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A18F7B6242A575500D06059 /* Global.swift */; };
+		8A18F7BB242B625700D06059 /* ServerConfigurationUIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A18F7BA242B625700D06059 /* ServerConfigurationUIElements.swift */; };
+		8A18F7BD242B6A4D00D06059 /* ScreenToTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A18F7BC242B6A4D00D06059 /* ScreenToTest.swift */; };
 		8A31A85E238E902B008DCC08 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31A85D238E902B008DCC08 /* Date+Extension.swift */; };
 		8A31A860238E927E008DCC08 /* TimeInterval+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31A85F238E927E008DCC08 /* TimeInterval+Extension.swift */; };
 		8A31BFB524177B42004A1CE8 /* RestlerRequestBuilderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31BFB424177B42004A1CE8 /* RestlerRequestBuilderMock.swift */; };
@@ -39,12 +44,21 @@
 		8A31CD8723742CEA008E590D /* ProjectPickerCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CD8623742CEA008E590D /* ProjectPickerCellModel.swift */; };
 		8A31CD8923742D15008E590D /* ProjectPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CD8823742D15008E590D /* ProjectPickerCell.swift */; };
 		8A31CD8D23742E43008E590D /* ProjectPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A31CD8C23742E43008E590D /* ProjectPickerCell.xib */; };
+		8A32BD9B242CC8A000462253 /* UIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A32BD9A242CC8A000462253 /* UIElements.swift */; };
 		8A3F0C542428B07E00564D6D /* RestlerTaskMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3F0C532428B07E00564D6D /* RestlerTaskMock.swift */; };
 		8A3F0C572428CDAE00564D6D /* WorkTimeContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3F0C562428CDAE00564D6D /* WorkTimeContainerViewController.swift */; };
 		8A3F0C592428CEE300564D6D /* WorkTimeContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3F0C582428CEE300564D6D /* WorkTimeContainerViewModel.swift */; };
+		8A3F0C612429E38600564D6D /* LoginUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3F0C602429E38600564D6D /* LoginUITests.swift */; };
+		8A3F0C6A2429EFA700564D6D /* signInResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A3F0C692429EFA700564D6D /* signInResponse.json */; };
+		8A3F0C6C2429EFCC00564D6D /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3F0C6B2429EFCC00564D6D /* XCTestCase+Extension.swift */; };
+		8A3F0C6E2429EFF300564D6D /* JSONFileResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3F0C6D2429EFF300564D6D /* JSONFileResource.swift */; };
+		8A3F0C702429F04300564D6D /* MockResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3F0C6F2429F04300564D6D /* MockResponse.swift */; };
+		8A3F0C722429F08D00564D6D /* String+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3F0C712429F08D00564D6D /* String+Error.swift */; };
 		8A3FE1B123ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3FE1B023ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift */; };
 		8A523C8E2395091900215C61 /* DateExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A523C8D2395091900215C61 /* DateExtensionTests.swift */; };
 		8A55BA772372D02D004FFA97 /* UIApplicationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */; };
+		8A56D18C242B7DC000A02682 /* XCUIElement+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A56D18B242B7DC000A02682 /* XCUIElement+Extension.swift */; };
+		8A56D18E242B7DE900A02682 /* XCUIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A56D18D242B7DE900A02682 /* XCUIApplication+Extension.swift */; };
 		8A59AF202382E29200108C33 /* DailyWorkTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A59AF1F2382E29200108C33 /* DailyWorkTime.swift */; };
 		8A5D48BE2369E18C0082C13D /* DispatchGroupFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */; };
 		8A5D48C02369E1A30082C13D /* DispatchGroup+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48BF2369E1A20082C13D /* DispatchGroup+Extension.swift */; };
@@ -130,6 +144,9 @@
 		8A80A38F23D89ED3002643A1 /* APIClientFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */; };
 		8A82EBF323FD46EC001393A8 /* WorkTimeContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */; };
 		8A82EBF523FD4DC6001393A8 /* WorkTimeContentProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A82EBF423FD4DC6001393A8 /* WorkTimeContentProviderMock.swift */; };
+		8A8E8431242CE0E000003AB1 /* HttpResponse+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E8430242CE0E000003AB1 /* HttpResponse+Extension.swift */; };
+		8A8E8433242CE82800003AB1 /* EnvironmentReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E8432242CE82800003AB1 /* EnvironmentReader.swift */; };
+		8A8E8435242D054800003AB1 /* DefaultUITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E8434242D054800003AB1 /* DefaultUITestCase.swift */; };
 		8A8EE1AB23F4455100416D31 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A8EE1AA23F4455100416D31 /* GoogleService-Info.plist */; };
 		8A8EE1AD23F4455900416D31 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A8EE1AC23F4455900416D31 /* GoogleService-Info.plist */; };
 		8A9369B0237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369AF237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift */; };
@@ -143,6 +160,7 @@
 		8AA5C5DD235F34340083E121 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA5C5DC235F34340083E121 /* Colors.xcassets */; };
 		8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift */; };
 		8AC097242371CCFF00103FAD /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */; };
+		8ACEF07F242C8BBB00F4E39D /* LoginUIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACEF07E242C8BBB00F4E39D /* LoginUIElements.swift */; };
 		8AD1345A2396B60B00572632 /* AttributedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD134592396B60B00572632 /* AttributedTextView.swift */; };
 		8AE00013237464A1002F783E /* WorkTimeCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE00012237464A1002F783E /* WorkTimeCoordinatorMock.swift */; };
 		8AE0001623746520002F783E /* ProjectPickerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE0001523746520002F783E /* ProjectPickerViewModelTests.swift */; };
@@ -416,9 +434,17 @@
 		C1FA05EB219475FF00BD8C9D /* AsynchronousDataTransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA05EA219475FF00BD8C9D /* AsynchronousDataTransactionType.swift */; };
 		C1FE49E821AC458F00E37E28 /* WorkTimesTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FE49E721AC458F00E37E28 /* WorkTimesTableViewHeader.swift */; };
 		C1FE49EA21AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FE49E921AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift */; };
+		D82AD08CFF4CD9B3DCE59DF6 /* Pods_TimeTableUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D079498D6352A89A81273FA /* Pods_TimeTableUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8A3F0C632429E38600564D6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C1B5136121772D1200C3727C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C1B5136821772D1200C3727C;
+			remoteInfo = TimeTable;
+		};
 		C1B5137E21772D1400C3727C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C1B5136121772D1200C3727C /* Project object */;
@@ -429,9 +455,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03EE2BC72EEA83D017109E6A /* Pods-TimeTableUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTableUITests.debug.xcconfig"; path = "Target Support Files/Pods-TimeTableUITests/Pods-TimeTableUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		05D87566C0C83745F3DD8B1C /* Pods-TimeTableTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTableTests.debug.xcconfig"; path = "Target Support Files/Pods-TimeTableTests/Pods-TimeTableTests.debug.xcconfig"; sourceTree = "<group>"; };
 		0FBF482875EDA8CC06F69C1C /* Pods-TimeTableTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTableTests.release.xcconfig"; path = "Target Support Files/Pods-TimeTableTests/Pods-TimeTableTests.release.xcconfig"; sourceTree = "<group>"; };
 		15FE8C20AC7A1A64A549519E /* Pods_TimeTableTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeTableTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		41EB0ACBD37ED79EDA634042 /* Pods-TimeTableUITests.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTableUITests.stage.xcconfig"; path = "Target Support Files/Pods-TimeTableUITests/Pods-TimeTableUITests.stage.xcconfig"; sourceTree = "<group>"; };
+		4671CF0DA7477F407EBCFD2C /* Pods-TimeTableUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTableUITests.release.xcconfig"; path = "Target Support Files/Pods-TimeTableUITests/Pods-TimeTableUITests.release.xcconfig"; sourceTree = "<group>"; };
+		501149BFA72ED611A4EF76AB /* Pods-TimeTableUITests.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTableUITests.test.xcconfig"; path = "Target Support Files/Pods-TimeTableUITests/Pods-TimeTableUITests.test.xcconfig"; sourceTree = "<group>"; };
 		66BDB567562F9CF7E9C0A94F /* Pods-TimeTable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTable.debug.xcconfig"; path = "Target Support Files/Pods-TimeTable/Pods-TimeTable.debug.xcconfig"; sourceTree = "<group>"; };
 		6BD568DB1454D07112D32F1A /* Pods-TimeTable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTable.release.xcconfig"; path = "Target Support Files/Pods-TimeTable/Pods-TimeTable.release.xcconfig"; sourceTree = "<group>"; };
 		709A006A1AEE2AB10E218C48 /* Pods-TimeTable.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTable.stage.xcconfig"; path = "Target Support Files/Pods-TimeTable/Pods-TimeTable.stage.xcconfig"; sourceTree = "<group>"; };
@@ -455,6 +485,11 @@
 		8A137C3823FD71D0001569BB /* WorkTimeContentProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContentProviderTests.swift; sourceTree = "<group>"; };
 		8A137C3A23FD74E4001569BB /* Asserts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asserts.swift; sourceTree = "<group>"; };
 		8A137C3C23FD7538001569BB /* UniqueValuedEnumerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniqueValuedEnumerator.swift; sourceTree = "<group>"; };
+		8A18F7AD242A1C2000D06059 /* MockServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockServer.swift; sourceTree = "<group>"; };
+		8A18F7B4242A567000D06059 /* ServerConfigurationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationUITests.swift; sourceTree = "<group>"; };
+		8A18F7B6242A575500D06059 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		8A18F7BA242B625700D06059 /* ServerConfigurationUIElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationUIElements.swift; sourceTree = "<group>"; };
+		8A18F7BC242B6A4D00D06059 /* ScreenToTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenToTest.swift; sourceTree = "<group>"; };
 		8A31A85D238E902B008DCC08 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		8A31A85F238E927E008DCC08 /* TimeInterval+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extension.swift"; sourceTree = "<group>"; };
 		8A31BFB424177B42004A1CE8 /* RestlerRequestBuilderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestlerRequestBuilderMock.swift; sourceTree = "<group>"; };
@@ -467,12 +502,23 @@
 		8A31CD8623742CEA008E590D /* ProjectPickerCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCellModel.swift; sourceTree = "<group>"; };
 		8A31CD8823742D15008E590D /* ProjectPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCell.swift; sourceTree = "<group>"; };
 		8A31CD8C23742E43008E590D /* ProjectPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectPickerCell.xib; sourceTree = "<group>"; };
+		8A32BD9A242CC8A000462253 /* UIElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIElements.swift; sourceTree = "<group>"; };
 		8A3F0C532428B07E00564D6D /* RestlerTaskMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestlerTaskMock.swift; sourceTree = "<group>"; };
 		8A3F0C562428CDAE00564D6D /* WorkTimeContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContainerViewController.swift; sourceTree = "<group>"; };
 		8A3F0C582428CEE300564D6D /* WorkTimeContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContainerViewModel.swift; sourceTree = "<group>"; };
+		8A3F0C5E2429E38600564D6D /* TimeTableUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeTableUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A3F0C602429E38600564D6D /* LoginUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUITests.swift; sourceTree = "<group>"; };
+		8A3F0C622429E38600564D6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8A3F0C692429EFA700564D6D /* signInResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInResponse.json; sourceTree = "<group>"; };
+		8A3F0C6B2429EFCC00564D6D /* XCTestCase+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extension.swift"; sourceTree = "<group>"; };
+		8A3F0C6D2429EFF300564D6D /* JSONFileResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONFileResource.swift; sourceTree = "<group>"; };
+		8A3F0C6F2429F04300564D6D /* MockResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockResponse.swift; sourceTree = "<group>"; };
+		8A3F0C712429F08D00564D6D /* String+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Error.swift"; sourceTree = "<group>"; };
 		8A3FE1B023ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeViewModelFlowTypeTests.swift; sourceTree = "<group>"; };
 		8A523C8D2395091900215C61 /* DateExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensionTests.swift; sourceTree = "<group>"; };
 		8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationMock.swift; sourceTree = "<group>"; };
+		8A56D18B242B7DC000A02682 /* XCUIElement+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Extension.swift"; sourceTree = "<group>"; };
+		8A56D18D242B7DE900A02682 /* XCUIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIApplication+Extension.swift"; sourceTree = "<group>"; };
 		8A59AF1F2382E29200108C33 /* DailyWorkTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWorkTime.swift; sourceTree = "<group>"; };
 		8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupFactory.swift; sourceTree = "<group>"; };
 		8A5D48BF2369E1A20082C13D /* DispatchGroup+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchGroup+Extension.swift"; sourceTree = "<group>"; };
@@ -558,6 +604,9 @@
 		8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientFactoryMock.swift; sourceTree = "<group>"; };
 		8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContentProvider.swift; sourceTree = "<group>"; };
 		8A82EBF423FD4DC6001393A8 /* WorkTimeContentProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContentProviderMock.swift; sourceTree = "<group>"; };
+		8A8E8430242CE0E000003AB1 /* HttpResponse+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HttpResponse+Extension.swift"; sourceTree = "<group>"; };
+		8A8E8432242CE82800003AB1 /* EnvironmentReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentReader.swift; sourceTree = "<group>"; };
+		8A8E8434242D054800003AB1 /* DefaultUITestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUITestCase.swift; sourceTree = "<group>"; };
 		8A8EE1AA23F4455100416D31 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8A8EE1AC23F4455900416D31 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8A9369AF237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUserViewTableViewCellMock.swift; sourceTree = "<group>"; };
@@ -574,6 +623,7 @@
 		8AC097272371D28100103FAD /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		8AC097282371D28100103FAD /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		8AC097292371D28100103FAD /* Stage.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Stage.xcconfig; sourceTree = "<group>"; };
+		8ACEF07E242C8BBB00F4E39D /* LoginUIElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUIElements.swift; sourceTree = "<group>"; };
 		8AD134592396B60B00572632 /* AttributedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextView.swift; sourceTree = "<group>"; };
 		8AE00012237464A1002F783E /* WorkTimeCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCoordinatorMock.swift; sourceTree = "<group>"; };
 		8AE0001523746520002F783E /* ProjectPickerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerViewModelTests.swift; sourceTree = "<group>"; };
@@ -594,6 +644,8 @@
 		8AF5697823D754D600A1D001 /* UserDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDecoderFactory.swift; sourceTree = "<group>"; };
 		8AF5697A23D756CA00A1D001 /* WorkTimeDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeDecoderFactory.swift; sourceTree = "<group>"; };
 		8AF5697C23D759AE00A1D001 /* ServerErrorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerErrorFactory.swift; sourceTree = "<group>"; };
+		9D079498D6352A89A81273FA /* Pods_TimeTableUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeTableUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2D3628570D3D30EA2E489EC /* Pods-TimeTable.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTable.test.xcconfig"; path = "Target Support Files/Pods-TimeTable/Pods-TimeTable.test.xcconfig"; sourceTree = "<group>"; };
 		C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListContentProvider.swift; sourceTree = "<group>"; };
 		C101603322003D4000DCE817 /* MatchingFullTimeEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFullTimeEncoder.swift; sourceTree = "<group>"; };
 		C10FD87E21F1EDA100A233C5 /* ApiClient+Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiClient+Users.swift"; sourceTree = "<group>"; };
@@ -855,9 +907,18 @@
 		C1FE49E721AC458F00E37E28 /* WorkTimesTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesTableViewHeader.swift; sourceTree = "<group>"; };
 		C1FE49E921AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesTableViewHeaderViewModel.swift; sourceTree = "<group>"; };
 		C606DDF3BB59C86E7F198617 /* Pods-TimeTableTests.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTableTests.stage.xcconfig"; path = "Target Support Files/Pods-TimeTableTests/Pods-TimeTableTests.stage.xcconfig"; sourceTree = "<group>"; };
+		C61CCFD8DA64C4B1C8953110 /* Pods-TimeTableTests.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTableTests.test.xcconfig"; path = "Target Support Files/Pods-TimeTableTests/Pods-TimeTableTests.test.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8A3F0C5B2429E38600564D6D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D82AD08CFF4CD9B3DCE59DF6 /* Pods_TimeTableUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C1B5136621772D1200C3727C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -887,8 +948,59 @@
 				05D87566C0C83745F3DD8B1C /* Pods-TimeTableTests.debug.xcconfig */,
 				C606DDF3BB59C86E7F198617 /* Pods-TimeTableTests.stage.xcconfig */,
 				0FBF482875EDA8CC06F69C1C /* Pods-TimeTableTests.release.xcconfig */,
+				03EE2BC72EEA83D017109E6A /* Pods-TimeTableUITests.debug.xcconfig */,
+				41EB0ACBD37ED79EDA634042 /* Pods-TimeTableUITests.stage.xcconfig */,
+				4671CF0DA7477F407EBCFD2C /* Pods-TimeTableUITests.release.xcconfig */,
+				B2D3628570D3D30EA2E489EC /* Pods-TimeTable.test.xcconfig */,
+				C61CCFD8DA64C4B1C8953110 /* Pods-TimeTableTests.test.xcconfig */,
+				501149BFA72ED611A4EF76AB /* Pods-TimeTableUITests.test.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		8A18F7AF242A1F2600D06059 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				8A8E8434242D054800003AB1 /* DefaultUITestCase.swift */,
+				8A18F7B6242A575500D06059 /* Global.swift */,
+				8A8E8430242CE0E000003AB1 /* HttpResponse+Extension.swift */,
+				8A3F0C6D2429EFF300564D6D /* JSONFileResource.swift */,
+				8A18F7AD242A1C2000D06059 /* MockServer.swift */,
+				8A18F7BC242B6A4D00D06059 /* ScreenToTest.swift */,
+				8A3F0C712429F08D00564D6D /* String+Error.swift */,
+				8A3F0C6B2429EFCC00564D6D /* XCTestCase+Extension.swift */,
+				8A56D18D242B7DE900A02682 /* XCUIApplication+Extension.swift */,
+				8A56D18B242B7DC000A02682 /* XCUIElement+Extension.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		8A18F7B0242A1F2E00D06059 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8A3F0C692429EFA700564D6D /* signInResponse.json */,
+				8A3F0C6F2429F04300564D6D /* MockResponse.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		8A18F7B3242A561C00D06059 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				8A3F0C602429E38600564D6D /* LoginUITests.swift */,
+				8A18F7B4242A567000D06059 /* ServerConfigurationUITests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		8A18F7B8242B61F700D06059 /* Elements */ = {
+			isa = PBXGroup;
+			children = (
+				8ACEF07E242C8BBB00F4E39D /* LoginUIElements.swift */,
+				8A18F7BA242B625700D06059 /* ServerConfigurationUIElements.swift */,
+				8A32BD9A242CC8A000462253 /* UIElements.swift */,
+			);
+			path = Elements;
 			sourceTree = "<group>";
 		};
 		8A31BFB324177B31004A1CE8 /* Restler */ = {
@@ -931,6 +1043,18 @@
 				C13C88E721E5F7B600F68C6E /* WorkTimeViewModel.swift */,
 			);
 			path = Content;
+			sourceTree = "<group>";
+		};
+		8A3F0C5F2429E38600564D6D /* TimeTableUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8A3F0C622429E38600564D6D /* Info.plist */,
+				8A18F7AF242A1F2600D06059 /* Common */,
+				8A18F7B8242B61F700D06059 /* Elements */,
+				8A18F7B0242A1F2E00D06059 /* Resources */,
+				8A18F7B3242A561C00D06059 /* Tests */,
+			);
+			path = TimeTableUITests;
 			sourceTree = "<group>";
 		};
 		8A5EF32123FE848B00AE4309 /* TagCell */ = {
@@ -1395,6 +1519,7 @@
 				8A5D48BF2369E1A20082C13D /* DispatchGroup+Extension.swift */,
 				8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */,
 				8A09DCB723673E58003FC2A6 /* DispatchQueueManager.swift */,
+				8A8E8432242CE82800003AB1 /* EnvironmentReader.swift */,
 				C175B56B227CAACA006D9944 /* MessagePresenter.swift */,
 				8A5EF31B23FE808800AE4309 /* ReusableCellType.swift */,
 				C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */,
@@ -1937,6 +2062,7 @@
 			children = (
 				C1B5136B21772D1200C3727C /* TimeTable */,
 				C1B5138021772D1400C3727C /* TimeTableTests */,
+				8A3F0C5F2429E38600564D6D /* TimeTableUITests */,
 				C1B5136A21772D1200C3727C /* Products */,
 				0702DC95DE1754B9350A58ED /* Pods */,
 				DEEB3A255EF0DE2C5C26AE96 /* Frameworks */,
@@ -1948,6 +2074,7 @@
 			children = (
 				C1B5136921772D1200C3727C /* TimeTable.app */,
 				C1B5137D21772D1400C3727C /* TimeTableTests.xctest */,
+				8A3F0C5E2429E38600564D6D /* TimeTableUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2249,6 +2376,7 @@
 				C1FA05DC2194288400BD8C9D /* CoreData.framework */,
 				88922A1AB918F19A04B07211 /* Pods_TimeTable.framework */,
 				15FE8C20AC7A1A64A549519E /* Pods_TimeTableTests.framework */,
+				9D079498D6352A89A81273FA /* Pods_TimeTableUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2256,6 +2384,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8A3F0C5D2429E38600564D6D /* TimeTableUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8A3F0C682429E38600564D6D /* Build configuration list for PBXNativeTarget "TimeTableUITests" */;
+			buildPhases = (
+				1B551D1A1BB0243D1C4AAA80 /* [CP] Check Pods Manifest.lock */,
+				8A3F0C5A2429E38600564D6D /* Sources */,
+				8A3F0C5B2429E38600564D6D /* Frameworks */,
+				8A3F0C5C2429E38600564D6D /* Resources */,
+				F645DA0F09C496976C1AC529 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8A3F0C642429E38600564D6D /* PBXTargetDependency */,
+			);
+			name = TimeTableUITests;
+			productName = TimeTableUITests;
+			productReference = 8A3F0C5E2429E38600564D6D /* TimeTableUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		C1B5136821772D1200C3727C /* TimeTable */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C1B5138621772D1400C3727C /* Build configuration list for PBXNativeTarget "TimeTable" */;
@@ -2273,8 +2421,6 @@
 			dependencies = (
 			);
 			name = TimeTable;
-			packageProductDependencies = (
-			);
 			productName = TimeTable;
 			productReference = C1B5136921772D1200C3727C /* TimeTable.app */;
 			productType = "com.apple.product-type.application";
@@ -2305,10 +2451,14 @@
 		C1B5136121772D1200C3727C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1000;
+				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1110;
 				ORGANIZATIONNAME = Railwaymen;
 				TargetAttributes = {
+					8A3F0C5D2429E38600564D6D = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = C1B5136821772D1200C3727C;
+					};
 					C1B5136821772D1200C3727C = {
 						CreatedOnToolsVersion = 10.0;
 						LastSwiftMigration = 1020;
@@ -2330,19 +2480,26 @@
 				pl,
 			);
 			mainGroup = C1B5136021772D1200C3727C;
-			packageReferences = (
-			);
 			productRefGroup = C1B5136A21772D1200C3727C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				C1B5136821772D1200C3727C /* TimeTable */,
 				C1B5137C21772D1400C3727C /* TimeTableTests */,
+				8A3F0C5D2429E38600564D6D /* TimeTableUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8A3F0C5C2429E38600564D6D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A3F0C6A2429EFA700564D6D /* signInResponse.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C1B5136721772D1200C3727C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2473,6 +2630,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1B551D1A1BB0243D1C4AAA80 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TimeTableUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2D744614CD5173C828F1E963 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2566,6 +2745,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TimeTable/Pods-TimeTable-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F645DA0F09C496976C1AC529 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TimeTableUITests/Pods-TimeTableUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TimeTableUITests/Pods-TimeTableUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TimeTableUITests/Pods-TimeTableUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		FDC974FB7C500082CD73234D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2591,6 +2787,29 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8A3F0C5A2429E38600564D6D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A18F7B7242A575500D06059 /* Global.swift in Sources */,
+				8A8E8435242D054800003AB1 /* DefaultUITestCase.swift in Sources */,
+				8A18F7B5242A567000D06059 /* ServerConfigurationUITests.swift in Sources */,
+				8ACEF07F242C8BBB00F4E39D /* LoginUIElements.swift in Sources */,
+				8A18F7AE242A1C2000D06059 /* MockServer.swift in Sources */,
+				8A8E8431242CE0E000003AB1 /* HttpResponse+Extension.swift in Sources */,
+				8A32BD9B242CC8A000462253 /* UIElements.swift in Sources */,
+				8A3F0C6C2429EFCC00564D6D /* XCTestCase+Extension.swift in Sources */,
+				8A56D18C242B7DC000A02682 /* XCUIElement+Extension.swift in Sources */,
+				8A18F7BD242B6A4D00D06059 /* ScreenToTest.swift in Sources */,
+				8A3F0C612429E38600564D6D /* LoginUITests.swift in Sources */,
+				8A18F7BB242B625700D06059 /* ServerConfigurationUIElements.swift in Sources */,
+				8A3F0C722429F08D00564D6D /* String+Error.swift in Sources */,
+				8A3F0C702429F04300564D6D /* MockResponse.swift in Sources */,
+				8A3F0C6E2429EFF300564D6D /* JSONFileResource.swift in Sources */,
+				8A56D18E242B7DE900A02682 /* XCUIApplication+Extension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C1B5136521772D1200C3727C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2729,6 +2948,7 @@
 				C10FD88121F1F15100A233C5 /* UserDecoder.swift in Sources */,
 				8A31CD7D23741BFC008E590D /* ProjectPickerCoordinator.swift in Sources */,
 				8A0AFA662386CFF70054D55F /* CoordinatorsFoundation+Typealiases.swift in Sources */,
+				8A8E8433242CE82800003AB1 /* EnvironmentReader.swift in Sources */,
 				C16CA644219AA47900133358 /* UserEntity+SessionDecoder.swift in Sources */,
 				8A09DCB823673E58003FC2A6 /* DispatchQueueManager.swift in Sources */,
 				C198BD1D21FF3DD200B5F847 /* MatchingFullTimeDecoder.swift in Sources */,
@@ -2901,6 +3121,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8A3F0C642429E38600564D6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C1B5136821772D1200C3727C /* TimeTable */;
+			targetProxy = 8A3F0C632429E38600564D6D /* PBXContainerItemProxy */;
+		};
 		C1B5137F21772D1400C3727C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C1B5136821772D1200C3727C /* TimeTable */;
@@ -2930,6 +3155,202 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8A3F0C652429E38600564D6D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03EE2BC72EEA83D017109E6A /* Pods-TimeTableUITests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 78CQWFZKPC;
+				INFOPLIST_FILE = TimeTableUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.railwaymen.TimeTableUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TimeTable;
+			};
+			name = Debug;
+		};
+		8A3F0C662429E38600564D6D /* Stage */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 41EB0ACBD37ED79EDA634042 /* Pods-TimeTableUITests.stage.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 78CQWFZKPC;
+				INFOPLIST_FILE = TimeTableUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.railwaymen.TimeTableUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TimeTable;
+			};
+			name = Stage;
+		};
+		8A3F0C672429E38600564D6D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4671CF0DA7477F407EBCFD2C /* Pods-TimeTableUITests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 78CQWFZKPC;
+				INFOPLIST_FILE = TimeTableUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.railwaymen.TimeTableUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TimeTable;
+			};
+			name = Release;
+		};
+		8ACEF081242CAD7400F4E39D /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8AC097272371D28100103FAD /* Debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"TEST=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-DTEST";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Test;
+		};
+		8ACEF082242CAD7400F4E39D /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B2D3628570D3D30EA2E489EC /* Pods-TimeTable.test.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
+				INFOPLIST_FILE = TimeTable/SupportingFiles/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(TT_APP_BUNDLE_ID)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = TimeTableDebugDevelopment;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Test;
+		};
+		8ACEF083242CAD7400F4E39D /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C61CCFD8DA64C4B1C8953110 /* Pods-TimeTableTests.test.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
+				INFOPLIST_FILE = TimeTableTests/SupportingFiles/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(TT_TEST_BUNDLE_ID)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TimeTable.app/TimeTable";
+			};
+			name = Test;
+		};
+		8ACEF084242CAD7400F4E39D /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 501149BFA72ED611A4EF76AB /* Pods-TimeTableUITests.test.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 78CQWFZKPC;
+				INFOPLIST_FILE = TimeTableUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.railwaymen.TimeTableUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TimeTable;
+			};
+			name = Test;
+		};
 		C1A10ABB21772DDC00A83651 /* Stage */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8AC097292371D28100103FAD /* Stage.xcconfig */;
@@ -2988,6 +3409,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3254,10 +3676,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8A3F0C682429E38600564D6D /* Build configuration list for PBXNativeTarget "TimeTableUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8A3F0C652429E38600564D6D /* Debug */,
+				8ACEF084242CAD7400F4E39D /* Test */,
+				8A3F0C662429E38600564D6D /* Stage */,
+				8A3F0C672429E38600564D6D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C1B5136421772D1200C3727C /* Build configuration list for PBXProject "TimeTable" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C1B5138421772D1400C3727C /* Debug */,
+				8ACEF081242CAD7400F4E39D /* Test */,
 				C1A10ABB21772DDC00A83651 /* Stage */,
 				C1B5138521772D1400C3727C /* Release */,
 			);
@@ -3268,6 +3702,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C1B5138721772D1400C3727C /* Debug */,
+				8ACEF082242CAD7400F4E39D /* Test */,
 				C1A10ABC21772DDC00A83651 /* Stage */,
 				C1B5138821772D1400C3727C /* Release */,
 			);
@@ -3278,6 +3713,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C1B5138A21772D1400C3727C /* Debug */,
+				8ACEF083242CAD7400F4E39D /* Test */,
 				C1A10ABD21772DDC00A83651 /* Stage */,
 				C1B5138B21772D1400C3727C /* Release */,
 			);

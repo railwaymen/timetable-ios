@@ -12,6 +12,11 @@ import XCTest
 class CoreDataStackMock {
     typealias CDT = UserEntity
     
+    private(set) var deleteAllUsersParams: [DeleteAllUsersParams] = []
+    struct DeleteAllUsersParams {
+        let completion: ((Result<Void, Error>) -> Void)
+    }
+    
     private(set) var deleteUserParams: [DeleteUserParams] = []
     struct DeleteUserParams {
         var identifier: Int64
@@ -39,6 +44,10 @@ class CoreDataStackMock {
 
 // MARK: - CoreDataStackType
 extension CoreDataStackMock: CoreDataStackType {
+    func deleteAllUsers(completion: @escaping (Result<Void, Error>) -> Void) {
+        self.deleteAllUsersParams.append(DeleteAllUsersParams(completion: completion))
+    }
+    
     func deleteUser(forIdentifier identifier: Int64, completion: @escaping (Result<Void, Error>) -> Void) {
         self.deleteUserParams.append(DeleteUserParams(identifier: identifier, completion: completion))
     }

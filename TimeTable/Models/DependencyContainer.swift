@@ -25,6 +25,7 @@ protocol DependencyContainerType {
     var notificationCenter: NotificationCenterType { get }
     var dispatchGroupFactory: DispatchGroupFactoryType { get }
     var dateFactory: DateFactoryType { get }
+    var environmentReader: EnvironmentReaderType { get }
 }
 
 struct DependencyContainer: DependencyContainerType {
@@ -44,6 +45,7 @@ struct DependencyContainer: DependencyContainerType {
     let notificationCenter: NotificationCenterType
     let dispatchGroupFactory: DispatchGroupFactoryType
     let dateFactory: DateFactoryType
+    let environmentReader: EnvironmentReaderType
     
     // MARK: - Initialization
     init(
@@ -77,5 +79,6 @@ struct DependencyContainer: DependencyContainerType {
             decoder: decoder,
             jsonSerialization: CustomJSONSerialization())
         self.dateFactory = DateFactory()
+        self.environmentReader = EnvironmentReader()
     }
 }

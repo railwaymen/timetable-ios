@@ -1,3 +1,4 @@
 skip_slack true
 scheme "TimeTable"
 output_directory "output/tests"
+devices ["iPhone 11"]

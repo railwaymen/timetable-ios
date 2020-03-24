@@ -75,6 +75,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="tintColor" name="Crimson"/>
+                                                        <accessibility key="accessibilityConfiguration" identifier="serverURLTextField"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="V0K-xO-CGo"/>
                                                         </constraints>
@@ -99,6 +100,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qUw-8z-SPV" customClass="CheckBoxButton" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                        <accessibility key="accessibilityConfiguration" identifier="staySignedButton"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" identifier="12" id="Etm-hG-sS4"/>
                                                             <constraint firstAttribute="width" constant="25" identifier="11" id="L5p-0i-T0l"/>
@@ -137,6 +139,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iZC-rm-3eU" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="220" width="374" height="40"/>
                                                 <color key="backgroundColor" red="0.80000000000000004" green="0.078431372550000003" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="loginButton"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="MAp-ID-HU3"/>
                                                 </constraints>

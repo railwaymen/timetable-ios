@@ -9,12 +9,24 @@
 import Foundation
 import CoordinatorsFoundation
 
-enum CoordinatorType: String, CoordinatorTypable {
-    case home
+enum CoordinatorType: String, CoordinatorTypable, Equatable {
+    case serverConfiguration
+    case login
+    case projects
+    case workTimes
+    case workTimeForm
+    case simpleProjects
+    case profile
 }
 
-typealias Coordinator = CoordinatorsFoundation.Coordinator<Int, CoordinatorType>
-typealias ControllerCoordinator = CoordinatorsFoundation.ControllerCoordinator<Int, CoordinatorType>
-typealias NavigationCoordinator = CoordinatorsFoundation.NavigationCoordinator<Int, CoordinatorType>
-typealias TabBarCoordinator = CoordinatorsFoundation.TabBarCoordinator<Int, CoordinatorType>
+enum DeepLinkOption: DeepLinkOptionable {
+    #if TEST
+    case testPage(CoordinatorType)
+    #endif
+}
+
+typealias Coordinator = CoordinatorsFoundation.Coordinator<DeepLinkOption, CoordinatorType>
+typealias ControllerCoordinator = CoordinatorsFoundation.ControllerCoordinator<DeepLinkOption, CoordinatorType>
+typealias NavigationCoordinator = CoordinatorsFoundation.NavigationCoordinator<DeepLinkOption, CoordinatorType>
+typealias TabBarCoordinator = CoordinatorsFoundation.TabBarCoordinator<DeepLinkOption, CoordinatorType>
 typealias TabBarChildCoordinatorType = CoordinatorsFoundation.TabBarChildCoordinatorType

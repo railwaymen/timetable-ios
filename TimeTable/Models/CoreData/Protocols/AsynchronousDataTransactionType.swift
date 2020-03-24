@@ -10,6 +10,7 @@ import Foundation
 import CoreStore
 
 protocol AsynchronousDataTransactionType: class {
+    func deleteAll<O>(_ from: From<O>, _ deleteClauses: DeleteClause...) throws -> Int
     func delete<S: Sequence>(_ objects: S) where S.Iterator.Element: ObjectRepresentation
     func delete<O: ObjectRepresentation>(_ object: O?, _ objects: O?...)
     func create<O>(_ into: Into<O>) -> O

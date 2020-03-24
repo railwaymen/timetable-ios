@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreStore
 
 protocol ParentCoordinator {
     func present(error: Error)
@@ -34,6 +35,25 @@ class AppCoordinator: Coordinator {
     override func start(finishHandler: (() -> Void)?) {
         super.start(finishHandler: finishHandler)
         self.runAuthenticationFlow()
+    }
+    
+    override func openDeepLink(option: DeepLinkOption) {
+        #if TEST
+        guard case let .testPage(type) = option else { return }
+        guard let url = self.dependencyContainer.environmentReader.getURL(forKey: .serverURL) else { return }
+        let serverConfiguration = ServerConfiguration(host: url, shouldRememberHost: false)
+        let apiClient = self.dependencyContainer.apiClientFactory.buildAPIClient(baseURL: url)
+        
+        self.removeAllData { [unowned self] in
+            switch type {
+            case .serverConfiguration, .login:
+                self.runAuthenticationFlow()
+            default:
+                self.runMainFlow(configuration: serverConfiguration, apiClient: apiClient)
+            }
+            self.children.last?.openDeepLink(option: option)
+        }
+        #endif
     }
 }
 
@@ -70,4 +90,20 @@ extension AppCoordinator {
             self?.runAuthenticationFlow()
         }
     }
+    
+    #if TEST
+    private func removeAllData(completion: @escaping () -> Void) {
+        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+        self.dependencyContainer.apiClient = nil
+        self.dependencyContainer.accessService = nil
+        let coreDataStack = self.dependencyContainer.coreDataStack
+        coreDataStack.deleteAllUsers { result in
+            guard case .success = result else {
+                self.errorHandler.stopInDebug("Result: \(result)")
+                return
+            }
+            completion()
+        }
+    }
+    #endif
 }

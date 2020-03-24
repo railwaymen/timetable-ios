@@ -23,7 +23,7 @@
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Test"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
@@ -47,6 +47,17 @@
                BlueprintIdentifier = "C1B5137C21772D1400C3727C"
                BuildableName = "TimeTableTests.xctest"
                BlueprintName = "TimeTableTests"
+               ReferencedContainer = "container:TimeTable.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8A3F0C5D2429E38600564D6D"
+               BuildableName = "TimeTableUITests.xctest"
+               BlueprintName = "TimeTableUITests"
                ReferencedContainer = "container:TimeTable.xcodeproj">
             </BuildableReference>
          </TestableReference>
