@@ -13,7 +13,6 @@ struct MatchingFullTimeDecoder: Decodable {
     let shouldWorked: TimeInterval?
     
     var accountingPeriodText: String? {
-        
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .abbreviated
         formatter.allowedUnits = [.hour, .minute]

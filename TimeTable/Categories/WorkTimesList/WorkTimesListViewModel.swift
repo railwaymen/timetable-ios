@@ -69,6 +69,7 @@ class WorkTimesListViewModel {
             }
         }
     }
+    
     private lazy var dateComponentsFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .abbreviated
