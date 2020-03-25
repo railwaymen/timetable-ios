@@ -19,8 +19,7 @@ class WorkTimesListViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var errorView: ErrorView!
     @IBOutlet private var workedHoursLabel: UILabel!
-    @IBOutlet private var shouldWorkHoursLabel: UILabel!
-    @IBOutlet private var durationLabel: UILabel!
+    @IBOutlet private var accountingPeriodLabel: UILabel!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
 
     private let tableViewEstimatedRowHeight: CGFloat = 150
@@ -123,10 +122,14 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
         self.dateSelectorView.update(currentDateString: currentDateString, previousDateString: previousDateString, nextDateString: nextDateString)
     }
     
-    func updateMatchingFullTimeLabels(workedHours: String, shouldWorkHours: String, duration: String) {
-        self.workedHoursLabel.text = workedHours + " /"
-        self.shouldWorkHoursLabel.text = shouldWorkHours + " /"
-        self.durationLabel.text = duration
+    func updateHoursLabel(workedHours: String?) {
+        self.accountingPeriodLabel.set(isHidden: workedHours == nil)
+        self.workedHoursLabel.text = workedHours
+    }
+    
+    func updateAccountingPeriodLabel(text: String?) {
+        self.accountingPeriodLabel.set(isHidden: text == nil)
+        self.accountingPeriodLabel.text = text
     }
     
     func showTableView() {

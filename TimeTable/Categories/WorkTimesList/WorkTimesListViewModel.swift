@@ -13,7 +13,8 @@ protocol WorkTimesListViewModelOutput: class {
     func setUpView()
     func reloadData()
     func updateDateSelector(currentDateString: String, previousDateString: String, nextDateString: String)
-    func updateMatchingFullTimeLabels(workedHours: String, shouldWorkHours: String, duration: String)
+    func updateHoursLabel(workedHours: String?)
+    func updateAccountingPeriodLabel(text: String?)
     func setActivityIndicator(isHidden: Bool)
     func showTableView()
     func showErrorView()
@@ -68,6 +69,15 @@ class WorkTimesListViewModel {
             }
         }
     }
+    
+    private lazy var dateComponentsFormatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .abbreviated
+        formatter.allowedUnits = [.hour, .minute]
+        formatter.zeroFormattingBehavior = .default
+        return formatter
+    }()
+    
     private weak var errorViewModel: ErrorViewModelParentType?
     
     // MARK: - Initialization
@@ -278,7 +288,8 @@ extension WorkTimesListViewModel {
     private func fetchWorkTimesData(forCurrentMonth date: Date) {
         self.userInterface?.setActivityIndicator(isHidden: false)
         self.dailyWorkTimesArray.removeAll()
-        self.userInterface?.updateMatchingFullTimeLabels(workedHours: "", shouldWorkHours: "", duration: "")
+        self.userInterface?.updateHoursLabel(workedHours: "")
+        self.userInterface?.updateAccountingPeriodLabel(text: nil)
         self.contentProvider.fetchWorkTimesData(for: date) { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
@@ -292,24 +303,12 @@ extension WorkTimesListViewModel {
     
     private func handleFetchSuccess(dailyWorkTimes: [DailyWorkTime], matchingFullTime: MatchingFullTimeDecoder) {
         self.dailyWorkTimesArray = dailyWorkTimes
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.hour, .minute]
-        formatter.unitsStyle = .abbreviated
-        let defaultValue = "00:00"
-        var time: (workedHours: String, shouldWorkHours: String, duration: String) = (defaultValue, defaultValue, defaultValue)
-        if let countedDuration = matchingFullTime.period?.countedDuration {
-            time.workedHours = formatter.string(from: countedDuration) ?? defaultValue
-        }
-        if let shouldWorked = matchingFullTime.shouldWorked {
-            time.shouldWorkHours = formatter.string(from: shouldWorked) ?? defaultValue
-        }
-        if let duration = matchingFullTime.period?.duration {
-            time.duration = formatter.string(from: duration) ?? defaultValue
-        }
-        self.userInterface?.updateMatchingFullTimeLabels(
-            workedHours: time.workedHours,
-            shouldWorkHours: time.shouldWorkHours,
-            duration: time.duration)
+
+        let duration = TimeInterval(dailyWorkTimes.flatMap { $0.workTimes }.reduce(0) { $0 + $1.duration })
+        let durationText = self.dateComponentsFormatter.string(from: duration)
+        self.userInterface?.updateHoursLabel(workedHours: durationText)
+        
+        self.userInterface?.updateAccountingPeriodLabel(text: matchingFullTime.accountingPeriodText)
         self.userInterface?.showTableView()
     }
     
