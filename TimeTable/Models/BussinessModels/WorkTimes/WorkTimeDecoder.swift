@@ -9,8 +9,6 @@
 import Foundation
 
 struct WorkTimeDecoder: Decodable {
-    private static var simpleDateFormatter: DateFormatter = DateFormatter(type: .simple)
-    
     let identifier: Int64
     let updatedByAdmin: Bool
     let projectId: Int
@@ -61,7 +59,7 @@ struct WorkTimeDecoder: Decodable {
         self.versions = (try? container.decode([TaskVersion].self, forKey: .versions)) ?? []
         
         let dateString = try container.decode(String.self, forKey: .date)
-        if let date = WorkTimeDecoder.simpleDateFormatter.date(from: dateString) {
+        if let date = DateFormatter.simple.date(from: dateString) {
             self.date = date
         } else {
             throw DecodingError.dataCorruptedError(forKey: .date, in: container, debugDescription: "decoding_error.wrong_date_format.yyyy-MM-dd")

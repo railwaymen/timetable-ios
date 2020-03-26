@@ -147,7 +147,7 @@ extension WorkTimeViewModelTests {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let startTime = try self.buildTime(hours: 9, minutes: 11)
-        let formattedTime = DateFormatterBuilder().timeStyle(.short).build().string(from: startTime)
+        let formattedTime = DateFormatter.shortTime.string(from: startTime)
         self.contentProviderMock.getPredefinedTimeBoundsReturnValue = (startTime, Date())
         //Act
         sut.viewDidLoad()
@@ -174,7 +174,7 @@ extension WorkTimeViewModelTests {
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let startTime = try self.buildTime(hours: 8, minutes: 11)
         let endTime = try self.buildTime(hours: 9, minutes: 11)
-        let formattedTime = DateFormatterBuilder().timeStyle(.short).build().string(from: endTime)
+        let formattedTime = DateFormatter.shortTime.string(from: endTime)
         self.contentProviderMock.getPredefinedTimeBoundsReturnValue = (startTime, endTime)
         //Act
         sut.viewDidLoad()
@@ -189,7 +189,7 @@ extension WorkTimeViewModelTests {
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let startTime = try self.buildTime(hours: 10, minutes: 11)
         let endTime = try self.buildTime(hours: 9, minutes: 11)
-        let formattedTime = DateFormatterBuilder().timeStyle(.short).build().string(from: startTime)
+        let formattedTime = DateFormatter.shortTime.string(from: startTime)
         self.contentProviderMock.getPredefinedTimeBoundsReturnValue = (startTime, endTime)
         //Act
         sut.viewDidLoad()
@@ -528,7 +528,7 @@ extension WorkTimeViewModelTests {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         let day = try self.buildDate(year: 2018, month: 1, day: 17)
-        let dayString = DateFormatter.localizedString(from: day, dateStyle: .short, timeStyle: .none)
+        let dayString = DateFormatter.shortDate.string(from: day)
         //Act
         sut.viewChanged(day: day)
         //Assert

@@ -12,7 +12,7 @@ import Foundation
 class JSONEncoderMock {
     private lazy var encoder: JSONEncoder = {
         let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .formatted(DateFormatter.init(type: .dateAndTimeExtended))
+        encoder.dateEncodingStrategy = .formatted(DateFormatter.dateAndTimeExtended)
         encoder.outputFormatting = .prettyPrinted
         encoder.keyEncodingStrategy = .convertToSnakeCase
         return encoder

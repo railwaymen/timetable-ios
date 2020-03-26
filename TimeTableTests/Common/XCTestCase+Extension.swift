@@ -13,7 +13,7 @@ import CoreData
 extension XCTestCase {
     var encoder: JSONEncoder {
         let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
+        encoder.dateEncodingStrategy = .formatted(DateFormatter.dateAndTimeExtended)
         encoder.outputFormatting = .prettyPrinted
         encoder.keyEncodingStrategy = .convertToSnakeCase
         return encoder
@@ -22,7 +22,7 @@ extension XCTestCase {
     var decoder: JSONDecoder {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
+        decoder.dateDecodingStrategy = .formatted(DateFormatter.dateAndTimeExtended)
         return decoder
     }
     
