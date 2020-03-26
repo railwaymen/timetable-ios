@@ -41,7 +41,9 @@ extension DateFormatter {
     }
     
     static var simple: DateFormatter {
-        return DateFormatter(type: .simple)
+        let formatter = DateFormatter(type: .simple)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter
     }
     
     // MARK: - Initialization
@@ -54,7 +56,7 @@ extension DateFormatter {
 
 // MARK: - Structures
 extension DateFormatter {
-    enum DateType: String {
+    private enum DateType: String {
         case simple = "yyyy-MM-dd"
         case dateAndTimeExtended = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
     }
