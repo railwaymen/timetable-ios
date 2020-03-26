@@ -14,7 +14,7 @@ class DateFormatterExtensionTests: XCTestCase {
     func testSimpleDateTypeSucceed() throws {
         //Arrange
         let expectedDate = try self.buildDate(year: 2018, month: 11, day: 21)
-        let sut = DateFormatter(type: .simple)
+        let sut = DateFormatter.simple
         //Act
         let date = try XCTUnwrap(sut.date(from: "2018-11-21"))
         //Assert
@@ -23,7 +23,7 @@ class DateFormatterExtensionTests: XCTestCase {
     
     func testSimpleDateTypeFails() {
         //Arrange
-        let sut = DateFormatter(type: .simple)
+        let sut = DateFormatter.simple
         //Act
         let date = sut.date(from: "2018-11-21T16:00:00")
         //Assert
@@ -40,7 +40,7 @@ class DateFormatterExtensionTests: XCTestCase {
             hour: 15,
             minute: 0,
             second: 30)
-        let sut = DateFormatter(type: .dateAndTimeExtended)
+        let sut = DateFormatter.dateAndTimeExtended
         //Act
         let date = try XCTUnwrap(sut.date(from: "2018-11-21T15:00:30.000+01:00"))
         //Assert
@@ -49,7 +49,7 @@ class DateFormatterExtensionTests: XCTestCase {
     
     func testDateAndTimeExtendedDateTypeFails() {
         //Arrange
-        let sut = DateFormatter(type: .dateAndTimeExtended)
+        let sut = DateFormatter.dateAndTimeExtended
         //Act
         let date = sut.date(from: "2018-11-21T16:00:00")
         //Assert

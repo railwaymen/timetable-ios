@@ -14,13 +14,13 @@ extension JSONFactorable {
     var decoder: JSONDecoder {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .formatted(DateFormatter(type: .dateAndTimeExtended))
+        decoder.dateDecodingStrategy = .formatted(DateFormatter.dateAndTimeExtended)
         return decoder
     }
 }
 
 extension Date: JSONObjectType {
     public func jsonConvertible() throws -> JSONConvertible {
-        return try self.toString(codingStrategy: .formatted(DateFormatter(type: .dateAndTimeExtended)))
+        return try self.toString(codingStrategy: .formatted(DateFormatter.dateAndTimeExtended))
     }
 }

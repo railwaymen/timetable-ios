@@ -10,8 +10,6 @@ import Foundation
 import Restler
 
 struct MatchingFullTimeEncoder: Encodable, RestlerQueryEncodable {
-    static var dateFormatter: DateFormatter = DateFormatter(type: .simple)
-    
     let date: Date
     let userId: Int64
     
@@ -22,14 +20,14 @@ struct MatchingFullTimeEncoder: Encodable, RestlerQueryEncodable {
     
     func encodeToQuery(using encoder: RestlerQueryEncoderType) throws {
         let container = encoder.container(using: CodingKeys.self)
-        let dateString = MatchingFullTimeEncoder.dateFormatter.string(from: self.date)
+        let dateString = DateFormatter.simple.string(from: self.date)
         try container.encode(dateString, forKey: .date)
         try container.encode(self.userId, forKey: .userId)
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        let dateString = MatchingFullTimeEncoder.dateFormatter.string(from: self.date)
+        let dateString = DateFormatter.simple.string(from: self.date)
         try container.encode(dateString, forKey: .date)
         try container.encode(self.userId, forKey: .userId)
     }

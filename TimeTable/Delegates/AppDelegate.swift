@@ -36,20 +36,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private lazy var encoder: JSONEncoderType = {
         let encoder = JSONEncoder()
-        let formatter = DateFormatter(type: .dateAndTimeExtended)
-        formatter.calendar = Calendar(identifier: .iso8601)
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        encoder.dateEncodingStrategy = .formatted(formatter)
+        encoder.dateEncodingStrategy = .formatted(DateFormatter.dateAndTimeExtended)
         encoder.keyEncodingStrategy = .convertToSnakeCase
         return encoder
     }()
     
     private lazy var decoder: JSONDecoderType = {
         let decoder = JSONDecoder()
-        let formatter = DateFormatter(type: .dateAndTimeExtended)
-        formatter.calendar = Calendar(identifier: .iso8601)
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        decoder.dateDecodingStrategy = .formatted(formatter)
+        decoder.dateDecodingStrategy = .formatted(DateFormatter.dateAndTimeExtended)
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         return decoder
     }()

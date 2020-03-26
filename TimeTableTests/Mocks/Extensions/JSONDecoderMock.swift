@@ -12,12 +12,12 @@ import Foundation
 class JSONDecoderMock {
     private lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(DateFormatter.init(type: .dateAndTimeExtended))
+        decoder.dateDecodingStrategy = .formatted(DateFormatter.dateAndTimeExtended)
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         return decoder
     }()
 
-    var dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .formatted(DateFormatter.init(type: .dateAndTimeExtended))
+    var dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .formatted(DateFormatter.dateAndTimeExtended)
     
     var shouldThrowError: Bool = false
     private(set) var decodeParams: [DecodeParams] = []

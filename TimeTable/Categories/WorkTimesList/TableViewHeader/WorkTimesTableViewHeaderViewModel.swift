@@ -50,7 +50,7 @@ extension WorkTimesTableViewHeaderViewModel: WorkTimesTableViewHeaderViewModelTy
         } else if self.calendar.isDateInYesterday(self.dailyWorkTime.day) {
             dayText = "day.yesterday".localized
         } else {
-            dayText = DateFormatter.localizedString(from: self.dailyWorkTime.day, dateStyle: .medium, timeStyle: .none)
+            dayText = DateFormatter.mediumDate.string(from: self.dailyWorkTime.day)
         }
         let duration = TimeInterval(self.dailyWorkTime.workTimes.reduce(0) { $0 + $1.duration})
         let durationText = self.dateComponentsFormatter.string(from: duration)

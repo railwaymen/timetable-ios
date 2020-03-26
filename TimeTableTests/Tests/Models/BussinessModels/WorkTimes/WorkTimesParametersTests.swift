@@ -9,12 +9,7 @@
 import XCTest
 @testable import TimeTable
 
-class WorkTimesParametersTests: XCTestCase {
-
-    private lazy var dateFormatter: DateFormatter = {
-        return DateFormatter(type: .dateAndTimeExtended)
-    }()
-}
+class WorkTimesParametersTests: XCTestCase {}
 
 // MARK: - Encodable
 extension WorkTimesParametersTests {
@@ -31,10 +26,10 @@ extension WorkTimesParametersTests {
         //Assert
         XCTAssertEqual(try XCTUnwrap(requestDictionary?["project_id"] as? Int), projectIdentifier)
         let expectedFromDateString = try XCTUnwrap(requestDictionary?["from"] as? String)
-        let expectedFromDate = try XCTUnwrap(self.dateFormatter.date(from: expectedFromDateString))
+        let expectedFromDate = try XCTUnwrap(DateFormatter.dateAndTimeExtended.date(from: expectedFromDateString))
         XCTAssertEqual(expectedFromDate, fromDate)
         let expectedToDateString = try XCTUnwrap(requestDictionary?["to"] as? String)
-        let expectedToDate = try XCTUnwrap(self.dateFormatter.date(from: expectedToDateString))
+        let expectedToDate = try XCTUnwrap(DateFormatter.dateAndTimeExtended.date(from: expectedToDateString))
         XCTAssertEqual(expectedToDate, toDate)
     }
     
@@ -50,10 +45,10 @@ extension WorkTimesParametersTests {
         //Assert
         XCTAssertNil(requestDictionary?["project_id"])
         let expectedFromDateString = try XCTUnwrap(requestDictionary?["from"] as? String)
-        let expectedFromDate = try XCTUnwrap(self.dateFormatter.date(from: expectedFromDateString))
+        let expectedFromDate = try XCTUnwrap(DateFormatter.dateAndTimeExtended.date(from: expectedFromDateString))
         XCTAssertEqual(expectedFromDate, fromDate)
         let expectedToDateString = try XCTUnwrap(requestDictionary?["to"] as? String)
-        let expectedToDate = try XCTUnwrap(self.dateFormatter.date(from: expectedToDateString))
+        let expectedToDate = try XCTUnwrap(DateFormatter.dateAndTimeExtended.date(from: expectedToDateString))
         XCTAssertEqual(expectedToDate, toDate)
     }
 
@@ -70,7 +65,7 @@ extension WorkTimesParametersTests {
         XCTAssertEqual(try XCTUnwrap(requestDictionary?["project_id"] as? Int), projectIdentifier)
         XCTAssertNil(requestDictionary?["from"])
         let expectedToDateString = try XCTUnwrap(requestDictionary?["to"] as? String)
-        let expectedToDate = try XCTUnwrap(self.dateFormatter.date(from: expectedToDateString))
+        let expectedToDate = try XCTUnwrap(DateFormatter.dateAndTimeExtended.date(from: expectedToDateString))
         XCTAssertEqual(expectedToDate, toDate)
     }
     
@@ -86,7 +81,7 @@ extension WorkTimesParametersTests {
         //Assert
         XCTAssertEqual(try XCTUnwrap(requestDictionary?["project_id"] as? Int), projectIdentifier)
         let expectedFromDateString = try XCTUnwrap(requestDictionary?["from"] as? String)
-        let expectedFromDate = try XCTUnwrap(self.dateFormatter.date(from: expectedFromDateString))
+        let expectedFromDate = try XCTUnwrap(DateFormatter.dateAndTimeExtended.date(from: expectedFromDateString))
         XCTAssertEqual(expectedFromDate, fromDate)
         XCTAssertNil(requestDictionary?["to"])
     }

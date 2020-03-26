@@ -281,12 +281,12 @@ extension WorkTimeViewModel {
     }
     
     private func updateDayView(with date: Date) {
-        let dateString = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none)
+        let dateString = DateFormatter.shortDate.string(from: date)
         self.userInterface?.updateDay(with: date, dateString: dateString)
     }
     
     private func updateStartAtDateView(with date: Date) {
-        let dateString = DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .short)
+        let dateString = DateFormatter.shortTime.string(from: date)
         self.userInterface?.updateStartAtDate(with: date, dateString: dateString)
         self.userInterface?.setMinimumDateForTypeEndAtDate(minDate: date)
         if let endsAt = self.taskForm.endsAt, endsAt < date {
@@ -296,7 +296,7 @@ extension WorkTimeViewModel {
     }
     
     private func updateEndAtDateView(with date: Date) {
-        let dateString = DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .short)
+        let dateString = DateFormatter.shortTime.string(from: date)
         self.userInterface?.updateEndAtDate(with: date, dateString: dateString)
     }
     
