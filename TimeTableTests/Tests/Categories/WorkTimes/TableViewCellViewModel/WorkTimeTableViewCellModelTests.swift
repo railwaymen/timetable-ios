@@ -10,15 +10,19 @@ import XCTest
 @testable import TimeTable
 
 class WorkTimeTableViewCellModelTests: XCTestCase {
+    private let timeFormatter: DateFormatterType = DateFormatter.shortTime
+    
     private var userInterface: WorkTimeCellViewMock!
     private var parent: WorkTimeCellViewModelParentMock!
     private var dateFormatterBuilder: DateFormatterBuilderMock!
+    private var errorHandler: ErrorHandlerMock!
 
     override func setUp() {
         super.setUp()
         self.userInterface = WorkTimeCellViewMock()
         self.parent = WorkTimeCellViewModelParentMock()
         self.dateFormatterBuilder = DateFormatterBuilderMock()
+        self.errorHandler = ErrorHandlerMock()
     }
 }
 
@@ -28,24 +32,17 @@ extension WorkTimeTableViewCellModelTests {
         //Arrange
         let workTime = try self.buildWorkTime()
         let sut = self.buildSUT(workTime: workTime)
-        let startsAt = try self.startsAt()
-        let endsAt = try self.endsAt()
-        self.dateFormatterBuilder.buildReturnValue.stringReturnValue = "time"
+        let startsAt = self.timeFormatter.string(from: try self.startsAt())
+        let endsAt = self.timeFormatter.string(from: try self.endsAt())
         //Act
         sut.viewConfigured()
         //Assert
         XCTAssertEqual(self.userInterface.updateViewParams.count, 1)
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.durationText, "1h")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.bodyText, "body")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.taskUrlText, "preview")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.durationParameters.text, "1h")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.bodyParameters.text, "body")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.taskUrlParameters.text, "preview")
         XCTAssertNil(self.userInterface.updateViewParams.last?.data.edition)
-        XCTAssertEqual(self.dateFormatterBuilder.timeStyleParams.count, 2)
-        XCTAssertEqual(self.dateFormatterBuilder.timeStyleParams[safeIndex: 0]?.style, .short)
-        XCTAssertEqual(self.dateFormatterBuilder.timeStyleParams[safeIndex: 1]?.style, .short)
-        XCTAssertEqual(self.dateFormatterBuilder.buildReturnValue.stringParams.count, 2)
-        XCTAssertEqual(self.dateFormatterBuilder.buildReturnValue.stringParams[safeIndex: 0]?.date, startsAt)
-        XCTAssertEqual(self.dateFormatterBuilder.buildReturnValue.stringParams[safeIndex: 1]?.date, endsAt)
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.fromToDateText, "time - time")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.fromToDateText.string, "\(startsAt) - \(endsAt)")
     }
     
     func testViewConfigured_callsUpdateView_fullInfo() throws {
@@ -54,49 +51,36 @@ extension WorkTimeTableViewCellModelTests {
         let updatedBy = "The Developer"
         let workTime = try self.buildWorkTime(updatedAt: updatedAt, updatedBy: updatedBy)
         let sut = self.buildSUT(workTime: workTime)
-        let startsAt = try self.startsAt()
-        let endsAt = try self.endsAt()
+        let startsAt = self.timeFormatter.string(from: try self.startsAt())
+        let endsAt = self.timeFormatter.string(from: try self.endsAt())
         self.dateFormatterBuilder.buildReturnValue.stringReturnValue = "time"
         //Act
         sut.viewConfigured()
         //Assert
         XCTAssertEqual(self.userInterface.updateViewParams.count, 1)
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.durationText, "1h")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.bodyText, "body")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.taskUrlText, "preview")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.durationParameters.text, "1h")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.bodyParameters.text, "body")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.taskUrlParameters.text, "preview")
         XCTAssertEqual(self.userInterface.updateViewParams.last?.data.edition?.author, updatedBy)
         XCTAssertEqual(self.userInterface.updateViewParams.last?.data.edition?.date, "time")
-        XCTAssertEqual(self.dateFormatterBuilder.timeStyleParams.count, 3)
-        XCTAssertEqual(self.dateFormatterBuilder.timeStyleParams[safeIndex: 0]?.style, .short)
-        XCTAssertEqual(self.dateFormatterBuilder.timeStyleParams[safeIndex: 1]?.style, .short)
-        XCTAssertEqual(self.dateFormatterBuilder.buildReturnValue.stringParams.count, 3)
-        XCTAssertEqual(self.dateFormatterBuilder.buildReturnValue.stringParams[safeIndex: 0]?.date, startsAt)
-        XCTAssertEqual(self.dateFormatterBuilder.buildReturnValue.stringParams[safeIndex: 1]?.date, endsAt)
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.fromToDateText, "time - time")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.fromToDateText.string, "\(startsAt) - \(endsAt)")
     }
     
     func testViewConfigured_callsUpdateView_withoutUpdateAt() throws {
         //Arrange
         let workTime = try self.buildWorkTime(updatedAt: nil, updatedBy: "The Developer")
         let sut = self.buildSUT(workTime: workTime)
-        let startsAt = try self.startsAt()
-        let endsAt = try self.endsAt()
-        self.dateFormatterBuilder.buildReturnValue.stringReturnValue = "time"
+        let startsAt = self.timeFormatter.string(from: try self.startsAt())
+        let endsAt = self.timeFormatter.string(from: try self.endsAt())
         //Act
         sut.viewConfigured()
         //Assert
         XCTAssertEqual(self.userInterface.updateViewParams.count, 1)
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.durationText, "1h")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.bodyText, "body")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.taskUrlText, "preview")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.durationParameters.text, "1h")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.bodyParameters.text, "body")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.taskUrlParameters.text, "preview")
         XCTAssertNil(self.userInterface.updateViewParams.last?.data.edition)
-        XCTAssertEqual(self.dateFormatterBuilder.timeStyleParams.count, 2)
-        XCTAssertEqual(self.dateFormatterBuilder.timeStyleParams[safeIndex: 0]?.style, .short)
-        XCTAssertEqual(self.dateFormatterBuilder.timeStyleParams[safeIndex: 1]?.style, .short)
-        XCTAssertEqual(self.dateFormatterBuilder.buildReturnValue.stringParams.count, 2)
-        XCTAssertEqual(self.dateFormatterBuilder.buildReturnValue.stringParams[safeIndex: 0]?.date, startsAt)
-        XCTAssertEqual(self.dateFormatterBuilder.buildReturnValue.stringParams[safeIndex: 1]?.date, endsAt)
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.fromToDateText, "time - time")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.fromToDateText.string, "\(startsAt) - \(endsAt)")
     }
     
     func testViewConfigured_callsUpdateView_withoutUpdateBy() throws {
@@ -104,24 +88,17 @@ extension WorkTimeTableViewCellModelTests {
         let updatedAt = try self.updatedAt()
         let workTime = try self.buildWorkTime(updatedAt: updatedAt, updatedBy: nil)
         let sut = self.buildSUT(workTime: workTime)
-        let startsAt = try self.startsAt()
-        let endsAt = try self.endsAt()
-        self.dateFormatterBuilder.buildReturnValue.stringReturnValue = "time"
+        let startsAt = self.timeFormatter.string(from: try self.startsAt())
+        let endsAt = self.timeFormatter.string(from: try self.endsAt())
         //Act
         sut.viewConfigured()
         //Assert
         XCTAssertEqual(self.userInterface.updateViewParams.count, 1)
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.durationText, "1h")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.bodyText, "body")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.taskUrlText, "preview")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.durationParameters.text, "1h")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.bodyParameters.text, "body")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.taskUrlParameters.text, "preview")
         XCTAssertNil(self.userInterface.updateViewParams.last?.data.edition)
-        XCTAssertEqual(self.dateFormatterBuilder.timeStyleParams.count, 2)
-        XCTAssertEqual(self.dateFormatterBuilder.timeStyleParams[safeIndex: 0]?.style, .short)
-        XCTAssertEqual(self.dateFormatterBuilder.timeStyleParams[safeIndex: 1]?.style, .short)
-        XCTAssertEqual(self.dateFormatterBuilder.buildReturnValue.stringParams.count, 2)
-        XCTAssertEqual(self.dateFormatterBuilder.buildReturnValue.stringParams[safeIndex: 0]?.date, startsAt)
-        XCTAssertEqual(self.dateFormatterBuilder.buildReturnValue.stringParams[safeIndex: 1]?.date, endsAt)
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.fromToDateText, "time - time")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.fromToDateText.string, "\(startsAt) - \(endsAt)")
     }
 }
 
@@ -131,27 +108,20 @@ extension WorkTimeTableViewCellModelTests {
         //Arrange
         let workTime = try self.buildWorkTime()
         let sut = self.buildSUT(workTime: workTime)
-        let startsAt = try self.startsAt()
-        let endsAt = try self.endsAt()
-        self.dateFormatterBuilder.buildReturnValue.stringReturnValue = "time"
+        let startsAt = self.timeFormatter.string(from: try self.startsAt())
+        let endsAt = self.timeFormatter.string(from: try self.endsAt())
         //Act
         sut.prepareForReuse()
         //Assert
         XCTAssertEqual(self.userInterface.updateViewParams.count, 1)
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.durationText, "1h")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.bodyText, "body")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.taskUrlText, "preview")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.durationParameters.text, "1h")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.bodyParameters.text, "body")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.taskUrlParameters.text, "preview")
         XCTAssertNil(self.userInterface.updateViewParams.last?.data.edition)
-        XCTAssertEqual(self.dateFormatterBuilder.timeStyleParams.count, 2)
-        XCTAssertEqual(self.dateFormatterBuilder.timeStyleParams[safeIndex: 0]?.style, .short)
-        XCTAssertEqual(self.dateFormatterBuilder.timeStyleParams[safeIndex: 1]?.style, .short)
-        XCTAssertEqual(self.dateFormatterBuilder.buildReturnValue.stringParams.count, 2)
-        XCTAssertEqual(self.dateFormatterBuilder.buildReturnValue.stringParams[safeIndex: 0]?.date, startsAt)
-        XCTAssertEqual(self.dateFormatterBuilder.buildReturnValue.stringParams[safeIndex: 1]?.date, endsAt)
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.fromToDateText, "time - time")
+        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.fromToDateText.string, "\(startsAt) - \(endsAt)")
     }
 }
- 
+
 // MARK: - taskButtonTapped()
 extension WorkTimeTableViewCellModelTests {
     func testTaskButtonTappedWithValidURLCallsParentOpenTask() throws {
@@ -175,10 +145,15 @@ extension WorkTimeTableViewCellModelTests {
             userInterface: self.userInterface,
             parent: self.parent,
             dateFormatterBuilder: self.dateFormatterBuilder,
+            errorHandler: self.errorHandler,
             workTime: workTime)
     }
     
-    private func buildWorkTime(updatedAt: Date? = nil, updatedBy: String? = nil) throws -> WorkTimeDisplayed {
+    private func buildWorkTime(
+        updatedAt: Date? = nil,
+        updatedBy: String? = nil,
+        changedFields: [TaskVersion.Field] = []
+    ) throws -> WorkTimeDisplayed {
         let startsAt = try self.startsAt()
         let endsAt = try self.endsAt()
         return WorkTimeDisplayed(
@@ -193,7 +168,8 @@ extension WorkTimeTableViewCellModelTests {
             endsAt: endsAt,
             duration: 3600,
             updatedAt: updatedAt,
-            updatedBy: updatedBy)
+            updatedBy: updatedBy,
+            changedFields: changedFields)
     }
     
     private func startsAt() throws -> Date {

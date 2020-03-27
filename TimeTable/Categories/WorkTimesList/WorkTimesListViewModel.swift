@@ -153,6 +153,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
         let viewModel = WorkTimeTableViewCellModel(
             userInterface: cell,
             parent: self,
+            errorHandler: self.errorHandler,
             workTime: WorkTimeDisplayed(workTime: workTime))
         cell.configure(viewModel: viewModel)
     }

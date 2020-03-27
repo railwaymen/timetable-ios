@@ -35,18 +35,16 @@ class DefaultUITestCase: XCTestCase {
         super.setUp()
         self.continueAfterFailure = false
         XCTAssert(Self.server.isRunning, "Server is not running")
-        do {
-            try Self.server.setUpDefaultResponses()
-        } catch {
-            XCTFail("Couldn't set default response: \(error)")
-        }
+        XCTAssertNoThrow(try Self.server.setUpDefaultResponses(), "Couldn't set default response")
         self.app = XCUIApplication()
         self.app.setServerURL(Self.server.baseURL)
         self.app.setScreenToTest(self.screenToTest)
         self.app.launch()
         
         let elements = self.getElements(ofType: self.screenToTest.elementsType)
-        XCTAssert(elements.waitToAppear(timeout: self.defaultTimeout), "Proper screen didn't load properly")
+        XCTAssert(
+            elements.waitToAppear(timeout: self.defaultTimeout),
+            "Proper screen didn't load properly: \(self.screenToTest)")
     }
     
     // MARK: - Internal

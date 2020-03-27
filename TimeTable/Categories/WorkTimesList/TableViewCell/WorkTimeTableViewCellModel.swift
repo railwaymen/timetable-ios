@@ -27,6 +27,7 @@ class WorkTimeTableViewCellModel {
     private weak var userInterface: WorkTimeTableViewCellModelOutput?
     private weak var parent: WorkTimeTableViewCellModelParentType?
     private let dateFormatterBuilder: DateFormatterBuilderType
+    private let errorHandler: ErrorHandlerType
     private let workTime: WorkTimeDisplayed
     
     private lazy var dateComponentsFormatter: DateComponentsFormatter = {
@@ -45,22 +46,20 @@ class WorkTimeTableViewCellModel {
             .build()
     }
     
-    private var timeFormatter: DateFormatterType {
-        self.dateFormatterBuilder
-            .timeStyle(.short)
-            .build()
-    }
+    private let timeFormatter: DateFormatterType = DateFormatter.shortTime
     
     // MARK: - Initialization
     init(
         userInterface: WorkTimeTableViewCellModelOutput,
         parent: WorkTimeTableViewCellModelParentType,
         dateFormatterBuilder: DateFormatterBuilderType = DateFormatterBuilder(),
+        errorHandler: ErrorHandlerType,
         workTime: WorkTimeDisplayed
     ) {
         self.userInterface = userInterface
         self.parent = parent
         self.dateFormatterBuilder = dateFormatterBuilder
+        self.errorHandler = errorHandler
         self.workTime = workTime
     }
 }
@@ -68,15 +67,31 @@ class WorkTimeTableViewCellModel {
 // MARK: - Structures
 extension WorkTimeTableViewCellModel {
     struct ViewData {
-        let durationText: String?
-        let bodyText: String?
-        let taskUrlText: String?
-        let fromToDateText: String?
-        let projectTitle: String?
+        let durationParameters: LabelTextParameters
+        let bodyParameters: LabelTextParameters
+        let taskUrlParameters: LabelTextParameters
+        let fromToDateText: NSAttributedString
+        let projectTitleParameters: LabelTextParameters
         let projectColor: UIColor?
         let tagTitle: String?
         let tagColor: UIColor?
         let edition: (author: String, date: String)?
+    }
+    
+    private enum ParameteredLabel {
+        case duration
+        case body
+        case projectName
+        case task
+        
+        var taskVersionField: TaskVersion.Field {
+            switch self {
+            case .duration: return .duration
+            case .body: return .body
+            case .projectName: return .projectName
+            case .task: return .task
+            }
+        }
     }
 }
 
@@ -104,17 +119,14 @@ extension WorkTimeTableViewCellModel {
     }
     
     private func getViewData() -> ViewData {
-        let durationText = self.dateComponentsFormatter.string(from: self.workTime.duration)
-        let startsAtText = self.timeFormatter.string(from: self.workTime.startsAt)
-        let endsAtText = self.timeFormatter.string(from: self.workTime.endsAt)
-        let fromToDateText = "\(startsAtText) - \(endsAtText)"
         let editionData = self.getEditionData()
+        let fromToDateText = self.getFromToDateString()
         return WorkTimeTableViewCellModel.ViewData(
-            durationText: durationText,
-            bodyText: self.workTime.body,
-            taskUrlText: self.workTime.taskPreview,
+            durationParameters: self.getParameters(for: .duration),
+            bodyParameters: self.getParameters(for: .body),
+            taskUrlParameters: self.getParameters(for: .task),
             fromToDateText: fromToDateText,
-            projectTitle: self.workTime.projectName,
+            projectTitleParameters: self.getParameters(for: .projectName),
             projectColor: self.workTime.projectColor,
             tagTitle: self.workTime.tag.localized,
             tagColor: self.workTime.tag.color,
@@ -125,5 +137,51 @@ extension WorkTimeTableViewCellModel {
         guard let author = self.workTime.updatedBy, let updatedAt = self.workTime.updatedAt else { return nil }
         let updatedAtText = self.updateAtDateFormatter.string(from: updatedAt)
         return (author, updatedAtText)
+    }
+    
+    private func getFromToDateString() -> NSAttributedString {
+        let startsAtText = self.timeFormatter.string(from: self.workTime.startsAt)
+        let endsAtText = self.timeFormatter.string(from: self.workTime.endsAt)
+        let startsAtAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: self.getColor(for: .startsAt) ?? .defaultLabel]
+        let delimiterAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.defaultSecondaryLabel]
+        let endsAtAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: self.getColor(for: .endsAt) ?? .defaultLabel]
+        let fromToDateText = NSMutableAttributedString()
+        fromToDateText.append(NSAttributedString(string: startsAtText, attributes: startsAtAttributes))
+        fromToDateText.append(NSAttributedString(string: " - ", attributes: delimiterAttributes))
+        fromToDateText.append(NSAttributedString(string: endsAtText, attributes: endsAtAttributes))
+        return fromToDateText
+    }
+    
+    private func getParameters(for label: ParameteredLabel) -> LabelTextParameters {
+        return LabelTextParameters(
+            text: self.getText(for: label),
+            textColor: self.getColor(for: label.taskVersionField))
+    }
+    
+    private func getText(for label: ParameteredLabel) -> String? {
+        switch label {
+        case .projectName:
+            return self.workTime.projectName
+        case .body:
+            return self.workTime.body
+        case .duration:
+            return self.dateComponentsFormatter.string(from: self.workTime.duration)
+        case .task:
+            return self.workTime.taskPreview
+        }
+    }
+    
+    private func getColor(for field: TaskVersion.Field) -> UIColor? {
+        let defaultColor: UIColor
+        switch field {
+        case .body, .projectName:
+            defaultColor = .defaultLabel
+        case .duration, .startsAt, .endsAt, .task:
+            defaultColor = .defaultSecondaryLabel
+        case .tag:
+            self.errorHandler.stopInDebug("There's no default color for tag and it's not expected to be needed.")
+            return nil
+        }
+        return self.workTime.changedFields.contains(field) ? .diffChanged : defaultColor
     }
 }

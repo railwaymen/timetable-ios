@@ -11,6 +11,101 @@ import XCTest
 
 class TaskVersionTests: XCTestCase {}
 
+// MARK: - changes
+extension TaskVersionTests {
+    func testChanges_unchanged() throws {
+        //Arrange
+        let data = try self.json(from: TaskVersionJSONResource.taskUnchangedResponse)
+        let sut = try self.decoder.decode(TaskVersion.self, from: data)
+        //Act
+        let changes = sut.changes
+        //Assert
+        XCTAssert(changes.isEmpty)
+    }
+    
+    func testChanges_changedProject() throws {
+        //Arrange
+        let data = try self.json(from: TaskVersionJSONResource.taskChangedProjectResponse)
+        let sut = try self.decoder.decode(TaskVersion.self, from: data)
+        //Act
+        let changes = sut.changes
+        //Assert
+        XCTAssertEqual(changes.count, 1)
+        XCTAssert(changes.contains(.projectName))
+    }
+    
+    func testChanges_changedBody() throws {
+        //Arrange
+        let data = try self.json(from: TaskVersionJSONResource.taskChangedBodyResponse)
+        let sut = try self.decoder.decode(TaskVersion.self, from: data)
+        //Act
+        let changes = sut.changes
+        //Assert
+        XCTAssertEqual(changes.count, 1)
+        XCTAssert(changes.contains(.body))
+    }
+    
+    func testChanges_changedStartsAt() throws {
+        //Arrange
+        let data = try self.json(from: TaskVersionJSONResource.taskChangedStartsAtResponse)
+        let sut = try self.decoder.decode(TaskVersion.self, from: data)
+        //Act
+        let changes = sut.changes
+        //Assert
+        XCTAssertEqual(changes.count, 1)
+        XCTAssert(changes.contains(.startsAt))
+    }
+    
+    func testChanges_changedEndsAt() throws {
+        //Arrange
+        let data = try self.json(from: TaskVersionJSONResource.taskChangedEndsAtResponse)
+        let sut = try self.decoder.decode(TaskVersion.self, from: data)
+        //Act
+        let changes = sut.changes
+        //Assert
+        XCTAssertEqual(changes.count, 1)
+        XCTAssert(changes.contains(.endsAt))
+    }
+    
+    func testChanges_changedTag() throws {
+        //Arrange
+        let data = try self.json(from: TaskVersionJSONResource.taskChangedTagResponse)
+        let sut = try self.decoder.decode(TaskVersion.self, from: data)
+        //Act
+        let changes = sut.changes
+        //Assert
+        XCTAssertEqual(changes.count, 1)
+        XCTAssert(changes.contains(.tag))
+    }
+    
+    func testChanges_changedDuration() throws {
+        //Arrange
+        let data = try self.json(from: TaskVersionJSONResource.taskChangedDurationResponse)
+        let sut = try self.decoder.decode(TaskVersion.self, from: data)
+        //Act
+        let changes = sut.changes
+        //Assert
+        XCTAssertEqual(changes.count, 1)
+        XCTAssert(changes.contains(.duration))
+    }
+    
+    func testChanges_changedAll() throws {
+        //Arrange
+        let data = try self.json(from: TaskVersionJSONResource.taskVersionFullModel)
+        let sut = try self.decoder.decode(TaskVersion.self, from: data)
+        //Act
+        let changes = sut.changes
+        //Assert
+        XCTAssertEqual(changes.count, 6)
+        XCTAssert(changes.contains(.projectName))
+        XCTAssert(changes.contains(.body))
+        XCTAssert(changes.contains(.startsAt))
+        XCTAssert(changes.contains(.endsAt))
+        XCTAssert(changes.contains(.tag))
+        XCTAssert(changes.contains(.duration))
+    }
+}
+
 // MARK: - Decoding
 extension TaskVersionTests {
     func testDecoding_fullModel() throws {

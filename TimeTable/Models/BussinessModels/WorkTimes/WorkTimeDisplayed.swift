@@ -21,6 +21,7 @@ struct WorkTimeDisplayed {
     let duration: TimeInterval
     let updatedAt: Date?
     let updatedBy: String?
+    let changedFields: [TaskVersion.Field]
     
     // MARK: - Initialization
     init(
@@ -35,7 +36,8 @@ struct WorkTimeDisplayed {
         endsAt: Date,
         duration: TimeInterval,
         updatedAt: Date?,
-        updatedBy: String?
+        updatedBy: String?,
+        changedFields: [TaskVersion.Field]
     ) {
         self.identifier = identifier
         self.body = body
@@ -49,6 +51,7 @@ struct WorkTimeDisplayed {
         self.duration = duration
         self.updatedAt = updatedAt
         self.updatedBy = updatedBy
+        self.changedFields = changedFields
     }
     
     init(workTime: WorkTimeDecoder) {
@@ -64,6 +67,7 @@ struct WorkTimeDisplayed {
         self.duration = TimeInterval(workTime.duration)
         self.updatedAt = nil
         self.updatedBy = nil
+        self.changedFields = []
     }
     
     init(workTime: WorkTimeDecoder, version: TaskVersion) {
@@ -79,6 +83,7 @@ struct WorkTimeDisplayed {
         self.duration = TimeInterval(version.duration.newest ?? workTime.duration)
         self.updatedAt = version.updatedAt
         self.updatedBy = version.updatedBy
+        self.changedFields = version.changes
     }
 }
 
