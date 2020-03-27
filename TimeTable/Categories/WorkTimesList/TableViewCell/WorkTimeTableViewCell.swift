@@ -59,13 +59,17 @@ extension WorkTimeTableViewCell: WorkTimeTableViewCellModelOutput {
         self.editionViewHeightConstraint.isActive = data.edition == nil
         self.editedByLabel.text = data.edition?.author
         self.updatedAtLabel.text = data.edition?.date
-        self.fromToDateLabel.text = data.fromToDateText
-        self.durationLabel.text = data.durationText
-        self.bodyLabel.text = data.bodyText
-        self.projectTitleLabel.text = data.projectTitle
+        self.fromToDateLabel.attributedText = data.fromToDateText
+        self.durationLabel.text = data.duration.text
+        self.durationLabel.textColor = data.duration.color
+        self.bodyLabel.text = data.body.text
+        self.bodyLabel.textColor = data.body.color
+        self.projectTitleLabel.text = data.projectTitle.text
+        self.projectTitleLabel.textColor = data.projectTitle.color
         self.projectViews.forEach { $0.backgroundColor = data.projectColor }
-        self.taskButton.set(isHidden: data.taskUrlText == nil)
-        self.taskButton?.setTitle(data.taskUrlText, for: .normal)
+        self.taskButton.set(isHidden: data.taskUrl.text == nil)
+        self.taskButton?.setTitle(data.taskUrl.text, for: .normal)
+        self.taskButton.setTitleColor(data.taskUrl.color, for: .normal)
         self.tagView.set(isHidden: data.tagTitle == nil)
         self.tagLabel.text = data.tagTitle
         self.tagView.backgroundColor = data.tagColor

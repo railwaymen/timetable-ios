@@ -31,6 +31,30 @@ struct TaskVersion: Decodable {
         case duration
     }
     
+    // MARK: - Getters
+    var changes: [Field] {
+        var changes: [Field] = []
+        if self.projectName.hasChanged {
+            changes.append(.projectName)
+        }
+        if self.body.hasChanged {
+            changes.append(.body)
+        }
+        if self.startsAt.hasChanged {
+            changes.append(.startsAt)
+        }
+        if self.endsAt.hasChanged {
+            changes.append(.endsAt)
+        }
+        if self.tag.hasChanged {
+            changes.append(.tag)
+        }
+        if self.duration.hasChanged {
+            changes.append(.duration)
+        }
+        return changes
+    }
+    
     // MARK: - Initialization
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -53,5 +77,14 @@ extension TaskVersion {
     enum Event: String, Decodable {
         case create
         case update
+    }
+    
+    enum Field {
+        case projectName
+        case body
+        case startsAt
+        case endsAt
+        case tag
+        case duration
     }
 }

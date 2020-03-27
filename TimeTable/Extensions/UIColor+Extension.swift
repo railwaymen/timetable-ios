@@ -44,6 +44,12 @@ extension UIColor {
         return .systemGray
     }()
     
+    static let diffChanged: UIColor = {
+        let color = UIColor(named: "Diff Changed")
+        assert(color != nil)
+        return color ?? #colorLiteral(red: 0.04705882353, green: 0.8156862745, blue: 0.631372549, alpha: 1)
+    }()
+    
     static let deleteAction: UIColor = {
         let color = UIColor(named: "Delete Action")
         assert(color != nil)
@@ -61,6 +67,14 @@ extension UIColor {
     static let defaultLabel: UIColor = {
         if #available(iOS 13, *) {
             return .label
+        } else {
+            return .black
+        }
+    }()
+    
+    static let defaultSecondaryLabel: UIColor = {
+        if #available(iOS 13, *) {
+            return .secondaryLabel
         } else {
             return .black
         }

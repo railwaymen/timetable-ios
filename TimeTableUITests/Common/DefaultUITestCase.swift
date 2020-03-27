@@ -35,7 +35,7 @@ class DefaultUITestCase: XCTestCase {
         super.setUp()
         self.continueAfterFailure = false
         XCTAssert(Self.server.isRunning, "Server is not running")
-        XCTAssertNoThrow(try Self.server.setUpDefaultResponses(), "Couldn't set default response: \(error)")
+        XCTAssertNoThrow(try Self.server.setUpDefaultResponses(), "Couldn't set default response")
         self.app = XCUIApplication()
         self.app.setServerURL(Self.server.baseURL)
         self.app.setScreenToTest(self.screenToTest)

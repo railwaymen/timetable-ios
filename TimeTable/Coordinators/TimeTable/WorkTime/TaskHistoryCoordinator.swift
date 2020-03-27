@@ -44,6 +44,7 @@ extension TaskHistoryCoordinator: TaskHistoryCoordinatorType {
         let viewModel = WorkTimeTableViewCellModel(
             userInterface: cell,
             parent: self,
+            errorHandler: self.dependencyContainer.errorHandler,
             workTime: workTime)
         cell.configure(viewModel: viewModel)
     }
