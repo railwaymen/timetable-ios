@@ -59,8 +59,8 @@ class ProjectsViewModel {
 // MARK: - ProjectsViewModelType
 extension ProjectsViewModel: ProjectsViewModelType {
     func viewDidLoad() {
-        self.fetchProjects()
         self.userInterface?.setUpView()
+        self.fetchProjects()
     }
     
     func numberOfItems() -> Int {

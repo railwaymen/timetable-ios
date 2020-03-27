@@ -68,16 +68,10 @@ extension ProjectsViewController: ProjectsCollectionViewLayoutDelegate {
 // MARK: - ProjectsViewModelOutput
 extension ProjectsViewController: ProjectsViewModelOutput {
     func setUpView() {
-        self.collectionView.contentInset = self.contentInset
-        self.collectionView.register(ProjectCollectionViewCell.self)
-        if let layout = self.collectionView.collectionViewLayout as? ProjectsCollectionViewLayout {
-            layout.delegate = self
-        }
         self.title = "tabbar.title.projects".localized
-        self.collectionView.set(isHidden: true)
-        self.errorView.set(isHidden: true)
+        self.setUpCollectionView()
         self.setUpActivityIndicator()
-        self.viewModel.configure(self.errorView)
+        self.setUpErrorView()
         self.setUpRefreshControl()
     }
     
@@ -101,7 +95,6 @@ extension ProjectsViewController: ProjectsViewModelOutput {
     
     func setActivityIndicator(isHidden: Bool) {
         self.activityIndicator.set(isAnimating: !isHidden)
-        self.activityIndicator.set(isHidden: isHidden)
     }
     
     func screenOrientationDidChange() {
@@ -122,12 +115,27 @@ extension ProjectsViewController: ProjectsViewControllerType {
 
 // MARK: - Private
 extension ProjectsViewController {
+    private func setUpCollectionView() {
+        self.collectionView.contentInset = self.contentInset
+        self.collectionView.register(ProjectCollectionViewCell.self)
+        if let layout = self.collectionView.collectionViewLayout as? ProjectsCollectionViewLayout {
+            layout.delegate = self
+        }
+        self.collectionView.set(isHidden: true)
+    }
+    
+    private func setUpErrorView() {
+        self.errorView.set(isHidden: true)
+        self.viewModel.configure(self.errorView)
+    }
+    
     private func setUpActivityIndicator() {
         if #available(iOS 13, *) {
             self.activityIndicator.style = .large
         } else {
             self.activityIndicator.style = .gray
         }
+        self.activityIndicator.hidesWhenStopped = true
         self.setActivityIndicator(isHidden: true)
     }
     
