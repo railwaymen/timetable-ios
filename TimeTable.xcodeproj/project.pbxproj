@@ -39,6 +39,7 @@
 		8A2FB0FC242E282900DDBCB0 /* taskChangedEndsAtResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A2FB0FB242E282900DDBCB0 /* taskChangedEndsAtResponse.json */; };
 		8A2FB0FE242E284900DDBCB0 /* taskChangedTagResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A2FB0FD242E284900DDBCB0 /* taskChangedTagResponse.json */; };
 		8A2FB100242E286C00DDBCB0 /* taskChangedDurationResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A2FB0FF242E286C00DDBCB0 /* taskChangedDurationResponse.json */; };
+		8A2FB102242E32B500DDBCB0 /* LabelTextParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2FB101242E32B500DDBCB0 /* LabelTextParameters.swift */; };
 		8A31A85E238E902B008DCC08 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31A85D238E902B008DCC08 /* Date+Extension.swift */; };
 		8A31A860238E927E008DCC08 /* TimeInterval+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31A85F238E927E008DCC08 /* TimeInterval+Extension.swift */; };
 		8A31BFB524177B42004A1CE8 /* RestlerRequestBuilderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31BFB424177B42004A1CE8 /* RestlerRequestBuilderMock.swift */; };
@@ -504,6 +505,7 @@
 		8A2FB0FB242E282900DDBCB0 /* taskChangedEndsAtResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedEndsAtResponse.json; sourceTree = "<group>"; };
 		8A2FB0FD242E284900DDBCB0 /* taskChangedTagResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedTagResponse.json; sourceTree = "<group>"; };
 		8A2FB0FF242E286C00DDBCB0 /* taskChangedDurationResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedDurationResponse.json; sourceTree = "<group>"; };
+		8A2FB101242E32B500DDBCB0 /* LabelTextParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTextParameters.swift; sourceTree = "<group>"; };
 		8A31A85D238E902B008DCC08 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		8A31A85F238E927E008DCC08 /* TimeInterval+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extension.swift"; sourceTree = "<group>"; };
 		8A31BFB424177B42004A1CE8 /* RestlerRequestBuilderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestlerRequestBuilderMock.swift; sourceTree = "<group>"; };
@@ -1541,6 +1543,7 @@
 				8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */,
 				8A09DCB723673E58003FC2A6 /* DispatchQueueManager.swift */,
 				8A8E8432242CE82800003AB1 /* EnvironmentReader.swift */,
+				8A2FB101242E32B500DDBCB0 /* LabelTextParameters.swift */,
 				C175B56B227CAACA006D9944 /* MessagePresenter.swift */,
 				8A5EF31B23FE808800AE4309 /* ReusableCellType.swift */,
 				C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */,
@@ -2868,6 +2871,7 @@
 				C125F1B621DCCF4400594CDE /* ProjectsViewController.swift in Sources */,
 				C125F1AF21DCC95200594CDE /* ProjectRecordDecoder.swift in Sources */,
 				C14EB0252372D9B0007F07D0 /* ErrorViewModel.swift in Sources */,
+				8A2FB102242E32B500DDBCB0 /* LabelTextParameters.swift in Sources */,
 				C16B3A75229E6A0700B6E9E6 /* ProjectTag.swift in Sources */,
 				C1AACFCF21A4349B0023FD32 /* ProjectsCoordinator.swift in Sources */,
 				C1FE49E821AC458F00E37E28 /* WorkTimesTableViewHeader.swift in Sources */,

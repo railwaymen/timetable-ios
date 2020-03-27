@@ -18,4 +18,10 @@ extension UILabel: UIElementLocalizedType {
             return self.text
         }
     }
+    
+    // MARK: - Internal
+    func set(textParameters: LabelTextParameters) {
+        self.text = textParameters.text ?? ""
+        self.textColor = textParameters.textColor ?? .clear
+    }
 }

@@ -86,5 +86,6 @@ extension TaskVersion {
         case endsAt
         case tag
         case duration
+        case task
     }
 }

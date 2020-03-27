@@ -67,15 +67,31 @@ class WorkTimeTableViewCellModel {
 // MARK: - Structures
 extension WorkTimeTableViewCellModel {
     struct ViewData {
-        let duration: (text: String?, color: UIColor?)
-        let body: (text: String?, color: UIColor?)
-        let taskUrl: (text: String?, color: UIColor?)
+        let durationParameters: LabelTextParameters
+        let bodyParameters: LabelTextParameters
+        let taskUrlParameters: LabelTextParameters
         let fromToDateText: NSAttributedString
-        let projectTitle: (text: String?, color: UIColor?)
+        let projectTitleParameters: LabelTextParameters
         let projectColor: UIColor?
         let tagTitle: String?
         let tagColor: UIColor?
         let edition: (author: String, date: String)?
+    }
+    
+    private enum ParameteredLabel {
+        case duration
+        case body
+        case projectName
+        case task
+        
+        var taskVersionField: TaskVersion.Field {
+            switch self {
+            case .duration: return .duration
+            case .body: return .body
+            case .projectName: return .projectName
+            case .task: return .task
+            }
+        }
     }
 }
 
@@ -103,15 +119,14 @@ extension WorkTimeTableViewCellModel {
     }
     
     private func getViewData() -> ViewData {
-        let durationText = self.dateComponentsFormatter.string(from: self.workTime.duration)
         let editionData = self.getEditionData()
         let fromToDateText = self.getFromToDateString()
         return WorkTimeTableViewCellModel.ViewData(
-            duration: (durationText, self.getColor(for: .duration)),
-            body: (self.workTime.body, self.getColor(for: .body)),
-            taskUrl: (self.workTime.taskPreview, .defaultSecondaryLabel),
+            durationParameters: self.getParameters(for: .duration),
+            bodyParameters: self.getParameters(for: .body),
+            taskUrlParameters: self.getParameters(for: .task),
             fromToDateText: fromToDateText,
-            projectTitle: (self.workTime.projectName, self.getColor(for: .projectName)),
+            projectTitleParameters: self.getParameters(for: .projectName),
             projectColor: self.workTime.projectColor,
             tagTitle: self.workTime.tag.localized,
             tagColor: self.workTime.tag.color,
@@ -137,12 +152,31 @@ extension WorkTimeTableViewCellModel {
         return fromToDateText
     }
     
+    private func getParameters(for label: ParameteredLabel) -> LabelTextParameters {
+        return LabelTextParameters(
+            text: self.getText(for: label),
+            textColor: self.getColor(for: label.taskVersionField))
+    }
+    
+    private func getText(for label: ParameteredLabel) -> String? {
+        switch label {
+        case .projectName:
+            return self.workTime.projectName
+        case .body:
+            return self.workTime.body
+        case .duration:
+            return self.dateComponentsFormatter.string(from: self.workTime.duration)
+        case .task:
+            return self.workTime.taskPreview
+        }
+    }
+    
     private func getColor(for field: TaskVersion.Field) -> UIColor? {
         let defaultColor: UIColor
         switch field {
         case .body, .projectName:
             defaultColor = .defaultLabel
-        case .duration, .startsAt, .endsAt:
+        case .duration, .startsAt, .endsAt, .task:
             defaultColor = .defaultSecondaryLabel
         case .tag:
             self.errorHandler.stopInDebug("There's no default color for tag and it's not expected to be needed.")
