@@ -42,14 +42,12 @@ class ApiClientMock {
         let completion: (Result<WorkTimeDecoder, Error>) -> Void
     }
     
-    var addWorkTimeReturnValue: RestlerTaskType?
     private(set) var addWorkTimeParams: [AddWorkTimeParams] = []
     struct AddWorkTimeParams {
         let parameters: Task
         let completion: ((Result<Void, Error>) -> Void)
     }
     
-    var addWorkTimeWithFillingReturnValue: RestlerTaskType?
     private(set) var addWorkTimeWithFillingParams: [AddWorkTimeWithFillingParams] = []
     struct AddWorkTimeWithFillingParams {
         let task: Task
@@ -62,7 +60,6 @@ class ApiClientMock {
         let completion: ((Result<Void, Error>) -> Void)
     }
     
-    var updateWorkTimeReturnValue: RestlerTaskType?
     private(set) var updateWorkTimeParams: [UpdateWorkTimeParams] = []
     struct UpdateWorkTimeParams {
         let identifier: Int64
@@ -133,23 +130,20 @@ extension ApiClientMock: ApiClientWorkTimesType {
         return self.fetchWorkTimeDetailsReturnValue
     }
     
-    func addWorkTime(parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void)) -> RestlerTaskType? {
+    func addWorkTime(parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void)) {
         self.addWorkTimeParams.append(AddWorkTimeParams(parameters: parameters, completion: completion))
-        return self.addWorkTimeReturnValue
     }
     
-    func addWorkTimeWithFilling(task: Task, completion: @escaping (Result<Void, Error>) -> Void) -> RestlerTaskType? {
+    func addWorkTimeWithFilling(task: Task, completion: @escaping (Result<Void, Error>) -> Void) {
         self.addWorkTimeWithFillingParams.append(AddWorkTimeWithFillingParams(task: task, completion: completion))
-        return self.addWorkTimeWithFillingReturnValue
     }
     
     func deleteWorkTime(identifier: Int64, completion: @escaping ((Result<Void, Error>) -> Void)) {
         self.deleteWorkTimeParams.append(DeleteWorkTimeParams(identifier: identifier, completion: completion))
     }
     
-    func updateWorkTime(identifier: Int64, parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void)) -> RestlerTaskType? {
+    func updateWorkTime(identifier: Int64, parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void)) {
         self.updateWorkTimeParams.append(UpdateWorkTimeParams(identifier: identifier, parameters: parameters, completion: completion))
-        return self.updateWorkTimeReturnValue
     }
 }
 

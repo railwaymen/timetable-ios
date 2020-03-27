@@ -36,12 +36,6 @@ class WorkTimeContentProvider {
     private let dispatchGroupFactory: DispatchGroupFactoryType
     private let errorHandler: ErrorHandlerType
     
-    private var saveTask: RestlerTaskType? {
-        willSet {
-            self.saveTask?.cancel()
-        }
-    }
-    
     private var currentDate: Date {
         self.dateFactory.currentDate
     }
@@ -118,9 +112,9 @@ extension WorkTimeContentProvider: WorkTimeContentProviderType {
         do {
             let task = try self.validate(taskForm: taskForm)
             if let workTimeIdentifier = taskForm.workTimeIdentifier {
-                self.saveTask = self.apiClient.updateWorkTime(identifier: workTimeIdentifier, parameters: task, completion: completion)
+                self.apiClient.updateWorkTime(identifier: workTimeIdentifier, parameters: task, completion: completion)
             } else {
-                self.saveTask = self.apiClient.addWorkTime(parameters: task, completion: completion)
+                self.apiClient.addWorkTime(parameters: task, completion: completion)
             }
         } catch {
             completion(.failure(error))
@@ -130,7 +124,7 @@ extension WorkTimeContentProvider: WorkTimeContentProviderType {
     func saveWithFilling(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion) {
         do {
             let task = try self.validate(taskForm: taskForm)
-            self.saveTask = self.apiClient.addWorkTimeWithFilling(task: task, completion: completion)
+            self.apiClient.addWorkTimeWithFilling(task: task, completion: completion)
         } catch {
             completion(.failure(error))
         }

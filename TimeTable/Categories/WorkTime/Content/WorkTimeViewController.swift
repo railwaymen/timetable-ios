@@ -25,6 +25,7 @@ class WorkTimeViewController: UIViewController {
     @IBOutlet private var bodyTextView: UITextView!
     @IBOutlet private var taskURLView: UIView!
     @IBOutlet private var taskURLTextField: UITextField!
+    @IBOutlet private var saveButton: AttributedButton!
     @IBOutlet private var saveWithFillingButton: AttributedButton!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
@@ -119,6 +120,7 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     func setUp() {
         self.setUpTagsCollectionView()
         self.setUpActivityIndicator()
+        self.setUpSaveButtons()
         
         self.setUpDayPicker()
         self.setUpDayTextField()
@@ -150,6 +152,11 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     
     func setSaveWithFillingButton(isHidden: Bool) {
         self.saveWithFillingButton.set(isHidden: isHidden)
+    }
+    
+    func setSaveButtons(isEnabled: Bool) {
+        self.saveButton.isEnabled = isEnabled
+        self.saveWithFillingButton.isEnabled = isEnabled
     }
     
     func reloadTagsView() {
@@ -258,5 +265,12 @@ extension WorkTimeViewController {
         self.tagsCollectionView.register(TagCollectionViewCell.self)
         self.tagsCollectionView.delegate = self
         self.tagsCollectionView.dataSource = self
+    }
+    
+    private func setUpSaveButtons() {
+        self.saveButton.setBackgroundColor(.enabledButton, forState: .normal)
+        self.saveButton.setBackgroundColor(.disabledButton, forState: .disabled)
+        self.saveWithFillingButton.setTitleColor(.enabledButton, for: .normal)
+        self.saveWithFillingButton.setTitleColor(.disabledButton, for: .disabled)
     }
 }

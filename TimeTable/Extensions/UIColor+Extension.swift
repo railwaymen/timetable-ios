@@ -81,4 +81,13 @@ extension UIColor {
         let blue  = CGFloat(Int(color) & mask) / 255.0
         self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
+    
+    // MARK: - Internal
+    func getImage() -> UIImage {
+        let rect: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        return UIGraphicsImageRenderer(size: rect.size).image { context in
+            self.setFill()
+            context.fill(rect)
+        }
+    }
 }

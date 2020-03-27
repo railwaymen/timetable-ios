@@ -29,4 +29,10 @@ import UIKit
             self.layer.borderWidth = self.borderWidth
         }
     }
+    
+    // MARK: - Functions
+    func setBackgroundColor(_ color: UIColor?, forState state: State) {
+        self.backgroundColor = nil
+        self.setBackgroundImage(color?.getImage(), for: state)
+    }
 }
