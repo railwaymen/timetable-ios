@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Restler
 
 protocol WorkTimeViewModelOutput: class {
     func setUp()

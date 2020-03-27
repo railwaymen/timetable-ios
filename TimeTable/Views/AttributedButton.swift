@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable class AttributedButton: UIButton {
-    
+        
     @IBInspectable var cornerRadius: CGFloat = 3 {
         didSet {
             self.layer.cornerRadius = self.cornerRadius
