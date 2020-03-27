@@ -90,6 +90,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow()
         self.window?.makeKeyAndVisible()
         self.appCoordinator.start()
+        #if TEST
+        if let screenToTest = ProcessInfo.processInfo.environment["screenToTest"],
+            let coordinatorType = CoordinatorType(rawValue: screenToTest) {
+            self.appCoordinator.openDeepLink(option: .testPage(coordinatorType))
+        }
+        #endif
         return true
     }
 }

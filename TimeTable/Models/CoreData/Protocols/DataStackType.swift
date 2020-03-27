@@ -10,9 +10,8 @@ import Foundation
 import CoreStore
 
 protocol DataStackType {
-    // swiftlint:disable type_name
+    // swiftlint:disable:next type_name
     typealias T = NSManagedObject
-    // swiftlint:enable type_name
     
     func fetchAll<D>(_ from: From<D>, _ fetchClauses: FetchClause...) throws -> [D]
     func perform<T>(

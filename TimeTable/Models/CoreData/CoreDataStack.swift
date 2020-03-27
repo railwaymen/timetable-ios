@@ -12,6 +12,7 @@ import CoreStore
 typealias CoreDataStackType = (CoreDataStackUserType)
 
 protocol CoreDataStackUserType: class {
+    func deleteAllUsers(completion: @escaping (Result<Void, Swift.Error>) -> Void)
     func deleteUser(forIdentifier identifier: Int64, completion: @escaping (Result<Void, Error>) -> Void)
     func fetchUser(forIdentifier identifier: Int64, completion: @escaping (Result<UserEntity, Error>) -> Void)
     func fetchAllUsers(completion: @escaping (Result<[UserEntity], Error>) -> Void)
@@ -42,6 +43,19 @@ extension CoreDataStack {
 
 // MARK: - CoreDataStackUserType
 extension CoreDataStack: CoreDataStackUserType {
+    func deleteAllUsers(completion: @escaping (Result<Void, Swift.Error>) -> Void) {
+        self.stack.perform(
+            asynchronousTask: { transaction -> Void in
+                _ = try transaction.deleteAll(From<UserEntity>())
+            },
+            success: { _ in
+                completion(.success(Void()))
+            },
+            failure: { error in
+                completion(.failure(error))
+            })
+    }
+    
     func deleteUser(forIdentifier identifier: Int64, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
         self.fetchUser(forIdentifier: identifier) { [unowned self] result in
             switch result {

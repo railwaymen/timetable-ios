@@ -32,6 +32,17 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C1B5137C21772D1400C3727C"
+               BuildableName = "TimeTableTests.xctest"
+               BlueprintName = "TimeTableTests"
+               ReferencedContainer = "container:TimeTable.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "8A3F0C5D2429E38600564D6D"
                BuildableName = "TimeTableUITests.xctest"
                BlueprintName = "TimeTableUITests"
@@ -41,7 +52,7 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Stage"
+      buildConfiguration = "Test"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"

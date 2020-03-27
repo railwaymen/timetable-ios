@@ -75,6 +75,7 @@
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z1B-zV-UZJ" customClass="AttributedTextField" customModule="TimeTable" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="354" height="30"/>
                                                                 <color key="tintColor" name="Crimson"/>
+                                                                <accessibility key="accessibilityConfiguration" identifier="loginTextField"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="W4a-KH-9gl"/>
                                                                 </constraints>
@@ -103,6 +104,7 @@
                                                             <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="justified" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zsz-ds-g8F" customClass="AttributedTextField" customModule="TimeTable" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="354" height="30"/>
                                                                 <color key="tintColor" name="Crimson"/>
+                                                                <accessibility key="accessibilityConfiguration" identifier="passwordTextField"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="RuR-st-rhm"/>
                                                                 </constraints>
@@ -164,6 +166,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i9V-Qh-o4R" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="226.5" width="354" height="40"/>
                                                         <color key="backgroundColor" red="0.80000000000000004" green="0.078431372550000003" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <accessibility key="accessibilityConfiguration" identifier="loginButton"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="4Qg-ZN-nWs"/>
                                                         </constraints>

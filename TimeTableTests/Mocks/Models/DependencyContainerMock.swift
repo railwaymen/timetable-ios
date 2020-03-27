@@ -109,4 +109,6 @@ class DependencyContainerMock: DependencyContainerType {
     var dateFactory: DateFactoryType {
         return self.dateFactoryMock
     }
+    
+    let environmentReader: EnvironmentReaderType = EnvironmentReader()
 }

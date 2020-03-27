@@ -1,0 +1,9 @@
+{
+    "id": 1,
+    "first_name": "Admin",
+    "last_name": "Little",
+    "is_leader": false,
+    "admin": true,
+    "manager": false,
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjIt"
+}

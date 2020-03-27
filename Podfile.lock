@@ -84,6 +84,7 @@ PODS:
   - nanopb/encode (0.3.9011)
   - PromisesObjC (1.2.8)
   - Restler (0.4.2)
+  - Swifter (1.4.7)
   - SwiftLint (0.39.1)
 
 DEPENDENCIES:
@@ -95,6 +96,7 @@ DEPENDENCIES:
   - JSONFactorable (~> 0.2.0)
   - KeychainAccess (~> 4.1)
   - Restler (~> 0.4.2)
+  - Swifter (~> 1.4.7)
   - SwiftLint (~> 0.39)
 
 SPEC REPOS:
@@ -116,6 +118,7 @@ SPEC REPOS:
     - KeychainAccess
     - nanopb
     - PromisesObjC
+    - Swifter
     - SwiftLint
   "ssh://git@git.railwaymen.org:10522/open/rwm_podspec.git":
     - CoordinatorsFoundation
@@ -143,8 +146,9 @@ SPEC CHECKSUMS:
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Restler: 8d637c43f9741be654aa6d182364609892f1a8fe
+  Swifter: 2327ef5d872c638aebab79646ce494af508b0c8f
   SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
 
-PODFILE CHECKSUM: 9efcc636b23b8d4a3ecf38e5f9827e6763a915b1
+PODFILE CHECKSUM: fa19f8fd6751e0c5dee73ed7ed3d05523b59592f
 
 COCOAPODS: 1.8.4
