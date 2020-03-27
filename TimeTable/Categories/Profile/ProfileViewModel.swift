@@ -19,7 +19,7 @@ protocol ProfileViewModelOutput: class {
 protocol ProfileViewModelType: class {
     func viewDidLoad()
     func configure(_ view: ErrorViewable)
-    func viewRequestedForLogout()
+    func logoutButtonTapped()
 }
 
 class ProfileViewModel {
@@ -62,7 +62,7 @@ extension ProfileViewModel: ProfileViewModelType {
         self.errorViewModel = viewModel
     }
     
-    func viewRequestedForLogout() {
+    func logoutButtonTapped() {
         do {
             try self.accessService.removeSession()
             self.invalidateUserToken()

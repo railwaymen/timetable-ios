@@ -91,7 +91,7 @@ DEPENDENCIES:
   - Firebase/Analytics
   - Firebase/Core (~> 6.17.0)
   - Firebase/Crashlytics
-  - JSONFactorable (~> 0.2.0)
+  - JSONFactorable (~> 0.2.1)
   - KeychainAccess (~> 4.1)
   - Restler (~> 0.4.2)
   - Swifter (~> 1.4.7)
@@ -145,6 +145,6 @@ SPEC CHECKSUMS:
   Swifter: 2327ef5d872c638aebab79646ce494af508b0c8f
   SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
 
-PODFILE CHECKSUM: 01495d88fd251fd1f0f2690f1d81b54011752102
+PODFILE CHECKSUM: 52c67d19e6da28106c2d592e3ebd1610a18fc127
 
 COCOAPODS: 1.8.4

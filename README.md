@@ -38,7 +38,6 @@ Simple time tracking iOS application. Check out our [TimeTable Ruby on Rails pro
 ### Cocoapods
 
 - [CoordinatorsFoundation](https://git.railwaymen.org/open/coordinatorsfoundation) 0.2.2
-- [CoreStore](https://cocoapods.org/pods/CoreStore) 7.0.4
 - [Firebase](https://cocoapods.org/pods/Firebase) 6.17.0
 - [JSONFactorable](https://git.railwaymen.org/open/jsonfactorable) 0.2.1 (tests only)
 - [KeychainAccess](https://cocoapods.org/pods/KeychainAccess) 4.1.0

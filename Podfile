@@ -19,7 +19,7 @@ target 'TimeTable' do
 end
 
 target 'TimeTableTests' do
-  pod 'JSONFactorable', '~> 0.2.0'
+  pod 'JSONFactorable', '~> 0.2.1'
   universal_pods
 end
 

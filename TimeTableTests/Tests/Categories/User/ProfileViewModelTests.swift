@@ -96,26 +96,37 @@ extension ProfileViewModelTests {
     }
 }
 
-// MARK: - viewRequestedForLogout()
+// MARK: - logoutButtonTapped()
 extension ProfileViewModelTests {
-    func testViewRequestedForLogoutThrowsAnError() {
+    func testLogoutButtonTapped_accessServiceThrowsError_passesErrorToErrorHandler() {
         //Arrange
         let sut = self.buildSUT()
         let error = TestError(message: "error")
         self.accessServiceMock.removeSessionThrownError = error
         //Act
-        sut.viewRequestedForLogout()
+        sut.logoutButtonTapped()
         //Assert
         XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? TestError, error)
         XCTAssertEqual(self.coordinatorMock.userProfileDidLogoutUserParams.count, 0)
+        XCTAssertEqual(self.apiClientMock.removeAuthenticationTokenParams.count, 0)
     }
     
-    func testViewRequestedForLogoutSucceed() {
+    func testLogoutButtonTapped_success_invalidatesToken() {
         //Arrange
         let sut = self.buildSUT()
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
-        sut.viewRequestedForLogout()
+        sut.logoutButtonTapped()
+        //Assert
+        XCTAssertEqual(self.apiClientMock.removeAuthenticationTokenParams.count, 1)
+    }
+    
+    func testLogoutButtonTapped_success_finishesCoordinator() {
+        //Arrange
+        let sut = self.buildSUT()
+        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
+        //Act
+        sut.logoutButtonTapped()
         //Assert
         XCTAssertEqual(self.coordinatorMock.userProfileDidLogoutUserParams.count, 1)
     }
