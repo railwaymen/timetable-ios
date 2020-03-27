@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreStore
 
 protocol ParentCoordinator {
     func present(error: Error)
@@ -44,7 +43,8 @@ class AppCoordinator: Coordinator {
         let serverConfiguration = ServerConfiguration(host: url, shouldRememberHost: false)
         let apiClient = self.dependencyContainer.apiClientFactory.buildAPIClient(baseURL: url)
         
-        self.removeAllData { [unowned self] in
+        do {
+            try self.removeAllData()
             switch type {
             case .serverConfiguration, .login:
                 self.runAuthenticationFlow()
@@ -52,6 +52,8 @@ class AppCoordinator: Coordinator {
                 self.runMainFlow(configuration: serverConfiguration, apiClient: apiClient)
             }
             self.children.last?.openDeepLink(option: option)
+        } catch {
+            self.errorHandler.stopInDebug("Couldn't remove data: \(error)")
         }
         #endif
     }
@@ -92,18 +94,11 @@ extension AppCoordinator {
     }
     
     #if TEST
-    private func removeAllData(completion: @escaping () -> Void) {
+    private func removeAllData() throws {
         UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+        try self.dependencyContainer.accessService?.removeSession()
         self.dependencyContainer.apiClient = nil
         self.dependencyContainer.accessService = nil
-        let coreDataStack = self.dependencyContainer.coreDataStack
-        coreDataStack.deleteAllUsers { result in
-            guard case .success = result else {
-                self.errorHandler.stopInDebug("Result: \(result)")
-                return
-            }
-            completion()
-        }
     }
     #endif
 }

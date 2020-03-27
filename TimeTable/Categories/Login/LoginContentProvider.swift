@@ -7,27 +7,23 @@
 //
 
 import Foundation
-import CoreStore
 
 protocol LoginContentProviderType: class {
-    func login(with credentials: LoginCredentials,
-               fetchCompletion: @escaping ((Result<SessionDecoder, Error>) -> Void),
-               saveCompletion: @escaping ((Result<Void, Error>) -> Void))
+    func login(
+        with credentials: LoginCredentials,
+        completion: @escaping ((Result<SessionDecoder, Error>) -> Void))
 }
 
 class LoginContentProvider {
     private let apiClient: ApiClientSessionType
-    private let coreDataStack: CoreDataStackUserType
-    private let accessService: AccessServiceUserIDType
+    private let accessService: AccessServiceLoginType
     
     // MARK: - Initialization
     init(
         apiClient: ApiClientSessionType,
-        coreDataStack: CoreDataStackUserType,
-        accessService: AccessServiceUserIDType
+        accessService: AccessServiceLoginType
     ) {
         self.apiClient = apiClient
-        self.coreDataStack = coreDataStack
         self.accessService = accessService
     }
 }
@@ -36,49 +32,20 @@ class LoginContentProvider {
 extension LoginContentProvider: LoginContentProviderType {
     func login(
         with credentials: LoginCredentials,
-        fetchCompletion: @escaping ((Result<SessionDecoder, Error>) -> Void),
-        saveCompletion: @escaping ((Result<Void, Error>) -> Void)
+        completion: @escaping ((Result<SessionDecoder, Error>) -> Void)
     ) {
-        self.apiClient.signIn(with: credentials) { [weak self] result in
+        self.apiClient.signIn(with: credentials) { [unowned self] result in
             switch result {
-            case .success(let userDecoder):
-                fetchCompletion(.success(userDecoder))
-                self?.save(userDecoder: userDecoder, completion: saveCompletion)
-            case .failure(let error):
-                fetchCompletion(.failure(error))
-            }
-        }
-    }
-    
-}
-
-// MARK: - Private
-extension LoginContentProvider {
-    private func save(userDecoder: SessionDecoder, completion: @escaping ((Result<Void, Error>) -> Void)) {
-        self.coreDataStack.fetchAllUsers { [weak self] result in
-            switch result {
-            case let .success(users):
-                self?.handleSaveSuccess(users: users, userDecoder: userDecoder, completion: completion)
+            case let .success(userDecoder):
+                do {
+                    try self.accessService.saveSession(userDecoder)
+                    completion(.success(userDecoder))
+                } catch {
+                    completion(.failure(error))
+                }
             case let .failure(error):
                 completion(.failure(error))
             }
         }
-    }
-    
-    private func handleSaveSuccess(users: [UserEntity], userDecoder: SessionDecoder, completion: @escaping ((Result<Void, Error>) -> Void)) {
-        self.coreDataStack.save(
-            userDecoder: userDecoder,
-            coreDataTypeTranslation: { (transaction: AsynchronousDataTransactionType) -> UserEntity in
-                transaction.delete(users)
-                return UserEntity.createUser(from: userDecoder, transaction: transaction)
-            }) { [weak self] result in
-                switch result {
-                case .success(let entity):
-                    self?.accessService.saveLastLoggedInUserIdentifier(entity.identifier)
-                    completion(.success(Void()))
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-            }
     }
 }

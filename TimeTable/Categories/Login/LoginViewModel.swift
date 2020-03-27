@@ -35,7 +35,6 @@ class LoginViewModel {
     private weak var userInterface: LoginViewModelOutput?
     private weak var coordinator: LoginCoordinatorDelegate?
     private let contentProvider: LoginContentProviderType
-    private let accessService: AccessServiceLoginCredentialsType
     private let errorHandler: ErrorHandlerType
     private let notificationCenter: NotificationCenterType
     
@@ -45,14 +44,12 @@ class LoginViewModel {
     init(
         userInterface: LoginViewModelOutput,
         coordinator: LoginCoordinatorDelegate,
-        accessService: AccessServiceLoginCredentialsType,
         contentProvider: LoginContentProviderType,
         errorHandler: ErrorHandlerType,
         notificationCenter: NotificationCenterType
     ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
-        self.accessService = accessService
         self.contentProvider = contentProvider
         self.errorHandler = errorHandler
         self.notificationCenter = notificationCenter
@@ -129,35 +126,24 @@ extension LoginViewModel: LoginViewModelType {
             return
         }
         self.userInterface?.setActivityIndicator(isHidden: false)
-        self.contentProvider.login(
-            with: self.loginCredentials,
-            fetchCompletion: { [weak self] result in
-                switch result {
-                case .success(let session):
-                    self?.coordinator?.loginDidFinish(with: .loggedInCorrectly(session))
-                case .failure(let error):
-                    self?.userInterface?.setActivityIndicator(isHidden: true)
-                    if let apiError = error as? ApiClientError {
-                        switch apiError.type {
-                        case .validationErrors:
-                            self?.errorHandler.throwing(error: UIError.loginCredentialsInvalid)
-                        default:
-                            self?.errorHandler.throwing(error: error)
-                        }
-                    } else {
+        self.contentProvider.login(with: self.loginCredentials) { [weak self] result in
+            switch result {
+            case .success(let session):
+                self?.coordinator?.loginDidFinish(with: .loggedInCorrectly(session))
+            case .failure(let error):
+                self?.userInterface?.setActivityIndicator(isHidden: true)
+                if let apiError = error as? ApiClientError {
+                    switch apiError.type {
+                    case .validationErrors:
+                        self?.errorHandler.throwing(error: UIError.loginCredentialsInvalid)
+                    default:
                         self?.errorHandler.throwing(error: error)
                     }
+                } else {
+                    self?.errorHandler.throwing(error: error)
                 }
-            },
-            saveCompletion: { [weak self] result in
-                self?.userInterface?.setActivityIndicator(isHidden: true)
-                switch result {
-                case .success:
-                    break
-                case .failure(let error):
-                    self?.errorHandler.throwing(error: AppError.cannotRemeberUserCredentials(error: error))
-                }
-            })
+            }
+        }
     }
     
     func viewRequestedToChangeServerAddress() {

@@ -72,16 +72,14 @@ class AuthenticationCoordinator: NavigationCoordinator {
         }
         self.serverConfiguration = configuration
         let accessService = self.dependencyContainer.accessServiceBuilder(configuration, self.dependencyContainer.encoder, self.dependencyContainer.decoder)
-        accessService.getSession { [weak self] result in
-            switch result {
-            case .success(let session):
-                self?.apiClient = self?.createApiClient(with: configuration)
-                self?.updateApiClient(with: session)
-                self?.finish()
-            case .failure:
-                self?.runServerConfigurationFlow()
-                self?.runAuthenticationFlow(with: configuration, animated: false)
-            }
+        do {
+            let session = try accessService.getSession()
+            self.apiClient = self.createApiClient(with: configuration)
+            self.updateApiClient(with: session)
+            self.finish()
+        } catch {
+            self.runServerConfigurationFlow()
+            self.runAuthenticationFlow(with: configuration, animated: false)
         }
     }
     
@@ -166,12 +164,10 @@ extension AuthenticationCoordinator {
         self.apiClient = apiClient
         let contentProvider = LoginContentProvider(
             apiClient: apiClient,
-            coreDataStack: self.dependencyContainer.coreDataStack,
             accessService: accessService)
         let viewModel = LoginViewModel(
             userInterface: loginViewController,
             coordinator: self,
-            accessService: accessService,
             contentProvider: contentProvider,
             errorHandler: self.dependencyContainer.errorHandler,
             notificationCenter: self.dependencyContainer.notificationCenter)

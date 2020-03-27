@@ -27,7 +27,6 @@ class ProfileViewModel {
     private weak var coordinator: ProfileCoordinatorDelegate?
     private let apiClient: ApiClientProfileType
     private let accessService: AccessServiceLoginType
-    private let coreDataStack: CoreDataStackUserType
     private let errorHandler: ErrorHandlerType
     
     private weak var errorViewModel: ErrorViewModelParentType?
@@ -38,14 +37,12 @@ class ProfileViewModel {
         coordinator: ProfileCoordinatorDelegate,
         apiClient: ApiClientProfileType,
         accessService: AccessServiceLoginType,
-        coreDataStack: CoreDataStackUserType,
         errorHandler: ErrorHandlerType
     ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
         self.apiClient = apiClient
         self.accessService = accessService
-        self.coreDataStack = coreDataStack
         self.errorHandler = errorHandler
     }
 }
@@ -66,25 +63,12 @@ extension ProfileViewModel: ProfileViewModelType {
     }
     
     func viewRequestedForLogout() {
-        guard let userIdentifier = self.accessService.getLastLoggedInUserIdentifier() else { return }
-        self.userInterface?.setActivityIndicator(isHidden: false)
-        self.coreDataStack.deleteUser(forIdentifier: userIdentifier) { [weak self] result in
-            self?.userInterface?.setActivityIndicator(isHidden: true)
-            switch result {
-            case .success:
-                self?.invalidateUserToken()
-                self?.coordinator?.userProfileDidLogoutUser()
-            case .failure(let error):
-                if let error = error as? CoreDataStack.Error {
-                    switch error {
-                    case .storageItemNotFound:
-                        self?.invalidateUserToken()
-                        self?.coordinator?.userProfileDidLogoutUser()
-                    }
-                } else {
-                    self?.errorHandler.throwing(error: error)
-                }
-            }
+        do {
+            try self.accessService.removeSession()
+            self.invalidateUserToken()
+            self.coordinator?.userProfileDidLogoutUser()
+        } catch {
+            self.errorHandler.throwing(error: error)
         }
     }
 }

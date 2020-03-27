@@ -222,36 +222,12 @@ extension LoginViewModelTests {
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         //Act
         sut.viewRequestedToLogin()
-        self.contentProviderMock.loginParams.last?.fetchCompletion(.success(sessionReponse))
+        self.contentProviderMock.loginParams.last?.completion(.success(sessionReponse))
         //Assert
         XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.count, 1)
         XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.last?.state, .loggedInCorrectly(sessionReponse))
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
         XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-    }
-    
-    func testViewRequestedToLoginFailsWhileSavingToDataBase() throws {
-        //Arrange
-        let expectedError = TestError(message: "")
-        let sut = self.buildSUT()
-        sut.loginInputValueDidChange(value: "login")
-        sut.passwordInputValueDidChange(value: "password")
-        sut.shouldRemeberUserBoxStatusDidChange(isActive: false)
-        let data = try self.json(from: SessionJSONResource.signInResponse)
-        let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
-        //Act
-        sut.viewRequestedToLogin()
-        self.contentProviderMock.loginParams.last?.fetchCompletion(.success(sessionReponse))
-        self.contentProviderMock.loginParams.last?.saveCompletion(.failure(expectedError))
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-        switch self.errorHandlerMock.throwingParams.last?.error as? AppError {
-        case .cannotRemeberUserCredentials(let error)?:
-            XCTAssertEqual(try XCTUnwrap(error as? TestError), expectedError)
-        default:
-            XCTFail()
-        }
     }
     
     func testViewRequestedToLogin_contentProviderReturnsTestError() throws {
@@ -262,7 +238,7 @@ extension LoginViewModelTests {
         sut.passwordInputValueDidChange(value: "password")
         //Act
         sut.viewRequestedToLogin()
-        self.contentProviderMock.loginParams.last?.fetchCompletion(.failure(expectedError))
+        self.contentProviderMock.loginParams.last?.completion(.failure(expectedError))
         //Assert
         let error = try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? TestError)
         XCTAssertEqual(error, expectedError)
@@ -278,7 +254,7 @@ extension LoginViewModelTests {
         sut.passwordInputValueDidChange(value: "password")
         //Act
         sut.viewRequestedToLogin()
-        self.contentProviderMock.loginParams.last?.fetchCompletion(.failure(returnedError))
+        self.contentProviderMock.loginParams.last?.completion(.failure(returnedError))
         //Assert
         let error = try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? UIError)
         XCTAssertEqual(error, UIError.loginCredentialsInvalid)
@@ -294,7 +270,7 @@ extension LoginViewModelTests {
         sut.passwordInputValueDidChange(value: "password")
         //Act
         sut.viewRequestedToLogin()
-        self.contentProviderMock.loginParams.last?.fetchCompletion(.failure(expectedError))
+        self.contentProviderMock.loginParams.last?.completion(.failure(expectedError))
         //Assert
         let error = try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? ApiClientError)
         XCTAssertEqual(error, expectedError)
@@ -309,7 +285,6 @@ extension LoginViewModelTests {
         return LoginViewModel(
             userInterface: self.userInterfaceMock,
             coordinator: self.coordinatorMock,
-            accessService: self.accessServiceMock,
             contentProvider: self.contentProviderMock,
             errorHandler: self.errorHandlerMock,
             notificationCenter: self.notificationCenterMock)

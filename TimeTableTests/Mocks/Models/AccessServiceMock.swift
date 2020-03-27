@@ -11,39 +11,30 @@ import Foundation
 
 class AccessServiceMock {
     
-    // MARK: - AccessServiceLoginCredentialsType
-    private(set) var removeLastLoggedInUserIdentifierParams: [RemoveLastLoggedInUserIdentifierParams] = []
-    struct RemoveLastLoggedInUserIdentifierParams {}
-    
     // MARK: - AccessServiceUserIDType
-    private(set) var saveLastLoggedInUserIdentifierParams: [SaveLastLoggedInUserIdentifierParams] = []
-    struct SaveLastLoggedInUserIdentifierParams {
-        var identifier: Int64
-    }
-    
     var getLastLoggedInUserIdentifierReturnValue: Int64?
     private(set) var getLastLoggedInUserIdentifierParams: [GetLastLoggedInUserIdentifierParams] = []
     struct GetLastLoggedInUserIdentifierParams {}
     
+    // MARK: - AccessServiceSessionType
+    var getSessionThrownError: Error?
+    var getSessionReturnValue: SessionDecoder!
     private(set) var getSessionParams: [GetSessionParams] = []
-    struct GetSessionParams {
-        var completion: ((Result<SessionDecoder, Error>) -> Void)
+    struct GetSessionParams {}
+    
+    var saveSessionThrownError: Error?
+    private(set) var saveSessionParams: [SaveSessionParams] = []
+    struct SaveSessionParams {
+        let session: SessionDecoder
     }
-}
-
-// MARK: - AccessServiceLoginCredentialsType
-extension AccessServiceMock: AccessServiceLoginCredentialsType {
-    func removeLastLoggedInUserIdentifier() {
-        self.removeLastLoggedInUserIdentifierParams.append(RemoveLastLoggedInUserIdentifierParams())
-    }
+    
+    var removeSessionThrownError: Error?
+    private(set) var removeSessionParams: [RemoveSessionParams] = []
+    struct RemoveSessionParams {}
 }
 
 // MARK: - AccessServiceUserIDType
 extension AccessServiceMock: AccessServiceUserIDType {
-    func saveLastLoggedInUserIdentifier(_ identifer: Int64) {
-        self.saveLastLoggedInUserIdentifierParams.append(SaveLastLoggedInUserIdentifierParams(identifier: identifer))
-    }
-    
     func getLastLoggedInUserIdentifier() -> Int64? {
         self.getLastLoggedInUserIdentifierParams.append(GetLastLoggedInUserIdentifierParams())
         return self.getLastLoggedInUserIdentifierReturnValue
@@ -52,7 +43,22 @@ extension AccessServiceMock: AccessServiceUserIDType {
 
 // MARK: - AccessServiceSessionType
 extension AccessServiceMock: AccessServiceSessionType {
-    func getSession(completion: @escaping ((Result<SessionDecoder, Error>) -> Void)) {
-        self.getSessionParams.append(GetSessionParams(completion: completion))
+    func getSession() throws -> SessionDecoder {
+        if let error = self.getSessionThrownError {
+            throw error
+        }
+        return self.getSessionReturnValue
+    }
+    
+    func saveSession(_ session: SessionDecoder) throws {
+        self.saveSessionParams.append(SaveSessionParams(session: session))
+        guard let error = self.saveSessionThrownError else { return }
+        throw error
+    }
+    
+    func removeSession() throws {
+        self.removeSessionParams.append(RemoveSessionParams())
+        guard let error = self.removeSessionThrownError else { return }
+        throw error
     }
 }

@@ -14,7 +14,6 @@ class ProfileViewModelTests: XCTestCase {
     private var coordinatorMock: ProfileCoordinatorMock!
     private var apiClientMock: ApiClientMock!
     private var accessServiceMock: AccessServiceMock!
-    private var coreDataStackMock: CoreDataStackMock!
     private var errorHandlerMock: ErrorHandlerMock!
         
     override func setUp() {
@@ -23,7 +22,6 @@ class ProfileViewModelTests: XCTestCase {
         self.coordinatorMock = ProfileCoordinatorMock()
         self.apiClientMock = ApiClientMock()
         self.accessServiceMock = AccessServiceMock()
-        self.coreDataStackMock = CoreDataStackMock()
         self.errorHandlerMock = ErrorHandlerMock()
     }
 }
@@ -100,57 +98,16 @@ extension ProfileViewModelTests {
 
 // MARK: - viewRequestedForLogout()
 extension ProfileViewModelTests {
-    func testViewRequestedForLogoutReturnsWhileUserIdentifierIsNil() {
-        //Arrange
-        let sut = self.buildSUT()
-        //Act
-        sut.viewRequestedForLogout()
-        //Assert
-        XCTAssertTrue(self.userInterfaceMock.setActivityIndicatorParams.isEmpty)
-        XCTAssertTrue(self.errorHandlerMock.throwingParams.isEmpty)
-        XCTAssertTrue(self.coordinatorMock.userProfileDidLogoutUserParams.isEmpty)
-    }
-    
-    func testViewRequestedForLogoutMakesRequestToDeleteUser() {
-        //Arrange
-        let sut = self.buildSUT()
-        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
-        //Act
-        sut.viewRequestedForLogout()
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
-        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-        XCTAssertTrue(self.errorHandlerMock.throwingParams.isEmpty)
-        XCTAssertEqual(self.coreDataStackMock.deleteUserParams.count, 1)
-    }
-    
     func testViewRequestedForLogoutThrowsAnError() {
         //Arrange
         let sut = self.buildSUT()
         let error = TestError(message: "error")
-        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
+        self.accessServiceMock.removeSessionThrownError = error
         //Act
         sut.viewRequestedForLogout()
-        self.coreDataStackMock.deleteUserParams.last?.completion(.failure(error))
         //Assert
-        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-        XCTAssertEqual(try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? TestError), error)
-    }
-    
-    func testViewRequestedForLogoutThrowsStorageItemNotFoundError() {
-        //Arrange
-        let sut = self.buildSUT()
-        let error: CoreDataStack.Error = .storageItemNotFound
-        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
-        //Act
-        sut.viewRequestedForLogout()
-        self.coreDataStackMock.deleteUserParams.last?.completion(.failure(error))
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-        XCTAssertEqual(self.coordinatorMock.userProfileDidLogoutUserParams.count, 1)
-        XCTAssertEqual(self.errorHandlerMock.throwingParams.count, 0)
+        XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? TestError, error)
+        XCTAssertEqual(self.coordinatorMock.userProfileDidLogoutUserParams.count, 0)
     }
     
     func testViewRequestedForLogoutSucceed() {
@@ -159,10 +116,7 @@ extension ProfileViewModelTests {
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
         //Act
         sut.viewRequestedForLogout()
-        self.coreDataStackMock.deleteUserParams.last?.completion(.success(Void()))
         //Assert
-        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
         XCTAssertEqual(self.coordinatorMock.userProfileDidLogoutUserParams.count, 1)
     }
 }
@@ -175,7 +129,6 @@ extension ProfileViewModelTests {
             coordinator: self.coordinatorMock,
             apiClient: self.apiClientMock,
             accessService: self.accessServiceMock,
-            coreDataStack: self.coreDataStackMock,
             errorHandler: self.errorHandlerMock)
     }
 }

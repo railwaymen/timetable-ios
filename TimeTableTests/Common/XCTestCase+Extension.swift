@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import CoreData
 @testable import TimeTable
 
 extension XCTestCase {
@@ -38,20 +37,6 @@ extension XCTestCase {
             throw error
         }
         return try Data(contentsOf: url)
-    }
-    
-    func createInMemoryStorage() throws -> NSManagedObjectContext {
-        let model = try XCTUnwrap(NSManagedObjectModel.mergedModel(from: nil))
-        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
-        
-        do {
-            try coordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
-        } catch {}
-        
-        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        context.persistentStoreCoordinator = coordinator
-        
-        return context
     }
     
     func buildDate(timeZone: TimeZone = .current, year: Int, month: Int, day: Int, hour: Int = 0, minute: Int = 0, second: Int = 0) throws -> Date {

@@ -67,7 +67,6 @@ extension ProfileCoordinator {
             coordinator: self,
             apiClient: apiClient,
             accessService: accessService,
-            coreDataStack: self.dependencyContainer.coreDataStack,
             errorHandler: self.dependencyContainer.errorHandler)
         controller?.configure(viewModel: viewModel)
         guard let profileViewController = controller else { return }
