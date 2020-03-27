@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Restler
 
 protocol ServerConfigurationManagerType: class {
     func getOldConfiguration() -> ServerConfiguration?
@@ -44,7 +45,7 @@ extension ServerConfigurationManager: ServerConfigurationManagerType {
         let shouldRememberHost = self.userDefaults.bool(forKey: UserDefaultsKeys.shouldRemeberHostKey)
         var configuration = ServerConfiguration(host: nil, shouldRememberHost: shouldRememberHost)
         if shouldRememberHost {
-            guard let hostURLString = userDefaults.string(forKey: UserDefaultsKeys.hostURLKey) else { return nil }
+            guard let hostURLString = self.userDefaults.string(forKey: UserDefaultsKeys.hostURLKey) else { return nil }
             guard let hostURL = URL(string: hostURLString) else { return nil }
             configuration.host = hostURL
         }
@@ -67,6 +68,8 @@ extension ServerConfigurationManager: ServerConfigurationManagerType {
             if let response = response as? HTTPURLResponse, error == nil, response.statusCode == 200 {
                 self?.save(configuration: configuration)
                 mainThreadCompletion(.success(Void()))
+            } else if let apiClientError = ApiClientError(response: Restler.Response(data: nil, response: response as? HTTPURLResponse, error: error)) {
+                mainThreadCompletion(.failure(apiClientError))
             } else {
                 mainThreadCompletion(.failure(ApiClientError(type: .invalidHost(hostURL))))
             }

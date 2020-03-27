@@ -29,7 +29,7 @@ struct ApiClientError: Error, RestlerErrorDecodable {
             self.type = .validationErrors(validationErrors)
         } else if let data = response.data, let serverError = try? ApiClientError.decoder.decode(ServerError.self, from: data) {
             self.type = .serverError(serverError)
-        } else if let code = response.response?.statusCode {
+        } else if let code = response.response?.statusCode ?? (response.error as NSError?)?.code {
             switch code {
             case NSURLErrorNotConnectedToInternet, NSURLErrorNetworkConnectionLost:
                 self.type = .noConnection
