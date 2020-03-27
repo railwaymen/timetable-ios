@@ -76,7 +76,7 @@ extension UIColor {
         if #available(iOS 13, *) {
             return .secondaryLabel
         } else {
-            return .black
+            return .gray
         }
     }()
     

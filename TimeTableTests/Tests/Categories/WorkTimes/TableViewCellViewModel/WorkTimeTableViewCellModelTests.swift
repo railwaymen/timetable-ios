@@ -141,7 +141,11 @@ extension WorkTimeTableViewCellModelTests {
             workTime: workTime)
     }
     
-    private func buildWorkTime(updatedAt: Date? = nil, updatedBy: String? = nil) throws -> WorkTimeDisplayed {
+    private func buildWorkTime(
+        updatedAt: Date? = nil,
+        updatedBy: String? = nil,
+        changedFields: [TaskVersion.Field] = []
+    ) throws -> WorkTimeDisplayed {
         let startsAt = try self.startsAt()
         let endsAt = try self.endsAt()
         return WorkTimeDisplayed(
@@ -157,7 +161,7 @@ extension WorkTimeTableViewCellModelTests {
             duration: 3600,
             updatedAt: updatedAt,
             updatedBy: updatedBy,
-            changedFields: [])
+            changedFields: changedFields)
     }
     
     private func startsAt() throws -> Date {

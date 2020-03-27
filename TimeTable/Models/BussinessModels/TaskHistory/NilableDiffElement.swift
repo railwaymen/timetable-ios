@@ -27,7 +27,8 @@ struct NilableDiffElement<Element: Decodable & Equatable> {
     }
     
     var hasChanged: Bool {
-        return (self.current != nil && self.current != self.previous)
+        return self.current != nil
+            && self.current != self.previous
     }
     
     // MARK: - Initialization
