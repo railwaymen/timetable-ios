@@ -12,10 +12,10 @@ import Restler
 protocol ApiClientWorkTimesType: class {
     func fetchWorkTimes(parameters: WorkTimesParameters, completion: @escaping ((Result<[WorkTimeDecoder], Error>) -> Void)) -> RestlerTaskType?
     func fetchWorkTimeDetails(identifier: Int64, completion: @escaping (Result<WorkTimeDecoder, Error>) -> Void) -> RestlerTaskType?
-    func addWorkTime(parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void)) -> RestlerTaskType?
-    func addWorkTimeWithFilling(task: Task, completion: @escaping (Result<Void, Error>) -> Void) -> RestlerTaskType?
+    func addWorkTime(parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void))
+    func addWorkTimeWithFilling(task: Task, completion: @escaping (Result<Void, Error>) -> Void)
     func deleteWorkTime(identifier: Int64, completion: @escaping ((Result<Void, Error>) -> Void))
-    func updateWorkTime(identifier: Int64, parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void)) -> RestlerTaskType?
+    func updateWorkTime(identifier: Int64, parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void))
 }
 
 extension ApiClient: ApiClientWorkTimesType {
@@ -36,8 +36,8 @@ extension ApiClient: ApiClientWorkTimesType {
             .start()
     }
     
-    func addWorkTime(parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void)) -> RestlerTaskType? {
-        return self.restler
+    func addWorkTime(parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void)) {
+        _ = self.restler
             .post(Endpoint.workTimes)
             .body(parameters)
             .decode(Void.self)
@@ -45,8 +45,8 @@ extension ApiClient: ApiClientWorkTimesType {
             .start()
     }
     
-    func addWorkTimeWithFilling(task: Task, completion: @escaping (Result<Void, Error>) -> Void) -> RestlerTaskType? {
-        return self.restler
+    func addWorkTimeWithFilling(task: Task, completion: @escaping (Result<Void, Error>) -> Void) {
+        _ = self.restler
             .post(Endpoint.workTimesCreateWithFilling)
             .body(task)
             .decode(Void.self)
@@ -62,8 +62,8 @@ extension ApiClient: ApiClientWorkTimesType {
             .start()
     }
     
-    func updateWorkTime(identifier: Int64, parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void)) -> RestlerTaskType? {
-        return self.restler
+    func updateWorkTime(identifier: Int64, parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void)) {
+        _ = self.restler
             .put(Endpoint.workTime(identifier))
             .body(parameters)
             .decode(Void.self)
