@@ -51,12 +51,8 @@ extension AccessService {
 // MARK: - AccessServiceUserIDType
 extension AccessService: AccessServiceUserIDType {
     func getLastLoggedInUserIdentifier() -> Int64? {
-        do {
-            let session = try self.getSession()
-            return Int64(session.identifier)
-        } catch {
-            return nil
-        }
+        guard let session = try? self.getSession() else { return nil }
+        return Int64(session.identifier)
     }
 }
 
