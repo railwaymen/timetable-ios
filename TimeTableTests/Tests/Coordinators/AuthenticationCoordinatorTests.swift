@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import CoreData
 @testable import TimeTable
 
 class AuthenticationCoordinatorTests: XCTestCase {
@@ -61,9 +60,9 @@ extension AuthenticationCoordinatorTests {
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.login] = [.initial: LoginViewControllerMock()]
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: nil, shouldRememberHost: true)
+        self.dependencyContainer.accessServiceMock.getSessionThrownError = TestError(message: "ERROR")
         //Act
         sut.start { (_, _) in }
-        self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
         //Assert
         XCTAssertEqual(sut.navigationController.children.count, 1)
         XCTAssertNotNil(sut.navigationController.children[0] as? ServerConfigurationViewControllerable)
@@ -75,9 +74,9 @@ extension AuthenticationCoordinatorTests {
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: UIViewController()]
         self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.login] = [.initial: UIViewController()]
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(host: exampleURL, shouldRememberHost: true)
+        self.dependencyContainer.accessServiceMock.getSessionThrownError = TestError(message: "ERROR")
         //Act
         sut.start { (_, _) in }
-        self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
         //Assert
         XCTAssertTrue(sut.navigationController.children.isEmpty)
     }
@@ -90,9 +89,9 @@ extension AuthenticationCoordinatorTests {
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
             host: self.exampleURL,
             shouldRememberHost: true)
+        self.dependencyContainer.accessServiceMock.getSessionThrownError = TestError(message: "ERROR")
         //Act
         sut.start { (_, _) in }
-        self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
         //Assert
         XCTAssertEqual(sut.navigationController.children.count, 1)
         XCTAssertNotNil(sut.navigationController.children[0] as? ServerConfigurationViewControllerable)
@@ -106,9 +105,9 @@ extension AuthenticationCoordinatorTests {
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
             host: self.exampleURL,
             shouldRememberHost: true)
+        self.dependencyContainer.accessServiceMock.getSessionThrownError = TestError(message: "ERROR")
         //Act
         sut.start { (_, _) in }
-        self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
         //Assert
         XCTAssertEqual(sut.navigationController.children.count, 2)
         XCTAssertNotNil(sut.navigationController.children[0] as? ServerConfigurationViewControllerable)
@@ -125,15 +124,15 @@ extension AuthenticationCoordinatorTests {
             host: self.exampleURL,
             shouldRememberHost: true)
         let data = try self.json(from: SessionJSONResource.signInResponse)
-        let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
+        let sessionResponse = try self.decoder.decode(SessionDecoder.self, from: data)
         var optionalConfiguration: ServerConfiguration?
         var optionalApiClient: ApiClientType?
+        self.dependencyContainer.accessServiceMock.getSessionReturnValue = sessionResponse
         //Act
         sut.start { (returnedConfiguration, returnedApiClient) in
             optionalConfiguration = returnedConfiguration
             optionalApiClient = returnedApiClient
         }
-        self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.success(sessionReponse))
         //Assert
         let configuration = try XCTUnwrap(optionalConfiguration)
         let apiClient = try XCTUnwrap(optionalApiClient)
@@ -157,16 +156,16 @@ extension AuthenticationCoordinatorTests {
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
             host: self.exampleURL,
             shouldRememberHost: true)
-        self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
+//        self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.failure(TestError(message: "ERROR")))
         let data = try self.json(from: SessionJSONResource.signInResponse)
         let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
         var optionalConfiguration: ServerConfiguration?
         var optionalApiClient: ApiClientType?
+        self.dependencyContainer.accessServiceMock.getSessionReturnValue = sessionReponse
         sut.start { (returnedConfiguration, returnedApiClient) in
             optionalConfiguration = returnedConfiguration
             optionalApiClient = returnedApiClient
         }
-        self.dependencyContainer.accessServiceMock.getSessionParams.last?.completion(.success(sessionReponse))
         //Act
         sut.loginDidFinish(with: .loggedInCorrectly(sessionReponse))
         //Assert

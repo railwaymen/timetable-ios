@@ -45,11 +45,6 @@ class DependencyContainerMock: DependencyContainerType {
         return self.serverConfigurationManagerMock
     }
     
-    var coreDataStackMock = CoreDataStackMock()
-    var coreDataStack: CoreDataStackType {
-        return self.coreDataStackMock
-    }
-    
     lazy var accessServiceBuilder: AccessServiceBuilderType = { [weak self] (_, _, _) -> AccessServiceLoginType in
         return self?.accessServiceMock ?? AccessServiceMock()
     }

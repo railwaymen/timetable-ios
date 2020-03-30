@@ -1,6 +1,5 @@
 PODS:
   - CoordinatorsFoundation (0.2.2)
-  - CoreStore (7.0.4)
   - Firebase/Analytics (6.17.0):
     - Firebase/Core
   - Firebase/Core (6.17.0):
@@ -89,11 +88,10 @@ PODS:
 
 DEPENDENCIES:
   - CoordinatorsFoundation (~> 0.2.2)
-  - CoreStore (~> 7.0)
   - Firebase/Analytics
   - Firebase/Core (~> 6.17.0)
   - Firebase/Crashlytics
-  - JSONFactorable (~> 0.2.0)
+  - JSONFactorable (~> 0.2.1)
   - KeychainAccess (~> 4.1)
   - Restler (~> 0.4.2)
   - Swifter (~> 1.4.7)
@@ -101,7 +99,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
-    - CoreStore
     - Firebase
     - FirebaseAnalytics
     - FirebaseAnalyticsInterop
@@ -127,7 +124,6 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   CoordinatorsFoundation: 528e4db98ebbce2063b1ef1a2fe210da90253819
-  CoreStore: 9f0124e61d81fc7c89b704dec758eb3c7e71f428
   Firebase: 2672e5636b42f977177716317e68346ae5e9de25
   FirebaseAnalytics: cf95d3aab897612783020fbd98401d5366f135ee
   FirebaseAnalyticsInterop: 3f86269c38ae41f47afeb43ebf32a001f58fcdae
@@ -149,6 +145,6 @@ SPEC CHECKSUMS:
   Swifter: 2327ef5d872c638aebab79646ce494af508b0c8f
   SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
 
-PODFILE CHECKSUM: fa19f8fd6751e0c5dee73ed7ed3d05523b59592f
+PODFILE CHECKSUM: 52c67d19e6da28106c2d592e3ebd1610a18fc127
 
 COCOAPODS: 1.8.4

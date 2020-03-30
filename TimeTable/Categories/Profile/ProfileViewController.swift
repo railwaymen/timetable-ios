@@ -32,7 +32,7 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction private func logoutButtonTapped(_ sender: UIButton) {
-        self.viewModel.viewRequestedForLogout()
+        self.viewModel.logoutButtonTapped()
     }
 }
 

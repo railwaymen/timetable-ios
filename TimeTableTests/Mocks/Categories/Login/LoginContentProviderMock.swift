@@ -13,8 +13,7 @@ class LoginContentProviderMock {
     private(set) var loginParams: [LoginParams] = []
     struct LoginParams {
         var credentials: LoginCredentials
-        var fetchCompletion: ((Result<SessionDecoder, Error>) -> Void)
-        var saveCompletion: ((Result<Void, Error>) -> Void)
+        var completion: ((Result<SessionDecoder, Error>) -> Void)
     }
 }
 
@@ -22,13 +21,11 @@ class LoginContentProviderMock {
 extension LoginContentProviderMock: LoginContentProviderType {
     func login(
         with credentials: LoginCredentials,
-        fetchCompletion: @escaping ((Result<SessionDecoder, Error>) -> Void),
-        saveCompletion: @escaping ((Result<Void, Error>) -> Void)
+        completion: @escaping ((Result<SessionDecoder, Error>) -> Void)
     ) {
         self.loginParams.append(
             LoginParams(
                 credentials: credentials,
-                fetchCompletion: fetchCompletion,
-                saveCompletion: saveCompletion))
+                completion: completion))
     }
 }

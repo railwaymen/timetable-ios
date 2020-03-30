@@ -8,39 +8,30 @@
 
 import Foundation
 
-typealias AccessServiceLoginType = (AccessServiceLoginCredentialsType & AccessServiceUserIDType & AccessServiceSessionType)
-
-protocol AccessServiceLoginCredentialsType: class {
-    func removeLastLoggedInUserIdentifier()
-}
+typealias AccessServiceLoginType = (AccessServiceUserIDType & AccessServiceSessionType)
 
 protocol AccessServiceUserIDType: class {
-    func saveLastLoggedInUserIdentifier(_ identifer: Int64)
     func getLastLoggedInUserIdentifier() -> Int64?
 }
 
 protocol AccessServiceSessionType: class {
-    func getSession(completion: @escaping ((Result<SessionDecoder, Error>) -> Void))
+    func getSession() throws -> SessionDecoder
+    func saveSession(_ session: SessionDecoder) throws
+    func removeSession() throws
 }
 
 class AccessService {
-    private let userDefaults: UserDefaultsType
     private let keychainAccess: KeychainAccessType
-    private let coreData: CoreDataStackUserType
     private let encoder: JSONEncoderType
     private let decoder: JSONDecoderType
     
     // MARK: - Initialization
     init(
-        userDefaults: UserDefaultsType,
         keychainAccess: KeychainAccessType,
-        coreData: CoreDataStackUserType,
         encoder: JSONEncoderType,
         decoder: JSONDecoderType
     ) {
-        self.userDefaults = userDefaults
         self.keychainAccess = keychainAccess
-        self.coreData = coreData
         self.encoder = encoder
         self.decoder = decoder
     }
@@ -50,49 +41,34 @@ class AccessService {
 extension AccessService {
     enum Error: Swift.Error {
         case userNeverLoggedIn
-        case cannotSaveLoginCredentials
-        case cannotRemoveLoginCredentials
-        case cannotFetchLoginCredentials
     }
     
-    private struct Keys {
-        static let loginCredentialsKey = "key.time_table.login_credentials.key"
-        static let lastLoggedInUserIdentifier = "key.time_table.last_logged_user.id.key"
+    private struct Key {
+        static let userSession = "key.time_table.user_session"
     }
 }
 
-// MARK: - AccessServiceLoginCredentialsType
-extension AccessService: AccessServiceLoginCredentialsType {}
-
 // MARK: - AccessServiceUserIDType
 extension AccessService: AccessServiceUserIDType {
-    func saveLastLoggedInUserIdentifier(_ identifer: Int64) {
-        self.userDefaults.set(identifer, forKey: Keys.lastLoggedInUserIdentifier)
-    }
-    
     func getLastLoggedInUserIdentifier() -> Int64? {
-        guard let identifier = self.userDefaults.object(forKey: Keys.lastLoggedInUserIdentifier) as? Int64 else { return nil }
-        return identifier
-    }
-    
-    func removeLastLoggedInUserIdentifier() {
-        self.userDefaults.removeObject(forKey: Keys.lastLoggedInUserIdentifier)
+        guard let session = try? self.getSession() else { return nil }
+        return Int64(session.identifier)
     }
 }
 
 // MARK: - AccessServiceSessionType
 extension AccessService: AccessServiceSessionType {
-    func getSession(completion: @escaping ((Result<SessionDecoder, Swift.Error>) -> Void)) {
-        guard let identifier = self.getLastLoggedInUserIdentifier() else {
-            return completion(.failure(Error.userNeverLoggedIn))
-        }
-        self.coreData.fetchUser(forIdentifier: identifier) { result in
-            switch result {
-            case .success(let entity):
-                completion(.success(SessionDecoder(entity: entity)))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+    func getSession() throws -> SessionDecoder {
+        guard let data = try self.keychainAccess.getData(Key.userSession) else { throw Error.userNeverLoggedIn }
+        return try self.decoder.decode(SessionDecoder.self, from: data)
+    }
+    
+    func saveSession(_ session: SessionDecoder) throws {
+        let data = try self.encoder.encode(session)
+        try self.keychainAccess.set(data, key: Key.userSession)
+    }
+    
+    func removeSession() throws {
+        try self.keychainAccess.remove(Key.userSession)
     }
 }
