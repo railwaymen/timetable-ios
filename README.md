@@ -38,17 +38,17 @@ Simple time tracking iOS application. Check out our [TimeTable Ruby on Rails pro
 ### Cocoapods
 
 - [CoordinatorsFoundation](https://git.railwaymen.org/open/coordinatorsfoundation) 0.2.2
-- [Firebase](https://cocoapods.org/pods/Firebase) 6.17.0
+- [Firebase](https://cocoapods.org/pods/Firebase) 6.21.0
 - [JSONFactorable](https://git.railwaymen.org/open/jsonfactorable) 0.2.1 (tests only)
 - [KeychainAccess](https://cocoapods.org/pods/KeychainAccess) 4.1.0
-- [Networking](https://cocoapods.org/pods/Networking) 5.0.1
+- [Restler](https://git.railwaymen.org/open/restler/) 0.4.2
 - [Swifter](https://cocoapods.org/pods/Swifter) 1.4.7 (tests only)
 - [SwiftLint](https://cocoapods.org/pods/SwiftLint) 0.39.1
 
 ### Bundler
 
-- [Cocoapods](https://cocoapods.org) 1.8.4
-- [Fastlane](https://fastlane.tools) 2.141.0
+- [Cocoapods](https://cocoapods.org) 1.9.1
+- [Fastlane](https://fastlane.tools) 2.144.0
 - [Slather](https://github.com/SlatherOrg/slather) 2.4.7
 - [xcode-install](https://github.com/xcpretty/xcode-install) 2.6.3
 - [xcov](https://github.com/nakiostudio/xcov) 1.7.2
