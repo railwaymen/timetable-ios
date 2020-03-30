@@ -220,7 +220,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
         self.contentProvider.fetchWorkTimesData(for: self.selectedMonth) { [weak self] result in
             defer { completion() }
             switch result {
-            case let .success(dailyWorkTimes, matchingFullTime):
+            case let .success((dailyWorkTimes, matchingFullTime)):
                 self?.handleFetchSuccess(dailyWorkTimes: dailyWorkTimes, matchingFullTime: matchingFullTime)
             case let .failure(error):
                 self?.handleFetch(error: error)
@@ -294,7 +294,7 @@ extension WorkTimesListViewModel {
         self.contentProvider.fetchWorkTimesData(for: date) { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
-            case let .success(dailyWorkTimes, matchingFullTime):
+            case let .success((dailyWorkTimes, matchingFullTime)):
                 self?.handleFetchSuccess(dailyWorkTimes: dailyWorkTimes, matchingFullTime: matchingFullTime)
             case let .failure(error):
                 self?.handleFetch(error: error)

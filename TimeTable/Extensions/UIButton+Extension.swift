@@ -11,11 +11,11 @@ import UIKit
 extension UIButton: UIElementLocalizedType {
 
     @IBInspectable var localizedStringKey: String? {
-        set {
-            self.setTitle(newValue?.localized.localizedUppercase, for: UIControl.State())
-        }
         get {
             return self.titleLabel?.text
+        }
+        set {
+            self.setTitle(newValue?.localized.localizedUppercase, for: UIControl.State())
         }
     }
 }
