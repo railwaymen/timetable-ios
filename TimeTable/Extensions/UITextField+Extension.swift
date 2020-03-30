@@ -11,11 +11,11 @@ import UIKit
 extension UITextField: UIElementLocalizedType {
     
     @IBInspectable var localizedStringKey: String? {
-        set {
-            self.placeholder = newValue?.localized
-        }
         get {
             return self.placeholder
+        }
+        set {
+            self.placeholder = newValue?.localized
         }
     }
 }
