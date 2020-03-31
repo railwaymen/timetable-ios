@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Restler
 
 protocol ServerConfigurationManagerType: class {
     func getOldConfiguration() -> ServerConfiguration?
@@ -15,19 +14,19 @@ protocol ServerConfigurationManagerType: class {
 }
 
 class ServerConfigurationManager {
-    private var urlSession: URLSessionType
     private var userDefaults: UserDefaultsType
     private let dispatchQueueManager: DispatchQueueManagerType
+    private let restlerFactory: RestlerFactoryType
     
     // MARK: - Initialization
     init(
-        urlSession: URLSessionType,
         userDefaults: UserDefaultsType,
-        dispatchQueueManager: DispatchQueueManagerType
+        dispatchQueueManager: DispatchQueueManagerType,
+        restlerFactory: RestlerFactoryType
     ) {
-        self.urlSession = urlSession
         self.userDefaults = userDefaults
         self.dispatchQueueManager = dispatchQueueManager
+        self.restlerFactory = restlerFactory
     }
 }
 
@@ -53,33 +52,39 @@ extension ServerConfigurationManager: ServerConfigurationManagerType {
     }
     
     func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void, Error>) -> Void)) {
-        let mainThreadCompletion: ((Result<Void, Error>) -> Void) = { [dispatchQueueManager] result in
-            dispatchQueueManager.performOnMainThread(taskType: .async) {
-                completion(result)
-            }
-        }
+        let mainThreadCompletion = self.mainThreadClosure(completion)
+        let defaultError = ApiClientError(type: .invalidHost(configuration.host))
         guard let hostURL = configuration.host else {
-            mainThreadCompletion(.failure(ApiClientError(type: .invalidHost(configuration.host))))
+            mainThreadCompletion(.failure(defaultError))
             return
         }
-        var request = URLRequest(url: hostURL)
-        request.httpMethod = HTTPMethods.HEAD.rawValue
-        let dataTask = self.urlSession.dataTask(with: request) { [weak self] (_, response, error) in
-            if let response = response as? HTTPURLResponse, error == nil, response.statusCode == 200 {
+        let restler = self.restlerFactory.buildRestler(withBaseURL: hostURL)
+        _ = restler
+            .head("")
+            .failureDecode(ApiClientError.self)
+            .decode(Void.self)
+            .onSuccess({ [weak self] in
                 self?.save(configuration: configuration)
                 mainThreadCompletion(.success(Void()))
-            } else if let apiClientError = ApiClientError(response: Restler.Response(data: nil, response: response as? HTTPURLResponse, error: error)) {
+            })
+            .onFailure({ error in
+                let apiClientError = (error as? ApiClientError) ?? defaultError
                 mainThreadCompletion(.failure(apiClientError))
-            } else {
-                mainThreadCompletion(.failure(ApiClientError(type: .invalidHost(hostURL))))
-            }
-        }
-        dataTask.resume()
+            })
+            .start()
     }
 }
  
 // MARK: - Private
 extension ServerConfigurationManager {
+    private func mainThreadClosure<T>(_ closure: @escaping (T) -> Void) -> ((T) -> Void) {
+        return { [dispatchQueueManager] result in
+            dispatchQueueManager.performOnMainThread(taskType: .async) {
+                closure(result)
+            }
+        }
+    }
+    
     private func save(configuration: ServerConfiguration) {
         if configuration.shouldRememberHost, let hostURL = configuration.host {
             self.userDefaults.set(hostURL.absoluteString, forKey: UserDefaultsKeys.hostURLKey)

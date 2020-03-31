@@ -81,10 +81,5 @@ extension ApiClientError {
 }
 
 // MARK: - Equatable
-extension ApiClientError: Equatable {
-    static func == (lhs: ApiClientError, rhs: ApiClientError) -> Bool {
-        return lhs.type == rhs.type
-    }
-}
-
+extension ApiClientError: Equatable {}
 extension ApiClientError.ErrorType: Equatable {}

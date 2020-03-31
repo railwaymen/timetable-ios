@@ -55,7 +55,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
     
     private lazy var serverConfigurationManager: ServerConfigurationManagerType = {
-        return ServerConfigurationManager(urlSession: URLSession.shared, userDefaults: UserDefaults.standard, dispatchQueueManager: DispatchQueueManager())
+        return ServerConfigurationManager(
+            userDefaults: UserDefaults.standard,
+            dispatchQueueManager: DispatchQueueManager(),
+            restlerFactory: RestlerFactory())
     }()
     
     private lazy var accessServiceBuilder: AccessServiceBuilderType = { (serverConfiguration, encoder, decoder) in
