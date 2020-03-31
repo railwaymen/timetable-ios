@@ -48,32 +48,43 @@ class RestlerMock {
     struct DeleteParams {
         let endpoint: RestlerEndpointable
     }
+    
+    var headReturnValue: RestlerRequestBuilderMock = RestlerRequestBuilderMock()
+    private(set) var headParams: [HeadParams] = []
+    struct HeadParams {
+        let endpoint: RestlerEndpointable
+    }
 }
 
 // MARK: - RestlerType
 extension RestlerMock: RestlerType {
-    func get(_ endpoint: RestlerEndpointable) -> RestlerRequestBuilderType {
+    func get(_ endpoint: RestlerEndpointable) -> RestlerGetRequestBuilderType {
         self.getParams.append(GetParams(endpoint: endpoint))
         return self.getReturnValue
     }
     
-    func post(_ endpoint: RestlerEndpointable) -> RestlerRequestBuilderType {
+    func post(_ endpoint: RestlerEndpointable) -> RestlerPostRequestBuilderType {
         self.postParams.append(PostParams(endpoint: endpoint))
         return self.postReturnValue
     }
     
-    func put(_ endpoint: RestlerEndpointable) -> RestlerRequestBuilderType {
+    func put(_ endpoint: RestlerEndpointable) -> RestlerPutRequestBuilderType {
         self.putParams.append(PutParams(endpoint: endpoint))
         return self.putReturnValue
     }
     
-    func patch(_ endpoint: RestlerEndpointable) -> RestlerRequestBuilderType {
+    func patch(_ endpoint: RestlerEndpointable) -> RestlerPatchRequestBuilderType {
         self.patchParams.append(PatchParams(endpoint: endpoint))
         return self.patchReturnValue
     }
     
-    func delete(_ endpoint: RestlerEndpointable) -> RestlerRequestBuilderType {
+    func delete(_ endpoint: RestlerEndpointable) -> RestlerDeleteRequestBuilderType {
         self.deleteParams.append(DeleteParams(endpoint: endpoint))
         return self.deleteReturnValue
+    }
+    
+    func head(_ endpoint: RestlerEndpointable) -> RestlerHeadRequestBuilderType {
+        self.headParams.append(HeadParams(endpoint: endpoint))
+        return self.headReturnValue
     }
 }

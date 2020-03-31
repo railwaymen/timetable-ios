@@ -12,23 +12,7 @@ import Restler
 
 class RestlerRequestBuilderMock {
     
-    // MARK: - RestlerRequestBuilderType
-    private(set) var queryParams: [QueryParams] = []
-    struct QueryParams {
-        let object: Any
-    }
-    
-    private(set) var bodyParams: [BodyParams] = []
-    struct BodyParams {
-        let object: Any
-    }
-    
-    private(set) var multipartParams: [MultipartParams] = []
-    struct MultipartParams {
-        let object: Any
-        let boundary: String?
-    }
-    
+    // MARK: - RestlerBasicRequestBuilderType
     private(set) var setInHeaderParams: [SetInHeaderParams] = []
     struct SetInHeaderParams {
         let value: String?
@@ -40,6 +24,26 @@ class RestlerRequestBuilderMock {
         let type: RestlerErrorDecodable.Type
     }
     
+    // MARK: - RestlerQueryRequestBuilderType
+    private(set) var queryParams: [QueryParams] = []
+    struct QueryParams {
+        let object: Any
+    }
+    
+    // MARK: - RestlerBodyRequestBuilderType
+    private(set) var bodyParams: [BodyParams] = []
+    struct BodyParams {
+        let object: Any
+    }
+    
+    // MARK: - RestlerMultipartRequestBuilderType
+    private(set) var multipartParams: [MultipartParams] = []
+    struct MultipartParams {
+        let object: Any
+        let boundary: String?
+    }
+    
+    // MARK: - RestlerDecodableResponseRequestBuilderType
     private(set) var decodeReturnedMocks: [Any] = []
     private(set) var decodeParams: [DecodeParams] = []
     struct DecodeParams {
@@ -76,23 +80,8 @@ class RestlerRequestBuilderMock {
     }
 }
 
-// MARK: - RestlerRequestBuilderType
-extension RestlerRequestBuilderMock: RestlerRequestBuilderType {
-    func query<E>(_ object: E) -> Self where E: RestlerQueryEncodable {
-        self.queryParams.append(QueryParams(object: object))
-        return self
-    }
-    
-    func body<E>(_ object: E) -> Self where E: Encodable {
-        self.bodyParams.append(BodyParams(object: object))
-        return self
-    }
-    
-    func multipart<E>(_ object: E, boundary: String?) -> Self where E: RestlerMultipartEncodable {
-        self.multipartParams.append(MultipartParams(object: object, boundary: boundary))
-        return self
-    }
-    
+// MARK: - RestlerBasicRequestBuilderType
+extension RestlerRequestBuilderMock: RestlerBasicRequestBuilderType {
     func setInHeader(_ value: String?, forKey key: Restler.Header.Key) -> Self {
         self.setInHeaderParams.append(SetInHeaderParams(value: value, key: key))
         return self
@@ -103,6 +92,40 @@ extension RestlerRequestBuilderMock: RestlerRequestBuilderType {
         return self
     }
     
+    func decode(_ type: Void.Type) -> Restler.Request<Void> {
+        self.decodeParams.append(DecodeParams(type: type))
+        let mock = RestlerRequestMock<Void>()
+        self.decodeReturnedMocks.append(mock)
+        return mock
+    }
+}
+
+// MARK: - RestlerQueryRequestBuilderType
+extension RestlerRequestBuilderMock: RestlerQueryRequestBuilderType {
+    func query<E>(_ object: E) -> Self where E: RestlerQueryEncodable {
+        self.queryParams.append(QueryParams(object: object))
+        return self
+    }
+}
+
+// MARK: - RestlerBodyRequestBuilderType
+extension RestlerRequestBuilderMock: RestlerBodyRequestBuilderType {
+    func body<E>(_ object: E) -> Self where E: Encodable {
+        self.bodyParams.append(BodyParams(object: object))
+        return self
+    }
+}
+
+// MARK: - RestlerMultipartRequestBuilderType
+extension RestlerRequestBuilderMock: RestlerMultipartRequestBuilderType {
+    func multipart<E>(_ object: E, boundary: String?) -> Self where E: RestlerMultipartEncodable {
+        self.multipartParams.append(MultipartParams(object: object, boundary: boundary))
+        return self
+    }
+}
+
+// MARK: - RestlerDecodableResponseRequestBuilderType
+extension RestlerRequestBuilderMock: RestlerDecodableResponseRequestBuilderType {
     func decode<T>(_ type: T?.Type) -> Restler.Request<T?> where T: Decodable {
         self.decodeParams.append(DecodeParams(type: type))
         let mock = RestlerRequestMock<T?>()
@@ -113,13 +136,6 @@ extension RestlerRequestBuilderMock: RestlerRequestBuilderType {
     func decode<T>(_ type: T.Type) -> Restler.Request<T> where T: Decodable {
         self.decodeParams.append(DecodeParams(type: type))
         let mock = RestlerRequestMock<T>()
-        self.decodeReturnedMocks.append(mock)
-        return mock
-    }
-    
-    func decode(_ type: Void.Type) -> Restler.Request<Void> {
-        self.decodeParams.append(DecodeParams(type: type))
-        let mock = RestlerRequestMock<Void>()
         self.decodeReturnedMocks.append(mock)
         return mock
     }
