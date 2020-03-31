@@ -57,7 +57,7 @@ class WorkTimeViewModel {
     private let flowType: FlowType
     
     private var projects: [SimpleProjectRecordDecoder]
-    private var taskForm: TaskForm
+    private var taskForm: TaskFormType
     private var tags: [ProjectTag]
     
     // MARK: - Initialization
@@ -68,7 +68,8 @@ class WorkTimeViewModel {
         errorHandler: ErrorHandlerType,
         calendar: CalendarType,
         notificationCenter: NotificationCenterType,
-        flowType: FlowType
+        flowType: FlowType,
+        taskFormFactory: TaskFormFactoryType
     ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
@@ -77,24 +78,14 @@ class WorkTimeViewModel {
         self.calendar = calendar
         self.notificationCenter = notificationCenter
         self.flowType = flowType
-        let taskCreation: (_ duplicatedTask: TaskForm?, _ lastTask: TaskForm?) -> TaskForm = { duplicatedTask, lastTask in
-            return TaskForm(
-                workTimeIdentifier: nil,
-                project: duplicatedTask?.project,
-                body: duplicatedTask?.body ?? "",
-                url: duplicatedTask?.url,
-                day: Date(),
-                startsAt: contentProvider.pickEndTime(ofLastTask: lastTask),
-                endsAt: nil,
-                tag: duplicatedTask?.tag ?? .default)
-        }
+        
         switch flowType {
         case let .newEntry(lastTask):
             self.lastTask = lastTask
-            self.taskForm = taskCreation(nil, lastTask)
+            self.taskForm = taskFormFactory.buildTaskForm(duplicatedTask: nil, lastTask: lastTask)
         case let .duplicateEntry(duplicatedTask, lastTask):
             self.lastTask = lastTask
-            self.taskForm = taskCreation(duplicatedTask, lastTask)
+            self.taskForm = taskFormFactory.buildTaskForm(duplicatedTask: duplicatedTask, lastTask: lastTask)
         case let .editEntry(editedTask):
             self.taskForm = editedTask
             self.lastTask = nil
@@ -179,13 +170,15 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func taskNameDidChange(value: String?) {
-        guard let body = value else { return }
-        self.taskForm.body = body
+        self.taskForm.body = value ?? ""
     }
     
     func taskURLDidChange(value: String?) {
-        guard let stringURL = value, let url = URL(string: stringURL) else { return }
-        self.taskForm.url = url
+        var taskURL: URL?
+        if let url = URL(string: value ?? "") {
+            taskURL = url
+        }
+        self.taskForm.url = taskURL
     }
     
     func viewChanged(day: Date) {

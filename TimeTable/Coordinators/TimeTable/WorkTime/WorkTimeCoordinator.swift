@@ -88,7 +88,8 @@ extension WorkTimeCoordinator: WorkTimeCoordinatorType {
             errorHandler: self.dependencyContainer.errorHandler,
             calendar: Calendar.autoupdatingCurrent,
             notificationCenter: self.dependencyContainer.notificationCenter,
-            flowType: self.flowType)
+            flowType: self.flowType,
+            taskFormFactory: self.dependencyContainer.taskFormFactory)
         contentViewController.configure(viewModel: viewModel)
         return viewModel
     }

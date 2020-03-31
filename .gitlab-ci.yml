@@ -61,7 +61,7 @@ test_project:
     when: on_success
   tags:
     - ios_simulator
-  coverage: '/TimeTable\.app\D*\|\D*([\d\.]*)\%/'
+  coverage: '/Test\ Coverage:\ \D*([\d\.]*)\%/'
 
 deploy_stage:
   stage: deploy

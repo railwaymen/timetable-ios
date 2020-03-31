@@ -434,7 +434,7 @@ extension WorkTimeContentProviderTests {
     func testSaveTask_updatesEditedTask() throws {
         //Arrange
         let sut = self.buildSUT()
-        self.taskForm.workTimeIdentifier = 133
+        self.taskForm.workTimeIdentifierReturnValue = 133
         self.taskForm.generateEncodableRepresentationReturnValue = try self.buildTask()
         var completionResult: SaveTaskResult?
         //Act
@@ -450,7 +450,7 @@ extension WorkTimeContentProviderTests {
     func testSaveTask_updateTaskRequestSuccess() throws {
         //Arrange
         let sut = self.buildSUT()
-        self.taskForm.workTimeIdentifier = 133
+        self.taskForm.workTimeIdentifierReturnValue = 133
         self.taskForm.generateEncodableRepresentationReturnValue = try self.buildTask()
         var completionResult: SaveTaskResult?
         //Act
@@ -467,7 +467,7 @@ extension WorkTimeContentProviderTests {
         //Arrange
         let sut = self.buildSUT()
         let error = TestError(message: "error")
-        self.taskForm.workTimeIdentifier = 133
+        self.taskForm.workTimeIdentifierReturnValue = 133
         self.taskForm.generateEncodableRepresentationReturnValue = try self.buildTask()
         var completionResult: SaveTaskResult?
         //Act
@@ -628,7 +628,7 @@ extension WorkTimeContentProviderTests {
         let sut = self.buildSUT()
         let currentDate = try self.buildDate(year: 2011, month: 2, day: 23, hour: 6, minute: 32, second: 2)
         self.taskForm.projectTypeReturnValue = .lunch(100)
-        self.taskForm.startsAt = currentDate
+        self.taskForm.startsAtReturnValue = currentDate
         //Act
         let (startDate, endDate) = sut.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: nil)
         //Assert
@@ -657,10 +657,10 @@ extension WorkTimeContentProviderTests {
         let expectedStartDate = try self.buildDate(year: 2011, month: 2, day: 23, hour: 6, minute: 32, second: 2)
         let expectedEndDate = try self.buildDate(year: 2019, month: 6, day: 16, hour: 2, minute: 5, second: 1)
         self.taskForm.projectTypeReturnValue = .standard
-        self.taskForm.endsAt = expectedEndDate
+        self.taskForm.endsAtReturnValue = expectedEndDate
         self.calendar.isDateInTodayReturnValue = true
         let lastTaskForm = TaskFormMock()
-        lastTaskForm.endsAt = expectedStartDate
+        lastTaskForm.endsAtReturnValue = expectedStartDate
         //Act
         let (startDate, endDate) = sut.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: lastTaskForm)
         //Assert
@@ -675,7 +675,7 @@ extension WorkTimeContentProviderTests {
         self.taskForm.projectTypeReturnValue = .standard
         self.calendar.isDateInTodayReturnValue = true
         let lastTaskForm = TaskFormMock()
-        lastTaskForm.endsAt = currentDate
+        lastTaskForm.endsAtReturnValue = currentDate
         //Act
         let (startDate, endDate) = sut.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: lastTaskForm)
         //Assert
@@ -688,7 +688,7 @@ extension WorkTimeContentProviderTests {
         let sut = self.buildSUT()
         let currentDate = try self.buildDate(year: 2011, month: 2, day: 23, hour: 6, minute: 32, second: 2)
         self.taskForm.projectTypeReturnValue = .standard
-        self.taskForm.startsAt = currentDate
+        self.taskForm.startsAtReturnValue = currentDate
         //Act
         let (startDate, endDate) = sut.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: nil)
         //Assert
@@ -717,10 +717,10 @@ extension WorkTimeContentProviderTests {
         let expectedStartDate = try self.buildDate(year: 2011, month: 2, day: 23, hour: 6, minute: 32, second: 2)
         let expectedEndDate = try self.buildDate(year: 2019, month: 6, day: 16, hour: 2, minute: 5, second: 1)
         self.taskForm.projectTypeReturnValue = nil
-        self.taskForm.endsAt = expectedEndDate
+        self.taskForm.endsAtReturnValue = expectedEndDate
         self.calendar.isDateInTodayReturnValue = true
         let lastTaskForm = TaskFormMock()
-        lastTaskForm.endsAt = expectedStartDate
+        lastTaskForm.endsAtReturnValue = expectedStartDate
         //Act
         let (startDate, endDate) = sut.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: lastTaskForm)
         //Assert
@@ -735,7 +735,7 @@ extension WorkTimeContentProviderTests {
         self.taskForm.projectTypeReturnValue = nil
         self.calendar.isDateInTodayReturnValue = true
         let lastTaskForm = TaskFormMock()
-        lastTaskForm.endsAt = currentDate
+        lastTaskForm.endsAtReturnValue = currentDate
         //Act
         let (startDate, endDate) = sut.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: lastTaskForm)
         //Assert
@@ -748,7 +748,7 @@ extension WorkTimeContentProviderTests {
         let sut = self.buildSUT()
         let currentDate = try self.buildDate(year: 2011, month: 2, day: 23, hour: 6, minute: 32, second: 2)
         self.taskForm.projectTypeReturnValue = nil
-        self.taskForm.startsAt = currentDate
+        self.taskForm.startsAtReturnValue = currentDate
         //Act
         let (startDate, endDate) = sut.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: nil)
         //Assert
@@ -793,52 +793,6 @@ extension WorkTimeContentProviderTests {
         let returnedDate = sut.getPredefinedDay(forTaskForm: taskForm)
         //Assert
         XCTAssertEqual(returnedDate, date)
-    }
-}
-
-// MARK: - pickEndTime(ofLastTask:)
-extension WorkTimeContentProviderTests {
-    func testPickEndTimeOfLastTask_nilTask() throws {
-        //Arrange
-        let sut = self.buildSUT()
-        //Act
-        let date = sut.pickEndTime(ofLastTask: nil)
-        //Assert
-        XCTAssertNil(date)
-    }
-    
-    func testPickEndTimeOfLastTask_nilEndsAt() throws {
-        //Arrange
-        let sut = self.buildSUT()
-        let lastTask = TaskForm(body: "")
-        //Act
-        let date = sut.pickEndTime(ofLastTask: lastTask)
-        //Assert
-        XCTAssertNil(date)
-    }
-    
-    func testPickEndTimeOfLastTask_endsAtNotToday() throws {
-        //Arrange
-        let sut = self.buildSUT()
-        let endsAt = try self.buildDate(year: 2019, month: 5, day: 1)
-        let lastTask = TaskForm(body: "", endsAt: endsAt)
-        self.calendar.isDateInTodayReturnValue = false
-        //Act
-        let date = sut.pickEndTime(ofLastTask: lastTask)
-        //Assert
-        XCTAssertNil(date)
-    }
-    
-    func testPickEndTimeOfLastTask_endsAtToday() throws {
-        //Arrange
-        let sut = self.buildSUT()
-        let endsAt = try self.buildDate(year: 2019, month: 5, day: 1)
-        let lastTask = TaskForm(body: "", endsAt: endsAt)
-        self.calendar.isDateInTodayReturnValue = true
-        //Act
-        let date = sut.pickEndTime(ofLastTask: lastTask)
-        //Assert
-        XCTAssertEqual(date, endsAt)
     }
 }
 

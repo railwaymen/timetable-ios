@@ -23,6 +23,11 @@ class MockServer {
     
     init() {
         self.port = PortGenerator.shared.generateNewPort()
+        try? self.start()
+    }
+    
+    deinit {
+        self.stop()
     }
     
     // MARK: - Internal

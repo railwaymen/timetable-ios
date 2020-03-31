@@ -12,14 +12,53 @@ import XCTest
 class TaskFormMock {
     
     // MARK: - TaskFormType
-    var workTimeIdentifier: Int64?
-    var project: SimpleProjectRecordDecoder?
-    var body: String = ""
-    var url: URL?
-    var day: Date?
-    var startsAt: Date?
-    var endsAt: Date?
-    var tag: ProjectTag = .default
+    var workTimeIdentifierReturnValue: Int64?
+    private(set) var workTimeIdentifierSetParams: [WorkTimeIdentifierSetParams] = []
+    struct WorkTimeIdentifierSetParams {
+        let newValue: Int64?
+    }
+    
+    var projectReturnValue: SimpleProjectRecordDecoder?
+    private(set) var projectSetParams: [ProjectSetParams] = []
+    struct ProjectSetParams {
+        let newValue: SimpleProjectRecordDecoder?
+    }
+    
+    var bodyReturnValue: String = ""
+    private(set) var bodySetParams: [BodySetParams] = []
+    struct BodySetParams {
+        let newValue: String
+    }
+    
+    var urlReturnValue: URL?
+    private(set) var urlSetParams: [URLSetParams] = []
+    struct URLSetParams {
+        let newValue: URL?
+    }
+    
+    var dayReturnValue: Date?
+    private(set) var daySetParams: [DaySetParams] = []
+    struct DaySetParams {
+        let newValue: Date?
+    }
+    
+    var startsAtReturnValue: Date?
+    private(set) var startsAtParams: [StartsAtParams] = []
+    struct StartsAtParams {
+        let newValue: Date?
+    }
+    
+    var endsAtReturnValue: Date?
+    private(set) var endsAtParams: [EndsAtParams] = []
+    struct EndsAtParams {
+        let newValue: Date?
+    }
+    
+    var tagReturnValue: ProjectTag = .default
+    private(set) var tagSetParams: [TagSetParams] = []
+    struct TagSetParams {
+        let newValue: ProjectTag
+    }
     
     var titleReturnValue: String = ""
     
@@ -37,20 +76,92 @@ class TaskFormMock {
 
 // MARK: - TaskFormType
 extension TaskFormMock: TaskFormType {
+    var workTimeIdentifier: Int64? {
+        get {
+            self.workTimeIdentifierReturnValue
+        }
+        set {
+            self.workTimeIdentifierSetParams.append(WorkTimeIdentifierSetParams(newValue: newValue))
+        }
+    }
+    
+    var project: SimpleProjectRecordDecoder? {
+        get {
+            self.projectReturnValue
+        }
+        set {
+            self.projectSetParams.append(ProjectSetParams(newValue: newValue))
+        }
+    }
+    
+    var body: String {
+        get {
+            self.bodyReturnValue
+        }
+        set {
+            self.bodySetParams.append(BodySetParams(newValue: newValue))
+        }
+    }
+    
+    var url: URL? {
+        get {
+            self.urlReturnValue
+        }
+        set {
+            self.urlSetParams.append(URLSetParams(newValue: newValue))
+        }
+    }
+    
+    var day: Date? {
+        get {
+            self.dayReturnValue
+        }
+        set {
+            self.daySetParams.append(DaySetParams(newValue: newValue))
+        }
+    }
+    
+    var startsAt: Date? {
+        get {
+            self.startsAtReturnValue
+        }
+        set {
+            self.startsAtParams.append(StartsAtParams(newValue: newValue))
+        }
+    }
+    
+    var endsAt: Date? {
+        get {
+            self.endsAtReturnValue
+        }
+        set {
+            self.endsAtParams.append(EndsAtParams(newValue: newValue))
+        }
+    }
+    
+    var tag: ProjectTag {
+        get {
+            self.tagReturnValue
+        }
+        set {
+            self.tagSetParams.append(TagSetParams(newValue: newValue))
+        }
+    }
+    
     var title: String {
-        return self.titleReturnValue
+        self.titleReturnValue
     }
     
     var allowsTask: Bool {
-        return self.allowsTaskReturnValue
+        self.allowsTaskReturnValue
     }
     
     var isProjectTaggable: Bool {
-        return self.isProjectTaggableReturnValue
+        self.isProjectTaggableReturnValue
     }
     
     var projectType: TaskForm.ProjectType? {
-        return self.projectTypeReturnValue
+        self.projectTypeReturnValue
     }
     
     func generateEncodableRepresentation() throws -> Task {

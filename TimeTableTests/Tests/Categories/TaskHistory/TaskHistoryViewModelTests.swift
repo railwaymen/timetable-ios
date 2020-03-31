@@ -23,7 +23,7 @@ class TaskHistoryViewModelTests: XCTestCase {
         self.apiClient = ApiClientMock()
         self.errorHandler = ErrorHandlerMock()
         self.taskForm = TaskFormMock()
-        self.taskForm.workTimeIdentifier = 1
+        self.taskForm.workTimeIdentifierReturnValue = 1
     }
 }
 
@@ -41,7 +41,7 @@ extension TaskHistoryViewModelTests {
     func testViewDidLoad_fetchWorkTimeDetails_before_taskWithoutWorkTimeID_stopsInDebug() {
         //Arrange
         let sut = self.buildSUT()
-        self.taskForm.workTimeIdentifier = nil
+        self.taskForm.workTimeIdentifierReturnValue = nil
         //Act
         sut.viewDidLoad()
         //Assert
