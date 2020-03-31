@@ -18,6 +18,7 @@ struct TaskVersion: Decodable {
     let endsAt: NilableDiffElement<Date>
     let tag: NilableDiffElement<ProjectTag>
     let duration: NilableDiffElement<Int64>
+    let task: NilableDiffElement<String>
     
     private enum CodingKeys: String, CodingKey {
         case event
@@ -29,6 +30,7 @@ struct TaskVersion: Decodable {
         case endsAt
         case tag
         case duration
+        case task
     }
     
     // MARK: - Getters
@@ -52,6 +54,9 @@ struct TaskVersion: Decodable {
         if self.duration.hasChanged {
             changes.append(.duration)
         }
+        if self.task.hasChanged {
+            changes.append(.task)
+        }
         return changes
     }
     
@@ -69,6 +74,7 @@ struct TaskVersion: Decodable {
         self.endsAt = try NilableDiffElement(from: decoder, baseKey: CodingKeys.endsAt.rawValue)
         self.tag = try NilableDiffElement(from: decoder, baseKey: CodingKeys.tag.rawValue)
         self.duration = try NilableDiffElement(from: decoder, baseKey: CodingKeys.duration.rawValue)
+        self.task = try NilableDiffElement(from: decoder, baseKey: CodingKeys.task.rawValue)
     }
 }
 

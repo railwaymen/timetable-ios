@@ -189,6 +189,11 @@
 		8AF5697923D754D600A1D001 /* UserDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5697823D754D600A1D001 /* UserDecoderFactory.swift */; };
 		8AF5697B23D756CA00A1D001 /* WorkTimeDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5697A23D756CA00A1D001 /* WorkTimeDecoderFactory.swift */; };
 		8AF5697D23D759AE00A1D001 /* ServerErrorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5697C23D759AE00A1D001 /* ServerErrorFactory.swift */; };
+		8AFFE5C224331BDB001D9E89 /* taskVersionNullPreviousTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */; };
+		8AFFE5C424331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */; };
+		8AFFE5C624331BFB001D9E89 /* taskVersionNullCurrentTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */; };
+		8AFFE5C824331C0B001D9E89 /* taskVersionMissingCurrentTaskKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C724331C0B001D9E89 /* taskVersionMissingCurrentTaskKey.json */; };
+		8AFFE5CA24331F77001D9E89 /* taskChangedTaskResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C924331F77001D9E89 /* taskChangedTaskResponse.json */; };
 		BFB4EF72FAE3D8CD21A09744 /* Pods_TimeTableTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FE8C20AC7A1A64A549519E /* Pods_TimeTableTests.framework */; };
 		C101603222003A9500DCE817 /* WorkTimesListContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */; };
 		C101603422003D4000DCE817 /* MatchingFullTimeEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101603322003D4000DCE817 /* MatchingFullTimeEncoder.swift */; };
@@ -649,6 +654,11 @@
 		8AF5697823D754D600A1D001 /* UserDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDecoderFactory.swift; sourceTree = "<group>"; };
 		8AF5697A23D756CA00A1D001 /* WorkTimeDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeDecoderFactory.swift; sourceTree = "<group>"; };
 		8AF5697C23D759AE00A1D001 /* ServerErrorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerErrorFactory.swift; sourceTree = "<group>"; };
+		8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullPreviousTask.json; sourceTree = "<group>"; };
+		8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionMissingPreviousTaskKey.json; sourceTree = "<group>"; };
+		8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullCurrentTask.json; sourceTree = "<group>"; };
+		8AFFE5C724331C0B001D9E89 /* taskVersionMissingCurrentTaskKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionMissingCurrentTaskKey.json; sourceTree = "<group>"; };
+		8AFFE5C924331F77001D9E89 /* taskChangedTaskResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedTaskResponse.json; sourceTree = "<group>"; };
 		9D079498D6352A89A81273FA /* Pods_TimeTableUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeTableUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2D3628570D3D30EA2E489EC /* Pods-TimeTable.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTable.test.xcconfig"; path = "Target Support Files/Pods-TimeTable/Pods-TimeTable.test.xcconfig"; sourceTree = "<group>"; };
 		C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListContentProvider.swift; sourceTree = "<group>"; };
@@ -1255,6 +1265,7 @@
 				8A2FB0F3242E274700DDBCB0 /* taskChangedProjectResponse.json */,
 				8A2FB0F9242E27FF00DDBCB0 /* taskChangedStartsAtResponse.json */,
 				8A2FB0FD242E284900DDBCB0 /* taskChangedTagResponse.json */,
+				8AFFE5C924331F77001D9E89 /* taskChangedTaskResponse.json */,
 				8A2FB0F5242E278C00DDBCB0 /* taskUnchangedResponse.json */,
 				8A79A2522420DEEB0048B44B /* taskVersionFullModel.json */,
 				8A79A2702420EF2F0048B44B /* taskVersionMissingCurrentBodyKey.json */,
@@ -1263,6 +1274,7 @@
 				8A79A2642420EBD80048B44B /* taskVersionMissingCurrentProjectNameKey.json */,
 				8A79A2782420EFBC0048B44B /* taskVersionMissingCurrentStartsAtKey.json */,
 				8A79A29B2420F73B0048B44B /* taskVersionMissingCurrentTagKey.json */,
+				8AFFE5C724331C0B001D9E89 /* taskVersionMissingCurrentTaskKey.json */,
 				8A79A2A02420F73C0048B44B /* taskVersionMissingEventKey.json */,
 				8A79A2AA2420F73C0048B44B /* taskVersionMissingPreviousBodyKey.json */,
 				8A79A2A92420F73C0048B44B /* taskVersionMissingPreviousDurationKey.json */,
@@ -1270,6 +1282,7 @@
 				8A79A2992420F73B0048B44B /* taskVersionMissingPreviousProjectNameKey.json */,
 				8A79A2A42420F73C0048B44B /* taskVersionMissingPreviousStartsAtKey.json */,
 				8A79A2A12420F73C0048B44B /* taskVersionMissingPreviousTagKey.json */,
+				8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */,
 				8A79A2A62420F73C0048B44B /* taskVersionMissingProjectNameKeys.json */,
 				8A79A29C2420F73B0048B44B /* taskVersionNullCurrentBody.json */,
 				8A79A2AB2420F73C0048B44B /* taskVersionNullCurrentDuration.json */,
@@ -1277,6 +1290,7 @@
 				8A79A29E2420F73B0048B44B /* taskVersionNullCurrentProjectName.json */,
 				8A79A29A2420F73B0048B44B /* taskVersionNullCurrentStartsAt.json */,
 				8A79A2A82420F73C0048B44B /* taskVersionNullCurrentTag.json */,
+				8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */,
 				8A79A2A32420F73C0048B44B /* taskVersionNullEvent.json */,
 				8A79A29F2420F73C0048B44B /* taskVersionNullPreviousBody.json */,
 				8A79A2982420F73B0048B44B /* taskVersionNullPreviousDuration.json */,
@@ -1284,6 +1298,7 @@
 				8A79A29D2420F73B0048B44B /* taskVersionNullPreviousProjectName.json */,
 				8A79A2A52420F73C0048B44B /* taskVersionNullPreviousStartsAt.json */,
 				8A79A2962420F73B0048B44B /* taskVersionNullPreviousTag.json */,
+				8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */,
 				8A79A2A72420F73C0048B44B /* taskVersionNullProjectName.json */,
 				8A79A2942420F73B0048B44B /* taskVersionUnknownEvent.json */,
 			);
@@ -2470,6 +2485,7 @@
 				8A79A2792420EFBC0048B44B /* taskVersionMissingCurrentStartsAtKey.json in Resources */,
 				C1B771DD21EF1E2800EFE06F /* simpleProjectNullInternalResponse.json in Resources */,
 				C1B771DB21EF1E1400EFE06F /* simpleProjectMissingAutofillKeyResponse.json in Resources */,
+				8AFFE5C824331C0B001D9E89 /* taskVersionMissingCurrentTaskKey.json in Resources */,
 				8A79A2AF2420F73C0048B44B /* taskVersionMissingPreviousEndsAtKey.json in Resources */,
 				8A79A2C22420F73C0048B44B /* taskVersionMissingPreviousBodyKey.json in Resources */,
 				8A79A2AD2420F73C0048B44B /* taskVersionNullPreviousEndsAt.json in Resources */,
@@ -2479,6 +2495,7 @@
 				8A79A2BB2420F73C0048B44B /* taskVersionNullEvent.json in Resources */,
 				8A79A3092424EAF70048B44B /* projectTagsUnknownResponse.json in Resources */,
 				C1B771D921EF1DFF00EFE06F /* simpleProjectNullAutofillResponse.json in Resources */,
+				8AFFE5CA24331F77001D9E89 /* taskChangedTaskResponse.json in Resources */,
 				C1B771D721EF1DE100EFE06F /* simpleProjectMissingColorKeyResponse.json in Resources */,
 				C1B771FD21EF421900EFE06F /* baseErrorKeyResponse.json in Resources */,
 				C18A189A21EF804900CB6E32 /* serverErrorResponse.json in Resources */,
@@ -2489,6 +2506,7 @@
 				C1B771D521EF1DD200EFE06F /* simpleProjectNullColorResponse.json in Resources */,
 				8A79A2F1242369E00048B44B /* projectRecordMissingUsersKeyResponse.json in Resources */,
 				C12CA57221A58D020082FEB7 /* workTimesProjectResponse.json in Resources */,
+				8AFFE5C224331BDB001D9E89 /* taskVersionNullPreviousTask.json in Resources */,
 				8A2FB0FE242E284900DDBCB0 /* taskChangedTagResponse.json in Resources */,
 				C1B771E321EF1E6800EFE06F /* simpleProjectMissingCountDurationKeyResponse.json in Resources */,
 				8A79A2AC2420F73C0048B44B /* taskVersionUnknownEvent.json in Resources */,
@@ -2513,6 +2531,7 @@
 				C1B771FF21EF422600EFE06F /* startAtErrorKeyResponse.json in Resources */,
 				8A79A2BE2420F73C0048B44B /* taskVersionMissingProjectNameKeys.json in Resources */,
 				C10FD88721F1F30E00A233C5 /* userFullResponse.json in Resources */,
+				8AFFE5C624331BFB001D9E89 /* taskVersionNullCurrentTask.json in Resources */,
 				C1B771E721EF1E9000EFE06F /* simpleProjectMissingActiveKeyResponse.json in Resources */,
 				C11D0CFD2208240600066CA9 /* matchingFullTimeNullPeriod.json in Resources */,
 				C13429B621A8307200F4EA42 /* workTimeMissingBodyKey.json in Resources */,
@@ -2529,6 +2548,7 @@
 				C1B771DF21EF1E3E00EFE06F /* simpleProjectMissingInternalKeyResponse.json in Resources */,
 				8A79A3052424E9460048B44B /* projectTagsResponse.json in Resources */,
 				8A9987CE23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json in Resources */,
+				8AFFE5C424331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json in Resources */,
 				C13429A321A6DCA300F4EA42 /* workTimeMissingTaskPreviewKey.json in Resources */,
 				8A79A2C32420F73C0048B44B /* taskVersionNullCurrentDuration.json in Resources */,
 				8A79A2B42420F73C0048B44B /* taskVersionNullCurrentBody.json in Resources */,

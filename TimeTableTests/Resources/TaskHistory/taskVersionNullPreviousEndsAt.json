@@ -12,6 +12,8 @@
     "tag": "im",
     "ends_at_was": null,
     "ends_at": "2020-03-17T09:20:00.000+00:00",
+    "task_was": "TIM-70",
+    "task": "TIM-71",
     "duration_was": 600,
     "duration": 1800
 }
