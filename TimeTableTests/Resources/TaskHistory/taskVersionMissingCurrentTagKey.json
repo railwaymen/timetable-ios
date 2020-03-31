@@ -11,6 +11,8 @@
     "tag_was": "dev",
     "ends_at_was": "2020-03-17T09:10:00.000+00:00",
     "ends_at": "2020-03-17T09:20:00.000+00:00",
+    "task_was": "TIM-70",
+    "task": "TIM-71",
     "duration_was": 600,
     "duration": 1800
 }
