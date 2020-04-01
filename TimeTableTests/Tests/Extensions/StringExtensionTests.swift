@@ -106,7 +106,7 @@ extension StringExtensionTests {
         //Act
         let result = sut.httpPrefix()
         //Assert
-        XCTAssertEqual(result, "http://example.com")
+        XCTAssertEqual(result, "https://example.com")
     }
     
     func testHttpPrefix_withHttpPrefix() {
