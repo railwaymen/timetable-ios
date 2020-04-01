@@ -260,11 +260,9 @@ extension WorkTimesListViewModel {
     private func createTaskForm(for indexPath: IndexPath) -> TaskForm? {
         guard let dailyWorkTime = self.dailyWorkTime(for: indexPath) else { return nil }
         guard let workTime = self.workTime(for: indexPath) else { return nil }
-        let url: URL?
+        var url: URL?
         if let taskUrlString = workTime.task {
             url = URL(string: taskUrlString)
-        } else {
-            url = nil
         }
         return TaskForm(
             workTimeIdentifier: workTime.identifier,
@@ -401,3 +399,4 @@ extension WorkTimesListViewModel {
         return self.dailyWorkTimesArray[safeIndex: indexPath.section]
     }
 }
+// swiftlint:disable:this file_length
