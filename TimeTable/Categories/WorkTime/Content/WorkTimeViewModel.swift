@@ -102,7 +102,8 @@ class WorkTimeViewModel {
     
     // MARK: - Notifications
     @objc func keyboardFrameWillChange(_ notification: NSNotification) {
-        guard let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height else { return }
+        let userInfo = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
+        guard let keyboardHeight = userInfo?.cgRectValue.size.height else { return }
         self.userInterface?.setBottomContentInset(keyboardHeight)
     }
     
@@ -246,7 +247,8 @@ extension WorkTimeViewModel {
     }
     
     private func setDefaultTask() {
-        guard let defaultProject = self.projects.first(where: { $0 == self.lastTask?.project }) ?? self.projects.first else { return }
+        let lastTaskProject = self.projects.first(where: { $0 == self.lastTask?.project })
+        guard let defaultProject = lastTaskProject ?? self.projects.first else { return }
         if self.taskForm.project == nil {
             self.taskForm.project = .some(self.lastTask?.project ?? defaultProject)
         }
@@ -260,7 +262,9 @@ extension WorkTimeViewModel {
     }
     
     private func updateViewWithCurrentSelectedProject() {
-        let (startDate, endDate) = self.contentProvider.getPredefinedTimeBounds(forTaskForm: self.taskForm, lastTask: self.lastTask)
+        let (startDate, endDate) = self.contentProvider.getPredefinedTimeBounds(
+            forTaskForm: self.taskForm,
+            lastTask: self.lastTask)
         self.taskForm.startsAt = startDate
         self.taskForm.endsAt = endDate
         let isLunch = self.taskForm.project?.isLunch ?? false

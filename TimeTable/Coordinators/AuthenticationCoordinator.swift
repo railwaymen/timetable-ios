@@ -66,12 +66,16 @@ class AuthenticationCoordinator: NavigationCoordinator {
     func start(finishCompletion: ((ServerConfiguration, ApiClientType) -> Void)?) {
         super.start()
         self.customFinishCompletion = finishCompletion
-        guard let configuration = self.dependencyContainer.serverConfigurationManager.getOldConfiguration(), configuration.shouldRememberHost else {
-            self.runServerConfigurationFlow()
-            return
+        guard let configuration = self.dependencyContainer.serverConfigurationManager.getOldConfiguration(),
+            configuration.shouldRememberHost else {
+                self.runServerConfigurationFlow()
+                return
         }
         self.serverConfiguration = configuration
-        let accessService = self.dependencyContainer.accessServiceBuilder(configuration, self.dependencyContainer.encoder, self.dependencyContainer.decoder)
+        let accessService = self.dependencyContainer.accessServiceBuilder(
+            configuration,
+            self.dependencyContainer.encoder,
+            self.dependencyContainer.decoder)
         do {
             let session = try accessService.getSession()
             self.apiClient = self.createApiClient(with: configuration)
@@ -144,7 +148,8 @@ extension AuthenticationCoordinator {
     }
     
     private func runServerConfigurationFlow(animated: Bool = true) {
-        let controller: ServerConfigurationViewControllerable? = self.dependencyContainer.storyboardsManager.controller(storyboard: .serverConfiguration)
+        let controller: ServerConfigurationViewControllerable? = self.dependencyContainer.storyboardsManager.controller(
+            storyboard: .serverConfiguration)
         guard let serverSettingsViewController = controller else { return }
         let viewModel = ServerConfigurationViewModel(
             userInterface: serverSettingsViewController,
@@ -157,7 +162,10 @@ extension AuthenticationCoordinator {
     }
     
     private func runAuthenticationFlow(with configuration: ServerConfiguration, animated: Bool) {
-        let accessService = self.dependencyContainer.accessServiceBuilder(configuration, self.dependencyContainer.encoder, self.dependencyContainer.decoder)
+        let accessService = self.dependencyContainer.accessServiceBuilder(
+            configuration,
+            self.dependencyContainer.encoder,
+            self.dependencyContainer.decoder)
         let controller: LoginViewControllerable? = self.dependencyContainer.storyboardsManager.controller(storyboard: .login)
         guard let loginViewController = controller else { return }
         guard let apiClient = self.createApiClient(with: configuration) else { return }

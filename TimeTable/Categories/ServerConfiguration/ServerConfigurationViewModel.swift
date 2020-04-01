@@ -58,7 +58,8 @@ class ServerConfigurationViewModel {
     
     // MARK: - Notification
     @objc func changeKeyboardFrame(notification: NSNotification) {
-        guard let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height else { return }
+        let userInfo = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
+        guard let keyboardHeight = userInfo?.cgRectValue.size.height else { return }
         self.userInterface?.setBottomContentInset(keyboardHeight)
     }
     

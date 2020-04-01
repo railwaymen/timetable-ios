@@ -17,7 +17,9 @@ extension LoginCredentialsTests {
         //Arrange
         let sut = LoginCredentials(email: "user1@example.com", password: "password")
         let sessionRequestSample = try self.json(from: SessionJSONResource.signInRequest)
-        let sampleDictionary = try JSONSerialization.jsonObject(with: sessionRequestSample, options: .allowFragments) as? [AnyHashable: Any]
+        let sampleDictionary = try JSONSerialization.jsonObject(
+            with: sessionRequestSample,
+            options: .allowFragments) as? [AnyHashable: Any]
         //Act
         let data = try self.encoder.encode(sut)
         let requestDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]

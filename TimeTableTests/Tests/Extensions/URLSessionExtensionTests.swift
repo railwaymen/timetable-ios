@@ -11,7 +11,7 @@ import XCTest
 
 class URLSessionExtensionTests: XCTestCase {}
 
-// MARK: - dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskType
+// MARK: - dataTask(with:completionHandler:)
 extension URLSessionExtensionTests {
     func testDataTask_createsProperDataTask() throws {
         //Arrange

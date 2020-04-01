@@ -115,7 +115,7 @@ extension WorkTimesParametersTests {
     
     func testWorkTimesAreEquatableWhileFromIsTheSame() throws {
         //Arrange
-        let fromDate = try self.buildDate(timeZone: try XCTUnwrap(TimeZone(secondsFromGMT: 3600)), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
+        let fromDate = try self.getFromDate()
         let sut1 = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectId: nil)
         let sut2 = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectId: nil)
         //Assert
@@ -124,7 +124,7 @@ extension WorkTimesParametersTests {
     
     func testWorkTimesAreNotEquatableWhileFromIsNotTheSame() throws {
         //Arrange
-        let fromDate = try self.buildDate(timeZone: try XCTUnwrap(TimeZone(secondsFromGMT: 3600)), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
+        let fromDate = try self.getFromDate()
         let sut1 = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectId: nil)
         let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
         //Assert
@@ -133,7 +133,7 @@ extension WorkTimesParametersTests {
     
     func testWorkTimesAreEquatableWhileToDateIsTheSame() throws {
         //Arrange
-        let toDate = try self.buildDate(timeZone: try XCTUnwrap(TimeZone(secondsFromGMT: 3600)), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
+        let toDate = try self.getToDate()
         let sut1 = WorkTimesParameters(fromDate: nil, toDate: toDate, projectId: nil)
         let sut2 = WorkTimesParameters(fromDate: nil, toDate: toDate, projectId: nil)
         //Assert
@@ -142,7 +142,7 @@ extension WorkTimesParametersTests {
     
     func testWorkTimesAreNotEquatableWhileToDateIsNotTheSame() throws {
         //Arrange
-        let toDate = try self.buildDate(timeZone: try XCTUnwrap(TimeZone(secondsFromGMT: 3600)), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
+        let toDate = try self.getToDate()
         let sut1 = WorkTimesParameters(fromDate: nil, toDate: toDate, projectId: nil)
         let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
         //Assert
@@ -151,8 +151,8 @@ extension WorkTimesParametersTests {
     
     func testWorkTimesAreEquatableWhileAllParametersAreTheSame() throws {
         //Arrange
-        let fromDate = try self.buildDate(timeZone: try XCTUnwrap(TimeZone(secondsFromGMT: 3600)), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
-        let toDate = try self.buildDate(timeZone: try XCTUnwrap(TimeZone(secondsFromGMT: 3600)), year: 2018, month: 11, day: 22, hour: 11, minute: 30)
+        let fromDate = try self.getFromDate()
+        let toDate = try self.getToDate()
         let sut1 = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectId: 1)
         let sut2 = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectId: 1)
         //Assert
@@ -161,11 +161,24 @@ extension WorkTimesParametersTests {
     
     func testWorkTimesAreNotEquatableWithDifferentParameters() throws {
         //Arrange
-        let fromDate = try self.buildDate(timeZone: try XCTUnwrap(TimeZone(secondsFromGMT: 3600)), year: 2018, month: 11, day: 22, hour: 10, minute: 30)
-        let toDate = try self.buildDate(timeZone: try XCTUnwrap(TimeZone(secondsFromGMT: 3600)), year: 2018, month: 11, day: 22, hour: 11, minute: 30)
+        let fromDate = try self.getFromDate()
+        let toDate = try self.getToDate()
         let sut1 = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectId: 1)
         let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
         //Assert
         XCTAssertNotEqual(sut1, sut2)
+    }
+}
+
+// MARK: - Private
+extension WorkTimesParametersTests {
+    private func getFromDate() throws -> Date {
+        let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
+        return try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 10, minute: 30)
+    }
+    
+    private func getToDate() throws -> Date {
+        let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
+        return try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 11, minute: 30)
     }
 }

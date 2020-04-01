@@ -19,6 +19,7 @@ class CoordinatorMock {
 // MARK: - ServerConfigurationCoordinatorDelegate
 extension CoordinatorMock: ServerConfigurationCoordinatorDelegate {
     func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration) {
-        self.serverConfigurationDidFinishParams.append(ServerConfigurationDidFinishParams(serverConfiguration: serverConfiguration))
+        self.serverConfigurationDidFinishParams.append(ServerConfigurationDidFinishParams(
+            serverConfiguration: serverConfiguration))
     }
 }

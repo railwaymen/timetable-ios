@@ -77,7 +77,9 @@ class WorkTimeViewController: UIViewController {
 // MARK: - UICollectionViewDelegate
 extension WorkTimeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(TagCollectionViewCell.self, for: indexPath) else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(TagCollectionViewCell.self, for: indexPath) else {
+            return UICollectionViewCell()
+        }
         self.viewModel.configure(cell, for: indexPath)
         return cell
     }
@@ -103,7 +105,11 @@ extension WorkTimeViewController: UITextViewDelegate {
 
 // MARK: - UITextFieldDelegate
 extension WorkTimeViewController: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
         return !(textField === self.dayTextField
             || textField === self.startAtDateTextField
             || textField === self.endAtDateTextField)

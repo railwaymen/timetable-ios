@@ -30,7 +30,11 @@ class WorkTimesListCoordinatorMock {
 
 // MARK: - WorkTimesListCoordinatorDelegate
 extension WorkTimesListCoordinatorMock: WorkTimesListCoordinatorDelegate {
-    func workTimesRequestedForWorkTimeView(sourceView: UIView, flowType: WorkTimeViewModel.FlowType, finishHandler: @escaping (Bool) -> Void) {
+    func workTimesRequestedForWorkTimeView(
+        sourceView: UIView,
+        flowType: WorkTimeViewModel.FlowType,
+        finishHandler: @escaping (Bool) -> Void
+    ) {
         self.workTimesRequestedForWorkTimeViewParams.append(
             WorkTimesRequestedForWorkTimeViewParams(
                 sourceView: sourceView,

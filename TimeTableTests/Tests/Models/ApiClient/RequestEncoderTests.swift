@@ -29,7 +29,8 @@ extension RequestEncoderTests {
         //Act
         let encodedWrapper = try sut.encode(wrapper: wrapper)
         //Assert
-        let dictionary = try XCTUnwrap(try JSONSerialization.jsonObject(with: encodedWrapper, options: .allowFragments) as? [AnyHashable: Any])
+        let jsonObject = try JSONSerialization.jsonObject(with: encodedWrapper, options: .allowFragments)
+        let dictionary = try XCTUnwrap(jsonObject as? [AnyHashable: Any])
         XCTAssertEqual(dictionary["email"] as? String, wrapper.email)
         XCTAssertEqual(dictionary["password"] as? String, wrapper.password)
     }

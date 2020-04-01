@@ -8,7 +8,10 @@
 
 import UIKit
 
-typealias WorkTimeContainerViewControllerable = UIViewController & WorkTimeContainerViewControllerType & WorkTimeContainerViewModelOutput
+typealias WorkTimeContainerViewControllerable =
+    UIViewController
+    & WorkTimeContainerViewControllerType
+    & WorkTimeContainerViewModelOutput
 
 protocol WorkTimeContainerViewControllerType: class {
     func configure(viewModel: WorkTimeContainerViewModelType)
@@ -90,7 +93,10 @@ extension WorkTimeContainerViewController {
     
     private func setUpNavigationBarItems(title: String) {
         self.title = title
-        let closeButton = UIBarButtonItem(barButtonSystemItem: .closeButton, target: self, action: #selector(self.closeButtonTapped))
+        let closeButton = UIBarButtonItem(
+            barButtonSystemItem: .closeButton,
+            target: self,
+            action: #selector(self.closeButtonTapped))
         self.navigationItem.setRightBarButton(closeButton, animated: false)
     }
     

@@ -120,12 +120,18 @@ extension ApiClientMock: ApiClientSessionType {
 
 // MARK: - ApiClientWorkTimesType
 extension ApiClientMock: ApiClientWorkTimesType {
-    func fetchWorkTimes(parameters: WorkTimesParameters, completion: @escaping ((Result<[WorkTimeDecoder], Error>) -> Void)) -> RestlerTaskType? {
+    func fetchWorkTimes(
+        parameters: WorkTimesParameters,
+        completion: @escaping ((Result<[WorkTimeDecoder], Error>) -> Void)
+    ) -> RestlerTaskType? {
         self.fetchWorkTimesParams.append(FetchWorkTimesParams(parameters: parameters, completion: completion))
         return self.fetchWorkTimesReturnValue
     }
     
-    func fetchWorkTimeDetails(identifier: Int64, completion: @escaping (Result<WorkTimeDecoder, Error>) -> Void) -> RestlerTaskType? {
+    func fetchWorkTimeDetails(
+        identifier: Int64,
+        completion: @escaping (Result<WorkTimeDecoder, Error>) -> Void
+    ) -> RestlerTaskType? {
         self.fetchWorkTimeDetailsParams.append(FetchWorkTimeDetailsParams(identifier: identifier, completion: completion))
         return self.fetchWorkTimeDetailsReturnValue
     }
@@ -143,7 +149,10 @@ extension ApiClientMock: ApiClientWorkTimesType {
     }
     
     func updateWorkTime(identifier: Int64, parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void)) {
-        self.updateWorkTimeParams.append(UpdateWorkTimeParams(identifier: identifier, parameters: parameters, completion: completion))
+        self.updateWorkTimeParams.append(UpdateWorkTimeParams(
+            identifier: identifier,
+            parameters: parameters,
+            completion: completion))
     }
 }
 
@@ -153,7 +162,9 @@ extension ApiClientMock: ApiClientProjectsType {
         self.fetchAllProjectsParams.append(FetchAllProjectsParams(completion: completion))
     }
     
-    func fetchSimpleListOfProjects(completion: @escaping ((Result<[SimpleProjectRecordDecoder], Error>) -> Void)) -> RestlerTaskType? {
+    func fetchSimpleListOfProjects(
+        completion: @escaping ((Result<[SimpleProjectRecordDecoder], Error>) -> Void)
+    ) -> RestlerTaskType? {
         self.fetchSimpleListOfProjectsParams.append(FetchSimpleListOfProjectsParams(completion: completion))
         return self.fetchSimpleListOfProjectsReturnValue
     }
@@ -173,7 +184,10 @@ extension ApiClientMock: ApiClientUsersType {
 
 // MARK: - ApiClientMatchingFullTimeType
 extension ApiClientMock: ApiClientMatchingFullTimeType {
-    func fetchMatchingFullTime(parameters: MatchingFullTimeEncoder, completion: @escaping ((Result<MatchingFullTimeDecoder, Error>) -> Void)) {
+    func fetchMatchingFullTime(
+        parameters: MatchingFullTimeEncoder,
+        completion: @escaping ((Result<MatchingFullTimeDecoder, Error>) -> Void)
+    ) {
         self.fetchMatchingFullTimeParams.append(FetchMatchingFullTimeParams(parameters: parameters, completion: completion))
     }
 }

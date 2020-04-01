@@ -30,7 +30,12 @@ extension MessagePresenterMock: MessagePresenterType {
         self.presentAlertControllerParams.append(PresentAlertControllerParams(message: message))
     }
     
-    func requestDecision(title: String?, message: String?, cancelButtonConfig: ButtonConfig, confirmButtonConfig: ButtonConfig) {
+    func requestDecision(
+        title: String?,
+        message: String?,
+        cancelButtonConfig: ButtonConfig,
+        confirmButtonConfig: ButtonConfig
+    ) {
         self.requestDecisionParams.append(RequestDecisionParams(
             title: title,
             message: message,

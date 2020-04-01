@@ -142,9 +142,15 @@ extension WorkTimeTableViewCellModel {
     private func getFromToDateString() -> NSAttributedString {
         let startsAtText = self.timeFormatter.string(from: self.workTime.startsAt)
         let endsAtText = self.timeFormatter.string(from: self.workTime.endsAt)
-        let startsAtAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: self.getColor(for: .startsAt) ?? .defaultLabel]
-        let delimiterAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.defaultSecondaryLabel]
-        let endsAtAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: self.getColor(for: .endsAt) ?? .defaultLabel]
+        let startsAtAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: self.getColor(for: .startsAt) ?? .defaultLabel
+        ]
+        let delimiterAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.defaultSecondaryLabel
+        ]
+        let endsAtAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: self.getColor(for: .endsAt) ?? .defaultLabel
+        ]
         let fromToDateText = NSMutableAttributedString()
         fromToDateText.append(NSAttributedString(string: startsAtText, attributes: startsAtAttributes))
         fromToDateText.append(NSAttributedString(string: " - ", attributes: delimiterAttributes))

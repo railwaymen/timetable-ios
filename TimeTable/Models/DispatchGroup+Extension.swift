@@ -11,7 +11,11 @@ import Foundation
 protocol DispatchGroupType: class {
     func enter()
     func leave()
-    func notify(qos: DispatchQoS, flags: DispatchWorkItemFlags, queue: DispatchQueue, execute work: @escaping @convention(block) () -> Void)
+    func notify(
+        qos: DispatchQoS,
+        flags: DispatchWorkItemFlags,
+        queue: DispatchQueue,
+        execute work: @escaping @convention(block) () -> Void)
 }
 
 extension DispatchGroupType {

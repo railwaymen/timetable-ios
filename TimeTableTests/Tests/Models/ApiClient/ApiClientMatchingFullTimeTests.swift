@@ -18,7 +18,7 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
     }
 }
 
-// MARK: - fetchMatchingFullTime(parameters: MatchingFullTimeEncoder, completion: @escaping ((Result<MatchingFullTimeDecoder, Error>) -> Void))
+// MARK: - fetchMatchingFullTime(parameters:completion:)
 extension ApiClientMatchingFullTimeTests {
     func testFetchMatchingFullTimeSucceed() throws {
         //Arrange

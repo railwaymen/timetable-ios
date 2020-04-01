@@ -8,7 +8,11 @@
 
 import XCTest
 
-func GetJSONResource<T>(from element: T, file: StaticString = #file, line: UInt = #line) throws -> Data where T: JSONFileResource {
+func GetJSONResource<T>(
+    from element: T,
+    file: StaticString = #file,
+    line: UInt = #line
+) throws -> Data where T: JSONFileResource {
     guard let url = Bundle(for: LoginUIElements.self).url(forResource: element.fileName, withExtension: "json") else {
         let error = "Missing json \(element)"
         XCTFail(error, file: file, line: line)

@@ -8,7 +8,11 @@
 
 import UIKit
 
-typealias TimeTableTabApiClientType = (ApiClientWorkTimesType & ApiClientProjectsType & ApiClientUsersType & ApiClientMatchingFullTimeType)
+typealias TimeTableTabApiClientType = (
+    ApiClientWorkTimesType
+    & ApiClientProjectsType
+    & ApiClientUsersType
+    & ApiClientMatchingFullTimeType)
 
 class TimeTableTabCoordinator: TabBarCoordinator {
     

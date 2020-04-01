@@ -10,12 +10,16 @@ import UIKit
 @testable import TimeTable
 
 class StoryboardsManagerMock {
-    var controllerReturnValue: [StoryboardsManager.StoryboardName: [StoryboardsManager.ControllerIdentifier: UIViewController]] = [:]
+    var controllerReturnValue: [
+        StoryboardsManager.StoryboardName: [StoryboardsManager.ControllerIdentifier: UIViewController]] = [:]
 }
 
 // MARK: - StoryboardsManagerType
 extension StoryboardsManagerMock: StoryboardsManagerType {
-    func controller<T>(storyboard: StoryboardsManager.StoryboardName, controllerIdentifier: StoryboardsManager.ControllerIdentifier) -> T? {
+    func controller<T>(
+        storyboard: StoryboardsManager.StoryboardName,
+        controllerIdentifier: StoryboardsManager.ControllerIdentifier
+    ) -> T? {
         return self.controllerReturnValue[storyboard]?[controllerIdentifier] as? T
     }
 }

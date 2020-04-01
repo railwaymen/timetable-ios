@@ -11,7 +11,8 @@ import Restler
 
 protocol ApiClientProjectsType: class {
     func fetchAllProjects(completion: @escaping ((Result<[ProjectRecordDecoder], Error>) -> Void))
-    func fetchSimpleListOfProjects(completion: @escaping ((Result<[SimpleProjectRecordDecoder], Error>) -> Void)) -> RestlerTaskType?
+    func fetchSimpleListOfProjects(
+        completion: @escaping ((Result<[SimpleProjectRecordDecoder], Error>) -> Void)) -> RestlerTaskType?
     func fetchTags(completion: @escaping (Result<ProjectTagsDecoder, Error>) -> Void) -> RestlerTaskType?
 }
 
@@ -24,7 +25,9 @@ extension ApiClient: ApiClientProjectsType {
             .start()
     }
     
-    func fetchSimpleListOfProjects(completion: @escaping ((Result<[SimpleProjectRecordDecoder], Error>) -> Void)) -> RestlerTaskType? {
+    func fetchSimpleListOfProjects(
+        completion: @escaping ((Result<[SimpleProjectRecordDecoder], Error>) -> Void)
+    ) -> RestlerTaskType? {
         return self.restler
             .get(Endpoint.projectsSimpleList)
             .decode([SimpleProjectRecordDecoder].self)

@@ -25,7 +25,10 @@ class WorkTimesListContentProviderMock {
 
 // MARK: - WorkTimesListContentProviderType
 extension WorkTimesListContentProviderMock: WorkTimesListContentProviderType {
-    func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder), Error>) -> Void) {
+    func fetchWorkTimesData(
+        for date: Date?,
+        completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder), Error>) -> Void
+    ) {
         self.fetchWorkTimesDataParams.append(FetchWorkTimesDataParams(date: date, completion: completion))
     }
     

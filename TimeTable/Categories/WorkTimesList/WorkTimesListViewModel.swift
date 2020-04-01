@@ -33,7 +33,9 @@ protocol WorkTimesListViewModelType: class {
     func viewRequestForNextMonth()
     func viewRequestForCellType(at index: IndexPath) -> WorkTimesListViewModel.CellType
     func configure(_ cell: WorkTimeTableViewCellable, for indexPath: IndexPath)
-    func viewRequestForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType?
+    func viewRequestForHeaderModel(
+        at section: Int,
+        header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType?
     func viewRequestToDuplicate(sourceView: UITableViewCell, at indexPath: IndexPath)
     func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void)
     func viewRequestTaskHistory(indexPath: IndexPath)
@@ -158,7 +160,10 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
         cell.configure(viewModel: viewModel)
     }
     
-    func viewRequestForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType? {
+    func viewRequestForHeaderModel(
+        at section: Int,
+        header: WorkTimesTableViewHeaderViewModelOutput
+    ) -> WorkTimesTableViewHeaderViewModelType? {
         guard let dailyWorkTime = self.dailyWorkTimesArray[safeIndex: section] else { return nil }
         return WorkTimesTableViewHeaderViewModel(userInterface: header, dailyWorkTime: dailyWorkTime)
     }
@@ -176,11 +181,14 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     
     func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void) {
         guard let workTime = self.workTime(for: index) else { return completion(false) }
-        self.messagePresenter?.requestDecision(
-            title: "work_times.delete_alert.title".localized,
-            message: "work_times.delete_alert.message".localized,
-            cancelButtonConfig: ButtonConfig(title: "work_times.delete_alert.cancel".localized, style: .cancel, action: { completion(false) }),
-            confirmButtonConfig: ButtonConfig(title: "work_times.delete_alert.confirm".localized, style: .destructive, action: { [weak self] in
+        let cancelButtonConfig = ButtonConfig(
+            title: "work_times.delete_alert.cancel".localized,
+            style: .cancel,
+            action: { completion(false) })
+        let confirmButtonConfig = ButtonConfig(
+            title: "work_times.delete_alert.confirm".localized,
+            style: .destructive,
+            action: { [weak self] in
                 guard let self = self else { return completion(false) }
                 self.contentProvider.delete(workTime: workTime) { [weak self] result in
                     guard let self = self else { return completion(false) }
@@ -193,7 +201,12 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
                         completion(false)
                     }
                 }
-            }))
+        })
+        self.messagePresenter?.requestDecision(
+            title: "work_times.delete_alert.title".localized,
+            message: "work_times.delete_alert.message".localized,
+            cancelButtonConfig: cancelButtonConfig,
+            confirmButtonConfig: confirmButtonConfig)
     }
     
     func viewRequestTaskHistory(indexPath: IndexPath) {
@@ -203,17 +216,21 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     
     func viewRequestForNewWorkTimeView(sourceView: UIView) {
         let lastTask = self.createTaskForm(for: IndexPath(row: 0, section: 0))
-        self.coordinator?.workTimesRequestedForWorkTimeView(sourceView: sourceView, flowType: .newEntry(lastTask: lastTask)) { [weak self] isTaskChanged in
-            guard let self = self, isTaskChanged else { return }
-            self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
+        self.coordinator?.workTimesRequestedForWorkTimeView(
+            sourceView: sourceView,
+            flowType: .newEntry(lastTask: lastTask)) { [weak self] isTaskChanged in
+                guard let self = self, isTaskChanged else { return }
+                self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
         }
     }
     
     func viewRequestedForEditEntry(sourceView: UITableViewCell, at indexPath: IndexPath) {
         guard let task = self.createTaskForm(for: indexPath) else { return }
-        self.coordinator?.workTimesRequestedForWorkTimeView(sourceView: sourceView, flowType: .editEntry(editedTask: task)) { [weak self] isTaskChanged in
-            guard let self = self, isTaskChanged else { return }
-            self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
+        self.coordinator?.workTimesRequestedForWorkTimeView(
+            sourceView: sourceView,
+            flowType: .editEntry(editedTask: task)) { [weak self] isTaskChanged in
+                guard let self = self, isTaskChanged else { return }
+                self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
         }
     }
     
@@ -287,7 +304,10 @@ extension WorkTimesListViewModel {
         let currentDateString = self.string(for: currentDate)
         let previousDateString = self.string(for: previousDate)
         let nextDateString = self.string(for: nextDate)
-        self.userInterface?.updateDateSelector(currentDateString: currentDateString, previousDateString: previousDateString, nextDateString: nextDateString)
+        self.userInterface?.updateDateSelector(
+            currentDateString: currentDateString,
+            previousDateString: previousDateString,
+            nextDateString: nextDateString)
     }
     
     private func fetchWorkTimesData(forCurrentMonth date: Date) {

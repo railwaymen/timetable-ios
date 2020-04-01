@@ -27,7 +27,7 @@ class WorkTimesListContentProviderTests: XCTestCase {
     }
 }
 
-// MARK: - fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder), Error>) -> Void)
+// MARK: - fetchWorkTimesData(for:completion:)
 extension WorkTimesListContentProviderTests {
     func testFetchWorkTimeDataMakesRequest() {
         //Arrange
@@ -190,7 +190,7 @@ extension WorkTimesListContentProviderTests {
     }
 }
 
-// MARK: - delete(workTime: WorkTimeDecoder, completion: @escaping (Result<Void, Error>) -> Void)
+// MARK: - delete(workTime:completion:)
 extension WorkTimesListContentProviderTests {
     func testDelete() throws {
         //Arrange

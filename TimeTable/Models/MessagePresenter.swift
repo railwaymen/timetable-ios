@@ -40,18 +40,27 @@ extension MessagePresenter: MessagePresenterType {
         self.present(alert)
     }
     
-    func requestDecision(title: String?, message: String?, cancelButtonConfig: ButtonConfig, confirmButtonConfig: ButtonConfig) {
+    func requestDecision(
+        title: String?,
+        message: String?,
+        cancelButtonConfig: ButtonConfig,
+        confirmButtonConfig: ButtonConfig
+    ) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: cancelButtonConfig.title, style: cancelButtonConfig.style) { [unowned alert] _ in
-            alert.dismiss(animated: true) {
-                cancelButtonConfig.action?()
-            }
+        let cancelAction = UIAlertAction(
+            title: cancelButtonConfig.title,
+            style: cancelButtonConfig.style) { [unowned alert] _ in
+                alert.dismiss(animated: true) {
+                    cancelButtonConfig.action?()
+                }
         }
         alert.addAction(cancelAction)
-        let confirmAction = UIAlertAction(title: confirmButtonConfig.title, style: confirmButtonConfig.style) { [unowned alert] _ in
-            alert.dismiss(animated: true) {
-                confirmButtonConfig.action?()
-            }
+        let confirmAction = UIAlertAction(
+            title: confirmButtonConfig.title,
+            style: confirmButtonConfig.style) { [unowned alert] _ in
+                alert.dismiss(animated: true) {
+                    confirmButtonConfig.action?()
+                }
         }
         alert.addAction(confirmAction)
         alert.view.tintColor = .tint

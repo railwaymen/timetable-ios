@@ -25,12 +25,13 @@ extension String {
         guard let regExp = httpRegExp else { return false }
         return regExp.matches(in: self).count == 1
     }
-
+    
     func apiSuffix() -> String {
         let slashRegExp = try? NSRegularExpression(pattern: "/$", options: .caseInsensitive)
         let apiRegExp = try? NSRegularExpression(pattern: "(?:^|\\W)api(?:$|\\W)", options: .caseInsensitive)
         
-        if let regExp = apiRegExp, regExp.matches(in: self).count > 0, let firstPart = self.components(separatedBy: "api").first {
+        if let regExp = apiRegExp, regExp.matches(in: self).count > 0,
+            let firstPart = self.components(separatedBy: "api").first {
             return firstPart.apiSuffix()
         } else if let regExp = slashRegExp, regExp.matches(in: self).count > 0 {
             return self + "api"

@@ -8,7 +8,11 @@
 
 import UIKit
 
-typealias WorkTimesListApiClient = (ApiClientProjectsType & ApiClientWorkTimesType & ApiClientUsersType & ApiClientMatchingFullTimeType)
+typealias WorkTimesListApiClient = (
+    ApiClientProjectsType
+    & ApiClientWorkTimesType
+    & ApiClientUsersType
+    & ApiClientMatchingFullTimeType)
 
 protocol WorkTimesListCoordinatorDelegate: class {
     func workTimesRequestedForWorkTimeView(
@@ -72,8 +76,12 @@ extension WorkTimesListCoordinator: WorkTimesListCoordinatorDelegate {
 extension WorkTimesListCoordinator {
     private func runMainFlow() {
         guard let apiClient = self.dependencyContainer.apiClient,
-            let accessService = self.dependencyContainer.accessService else { return assertionFailure("Api client or access service is nil") }
-        let controller: WorkTimesListViewControllerable? = self.dependencyContainer.storyboardsManager.controller(storyboard: .workTimesList)
+            let accessService = self.dependencyContainer.accessService else {
+                self.dependencyContainer.errorHandler.stopInDebug("Api client or access service is nil")
+                return
+        }
+        let controller: WorkTimesListViewControllerable? = self.dependencyContainer.storyboardsManager.controller(
+            storyboard: .workTimesList)
         guard let workTimesListViewController = controller else { return }
         let contentProvider = WorkTimesListContentProvider(
             apiClient: apiClient,

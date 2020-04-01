@@ -68,7 +68,9 @@ extension TaskHistoryCoordinator: WorkTimeTableViewCellModelParentType {
 extension TaskHistoryCoordinator {
     private func runMainFlow() {
         guard let apiClient = self.dependencyContainer.apiClient else { return assertionFailure("API client mustn't be nil") }
-        guard let controller: TaskHistoryViewController = self.dependencyContainer.storyboardsManager.controller(storyboard: .taskHistory) else { return }
+        let optionalController: TaskHistoryViewController? = self.dependencyContainer.storyboardsManager.controller(
+            storyboard: .taskHistory)
+        guard let controller = optionalController else { return }
         let viewModel = TaskHistoryViewModel(
             userInterface: controller,
             coordinator: self,

@@ -982,23 +982,23 @@ extension TaskVersionTests {
 // MARK: - Private
 extension TaskVersionTests {
     private func createdAt() throws -> Date {
-        return try self.buildDate(timeZone: try self.utcTimeZone(), year: 2020, month: 3, day: 17, hour: 9, minute: 15, second: 4)
+        return try self.buildDate(timeZone: self.utcTimeZone(), year: 2020, month: 3, day: 17, hour: 9, minute: 15, second: 4)
     }
     
     private func previousStartsAt() throws -> Date {
-        return try self.buildDate(timeZone: try self.utcTimeZone(), year: 2020, month: 3, day: 17, hour: 9, minute: 0, second: 0)
+        return try self.buildDate(timeZone: self.utcTimeZone(), year: 2020, month: 3, day: 17, hour: 9, minute: 0, second: 0)
     }
     
     private func currentStartsAt() throws -> Date {
-        return try self.buildDate(timeZone: try self.utcTimeZone(), year: 2020, month: 3, day: 17, hour: 8, minute: 50, second: 0)
+        return try self.buildDate(timeZone: self.utcTimeZone(), year: 2020, month: 3, day: 17, hour: 8, minute: 50, second: 0)
     }
     
     private func previousEndsAt() throws -> Date {
-        return try self.buildDate(timeZone: try self.utcTimeZone(), year: 2020, month: 3, day: 17, hour: 9, minute: 10, second: 0)
+        return try self.buildDate(timeZone: self.utcTimeZone(), year: 2020, month: 3, day: 17, hour: 9, minute: 10, second: 0)
     }
     
     private func currentEndsAt() throws -> Date {
-        return try self.buildDate(timeZone: try self.utcTimeZone(), year: 2020, month: 3, day: 17, hour: 9, minute: 20, second: 0)
+        return try self.buildDate(timeZone: self.utcTimeZone(), year: 2020, month: 3, day: 17, hour: 9, minute: 20, second: 0)
     }
     
     private func utcTimeZone() throws -> TimeZone {

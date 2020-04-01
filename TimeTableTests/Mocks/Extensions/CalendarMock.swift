@@ -86,8 +86,15 @@ extension CalendarMock: CalendarType {
         return self.dateFromDateComponentsReturnValue
     }
     
-    func date(bySettingHour hour: Int, minute: Int, second: Int, of date: Date,
-              matchingPolicy: Calendar.MatchingPolicy, repeatedTimePolicy: Calendar.RepeatedTimePolicy, direction: Calendar.SearchDirection) -> Date? {
+    func date(
+        bySettingHour hour: Int,
+        minute: Int,
+        second: Int,
+        of date: Date,
+        matchingPolicy: Calendar.MatchingPolicy,
+        repeatedTimePolicy: Calendar.RepeatedTimePolicy,
+        direction: Calendar.SearchDirection
+    ) -> Date? {
         self.dateBySettingHourParams.append(
             DateBySettingHourParams(
                 hour: hour,
@@ -101,7 +108,10 @@ extension CalendarMock: CalendarType {
     }
     
     func date(bySetting component: Calendar.Component, value: Int, of date: Date) -> Date? {
-        self.dateBySettingCalendarComponentParams.append(DateBySettingCalendarComponentParams(component: component, value: value, date: date))
+        self.dateBySettingCalendarComponentParams.append(DateBySettingCalendarComponentParams(
+            component: component,
+            value: value,
+            date: date))
         return self.dateBySettingCalendarComponentReturnValue
     }
     

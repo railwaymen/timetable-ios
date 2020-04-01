@@ -253,7 +253,7 @@ extension WorkTimesListViewModelTests {
     }
 }
 
-// MARK: - viewRequestForHeaderModel(at section: Int, header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType?
+// MARK: - viewRequestForHeaderModel(at:header:)
 extension WorkTimesListViewModelTests {
     func testViewRequestForHeaderModelOnInitialization() throws {
         //Arrange
@@ -397,7 +397,8 @@ extension WorkTimesListViewModelTests {
         sut.viewRequestedForEditEntry(sourceView: cell, at: indexPath)
         //Assert
         XCTAssertEqual(self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.sourceView, cell)
-        guard case let .editEntry(editedTask) = self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.flowType else { return XCTFail() }
+        let flowType = self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.flowType
+        guard case let .editEntry(editedTask) = flowType else { return XCTFail() }
         XCTAssertEqual(editedTask.workTimeIdentifier, workTime.identifier)
         XCTAssertEqual(editedTask.project, workTime.project)
         XCTAssertEqual(editedTask.body, workTime.body)
@@ -408,7 +409,7 @@ extension WorkTimesListViewModelTests {
     }
 }
 
-// MARK: - viewRequestToDuplicate(sourceView: UITableViewCell, at indexPath: IndexPath)
+// MARK: - viewRequestToDuplicate(sourceView:at:)
 extension WorkTimesListViewModelTests {
     func testViewRequestToDuplicate() throws {
         //Arrange
@@ -425,9 +426,8 @@ extension WorkTimesListViewModelTests {
         sut.viewRequestToDuplicate(sourceView: cell, at: indexPath)
         //Assert
         XCTAssertEqual(self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.sourceView, cell)
-        guard case let .duplicateEntry(duplicatedTask, lastTask) = self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.flowType else {
-            return XCTFail()
-        }
+        let flowType = self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.flowType
+        guard case let .duplicateEntry(duplicatedTask, lastTask) = flowType else { return XCTFail() }
         XCTAssertEqual(duplicatedTask.workTimeIdentifier, duplicatedWorkTime.identifier)
         XCTAssertEqual(duplicatedTask.project, duplicatedWorkTime.project)
         XCTAssertEqual(duplicatedTask.body, duplicatedWorkTime.body)

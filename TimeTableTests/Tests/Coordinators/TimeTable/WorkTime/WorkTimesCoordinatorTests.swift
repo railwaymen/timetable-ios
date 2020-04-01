@@ -12,6 +12,10 @@ import XCTest
 class WorkTimesListCoordinatorTests: XCTestCase {
     private var dependencyContainer: DependencyContainerMock!
     
+    private var storyboardsManagerMock: StoryboardsManagerMock {
+        self.dependencyContainer.storyboardsManagerMock
+    }
+    
     override func setUp() {
         self.dependencyContainer = DependencyContainerMock()
         super.setUp()
@@ -32,7 +36,7 @@ extension WorkTimesListCoordinatorTests {
     func testRunMainFlowRunsMainFlow() {
         //Arrange
         let sut = self.buildSUT()
-        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.workTimesList] = [.initial: WorkTimesListViewControllerMock()]
+        self.storyboardsManagerMock.controllerReturnValue[.workTimesList] = [.initial: WorkTimesListViewControllerMock()]
         //Act
         sut.start()
         //Assert

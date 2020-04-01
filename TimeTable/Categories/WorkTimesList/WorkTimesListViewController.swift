@@ -58,7 +58,9 @@ extension WorkTimesListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(WorkTimeTableViewCell.self, for: indexPath) else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(WorkTimeTableViewCell.self, for: indexPath) else {
+            return UITableViewCell()
+        }
         self.viewModel.configure(cell, for: indexPath)
         return cell
     }
@@ -75,18 +77,27 @@ extension WorkTimesListViewController: UITableViewDelegate {
         self.viewModel.viewRequestedForEditEntry(sourceView: cell, at: indexPath)
     }
     
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func tableView(
+        _ tableView: UITableView,
+        leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
         let duplicateAction = self.buildDuplicateContextualAction(indexPath: indexPath)
         let historyAction = self.buildHistoryContextualAction(indexPath: indexPath)
         return UISwipeActionsConfiguration(actions: [duplicateAction, historyAction])
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
         let deleteAction = self.buildDeleteContextualAction(indexPath: indexPath)
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(
+        _ tableView: UITableView,
+        viewForHeaderInSection section: Int
+    ) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: WorkTimesTableViewHeader.reuseIdentifier)
             as? WorkTimesTableViewHeaderable else {
                 return nil
@@ -119,7 +130,10 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
     }
     
     func updateDateSelector(currentDateString: String, previousDateString: String, nextDateString: String) {
-        self.dateSelectorView.update(currentDateString: currentDateString, previousDateString: previousDateString, nextDateString: nextDateString)
+        self.dateSelectorView.update(
+            currentDateString: currentDateString,
+            previousDateString: previousDateString,
+            nextDateString: nextDateString)
     }
     
     func updateHoursLabel(workedHours: String?) {
