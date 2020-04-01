@@ -22,7 +22,8 @@ class ProjectsCollectionViewLayout: UICollectionViewFlowLayout {
     private var contentHeight: CGFloat = 0
     private var contentWidth: CGFloat {
         guard let collectionView = self.collectionView else { return 0 }
-        return collectionView.frame.width - (collectionView.adjustedContentInset.left + collectionView.adjustedContentInset.right)
+        let horizontalContentInsets = collectionView.adjustedContentInset.left + collectionView.adjustedContentInset.right
+        return collectionView.frame.width - horizontalContentInsets
     }
     
     // MARK: - Overridden
@@ -59,7 +60,8 @@ extension ProjectsCollectionViewLayout {
         guard let collectionView = self.collectionView else { return }
         
         let numberOfItemsPerRow = Int(self.contentWidth) / Int(self.minWidthForCell)
-        let widthPerItem = (self.contentWidth - CGFloat(numberOfItemsPerRow - 1) * self.cellPadding) / CGFloat(numberOfItemsPerRow)
+        let widthOfAllRowItems = self.contentWidth - CGFloat(numberOfItemsPerRow - 1) * self.cellPadding
+        let widthPerItem = widthOfAllRowItems / CGFloat(numberOfItemsPerRow)
         var xOffsets = [CGFloat]()
         (0..<numberOfItemsPerRow).forEach { xOffsets.append(CGFloat($0) * widthPerItem) }
         var column = 0
@@ -70,7 +72,10 @@ extension ProjectsCollectionViewLayout {
             guard let xOffset = xOffsets[safeIndex: column],
                 let yOffset = yOffsets[safeIndex: column] else { return assertionFailure() }
             let indexPath = IndexPath(item: $0, section: 0)
-            let tableViewHeight = self.delegate?.collectionView(collectionView, heightForUsersTableViewAtIndexPath: indexPath) ?? 0
+            let tableViewHeight = self.delegate?.collectionView(
+                collectionView,
+                heightForUsersTableViewAtIndexPath: indexPath)
+                ?? 0
             let height = self.cellPadding * 2 + tableViewHeight
             let frame = CGRect(x: xOffset, y: yOffset, width: widthPerItem, height: height)
             let insetFrame = frame.insetBy(dx: self.cellPadding, dy: self.cellPadding)

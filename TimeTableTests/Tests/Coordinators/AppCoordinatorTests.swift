@@ -13,6 +13,10 @@ import KeychainAccess
 class AppCoordinatorTests: XCTestCase {
     private var dependencyContainer: DependencyContainerMock!
     
+    private var storyboardsManagerMock: StoryboardsManagerMock {
+        self.dependencyContainer.storyboardsManagerMock
+    }
+    
     override func setUp() {
         super.setUp()
         self.dependencyContainer = DependencyContainerMock()
@@ -36,7 +40,9 @@ extension AppCoordinatorTests {
     func testStart_appCoordinatorContainsChildControllers() throws {
         //Arrange
         let sut = self.buildSUT()
-        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [.initial: ServerConfigurationViewControllerMock()]
+        self.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [
+            .initial: ServerConfigurationViewControllerMock()
+        ]
         self.dependencyContainer.accessServiceMock.getSessionReturnValue = try self.buildSessionDecoder()
         //Act
         sut.start()
@@ -56,7 +62,7 @@ extension AppCoordinatorTests {
         XCTAssertNotNil(sut.children.first as? AuthenticationCoordinator)
     }
     
-    func testStartAppCoordinatorContainsServerConfigurationCoordinatorOnTheStartWhileConfigurationShouldNotRemeberHost() throws {
+    func testStart_containsServerConfiguration_configurationShouldNotRemeberHost() throws {
         //Arrange
         let sut = self.buildSUT()
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(

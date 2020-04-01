@@ -82,7 +82,10 @@ extension AppCoordinator {
     }
     
     private func runMainFlow(configuration: ServerConfiguration, apiClient: ApiClientType) {
-        let accessService = self.dependencyContainer.accessServiceBuilder(configuration, self.dependencyContainer.encoder, self.dependencyContainer.decoder)
+        let accessService = self.dependencyContainer.accessServiceBuilder(
+            configuration,
+            self.dependencyContainer.encoder,
+            self.dependencyContainer.decoder)
         self.dependencyContainer.apiClient = apiClient
         self.dependencyContainer.accessService = accessService
         let coordinator = TimeTableTabCoordinator(dependencyContainer: self.dependencyContainer)

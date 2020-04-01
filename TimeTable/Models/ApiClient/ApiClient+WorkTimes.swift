@@ -10,8 +10,12 @@ import Foundation
 import Restler
 
 protocol ApiClientWorkTimesType: class {
-    func fetchWorkTimes(parameters: WorkTimesParameters, completion: @escaping ((Result<[WorkTimeDecoder], Error>) -> Void)) -> RestlerTaskType?
-    func fetchWorkTimeDetails(identifier: Int64, completion: @escaping (Result<WorkTimeDecoder, Error>) -> Void) -> RestlerTaskType?
+    func fetchWorkTimes(
+        parameters: WorkTimesParameters,
+        completion: @escaping ((Result<[WorkTimeDecoder], Error>) -> Void)) -> RestlerTaskType?
+    func fetchWorkTimeDetails(
+        identifier: Int64,
+        completion: @escaping (Result<WorkTimeDecoder, Error>) -> Void) -> RestlerTaskType?
     func addWorkTime(parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void))
     func addWorkTimeWithFilling(task: Task, completion: @escaping (Result<Void, Error>) -> Void)
     func deleteWorkTime(identifier: Int64, completion: @escaping ((Result<Void, Error>) -> Void))
@@ -19,7 +23,10 @@ protocol ApiClientWorkTimesType: class {
 }
 
 extension ApiClient: ApiClientWorkTimesType {
-    func fetchWorkTimes(parameters: WorkTimesParameters, completion: @escaping ((Result<[WorkTimeDecoder], Error>) -> Void)) -> RestlerTaskType? {
+    func fetchWorkTimes(
+        parameters: WorkTimesParameters,
+        completion: @escaping ((Result<[WorkTimeDecoder], Error>) -> Void)
+    ) -> RestlerTaskType? {
         return self.restler
             .get(Endpoint.workTimes)
             .query(parameters)
@@ -28,7 +35,10 @@ extension ApiClient: ApiClientWorkTimesType {
             .start()
     }
     
-    func fetchWorkTimeDetails(identifier: Int64, completion: @escaping (Result<WorkTimeDecoder, Error>) -> Void) -> RestlerTaskType? {
+    func fetchWorkTimeDetails(
+        identifier: Int64,
+        completion: @escaping (Result<WorkTimeDecoder, Error>) -> Void
+    ) -> RestlerTaskType? {
         return self.restler
             .get(Endpoint.workTime(identifier))
             .decode(WorkTimeDecoder.self)

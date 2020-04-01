@@ -78,9 +78,15 @@ private extension Result where Failure == Error {
     }
     
     func validateEqualityTestError<U>(to testError: U) throws where U: Error & Equatable {
-        guard case let .failure(error) = self else { throw ResultTestError.failureExpected }
-        guard let selfTestError = error as? U else { throw ResultTestError.errorTypeInvalid(current: "\(error)", expected: "\(U.self)") }
-        guard selfTestError == testError else { throw ResultTestError.valuesNotEqual(current: "\(selfTestError)", expected: "\(testError)")}
+        guard case let .failure(error) = self else {
+            throw ResultTestError.failureExpected
+        }
+        guard let selfTestError = error as? U else {
+            throw ResultTestError.errorTypeInvalid(current: "\(error)", expected: "\(U.self)")
+        }
+        guard selfTestError == testError else {
+            throw ResultTestError.valuesNotEqual(current: "\(selfTestError)", expected: "\(testError)")
+        }
     }
 }
 

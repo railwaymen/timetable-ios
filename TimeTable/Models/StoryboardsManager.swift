@@ -9,7 +9,9 @@
 import UIKit
 
 protocol StoryboardsManagerType: class {
-    func controller<T>(storyboard: StoryboardsManager.StoryboardName, controllerIdentifier: StoryboardsManager.ControllerIdentifier) -> T?
+    func controller<T>(
+        storyboard: StoryboardsManager.StoryboardName,
+        controllerIdentifier: StoryboardsManager.ControllerIdentifier) -> T?
 }
 
 extension StoryboardsManagerType {

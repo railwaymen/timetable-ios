@@ -9,11 +9,18 @@
 import UIKit
 
 protocol UIApplicationType: class {
-    func open(_ url: URL, options: [UIApplication.OpenExternalURLOptionsKey: Any], completionHandler completion: ((Bool) -> Void)?)
+    func open(
+        _ url: URL,
+        options: [UIApplication.OpenExternalURLOptionsKey: Any],
+        completionHandler completion: ((Bool) -> Void)?)
 }
 
 extension UIApplicationType {
-    func open(_ url: URL, options: [UIApplication.OpenExternalURLOptionsKey: Any] = [:], completionHandler completion: ((Bool) -> Void)? = nil) {
+    func open(
+        _ url: URL,
+        options: [UIApplication.OpenExternalURLOptionsKey: Any] = [:],
+        completionHandler completion: ((Bool) -> Void)? = nil
+    ) {
         self.open(url, options: options, completionHandler: completion)
     }
 }

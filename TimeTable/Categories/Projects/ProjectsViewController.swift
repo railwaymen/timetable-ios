@@ -46,7 +46,9 @@ extension ProjectsViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(ProjectCollectionViewCell.self, for: indexPath) else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(ProjectCollectionViewCell.self, for: indexPath) else {
+            return UICollectionViewCell()
+        }
         guard let project = self.viewModel.item(at: indexPath) else { return UICollectionViewCell() }
         let cellViewModel = ProjectCollectionViewCellModel(userInterface: cell, project: project)
         cell.configure(viewModel: cellViewModel)
@@ -59,7 +61,10 @@ extension ProjectsViewController: UICollectionViewDelegate {}
 
 // MARK: - ProjectsCollectionViewLayoutDelegate
 extension ProjectsViewController: ProjectsCollectionViewLayoutDelegate {
-    func collectionView(_ collectionView: UICollectionView, heightForUsersTableViewAtIndexPath indexPath: IndexPath) -> CGFloat {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        heightForUsersTableViewAtIndexPath indexPath: IndexPath
+    ) -> CGFloat {
         guard let project = self.viewModel.item(at: indexPath) else { return 0 }
         return CGFloat(project.users.count) * self.projectCellTableViewHeight + self.projectCellStaticHeaderHeight
     }
@@ -100,7 +105,9 @@ extension ProjectsViewController: ProjectsViewModelOutput {
     func screenOrientationDidChange() {
         guard let collectionView = self.collectionView else { return }
         collectionView.setNeedsLayout()
-        guard let layout = collectionView.collectionViewLayout as? ProjectsCollectionViewLayout else { return assertionFailure() }
+        guard let layout = collectionView.collectionViewLayout as? ProjectsCollectionViewLayout else {
+            return assertionFailure()
+        }
         layout.invalidateLayout()
         collectionView.layoutIfNeeded()
     }

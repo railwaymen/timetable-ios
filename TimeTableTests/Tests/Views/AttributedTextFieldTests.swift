@@ -33,7 +33,7 @@ extension AttributedTextFieldTests {
         //Act
         sut.placeholderColor = expectedColor
         //Assert
-        let color = try XCTUnwrap(sut.attributedPlaceholder?.attribute(.foregroundColor, at: 0, effectiveRange: nil) as? UIColor)
-        XCTAssertEqual(color, expectedColor)
+        let optionalColor = sut.attributedPlaceholder?.attribute(.foregroundColor, at: 0, effectiveRange: nil) as? UIColor
+        XCTAssertEqual(try XCTUnwrap(optionalColor), expectedColor)
     }
 }

@@ -38,7 +38,9 @@ extension ProjectCollectionViewCell: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(ProjectUserViewTableViewCell.self, for: indexPath) else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(ProjectUserViewTableViewCell.self, for: indexPath) else {
+            return UITableViewCell()
+        }
         self.viewModel.configure(view: cell, for: indexPath)
         return cell
     }

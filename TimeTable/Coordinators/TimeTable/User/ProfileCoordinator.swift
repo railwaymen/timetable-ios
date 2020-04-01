@@ -60,8 +60,12 @@ extension ProfileCoordinator: ProfileCoordinatorDelegate {
 extension ProfileCoordinator {
     private func runMainFlow() {
         guard let apiClient = self.dependencyContainer.apiClient,
-            let accessService = self.dependencyContainer.accessService else { return assertionFailure("Api client or access service is nil") }
-        let controller: ProfileViewControllerable? = self.dependencyContainer.storyboardsManager.controller(storyboard: .profile)
+            let accessService = self.dependencyContainer.accessService else {
+                self.dependencyContainer.errorHandler.stopInDebug("Api client or access service is nil")
+                return
+        }
+        let controller: ProfileViewControllerable? = self.dependencyContainer.storyboardsManager.controller(
+            storyboard: .profile)
         let viewModel = ProfileViewModel(
             userInterface: controller,
             coordinator: self,

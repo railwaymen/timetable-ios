@@ -8,7 +8,10 @@
 
 import UIKit
 
-typealias WorkTimesTableViewHeaderable = (UITableViewHeaderFooterView & WorkTimesTableViewHeaderViewModelOutput & WorkTimesTableViewHeaderType)
+typealias WorkTimesTableViewHeaderable = (
+    UITableViewHeaderFooterView
+    & WorkTimesTableViewHeaderViewModelOutput
+    & WorkTimesTableViewHeaderType)
 
 protocol WorkTimesTableViewHeaderType: class {
     func configure(viewModel: WorkTimesTableViewHeaderViewModelType)

@@ -62,7 +62,10 @@ struct WorkTimeDecoder: Decodable {
         if let date = DateFormatter.simple.date(from: dateString) {
             self.date = date
         } else {
-            throw DecodingError.dataCorruptedError(forKey: .date, in: container, debugDescription: "decoding_error.wrong_date_format.yyyy-MM-dd")
+            throw DecodingError.dataCorruptedError(
+                forKey: .date,
+                in: container,
+                debugDescription: "decoding_error.wrong_date_format.yyyy-MM-dd")
         }
     }
 }

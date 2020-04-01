@@ -39,7 +39,15 @@ extension XCTestCase {
         return try Data(contentsOf: url)
     }
     
-    func buildDate(timeZone: TimeZone = .current, year: Int, month: Int, day: Int, hour: Int = 0, minute: Int = 0, second: Int = 0) throws -> Date {
+    func buildDate(
+        timeZone: TimeZone = .current,
+        year: Int,
+        month: Int,
+        day: Int,
+        hour: Int = 0,
+        minute: Int = 0,
+        second: Int = 0
+    ) throws -> Date {
         let components = DateComponents(
             calendar: Calendar(identifier: .iso8601),
             timeZone: timeZone,

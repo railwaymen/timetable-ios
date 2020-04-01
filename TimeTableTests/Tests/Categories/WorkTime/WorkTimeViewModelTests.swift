@@ -664,7 +664,8 @@ extension WorkTimeViewModelTests {
     }
     
     private func buildTime(hours: Int, minutes: Int) throws -> Date {
-        return try XCTUnwrap(Calendar(identifier: .gregorian).date(bySettingHour: hours, minute: minutes, second: 0, of: Date()))
+        let calendar = Calendar(identifier: .gregorian)
+        return try XCTUnwrap(calendar.date(bySettingHour: hours, minute: minutes, second: 0, of: Date()))
     }
 }
 // swiftlint:disable:this file_length

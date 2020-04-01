@@ -17,7 +17,9 @@ extension StoryboardsManagerTests {
         //Arrange
         let sut = StoryboardsManager()
         //Act
-        let controller: ServerConfigurationViewController? = sut.controller(storyboard: .serverConfiguration, controllerIdentifier: .initial)
+        let controller: ServerConfigurationViewController? = sut.controller(
+            storyboard: .serverConfiguration,
+            controllerIdentifier: .initial)
         //Assert
         XCTAssertNotNil(controller)
     }

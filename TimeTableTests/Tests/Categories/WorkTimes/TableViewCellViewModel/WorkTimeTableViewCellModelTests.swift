@@ -173,14 +173,35 @@ extension WorkTimeTableViewCellModelTests {
     }
     
     private func startsAt() throws -> Date {
-        return try self.buildDate(timeZone: TimeZone(secondsFromGMT: 0)!, year: 2018, month: 11, day: 21, hour: 12, minute: 0, second: 0)
+        return try self.buildDate(
+            timeZone: TimeZone(secondsFromGMT: 0)!,
+            year: 2018,
+            month: 11,
+            day: 21,
+            hour: 12,
+            minute: 0,
+            second: 0)
     }
     
     private func endsAt() throws -> Date {
-        return try self.buildDate(timeZone: TimeZone(secondsFromGMT: 0)!, year: 2018, month: 11, day: 21, hour: 14, minute: 0, second: 0)
+        return try self.buildDate(
+            timeZone: TimeZone(secondsFromGMT: 0)!,
+            year: 2018,
+            month: 11,
+            day: 21,
+            hour: 14,
+            minute: 0,
+            second: 0)
     }
     
     private func updatedAt() throws -> Date {
-        return try self.buildDate(timeZone: TimeZone(secondsFromGMT: 0)!, year: 2018, month: 11, day: 23, hour: 11, minute: 0, second: 0)
+        return try self.buildDate(
+            timeZone: TimeZone(secondsFromGMT: 0)!,
+            year: 2018,
+            month: 11,
+            day: 23,
+            hour: 11,
+            minute: 0,
+            second: 0)
     }
 }

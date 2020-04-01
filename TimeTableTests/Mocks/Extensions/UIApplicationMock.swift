@@ -20,7 +20,11 @@ class UIApplicationMock {
 
 // MARK: - UIApplicationType
 extension UIApplicationMock: UIApplicationType {
-    func open(_ url: URL, options: [UIApplication.OpenExternalURLOptionsKey: Any], completionHandler completion: ((Bool) -> Void)?) {
+    func open(
+        _ url: URL,
+        options: [UIApplication.OpenExternalURLOptionsKey: Any],
+        completionHandler completion: ((Bool) -> Void)?
+    ) {
         self.openParams.append(OpenParams(url: url, options: options, completion: completion))
     }
 }

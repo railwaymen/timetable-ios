@@ -38,7 +38,8 @@ class WorkTimeCoordinatorMock {
 // MARK: - WorkTimeCoordinatorType
 extension WorkTimeCoordinatorMock: WorkTimeCoordinatorType {
     func configure(contentViewController: WorkTimeViewControllerable) -> WorkTimeContainerContentType? {
-        self.configureContentViewControllerParams.append(ConfigureContentViewControllerParams(viewController: contentViewController))
+        self.configureContentViewControllerParams.append(ConfigureContentViewControllerParams(
+            viewController: contentViewController))
         return self.configureContentViewControllerReturnValue
     }
     
@@ -48,7 +49,10 @@ extension WorkTimeCoordinatorMock: WorkTimeCoordinatorType {
             ?? ErrorViewModel(userInterface: errorView, error: UIError.genericError, actionHandler: action)
     }
     
-    func showProjectPicker(projects: [SimpleProjectRecordDecoder], finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType) {
+    func showProjectPicker(
+        projects: [SimpleProjectRecordDecoder],
+        finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType
+    ) {
         self.showProjectPickerParams.append(ShowProjectPickerParams(projects: projects, finishHandler: finishHandler))
     }
     

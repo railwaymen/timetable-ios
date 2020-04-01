@@ -13,7 +13,9 @@ typealias WorkTimeApiClientType = ApiClientWorkTimesType & ApiClientProjectsType
 protocol WorkTimeCoordinatorType: class {
     func configure(contentViewController: WorkTimeViewControllerable) -> WorkTimeContainerContentType?
     func configure(errorView: ErrorViewable, action: @escaping () -> Void) -> ErrorViewModelParentType
-    func showProjectPicker(projects: [SimpleProjectRecordDecoder], finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType)
+    func showProjectPicker(
+        projects: [SimpleProjectRecordDecoder],
+        finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType)
     func dismissView(isTaskChanged: Bool)
 }
 
@@ -103,7 +105,10 @@ extension WorkTimeCoordinator: WorkTimeCoordinatorType {
         return viewModel
     }
     
-    func showProjectPicker(projects: [SimpleProjectRecordDecoder], finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType) {
+    func showProjectPicker(
+        projects: [SimpleProjectRecordDecoder],
+        finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType
+    ) {
         self.runProjectPickerFlow(projects: projects, finishHandler: finishHandler)
     }
     
@@ -118,7 +123,9 @@ extension WorkTimeCoordinator: WorkTimeCoordinatorType {
 extension WorkTimeCoordinator {
     private func runMainFlow() {
         guard let contentProvider = self.contentProvider else { return }
-        guard let controller: WorkTimeContainerViewControllerable = self.dependencyContainer.storyboardsManager.controller(storyboard: .workTime) else {
+        let optionalController: WorkTimeContainerViewControllerable? = self.dependencyContainer.storyboardsManager.controller(
+            storyboard: .workTime)
+        guard let controller = optionalController else {
             self.dependencyContainer.errorHandler.stopInDebug("There's no matching view controller")
             return
         }
@@ -137,7 +144,10 @@ extension WorkTimeCoordinator {
         }
     }
     
-    private func runProjectPickerFlow(projects: [SimpleProjectRecordDecoder], finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType) {
+    private func runProjectPickerFlow(
+        projects: [SimpleProjectRecordDecoder],
+        finishHandler: @escaping ProjectPickerCoordinator.CustomFinishHandlerType
+    ) {
         let coordinator = ProjectPickerCoordinator(
             dependencyContainer: self.dependencyContainer,
             parentViewController: self.navigationController,
@@ -154,7 +164,11 @@ extension WorkTimeCoordinator {
         controller.preferredContentSize = CGSize(width: 300, height: 320)
         controller.popoverPresentationController?.permittedArrowDirections = .right
         controller.popoverPresentationController?.sourceView = sourceView
-        controller.popoverPresentationController?.sourceRect = CGRect(x: sourceView.bounds.minX, y: sourceView.bounds.midY, width: 0, height: 0)
+        controller.popoverPresentationController?.sourceRect = CGRect(
+            x: sourceView.bounds.minX,
+            y: sourceView.bounds.midY,
+            width: 0,
+            height: 0)
         self.parentViewController?.children.last?.present(controller, animated: true)
     }
     

@@ -10,7 +10,9 @@ import Foundation
 import Restler
 
 protocol WorkTimesListContentProviderType: class {
-    func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder), Error>) -> Void)
+    func fetchWorkTimesData(
+        for date: Date?,
+        completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder), Error>) -> Void)
     func delete(workTime: WorkTimeDecoder, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
@@ -42,7 +44,10 @@ class WorkTimesListContentProvider {
  
 // MARK: - WorkTimesListContentProviderType
 extension WorkTimesListContentProvider: WorkTimesListContentProviderType {
-    func fetchWorkTimesData(for date: Date?, completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder), Error>) -> Void) {
+    func fetchWorkTimesData(
+        for date: Date?,
+        completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder), Error>) -> Void
+    ) {
         var dailyWorkTimes: [DailyWorkTime] = []
         var matchingFullTime: MatchingFullTimeDecoder?
         var fetchError: Error?
@@ -117,7 +122,10 @@ extension WorkTimesListContentProvider {
     
     private func fetchMatchingFullTime(date: Date?, completion: @escaping (Result<MatchingFullTimeDecoder, Error>) -> Void) {
         guard let unwrappedDate = date,
-            let userID = self.accessService.getLastLoggedInUserIdentifier() else { return completion(.failure(ApiClientError(type: .invalidParameters))) }
+            let userID = self.accessService.getLastLoggedInUserIdentifier() else {
+                completion(.failure(ApiClientError(type: .invalidParameters)))
+                return
+        }
         let parameters = MatchingFullTimeEncoder(date: unwrappedDate, userId: userID)
         self.apiClient.fetchMatchingFullTime(parameters: parameters, completion: completion)
     }

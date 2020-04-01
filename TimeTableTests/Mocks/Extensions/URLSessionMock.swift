@@ -20,7 +20,10 @@ class URLSessionMock {
 
 // MARK: - URLSessionType
 extension URLSessionMock: URLSessionType {
-    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskType {
+    func dataTask(
+        with request: URLRequest,
+        completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
+    ) -> URLSessionDataTaskType {
         self.dataTaskParams.append(DataTaskParams(request: request, completionHandler: completionHandler))
         return self.dataTaskReturnValue
     }

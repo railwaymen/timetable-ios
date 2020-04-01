@@ -28,6 +28,9 @@ extension ProjectCollectionViewCellMock: ProjectCollectionViewCellModelOutput {
     }
     
     func updateView(with projectName: String, leaderName: String, projectColor: UIColor) {
-        self.updateViewParams.append(UpdateViewParams(projectName: projectName, leaderName: leaderName, projectColor: projectColor))
+        self.updateViewParams.append(UpdateViewParams(
+            projectName: projectName,
+            leaderName: leaderName,
+            projectColor: projectColor))
     }
 }

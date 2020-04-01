@@ -41,8 +41,12 @@ class ProjectsCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
 // MARK: - Private
 extension ProjectsCoordinator {
     private func runMainFlow() {
-        guard let apiClient = self.dependencyContainer.apiClient else { return assertionFailure("Api client or access service is nil") }
-        let controller: ProjectsViewControllerable? = self.dependencyContainer.storyboardsManager.controller(storyboard: .projects)
+        guard let apiClient = self.dependencyContainer.apiClient else {
+            self.dependencyContainer.errorHandler.stopInDebug("Api client or access service is nil")
+            return
+        }
+        let controller: ProjectsViewControllerable? = self.dependencyContainer.storyboardsManager.controller(
+            storyboard: .projects)
         let viewModel = ProjectsViewModel(
             userInterface: controller,
             apiClient: apiClient,

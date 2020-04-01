@@ -39,7 +39,12 @@ extension DispatchGroupMock: DispatchGroupType {
         }
     }
     
-    func notify(qos: DispatchQoS, flags: DispatchWorkItemFlags, queue: DispatchQueue, execute work: @escaping @convention(block) () -> Void) {
+    func notify(
+        qos: DispatchQoS,
+        flags: DispatchWorkItemFlags,
+        queue: DispatchQueue,
+        execute work: @escaping @convention(block) () -> Void
+    ) {
         self.notifyParams.append(NotifyParams(qos: qos, flags: flags, queue: queue, work: work))
     }
 }

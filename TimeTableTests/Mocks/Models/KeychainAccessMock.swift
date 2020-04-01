@@ -69,14 +69,20 @@ extension KeychainAccessMock: KeychainAccessType {
     }
     
     func set(_ value: String, key: String, ignoringAttributeSynchronizable: Bool) throws {
-        self.setParams.append(SetParams(value: value, key: key, ignoringAttributeSynchronizable: ignoringAttributeSynchronizable))
+        self.setParams.append(SetParams(
+            value: value,
+            key: key,
+            ignoringAttributeSynchronizable: ignoringAttributeSynchronizable))
         if let error = self.setThrowError {
             throw error
         }
     }
     
     func set(_ value: Data, key: String, ignoringAttributeSynchronizable: Bool) throws {
-        self.setDataParams.append(SetDataParams(value: value, key: key, ignoringAttributeSynchronizable: ignoringAttributeSynchronizable))
+        self.setDataParams.append(SetDataParams(
+            value: value,
+            key: key,
+            ignoringAttributeSynchronizable: ignoringAttributeSynchronizable))
         if let error = self.setDataThrowError {
             throw error
         }

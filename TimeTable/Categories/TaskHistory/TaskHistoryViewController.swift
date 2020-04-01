@@ -41,7 +41,9 @@ extension TaskHistoryViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(WorkTimeTableViewCell.self, for: indexPath) else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(WorkTimeTableViewCell.self, for: indexPath) else {
+            return UITableViewCell()
+        }
         self.viewModel.configure(cell, for: indexPath)
         return cell
     }
@@ -91,7 +93,10 @@ extension TaskHistoryViewController {
     }
     
     private func setUpCloseButton() {
-        let closeButton = UIBarButtonItem(barButtonSystemItem: .closeButton, target: self, action: #selector(self.closeButtonTapped))
+        let closeButton = UIBarButtonItem(
+            barButtonSystemItem: .closeButton,
+            target: self,
+            action: #selector(self.closeButtonTapped))
         self.navigationItem.setRightBarButton(closeButton, animated: false)
     }
     

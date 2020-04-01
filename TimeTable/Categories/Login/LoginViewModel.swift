@@ -64,7 +64,8 @@ class LoginViewModel {
     
     // MARK: - Notifications
     @objc func changeKeyboardFrame(notification: NSNotification) {
-        guard let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height else { return }
+        let userInfo = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
+        guard let keyboardHeight = userInfo?.cgRectValue.size.height else { return }
         self.userInterface?.setBottomContentInset(keyboardHeight)
     }
     
@@ -172,6 +173,7 @@ extension LoginViewModel {
     }
     
     private func updateLogInButton() {
-        self.userInterface?.loginButtonEnabledState(!self.loginCredentials.email.isEmpty && !self.loginCredentials.password.isEmpty)
+        let isLoginButtonEnabled = !self.loginCredentials.email.isEmpty && !self.loginCredentials.password.isEmpty
+        self.userInterface?.loginButtonEnabledState(isLoginButtonEnabled)
     }
 }
