@@ -10,6 +10,12 @@ import Foundation
 
 extension Array {
     public subscript(safeIndex index: Index) -> Element? {
-        return (self.startIndex..<self.endIndex).contains(index) ? self[index] : nil
+        get {
+            return (self.startIndex..<self.endIndex).contains(index) ? self[index] : nil
+        }
+        set {
+            guard let newElement = newValue, (self.startIndex...self.endIndex).contains(index) else { return }
+            self[index] = newElement
+        }
     }
 }

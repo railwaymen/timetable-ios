@@ -19,10 +19,11 @@ class DailyWorkTime {
     }
     
     // MARK: - Internal
-    func remove(workTime: WorkTimeDecoder) -> Bool {
-        guard let index = self.workTimes.firstIndex(of: workTime) else { return false }
-        self.workTimes.remove(at: index)
-        return true
+    func removing(workTime: WorkTimeDecoder) -> DailyWorkTime {
+        let workTimes = self.workTimes.filter { $0 != workTime }
+        return DailyWorkTime(
+            day: self.day,
+            workTimes: workTimes)
     }
 }
 

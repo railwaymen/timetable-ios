@@ -187,6 +187,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
                     switch result {
                     case .success:
                         self.removeDailyWorkTime(at: index, workTime: workTime, completion: completion)
+                        self.updateWorkedHoursLabel()
                     case let .failure(error):
                         self.errorHandler.throwing(error: error)
                         completion(false)
@@ -262,10 +263,13 @@ extension WorkTimesListViewModel {
     private func removeDailyWorkTime(at indexPath: IndexPath, workTime: WorkTimeDecoder, completion: @escaping (Bool) -> Void) {
         guard let dailyWorkTime = self.dailyWorkTime(for: indexPath),
             let userInterface = self.userInterface else { return completion(false) }
-        let isDeleted = dailyWorkTime.remove(workTime: workTime)
+        let newDailyWorkTime = dailyWorkTime.removing(workTime: workTime)
         userInterface.performBatchUpdates { [weak self] in
-            completion(isDeleted)
-            self?.dailyWorkTimesArray.removeAll { $0.workTimes.isEmpty }
+            completion(newDailyWorkTime != dailyWorkTime)
+            guard let self = self else { return }
+            newDailyWorkTime.workTimes.isEmpty
+                ? self.dailyWorkTimesArray.removeAll { $0 === dailyWorkTime }
+                : (self.dailyWorkTimesArray[safeIndex: indexPath.section] = newDailyWorkTime)
         }
     }
     
@@ -304,13 +308,15 @@ extension WorkTimesListViewModel {
     
     private func handleFetchSuccess(dailyWorkTimes: [DailyWorkTime], matchingFullTime: MatchingFullTimeDecoder) {
         self.dailyWorkTimesArray = dailyWorkTimes
-
-        let duration = TimeInterval(dailyWorkTimes.flatMap { $0.workTimes }.reduce(0) { $0 + $1.duration })
-        let durationText = self.dateComponentsFormatter.string(from: duration)
-        self.userInterface?.updateHoursLabel(workedHours: durationText)
-        
+        self.updateWorkedHoursLabel()
         self.userInterface?.updateAccountingPeriodLabel(text: matchingFullTime.accountingPeriodText)
         self.userInterface?.showTableView()
+    }
+    
+    private func updateWorkedHoursLabel() {
+        let duration = TimeInterval(self.dailyWorkTimesArray.flatMap(\.workTimes).map(\.duration).reduce(0, +))
+        let durationText = self.dateComponentsFormatter.string(from: duration)
+        self.userInterface?.updateHoursLabel(workedHours: durationText)
     }
     
     private func handleFetch(error: Error) {
