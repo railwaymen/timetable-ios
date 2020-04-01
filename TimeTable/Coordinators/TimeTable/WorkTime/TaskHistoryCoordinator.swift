@@ -67,19 +67,24 @@ extension TaskHistoryCoordinator: WorkTimeTableViewCellModelParentType {
 // MARK: - Private
 extension TaskHistoryCoordinator {
     private func runMainFlow() {
-        guard let apiClient = self.dependencyContainer.apiClient else { return assertionFailure("API client mustn't be nil") }
-        let optionalController: TaskHistoryViewController? = self.dependencyContainer.storyboardsManager.controller(
-            storyboard: .taskHistory)
-        guard let controller = optionalController else { return }
-        let viewModel = TaskHistoryViewModel(
-            userInterface: controller,
-            coordinator: self,
-            apiClient: apiClient,
-            errorHandler: self.dependencyContainer.errorHandler,
-            taskForm: self.taskForm)
-        controller.configure(viewModel: viewModel)
-        self.navigationController.setViewControllers([controller], animated: false)
-        self.parentViewController?.present(self.navigationController, animated: true)
+        guard let apiClient = self.dependencyContainer.apiClient else {
+            self.dependencyContainer.errorHandler.stopInDebug("API client mustn't be nil")
+            return
+        }
+        do {
+            let controller = try self.dependencyContainer.viewControllerBuilder.taskHistory()
+            let viewModel = TaskHistoryViewModel(
+                userInterface: controller,
+                coordinator: self,
+                apiClient: apiClient,
+                errorHandler: self.dependencyContainer.errorHandler,
+                taskForm: self.taskForm)
+            controller.configure(viewModel: viewModel)
+            self.navigationController.setViewControllers([controller], animated: false)
+            self.parentViewController?.present(self.navigationController, animated: true)
+        } catch {
+            self.dependencyContainer.errorHandler.stopInDebug("\(error)")
+        }
     }
     
     private func setUpNativationController() {

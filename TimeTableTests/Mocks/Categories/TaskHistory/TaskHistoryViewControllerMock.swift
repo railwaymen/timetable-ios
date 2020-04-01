@@ -9,7 +9,7 @@
 import XCTest
 @testable import TimeTable
 
-class TaskHistoryViewControllerMock {
+class TaskHistoryViewControllerMock: UIViewController {
     
     // MARK: - TaskHistoryViewModelOutput
     private(set) var setUpParams: [SetUpParams] = []

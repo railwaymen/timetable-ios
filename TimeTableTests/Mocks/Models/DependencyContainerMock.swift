@@ -22,11 +22,6 @@ class DependencyContainerMock: DependencyContainerType {
         return self.messagePresenterMock
     }
     
-    var storyboardsManagerMock = StoryboardsManagerMock()
-    var storyboardsManager: StoryboardsManagerType {
-        return self.storyboardsManagerMock
-    }
-    
     private(set) var errorHandlerSetCalled: Bool = false
     private(set) var errorHandlerSetValue: ErrorHandlerType?
     var errorHandlerMock = ErrorHandlerMock()
@@ -110,5 +105,10 @@ class DependencyContainerMock: DependencyContainerType {
     var taskFormFactoryMock = TaskFormFactoryMock()
     var taskFormFactory: TaskFormFactoryType {
         self.taskFormFactoryMock
+    }
+    
+    var viewControllerBuilderMock = ViewControllerBuilderMock()
+    var viewControllerBuilder: ViewControllerBuilderType {
+        self.viewControllerBuilderMock
     }
 }

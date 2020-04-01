@@ -9,7 +9,7 @@
 import XCTest
 @testable import TimeTable
 
-class ProjectPickerViewControllerMock {
+class ProjectPickerViewControllerMock: UIViewController {
     private(set) var setUpParams: [SetUpParams] = []
     struct SetUpParams {}
     

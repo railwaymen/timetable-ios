@@ -6,10 +6,12 @@
 //  Copyright © 2019 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import XCTest
 @testable import TimeTable
 
-class ProjectsViewControllerMock {
+class ProjectsViewControllerMock: UIViewController {
+    
+    // MARK: - ProjectsViewModelOutput
     private(set) var setUpViewParams: [SetUpViewParams] = []
     struct SetUpViewParams {}
     
@@ -27,8 +29,14 @@ class ProjectsViewControllerMock {
         let isHidden: Bool
     }
     
-        private(set) var screenOrientationDidChangeParams: [ScreenOrientationDidChangeParams] = []
+    private(set) var screenOrientationDidChangeParams: [ScreenOrientationDidChangeParams] = []
     struct ScreenOrientationDidChangeParams {}
+    
+    // MARK: - ProjectsViewControllerType
+    private(set) var configureParams: [ConfigureParams] = []
+    struct ConfigureParams {
+        let viewModel: ProjectsViewModelType
+    }
 }
 
 // MARK: - ProjectsViewModelOutput
@@ -55,5 +63,12 @@ extension ProjectsViewControllerMock: ProjectsViewModelOutput {
     
     func screenOrientationDidChange() {
         self.screenOrientationDidChangeParams.append(ScreenOrientationDidChangeParams())
+    }
+}
+
+// MARK: - ProjectsViewControllerType
+extension ProjectsViewControllerMock: ProjectsViewControllerType {
+    func configure(viewModel: ProjectsViewModelType) {
+        self.configureParams.append(ConfigureParams(viewModel: viewModel))
     }
 }

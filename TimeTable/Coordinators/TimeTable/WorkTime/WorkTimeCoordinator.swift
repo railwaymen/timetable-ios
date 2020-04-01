@@ -123,24 +123,23 @@ extension WorkTimeCoordinator: WorkTimeCoordinatorType {
 extension WorkTimeCoordinator {
     private func runMainFlow() {
         guard let contentProvider = self.contentProvider else { return }
-        let optionalController: WorkTimeContainerViewControllerable? = self.dependencyContainer.storyboardsManager.controller(
-            storyboard: .workTime)
-        guard let controller = optionalController else {
-            self.dependencyContainer.errorHandler.stopInDebug("There's no matching view controller")
-            return
-        }
-        let viewModel = WorkTimeContainerViewModel(
-            userInterface: controller,
-            coordinator: self,
-            contentProvider: contentProvider,
-            errorHandler: self.dependencyContainer.errorHandler,
-            flowType: self.flowType)
-        controller.configure(viewModel: viewModel)
-        self.navigationController.setViewControllers([controller], animated: false)
-        if let sourceView = self.sourceView {
-            self.showWorkTimeController(controller: self.navigationController, sourceView: sourceView)
-        } else {
-            self.parentViewController?.present(self.navigationController, animated: true)
+        do {
+            let controller = try self.dependencyContainer.viewControllerBuilder.workTimeContainer()
+            let viewModel = WorkTimeContainerViewModel(
+                userInterface: controller,
+                coordinator: self,
+                contentProvider: contentProvider,
+                errorHandler: self.dependencyContainer.errorHandler,
+                flowType: self.flowType)
+            controller.configure(viewModel: viewModel)
+            self.navigationController.setViewControllers([controller], animated: false)
+            if let sourceView = self.sourceView {
+                self.showWorkTimeController(controller: self.navigationController, sourceView: sourceView)
+            } else {
+                self.parentViewController?.present(self.navigationController, animated: true)
+            }
+        } catch {
+            self.dependencyContainer.errorHandler.stopInDebug("\(error)")
         }
     }
     

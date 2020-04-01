@@ -32,6 +32,7 @@
 		8A18F7B7242A575500D06059 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A18F7B6242A575500D06059 /* Global.swift */; };
 		8A18F7BB242B625700D06059 /* ServerConfigurationUIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A18F7BA242B625700D06059 /* ServerConfigurationUIElements.swift */; };
 		8A18F7BD242B6A4D00D06059 /* ScreenToTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A18F7BC242B6A4D00D06059 /* ScreenToTest.swift */; };
+		8A21A0422435BF2200EE4A79 /* ViewControllerBuilderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A21A0412435BF2200EE4A79 /* ViewControllerBuilderMock.swift */; };
 		8A2FB0F4242E274700DDBCB0 /* taskChangedProjectResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A2FB0F3242E274700DDBCB0 /* taskChangedProjectResponse.json */; };
 		8A2FB0F6242E278C00DDBCB0 /* taskUnchangedResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A2FB0F5242E278C00DDBCB0 /* taskUnchangedResponse.json */; };
 		8A2FB0F8242E27DF00DDBCB0 /* taskChangedBodyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A2FB0F7242E27DF00DDBCB0 /* taskChangedBodyResponse.json */; };
@@ -164,6 +165,7 @@
 		8A9987CE23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A9987CD23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json */; };
 		8A9987D023951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A9987CF23951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json */; };
 		8A99EBC123D9B95600CC9BA8 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A99EBC023D9B95600CC9BA8 /* UIColor+Extension.swift */; };
+		8A9FB40A2434CABF00805F4E /* ViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9FB4092434CABF00805F4E /* ViewControllerBuilder.swift */; };
 		8AA3E5C9241648FB00322AEF /* RestlerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3E5C8241648FB00322AEF /* RestlerMock.swift */; };
 		8AA5C5DD235F34340083E121 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA5C5DC235F34340083E121 /* Colors.xcassets */; };
 		8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift */; };
@@ -496,6 +498,7 @@
 		8A18F7B6242A575500D06059 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		8A18F7BA242B625700D06059 /* ServerConfigurationUIElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationUIElements.swift; sourceTree = "<group>"; };
 		8A18F7BC242B6A4D00D06059 /* ScreenToTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenToTest.swift; sourceTree = "<group>"; };
+		8A21A0412435BF2200EE4A79 /* ViewControllerBuilderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerBuilderMock.swift; sourceTree = "<group>"; };
 		8A2FB0F3242E274700DDBCB0 /* taskChangedProjectResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedProjectResponse.json; sourceTree = "<group>"; };
 		8A2FB0F5242E278C00DDBCB0 /* taskUnchangedResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskUnchangedResponse.json; sourceTree = "<group>"; };
 		8A2FB0F7242E27DF00DDBCB0 /* taskChangedBodyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedBodyResponse.json; sourceTree = "<group>"; };
@@ -630,6 +633,7 @@
 		8A9987CD23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithIsTaggableTrueResponse.json; sourceTree = "<group>"; };
 		8A9987CF23951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithIsTaggableFalseResponse.json; sourceTree = "<group>"; };
 		8A99EBC023D9B95600CC9BA8 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		8A9FB4092434CABF00805F4E /* ViewControllerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerBuilder.swift; sourceTree = "<group>"; };
 		8AA3E5C8241648FB00322AEF /* RestlerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestlerMock.swift; sourceTree = "<group>"; };
 		8AA5C5DC235F34340083E121 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellModelTests.swift; sourceTree = "<group>"; };
@@ -1101,6 +1105,7 @@
 				C134298621A6C80B00F4EA42 /* StoryboardsManagerMock.swift */,
 				8AFFE5CF24336333001D9E89 /* TaskFormFactoryMock.swift */,
 				8AE55D1E23FD86A200F94242 /* TaskFormMock.swift */,
+				8A21A0412435BF2200EE4A79 /* ViewControllerBuilderMock.swift */,
 				8A31BFB324177B31004A1CE8 /* Restler */,
 			);
 			path = Models;
@@ -1547,6 +1552,7 @@
 				C175B56B227CAACA006D9944 /* MessagePresenter.swift */,
 				8A5EF31B23FE808800AE4309 /* ReusableCellType.swift */,
 				C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */,
+				8A9FB4092434CABF00805F4E /* ViewControllerBuilder.swift */,
 				8AE55D1C23FD855E00F94242 /* Task.swift */,
 				C152C22121E89CB8003ABD88 /* TaskForm.swift */,
 				C1E6B34A219EF02100019DC2 /* AccessService */,
@@ -2912,6 +2918,7 @@
 				C10FD87F21F1EDA100A233C5 /* ApiClient+Users.swift in Sources */,
 				C153AC532182F1E3007A35BB /* UITextField+Extension.swift in Sources */,
 				C1E1F04421AD2952007F9228 /* NSObject+Extension.swift in Sources */,
+				8A9FB40A2434CABF00805F4E /* ViewControllerBuilder.swift in Sources */,
 				C153AC4C2182EF40007A35BB /* String+Extension.swift in Sources */,
 				C13C88E621E5EA8F00F68C6E /* WorkTimeViewController.swift in Sources */,
 				C1AFFFDB21A2CD2000A7A632 /* AppError.swift in Sources */,
@@ -2986,6 +2993,7 @@
 				8A79A2932420F58A0048B44B /* TaskVersionTests.swift in Sources */,
 				8AE55D1B23FD7AAB00F94242 /* TaskFactory.swift in Sources */,
 				C17EA3B82189E04400A3F0CD /* ServerConfigurationManagerTests.swift in Sources */,
+				8A21A0422435BF2200EE4A79 /* ViewControllerBuilderMock.swift in Sources */,
 				8A55BA772372D02D004FFA97 /* UIApplicationMock.swift in Sources */,
 				C11F51F521A5AC5800FD626A /* DateFormatterExtensionTests.swift in Sources */,
 				C1E1F04D21AD3EB8007F9228 /* CalendarMock.swift in Sources */,

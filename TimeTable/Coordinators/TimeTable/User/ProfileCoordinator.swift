@@ -64,16 +64,18 @@ extension ProfileCoordinator {
                 self.dependencyContainer.errorHandler.stopInDebug("Api client or access service is nil")
                 return
         }
-        let controller: ProfileViewControllerable? = self.dependencyContainer.storyboardsManager.controller(
-            storyboard: .profile)
-        let viewModel = ProfileViewModel(
-            userInterface: controller,
-            coordinator: self,
-            apiClient: apiClient,
-            accessService: accessService,
-            errorHandler: self.dependencyContainer.errorHandler)
-        controller?.configure(viewModel: viewModel)
-        guard let profileViewController = controller else { return }
-        self.navigationController.pushViewController(profileViewController, animated: false)
+        do {
+            let controller = try self.dependencyContainer.viewControllerBuilder.profile()
+            let viewModel = ProfileViewModel(
+                userInterface: controller,
+                coordinator: self,
+                apiClient: apiClient,
+                accessService: accessService,
+                errorHandler: self.dependencyContainer.errorHandler)
+            controller.configure(viewModel: viewModel)
+            self.navigationController.pushViewController(controller, animated: false)
+        } catch {
+            self.dependencyContainer.errorHandler.stopInDebug("\(error)")
+        }
     }
 }

@@ -13,8 +13,8 @@ import KeychainAccess
 class AppCoordinatorTests: XCTestCase {
     private var dependencyContainer: DependencyContainerMock!
     
-    private var storyboardsManagerMock: StoryboardsManagerMock {
-        self.dependencyContainer.storyboardsManagerMock
+    private var viewControllerBuilderMock: ViewControllerBuilderMock {
+        self.dependencyContainer.viewControllerBuilderMock
     }
     
     override func setUp() {
@@ -24,25 +24,11 @@ class AppCoordinatorTests: XCTestCase {
     }
 }
 
-// MARK: - start(finishHandler: (() -> Void)?)
+// MARK: - start(finishHandler:)
 extension AppCoordinatorTests {
-    func testStart_appCoordinatorDoNotContainChildControllers() throws {
+    func testStart_containsChildControllers() throws {
         //Arrange
         let sut = self.buildSUT()
-        self.dependencyContainer.accessServiceMock.getSessionReturnValue = try self.buildSessionDecoder()
-        //Act
-        sut.start()
-        //Assert
-        let rootViewController = try XCTUnwrap(sut.window?.rootViewController as? UINavigationController)
-        XCTAssertTrue(rootViewController.children.isEmpty)
-    }
-    
-    func testStart_appCoordinatorContainsChildControllers() throws {
-        //Arrange
-        let sut = self.buildSUT()
-        self.storyboardsManagerMock.controllerReturnValue[.serverConfiguration] = [
-            .initial: ServerConfigurationViewControllerMock()
-        ]
         self.dependencyContainer.accessServiceMock.getSessionReturnValue = try self.buildSessionDecoder()
         //Act
         sut.start()
@@ -51,7 +37,7 @@ extension AppCoordinatorTests {
         XCTAssertEqual(rootViewController.children.count, 1)
     }
     
-    func testStartAppCoordinatorContainsAuthenticationConfigurationCoordinatorOnTheStart() throws {
+    func testStart_containsAuthenticationConfigurationCoordinator() throws {
         //Arrange
         let sut = self.buildSUT()
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = nil
@@ -62,7 +48,7 @@ extension AppCoordinatorTests {
         XCTAssertNotNil(sut.children.first as? AuthenticationCoordinator)
     }
     
-    func testStart_containsServerConfiguration_configurationShouldNotRemeberHost() throws {
+    func testStart_withServerConfiguration_configurationShouldNotRemeberHost() throws {
         //Arrange
         let sut = self.buildSUT()
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
@@ -93,7 +79,7 @@ extension AppCoordinatorTests {
         XCTAssertEqual(sut.children.count, 1)
         XCTAssertNotNil(sut.children.first as? AuthenticationCoordinator)
     }
-    
+
     func testRunMainFlowFinishRemovesTimeTableTabCoordinatorFromChildrenAndRunsServerConfigurationFlow() throws {
         //Arrange
         let sut = self.buildSUT()
@@ -111,7 +97,7 @@ extension AppCoordinatorTests {
         XCTAssertEqual(sut.children.count, 1)
         XCTAssertNotNil(sut.children.first as? AuthenticationCoordinator)
     }
-    
+
     func testRunMainFlowFinishRemovesTimeTableTabCoordinatorFromChildrenAndRunsAuthenticationFlow() throws {
         //Arrange
         let sut = self.buildSUT()

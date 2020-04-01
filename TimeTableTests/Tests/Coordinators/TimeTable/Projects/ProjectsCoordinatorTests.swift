@@ -20,19 +20,23 @@ class ProjectsCoordinatorTests: XCTestCase {
 
 // MARK: - start(finishHandler: (() -> Void)?)
 extension ProjectsCoordinatorTests {
-    func testRunMainFlowDoesNotRunMainFlowWhileProjectsControllerIsNil() {
+    func testStart_viewControllerBuilderThrow_doesNotRunMainFlow() {
         //Arrange
         let sut = self.buildSUT()
+        let error = "Error message"
+        self.dependencyContainer.viewControllerBuilderMock.projectsThrownError = error
         //Act
         sut.start()
         //Assert
         XCTAssertTrue(sut.navigationController.children.isEmpty)
+        XCTAssertEqual(self.dependencyContainer.errorHandlerMock.stopInDebugParams.count, 1)
+        XCTAssertEqual(self.dependencyContainer.errorHandlerMock.stopInDebugParams.last?.message, error)
     }
     
-    func testRunMainFlowRunsMainFlow() {
+    func testStart_runsMainFlow() {
         //Arrange
         let sut = self.buildSUT()
-        self.dependencyContainer.storyboardsManagerMock.controllerReturnValue[.projects] = [.initial: ProjectsViewController()]
+        self.dependencyContainer.viewControllerBuilderMock.projectsReturnValue = ProjectsViewController()
         //Act
         sut.start()
         //Assert

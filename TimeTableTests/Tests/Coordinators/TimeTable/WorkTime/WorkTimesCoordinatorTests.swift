@@ -12,8 +12,8 @@ import XCTest
 class WorkTimesListCoordinatorTests: XCTestCase {
     private var dependencyContainer: DependencyContainerMock!
     
-    private var storyboardsManagerMock: StoryboardsManagerMock {
-        self.dependencyContainer.storyboardsManagerMock
+    private var viewControllerBuilderMock: ViewControllerBuilderMock {
+        self.dependencyContainer.viewControllerBuilderMock
     }
     
     override func setUp() {
@@ -24,19 +24,23 @@ class WorkTimesListCoordinatorTests: XCTestCase {
 
 // MARK: - start(finishHandler: (() -> Void)?)
 extension WorkTimesListCoordinatorTests {
-    func testRunMainFlowDoesNotRunMainFlowWhileWorkTimesControllerIsNil() {
+    func testStart_viewControllerBuilderThrows_doesNotRunMainFlow() {
         //Arrange
         let sut = self.buildSUT()
+        let error = "Error message"
+        self.dependencyContainer.viewControllerBuilderMock.workTimesListThrownError = error
         //Act
         sut.start()
         //Assert
         XCTAssertTrue(sut.navigationController.children.isEmpty)
+        XCTAssertEqual(self.dependencyContainer.errorHandlerMock.stopInDebugParams.count, 1)
+        XCTAssertEqual(self.dependencyContainer.errorHandlerMock.stopInDebugParams.last?.message, error)
     }
     
     func testRunMainFlowRunsMainFlow() {
         //Arrange
         let sut = self.buildSUT()
-        self.storyboardsManagerMock.controllerReturnValue[.workTimesList] = [.initial: WorkTimesListViewControllerMock()]
+        self.viewControllerBuilderMock.workTimesListReturnValue = WorkTimesListViewControllerMock()
         //Act
         sut.start()
         //Assert

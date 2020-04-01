@@ -45,16 +45,17 @@ extension ProjectsCoordinator {
             self.dependencyContainer.errorHandler.stopInDebug("Api client or access service is nil")
             return
         }
-        let controller: ProjectsViewControllerable? = self.dependencyContainer.storyboardsManager.controller(
-            storyboard: .projects)
-        let viewModel = ProjectsViewModel(
-            userInterface: controller,
-            apiClient: apiClient,
-            errorHandler: self.dependencyContainer.errorHandler,
-            notificationCenter: self.dependencyContainer.notificationCenter)
-        controller?.configure(viewModel: viewModel)
-        if let controller = controller {        
+        do {
+            let controller = try self.dependencyContainer.viewControllerBuilder.projects()
+            let viewModel = ProjectsViewModel(
+                userInterface: controller,
+                apiClient: apiClient,
+                errorHandler: self.dependencyContainer.errorHandler,
+                notificationCenter: self.dependencyContainer.notificationCenter)
+            controller.configure(viewModel: viewModel)
             self.navigationController.pushViewController(controller, animated: false)
+        } catch {
+            self.dependencyContainer.errorHandler.stopInDebug("\(error)")
         }
     }
 }
