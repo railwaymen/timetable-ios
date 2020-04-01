@@ -43,6 +43,6 @@ extension String {
         guard let regExp = httpRegExp, regExp.matches(in: self).count == 0 else {
             return self
         }
-        return "http://" + self
+        return "https://" + self
     }
 }
