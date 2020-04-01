@@ -4,6 +4,8 @@ SCHEME = "TimeTable"
 WORKSPACE = "TimeTable.xcworkspace"
 PROJECT = "TimeTable.xcodeproj"
 
+TEST_SCHEME = "TimeTable-Tests"
+
 STAGE_TEAM_ID = ENV["STAGE_TEAM_ID"]
 STAGE_APP_BUNDLE_ID = ENV["STAGE_APP_BUNDLE_ID"]
 STAGE_TESTERS_EMAILS = ENV["STAGE_TESTERS_EMAILS"]
@@ -27,26 +29,20 @@ platform :ios do
   end
 
   #PUBLIC LANES
-  desc "Run unit tests"
+  desc "Run tests"
   lane :test do
     check_style
     scan(
       workspace: WORKSPACE,
-      scheme: SCHEME,
+      scheme: TEST_SCHEME,
       code_coverage: true)
-    xcov(
-      scheme: SCHEME,
-      workspace: WORKSPACE,
-      json_report: true,
-      markdown_report: true,
-      output_directory: "output/coverage/xcov",
-      skip_slack: true)
     slather(
-      scheme: SCHEME,
+      scheme: TEST_SCHEME,
       workspace: WORKSPACE,
       proj: PROJECT,
-      html: true,
-      output_directory: "output/coverage/slather")
+      simple_output: true,
+      binary_basename: "TimeTable.app",
+      ignore: "Pods/**/*")
   end
 
   desc "TimeTable - Submit to Crashlytics stage version."

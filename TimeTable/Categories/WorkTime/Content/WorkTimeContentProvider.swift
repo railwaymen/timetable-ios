@@ -25,8 +25,7 @@ protocol WorkTimeContentProviderType: class {
     func save(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion)
     func saveWithFilling(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion)
     func getPredefinedTimeBounds(forTaskForm form: TaskFormType, lastTask: TaskFormType?) -> (startDate: Date, endDate: Date)
-    func getPredefinedDay(forTaskForm form: TaskForm) -> Date
-    func pickEndTime(ofLastTask lastTask: TaskFormType?) -> Date?
+    func getPredefinedDay(forTaskForm form: TaskFormType) -> Date
 }
 
 class WorkTimeContentProvider {
@@ -147,13 +146,8 @@ extension WorkTimeContentProvider: WorkTimeContentProviderType {
         return (startDate, endDate)
     }
     
-    func getPredefinedDay(forTaskForm task: TaskForm) -> Date {
+    func getPredefinedDay(forTaskForm task: TaskFormType) -> Date {
         return task.day ?? self.currentDate
-    }
-    
-    func pickEndTime(ofLastTask lastTask: TaskFormType?) -> Date? {
-        guard let lastTaskEndAt = lastTask?.endsAt, self.calendar.isDateInToday(lastTaskEndAt) else { return nil }
-        return lastTaskEndAt
     }
 }
 
@@ -185,5 +179,10 @@ extension WorkTimeContentProvider {
             self.errorHandler.stopInDebug()
             throw UIError.genericError
         }
+    }
+    
+    private func pickEndTime(ofLastTask lastTask: TaskFormType?) -> Date? {
+        guard let lastTaskEndAt = lastTask?.endsAt, self.calendar.isDateInToday(lastTaskEndAt) else { return nil }
+        return lastTaskEndAt
     }
 }

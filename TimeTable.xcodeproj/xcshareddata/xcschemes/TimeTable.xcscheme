@@ -20,6 +20,20 @@
                ReferencedContainer = "container:TimeTable.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "NO"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8A3F0C5D2429E38600564D6D"
+               BuildableName = "TimeTableUITests.xctest"
+               BlueprintName = "TimeTableUITests"
+               ReferencedContainer = "container:TimeTable.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

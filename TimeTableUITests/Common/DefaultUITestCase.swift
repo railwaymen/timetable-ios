@@ -13,16 +13,6 @@ class DefaultUITestCase: XCTestCase {
     // MARK: - Static
     static let server = MockServer()
     
-    override class func setUp() {
-        super.setUp()
-        try? self.server.start()
-    }
-    
-    override class func tearDown() {
-        self.server.stop()
-        super.tearDown()
-    }
-    
     // MARK: - Instance
     var app: XCUIApplication!
     

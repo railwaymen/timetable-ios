@@ -196,6 +196,8 @@
 		8AFFE5CA24331F77001D9E89 /* taskChangedTaskResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C924331F77001D9E89 /* taskChangedTaskResponse.json */; };
 		8AFFE5CC24334A56001D9E89 /* RestlerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFE5CB24334A56001D9E89 /* RestlerFactory.swift */; };
 		8AFFE5CE24334AAC001D9E89 /* RestlerFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFE5CD24334AAC001D9E89 /* RestlerFactoryMock.swift */; };
+		8AFFE5D024336333001D9E89 /* TaskFormFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFE5CF24336333001D9E89 /* TaskFormFactoryMock.swift */; };
+		8AFFE5D22433635B001D9E89 /* TaskFormFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFE5D12433635B001D9E89 /* TaskFormFactory.swift */; };
 		BFB4EF72FAE3D8CD21A09744 /* Pods_TimeTableTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FE8C20AC7A1A64A549519E /* Pods_TimeTableTests.framework */; };
 		C101603222003A9500DCE817 /* WorkTimesListContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */; };
 		C101603422003D4000DCE817 /* MatchingFullTimeEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101603322003D4000DCE817 /* MatchingFullTimeEncoder.swift */; };
@@ -663,6 +665,8 @@
 		8AFFE5C924331F77001D9E89 /* taskChangedTaskResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedTaskResponse.json; sourceTree = "<group>"; };
 		8AFFE5CB24334A56001D9E89 /* RestlerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestlerFactory.swift; sourceTree = "<group>"; };
 		8AFFE5CD24334AAC001D9E89 /* RestlerFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestlerFactoryMock.swift; sourceTree = "<group>"; };
+		8AFFE5CF24336333001D9E89 /* TaskFormFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormFactoryMock.swift; sourceTree = "<group>"; };
+		8AFFE5D12433635B001D9E89 /* TaskFormFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormFactory.swift; sourceTree = "<group>"; };
 		9D079498D6352A89A81273FA /* Pods_TimeTableUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeTableUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2D3628570D3D30EA2E489EC /* Pods-TimeTable.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTable.test.xcconfig"; path = "Target Support Files/Pods-TimeTable/Pods-TimeTable.test.xcconfig"; sourceTree = "<group>"; };
 		C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListContentProvider.swift; sourceTree = "<group>"; };
@@ -1095,6 +1099,7 @@
 				C134296E21A6BCCD00F4EA42 /* RequestEncoderMock.swift */,
 				C134299221A6D73500F4EA42 /* ServerConfigurationManagerMock.swift */,
 				C134298621A6C80B00F4EA42 /* StoryboardsManagerMock.swift */,
+				8AFFE5CF24336333001D9E89 /* TaskFormFactoryMock.swift */,
 				8AE55D1E23FD86A200F94242 /* TaskFormMock.swift */,
 				8A31BFB324177B31004A1CE8 /* Restler */,
 			);
@@ -1549,6 +1554,7 @@
 				C12CA57821A58FA70082FEB7 /* BussinessModels */,
 				C1249C7D2181B4CF005DB2A5 /* Errors */,
 				C122601D21899F0D007D64A3 /* ServerConfiguration */,
+				8AFFE5D12433635B001D9E89 /* TaskFormFactory.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2872,6 +2878,7 @@
 				C1249C772181AAE4005DB2A5 /* StoryboardsManager.swift in Sources */,
 				C1F187B021E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift in Sources */,
 				8AC097242371CCFF00103FAD /* UIApplication+Extension.swift in Sources */,
+				8AFFE5D22433635B001D9E89 /* TaskFormFactory.swift in Sources */,
 				C13C88E821E5F7B600F68C6E /* WorkTimeViewModel.swift in Sources */,
 				8A82EBF323FD46EC001393A8 /* WorkTimeContentProvider.swift in Sources */,
 				8A798746237D4DC6003DC028 /* ProfileViewController.swift in Sources */,
@@ -2944,6 +2951,7 @@
 				C10FD88921F1F36300A233C5 /* ApiClientUsersTests.swift in Sources */,
 				C134298F21A6D39C00F4EA42 /* LoginViewControllerMock.swift in Sources */,
 				8A3FE1B123ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift in Sources */,
+				8AFFE5D024336333001D9E89 /* TaskFormFactoryMock.swift in Sources */,
 				8A79A2F324237F760048B44B /* ProjectRecordDecoderLeaderTests.swift in Sources */,
 				8A79A2F5242382C40048B44B /* ProjectRecordDecoderUserTests.swift in Sources */,
 				C1E1F05421AD5FD2007F9228 /* WorkTimesTableViewHeaderViewModelTests.swift in Sources */,

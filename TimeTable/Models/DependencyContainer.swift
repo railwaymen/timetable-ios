@@ -25,6 +25,7 @@ protocol DependencyContainerType {
     var dispatchGroupFactory: DispatchGroupFactoryType { get }
     var dateFactory: DateFactoryType { get }
     var environmentReader: EnvironmentReaderType { get }
+    var taskFormFactory: TaskFormFactoryType { get }
 }
 
 struct DependencyContainer: DependencyContainerType {
@@ -44,6 +45,7 @@ struct DependencyContainer: DependencyContainerType {
     let dispatchGroupFactory: DispatchGroupFactoryType
     let dateFactory: DateFactoryType
     let environmentReader: EnvironmentReaderType
+    let taskFormFactory: TaskFormFactoryType
     
     // MARK: - Initialization
     init(
@@ -56,7 +58,8 @@ struct DependencyContainer: DependencyContainerType {
         accessServiceBuilder: @escaping AccessServiceBuilderType,
         encoder: JSONEncoderType,
         decoder: JSONDecoderType,
-        notificationCenter: NotificationCenterType
+        notificationCenter: NotificationCenterType,
+        taskFormFactory: TaskFormFactoryType
     ) {
         self.application = application
         self.window = window
@@ -68,6 +71,7 @@ struct DependencyContainer: DependencyContainerType {
         self.encoder = encoder
         self.decoder = decoder
         self.notificationCenter = notificationCenter
+        self.taskFormFactory = taskFormFactory
         
         self.dispatchGroupFactory = DispatchGroupFactory()
         self.apiClientFactory = APIClientFactory(

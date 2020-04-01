@@ -106,4 +106,9 @@ class DependencyContainerMock: DependencyContainerType {
     }
     
     let environmentReader: EnvironmentReaderType = EnvironmentReader()
+    
+    var taskFormFactoryMock = TaskFormFactoryMock()
+    var taskFormFactory: TaskFormFactoryType {
+        self.taskFormFactoryMock
+    }
 }
