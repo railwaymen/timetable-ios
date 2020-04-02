@@ -77,9 +77,8 @@ class AuthenticationCoordinator: NavigationCoordinator {
             self.dependencyContainer.encoder,
             self.dependencyContainer.decoder)
         do {
-            let session = try accessService.getSession()
-            self.apiClient = self.createApiClient(with: configuration)
-            self.updateApiClient(with: session)
+            _ = try accessService.getSession()
+            self.apiClient = self.createApiClient(with: configuration, accessService: accessService)
             self.finish()
         } catch {
             self.runServerConfigurationFlow()
@@ -91,9 +90,9 @@ class AuthenticationCoordinator: NavigationCoordinator {
 
 // MARK: - Structures
 extension AuthenticationCoordinator {
-    enum State {
+    enum State: Equatable {
         case changeAddress
-        case loggedInCorrectly(SessionDecoder)
+        case loggedInCorrectly
     }
 }
 
@@ -111,23 +110,8 @@ extension AuthenticationCoordinator: LoginCoordinatorDelegate {
         switch state {
         case .changeAddress:
             self.navigationController.popViewController(animated: true)
-        case let .loggedInCorrectly(session):
-            self.updateApiClient(with: session)
+        case .loggedInCorrectly:
             self.finish()
-        }
-    }
-}
-
-// MARK: - Equatable
-extension AuthenticationCoordinator.State: Equatable {
-    static func == (lhs: AuthenticationCoordinator.State, rhs: AuthenticationCoordinator.State) -> Bool {
-        switch (lhs, rhs) {
-        case (.changeAddress, .changeAddress):
-            return true
-        case (.loggedInCorrectly(let lhsSessionDecoder), .loggedInCorrectly(let rhsSessionDecoder)):
-            return lhsSessionDecoder == rhsSessionDecoder
-        default:
-            return false
         }
     }
 }
@@ -170,7 +154,7 @@ extension AuthenticationCoordinator {
             self.dependencyContainer.decoder)
         do {
             let controller = try self.dependencyContainer.viewControllerBuilder.login()
-            guard let apiClient = self.createApiClient(with: configuration) else { return }
+            guard let apiClient = self.createApiClient(with: configuration, accessService: accessService) else { return }
             self.apiClient = apiClient
             let contentProvider = LoginContentProvider(
                 apiClient: apiClient,
@@ -189,12 +173,11 @@ extension AuthenticationCoordinator {
         }
     }
     
-    private func createApiClient(with configuration: ServerConfiguration) -> ApiClientType? {
+    private func createApiClient(
+        with configuration: ServerConfiguration,
+        accessService: AccessServiceApiClientType
+    ) -> ApiClientType? {
         guard let hostURL = configuration.host else { return nil }
-        return self.dependencyContainer.apiClientFactory.buildAPIClient(baseURL: hostURL)
-    }
-    
-    private func updateApiClient(with session: SessionDecoder) {
-        self.apiClient?.setAuthenticationToken(session.token)
+        return self.dependencyContainer.apiClientFactory.buildAPIClient(accessService: accessService, baseURL: hostURL)
     }
 }

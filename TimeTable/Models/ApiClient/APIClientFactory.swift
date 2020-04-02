@@ -10,7 +10,7 @@ import Foundation
 import Restler
 
 protocol APIClientFactoryType: class {
-    func buildAPIClient(baseURL: URL) -> ApiClientType
+    func buildAPIClient(accessService: AccessServiceApiClientType, baseURL: URL) -> ApiClientType
 }
 
 class APIClientFactory {
@@ -32,10 +32,12 @@ class APIClientFactory {
 
 // MARK: - APIClientFactoryType
 extension APIClientFactory: APIClientFactoryType {
-    func buildAPIClient(baseURL: URL) -> ApiClientType {
-        return ApiClient(restler: Restler(
-            baseURL: baseURL,
-            encoder: self.encoder,
-            decoder: self.decoder))
+    func buildAPIClient(accessService: AccessServiceApiClientType, baseURL: URL) -> ApiClientType {
+        return ApiClient(
+            restler: Restler(
+                baseURL: baseURL,
+                encoder: self.encoder,
+                decoder: self.decoder),
+            accessService: accessService)
     }
 }

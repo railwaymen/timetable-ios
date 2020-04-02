@@ -39,6 +39,8 @@ struct ApiClientError: Error, RestlerErrorDecodable {
                 self.type = .timeout
             case NSURLErrorCannotParseResponse, NSURLErrorBadServerResponse:
                 self.type = .invalidResponse
+            case 401:
+                self.type = .unauthorized
             case 422:
                 self.type = .validationErrors(nil)
             default:
@@ -60,6 +62,7 @@ extension ApiClientError {
         case serverError(ServerError)
         case noConnection
         case timeout
+        case unauthorized
         
         var localizedDescription: String {
             switch self {
@@ -77,6 +80,8 @@ extension ApiClientError {
                 return "api.error.no_connection".localized
             case .timeout:
                 return "api.error.timeout".localized
+            case .unauthorized :
+                return "api.error.unauthorized".localized
             }
         }
     }

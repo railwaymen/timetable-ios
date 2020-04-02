@@ -18,7 +18,14 @@ class AppCoordinator: Coordinator {
     
     private var errorHandler: ErrorHandlerType {
         return self.parentErrorHandler.catchingError(action: { [weak self] error in
-            self?.present(error: error)
+            if case .unauthorized = (error as? ApiClientError)?.type {
+                try? self?.dependencyContainer.accessService?.removeSession()
+                self?.dependencyContainer.accessService = nil
+                self?.dependencyContainer.apiClient = nil
+                (self?.children.last as? TimeTableTabCoordinator)?.finish()
+            } else {
+                self?.present(error: error)
+            }
         })
     }
     

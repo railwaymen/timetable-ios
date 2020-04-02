@@ -134,8 +134,8 @@ extension LoginViewModel: LoginViewModelType {
             with: self.loginCredentials,
             shouldSaveUser: self.shouldRememberUser) { [weak self] result in
                 switch result {
-                case let .success(session):
-                    self?.coordinator?.loginDidFinish(with: .loggedInCorrectly(session))
+                case .success:
+                    self?.coordinator?.loginDidFinish(with: .loggedInCorrectly)
                 case let .failure(error):
                     self?.userInterface?.setActivityIndicator(isHidden: true)
                     if let apiError = error as? ApiClientError {

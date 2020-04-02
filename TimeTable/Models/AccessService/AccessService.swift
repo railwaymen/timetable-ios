@@ -8,7 +8,10 @@
 
 import Foundation
 
-typealias AccessServiceLoginType = (AccessServiceUserIDType & AccessServiceSessionType)
+typealias AccessServiceLoginType = (
+    AccessServiceUserIDType
+    & AccessServiceSessionType
+    & AccessServiceApiClientType)
 
 protocol AccessServiceUserIDType: class {
     func getLastLoggedInUserIdentifier() -> Int64?
@@ -19,6 +22,10 @@ protocol AccessServiceSessionType: class {
     func saveSession(_ session: SessionDecoder) throws
     func setTemporarySession(_ session: SessionDecoder)
     func removeSession() throws
+}
+
+protocol AccessServiceApiClientType: class {
+    func getUserToken() -> String?
 }
 
 class AccessService {
@@ -83,5 +90,12 @@ extension AccessService: AccessServiceSessionType {
     func removeSession() throws {
         Self.temporarySession = nil
         try self.keychainAccess.remove(Key.userSession)
+    }
+}
+
+// MARK: - AccessServiceApiClientType
+extension AccessService: AccessServiceApiClientType {
+    func getUserToken() -> String? {
+        try? self.getSession().token
     }
 }
