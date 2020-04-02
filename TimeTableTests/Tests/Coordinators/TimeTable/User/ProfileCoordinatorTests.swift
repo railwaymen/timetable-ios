@@ -13,8 +13,8 @@ class ProfileCoordinatorTests: XCTestCase {
     private var dependencyContainer: DependencyContainerMock!
     private var parentMock: ProfileCoordinatorParentMock!
     
-    private var storyboardsManagerMock: StoryboardsManagerMock {
-        self.dependencyContainer.storyboardsManagerMock
+    private var viewControllerBuilderMock: ViewControllerBuilderMock {
+        self.dependencyContainer.viewControllerBuilderMock
     }
     
     override func setUp() {
@@ -38,17 +38,19 @@ extension ProfileCoordinatorTests {
     func testStartInvalidControllerReturned() {
         //Arrange
         let sut = self.buildSUT()
-        self.storyboardsManagerMock.controllerReturnValue[.profile] = [.initial: UIViewController()]
+        let error = "Error message"
+        self.viewControllerBuilderMock.profileThrownError = error
         //Act
         sut.start {}
         //Assert
         XCTAssertTrue(sut.navigationController.children.isEmpty)
+        XCTAssertEqual(self.dependencyContainer.errorHandlerMock.stopInDebugParams.count, 1)
+        XCTAssertEqual(self.dependencyContainer.errorHandlerMock.stopInDebugParams.last?.message, error)
     }
     
     func testStartSetsChildViewController() {
         //Arrange
         let sut = self.buildSUT()
-        self.storyboardsManagerMock.controllerReturnValue[.profile] = [.initial: ProfileViewControllerMock()]
         //Act
         sut.start {}
         //Assert
@@ -62,7 +64,7 @@ extension ProfileCoordinatorTests {
         //Arrange
         let sut = self.buildSUT()
         var finishCompletionCalled = false
-        self.storyboardsManagerMock.controllerReturnValue[.profile] = [.initial: ProfileViewControllerMock()]
+        self.viewControllerBuilderMock.profileReturnValue = ProfileViewControllerMock()
         sut.start {
             finishCompletionCalled = true
         }

@@ -23,14 +23,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 application: UIApplication.shared,
                 window: self.window,
                 messagePresenter: self.messagePresenter,
-                storyboardsManager: StoryboardsManager(),
                 errorHandler: self.errorHandler,
                 serverConfigurationManager: self.serverConfigurationManager,
                 accessServiceBuilder: self.accessServiceBuilder,
                 encoder: self.encoder,
                 decoder: self.decoder,
                 notificationCenter: NotificationCenter.default,
-                taskFormFactory: TaskFormFactory(calendar: Calendar.autoupdatingCurrent)))
+                taskFormFactory: TaskFormFactory(calendar: Calendar.autoupdatingCurrent),
+                viewControllerBuilder: ViewControllerBuilder()))
     }()
     
     private lazy var encoder: JSONEncoderType = {

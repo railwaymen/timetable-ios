@@ -11,13 +11,7 @@ import UIKit
 protocol StoryboardsManagerType: class {
     func controller<T>(
         storyboard: StoryboardsManager.StoryboardName,
-        controllerIdentifier: StoryboardsManager.ControllerIdentifier) -> T?
-}
-
-extension StoryboardsManagerType {
-    func controller<T>(storyboard: StoryboardsManager.StoryboardName) -> T? {
-        self.controller(storyboard: storyboard, controllerIdentifier: .initial)
-    }
+        controllerIdentifier: StoryboardsManager.ControllerIdentifier) throws -> T
 }
 
 class StoryboardsManager {}
@@ -37,15 +31,32 @@ extension StoryboardsManager {
     enum ControllerIdentifier: String, Hashable {
         case initial
     }
+    
+    enum Error: String, Swift.Error, Equatable, CustomStringConvertible {
+        case controllerIdentifierNotFound
+        case castFailed
+        
+        var description: String {
+            "[\(StoryboardsManager.self)] " + self.rawValue
+        }
+    }
 }
  
 // MARK: - StoryboardsManagerType
 extension StoryboardsManager: StoryboardsManagerType {
-    func controller<T>(storyboard: StoryboardsManager.StoryboardName, controllerIdentifier: ControllerIdentifier) -> T? {
+    func controller<T>(storyboard: StoryboardName, controllerIdentifier: ControllerIdentifier) throws -> T {
         let storyboard = UIStoryboard(name: storyboard.rawValue, bundle: nil)
+        let optionalController: UIViewController?
         switch controllerIdentifier {
         case .initial:
-            return storyboard.instantiateInitialViewController() as? T
+            optionalController = storyboard.instantiateInitialViewController()
         }
+        guard let unwrappedController = optionalController else {
+            throw Error.controllerIdentifierNotFound
+        }
+        guard let castedController = unwrappedController as? T else {
+            throw Error.castFailed
+        }
+        return castedController
     }
 }

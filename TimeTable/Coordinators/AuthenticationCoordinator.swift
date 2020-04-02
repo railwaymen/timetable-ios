@@ -148,17 +148,19 @@ extension AuthenticationCoordinator {
     }
     
     private func runServerConfigurationFlow(animated: Bool = true) {
-        let controller: ServerConfigurationViewControllerable? = self.dependencyContainer.storyboardsManager.controller(
-            storyboard: .serverConfiguration)
-        guard let serverSettingsViewController = controller else { return }
-        let viewModel = ServerConfigurationViewModel(
-            userInterface: serverSettingsViewController,
-            coordinator: self,
-            serverConfigurationManager: self.dependencyContainer.serverConfigurationManager,
-            errorHandler: self.dependencyContainer.errorHandler,
-            notificationCenter: self.dependencyContainer.notificationCenter)
-        serverSettingsViewController.configure(viewModel: viewModel)
-        self.navigationController.setViewControllers([serverSettingsViewController], animated: animated)
+        do {
+            let controller = try self.dependencyContainer.viewControllerBuilder.serverConfiguration()
+            let viewModel = ServerConfigurationViewModel(
+                userInterface: controller,
+                coordinator: self,
+                serverConfigurationManager: self.dependencyContainer.serverConfigurationManager,
+                errorHandler: self.dependencyContainer.errorHandler,
+                notificationCenter: self.dependencyContainer.notificationCenter)
+            controller.configure(viewModel: viewModel)
+            self.navigationController.setViewControllers([controller], animated: animated)
+        } catch {
+            self.dependencyContainer.errorHandler.stopInDebug("\(error)")
+        }
     }
     
     private func runAuthenticationFlow(with configuration: ServerConfiguration, animated: Bool) {
@@ -166,22 +168,25 @@ extension AuthenticationCoordinator {
             configuration,
             self.dependencyContainer.encoder,
             self.dependencyContainer.decoder)
-        let controller: LoginViewControllerable? = self.dependencyContainer.storyboardsManager.controller(storyboard: .login)
-        guard let loginViewController = controller else { return }
-        guard let apiClient = self.createApiClient(with: configuration) else { return }
-        self.apiClient = apiClient
-        let contentProvider = LoginContentProvider(
-            apiClient: apiClient,
-            accessService: accessService)
-        let viewModel = LoginViewModel(
-            userInterface: loginViewController,
-            coordinator: self,
-            contentProvider: contentProvider,
-            errorHandler: self.dependencyContainer.errorHandler,
-            notificationCenter: self.dependencyContainer.notificationCenter)
-        loginViewController.configure(viewModel: viewModel)
-        self.navigationController.pushViewController(loginViewController, animated: animated)
-        self.navigationController.navigationBar.backItem?.title = ""
+        do {
+            let controller = try self.dependencyContainer.viewControllerBuilder.login()
+            guard let apiClient = self.createApiClient(with: configuration) else { return }
+            self.apiClient = apiClient
+            let contentProvider = LoginContentProvider(
+                apiClient: apiClient,
+                accessService: accessService)
+            let viewModel = LoginViewModel(
+                userInterface: controller,
+                coordinator: self,
+                contentProvider: contentProvider,
+                errorHandler: self.dependencyContainer.errorHandler,
+                notificationCenter: self.dependencyContainer.notificationCenter)
+            controller.configure(viewModel: viewModel)
+            self.navigationController.pushViewController(controller, animated: animated)
+            self.navigationController.navigationBar.backItem?.title = ""
+        } catch {
+            self.dependencyContainer.errorHandler.stopInDebug("\(error)")
+        }
     }
     
     private func createApiClient(with configuration: ServerConfiguration) -> ApiClientType? {

@@ -80,21 +80,23 @@ extension WorkTimesListCoordinator {
                 self.dependencyContainer.errorHandler.stopInDebug("Api client or access service is nil")
                 return
         }
-        let controller: WorkTimesListViewControllerable? = self.dependencyContainer.storyboardsManager.controller(
-            storyboard: .workTimesList)
-        guard let workTimesListViewController = controller else { return }
-        let contentProvider = WorkTimesListContentProvider(
-            apiClient: apiClient,
-            accessService: accessService,
-            dispatchGroupFactory: self.dependencyContainer.dispatchGroupFactory)
-        let viewModel = WorkTimesListViewModel(
-            userInterface: workTimesListViewController,
-            coordinator: self,
-            contentProvider: contentProvider,
-            errorHandler: self.dependencyContainer.errorHandler,
-            messagePresenter: self.dependencyContainer.messagePresenter)
-        controller?.configure(viewModel: viewModel)
-        self.navigationController.setViewControllers([workTimesListViewController], animated: false)
+        do {
+            let controller = try self.dependencyContainer.viewControllerBuilder.workTimesList()
+            let contentProvider = WorkTimesListContentProvider(
+                apiClient: apiClient,
+                accessService: accessService,
+                dispatchGroupFactory: self.dependencyContainer.dispatchGroupFactory)
+            let viewModel = WorkTimesListViewModel(
+                userInterface: controller,
+                coordinator: self,
+                contentProvider: contentProvider,
+                errorHandler: self.dependencyContainer.errorHandler,
+                messagePresenter: self.dependencyContainer.messagePresenter)
+            controller.configure(viewModel: viewModel)
+            self.navigationController.setViewControllers([controller], animated: false)
+        } catch {
+            self.dependencyContainer.errorHandler.stopInDebug("\(error)")
+        }
     }
     
     private func runWorkTimeFlow(

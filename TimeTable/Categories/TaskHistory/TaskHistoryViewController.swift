@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias TaskHistoryViewControllerable = UIViewController & TaskHistoryViewControllerType & TaskHistoryViewModelOutput
+
 protocol TaskHistoryViewControllerType: class {
     func configure(viewModel: TaskHistoryViewModelType)
 }

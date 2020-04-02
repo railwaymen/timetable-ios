@@ -67,7 +67,7 @@ extension ProjectPickerCoordinator: ProjectPickerCoordinatorType {
 // MARK: - Private
 extension ProjectPickerCoordinator {
     private func runMainFlow() {
-        let controller = ProjectPickerViewController()
+        let controller = self.dependencyContainer.viewControllerBuilder.projectPicker()
         let viewModel = ProjectPickerViewModel(
             userInterface: controller,
             coordinator: self,

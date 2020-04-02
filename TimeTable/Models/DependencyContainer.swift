@@ -12,7 +12,6 @@ protocol DependencyContainerType {
     var application: UIApplicationType? { get }
     var window: UIWindow? { get set }
     var messagePresenter: MessagePresenterType? { get }
-    var storyboardsManager: StoryboardsManagerType { get }
     var errorHandler: ErrorHandlerType { get set }
     var serverConfigurationManager: ServerConfigurationManagerType { get }
     var accessServiceBuilder: AccessServiceBuilderType { get }
@@ -26,13 +25,13 @@ protocol DependencyContainerType {
     var dateFactory: DateFactoryType { get }
     var environmentReader: EnvironmentReaderType { get }
     var taskFormFactory: TaskFormFactoryType { get }
+    var viewControllerBuilder: ViewControllerBuilderType { get }
 }
 
 struct DependencyContainer: DependencyContainerType {
     weak var application: UIApplicationType?
     weak var window: UIWindow?
     weak var messagePresenter: MessagePresenterType?
-    let storyboardsManager: StoryboardsManagerType
     var errorHandler: ErrorHandlerType
     let serverConfigurationManager: ServerConfigurationManagerType
     let accessServiceBuilder: AccessServiceBuilderType
@@ -46,25 +45,25 @@ struct DependencyContainer: DependencyContainerType {
     let dateFactory: DateFactoryType
     let environmentReader: EnvironmentReaderType
     let taskFormFactory: TaskFormFactoryType
+    let viewControllerBuilder: ViewControllerBuilderType
     
     // MARK: - Initialization
     init(
         application: UIApplicationType?,
         window: UIWindow?,
         messagePresenter: MessagePresenterType?,
-        storyboardsManager: StoryboardsManagerType,
         errorHandler: ErrorHandlerType,
         serverConfigurationManager: ServerConfigurationManagerType,
         accessServiceBuilder: @escaping AccessServiceBuilderType,
         encoder: JSONEncoderType,
         decoder: JSONDecoderType,
         notificationCenter: NotificationCenterType,
-        taskFormFactory: TaskFormFactoryType
+        taskFormFactory: TaskFormFactoryType,
+        viewControllerBuilder: ViewControllerBuilder
     ) {
         self.application = application
         self.window = window
         self.messagePresenter = messagePresenter
-        self.storyboardsManager = storyboardsManager
         self.errorHandler = errorHandler
         self.serverConfigurationManager = serverConfigurationManager
         self.accessServiceBuilder = accessServiceBuilder
@@ -72,6 +71,7 @@ struct DependencyContainer: DependencyContainerType {
         self.decoder = decoder
         self.notificationCenter = notificationCenter
         self.taskFormFactory = taskFormFactory
+        self.viewControllerBuilder = viewControllerBuilder
         
         self.dispatchGroupFactory = DispatchGroupFactory()
         self.apiClientFactory = APIClientFactory(

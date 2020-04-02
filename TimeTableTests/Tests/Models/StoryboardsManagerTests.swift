@@ -11,13 +11,13 @@ import XCTest
 
 class StoryboardsManagerTests: XCTestCase {}
 
-// MARK: - controller<T>(storyboard: StoryboardsManager.StoryboardName, controllerIdentifier: ControllerIdentifier) -> T?
+// MARK: - controller(storyboard:controllerIdentifier:)
 extension StoryboardsManagerTests {
-    func testIfMainStoryboardExists() {
+    func testIfMainStoryboardExists() throws {
         //Arrange
         let sut = StoryboardsManager()
         //Act
-        let controller: ServerConfigurationViewController? = sut.controller(
+        let controller: ServerConfigurationViewController? = try sut.controller(
             storyboard: .serverConfiguration,
             controllerIdentifier: .initial)
         //Assert
