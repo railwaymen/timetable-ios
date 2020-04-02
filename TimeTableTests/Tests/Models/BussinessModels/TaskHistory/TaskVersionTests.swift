@@ -100,6 +100,17 @@ extension TaskVersionTests {
         XCTAssert(changes.contains(.task))
     }
     
+    func testChange_changedTaskPreview() throws {
+        //Arrange
+        let data = try self.json(from: TaskVersionJSONResource.taskChangedTaskPreviewResponse)
+        let sut = try self.decoder.decode(TaskVersion.self, from: data)
+        //Act
+        let changes = sut.changes
+        //Assert
+        XCTAssertEqual(changes.count, 1)
+        XCTAssert(changes.contains(.task))
+    }
+    
     func testChanges_changedAll() throws {
         //Arrange
         let data = try self.json(from: TaskVersionJSONResource.taskVersionFullModel)
@@ -141,6 +152,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -167,6 +180,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -192,6 +207,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -217,6 +234,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -243,6 +262,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -268,6 +289,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -293,6 +316,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -318,6 +343,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -343,6 +370,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -394,6 +423,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -419,6 +450,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -444,6 +477,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -469,6 +504,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -495,6 +532,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -520,6 +559,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -545,6 +586,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -570,6 +613,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -596,6 +641,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -621,6 +668,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -646,6 +695,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -671,6 +722,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -697,6 +750,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -722,6 +777,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -747,6 +804,8 @@ extension TaskVersionTests {
         XCTAssertNil(sut.tag.current)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -772,6 +831,226 @@ extension TaskVersionTests {
         XCTAssertNil(sut.tag.current)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
+        XCTAssertEqual(sut.duration.previous, 600)
+        XCTAssertEqual(sut.duration.current, 1800)
+    }
+    
+    // MARK: Task
+    func testDecoding_nullPreviousTask() throws {
+        //Arrange
+        let data = try self.json(from: TaskVersionJSONResource.taskVersionNullPreviousTask)
+        //Act
+        let sut = try self.decoder.decode(TaskVersion.self, from: data)
+        //Assert
+        XCTAssertEqual(sut.event, .update)
+        XCTAssertEqual(sut.updatedBy, "Some Developer")
+        XCTAssertEqual(sut.updatedAt, try self.createdAt())
+        XCTAssertEqual(sut.projectName.previous, "Misc")
+        XCTAssertEqual(sut.projectName.current, "TimeTable")
+        XCTAssertEqual(sut.body.previous, "old task body")
+        XCTAssertEqual(sut.body.current, "new task body")
+        XCTAssertEqual(sut.startsAt.previous, try self.previousStartsAt())
+        XCTAssertEqual(sut.startsAt.current, try self.currentStartsAt())
+        XCTAssertEqual(sut.endsAt.previous, try self.previousEndsAt())
+        XCTAssertEqual(sut.endsAt.current, try self.currentEndsAt())
+        XCTAssertEqual(sut.tag.previous, .development)
+        XCTAssertEqual(sut.tag.current, .internalMeeting)
+        XCTAssertNil(sut.task.previous)
+        XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
+        XCTAssertEqual(sut.duration.previous, 600)
+        XCTAssertEqual(sut.duration.current, 1800)
+    }
+    
+    func testDecoding_missingPreviousTaskKey() throws {
+        //Arrange
+        let data = try self.json(from: TaskVersionJSONResource.taskVersionMissingPreviousTaskKey)
+        //Act
+        let sut = try self.decoder.decode(TaskVersion.self, from: data)
+        //Assert
+        XCTAssertEqual(sut.event, .update)
+        XCTAssertEqual(sut.updatedBy, "Some Developer")
+        XCTAssertEqual(sut.updatedAt, try self.createdAt())
+        XCTAssertEqual(sut.projectName.previous, "Misc")
+        XCTAssertEqual(sut.projectName.current, "TimeTable")
+        XCTAssertEqual(sut.body.previous, "old task body")
+        XCTAssertEqual(sut.body.current, "new task body")
+        XCTAssertEqual(sut.startsAt.previous, try self.previousStartsAt())
+        XCTAssertEqual(sut.startsAt.current, try self.currentStartsAt())
+        XCTAssertEqual(sut.endsAt.previous, try self.previousEndsAt())
+        XCTAssertEqual(sut.endsAt.current, try self.currentEndsAt())
+        XCTAssertEqual(sut.tag.previous, .development)
+        XCTAssertEqual(sut.tag.current, .internalMeeting)
+        XCTAssertNil(sut.task.previous)
+        XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
+        XCTAssertEqual(sut.duration.previous, 600)
+        XCTAssertEqual(sut.duration.current, 1800)
+    }
+    
+    func testDecoding_nullCurrentTask() throws {
+        //Arrange
+        let data = try self.json(from: TaskVersionJSONResource.taskVersionNullCurrentTask)
+        //Act
+        let sut = try self.decoder.decode(TaskVersion.self, from: data)
+        //Assert
+        XCTAssertEqual(sut.event, .update)
+        XCTAssertEqual(sut.updatedBy, "Some Developer")
+        XCTAssertEqual(sut.updatedAt, try self.createdAt())
+        XCTAssertEqual(sut.projectName.previous, "Misc")
+        XCTAssertEqual(sut.projectName.current, "TimeTable")
+        XCTAssertEqual(sut.body.previous, "old task body")
+        XCTAssertEqual(sut.body.current, "new task body")
+        XCTAssertEqual(sut.startsAt.previous, try self.previousStartsAt())
+        XCTAssertEqual(sut.startsAt.current, try self.currentStartsAt())
+        XCTAssertEqual(sut.endsAt.previous, try self.previousEndsAt())
+        XCTAssertEqual(sut.endsAt.current, try self.currentEndsAt())
+        XCTAssertEqual(sut.tag.previous, .development)
+        XCTAssertEqual(sut.tag.current, .internalMeeting)
+        XCTAssertEqual(sut.task.previous, "TIM-70")
+        XCTAssertNil(sut.task.current)
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
+        XCTAssertEqual(sut.duration.previous, 600)
+        XCTAssertEqual(sut.duration.current, 1800)
+    }
+    
+    func testDecoding_missingCurrentTaskKey() throws {
+        //Arrange
+        let data = try self.json(from: TaskVersionJSONResource.taskVersionMissingCurrentTaskKey)
+        //Act
+        let sut = try self.decoder.decode(TaskVersion.self, from: data)
+        //Assert
+        XCTAssertEqual(sut.event, .update)
+        XCTAssertEqual(sut.updatedBy, "Some Developer")
+        XCTAssertEqual(sut.updatedAt, try self.createdAt())
+        XCTAssertEqual(sut.projectName.previous, "Misc")
+        XCTAssertEqual(sut.projectName.current, "TimeTable")
+        XCTAssertEqual(sut.body.previous, "old task body")
+        XCTAssertEqual(sut.body.current, "new task body")
+        XCTAssertEqual(sut.startsAt.previous, try self.previousStartsAt())
+        XCTAssertEqual(sut.startsAt.current, try self.currentStartsAt())
+        XCTAssertEqual(sut.endsAt.previous, try self.previousEndsAt())
+        XCTAssertEqual(sut.endsAt.current, try self.currentEndsAt())
+        XCTAssertEqual(sut.tag.previous, .development)
+        XCTAssertEqual(sut.tag.current, .internalMeeting)
+        XCTAssertEqual(sut.task.previous, "TIM-70")
+        XCTAssertNil(sut.task.current)
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
+        XCTAssertEqual(sut.duration.previous, 600)
+        XCTAssertEqual(sut.duration.current, 1800)
+    }
+    
+    // MARK: - Task Preview
+    func testDecoding_nullPreviousTaskPreview() throws {
+        //Arrange
+        let data = try self.json(from: TaskVersionJSONResource.taskVersionNullPreviousTaskPreview)
+        //Act
+        let sut = try self.decoder.decode(TaskVersion.self, from: data)
+        //Assert
+        XCTAssertEqual(sut.event, .update)
+        XCTAssertEqual(sut.updatedBy, "Some Developer")
+        XCTAssertEqual(sut.updatedAt, try self.createdAt())
+        XCTAssertEqual(sut.projectName.previous, "Misc")
+        XCTAssertEqual(sut.projectName.current, "TimeTable")
+        XCTAssertEqual(sut.body.previous, "old task body")
+        XCTAssertEqual(sut.body.current, "new task body")
+        XCTAssertEqual(sut.startsAt.previous, try self.previousStartsAt())
+        XCTAssertEqual(sut.startsAt.current, try self.currentStartsAt())
+        XCTAssertEqual(sut.endsAt.previous, try self.previousEndsAt())
+        XCTAssertEqual(sut.endsAt.current, try self.currentEndsAt())
+        XCTAssertEqual(sut.tag.previous, .development)
+        XCTAssertEqual(sut.tag.current, .internalMeeting)
+        XCTAssertEqual(sut.task.previous, "TIM-70")
+        XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertNil(sut.taskPreview.previous)
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
+        XCTAssertEqual(sut.duration.previous, 600)
+        XCTAssertEqual(sut.duration.current, 1800)
+    }
+    
+    func testDecoding_missingPreviousTaskPreviewKey() throws {
+        //Arrange
+        let data = try self.json(from: TaskVersionJSONResource.taskVersionMissingPreviousTaskPreviewKey)
+        //Act
+        let sut = try self.decoder.decode(TaskVersion.self, from: data)
+        //Assert
+        XCTAssertEqual(sut.event, .update)
+        XCTAssertEqual(sut.updatedBy, "Some Developer")
+        XCTAssertEqual(sut.updatedAt, try self.createdAt())
+        XCTAssertEqual(sut.projectName.previous, "Misc")
+        XCTAssertEqual(sut.projectName.current, "TimeTable")
+        XCTAssertEqual(sut.body.previous, "old task body")
+        XCTAssertEqual(sut.body.current, "new task body")
+        XCTAssertEqual(sut.startsAt.previous, try self.previousStartsAt())
+        XCTAssertEqual(sut.startsAt.current, try self.currentStartsAt())
+        XCTAssertEqual(sut.endsAt.previous, try self.previousEndsAt())
+        XCTAssertEqual(sut.endsAt.current, try self.currentEndsAt())
+        XCTAssertEqual(sut.tag.previous, .development)
+        XCTAssertEqual(sut.tag.current, .internalMeeting)
+        XCTAssertEqual(sut.task.previous, "TIM-70")
+        XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertNil(sut.taskPreview.previous)
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
+        XCTAssertEqual(sut.duration.previous, 600)
+        XCTAssertEqual(sut.duration.current, 1800)
+    }
+    
+    func testDecoding_nullCurrentTaskPreview() throws {
+        //Arrange
+        let data = try self.json(from: TaskVersionJSONResource.taskVersionNullCurrentTaskPreview)
+        //Act
+        let sut = try self.decoder.decode(TaskVersion.self, from: data)
+        //Assert
+        XCTAssertEqual(sut.event, .update)
+        XCTAssertEqual(sut.updatedBy, "Some Developer")
+        XCTAssertEqual(sut.updatedAt, try self.createdAt())
+        XCTAssertEqual(sut.projectName.previous, "Misc")
+        XCTAssertEqual(sut.projectName.current, "TimeTable")
+        XCTAssertEqual(sut.body.previous, "old task body")
+        XCTAssertEqual(sut.body.current, "new task body")
+        XCTAssertEqual(sut.startsAt.previous, try self.previousStartsAt())
+        XCTAssertEqual(sut.startsAt.current, try self.currentStartsAt())
+        XCTAssertEqual(sut.endsAt.previous, try self.previousEndsAt())
+        XCTAssertEqual(sut.endsAt.current, try self.currentEndsAt())
+        XCTAssertEqual(sut.tag.previous, .development)
+        XCTAssertEqual(sut.tag.current, .internalMeeting)
+        XCTAssertEqual(sut.task.previous, "TIM-70")
+        XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertNil(sut.taskPreview.current)
+        XCTAssertEqual(sut.duration.previous, 600)
+        XCTAssertEqual(sut.duration.current, 1800)
+    }
+    
+    func testDecoding_missingCurrentTaskPreviewKey() throws {
+        //Arrange
+        let data = try self.json(from: TaskVersionJSONResource.taskVersionMissingCurrentTaskPreviewKey)
+        //Act
+        let sut = try self.decoder.decode(TaskVersion.self, from: data)
+        //Assert
+        XCTAssertEqual(sut.event, .update)
+        XCTAssertEqual(sut.updatedBy, "Some Developer")
+        XCTAssertEqual(sut.updatedAt, try self.createdAt())
+        XCTAssertEqual(sut.projectName.previous, "Misc")
+        XCTAssertEqual(sut.projectName.current, "TimeTable")
+        XCTAssertEqual(sut.body.previous, "old task body")
+        XCTAssertEqual(sut.body.current, "new task body")
+        XCTAssertEqual(sut.startsAt.previous, try self.previousStartsAt())
+        XCTAssertEqual(sut.startsAt.current, try self.currentStartsAt())
+        XCTAssertEqual(sut.endsAt.previous, try self.previousEndsAt())
+        XCTAssertEqual(sut.endsAt.current, try self.currentEndsAt())
+        XCTAssertEqual(sut.tag.previous, .development)
+        XCTAssertEqual(sut.tag.current, .internalMeeting)
+        XCTAssertEqual(sut.task.previous, "TIM-70")
+        XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertNil(sut.taskPreview.current)
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -798,6 +1077,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertNil(sut.duration.previous)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -823,6 +1104,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertNil(sut.duration.previous)
         XCTAssertEqual(sut.duration.current, 1800)
     }
@@ -848,6 +1131,8 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertNil(sut.duration.current)
     }
@@ -873,109 +1158,10 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
         XCTAssertEqual(sut.task.current, "TIM-71")
+        XCTAssertEqual(sut.taskPreview.previous, "TIM-147")
+        XCTAssertEqual(sut.taskPreview.current, "TIM-148")
         XCTAssertEqual(sut.duration.previous, 600)
         XCTAssertNil(sut.duration.current)
-    }
-    
-    // MARK: Task
-    func testDecoding_nullPreviousTask() throws {
-        //Arrange
-        let data = try self.json(from: TaskVersionJSONResource.taskVersionNullPreviousTask)
-        //Act
-        let sut = try self.decoder.decode(TaskVersion.self, from: data)
-        //Assert
-        XCTAssertEqual(sut.event, .update)
-        XCTAssertEqual(sut.updatedBy, "Some Developer")
-        XCTAssertEqual(sut.updatedAt, try self.createdAt())
-        XCTAssertEqual(sut.projectName.previous, "Misc")
-        XCTAssertEqual(sut.projectName.current, "TimeTable")
-        XCTAssertEqual(sut.body.previous, "old task body")
-        XCTAssertEqual(sut.body.current, "new task body")
-        XCTAssertEqual(sut.startsAt.previous, try self.previousStartsAt())
-        XCTAssertEqual(sut.startsAt.current, try self.currentStartsAt())
-        XCTAssertEqual(sut.endsAt.previous, try self.previousEndsAt())
-        XCTAssertEqual(sut.endsAt.current, try self.currentEndsAt())
-        XCTAssertEqual(sut.tag.previous, .development)
-        XCTAssertEqual(sut.tag.current, .internalMeeting)
-        XCTAssertNil(sut.task.previous)
-        XCTAssertEqual(sut.task.current, "TIM-71")
-        XCTAssertEqual(sut.duration.previous, 600)
-        XCTAssertEqual(sut.duration.current, 1800)
-    }
-    
-    func testDecoding_missingPreviousTaskKey() throws {
-        //Arrange
-        let data = try self.json(from: TaskVersionJSONResource.taskVersionMissingPreviousTaskKey)
-        //Act
-        let sut = try self.decoder.decode(TaskVersion.self, from: data)
-        //Assert
-        XCTAssertEqual(sut.event, .update)
-        XCTAssertEqual(sut.updatedBy, "Some Developer")
-        XCTAssertEqual(sut.updatedAt, try self.createdAt())
-        XCTAssertEqual(sut.projectName.previous, "Misc")
-        XCTAssertEqual(sut.projectName.current, "TimeTable")
-        XCTAssertEqual(sut.body.previous, "old task body")
-        XCTAssertEqual(sut.body.current, "new task body")
-        XCTAssertEqual(sut.startsAt.previous, try self.previousStartsAt())
-        XCTAssertEqual(sut.startsAt.current, try self.currentStartsAt())
-        XCTAssertEqual(sut.endsAt.previous, try self.previousEndsAt())
-        XCTAssertEqual(sut.endsAt.current, try self.currentEndsAt())
-        XCTAssertEqual(sut.tag.previous, .development)
-        XCTAssertEqual(sut.tag.current, .internalMeeting)
-        XCTAssertNil(sut.task.previous)
-        XCTAssertEqual(sut.task.current, "TIM-71")
-        XCTAssertEqual(sut.duration.previous, 600)
-        XCTAssertEqual(sut.duration.current, 1800)
-    }
-    
-    func testDecoding_nullCurrentTask() throws {
-        //Arrange
-        let data = try self.json(from: TaskVersionJSONResource.taskVersionNullCurrentTask)
-        //Act
-        let sut = try self.decoder.decode(TaskVersion.self, from: data)
-        //Assert
-        XCTAssertEqual(sut.event, .update)
-        XCTAssertEqual(sut.updatedBy, "Some Developer")
-        XCTAssertEqual(sut.updatedAt, try self.createdAt())
-        XCTAssertEqual(sut.projectName.previous, "Misc")
-        XCTAssertEqual(sut.projectName.current, "TimeTable")
-        XCTAssertEqual(sut.body.previous, "old task body")
-        XCTAssertEqual(sut.body.current, "new task body")
-        XCTAssertEqual(sut.startsAt.previous, try self.previousStartsAt())
-        XCTAssertEqual(sut.startsAt.current, try self.currentStartsAt())
-        XCTAssertEqual(sut.endsAt.previous, try self.previousEndsAt())
-        XCTAssertEqual(sut.endsAt.current, try self.currentEndsAt())
-        XCTAssertEqual(sut.tag.previous, .development)
-        XCTAssertEqual(sut.tag.current, .internalMeeting)
-        XCTAssertEqual(sut.task.previous, "TIM-70")
-        XCTAssertNil(sut.task.current)
-        XCTAssertEqual(sut.duration.previous, 600)
-        XCTAssertEqual(sut.duration.current, 1800)
-    }
-    
-    func testDecoding_missingCurrentTaskKey() throws {
-        //Arrange
-        let data = try self.json(from: TaskVersionJSONResource.taskVersionMissingCurrentTaskKey)
-        //Act
-        let sut = try self.decoder.decode(TaskVersion.self, from: data)
-        //Assert
-        XCTAssertEqual(sut.event, .update)
-        XCTAssertEqual(sut.updatedBy, "Some Developer")
-        XCTAssertEqual(sut.updatedAt, try self.createdAt())
-        XCTAssertEqual(sut.projectName.previous, "Misc")
-        XCTAssertEqual(sut.projectName.current, "TimeTable")
-        XCTAssertEqual(sut.body.previous, "old task body")
-        XCTAssertEqual(sut.body.current, "new task body")
-        XCTAssertEqual(sut.startsAt.previous, try self.previousStartsAt())
-        XCTAssertEqual(sut.startsAt.current, try self.currentStartsAt())
-        XCTAssertEqual(sut.endsAt.previous, try self.previousEndsAt())
-        XCTAssertEqual(sut.endsAt.current, try self.currentEndsAt())
-        XCTAssertEqual(sut.tag.previous, .development)
-        XCTAssertEqual(sut.tag.current, .internalMeeting)
-        XCTAssertEqual(sut.task.previous, "TIM-70")
-        XCTAssertNil(sut.task.current)
-        XCTAssertEqual(sut.duration.previous, 600)
-        XCTAssertEqual(sut.duration.current, 1800)
     }
 }
 
