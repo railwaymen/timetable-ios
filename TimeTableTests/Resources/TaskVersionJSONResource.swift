@@ -52,6 +52,11 @@ enum TaskVersionJSONResource: String, JSONFileResource {
     case taskVersionNullCurrentTask
     case taskVersionMissingCurrentTaskKey
     
+    case taskVersionNullPreviousTaskPreview
+    case taskVersionMissingPreviousTaskPreviewKey
+    case taskVersionNullCurrentTaskPreview
+    case taskVersionMissingCurrentTaskPreviewKey
+    
     // MARK: Helper
     case taskUnchangedResponse
     case taskChangedProjectResponse
@@ -61,4 +66,5 @@ enum TaskVersionJSONResource: String, JSONFileResource {
     case taskChangedTagResponse
     case taskChangedDurationResponse
     case taskChangedTaskResponse
+    case taskChangedTaskPreviewResponse
 }

@@ -74,7 +74,7 @@ struct WorkTimeDisplayed {
         self.identifier = workTime.identifier
         self.body = version.body.newest
         self.task = version.task.newest
-        self.taskPreview = version.task.newest
+        self.taskPreview = version.taskPreview.newest
         self.projectName = version.projectName.newest ?? workTime.project.name
         self.projectColor = nil
         self.tag = version.tag.newest ?? .default
