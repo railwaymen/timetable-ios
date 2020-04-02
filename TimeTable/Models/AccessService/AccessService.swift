@@ -17,13 +17,18 @@ protocol AccessServiceUserIDType: class {
 protocol AccessServiceSessionType: class {
     func getSession() throws -> SessionDecoder
     func saveSession(_ session: SessionDecoder) throws
+    func setTemporarySession(_ session: SessionDecoder)
     func removeSession() throws
 }
 
 class AccessService {
+    private static var temporarySession: SessionDecoder?
+    
+    // MARK: - Instance
     private let keychainAccess: KeychainAccessType
     private let encoder: JSONEncoderType
     private let decoder: JSONDecoderType
+    
     
     // MARK: - Initialization
     init(
@@ -59,6 +64,9 @@ extension AccessService: AccessServiceUserIDType {
 // MARK: - AccessServiceSessionType
 extension AccessService: AccessServiceSessionType {
     func getSession() throws -> SessionDecoder {
+        if let session = Self.temporarySession {
+            return session
+        }
         guard let data = try self.keychainAccess.getData(Key.userSession) else { throw Error.userNeverLoggedIn }
         return try self.decoder.decode(SessionDecoder.self, from: data)
     }
@@ -68,7 +76,12 @@ extension AccessService: AccessServiceSessionType {
         try self.keychainAccess.set(data, key: Key.userSession)
     }
     
+    func setTemporarySession(_ session: SessionDecoder) {
+        Self.temporarySession = session
+    }
+    
     func removeSession() throws {
+        Self.temporarySession = nil
         try self.keychainAccess.remove(Key.userSession)
     }
 }

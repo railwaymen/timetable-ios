@@ -111,7 +111,7 @@ extension AuthenticationCoordinator: LoginCoordinatorDelegate {
         switch state {
         case .changeAddress:
             self.navigationController.popViewController(animated: true)
-        case .loggedInCorrectly(let session):
+        case let .loggedInCorrectly(session):
             self.updateApiClient(with: session)
             self.finish()
         }

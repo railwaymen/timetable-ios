@@ -39,6 +39,7 @@ class LoginViewModel {
     private let notificationCenter: NotificationCenterType
     
     private var loginCredentials: LoginCredentials
+    private var shouldRememberUser: Bool = false
     
     // MARK: - Initialization
     init(
@@ -77,7 +78,7 @@ class LoginViewModel {
 // MARK: - LoginViewModelType
 extension LoginViewModel: LoginViewModelType {
     func viewDidLoad() {
-        self.userInterface?.setUpView(checkBoxIsActive: false)
+        self.userInterface?.setUpView(checkBoxIsActive: self.shouldRememberUser)
         self.userInterface?.updateLoginFields(email: self.loginCredentials.email, password: self.loginCredentials.password)
         self.updateLogInButton()
     }
@@ -109,7 +110,9 @@ extension LoginViewModel: LoginViewModelType {
     }
     
     func shouldRemeberUserBoxStatusDidChange(isActive: Bool) {
-        self.userInterface?.checkBoxIsActiveState(!isActive)
+        let newValue = !isActive
+        self.shouldRememberUser = newValue
+        self.userInterface?.checkBoxIsActiveState(newValue)
     }
     
     func viewTapped() {
@@ -127,23 +130,25 @@ extension LoginViewModel: LoginViewModelType {
             return
         }
         self.userInterface?.setActivityIndicator(isHidden: false)
-        self.contentProvider.login(with: self.loginCredentials) { [weak self] result in
-            switch result {
-            case .success(let session):
-                self?.coordinator?.loginDidFinish(with: .loggedInCorrectly(session))
-            case .failure(let error):
-                self?.userInterface?.setActivityIndicator(isHidden: true)
-                if let apiError = error as? ApiClientError {
-                    switch apiError.type {
-                    case .validationErrors:
-                        self?.errorHandler.throwing(error: UIError.loginCredentialsInvalid)
-                    default:
+        self.contentProvider.login(
+            with: self.loginCredentials,
+            shouldSaveUser: self.shouldRememberUser) { [weak self] result in
+                switch result {
+                case let .success(session):
+                    self?.coordinator?.loginDidFinish(with: .loggedInCorrectly(session))
+                case let .failure(error):
+                    self?.userInterface?.setActivityIndicator(isHidden: true)
+                    if let apiError = error as? ApiClientError {
+                        switch apiError.type {
+                        case .validationErrors:
+                            self?.errorHandler.throwing(error: UIError.loginCredentialsInvalid)
+                        default:
+                            self?.errorHandler.throwing(error: error)
+                        }
+                    } else {
                         self?.errorHandler.throwing(error: error)
                     }
-                } else {
-                    self?.errorHandler.throwing(error: error)
                 }
-            }
         }
     }
     

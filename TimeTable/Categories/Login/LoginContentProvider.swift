@@ -11,6 +11,7 @@ import Foundation
 protocol LoginContentProviderType: class {
     func login(
         with credentials: LoginCredentials,
+        shouldSaveUser: Bool,
         completion: @escaping ((Result<SessionDecoder, Error>) -> Void))
 }
 
@@ -32,14 +33,19 @@ class LoginContentProvider {
 extension LoginContentProvider: LoginContentProviderType {
     func login(
         with credentials: LoginCredentials,
+        shouldSaveUser: Bool,
         completion: @escaping ((Result<SessionDecoder, Error>) -> Void)
     ) {
         self.apiClient.signIn(with: credentials) { [unowned self] result in
             switch result {
-            case let .success(userDecoder):
+            case let .success(session):
                 do {
-                    try self.accessService.saveSession(userDecoder)
-                    completion(.success(userDecoder))
+                    if shouldSaveUser {
+                        try self.accessService.saveSession(session)
+                    } else {
+                        self.accessService.setTemporarySession(session)
+                    }
+                    completion(.success(session))
                 } catch {
                     completion(.failure(error))
                 }
