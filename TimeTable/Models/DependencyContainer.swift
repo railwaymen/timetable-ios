@@ -14,12 +14,11 @@ protocol DependencyContainerType {
     var messagePresenter: MessagePresenterType? { get }
     var errorHandler: ErrorHandlerType { get set }
     var serverConfigurationManager: ServerConfigurationManagerType { get }
-    var accessServiceBuilder: AccessServiceBuilderType { get }
     var encoder: JSONEncoderType { get }
     var decoder: JSONDecoderType { get }
     var apiClient: ApiClientType? { get set }
     var apiClientFactory: APIClientFactoryType { get }
-    var accessService: AccessServiceLoginType? { get set }
+    var accessService: AccessServiceLoginType { get }
     var notificationCenter: NotificationCenterType { get }
     var dispatchGroupFactory: DispatchGroupFactoryType { get }
     var dateFactory: DateFactoryType { get }
@@ -34,12 +33,11 @@ struct DependencyContainer: DependencyContainerType {
     weak var messagePresenter: MessagePresenterType?
     var errorHandler: ErrorHandlerType
     let serverConfigurationManager: ServerConfigurationManagerType
-    let accessServiceBuilder: AccessServiceBuilderType
     let encoder: JSONEncoderType
     let decoder: JSONDecoderType
     var apiClient: ApiClientType?
     let apiClientFactory: APIClientFactoryType
-    var accessService: AccessServiceLoginType?
+    var accessService: AccessServiceLoginType
     let notificationCenter: NotificationCenterType
     let dispatchGroupFactory: DispatchGroupFactoryType
     let dateFactory: DateFactoryType
@@ -54,7 +52,7 @@ struct DependencyContainer: DependencyContainerType {
         messagePresenter: MessagePresenterType?,
         errorHandler: ErrorHandlerType,
         serverConfigurationManager: ServerConfigurationManagerType,
-        accessServiceBuilder: @escaping AccessServiceBuilderType,
+        accessService: AccessServiceLoginType,
         encoder: JSONEncoderType,
         decoder: JSONDecoderType,
         notificationCenter: NotificationCenterType,
@@ -66,7 +64,7 @@ struct DependencyContainer: DependencyContainerType {
         self.messagePresenter = messagePresenter
         self.errorHandler = errorHandler
         self.serverConfigurationManager = serverConfigurationManager
-        self.accessServiceBuilder = accessServiceBuilder
+        self.accessService = accessService
         self.encoder = encoder
         self.decoder = decoder
         self.notificationCenter = notificationCenter

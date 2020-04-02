@@ -37,24 +37,6 @@ extension LoginContentProviderTests {
         AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: expectedError)
     }
     
-    func testLogin_sessionSaveErrorThrown_callsCompletionWithProperError() throws {
-        //Arrange
-        let expectedError = TestError(message: "test error")
-        let loginCredentials = LoginCredentials(email: "user@example.com", password: "password")
-        let sut = self.buildSUT()
-        let data = try self.json(from: SessionJSONResource.signInResponse)
-        let session = try self.decoder.decode(SessionDecoder.self, from: data)
-        self.accessServiceMock.saveSessionThrownError = expectedError
-        var completionResult: Result<SessionDecoder, Error>?
-        //Act
-        sut.login(with: loginCredentials, shouldSaveUser: true) { result in
-            completionResult = result
-        }
-        try XCTUnwrap(self.apiClientMock.signInParams.last).completion(.success(session))
-        //Assert
-        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: expectedError)
-    }
-    
     func testLogin_success_callsCompletionWithSession() throws {
         //Arrange
         let loginCredentials = LoginCredentials(email: "user@example.com", password: "password")

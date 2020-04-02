@@ -98,18 +98,6 @@ extension ProfileViewModelTests {
 
 // MARK: - logoutButtonTapped()
 extension ProfileViewModelTests {
-    func testLogoutButtonTapped_accessServiceThrowsError_passesErrorToErrorHandler() {
-        //Arrange
-        let sut = self.buildSUT()
-        let error = TestError(message: "error")
-        self.accessServiceMock.removeSessionThrownError = error
-        //Act
-        sut.logoutButtonTapped()
-        //Assert
-        XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? TestError, error)
-        XCTAssertEqual(self.coordinatorMock.userProfileDidLogoutUserParams.count, 0)
-    }
-    
     func testLogoutButtonTapped_success_finishesCoordinator() {
         //Arrange
         let sut = self.buildSUT()

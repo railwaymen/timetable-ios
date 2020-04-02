@@ -83,11 +83,10 @@ extension AppCoordinatorTests {
     func testRunMainFlowFinishRemovesTimeTableTabCoordinatorFromChildrenAndRunsServerConfigurationFlow() throws {
         //Arrange
         let sut = self.buildSUT()
-        let session = try self.buildSessionDecoder()
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
             host: self.exampleURL,
             shouldRememberHost: true)
-        self.dependencyContainer.accessServiceMock.getSessionReturnValue = session
+        self.dependencyContainer.accessServiceMock.isSessionOpenedReturnValue = true
         sut.start()
         let child = try XCTUnwrap(sut.children.first as? TimeTableTabCoordinator)
         //Act
@@ -101,14 +100,13 @@ extension AppCoordinatorTests {
     func testRunMainFlowFinishRemovesTimeTableTabCoordinatorFromChildrenAndRunsAuthenticationFlow() throws {
         //Arrange
         let sut = self.buildSUT()
-        let session = try self.buildSessionDecoder()
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
             host: self.exampleURL,
             shouldRememberHost: true)
-        self.dependencyContainer.accessServiceMock.getSessionReturnValue = session
+        self.dependencyContainer.accessServiceMock.isSessionOpenedReturnValue = true
         sut.start()
         let child = try XCTUnwrap(sut.children.first as? TimeTableTabCoordinator)
-        self.dependencyContainer.accessServiceMock.getSessionThrownError = TestError(message: "Error")
+        self.dependencyContainer.accessServiceMock.isSessionOpenedReturnValue = false
         //Act
         child.finish()
         //Assert

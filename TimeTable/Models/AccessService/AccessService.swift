@@ -18,10 +18,13 @@ protocol AccessServiceUserIDType: class {
 }
 
 protocol AccessServiceSessionType: class {
-    func getSession() throws -> SessionDecoder
-    func saveSession(_ session: SessionDecoder) throws
-    func setTemporarySession(_ session: SessionDecoder)
-    func removeSession() throws
+    var isSessionOpened: Bool { get }
+    func getSession() -> SessionDecoder?
+    func openSession(_ session: SessionDecoder)
+    func openTemporarySession(_ session: SessionDecoder)
+    func suspendSession()
+    func continueSuspendedSession()
+    func closeSession()
 }
 
 protocol AccessServiceApiClientType: class {
@@ -29,72 +32,66 @@ protocol AccessServiceApiClientType: class {
 }
 
 class AccessService {
-    private static var temporarySession: SessionDecoder?
-    
-    // MARK: - Instance
-    private let keychainAccess: KeychainAccessType
-    private let encoder: JSONEncoderType
-    private let decoder: JSONDecoderType
+    private let sessionManager: SessionManagerType
+    private let temporarySessionManager: TemporarySessionManagerType
     
     // MARK: - Initialization
     init(
-        keychainAccess: KeychainAccessType,
-        encoder: JSONEncoderType,
-        decoder: JSONDecoderType
+        sessionManager: SessionManagerType,
+        temporarySessionManager: TemporarySessionManagerType
     ) {
-        self.keychainAccess = keychainAccess
-        self.encoder = encoder
-        self.decoder = decoder
-    }
-}
-
-// MARK: - Structures
-extension AccessService {
-    enum Error: Swift.Error {
-        case userNeverLoggedIn
-    }
-    
-    private struct Key {
-        static let userSession = "key.time_table.user_session"
+        self.sessionManager = sessionManager
+        self.temporarySessionManager = temporarySessionManager
     }
 }
 
 // MARK: - AccessServiceUserIDType
 extension AccessService: AccessServiceUserIDType {
     func getLastLoggedInUserIdentifier() -> Int64? {
-        guard let session = try? self.getSession() else { return nil }
+        guard let session = self.getSession() else { return nil }
         return Int64(session.identifier)
     }
 }
 
 // MARK: - AccessServiceSessionType
 extension AccessService: AccessServiceSessionType {
-    func getSession() throws -> SessionDecoder {
-        if let session = Self.temporarySession {
-            return session
-        }
-        guard let data = try self.keychainAccess.getData(Key.userSession) else { throw Error.userNeverLoggedIn }
-        return try self.decoder.decode(SessionDecoder.self, from: data)
+    var isSessionOpened: Bool {
+        self.sessionManager.isSessionOpened
+            || self.temporarySessionManager.isSessionOpened
     }
     
-    func saveSession(_ session: SessionDecoder) throws {
-        let data = try self.encoder.encode(session)
-        try self.keychainAccess.set(data, key: Key.userSession)
+    func getSession() -> SessionDecoder? {
+        self.sessionManager.getSession()
+            ?? self.temporarySessionManager.getSession()
     }
     
-    func setTemporarySession(_ session: SessionDecoder) {
-        Self.temporarySession = session
+    func openSession(_ session: SessionDecoder) {
+        self.closeSession()
+        self.sessionManager.open(session: session)
     }
     
-    func removeSession() throws {
-        Self.temporarySession = nil
-        try self.keychainAccess.remove(Key.userSession)
+    func openTemporarySession(_ session: SessionDecoder) {
+        self.closeSession()
+        self.temporarySessionManager.open(session: session)
+    }
+    
+    func suspendSession() {
+        self.temporarySessionManager.suspendSession()
+    }
+    
+    func continueSuspendedSession() {
+        self.temporarySessionManager.continueSuspendedSession()
+    }
+    
+    func closeSession() {
+        self.sessionManager.closeSession()
+        self.temporarySessionManager.closeSession()
     }
 }
 
 // MARK: - AccessServiceApiClientType
 extension AccessService: AccessServiceApiClientType {
     func getUserToken() -> String? {
-        try? self.getSession().token
+        self.getSession()?.token
     }
 }

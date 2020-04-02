@@ -59,10 +59,9 @@ extension ProfileCoordinator: ProfileCoordinatorDelegate {
 // MARK: - Private
 extension ProfileCoordinator {
     private func runMainFlow() {
-        guard let apiClient = self.dependencyContainer.apiClient,
-            let accessService = self.dependencyContainer.accessService else {
-                self.dependencyContainer.errorHandler.stopInDebug("Api client or access service is nil")
-                return
+        guard let apiClient = self.dependencyContainer.apiClient else {
+            self.dependencyContainer.errorHandler.stopInDebug("Api client is nil")
+            return
         }
         do {
             let controller = try self.dependencyContainer.viewControllerBuilder.profile()
@@ -70,7 +69,7 @@ extension ProfileCoordinator {
                 userInterface: controller,
                 coordinator: self,
                 apiClient: apiClient,
-                accessService: accessService,
+                accessService: self.dependencyContainer.accessService,
                 errorHandler: self.dependencyContainer.errorHandler)
             controller.configure(viewModel: viewModel)
             self.navigationController.pushViewController(controller, animated: false)

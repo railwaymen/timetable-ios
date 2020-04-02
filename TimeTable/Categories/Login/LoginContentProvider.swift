@@ -39,16 +39,10 @@ extension LoginContentProvider: LoginContentProviderType {
         self.apiClient.signIn(with: credentials) { [unowned self] result in
             switch result {
             case let .success(session):
-                do {
-                    if shouldSaveUser {
-                        try self.accessService.saveSession(session)
-                    } else {
-                        self.accessService.setTemporarySession(session)
-                    }
-                    completion(.success(session))
-                } catch {
-                    completion(.failure(error))
-                }
+                shouldSaveUser
+                    ? self.accessService.openSession(session)
+                    : self.accessService.openTemporarySession(session)
+                completion(.success(session))
             case let .failure(error):
                 completion(.failure(error))
             }

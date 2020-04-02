@@ -19,8 +19,7 @@ class AppCoordinator: Coordinator {
     private var errorHandler: ErrorHandlerType {
         return self.parentErrorHandler.catchingError(action: { [weak self] error in
             if case .unauthorized = (error as? ApiClientError)?.type {
-                try? self?.dependencyContainer.accessService?.removeSession()
-                self?.dependencyContainer.accessService = nil
+                self?.dependencyContainer.accessService.closeSession()
                 self?.dependencyContainer.apiClient = nil
                 (self?.children.last as? TimeTableTabCoordinator)?.finish()
             } else {
@@ -47,12 +46,9 @@ class AppCoordinator: Coordinator {
         #if TEST
         guard case let .testPage(type) = option else { return }
         guard let url = self.dependencyContainer.environmentReader.getURL(forKey: .serverURL) else { return }
-        let serverConfiguration = ServerConfiguration(host: url, shouldRememberHost: false)
-        let accessService = self.dependencyContainer.accessServiceBuilder(
-            serverConfiguration,
-            self.dependencyContainer.encoder,
-            self.dependencyContainer.decoder)
-        let apiClient = self.dependencyContainer.apiClientFactory.buildAPIClient(accessService: accessService, baseURL: url)
+        let apiClient = self.dependencyContainer.apiClientFactory.buildAPIClient(
+            accessService: self.dependencyContainer.accessService,
+            baseURL: url)
         
         do {
             try self.removeAllData()
@@ -60,13 +56,26 @@ class AppCoordinator: Coordinator {
             case .serverConfiguration, .login:
                 self.runAuthenticationFlow()
             default:
-                self.runMainFlow(configuration: serverConfiguration, apiClient: apiClient)
+                self.runMainFlow(apiClient: apiClient)
             }
             self.children.last?.openDeepLink(option: option)
         } catch {
             self.errorHandler.stopInDebug("Couldn't remove data: \(error)")
         }
         #endif
+    }
+    
+    // MARK: - Internal
+    func appDidResume() {
+        if self.dependencyContainer.accessService.isSessionOpened {
+            if !self.children.contains(where: { $0 is TabBarCoordinator }) {
+                self.children.forEach { $0.finish() }
+            }
+        } else {
+            if !self.children.contains(where: { $0 is AuthenticationCoordinator }) {
+                self.children.forEach { $0.finish() }
+            }
+        }
     }
 }
 
@@ -86,19 +95,14 @@ extension AppCoordinator {
     private func runAuthenticationFlow() {
         let coordinator = AuthenticationCoordinator(dependencyContainer: self.dependencyContainer)
         self.add(child: coordinator)
-        coordinator.start { [weak self, weak coordinator] (configuration, apiClient) in
+        coordinator.start { [weak self, weak coordinator] (_, apiClient) in
             self?.remove(child: coordinator)
-            self?.runMainFlow(configuration: configuration, apiClient: apiClient)
+            self?.runMainFlow(apiClient: apiClient)
         }
     }
     
-    private func runMainFlow(configuration: ServerConfiguration, apiClient: ApiClientType) {
-        let accessService = self.dependencyContainer.accessServiceBuilder(
-            configuration,
-            self.dependencyContainer.encoder,
-            self.dependencyContainer.decoder)
+    private func runMainFlow(apiClient: ApiClientType) {
         self.dependencyContainer.apiClient = apiClient
-        self.dependencyContainer.accessService = accessService
         let coordinator = TimeTableTabCoordinator(dependencyContainer: self.dependencyContainer)
         self.add(child: coordinator)
         coordinator.start { [weak self, weak coordinator] in
@@ -110,9 +114,8 @@ extension AppCoordinator {
     #if TEST
     private func removeAllData() throws {
         UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-        try self.dependencyContainer.accessService?.removeSession()
+        self.dependencyContainer.accessService.closeSession()
         self.dependencyContainer.apiClient = nil
-        self.dependencyContainer.accessService = nil
     }
     #endif
 }

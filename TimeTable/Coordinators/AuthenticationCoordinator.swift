@@ -72,15 +72,12 @@ class AuthenticationCoordinator: NavigationCoordinator {
                 return
         }
         self.serverConfiguration = configuration
-        let accessService = self.dependencyContainer.accessServiceBuilder(
-            configuration,
-            self.dependencyContainer.encoder,
-            self.dependencyContainer.decoder)
-        do {
-            _ = try accessService.getSession()
-            self.apiClient = self.createApiClient(with: configuration, accessService: accessService)
+        if self.dependencyContainer.accessService.isSessionOpened {
+            self.apiClient = self.createApiClient(
+                with: configuration,
+                accessService: self.dependencyContainer.accessService)
             self.finish()
-        } catch {
+        } else {
             self.runServerConfigurationFlow()
             self.runAuthenticationFlow(with: configuration, animated: false)
         }
@@ -148,17 +145,15 @@ extension AuthenticationCoordinator {
     }
     
     private func runAuthenticationFlow(with configuration: ServerConfiguration, animated: Bool) {
-        let accessService = self.dependencyContainer.accessServiceBuilder(
-            configuration,
-            self.dependencyContainer.encoder,
-            self.dependencyContainer.decoder)
         do {
             let controller = try self.dependencyContainer.viewControllerBuilder.login()
-            guard let apiClient = self.createApiClient(with: configuration, accessService: accessService) else { return }
+            guard let apiClient = self.createApiClient(
+                with: configuration, accessService:
+                self.dependencyContainer.accessService) else { return }
             self.apiClient = apiClient
             let contentProvider = LoginContentProvider(
                 apiClient: apiClient,
-                accessService: accessService)
+                accessService: self.dependencyContainer.accessService)
             let viewModel = LoginViewModel(
                 userInterface: controller,
                 coordinator: self,

@@ -63,12 +63,8 @@ extension ProfileViewModel: ProfileViewModelType {
     }
     
     func logoutButtonTapped() {
-        do {
-            try self.accessService.removeSession()
-            self.coordinator?.userProfileDidLogoutUser()
-        } catch {
-            self.errorHandler.throwing(error: error)
-        }
+        self.accessService.closeSession()
+        self.coordinator?.userProfileDidLogoutUser()
     }
 }
 

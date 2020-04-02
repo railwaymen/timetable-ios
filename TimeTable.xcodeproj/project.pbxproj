@@ -38,6 +38,9 @@
 		8A21A0482435D74C00EE4A79 /* taskVersionNullCurrentTaskPreview.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A21A0472435D74C00EE4A79 /* taskVersionNullCurrentTaskPreview.json */; };
 		8A21A04A2435D75900EE4A79 /* taskVersionMissingCurrentTaskPreviewKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A21A0492435D75900EE4A79 /* taskVersionMissingCurrentTaskPreviewKey.json */; };
 		8A21A04C2435D7FE00EE4A79 /* taskChangedTaskPreviewResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A21A04B2435D7FE00EE4A79 /* taskChangedTaskPreviewResponse.json */; };
+		8A21A04E2436134000EE4A79 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A21A04D2436134000EE4A79 /* SessionManager.swift */; };
+		8A21A0502436136B00EE4A79 /* TemporarySessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A21A04F2436136B00EE4A79 /* TemporarySessionManager.swift */; };
+		8A21A052243614D900EE4A79 /* KeychainBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A21A051243614D900EE4A79 /* KeychainBuilder.swift */; };
 		8A2FB0F4242E274700DDBCB0 /* taskChangedProjectResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A2FB0F3242E274700DDBCB0 /* taskChangedProjectResponse.json */; };
 		8A2FB0F6242E278C00DDBCB0 /* taskUnchangedResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A2FB0F5242E278C00DDBCB0 /* taskUnchangedResponse.json */; };
 		8A2FB0F8242E27DF00DDBCB0 /* taskChangedBodyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A2FB0F7242E27DF00DDBCB0 /* taskChangedBodyResponse.json */; };
@@ -509,6 +512,9 @@
 		8A21A0472435D74C00EE4A79 /* taskVersionNullCurrentTaskPreview.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullCurrentTaskPreview.json; sourceTree = "<group>"; };
 		8A21A0492435D75900EE4A79 /* taskVersionMissingCurrentTaskPreviewKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionMissingCurrentTaskPreviewKey.json; sourceTree = "<group>"; };
 		8A21A04B2435D7FE00EE4A79 /* taskChangedTaskPreviewResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedTaskPreviewResponse.json; sourceTree = "<group>"; };
+		8A21A04D2436134000EE4A79 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		8A21A04F2436136B00EE4A79 /* TemporarySessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporarySessionManager.swift; sourceTree = "<group>"; };
+		8A21A051243614D900EE4A79 /* KeychainBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainBuilder.swift; sourceTree = "<group>"; };
 		8A2FB0F3242E274700DDBCB0 /* taskChangedProjectResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedProjectResponse.json; sourceTree = "<group>"; };
 		8A2FB0F5242E278C00DDBCB0 /* taskUnchangedResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskUnchangedResponse.json; sourceTree = "<group>"; };
 		8A2FB0F7242E27DF00DDBCB0 /* taskChangedBodyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedBodyResponse.json; sourceTree = "<group>"; };
@@ -2282,6 +2288,9 @@
 			children = (
 				C1E6B34B219EF08200019DC2 /* AccessService.swift */,
 				C1E6B34F219EF52000019DC2 /* KeyChainType.swift */,
+				8A21A04D2436134000EE4A79 /* SessionManager.swift */,
+				8A21A04F2436136B00EE4A79 /* TemporarySessionManager.swift */,
+				8A21A051243614D900EE4A79 /* KeychainBuilder.swift */,
 			);
 			path = AccessService;
 			sourceTree = "<group>";
@@ -2820,10 +2829,12 @@
 				C125F1B321DCCBE700594CDE /* ApiClient+Projects.swift in Sources */,
 				C13429B421A7FB1B00F4EA42 /* WorkTimeTableViewCell.swift in Sources */,
 				8A79A2462420C4FD0048B44B /* TaskHistoryViewModel.swift in Sources */,
+				8A21A0502436136B00EE4A79 /* TemporarySessionManager.swift in Sources */,
 				C1B8FA41218C91F3009D10B4 /* LoginCredentials.swift in Sources */,
 				C1F926E6218838B80004A9BC /* LoginViewModel.swift in Sources */,
 				C1E6B350219EF52000019DC2 /* KeyChainType.swift in Sources */,
 				8A09DCBA23673E74003FC2A6 /* DispatchQueue+Extension.swift in Sources */,
+				8A21A052243614D900EE4A79 /* KeychainBuilder.swift in Sources */,
 				C134295E21A6934C00F4EA42 /* ApiClient+Session.swift in Sources */,
 				C153AC6D21833BDC007A35BB /* AttributedButton.swift in Sources */,
 				C153AC4E2182EF82007A35BB /* UIElementLocalizedType.swift in Sources */,
@@ -2950,6 +2961,7 @@
 				8A8E8433242CE82800003AB1 /* EnvironmentReader.swift in Sources */,
 				8A09DCB823673E58003FC2A6 /* DispatchQueueManager.swift in Sources */,
 				C198BD1D21FF3DD200B5F847 /* MatchingFullTimeDecoder.swift in Sources */,
+				8A21A04E2436134000EE4A79 /* SessionManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

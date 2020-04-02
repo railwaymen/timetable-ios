@@ -40,10 +40,6 @@ class DependencyContainerMock: DependencyContainerType {
         return self.serverConfigurationManagerMock
     }
     
-    lazy var accessServiceBuilder: AccessServiceBuilderType = { [weak self] (_, _, _) -> AccessServiceLoginType in
-        return self?.accessServiceMock ?? AccessServiceMock()
-    }
-    
     var encoderMock = JSONEncoderMock()
     var encoder: JSONEncoderType {
         return self.encoderMock
@@ -72,17 +68,9 @@ class DependencyContainerMock: DependencyContainerType {
         return self.apiClientFactoryMock
     }
     
-    private(set) var accessServiceSetCalled: Bool = false
-    private(set) var accessServiceSetValue: AccessServiceLoginType?
     var accessServiceMock = AccessServiceMock()
-    var accessService: AccessServiceLoginType? {
-        get {
-            return self.accessServiceMock
-        }
-        set {
-            self.accessServiceSetCalled = true
-            self.accessServiceSetValue = newValue
-        }
+    var accessService: AccessServiceLoginType {
+        self.accessServiceMock
     }
     
     var notificationCenterMock = NotificationCenterMock()
