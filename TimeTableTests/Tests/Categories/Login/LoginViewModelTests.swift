@@ -225,7 +225,7 @@ extension LoginViewModelTests {
         self.contentProviderMock.loginParams.last?.completion(.success(sessionReponse))
         //Assert
         XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.count, 1)
-        XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.last?.state, .loggedInCorrectly(sessionReponse))
+        XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.last?.state, .loggedInCorrectly)
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
         XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
     }

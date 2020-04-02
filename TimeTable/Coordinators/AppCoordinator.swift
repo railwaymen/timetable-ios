@@ -48,7 +48,11 @@ class AppCoordinator: Coordinator {
         guard case let .testPage(type) = option else { return }
         guard let url = self.dependencyContainer.environmentReader.getURL(forKey: .serverURL) else { return }
         let serverConfiguration = ServerConfiguration(host: url, shouldRememberHost: false)
-        let apiClient = self.dependencyContainer.apiClientFactory.buildAPIClient(baseURL: url)
+        let accessService = self.dependencyContainer.accessServiceBuilder(
+            serverConfiguration,
+            self.dependencyContainer.encoder,
+            self.dependencyContainer.decoder)
+        let apiClient = self.dependencyContainer.apiClientFactory.buildAPIClient(accessService: accessService, baseURL: url)
         
         do {
             try self.removeAllData()

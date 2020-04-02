@@ -11,15 +11,7 @@ import Restler
 @testable import TimeTable
 
 class ApiClientMock {
-    // MARK: - ApiClientNetworkingType
-    private(set) var setAuthenticationTokenParams: [SetAuthenticationTokenParams] = []
-    struct SetAuthenticationTokenParams {
-        let token: String
-    }
     
-    private(set) var removeAuthenticationTokenParams: [RemoveAuthenticationTokenParams] = []
-    struct RemoveAuthenticationTokenParams {}
-
     // MARK: - ApiClientSessionType
     private(set) var signInParams: [SignInParams] = []
     struct SignInParams {
@@ -97,17 +89,6 @@ class ApiClientMock {
     struct FetchMatchingFullTimeParams {
         let parameters: MatchingFullTimeEncoder
         let completion: ((Result<MatchingFullTimeDecoder, Error>) -> Void)
-    }
-}
-
-// MARK: - ApiClientNetworkingType
-extension ApiClientMock: ApiClientNetworkingType {
-    func setAuthenticationToken(_ token: String) {
-        self.setAuthenticationTokenParams.append(SetAuthenticationTokenParams(token: token))
-    }
-    
-    func removeAuthenticationToken() {
-        self.removeAuthenticationTokenParams.append(RemoveAuthenticationTokenParams())
     }
 }
 

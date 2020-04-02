@@ -27,100 +27,100 @@ class AuthenticationCoordinatorTests: XCTestCase {
 
 // MARK: - start(finishCompletion:)
 extension AuthenticationCoordinatorTests {
-//    func testStart_viewControllerBuilderThrowsError_doesNotRunServerConfigurationFlow() {
-//        //Arrange
-//        let sut = self.buildSUT()
-//        self.viewControllerBuilderMock.serverConfigurationThrownError = "Error message"
-//        //Act
-//        sut.start { (_, _) in }
-//        //Assert
-//        XCTAssertTrue(sut.navigationController.children.isEmpty)
-//    }
-//    
-//    func testStartRunsServerConfigurationFlow() {
-//        //Arrange
-//        let sut = self.buildSUT()
-//        self.viewControllerBuilderMock.serverConfigurationReturnValue = ServerConfigurationViewControllerMock()
-//        //Act
-//        sut.start { (_, _) in }
-//        //Assert
-//        XCTAssertNotNil(sut.navigationController.children[0] as? ServerConfigurationViewControllerable)
-//    }
-//
-//    func testStartRunsServerConfigurationFlowWhileServerConfigurationShouldRemeberHostIsFalse() {
-//        //Arrange
-//        let sut = self.buildSUT()
-//        self.viewControllerBuilderMock.serverConfigurationReturnValue = ServerConfigurationViewControllerMock()
-//        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
-//            host: nil,
-//            shouldRememberHost: false)
-//        //Act
-//        sut.start { (_, _) in }
-//        //Assert
-//        XCTAssertNotNil(sut.navigationController.children[0] as? ServerConfigurationViewControllerable)
-//    }
-//    
-//    func testStartDoesNotRunAuthenticationFlowWhileServerControllerHasNilHost() throws {
-//        //Arrange
-//        let sut = self.buildSUT()
-//        let serverConfiguration = ServerConfiguration(host: nil, shouldRememberHost: true)
-//        self.viewControllerBuilderMock.serverConfigurationReturnValue = ServerConfigurationViewControllerMock()
-//        self.viewControllerBuilderMock.loginReturnValue = LoginViewControllerMock()
-//        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = serverConfiguration
-//        self.dependencyContainer.accessServiceMock.getSessionThrownError = TestError(message: "ERROR")
-//        //Act
-//        sut.start { (_, _) in }
-//        //Assert
-//        XCTAssertEqual(sut.navigationController.children.count, 1)
-//        XCTAssertNotNil(sut.navigationController.children[0] as? ServerConfigurationViewControllerable)
-//    }
-//    
-//    func testStartDoesNotRunAuthenticationFlowWhileServerControllerIsInvalid() throws {
-//        //Arrange
-//        let sut = self.buildSUT()
-//        let serverConfiguration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: true)
-//        self.viewControllerBuilderMock.serverConfigurationThrownError = "Error message"
-//        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = serverConfiguration
-//        self.dependencyContainer.accessServiceMock.getSessionThrownError = TestError(message: "ERROR")
-//        //Act
-//        sut.start { (_, _) in }
-//        //Assert
-//        XCTAssertTrue(sut.navigationController.children.isEmpty)
-//    }
-//    
-//    func testStartDoesNotRunAuthenticationFlowWhileLoginControllerIsInvalid() throws {
-//        //Arrange
-//        let sut = self.buildSUT()
-//        self.viewControllerBuilderMock.serverConfigurationReturnValue = ServerConfigurationViewControllerMock()
-//        self.viewControllerBuilderMock.loginThrownError = "Error message"
-//        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
-//            host: self.exampleURL,
-//            shouldRememberHost: true)
-//        self.dependencyContainer.accessServiceMock.getSessionThrownError = TestError(message: "ERROR")
-//        //Act
-//        sut.start { (_, _) in }
-//        //Assert
-//        XCTAssertEqual(sut.navigationController.children.count, 1)
-//        XCTAssertNotNil(sut.navigationController.children[0] as? ServerConfigurationViewControllerable)
-//    }
-//    
-//    func testStartRunsAuthenticationFlow() throws {
-//        //Arrange
-//        let sut = self.buildSUT()
-//        self.viewControllerBuilderMock.serverConfigurationReturnValue = ServerConfigurationViewControllerMock()
-//        self.viewControllerBuilderMock.loginReturnValue = LoginViewControllerMock()
-//        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
-//            host: self.exampleURL,
-//            shouldRememberHost: true)
-//        self.dependencyContainer.accessServiceMock.getSessionThrownError = TestError(message: "ERROR")
-//        //Act
-//        sut.start { (_, _) in }
-//        //Assert
-//        XCTAssertEqual(sut.navigationController.children.count, 2)
-//        XCTAssertNotNil(sut.navigationController.children[0] as? ServerConfigurationViewControllerable)
-//        XCTAssertNotNil(sut.navigationController.children[1] as? LoginViewControllerable)
-//    }
-//    
+    func testStart_viewControllerBuilderThrowsError_doesNotRunServerConfigurationFlow() {
+        //Arrange
+        let sut = self.buildSUT()
+        self.viewControllerBuilderMock.serverConfigurationThrownError = "Error message"
+        //Act
+        sut.start { (_, _) in }
+        //Assert
+        XCTAssertTrue(sut.navigationController.children.isEmpty)
+    }
+    
+    func testStartRunsServerConfigurationFlow() {
+        //Arrange
+        let sut = self.buildSUT()
+        self.viewControllerBuilderMock.serverConfigurationReturnValue = ServerConfigurationViewControllerMock()
+        //Act
+        sut.start { (_, _) in }
+        //Assert
+        XCTAssertNotNil(sut.navigationController.children[0] as? ServerConfigurationViewControllerable)
+    }
+
+    func testStartRunsServerConfigurationFlowWhileServerConfigurationShouldRemeberHostIsFalse() {
+        //Arrange
+        let sut = self.buildSUT()
+        self.viewControllerBuilderMock.serverConfigurationReturnValue = ServerConfigurationViewControllerMock()
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
+            host: nil,
+            shouldRememberHost: false)
+        //Act
+        sut.start { (_, _) in }
+        //Assert
+        XCTAssertNotNil(sut.navigationController.children[0] as? ServerConfigurationViewControllerable)
+    }
+    
+    func testStartDoesNotRunAuthenticationFlowWhileServerControllerHasNilHost() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let serverConfiguration = ServerConfiguration(host: nil, shouldRememberHost: true)
+        self.viewControllerBuilderMock.serverConfigurationReturnValue = ServerConfigurationViewControllerMock()
+        self.viewControllerBuilderMock.loginReturnValue = LoginViewControllerMock()
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = serverConfiguration
+        self.dependencyContainer.accessServiceMock.getSessionThrownError = TestError(message: "ERROR")
+        //Act
+        sut.start { (_, _) in }
+        //Assert
+        XCTAssertEqual(sut.navigationController.children.count, 1)
+        XCTAssertNotNil(sut.navigationController.children[0] as? ServerConfigurationViewControllerable)
+    }
+    
+    func testStartDoesNotRunAuthenticationFlowWhileServerControllerIsInvalid() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let serverConfiguration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: true)
+        self.viewControllerBuilderMock.serverConfigurationThrownError = "Error message"
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = serverConfiguration
+        self.dependencyContainer.accessServiceMock.getSessionThrownError = TestError(message: "ERROR")
+        //Act
+        sut.start { (_, _) in }
+        //Assert
+        XCTAssertEqual(self.dependencyContainer.errorHandlerMock.stopInDebugParams.count, 1)
+    }
+    
+    func testStartDoesNotRunAuthenticationFlowWhileLoginControllerIsInvalid() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        self.viewControllerBuilderMock.serverConfigurationReturnValue = ServerConfigurationViewControllerMock()
+        self.viewControllerBuilderMock.loginThrownError = "Error message"
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
+            host: self.exampleURL,
+            shouldRememberHost: true)
+        self.dependencyContainer.accessServiceMock.getSessionThrownError = TestError(message: "ERROR")
+        //Act
+        sut.start { (_, _) in }
+        //Assert
+        XCTAssertEqual(sut.navigationController.children.count, 1)
+        XCTAssertNotNil(sut.navigationController.children[0] as? ServerConfigurationViewControllerable)
+    }
+    
+    func testStartRunsAuthenticationFlow() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        self.viewControllerBuilderMock.serverConfigurationReturnValue = ServerConfigurationViewControllerMock()
+        self.viewControllerBuilderMock.loginReturnValue = LoginViewControllerMock()
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
+            host: self.exampleURL,
+            shouldRememberHost: true)
+        self.dependencyContainer.accessServiceMock.getSessionThrownError = TestError(message: "ERROR")
+        //Act
+        sut.start { (_, _) in }
+        //Assert
+        XCTAssertEqual(sut.navigationController.children.count, 2)
+        XCTAssertNotNil(sut.navigationController.children[0] as? ServerConfigurationViewControllerable)
+        XCTAssertNotNil(sut.navigationController.children[1] as? LoginViewControllerable)
+    }
+    
 //    func testFinishOnStart() throws {
 //        //Arrange
 //        let expectedToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjIt"
@@ -150,46 +150,12 @@ extension AuthenticationCoordinatorTests {
 //        XCTAssertEqual(apiClientMock.setAuthenticationTokenParams.count, 1)
 //        XCTAssertEqual(apiClientMock.setAuthenticationTokenParams.last?.token, expectedToken)
 //    }
-//}
-//
-//// MARK: - loginDidFinish(with state: AuthenticationCoordinator.State)
-//extension AuthenticationCoordinatorTests {
-//    func testLoginDidFinishWithStateLoggedInCorrectly() throws {
-//        //Arrange
-//        let expectedToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjIt"
-//        let sut = self.buildSUT()
-//        self.viewControllerBuilderMock.serverConfigurationReturnValue = ServerConfigurationViewControllerMock()
-//        self.viewControllerBuilderMock.loginReturnValue = LoginViewControllerMock()
-//        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
-//            host: self.exampleURL,
-//            shouldRememberHost: true)
-//        let data = try self.json(from: SessionJSONResource.signInResponse)
-//        let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
-//        var optionalConfiguration: ServerConfiguration?
-//        var optionalApiClient: ApiClientType?
-//        self.dependencyContainer.accessServiceMock.getSessionReturnValue = sessionReponse
-//        sut.start { (returnedConfiguration, returnedApiClient) in
-//            optionalConfiguration = returnedConfiguration
-//            optionalApiClient = returnedApiClient
-//        }
-//        //Act
-//        sut.loginDidFinish(with: .loggedInCorrectly(sessionReponse))
-//        //Assert
-//        let configuration = try XCTUnwrap(optionalConfiguration)
-//        let apiClient = try XCTUnwrap(optionalApiClient)
-//        XCTAssertEqual(configuration.host, self.exampleURL)
-//        XCTAssertEqual(configuration.shouldRememberHost, true)
-//        let apiClientMock = self.dependencyContainer.apiClientFactoryMock.buildAPIClientReturnValue
-//        XCTAssertTrue(apiClient === apiClientMock)
-//        XCTAssertEqual(apiClientMock.setAuthenticationTokenParams.count, 2)
-//        XCTAssertEqual(apiClientMock.setAuthenticationTokenParams.last?.token, expectedToken)
-//    }
 }
     
 // MARK: - State.Equatable
 extension AuthenticationCoordinatorTests {
     func testAuthenticationCoordinatorStateEquatableChangeAddress() {
-        //Act
+        //Arrange
         let firstState = AuthenticationCoordinator.State.changeAddress
         let secoundState = AuthenticationCoordinator.State.changeAddress
         //Assert
@@ -198,22 +164,16 @@ extension AuthenticationCoordinatorTests {
     
     func testAuthenticationCoordinatorStateNotEquatableChangeAddressAndLoggedInCorrectly() throws {
         //Arrange
-        let data = try self.json(from: SessionJSONResource.signInResponse)
-        let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
-        //Act
         let firstState = AuthenticationCoordinator.State.changeAddress
-        let secoundState = AuthenticationCoordinator.State.loggedInCorrectly(sessionReponse)
+        let secoundState = AuthenticationCoordinator.State.loggedInCorrectly
         //Assert
         XCTAssertNotEqual(firstState, secoundState)
     }
     
     func testAuthenticationCoordinatorStateEquatableLoggedInCorrectly() throws {
         //Arrange
-        let data = try self.json(from: SessionJSONResource.signInResponse)
-        let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
-        //Act
-        let firstState = AuthenticationCoordinator.State.loggedInCorrectly(sessionReponse)
-        let secoundState = AuthenticationCoordinator.State.loggedInCorrectly(sessionReponse)
+        let firstState = AuthenticationCoordinator.State.loggedInCorrectly
+        let secoundState = AuthenticationCoordinator.State.loggedInCorrectly
         //Assert
         XCTAssertEqual(firstState, secoundState)
     }

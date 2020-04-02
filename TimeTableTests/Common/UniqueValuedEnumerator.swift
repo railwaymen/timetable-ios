@@ -23,6 +23,7 @@ extension ApiClientError: UniqueValuedEnumerator {
         case .serverError: return 4
         case .timeout: return 5
         case .validationErrors: return 6
+        case .unauthorized: return 7
         }
     }
 }

@@ -11,10 +11,12 @@ import XCTest
 
 class ApiClientUsersTests: XCTestCase {
     private var restler: RestlerMock!
+    private var accessService: AccessServiceMock!
     
     override func setUp() {
         super.setUp()
         self.restler = RestlerMock()
+        self.accessService = AccessServiceMock()
     }
 }
 
@@ -53,6 +55,8 @@ extension ApiClientUsersTests {
 // MARK: - Private
 extension ApiClientUsersTests {
     private func buildSUT() -> ApiClientUsersType {
-        ApiClient(restler: self.restler)
+        ApiClient(
+            restler: self.restler,
+            accessService: self.accessService)
     }
 }

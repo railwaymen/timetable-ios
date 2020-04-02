@@ -29,7 +29,7 @@ extension LoginContentProviderTests {
         let sut = self.buildSUT()
         var completionResult: Result<SessionDecoder, Error>?
         //Act
-        sut.login(with: loginCredentials) { result in
+        sut.login(with: loginCredentials, shouldSaveUser: true) { result in
             completionResult = result
         }
         try XCTUnwrap(self.apiClientMock.signInParams.last).completion(.failure(expectedError))
@@ -47,7 +47,7 @@ extension LoginContentProviderTests {
         self.accessServiceMock.saveSessionThrownError = expectedError
         var completionResult: Result<SessionDecoder, Error>?
         //Act
-        sut.login(with: loginCredentials) { result in
+        sut.login(with: loginCredentials, shouldSaveUser: true) { result in
             completionResult = result
         }
         try XCTUnwrap(self.apiClientMock.signInParams.last).completion(.success(session))
@@ -63,7 +63,7 @@ extension LoginContentProviderTests {
         let session = try self.decoder.decode(SessionDecoder.self, from: data)
         var completionResult: Result<SessionDecoder, Error>?
         //Act
-        sut.login(with: loginCredentials) { result in
+        sut.login(with: loginCredentials, shouldSaveUser: true) { result in
             completionResult = result
         }
         try XCTUnwrap(self.apiClientMock.signInParams.last).completion(.success(session))

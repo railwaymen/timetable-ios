@@ -36,7 +36,6 @@ class AccessService {
     private let encoder: JSONEncoderType
     private let decoder: JSONDecoderType
     
-    
     // MARK: - Initialization
     init(
         keychainAccess: KeychainAccessType,

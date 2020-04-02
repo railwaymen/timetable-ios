@@ -11,10 +11,12 @@ import XCTest
 
 class ApiClientMatchingFullTimeTests: XCTestCase {
     private var restler: RestlerMock!
+    private var accessService: AccessServiceMock!
     
     override func setUp() {
         super.setUp()
         self.restler = RestlerMock()
+        self.accessService = AccessServiceMock()
     }
 }
 
@@ -57,6 +59,8 @@ extension ApiClientMatchingFullTimeTests {
 // MARK: - Private
 extension ApiClientMatchingFullTimeTests {
     private func buildSUT() -> ApiClientMatchingFullTimeType {
-        return ApiClient(restler: self.restler)
+        return ApiClient(
+            restler: self.restler,
+            accessService: self.accessService)
     }
 }

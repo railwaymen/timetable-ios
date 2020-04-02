@@ -28,9 +28,19 @@ class AccessServiceMock {
         let session: SessionDecoder
     }
     
+    private(set) var setTemporarySessionParams: [SetTemporarySession] = []
+    struct SetTemporarySession {
+        let session: SessionDecoder
+    }
+    
     var removeSessionThrownError: Error?
     private(set) var removeSessionParams: [RemoveSessionParams] = []
     struct RemoveSessionParams {}
+    
+    // MARK: - AccessServiceApiClientType
+    var getUserTokenReturnValue: String?
+    private(set) var getUserTokenParams: [GetUserTokenParams] = []
+    struct GetUserTokenParams {}
 }
 
 // MARK: - AccessServiceUserIDType
@@ -56,9 +66,21 @@ extension AccessServiceMock: AccessServiceSessionType {
         throw error
     }
     
+    func setTemporarySession(_ session: SessionDecoder) {
+        self.setTemporarySessionParams.append(SetTemporarySession(session: session))
+    }
+    
     func removeSession() throws {
         self.removeSessionParams.append(RemoveSessionParams())
         guard let error = self.removeSessionThrownError else { return }
         throw error
+    }
+}
+
+// MARK: - AccessServiceApiClientType
+extension AccessServiceMock: AccessServiceApiClientType {
+    func getUserToken() -> String? {
+        self.getUserTokenParams.append(GetUserTokenParams())
+        return self.getUserTokenReturnValue
     }
 }
