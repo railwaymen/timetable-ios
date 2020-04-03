@@ -7,11 +7,16 @@
 //
 
 import XCTest
+import Restler
 @testable import TimeTable
 
-class WorkTimesParametersTests: XCTestCase {}
+class WorkTimesParametersTests: XCTestCase {
+    private var queryEncoder: Restler.QueryEncoder {
+        Restler.QueryEncoder(jsonEncoder: self.encoder)
+    }
+}
 
-// MARK: - Encodable
+// MARK: - RestlerQueryEncodable
 extension WorkTimesParametersTests {
     func testEncoding_fullModel() throws {
         //Arrange
@@ -21,16 +26,12 @@ extension WorkTimesParametersTests {
         let toDate = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 12, minute: 0)
         let sut = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectId: projectIdentifier)
         //Act
-        let data = try self.encoder.encode(sut)
-        let requestDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
+        let queryItems = try self.queryEncoder.encode(sut)
         //Assert
-        XCTAssertEqual(try XCTUnwrap(requestDictionary?["project_id"] as? Int), projectIdentifier)
-        let expectedFromDateString = try XCTUnwrap(requestDictionary?["from"] as? String)
-        let expectedFromDate = try XCTUnwrap(DateFormatter.dateAndTimeExtended.date(from: expectedFromDateString))
-        XCTAssertEqual(expectedFromDate, fromDate)
-        let expectedToDateString = try XCTUnwrap(requestDictionary?["to"] as? String)
-        let expectedToDate = try XCTUnwrap(DateFormatter.dateAndTimeExtended.date(from: expectedToDateString))
-        XCTAssertEqual(expectedToDate, toDate)
+        XCTAssertEqual(queryItems.count, 3)
+        XCTAssert(queryItems.contains(.init(name: "from", value: "2018-11-22T10:30:00.000+0100")))
+        XCTAssert(queryItems.contains(.init(name: "to", value: "2018-11-22T12:00:00.000+0100")))
+        XCTAssert(queryItems.contains(.init(name: "project_id", value: "\(projectIdentifier)")))
     }
     
     func testEncoding_nilProjectId() throws {
@@ -40,16 +41,11 @@ extension WorkTimesParametersTests {
         let toDate = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 12, minute: 0)
         let sut = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectId: nil)
         //Act
-        let data = try self.encoder.encode(sut)
-        let requestDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
+        let queryItems = try self.queryEncoder.encode(sut)
         //Assert
-        XCTAssertNil(requestDictionary?["project_id"])
-        let expectedFromDateString = try XCTUnwrap(requestDictionary?["from"] as? String)
-        let expectedFromDate = try XCTUnwrap(DateFormatter.dateAndTimeExtended.date(from: expectedFromDateString))
-        XCTAssertEqual(expectedFromDate, fromDate)
-        let expectedToDateString = try XCTUnwrap(requestDictionary?["to"] as? String)
-        let expectedToDate = try XCTUnwrap(DateFormatter.dateAndTimeExtended.date(from: expectedToDateString))
-        XCTAssertEqual(expectedToDate, toDate)
+        XCTAssertEqual(queryItems.count, 2)
+        XCTAssert(queryItems.contains(.init(name: "from", value: "2018-11-22T10:30:00.000+0100")))
+        XCTAssert(queryItems.contains(.init(name: "to", value: "2018-11-22T12:00:00.000+0100")))
     }
 
     func testEncoding_nilFrom() throws {
@@ -59,16 +55,13 @@ extension WorkTimesParametersTests {
         let toDate = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 12, minute: 0)
         let sut = WorkTimesParameters(fromDate: nil, toDate: toDate, projectId: projectIdentifier)
         //Act
-        let data = try self.encoder.encode(sut)
-        let requestDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
+        let queryItems = try self.queryEncoder.encode(sut)
         //Assert
-        XCTAssertEqual(try XCTUnwrap(requestDictionary?["project_id"] as? Int), projectIdentifier)
-        XCTAssertNil(requestDictionary?["from"])
-        let expectedToDateString = try XCTUnwrap(requestDictionary?["to"] as? String)
-        let expectedToDate = try XCTUnwrap(DateFormatter.dateAndTimeExtended.date(from: expectedToDateString))
-        XCTAssertEqual(expectedToDate, toDate)
+        XCTAssertEqual(queryItems.count, 2)
+        XCTAssert(queryItems.contains(.init(name: "to", value: "2018-11-22T12:00:00.000+0100")))
+        XCTAssert(queryItems.contains(.init(name: "project_id", value: "\(projectIdentifier)")))
     }
-    
+
     func testEncoding_nilTo() throws {
         //Arrange
         let projectIdentifier = 3
@@ -76,14 +69,11 @@ extension WorkTimesParametersTests {
         let fromDate = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 10, minute: 30)
         let sut = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectId: projectIdentifier)
         //Act
-        let data = try self.encoder.encode(sut)
-        let requestDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
+        let queryItems = try self.queryEncoder.encode(sut)
         //Assert
-        XCTAssertEqual(try XCTUnwrap(requestDictionary?["project_id"] as? Int), projectIdentifier)
-        let expectedFromDateString = try XCTUnwrap(requestDictionary?["from"] as? String)
-        let expectedFromDate = try XCTUnwrap(DateFormatter.dateAndTimeExtended.date(from: expectedFromDateString))
-        XCTAssertEqual(expectedFromDate, fromDate)
-        XCTAssertNil(requestDictionary?["to"])
+        XCTAssertEqual(queryItems.count, 2)
+        XCTAssert(queryItems.contains(.init(name: "from", value: "2018-11-22T10:30:00.000+0100")))
+        XCTAssert(queryItems.contains(.init(name: "project_id", value: "\(projectIdentifier)")))
     }
 }
 
