@@ -9,7 +9,7 @@
 import Foundation
 import Restler
 
-struct WorkTimesParameters: Encodable, RestlerQueryEncodable {
+struct WorkTimesParameters: RestlerQueryEncodable {
     let fromDate: Date?
     let toDate: Date?
     let projectId: Int?
@@ -17,7 +17,7 @@ struct WorkTimesParameters: Encodable, RestlerQueryEncodable {
     enum CodingKeys: String, CodingKey {
         case fromDate = "from"
         case toDate = "to"
-        case projectId
+        case projectId = "project_id"
     }
     
     func encodeToQuery(using encoder: RestlerQueryEncoderType) throws {
