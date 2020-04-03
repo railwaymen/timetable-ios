@@ -25,7 +25,7 @@ protocol ProfileViewModelType: class {
 class ProfileViewModel {
     private weak var userInterface: ProfileViewModelOutput?
     private weak var coordinator: ProfileCoordinatorDelegate?
-    private let apiClient: ApiClientProfileType
+    private let apiClient: ApiClientUsersType
     private let accessService: AccessServiceLoginType
     private let errorHandler: ErrorHandlerType
     
@@ -35,7 +35,7 @@ class ProfileViewModel {
     init(
         userInterface: ProfileViewModelOutput?,
         coordinator: ProfileCoordinatorDelegate,
-        apiClient: ApiClientProfileType,
+        apiClient: ApiClientUsersType,
         accessService: AccessServiceLoginType,
         errorHandler: ErrorHandlerType
     ) {
@@ -63,13 +63,8 @@ extension ProfileViewModel: ProfileViewModelType {
     }
     
     func logoutButtonTapped() {
-        do {
-            try self.accessService.removeSession()
-            self.invalidateUserToken()
-            self.coordinator?.userProfileDidLogoutUser()
-        } catch {
-            self.errorHandler.throwing(error: error)
-        }
+        self.accessService.closeSession()
+        self.coordinator?.userProfileDidLogoutUser()
     }
 }
 
@@ -81,9 +76,9 @@ extension ProfileViewModel {
         self.apiClient.fetchUserProfile(forIdetifier: userIdentifier) { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
-            case .success(let profile):
+            case let .success(profile):
                 self?.handleFetchSuccess(profile: profile)
-            case .failure(let error):
+            case let .failure(error):
                 self?.handleFetch(error: error)
             }
         }
@@ -96,15 +91,15 @@ extension ProfileViewModel {
     
     private func handleFetch(error: Error) {
         if let error = error as? ApiClientError {
-            self.errorViewModel?.update(error: error)
+            if error.type == .unauthorized {
+                self.errorHandler.throwing(error: error)
+            } else {
+                self.errorViewModel?.update(error: error)
+            }
         } else {
             self.errorViewModel?.update(error: UIError.genericError)
             self.errorHandler.throwing(error: error)
         }
         self.userInterface?.showErrorView()
-    }
-    
-    private func invalidateUserToken() {
-        self.apiClient.removeAuthenticationToken()
     }
 }

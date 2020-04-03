@@ -24,10 +24,5 @@ class AccessServiceTests: XCTestCase {
 
 // MARK: - Private
 extension AccessServiceTests {
-    private func buildSUT() -> AccessService {
-        return AccessService(
-            keychainAccess: self.keychainAccessMock,
-            encoder: self.encoderMock,
-            decoder: self.decoderMock)
-    }
+    
 }

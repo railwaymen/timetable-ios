@@ -11,51 +11,20 @@ import XCTest
 
 class ApiClientTests: XCTestCase {
     private var restler: RestlerMock!
+    private var accessService: AccessServiceMock!
 
     override func setUp() {
         super.setUp()
         self.restler = RestlerMock()
-    }
-}
-
-// MARK: - setAuthenticationToken(_ token: String)
-extension ApiClientTests {
-    func testSetAuthenticationToken_emptyString() {
-        //Arrange
-        let sut = self.buildSUT()
-        //Act
-        sut.setAuthenticationToken("")
-        //Assert
-        XCTAssertEqual(self.restler.header[.custom("token")], "")
-    }
-    
-    func testSetAuthenticationToken_testString() {
-        //Arrange
-        let sut = self.buildSUT()
-        //Act
-        sut.setAuthenticationToken("token_123")
-        //Assert
-        XCTAssertEqual(self.restler.header[.custom("token")], "token_123")
-    }
-}
-
-// MARK: - removeAuthenticationToken()
-extension ApiClientTests {
-    func testRemoveAuthenticationToken() {
-        //Arrange
-        let sut = self.buildSUT()
-        sut.setAuthenticationToken("token_123")
-        XCTAssertEqual(self.restler.header[.custom("token")], "token_123")
-        //Act
-        sut.removeAuthenticationToken()
-        //Assert
-        XCTAssertNil(self.restler.header[.custom("token")])
+        self.accessService = AccessServiceMock()
     }
 }
 
 // MARK: - Private
 extension ApiClientTests {
     private func buildSUT() -> ApiClient {
-        return ApiClient(restler: self.restler)
+        return ApiClient(
+            restler: self.restler,
+            accessService: self.accessService)
     }
 }

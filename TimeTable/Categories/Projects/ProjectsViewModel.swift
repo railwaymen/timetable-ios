@@ -107,17 +107,21 @@ extension ProjectsViewModel {
         self.apiClient.fetchAllProjects { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
-            case .failure(let error):
-                self?.handleFetch(error: error)
-            case .success(let projectRecords):
+            case let .success(projectRecords):
                 self?.handleFetchSuccess(projectRecords: projectRecords)
+            case let .failure(error):
+                self?.handleFetch(error: error)
             }
         }
     }
     
     private func handleFetch(error: Error) {
         if let error = error as? ApiClientError {
-            self.errorViewModel?.update(error: error)
+            if error.type == .unauthorized {
+                self.errorHandler.throwing(error: error)
+            } else {
+                self.errorViewModel?.update(error: error)
+            }
         } else {
             self.errorViewModel?.update(error: UIError.genericError)
             self.errorHandler.throwing(error: error)

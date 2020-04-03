@@ -339,7 +339,11 @@ extension WorkTimesListViewModel {
     
     private func handleFetch(error: Error) {
         if let error = error as? ApiClientError {
-            self.errorViewModel?.update(error: error)
+            if error.type == .unauthorized {
+                self.errorHandler.throwing(error: error)
+            } else {
+                self.errorViewModel?.update(error: error)
+            }
         } else {
             self.errorViewModel?.update(error: UIError.genericError)
             self.errorHandler.throwing(error: error)

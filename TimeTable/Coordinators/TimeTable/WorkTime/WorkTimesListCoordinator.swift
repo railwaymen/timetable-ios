@@ -75,16 +75,15 @@ extension WorkTimesListCoordinator: WorkTimesListCoordinatorDelegate {
 // MARK: - Private
 extension WorkTimesListCoordinator {
     private func runMainFlow() {
-        guard let apiClient = self.dependencyContainer.apiClient,
-            let accessService = self.dependencyContainer.accessService else {
-                self.dependencyContainer.errorHandler.stopInDebug("Api client or access service is nil")
-                return
+        guard let apiClient = self.dependencyContainer.apiClient else {
+            self.dependencyContainer.errorHandler.stopInDebug("Api client is nil")
+            return
         }
         do {
             let controller = try self.dependencyContainer.viewControllerBuilder.workTimesList()
             let contentProvider = WorkTimesListContentProvider(
                 apiClient: apiClient,
-                accessService: accessService,
+                accessService: self.dependencyContainer.accessService,
                 dispatchGroupFactory: self.dependencyContainer.dispatchGroupFactory)
             let viewModel = WorkTimesListViewModel(
                 userInterface: controller,

@@ -1,5 +1,5 @@
 //
-//  KeyChainType.swift
+//  Keychain+Extension.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 16/11/2018.

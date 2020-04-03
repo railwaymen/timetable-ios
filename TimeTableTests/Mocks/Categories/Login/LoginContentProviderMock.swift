@@ -12,8 +12,9 @@ import XCTest
 class LoginContentProviderMock {
     private(set) var loginParams: [LoginParams] = []
     struct LoginParams {
-        var credentials: LoginCredentials
-        var completion: ((Result<SessionDecoder, Error>) -> Void)
+        let credentials: LoginCredentials
+        let shouldSaveUser: Bool
+        let completion: ((Result<SessionDecoder, Error>) -> Void)
     }
 }
 
@@ -21,11 +22,13 @@ class LoginContentProviderMock {
 extension LoginContentProviderMock: LoginContentProviderType {
     func login(
         with credentials: LoginCredentials,
+        shouldSaveUser: Bool,
         completion: @escaping ((Result<SessionDecoder, Error>) -> Void)
     ) {
         self.loginParams.append(
             LoginParams(
                 credentials: credentials,
+                shouldSaveUser: shouldSaveUser,
                 completion: completion))
     }
 }

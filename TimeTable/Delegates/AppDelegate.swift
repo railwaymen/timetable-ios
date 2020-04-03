@@ -10,8 +10,6 @@ import UIKit
 import KeychainAccess
 import Firebase
 
-typealias AccessServiceBuilderType = ((ServerConfiguration, JSONEncoderType, JSONDecoderType) -> AccessServiceLoginType)
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -25,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 messagePresenter: self.messagePresenter,
                 errorHandler: self.errorHandler,
                 serverConfigurationManager: self.serverConfigurationManager,
-                accessServiceBuilder: self.accessServiceBuilder,
+                accessService: self.accessService,
                 encoder: self.encoder,
                 decoder: self.decoder,
                 notificationCenter: NotificationCenter.default,
@@ -62,12 +60,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             restlerFactory: RestlerFactory())
     }()
     
-    private lazy var accessServiceBuilder: AccessServiceBuilderType = { (serverConfiguration, encoder, decoder) in
+    private lazy var accessService: AccessServiceLoginType = {
+        let sessionManager = SessionManager(
+            keychainBuilder: KeychainBuilder(),
+            encoder: self.encoder,
+            decoder: self.decoder,
+            errorHandler: self.errorHandler,
+            serverConfigurationManager: self.serverConfigurationManager)
         return AccessService(
-            keychainAccess: self.createKeychain(with: serverConfiguration),
-            encoder: encoder,
-            decoder: decoder)
-    }
+            sessionManager: sessionManager,
+            temporarySessionManager: TemporarySessionManager())
+    }()
 
     // MARK: - UIApplicationDelegate
     func application(
@@ -86,21 +89,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
         return true
     }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        self.accessService.suspendSession()
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        self.accessService.continueSuspendedSession()
+        self.appCoordinator.appDidResume()
+    }
 }
 
 // MARK: - Private
 extension AppDelegate {
-    private func createKeychain(with configuration: ServerConfiguration) -> Keychain {
-        if let host = configuration.host {
-            if host.isHTTP {
-                return Keychain(server: host, protocolType: .http)
-            } else if host.isHTTPS {
-                return Keychain(server: host, protocolType: .https)
-            }
-        }
-        guard let bundleIdentifier = Bundle.main.bundleIdentifier else {
-            return Keychain()
-        }
-        return Keychain(accessGroup: bundleIdentifier)
-    }
 }

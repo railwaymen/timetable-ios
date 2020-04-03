@@ -10,43 +10,33 @@ import Foundation
 import Restler
 
 typealias ApiClientType =
-    ApiClientNetworkingType
-    & ApiClientSessionType
+    ApiClientSessionType
     & ApiClientWorkTimesType
     & ApiClientProjectsType
     & ApiClientUsersType
     & ApiClientMatchingFullTimeType
 
-typealias ApiClientProfileType =
-    ApiClientUsersType
-    & ApiClientNetworkingType
-
-protocol ApiClientNetworkingType: class {
-    func setAuthenticationToken(_ token: String)
-    func removeAuthenticationToken()
-}
-
 class ApiClient {
-    let restler: RestlerType
+    var restler: RestlerType {
+        self._restler.header["token"] = self.accessService.getUserToken()
+        return self._restler
+    }
+    
+    private let _restler: RestlerType
+    private let accessService: AccessServiceApiClientType
     
     // MARK: - Initialization
-    init(restler: RestlerType) {
-        self.restler = restler
+    init(
+        restler: RestlerType,
+        accessService: AccessServiceApiClientType
+    ) {
+        self._restler = restler
+        self.accessService = accessService
         
-        self.restler.header[.contentType] = "application/json"
-        self.restler.errorParser.decode(ApiClientError.self)
+        self._restler.header[.contentType] = "application/json"
+        self._restler.header[.accept] = "application/json"
+        self._restler.errorParser.decode(ApiClientError.self)
         
         HTTPCookieStorage.shared.cookieAcceptPolicy = .never
-    }
-}
-
-// MARK: - ApiClientNetworkingType
-extension ApiClient: ApiClientNetworkingType {
-    func setAuthenticationToken(_ token: String) {
-        self.restler.header["token"] = token
-    }
-    
-    func removeAuthenticationToken() {
-        self.restler.header["token"] = nil
     }
 }
