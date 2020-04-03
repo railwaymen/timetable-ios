@@ -19,11 +19,15 @@ protocol LoginCoordinatorDelegate: class {
 }
 
 class AuthenticationCoordinator: NavigationCoordinator {
+    var customFinishCompletion: ((ApiClientType) -> Void)?
+    
     private let dependencyContainer: DependencyContainerType
     private var apiClient: ApiClientType?
-    private var serverConfiguration: ServerConfiguration?
     
-    var customFinishCompletion: ((ServerConfiguration, ApiClientType) -> Void)?
+    private var oldServerConfiguration: ServerConfiguration? {
+        guard let configuration = self.dependencyContainer.serverConfigurationManager.getOldConfiguration() else { return nil }
+        return configuration.shouldRememberHost ? configuration : nil
+    }
     
     // MARK: - Initialization
     init(dependencyContainer: DependencyContainerType) {
@@ -36,8 +40,8 @@ class AuthenticationCoordinator: NavigationCoordinator {
 
     // MARK: - Overridden
     override func finish() {
-        if let configuration = self.serverConfiguration, let apiClient = self.apiClient {
-            self.customFinishCompletion?(configuration, apiClient)
+        if let apiClient = self.apiClient {
+            self.customFinishCompletion?(apiClient)
         }
         super.finish()
     }
@@ -52,7 +56,6 @@ class AuthenticationCoordinator: NavigationCoordinator {
             self.runServerConfigurationFlow(animated: false)
             guard let url = self.dependencyContainer.environmentReader.getURL(forKey: .serverURL) else { return }
             let serverConfiguration = ServerConfiguration(host: url, shouldRememberHost: false)
-            self.serverConfiguration = serverConfiguration
             self.runAuthenticationFlow(
                 with: serverConfiguration,
                 animated: false)
@@ -63,24 +66,12 @@ class AuthenticationCoordinator: NavigationCoordinator {
     }
     
     // MARK: - Internal
-    func start(finishCompletion: ((ServerConfiguration, ApiClientType) -> Void)?) {
+    func start(finishCompletion: ((ApiClientType) -> Void)?) {
         super.start()
         self.customFinishCompletion = finishCompletion
-        guard let configuration = self.dependencyContainer.serverConfigurationManager.getOldConfiguration(),
-            configuration.shouldRememberHost else {
-                self.runServerConfigurationFlow()
-                return
-        }
-        self.serverConfiguration = configuration
-        if self.dependencyContainer.accessService.isSessionOpened {
-            self.apiClient = self.createApiClient(
-                with: configuration,
-                accessService: self.dependencyContainer.accessService)
-            self.finish()
-        } else {
-            self.runServerConfigurationFlow()
-            self.runAuthenticationFlow(with: configuration, animated: false)
-        }
+        self.runServerConfigurationFlow()
+        guard let configuration = self.oldServerConfiguration else { return }
+        self.runAuthenticationFlow(with: configuration, animated: false)
     }
     
 }
@@ -96,7 +87,6 @@ extension AuthenticationCoordinator {
 // MARK: - ServerConfigurationCoordinatorDelegate
 extension AuthenticationCoordinator: ServerConfigurationCoordinatorDelegate {
     func serverConfigurationDidFinish(with serverConfiguration: ServerConfiguration) {
-        self.serverConfiguration = serverConfiguration
         self.runAuthenticationFlow(with: serverConfiguration, animated: true)
     }
 }

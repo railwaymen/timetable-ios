@@ -30,34 +30,50 @@ extension AuthenticationCoordinatorTests {
     func testStart_viewControllerBuilderThrowsError_doesNotRunServerConfigurationFlow() {
         //Arrange
         let sut = self.buildSUT()
-        self.viewControllerBuilderMock.serverConfigurationThrownError = "Error message"
+        let error = "Error message"
+        self.viewControllerBuilderMock.serverConfigurationThrownError = error
         //Act
-        sut.start { (_, _) in }
+        sut.start { _ in }
         //Assert
         XCTAssertTrue(sut.navigationController.children.isEmpty)
+        XCTAssertEqual(self.dependencyContainer.errorHandlerMock.stopInDebugParams.count, 1)
+        XCTAssertEqual(self.dependencyContainer.errorHandlerMock.stopInDebugParams.last?.message, error)
     }
     
-    func testStartRunsServerConfigurationFlow() {
+    func testStart_withoutServerConfiguration_runsServerConfigurationFlow() {
         //Arrange
         let sut = self.buildSUT()
-        self.viewControllerBuilderMock.serverConfigurationReturnValue = ServerConfigurationViewControllerMock()
         //Act
-        sut.start { (_, _) in }
+        sut.start { _ in }
         //Assert
-        XCTAssertNotNil(sut.navigationController.children[0] as? ServerConfigurationViewControllerable)
+        XCTAssertEqual(sut.navigationController.children.count, 1)
+        XCTAssert(sut.navigationController.children.last is ServerConfigurationViewControllerable)
     }
 
-    func testStartRunsServerConfigurationFlowWhileServerConfigurationShouldRemeberHostIsFalse() {
+    func testStart_withNotRememberedServerConfiguration_runsServerConfigurationFlow() {
         //Arrange
         let sut = self.buildSUT()
-        self.viewControllerBuilderMock.serverConfigurationReturnValue = ServerConfigurationViewControllerMock()
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
-            host: nil,
+            host: self.exampleURL,
             shouldRememberHost: false)
         //Act
-        sut.start { (_, _) in }
+        sut.start { _ in }
         //Assert
-        XCTAssertNotNil(sut.navigationController.children[0] as? ServerConfigurationViewControllerable)
+        XCTAssertEqual(sut.navigationController.children.count, 1)
+        XCTAssert(sut.navigationController.children.last is ServerConfigurationViewControllerable)
+    }
+    
+    func testStart_withServerConfiguration_runsLoginFlow() {
+        //Arrange
+        let sut = self.buildSUT()
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
+            host: self.exampleURL,
+            shouldRememberHost: true)
+        //Act
+        sut.start { _ in }
+        //Assert
+        XCTAssertEqual(sut.navigationController.children.count, 2)
+        XCTAssert(sut.navigationController.children.last is LoginViewControllerable)
     }
 }
     

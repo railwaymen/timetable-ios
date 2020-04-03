@@ -39,7 +39,17 @@ class AppCoordinator: Coordinator {
     // MARK: - Overridden
     override func start(finishHandler: (() -> Void)?) {
         super.start(finishHandler: finishHandler)
-        self.runAuthenticationFlow()
+        if self.dependencyContainer.accessService.isSessionOpened,
+            let serverConfiguration = self.dependencyContainer.serverConfigurationManager.getOldConfiguration(),
+            let baseURL = serverConfiguration.host {
+            
+            let apiClient = self.dependencyContainer.apiClientFactory.buildAPIClient(
+                accessService: self.dependencyContainer.accessService,
+                baseURL: baseURL)
+            self.runMainFlow(apiClient: apiClient)
+        } else {
+            self.runAuthenticationFlow()
+        }
     }
     
     override func openDeepLink(option: DeepLinkOption) {
@@ -93,7 +103,7 @@ extension AppCoordinator {
     private func runAuthenticationFlow() {
         let coordinator = AuthenticationCoordinator(dependencyContainer: self.dependencyContainer)
         self.add(child: coordinator)
-        coordinator.start { [weak self, weak coordinator] (_, apiClient) in
+        coordinator.start { [weak self, weak coordinator] apiClient in
             self?.remove(child: coordinator)
             self?.runMainFlow(apiClient: apiClient)
         }
