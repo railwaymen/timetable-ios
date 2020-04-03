@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             serverConfigurationManager: self.serverConfigurationManager)
         return AccessService(
             sessionManager: sessionManager,
-            temporarySessionManager: TemporarySessionManager())
+            temporarySessionManager: TemporarySessionManager(dateFactory: DateFactory()))
     }()
 
     // MARK: - UIApplicationDelegate

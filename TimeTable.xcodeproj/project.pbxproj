@@ -184,6 +184,7 @@
 		8AD1345A2396B60B00572632 /* AttributedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD134592396B60B00572632 /* AttributedTextView.swift */; };
 		8ADBB8D124373AC1009CA6FE /* SessionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADBB8D024373AC1009CA6FE /* SessionManagerTests.swift */; };
 		8ADBB8D324373DBA009CA6FE /* KeychainBuilderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADBB8D224373DBA009CA6FE /* KeychainBuilderMock.swift */; };
+		8ADBB8D524374D21009CA6FE /* TemporarySessionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADBB8D424374D21009CA6FE /* TemporarySessionManagerTests.swift */; };
 		8AE00013237464A1002F783E /* WorkTimeCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE00012237464A1002F783E /* WorkTimeCoordinatorMock.swift */; };
 		8AE0001623746520002F783E /* ProjectPickerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE0001523746520002F783E /* ProjectPickerViewModelTests.swift */; };
 		8AE000182374654D002F783E /* ProjectPickerCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE000172374654D002F783E /* ProjectPickerCoordinatorMock.swift */; };
@@ -666,6 +667,7 @@
 		8AD134592396B60B00572632 /* AttributedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextView.swift; sourceTree = "<group>"; };
 		8ADBB8D024373AC1009CA6FE /* SessionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManagerTests.swift; sourceTree = "<group>"; };
 		8ADBB8D224373DBA009CA6FE /* KeychainBuilderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainBuilderMock.swift; sourceTree = "<group>"; };
+		8ADBB8D424374D21009CA6FE /* TemporarySessionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporarySessionManagerTests.swift; sourceTree = "<group>"; };
 		8AE00012237464A1002F783E /* WorkTimeCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCoordinatorMock.swift; sourceTree = "<group>"; };
 		8AE0001523746520002F783E /* ProjectPickerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerViewModelTests.swift; sourceTree = "<group>"; };
 		8AE000172374654D002F783E /* ProjectPickerCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCoordinatorMock.swift; sourceTree = "<group>"; };
@@ -2087,6 +2089,7 @@
 			children = (
 				C1AFFFD821A2ACC100A7A632 /* AccessServiceTests.swift */,
 				8ADBB8D024373AC1009CA6FE /* SessionManagerTests.swift */,
+				8ADBB8D424374D21009CA6FE /* TemporarySessionManagerTests.swift */,
 			);
 			path = AccessService;
 			sourceTree = "<group>";
@@ -2993,6 +2996,7 @@
 				C12CA58221A599E60082FEB7 /* WorkTimeDecoderTests.swift in Sources */,
 				8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift in Sources */,
 				8A79A2D32422460C0048B44B /* TaskHistoryViewControllerMock.swift in Sources */,
+				8ADBB8D524374D21009CA6FE /* TemporarySessionManagerTests.swift in Sources */,
 				8A137C3B23FD74E4001569BB /* Asserts.swift in Sources */,
 				C1B771F521EF2C5800EFE06F /* TaskFormTests.swift in Sources */,
 				C10FD88921F1F36300A233C5 /* ApiClientUsersTests.swift in Sources */,

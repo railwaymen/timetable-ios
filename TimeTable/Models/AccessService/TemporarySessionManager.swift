@@ -19,8 +19,13 @@ protocol TemporarySessionManagerType: class {
 class TemporarySessionManager {
     private static let maxSuspensionTimeForSession: TimeInterval = 3 * .minute
     
+    private let dateFactory: DateFactoryType
     private var session: SessionDecoder?
     private var lastSuspendDate: Date?
+    
+    init(dateFactory: DateFactoryType) {
+        self.dateFactory = dateFactory
+    }
 }
 
 // MARK: - TemporarySessionManagerType
@@ -30,7 +35,7 @@ extension TemporarySessionManager: TemporarySessionManagerType {
     }
     
     func suspendSession() {
-        self.lastSuspendDate = Date()
+        self.lastSuspendDate = self.dateFactory.currentDate
     }
     
     func continueSuspendedSession() {
@@ -56,7 +61,7 @@ extension TemporarySessionManager {
     }
     
     private func isSessionTimedOut() -> Bool {
-        let currentDate = Date()
+        let currentDate = self.dateFactory.currentDate
         let sessionSuspensionTime = currentDate.timeIntervalSince(self.lastSuspendDate ?? currentDate)
         return sessionSuspensionTime > Self.maxSuspensionTimeForSession
     }
