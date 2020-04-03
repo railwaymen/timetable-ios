@@ -9,7 +9,6 @@
 import Foundation
 
 protocol TemporarySessionManagerType: class {
-    var isSessionOpened: Bool { get }
     func open(session: SessionDecoder)
     func suspendSession()
     func continueSuspendedSession()
@@ -18,16 +17,14 @@ protocol TemporarySessionManagerType: class {
 }
 
 class TemporarySessionManager {
+    private static let maxSuspensionTimeForSession: TimeInterval = 3 * .minute
+    
     private var session: SessionDecoder?
     private var lastSuspendDate: Date?
 }
 
 // MARK: - TemporarySessionManagerType
 extension TemporarySessionManager: TemporarySessionManagerType {
-    var isSessionOpened: Bool {
-        self.session != nil && self.validateSession()
-    }
-    
     func open(session: SessionDecoder) {
         self.session = session
     }
@@ -37,8 +34,8 @@ extension TemporarySessionManager: TemporarySessionManagerType {
     }
     
     func continueSuspendedSession() {
-        guard !self.validateSession() else { return }
-        self.closeSession()
+        self.closeSessionIfTimedOut()
+        self.lastSuspendDate = nil
     }
     
     func closeSession() {
@@ -46,15 +43,21 @@ extension TemporarySessionManager: TemporarySessionManagerType {
     }
     
     func getSession() -> SessionDecoder? {
+        self.closeSessionIfTimedOut()
         return self.session
     }
 }
 
 // MARK: - Private
 extension TemporarySessionManager {
-    private func validateSession() -> Bool {
+    private func closeSessionIfTimedOut() {
+        guard self.isSessionTimedOut() else { return }
+        self.closeSession()
+    }
+    
+    private func isSessionTimedOut() -> Bool {
         let currentDate = Date()
-        let sessionSuspendTime = currentDate.timeIntervalSince(self.lastSuspendDate ?? currentDate)
-        return sessionSuspendTime < 3 * .minute
+        let sessionSuspensionTime = currentDate.timeIntervalSince(self.lastSuspendDate ?? currentDate)
+        return sessionSuspensionTime > Self.maxSuspensionTimeForSession
     }
 }

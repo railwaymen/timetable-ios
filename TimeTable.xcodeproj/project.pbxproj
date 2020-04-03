@@ -420,7 +420,7 @@
 		C1E1F05421AD5FD2007F9228 /* WorkTimesTableViewHeaderViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E1F05321AD5FD2007F9228 /* WorkTimesTableViewHeaderViewModelTests.swift */; };
 		C1E6B34C219EF08200019DC2 /* AccessService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E6B34B219EF08200019DC2 /* AccessService.swift */; };
 		C1E6B34E219EF30600019DC2 /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E6B34D219EF30600019DC2 /* URL+Extension.swift */; };
-		C1E6B350219EF52000019DC2 /* KeyChainType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E6B34F219EF52000019DC2 /* KeyChainType.swift */; };
+		C1E6B350219EF52000019DC2 /* Keychain+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E6B34F219EF52000019DC2 /* Keychain+Extension.swift */; };
 		C1E6B352219F014600019DC2 /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E6B351219F014600019DC2 /* Bundle+Extension.swift */; };
 		C1ECF09D2192BB51006038C6 /* RequestEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ECF09C2192BB51006038C6 /* RequestEncoder.swift */; };
 		C1ECF09F2192C1AB006038C6 /* JSONDecoder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ECF09E2192C1AB006038C6 /* JSONDecoder+Extension.swift */; };
@@ -908,7 +908,7 @@
 		C1E1F05321AD5FD2007F9228 /* WorkTimesTableViewHeaderViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesTableViewHeaderViewModelTests.swift; sourceTree = "<group>"; };
 		C1E6B34B219EF08200019DC2 /* AccessService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessService.swift; sourceTree = "<group>"; };
 		C1E6B34D219EF30600019DC2 /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
-		C1E6B34F219EF52000019DC2 /* KeyChainType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainType.swift; sourceTree = "<group>"; };
+		C1E6B34F219EF52000019DC2 /* Keychain+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keychain+Extension.swift"; sourceTree = "<group>"; };
 		C1E6B351219F014600019DC2 /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
 		C1ECF09C2192BB51006038C6 /* RequestEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestEncoder.swift; sourceTree = "<group>"; };
 		C1ECF09E2192C1AB006038C6 /* JSONDecoder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Extension.swift"; sourceTree = "<group>"; };
@@ -1861,6 +1861,7 @@
 				8A09DCB923673E74003FC2A6 /* DispatchQueue+Extension.swift */,
 				C1ECF09E2192C1AB006038C6 /* JSONDecoder+Extension.swift */,
 				C1ECF0A12192C337006038C6 /* JSONEncoder+Extension.swift */,
+				C1E6B34F219EF52000019DC2 /* Keychain+Extension.swift */,
 				C153AC6521831499007A35BB /* NotificationCenter+Extenison.swift */,
 				C1E1F04321AD2952007F9228 /* NSObject+Extension.swift */,
 				C1EF3A04219303A7000E3511 /* NSRegularExpression+Extension.swift */,
@@ -2287,10 +2288,9 @@
 			isa = PBXGroup;
 			children = (
 				C1E6B34B219EF08200019DC2 /* AccessService.swift */,
-				C1E6B34F219EF52000019DC2 /* KeyChainType.swift */,
+				8A21A051243614D900EE4A79 /* KeychainBuilder.swift */,
 				8A21A04D2436134000EE4A79 /* SessionManager.swift */,
 				8A21A04F2436136B00EE4A79 /* TemporarySessionManager.swift */,
-				8A21A051243614D900EE4A79 /* KeychainBuilder.swift */,
 			);
 			path = AccessService;
 			sourceTree = "<group>";
@@ -2832,7 +2832,7 @@
 				8A21A0502436136B00EE4A79 /* TemporarySessionManager.swift in Sources */,
 				C1B8FA41218C91F3009D10B4 /* LoginCredentials.swift in Sources */,
 				C1F926E6218838B80004A9BC /* LoginViewModel.swift in Sources */,
-				C1E6B350219EF52000019DC2 /* KeyChainType.swift in Sources */,
+				C1E6B350219EF52000019DC2 /* Keychain+Extension.swift in Sources */,
 				8A09DCBA23673E74003FC2A6 /* DispatchQueue+Extension.swift in Sources */,
 				8A21A052243614D900EE4A79 /* KeychainBuilder.swift in Sources */,
 				C134295E21A6934C00F4EA42 /* ApiClient+Session.swift in Sources */,

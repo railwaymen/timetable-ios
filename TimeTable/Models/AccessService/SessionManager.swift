@@ -9,7 +9,6 @@
 import Foundation
 
 protocol SessionManagerType: class {
-    var isSessionOpened: Bool { get }
     func open(session: SessionDecoder)
     func closeSession()
     func getSession() -> SessionDecoder?
@@ -25,6 +24,10 @@ class SessionManager {
     private var keychainAccess: KeychainAccessType {
         let url = self.serverConfigurationManager.getOldConfiguration()?.host
         return self.keychainBuilder.build(forURL: url)
+    }
+    
+    private var isSessionOpened: Bool {
+        self.getSession() != nil
     }
     
     init(
@@ -55,10 +58,6 @@ extension SessionManager {
 
 // MARK: - SessionManagerType
 extension SessionManager: SessionManagerType {
-    var isSessionOpened: Bool {
-        self.getSession() != nil
-    }
-    
     func open(session: SessionDecoder) {
         do {
             let data = try self.encoder.encode(session)
@@ -78,12 +77,7 @@ extension SessionManager: SessionManagerType {
     }
     
     func getSession() -> SessionDecoder? {
-        do {
-            guard let data = try self.keychainAccess.getData(Key.userSession) else { return nil }
-            return try self.decoder.decode(SessionDecoder.self, from: data)
-        } catch {
-            self.errorHandler.stopInDebug("\(error)")
-            return nil
-        }
+        guard let data = try? self.keychainAccess.getData(Key.userSession) else { return nil }
+        return try? self.decoder.decode(SessionDecoder.self, from: data)
     }
 }

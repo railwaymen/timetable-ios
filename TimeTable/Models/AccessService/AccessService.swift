@@ -56,8 +56,7 @@ extension AccessService: AccessServiceUserIDType {
 // MARK: - AccessServiceSessionType
 extension AccessService: AccessServiceSessionType {
     var isSessionOpened: Bool {
-        self.sessionManager.isSessionOpened
-            || self.temporarySessionManager.isSessionOpened
+        (self.sessionManager.getSession() ?? self.temporarySessionManager.getSession()) != nil
     }
     
     func getSession() -> SessionDecoder? {

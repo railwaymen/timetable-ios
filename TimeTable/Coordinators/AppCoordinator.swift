@@ -68,13 +68,11 @@ class AppCoordinator: Coordinator {
     // MARK: - Internal
     func appDidResume() {
         if self.dependencyContainer.accessService.isSessionOpened {
-            if !self.children.contains(where: { $0 is TabBarCoordinator }) {
-                self.children.forEach { $0.finish() }
-            }
+            guard !self.children.contains(where: { $0 is TabBarCoordinator }) else { return }
+            self.children.forEach { $0.finish() }
         } else {
-            if !self.children.contains(where: { $0 is AuthenticationCoordinator }) {
-                self.children.forEach { $0.finish() }
-            }
+            guard !self.children.contains(where: { $0 is AuthenticationCoordinator }) else { return }
+            self.children.forEach { $0.finish() }
         }
     }
 }
