@@ -89,12 +89,14 @@ extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
         }
         let configuration = ServerConfiguration(host: hostURL, shouldRememberHost: self.shouldRememberHost)
         self.userInterface?.setActivityIndicator(isHidden: false)
+        self.userInterface?.continueButtonEnabledState(false)
         self.serverConfigurationManager.verify(configuration: configuration) { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .success:
                 self?.coordinator.serverConfigurationDidFinish(with: configuration)
-            case .failure(let error):
+            case let .failure(error):
+                self?.userInterface?.continueButtonEnabledState(true)
                 self?.errorHandler.throwing(error: error)
             }
         }
