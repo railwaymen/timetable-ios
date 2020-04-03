@@ -185,6 +185,8 @@
 		8ADBB8D124373AC1009CA6FE /* SessionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADBB8D024373AC1009CA6FE /* SessionManagerTests.swift */; };
 		8ADBB8D324373DBA009CA6FE /* KeychainBuilderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADBB8D224373DBA009CA6FE /* KeychainBuilderMock.swift */; };
 		8ADBB8D524374D21009CA6FE /* TemporarySessionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADBB8D424374D21009CA6FE /* TemporarySessionManagerTests.swift */; };
+		8ADBB8D7243753B2009CA6FE /* TemporarySessionManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADBB8D6243753B2009CA6FE /* TemporarySessionManagerMock.swift */; };
+		8ADBB8D9243753D3009CA6FE /* SessionManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADBB8D8243753D3009CA6FE /* SessionManagerMock.swift */; };
 		8AE00013237464A1002F783E /* WorkTimeCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE00012237464A1002F783E /* WorkTimeCoordinatorMock.swift */; };
 		8AE0001623746520002F783E /* ProjectPickerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE0001523746520002F783E /* ProjectPickerViewModelTests.swift */; };
 		8AE000182374654D002F783E /* ProjectPickerCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE000172374654D002F783E /* ProjectPickerCoordinatorMock.swift */; };
@@ -668,6 +670,8 @@
 		8ADBB8D024373AC1009CA6FE /* SessionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManagerTests.swift; sourceTree = "<group>"; };
 		8ADBB8D224373DBA009CA6FE /* KeychainBuilderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainBuilderMock.swift; sourceTree = "<group>"; };
 		8ADBB8D424374D21009CA6FE /* TemporarySessionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporarySessionManagerTests.swift; sourceTree = "<group>"; };
+		8ADBB8D6243753B2009CA6FE /* TemporarySessionManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporarySessionManagerMock.swift; sourceTree = "<group>"; };
+		8ADBB8D8243753D3009CA6FE /* SessionManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManagerMock.swift; sourceTree = "<group>"; };
 		8AE00012237464A1002F783E /* WorkTimeCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCoordinatorMock.swift; sourceTree = "<group>"; };
 		8AE0001523746520002F783E /* ProjectPickerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerViewModelTests.swift; sourceTree = "<group>"; };
 		8AE000172374654D002F783E /* ProjectPickerCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCoordinatorMock.swift; sourceTree = "<group>"; };
@@ -1127,9 +1131,11 @@
 				C175B56D227CAB01006D9944 /* MessagePresenterMock.swift */,
 				C134296E21A6BCCD00F4EA42 /* RequestEncoderMock.swift */,
 				C134299221A6D73500F4EA42 /* ServerConfigurationManagerMock.swift */,
+				8ADBB8D8243753D3009CA6FE /* SessionManagerMock.swift */,
 				C134298621A6C80B00F4EA42 /* StoryboardsManagerMock.swift */,
 				8AFFE5CF24336333001D9E89 /* TaskFormFactoryMock.swift */,
 				8AE55D1E23FD86A200F94242 /* TaskFormMock.swift */,
+				8ADBB8D6243753B2009CA6FE /* TemporarySessionManagerMock.swift */,
 				8A21A0412435BF2200EE4A79 /* ViewControllerBuilderMock.swift */,
 				8A31BFB324177B31004A1CE8 /* Restler */,
 			);
@@ -3036,6 +3042,7 @@
 				8AE55D2323FD933700F94242 /* DateFactoryMock.swift in Sources */,
 				8A5D48C22369E1E20082C13D /* DispatchGroupMock.swift in Sources */,
 				C12BD9BB21E4B7B200A6EAF0 /* ApiClientProjectsTests.swift in Sources */,
+				8ADBB8D9243753D3009CA6FE /* SessionManagerMock.swift in Sources */,
 				8A79A2932420F58A0048B44B /* TaskVersionTests.swift in Sources */,
 				8AE55D1B23FD7AAB00F94242 /* TaskFactory.swift in Sources */,
 				C17EA3B82189E04400A3F0CD /* ServerConfigurationManagerTests.swift in Sources */,
@@ -3068,6 +3075,7 @@
 				C1249C852181B567005DB2A5 /* ErrorHandlerTests.swift in Sources */,
 				C10FD88E21F1FB6200A233C5 /* ProfileViewControllerMock.swift in Sources */,
 				C12260172188927A007D64A3 /* AuthenticationCoordinatorTests.swift in Sources */,
+				8ADBB8D7243753B2009CA6FE /* TemporarySessionManagerMock.swift in Sources */,
 				C134296021A6937E00F4EA42 /* ApiClientSessionTests.swift in Sources */,
 				C153AC622182FCB7007A35BB /* UILabelExtensionTests.swift in Sources */,
 				C12CA56F21A58BE70082FEB7 /* SimpleProjectRecordDecoderTests.swift in Sources */,
