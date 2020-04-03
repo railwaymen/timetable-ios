@@ -26,39 +26,55 @@ class AppCoordinatorTests: XCTestCase {
 
 // MARK: - start(finishHandler:)
 extension AppCoordinatorTests {
-    func testStart_containsChildControllers() throws {
+    func testStart_withoutOpenSession_runsAuthenticationCoordinator() throws {
         //Arrange
         let sut = self.buildSUT()
-        self.dependencyContainer.accessServiceMock.getSessionReturnValue = try self.buildSessionDecoder()
+        self.dependencyContainer.accessServiceMock.isSessionOpenedReturnValue = false
         //Act
         sut.start()
         //Assert
-        let rootViewController = try XCTUnwrap(sut.window?.rootViewController as? UINavigationController)
-        XCTAssertEqual(rootViewController.children.count, 1)
+        XCTAssertEqual(sut.children.count, 1)
+        XCTAssert(sut.children.last is AuthenticationCoordinator)
     }
     
-    func testStart_containsAuthenticationConfigurationCoordinator() throws {
+    func testStart_withOpenSession_withoutServerConfiguration_runsAuthenticationCoordinator() throws {
         //Arrange
         let sut = self.buildSUT()
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = nil
-        self.dependencyContainer.accessServiceMock.getSessionReturnValue = try self.buildSessionDecoder()
+        self.dependencyContainer.accessServiceMock.isSessionOpenedReturnValue = true
         //Act
         sut.start()
         //Assert
-        XCTAssertNotNil(sut.children.first as? AuthenticationCoordinator)
+        XCTAssertEqual(sut.children.count, 1)
+        XCTAssert(sut.children.last is AuthenticationCoordinator)
     }
     
-    func testStart_withServerConfiguration_configurationShouldNotRemeberHost() throws {
+    func testStart_withOpenSession_withEmptyServerConfiguration_runsAuthenticationCoordinator() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
+            host: nil,
+            shouldRememberHost: true)
+        self.dependencyContainer.accessServiceMock.isSessionOpenedReturnValue = true
+        //Act
+        sut.start()
+        //Assert
+        XCTAssertEqual(sut.children.count, 1)
+        XCTAssert(sut.children.last is AuthenticationCoordinator)
+    }
+    
+    func testStart_withOpenSession_withServerConfiguration_runsMainFlow() throws {
         //Arrange
         let sut = self.buildSUT()
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
             host: self.exampleURL,
-            shouldRememberHost: false)
-        self.dependencyContainer.accessServiceMock.getSessionReturnValue = try self.buildSessionDecoder()
+            shouldRememberHost: true)
+        self.dependencyContainer.accessServiceMock.isSessionOpenedReturnValue = true
         //Act
         sut.start()
         //Assert
-        XCTAssertNotNil(sut.children.first as? AuthenticationCoordinator)
+        XCTAssertEqual(sut.children.count, 1)
+        XCTAssert(sut.children.last is TimeTableTabCoordinator)
     }
 }
 

@@ -408,7 +408,6 @@
 		C1B8FA4D218C9A04009D10B4 /* JSONFileResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8FA4C218C9A04009D10B4 /* JSONFileResource.swift */; };
 		C1B8FA51218C9A86009D10B4 /* signInRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B8FA50218C9A86009D10B4 /* signInRequest.json */; };
 		C1C4BA912189AE0900683F71 /* ApiValidationErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C4BA902189AE0900683F71 /* ApiValidationErrors.swift */; };
-		C1C4BA932189AF3300683F71 /* HTTPMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C4BA922189AF3300683F71 /* HTTPMethods.swift */; };
 		C1CE041521F5E01200E80517 /* AttributedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CE041421F5E01200E80517 /* AttributedTextField.swift */; };
 		C1E1F04221AD2372007F9228 /* WorkTimesTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1E1F04121AD2372007F9228 /* WorkTimesTableViewHeader.xib */; };
 		C1E1F04421AD2952007F9228 /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E1F04321AD2952007F9228 /* NSObject+Extension.swift */; };
@@ -896,7 +895,6 @@
 		C1B8FA4C218C9A04009D10B4 /* JSONFileResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONFileResource.swift; sourceTree = "<group>"; };
 		C1B8FA50218C9A86009D10B4 /* signInRequest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInRequest.json; sourceTree = "<group>"; };
 		C1C4BA902189AE0900683F71 /* ApiValidationErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiValidationErrors.swift; sourceTree = "<group>"; };
-		C1C4BA922189AF3300683F71 /* HTTPMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethods.swift; sourceTree = "<group>"; };
 		C1CE041421F5E01200E80517 /* AttributedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextField.swift; sourceTree = "<group>"; };
 		C1E1F04121AD2372007F9228 /* WorkTimesTableViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkTimesTableViewHeader.xib; sourceTree = "<group>"; };
 		C1E1F04321AD2952007F9228 /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
@@ -1462,7 +1460,6 @@
 		C122601D21899F0D007D64A3 /* ServerConfiguration */ = {
 			isa = PBXGroup;
 			children = (
-				C1C4BA922189AF3300683F71 /* HTTPMethods.swift */,
 				C125C4DA21871C7A00FBA0DD /* ServerConfiguration.swift */,
 				C122601B21899B84007D64A3 /* ServerConfigurationManager.swift */,
 			);
@@ -2928,7 +2925,6 @@
 				C1E6B34C219EF08200019DC2 /* AccessService.swift in Sources */,
 				8AE55D1D23FD855E00F94242 /* Task.swift in Sources */,
 				C1531F042191C58000602A0C /* Endpoint.swift in Sources */,
-				C1C4BA932189AF3300683F71 /* HTTPMethods.swift in Sources */,
 				C153AC6921832073007A35BB /* AttributedView.swift in Sources */,
 				C11B3F3621F7258C00C46BA2 /* DateSelectorView.swift in Sources */,
 				C153AC6421830AFE007A35BB /* ServerConfigurationViewModel.swift in Sources */,
