@@ -182,6 +182,8 @@
 		8AC097242371CCFF00103FAD /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */; };
 		8ACEF07F242C8BBB00F4E39D /* LoginUIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACEF07E242C8BBB00F4E39D /* LoginUIElements.swift */; };
 		8AD1345A2396B60B00572632 /* AttributedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD134592396B60B00572632 /* AttributedTextView.swift */; };
+		8ADBB8D124373AC1009CA6FE /* SessionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADBB8D024373AC1009CA6FE /* SessionManagerTests.swift */; };
+		8ADBB8D324373DBA009CA6FE /* KeychainBuilderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADBB8D224373DBA009CA6FE /* KeychainBuilderMock.swift */; };
 		8AE00013237464A1002F783E /* WorkTimeCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE00012237464A1002F783E /* WorkTimeCoordinatorMock.swift */; };
 		8AE0001623746520002F783E /* ProjectPickerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE0001523746520002F783E /* ProjectPickerViewModelTests.swift */; };
 		8AE000182374654D002F783E /* ProjectPickerCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE000172374654D002F783E /* ProjectPickerCoordinatorMock.swift */; };
@@ -662,6 +664,8 @@
 		8AC097292371D28100103FAD /* Stage.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Stage.xcconfig; sourceTree = "<group>"; };
 		8ACEF07E242C8BBB00F4E39D /* LoginUIElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUIElements.swift; sourceTree = "<group>"; };
 		8AD134592396B60B00572632 /* AttributedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextView.swift; sourceTree = "<group>"; };
+		8ADBB8D024373AC1009CA6FE /* SessionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManagerTests.swift; sourceTree = "<group>"; };
+		8ADBB8D224373DBA009CA6FE /* KeychainBuilderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainBuilderMock.swift; sourceTree = "<group>"; };
 		8AE00012237464A1002F783E /* WorkTimeCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCoordinatorMock.swift; sourceTree = "<group>"; };
 		8AE0001523746520002F783E /* ProjectPickerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerViewModelTests.swift; sourceTree = "<group>"; };
 		8AE000172374654D002F783E /* ProjectPickerCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerCoordinatorMock.swift; sourceTree = "<group>"; };
@@ -1117,6 +1121,7 @@
 				C134298421A6C79600F4EA42 /* ErrorHandlerMock.swift */,
 				C134297221A6BE3800F4EA42 /* JSONSerializationMock.swift */,
 				C134297A21A6C27700F4EA42 /* KeychainAccessMock.swift */,
+				8ADBB8D224373DBA009CA6FE /* KeychainBuilderMock.swift */,
 				C175B56D227CAB01006D9944 /* MessagePresenterMock.swift */,
 				C134296E21A6BCCD00F4EA42 /* RequestEncoderMock.swift */,
 				C134299221A6D73500F4EA42 /* ServerConfigurationManagerMock.swift */,
@@ -2081,6 +2086,7 @@
 			isa = PBXGroup;
 			children = (
 				C1AFFFD821A2ACC100A7A632 /* AccessServiceTests.swift */,
+				8ADBB8D024373AC1009CA6FE /* SessionManagerTests.swift */,
 			);
 			path = AccessService;
 			sourceTree = "<group>";
@@ -3015,6 +3021,7 @@
 				C178B78D21EF8AE1001DA07F /* WorkTimeViewControllerMock.swift in Sources */,
 				C19D88A52202FE54007CC867 /* WorkTimesListContentProviderMock.swift in Sources */,
 				C134297B21A6C27700F4EA42 /* KeychainAccessMock.swift in Sources */,
+				8ADBB8D124373AC1009CA6FE /* SessionManagerTests.swift in Sources */,
 				C13B2D41240E864C00FA4441 /* EndpointTests.swift in Sources */,
 				8A065B5D237ABDBB0072A21E /* UserJSONResource.swift in Sources */,
 				C13C2B0621EDE589008C9088 /* WorkTimesListCoordinatorMock.swift in Sources */,
@@ -3047,6 +3054,7 @@
 				C19706E221C132C9007AFED4 /* WorkTimeTableViewCellModelTests.swift in Sources */,
 				C1FA05E4219440C700BD8C9D /* LoginContentProviderTests.swift in Sources */,
 				8A79A2D524224A040048B44B /* TaskHistoryCoordinatorMock.swift in Sources */,
+				8ADBB8D324373DBA009CA6FE /* KeychainBuilderMock.swift in Sources */,
 				8A79A2CB2422105F0048B44B /* DateFormatterMock.swift in Sources */,
 				C19706E421C13908007AFED4 /* CalendarExtensionTests.swift in Sources */,
 				C134298521A6C79600F4EA42 /* ErrorHandlerMock.swift in Sources */,
