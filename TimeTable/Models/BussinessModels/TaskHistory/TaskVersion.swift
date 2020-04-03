@@ -8,7 +8,21 @@
 
 import Foundation
 
-struct TaskVersion: Decodable {
+protocol TaskVersionFieldsProtocol {
+    var event: TaskVersion.Event? { get }
+    var updatedBy: String { get }
+    var updatedAt: Date { get }
+    var projectName: NilableDiffElement<String> { get }
+    var body: NilableDiffElement<String> { get }
+    var startsAt: NilableDiffElement<Date> { get }
+    var endsAt: NilableDiffElement<Date> { get }
+    var tag: NilableDiffElement<ProjectTag> { get }
+    var duration: NilableDiffElement<Int64> { get }
+    var task: NilableDiffElement<String> { get }
+    var taskPreview: NilableDiffElement<String> { get }
+}
+
+struct TaskVersion: Decodable, TaskVersionFieldsProtocol {
     let event: Event?
     let updatedBy: String
     let updatedAt: Date
