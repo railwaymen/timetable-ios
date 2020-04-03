@@ -8,7 +8,24 @@
 
 import Foundation
 
-struct WorkTimeDecoder: Decodable {
+protocol WorkTimeDecoderFieldsProtocol {
+    var identifier: Int64 { get }
+    var updatedByAdmin: Bool { get }
+    var projectId: Int { get }
+    var startsAt: Date { get }
+    var endsAt: Date { get }
+    var duration: Int64 { get }
+    var body: String? { get }
+    var task: String? { get }
+    var taskPreview: String? { get }
+    var userId: Int { get }
+    var project: SimpleProjectRecordDecoder { get }
+    var date: Date { get }
+    var tag: ProjectTag { get }
+    var versions: [TaskVersion] { get }
+}
+
+struct WorkTimeDecoder: Decodable, WorkTimeDecoderFieldsProtocol {
     let identifier: Int64
     let updatedByAdmin: Bool
     let projectId: Int

@@ -18,6 +18,8 @@
 		8A065B5D237ABDBB0072A21E /* UserJSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A065B5C237ABDBB0072A21E /* UserJSONResource.swift */; };
 		8A0707FA236998580019FB8E /* DependencyContainerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0707F9236998580019FB8E /* DependencyContainerMock.swift */; };
 		8A0707FC23699BE50019FB8E /* NotificationCenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0707FB23699BE50019FB8E /* NotificationCenterMock.swift */; };
+		8A08B50324371DF6007E8DCF /* WorkTimeDisplayedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A08B50224371DF6007E8DCF /* WorkTimeDisplayedTests.swift */; };
+		8A08B50524372EB1007E8DCF /* TaskVersionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A08B50424372EB1007E8DCF /* TaskVersionFactory.swift */; };
 		8A09DCB823673E58003FC2A6 /* DispatchQueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A09DCB723673E58003FC2A6 /* DispatchQueueManager.swift */; };
 		8A09DCBA23673E74003FC2A6 /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A09DCB923673E74003FC2A6 /* DispatchQueue+Extension.swift */; };
 		8A09DCBC23673EED003FC2A6 /* DispatchQueueManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A09DCBB23673EED003FC2A6 /* DispatchQueueManagerMock.swift */; };
@@ -491,6 +493,8 @@
 		8A065B5C237ABDBB0072A21E /* UserJSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserJSONResource.swift; sourceTree = "<group>"; };
 		8A0707F9236998580019FB8E /* DependencyContainerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainerMock.swift; sourceTree = "<group>"; };
 		8A0707FB23699BE50019FB8E /* NotificationCenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterMock.swift; sourceTree = "<group>"; };
+		8A08B50224371DF6007E8DCF /* WorkTimeDisplayedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeDisplayedTests.swift; sourceTree = "<group>"; };
+		8A08B50424372EB1007E8DCF /* TaskVersionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskVersionFactory.swift; sourceTree = "<group>"; };
 		8A09DCB723673E58003FC2A6 /* DispatchQueueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueManager.swift; sourceTree = "<group>"; };
 		8A09DCB923673E74003FC2A6 /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
 		8A09DCBB23673EED003FC2A6 /* DispatchQueueManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueManagerMock.swift; sourceTree = "<group>"; };
@@ -1396,11 +1400,12 @@
 		8AF5696B23D71BE700A1D001 /* Factories */ = {
 			isa = PBXGroup;
 			children = (
-				8AF5696C23D71C0900A1D001 /* SimpleProjectRecordDecoderFactory.swift */,
 				8AF5697023D7222800A1D001 /* ProjectRecordDecoderFactory.swift */,
 				8AF5697C23D759AE00A1D001 /* ServerErrorFactory.swift */,
 				8AF5697623D751F400A1D001 /* SessionDecoderFactory.swift */,
+				8AF5696C23D71C0900A1D001 /* SimpleProjectRecordDecoderFactory.swift */,
 				8AE55D1A23FD7AAB00F94242 /* TaskFactory.swift */,
+				8A08B50424372EB1007E8DCF /* TaskVersionFactory.swift */,
 				8AF5697823D754D600A1D001 /* UserDecoderFactory.swift */,
 				8AF5697A23D756CA00A1D001 /* WorkTimeDecoderFactory.swift */,
 			);
@@ -1570,15 +1575,15 @@
 				C175B56B227CAACA006D9944 /* MessagePresenter.swift */,
 				8A5EF31B23FE808800AE4309 /* ReusableCellType.swift */,
 				C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */,
-				8A9FB4092434CABF00805F4E /* ViewControllerBuilder.swift */,
 				8AE55D1C23FD855E00F94242 /* Task.swift */,
 				C152C22121E89CB8003ABD88 /* TaskForm.swift */,
+				8AFFE5D12433635B001D9E89 /* TaskFormFactory.swift */,
+				8A9FB4092434CABF00805F4E /* ViewControllerBuilder.swift */,
 				C1E6B34A219EF02100019DC2 /* AccessService */,
 				C1531F022191C52200602A0C /* ApiClient */,
 				C12CA57821A58FA70082FEB7 /* BussinessModels */,
 				C1249C7D2181B4CF005DB2A5 /* Errors */,
 				C122601D21899F0D007D64A3 /* ServerConfiguration */,
-				8AFFE5D12433635B001D9E89 /* TaskFormFactory.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1708,8 +1713,8 @@
 			isa = PBXGroup;
 			children = (
 				C12CA57A21A5900B0082FEB7 /* WorkTimeDecoder.swift */,
-				C134296821A6964B00F4EA42 /* WorkTimesParameters.swift */,
 				8A79A2C424210AAC0048B44B /* WorkTimeDisplayed.swift */,
+				C134296821A6964B00F4EA42 /* WorkTimesParameters.swift */,
 			);
 			path = WorkTimes;
 			sourceTree = "<group>";
@@ -1762,6 +1767,7 @@
 			isa = PBXGroup;
 			children = (
 				C12CA58121A599E60082FEB7 /* WorkTimeDecoderTests.swift */,
+				8A08B50224371DF6007E8DCF /* WorkTimeDisplayedTests.swift */,
 				C134296A21A6ABF200F4EA42 /* WorkTimesParametersTests.swift */,
 			);
 			path = WorkTimes;
@@ -3001,6 +3007,7 @@
 				C17EA3BC2189EC1700A3F0CD /* URLSessionExtensionTests.swift in Sources */,
 				C11D0CFB220820F200066CA9 /* MatchingFullTimeDecoderTests.swift in Sources */,
 				C153AC6F218342F6007A35BB /* UIErrorTests.swift in Sources */,
+				8A08B50524372EB1007E8DCF /* TaskVersionFactory.swift in Sources */,
 				C134297521A6BE6F00F4EA42 /* AccessServiceMock.swift in Sources */,
 				C134296B21A6ABF200F4EA42 /* WorkTimesParametersTests.swift in Sources */,
 				C1ECF0A82192C427006038C6 /* CustomJSONSerializationTests.swift in Sources */,
@@ -3027,6 +3034,7 @@
 				C1E1F04D21AD3EB8007F9228 /* CalendarMock.swift in Sources */,
 				C1FA05E921945DA400BD8C9D /* XCTestCase+Extension.swift in Sources */,
 				C134296321A693F400F4EA42 /* TestError.swift in Sources */,
+				8A08B50324371DF6007E8DCF /* WorkTimeDisplayedTests.swift in Sources */,
 				C153AC602182FC4B007A35BB /* UITextFieldExtensionTests.swift in Sources */,
 				8A5D48C42369E20E0082C13D /* DispatchGroupFactoryMock.swift in Sources */,
 				C17EA3BA2189E9BA00A3F0CD /* ApiClientErrorTests.swift in Sources */,
