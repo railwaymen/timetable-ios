@@ -61,20 +61,24 @@ struct TaskForm: TaskFormType {
         return .standard
     }
     
+    private var requiresBodyOrTaskURL: Bool {
+        guard let project = self.project else { return true }
+        guard let countDuration = project.countDuration else { return !project.isLunch }
+        return !project.isLunch && countDuration
+    }
+    
     // MARK: - Internal
     func generateEncodableRepresentation() throws -> Task {
-        guard let project = self.project else { throw ValidationError.projectIsNil }
-        if !project.isLunch && project.countDuration ?? true {
-            if self.allowsTask {
-                guard !self.body.isEmpty || self.url != nil else { throw ValidationError.bodyIsEmpty }
-            } else {
-                guard !self.body.isEmpty else { throw ValidationError.bodyIsEmpty }
-            }
+        let validationErrors = self.validationErrors()
+        if let firstValidationError = validationErrors.first {
+            throw firstValidationError
         }
-        guard let day = self.day else { throw ValidationError.dayIsNil }
-        guard let startsAt = self.startsAt else { throw ValidationError.startsAtIsNil }
-        guard let endsAt = self.endsAt else { throw ValidationError.endsAtIsNil }
-        guard startsAt < endsAt else { throw ValidationError.timeRangeIsIncorrect }
+        guard let project = self.project,
+            let day = self.day,
+            let startsAt = self.startsAt,
+            let endsAt = self.endsAt else {
+                throw ValidationError.internalError
+        }
         return Task(
             project: project,
             body: self.body,
@@ -83,11 +87,30 @@ struct TaskForm: TaskFormType {
             endsAt: try self.combine(day: day, time: endsAt),
             tag: self.tag)
     }
+    
+    func validationErrors() -> [ValidationError] {
+        var errors: [ValidationError] = self.projectDependentValidationErrors()
+        if self.day == nil {
+            errors.append(.dayIsNil)
+        }
+        if self.startsAt == nil {
+            errors.append(.startsAtIsNil)
+        }
+        if self.endsAt == nil {
+            errors.append(.endsAtIsNil)
+        }
+        if let startsAt = self.startsAt,
+            let endsAt = self.endsAt,
+            startsAt >= endsAt {
+            errors.append(.timeRangeIsIncorrect)
+        }
+        return errors
+    }
 }
 
 // MARK: - Structures
 extension TaskForm {
-    enum ValidationError: Error {
+    enum ValidationError: Error, Equatable {
         case bodyIsEmpty
         case dayIsNil
         case endsAtIsNil
@@ -98,7 +121,7 @@ extension TaskForm {
         case urlIsNil
     }
     
-    enum ProjectType {
+    enum ProjectType: Equatable {
         case standard
         case lunch(TimeInterval)
         case fullDay(TimeInterval)
@@ -124,6 +147,31 @@ extension TaskForm {
         components.second = 0
         guard let date = calendar.date(from: components) else { throw ValidationError.internalError }
         return date
+    }
+    
+    private func projectDependentValidationErrors() -> [ValidationError] {
+        var errors: [ValidationError] = []
+        if self.project == nil {
+            errors.append(.projectIsNil)
+        }
+        guard self.requiresBodyOrTaskURL else { return errors }
+        if let project = self.project {
+            if project.workTimesAllowsTask {
+                if self.body.isEmpty && self.url == nil {
+                    errors.append(contentsOf: [.bodyIsEmpty, .urlIsNil])
+                }
+            } else if self.body.isEmpty {
+                errors.append(.bodyIsEmpty)
+            }
+        } else {
+            if self.body.isEmpty {
+                errors.append(.bodyIsEmpty)
+            }
+            if self.url == nil {
+                errors.append(.urlIsNil)
+            }
+        }
+        return errors
     }
     
     private struct AutofillHours {
