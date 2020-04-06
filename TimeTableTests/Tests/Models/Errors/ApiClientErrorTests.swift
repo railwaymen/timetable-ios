@@ -14,6 +14,128 @@ class ApiClientErrorTests: XCTestCase {
     private let serverErrorFactory = ServerErrorFactory()
 }
 
+// MARK: - RestlerErrorDecodable
+extension ApiClientErrorTests {
+    func testRestlerErrorDecoding_validationErrorInData() throws {
+        //Arrange
+        let data = try self.json(from: ApiValidationJSONResource.baseErrorKeyResponse)
+        let validationErrors = try self.decoder.decode(ApiValidationErrors.self, from: data)
+        let response = Restler.Response(data: data, response: nil, error: nil)
+        //Act
+        let sut = ApiClientError(response: response)
+        //Assert
+        XCTAssertEqual(sut?.type, .validationErrors(validationErrors))
+    }
+    
+    func testRestlerErrorDecoding_serverErrorInData() throws {
+        //Arrange
+        let data = try self.json(from: ServerErrorJSONResource.serverErrorFullModel)
+        let serverError = try self.decoder.decode(ServerError.self, from: data)
+        let response = Restler.Response(data: data, response: nil, error: nil)
+        //Act
+        let sut = ApiClientError(response: response)
+        //Assert
+        XCTAssertEqual(sut?.type, .serverError(serverError))
+    }
+    
+    func testRestlerErrorDecoding_responseCode401() throws {
+        //Arrange
+        let statusCode = 401
+        let httpResponse = HTTPURLResponse(url: self.exampleURL, statusCode: statusCode, httpVersion: nil, headerFields: [:])
+        let response = Restler.Response(data: nil, response: httpResponse, error: nil)
+        //Act
+        let sut = ApiClientError(response: response)
+        //Assert
+        XCTAssertEqual(sut?.type, .unauthorized)
+    }
+    
+    func testRestlerErrorDecoding_responseCode422() throws {
+        //Arrange
+        let statusCode = 422
+        let httpResponse = HTTPURLResponse(url: self.exampleURL, statusCode: statusCode, httpVersion: nil, headerFields: [:])
+        let response = Restler.Response(data: nil, response: httpResponse, error: nil)
+        //Act
+        let sut = ApiClientError(response: response)
+        //Assert
+        XCTAssertEqual(sut?.type, .validationErrors(nil))
+    }
+    
+    func testRestlerErrorDecoding_responseCode502() throws {
+        //Arrange
+        let statusCode = 502
+        let httpResponse = HTTPURLResponse(url: self.exampleURL, statusCode: statusCode, httpVersion: nil, headerFields: [:])
+        let response = Restler.Response(data: nil, response: httpResponse, error: nil)
+        //Act
+        let sut = ApiClientError(response: response)
+        //Assert
+        XCTAssertNil(sut)
+    }
+    
+    func testRestlerErrorDecoding_NSURLErrorNotConnectedToInternet() throws {
+        //Arrange
+        let errorCode = NSURLErrorNotConnectedToInternet
+        let error = NSError(domain: "Test", code: errorCode, userInfo: nil)
+        let response = Restler.Response(data: nil, response: nil, error: error)
+        //Act
+        let sut = ApiClientError(response: response)
+        //Assert
+        XCTAssertEqual(sut?.type, .noConnection)
+    }
+    
+    func testRestlerErrorDecoding_NSURLErrorNetworkConnectionLost() throws {
+        //Arrange
+        let errorCode = NSURLErrorNetworkConnectionLost
+        let error = NSError(domain: "Test", code: errorCode, userInfo: nil)
+        let response = Restler.Response(data: nil, response: nil, error: error)
+        //Act
+        let sut = ApiClientError(response: response)
+        //Assert
+        XCTAssertEqual(sut?.type, .noConnection)
+    }
+    
+    func testRestlerErrorDecoding_NSURLErrorTimedOut() throws {
+        //Arrange
+        let errorCode = NSURLErrorTimedOut
+        let error = NSError(domain: "Test", code: errorCode, userInfo: nil)
+        let response = Restler.Response(data: nil, response: nil, error: error)
+        //Act
+        let sut = ApiClientError(response: response)
+        //Assert
+        XCTAssertEqual(sut?.type, .timeout)
+    }
+    
+    func testRestlerErrorDecoding_NSURLErrorCannotParseResponse() throws {
+        //Arrange
+        let errorCode = NSURLErrorCannotParseResponse
+        let error = NSError(domain: "Test", code: errorCode, userInfo: nil)
+        let response = Restler.Response(data: nil, response: nil, error: error)
+        //Act
+        let sut = ApiClientError(response: response)
+        //Assert
+        XCTAssertEqual(sut?.type, .invalidResponse)
+    }
+    
+    func testRestlerErrorDecoding_NSURLErrorBadServerResponse() throws {
+        //Arrange
+        let errorCode = NSURLErrorBadServerResponse
+        let error = NSError(domain: "Test", code: errorCode, userInfo: nil)
+        let response = Restler.Response(data: nil, response: nil, error: error)
+        //Act
+        let sut = ApiClientError(response: response)
+        //Assert
+        XCTAssertEqual(sut?.type, .invalidResponse)
+    }
+    
+    func testRestlerErrorDecoding_nilResponse() throws {
+        //Arrange
+        let response = Restler.Response(data: nil, response: nil, error: nil)
+        //Act
+        let sut = ApiClientError(response: response)
+        //Assert
+        XCTAssertNil(sut)
+    }
+}
+
 // MARK: - localizedDescription: String
 extension ApiClientErrorTests {
     func testLocalizedDescription_invalidHostHasBeenGiven() throws {
