@@ -172,6 +172,8 @@
 		8A9369B2237AA19D005F8199 /* TagCollectionViewCellMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B1237AA19D005F8199 /* TagCollectionViewCellMock.swift */; };
 		8A9369B4237AA293005F8199 /* WorkTimeCellViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */; };
 		8A9369B6237AA348005F8199 /* WorkTimesTableViewHeaderViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B5237AA348005F8199 /* WorkTimesTableViewHeaderViewMock.swift */; };
+		8A9832BA243AFFF7005245A8 /* ServerErrorJSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9832B9243AFFF7005245A8 /* ServerErrorJSONResource.swift */; };
+		8A9832BD243B0023005245A8 /* serverErrorFullModel.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A9832BC243B0023005245A8 /* serverErrorFullModel.json */; };
 		8A9987CE23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A9987CD23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json */; };
 		8A9987D023951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A9987CF23951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json */; };
 		8A99EBC123D9B95600CC9BA8 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A99EBC023D9B95600CC9BA8 /* UIColor+Extension.swift */; };
@@ -654,6 +656,8 @@
 		8A9369B1237AA19D005F8199 /* TagCollectionViewCellMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellMock.swift; sourceTree = "<group>"; };
 		8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCellViewMock.swift; sourceTree = "<group>"; };
 		8A9369B5237AA348005F8199 /* WorkTimesTableViewHeaderViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesTableViewHeaderViewMock.swift; sourceTree = "<group>"; };
+		8A9832B9243AFFF7005245A8 /* ServerErrorJSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerErrorJSONResource.swift; sourceTree = "<group>"; };
+		8A9832BC243B0023005245A8 /* serverErrorFullModel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = serverErrorFullModel.json; sourceTree = "<group>"; };
 		8A9987CD23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithIsTaggableTrueResponse.json; sourceTree = "<group>"; };
 		8A9987CF23951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithIsTaggableFalseResponse.json; sourceTree = "<group>"; };
 		8A99EBC023D9B95600CC9BA8 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -1399,6 +1403,14 @@
 			);
 			name = Configuration;
 			path = ../Configuration;
+			sourceTree = "<group>";
+		};
+		8A9832BB243B0006005245A8 /* ServerError */ = {
+			isa = PBXGroup;
+			children = (
+				8A9832BC243B0023005245A8 /* serverErrorFullModel.json */,
+			);
+			path = ServerError;
 			sourceTree = "<group>";
 		};
 		8AE0001423746503002F783E /* ProjectPicker */ = {
@@ -2259,6 +2271,7 @@
 				8A79A3012424E91C0048B44B /* ProjectTagJSONResource.swift */,
 				8A065B5A237ABCD90072A21E /* SessionJSONResource.swift */,
 				8A065B54237ABA1B0072A21E /* SimpleProjectJSONResource.swift */,
+				8A9832B9243AFFF7005245A8 /* ServerErrorJSONResource.swift */,
 				8A79A24F2420DE4C0048B44B /* TaskVersionJSONResource.swift */,
 				8A065B5C237ABDBB0072A21E /* UserJSONResource.swift */,
 				8A065B4E237AB8F50072A21E /* WorkTimesJSONResource.swift */,
@@ -2267,6 +2280,7 @@
 				C19D88A62203007F007CC867 /* MatchingFullTime */,
 				C12CA57021A58C6C0082FEB7 /* Projects */,
 				C1B8FA4F218C9A64009D10B4 /* Session */,
+				8A9832BB243B0006005245A8 /* ServerError */,
 				8A79A2512420DED60048B44B /* TaskHistory */,
 				C10FD88521F1F2FF00A233C5 /* User */,
 				C12CA57E21A599BE0082FEB7 /* WorkTimes */,
@@ -2562,6 +2576,7 @@
 				C1B771FD21EF421900EFE06F /* baseErrorKeyResponse.json in Resources */,
 				8A21A0442435D71700EE4A79 /* taskVersionNullPreviousTaskPreview.json in Resources */,
 				C18A189A21EF804900CB6E32 /* serverErrorResponse.json in Resources */,
+				8A9832BD243B0023005245A8 /* serverErrorFullModel.json in Resources */,
 				8A21A0482435D74C00EE4A79 /* taskVersionNullCurrentTaskPreview.json in Resources */,
 				8A79A2C02420F73C0048B44B /* taskVersionNullCurrentTag.json in Resources */,
 				8A79A2AE2420F73C0048B44B /* taskVersionNullPreviousTag.json in Resources */,
@@ -3129,6 +3144,7 @@
 				C18A18A121EF88B300CB6E32 /* WorkTimeViewModelTests.swift in Sources */,
 				C1ECF0AA2192CC25006038C6 /* RequestEncoderTests.swift in Sources */,
 				8A9369B4237AA293005F8199 /* WorkTimeCellViewMock.swift in Sources */,
+				8A9832BA243AFFF7005245A8 /* ServerErrorJSONResource.swift in Sources */,
 				C147D1F721F5F96A00A818BD /* AttributedTextFieldTests.swift in Sources */,
 				C14B10FB21F9C64D00A42587 /* TimeTableTabCoordinatorTests.swift in Sources */,
 				C1249C7A2181AC49005DB2A5 /* StoryboardsManagerTests.swift in Sources */,
