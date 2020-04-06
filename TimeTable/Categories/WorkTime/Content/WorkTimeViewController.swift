@@ -128,16 +128,19 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         self.setUpActivityIndicator()
         self.setUpSaveButtons()
         
+        self.setUpProjectButton()
+        
         self.setUpDayPicker()
         self.setUpDayTextField()
         
         self.setUpStartsAtPicker()
         self.setUpStartAtTextField()
-
+        
         self.setUpEndsAtPicker()
         self.setUpEndAtTextField()
         
-        self.taskURLTextField.delegate = self
+        self.setUpBodyTextView()
+        self.setUpTaskTextField()
     }
     
     func setBodyView(isHidden: Bool) {
@@ -231,6 +234,10 @@ extension WorkTimeViewController {
         self.setActivityIndicator(isHidden: true)
     }
     
+    private func setUpProjectButton() {
+        self.projectButton.setTextFieldAppearance()
+    }
+    
     private func setUpDayPicker() {
         self.dayPicker = UIDatePicker()
         self.dayPicker.datePickerMode = .date
@@ -255,16 +262,28 @@ extension WorkTimeViewController {
     private func setUpDayTextField() {
         self.dayTextField.inputView = self.dayPicker
         self.dayTextField.delegate = self
+        self.dayTextField.setTextFieldAppearance()
     }
     
     private func setUpStartAtTextField() {
         self.startAtDateTextField.inputView = self.startAtDatePicker
         self.startAtDateTextField.delegate = self
+        self.startAtDateTextField.setTextFieldAppearance()
     }
     
     private func setUpEndAtTextField() {
         self.endAtDateTextField.inputView = self.endAtDatePicker
         self.endAtDateTextField.delegate = self
+        self.endAtDateTextField.setTextFieldAppearance()
+    }
+    
+    private func setUpBodyTextView() {
+        self.bodyTextView.setTextFieldAppearance()
+    }
+    
+    private func setUpTaskTextField() {
+        self.taskURLTextField.delegate = self
+        self.taskURLTextField.setTextFieldAppearance()
     }
     
     private func setUpTagsCollectionView() {

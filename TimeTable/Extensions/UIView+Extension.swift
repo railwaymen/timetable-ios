@@ -20,4 +20,11 @@ extension UIView {
         guard self.isHidden != isHidden else { return }
         self.isHidden = isHidden
     }
+    
+    func setTextFieldAppearance() {
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.textFieldBorder.cgColor
+        self.layer.backgroundColor = UIColor.textFieldBackground.cgColor
+        self.layer.cornerRadius = 5
+    }
 }
