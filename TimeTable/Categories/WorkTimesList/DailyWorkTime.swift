@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DailyWorkTime {
+struct DailyWorkTime {
     let day: Date
     var workTimes: [WorkTimeDecoder]
     

@@ -52,7 +52,7 @@ extension WorkTimesTableViewHeaderViewModel: WorkTimesTableViewHeaderViewModelTy
         } else {
             dayText = DateFormatter.mediumDate.string(from: self.dailyWorkTime.day)
         }
-        let duration = TimeInterval(self.dailyWorkTime.workTimes.reduce(0) { $0 + $1.duration})
+        let duration = TimeInterval(self.dailyWorkTime.workTimes.map(\.duration).reduce(0, +))
         let durationText = self.dateComponentsFormatter.string(from: duration)
         self.userInterface?.updateView(dayText: dayText, durationText: durationText)
     }

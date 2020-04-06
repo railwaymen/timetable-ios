@@ -99,16 +99,14 @@ extension WorkTimesListContentProvider {
         self.fetchListTask = self.apiClient.fetchWorkTimes(parameters: parameters) { result in
             switch result {
             case let .success(workTimes):
-                let dailyWorkTimesArray = workTimes.reduce([DailyWorkTime](), { (array, workTime) in
-                    var newArray = array
-                    if let dailyWorkTimes = newArray.first(where: { $0.day == workTime.date }) {
-                        dailyWorkTimes.workTimes.append(workTime)
+                let dailyWorkTimesArray = workTimes.reduce(into: [DailyWorkTime]()) { (array, workTime) in
+                    if let index = array.firstIndex(where: { $0.day == workTime.date }) {
+                        array[index].workTimes.append(workTime)
                     } else {
                         let new = DailyWorkTime(day: workTime.date, workTimes: [workTime])
-                        newArray.append(new)
+                        array.append(new)
                     }
-                    return newArray
-                }).sorted(by: { $0.day > $1.day })
+                }.sorted(by: { $0.day > $1.day })
                 completion(.success(dailyWorkTimesArray))
             case let .failure(error):
                 if case let .request(type, _) = error as? Restler.Error, type == .requestCancelled {

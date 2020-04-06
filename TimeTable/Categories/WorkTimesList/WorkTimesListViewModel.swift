@@ -283,7 +283,7 @@ extension WorkTimesListViewModel {
             completion(newDailyWorkTime != dailyWorkTime)
             guard let self = self else { return }
             newDailyWorkTime.workTimes.isEmpty
-                ? self.dailyWorkTimesArray.removeAll { $0 === dailyWorkTime }
+                ? self.dailyWorkTimesArray.removeAll { $0 == dailyWorkTime }
                 : (self.dailyWorkTimesArray[safeIndex: indexPath.section] = newDailyWorkTime)
         }
     }
