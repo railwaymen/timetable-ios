@@ -9,11 +9,17 @@
 import Foundation
 import Restler
 
+typealias WorkTimesListFetchResult = Result<([DailyWorkTime], MatchingFullTimeDecoder), Error>
+typealias WorkTimesListFetchCompletion = (WorkTimesListFetchResult) -> Void
+
+typealias WorkTimesListDeleteResult = Result<Void, Error>
+typealias WorkTimesListDeleteCompletion = (WorkTimesListDeleteResult) -> Void
+
 protocol WorkTimesListContentProviderType: class {
     func fetchWorkTimesData(
         for date: Date?,
-        completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder), Error>) -> Void)
-    func delete(workTime: WorkTimeDecoder, completion: @escaping (Result<Void, Error>) -> Void)
+        completion: @escaping WorkTimesListFetchCompletion)
+    func delete(workTime: WorkTimeDecoder, completion: @escaping WorkTimesListDeleteCompletion)
 }
 
 class WorkTimesListContentProvider {
@@ -46,7 +52,7 @@ class WorkTimesListContentProvider {
 extension WorkTimesListContentProvider: WorkTimesListContentProviderType {
     func fetchWorkTimesData(
         for date: Date?,
-        completion: @escaping (Result<([DailyWorkTime], MatchingFullTimeDecoder), Error>) -> Void
+        completion: @escaping WorkTimesListFetchCompletion
     ) {
         var dailyWorkTimes: [DailyWorkTime] = []
         var matchingFullTime: MatchingFullTimeDecoder?
@@ -86,7 +92,7 @@ extension WorkTimesListContentProvider: WorkTimesListContentProviderType {
         }
     }
     
-    func delete(workTime: WorkTimeDecoder, completion: @escaping (Result<Void, Error>) -> Void) {
+    func delete(workTime: WorkTimeDecoder, completion: @escaping WorkTimesListDeleteCompletion) {
         self.apiClient.deleteWorkTime(identifier: workTime.identifier, completion: completion)
     }
 }
