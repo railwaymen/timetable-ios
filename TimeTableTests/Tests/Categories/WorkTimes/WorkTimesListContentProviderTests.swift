@@ -197,7 +197,7 @@ extension WorkTimesListContentProviderTests {
         let sut = self.buildSUT()
         let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
         let workTime = try XCTUnwrap(self.decoder.decode([WorkTimeDecoder].self, from: data).first)
-        var completionResult: Result<Void, Error>?
+        var completionResult: WorkTimesListDeleteResult?
         //Act
         sut.delete(workTime: workTime) { result in
             completionResult = result

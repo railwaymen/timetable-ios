@@ -9,21 +9,21 @@
 import Foundation
 import Restler
 
-typealias FetchDataResult = Result<(projects: [SimpleProjectRecordDecoder], tags: [ProjectTag]), Error>
-typealias FetchDataCompletion = (FetchDataResult) -> Void
+typealias WorkTimeFetchDataResult = Result<(projects: [SimpleProjectRecordDecoder], tags: [ProjectTag]), Error>
+typealias WorkTimeFetchDataCompletion = (WorkTimeFetchDataResult) -> Void
 
-typealias SaveTaskResult = Result<Void, Error>
-typealias SaveTaskCompletion = (SaveTaskResult) -> Void
+typealias WorkTimeSaveTaskResult = Result<Void, Error>
+typealias WorkTimeSaveTaskCompletion = (WorkTimeSaveTaskResult) -> Void
 
 typealias WorkTimeContentProviderable = WorkTimeContainerContentProviderType & WorkTimeContentProviderType
 
 protocol WorkTimeContainerContentProviderType: class {
-    func fetchData(completion: @escaping FetchDataCompletion)
+    func fetchData(completion: @escaping WorkTimeFetchDataCompletion)
 }
 
 protocol WorkTimeContentProviderType: class {
-    func save(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion)
-    func saveWithFilling(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion)
+    func save(taskForm: TaskFormType, completion: @escaping WorkTimeSaveTaskCompletion)
+    func saveWithFilling(taskForm: TaskFormType, completion: @escaping WorkTimeSaveTaskCompletion)
     func getPredefinedTimeBounds(forTaskForm form: TaskFormType, lastTask: TaskFormType?) -> (startDate: Date, endDate: Date)
     func getPredefinedDay(forTaskForm form: TaskFormType) -> Date
 }
@@ -57,7 +57,7 @@ class WorkTimeContentProvider {
 
 // MARK: - WorkTimeContainerContentProviderType
 extension WorkTimeContentProvider: WorkTimeContainerContentProviderType {
-    func fetchData(completion: @escaping FetchDataCompletion) {
+    func fetchData(completion: @escaping WorkTimeFetchDataCompletion) {
         let group = self.dispatchGroupFactory.createDispatchGroup()
         var projectsTask: RestlerTaskType?
         var tagsTask: RestlerTaskType?
@@ -107,7 +107,7 @@ extension WorkTimeContentProvider: WorkTimeContainerContentProviderType {
 
 // MARK: - WorkTimeContentProviderType
 extension WorkTimeContentProvider: WorkTimeContentProviderType {
-    func save(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion) {
+    func save(taskForm: TaskFormType, completion: @escaping WorkTimeSaveTaskCompletion) {
         do {
             let task = try self.validate(taskForm: taskForm)
             if let workTimeIdentifier = taskForm.workTimeIdentifier {
@@ -120,7 +120,7 @@ extension WorkTimeContentProvider: WorkTimeContentProviderType {
         }
     }
     
-    func saveWithFilling(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion) {
+    func saveWithFilling(taskForm: TaskFormType, completion: @escaping WorkTimeSaveTaskCompletion) {
         do {
             let task = try self.validate(taskForm: taskForm)
             self.apiClient.addWorkTimeWithFilling(task: task, completion: completion)

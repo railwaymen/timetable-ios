@@ -299,7 +299,7 @@ extension WorkTimeViewModel {
     }
     
     private func saveTask(withFilling: Bool) {
-        let completion: SaveTaskCompletion = self.getSaveCompletion()
+        let completion: WorkTimeSaveTaskCompletion = self.getSaveCompletion()
         self.userInterface?.setSaveButtons(isEnabled: false)
         self.userInterface?.setActivityIndicator(isHidden: false)
         withFilling
@@ -307,7 +307,7 @@ extension WorkTimeViewModel {
             : self.contentProvider.save(taskForm: self.taskForm, completion: completion)
     }
     
-    private func getSaveCompletion() -> SaveTaskCompletion {
+    private func getSaveCompletion() -> WorkTimeSaveTaskCompletion {
         return { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
