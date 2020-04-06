@@ -13,19 +13,19 @@ class WorkTimeContentProviderMock {
     // MARK: - WorkTimeContentProviderMock
     private(set) var fetchSimpleProjectsListParams: [FetchSimpleProjectsListParams] = []
     struct FetchSimpleProjectsListParams {
-        let completion: FetchDataCompletion
+        let completion: WorkTimeFetchDataCompletion
     }
     
     private(set) var saveTaskParams: [SaveTaskParams] = []
     struct SaveTaskParams {
         let taskForm: TaskFormType
-        let completion: SaveTaskCompletion
+        let completion: WorkTimeSaveTaskCompletion
     }
     
     private(set) var saveTaskWithFillingParams: [SaveTaskWithFillingParams] = []
     struct SaveTaskWithFillingParams {
         let taskForm: TaskFormType
-        let completion: SaveTaskCompletion
+        let completion: WorkTimeSaveTaskCompletion
     }
     
     var getPredefinedDayReturnValue: Date = Date()
@@ -44,15 +44,15 @@ class WorkTimeContentProviderMock {
 
 // MARK: - WorkTimeContentProviderMock
 extension WorkTimeContentProviderMock: WorkTimeContentProviderType {
-    func fetchData(completion: @escaping FetchDataCompletion) {
+    func fetchData(completion: @escaping WorkTimeFetchDataCompletion) {
         self.fetchSimpleProjectsListParams.append(FetchSimpleProjectsListParams(completion: completion))
     }
     
-    func save(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion) {
+    func save(taskForm: TaskFormType, completion: @escaping WorkTimeSaveTaskCompletion) {
         self.saveTaskParams.append(SaveTaskParams(taskForm: taskForm, completion: completion))
     }
     
-    func saveWithFilling(taskForm: TaskFormType, completion: @escaping SaveTaskCompletion) {
+    func saveWithFilling(taskForm: TaskFormType, completion: @escaping WorkTimeSaveTaskCompletion) {
         self.saveTaskWithFillingParams.append(SaveTaskWithFillingParams(taskForm: taskForm, completion: completion))
     }
     

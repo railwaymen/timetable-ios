@@ -39,7 +39,7 @@ extension WorkTimeContentProviderTests {
         let sut = self.buildSUT()
         let group = DispatchGroupMock()
         self.dispatchGroupFactory.createDispatchGroupReturnValue = group
-        var completionResult: FetchDataResult?
+        var completionResult: WorkTimeFetchDataResult?
         //Act
         sut.fetchData { result in
             completionResult = result
@@ -52,7 +52,7 @@ extension WorkTimeContentProviderTests {
     func testFetchData_callsSimpleListOfProjectsFetch() {
         //Arrange
         let sut = self.buildSUT()
-        var completionResult: FetchDataResult?
+        var completionResult: WorkTimeFetchDataResult?
         //Act
         sut.fetchData { result in
             completionResult = result
@@ -65,7 +65,7 @@ extension WorkTimeContentProviderTests {
     func testFetchData_callsTagsFetch() {
         //Arrange
         let sut = self.buildSUT()
-        var completionResult: FetchDataResult?
+        var completionResult: WorkTimeFetchDataResult?
         //Act
         sut.fetchData { result in
             completionResult = result
@@ -83,7 +83,7 @@ extension WorkTimeContentProviderTests {
         let projectTask = RestlerTaskMock()
         projectTask.stateReturnValue = .canceling
         self.apiClient.fetchSimpleListOfProjectsReturnValue = projectTask
-        var completionResult: FetchDataResult?
+        var completionResult: WorkTimeFetchDataResult?
         //Act
         sut.fetchData { result in
             completionResult = result
@@ -99,7 +99,7 @@ extension WorkTimeContentProviderTests {
         let sut = self.buildSUT()
         let group = DispatchGroupMock()
         self.dispatchGroupFactory.createDispatchGroupReturnValue = group
-        var completionResult: FetchDataResult?
+        var completionResult: WorkTimeFetchDataResult?
         //Act
         sut.fetchData { result in
             completionResult = result
@@ -115,7 +115,7 @@ extension WorkTimeContentProviderTests {
         let sut = self.buildSUT()
         let group = DispatchGroupMock()
         self.dispatchGroupFactory.createDispatchGroupReturnValue = group
-        var completionResult: FetchDataResult?
+        var completionResult: WorkTimeFetchDataResult?
         //Act
         sut.fetchData { result in
             completionResult = result
@@ -133,7 +133,7 @@ extension WorkTimeContentProviderTests {
         self.dispatchGroupFactory.createDispatchGroupReturnValue = group
         let tagsTask = RestlerTaskMock()
         self.apiClient.fetchTagsReturnValue = tagsTask
-        var completionResult: FetchDataResult?
+        var completionResult: WorkTimeFetchDataResult?
         //Act
         sut.fetchData { result in
             completionResult = result
@@ -152,7 +152,7 @@ extension WorkTimeContentProviderTests {
         let tagsTask = RestlerTaskMock()
         tagsTask.stateReturnValue = .canceling
         self.apiClient.fetchTagsReturnValue = tagsTask
-        var completionResult: FetchDataResult?
+        var completionResult: WorkTimeFetchDataResult?
         //Act
         sut.fetchData { result in
             completionResult = result
@@ -170,7 +170,7 @@ extension WorkTimeContentProviderTests {
         let tagsDecoder = try self.decoder.decode(ProjectTagsDecoder.self, from: data)
         let group = DispatchGroupMock()
         self.dispatchGroupFactory.createDispatchGroupReturnValue = group
-        var completionResult: FetchDataResult?
+        var completionResult: WorkTimeFetchDataResult?
         //Act
         sut.fetchData { result in
             completionResult = result
@@ -186,7 +186,7 @@ extension WorkTimeContentProviderTests {
         let sut = self.buildSUT()
         let group = DispatchGroupMock()
         self.dispatchGroupFactory.createDispatchGroupReturnValue = group
-        var completionResult: FetchDataResult?
+        var completionResult: WorkTimeFetchDataResult?
         //Act
         sut.fetchData { result in
             completionResult = result
@@ -204,7 +204,7 @@ extension WorkTimeContentProviderTests {
         self.dispatchGroupFactory.createDispatchGroupReturnValue = group
         let projectsTask = RestlerTaskMock()
         self.apiClient.fetchSimpleListOfProjectsReturnValue = projectsTask
-        var completionResult: FetchDataResult?
+        var completionResult: WorkTimeFetchDataResult?
         //Act
         sut.fetchData { result in
             completionResult = result
@@ -220,7 +220,7 @@ extension WorkTimeContentProviderTests {
         let sut = self.buildSUT()
         let group = DispatchGroupMock()
         self.dispatchGroupFactory.createDispatchGroupReturnValue = group
-        var completionResult: FetchDataResult?
+        var completionResult: WorkTimeFetchDataResult?
         //Act
         sut.fetchData { result in
             completionResult = result
@@ -239,7 +239,7 @@ extension WorkTimeContentProviderTests {
         let projects = try self.decoder.decode([SimpleProjectRecordDecoder].self, from: projectsData)
         let tagsData = try self.json(from: ProjectTagJSONResource.projectTagsResponse)
         let tagsDecoder = try self.decoder.decode(ProjectTagsDecoder.self, from: tagsData)
-        var completionResult: FetchDataResult?
+        var completionResult: WorkTimeFetchDataResult?
         //Act
         sut.fetchData { result in
             completionResult = result
@@ -258,7 +258,7 @@ extension WorkTimeContentProviderTests {
         let projectsError = TestError(message: "projects error")
         let tagsData = try self.json(from: ProjectTagJSONResource.projectTagsResponse)
         let tagsDecoder = try self.decoder.decode(ProjectTagsDecoder.self, from: tagsData)
-        var completionResult: FetchDataResult?
+        var completionResult: WorkTimeFetchDataResult?
         //Act
         sut.fetchData { result in
             completionResult = result
@@ -275,7 +275,7 @@ extension WorkTimeContentProviderTests {
         let projectsData = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
         let projects = try self.decoder.decode([SimpleProjectRecordDecoder].self, from: projectsData)
         let tagsError = TestError(message: "projects error")
-        var completionResult: FetchDataResult?
+        var completionResult: WorkTimeFetchDataResult?
         //Act
         sut.fetchData { result in
             completionResult = result
@@ -293,7 +293,7 @@ extension WorkTimeContentProviderTests {
         let projects = try self.decoder.decode([SimpleProjectRecordDecoder].self, from: projectsData)
         let group = DispatchGroupMock()
         self.dispatchGroupFactory.createDispatchGroupReturnValue = group
-        var completionResult: FetchDataResult?
+        var completionResult: WorkTimeFetchDataResult?
         //Act
         sut.fetchData { result in
             completionResult = result
@@ -312,7 +312,7 @@ extension WorkTimeContentProviderTests {
         let tagsDecoder = try self.decoder.decode(ProjectTagsDecoder.self, from: tagsData)
         let group = DispatchGroupMock()
         self.dispatchGroupFactory.createDispatchGroupReturnValue = group
-        var completionResult: FetchDataResult?
+        var completionResult: WorkTimeFetchDataResult?
         //Act
         sut.fetchData { result in
             completionResult = result
@@ -331,7 +331,7 @@ extension WorkTimeContentProviderTests {
         //Arrange
         let sut = self.buildSUT()
         self.taskForm.generateEncodableRepresentationThrownError = TaskForm.ValidationError.projectIsNil
-        var completionResult: SaveTaskResult?
+        var completionResult: WorkTimeSaveTaskResult?
         //Act
         sut.save(taskForm: self.taskForm) { result in
             completionResult = result
@@ -344,7 +344,7 @@ extension WorkTimeContentProviderTests {
         //Arrange
         let sut = self.buildSUT()
         self.taskForm.generateEncodableRepresentationThrownError = TaskForm.ValidationError.urlIsNil
-        var completionResult: SaveTaskResult?
+        var completionResult: WorkTimeSaveTaskResult?
         //Act
         sut.save(taskForm: self.taskForm) { result in
             completionResult = result
@@ -357,7 +357,7 @@ extension WorkTimeContentProviderTests {
         //Arrange
         let sut = self.buildSUT()
         self.taskForm.generateEncodableRepresentationThrownError = TaskForm.ValidationError.bodyIsEmpty
-        var completionResult: SaveTaskResult?
+        var completionResult: WorkTimeSaveTaskResult?
         //Act
         sut.save(taskForm: self.taskForm) { result in
             completionResult = result
@@ -370,7 +370,7 @@ extension WorkTimeContentProviderTests {
         //Arrange
         let sut = self.buildSUT()
         self.taskForm.generateEncodableRepresentationThrownError = TaskForm.ValidationError.dayIsNil
-        var completionResult: SaveTaskResult?
+        var completionResult: WorkTimeSaveTaskResult?
         //Act
         sut.save(taskForm: self.taskForm) { result in
             completionResult = result
@@ -383,7 +383,7 @@ extension WorkTimeContentProviderTests {
         //Arrange
         let sut = self.buildSUT()
         self.taskForm.generateEncodableRepresentationThrownError = TaskForm.ValidationError.startsAtIsNil
-        var completionResult: SaveTaskResult?
+        var completionResult: WorkTimeSaveTaskResult?
         //Act
         sut.save(taskForm: self.taskForm) { result in
             completionResult = result
@@ -396,7 +396,7 @@ extension WorkTimeContentProviderTests {
         //Arrange
         let sut = self.buildSUT()
         self.taskForm.generateEncodableRepresentationThrownError = TaskForm.ValidationError.endsAtIsNil
-        var completionResult: SaveTaskResult?
+        var completionResult: WorkTimeSaveTaskResult?
         //Act
         sut.save(taskForm: self.taskForm) { result in
             completionResult = result
@@ -409,7 +409,7 @@ extension WorkTimeContentProviderTests {
         //Arrange
         let sut = self.buildSUT()
         self.taskForm.generateEncodableRepresentationThrownError = TaskForm.ValidationError.timeRangeIsIncorrect
-        var completionResult: SaveTaskResult?
+        var completionResult: WorkTimeSaveTaskResult?
         //Act
         sut.save(taskForm: self.taskForm) { result in
             completionResult = result
@@ -422,7 +422,7 @@ extension WorkTimeContentProviderTests {
         //Arrange
         let sut = self.buildSUT()
         self.taskForm.generateEncodableRepresentationThrownError = TaskForm.ValidationError.internalError
-        var completionResult: SaveTaskResult?
+        var completionResult: WorkTimeSaveTaskResult?
         //Act
         sut.save(taskForm: self.taskForm) { result in
             completionResult = result
@@ -436,7 +436,7 @@ extension WorkTimeContentProviderTests {
         let sut = self.buildSUT()
         self.taskForm.workTimeIdentifierReturnValue = 133
         self.taskForm.generateEncodableRepresentationReturnValue = try self.buildTask()
-        var completionResult: SaveTaskResult?
+        var completionResult: WorkTimeSaveTaskResult?
         //Act
         sut.save(taskForm: self.taskForm) { result in
             completionResult = result
@@ -452,7 +452,7 @@ extension WorkTimeContentProviderTests {
         let sut = self.buildSUT()
         self.taskForm.workTimeIdentifierReturnValue = 133
         self.taskForm.generateEncodableRepresentationReturnValue = try self.buildTask()
-        var completionResult: SaveTaskResult?
+        var completionResult: WorkTimeSaveTaskResult?
         //Act
         sut.save(taskForm: self.taskForm) { result in
             completionResult = result
@@ -469,7 +469,7 @@ extension WorkTimeContentProviderTests {
         let error = TestError(message: "error")
         self.taskForm.workTimeIdentifierReturnValue = 133
         self.taskForm.generateEncodableRepresentationReturnValue = try self.buildTask()
-        var completionResult: SaveTaskResult?
+        var completionResult: WorkTimeSaveTaskResult?
         //Act
         sut.save(taskForm: self.taskForm) { result in
             completionResult = result
@@ -484,7 +484,7 @@ extension WorkTimeContentProviderTests {
         //Arrange
         let sut = self.buildSUT()
         self.taskForm.generateEncodableRepresentationReturnValue = try self.buildTask()
-        var completionResult: SaveTaskResult?
+        var completionResult: WorkTimeSaveTaskResult?
         //Act
         sut.save(taskForm: self.taskForm) { result in
             completionResult = result
@@ -498,7 +498,7 @@ extension WorkTimeContentProviderTests {
         //Arrange
         let sut = self.buildSUT()
         self.taskForm.generateEncodableRepresentationReturnValue = try self.buildTask()
-        var completionResult: SaveTaskResult?
+        var completionResult: WorkTimeSaveTaskResult?
         //Act
         sut.save(taskForm: self.taskForm) { result in
             completionResult = result
@@ -514,7 +514,7 @@ extension WorkTimeContentProviderTests {
         let sut = self.buildSUT()
         let error = TestError(message: "error")
         self.taskForm.generateEncodableRepresentationReturnValue = try self.buildTask()
-        var completionResult: SaveTaskResult?
+        var completionResult: WorkTimeSaveTaskResult?
         //Act
         sut.save(taskForm: self.taskForm) { result in
             completionResult = result
@@ -532,7 +532,7 @@ extension WorkTimeContentProviderTests {
         //Arrange
         let sut = self.buildSUT()
         self.taskForm.generateEncodableRepresentationThrownError = TaskForm.ValidationError.projectIsNil
-        var completionResult: SaveTaskResult?
+        var completionResult: WorkTimeSaveTaskResult?
         //Act
         sut.saveWithFilling(taskForm: self.taskForm) { result in
             completionResult = result
@@ -545,7 +545,7 @@ extension WorkTimeContentProviderTests {
         //Arrange
         let sut = self.buildSUT()
         self.taskForm.generateEncodableRepresentationReturnValue = try self.buildTask()
-        var completionResult: SaveTaskResult?
+        var completionResult: WorkTimeSaveTaskResult?
         //Act
         sut.saveWithFilling(taskForm: self.taskForm) { result in
             completionResult = result
@@ -559,7 +559,7 @@ extension WorkTimeContentProviderTests {
         //Arrange
         let sut = self.buildSUT()
         self.taskForm.generateEncodableRepresentationReturnValue = try self.buildTask()
-        var completionResult: SaveTaskResult?
+        var completionResult: WorkTimeSaveTaskResult?
         //Act
         sut.saveWithFilling(taskForm: self.taskForm) { result in
             completionResult = result
@@ -575,7 +575,7 @@ extension WorkTimeContentProviderTests {
         let sut = self.buildSUT()
         let error = TestError(message: "error")
         self.taskForm.generateEncodableRepresentationReturnValue = try self.buildTask()
-        var completionResult: SaveTaskResult?
+        var completionResult: WorkTimeSaveTaskResult?
         //Act
         sut.saveWithFilling(taskForm: self.taskForm) { result in
             completionResult = result
