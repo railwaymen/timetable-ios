@@ -40,6 +40,10 @@ class WorkTimeContentProviderMock {
         let task: TaskFormType
         let lastTask: TaskFormType?
     }
+    
+    var getValidationErrorsReturnValue: [UIError] = []
+    private(set) var getValidationErrorsParams: [GetValidationErrorsParams] = []
+    struct GetValidationErrorsParams {}
 }
 
 // MARK: - WorkTimeContentProviderMock
@@ -64,5 +68,10 @@ extension WorkTimeContentProviderMock: WorkTimeContentProviderType {
     func getPredefinedTimeBounds(forTaskForm task: TaskFormType, lastTask: TaskFormType?) -> (startDate: Date, endDate: Date) {
         self.getPredefinedTimeBoundsParams.append(GetPredefinedTimeBoundsParams(task: task, lastTask: lastTask))
         return self.getPredefinedTimeBoundsReturnValue
+    }
+    
+    func getValidationErrors(forTaskForm form: TaskFormType) -> [UIError] {
+        self.getValidationErrorsParams.append(GetValidationErrorsParams())
+        return self.getValidationErrorsReturnValue
     }
 }

@@ -428,6 +428,21 @@ extension WorkTimeContentProviderTests {
             completionResult = result
         }
         //Assert
+        XCTAssertEqual(self.errorHandler.stopInDebugParams.count, 1)
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: UIError.genericError)
+    }
+    
+    func testSaveTask_formValidationError_unknownError() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        self.taskForm.generateEncodableRepresentationThrownError = "Some error"
+        var completionResult: SaveTaskResult?
+        //Act
+        sut.save(taskForm: self.taskForm) { result in
+            completionResult = result
+        }
+        //Assert
+        XCTAssertEqual(self.errorHandler.stopInDebugParams.count, 1)
         AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: UIError.genericError)
     }
     
@@ -793,6 +808,137 @@ extension WorkTimeContentProviderTests {
         let returnedDate = sut.getPredefinedDay(forTaskForm: taskForm)
         //Assert
         XCTAssertEqual(returnedDate, date)
+    }
+}
+
+// MARK: - getValidationErrors(forTaskForm:)
+extension WorkTimeContentProviderTests {
+    func testGetValidationErrors_withoutValidationErrors_returnsEmptyArray() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let taskForm = TaskFormMock()
+        taskForm.validationErrorsReturnValue = []
+        //Act
+        let errorsArray = sut.getValidationErrors(forTaskForm: taskForm)
+        //Assert
+        XCTAssert(errorsArray.isEmpty)
+    }
+    
+    func testGetValidationErrors_nilProject_returnsProperError() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let taskForm = TaskFormMock()
+        taskForm.validationErrorsReturnValue = [.projectIsNil]
+        //Act
+        let errorsArray = sut.getValidationErrors(forTaskForm: taskForm)
+        //Assert
+        XCTAssertEqual(errorsArray, [.cannotBeEmpty(.projectTextField)])
+    }
+    
+    func testGetValidationErrors_nilTaskURL_returnsProperError() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let taskForm = TaskFormMock()
+        taskForm.validationErrorsReturnValue = [.urlIsNil]
+        //Act
+        let errorsArray = sut.getValidationErrors(forTaskForm: taskForm)
+        //Assert
+        XCTAssertEqual(errorsArray, [.cannotBeEmpty(.taskUrlTextField)])
+    }
+    
+    func testGetValidationErrors_emptyBody_returnsProperError() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let taskForm = TaskFormMock()
+        taskForm.validationErrorsReturnValue = [.bodyIsEmpty]
+        //Act
+        let errorsArray = sut.getValidationErrors(forTaskForm: taskForm)
+        //Assert
+        XCTAssertEqual(errorsArray, [.cannotBeEmpty(.taskNameTextField)])
+    }
+    
+    func testGetValidationErrors_nilDay_returnsProperError() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let taskForm = TaskFormMock()
+        taskForm.validationErrorsReturnValue = [.dayIsNil]
+        //Act
+        let errorsArray = sut.getValidationErrors(forTaskForm: taskForm)
+        //Assert
+        XCTAssertEqual(errorsArray, [.cannotBeEmpty(.dayTextField)])
+    }
+    
+    func testGetValidationErrors_nilStartsAt_returnsProperError() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let taskForm = TaskFormMock()
+        taskForm.validationErrorsReturnValue = [.startsAtIsNil]
+        //Act
+        let errorsArray = sut.getValidationErrors(forTaskForm: taskForm)
+        //Assert
+        XCTAssertEqual(errorsArray, [.cannotBeEmpty(.startsAtTextField)])
+    }
+    
+    func testGetValidationErrors_nilEndsAt_returnsProperError() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let taskForm = TaskFormMock()
+        taskForm.validationErrorsReturnValue = [.endsAtIsNil]
+        //Act
+        let errorsArray = sut.getValidationErrors(forTaskForm: taskForm)
+        //Assert
+        XCTAssertEqual(errorsArray, [.cannotBeEmpty(.endsAtTextField)])
+    }
+    
+    func testGetValidationErrors_incorrectTimeBounds_returnsProperError() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let taskForm = TaskFormMock()
+        taskForm.validationErrorsReturnValue = [.timeRangeIsIncorrect]
+        //Act
+        let errorsArray = sut.getValidationErrors(forTaskForm: taskForm)
+        //Assert
+        XCTAssertEqual(errorsArray, [.timeGreaterThan])
+    }
+    
+    func testGetValidationErrors_internalError_returnsProperError() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let taskForm = TaskFormMock()
+        taskForm.validationErrorsReturnValue = [.internalError]
+        //Act
+        let errorsArray = sut.getValidationErrors(forTaskForm: taskForm)
+        //Assert
+        XCTAssertEqual(errorsArray, [.genericError])
+    }
+    
+    func testGetValidationErrors_allErrors_returnsAllErrors() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let taskForm = TaskFormMock()
+        taskForm.validationErrorsReturnValue = [
+            .projectIsNil,
+            .urlIsNil,
+            .bodyIsEmpty,
+            .dayIsNil,
+            .startsAtIsNil,
+            .endsAtIsNil,
+            .timeRangeIsIncorrect,
+            .internalError
+        ]
+        //Act
+        let errorsArray = sut.getValidationErrors(forTaskForm: taskForm)
+        //Assert
+        XCTAssertEqual(errorsArray, [
+            .cannotBeEmpty(.projectTextField),
+            .cannotBeEmpty(.taskUrlTextField),
+            .cannotBeEmpty(.taskNameTextField),
+            .cannotBeEmpty(.dayTextField),
+            .cannotBeEmpty(.startsAtTextField),
+            .cannotBeEmpty(.endsAtTextField),
+            .timeGreaterThan,
+            .genericError
+        ])
     }
 }
 

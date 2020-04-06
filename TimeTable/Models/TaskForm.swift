@@ -24,6 +24,7 @@ protocol TaskFormType {
     var projectType: TaskForm.ProjectType? { get }
     
     func generateEncodableRepresentation() throws -> Task
+    func validationErrors() -> [TaskForm.ValidationError]
 }
 
 struct TaskForm: TaskFormType {

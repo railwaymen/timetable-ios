@@ -72,6 +72,10 @@ class TaskFormMock {
     var generateEncodableRepresentationReturnValue: Task!
     private(set) var generateEncodableRepresentationParams: [GenerateEncodableRepresentationParams] = []
     struct GenerateEncodableRepresentationParams {}
+    
+    var validationErrorsReturnValue: [TaskForm.ValidationError] = []
+    private(set) var validationErrorsParams: [ValidationErrorsParams] = []
+    struct ValidationErrorsParams {}
 }
 
 // MARK: - TaskFormType
@@ -170,5 +174,10 @@ extension TaskFormMock: TaskFormType {
             throw error
         }
         return try XCTUnwrap(self.generateEncodableRepresentationReturnValue)
+    }
+    
+    func validationErrors() -> [TaskForm.ValidationError] {
+        self.validationErrorsParams.append(ValidationErrorsParams())
+        return self.validationErrorsReturnValue
     }
 }
