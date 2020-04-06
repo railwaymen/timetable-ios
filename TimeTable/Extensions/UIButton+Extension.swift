@@ -18,4 +18,15 @@ extension UIButton: UIElementLocalizedType {
             self.setTitle(newValue?.localized.localizedUppercase, for: UIControl.State())
         }
     }
+    
+    func setWithAnimation(isEnabled: Bool, duration: TimeInterval = 0.3) {
+        guard self.isEnabled != isEnabled else { return }
+        UIView.transition(
+            with: self,
+            duration: duration,
+            options: [.transitionCrossDissolve, .beginFromCurrentState],
+            animations: { [weak self] in
+                self?.isEnabled = isEnabled
+        })
+    }
 }

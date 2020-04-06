@@ -164,8 +164,8 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     }
     
     func setSaveButtons(isEnabled: Bool) {
-        self.saveButton.isEnabled = isEnabled
-        self.saveWithFillingButton.isEnabled = isEnabled
+        self.saveButton.setWithAnimation(isEnabled: isEnabled)
+        self.saveWithFillingButton.setWithAnimation(isEnabled: isEnabled)
     }
     
     func reloadTagsView() {
@@ -212,6 +212,30 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     
     func setTagsCollectionView(isHidden: Bool) {
         self.tagsCollectionView.set(isHidden: isHidden)
+    }
+    
+    func setProject(isHighlighted: Bool) {
+        self.set(self.projectButton, isHighlighted: isHighlighted)
+    }
+    
+    func setDay(isHighlighted: Bool) {
+        self.set(self.dayTextField, isHighlighted: isHighlighted)
+    }
+    
+    func setStartsAt(isHighlighted: Bool) {
+        self.set(self.startAtDateTextField, isHighlighted: isHighlighted)
+    }
+    
+    func setEndsAt(isHighlighted: Bool) {
+        self.set(self.endAtDateTextField, isHighlighted: isHighlighted)
+    }
+    
+    func setBody(isHighlighted: Bool) {
+        self.set(self.bodyTextView, isHighlighted: isHighlighted)
+    }
+    
+    func setTaskURL(isHighlighted: Bool) {
+        self.set(self.taskURLTextField, isHighlighted: isHighlighted)
     }
 }
 
@@ -297,5 +321,20 @@ extension WorkTimeViewController {
         self.saveButton.setBackgroundColor(.disabledButton, forState: .disabled)
         self.saveWithFillingButton.setTitleColor(.enabledButton, for: .normal)
         self.saveWithFillingButton.setTitleColor(.disabledButton, for: .disabled)
+    }
+    
+    private func set(_ view: UIView, isHighlighted: Bool) {
+        let borderColor: CGColor = self.getBorderColor(isHighlighted: isHighlighted).cgColor
+        guard view.layer.borderColor != borderColor else { return }
+        let animation = CABasicAnimation(keyPath: "borderColor")
+        animation.fromValue = view.layer.borderColor
+        animation.toValue = borderColor
+        animation.duration = 0.3
+        view.layer.add(animation, forKey: "borderColor")
+        view.layer.borderColor = borderColor
+    }
+    
+    private func getBorderColor(isHighlighted: Bool) -> UIColor {
+        return isHighlighted ? .textFieldValidationErrorBorder : .textFieldBorder
     }
 }

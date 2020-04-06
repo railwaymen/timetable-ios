@@ -26,6 +26,13 @@ protocol WorkTimeViewModelOutput: class {
     func setActivityIndicator(isHidden: Bool)
     func setBottomContentInset(_ height: CGFloat)
     func setTagsCollectionView(isHidden: Bool)
+    
+    func setProject(isHighlighted: Bool)
+    func setDay(isHighlighted: Bool)
+    func setStartsAt(isHighlighted: Bool)
+    func setEndsAt(isHighlighted: Bool)
+    func setBody(isHighlighted: Bool)
+    func setTaskURL(isHighlighted: Bool)
 }
 
 protocol WorkTimeViewModelType: class {
@@ -57,7 +64,11 @@ class WorkTimeViewModel {
     private let flowType: FlowType
     
     private var projects: [SimpleProjectRecordDecoder]
-    private var taskForm: TaskFormType
+    private var taskForm: TaskFormType {
+        didSet {
+            self.updateValidationErrorsOnUI()
+        }
+    }
     private var tags: [ProjectTag]
     
     // MARK: - Initialization
@@ -318,5 +329,18 @@ extension WorkTimeViewModel {
                 self?.errorHandler.throwing(error: error)
             }
         }
+    }
+    
+    private func updateValidationErrorsOnUI() {
+        let errors = self.contentProvider.getValidationErrors(forTaskForm: self.taskForm)
+        self.userInterface?.setSaveButtons(isEnabled: errors.isEmpty)
+        self.userInterface?.setProject(isHighlighted: errors.contains(.cannotBeEmpty(.projectTextField)))
+        self.userInterface?.setDay(isHighlighted: errors.contains(.cannotBeEmpty(.dayTextField)))
+        self.userInterface?.setStartsAt(
+            isHighlighted: errors.contains(.cannotBeEmpty(.startsAtTextField)) || errors.contains(.timeGreaterThan))
+        self.userInterface?.setEndsAt(
+            isHighlighted: errors.contains(.cannotBeEmpty(.endsAtTextField)) || errors.contains(.timeGreaterThan))
+        self.userInterface?.setBody(isHighlighted: errors.contains(.cannotBeEmpty(.taskNameTextField)))
+        self.userInterface?.setTaskURL(isHighlighted: errors.contains(.cannotBeEmpty(.taskUrlTextField)))
     }
 }

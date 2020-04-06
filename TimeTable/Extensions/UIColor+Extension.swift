@@ -92,6 +92,8 @@ extension UIColor {
         return color ?? #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.2)
     }()
     
+    static let textFieldValidationErrorBorder: UIColor = .tint
+    
     // MARK: - Initialization
     convenience init(hexString: String, alpha: CGFloat = 1.0) {
         let hexString: String = hexString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)

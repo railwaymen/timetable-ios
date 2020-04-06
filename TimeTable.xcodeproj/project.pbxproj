@@ -382,7 +382,7 @@
 		C1AACFD821A4387F0023FD32 /* WorkTimesListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD721A4387F0023FD32 /* WorkTimesListCoordinator.swift */; };
 		C1AFFFD921A2ACC100A7A632 /* AccessServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AFFFD821A2ACC100A7A632 /* AccessServiceTests.swift */; };
 		C1AFFFDB21A2CD2000A7A632 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AFFFDA21A2CD2000A7A632 /* AppError.swift */; };
-		C1AFFFE321A2D16F00A7A632 /* TimeTableCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AFFFE221A2D16F00A7A632 /* TimeTableCoordinator.swift */; };
+		C1AFFFE321A2D16F00A7A632 /* TimeTableTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AFFFE221A2D16F00A7A632 /* TimeTableTabCoordinator.swift */; };
 		C1B5136D21772D1200C3727C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B5136C21772D1200C3727C /* AppDelegate.swift */; };
 		C1B5137421772D1400C3727C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1B5137321772D1400C3727C /* Assets.xcassets */; };
 		C1B5137721772D1400C3727C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1B5137521772D1400C3727C /* LaunchScreen.storyboard */; };
@@ -874,7 +874,7 @@
 		C1AACFD721A4387F0023FD32 /* WorkTimesListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListCoordinator.swift; sourceTree = "<group>"; };
 		C1AFFFD821A2ACC100A7A632 /* AccessServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessServiceTests.swift; sourceTree = "<group>"; };
 		C1AFFFDA21A2CD2000A7A632 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
-		C1AFFFE221A2D16F00A7A632 /* TimeTableCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableCoordinator.swift; sourceTree = "<group>"; };
+		C1AFFFE221A2D16F00A7A632 /* TimeTableTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableTabCoordinator.swift; sourceTree = "<group>"; };
 		C1B5136921772D1200C3727C /* TimeTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeTable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1B5136C21772D1200C3727C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1B5137321772D1400C3727C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -2115,7 +2115,7 @@
 		C1AFFFE121A2D15C00A7A632 /* TimeTable */ = {
 			isa = PBXGroup;
 			children = (
-				C1AFFFE221A2D16F00A7A632 /* TimeTableCoordinator.swift */,
+				C1AFFFE221A2D16F00A7A632 /* TimeTableTabCoordinator.swift */,
 				C1AACFCB21A4345C0023FD32 /* Projects */,
 				C1AACFCD21A434780023FD32 /* User */,
 				C1AACFCC21A434650023FD32 /* WorkTime */,
@@ -2921,7 +2921,7 @@
 				C1E6B352219F014600019DC2 /* Bundle+Extension.swift in Sources */,
 				8A79A2FE2424DC250048B44B /* ProjectTagsDecoder.swift in Sources */,
 				8A5EF31C23FE808800AE4309 /* ReusableCellType.swift in Sources */,
-				C1AFFFE321A2D16F00A7A632 /* TimeTableCoordinator.swift in Sources */,
+				C1AFFFE321A2D16F00A7A632 /* TimeTableTabCoordinator.swift in Sources */,
 				C134296921A6964B00F4EA42 /* WorkTimesParameters.swift in Sources */,
 				C101603422003D4000DCE817 /* MatchingFullTimeEncoder.swift in Sources */,
 				8A31CD8423742B34008E590D /* Array+Extension.swift in Sources */,

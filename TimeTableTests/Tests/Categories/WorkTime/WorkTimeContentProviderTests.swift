@@ -436,7 +436,7 @@ extension WorkTimeContentProviderTests {
         //Arrange
         let sut = self.buildSUT()
         self.taskForm.generateEncodableRepresentationThrownError = "Some error"
-        var completionResult: SaveTaskResult?
+        var completionResult: WorkTimeSaveTaskResult?
         //Act
         sut.save(taskForm: self.taskForm) { result in
             completionResult = result
