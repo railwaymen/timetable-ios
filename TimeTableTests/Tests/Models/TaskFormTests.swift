@@ -648,7 +648,7 @@ extension TaskFormTests {
         //Act
         let errors = sut.validationErrors()
         //Assert
-        XCTAssertEqual(errors, [.bodyIsEmpty, .urlIsNil])
+        XCTAssertEqual(errors, [.bodyIsEmpty, .urlStringIsEmpty])
     }
     
     func testValidationErrors_allowsTask_missingBodyAndInvalidTaskURL_returnsProperError() throws {
@@ -772,7 +772,7 @@ extension TaskFormTests {
         //Act
         let errors = sut.validationErrors()
         //Assert
-        XCTAssertEqual(errors, [.projectIsNil, .urlIsNil])
+        XCTAssertEqual(errors, [.projectIsNil, .urlStringIsEmpty])
     }
     
     func testValidationErrors_missingProjectAndInvalidURL_returnsBothErrors() throws {
@@ -812,7 +812,7 @@ extension TaskFormTests {
         //Act
         let errors = sut.validationErrors()
         //Assert
-        XCTAssertEqual(errors, [.projectIsNil, .bodyIsEmpty, .urlIsNil])
+        XCTAssertEqual(errors, [.projectIsNil, .bodyIsEmpty, .urlStringIsEmpty])
     }
     
     func testValidationErrors_missingDay_returnsProperError() throws {
@@ -912,7 +912,7 @@ extension TaskFormTests {
         XCTAssertEqual(errors.count, 6)
         XCTAssert(errors.contains(.projectIsNil))
         XCTAssert(errors.contains(.bodyIsEmpty))
-        XCTAssert(errors.contains(.urlIsNil))
+        XCTAssert(errors.contains(.urlStringIsEmpty))
         XCTAssert(errors.contains(.dayIsNil))
         XCTAssert(errors.contains(.startsAtIsNil))
         XCTAssert(errors.contains(.endsAtIsNil))

@@ -127,7 +127,7 @@ extension TaskForm {
         case projectIsNil
         case startsAtIsNil
         case timeRangeIsIncorrect
-        case urlIsNil
+        case urlStringIsEmpty
         case urlIsInvalid
     }
     
@@ -168,7 +168,7 @@ extension TaskForm {
         if let project = self.project {
             if project.workTimesAllowsTask {
                 if self.body.isEmpty && self.urlString.isEmpty {
-                    errors.append(contentsOf: [.bodyIsEmpty, .urlIsNil])
+                    errors.append(contentsOf: [.bodyIsEmpty, .urlStringIsEmpty])
                 } else if !self.isURLValid {
                     errors.append(.urlIsInvalid)
                 }
@@ -180,7 +180,7 @@ extension TaskForm {
                 errors.append(.bodyIsEmpty)
             }
             if self.urlString.isEmpty {
-                errors.append(.urlIsNil)
+                errors.append(.urlStringIsEmpty)
             }
             if !self.isURLValid {
                 errors.append(.urlIsInvalid)

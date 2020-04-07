@@ -173,7 +173,7 @@ extension WorkTimeContentProvider {
         switch validationError {
         case .projectIsNil:
             return UIError.cannotBeEmpty(.projectTextField)
-        case .urlIsNil:
+        case .urlStringIsEmpty:
             return UIError.cannotBeEmpty(.taskUrlTextField)
         case .urlIsInvalid:
             return UIError.invalidFormat(.taskUrlTextField)

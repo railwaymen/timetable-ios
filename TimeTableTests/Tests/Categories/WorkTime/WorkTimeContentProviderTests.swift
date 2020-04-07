@@ -343,7 +343,7 @@ extension WorkTimeContentProviderTests {
     func testSaveTask_formValidationError_urlIsNil() throws {
         //Arrange
         let sut = self.buildSUT()
-        self.taskForm.generateEncodableRepresentationThrownError = TaskForm.ValidationError.urlIsNil
+        self.taskForm.generateEncodableRepresentationThrownError = TaskForm.ValidationError.urlStringIsEmpty
         var completionResult: WorkTimeSaveTaskResult?
         //Act
         sut.save(taskForm: self.taskForm) { result in
@@ -839,7 +839,7 @@ extension WorkTimeContentProviderTests {
         //Arrange
         let sut = self.buildSUT()
         let taskForm = TaskFormMock()
-        taskForm.validationErrorsReturnValue = [.urlIsNil]
+        taskForm.validationErrorsReturnValue = [.urlStringIsEmpty]
         //Act
         let errorsArray = sut.getValidationErrors(forTaskForm: taskForm)
         //Assert
@@ -918,7 +918,7 @@ extension WorkTimeContentProviderTests {
         let taskForm = TaskFormMock()
         taskForm.validationErrorsReturnValue = [
             .projectIsNil,
-            .urlIsNil,
+            .urlStringIsEmpty,
             .bodyIsEmpty,
             .dayIsNil,
             .startsAtIsNil,
