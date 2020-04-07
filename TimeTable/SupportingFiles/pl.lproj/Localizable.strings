@@ -69,11 +69,11 @@
 "api.error.timeout" = "Twoje żądanie przekroczyło limit czasu i zostało przerwane. Sprawdź połączenie z internetem i spróbuj ponownie.";
 
 // MARK: - ApiValidationErrors
-"api_validation_error.overlap" = "Istnieje inne zadanie wykonane w tym samym czasie";
-"api_validation_error.invalid_uri" = "Niepoprawny format adresu URL";
-"api_validation_error.invalid_external" = "Zadanie z podanego adresu URL nie istnieje";
-"api_validation_error.too_old" = "Nie można utworzyć lub edytować wpisu, ponieważ wybrana data jest zbyt oddalona w czasie. Skontaktuj się z administratorem, jeśli jesteś pewien poprawności daty.";
-"api_validation_error.no_gaps_to_fill" = "Brak luk do wypełnienia";
+"api_validation_error.overlap" = "Istnieje inne zadanie wykonane w tym samym czasie.";
+"api_validation_error.invalid_uri" = "Niepoprawny format adresu URL.";
+"api_validation_error.invalid_external" = "Zadanie z podanego adresu URL nie istnieje.";
+"api_validation_error.too_old" = "Już za późno, żeby dodać zadanie w tym czasie.";
+"api_validation_error.no_gaps_to_fill" = "Nie ma żadnych luk do wypełnienia w wybranym przedziale czasowym.";
 
 "invalid_email_or_password" = "Niepoprawny email lub hasło";
 
