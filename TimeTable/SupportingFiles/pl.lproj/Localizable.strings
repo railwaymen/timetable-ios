@@ -1,4 +1,4 @@
-// UIElements
+// MARK: - UIElements
 "element.text_field.server_address" = "Adres serwera";
 "element.text_field.login" = "Login";
 "element.text_field.password" = "Hasło";
@@ -9,7 +9,7 @@
 "element.text_field.starts_at" = "Data początkowa";
 "element.text_field.ends_at" = "Data końcowa";
 
-// UIControls
+// MARK: - UIControls
 "tabbar.title.profile" = "Profil";
 "tabbar.title.timesheet" = "Czas Pracy";
 "tabbar.title.projects" = "Projekty";
@@ -54,27 +54,34 @@
 
 "error.button.refresh" = "ODŚWIEŻ";
 
-// UIErrors
+// MARK: - UIErrors
 "ui.error.cannot_be_empty" = "- pole nie może być puste.";
 "ui.error.invalid_format" = "niepoprawny format.";
 "ui.error.time_greater_than" = "Czas trwania musi być większy od zera";
 "ui.error.generic_error" = "Ups! Niestety nie mogliśmy zrealizować twojego żądania. Spróbuj później.";
 "ui.error.login_credentials_invalid" = "Podane dane są niepoprawne. Upewnij się, czy dobrze je wpisałeś.";
 
-// APiErrors
+// MARK: - ApiErrors
 "api.error.invalid_url" = "Podany adres (%@) jest niepoprawny";
 "api.error.invalid_parameters" = "Wysłano nieprawidłowe parametry";
 "api.error.invalid_response" = "Niepoprawna odpowiedź serwera";
 "api.error.no_connection" = "Wygląda na to, że nie masz internetu. Sprawdź połączenie i spróbuj ponownie.";
 "api.error.timeout" = "Twoje żądanie przekroczyło limit czasu i zostało przerwane. Sprawdź połączenie z internetem i spróbuj ponownie.";
 
+// MARK: - ApiValidationErrors
+"api_validation_error.overlap" = "Istnieje inne zadanie wykonane w tym samym czasie";
+"api_validation_error.invalid_uri" = "Niepoprawny format adresu URL";
+"api_validation_error.invalid_external" = "Zadanie z podanego adresu URL nie istnieje";
+"api_validation_error.too_old" = "Nie można utworzyć lub edytować wpisu, ponieważ wybrana data jest zbyt oddalona w czasie. Skontaktuj się z administratorem, jeśli jesteś pewien poprawności daty.";
+"api_validation_error.no_gaps_to_fill" = "Brak luk do wypełnienia";
+
 "invalid_email_or_password" = "Niepoprawny email lub hasło";
 
-// Static words
+// MARK: - Static words
 "day.today" = "Dzisiaj";
 "day.yesterday" = "Wczoraj";
 
-// Tags
+// MARK: - Tags
 "project_im" = "Spotkanie wewnętrzne";
 "project_cc" = "Rozmowa z klientem";
 "project_res" = "Poszukiwanie informacji";

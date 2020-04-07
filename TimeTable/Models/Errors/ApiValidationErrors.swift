@@ -15,7 +15,7 @@ struct ApiValidationErrors: Error, Decodable {
 // MARK: - Structures
 extension ApiValidationErrors {
     struct Base: Decodable {
-        let keys: [String]
+        let keys: [BasicErrorInfo]
         
         enum CodingKeys: String, CodingKey {
             case base
@@ -27,28 +27,48 @@ extension ApiValidationErrors {
         
         init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
-            var keys: [String] = []
+            var keys: [BasicErrorInfo] = []
             if let base = try? container.decode([BasicErrorInfo].self, forKey: .base) {
-                keys += base.map(\.error)
+                keys += base
             }
             if let startsAt = try? container.decode([BasicErrorInfo].self, forKey: .startsAt) {
-                keys += startsAt.map(\.error)
+                keys += startsAt
             }
             if let endsAt = try? container.decode([BasicErrorInfo].self, forKey: .endsAt) {
-                keys += endsAt.map(\.error)
+                keys += endsAt
             }
             if let duration = try? container.decode([BasicErrorInfo].self, forKey: .duration) {
-                keys += duration.map(\.error)
+                keys += duration
             }
             if let invalidEmailOrPassword = try? container.decode([BasicErrorInfo].self, forKey: .invalidEmailOrPassword) {
-                keys += invalidEmailOrPassword.map(\.error)
+                keys += invalidEmailOrPassword
             }
             self.keys = keys
         }
     }
     
-    private struct BasicErrorInfo: Decodable {
+    struct BasicErrorInfo: Decodable, Equatable {
         let error: String
+        
+        var errorKey: ErrorKey? {
+            ErrorKey(rawValue: self.error)
+        }
+        
+        var localizedDescription: String? {
+            self.errorKey?.localizedDescription
+        }
+    }
+    
+    enum ErrorKey: String {
+        case overlap
+        case invalidURI = "invalid_uri"
+        case invalidExternal = "invalid_external"
+        case tooOld = "too_old"
+        case noGapsToFill = "no_gaps_to_fill"
+        
+        var localizedDescription: String {
+            ("api_validation_error." + self.rawValue).localized
+        }
     }
 }
 

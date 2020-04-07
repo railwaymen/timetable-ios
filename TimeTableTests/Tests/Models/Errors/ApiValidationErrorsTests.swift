@@ -29,8 +29,9 @@ extension ApiValidationErrorsTests {
         let sut = try self.decoder.decode(ApiValidationErrors.self, from: data)
         //Assert
         XCTAssertEqual(sut.errors.keys.count, 2)
-        XCTAssertEqual(sut.errors.keys[0], "Nie można utworzyć lub edytować wpisu")
-        XCTAssertEqual(sut.errors.keys[1], "Error")
+        XCTAssertEqual(sut.errors.keys[safeIndex: 0]?.error, "overlap")
+        XCTAssertEqual(sut.errors.keys[safeIndex: 0]?.errorKey, .overlap)
+        XCTAssertEqual(sut.errors.keys[safeIndex: 1]?.error, "Error")
     }
     
     func testStartAtErrorKeyResponse() throws {
@@ -40,8 +41,8 @@ extension ApiValidationErrorsTests {
         let sut = try self.decoder.decode(ApiValidationErrors.self, from: data)
         //Assert
         XCTAssertEqual(sut.errors.keys.count, 2)
-        XCTAssertEqual(sut.errors.keys[0], "Invalid parameters has been send")
-        XCTAssertEqual(sut.errors.keys[1], "Error")
+        XCTAssertEqual(sut.errors.keys[safeIndex: 0]?.error, "Invalid parameters has been send")
+        XCTAssertEqual(sut.errors.keys[safeIndex: 1]?.error, "Error")
     }
     
     func testEndsAtErrorKeyResponse() throws {
@@ -51,8 +52,8 @@ extension ApiValidationErrorsTests {
         let sut = try self.decoder.decode(ApiValidationErrors.self, from: data)
         //Assert
         XCTAssertEqual(sut.errors.keys.count, 2)
-        XCTAssertEqual(sut.errors.keys[0], "Invalid parameters has been send")
-        XCTAssertEqual(sut.errors.keys[1], "Error")
+        XCTAssertEqual(sut.errors.keys[safeIndex: 0]?.error, "Invalid parameters has been send")
+        XCTAssertEqual(sut.errors.keys[safeIndex: 1]?.error, "Error")
     }
     
     func testDurationErrorKeyResponse() throws {
@@ -62,8 +63,8 @@ extension ApiValidationErrorsTests {
         let sut = try self.decoder.decode(ApiValidationErrors.self, from: data)
         //Assert
         XCTAssertEqual(sut.errors.keys.count, 2)
-        XCTAssertEqual(sut.errors.keys[0], "Invalid parameters has been send")
-        XCTAssertEqual(sut.errors.keys[1], "Error")
+        XCTAssertEqual(sut.errors.keys[safeIndex: 0]?.error, "Invalid parameters has been send")
+        XCTAssertEqual(sut.errors.keys[safeIndex: 1]?.error, "Error")
     }
     
     func testInvalidEmailOrPasswordErrorKeyResponse() throws {
@@ -73,7 +74,7 @@ extension ApiValidationErrorsTests {
         let sut = try self.decoder.decode(ApiValidationErrors.self, from: data)
         //Assert
         XCTAssertEqual(sut.errors.keys.count, 2)
-        XCTAssertEqual(sut.errors.keys[0], "Invalid parameters has been send")
-        XCTAssertEqual(sut.errors.keys[1], "Error")
+        XCTAssertEqual(sut.errors.keys[safeIndex: 0]?.error, "Invalid parameters has been send")
+        XCTAssertEqual(sut.errors.keys[safeIndex: 1]?.error, "Error")
     }
 }
