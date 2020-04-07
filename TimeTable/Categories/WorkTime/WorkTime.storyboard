@@ -134,7 +134,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPE-xV-Lbs">
                                                 <rect key="frame" x="16" y="391.33333333333331" width="382" height="84.333333333333314"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dYn-5C-xtg">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dYn-5C-xtg" customClass="AttributedTextField" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="44.333333333333371" width="382" height="40"/>
                                                         <color key="tintColor" name="Crimson"/>
                                                         <constraints>

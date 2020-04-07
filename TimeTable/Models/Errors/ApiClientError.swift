@@ -73,7 +73,8 @@ extension ApiClientError {
             case .invalidResponse:
                 return "api.error.invalid_response".localized
             case .validationErrors(let validationErrors):
-                return validationErrors?.errors.keys.joined(separator: ".\n") ?? ""
+                let text = validationErrors?.errors.keys.joined(separator: ".\n") ?? ""
+                return text.isEmpty ? UIError.genericError.localizedDescription : text
             case .serverError(let serverError):
                 return  "\(serverError.status) - \(serverError.error)"
             case .noConnection:
