@@ -12,7 +12,7 @@ protocol TaskFormType {
     var workTimeIdentifier: Int64? { get set }
     var project: SimpleProjectRecordDecoder? { get set }
     var body: String { get set }
-    var url: URL? { get set }
+    var urlString: String { get set }
     var day: Date? { get set }
     var startsAt: Date? { get set }
     var endsAt: Date? { get set }
@@ -31,7 +31,7 @@ struct TaskForm: TaskFormType {
     var workTimeIdentifier: Int64?
     var project: SimpleProjectRecordDecoder?
     var body: String
-    var url: URL?
+    var urlString: String
     var day: Date?
     var startsAt: Date?
     var endsAt: Date?
@@ -60,6 +60,14 @@ struct TaskForm: TaskFormType {
             return .lunch(AutofillHours.lunchTimeInterval)
         }
         return .standard
+    }
+    
+    var url: URL? {
+        return URL(string: self.urlString)
+    }
+    
+    private var isURLValid: Bool {
+        self.urlString.isEmpty || self.url != nil
     }
     
     private var requiresBodyOrTaskURL: Bool {
@@ -119,7 +127,8 @@ extension TaskForm {
         case projectIsNil
         case startsAtIsNil
         case timeRangeIsIncorrect
-        case urlIsNil
+        case urlStringIsEmpty
+        case urlIsInvalid
     }
     
     enum ProjectType: Equatable {
@@ -158,8 +167,10 @@ extension TaskForm {
         guard self.requiresBodyOrTaskURL else { return errors }
         if let project = self.project {
             if project.workTimesAllowsTask {
-                if self.body.isEmpty && self.url == nil {
-                    errors.append(contentsOf: [.bodyIsEmpty, .urlIsNil])
+                if self.body.isEmpty && self.urlString.isEmpty {
+                    errors.append(contentsOf: [.bodyIsEmpty, .urlStringIsEmpty])
+                } else if !self.isURLValid {
+                    errors.append(.urlIsInvalid)
                 }
             } else if self.body.isEmpty {
                 errors.append(.bodyIsEmpty)
@@ -168,8 +179,11 @@ extension TaskForm {
             if self.body.isEmpty {
                 errors.append(.bodyIsEmpty)
             }
-            if self.url == nil {
-                errors.append(.urlIsNil)
+            if self.urlString.isEmpty {
+                errors.append(.urlStringIsEmpty)
+            }
+            if !self.isURLValid {
+                errors.append(.urlIsInvalid)
             }
         }
         return errors

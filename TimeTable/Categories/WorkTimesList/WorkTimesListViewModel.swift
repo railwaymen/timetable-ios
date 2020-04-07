@@ -260,15 +260,11 @@ extension WorkTimesListViewModel {
     private func createTaskForm(for indexPath: IndexPath) -> TaskForm? {
         guard let dailyWorkTime = self.dailyWorkTime(for: indexPath) else { return nil }
         guard let workTime = self.workTime(for: indexPath) else { return nil }
-        var url: URL?
-        if let taskUrlString = workTime.task {
-            url = URL(string: taskUrlString)
-        }
         return TaskForm(
             workTimeIdentifier: workTime.identifier,
             project: workTime.project,
             body: workTime.body ?? "",
-            url: url,
+            urlString: workTime.task ?? "",
             day: dailyWorkTime.day,
             startsAt: workTime.startsAt,
             endsAt: workTime.endsAt,

@@ -60,7 +60,7 @@ extension WorkTimesListCoordinatorTests {
             workTimeIdentifier: 1,
             project: nil,
             body: "body",
-            url: nil,
+            urlString: "",
             day: Date(),
             startsAt: Date(),
             endsAt: Date().addingTimeInterval(3600),

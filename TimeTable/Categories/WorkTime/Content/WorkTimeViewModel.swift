@@ -186,11 +186,7 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func taskURLDidChange(value: String?) {
-        var taskURL: URL?
-        if let url = URL(string: value ?? "") {
-            taskURL = url
-        }
-        self.taskForm.url = taskURL
+        self.taskForm.urlString = value ?? ""
     }
     
     func viewChanged(day: Date) {
@@ -282,7 +278,7 @@ extension WorkTimeViewModel {
         self.userInterface?.setBodyView(isHidden: isLunch)
         self.userInterface?.setTaskURLView(isHidden: !self.taskForm.allowsTask || isLunch)
         self.userInterface?.setBody(text: self.taskForm.body)
-        self.userInterface?.setTask(urlString: self.taskForm.url?.absoluteString ?? "")
+        self.userInterface?.setTask(urlString: self.taskForm.urlString)
         self.userInterface?.setTagsCollectionView(isHidden: !self.taskForm.isProjectTaggable)
         self.updateEndAtDateView(with: endDate)
         self.updateStartAtDateView(with: startDate)
@@ -336,11 +332,12 @@ extension WorkTimeViewModel {
         self.userInterface?.setSaveButtons(isEnabled: errors.isEmpty)
         self.userInterface?.setProject(isHighlighted: errors.contains(.cannotBeEmpty(.projectTextField)))
         self.userInterface?.setDay(isHighlighted: errors.contains(.cannotBeEmpty(.dayTextField)))
-        self.userInterface?.setStartsAt(
-            isHighlighted: errors.contains(.cannotBeEmpty(.startsAtTextField)) || errors.contains(.timeGreaterThan))
-        self.userInterface?.setEndsAt(
-            isHighlighted: errors.contains(.cannotBeEmpty(.endsAtTextField)) || errors.contains(.timeGreaterThan))
+        self.userInterface?.setStartsAt(isHighlighted: errors.contains(.cannotBeEmpty(.startsAtTextField))
+            || errors.contains(.timeGreaterThan))
+        self.userInterface?.setEndsAt(isHighlighted: errors.contains(.cannotBeEmpty(.endsAtTextField))
+            || errors.contains(.timeGreaterThan))
         self.userInterface?.setBody(isHighlighted: errors.contains(.cannotBeEmpty(.taskNameTextField)))
-        self.userInterface?.setTaskURL(isHighlighted: errors.contains(.cannotBeEmpty(.taskUrlTextField)))
+        self.userInterface?.setTaskURL(isHighlighted: errors.contains(.cannotBeEmpty(.taskUrlTextField))
+            || errors.contains(.invalidFormat(.taskUrlTextField)))
     }
 }

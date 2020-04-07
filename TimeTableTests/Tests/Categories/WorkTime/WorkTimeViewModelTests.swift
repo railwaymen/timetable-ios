@@ -305,42 +305,43 @@ extension WorkTimeViewModelTests {
     func testTaskURLDidChange_properURL_setsProperURL() throws {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let url = try XCTUnwrap(URL(string: "example.com"))
+        let url = "example.com"
         //Act
-        sut.taskURLDidChange(value: url.absoluteString)
+        sut.taskURLDidChange(value: url)
         //Assert
-        XCTAssertEqual(self.taskForm.urlSetParams.count, 1)
-        XCTAssertEqual(self.taskForm.urlSetParams.last?.newValue, url)
+        XCTAssertEqual(self.taskForm.urlStringSetParams.count, 1)
+        XCTAssertEqual(self.taskForm.urlStringSetParams.last?.newValue, url)
     }
     
-    func testTaskURLDidChange_nilValue_setsNilInTaskForm() {
+    func testTaskURLDidChange_nilValue_setsEmptyStringInTaskForm() {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         //Act
         sut.taskURLDidChange(value: nil)
         //Assert
-        XCTAssertEqual(self.taskForm.urlSetParams.count, 1)
-        XCTAssertNil(try XCTUnwrap(self.taskForm.urlSetParams.last).newValue)
+        XCTAssertEqual(self.taskForm.urlStringSetParams.count, 1)
+        XCTAssertEqual(try XCTUnwrap(self.taskForm.urlStringSetParams.last).newValue, "")
     }
     
-    func testTaskURLDidChange_emptyString_setsNilInTaskForm() {
+    func testTaskURLDidChange_emptyString_setsEmptyStringInTaskForm() {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
         //Act
         sut.taskURLDidChange(value: "")
         //Assert
-        XCTAssertEqual(self.taskForm.urlSetParams.count, 1)
-        XCTAssertNil(try XCTUnwrap(self.taskForm.urlSetParams.last).newValue)
+        XCTAssertEqual(self.taskForm.urlStringSetParams.count, 1)
+        XCTAssertEqual(try XCTUnwrap(self.taskForm.urlStringSetParams.last).newValue, "")
     }
     
-    func testTaskURLDidChange_whiteSpaces_setsNilInTaskForm() {
+    func testTaskURLDidChange_whiteSpaces_setsItInTaskForm() {
         //Arrange
         let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
+        let url = "   "
         //Act
-        sut.taskURLDidChange(value: "   ")
+        sut.taskURLDidChange(value: url)
         //Assert
-        XCTAssertEqual(self.taskForm.urlSetParams.count, 1)
-        XCTAssertNil(try XCTUnwrap(self.taskForm.urlSetParams.last).newValue)
+        XCTAssertEqual(self.taskForm.urlStringSetParams.count, 1)
+        XCTAssertEqual(try XCTUnwrap(self.taskForm.urlStringSetParams.last).newValue, url)
     }
 }
 
@@ -656,7 +657,7 @@ extension WorkTimeViewModelTests {
             workTimeIdentifier: workTimeIdentifier,
             project: project,
             body: "Blah blah blah",
-            url: try XCTUnwrap(URL(string: "http://example.com")),
+            urlString: "http://example.com",
             day: Date(),
             startsAt: try self.buildTime(hours: 8, minutes: 0),
             endsAt: try self.buildTime(hours: 9, minutes: 30),
