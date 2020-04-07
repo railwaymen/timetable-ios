@@ -8,50 +8,66 @@
 
 import Foundation
 
-struct ApiValidationErrors: Error {
+struct ApiValidationErrors: Error, Decodable {
     let errors: Base
 }
 
 // MARK: - Structures
 extension ApiValidationErrors {
-    struct Base {
-        var keys: [String]
-    }
-}
-
-// MARK: - Decodable
-extension ApiValidationErrors: Decodable {
-    enum CodingKeys: String, CodingKey {
-        case errors
-    }
-}
-
-extension ApiValidationErrors.Base: Decodable {
-    enum CodingKeys: String, CodingKey {
-        case base
-        case startsAt
-        case endsAt
-        case duration
-        case invalidEmailOrPassword
+    struct Base: Decodable {
+        let keys: [BasicErrorInfo]
+        
+        enum CodingKeys: String, CodingKey {
+            case base
+            case startsAt
+            case endsAt
+            case duration
+            case invalidEmailOrPassword
+        }
+        
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            var keys: [BasicErrorInfo] = []
+            if let base = try? container.decode([BasicErrorInfo].self, forKey: .base) {
+                keys += base
+            }
+            if let startsAt = try? container.decode([BasicErrorInfo].self, forKey: .startsAt) {
+                keys += startsAt
+            }
+            if let endsAt = try? container.decode([BasicErrorInfo].self, forKey: .endsAt) {
+                keys += endsAt
+            }
+            if let duration = try? container.decode([BasicErrorInfo].self, forKey: .duration) {
+                keys += duration
+            }
+            if let invalidEmailOrPassword = try? container.decode([BasicErrorInfo].self, forKey: .invalidEmailOrPassword) {
+                keys += invalidEmailOrPassword
+            }
+            self.keys = keys
+        }
     }
     
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.keys = []
-        if let base = try? container.decode([String].self, forKey: .base) {
-            self.keys += base
+    struct BasicErrorInfo: Decodable, Equatable {
+        let error: String
+        
+        var errorKey: ErrorKey? {
+            ErrorKey(rawValue: self.error)
         }
-        if let startsAt = try? container.decode([String].self, forKey: .startsAt) {
-            self.keys += startsAt
+        
+        var localizedDescription: String? {
+            self.errorKey?.localizedDescription
         }
-        if let endsAt = try? container.decode([String].self, forKey: .endsAt) {
-            self.keys += endsAt
-        }
-        if let duration = try? container.decode([String].self, forKey: .duration) {
-            self.keys += duration
-        }
-        if let invalidEmailOrPassword = (try? container.decode([String].self, forKey: .invalidEmailOrPassword)) {
-            self.keys += invalidEmailOrPassword
+    }
+    
+    enum ErrorKey: String {
+        case overlap
+        case invalidURI = "invalid_uri"
+        case invalidExternal = "invalid_external"
+        case tooOld = "too_old"
+        case noGapsToFill = "no_gaps_to_fill"
+        
+        var localizedDescription: String {
+            ("api_validation_error." + self.rawValue).localized
         }
     }
 }

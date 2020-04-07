@@ -15,5 +15,4 @@ enum ApiValidationJSONResource: String, JSONFileResource {
     case endsAtErrorKeyResponse
     case durationErrorKeyResponse
     case invalidEmailOrPasswordErrorKeyResponse
-    case serverErrorResponse
 }

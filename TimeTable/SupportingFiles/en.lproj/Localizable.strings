@@ -69,6 +69,13 @@
 "api.error.no_connection" = "The device seems to be offline. Please, check your internet connection and try again.";
 "api.error.timeout" = "Your request has timed out. Please, check your internet connection and try again.";
 
+// MARK: - ApiValidationErrors
+"api_validation_error.overlap" = "There is another task overlapping the specified time.";
+"api_validation_error.invalid_uri" = "The task URL has invalid format.";
+"api_validation_error.invalid_external" = "The task URL doesn't point to a valid external task.";
+"api_validation_error.too_old" = "Cannot create or update work times being too far in the past. If you are sure that date is valid contact your system's administrator.";
+"api_validation_error.no_gaps_to_fill" = "There are no gaps to fill in the given time range. Whole range is occupied by another work times.";
+
 "invalid_email_or_password" = "Invalid email or password";
 
 // MARK: - Static words

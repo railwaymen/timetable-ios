@@ -1,8 +1,12 @@
 {
     "errors": {
         "base": [
-            "Nie można utworzyć lub edytować wpisu",
-            "Error"
+            {
+                "error": "overlap"
+            },
+            {
+                "error": "Error"
+            }
         ]
     }
 }

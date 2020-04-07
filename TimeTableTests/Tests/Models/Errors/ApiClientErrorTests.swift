@@ -186,7 +186,7 @@ extension ApiClientErrorTests {
         //Act
         let localizedString = sut.type.localizedDescription
         //Assert
-        XCTAssertEqual(localizedString, "Nie można utworzyć lub edytować wpisu.\nError")
+        XCTAssertEqual(localizedString, "api_validation_error.overlap".localized)
     }
     
     func testLocalizedDescription_validationErrors_nilApiValidationErrors() throws {

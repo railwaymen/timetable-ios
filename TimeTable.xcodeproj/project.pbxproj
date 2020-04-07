@@ -365,7 +365,6 @@
 		C17EA3B82189E04400A3F0CD /* ServerConfigurationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3B72189E04400A3F0CD /* ServerConfigurationManagerTests.swift */; };
 		C17EA3BA2189E9BA00A3F0CD /* ApiClientErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3B92189E9BA00A3F0CD /* ApiClientErrorTests.swift */; };
 		C17EA3BC2189EC1700A3F0CD /* URLSessionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */; };
-		C18A189A21EF804900CB6E32 /* serverErrorResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189921EF804900CB6E32 /* serverErrorResponse.json */; };
 		C18A189C21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189B21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json */; };
 		C18A189E21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189D21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json */; };
 		C18A18A121EF88B300CB6E32 /* WorkTimeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18A18A021EF88B300CB6E32 /* WorkTimeViewModelTests.swift */; };
@@ -857,7 +856,6 @@
 		C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionExtensionTests.swift; sourceTree = "<group>"; };
 		C183F82C21F0A56700B07AB8 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
 		C183F82D21F0A57300B07AB8 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
-		C18A189921EF804900CB6E32 /* serverErrorResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = serverErrorResponse.json; sourceTree = "<group>"; };
 		C18A189B21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithAutofillTrueResponse.json; sourceTree = "<group>"; };
 		C18A189D21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithALunchTrueResponse.json; sourceTree = "<group>"; };
 		C18A18A021EF88B300CB6E32 /* WorkTimeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeViewModelTests.swift; sourceTree = "<group>"; };
@@ -2232,13 +2230,12 @@
 		C1B771F921EF415C00EFE06F /* ApiValidationErrors */ = {
 			isa = PBXGroup;
 			children = (
-				C1B771FA21EF41C300EFE06F /* emptyErrosKeysResponse.json */,
 				C1B771FC21EF421900EFE06F /* baseErrorKeyResponse.json */,
-				C1B771FE21EF422600EFE06F /* startAtErrorKeyResponse.json */,
-				C1B7720021EF423000EFE06F /* endsAtErrorKeyResponse.json */,
 				C1B7720221EF423900EFE06F /* durationErrorKeyResponse.json */,
+				C1B771FA21EF41C300EFE06F /* emptyErrosKeysResponse.json */,
+				C1B7720021EF423000EFE06F /* endsAtErrorKeyResponse.json */,
 				C1B7720421EF424300EFE06F /* invalidEmailOrPasswordErrorKeyResponse.json */,
-				C18A189921EF804900CB6E32 /* serverErrorResponse.json */,
+				C1B771FE21EF422600EFE06F /* startAtErrorKeyResponse.json */,
 			);
 			path = ApiValidationErrors;
 			sourceTree = "<group>";
@@ -2575,7 +2572,6 @@
 				C1B771D721EF1DE100EFE06F /* simpleProjectMissingColorKeyResponse.json in Resources */,
 				C1B771FD21EF421900EFE06F /* baseErrorKeyResponse.json in Resources */,
 				8A21A0442435D71700EE4A79 /* taskVersionNullPreviousTaskPreview.json in Resources */,
-				C18A189A21EF804900CB6E32 /* serverErrorResponse.json in Resources */,
 				8A9832BD243B0023005245A8 /* serverErrorFullModel.json in Resources */,
 				8A21A0482435D74C00EE4A79 /* taskVersionNullCurrentTaskPreview.json in Resources */,
 				8A79A2C02420F73C0048B44B /* taskVersionNullCurrentTag.json in Resources */,
