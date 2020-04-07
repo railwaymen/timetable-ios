@@ -186,11 +186,7 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func taskURLDidChange(value: String?) {
-        var taskURL: URL?
-        if let url = URL(string: value ?? "") {
-            taskURL = url
-        }
-        self.taskForm.url = taskURL
+        self.taskForm.urlString = value ?? ""
     }
     
     func viewChanged(day: Date) {
@@ -282,7 +278,7 @@ extension WorkTimeViewModel {
         self.userInterface?.setBodyView(isHidden: isLunch)
         self.userInterface?.setTaskURLView(isHidden: !self.taskForm.allowsTask || isLunch)
         self.userInterface?.setBody(text: self.taskForm.body)
-        self.userInterface?.setTask(urlString: self.taskForm.url?.absoluteString ?? "")
+        self.userInterface?.setTask(urlString: self.taskForm.urlString ?? "")
         self.userInterface?.setTagsCollectionView(isHidden: !self.taskForm.isProjectTaggable)
         self.updateEndAtDateView(with: endDate)
         self.updateStartAtDateView(with: startDate)

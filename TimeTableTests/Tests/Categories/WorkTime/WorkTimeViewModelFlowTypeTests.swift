@@ -157,6 +157,7 @@ extension WorkTimeViewModelFlowTypeTests {
     private func buildTask(id: Int64) -> TaskForm {
         return TaskForm(
             workTimeIdentifier: id,
-            body: "body")
+            body: "body",
+            urlString: "")
     }
 }

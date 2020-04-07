@@ -791,7 +791,7 @@ extension WorkTimeContentProviderTests {
         //Arrange
         let sut = self.buildSUT()
         let date = try self.buildDate(year: 2018, month: 12, day: 11)
-        let taskForm = TaskForm(body: "", day: date)
+        let taskForm = TaskForm(body: "", urlString: "", day: date)
         //Act
         let returnedDate = sut.getPredefinedDay(forTaskForm: taskForm)
         //Assert
@@ -803,7 +803,7 @@ extension WorkTimeContentProviderTests {
         let sut = self.buildSUT()
         let date = try self.buildDate(year: 2018, month: 12, day: 11)
         self.dateFactory.currentDateReturnValue = date
-        let taskForm = TaskForm(body: "", day: nil)
+        let taskForm = TaskForm(body: "", urlString: "", day: nil)
         //Act
         let returnedDate = sut.getPredefinedDay(forTaskForm: taskForm)
         //Assert

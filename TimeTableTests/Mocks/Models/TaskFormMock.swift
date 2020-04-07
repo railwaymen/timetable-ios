@@ -30,10 +30,10 @@ class TaskFormMock {
         let newValue: String
     }
     
-    var urlReturnValue: URL?
-    private(set) var urlSetParams: [URLSetParams] = []
-    struct URLSetParams {
-        let newValue: URL?
+    var urlStringReturnValue: String = ""
+    private(set) var urlStringSetParams: [URLStringSetParams] = []
+    struct URLStringSetParams {
+        let newValue: String
     }
     
     var dayReturnValue: Date?
@@ -107,12 +107,12 @@ extension TaskFormMock: TaskFormType {
         }
     }
     
-    var url: URL? {
+    var urlString: String {
         get {
-            self.urlReturnValue
+            self.urlStringReturnValue
         }
         set {
-            self.urlSetParams.append(URLSetParams(newValue: newValue))
+            self.urlStringSetParams.append(URLStringSetParams(newValue: newValue))
         }
     }
     

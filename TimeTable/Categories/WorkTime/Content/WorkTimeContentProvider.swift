@@ -175,6 +175,8 @@ extension WorkTimeContentProvider {
             return UIError.cannotBeEmpty(.projectTextField)
         case .urlIsNil:
             return UIError.cannotBeEmpty(.taskUrlTextField)
+        case .urlIsInvalid:
+            return UIError.invalidFormat(.taskUrlTextField)
         case .bodyIsEmpty:
             return UIError.cannotBeEmpty(.taskNameTextField)
         case .dayIsNil:

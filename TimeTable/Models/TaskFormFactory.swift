@@ -28,7 +28,7 @@ extension TaskFormFactory: TaskFormFactoryType {
             workTimeIdentifier: nil,
             project: duplicatedTask?.project,
             body: duplicatedTask?.body ?? "",
-            url: duplicatedTask?.url,
+            urlString: duplicatedTask?.urlString ?? "",
             day: Date(),
             startsAt: self.pickEndTime(ofLastTask: lastTask),
             endsAt: nil,

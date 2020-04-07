@@ -27,7 +27,7 @@ extension TaskFormTests {
             workTimeIdentifier: nil,
             project: nil,
             body: "body",
-            url: nil,
+            urlString: "",
             day: nil,
             startsAt: nil,
             endsAt: nil,
@@ -46,7 +46,7 @@ extension TaskFormTests {
             workTimeIdentifier: nil,
             project: projectDecoder,
             body: "body",
-            url: nil,
+            urlString: "",
             day: nil,
             startsAt: nil,
             endsAt: nil,
@@ -66,7 +66,7 @@ extension TaskFormTests {
             workTimeIdentifier: nil,
             project: nil,
             body: "body",
-            url: nil,
+            urlString: "",
             day: nil,
             startsAt: nil,
             endsAt: nil,
@@ -85,7 +85,7 @@ extension TaskFormTests {
             workTimeIdentifier: nil,
             project: projectDecoder,
             body: "body",
-            url: nil,
+            urlString: "",
             day: nil,
             startsAt: nil,
             endsAt: nil,
@@ -105,7 +105,7 @@ extension TaskFormTests {
             workTimeIdentifier: nil,
             project: nil,
             body: "body",
-            url: nil,
+            urlString: "",
             day: nil,
             startsAt: nil,
             endsAt: nil,
@@ -124,7 +124,7 @@ extension TaskFormTests {
             workTimeIdentifier: nil,
             project: project,
             body: "body",
-            url: nil,
+            urlString: "",
             day: nil,
             startsAt: nil,
             endsAt: nil,
@@ -143,7 +143,7 @@ extension TaskFormTests {
             workTimeIdentifier: nil,
             project: project,
             body: "body",
-            url: nil,
+            urlString: "",
             day: nil,
             startsAt: nil,
             endsAt: nil,
@@ -163,7 +163,7 @@ extension TaskFormTests {
             workTimeIdentifier: nil,
             project: nil,
             body: "body",
-            url: nil,
+            urlString: "",
             day: nil,
             startsAt: nil,
             endsAt: nil,
@@ -182,7 +182,7 @@ extension TaskFormTests {
             workTimeIdentifier: nil,
             project: projectDecoder,
             body: "body",
-            url: nil,
+            urlString: "",
             day: nil,
             startsAt: nil,
             endsAt: nil,
@@ -201,7 +201,7 @@ extension TaskFormTests {
             workTimeIdentifier: nil,
             project: projectDecoder,
             body: "body",
-            url: nil,
+            urlString: "",
             day: nil,
             startsAt: nil,
             endsAt: nil,
@@ -220,7 +220,7 @@ extension TaskFormTests {
             workTimeIdentifier: nil,
             project: projectDecoder,
             body: "body",
-            url: nil,
+            urlString: "",
             day: nil,
             startsAt: nil,
             endsAt: nil,
@@ -247,7 +247,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: projectDecoder,
             body: body,
-            url: self.exampleURL,
+            urlString: self.exampleURL.absoluteString,
             day: day,
             startsAt: startsAt,
             endsAt: endsAt,
@@ -276,7 +276,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: projectDecoder,
             body: body,
-            url: nil,
+            urlString: "",
             day: day,
             startsAt: startsAt,
             endsAt: endsAt,
@@ -294,7 +294,7 @@ extension TaskFormTests {
     
     func testGenerateEncodableRepresentation_nilProject() throws {
         //Arrange
-        let sut = TaskForm(body: "")
+        let sut = TaskForm(body: "", urlString: "")
         //Act
         //Assert
         XCTAssertThrowsError(try sut.generateEncodableRepresentation()) { error in
@@ -302,12 +302,13 @@ extension TaskFormTests {
         }
     }
     
-    func testGenerateEncodableRepresentation_allowsTask_emptyBodyAndNilURL() throws {
+    func testGenerateEncodableRepresentation_allowsTask_emptyBodyAndURL() throws {
         //Arrange
         let projectDecoder = try self.simpleProjectFactory.build(wrapper: .init(workTimesAllowsTask: true))
         let sut = TaskForm(
             project: projectDecoder,
-            body: "")
+            body: "",
+            urlString: "")
         //Act
         //Assert
         XCTAssertThrowsError(try sut.generateEncodableRepresentation()) { error in
@@ -327,7 +328,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: projectDecoder,
             body: "",
-            url: self.exampleURL,
+            urlString: self.exampleURL.absoluteString,
             day: day,
             startsAt: startsAt,
             endsAt: endsAt,
@@ -343,7 +344,7 @@ extension TaskFormTests {
         XCTAssertEqual(task.tag, tag)
     }
     
-    func testGenerateEncodableRepresentation_allowsTask_existingBodyAndNilURL() throws {
+    func testGenerateEncodableRepresentation_allowsTask_existingBodyAndEmtpyURL() throws {
         //Arrange
         let projectData = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: projectData)
@@ -356,7 +357,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: projectDecoder,
             body: body,
-            url: nil,
+            urlString: "",
             day: day,
             startsAt: startsAt,
             endsAt: endsAt,
@@ -377,7 +378,8 @@ extension TaskFormTests {
         let projectDecoder = try self.simpleProjectFactory.build(wrapper: .init(workTimesAllowsTask: false))
         let sut = TaskForm(
             project: projectDecoder,
-            body: "")
+            body: "",
+            urlString: "")
         //Act
         //Assert
         XCTAssertThrowsError(try sut.generateEncodableRepresentation()) { error in
@@ -392,7 +394,7 @@ extension TaskFormTests {
         let sut = TaskForm(
             project: projectDecoder,
             body: "body",
-            url: self.exampleURL,
+            urlString: self.exampleURL.absoluteString,
             startsAt: nil)
         //Act
         //Assert
@@ -409,7 +411,7 @@ extension TaskFormTests {
         let sut = TaskForm(
             project: projectDecoder,
             body: "body",
-            url: self.exampleURL,
+            urlString: self.exampleURL.absoluteString,
             day: day,
             startsAt: nil)
         //Act
@@ -428,7 +430,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: projectDecoder,
             body: "body",
-            url: self.exampleURL,
+            urlString: self.exampleURL.absoluteString,
             day: startsAt,
             startsAt: startsAt,
             endsAt: nil)
@@ -448,7 +450,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: projectDecoder,
             body: "body",
-            url: self.exampleURL,
+            urlString: self.exampleURL.absoluteString,
             day: startsAt,
             startsAt: startsAt,
             endsAt: startsAt)
@@ -468,7 +470,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: projectDecoder,
             body: "body",
-            url: self.exampleURL,
+            urlString: self.exampleURL.absoluteString,
             day: startsAt,
             startsAt: startsAt,
             endsAt: startsAt.addingTimeInterval(-60))
@@ -492,7 +494,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: project,
             body: "Body",
-            url: self.exampleURL,
+            urlString: self.exampleURL.absoluteString,
             day: day,
             startsAt: startsAt,
             endsAt: endsAt,
@@ -512,7 +514,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: nil,
             body: "Body",
-            url: self.exampleURL,
+            urlString: self.exampleURL.absoluteString,
             day: day,
             startsAt: startsAt,
             endsAt: endsAt,
@@ -533,7 +535,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: project,
             body: "",
-            url: nil,
+            urlString: "",
             day: day,
             startsAt: startsAt,
             endsAt: endsAt,
@@ -554,7 +556,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: project,
             body: "",
-            url: nil,
+            urlString: "",
             day: day,
             startsAt: startsAt,
             endsAt: endsAt,
@@ -575,7 +577,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: project,
             body: "",
-            url: self.exampleURL,
+            urlString: self.exampleURL.absoluteString,
             day: day,
             startsAt: startsAt,
             endsAt: endsAt,
@@ -586,7 +588,7 @@ extension TaskFormTests {
         XCTAssertEqual(errors, [.bodyIsEmpty])
     }
     
-    func testValidationErrors_doesNotAllowTask_missingTask_returnsEmptyArray() throws {
+    func testValidationErrors_doesNotAllowTask_missingTaskURL_returnsEmptyArray() throws {
         //Arrange
         let project = try self.simpleProjectFactory.build(wrapper: .init(workTimesAllowsTask: false))
         let day = try self.buildDate(year: 2019, month: 9, day: 12)
@@ -596,7 +598,28 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: project,
             body: "Body",
-            url: nil,
+            urlString: "",
+            day: day,
+            startsAt: startsAt,
+            endsAt: endsAt,
+            tag: .default)
+        //Act
+        let errors = sut.validationErrors()
+        //Assert
+        XCTAssert(errors.isEmpty)
+    }
+    
+    func testValidationErrors_doesNotAllowTask_invalidTaskURL_returnsEmptyArray() throws {
+        //Arrange
+        let project = try self.simpleProjectFactory.build(wrapper: .init(workTimesAllowsTask: false))
+        let day = try self.buildDate(year: 2019, month: 9, day: 12)
+        let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
+        let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
+        let sut = TaskForm(
+            workTimeIdentifier: 1,
+            project: project,
+            body: "Body",
+            urlString: " ",
             day: day,
             startsAt: startsAt,
             endsAt: endsAt,
@@ -617,7 +640,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: project,
             body: "",
-            url: nil,
+            urlString: "",
             day: day,
             startsAt: startsAt,
             endsAt: endsAt,
@@ -626,6 +649,27 @@ extension TaskFormTests {
         let errors = sut.validationErrors()
         //Assert
         XCTAssertEqual(errors, [.bodyIsEmpty, .urlIsNil])
+    }
+    
+    func testValidationErrors_allowsTask_missingBodyAndInvalidTaskURL_returnsProperError() throws {
+        //Arrange
+        let project = try self.simpleProjectFactory.build(wrapper: .init(workTimesAllowsTask: true))
+        let day = try self.buildDate(year: 2019, month: 9, day: 12)
+        let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
+        let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
+        let sut = TaskForm(
+            workTimeIdentifier: 1,
+            project: project,
+            body: "",
+            urlString: " ",
+            day: day,
+            startsAt: startsAt,
+            endsAt: endsAt,
+            tag: .default)
+        //Act
+        let errors = sut.validationErrors()
+        //Assert
+        XCTAssertEqual(errors, [.urlIsInvalid])
     }
     
     func testValidationErrors_allowsTask_missingBody_returnsEmptyArray() throws {
@@ -638,7 +682,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: project,
             body: "",
-            url: self.exampleURL,
+            urlString: self.exampleURL.absoluteString,
             day: day,
             startsAt: startsAt,
             endsAt: endsAt,
@@ -659,7 +703,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: project,
             body: "Body",
-            url: nil,
+            urlString: "",
             day: day,
             startsAt: startsAt,
             endsAt: endsAt,
@@ -668,6 +712,27 @@ extension TaskFormTests {
         let errors = sut.validationErrors()
         //Assert
         XCTAssert(errors.isEmpty)
+    }
+    
+    func testValidationErrors_allowsTask_invalidTaskURL_returnsProperError() throws {
+        //Arrange
+        let project = try self.simpleProjectFactory.build(wrapper: .init(workTimesAllowsTask: true))
+        let day = try self.buildDate(year: 2019, month: 9, day: 12)
+        let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
+        let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
+        let sut = TaskForm(
+            workTimeIdentifier: 1,
+            project: project,
+            body: "Body",
+            urlString: " ",
+            day: day,
+            startsAt: startsAt,
+            endsAt: endsAt,
+            tag: .default)
+        //Act
+        let errors = sut.validationErrors()
+        //Assert
+        XCTAssertEqual(errors, [.urlIsInvalid])
     }
     
     func testValidationErrors_missingProjectAndBody_returnsBothErrors() throws {
@@ -679,7 +744,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: nil,
             body: "",
-            url: self.exampleURL,
+            urlString: self.exampleURL.absoluteString,
             day: day,
             startsAt: startsAt,
             endsAt: endsAt,
@@ -699,7 +764,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: nil,
             body: "Body",
-            url: nil,
+            urlString: "",
             day: day,
             startsAt: startsAt,
             endsAt: endsAt,
@@ -708,6 +773,26 @@ extension TaskFormTests {
         let errors = sut.validationErrors()
         //Assert
         XCTAssertEqual(errors, [.projectIsNil, .urlIsNil])
+    }
+    
+    func testValidationErrors_missingProjectAndInvalidURL_returnsBothErrors() throws {
+        //Arrange
+        let day = try self.buildDate(year: 2019, month: 9, day: 12)
+        let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
+        let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
+        let sut = TaskForm(
+            workTimeIdentifier: 1,
+            project: nil,
+            body: "Body",
+            urlString: " ",
+            day: day,
+            startsAt: startsAt,
+            endsAt: endsAt,
+            tag: .default)
+        //Act
+        let errors = sut.validationErrors()
+        //Assert
+        XCTAssertEqual(errors, [.projectIsNil, .urlIsInvalid])
     }
     
     func testValidationErrors_missingProjectAndTaskURLAndBody_returnsAllThreeErrors() throws {
@@ -719,7 +804,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: nil,
             body: "",
-            url: nil,
+            urlString: "",
             day: day,
             startsAt: startsAt,
             endsAt: endsAt,
@@ -739,7 +824,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: project,
             body: "Body",
-            url: self.exampleURL,
+            urlString: self.exampleURL.absoluteString,
             day: nil,
             startsAt: startsAt,
             endsAt: endsAt,
@@ -759,7 +844,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: project,
             body: "Body",
-            url: self.exampleURL,
+            urlString: self.exampleURL.absoluteString,
             day: day,
             startsAt: nil,
             endsAt: endsAt,
@@ -779,7 +864,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: project,
             body: "Body",
-            url: self.exampleURL,
+            urlString: self.exampleURL.absoluteString,
             day: day,
             startsAt: startsAt,
             endsAt: nil,
@@ -799,7 +884,7 @@ extension TaskFormTests {
             workTimeIdentifier: 1,
             project: project,
             body: "Body",
-            url: self.exampleURL,
+            urlString: self.exampleURL.absoluteString,
             day: day,
             startsAt: startsAt,
             endsAt: startsAt,
@@ -816,7 +901,7 @@ extension TaskFormTests {
             workTimeIdentifier: nil,
             project: nil,
             body: "",
-            url: nil,
+            urlString: "",
             day: nil,
             startsAt: nil,
             endsAt: nil,
