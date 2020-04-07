@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GIW-gv-4e0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GIW-gv-4e0">
     <device id="retina6_5" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,17 +21,16 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Sc1-v6-mIx">
-                                        <rect key="frame" x="0.0" y="16" width="414" height="594.66666666666663"/>
+                                        <rect key="frame" x="0.0" y="16" width="414" height="595.66666666666663"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qy7-kP-lwM" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="0.0" width="382" height="35"/>
-                                                <color key="backgroundColor" name="Text Field Background"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="XXO-Th-GFE"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                 <state key="normal">
-                                                    <color key="titleColor" name="Crimson"/>
+                                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -40,16 +39,13 @@
                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                         <real key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" name="Text Field Border"/>
-                                                    </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="projectButtonTapped:" destination="vWa-gW-sZm" eventType="touchUpInside" id="EOi-UM-KBn"/>
                                                 </connections>
                                             </button>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Select Day" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s85-fU-VBR" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="59" width="382" height="34"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select Day" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s85-fU-VBR" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="59" width="382" height="35"/>
                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -58,15 +54,15 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="vs0-xH-GvZ">
-                                                <rect key="frame" x="16" y="117" width="382" height="34"/>
+                                                <rect key="frame" x="16" y="118" width="382" height="34"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="08:00" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GPe-vx-7eJ" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="08:00" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GPe-vx-7eJ" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="183" height="34"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="09:00" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pgu-1o-gtM" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="09:00" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pgu-1o-gtM" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="199" y="0.0" width="183" height="34"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -75,7 +71,7 @@
                                                 </subviews>
                                             </stackView>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="05z-uo-ywe">
-                                                <rect key="frame" x="0.0" y="175" width="414" height="46"/>
+                                                <rect key="frame" x="0.0" y="176" width="414" height="46"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="46" id="c2T-q5-esL"/>
@@ -92,12 +88,11 @@
                                                 </connections>
                                             </collectionView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AqR-op-JKn">
-                                                <rect key="frame" x="16" y="245.00000000000003" width="382" height="121.33333333333334"/>
+                                                <rect key="frame" x="16" y="246.00000000000003" width="382" height="121.33333333333334"/>
                                                 <subviews>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5pA-GP-fz3" customClass="AttributerTextView" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="25.999999999999993" width="382" height="95.333333333333314"/>
-                                                        <color key="backgroundColor" name="Text Field Background"/>
-                                                        <color key="tintColor" name="Crimson"/>
+                                                        <color key="tintColor" name="Tint"/>
                                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
                                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -105,9 +100,6 @@
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                 <real key="value" value="5"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                <color key="value" name="Text Field Border"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                 <real key="value" value="1"/>
@@ -140,9 +132,9 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPE-xV-Lbs">
-                                                <rect key="frame" x="16" y="390.33333333333331" width="382" height="84.333333333333314"/>
+                                                <rect key="frame" x="16" y="391.33333333333331" width="382" height="84.333333333333314"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dYn-5C-xtg">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dYn-5C-xtg" customClass="AttributedTextField" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="44.333333333333371" width="382" height="40"/>
                                                         <color key="tintColor" name="Crimson"/>
                                                         <constraints>
@@ -177,7 +169,7 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="dbl-sc-bxX">
-                                                <rect key="frame" x="16" y="498.66666666666663" width="382" height="96"/>
+                                                <rect key="frame" x="16" y="499.66666666666663" width="382" height="96"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TSS-Hb-MVA" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="382" height="40"/>
@@ -233,8 +225,10 @@
                                             <constraint firstItem="qy7-kP-lwM" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" constant="16" id="oVx-Cq-wwm"/>
                                             <constraint firstAttribute="trailing" secondItem="qPE-xV-Lbs" secondAttribute="trailing" constant="16" id="rOb-7D-0dx"/>
                                             <constraint firstAttribute="trailing" secondItem="AqR-op-JKn" secondAttribute="trailing" constant="16" id="t9k-tu-OKg"/>
+                                            <constraint firstItem="qy7-kP-lwM" firstAttribute="height" secondItem="s85-fU-VBR" secondAttribute="height" id="xWT-Xu-Z14"/>
                                             <constraint firstAttribute="trailing" secondItem="qy7-kP-lwM" secondAttribute="trailing" constant="16" id="y6E-po-cHD"/>
                                             <constraint firstItem="vs0-xH-GvZ" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" constant="16" id="yBm-WV-KjH"/>
+                                            <constraint firstItem="qy7-kP-lwM" firstAttribute="height" secondItem="Pgu-1o-gtM" secondAttribute="height" multiplier="1.02941" id="yyG-W7-7Xh"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
@@ -350,11 +344,8 @@
         <namedColor name="Enabled Button">
             <color red="0.79607843137254897" green="0.078431372549019607" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="Text Field Background">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="Text Field Border">
-            <color red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="Tint">
+            <color red="0.79600000381469727" green="0.078000001609325409" blue="0.16500000655651093" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

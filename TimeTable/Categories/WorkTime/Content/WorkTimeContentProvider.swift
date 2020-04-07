@@ -26,6 +26,7 @@ protocol WorkTimeContentProviderType: class {
     func saveWithFilling(taskForm: TaskFormType, completion: @escaping WorkTimeSaveTaskCompletion)
     func getPredefinedTimeBounds(forTaskForm form: TaskFormType, lastTask: TaskFormType?) -> (startDate: Date, endDate: Date)
     func getPredefinedDay(forTaskForm form: TaskFormType) -> Date
+    func getValidationErrors(forTaskForm form: TaskFormType) -> [UIError]
 }
 
 class WorkTimeContentProvider {
@@ -149,6 +150,10 @@ extension WorkTimeContentProvider: WorkTimeContentProviderType {
     func getPredefinedDay(forTaskForm task: TaskFormType) -> Date {
         return task.day ?? self.currentDate
     }
+    
+    func getValidationErrors(forTaskForm form: TaskFormType) -> [UIError] {
+        return form.validationErrors().map { self.getUIError(validationError: $0) }
+    }
 }
 
 // MARK: - Private
@@ -157,27 +162,32 @@ extension WorkTimeContentProvider {
         do {
             return try taskForm.generateEncodableRepresentation()
         } catch let error as TaskForm.ValidationError {
-            switch error {
-            case .projectIsNil:
-                throw UIError.cannotBeEmpty(.projectTextField)
-            case .urlIsNil:
-                throw UIError.cannotBeEmpty(.taskUrlTextField)
-            case .bodyIsEmpty:
-                throw UIError.cannotBeEmpty(.taskNameTextField)
-            case .dayIsNil:
-                throw UIError.cannotBeEmpty(.dayTextField)
-            case .startsAtIsNil:
-                throw UIError.cannotBeEmpty(.startsAtTextField)
-            case .endsAtIsNil:
-                throw UIError.cannotBeEmpty(.endsAtTextField)
-            case .timeRangeIsIncorrect:
-                throw UIError.timeGreaterThan
-            case .internalError:
-                throw UIError.genericError
-            }
+            throw self.getUIError(validationError: error)
         } catch {
-            self.errorHandler.stopInDebug()
+            self.errorHandler.stopInDebug("Unexpected error catched")
             throw UIError.genericError
+        }
+    }
+    
+    private func getUIError(validationError: TaskForm.ValidationError) -> UIError {
+        switch validationError {
+        case .projectIsNil:
+            return UIError.cannotBeEmpty(.projectTextField)
+        case .urlIsNil:
+            return UIError.cannotBeEmpty(.taskUrlTextField)
+        case .bodyIsEmpty:
+            return UIError.cannotBeEmpty(.taskNameTextField)
+        case .dayIsNil:
+            return UIError.cannotBeEmpty(.dayTextField)
+        case .startsAtIsNil:
+            return UIError.cannotBeEmpty(.startsAtTextField)
+        case .endsAtIsNil:
+            return UIError.cannotBeEmpty(.endsAtTextField)
+        case .timeRangeIsIncorrect:
+            return UIError.timeGreaterThan
+        case .internalError:
+            self.errorHandler.stopInDebug("TaskForm internal error")
+            return UIError.genericError
         }
     }
     

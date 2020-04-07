@@ -94,6 +94,36 @@ class WorkTimeViewControllerMock: UIViewController {
         let isHidden: Bool
     }
     
+    private(set) var setProjectIsHighlightedParams: [SetProjectIsHighlightedParams] = []
+    struct SetProjectIsHighlightedParams {
+        let isHighlighted: Bool
+    }
+    
+    private(set) var setDayIsHighlightedParams: [SetDayIsHighlightedParams] = []
+    struct SetDayIsHighlightedParams {
+        let isHighlighted: Bool
+    }
+    
+    private(set) var setStartsAtIsHighlightedParams: [SetStartsAtIsHighlightedParams] = []
+    struct SetStartsAtIsHighlightedParams {
+        let isHighlighted: Bool
+    }
+    
+    private(set) var setEndsAtIsHighlightedParams: [SetEndsAtIsHighlightedParams] = []
+    struct SetEndsAtIsHighlightedParams {
+        let isHighlighted: Bool
+    }
+    
+    private(set) var setBodyIsHighlightedParams: [SetBodyIsHighlightedParams] = []
+    struct SetBodyIsHighlightedParams {
+        let isHighlighted: Bool
+    }
+    
+    private(set) var setTaskURLIsHighlightedParams: [SetTaskURLIsHighlightedParams] = []
+    struct SetTaskURLIsHighlightedParams {
+        let isHighlighted: Bool
+    }
+    
     // MARK: - WorkTimeViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
@@ -169,6 +199,30 @@ extension WorkTimeViewControllerMock: WorkTimeViewModelOutput {
     
     func setTagsCollectionView(isHidden: Bool) {
         self.setTagsCollectionViewParams.append(SetTagsCollectionViewParams(isHidden: isHidden))
+    }
+    
+    func setProject(isHighlighted: Bool) {
+        self.setProjectIsHighlightedParams.append(SetProjectIsHighlightedParams(isHighlighted: isHighlighted))
+    }
+    
+    func setDay(isHighlighted: Bool) {
+        self.setDayIsHighlightedParams.append(SetDayIsHighlightedParams(isHighlighted: isHighlighted))
+    }
+    
+    func setStartsAt(isHighlighted: Bool) {
+        self.setStartsAtIsHighlightedParams.append(SetStartsAtIsHighlightedParams(isHighlighted: isHighlighted))
+    }
+    
+    func setEndsAt(isHighlighted: Bool) {
+        self.setEndsAtIsHighlightedParams.append(SetEndsAtIsHighlightedParams(isHighlighted: isHighlighted))
+    }
+    
+    func setBody(isHighlighted: Bool) {
+        self.setBodyIsHighlightedParams.append(SetBodyIsHighlightedParams(isHighlighted: isHighlighted))
+    }
+    
+    func setTaskURL(isHighlighted: Bool) {
+        self.setTaskURLIsHighlightedParams.append(SetTaskURLIsHighlightedParams(isHighlighted: isHighlighted))
     }
 }
 

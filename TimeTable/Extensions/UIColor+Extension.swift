@@ -80,6 +80,20 @@ extension UIColor {
         }
     }()
     
+    static let textFieldBackground: UIColor = {
+        let color = UIColor(named: "Text Field Background")
+        assert(color != nil)
+        return color ?? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    }()
+    
+    static let textFieldBorder: UIColor = {
+        let color = UIColor(named: "Text Field Border")
+        assert(color != nil)
+        return color ?? #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.2)
+    }()
+    
+    static let textFieldValidationErrorBorder: UIColor = .tint
+    
     // MARK: - Initialization
     convenience init(hexString: String, alpha: CGFloat = 1.0) {
         let hexString: String = hexString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)

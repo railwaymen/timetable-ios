@@ -128,16 +128,19 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         self.setUpActivityIndicator()
         self.setUpSaveButtons()
         
+        self.setUpProjectButton()
+        
         self.setUpDayPicker()
         self.setUpDayTextField()
         
         self.setUpStartsAtPicker()
         self.setUpStartAtTextField()
-
+        
         self.setUpEndsAtPicker()
         self.setUpEndAtTextField()
         
-        self.taskURLTextField.delegate = self
+        self.setUpBodyTextView()
+        self.setUpTaskTextField()
     }
     
     func setBodyView(isHidden: Bool) {
@@ -161,8 +164,8 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     }
     
     func setSaveButtons(isEnabled: Bool) {
-        self.saveButton.isEnabled = isEnabled
-        self.saveWithFillingButton.isEnabled = isEnabled
+        self.saveButton.setWithAnimation(isEnabled: isEnabled)
+        self.saveWithFillingButton.setWithAnimation(isEnabled: isEnabled)
     }
     
     func reloadTagsView() {
@@ -210,6 +213,30 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     func setTagsCollectionView(isHidden: Bool) {
         self.tagsCollectionView.set(isHidden: isHidden)
     }
+    
+    func setProject(isHighlighted: Bool) {
+        self.set(self.projectButton, isHighlighted: isHighlighted)
+    }
+    
+    func setDay(isHighlighted: Bool) {
+        self.set(self.dayTextField, isHighlighted: isHighlighted)
+    }
+    
+    func setStartsAt(isHighlighted: Bool) {
+        self.set(self.startAtDateTextField, isHighlighted: isHighlighted)
+    }
+    
+    func setEndsAt(isHighlighted: Bool) {
+        self.set(self.endAtDateTextField, isHighlighted: isHighlighted)
+    }
+    
+    func setBody(isHighlighted: Bool) {
+        self.set(self.bodyTextView, isHighlighted: isHighlighted)
+    }
+    
+    func setTaskURL(isHighlighted: Bool) {
+        self.set(self.taskURLTextField, isHighlighted: isHighlighted)
+    }
 }
 
 // MARK: - WorkTimeViewControllerType
@@ -229,6 +256,10 @@ extension WorkTimeViewController {
         }
         self.activityIndicator.hidesWhenStopped = true
         self.setActivityIndicator(isHidden: true)
+    }
+    
+    private func setUpProjectButton() {
+        self.projectButton.setTextFieldAppearance()
     }
     
     private func setUpDayPicker() {
@@ -255,16 +286,28 @@ extension WorkTimeViewController {
     private func setUpDayTextField() {
         self.dayTextField.inputView = self.dayPicker
         self.dayTextField.delegate = self
+        self.dayTextField.setTextFieldAppearance()
     }
     
     private func setUpStartAtTextField() {
         self.startAtDateTextField.inputView = self.startAtDatePicker
         self.startAtDateTextField.delegate = self
+        self.startAtDateTextField.setTextFieldAppearance()
     }
     
     private func setUpEndAtTextField() {
         self.endAtDateTextField.inputView = self.endAtDatePicker
         self.endAtDateTextField.delegate = self
+        self.endAtDateTextField.setTextFieldAppearance()
+    }
+    
+    private func setUpBodyTextView() {
+        self.bodyTextView.setTextFieldAppearance()
+    }
+    
+    private func setUpTaskTextField() {
+        self.taskURLTextField.delegate = self
+        self.taskURLTextField.setTextFieldAppearance()
     }
     
     private func setUpTagsCollectionView() {
@@ -278,5 +321,20 @@ extension WorkTimeViewController {
         self.saveButton.setBackgroundColor(.disabledButton, forState: .disabled)
         self.saveWithFillingButton.setTitleColor(.enabledButton, for: .normal)
         self.saveWithFillingButton.setTitleColor(.disabledButton, for: .disabled)
+    }
+    
+    private func set(_ view: UIView, isHighlighted: Bool) {
+        let borderColor: CGColor = self.getBorderColor(isHighlighted: isHighlighted).cgColor
+        guard view.layer.borderColor != borderColor else { return }
+        let animation = CABasicAnimation(keyPath: "borderColor")
+        animation.fromValue = view.layer.borderColor
+        animation.toValue = borderColor
+        animation.duration = 0.3
+        view.layer.add(animation, forKey: "borderColor")
+        view.layer.borderColor = borderColor
+    }
+    
+    private func getBorderColor(isHighlighted: Bool) -> UIColor {
+        return isHighlighted ? .textFieldValidationErrorBorder : .textFieldBorder
     }
 }

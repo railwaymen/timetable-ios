@@ -195,7 +195,7 @@ extension ApiClientErrorTests {
         //Act
         let localizedString = sut.type.localizedDescription
         //Assert
-        XCTAssertEqual(localizedString, "")
+        XCTAssertEqual(localizedString, "ui.error.generic_error".localized)
     }
     
     func testLocalizedDescription_serverError() throws {
