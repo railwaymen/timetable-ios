@@ -37,6 +37,7 @@ protocol WorkTimeViewModelOutput: class {
 
 protocol WorkTimeViewModelType: class {
     func viewDidLoad()
+    func userInterfaceStyleDidChange()
     func configure(_ cell: TagCollectionViewCellable, for indexPath: IndexPath)
     func projectButtonTapped()
     func viewRequestedForNumberOfTags() -> Int
@@ -144,6 +145,12 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     func viewDidLoad() {
         self.setDefaultDay()
         self.setUpUI()
+    }
+    
+    func userInterfaceStyleDidChange() {
+        self.userInterface?.setUp()
+        self.userInterface?.reloadTagsView()
+        self.updateValidationErrorsOnUI()
     }
     
     func configure(_ cell: TagCollectionViewCellable, for indexPath: IndexPath) {

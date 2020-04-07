@@ -40,6 +40,13 @@ class WorkTimeViewController: UIViewController {
         self.viewModel.viewDidLoad()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard #available(iOS 12, *),
+            self.traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }
+        self.viewModel.userInterfaceStyleDidChange()
+    }
+    
     // MARK: - Actions
     @IBAction private func projectButtonTapped(_ sender: Any) {
         self.viewModel.projectButtonTapped()
