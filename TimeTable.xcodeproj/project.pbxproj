@@ -161,6 +161,7 @@
 		8A79A3092424EAF70048B44B /* projectTagsUnknownResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A3082424EAF70048B44B /* projectTagsUnknownResponse.json */; };
 		8A80A38D23D89C24002643A1 /* APIClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80A38C23D89C24002643A1 /* APIClientFactory.swift */; };
 		8A80A38F23D89ED3002643A1 /* APIClientFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */; };
+		8A82B2EC243CB8F00042D7AB /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A82B2EB243CB8F00042D7AB /* R.generated.swift */; };
 		8A82EBF323FD46EC001393A8 /* WorkTimeContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */; };
 		8A82EBF523FD4DC6001393A8 /* WorkTimeContentProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A82EBF423FD4DC6001393A8 /* WorkTimeContentProviderMock.swift */; };
 		8A8E8431242CE0E000003AB1 /* HttpResponse+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E8430242CE0E000003AB1 /* HttpResponse+Extension.swift */; };
@@ -644,6 +645,7 @@
 		8A79A3082424EAF70048B44B /* projectTagsUnknownResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = projectTagsUnknownResponse.json; sourceTree = "<group>"; };
 		8A80A38C23D89C24002643A1 /* APIClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientFactory.swift; sourceTree = "<group>"; };
 		8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientFactoryMock.swift; sourceTree = "<group>"; };
+		8A82B2EB243CB8F00042D7AB /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContentProvider.swift; sourceTree = "<group>"; };
 		8A82EBF423FD4DC6001393A8 /* WorkTimeContentProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContentProviderMock.swift; sourceTree = "<group>"; };
 		8A8E8430242CE0E000003AB1 /* HttpResponse+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HttpResponse+Extension.swift"; sourceTree = "<group>"; };
@@ -2124,6 +2126,7 @@
 		C1B5136021772D1200C3727C = {
 			isa = PBXGroup;
 			children = (
+				8A82B2EB243CB8F00042D7AB /* R.generated.swift */,
 				C1B5136B21772D1200C3727C /* TimeTable */,
 				C1B5138021772D1400C3727C /* TimeTableTests */,
 				8A3F0C5F2429E38600564D6D /* TimeTableUITests */,
@@ -2430,6 +2433,7 @@
 			buildConfigurationList = C1B5138621772D1400C3727C /* Build configuration list for PBXNativeTarget "TimeTable" */;
 			buildPhases = (
 				FDC974FB7C500082CD73234D /* [CP] Check Pods Manifest.lock */,
+				8A82B2EA243CB7F70042D7AB /* Rswift */,
 				C1B5136521772D1200C3727C /* Sources */,
 				C1B5136621772D1200C3727C /* Frameworks */,
 				C1B5136721772D1200C3727C /* Resources */,
@@ -2712,6 +2716,26 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8A82B2EA243CB7F70042D7AB /* Rswift */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$TEMP_DIR/rswift-lastrun",
+			);
+			name = Rswift;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				$SRCROOT/R.generated.swift,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.generated.swift\"\n";
+		};
 		8A8EE1A523F4425400416D31 /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2948,6 +2972,7 @@
 				C13C88E821E5F7B600F68C6E /* WorkTimeViewModel.swift in Sources */,
 				8A82EBF323FD46EC001393A8 /* WorkTimeContentProvider.swift in Sources */,
 				8A798746237D4DC6003DC028 /* ProfileViewController.swift in Sources */,
+				8A82B2EC243CB8F00042D7AB /* R.generated.swift in Sources */,
 				C13C2B0421EDD1C5008C9088 /* ServerError.swift in Sources */,
 				C125F1C121DCF17300594CDE /* ProjectCollectionViewCellModel.swift in Sources */,
 				8A5EF32723FE9A3000AE4309 /* UIViewController+Extension.swift in Sources */,
