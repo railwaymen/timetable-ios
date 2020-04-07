@@ -1,8 +1,12 @@
 {
     "errors": {
         "duration": [
-            "Invalid parameters has been send",
-            "Error"
+            {
+                "error": "Invalid parameters has been send"
+            },
+            {
+                "error": "Error"
+            }
         ]
     }
 }

@@ -1,8 +1,12 @@
 {
     "errors": {
         "starts_at": [
-            "Invalid parameters has been send",
-            "Error"
+            {
+                "error": "Invalid parameters has been send"
+            },
+            {
+                "error": "Error"
+            }
         ]
     }
 }

@@ -1,8 +1,12 @@
 {
     "errors": {
         "base": [
-            "Nie można utworzyć lub edytować wpisu",
-            "Error"
+            {
+                "error": "Nie można utworzyć lub edytować wpisu"
+            },
+            {
+                "error": "Error"
+            }
         ]
     }
 }

@@ -8,51 +8,47 @@
 
 import Foundation
 
-struct ApiValidationErrors: Error {
+struct ApiValidationErrors: Error, Decodable {
     let errors: Base
 }
 
 // MARK: - Structures
 extension ApiValidationErrors {
-    struct Base {
-        var keys: [String]
-    }
-}
-
-// MARK: - Decodable
-extension ApiValidationErrors: Decodable {
-    enum CodingKeys: String, CodingKey {
-        case errors
-    }
-}
-
-extension ApiValidationErrors.Base: Decodable {
-    enum CodingKeys: String, CodingKey {
-        case base
-        case startsAt
-        case endsAt
-        case duration
-        case invalidEmailOrPassword
+    struct Base: Decodable {
+        let keys: [String]
+        
+        enum CodingKeys: String, CodingKey {
+            case base
+            case startsAt
+            case endsAt
+            case duration
+            case invalidEmailOrPassword
+        }
+        
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            var keys: [String] = []
+            if let base = try? container.decode([BasicErrorInfo].self, forKey: .base) {
+                keys += base.map(\.error)
+            }
+            if let startsAt = try? container.decode([BasicErrorInfo].self, forKey: .startsAt) {
+                keys += startsAt.map(\.error)
+            }
+            if let endsAt = try? container.decode([BasicErrorInfo].self, forKey: .endsAt) {
+                keys += endsAt.map(\.error)
+            }
+            if let duration = try? container.decode([BasicErrorInfo].self, forKey: .duration) {
+                keys += duration.map(\.error)
+            }
+            if let invalidEmailOrPassword = try? container.decode([BasicErrorInfo].self, forKey: .invalidEmailOrPassword) {
+                keys += invalidEmailOrPassword.map(\.error)
+            }
+            self.keys = keys
+        }
     }
     
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.keys = []
-        if let base = try? container.decode([String].self, forKey: .base) {
-            self.keys += base
-        }
-        if let startsAt = try? container.decode([String].self, forKey: .startsAt) {
-            self.keys += startsAt
-        }
-        if let endsAt = try? container.decode([String].self, forKey: .endsAt) {
-            self.keys += endsAt
-        }
-        if let duration = try? container.decode([String].self, forKey: .duration) {
-            self.keys += duration
-        }
-        if let invalidEmailOrPassword = (try? container.decode([String].self, forKey: .invalidEmailOrPassword)) {
-            self.keys += invalidEmailOrPassword
-        }
+    private struct BasicErrorInfo: Decodable {
+        let error: String
     }
 }
 
