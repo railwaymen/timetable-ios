@@ -10,8 +10,9 @@ def universal_pods
   pod 'Firebase/Core', '~> 6.21.0'
   pod 'Firebase/Crashlytics'
   pod 'KeychainAccess', '~> 4.1'
-  pod 'SwiftLint', '~> 0.39'
+  pod 'R.swift', '~> 5.1.0'
   pod 'Restler', '~> 0.5.0'
+  pod 'SwiftLint', '~> 0.39'
 end
 
 target 'TimeTable' do

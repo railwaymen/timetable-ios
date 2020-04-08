@@ -19,35 +19,40 @@ protocol ViewControllerBuilderType: class {
     func profile() throws -> ProfileViewControllerable
 }
 
-class ViewControllerBuilder {
-    private let storyboardsManager: StoryboardsManagerType
-    
-    // MARK: - Initialization
-    init(storyboardsManager: StoryboardsManagerType = StoryboardsManager()) {
-        self.storyboardsManager = storyboardsManager
+class ViewControllerBuilder {}
+
+// MARK: - Structures
+extension ViewControllerBuilder {
+    enum Error: String, Swift.Error, Equatable, CustomStringConvertible {
+        case viewControllerNotFound
+        case unableToCastViewController
+        
+        var description: String {
+            "[\(ViewControllerBuilder.self)] " + self.rawValue
+        }
     }
 }
 
 // MARK: - ViewControllerBuilderType
 extension ViewControllerBuilder: ViewControllerBuilderType {
     func serverConfiguration() throws -> ServerConfigurationViewControllerable {
-        try self.storyboardsManager.controller(storyboard: .serverConfiguration, controllerIdentifier: .initial)
+        try self.cast(R.storyboard.serverConfiguration().instantiateInitialViewController())
     }
     
     func login() throws -> LoginViewControllerable {
-        try self.storyboardsManager.controller(storyboard: .login, controllerIdentifier: .initial)
+        try self.cast(R.storyboard.login().instantiateInitialViewController())
     }
     
     func projects() throws -> ProjectsViewControllerable {
-        try self.storyboardsManager.controller(storyboard: .projects, controllerIdentifier: .initial)
+        try self.cast(R.storyboard.projects().instantiateInitialViewController())
     }
     
     func workTimesList() throws -> WorkTimesListViewControllerable {
-        try self.storyboardsManager.controller(storyboard: .workTimesList, controllerIdentifier: .initial)
+        try self.cast(R.storyboard.workTimesList().instantiateInitialViewController())
     }
     
     func workTimeContainer() throws -> WorkTimeContainerViewControllerable {
-        try self.storyboardsManager.controller(storyboard: .workTime, controllerIdentifier: .initial)
+        try self.cast(R.storyboard.workTime().instantiateInitialViewController())
     }
     
     func projectPicker() -> ProjectPickerViewControllerable {
@@ -55,10 +60,19 @@ extension ViewControllerBuilder: ViewControllerBuilderType {
     }
     
     func taskHistory() throws -> TaskHistoryViewControllerable {
-        try self.storyboardsManager.controller(storyboard: .taskHistory, controllerIdentifier: .initial)
+        try self.cast(R.storyboard.taskHistory().instantiateInitialViewController())
     }
     
     func profile() throws -> ProfileViewControllerable {
-        try self.storyboardsManager.controller(storyboard: .profile, controllerIdentifier: .initial)
+        try self.cast(R.storyboard.profile().instantiateInitialViewController())
+    }
+}
+
+// MARK: - Private
+extension ViewControllerBuilder {
+    private func cast<T>(_ viewController: UIViewController?, to type: T.Type = T.self) throws -> T {
+        guard let viewController = viewController else { throw Error.viewControllerNotFound }
+        guard let castedViewController = viewController as? T else { throw Error.unableToCastViewController }
+        return castedViewController
     }
 }

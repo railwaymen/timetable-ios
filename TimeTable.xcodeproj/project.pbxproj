@@ -161,6 +161,7 @@
 		8A79A3092424EAF70048B44B /* projectTagsUnknownResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A3082424EAF70048B44B /* projectTagsUnknownResponse.json */; };
 		8A80A38D23D89C24002643A1 /* APIClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80A38C23D89C24002643A1 /* APIClientFactory.swift */; };
 		8A80A38F23D89ED3002643A1 /* APIClientFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */; };
+		8A82B2EC243CB8F00042D7AB /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A82B2EB243CB8F00042D7AB /* R.generated.swift */; };
 		8A82EBF323FD46EC001393A8 /* WorkTimeContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */; };
 		8A82EBF523FD4DC6001393A8 /* WorkTimeContentProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A82EBF423FD4DC6001393A8 /* WorkTimeContentProviderMock.swift */; };
 		8A8E8431242CE0E000003AB1 /* HttpResponse+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E8430242CE0E000003AB1 /* HttpResponse+Extension.swift */; };
@@ -247,8 +248,6 @@
 		C122602121899F82007D64A3 /* URLSessionDataTask+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C122602021899F82007D64A3 /* URLSessionDataTask+Extension.swift */; };
 		C1249C6C2181A23A005DB2A5 /* String+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C6B2181A23A005DB2A5 /* String+Error.swift */; };
 		C1249C742181A3D0005DB2A5 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C732181A3D0005DB2A5 /* AppCoordinator.swift */; };
-		C1249C772181AAE4005DB2A5 /* StoryboardsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */; };
-		C1249C7A2181AC49005DB2A5 /* StoryboardsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C792181AC49005DB2A5 /* StoryboardsManagerTests.swift */; };
 		C1249C7C2181AEB0005DB2A5 /* AppCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C7B2181AEB0005DB2A5 /* AppCoordinatorTests.swift */; };
 		C1249C802181B4FC005DB2A5 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C7F2181B4FC005DB2A5 /* ErrorHandler.swift */; };
 		C1249C822181B547005DB2A5 /* ErrorHandlerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1249C812181B547005DB2A5 /* ErrorHandlerType.swift */; };
@@ -301,7 +300,6 @@
 		C134298121A6C71200F4EA42 /* URLSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134298021A6C71200F4EA42 /* URLSessionMock.swift */; };
 		C134298321A6C73000F4EA42 /* URLSessionDataTaskMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134298221A6C73000F4EA42 /* URLSessionDataTaskMock.swift */; };
 		C134298521A6C79600F4EA42 /* ErrorHandlerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134298421A6C79600F4EA42 /* ErrorHandlerMock.swift */; };
-		C134298721A6C80B00F4EA42 /* StoryboardsManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134298621A6C80B00F4EA42 /* StoryboardsManagerMock.swift */; };
 		C134298921A6C84F00F4EA42 /* ServerConfigurationViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134298821A6C84F00F4EA42 /* ServerConfigurationViewControllerMock.swift */; };
 		C134298B21A6D33300F4EA42 /* LoginCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134298A21A6D33300F4EA42 /* LoginCoordinatorMock.swift */; };
 		C134298D21A6D35200F4EA42 /* LoginContentProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134298C21A6D35200F4EA42 /* LoginContentProviderMock.swift */; };
@@ -644,6 +642,7 @@
 		8A79A3082424EAF70048B44B /* projectTagsUnknownResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = projectTagsUnknownResponse.json; sourceTree = "<group>"; };
 		8A80A38C23D89C24002643A1 /* APIClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientFactory.swift; sourceTree = "<group>"; };
 		8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientFactoryMock.swift; sourceTree = "<group>"; };
+		8A82B2EB243CB8F00042D7AB /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContentProvider.swift; sourceTree = "<group>"; };
 		8A82EBF423FD4DC6001393A8 /* WorkTimeContentProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContentProviderMock.swift; sourceTree = "<group>"; };
 		8A8E8430242CE0E000003AB1 /* HttpResponse+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HttpResponse+Extension.swift"; sourceTree = "<group>"; };
@@ -734,8 +733,6 @@
 		C122602021899F82007D64A3 /* URLSessionDataTask+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSessionDataTask+Extension.swift"; sourceTree = "<group>"; };
 		C1249C6B2181A23A005DB2A5 /* String+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Error.swift"; sourceTree = "<group>"; };
 		C1249C732181A3D0005DB2A5 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardsManager.swift; sourceTree = "<group>"; };
-		C1249C792181AC49005DB2A5 /* StoryboardsManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardsManagerTests.swift; sourceTree = "<group>"; };
 		C1249C7B2181AEB0005DB2A5 /* AppCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorTests.swift; sourceTree = "<group>"; };
 		C1249C7F2181B4FC005DB2A5 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		C1249C812181B547005DB2A5 /* ErrorHandlerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandlerType.swift; sourceTree = "<group>"; };
@@ -788,7 +785,6 @@
 		C134298021A6C71200F4EA42 /* URLSessionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionMock.swift; sourceTree = "<group>"; };
 		C134298221A6C73000F4EA42 /* URLSessionDataTaskMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionDataTaskMock.swift; sourceTree = "<group>"; };
 		C134298421A6C79600F4EA42 /* ErrorHandlerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandlerMock.swift; sourceTree = "<group>"; };
-		C134298621A6C80B00F4EA42 /* StoryboardsManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardsManagerMock.swift; sourceTree = "<group>"; };
 		C134298821A6C84F00F4EA42 /* ServerConfigurationViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationViewControllerMock.swift; sourceTree = "<group>"; };
 		C134298A21A6D33300F4EA42 /* LoginCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinatorMock.swift; sourceTree = "<group>"; };
 		C134298C21A6D35200F4EA42 /* LoginContentProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginContentProviderMock.swift; sourceTree = "<group>"; };
@@ -1134,7 +1130,6 @@
 				C134296E21A6BCCD00F4EA42 /* RequestEncoderMock.swift */,
 				C134299221A6D73500F4EA42 /* ServerConfigurationManagerMock.swift */,
 				8ADBB8D8243753D3009CA6FE /* SessionManagerMock.swift */,
-				C134298621A6C80B00F4EA42 /* StoryboardsManagerMock.swift */,
 				8AFFE5CF24336333001D9E89 /* TaskFormFactoryMock.swift */,
 				8AE55D1E23FD86A200F94242 /* TaskFormMock.swift */,
 				8ADBB8D6243753B2009CA6FE /* TemporarySessionManagerMock.swift */,
@@ -1597,7 +1592,6 @@
 				8A2FB101242E32B500DDBCB0 /* LabelTextParameters.swift */,
 				C175B56B227CAACA006D9944 /* MessagePresenter.swift */,
 				8A5EF31B23FE808800AE4309 /* ReusableCellType.swift */,
-				C1249C762181AAE4005DB2A5 /* StoryboardsManager.swift */,
 				8AE55D1C23FD855E00F94242 /* Task.swift */,
 				C152C22121E89CB8003ABD88 /* TaskForm.swift */,
 				8AFFE5D12433635B001D9E89 /* TaskFormFactory.swift */,
@@ -1614,7 +1608,6 @@
 		C1249C782181AC35005DB2A5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C1249C792181AC49005DB2A5 /* StoryboardsManagerTests.swift */,
 				C1B771F421EF2C5800EFE06F /* TaskFormTests.swift */,
 				C1AFFFD721A2ACB100A7A632 /* AccessService */,
 				C1531F052191CD2800602A0C /* ApiClient */,
@@ -2124,6 +2117,7 @@
 		C1B5136021772D1200C3727C = {
 			isa = PBXGroup;
 			children = (
+				8A82B2EB243CB8F00042D7AB /* R.generated.swift */,
 				C1B5136B21772D1200C3727C /* TimeTable */,
 				C1B5138021772D1400C3727C /* TimeTableTests */,
 				8A3F0C5F2429E38600564D6D /* TimeTableUITests */,
@@ -2430,6 +2424,7 @@
 			buildConfigurationList = C1B5138621772D1400C3727C /* Build configuration list for PBXNativeTarget "TimeTable" */;
 			buildPhases = (
 				FDC974FB7C500082CD73234D /* [CP] Check Pods Manifest.lock */,
+				8A82B2EA243CB7F70042D7AB /* Rswift */,
 				C1B5136521772D1200C3727C /* Sources */,
 				C1B5136621772D1200C3727C /* Frameworks */,
 				C1B5136721772D1200C3727C /* Resources */,
@@ -2712,6 +2707,26 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8A82B2EA243CB7F70042D7AB /* Rswift */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$TEMP_DIR/rswift-lastrun",
+			);
+			name = Rswift;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				$SRCROOT/R.generated.swift,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.generated.swift\"\n";
+		};
 		8A8EE1A523F4425400416D31 /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2941,13 +2956,13 @@
 				C12CA57B21A5900B0082FEB7 /* WorkTimeDecoder.swift in Sources */,
 				C1C4BA912189AE0900683F71 /* ApiValidationErrors.swift in Sources */,
 				8A79A2442420C40F0048B44B /* TaskHistoryViewController.swift in Sources */,
-				C1249C772181AAE4005DB2A5 /* StoryboardsManager.swift in Sources */,
 				C1F187B021E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift in Sources */,
 				8AC097242371CCFF00103FAD /* UIApplication+Extension.swift in Sources */,
 				8AFFE5D22433635B001D9E89 /* TaskFormFactory.swift in Sources */,
 				C13C88E821E5F7B600F68C6E /* WorkTimeViewModel.swift in Sources */,
 				8A82EBF323FD46EC001393A8 /* WorkTimeContentProvider.swift in Sources */,
 				8A798746237D4DC6003DC028 /* ProfileViewController.swift in Sources */,
+				8A82B2EC243CB8F00042D7AB /* R.generated.swift in Sources */,
 				C13C2B0421EDD1C5008C9088 /* ServerError.swift in Sources */,
 				C125F1C121DCF17300594CDE /* ProjectCollectionViewCellModel.swift in Sources */,
 				8A5EF32723FE9A3000AE4309 /* UIViewController+Extension.swift in Sources */,
@@ -2998,7 +3013,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C12BD99921E48D5700A6EAF0 /* ProjectsViewModelTests.swift in Sources */,
-				C134298721A6C80B00F4EA42 /* StoryboardsManagerMock.swift in Sources */,
 				8A6B6D81237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift in Sources */,
 				8A065B53237AB9780072A21E /* MatchingFullTimeJSONResource.swift in Sources */,
 				C10FD88C21F1FB2800A233C5 /* ProfileViewModelTests.swift in Sources */,
@@ -3143,7 +3157,6 @@
 				8A9832BA243AFFF7005245A8 /* ServerErrorJSONResource.swift in Sources */,
 				C147D1F721F5F96A00A818BD /* AttributedTextFieldTests.swift in Sources */,
 				C14B10FB21F9C64D00A42587 /* TimeTableTabCoordinatorTests.swift in Sources */,
-				C1249C7A2181AC49005DB2A5 /* StoryboardsManagerTests.swift in Sources */,
 				C12BD9C321E4C48900A6EAF0 /* ProjectCollectionViewCellMock.swift in Sources */,
 				C134296D21A6BC8C00F4EA42 /* JSONDecoderMock.swift in Sources */,
 				8A065B57237ABC5B0072A21E /* WorkTimesProjectJSONResource.swift in Sources */,

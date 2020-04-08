@@ -19,8 +19,16 @@ enum ProjectTag: String, Codable {
     }
     
     var localized: String? {
-        guard self != .default else { return nil }
-        return ("project_" + self.rawValue).localized
+        switch self {
+        case .internalMeeting:
+            return R.string.localizable.project_im()
+        case .clientCommunication:
+            return R.string.localizable.project_cc()
+        case .research:
+            return R.string.localizable.project_res()
+        case .development:
+            return nil
+        }
     }
     
     var color: UIColor {

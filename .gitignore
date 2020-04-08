@@ -46,3 +46,4 @@ fastlane/screenshots/
 
 # Configuration temp directory
 /Configuration/*.xcconfig
+*.generated.swift

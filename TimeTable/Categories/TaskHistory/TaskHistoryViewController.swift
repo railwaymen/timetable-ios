@@ -103,6 +103,6 @@ extension TaskHistoryViewController {
     }
     
     private func setUpTitle() {
-        self.navigationItem.title = "task_history.title".localized
+        self.navigationItem.title = R.string.localizable.task_historyTitle()
     }
 }

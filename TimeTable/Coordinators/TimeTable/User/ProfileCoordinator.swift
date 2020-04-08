@@ -33,7 +33,7 @@ class ProfileCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
         self.dependencyContainer = dependencyContainer
         self.parent = parent
         self.tabBarItem = UITabBarItem(
-            title: "tabbar.title.profile".localized,
+            title: R.string.localizable.tabbarTitleProfile(),
             image: .profile,
             selectedImage: nil)
         super.init(window: dependencyContainer.window)

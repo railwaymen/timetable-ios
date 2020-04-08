@@ -27,3 +27,4 @@ warning_threshold: 5
 excluded:
   - Pods
   - vendor
+  - "*.generated.swift"

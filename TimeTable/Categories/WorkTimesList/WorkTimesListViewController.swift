@@ -265,7 +265,7 @@ extension WorkTimesListViewController {
     private func setUpNavigationItem() {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addNewRecordTapped))
         self.navigationItem.setRightBarButtonItems([addButton], animated: false)
-        self.title = "tabbar.title.timesheet".localized
+        self.title = R.string.localizable.tabbarTitleTimesheet()
     }
     
     private func setUpActivityIndicator() {
