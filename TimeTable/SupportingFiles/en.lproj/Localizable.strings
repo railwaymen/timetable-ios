@@ -55,8 +55,8 @@
 "error.button.refresh" = "REFRESH";
 
 // MARK: - UIErrors
-"ui.error.cannot_be_empty" = "- cannot be empty.";
-"ui.error.invalid_format" = "invalid format.";
+"ui.error.cannot_be_empty" = "%@ cannot be empty.";
+"ui.error.invalid_format" = "%@ has invalid format.";
 "ui.error.time_greater_than" = "Duration time must be greater than 0";
 "ui.error.generic_error" = "Oups! We couldn't finish your request. Please, try again later.";
 "ui.error.login_credentials_invalid" = "The given credentials are invalid. Check if you typed it correctly.";
@@ -67,6 +67,7 @@
 "api.error.invalid_response" = "Invalid response";
 "api.error.no_connection" = "The device seems to be offline. Please, check your internet connection and try again.";
 "api.error.timeout" = "Your request has timed out. Please, check your internet connection and try again.";
+"api.error.unauthorized" = "Your session has timed out.";
 
 // MARK: - ApiValidationErrors
 "api_validation_error.overlap" = "There is another task done at the same time.";
@@ -76,10 +77,6 @@
 "api_validation_error.no_gaps_to_fill" = "There are no gaps to fill in the given time range.";
 
 "invalid_email_or_password" = "Invalid email or password";
-
-// MARK: - Static words
-"day.today" = "Today";
-"day.yesterday" = "Yesterday";
 
 // MARK: - Tags
 "project_im" = "Internal meeting";

@@ -67,22 +67,22 @@ extension ApiClientError {
         var localizedDescription: String {
             switch self {
             case .invalidHost(let url):
-                return String(format: "api.error.invalid_url".localized, url?.absoluteString ?? "")
+                return R.string.localizable.apiErrorInvalid_url(url?.absoluteString ?? "")
             case .invalidParameters:
-                return "api.error.invalid_parameters".localized
+                return R.string.localizable.apiErrorInvalid_parameters()
             case .invalidResponse:
-                return "api.error.invalid_response".localized
+                return R.string.localizable.apiErrorInvalid_response()
             case .validationErrors(let validationErrors):
                 let text = validationErrors?.errors.keys.compactMap(\.localizedDescription).first ?? ""
                 return text.isEmpty ? UIError.genericError.localizedDescription : text
             case .serverError(let serverError):
                 return  "\(serverError.status) - \(serverError.error)"
             case .noConnection:
-                return "api.error.no_connection".localized
+                return R.string.localizable.apiErrorNo_connection()
             case .timeout:
-                return "api.error.timeout".localized
+                return R.string.localizable.apiErrorTimeout()
             case .unauthorized :
-                return "api.error.unauthorized".localized
+                return R.string.localizable.apiErrorUnauthorized()
             }
         }
     }

@@ -36,7 +36,7 @@ class WorkTimesListCoordinator: NavigationCoordinator, TabBarChildCoordinatorTyp
         self.dependencyContainer = dependencyContainer
         
         self.tabBarItem = UITabBarItem(
-            title: "tabbar.title.timesheet".localized,
+            title: R.string.localizable.tabbarTitleTimesheet(),
             image: .timesheet,
             selectedImage: nil)
         super.init(window: dependencyContainer.window)

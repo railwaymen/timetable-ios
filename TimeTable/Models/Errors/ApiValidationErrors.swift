@@ -67,7 +67,18 @@ extension ApiValidationErrors {
         case noGapsToFill = "no_gaps_to_fill"
         
         var localizedDescription: String {
-            ("api_validation_error." + self.rawValue).localized
+            switch self {
+            case .overlap:
+                return R.string.localizable.api_validation_errorOverlap()
+            case .invalidURI:
+                return R.string.localizable.api_validation_errorInvalid_uri()
+            case .invalidExternal:
+                return R.string.localizable.api_validation_errorInvalid_external()
+            case .tooOld:
+                return R.string.localizable.api_validation_errorToo_old()
+            case .noGapsToFill:
+                return R.string.localizable.api_validation_errorNo_gaps_to_fill()
+            }
         }
     }
 }

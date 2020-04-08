@@ -8,16 +8,39 @@
 
 import Foundation
 
-enum UIElement: String {
-    case serverAddressTextField = "element.text_field.server_address"
-    case loginTextField = "element.text_field.login"
-    case passwordTextField = "element.text_field.password"
-    case projectTextField = "element.text_field.project"
-    case dayTextField = "element.text_field.day"
-    case taskNameTextField = "element.text_field.task_name"
-    case taskUrlTextField = "element.text_field.task_url"
-    case startsAtTextField = "element.text_field.starts_at"
-    case endsAtTextField = "element.text_field.ends_at"
+enum UIElement {
+    case serverAddressTextField
+    case loginTextField
+    case passwordTextField
+    case projectTextField
+    case dayTextField
+    case taskNameTextField
+    case taskUrlTextField
+    case startsAtTextField
+    case endsAtTextField
+    
+    var localized: String {
+        switch self {
+        case .serverAddressTextField:
+            return R.string.localizable.elementText_fieldServer_address()
+        case .loginTextField:
+            return R.string.localizable.elementText_fieldLogin()
+        case .passwordTextField:
+            return R.string.localizable.elementText_fieldPassword()
+        case .projectTextField:
+            return R.string.localizable.elementText_fieldProject()
+        case .dayTextField:
+            return R.string.localizable.elementText_fieldDay()
+        case .taskNameTextField:
+            return R.string.localizable.elementText_fieldTask_name()
+        case .taskUrlTextField:
+            return R.string.localizable.elementText_fieldTask_url()
+        case .startsAtTextField:
+            return R.string.localizable.elementText_fieldStarts_at()
+        case .endsAtTextField:
+            return R.string.localizable.elementText_fieldEnds_at()
+        }
+    }
 }
 
 enum UIError: Error {
@@ -30,15 +53,15 @@ enum UIError: Error {
     var localizedDescription: String {
         switch self {
         case let .cannotBeEmpty(component):
-            return "\(component.rawValue.localized) " + "ui.error.cannot_be_empty".localized
+            return R.string.localizable.uiErrorCannot_be_empty(component.localized)
         case let .invalidFormat(component):
-            return "\(component.rawValue.localized) " + "ui.error.invalid_format".localized
+            return R.string.localizable.uiErrorInvalid_format(component.localized)
         case .timeGreaterThan:
-            return "ui.error.time_greater_than".localized
+            return R.string.localizable.uiErrorTime_greater_than()
         case .genericError:
-            return "ui.error.generic_error".localized
+            return R.string.localizable.uiErrorGeneric_error()
         case .loginCredentialsInvalid:
-            return "ui.error.login_credentials_invalid".localized
+            return R.string.localizable.uiErrorLogin_credentials_invalid()
         }
     }
 }

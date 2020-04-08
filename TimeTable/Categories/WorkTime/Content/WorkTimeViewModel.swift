@@ -133,8 +133,8 @@ extension WorkTimeViewModel {
         
         var viewTitle: String {
             switch self {
-            case .editEntry: return "work_time.title.edit".localized
-            case .newEntry, .duplicateEntry: return "work_time.title.new".localized
+            case .editEntry: return R.string.localizable.work_timeTitleEdit()
+            case .newEntry, .duplicateEntry: return R.string.localizable.work_timeTitleNew()
             }
         }
     }
@@ -289,7 +289,8 @@ extension WorkTimeViewModel {
         self.userInterface?.setTagsCollectionView(isHidden: !self.taskForm.isProjectTaggable)
         self.updateEndAtDateView(with: endDate)
         self.updateStartAtDateView(with: startDate)
-        self.userInterface?.updateProject(name: self.taskForm.project?.name ?? "work_time.text_field.select_project".localized)
+        self.userInterface?.updateProject(name: self.taskForm.project?.name
+            ?? R.string.localizable.work_timeText_fieldSelect_project())
     }
     
     private func updateDayView(with date: Date) {

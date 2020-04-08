@@ -21,7 +21,7 @@ class ProjectsCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
     init(dependencyContainer: DependencyContainerType) {
         self.dependencyContainer = dependencyContainer
         self.tabBarItem = UITabBarItem(
-            title: "tabbar.title.projects".localized,
+            title: R.string.localizable.tabbarTitleProjects(),
             image: .projects,
             selectedImage: nil)
         super.init(window: dependencyContainer.window)

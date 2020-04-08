@@ -55,8 +55,8 @@
 "error.button.refresh" = "ODŚWIEŻ";
 
 // MARK: - UIErrors
-"ui.error.cannot_be_empty" = "- pole nie może być puste.";
-"ui.error.invalid_format" = "niepoprawny format.";
+"ui.error.cannot_be_empty" = "%@ - pole nie może być puste.";
+"ui.error.invalid_format" = "%@ ma niepoprawny format.";
 "ui.error.time_greater_than" = "Czas trwania musi być większy od zera";
 "ui.error.generic_error" = "Ups! Niestety nie mogliśmy zrealizować twojego żądania. Spróbuj później.";
 "ui.error.login_credentials_invalid" = "Podane dane są niepoprawne. Upewnij się, czy dobrze je wpisałeś.";
@@ -67,6 +67,7 @@
 "api.error.invalid_response" = "Niepoprawna odpowiedź serwera";
 "api.error.no_connection" = "Wygląda na to, że nie masz internetu. Sprawdź połączenie i spróbuj ponownie.";
 "api.error.timeout" = "Twoje żądanie przekroczyło limit czasu i zostało przerwane. Sprawdź połączenie z internetem i spróbuj ponownie.";
+"api.error.unauthorized" = "Twoja sesja wygasła.";
 
 // MARK: - ApiValidationErrors
 "api_validation_error.overlap" = "Istnieje inne zadanie wykonane w tym samym czasie.";
@@ -76,10 +77,6 @@
 "api_validation_error.no_gaps_to_fill" = "Nie ma żadnych luk do wypełnienia w wybranym przedziale czasowym.";
 
 "invalid_email_or_password" = "Niepoprawny email lub hasło";
-
-// MARK: - Static words
-"day.today" = "Dzisiaj";
-"day.yesterday" = "Wczoraj";
 
 // MARK: - Tags
 "project_im" = "Spotkanie wewnętrzne";

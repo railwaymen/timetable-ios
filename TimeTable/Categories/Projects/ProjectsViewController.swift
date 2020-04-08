@@ -73,7 +73,7 @@ extension ProjectsViewController: ProjectsCollectionViewLayoutDelegate {
 // MARK: - ProjectsViewModelOutput
 extension ProjectsViewController: ProjectsViewModelOutput {
     func setUpView() {
-        self.title = "tabbar.title.projects".localized
+        self.title = R.string.localizable.tabbarTitleProjects()
         self.setUpCollectionView()
         self.setUpActivityIndicator()
         self.setUpErrorView()

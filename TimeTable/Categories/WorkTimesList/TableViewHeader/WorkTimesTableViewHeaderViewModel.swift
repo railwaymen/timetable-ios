@@ -45,13 +45,11 @@ class WorkTimesTableViewHeaderViewModel {
 extension WorkTimesTableViewHeaderViewModel: WorkTimesTableViewHeaderViewModelType {
     func viewConfigured() {
         var dayText: String?
-        if self.calendar.isDateInToday(self.dailyWorkTime.day) {
-            dayText = "day.today".localized
-        } else if self.calendar.isDateInYesterday(self.dailyWorkTime.day) {
-            dayText = "day.yesterday".localized
-        } else {
-            dayText = DateFormatter.mediumDate.string(from: self.dailyWorkTime.day)
-        }
+        let dateFormatter = DateFormatterBuilder()
+            .dateStyle(.medium)
+            .setRelativeDateFormatting(true)
+            .build()
+        dayText = dateFormatter.string(from: self.dailyWorkTime.day)
         let duration = TimeInterval(self.dailyWorkTime.workTimes.map(\.duration).reduce(0, +))
         let durationText = self.dateComponentsFormatter.string(from: duration)
         self.userInterface?.updateView(dayText: dayText, durationText: durationText)

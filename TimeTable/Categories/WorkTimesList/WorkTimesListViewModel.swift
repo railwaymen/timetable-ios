@@ -182,11 +182,11 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void) {
         guard let workTime = self.workTime(for: index) else { return completion(false) }
         let cancelButtonConfig = ButtonConfig(
-            title: "work_times.delete_alert.cancel".localized,
+            title: R.string.localizable.work_timesDelete_alertCancel(),
             style: .cancel,
             action: { completion(false) })
         let confirmButtonConfig = ButtonConfig(
-            title: "work_times.delete_alert.confirm".localized,
+            title: R.string.localizable.work_timesDelete_alertConfirm(),
             style: .destructive,
             action: { [weak self] in
                 guard let self = self else { return completion(false) }
@@ -203,8 +203,8 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
                 }
         })
         self.messagePresenter?.requestDecision(
-            title: "work_times.delete_alert.title".localized,
-            message: "work_times.delete_alert.message".localized,
+            title: R.string.localizable.work_timesDelete_alertTitle(),
+            message: R.string.localizable.work_timesDelete_alertMessage(),
             cancelButtonConfig: cancelButtonConfig,
             confirmButtonConfig: confirmButtonConfig)
     }
