@@ -11,31 +11,31 @@ import UIKit
 extension UIColor {
     
     static let tint: UIColor = {
-        let color = UIColor(named: "Tint")
+        let color = R.color.tint()
         assert(color != nil)
         return color ?? #colorLiteral(red: 0.7960784314, green: 0.07843137255, blue: 0.1647058824, alpha: 1)
     }()
     
     static let internalMeetingTag: UIColor = {
-        let color = UIColor(named: "Internal Meeting Tag")
+        let color = R.color.internalMeetingTag()
         assert(color != nil)
         return color ?? #colorLiteral(red: 1, green: 0.5254901961, blue: 0, alpha: 1)
     }()
     
     static let clientCommunicationTag: UIColor = {
-        let color = UIColor(named: "Client Communication Tag")
+        let color = R.color.clientCommunicationTag()
         assert(color != nil)
         return color ?? #colorLiteral(red: 0.4431372549, green: 0.1294117647, blue: 0.8549019608, alpha: 1)
     }()
     
     static let researchTag: UIColor = {
-        let color = UIColor(named: "Research Tag")
+        let color = R.color.researchTag()
         assert(color != nil)
         return color ?? #colorLiteral(red: 0.04705882353, green: 0.8156862745, blue: 0.631372549, alpha: 1)
     }()
     
     static let enabledButton: UIColor = {
-        let color = UIColor(named: "Enabled Button")
+        let color = R.color.enabledButton()
         assert(color != nil)
         return color ?? #colorLiteral(red: 0.7960784314, green: 0.07843137255, blue: 0.1647058824, alpha: 1)
     }()
@@ -45,13 +45,13 @@ extension UIColor {
     }()
     
     static let diffChanged: UIColor = {
-        let color = UIColor(named: "Diff Changed")
+        let color = R.color.diffChanged()
         assert(color != nil)
         return color ?? #colorLiteral(red: 0.04705882353, green: 0.8156862745, blue: 0.631372549, alpha: 1)
     }()
     
     static let deleteAction: UIColor = {
-        let color = UIColor(named: "Delete Action")
+        let color = R.color.deleteAction()
         assert(color != nil)
         return color ?? #colorLiteral(red: 0.7960784314, green: 0.07843137255, blue: 0.1647058824, alpha: 1)
     }()
@@ -81,13 +81,13 @@ extension UIColor {
     }()
     
     static var textFieldBackground: UIColor {
-        let color = UIColor(named: "Text Field Background")
+        let color = R.color.textFieldBackground()
         assert(color != nil)
         return color ?? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     
     static var textFieldBorder: UIColor {
-        let color = UIColor(named: "Text Field Border")
+        let color = R.color.textFieldBorder()
         assert(color != nil)
         return color ?? #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.2)
     }
