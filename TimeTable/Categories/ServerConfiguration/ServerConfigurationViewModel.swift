@@ -19,6 +19,7 @@ protocol ServerConfigurationViewModelOutput: class {
 
 protocol ServerConfigurationViewModelType: class {
     func viewDidLoad()
+    func viewWillAppear()
     func continueButtonTapped()
     func serverAddressDidChange(text: String?)
     func serverAddressTextFieldDidRequestForReturn() -> Bool
@@ -75,6 +76,9 @@ extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
         self.serverAddress = oldConfiguration?.host?.absoluteString
         self.shouldRememberHost = oldConfiguration?.shouldRememberHost ?? true
         self.userInterface?.setUpView(checkBoxIsActive: self.shouldRememberHost, serverAddress: self.serverAddress ?? "")
+    }
+    
+    func viewWillAppear() {
         self.updateContinueButton()
     }
     
