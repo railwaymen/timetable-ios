@@ -55,14 +55,14 @@
 // MARK: - UIErrors
 "ui.error.cannot_be_empty" = "%@ cannot be empty.";
 "ui.error.invalid_format" = "%@ has invalid format.";
-"ui.error.time_greater_than" = "Duration time must be greater than 0";
+"ui.error.time_greater_than" = "Duration time must be greater than 0.";
 "ui.error.generic_error" = "Oups! We couldn't finish your request. Please, try again later.";
 "ui.error.login_credentials_invalid" = "The given credentials are invalid. Check if you typed it correctly.";
 
 // MARK: - APIErrors
-"api.error.invalid_url" = "Given URL (%@) is invalid";
-"api.error.invalid_parameters" = "Invalid parameters were sent";
-"api.error.invalid_response" = "Invalid response";
+"api.error.invalid_url" = "Given URL (%@) is invalid.";
+"api.error.invalid_parameters" = "Invalid parameters were sent.";
+"api.error.invalid_response" = "Invalid server response.";
 "api.error.no_connection" = "The device seems to be offline. Please, check your internet connection and try again.";
 "api.error.timeout" = "Your request has timed out. Please, check your internet connection and try again.";
 "api.error.unauthorized" = "Your session has timed out.";
