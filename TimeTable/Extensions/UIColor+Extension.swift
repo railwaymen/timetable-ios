@@ -95,18 +95,18 @@ extension UIColor {
     static let textFieldValidationErrorBorder: UIColor = .tint
     
     // MARK: - Initialization
-    convenience init(hexString: String, alpha: CGFloat = 1.0) {
-        let hexString: String = hexString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+    convenience init?(hexString: String, alpha: CGFloat = 1.0) {
+        let hexString: String = hexString
+            .trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            .trimmingCharacters(in: ["#"])
         let scanner = Scanner(string: hexString)
-        if hexString.hasPrefix("#") {
-            scanner.scanLocation = 1
-        }
-        var color: UInt32 = 0
-        scanner.scanHexInt32(&color)
+        var color: UInt64 = 0
+        scanner.scanHexInt64(&color)
+        guard hexString.count == 6 else { return nil }
         let mask = 0x000000FF
-        let red   = CGFloat(Int(color >> 16) & mask) / 255.0
+        let red = CGFloat(Int(color >> 16) & mask) / 255.0
         let green = CGFloat(Int(color >> 8) & mask) / 255.0
-        let blue  = CGFloat(Int(color) & mask) / 255.0
+        let blue = CGFloat(Int(color) & mask) / 255.0
         self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
     

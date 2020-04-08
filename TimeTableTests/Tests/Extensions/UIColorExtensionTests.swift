@@ -13,7 +13,7 @@ class UIColorExtensionTests: XCTestCase {}
 
 // MARK: - init(hexString: String, alpha: CGFloat)
 extension UIColorExtensionTests {
-    func testConvenienceInitFromHexString() {
+    func testInitFromHexString() {
         //Arrange
         let rgb: (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) = (231, 20, 40, 1)
         //Act
@@ -22,12 +22,28 @@ extension UIColorExtensionTests {
         XCTAssertEqual(sut, UIColor(red: rgb.r/255.0, green: rgb.g/255.0, blue: rgb.b/255.0, alpha: rgb.a))
     }
     
-    func testConvenienceInitFromHexStringWithHashSign() {
+    func testInitFromHexString_withHashSign() {
         //Arrange
         let rgb: (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) = (231, 20, 40, 1)
         //Act
         let sut = UIColor(hexString: "#E71428")
         //Assert
         XCTAssertEqual(sut, UIColor(red: rgb.r/255.0, green: rgb.g/255.0, blue: rgb.b/255.0, alpha: rgb.a))
+    }
+    
+    func testInitFromHexString_withTrailingWhiteSpaces() {
+        //Arrange
+        let rgb: (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) = (231, 20, 40, 1)
+        //Act
+        let sut = UIColor(hexString: "E71428     ")
+        //Assert
+        XCTAssertEqual(sut, UIColor(red: rgb.r/255.0, green: rgb.g/255.0, blue: rgb.b/255.0, alpha: rgb.a))
+    }
+    
+    func testInitFromHexString_withThreeCharacterHex() {
+        //Act
+        let sut = UIColor(hexString: "EA6")
+        //Assert
+        XCTAssertNil(sut)
     }
 }

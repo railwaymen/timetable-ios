@@ -1,7 +1,7 @@
 source 'ssh://git@git.railwaymen.org:10522/open/rwm_podspec.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, '11.4'
+platform :ios, '13.3'
 use_frameworks!
 
 def universal_pods
