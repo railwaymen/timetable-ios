@@ -26,7 +26,6 @@
 "login.text_field.username" = "Użytkownik";
 "login.text_field.password" = "Hasło";
 "login.button.log_in" = "Zaloguj";
-"login.button.change_server_address" = "Chcesz zmienić adres serwera?";
 
 "work_times.delete_alert.title" = "Usuń wpis";
 "work_times.delete_alert.message" = "Jesteś pewien, że chcesz trwale usunąć wpis?";
@@ -36,7 +35,6 @@
 
 "work_time.title.new" = "Dodaj nowy wpis";
 "work_time.title.edit" = "Edytuj wpis";
-"work_time.label.new_record" = "Nowy wpis";
 "work_time.label.project" = "Projekt";
 "work_time.label.date" = "Dzień";
 "work_time.label.start_time" = "Początek";
