@@ -82,11 +82,7 @@ extension TaskHistoryViewController: TaskHistoryViewControllerType {
 // MARK: - Private
 extension TaskHistoryViewController {
     private func setUpActivityIndicator() {
-        if #available(iOS 13, *) {
-            self.activityIndicator.style = .medium
-        } else {
-            self.activityIndicator.style = .gray
-        }
+        self.activityIndicator.style = .medium
     }
     
     private func setUpTableView() {

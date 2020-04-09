@@ -57,13 +57,9 @@ class WorkTimesListViewModel {
     private var selectedMonth: Date
     private var dailyWorkTimesArray: [DailyWorkTime] {
         didSet {
-            guard #available(iOS 13, *) else {
-                self.userInterface?.reloadData()
-                return
-            }
             let (insertedSections, removedSections) = self.getSectionsDiff(oldValue: oldValue)
             let (insertedRows, removedRows) = self.getRowsDiff(oldValue: oldValue)
-            let updatedSections = IndexSet((insertedRows + removedRows).map { $0.section })
+            let updatedSections = IndexSet((insertedRows + removedRows).map(\.section))
             self.userInterface?.performBatchUpdates { [weak userInterface] in
                 userInterface?.removeSections(removedSections)
                 userInterface?.insertSections(insertedSections)
@@ -354,7 +350,6 @@ extension WorkTimesListViewModel {
         return "\(monthSymbol) \(year)"
     }
     
-    @available(iOS 13, *)
     private func getSectionsDiff(oldValue: [DailyWorkTime]) -> (insertions: IndexSet, removals: IndexSet) {
         let diff = self.dailyWorkTimesArray.difference(from: oldValue)
         var insertions: IndexSet = IndexSet()
@@ -370,7 +365,6 @@ extension WorkTimesListViewModel {
         return (insertions, removals)
     }
     
-    @available(iOS 13, *)
     private func getRowsDiff(oldValue: [DailyWorkTime]) -> (insertions: [IndexPath], removals: [IndexPath]) {
         var insertions: [IndexPath] = []
         var removals: [IndexPath] = []
@@ -399,4 +393,3 @@ extension WorkTimesListViewModel {
         return self.dailyWorkTimesArray[safeIndex: indexPath.section]
     }
 }
-// swiftlint:disable:this file_length

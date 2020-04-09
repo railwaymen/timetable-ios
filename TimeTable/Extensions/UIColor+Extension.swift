@@ -57,27 +57,15 @@ extension UIColor {
     }()
     
     static let defaultBackground: UIColor = {
-        if #available(iOS 13, *) {
-            return .systemBackground
-        } else {
-            return .white
-        }
+        return .systemBackground
     }()
     
     static let defaultLabel: UIColor = {
-        if #available(iOS 13, *) {
-            return .label
-        } else {
-            return .black
-        }
+        return .label
     }()
     
     static let defaultSecondaryLabel: UIColor = {
-        if #available(iOS 13, *) {
-            return .secondaryLabel
-        } else {
-            return .gray
-        }
+        return .secondaryLabel
     }()
     
     static var textFieldBackground: UIColor {

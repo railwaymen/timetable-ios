@@ -107,9 +107,7 @@ extension ProjectPickerViewController {
         self.searchController.searchBar.tintColor = .tint
         self.searchController.searchResultsUpdater = self
         self.searchController.obscuresBackgroundDuringPresentation = false
-        if #available(iOS 13.0, *) {
-            self.searchController?.showsSearchResultsController = false
-        }
+        self.searchController?.showsSearchResultsController = false
         self.definesPresentationContext = true
         self.navigationItem.searchController = self.searchController
     }
