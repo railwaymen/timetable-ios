@@ -42,8 +42,7 @@ class WorkTimeViewController: UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        guard #available(iOS 12, *),
-            self.traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }
+        guard self.traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }
         self.viewModel.userInterfaceStyleDidChange()
     }
     
@@ -214,7 +213,7 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         guard self.viewIfLoaded != nil else { return }
         let bottomInset = max(0, height - self.scrollView.safeAreaInsets.bottom)
         self.scrollView.contentInset.bottom = bottomInset
-        self.scrollView.scrollIndicatorInsets.bottom = bottomInset
+        self.scrollView.verticalScrollIndicatorInsets.bottom = bottomInset
     }
     
     func setTagsCollectionView(isHidden: Bool) {
@@ -256,11 +255,7 @@ extension WorkTimeViewController: WorkTimeViewControllerType {
 // MARK: - Private
 extension WorkTimeViewController {
     private func setUpActivityIndicator() {
-        if #available(iOS 13, *) {
-            self.activityIndicator.style = .large
-        } else {
-            self.activityIndicator.style = .gray
-        }
+        self.activityIndicator.style = .large
         self.activityIndicator.hidesWhenStopped = true
         self.setActivityIndicator(isHidden: true)
     }

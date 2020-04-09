@@ -128,15 +128,11 @@ extension LoginViewController: LoginViewControllerType {
 extension LoginViewController {
     private func updateScrollViewInsets(with height: CGFloat = 0) {
         self.scrollView.contentInset.bottom = height
-        self.scrollView.scrollIndicatorInsets.bottom = height
+        self.scrollView.verticalScrollIndicatorInsets.bottom = height
     }
     
     private func setUpActivityIndicator() {
-        if #available(iOS 13, *) {
-            self.activityIndicator.style = .large
-        } else {
-            self.activityIndicator.style = .gray
-        }
+        self.activityIndicator.style = .large
         self.setActivityIndicator(isHidden: true)
     }
 }

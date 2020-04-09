@@ -14,9 +14,16 @@ extension UIColor {
         var green: CGFloat = 0
         var blue: CGFloat = 0
         self.getRed(&red, green: &green, blue: &blue, alpha: nil)
-        let hexRed = String(Int(red * 255), radix: 16)
-        let hexGreen = String(Int(green * 255), radix: 16)
-        let hexBlue = String(Int(blue * 255), radix: 16)
+        let hexRed = self.getHexValue(of: red)
+        let hexGreen = self.getHexValue(of: green)
+        let hexBlue = self.getHexValue(of: blue)
         return hexRed + hexGreen + hexBlue
+    }
+    
+    // MARK: - Private
+    private func getHexValue(of number: CGFloat) -> String {
+        let string = String(Int(number * 255), radix: 16)
+        guard string.count < 2 else { return string }
+        return "0" + string
     }
 }

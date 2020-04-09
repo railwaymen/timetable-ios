@@ -10,43 +10,33 @@ import UIKit
 
 extension UIImage {
     static let projects: UIImage = {
-        var image: UIImage = #imageLiteral(resourceName: "project_icon")
-        if #available(iOS 13, *), let sfSymbol = UIImage(systemName: "rectangle.grid.2x2.fill") {
-            image = sfSymbol
-        }
-        return image
+        var image = UIImage(systemName: "rectangle.grid.2x2.fill")
+        assert(image != nil)
+        return image ?? #imageLiteral(resourceName: "project_icon")
     }()
     
     static let timesheet: UIImage = {
-        var image: UIImage = #imageLiteral(resourceName: "work_times_icon")
-        if #available(iOS 13, *), let sfSymbol = UIImage(systemName: "clock.fill") {
-            image = sfSymbol
-        }
-        return image
+        var image = UIImage(systemName: "clock.fill")
+        assert(image != nil)
+        return image ?? #imageLiteral(resourceName: "work_times_icon")
     }()
     
     static let profile: UIImage = {
-        var image: UIImage = #imageLiteral(resourceName: "profile_icon")
-        if #available(iOS 13, *), let sfSymbol = UIImage(systemName: "person.fill") {
-            image = sfSymbol
-        }
-        return image
+        var image = UIImage(systemName: "person.fill")
+        assert(image != nil)
+        return image ?? #imageLiteral(resourceName: "profile_icon")
     }()
     
     static let delete: UIImage = {
-        var image: UIImage = #imageLiteral(resourceName: "icon-trash")
-        if #available(iOS 13, *), let sfSymbol = UIImage(systemName: "trash.fill") {
-            image = sfSymbol
-        }
-        return image
+        var image = UIImage(systemName: "trash.fill")
+        assert(image != nil)
+        return image ?? #imageLiteral(resourceName: "icon-trash")
     }()
     
     static let duplicate: UIImage = {
-        var image: UIImage = #imageLiteral(resourceName: "add-icon")
-        if #available(iOS 13, *), let sfSymbol = UIImage(systemName: "doc.on.doc.fill") {
-            image = sfSymbol
-        }
-        return image
+        var image = UIImage(systemName: "doc.on.doc.fill")
+        assert(image != nil)
+        return image ?? #imageLiteral(resourceName: "add-icon")
     }()
      
     static let history: UIImage = #imageLiteral(resourceName: "history_icon")

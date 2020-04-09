@@ -82,11 +82,7 @@ extension WorkTimeContainerViewController: WorkTimeContainerViewControllerType {
 // MARK: - Private
 extension WorkTimeContainerViewController {
     private func setUpActivityIndicator() {
-        if #available(iOS 13, *) {
-            self.activityIndicator.style = .medium
-        } else {
-            self.activityIndicator.style = .gray
-        }
+        self.activityIndicator.style = .medium
         self.activityIndicator.hidesWhenStopped = true
         self.setActivityIndicator(isHidden: true)
     }

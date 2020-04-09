@@ -137,11 +137,7 @@ extension ProjectsViewController {
     }
     
     private func setUpActivityIndicator() {
-        if #available(iOS 13, *) {
-            self.activityIndicator.style = .large
-        } else {
-            self.activityIndicator.style = .gray
-        }
+        self.activityIndicator.style = .large
         self.activityIndicator.hidesWhenStopped = true
         self.setActivityIndicator(isHidden: true)
     }
