@@ -11,7 +11,7 @@ def universal_pods
   pod 'Firebase/Crashlytics'
   pod 'KeychainAccess', '~> 4.1'
   pod 'R.swift', '~> 5.1.0'
-  pod 'Restler', '~> 0.5.0'
+  pod 'Restler', '~> 0.5.2'
   pod 'SwiftLint', '~> 0.39'
 end
 

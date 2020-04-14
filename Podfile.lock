@@ -83,7 +83,7 @@ PODS:
   - R.swift (5.1.0):
     - R.swift.Library (~> 5.1.0)
   - R.swift.Library (5.1.0)
-  - Restler (0.5.0)
+  - Restler (0.5.2)
   - Swifter (1.4.7)
   - SwiftLint (0.39.1)
 
@@ -95,7 +95,7 @@ DEPENDENCIES:
   - JSONFactorable (~> 0.2.1)
   - KeychainAccess (~> 4.1)
   - R.swift (~> 5.1.0)
-  - Restler (~> 0.5.0)
+  - Restler (~> 0.5.2)
   - Swifter (~> 1.4.7)
   - SwiftLint (~> 0.39)
 
@@ -118,12 +118,12 @@ SPEC REPOS:
     - PromisesObjC
     - R.swift
     - R.swift.Library
+    - Restler
     - Swifter
     - SwiftLint
   "ssh://git@git.railwaymen.org:10522/open/rwm_podspec.git":
     - CoordinatorsFoundation
     - JSONFactorable
-    - Restler
 
 SPEC CHECKSUMS:
   CoordinatorsFoundation: 528e4db98ebbce2063b1ef1a2fe210da90253819
@@ -145,10 +145,10 @@ SPEC CHECKSUMS:
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   R.swift: 8cbc4fc69b740305b6a17c8a8ed968eb788962d9
   R.swift.Library: fa85ce1e0d0b7e818cd9e080df910ba54d2776cc
-  Restler: 5ecf6cbafff1a7f043d38e1abab006c14d84c73b
+  Restler: 19e0b286dd11bb1aa1230b2d5296509a918b51c1
   Swifter: 2327ef5d872c638aebab79646ce494af508b0c8f
   SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
 
-PODFILE CHECKSUM: 9b168f6b39d7914472ecf858b30f9f4cca1cfa09
+PODFILE CHECKSUM: ed1ef9d48257d05c9d92f9e625b8ea0595c8f415
 
 COCOAPODS: 1.9.1
