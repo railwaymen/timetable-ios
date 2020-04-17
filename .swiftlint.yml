@@ -28,3 +28,5 @@ excluded:
   - Pods
   - vendor
   - "*.generated.swift"
+  - DerivedData
+  - "**/.build"
