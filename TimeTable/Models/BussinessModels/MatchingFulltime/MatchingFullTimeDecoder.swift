@@ -8,7 +8,18 @@
 
 import Foundation
 
-struct MatchingFullTimeDecoder: Decodable {
+protocol MatchingFullTimeDecoderFields {
+    var accountingPeriod: MatchingFullTimeDecoder.Period? { get }
+    var shouldWorked: TimeInterval? { get }
+}
+
+protocol MatchingFullTimePeriodDecoder {
+    var identifier: Int { get }
+    var countedDuration: TimeInterval { get }
+    var duration: TimeInterval { get }
+}
+
+struct MatchingFullTimeDecoder: Decodable, MatchingFullTimeDecoderFields {
     let accountingPeriod: Period?
     let shouldWorked: TimeInterval?
     
@@ -35,7 +46,7 @@ struct MatchingFullTimeDecoder: Decodable {
 
 // MARK: - Structures
 extension MatchingFullTimeDecoder {
-    struct Period: Decodable {
+    struct Period: Decodable, MatchingFullTimePeriodDecoder {
         let identifier: Int
         let countedDuration: TimeInterval
         let duration: TimeInterval

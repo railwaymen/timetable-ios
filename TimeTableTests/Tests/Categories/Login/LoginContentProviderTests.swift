@@ -41,8 +41,7 @@ extension LoginContentProviderTests {
         //Arrange
         let loginCredentials = LoginCredentials(email: "user@example.com", password: "password")
         let sut = self.buildSUT()
-        let data = try self.json(from: SessionJSONResource.signInResponse)
-        let session = try self.decoder.decode(SessionDecoder.self, from: data)
+        let session = try SessionDecoderFactory().build()
         var completionResult: Result<SessionDecoder, Error>?
         //Act
         sut.login(with: loginCredentials, shouldSaveUser: true) { result in

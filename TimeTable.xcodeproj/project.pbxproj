@@ -414,6 +414,8 @@
 		C1B8FA4D218C9A04009D10B4 /* JSONFileResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8FA4C218C9A04009D10B4 /* JSONFileResource.swift */; };
 		C1B8FA51218C9A86009D10B4 /* signInRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B8FA50218C9A86009D10B4 /* signInRequest.json */; };
 		C1C4BA912189AE0900683F71 /* ApiValidationErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C4BA902189AE0900683F71 /* ApiValidationErrors.swift */; };
+		C1CCC118244DACF900177DAA /* ProjectTagsDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCC117244DACF900177DAA /* ProjectTagsDecoderFactory.swift */; };
+		C1CCC11B244DB38100177DAA /* MatchingFullTimeDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCC11A244DB38100177DAA /* MatchingFullTimeDecoderFactory.swift */; };
 		C1CE041521F5E01200E80517 /* AttributedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CE041421F5E01200E80517 /* AttributedTextField.swift */; };
 		C1E1F04221AD2372007F9228 /* WorkTimesTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1E1F04121AD2372007F9228 /* WorkTimesTableViewHeader.xib */; };
 		C1E1F04421AD2952007F9228 /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E1F04321AD2952007F9228 /* NSObject+Extension.swift */; };
@@ -907,6 +909,8 @@
 		C1B8FA4C218C9A04009D10B4 /* JSONFileResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONFileResource.swift; sourceTree = "<group>"; };
 		C1B8FA50218C9A86009D10B4 /* signInRequest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInRequest.json; sourceTree = "<group>"; };
 		C1C4BA902189AE0900683F71 /* ApiValidationErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiValidationErrors.swift; sourceTree = "<group>"; };
+		C1CCC117244DACF900177DAA /* ProjectTagsDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTagsDecoderFactory.swift; sourceTree = "<group>"; };
+		C1CCC11A244DB38100177DAA /* MatchingFullTimeDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFullTimeDecoderFactory.swift; sourceTree = "<group>"; };
 		C1CE041421F5E01200E80517 /* AttributedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextField.swift; sourceTree = "<group>"; };
 		C1E1F04121AD2372007F9228 /* WorkTimesTableViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkTimesTableViewHeader.xib; sourceTree = "<group>"; };
 		C1E1F04321AD2952007F9228 /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
@@ -1418,14 +1422,13 @@
 		8AF5696B23D71BE700A1D001 /* Factories */ = {
 			isa = PBXGroup;
 			children = (
-				8AF5697023D7222800A1D001 /* ProjectRecordDecoderFactory.swift */,
 				8AF5697C23D759AE00A1D001 /* ServerErrorFactory.swift */,
-				8AF5697623D751F400A1D001 /* SessionDecoderFactory.swift */,
-				8AF5696C23D71C0900A1D001 /* SimpleProjectRecordDecoderFactory.swift */,
-				8AE55D1A23FD7AAB00F94242 /* TaskFactory.swift */,
-				8A08B50424372EB1007E8DCF /* TaskVersionFactory.swift */,
-				8AF5697823D754D600A1D001 /* UserDecoderFactory.swift */,
-				8AF5697A23D756CA00A1D001 /* WorkTimeDecoderFactory.swift */,
+				C1CCC119244DB36A00177DAA /* MatchingFulltime */,
+				C12230CF2449E70D00DF5E86 /* Projects */,
+				C12230D22449E8CA00DF5E86 /* Session */,
+				C12230D52449E91100DF5E86 /* TaskHistory */,
+				C12230D62449E92200DF5E86 /* User */,
+				C12230D72449E9DF00DF5E86 /* WorkTime */,
 			);
 			path = Factories;
 			sourceTree = "<group>";
@@ -1469,6 +1472,49 @@
 				C11D0CF6220816D800066CA9 /* MatchingFullTimeEncoderTests.swift */,
 			);
 			path = MatchingFulltime;
+			sourceTree = "<group>";
+		};
+		C12230CF2449E70D00DF5E86 /* Projects */ = {
+			isa = PBXGroup;
+			children = (
+				8AF5697023D7222800A1D001 /* ProjectRecordDecoderFactory.swift */,
+				8AF5696C23D71C0900A1D001 /* SimpleProjectRecordDecoderFactory.swift */,
+				C1CCC117244DACF900177DAA /* ProjectTagsDecoderFactory.swift */,
+			);
+			path = Projects;
+			sourceTree = "<group>";
+		};
+		C12230D22449E8CA00DF5E86 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				8AF5697623D751F400A1D001 /* SessionDecoderFactory.swift */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		C12230D52449E91100DF5E86 /* TaskHistory */ = {
+			isa = PBXGroup;
+			children = (
+				8AE55D1A23FD7AAB00F94242 /* TaskFactory.swift */,
+				8A08B50424372EB1007E8DCF /* TaskVersionFactory.swift */,
+			);
+			path = TaskHistory;
+			sourceTree = "<group>";
+		};
+		C12230D62449E92200DF5E86 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				8AF5697823D754D600A1D001 /* UserDecoderFactory.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		C12230D72449E9DF00DF5E86 /* WorkTime */ = {
+			isa = PBXGroup;
+			children = (
+				8AF5697A23D756CA00A1D001 /* WorkTimeDecoderFactory.swift */,
+			);
+			path = WorkTime;
 			sourceTree = "<group>";
 		};
 		C122601821898BC3007D64A3 /* Login */ = {
@@ -1563,8 +1609,8 @@
 				C1249C6B2181A23A005DB2A5 /* String+Error.swift */,
 				C134296221A693F400F4EA42 /* TestError.swift */,
 				8A99EBC023D9B95600CC9BA8 /* UIColor+Extension.swift */,
-				C1FA05E821945DA400BD8C9D /* XCTestCase+Extension.swift */,
 				8A137C3C23FD7538001569BB /* UniqueValuedEnumerator.swift */,
+				C1FA05E821945DA400BD8C9D /* XCTestCase+Extension.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1725,14 +1771,14 @@
 			path = Projects;
 			sourceTree = "<group>";
 		};
-		C12CA57721A58F860082FEB7 /* WorkTimes */ = {
+		C12CA57721A58F860082FEB7 /* WorkTime */ = {
 			isa = PBXGroup;
 			children = (
 				C12CA57A21A5900B0082FEB7 /* WorkTimeDecoder.swift */,
 				8A79A2C424210AAC0048B44B /* WorkTimeDisplayed.swift */,
 				C134296821A6964B00F4EA42 /* WorkTimesParameters.swift */,
 			);
-			path = WorkTimes;
+			path = WorkTime;
 			sourceTree = "<group>";
 		};
 		C12CA57821A58FA70082FEB7 /* BussinessModels */ = {
@@ -1743,7 +1789,7 @@
 				C1B8FA47218C9617009D10B4 /* Session */,
 				8A79A2492420D6600048B44B /* TaskHistory */,
 				C10FD87D21F1ED8300A233C5 /* User */,
-				C12CA57721A58F860082FEB7 /* WorkTimes */,
+				C12CA57721A58F860082FEB7 /* WorkTime */,
 			);
 			path = BussinessModels;
 			sourceTree = "<group>";
@@ -2286,6 +2332,14 @@
 				C1F69B2B21902FA5005D9114 /* signInResponse.json */,
 			);
 			path = Session;
+			sourceTree = "<group>";
+		};
+		C1CCC119244DB36A00177DAA /* MatchingFulltime */ = {
+			isa = PBXGroup;
+			children = (
+				C1CCC11A244DB38100177DAA /* MatchingFullTimeDecoderFactory.swift */,
+			);
+			path = MatchingFulltime;
 			sourceTree = "<group>";
 		};
 		C1E1F04521AD36A0007F9228 /* WorkTimes */ = {
@@ -3078,6 +3132,7 @@
 				C1FA05E921945DA400BD8C9D /* XCTestCase+Extension.swift in Sources */,
 				C134296321A693F400F4EA42 /* TestError.swift in Sources */,
 				8A08B50324371DF6007E8DCF /* WorkTimeDisplayedTests.swift in Sources */,
+				C1CCC118244DACF900177DAA /* ProjectTagsDecoderFactory.swift in Sources */,
 				C153AC602182FC4B007A35BB /* UITextFieldExtensionTests.swift in Sources */,
 				8A5D48C42369E20E0082C13D /* DispatchGroupFactoryMock.swift in Sources */,
 				C17EA3BA2189E9BA00A3F0CD /* ApiClientErrorTests.swift in Sources */,
@@ -3137,6 +3192,7 @@
 				8AE0001E23747036002F783E /* ProjectPickerCellModelTests.swift in Sources */,
 				C12BD9BE21E4BCDA00A6EAF0 /* ProjectsCoordinatorTests.swift in Sources */,
 				8AA3E5C9241648FB00322AEF /* RestlerMock.swift in Sources */,
+				C1CCC11B244DB38100177DAA /* MatchingFullTimeDecoderFactory.swift in Sources */,
 				8A31BFB924177C89004A1CE8 /* RestlerErrorParserMock.swift in Sources */,
 				C153AC5E2182FA64007A35BB /* UIButtonExtensionTests.swift in Sources */,
 				8A79A2C92422103A0048B44B /* DateFormatterBuilderMock.swift in Sources */,

@@ -218,8 +218,7 @@ extension LoginViewModelTests {
         let sut = self.buildSUT()
         sut.loginInputValueDidChange(value: "login")
         sut.passwordInputValueDidChange(value: "password")
-        let data = try self.json(from: SessionJSONResource.signInResponse)
-        let sessionReponse = try self.decoder.decode(SessionDecoder.self, from: data)
+        let sessionReponse = try SessionDecoderFactory().build()
         //Act
         sut.viewRequestedToLogin()
         self.contentProviderMock.loginParams.last?.completion(.success(sessionReponse))

@@ -10,6 +10,10 @@ import XCTest
 @testable import TimeTable
 
 class WorkTimesListContentProviderTests: XCTestCase {
+    private var matchingFullTimeDecoderFactory = MatchingFullTimeDecoderFactory()
+    private var workTimeDecoderFactory = WorkTimeDecoderFactory()
+    private var simpleProjectRecordDecoderFactory = SimpleProjectRecordDecoderFactory()
+    
     private var apiClientMock: ApiClientMock!
     private var accessServiceMock: AccessServiceMock!
     private var calendarMock: CalendarMock!
@@ -131,9 +135,7 @@ extension WorkTimesListContentProviderTests {
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 1
         var expectedError: Error?
         let error = TestError(message: "Fetching Work Times Error")
-        
-        let matchingFullTimeData = try self.json(from: MatchingFullTimeJSONResource.matchingFullTimeFullResponse)
-        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
+        let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         //Act
         sut.fetchWorkTimesData(for: nil) { result in
             switch result {
@@ -162,14 +164,9 @@ extension WorkTimesListContentProviderTests {
         self.calendarMock.dateByAddingCalendarComponentReturnValue = try self.buildDate(year: 2019, month: 2, day: 28)
         
         var expectedResponse: ([DailyWorkTime], MatchingFullTimeDecoder)?
-    
         let date = try self.buildDate(dateComponents)
-        
-        let workTimesData = try self.json(from: WorkTimesJSONResource.workTimesResponse)
-        let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: workTimesData)
-        
-        let matchingFullTimeData = try self.json(from: MatchingFullTimeJSONResource.matchingFullTimeFullResponse)
-        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
+        let workTimes = try self.buildWorkTimes()
+        let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         //Act
         sut.fetchWorkTimesData(for: date) { result in
             switch result {
@@ -195,8 +192,8 @@ extension WorkTimesListContentProviderTests {
     func testDelete() throws {
         //Arrange
         let sut = self.buildSUT()
-        let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
-        let workTime = try XCTUnwrap(self.decoder.decode([WorkTimeDecoder].self, from: data).first)
+        let project = try self.simpleProjectRecordDecoderFactory.build()
+        let workTime = try self.workTimeDecoderFactory.build(wrapper: WorkTimeDecoderFactory.Wrapper(project: project))
         var completionResult: WorkTimesListDeleteResult?
         //Act
         sut.delete(workTime: workTime) { result in
@@ -220,5 +217,20 @@ extension WorkTimesListContentProviderTests {
             accessService: self.accessServiceMock,
             calendar: self.calendarMock,
             dispatchGroupFactory: self.dispatchGroupFactoryMock)
+    }
+    
+    private func buildMatchingFullTimeDecoder() throws -> MatchingFullTimeDecoder {
+        let accountingPeriod = try self.matchingFullTimeDecoderFactory.buildPeriod()
+        return try self.matchingFullTimeDecoderFactory.build(
+            accountingPeriod: accountingPeriod,
+            shouldWorked: 120)
+    }
+    
+    private func buildWorkTimes() throws -> [WorkTimeDecoder] {
+        let project = try self.simpleProjectRecordDecoderFactory.build()
+        return [
+            try self.workTimeDecoderFactory.build(wrapper: WorkTimeDecoderFactory.Wrapper(identifier: 1, project: project)),
+            try self.workTimeDecoderFactory.build(wrapper: WorkTimeDecoderFactory.Wrapper(identifier: 2, project: project))
+        ]
     }
 }

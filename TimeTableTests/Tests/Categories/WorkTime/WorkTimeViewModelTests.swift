@@ -39,7 +39,7 @@ class WorkTimeViewModelTests: XCTestCase {
 extension WorkTimeViewModelTests {
     func testInitialization_newEntry_buildsTaskForm() throws {
         //Arrange
-        let lastTask = try self.createTask(workTimeIdentifier: 12, index: 2)
+        let lastTask = try self.createTask(workTimeIdentifier: 12)
         //Act
         _ = self.buildSUT(flowType: .newEntry(lastTask: lastTask))
         //Assert
@@ -60,7 +60,7 @@ extension WorkTimeViewModelTests {
     func testInitialization_duplicateEntry_buildsTaskForm() throws {
         //Arrange
         let task = try self.createTask(workTimeIdentifier: 123)
-        let lastTask = try self.createTask(workTimeIdentifier: 12, index: 2)
+        let lastTask = try self.createTask(workTimeIdentifier: 12)
         //Act
         _ = self.buildSUT(flowType: .duplicateEntry(duplicatedTask: task, lastTask: lastTask))
         //Assert
@@ -642,17 +642,23 @@ extension WorkTimeViewModelTests {
     }
     
     private func fetchProjects(sut: WorkTimeViewModel) throws {
-        let data = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
-        let projectDecoders = try self.decoder.decode([SimpleProjectRecordDecoder].self, from: data)
-        let tagsData = try self.json(from: ProjectTagJSONResource.projectTagsResponse)
-        let tagsDecoder: ProjectTagsDecoder = try self.decoder.decode(ProjectTagsDecoder.self, from: tagsData)
-        sut.containerDidUpdate(projects: projectDecoders, tags: tagsDecoder.tags)
+        let projectFactory = SimpleProjectRecordDecoderFactory()
+        let projectDecoders = [
+            try projectFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 1)),
+            try projectFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 2)),
+            try projectFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 4))
+        ]
+        let tags: [ProjectTag] = [
+            ProjectTag.default,
+            ProjectTag.development,
+            ProjectTag.clientCommunication,
+            ProjectTag.internalMeeting
+        ]
+        sut.containerDidUpdate(projects: projectDecoders, tags: tags)
     }
     
-    private func createTask(workTimeIdentifier: Int64?, index: Int = 3) throws -> TaskForm {
-        let data = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
-        let simpleProjectDecoder = try self.decoder.decode([SimpleProjectRecordDecoder].self, from: data)
-        let project = try XCTUnwrap(simpleProjectDecoder[safeIndex: index])
+    private func createTask(workTimeIdentifier: Int64?) throws -> TaskForm {
+        let project = try self.projectDecoderFactory.build()
         return TaskForm(
             workTimeIdentifier: workTimeIdentifier,
             project: project,

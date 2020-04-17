@@ -38,7 +38,7 @@ extension UserDecoderFactory {
         
         func jsonConvertible() -> AnyJSONConvertible {
             return [
-                "identifier": AnyJSONConvertible(self.identifier),
+                "id": AnyJSONConvertible(self.identifier),
                 "firstName": AnyJSONConvertible(self.firstName),
                 "lastName": AnyJSONConvertible(self.lastName),
                 "email": AnyJSONConvertible(self.email)

@@ -11,6 +11,9 @@ import XCTest
 
 // swiftlint:disable file_length
 class WorkTimesListViewModelTests: XCTestCase {
+    private let matchingFullTimeDecoderFactory = MatchingFullTimeDecoderFactory()
+    private let workTimeDecoderFactory = WorkTimeDecoderFactory()
+    
     private var userInterfaceMock: WorkTimesListViewControllerMock!
     private var coordinatorMock: WorkTimesListCoordinatorMock!
     private var contentProvider: WorkTimesListContentProviderMock!
@@ -337,12 +340,8 @@ extension WorkTimesListViewModelTests {
     func testViewRequestForCellType() throws {
         //Arrange
         let indexPath = IndexPath(row: 0, section: 0)
-        let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
-        let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
-        let matchingFullTimeData = try self.json(from: MatchingFullTimeJSONResource.matchingFullTimeFullResponse)
-        let matchingFullTime = try self.decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
-        let date = try self.buildDate(year: 2018, month: 11, day: 21)
-        let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
+        let dailyWorkTime = try self.buildDailyWorkTime()
+        let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         let sut = try self.buildSUT()
         sut.viewDidLoad()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
@@ -385,7 +384,7 @@ extension WorkTimesListViewModelTests {
         let cell = UITableViewCell()
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         let dailyWorkTime = try self.buildDailyWorkTime()
-        let workTime = try XCTUnwrap(dailyWorkTime.workTimes.first)
+        let workTime = try XCTUnwrap(dailyWorkTime.workTimes[safeIndex: 0])
         let sut = try self.buildSUT()
         sut.viewDidLoad()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
@@ -413,8 +412,8 @@ extension WorkTimesListViewModelTests {
         let cell = UITableViewCell()
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         let dailyWorkTime = try self.buildDailyWorkTime()
-        let duplicatedWorkTime = dailyWorkTime.workTimes[1]
-        let firstWorkTime = dailyWorkTime.workTimes[0]
+        let duplicatedWorkTime = dailyWorkTime.workTimes[safeIndex: 1]
+        let firstWorkTime = dailyWorkTime.workTimes[safeIndex: 0]
         let sut = try self.buildSUT()
         sut.viewDidLoad()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
@@ -424,21 +423,21 @@ extension WorkTimesListViewModelTests {
         XCTAssertEqual(self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.sourceView, cell)
         let flowType = self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.flowType
         guard case let .duplicateEntry(duplicatedTask, lastTask) = flowType else { return XCTFail() }
-        XCTAssertEqual(duplicatedTask.workTimeIdentifier, duplicatedWorkTime.identifier)
-        XCTAssertEqual(duplicatedTask.project, duplicatedWorkTime.project)
-        XCTAssertEqual(duplicatedTask.body, duplicatedWorkTime.body)
-        XCTAssertEqual(duplicatedTask.url?.absoluteString, duplicatedWorkTime.task)
+        XCTAssertEqual(duplicatedTask.workTimeIdentifier, duplicatedWorkTime?.identifier)
+        XCTAssertEqual(duplicatedTask.project, duplicatedWorkTime?.project)
+        XCTAssertEqual(duplicatedTask.body, duplicatedWorkTime?.body)
+        XCTAssertEqual(duplicatedTask.url?.absoluteString, duplicatedWorkTime?.task)
         XCTAssertEqual(duplicatedTask.day, dailyWorkTime.day)
-        XCTAssertEqual(duplicatedTask.startsAt, duplicatedWorkTime.startsAt)
-        XCTAssertEqual(duplicatedTask.endsAt, duplicatedWorkTime.endsAt)
+        XCTAssertEqual(duplicatedTask.startsAt, duplicatedWorkTime?.startsAt)
+        XCTAssertEqual(duplicatedTask.endsAt, duplicatedWorkTime?.endsAt)
         
-        XCTAssertEqual(lastTask?.workTimeIdentifier, firstWorkTime.identifier)
-        XCTAssertEqual(lastTask?.project, firstWorkTime.project)
-        XCTAssertEqual(lastTask?.body, firstWorkTime.body)
-        XCTAssertEqual(lastTask?.url?.absoluteString, firstWorkTime.task)
+        XCTAssertEqual(lastTask?.workTimeIdentifier, firstWorkTime?.identifier)
+        XCTAssertEqual(lastTask?.project, firstWorkTime?.project)
+        XCTAssertEqual(lastTask?.body, firstWorkTime?.body)
+        XCTAssertEqual(lastTask?.url?.absoluteString, firstWorkTime?.task)
         XCTAssertEqual(lastTask?.day, dailyWorkTime.day)
-        XCTAssertEqual(lastTask?.startsAt, firstWorkTime.startsAt)
-        XCTAssertEqual(lastTask?.endsAt, firstWorkTime.endsAt)
+        XCTAssertEqual(lastTask?.startsAt, firstWorkTime?.startsAt)
+        XCTAssertEqual(lastTask?.endsAt, firstWorkTime?.endsAt)
     }
 }
 
@@ -504,15 +503,56 @@ extension WorkTimesListViewModelTests {
     }
     
     private func buildMatchingFullTimeDecoder() throws -> MatchingFullTimeDecoder {
-        let matchingFullTimeData = try self.json(from: MatchingFullTimeJSONResource.matchingFullTimeFullResponse)
-        return try self.decoder.decode(MatchingFullTimeDecoder.self, from: matchingFullTimeData)
+        let accountingPeriod = try self.matchingFullTimeDecoderFactory.buildPeriod()
+        return try self.matchingFullTimeDecoderFactory.build(accountingPeriod: accountingPeriod, shouldWorked: 360)
+    }
+    
+    private func buildWorkTimesDecoder(identifier: Int64, startsAt: Date, endsAt: Date) throws -> WorkTimeDecoder {
+        let project = try SimpleProjectRecordDecoderFactory().build()
+        let wrapper = WorkTimeDecoderFactory.Wrapper(
+            identifier: identifier,
+            startsAt: startsAt,
+            endsAt: endsAt,
+            body: "body",
+            taskPreview: "task preview",
+            project: project)
+        return try self.workTimeDecoderFactory.build(wrapper: wrapper)
     }
     
     private func buildDailyWorkTime() throws -> DailyWorkTime {
-        let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
-        let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
-        let date = try self.buildDate(year: 2018, month: 11, day: 21)
-        return DailyWorkTime(day: date, workTimes: workTimes)
+        let workTimes = [
+            try self.buildWorkTimesDecoder(
+                identifier: 1,
+                startsAt: self.startsAt(hour: 15),
+                endsAt: self.endsAt(hour: 16)),
+            try self.buildWorkTimesDecoder(
+                identifier: 2,
+                startsAt: self.startsAt(hour: 12),
+                endsAt: self.endsAt(hour: 14))
+        ]
+        return DailyWorkTime(day: Date(), workTimes: workTimes)
+    }
+    
+    private func startsAt(hour: Int) throws -> Date {
+        return try self.buildDate(
+            timeZone: TimeZone(secondsFromGMT: 0)!,
+            year: 2018,
+            month: 11,
+            day: 21,
+            hour: hour,
+            minute: 0,
+            second: 0)
+    }
+    
+    private func endsAt(hour: Int) throws -> Date {
+        return try self.buildDate(
+            timeZone: TimeZone(secondsFromGMT: 0)!,
+            year: 2018,
+            month: 11,
+            day: 21,
+            hour: hour,
+            minute: 0,
+            second: 0)
     }
 }
 // swiftlint:enable file_length

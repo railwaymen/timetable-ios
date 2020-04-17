@@ -10,6 +10,8 @@ import XCTest
 @testable import TimeTable
 
 class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
+    private let workTimeDecoderFactory = WorkTimeDecoderFactory()
+    
     private var userInterface: WorkTimesTableViewHeaderViewMock!
     private var calendar: CalendarMock!
     
@@ -25,8 +27,7 @@ extension WorkTimesTableViewHeaderViewModelTests {
     func testViewConfiguredWithTodayDate() throws {
         //Arrange
         let date = Date()
-        let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
-        let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
+        let workTimes = try self.buildWorkTimesDecoders()
         let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
         let sut = self.buildSUT(dailyWorkTime: dailyWorkTime)
         //Act
@@ -39,8 +40,7 @@ extension WorkTimesTableViewHeaderViewModelTests {
     func testViewConfiguredWithYesterdayDate() throws {
         //Arrange
         let date = Date().addingTimeInterval(-.day)
-        let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
-        let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
+        let workTimes = try self.buildWorkTimesDecoders()
         let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
         let sut = self.buildSUT(dailyWorkTime: dailyWorkTime)
         //Act
@@ -53,8 +53,7 @@ extension WorkTimesTableViewHeaderViewModelTests {
     func testViewConfiguredWithOtherDateThanTodayAndYesterday() throws {
         //Arrange
         let date = try self.buildDate(year: 2018, month: 11, day: 20)
-        let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
-        let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
+        let workTimes = try self.buildWorkTimesDecoders()
         let dailyWorkTime = DailyWorkTime(day: date, workTimes: workTimes)
         let expectedDayText = DateFormatter.localizedString(from: dailyWorkTime.day, dateStyle: .medium, timeStyle: .none)
         let sut = self.buildSUT(dailyWorkTime: dailyWorkTime)
@@ -73,5 +72,24 @@ extension WorkTimesTableViewHeaderViewModelTests {
             userInterface: self.userInterface,
             dailyWorkTime: dailyWorkTime,
             calendar: self.calendar)
+    }
+    
+    private func buildWorkTimesDecoder(
+        identifier: Int64,
+        duration: Int64
+    ) throws -> WorkTimeDecoder {
+        let project = try SimpleProjectRecordDecoderFactory().build()
+        let wrapper = WorkTimeDecoderFactory.Wrapper(
+            identifier: identifier,
+            duration: duration,
+            project: project)
+        return try self.workTimeDecoderFactory.build(wrapper: wrapper)
+    }
+    
+    private func buildWorkTimesDecoders() throws -> [WorkTimeDecoder] {
+        return [
+            try self.buildWorkTimesDecoder(identifier: 1, duration: Int64(TimeInterval.hour)),
+            try self.buildWorkTimesDecoder(identifier: 2, duration: Int64(TimeInterval.hour * 2))
+        ]
     }
 }

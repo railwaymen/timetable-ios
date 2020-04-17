@@ -13,7 +13,6 @@ import JSONFactorable
 class ProjectRecordDecoderFactory: JSONFactorable {
     func build(
         identifier: Int = 0,
-        projectId: Int = 0,
         name: String = "name",
         color: UIColor? = nil,
         leader: ProjectRecordDecoder.Leader? = nil,
@@ -21,7 +20,6 @@ class ProjectRecordDecoderFactory: JSONFactorable {
     ) throws -> ProjectRecordDecoder {
         let wrapper = Wrapper(
             identifier: identifier,
-            projectId: projectId,
             name: name,
             color: color,
             leader: try leader ?? (try self.buildLeader()),
@@ -56,7 +54,6 @@ class ProjectRecordDecoderFactory: JSONFactorable {
 extension ProjectRecordDecoderFactory {
     struct Wrapper: ProjectRecordDecoderFields {
         let identifier: Int
-        let projectId: Int
         let name: String
         let color: UIColor?
         let leader: ProjectRecordDecoder.Leader
@@ -64,14 +61,12 @@ extension ProjectRecordDecoderFactory {
         
         init(
             identifier: Int = 0,
-            projectId: Int = 0,
             name: String = "name",
             color: UIColor? = nil,
             leader: ProjectRecordDecoder.Leader,
             users: [ProjectRecordDecoder.User] = []
         ) {
             self.identifier = identifier
-            self.projectId = projectId
             self.name = name
             self.color = color
             self.leader = leader
@@ -80,8 +75,7 @@ extension ProjectRecordDecoderFactory {
         
         func jsonConvertible() throws -> AnyJSONConvertible {
             var jsonObject: AnyJSONConvertible = [
-                "id": AnyJSONConvertible(self.identifier),
-                "project_id": AnyJSONConvertible(self.projectId),
+                "project_id": AnyJSONConvertible(self.identifier),
                 "name": AnyJSONConvertible(self.name),
                 "color": AnyJSONConvertible(self.color),
                 "users": AnyJSONConvertible(self.users)
@@ -139,6 +133,18 @@ extension ProjectRecordDecoderFactory {
 }
 
 // MARK: - Helper extensions
+extension ProjectRecordDecoder: JSONObjectType {
+    public func jsonConvertible() throws -> JSONConvertible {
+        let wrapper = ProjectRecordDecoderFactory.Wrapper(
+            identifier: self.identifier,
+            name: self.name,
+            color: self.color,
+            leader: self.leader,
+            users: self.users)
+        return try wrapper.jsonConvertible()
+    }
+}
+
 extension ProjectRecordDecoder.Leader: JSONObjectType {
     public func jsonConvertible() throws -> JSONConvertible {
         let wrapper = ProjectRecordDecoderFactory.LeaderWrapper(
