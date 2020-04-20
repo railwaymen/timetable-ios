@@ -956,18 +956,18 @@ extension WorkTimeContentProviderTests {
     
     private func buildProjects() throws -> [SimpleProjectRecordDecoder] {
         return [
-            try self.projectFactory.build(),
             try self.projectFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 1)),
-            try self.projectFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 2))
+            try self.projectFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 2)),
+            try self.projectFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 3))
         ]
     }
     
     private func buildTags() throws -> ProjectTagsDecoder {
         return try ProjectTagsDecoderFactory().build(tags: [
             .clientCommunication,
-            .default,
             .development,
-            .internalMeeting
+            .internalMeeting,
+            .research
         ])
     }
 }

@@ -244,8 +244,8 @@ extension TaskHistoryViewModelTests {
     
     private func buildWorkTimeDecoder() throws -> WorkTimeDecoder {
         let project = try SimpleProjectRecordDecoderFactory().build()
-    
-        let version = try TaskVersionFactory().build(event: TaskVersion.Event.create,
+        let version = try TaskVersionFactory().build(
+            event: TaskVersion.Event.create,
             updatedBy: "user 1",
             updatedAt: Date(),
             projectName: NilableDiffElement(previous: "", current: "project Name"),
@@ -256,7 +256,6 @@ extension TaskHistoryViewModelTests {
             duration: NilableDiffElement(previous: 120, current: 180),
             task: NilableDiffElement(previous: "task", current: "new task"),
             taskPreview: NilableDiffElement(previous: "prev", current: "task preview"))
-        
         let wrapper = WorkTimeDecoderFactory.Wrapper(
             identifier: 16239,
             projectId: 3,

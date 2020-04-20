@@ -12,8 +12,8 @@ import JSONFactorable
 
 class MatchingFullTimeDecoderFactory: JSONFactorable {
     func build(
-        accountingPeriod: MatchingFullTimeDecoder.Period?,
-        shouldWorked: TimeInterval?
+        accountingPeriod: MatchingFullTimeDecoder.Period? = nil,
+        shouldWorked: TimeInterval? = nil
     ) throws -> MatchingFullTimeDecoder {
         let wrapper = Wrapper(
             accountingPeriod: accountingPeriod,

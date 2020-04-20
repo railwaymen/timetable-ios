@@ -11,7 +11,7 @@ import XCTest
 
 class ProjectCollectionViewCellModelTests: XCTestCase {
     private var userInterfaceMock: ProjectCollectionViewCellMock!
-    private var projectRecordDecoderFactory = ProjectRecordDecoderFactory()
+    private let projectRecordDecoderFactory = ProjectRecordDecoderFactory()
     
     override func setUp() {
         super.setUp()

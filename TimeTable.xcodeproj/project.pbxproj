@@ -1423,7 +1423,7 @@
 			isa = PBXGroup;
 			children = (
 				8AF5697C23D759AE00A1D001 /* ServerErrorFactory.swift */,
-				C1CCC119244DB36A00177DAA /* MatchingFulltime */,
+				C1CCC119244DB36A00177DAA /* MatchingFullTime */,
 				C12230CF2449E70D00DF5E86 /* Projects */,
 				C12230D22449E8CA00DF5E86 /* Session */,
 				C12230D52449E91100DF5E86 /* TaskHistory */,
@@ -2334,12 +2334,12 @@
 			path = Session;
 			sourceTree = "<group>";
 		};
-		C1CCC119244DB36A00177DAA /* MatchingFulltime */ = {
+		C1CCC119244DB36A00177DAA /* MatchingFullTime */ = {
 			isa = PBXGroup;
 			children = (
 				C1CCC11A244DB38100177DAA /* MatchingFullTimeDecoderFactory.swift */,
 			);
-			path = MatchingFulltime;
+			path = MatchingFullTime;
 			sourceTree = "<group>";
 		};
 		C1E1F04521AD36A0007F9228 /* WorkTimes */ = {

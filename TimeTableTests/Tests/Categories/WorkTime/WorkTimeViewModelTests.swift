@@ -642,17 +642,16 @@ extension WorkTimeViewModelTests {
     }
     
     private func fetchProjects(sut: WorkTimeViewModel) throws {
-        let projectFactory = SimpleProjectRecordDecoderFactory()
         let projectDecoders = [
-            try projectFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 1)),
-            try projectFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 2)),
-            try projectFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 4))
+            try self.projectDecoderFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 1)),
+            try self.projectDecoderFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 2)),
+            try self.projectDecoderFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 4))
         ]
         let tags: [ProjectTag] = [
-            ProjectTag.default,
-            ProjectTag.development,
-            ProjectTag.clientCommunication,
-            ProjectTag.internalMeeting
+            .development,
+            .clientCommunication,
+            .internalMeeting,
+            .research
         ]
         sut.containerDidUpdate(projects: projectDecoders, tags: tags)
     }

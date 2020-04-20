@@ -14,7 +14,7 @@ class ProjectsViewModelTests: XCTestCase {
     private var apiClientMock: ApiClientMock!
     private var errorHandlerMock: ErrorHandlerMock!
     private var notificationCenterMock: NotificationCenterMock!
-    private var projectRecordDecoderFactory = ProjectRecordDecoderFactory()
+    private let projectRecordDecoderFactory = ProjectRecordDecoderFactory()
     
     override func setUp() {
         super.setUp()
@@ -226,7 +226,7 @@ extension ProjectsViewModelTests {
     
     private func buildProjects() throws -> [ProjectRecordDecoder] {
         return [
-            try projectRecordDecoderFactory.build(),
+            try projectRecordDecoderFactory.build(identifier: 1),
             try projectRecordDecoderFactory.build(identifier: 2),
             try projectRecordDecoderFactory.build(identifier: 3)
         ]

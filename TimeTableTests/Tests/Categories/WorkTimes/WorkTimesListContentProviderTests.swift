@@ -10,9 +10,9 @@ import XCTest
 @testable import TimeTable
 
 class WorkTimesListContentProviderTests: XCTestCase {
-    private var matchingFullTimeDecoderFactory = MatchingFullTimeDecoderFactory()
-    private var workTimeDecoderFactory = WorkTimeDecoderFactory()
-    private var simpleProjectRecordDecoderFactory = SimpleProjectRecordDecoderFactory()
+    private let matchingFullTimeDecoderFactory = MatchingFullTimeDecoderFactory()
+    private let workTimeDecoderFactory = WorkTimeDecoderFactory()
+    private let simpleProjectRecordDecoderFactory = SimpleProjectRecordDecoderFactory()
     
     private var apiClientMock: ApiClientMock!
     private var accessServiceMock: AccessServiceMock!
