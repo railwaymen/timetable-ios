@@ -22,7 +22,7 @@ extension UIImage {
     }()
     
     static let profile: UIImage = {
-        var image = UIImage(systemName: "person.fill")
+        var image = UIImage(systemName: "person.crop.circle.fill")
         assert(image != nil)
         return image ?? #imageLiteral(resourceName: "profile_icon")
     }()

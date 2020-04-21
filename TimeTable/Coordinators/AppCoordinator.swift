@@ -8,8 +8,9 @@
 
 import UIKit
 
-protocol ParentCoordinator {
+protocol ParentCoordinator: class {
     func present(error: Error)
+    func showProfile(parentViewController: UIViewController)
 }
 
 class AppCoordinator: Coordinator {
@@ -34,6 +35,7 @@ class AppCoordinator: Coordinator {
         self.parentErrorHandler = dependencyContainer.errorHandler
         super.init(window: dependencyContainer.window)
         self.dependencyContainer.errorHandler = self.errorHandler
+        self.dependencyContainer.parentCoordinator = self
     }
 
     // MARK: - Overridden
@@ -95,6 +97,24 @@ extension AppCoordinator: ParentCoordinator {
         } else if let apiError = error as? ApiClientError {
             self.dependencyContainer.messagePresenter?.presentAlertController(withMessage: apiError.type.localizedDescription)
         }
+    }
+    
+    func showProfile(parentViewController: UIViewController) {
+        let profileCoordinator = ProfileCoordinator(
+            dependencyContainer: self.dependencyContainer,
+            parent: self,
+            parentViewController: parentViewController)
+        self.add(child: profileCoordinator)
+        profileCoordinator.start { [weak self, weak profileCoordinator] in
+            self?.remove(child: profileCoordinator)
+        }
+    }
+}
+
+// MARK: - ProfileCoordinatorParentType
+extension AppCoordinator: ProfileCoordinatorParentType {
+    func childDidRequestToFinish() {
+        self.children.forEach { $0.finish() }
     }
 }
 

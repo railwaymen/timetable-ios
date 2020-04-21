@@ -81,7 +81,8 @@ extension ProfileCoordinatorTests {
     private func buildSUT() -> ProfileCoordinator {
         return ProfileCoordinator(
             dependencyContainer: self.dependencyContainer,
-            parent: self.parentMock)
+            parent: self.parentMock,
+            parentViewController: nil)
     }
 }
 

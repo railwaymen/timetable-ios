@@ -182,6 +182,8 @@
 		8AA3E5C9241648FB00322AEF /* RestlerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3E5C8241648FB00322AEF /* RestlerMock.swift */; };
 		8AA5C5DD235F34340083E121 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA5C5DC235F34340083E121 /* Colors.xcassets */; };
 		8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift */; };
+		8AB8AFC1244EF06F00A0D3D3 /* ParentCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8AFC0244EF06F00A0D3D3 /* ParentCoordinatorMock.swift */; };
+		8AB8AFC3244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8AFC2244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift */; };
 		8AC097242371CCFF00103FAD /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */; };
 		8ACEF07F242C8BBB00F4E39D /* LoginUIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACEF07E242C8BBB00F4E39D /* LoginUIElements.swift */; };
 		8AD1345A2396B60B00572632 /* AttributedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD134592396B60B00572632 /* AttributedTextView.swift */; };
@@ -665,6 +667,8 @@
 		8AA3E5C8241648FB00322AEF /* RestlerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestlerMock.swift; sourceTree = "<group>"; };
 		8AA5C5DC235F34340083E121 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellModelTests.swift; sourceTree = "<group>"; };
+		8AB8AFC0244EF06F00A0D3D3 /* ParentCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCoordinatorMock.swift; sourceTree = "<group>"; };
+		8AB8AFC2244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsCoordinatorMock.swift; sourceTree = "<group>"; };
 		8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
 		8AC097272371D28100103FAD /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		8AC097282371D28100103FAD /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
@@ -1169,6 +1173,8 @@
 				8AE00012237464A1002F783E /* WorkTimeCoordinatorMock.swift */,
 				C13C2B0521EDE589008C9088 /* WorkTimesListCoordinatorMock.swift */,
 				8A79A2D424224A040048B44B /* TaskHistoryCoordinatorMock.swift */,
+				8AB8AFC0244EF06F00A0D3D3 /* ParentCoordinatorMock.swift */,
+				8AB8AFC2244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -3142,6 +3148,7 @@
 				8A0707FC23699BE50019FB8E /* NotificationCenterMock.swift in Sources */,
 				C11D0CF7220816D800066CA9 /* MatchingFullTimeEncoderTests.swift in Sources */,
 				8AF5696F23D71EA000A1D001 /* JSONFactorable+Extension.swift in Sources */,
+				8AB8AFC1244EF06F00A0D3D3 /* ParentCoordinatorMock.swift in Sources */,
 				C19706E221C132C9007AFED4 /* WorkTimeTableViewCellModelTests.swift in Sources */,
 				C1FA05E4219440C700BD8C9D /* LoginContentProviderTests.swift in Sources */,
 				8A79A2D524224A040048B44B /* TaskHistoryCoordinatorMock.swift in Sources */,
@@ -3221,6 +3228,7 @@
 				C12CA56C21A57BAA0082FEB7 /* UIColorExtensionTests.swift in Sources */,
 				C122601A21898BD7007D64A3 /* LoginViewModelTests.swift in Sources */,
 				8AF5697723D751F400A1D001 /* SessionDecoderFactory.swift in Sources */,
+				8AB8AFC3244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift in Sources */,
 				8A9369B0237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift in Sources */,
 				8A3F0C542428B07E00564D6D /* RestlerTaskMock.swift in Sources */,
 				C1B8FA4B218C964C009D10B4 /* SessionDecoderTests.swift in Sources */,
