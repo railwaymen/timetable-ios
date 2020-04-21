@@ -17,11 +17,11 @@ struct Task: Encodable {
     var tag: ProjectTag = .default
     
     private enum CodingKeys: String, CodingKey {
-        case projectID = "projectId"
+        case projectID = "project_id"
         case body
         case task
-        case startsAt
-        case endsAt
+        case startsAt = "starts_at"
+        case endsAt = "ends_at"
         case tag
     }
     

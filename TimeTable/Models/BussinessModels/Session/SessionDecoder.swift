@@ -19,9 +19,9 @@ struct SessionDecoder: Codable {
     
     enum CodingKeys: String, CodingKey {
         case id
-        case firstName
-        case lastName
-        case isLeader
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case isLeader = "is_leader"
         case admin
         case manager
         case token

@@ -26,10 +26,10 @@ struct SimpleProjectRecordDecoder: Decodable {
         case color
         case autofill
         case isInternal = "internal"
-        case countDuration
+        case countDuration = "count_duration"
         case isActive = "active"
         case isLunch = "lunch"
-        case workTimesAllowsTask
+        case workTimesAllowsTask = "work_times_allows_task"
         case isTaggable = "taggable"
     }
     

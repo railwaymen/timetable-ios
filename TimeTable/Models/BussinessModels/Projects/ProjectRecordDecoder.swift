@@ -36,7 +36,7 @@ struct ProjectRecordDecoder: Decodable, ProjectRecordDecoderFields {
     let users: [User]
     
     enum CodingKeys: String, CodingKey {
-        case id = "projectId"
+        case id = "project_id"
         case name
         case color
         case users
@@ -64,8 +64,8 @@ extension ProjectRecordDecoder {
         let lastName: String?
         
         enum CodingKeys: String, CodingKey {
-            case firstName = "leaderFirstName"
-            case lastName = "leaderLastName"
+            case firstName = "leader_first_name"
+            case lastName = "leader_last_name"
         }
         
         // MARK: Getters
@@ -96,8 +96,8 @@ extension ProjectRecordDecoder {
         
         enum CodingKeys: String, CodingKey {
             case id
-            case firstName
-            case lastName
+            case firstName = "first_name"
+            case lastName = "last_name"
         }
         
         // MARK: - Getters

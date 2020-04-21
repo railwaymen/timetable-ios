@@ -84,24 +84,24 @@ extension TaskVersionFactory {
         func jsonConvertible() -> AnyJSONConvertible {
             return [
                 "event": AnyJSONConvertible(self.event),
-                "updatedBy": AnyJSONConvertible(self.updatedBy),
-                "createdAt": AnyJSONConvertible(self.updatedAt),
-                "projectNameWas": AnyJSONConvertible(self.projectName.previous),
-                "projectName": AnyJSONConvertible(self.projectName.current),
-                "bodyWas": AnyJSONConvertible(self.body.previous),
+                "updated_by": AnyJSONConvertible(self.updatedBy),
+                "created_at": AnyJSONConvertible(self.updatedAt),
+                "project_name_was": AnyJSONConvertible(self.projectName.previous),
+                "project_name": AnyJSONConvertible(self.projectName.current),
+                "body_was": AnyJSONConvertible(self.body.previous),
                 "body": AnyJSONConvertible(self.body.current),
-                "startsAtWas": AnyJSONConvertible(self.startsAt.previous),
-                "startsAt": AnyJSONConvertible(self.startsAt.current),
-                "endsAtWas": AnyJSONConvertible(self.endsAt.previous),
-                "endsAt": AnyJSONConvertible(self.endsAt.current),
-                "tagWas": AnyJSONConvertible(self.tag.previous),
+                "starts_at_was": AnyJSONConvertible(self.startsAt.previous),
+                "starts_at": AnyJSONConvertible(self.startsAt.current),
+                "ends_at_was": AnyJSONConvertible(self.endsAt.previous),
+                "ends_at": AnyJSONConvertible(self.endsAt.current),
+                "tag_was": AnyJSONConvertible(self.tag.previous),
                 "tag": AnyJSONConvertible(self.tag.current),
-                "durationWas": AnyJSONConvertible(self.duration.previous),
+                "duration_was": AnyJSONConvertible(self.duration.previous),
                 "duration": AnyJSONConvertible(self.duration.current),
-                "taskWas": AnyJSONConvertible(self.task.previous),
+                "task_was": AnyJSONConvertible(self.task.previous),
                 "task": AnyJSONConvertible(self.task.current),
-                "taskPreviewWas": AnyJSONConvertible(self.taskPreview.previous),
-                "taskPreview": AnyJSONConvertible(self.taskPreview.current)
+                "task_preview_was": AnyJSONConvertible(self.taskPreview.previous),
+                "task_preview": AnyJSONConvertible(self.taskPreview.current)
             ]
         }
     }

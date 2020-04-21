@@ -29,12 +29,12 @@ extension SessionDecoderFactory {
         
         init(
             id: Int = 0,
-            firstName: String = "firstName",
-            lastName: String = "lastName",
+            firstName: String = "john",
+            lastName: String = "little",
             isLeader: Bool = false,
             admin: Bool = false,
             manager: Bool = false,
-            token: String = "token"
+            token: String = "token_123"
         ) {
             self.id = id
             self.firstName = firstName
@@ -48,9 +48,9 @@ extension SessionDecoderFactory {
         func jsonConvertible() -> AnyJSONConvertible {
             return [
                 "id": AnyJSONConvertible(self.id),
-                "firstName": AnyJSONConvertible(self.firstName),
-                "lastName": AnyJSONConvertible(self.lastName),
-                "isLeader": AnyJSONConvertible(self.isLeader),
+                "first_name": AnyJSONConvertible(self.firstName),
+                "last_name": AnyJSONConvertible(self.lastName),
+                "is_leader": AnyJSONConvertible(self.isLeader),
                 "admin": AnyJSONConvertible(self.admin),
                 "manager": AnyJSONConvertible(self.manager),
                 "token": AnyJSONConvertible(self.token)

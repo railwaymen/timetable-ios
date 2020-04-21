@@ -37,16 +37,16 @@ struct TaskVersion: Decodable, TaskVersionFieldsProtocol {
     
     private enum CodingKeys: String, CodingKey {
         case event
-        case updatedBy
-        case updatedAt = "createdAt"
-        case projectName
+        case updatedBy = "updated_by"
+        case updatedAt = "created_at"
+        case projectName = "project_name"
         case body
-        case startsAt
-        case endsAt
+        case startsAt = "starts_at"
+        case endsAt = "ends_at"
         case tag
         case duration
         case task
-        case taskPreview
+        case taskPreview = "task_preview"
     }
     
     // MARK: - Getters
