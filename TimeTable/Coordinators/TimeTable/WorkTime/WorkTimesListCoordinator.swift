@@ -21,6 +21,7 @@ protocol WorkTimesListCoordinatorDelegate: class {
         finishHandler: @escaping (_ isTaskChanged: Bool) -> Void)
     func workTimesRequestedForSafari(url: URL)
     func workTimesRequestedForTaskHistory(taskForm: TaskForm)
+    func workTimesRequestedForProfileView()
 }
 
 class WorkTimesListCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
@@ -69,6 +70,11 @@ extension WorkTimesListCoordinator: WorkTimesListCoordinatorDelegate {
     
     func workTimesRequestedForTaskHistory(taskForm: TaskForm) {
         self.runTaskHistoryFlow(taskForm: taskForm)
+    }
+    
+    func workTimesRequestedForProfileView() {
+        let parentViewController = self.navigationController.topViewController ?? self.navigationController
+        self.dependencyContainer.parentCoordinator?.showProfile(parentViewController: parentViewController)
     }
 }
 

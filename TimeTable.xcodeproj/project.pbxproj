@@ -184,6 +184,7 @@
 		8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift */; };
 		8AB8AFC1244EF06F00A0D3D3 /* ParentCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8AFC0244EF06F00A0D3D3 /* ParentCoordinatorMock.swift */; };
 		8AB8AFC3244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8AFC2244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift */; };
+		8AB8AFC5244EF45400A0D3D3 /* UINavigationBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8AFC4244EF45400A0D3D3 /* UINavigationBar+Extension.swift */; };
 		8AC097242371CCFF00103FAD /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */; };
 		8ACEF07F242C8BBB00F4E39D /* LoginUIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACEF07E242C8BBB00F4E39D /* LoginUIElements.swift */; };
 		8AD1345A2396B60B00572632 /* AttributedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD134592396B60B00572632 /* AttributedTextView.swift */; };
@@ -669,6 +670,7 @@
 		8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellModelTests.swift; sourceTree = "<group>"; };
 		8AB8AFC0244EF06F00A0D3D3 /* ParentCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCoordinatorMock.swift; sourceTree = "<group>"; };
 		8AB8AFC2244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsCoordinatorMock.swift; sourceTree = "<group>"; };
+		8AB8AFC4244EF45400A0D3D3 /* UINavigationBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Extension.swift"; sourceTree = "<group>"; };
 		8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
 		8AC097272371D28100103FAD /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		8AC097282371D28100103FAD /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
@@ -1168,13 +1170,13 @@
 			children = (
 				C134299A21A6D87900F4EA42 /* CoordinatorMock.swift */,
 				C134298A21A6D33300F4EA42 /* LoginCoordinatorMock.swift */,
+				8AB8AFC0244EF06F00A0D3D3 /* ParentCoordinatorMock.swift */,
 				C10FD88F21F1FE3800A233C5 /* ProfileCoordinatorMock.swift */,
 				8AE000172374654D002F783E /* ProjectPickerCoordinatorMock.swift */,
+				8AB8AFC2244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift */,
+				8A79A2D424224A040048B44B /* TaskHistoryCoordinatorMock.swift */,
 				8AE00012237464A1002F783E /* WorkTimeCoordinatorMock.swift */,
 				C13C2B0521EDE589008C9088 /* WorkTimesListCoordinatorMock.swift */,
-				8A79A2D424224A040048B44B /* TaskHistoryCoordinatorMock.swift */,
-				8AB8AFC0244EF06F00A0D3D3 /* ParentCoordinatorMock.swift */,
-				8AB8AFC2244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -1946,6 +1948,7 @@
 				C12CA56921A57ADD0082FEB7 /* UIColor+Extension.swift */,
 				8A5D48C52369ED990082C13D /* UIImage+Extension.swift */,
 				C153AC492182EE9F007A35BB /* UILabel+Extension .swift */,
+				8AB8AFC4244EF45400A0D3D3 /* UINavigationBar+Extension.swift */,
 				8A5EF31723FE7D0800AE4309 /* UITableView+Extension.swift */,
 				C153AC522182F1E3007A35BB /* UITextField+Extension.swift */,
 				C14EB02A2372E261007F07D0 /* UIView+Extension.swift */,
@@ -3053,6 +3056,7 @@
 				C153AC532182F1E3007A35BB /* UITextField+Extension.swift in Sources */,
 				C1E1F04421AD2952007F9228 /* NSObject+Extension.swift in Sources */,
 				8A9FB40A2434CABF00805F4E /* ViewControllerBuilder.swift in Sources */,
+				8AB8AFC5244EF45400A0D3D3 /* UINavigationBar+Extension.swift in Sources */,
 				C153AC4C2182EF40007A35BB /* String+Extension.swift in Sources */,
 				C13C88E621E5EA8F00F68C6E /* WorkTimeViewController.swift in Sources */,
 				C1AFFFDB21A2CD2000A7A632 /* AppError.swift in Sources */,

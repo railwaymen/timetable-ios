@@ -155,27 +155,12 @@ extension ProjectsViewController {
     }
     
     private func setUpBarButtons() {
-        guard let UINavigationBarLargeTitleView = NSClassFromString("_UINavigationBarLargeTitleView") else { return }
-        guard let navigationBar = self.navigationController?.navigationBar.subviews.first(where: {
-            $0.isKind(of: UINavigationBarLargeTitleView.self)
-        }) else { return }
-        
-        navigationBar.addSubview(self.profileImageView)
+        guard let navigationBar = self.navigationController?.navigationBar else { return }
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.profileButtonTapped))
         self.profileImageView.isUserInteractionEnabled = true
         self.profileImageView.addGestureRecognizer(tap)
-        
         self.profileImageView.clipsToBounds = true
-        self.profileImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            self.profileImageView.trailingAnchor.constraint(
-                equalTo: navigationBar.safeAreaLayoutGuide.trailingAnchor,
-                constant: -16),
-            self.profileImageView.bottomAnchor.constraint(
-                equalTo: navigationBar.bottomAnchor,
-                constant: -6),
-            self.profileImageView.heightAnchor.constraint(equalToConstant: 36),
-            self.profileImageView.widthAnchor.constraint(equalTo: self.profileImageView.heightAnchor)
-        ])
+        self.profileImageView.widthAnchor.constraint(equalTo: self.profileImageView.heightAnchor).isActive = true
+        navigationBar.setLargeTitleRightViews([self.profileImageView])
     }
 }
