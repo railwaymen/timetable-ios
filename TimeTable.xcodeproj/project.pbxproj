@@ -185,6 +185,8 @@
 		8AB8AFC1244EF06F00A0D3D3 /* ParentCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8AFC0244EF06F00A0D3D3 /* ParentCoordinatorMock.swift */; };
 		8AB8AFC3244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8AFC2244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift */; };
 		8AB8AFC5244EF45400A0D3D3 /* UINavigationBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8AFC4244EF45400A0D3D3 /* UINavigationBar+Extension.swift */; };
+		8AB8AFD62450803100A0D3D3 /* ProfileButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8AFD52450803100A0D3D3 /* ProfileButtonCell.swift */; };
+		8AB8AFD82450807A00A0D3D3 /* ProfileButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AB8AFD72450807A00A0D3D3 /* ProfileButtonCell.xib */; };
 		8AC097242371CCFF00103FAD /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */; };
 		8ACEF07F242C8BBB00F4E39D /* LoginUIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACEF07E242C8BBB00F4E39D /* LoginUIElements.swift */; };
 		8AD1345A2396B60B00572632 /* AttributedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD134592396B60B00572632 /* AttributedTextView.swift */; };
@@ -672,6 +674,8 @@
 		8AB8AFC0244EF06F00A0D3D3 /* ParentCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCoordinatorMock.swift; sourceTree = "<group>"; };
 		8AB8AFC2244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsCoordinatorMock.swift; sourceTree = "<group>"; };
 		8AB8AFC4244EF45400A0D3D3 /* UINavigationBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Extension.swift"; sourceTree = "<group>"; };
+		8AB8AFD52450803100A0D3D3 /* ProfileButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileButtonCell.swift; sourceTree = "<group>"; };
+		8AB8AFD72450807A00A0D3D3 /* ProfileButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileButtonCell.xib; sourceTree = "<group>"; };
 		8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
 		8AC097272371D28100103FAD /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		8AC097282371D28100103FAD /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
@@ -1282,6 +1286,7 @@
 				8A798742237D4DC6003DC028 /* Profile.storyboard */,
 				8A798743237D4DC6003DC028 /* ProfileViewController.swift */,
 				8A798744237D4DC6003DC028 /* ProfileViewModel.swift */,
+				8AB8AFD424507FDC00A0D3D3 /* ButtonCell */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1418,6 +1423,15 @@
 				8A9832BC243B0023005245A8 /* serverErrorFullModel.json */,
 			);
 			path = ServerError;
+			sourceTree = "<group>";
+		};
+		8AB8AFD424507FDC00A0D3D3 /* ButtonCell */ = {
+			isa = PBXGroup;
+			children = (
+				8AB8AFD52450803100A0D3D3 /* ProfileButtonCell.swift */,
+				8AB8AFD72450807A00A0D3D3 /* ProfileButtonCell.xib */,
+			);
+			path = ButtonCell;
 			sourceTree = "<group>";
 		};
 		8AE0001423746503002F783E /* ProjectPicker */ = {
@@ -2605,6 +2619,7 @@
 				8A5EF32323FE84B900AE4309 /* TagCollectionViewCell.xib in Resources */,
 				C1784DDD21E4E03600C83E2A /* WorkTime.storyboard in Resources */,
 				8AA5C5DD235F34340083E121 /* Colors.xcassets in Resources */,
+				8AB8AFD82450807A00A0D3D3 /* ProfileButtonCell.xib in Resources */,
 				8A79A2482420C6460048B44B /* TaskHistory.storyboard in Resources */,
 				C14EB0292372E1A8007F07D0 /* ErrorView.xib in Resources */,
 				C1B5137721772D1400C3727C /* LaunchScreen.storyboard in Resources */,
@@ -3048,6 +3063,7 @@
 				C13C2B0421EDD1C5008C9088 /* ServerError.swift in Sources */,
 				C125F1C121DCF17300594CDE /* ProjectCollectionViewCellModel.swift in Sources */,
 				8A5EF32723FE9A3000AE4309 /* UIViewController+Extension.swift in Sources */,
+				8AB8AFD62450803100A0D3D3 /* ProfileButtonCell.swift in Sources */,
 				C1AACFD621A438660023FD32 /* ProfileCoordinator.swift in Sources */,
 				8A31A860238E927E008DCC08 /* TimeInterval+Extension.swift in Sources */,
 				8A80A38D23D89C24002643A1 /* APIClientFactory.swift in Sources */,

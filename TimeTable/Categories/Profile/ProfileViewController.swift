@@ -14,64 +14,47 @@ protocol ProfileViewControllerType: class {
     func configure(viewModel: ProfileViewModelType)
 }
 
-class ProfileViewController: UIViewController {
-    @IBOutlet private var scrollView: UIScrollView!
-    @IBOutlet private var errorView: ErrorView!
-    @IBOutlet private var firstNameLabel: UILabel!
-    @IBOutlet private var lastNameLabel: UILabel!
-    @IBOutlet private var emailLabel: UILabel!
-    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
-    
+class ProfileViewController: UITableViewController {
     private var viewModel: ProfileViewModelType!
     
-    // MARK: - Lifecycle
+    // MARK: - Overridden
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.viewDidLoad()
     }
     
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        self.viewModel.numberOfSections()
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.viewModel.numberOfRows(in: section)
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellType = self.viewModel.cellType(for: indexPath)
+        guard cellType == .button else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(ProfileButtonCell.self, for: indexPath) else { return UITableViewCell() }
+        self.viewModel.configure(cell, for: indexPath)
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.viewModel.userSelectedCell(at: indexPath)
+    }
+    
     // MARK: - Actions
-    @IBAction private func logoutButtonTapped(_ sender: UIButton) {
-        self.viewModel.logoutButtonTapped()
+    @objc private func closeButtonTapped() {
+        self.viewModel.closeButtonTapped()
     }
 }
 
 // MARK: - ProfileViewModelOutput
 extension ProfileViewController: ProfileViewModelOutput {
     func setUp() {
-        self.firstNameLabel.text = ""
-        self.lastNameLabel.text = ""
-        self.emailLabel.text = ""
-        self.setUpActivityIndicator()
-        self.scrollView.set(isHidden: true)
-        self.errorView.set(isHidden: true)
-        self.viewModel.configure(self.errorView)
-        self.navigationItem.title = R.string.localizable.tabbarTitleProfile()
-    }
-    
-    func update(firstName: String, lastName: String, email: String) {
-        self.firstNameLabel.text = firstName
-        self.lastNameLabel.text = lastName
-        self.emailLabel.text = email
-    }
-    
-    func setActivityIndicator(isHidden: Bool) {
-        self.activityIndicator.set(isAnimating: !isHidden)
-        self.activityIndicator.set(isHidden: isHidden)
-    }
-    
-    func showScrollView() {
-        UIView.transition(with: self.scrollView, duration: 0.2, animations: { [weak self] in
-            self?.scrollView.set(isHidden: false)
-            self?.errorView.set(isHidden: true)
-        })
-    }
-    
-    func showErrorView() {
-        UIView.transition(with: self.errorView, duration: 0.2, animations: { [weak self] in
-            self?.scrollView.set(isHidden: true)
-            self?.errorView.set(isHidden: false)
-        })
+        self.title = R.string.localizable.tabbarTitleProfile()
+        self.tableView.register(ProfileButtonCell.self)
+        self.setUpBarButtons()
     }
 }
 
@@ -84,8 +67,8 @@ extension ProfileViewController: ProfileViewControllerType {
 
 // MARK: - Private
 extension ProfileViewController {
-    private func setUpActivityIndicator() {
-        self.activityIndicator.style = .large
-        self.setActivityIndicator(isHidden: true)
+    private func setUpBarButtons() {
+        let closeButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.closeButtonTapped))
+        self.navigationItem.setRightBarButtonItems([closeButton], animated: false)
     }
 }

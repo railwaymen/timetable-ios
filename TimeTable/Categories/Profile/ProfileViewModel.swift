@@ -10,16 +10,16 @@ import Foundation
 
 protocol ProfileViewModelOutput: class {
     func setUp()
-    func update(firstName: String, lastName: String, email: String)
-    func setActivityIndicator(isHidden: Bool)
-    func showScrollView()
-    func showErrorView()
 }
 
 protocol ProfileViewModelType: class {
     func viewDidLoad()
-    func configure(_ view: ErrorViewable)
-    func logoutButtonTapped()
+    func numberOfSections() -> Int
+    func numberOfRows(in section: Int) -> Int
+    func cellType(for indexPath: IndexPath) -> ProfileViewModel.CellType?
+    func configure(_ cell: ProfileButtonCellConfigurationInterface, for indexPath: IndexPath)
+    func userSelectedCell(at indexPath: IndexPath)
+    func closeButtonTapped()
 }
 
 class ProfileViewModel {
@@ -47,59 +47,105 @@ class ProfileViewModel {
     }
 }
 
+// MARK: - Structures
+extension ProfileViewModel {
+    enum CellType {
+        case button
+    }
+    
+    enum Cell {
+        case logout
+        
+        var cellType: CellType {
+            switch self {
+            case .logout:
+                return .button
+            }
+        }
+        
+        init?(indexPath: IndexPath) {
+            switch (indexPath.section, indexPath.row) {
+            case (0, 0):
+                self = .logout
+            default:
+                return nil
+            }
+        }
+    }
+}
+
 // MARK: - ProfileViewModelType
 extension ProfileViewModel: ProfileViewModelType {
     func viewDidLoad() {
         self.userInterface?.setUp()
-        self.fetchProfile()
     }
     
-    func configure(_ view: ErrorViewable) {
-        let viewModel = ErrorViewModel(userInterface: view, error: UIError.genericError) { [weak self] in
-            self?.fetchProfile()
+    func numberOfSections() -> Int {
+        return 1
+    }
+    
+    func numberOfRows(in section: Int) -> Int {
+        return 1
+    }
+    
+    func cellType(for indexPath: IndexPath) -> CellType? {
+        guard let cell = Cell(indexPath: indexPath) else { return nil }
+        return cell.cellType
+    }
+    
+    func configure(_ cellView: ProfileButtonCellConfigurationInterface, for indexPath: IndexPath) {
+        guard let cell = Cell(indexPath: indexPath) else { return }
+        switch cell {
+        case .logout:
+            cellView.configure(text: R.string.localizable.profileButtonLogout())
         }
-        view.configure(viewModel: viewModel)
-        self.errorViewModel = viewModel
     }
     
-    func logoutButtonTapped() {
-        self.accessService.closeSession()
-        self.coordinator?.userProfileDidLogoutUser()
+    func userSelectedCell(at indexPath: IndexPath) {
+        guard let cell = Cell(indexPath: indexPath) else { return }
+        switch cell {
+        case .logout:
+            self.accessService.closeSession()
+            self.coordinator?.userProfileDidLogoutUser()
+        }
+    }
+    
+    func closeButtonTapped() {
+        self.coordinator?.viewDidRequestToFinish()
     }
 }
 
 // MARK: - Private
 extension ProfileViewModel {
-    private func fetchProfile() {
-        guard let userID = self.accessService.getLastLoggedInUserID() else { return }
-        self.userInterface?.setActivityIndicator(isHidden: false)
-        self.apiClient.fetchUserProfile(forID: userID) { [weak self] result in
-            self?.userInterface?.setActivityIndicator(isHidden: true)
-            switch result {
-            case let .success(profile):
-                self?.handleFetchSuccess(profile: profile)
-            case let .failure(error):
-                self?.handleFetch(error: error)
-            }
-        }
-    }
-    
-    private func handleFetchSuccess(profile: UserDecoder) {
-        self.userInterface?.update(firstName: profile.firstName, lastName: profile.lastName, email: profile.email)
-        self.userInterface?.showScrollView()
-    }
-    
-    private func handleFetch(error: Error) {
-        if let error = error as? ApiClientError {
-            if error.type == .unauthorized {
-                self.errorHandler.throwing(error: error)
-            } else {
-                self.errorViewModel?.update(error: error)
-            }
-        } else {
-            self.errorViewModel?.update(error: UIError.genericError)
-            self.errorHandler.throwing(error: error)
-        }
-        self.userInterface?.showErrorView()
-    }
+//    private func fetchProfile() {
+//        guard let userID = self.accessService.getLastLoggedInUserID() else { return }
+//        self.userInterface?.setActivityIndicator(isHidden: false)
+//        self.apiClient.fetchUserProfile(forID: userID) { [weak self] result in
+//            self?.userInterface?.setActivityIndicator(isHidden: true)
+//            switch result {
+//            case let .success(profile):
+//                self?.handleFetchSuccess(profile: profile)
+//            case let .failure(error):
+//                self?.handleFetch(error: error)
+//            }
+//        }
+//    }
+//
+//    private func handleFetchSuccess(profile: UserDecoder) {
+//        self.userInterface?.showScrollView()
+//    }
+//
+//    private func handleFetch(error: Error) {
+//        if let error = error as? ApiClientError {
+//            if error.type == .unauthorized {
+//                self.errorHandler.throwing(error: error)
+//            } else {
+//                self.errorViewModel?.update(error: error)
+//            }
+//        } else {
+//            self.errorViewModel?.update(error: UIError.genericError)
+//            self.errorHandler.throwing(error: error)
+//        }
+//        self.userInterface?.showErrorView()
+//    }
 }

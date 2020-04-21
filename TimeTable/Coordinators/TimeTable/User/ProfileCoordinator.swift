@@ -13,7 +13,8 @@ protocol ProfileCoordinatorParentType: class {
 }
 
 protocol ProfileCoordinatorDelegate: class {
-   func userProfileDidLogoutUser()
+    func userProfileDidLogoutUser()
+    func viewDidRequestToFinish()
 }
 
 class ProfileCoordinator: NavigationCoordinator {
@@ -38,7 +39,6 @@ class ProfileCoordinator: NavigationCoordinator {
         super.start(finishHandler: finishHandler)
         self.runMainFlow()
         self.navigationController.setNavigationBarHidden(false, animated: false)
-        self.navigationController.navigationBar.prefersLargeTitles = true
         self.navigationController.navigationBar.tintColor = .tint
     }
 }
@@ -47,6 +47,12 @@ class ProfileCoordinator: NavigationCoordinator {
 extension ProfileCoordinator: ProfileCoordinatorDelegate {
     func userProfileDidLogoutUser() {
         self.parent?.childDidRequestToFinish()
+    }
+    
+    func viewDidRequestToFinish() {
+        self.navigationController.dismiss(animated: true) { [weak self] in
+            self?.finish()
+        }
     }
 }
 
