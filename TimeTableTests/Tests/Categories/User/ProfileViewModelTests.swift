@@ -81,17 +81,16 @@ extension ProfileViewModelTests {
         //Arrange
         let sut = self.buildSUT()
         self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
-        let data = try self.json(from: UserJSONResource.userFullResponse)
-        let userDecoder = try self.decoder.decode(UserDecoder.self, from: data)
+        let userDecoder = try UserDecoderFactory().build()
         //Act
         sut.viewDidLoad()
         self.apiClientMock.fetchUserProfileParams.last?.completion(.success(userDecoder))
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-        XCTAssertEqual(self.userInterfaceMock.updateParams.last?.firstName, "John")
-        XCTAssertEqual(self.userInterfaceMock.updateParams.last?.lastName, "Little")
-        XCTAssertEqual(self.userInterfaceMock.updateParams.last?.email, "john.little@example.com")
+        XCTAssertEqual(self.userInterfaceMock.updateParams.last?.firstName, "firstName")
+        XCTAssertEqual(self.userInterfaceMock.updateParams.last?.lastName, "lastName")
+        XCTAssertEqual(self.userInterfaceMock.updateParams.last?.email, "email")
         XCTAssertEqual(self.userInterfaceMock.showScrollViewParams.count, 1)
     }
 }

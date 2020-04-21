@@ -11,6 +11,7 @@ import XCTest
 
 class WorkTimeTableViewCellModelTests: XCTestCase {
     private let timeFormatter: DateFormatterType = DateFormatter.shortTime
+    private let workTimeDecoderFactory = WorkTimeDecoderFactory()
     
     private var userInterface: WorkTimeCellViewMock!
     private var parent: WorkTimeCellViewModelParentMock!
@@ -126,9 +127,8 @@ extension WorkTimeTableViewCellModelTests {
 extension WorkTimeTableViewCellModelTests {
     func testTaskButtonTappedWithValidURLCallsParentOpenTask() throws {
         //Arrange
-        let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
-        let workTimes = try self.decoder.decode([WorkTimeDecoder].self, from: data)
-        let workTime = WorkTimeDisplayed(workTime: try XCTUnwrap(workTimes[safeIndex: 1]))
+        let workTimesDecoder = try self.buildWorkTimesDecoder(identifier: 1)
+        let workTime = WorkTimeDisplayed(workTime: workTimesDecoder)
         let sut = self.buildSUT(workTime: workTime)
         //Act
         sut.taskButtonTapped()
@@ -170,6 +170,23 @@ extension WorkTimeTableViewCellModelTests {
             updatedAt: updatedAt,
             updatedBy: updatedBy,
             changedFields: changedFields)
+    }
+    
+    private func buildWorkTimesDecoder(identifier: Int64) throws -> WorkTimeDecoder {
+        let project = try SimpleProjectRecordDecoderFactory().build()
+        let wrapper = WorkTimeDecoderFactory.Wrapper(
+            identifier: identifier,
+            body: "body",
+            project: project)
+        return try self.workTimeDecoderFactory.build(wrapper: wrapper)
+    }
+    
+    private func buildDailyWorkTime() throws -> DailyWorkTime {
+        let workTimes = [
+            try self.buildWorkTimesDecoder(identifier: 1),
+            try self.buildWorkTimesDecoder(identifier: 2)
+        ]
+        return DailyWorkTime(day: Date(), workTimes: workTimes)
     }
     
     private func startsAt() throws -> Date {

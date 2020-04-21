@@ -243,8 +243,30 @@ extension TaskHistoryViewModelTests {
     }
     
     private func buildWorkTimeDecoder() throws -> WorkTimeDecoder {
-        let data = try self.json(from: WorkTimesJSONResource.workTimeResponse)
-        let decoder = try self.decoder.decode(WorkTimeDecoder.self, from: data)
+        let project = try SimpleProjectRecordDecoderFactory().build()
+        let version = try TaskVersionFactory().build(
+            event: TaskVersion.Event.create,
+            updatedBy: "user 1",
+            updatedAt: Date(),
+            projectName: NilableDiffElement(previous: "", current: "project Name"),
+            body: NilableDiffElement(previous: "", current: "body"),
+            startsAt: NilableDiffElement(previous: Date(), current: Date()),
+            endsAt: NilableDiffElement(previous: Date(), current: Date()),
+            tag: NilableDiffElement(previous: ProjectTag.default, current: ProjectTag.development),
+            duration: NilableDiffElement(previous: 120, current: 180),
+            task: NilableDiffElement(previous: "task", current: "new task"),
+            taskPreview: NilableDiffElement(previous: "prev", current: "task preview"))
+        let wrapper = WorkTimeDecoderFactory.Wrapper(
+            identifier: 16239,
+            projectId: 3,
+            duration: 3600,
+            body: "body",
+            task: "task",
+            taskPreview: "preview",
+            userId: 2,
+            project: project,
+            versions: [version])
+        let decoder = try WorkTimeDecoderFactory().build(wrapper: wrapper)
         return try XCTUnwrap(decoder)
     }
 }

@@ -14,7 +14,8 @@ class ProjectsViewModelTests: XCTestCase {
     private var apiClientMock: ApiClientMock!
     private var errorHandlerMock: ErrorHandlerMock!
     private var notificationCenterMock: NotificationCenterMock!
-        
+    private let projectRecordDecoderFactory = ProjectRecordDecoderFactory()
+    
     override func setUp() {
         super.setUp()
         self.userInterfaceMock = ProjectsViewControllerMock()
@@ -102,11 +103,10 @@ extension ProjectsViewModelTests {
     
     func testNuberOfItems_withProjects() throws {
         //Arrange
-        let data = try self.json(from: ProjectRecordJSONResource.projectsRecordsResponse)
-        let records = try self.decoder.decode([ProjectRecordDecoder].self, from: data)
+        let projects = try self.buildProjects()
         let sut = self.buildSUT()
         sut.viewDidLoad()
-        self.apiClientMock.fetchAllProjectsParams.last?.completion(.success(records))
+        self.apiClientMock.fetchAllProjectsParams.last?.completion(.success(projects))
         //Act
         let numberOfItems = sut.numberOfItems()
         //Assert
@@ -128,43 +128,28 @@ extension ProjectsViewModelTests {
     
     func testItemAtIndex_withProjects_firstRow() throws {
         //Arrange
-        let data = try self.json(from: ProjectRecordJSONResource.projectsRecordsResponse)
-        let records = try self.decoder.decode([ProjectRecordDecoder].self, from: data)
+        let projects = try self.buildProjects()
         let sut = self.buildSUT()
         sut.viewDidLoad()
-        self.apiClientMock.fetchAllProjectsParams.last?.completion(.success(records))
+        self.apiClientMock.fetchAllProjectsParams.last?.completion(.success(projects))
         let indexPath = IndexPath(row: 0, section: 0)
         //Act
         let project = sut.item(at: indexPath)
         //Assert
-        XCTAssertEqual(project?.name, "Test Name")
-        XCTAssertEqual(project?.color, UIColor(hexString: "0c0c0c"))
-        XCTAssertEqual(project?.identifier, 11)
-        XCTAssertEqual(project?.users.count, 3)
-        XCTAssertEqual(project?.users.first?.identifier, 1)
-        XCTAssertEqual(project?.users.first?.firstName, "John")
-        XCTAssertEqual(project?.users.first?.lastName, "Smith")
-        XCTAssertEqual(project?.leader.firstName, "Leader")
-        XCTAssertEqual(project?.leader.lastName, "Best")
+        XCTAssertNotNil(project)
     }
     
     func testItemAtIndex_withProjects_secondRow() throws {
         //Arrange
-        let data = try self.json(from: ProjectRecordJSONResource.projectsRecordsResponse)
-        let records = try self.decoder.decode([ProjectRecordDecoder].self, from: data)
+        let projects = try self.buildProjects()
         let sut = self.buildSUT()
         sut.viewDidLoad()
-        self.apiClientMock.fetchAllProjectsParams.last?.completion(.success(records))
+        self.apiClientMock.fetchAllProjectsParams.last?.completion(.success(projects))
         let indexPath = IndexPath(row: 1, section: 0)
         //Act
         let project = sut.item(at: indexPath)
         //Assert
-        XCTAssertEqual(project?.name, "Test Name")
-        XCTAssertEqual(project?.identifier, 12)
-        XCTAssertEqual(project?.color, UIColor(hexString: "0c0c0c"))
-        XCTAssertEqual(project?.users.count, 0)
-        XCTAssertEqual(project?.leader.firstName, "Second")
-        XCTAssertEqual(project?.leader.lastName, "Best")
+        XCTAssertNotNil(project)
     }
 }
 
@@ -183,8 +168,7 @@ extension ProjectsViewModelTests {
     
     func testRefreshData_fetchSuccess() throws {
         //Arrange
-        let data = try self.json(from: ProjectRecordJSONResource.projectsRecordsResponse)
-        let projects = try self.decoder.decode([ProjectRecordDecoder].self, from: data)
+        let projects = try self.buildProjects()
         let sut = self.buildSUT()
         var completionCalledCount = 0
         //Act
@@ -238,5 +222,13 @@ extension ProjectsViewModelTests {
             apiClient: self.apiClientMock,
             errorHandler: self.errorHandlerMock,
             notificationCenter: self.notificationCenterMock)
+    }
+    
+    private func buildProjects() throws -> [ProjectRecordDecoder] {
+        return [
+            try projectRecordDecoderFactory.build(identifier: 1),
+            try projectRecordDecoderFactory.build(identifier: 2),
+            try projectRecordDecoderFactory.build(identifier: 3)
+        ]
     }
 }

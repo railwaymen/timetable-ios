@@ -11,7 +11,8 @@ import XCTest
 
 class ProjectCollectionViewCellModelTests: XCTestCase {
     private var userInterfaceMock: ProjectCollectionViewCellMock!
-        
+    private let projectRecordDecoderFactory = ProjectRecordDecoderFactory()
+    
     override func setUp() {
         super.setUp()
         self.userInterfaceMock = ProjectCollectionViewCellMock()
@@ -59,8 +60,7 @@ extension ProjectCollectionViewCellModelTests {
 extension ProjectCollectionViewCellModelTests {
     func testConfigureCell_withUsersArrayEmpty_setsEmptyName() throws {
         //Arrange
-        let data = try self.json(from: ProjectRecordJSONResource.projectRecordNullUsersResponse)
-        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
+        let projectRecord = try self.projectRecordDecoderFactory.build()
         let sut = try self.buildSUT(project: projectRecord)
         let cellMock = ProjectUserViewTableViewCellMock()
         //Act
@@ -93,8 +93,18 @@ extension ProjectCollectionViewCellModelTests {
 // MARK: - Private
 extension ProjectCollectionViewCellModelTests {
     private func buildSUT(project: ProjectRecordDecoder? = nil) throws -> ProjectCollectionViewCellModel {
-        let data = try self.json(from: ProjectRecordJSONResource.projectRecordResponse)
-        let projectRecord = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
+        let leader = try self.projectRecordDecoderFactory.buildLeader(firstName: "Leader", lastName: "Best")
+        let users = [
+            try self.projectRecordDecoderFactory.buildUser(identifier: 1, firstName: "John", lastName: "Smith"),
+            try self.projectRecordDecoderFactory.buildUser(identifier: 2, firstName: "Marie", lastName: "Zelie"),
+            try self.projectRecordDecoderFactory.buildUser(identifier: 3, firstName: "David", lastName: "Guetta")
+        ]
+        let projectRecord = try self.projectRecordDecoderFactory.build(
+            identifier: 11,
+            name: "Test Name",
+            color: UIColor(hexString: "0c0c0c"),
+            leader: leader,
+            users: users)
         return ProjectCollectionViewCellModel(
             userInterface: self.userInterfaceMock,
             project: project ?? projectRecord)

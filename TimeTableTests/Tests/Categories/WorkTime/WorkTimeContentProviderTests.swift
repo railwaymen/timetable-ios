@@ -166,8 +166,7 @@ extension WorkTimeContentProviderTests {
     func testFetchData_fetchTags_success_leavesGroup() throws {
         //Arrange
         let sut = self.buildSUT()
-        let data = try self.json(from: ProjectTagJSONResource.projectTagsResponse)
-        let tagsDecoder = try self.decoder.decode(ProjectTagsDecoder.self, from: data)
+        let tagsDecoder = try self.buildTags()
         let group = DispatchGroupMock()
         self.dispatchGroupFactory.createDispatchGroupReturnValue = group
         var completionResult: WorkTimeFetchDataResult?
@@ -235,10 +234,8 @@ extension WorkTimeContentProviderTests {
     func testFetchData_fetchCompletion_success_callsSuccessCompletion() throws {
         //Arrange
         let sut = self.buildSUT()
-        let projectsData = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
-        let projects = try self.decoder.decode([SimpleProjectRecordDecoder].self, from: projectsData)
-        let tagsData = try self.json(from: ProjectTagJSONResource.projectTagsResponse)
-        let tagsDecoder = try self.decoder.decode(ProjectTagsDecoder.self, from: tagsData)
+        let projects = try self.buildProjects()
+        let tagsDecoder = try self.buildTags()
         var completionResult: WorkTimeFetchDataResult?
         //Act
         sut.fetchData { result in
@@ -256,8 +253,7 @@ extension WorkTimeContentProviderTests {
         //Arrange
         let sut = self.buildSUT()
         let projectsError = TestError(message: "projects error")
-        let tagsData = try self.json(from: ProjectTagJSONResource.projectTagsResponse)
-        let tagsDecoder = try self.decoder.decode(ProjectTagsDecoder.self, from: tagsData)
+        let tagsDecoder = try self.buildTags()
         var completionResult: WorkTimeFetchDataResult?
         //Act
         sut.fetchData { result in
@@ -272,8 +268,7 @@ extension WorkTimeContentProviderTests {
     func testFetchData_fetchCompletion_tagsFetchFailure_passesErrorInCompletion() throws {
         //Arrange
         let sut = self.buildSUT()
-        let projectsData = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
-        let projects = try self.decoder.decode([SimpleProjectRecordDecoder].self, from: projectsData)
+        let projects = try self.buildProjects()
         let tagsError = TestError(message: "projects error")
         var completionResult: WorkTimeFetchDataResult?
         //Act
@@ -289,8 +284,7 @@ extension WorkTimeContentProviderTests {
     func testFetchData_fetchCompletion_success_noResponseForTags_callsAssert() throws {
         //Arrange
         let sut = self.buildSUT()
-        let projectsData = try self.json(from: SimpleProjectJSONResource.simpleProjectArrayResponse)
-        let projects = try self.decoder.decode([SimpleProjectRecordDecoder].self, from: projectsData)
+        let projects = try self.buildProjects()
         let group = DispatchGroupMock()
         self.dispatchGroupFactory.createDispatchGroupReturnValue = group
         var completionResult: WorkTimeFetchDataResult?
@@ -308,8 +302,7 @@ extension WorkTimeContentProviderTests {
     func testFetchData_fetchCompletion_success_noResponseForProjects_callsAssert() throws {
         //Arrange
         let sut = self.buildSUT()
-        let tagsData = try self.json(from: ProjectTagJSONResource.projectTagsResponse)
-        let tagsDecoder = try self.decoder.decode(ProjectTagsDecoder.self, from: tagsData)
+        let tagsDecoder = try self.buildTags()
         let group = DispatchGroupMock()
         self.dispatchGroupFactory.createDispatchGroupReturnValue = group
         var completionResult: WorkTimeFetchDataResult?
@@ -959,6 +952,23 @@ extension WorkTimeContentProviderTests {
             body: "",
             startsAt: Date(),
             endsAt: Date())
+    }
+    
+    private func buildProjects() throws -> [SimpleProjectRecordDecoder] {
+        return [
+            try self.projectFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 1)),
+            try self.projectFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 2)),
+            try self.projectFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 3))
+        ]
+    }
+    
+    private func buildTags() throws -> ProjectTagsDecoder {
+        return try ProjectTagsDecoderFactory().build(tags: [
+            .clientCommunication,
+            .development,
+            .internalMeeting,
+            .research
+        ])
     }
 }
 // swiftlint:disable:this file_length

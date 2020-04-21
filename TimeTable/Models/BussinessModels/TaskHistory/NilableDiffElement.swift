@@ -37,6 +37,11 @@ struct NilableDiffElement<Element: Decodable & Equatable> {
         self.previous = try? container.decode(Element.self, forKey: Self.previousKey(baseKey: baseKey))
         self.current = try? container.decode(Element.self, forKey: Self.currentKey(baseKey: baseKey))
     }
+    
+    init(previous: Element, current: Element) {
+        self.previous = previous
+        self.current = current
+    }
 }
 
 // MARK: - Private Structures
