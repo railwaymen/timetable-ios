@@ -36,7 +36,7 @@ extension WorkTimesListContentProviderTests {
     func testFetchWorkTimeDataMakesRequest() {
         //Arrange
         let sut = self.buildSUT()
-        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
+        self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
         //Act
         sut.fetchWorkTimesData(for: Date()) { _ in
             XCTFail()
@@ -54,7 +54,7 @@ extension WorkTimesListContentProviderTests {
         let sut = self.buildSUT()
         var expectedError: Error?
         let error = TestError(message: "Work times error")
-        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
+        self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
         //Act
         sut.fetchWorkTimesData(for: nil) { result in
             switch result {
@@ -81,7 +81,7 @@ extension WorkTimesListContentProviderTests {
         
         var expectedError: Error?
         let error = TestError(message: "Work times error")
-        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
+        self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
         //Act
         sut.fetchWorkTimesData(for: nil) { result in
             switch result {
@@ -110,7 +110,7 @@ extension WorkTimesListContentProviderTests {
         
         var expectedError: Error?
         let error = TestError(message: "Work times error")
-        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
+        self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
         //Act
         sut.fetchWorkTimesData(for: date) { result in
             switch result {
@@ -132,7 +132,7 @@ extension WorkTimesListContentProviderTests {
     func testFetchWorkTimeDataWhileFetchWorkTimesFinishWithError() throws {
         //Arrange
         let sut = self.buildSUT()
-        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 1
+        self.accessServiceMock.getLastLoggedInUserIDReturnValue = 1
         var expectedError: Error?
         let error = TestError(message: "Fetching Work Times Error")
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
@@ -158,7 +158,7 @@ extension WorkTimesListContentProviderTests {
         //Arrange
         let sut = self.buildSUT()
         let dateComponents = DateComponents(year: 2019, month: 2, day: 1)
-        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 1
+        self.accessServiceMock.getLastLoggedInUserIDReturnValue = 1
         self.calendarMock.dateComponentsReturnValue = dateComponents
         self.calendarMock.dateFromDateComponentsReturnValue = try self.buildDate(dateComponents)
         self.calendarMock.dateByAddingCalendarComponentReturnValue = try self.buildDate(year: 2019, month: 2, day: 28)
@@ -229,8 +229,8 @@ extension WorkTimesListContentProviderTests {
     private func buildWorkTimes() throws -> [WorkTimeDecoder] {
         let project = try self.simpleProjectRecordDecoderFactory.build()
         return [
-            try self.workTimeDecoderFactory.build(wrapper: WorkTimeDecoderFactory.Wrapper(identifier: 1, project: project)),
-            try self.workTimeDecoderFactory.build(wrapper: WorkTimeDecoderFactory.Wrapper(identifier: 2, project: project))
+            try self.workTimeDecoderFactory.build(wrapper: WorkTimeDecoderFactory.Wrapper(id: 1, project: project)),
+            try self.workTimeDecoderFactory.build(wrapper: WorkTimeDecoderFactory.Wrapper(id: 2, project: project))
         ]
     }
 }

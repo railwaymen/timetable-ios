@@ -12,9 +12,9 @@ import XCTest
 class TaskFormMock {
     
     // MARK: - TaskFormType
-    var workTimeIdentifierReturnValue: Int64?
-    private(set) var workTimeIdentifierSetParams: [WorkTimeIdentifierSetParams] = []
-    struct WorkTimeIdentifierSetParams {
+    var workTimeIDReturnValue: Int64?
+    private(set) var workTimeIDSetParams: [WorkTimeIDSetParams] = []
+    struct WorkTimeIDSetParams {
         let newValue: Int64?
     }
     
@@ -80,12 +80,12 @@ class TaskFormMock {
 
 // MARK: - TaskFormType
 extension TaskFormMock: TaskFormType {
-    var workTimeIdentifier: Int64? {
+    var workTimeID: Int64? {
         get {
-            self.workTimeIdentifierReturnValue
+            self.workTimeIDReturnValue
         }
         set {
-            self.workTimeIdentifierSetParams.append(WorkTimeIdentifierSetParams(newValue: newValue))
+            self.workTimeIDSetParams.append(WorkTimeIDSetParams(newValue: newValue))
         }
     }
     

@@ -95,12 +95,12 @@ extension ProjectCollectionViewCellModelTests {
     private func buildSUT(project: ProjectRecordDecoder? = nil) throws -> ProjectCollectionViewCellModel {
         let leader = try self.projectRecordDecoderFactory.buildLeader(firstName: "Leader", lastName: "Best")
         let users = [
-            try self.projectRecordDecoderFactory.buildUser(identifier: 1, firstName: "John", lastName: "Smith"),
-            try self.projectRecordDecoderFactory.buildUser(identifier: 2, firstName: "Marie", lastName: "Zelie"),
-            try self.projectRecordDecoderFactory.buildUser(identifier: 3, firstName: "David", lastName: "Guetta")
+            try self.projectRecordDecoderFactory.buildUser(id: 1, firstName: "John", lastName: "Smith"),
+            try self.projectRecordDecoderFactory.buildUser(id: 2, firstName: "Marie", lastName: "Zelie"),
+            try self.projectRecordDecoderFactory.buildUser(id: 3, firstName: "David", lastName: "Guetta")
         ]
         let projectRecord = try self.projectRecordDecoderFactory.build(
-            identifier: 11,
+            id: 11,
             name: "Test Name",
             color: UIColor(hexString: "0c0c0c"),
             leader: leader,

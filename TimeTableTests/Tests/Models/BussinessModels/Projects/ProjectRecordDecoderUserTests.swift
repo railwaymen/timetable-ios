@@ -21,7 +21,7 @@ extension ProjectRecordDecoderUserTests {
         //Act
         let sut = try self.decoder.decode(ProjectRecordDecoder.User.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 132)
+        XCTAssertEqual(sut.id, 132)
         XCTAssertEqual(sut.firstName, "Trevor")
         XCTAssertEqual(sut.lastName, "Buck")
     }

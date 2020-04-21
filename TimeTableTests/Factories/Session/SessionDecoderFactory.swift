@@ -19,7 +19,7 @@ class SessionDecoderFactory: JSONFactorable {
 // MARK: - Structures
 extension SessionDecoderFactory {
     struct SessionDecoderWrapper {
-        let identifier: Int
+        let id: Int
         let firstName: String
         let lastName: String
         let isLeader: Bool
@@ -28,7 +28,7 @@ extension SessionDecoderFactory {
         let token: String
         
         init(
-            identifier: Int = 0,
+            id: Int = 0,
             firstName: String = "firstName",
             lastName: String = "lastName",
             isLeader: Bool = false,
@@ -36,7 +36,7 @@ extension SessionDecoderFactory {
             manager: Bool = false,
             token: String = "token"
         ) {
-            self.identifier = identifier
+            self.id = id
             self.firstName = firstName
             self.lastName = lastName
             self.isLeader = isLeader
@@ -47,7 +47,7 @@ extension SessionDecoderFactory {
         
         func jsonConvertible() -> AnyJSONConvertible {
             return [
-                "id": AnyJSONConvertible(self.identifier),
+                "id": AnyJSONConvertible(self.id),
                 "firstName": AnyJSONConvertible(self.firstName),
                 "lastName": AnyJSONConvertible(self.lastName),
                 "isLeader": AnyJSONConvertible(self.isLeader),
@@ -63,7 +63,7 @@ extension SessionDecoderFactory {
 extension SessionDecoder: JSONObjectType {
     public func jsonConvertible() throws -> JSONConvertible {
         let wrapper = SessionDecoderFactory.SessionDecoderWrapper(
-            identifier: self.identifier,
+            id: self.id,
             firstName: self.firstName,
             lastName: self.lastName,
             isLeader: self.isLeader,

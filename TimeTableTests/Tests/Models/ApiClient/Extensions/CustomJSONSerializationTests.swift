@@ -22,7 +22,7 @@ extension CustomJSONSerializationTests {
         let jsonData = try sut.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
         //Assert
         let json = try XCTUnwrap(jsonData)
-        XCTAssertEqual(json["id"] as? Int, sessionReponse.identifier)
+        XCTAssertEqual(json["id"] as? Int, sessionReponse.id)
         XCTAssertEqual(json["first_name"] as? String, sessionReponse.firstName)
         XCTAssertEqual(json["last_name"] as? String, sessionReponse.lastName)
         XCTAssertEqual(json["is_leader"] as? Bool, sessionReponse.isLeader)

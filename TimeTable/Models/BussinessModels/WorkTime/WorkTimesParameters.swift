@@ -12,19 +12,19 @@ import Restler
 struct WorkTimesParameters: RestlerQueryEncodable {
     let fromDate: Date?
     let toDate: Date?
-    let projectId: Int?
+    let projectID: Int?
     
     enum CodingKeys: String, CodingKey {
         case fromDate = "from"
         case toDate = "to"
-        case projectId = "project_id"
+        case projectID = "project_id"
     }
     
     func encodeToQuery(using encoder: RestlerQueryEncoderType) throws {
         let container = encoder.container(using: CodingKeys.self)
         try container.encode(self.fromDate, forKey: .fromDate)
         try container.encode(self.toDate, forKey: .toDate)
-        try container.encode(self.projectId, forKey: .projectId)
+        try container.encode(self.projectID, forKey: .projectID)
     }
 }
 
@@ -33,6 +33,6 @@ extension WorkTimesParameters: Equatable {
     static func == (lhs: WorkTimesParameters, rhs: WorkTimesParameters) -> Bool {
         return lhs.fromDate == rhs.fromDate
             && lhs.toDate == rhs.toDate
-            && lhs.projectId == rhs.projectId
+            && lhs.projectID == rhs.projectID
     }
 }

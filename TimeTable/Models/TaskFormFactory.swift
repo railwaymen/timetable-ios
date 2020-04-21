@@ -25,7 +25,7 @@ class TaskFormFactory {
 extension TaskFormFactory: TaskFormFactoryType {
     func buildTaskForm(duplicatedTask: TaskForm?, lastTask: TaskForm?) -> TaskFormType {
         return TaskForm(
-            workTimeIdentifier: nil,
+            workTimeID: nil,
             project: duplicatedTask?.project,
             body: duplicatedTask?.body ?? "",
             urlString: duplicatedTask?.urlString ?? "",

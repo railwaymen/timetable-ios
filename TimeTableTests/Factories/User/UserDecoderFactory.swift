@@ -19,18 +19,18 @@ class UserDecoderFactory: JSONFactorable {
 // MARK: - Structures
 extension UserDecoderFactory {
     struct UserDecoderWrapper {
-        let identifier: Int
+        let id: Int
         let firstName: String
         let lastName: String
         let email: String
         
         init(
-            identifier: Int = 0,
+            id: Int = 0,
             firstName: String = "firstName",
             lastName: String = "lastName",
             email: String = "email"
         ) {
-            self.identifier = identifier
+            self.id = id
             self.firstName = firstName
             self.lastName = lastName
             self.email = email
@@ -38,7 +38,7 @@ extension UserDecoderFactory {
         
         func jsonConvertible() -> AnyJSONConvertible {
             return [
-                "id": AnyJSONConvertible(self.identifier),
+                "id": AnyJSONConvertible(self.id),
                 "firstName": AnyJSONConvertible(self.firstName),
                 "lastName": AnyJSONConvertible(self.lastName),
                 "email": AnyJSONConvertible(self.email)
@@ -51,7 +51,7 @@ extension UserDecoderFactory {
 extension UserDecoder: JSONObjectType {
     public func jsonConvertible() throws -> JSONConvertible {
         let wrapper = UserDecoderFactory.UserDecoderWrapper(
-            identifier: self.identifier,
+            id: self.id,
             firstName: self.firstName,
             lastName: self.lastName,
             email: self.email)

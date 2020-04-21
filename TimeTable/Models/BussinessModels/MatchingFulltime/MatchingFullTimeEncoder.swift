@@ -11,17 +11,17 @@ import Restler
 
 struct MatchingFullTimeEncoder: RestlerQueryEncodable {
     let date: Date
-    let userId: Int64
+    let userID: Int64
     
     enum CodingKeys: String, CodingKey {
         case date
-        case userId = "user_id"
+        case userID = "user_id"
     }
     
     func encodeToQuery(using encoder: RestlerQueryEncoderType) throws {
         let container = encoder.container(using: CodingKeys.self)
         let dateString = DateFormatter.simple.string(from: self.date)
         try container.encode(dateString, forKey: .date)
-        try container.encode(self.userId, forKey: .userId)
+        try container.encode(self.userID, forKey: .userID)
     }
 }

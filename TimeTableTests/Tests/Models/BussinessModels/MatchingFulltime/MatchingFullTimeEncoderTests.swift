@@ -21,7 +21,7 @@ extension MatchingFullTimeEncoderTests {
     func testEncoding_fullModel() throws {
         //Arrange
         let date = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let sut = MatchingFullTimeEncoder(date: date, userId: 1)
+        let sut = MatchingFullTimeEncoder(date: date, userID: 1)
         //Act
         let queryItems = try self.queryEncoder.encode(sut)
         //Assert

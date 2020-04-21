@@ -19,7 +19,7 @@ extension MatchingFullTimeDecoderTests {
         //Act
         let sut = try self.decoder.decode(MatchingFullTimeDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.accountingPeriod?.identifier, 1383)
+        XCTAssertEqual(sut.accountingPeriod?.id, 1383)
         XCTAssertEqual(sut.accountingPeriod?.countedDuration, TimeInterval(620100))
         XCTAssertEqual(sut.accountingPeriod?.duration, TimeInterval(633600))
         XCTAssertEqual(sut.shouldWorked, TimeInterval(633600))
@@ -51,7 +51,7 @@ extension MatchingFullTimeDecoderTests {
         //Act
         let sut = try self.decoder.decode(MatchingFullTimeDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.accountingPeriod?.identifier, 1383)
+        XCTAssertEqual(sut.accountingPeriod?.id, 1383)
         XCTAssertEqual(sut.accountingPeriod?.countedDuration, TimeInterval(620100))
         XCTAssertEqual(sut.accountingPeriod?.duration, TimeInterval(633600))
         XCTAssertNil(sut.shouldWorked)
@@ -63,7 +63,7 @@ extension MatchingFullTimeDecoderTests {
         //Act
         let sut = try self.decoder.decode(MatchingFullTimeDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.accountingPeriod?.identifier, 1383)
+        XCTAssertEqual(sut.accountingPeriod?.id, 1383)
         XCTAssertEqual(sut.accountingPeriod?.countedDuration, TimeInterval(620100))
         XCTAssertEqual(sut.accountingPeriod?.duration, TimeInterval(633600))
         XCTAssertNil(sut.shouldWorked)

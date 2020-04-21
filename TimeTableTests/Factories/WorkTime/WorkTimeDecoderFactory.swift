@@ -20,47 +20,47 @@ class WorkTimeDecoderFactory: JSONFactorable {
 // MARK: - Structures
 extension WorkTimeDecoderFactory {
     struct Wrapper: WorkTimeDecoderFieldsProtocol {
-        let identifier: Int64
+        let id: Int64
         let updatedByAdmin: Bool
-        let projectId: Int
+        let projectID: Int
         let startsAt: Date
         let endsAt: Date
         let duration: Int64
         let body: String?
         let task: String?
         let taskPreview: String?
-        let userId: Int
+        let userID: Int
         let project: SimpleProjectRecordDecoder
         let date: Date
         let tag: ProjectTag
         let versions: [TaskVersion]
         
         init(
-            identifier: Int64 = 0,
+            id: Int64 = 0,
             updatedByAdmin: Bool = false,
-            projectId: Int = 0,
+            projectID: Int = 0,
             startsAt: Date = Date(),
             endsAt: Date = Date(),
             duration: Int64 = 1,
             body: String? = nil,
             task: String? = nil,
             taskPreview: String? = nil,
-            userId: Int = 0,
+            userID: Int = 0,
             project: SimpleProjectRecordDecoder,
             date: Date = Date(),
             tag: ProjectTag = .default,
             versions: [TaskVersion] = []
         ) {
-            self.identifier = identifier
+            self.id = id
             self.updatedByAdmin = updatedByAdmin
-            self.projectId = projectId
+            self.projectID = projectID
             self.startsAt = startsAt
             self.endsAt = endsAt
             self.duration = duration
             self.body = body
             self.task = task
             self.taskPreview = taskPreview
-            self.userId = userId
+            self.userID = userID
             self.project = project
             self.date = date
             self.tag = tag
@@ -69,16 +69,16 @@ extension WorkTimeDecoderFactory {
         
         func jsonConvertible() -> AnyJSONConvertible {
             return [
-                "id": AnyJSONConvertible(self.identifier),
+                "id": AnyJSONConvertible(self.id),
                 "updatedByAdmin": AnyJSONConvertible(self.updatedByAdmin),
-                "projectId": AnyJSONConvertible(self.projectId),
+                "projectId": AnyJSONConvertible(self.projectID),
                 "startsAt": AnyJSONConvertible(self.startsAt),
                 "endsAt": AnyJSONConvertible(self.endsAt),
                 "duration": AnyJSONConvertible(self.duration),
                 "body": AnyJSONConvertible(self.body),
                 "task": AnyJSONConvertible(self.task),
                 "taskPreview": AnyJSONConvertible(self.taskPreview),
-                "userId": AnyJSONConvertible(self.userId),
+                "userId": AnyJSONConvertible(self.userID),
                 "project": AnyJSONConvertible(self.project),
                 "date": AnyJSONConvertible(DateFormatter.simple.string(from: self.date)),
                 "tag": AnyJSONConvertible(self.tag),
@@ -98,16 +98,16 @@ extension ProjectTag: JSONObjectType {
 extension WorkTimeDecoder: JSONObjectType {
     public func jsonConvertible() throws -> JSONConvertible {
         let wrapper = WorkTimeDecoderFactory.Wrapper(
-            identifier: self.identifier,
+            id: self.id,
             updatedByAdmin: self.updatedByAdmin,
-            projectId: self.projectId,
+            projectID: self.projectID,
             startsAt: self.startsAt,
             endsAt: self.endsAt,
             duration: self.duration,
             body: self.body,
             task: self.task,
             taskPreview: self.taskPreview,
-            userId: self.userId,
+            userID: self.userID,
             project: self.project,
             date: self.date,
             tag: self.tag,

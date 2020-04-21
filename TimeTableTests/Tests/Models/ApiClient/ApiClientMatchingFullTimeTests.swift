@@ -28,7 +28,7 @@ extension ApiClientMatchingFullTimeTests {
         let data = try self.json(from: MatchingFullTimeJSONResource.matchingFullTimeFullResponse)
         let decoder = try self.decoder.decode(MatchingFullTimeDecoder.self, from: data)
         let date = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let matchingFullTime = MatchingFullTimeEncoder(date: date, userId: 1)
+        let matchingFullTime = MatchingFullTimeEncoder(date: date, userID: 1)
         var completionResult: Result<MatchingFullTimeDecoder, Error>?
         //Act
         sut.fetchMatchingFullTime(parameters: matchingFullTime) { result in
@@ -44,7 +44,7 @@ extension ApiClientMatchingFullTimeTests {
         let sut = self.buildSUT()
         let error = TestError(message: "fetch matching full time failed")
         let date = try self.buildDate(year: 2018, month: 1, day: 17, hour: 12, minute: 2, second: 1)
-        let matchingFullTime = MatchingFullTimeEncoder(date: date, userId: 1)
+        let matchingFullTime = MatchingFullTimeEncoder(date: date, userID: 1)
         var completionResult: Result<MatchingFullTimeDecoder, Error>?
         //Act
         sut.fetchMatchingFullTime(parameters: matchingFullTime) { result in

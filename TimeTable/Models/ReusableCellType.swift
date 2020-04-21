@@ -11,7 +11,7 @@ import Foundation
 protocol ReusableCellType: class {}
 
 extension ReusableCellType {
-    static var reuseIdentifier: String {
+    static var reuseID: String {
         return String(describing: Self.self)
     }
     

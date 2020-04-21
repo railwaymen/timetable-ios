@@ -12,14 +12,14 @@ import JSONFactorable
 
 class ProjectRecordDecoderFactory: JSONFactorable {
     func build(
-        identifier: Int = 0,
+        id: Int = 0,
         name: String = "name",
         color: UIColor? = nil,
         leader: ProjectRecordDecoder.Leader? = nil,
         users: [ProjectRecordDecoder.User] = []
     ) throws -> ProjectRecordDecoder {
         let wrapper = Wrapper(
-            identifier: identifier,
+            id: id,
             name: name,
             color: color,
             leader: try leader ?? (try self.buildLeader()),
@@ -38,12 +38,12 @@ class ProjectRecordDecoderFactory: JSONFactorable {
     }
     
     func buildUser(
-        identifier: Int = 0,
+        id: Int = 0,
         firstName: String = "John",
         lastName: String = "Smith"
     ) throws -> ProjectRecordDecoder.User {
         let wrapper = UserWrapper(
-            identifier: identifier,
+            id: id,
             firstName: firstName,
             lastName: lastName)
         return try self.buildObject(of: wrapper.jsonConvertible())
@@ -53,20 +53,20 @@ class ProjectRecordDecoderFactory: JSONFactorable {
 // MARK: - Structures
 extension ProjectRecordDecoderFactory {
     struct Wrapper: ProjectRecordDecoderFields {
-        let identifier: Int
+        let id: Int
         let name: String
         let color: UIColor?
         let leader: ProjectRecordDecoder.Leader
         let users: [ProjectRecordDecoder.User]
         
         init(
-            identifier: Int = 0,
+            id: Int = 0,
             name: String = "name",
             color: UIColor? = nil,
             leader: ProjectRecordDecoder.Leader,
             users: [ProjectRecordDecoder.User] = []
         ) {
-            self.identifier = identifier
+            self.id = id
             self.name = name
             self.color = color
             self.leader = leader
@@ -75,7 +75,7 @@ extension ProjectRecordDecoderFactory {
         
         func jsonConvertible() throws -> AnyJSONConvertible {
             var jsonObject: AnyJSONConvertible = [
-                "project_id": AnyJSONConvertible(self.identifier),
+                "project_id": AnyJSONConvertible(self.id),
                 "name": AnyJSONConvertible(self.name),
                 "color": AnyJSONConvertible(self.color),
                 "users": AnyJSONConvertible(self.users)
@@ -107,16 +107,16 @@ extension ProjectRecordDecoderFactory {
     }
     
     struct UserWrapper: ProjectRecordDecoderUserFields {
-        let identifier: Int
+        let id: Int
         let firstName: String
         let lastName: String
         
         init(
-            identifier: Int = 0,
+            id: Int = 0,
             firstName: String = "John",
             lastName: String = "Smith"
         ) {
-            self.identifier = identifier
+            self.id = id
             self.firstName = firstName
             self.lastName = lastName
             
@@ -124,7 +124,7 @@ extension ProjectRecordDecoderFactory {
         
         func jsonConvertible() -> AnyJSONConvertible {
             return [
-                "id": AnyJSONConvertible(self.identifier),
+                "id": AnyJSONConvertible(self.id),
                 "first_name": AnyJSONConvertible(self.firstName),
                 "last_name": AnyJSONConvertible(self.lastName)
             ]
@@ -136,7 +136,7 @@ extension ProjectRecordDecoderFactory {
 extension ProjectRecordDecoder: JSONObjectType {
     public func jsonConvertible() throws -> JSONConvertible {
         let wrapper = ProjectRecordDecoderFactory.Wrapper(
-            identifier: self.identifier,
+            id: self.id,
             name: self.name,
             color: self.color,
             leader: self.leader,
@@ -157,7 +157,7 @@ extension ProjectRecordDecoder.Leader: JSONObjectType {
 extension ProjectRecordDecoder.User: JSONObjectType {
     public func jsonConvertible() throws -> JSONConvertible {
         let wrapper = ProjectRecordDecoderFactory.UserWrapper(
-            identifier: self.identifier,
+            id: self.id,
             firstName: self.firstName,
             lastName: self.lastName)
         return wrapper.jsonConvertible()

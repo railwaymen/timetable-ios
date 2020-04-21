@@ -9,16 +9,16 @@
 import Foundation
 
 protocol WorkTimeDecoderFieldsProtocol {
-    var identifier: Int64 { get }
+    var id: Int64 { get }
     var updatedByAdmin: Bool { get }
-    var projectId: Int { get }
+    var projectID: Int { get }
     var startsAt: Date { get }
     var endsAt: Date { get }
     var duration: Int64 { get }
     var body: String? { get }
     var task: String? { get }
     var taskPreview: String? { get }
-    var userId: Int { get }
+    var userID: Int { get }
     var project: SimpleProjectRecordDecoder { get }
     var date: Date { get }
     var tag: ProjectTag { get }
@@ -26,32 +26,32 @@ protocol WorkTimeDecoderFieldsProtocol {
 }
 
 struct WorkTimeDecoder: Decodable, WorkTimeDecoderFieldsProtocol {
-    let identifier: Int64
+    let id: Int64
     let updatedByAdmin: Bool
-    let projectId: Int
+    let projectID: Int
     let startsAt: Date
     let endsAt: Date
     let duration: Int64
     let body: String?
     let task: String?
     let taskPreview: String?
-    let userId: Int
+    let userID: Int
     let project: SimpleProjectRecordDecoder
     let date: Date
     let tag: ProjectTag
     let versions: [TaskVersion]
     
     enum CodingKeys: String, CodingKey {
-        case identifier = "id"
+        case id
         case updatedByAdmin
-        case projectId
+        case projectID = "projectId"
         case startsAt
         case endsAt
         case duration
         case body
         case task
         case taskPreview
-        case userId
+        case userID = "userId"
         case project
         case date
         case tag
@@ -61,16 +61,16 @@ struct WorkTimeDecoder: Decodable, WorkTimeDecoderFieldsProtocol {
     // MARK: - Initialization
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.identifier = try container.decode(Int64.self, forKey: .identifier)
+        self.id = try container.decode(Int64.self, forKey: .id)
         self.updatedByAdmin = try container.decode(Bool.self, forKey: .updatedByAdmin)
-        self.projectId = try container.decode(Int.self, forKey: .projectId)
+        self.projectID = try container.decode(Int.self, forKey: .projectID)
         self.startsAt = try container.decode(Date.self, forKey: .startsAt)
         self.endsAt = try container.decode(Date.self, forKey: .endsAt)
         self.duration = try container.decode(Int64.self, forKey: .duration)
         self.body = try? container.decode(String.self, forKey: .body)
         self.task = try? container.decode(String.self, forKey: .task)
         self.taskPreview = try? container.decode(String.self, forKey: .taskPreview)
-        self.userId = try container.decode(Int.self, forKey: .userId)
+        self.userID = try container.decode(Int.self, forKey: .userID)
         self.project = try container.decode(SimpleProjectRecordDecoder.self, forKey: .project)
         self.tag = try container.decode(ProjectTag.self, forKey: .tag)
         self.versions = (try? container.decode([TaskVersion].self, forKey: .versions)) ?? []
@@ -90,6 +90,6 @@ struct WorkTimeDecoder: Decodable, WorkTimeDecoderFieldsProtocol {
 // MARK: - Equatable
 extension WorkTimeDecoder: Equatable {
     static func == (lhs: WorkTimeDecoder, rhs: WorkTimeDecoder) -> Bool {
-        return lhs.identifier == rhs.identifier
+        return lhs.id == rhs.id
     }
 }

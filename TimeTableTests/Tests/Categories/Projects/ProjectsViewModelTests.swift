@@ -226,9 +226,9 @@ extension ProjectsViewModelTests {
     
     private func buildProjects() throws -> [ProjectRecordDecoder] {
         return [
-            try projectRecordDecoderFactory.build(identifier: 1),
-            try projectRecordDecoderFactory.build(identifier: 2),
-            try projectRecordDecoderFactory.build(identifier: 3)
+            try projectRecordDecoderFactory.build(id: 1),
+            try projectRecordDecoderFactory.build(id: 2),
+            try projectRecordDecoderFactory.build(id: 3)
         ]
     }
 }

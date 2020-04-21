@@ -25,9 +25,9 @@ extension AccessServiceTests {
     func testGetSession_returnsSavedSessionFirst() throws {
         //Arrange
         let sut = self.buildSUT()
-        let expectedSession = try self.buildSessionDecoder(identifier: 0)
+        let expectedSession = try self.buildSessionDecoder(id: 0)
         self.sessionManager.getSessionReturnValue = expectedSession
-        self.temporarySessionManager.getSessionReturnValue = try self.buildSessionDecoder(identifier: 1)
+        self.temporarySessionManager.getSessionReturnValue = try self.buildSessionDecoder(id: 1)
         //Act
         let returnedSession = sut.getSession()
         //Assert
@@ -225,35 +225,35 @@ extension AccessServiceTests {
     }
 }
 
-// MARK: - getLastLoggedInUserIdentifier()
+// MARK: - getLastLoggedInUserID()
 extension AccessServiceTests {
-    func testGetLastLoggedInUserIdentifier_existingSession_returnsTokenFromExistingSession() throws {
+    func testGetLastLoggedInUserID_existingSession_returnsTokenFromExistingSession() throws {
         //Arrange
         let sut = self.buildSUT()
         let session = try self.buildSessionDecoder()
         self.sessionManager.getSessionReturnValue = session
         //Act
-        let userID = sut.getLastLoggedInUserIdentifier()
+        let userID = sut.getLastLoggedInUserID()
         //Assert
-        XCTAssertEqual(userID, Int64(session.identifier))
+        XCTAssertEqual(userID, Int64(session.id))
     }
     
-    func testGetLastLoggedInUserIdentifier_existingTemporarySession_returnsTokenFromExistingSession() throws {
+    func testGetLastLoggedInUserID_existingTemporarySession_returnsTokenFromExistingSession() throws {
         //Arrange
         let sut = self.buildSUT()
         let session = try self.buildSessionDecoder()
         self.temporarySessionManager.getSessionReturnValue = session
         //Act
-        let userID = sut.getLastLoggedInUserIdentifier()
+        let userID = sut.getLastLoggedInUserID()
         //Assert
-        XCTAssertEqual(userID, Int64(session.identifier))
+        XCTAssertEqual(userID, Int64(session.id))
     }
     
-    func testGetLastLoggedInUserIdentifier_noExistingSession_returnsTokenFromExistingSession() throws {
+    func testGetLastLoggedInUserID_noExistingSession_returnsTokenFromExistingSession() throws {
         //Arrange
         let sut = self.buildSUT()
         //Act
-        let userID = sut.getLastLoggedInUserIdentifier()
+        let userID = sut.getLastLoggedInUserID()
         //Assert
         XCTAssertNil(userID)
     }
@@ -267,7 +267,7 @@ extension AccessServiceTests {
             temporarySessionManager: self.temporarySessionManager)
     }
     
-    private func buildSessionDecoder(identifier: Int = 0) throws -> SessionDecoder {
-        try SessionDecoderFactory().build(wrapper: .init(identifier: identifier))
+    private func buildSessionDecoder(id: Int = 0) throws -> SessionDecoder {
+        try SessionDecoderFactory().build(wrapper: .init(id: id))
     }
 }

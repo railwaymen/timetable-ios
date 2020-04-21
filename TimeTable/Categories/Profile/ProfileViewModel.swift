@@ -71,9 +71,9 @@ extension ProfileViewModel: ProfileViewModelType {
 // MARK: - Private
 extension ProfileViewModel {
     private func fetchProfile() {
-        guard let userIdentifier = self.accessService.getLastLoggedInUserIdentifier() else { return }
+        guard let userID = self.accessService.getLastLoggedInUserID() else { return }
         self.userInterface?.setActivityIndicator(isHidden: false)
-        self.apiClient.fetchUserProfile(forIdetifier: userIdentifier) { [weak self] result in
+        self.apiClient.fetchUserProfile(forID: userID) { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case let .success(profile):

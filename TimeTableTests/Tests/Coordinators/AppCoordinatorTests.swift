@@ -139,7 +139,7 @@ extension AppCoordinatorTests {
     
     private func buildSessionDecoder() throws -> SessionDecoder {
         return SessionDecoder(
-            identifier: 1,
+            id: 1,
             firstName: "John",
             lastName: "Little",
             isLeader: false,

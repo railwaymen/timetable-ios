@@ -22,12 +22,12 @@ class MatchingFullTimeDecoderFactory: JSONFactorable {
     }
     
     func buildPeriod(
-        identifier: Int = 1,
+        id: Int = 1,
         countedDuration: TimeInterval = 60,
         duration: TimeInterval = 60
     ) throws -> MatchingFullTimeDecoder.Period {
         let wrapper = PeriodWrapper(
-            identifier: identifier,
+            id: id,
             countedDuration: countedDuration,
             duration: duration)
         return try self.buildObject(of: wrapper.jsonConvertible())
@@ -57,23 +57,23 @@ extension MatchingFullTimeDecoderFactory {
     }
     
     struct PeriodWrapper: MatchingFullTimePeriodDecoder {
-        let identifier: Int
+        let id: Int
         let countedDuration: TimeInterval
         let duration: TimeInterval
         
         init(
-            identifier: Int,
+            id: Int,
             countedDuration: TimeInterval,
             duration: TimeInterval
         ) {
-            self.identifier = identifier
+            self.id = id
             self.countedDuration = countedDuration
             self.duration = duration
         }
         
         func jsonConvertible() -> AnyJSONConvertible {
             return [
-                "id": AnyJSONConvertible(self.identifier),
+                "id": AnyJSONConvertible(self.id),
                 "counted_duration": AnyJSONConvertible(self.countedDuration),
                 "duration": AnyJSONConvertible(self.duration)
             ]
@@ -94,7 +94,7 @@ extension MatchingFullTimeDecoder: JSONObjectType {
 extension MatchingFullTimeDecoder.Period: JSONObjectType {
     public func jsonConvertible() throws -> JSONConvertible {
         let wrapper = MatchingFullTimeDecoderFactory.PeriodWrapper(
-            identifier: self.identifier,
+            id: self.id,
             countedDuration: self.countedDuration,
             duration: self.duration)
         return wrapper.jsonConvertible()

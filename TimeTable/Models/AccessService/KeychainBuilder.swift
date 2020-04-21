@@ -22,9 +22,9 @@ class KeychainBuilder: KeychainBuilderType {
                 return Keychain(server: host, protocolType: .https)
             }
         }
-        guard let bundleIdentifier = Bundle.main.bundleIdentifier else {
+        guard let bundleID = Bundle.main.bundleIdentifier else {
             return Keychain()
         }
-        return Keychain(accessGroup: bundleIdentifier)
+        return Keychain(accessGroup: bundleID)
     }
 }

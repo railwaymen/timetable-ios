@@ -20,18 +20,18 @@ class WorkTimesParametersTests: XCTestCase {
 extension WorkTimesParametersTests {
     func testEncoding_fullModel() throws {
         //Arrange
-        let projectIdentifier = 3
+        let projectID = 3
         let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
         let fromDate = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 10, minute: 30)
         let toDate = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 12, minute: 0)
-        let sut = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectId: projectIdentifier)
+        let sut = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectID: projectID)
         //Act
         let queryItems = try self.queryEncoder.encode(sut)
         //Assert
         XCTAssertEqual(queryItems.count, 3)
         XCTAssert(queryItems.contains(.init(name: "from", value: "2018-11-22T10:30:00.000+0100")))
         XCTAssert(queryItems.contains(.init(name: "to", value: "2018-11-22T12:00:00.000+0100")))
-        XCTAssert(queryItems.contains(.init(name: "project_id", value: "\(projectIdentifier)")))
+        XCTAssert(queryItems.contains(.init(name: "project_id", value: "\(projectID)")))
     }
     
     func testEncoding_nilProjectId() throws {
@@ -39,7 +39,7 @@ extension WorkTimesParametersTests {
         let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
         let fromDate = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 10, minute: 30)
         let toDate = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 12, minute: 0)
-        let sut = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectId: nil)
+        let sut = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectID: nil)
         //Act
         let queryItems = try self.queryEncoder.encode(sut)
         //Assert
@@ -50,30 +50,30 @@ extension WorkTimesParametersTests {
 
     func testEncoding_nilFrom() throws {
         //Arrange
-        let projectIdentifier = 3
+        let projectID = 3
         let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
         let toDate = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 12, minute: 0)
-        let sut = WorkTimesParameters(fromDate: nil, toDate: toDate, projectId: projectIdentifier)
+        let sut = WorkTimesParameters(fromDate: nil, toDate: toDate, projectID: projectID)
         //Act
         let queryItems = try self.queryEncoder.encode(sut)
         //Assert
         XCTAssertEqual(queryItems.count, 2)
         XCTAssert(queryItems.contains(.init(name: "to", value: "2018-11-22T12:00:00.000+0100")))
-        XCTAssert(queryItems.contains(.init(name: "project_id", value: "\(projectIdentifier)")))
+        XCTAssert(queryItems.contains(.init(name: "project_id", value: "\(projectID)")))
     }
 
     func testEncoding_nilTo() throws {
         //Arrange
-        let projectIdentifier = 3
+        let projectID = 3
         let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 3600))
         let fromDate = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 22, hour: 10, minute: 30)
-        let sut = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectId: projectIdentifier)
+        let sut = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectID: projectID)
         //Act
         let queryItems = try self.queryEncoder.encode(sut)
         //Assert
         XCTAssertEqual(queryItems.count, 2)
         XCTAssert(queryItems.contains(.init(name: "from", value: "2018-11-22T10:30:00.000+0100")))
-        XCTAssert(queryItems.contains(.init(name: "project_id", value: "\(projectIdentifier)")))
+        XCTAssert(queryItems.contains(.init(name: "project_id", value: "\(projectID)")))
     }
 }
 
@@ -81,24 +81,24 @@ extension WorkTimesParametersTests {
 extension WorkTimesParametersTests {
     func testWorkTimesAreEquatableWhileAllParametersAreNil() {
         //Arrange
-        let sut1 = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
-        let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
+        let sut1 = WorkTimesParameters(fromDate: nil, toDate: nil, projectID: nil)
+        let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectID: nil)
         //Assert
         XCTAssertEqual(sut1, sut2)
     }
     
     func testWorkTimesAreEquatableWhileProjectIsTheSame() {
         //Arrange
-        let sut1 = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: 1)
-        let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: 1)
+        let sut1 = WorkTimesParameters(fromDate: nil, toDate: nil, projectID: 1)
+        let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectID: 1)
         //Assert
         XCTAssertEqual(sut1, sut2)
     }
     
     func testWorkTimesAreNotEquatableWhileProjectIsNotTheSame() {
         //Arrange
-        let sut1 = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: 1)
-        let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: 2)
+        let sut1 = WorkTimesParameters(fromDate: nil, toDate: nil, projectID: 1)
+        let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectID: 2)
         //Assert
         XCTAssertNotEqual(sut1, sut2)
     }
@@ -106,8 +106,8 @@ extension WorkTimesParametersTests {
     func testWorkTimesAreEquatableWhileFromIsTheSame() throws {
         //Arrange
         let fromDate = try self.getFromDate()
-        let sut1 = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectId: nil)
-        let sut2 = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectId: nil)
+        let sut1 = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectID: nil)
+        let sut2 = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectID: nil)
         //Assert
         XCTAssertEqual(sut1, sut2)
     }
@@ -115,8 +115,8 @@ extension WorkTimesParametersTests {
     func testWorkTimesAreNotEquatableWhileFromIsNotTheSame() throws {
         //Arrange
         let fromDate = try self.getFromDate()
-        let sut1 = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectId: nil)
-        let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
+        let sut1 = WorkTimesParameters(fromDate: fromDate, toDate: nil, projectID: nil)
+        let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectID: nil)
         //Assert
         XCTAssertNotEqual(sut1, sut2)
     }
@@ -124,8 +124,8 @@ extension WorkTimesParametersTests {
     func testWorkTimesAreEquatableWhileToDateIsTheSame() throws {
         //Arrange
         let toDate = try self.getToDate()
-        let sut1 = WorkTimesParameters(fromDate: nil, toDate: toDate, projectId: nil)
-        let sut2 = WorkTimesParameters(fromDate: nil, toDate: toDate, projectId: nil)
+        let sut1 = WorkTimesParameters(fromDate: nil, toDate: toDate, projectID: nil)
+        let sut2 = WorkTimesParameters(fromDate: nil, toDate: toDate, projectID: nil)
         //Assert
         XCTAssertEqual(sut1, sut2)
     }
@@ -133,8 +133,8 @@ extension WorkTimesParametersTests {
     func testWorkTimesAreNotEquatableWhileToDateIsNotTheSame() throws {
         //Arrange
         let toDate = try self.getToDate()
-        let sut1 = WorkTimesParameters(fromDate: nil, toDate: toDate, projectId: nil)
-        let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
+        let sut1 = WorkTimesParameters(fromDate: nil, toDate: toDate, projectID: nil)
+        let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectID: nil)
         //Assert
         XCTAssertNotEqual(sut1, sut2)
     }
@@ -143,8 +143,8 @@ extension WorkTimesParametersTests {
         //Arrange
         let fromDate = try self.getFromDate()
         let toDate = try self.getToDate()
-        let sut1 = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectId: 1)
-        let sut2 = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectId: 1)
+        let sut1 = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectID: 1)
+        let sut2 = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectID: 1)
         //Assert
         XCTAssertEqual(sut1, sut2)
     }
@@ -153,8 +153,8 @@ extension WorkTimesParametersTests {
         //Arrange
         let fromDate = try self.getFromDate()
         let toDate = try self.getToDate()
-        let sut1 = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectId: 1)
-        let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
+        let sut1 = WorkTimesParameters(fromDate: fromDate, toDate: toDate, projectID: 1)
+        let sut2 = WorkTimesParameters(fromDate: nil, toDate: nil, projectID: nil)
         //Assert
         XCTAssertNotEqual(sut1, sut2)
     }

@@ -12,9 +12,9 @@ import Foundation
 class AccessServiceMock {
     
     // MARK: - AccessServiceUserIDType
-    var getLastLoggedInUserIdentifierReturnValue: Int64?
-    private(set) var getLastLoggedInUserIdentifierParams: [GetLastLoggedInUserIdentifierParams] = []
-    struct GetLastLoggedInUserIdentifierParams {}
+    var getLastLoggedInUserIDReturnValue: Int64?
+    private(set) var getLastLoggedInUserIDParams: [GetLastLoggedInUserIDParams] = []
+    struct GetLastLoggedInUserIDParams {}
     
     // MARK: - AccessServiceSessionType
     var isSessionOpenedReturnValue: Bool = false
@@ -50,9 +50,9 @@ class AccessServiceMock {
 
 // MARK: - AccessServiceUserIDType
 extension AccessServiceMock: AccessServiceUserIDType {
-    func getLastLoggedInUserIdentifier() -> Int64? {
-        self.getLastLoggedInUserIdentifierParams.append(GetLastLoggedInUserIdentifierParams())
-        return self.getLastLoggedInUserIdentifierReturnValue
+    func getLastLoggedInUserID() -> Int64? {
+        self.getLastLoggedInUserIDParams.append(GetLastLoggedInUserIDParams())
+        return self.getLastLoggedInUserIDReturnValue
     }
 }
 

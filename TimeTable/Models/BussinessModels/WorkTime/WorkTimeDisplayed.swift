@@ -9,7 +9,7 @@
 import UIKit
 
 struct WorkTimeDisplayed {
-    let identifier: Int64
+    let id: Int64
     let body: String?
     let task: String?
     let taskPreview: String?
@@ -25,7 +25,7 @@ struct WorkTimeDisplayed {
     
     // MARK: - Initialization
     init(
-        identifier: Int64,
+        id: Int64,
         body: String?,
         task: String?,
         taskPreview: String?,
@@ -39,7 +39,7 @@ struct WorkTimeDisplayed {
         updatedBy: String?,
         changedFields: [TaskVersion.Field]
     ) {
-        self.identifier = identifier
+        self.id = id
         self.body = body
         self.task = task
         self.taskPreview = taskPreview
@@ -55,7 +55,7 @@ struct WorkTimeDisplayed {
     }
     
     init(workTime: WorkTimeDecoder) {
-        self.identifier = workTime.identifier
+        self.id = workTime.id
         self.body = workTime.body
         self.task = workTime.task
         self.taskPreview = workTime.taskPreview
@@ -71,7 +71,7 @@ struct WorkTimeDisplayed {
     }
     
     init(workTime: WorkTimeDecoder, version: TaskVersion) {
-        self.identifier = workTime.identifier
+        self.id = workTime.id
         self.body = version.body.newest
         self.task = version.task.newest
         self.taskPreview = version.taskPreview.newest
@@ -90,6 +90,6 @@ struct WorkTimeDisplayed {
 // MARK: - Equatable
 extension WorkTimeDisplayed: Equatable {
     static func == (lhs: WorkTimeDisplayed, rhs: WorkTimeDisplayed) -> Bool {
-        return lhs.identifier == rhs.identifier
+        return lhs.id == rhs.id
     }
 }

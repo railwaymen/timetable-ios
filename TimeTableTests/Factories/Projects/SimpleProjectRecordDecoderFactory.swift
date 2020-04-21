@@ -19,7 +19,7 @@ class SimpleProjectRecordDecoderFactory: JSONFactorable {
 // MARK: - Structures
 extension SimpleProjectRecordDecoderFactory {
     struct Wrapper {
-        let identifier: Int
+        let id: Int
         let name: String
         let color: UIColor?
         let autofill: Bool?
@@ -31,7 +31,7 @@ extension SimpleProjectRecordDecoderFactory {
         let isTaggable: Bool
         
         init(
-            identifier: Int = 0,
+            id: Int = 0,
             name: String = "name",
             color: UIColor? = nil,
             autofill: Bool? = nil,
@@ -42,7 +42,7 @@ extension SimpleProjectRecordDecoderFactory {
             workTimesAllowsTask: Bool = false,
             isTaggable: Bool = false
         ) {
-            self.identifier = identifier
+            self.id = id
             self.name = name
             self.color = color
             self.autofill = autofill
@@ -56,7 +56,7 @@ extension SimpleProjectRecordDecoderFactory {
         
         func jsonConvertible() -> AnyJSONConvertible {
             return [
-                "id": AnyJSONConvertible(self.identifier),
+                "id": AnyJSONConvertible(self.id),
                 "name": AnyJSONConvertible(self.name),
                 "color": AnyJSONConvertible(self.color),
                 "autofill": AnyJSONConvertible(self.autofill),
@@ -75,7 +75,7 @@ extension SimpleProjectRecordDecoderFactory {
 extension SimpleProjectRecordDecoder: JSONObjectType {
     public func jsonConvertible() throws -> JSONConvertible {
         let wrapper = SimpleProjectRecordDecoderFactory.Wrapper(
-            identifier: self.identifier,
+            id: self.id,
             name: self.name,
             color: self.color,
             autofill: self.autofill,

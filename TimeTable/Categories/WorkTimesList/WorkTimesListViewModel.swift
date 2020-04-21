@@ -257,7 +257,7 @@ extension WorkTimesListViewModel {
         guard let dailyWorkTime = self.dailyWorkTime(for: indexPath) else { return nil }
         guard let workTime = self.workTime(for: indexPath) else { return nil }
         return TaskForm(
-            workTimeIdentifier: workTime.identifier,
+            workTimeID: workTime.id,
             project: workTime.project,
             body: workTime.body ?? "",
             urlString: workTime.task ?? "",
