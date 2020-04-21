@@ -31,23 +31,10 @@ class ServerConfigurationManagerTests: XCTestCase {
 
 // MARK: - getOldConfiguration() -> ServerConfiguration?
 extension ServerConfigurationManagerTests {
-    func testGetOldConfiguration_hostUrlNotSaved() throws {
-        //Arrange
-        let sut = self.buildSUT()
-        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: false)
-        sut.verify(configuration: configuration) { _ in }
-        try self.restler.headReturnValue.callCompletion(type: Void.self, result: .success(Void()))
-        //Act
-        let oldConfiguration = try XCTUnwrap(sut.getOldConfiguration())
-        //Assert
-        XCTAssertNil(oldConfiguration.host)
-        XCTAssertFalse(oldConfiguration.shouldRememberHost)
-    }
-
     func testGetOldConfiguration_hostUrlSaved() throws {
         //Arrange
         let sut = self.buildSUT()
-        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: true)
+        let configuration = ServerConfiguration(host: self.exampleURL)
         sut.verify(configuration: configuration) { _ in }
         try self.restler.headReturnValue.callCompletion(type: Void.self, result: .success(Void()))
         //Act
@@ -59,7 +46,7 @@ extension ServerConfigurationManagerTests {
     func testGetOldConfiguration_hostURLValueIsNil() throws {
         //Arrange
         let sut = self.buildSUT()
-        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: true)
+        let configuration = ServerConfiguration(host: self.exampleURL)
         sut.verify(configuration: configuration) { _ in }
         try self.restler.headReturnValue.callCompletion(type: Void.self, result: .success(Void()))
         self.userDefaults.removeObject(forKey: "key.time_table.server_configuration.host")
@@ -72,7 +59,7 @@ extension ServerConfigurationManagerTests {
     func testGetOldConfiguration_hostURLValueIsNotURL() throws {
         //Arrange
         let sut = self.buildSUT()
-        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: true)
+        let configuration = ServerConfiguration(host: self.exampleURL)
         sut.verify(configuration: configuration) { _ in }
         try self.restler.headReturnValue.callCompletion(type: Void.self, result: .success(Void()))
         self.userDefaults.set(" ", forKey: "key.time_table.server_configuration.host")
@@ -88,7 +75,7 @@ extension ServerConfigurationManagerTests {
     func testVerify_withoutURL_callsCompletionFailure() throws {
         //Arrange
         let sut = self.buildSUT()
-        let configuration = ServerConfiguration(host: nil, shouldRememberHost: false)
+        let configuration = ServerConfiguration(host: nil)
         var completionResult: Result<Void, Error>?
         //Act
         sut.verify(configuration: configuration) { result in
@@ -102,7 +89,7 @@ extension ServerConfigurationManagerTests {
     func testVerify_withURL_makesProperRequest() throws {
         //Arrange
         let sut = self.buildSUT()
-        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: false)
+        let configuration = ServerConfiguration(host: self.exampleURL)
         var completionResult: Result<Void, Error>?
         //Act
         sut.verify(configuration: configuration) { result in
@@ -123,7 +110,7 @@ extension ServerConfigurationManagerTests {
     func testVerify_successResponse_callsCompletionSuccess() throws {
         //Arrange
         let sut = self.buildSUT()
-        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: false)
+        let configuration = ServerConfiguration(host: self.exampleURL)
         var completionResult: Result<Void, Error>?
         //Act
         sut.verify(configuration: configuration) { result in
@@ -135,34 +122,21 @@ extension ServerConfigurationManagerTests {
         XCTAssertEqual(self.dispatchQueueManagerMock.performOnMainThreadParams.count, 1)
     }
     
-    func testVerify_shouldNotRememeberHost_successResponse_savesProperValues() throws {
+    func testVerify_successResponse_savesProperValues() throws {
         //Arrange
         let sut = self.buildSUT()
-        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: false)
-        //Act
-        sut.verify(configuration: configuration) { _ in }
-        try self.restler.headReturnValue.callCompletion(type: Void.self, result: .success(Void()))
-        //Assert
-        XCTAssertNil(self.userDefaults.string(forKey: UserDefaultsKeys.hostURLKey))
-        XCTAssertFalse(try XCTUnwrap(self.userDefaults.value(forKey: UserDefaultsKeys.shouldRemeberHostKey) as? Bool))
-    }
-    
-    func testVerify_shouldRememeberHost_successResponse_savesProperValues() throws {
-        //Arrange
-        let sut = self.buildSUT()
-        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: true)
+        let configuration = ServerConfiguration(host: self.exampleURL)
         //Act
         sut.verify(configuration: configuration) { _ in }
         try self.restler.headReturnValue.callCompletion(type: Void.self, result: .success(Void()))
         //Assert
         XCTAssertEqual(self.userDefaults.string(forKey: UserDefaultsKeys.hostURLKey), self.exampleURL.absoluteString)
-        XCTAssertTrue(try XCTUnwrap(self.userDefaults.value(forKey: UserDefaultsKeys.shouldRemeberHostKey) as? Bool))
     }
     
     func testVerify_failureResponse_apiClientError_callsCompletionFailure() throws {
         //Arrange
         let sut = self.buildSUT()
-        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: false)
+        let configuration = ServerConfiguration(host: self.exampleURL)
         let error = ApiClientError(type: .noConnection)
         var completionResult: Result<Void, Error>?
         //Act
@@ -178,7 +152,7 @@ extension ServerConfigurationManagerTests {
     func testVerify_failureResponse_testError_callsCompletionFailure() throws {
         //Arrange
         let sut = self.buildSUT()
-        let configuration = ServerConfiguration(host: self.exampleURL, shouldRememberHost: false)
+        let configuration = ServerConfiguration(host: self.exampleURL)
         let error = TestError(message: "test error")
         let expectedError = ApiClientError(type: .invalidHost(self.exampleURL))
         var completionResult: Result<Void, Error>?

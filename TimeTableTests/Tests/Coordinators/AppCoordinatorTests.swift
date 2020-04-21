@@ -53,8 +53,7 @@ extension AppCoordinatorTests {
         //Arrange
         let sut = self.buildSUT()
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
-            host: nil,
-            shouldRememberHost: true)
+            host: nil)
         self.dependencyContainer.accessServiceMock.isSessionOpenedReturnValue = true
         //Act
         sut.start()
@@ -67,8 +66,7 @@ extension AppCoordinatorTests {
         //Arrange
         let sut = self.buildSUT()
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
-            host: self.exampleURL,
-            shouldRememberHost: true)
+            host: self.exampleURL)
         self.dependencyContainer.accessServiceMock.isSessionOpenedReturnValue = true
         //Act
         sut.start()
@@ -80,15 +78,14 @@ extension AppCoordinatorTests {
 
 // MARK: - finish()
 extension AppCoordinatorTests {
-    func testServerConfigurationCoordinatorFinishBlockRunAuthenticatioFlow() throws {
+    func testServerConfigurationCoordinatorFinishBlockRunAuthenticationFlow() throws {
         //Arrange
         let sut = self.buildSUT()
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = nil
         sut.start()
         let serverConfigurationCoordinator = sut.children.first as? AuthenticationCoordinator
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
-            host: self.exampleURL,
-            shouldRememberHost: true)
+            host: self.exampleURL)
         //Act
         serverConfigurationCoordinator?.finish()
         //Assert
@@ -100,8 +97,7 @@ extension AppCoordinatorTests {
         //Arrange
         let sut = self.buildSUT()
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
-            host: self.exampleURL,
-            shouldRememberHost: true)
+            host: self.exampleURL)
         self.dependencyContainer.accessServiceMock.isSessionOpenedReturnValue = true
         sut.start()
         let child = try XCTUnwrap(sut.children.first as? TimeTableTabCoordinator)
@@ -117,8 +113,7 @@ extension AppCoordinatorTests {
         //Arrange
         let sut = self.buildSUT()
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
-            host: self.exampleURL,
-            shouldRememberHost: true)
+            host: self.exampleURL)
         self.dependencyContainer.accessServiceMock.isSessionOpenedReturnValue = true
         sut.start()
         let child = try XCTUnwrap(sut.children.first as? TimeTableTabCoordinator)

@@ -14,7 +14,6 @@ class ServerConfigurationViewControllerMock: UIViewController {
     // MARK: - ServerConfigurationViewModelOutput
     private(set) var setUpViewParams: [SetUpViewParams] = []
     struct SetUpViewParams {
-        var checkBoxIsActive: Bool
         var serverAddress: String
     }
     
@@ -50,8 +49,8 @@ class ServerConfigurationViewControllerMock: UIViewController {
 
 // MARK: - ServerConfigurationViewModelOutput
 extension ServerConfigurationViewControllerMock: ServerConfigurationViewModelOutput {
-    func setUpView(checkBoxIsActive: Bool, serverAddress: String) {
-        self.setUpViewParams.append(SetUpViewParams(checkBoxIsActive: checkBoxIsActive, serverAddress: serverAddress))
+    func setUpView(serverAddress: String) {
+        self.setUpViewParams.append(SetUpViewParams(serverAddress: serverAddress))
     }
     
     func continueButtonEnabledState(_ isEnabled: Bool) {

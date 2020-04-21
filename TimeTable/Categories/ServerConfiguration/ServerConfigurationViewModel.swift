@@ -9,9 +9,8 @@
 import UIKit
 
 protocol ServerConfigurationViewModelOutput: class {
-    func setUpView(checkBoxIsActive: Bool, serverAddress: String)
+    func setUpView(serverAddress: String)
     func continueButtonEnabledState(_ isEnabled: Bool)
-    func checkBoxIsActiveState(_ isActive: Bool)
     func dismissKeyboard()
     func setActivityIndicator(isHidden: Bool)
     func setBottomContentInset(_ height: CGFloat)
@@ -23,7 +22,6 @@ protocol ServerConfigurationViewModelType: class {
     func continueButtonTapped()
     func serverAddressDidChange(text: String?)
     func serverAddressTextFieldDidRequestForReturn() -> Bool
-    func checkboxButtonTapped(isActive: Bool)
     func viewTapped()
 }
 
@@ -35,7 +33,6 @@ class ServerConfigurationViewModel {
     private let notificationCenter: NotificationCenterType
     
     private var serverAddress: String?
-    private var shouldRememberHost: Bool = true
     
     // MARK: - Initialization
     init(
@@ -74,8 +71,7 @@ extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
     func viewDidLoad() {
         let oldConfiguration = self.serverConfigurationManager.getOldConfiguration()
         self.serverAddress = oldConfiguration?.host?.absoluteString
-        self.shouldRememberHost = oldConfiguration?.shouldRememberHost ?? true
-        self.userInterface?.setUpView(checkBoxIsActive: self.shouldRememberHost, serverAddress: self.serverAddress ?? "")
+        self.userInterface?.setUpView(serverAddress: self.serverAddress ?? "")
     }
     
     func viewWillAppear() {
@@ -91,7 +87,7 @@ extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
             self.errorHandler.throwing(error: UIError.invalidFormat(.serverAddressTextField))
             return
         }
-        let configuration = ServerConfiguration(host: hostURL, shouldRememberHost: self.shouldRememberHost)
+        let configuration = ServerConfiguration(host: hostURL)
         self.userInterface?.setActivityIndicator(isHidden: false)
         self.userInterface?.continueButtonEnabledState(false)
         self.serverConfigurationManager.verify(configuration: configuration) { [weak self] result in
@@ -115,11 +111,6 @@ extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
         self.userInterface?.dismissKeyboard()
         self.continueButtonTapped()
         return true
-    }
-    
-    func checkboxButtonTapped(isActive: Bool) {
-        self.shouldRememberHost = !isActive
-        self.userInterface?.checkBoxIsActiveState(!isActive)
     }
     
     func viewTapped() {
