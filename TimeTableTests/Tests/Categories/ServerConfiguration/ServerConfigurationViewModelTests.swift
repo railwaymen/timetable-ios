@@ -36,7 +36,6 @@ extension ServerConfigurationViewModelTests {
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setUpViewParams.count, 1)
         XCTAssertEqual(self.userInterfaceMock.setUpViewParams.last?.serverAddress, "")
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setUpViewParams.last?.checkBoxIsActive))
         XCTAssertEqual(self.userInterfaceMock.continueButtonEnabledStateParams.count, 0)
     }
 }
@@ -139,26 +138,6 @@ extension ServerConfigurationViewModelTests {
         //Assert
         let configuration = try XCTUnwrap(self.coordinatorMock.serverConfigurationDidFinishParams.last?.serverConfiguration)
         XCTAssertEqual(configuration.host, try XCTUnwrap(URL(string: hostString.apiSuffix().httpPrefix())))
-        XCTAssertTrue(configuration.shouldRememberHost)
-        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-        XCTAssertEqual(self.userInterfaceMock.continueButtonEnabledStateParams.count, 2)
-        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.continueButtonEnabledStateParams.last).isEnabled)
-    }
-    
-    func testViewRequestedToContinueCreateCorrectServerConfigurationWithStaySigneInAsFalse() throws {
-        //Arrange
-        let sut = self.buildSUT()
-        let hostString = "www.example.com"
-        sut.serverAddressDidChange(text: hostString)
-        sut.checkboxButtonTapped(isActive: true)
-        //Act
-        sut.continueButtonTapped()
-        self.serverConfigurationManagerMock.verifyParams.last?.completion(.success(Void()))
-        //Assert
-        let configuration = try XCTUnwrap(self.coordinatorMock.serverConfigurationDidFinishParams.last?.serverConfiguration)
-        XCTAssertEqual(configuration.host, try XCTUnwrap(URL(string: hostString.apiSuffix().httpPrefix())))
-        XCTAssertFalse(configuration.shouldRememberHost)
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
         XCTAssertEqual(self.userInterfaceMock.continueButtonEnabledStateParams.count, 2)

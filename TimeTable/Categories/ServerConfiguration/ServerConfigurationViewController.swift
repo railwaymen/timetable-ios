@@ -21,7 +21,6 @@ class ServerConfigurationViewController: UIViewController {
     @IBOutlet private var scrollView: UIScrollView!
     @IBOutlet private var continueButton: UIButton!
     @IBOutlet private var serverAddressTextField: UITextField!
-    @IBOutlet private var checkBoxButton: CheckBoxButton!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private var viewModel: ServerConfigurationViewModelType?
@@ -54,10 +53,6 @@ class ServerConfigurationViewController: UIViewController {
     @IBAction private func viewTapped(_ sender: UITapGestureRecognizer) {
         self.viewModel?.viewTapped()
     }
-    
-    @IBAction private func checkBoxButtonTapped(_ sender: CheckBoxButton) {
-        self.viewModel?.checkboxButtonTapped(isActive: sender.isActive)
-    }
 }
 
 // MARK: - UITextFieldDelegate
@@ -77,8 +72,7 @@ extension ServerConfigurationViewController: ServerConfigurationViewControllerTy
 
 // MARK: - ServerConfigurationViewModelOutput
 extension ServerConfigurationViewController: ServerConfigurationViewModelOutput {
-    func setUpView(checkBoxIsActive: Bool, serverAddress: String) {
-        self.checkBoxButton.isActive = checkBoxIsActive
+    func setUpView(serverAddress: String) {
         self.serverAddressTextField.text = serverAddress
         self.continueButton.isEnabled = !serverAddress.isEmpty
         self.setUpActivityIndicator()
@@ -89,16 +83,6 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
         self.continueButton.backgroundColor = isEnabled ? .enabledButton : .disabledButton
     }
     
-    func checkBoxIsActiveState(_ isActive: Bool) {
-        UIView.transition(
-            with: self.checkBoxButton,
-            duration: 0.15,
-            options: .transitionCrossDissolve,
-            animations: { [weak self] in
-                self?.checkBoxButton.isActive = isActive
-        })
-    }
-
     func dismissKeyboard() {
         self.view.endEditing(true)
     }

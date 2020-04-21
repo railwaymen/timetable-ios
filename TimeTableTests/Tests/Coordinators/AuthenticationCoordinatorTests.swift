@@ -49,26 +49,12 @@ extension AuthenticationCoordinatorTests {
         XCTAssertEqual(sut.navigationController.children.count, 1)
         XCTAssert(sut.navigationController.children.last is ServerConfigurationViewControllerable)
     }
-
-    func testStart_withNotRememberedServerConfiguration_runsServerConfigurationFlow() {
-        //Arrange
-        let sut = self.buildSUT()
-        self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
-            host: self.exampleURL,
-            shouldRememberHost: false)
-        //Act
-        sut.start { _ in }
-        //Assert
-        XCTAssertEqual(sut.navigationController.children.count, 1)
-        XCTAssert(sut.navigationController.children.last is ServerConfigurationViewControllerable)
-    }
     
     func testStart_withServerConfiguration_runsLoginFlow() {
         //Arrange
         let sut = self.buildSUT()
         self.dependencyContainer.serverConfigurationManagerMock.getOldConfigurationReturnValue = ServerConfiguration(
-            host: self.exampleURL,
-            shouldRememberHost: true)
+            host: self.exampleURL)
         //Act
         sut.start { _ in }
         //Assert

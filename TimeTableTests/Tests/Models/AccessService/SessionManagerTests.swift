@@ -40,8 +40,7 @@ extension SessionManagerTests {
         let sut = self.buildSUT()
         let session = try self.buildSessionDecoder()
         self.serverConfigurationManager.getOldConfigurationReturnValue = ServerConfiguration(
-            host: self.exampleURL,
-            shouldRememberHost: false)
+            host: self.exampleURL)
         //Act
         sut.open(session: session)
         //Assert

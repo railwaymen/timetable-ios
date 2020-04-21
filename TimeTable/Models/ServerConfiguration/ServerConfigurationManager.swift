@@ -34,21 +34,15 @@ class ServerConfigurationManager {
 extension ServerConfigurationManager {
     private struct UserDefaultsKeys {
         static let hostURLKey = "key.time_table.server_configuration.host"
-        static let shouldRemeberHostKey = "key.time_table.server_configuration.should_remeber_host_key"
     }
 }
 
 // MARK: - ServerConfigurationManagerType
 extension ServerConfigurationManager: ServerConfigurationManagerType {
     func getOldConfiguration() -> ServerConfiguration? {
-        let shouldRememberHost = self.userDefaults.bool(forKey: UserDefaultsKeys.shouldRemeberHostKey)
-        var configuration = ServerConfiguration(host: nil, shouldRememberHost: shouldRememberHost)
-        if shouldRememberHost {
-            guard let hostURLString = self.userDefaults.string(forKey: UserDefaultsKeys.hostURLKey) else { return nil }
-            guard let hostURL = URL(string: hostURLString) else { return nil }
-            configuration.host = hostURL
-        }
-        return configuration
+        guard let hostURLString = self.userDefaults.string(forKey: UserDefaultsKeys.hostURLKey) else { return nil }
+        guard let hostURL = URL(string: hostURLString) else { return nil }
+        return ServerConfiguration(host: hostURL)
     }
     
     func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void, Error>) -> Void)) {
@@ -86,9 +80,7 @@ extension ServerConfigurationManager {
     }
     
     private func save(configuration: ServerConfiguration) {
-        if configuration.shouldRememberHost, let hostURL = configuration.host {
-            self.userDefaults.set(hostURL.absoluteString, forKey: UserDefaultsKeys.hostURLKey)
-        }
-        self.userDefaults.set(configuration.shouldRememberHost, forKey: UserDefaultsKeys.shouldRemeberHostKey)
+        guard let hostURL = configuration.host else { return }
+        self.userDefaults.set(hostURL.absoluteString, forKey: UserDefaultsKeys.hostURLKey)
     }
 }

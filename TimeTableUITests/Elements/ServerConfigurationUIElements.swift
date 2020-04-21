@@ -10,19 +10,17 @@ import XCTest
 
 struct ServerConfigurationUIElements: UIElements {
     let serverURLTextField: XCUIElement
-    let staySignedButton: XCUIElement
     let loginButton: XCUIElement
     let keyboard: XCUIElement
     let scrollView: XCUIElement
     
     var requiredElements: [XCUIElement] {
-        [self.serverURLTextField, self.staySignedButton, self.loginButton, self.scrollView]
+        [self.serverURLTextField, self.loginButton, self.scrollView]
     }
     
     // MARK: - Initialization
     init(app: XCUIApplication) {
         self.serverURLTextField = app.textFields[ElementKey.serverURLTextField.rawValue]
-        self.staySignedButton = app.buttons[ElementKey.staySignedButton.rawValue]
         self.loginButton = app.buttons[ElementKey.loginButton.rawValue]
         self.keyboard = app.keyboards.firstMatch
         self.scrollView = app.scrollViews.firstMatch
@@ -34,6 +32,5 @@ extension ServerConfigurationUIElements {
     private enum ElementKey: String {
         case loginButton
         case serverURLTextField
-        case staySignedButton
     }
 }

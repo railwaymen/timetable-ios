@@ -25,8 +25,7 @@ class AuthenticationCoordinator: NavigationCoordinator {
     private var apiClient: ApiClientType?
     
     private var oldServerConfiguration: ServerConfiguration? {
-        guard let configuration = self.dependencyContainer.serverConfigurationManager.getOldConfiguration() else { return nil }
-        return configuration.shouldRememberHost ? configuration : nil
+        self.dependencyContainer.serverConfigurationManager.getOldConfiguration()
     }
     
     // MARK: - Initialization
@@ -55,7 +54,7 @@ class AuthenticationCoordinator: NavigationCoordinator {
         case .login:
             self.runServerConfigurationFlow(animated: false)
             guard let url = self.dependencyContainer.environmentReader.getURL(forKey: .serverURL) else { return }
-            let serverConfiguration = ServerConfiguration(host: url, shouldRememberHost: false)
+            let serverConfiguration = ServerConfiguration(host: url)
             self.runAuthenticationFlow(
                 with: serverConfiguration,
                 animated: false)
