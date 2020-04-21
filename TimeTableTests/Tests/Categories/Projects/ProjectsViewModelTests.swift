@@ -11,6 +11,7 @@ import XCTest
 
 class ProjectsViewModelTests: XCTestCase {
     private var userInterfaceMock: ProjectsViewControllerMock!
+    private var coordinatorMock: ProjectsCoordinatorMock!
     private var apiClientMock: ApiClientMock!
     private var errorHandlerMock: ErrorHandlerMock!
     private var notificationCenterMock: NotificationCenterMock!
@@ -19,6 +20,7 @@ class ProjectsViewModelTests: XCTestCase {
     override func setUp() {
         super.setUp()
         self.userInterfaceMock = ProjectsViewControllerMock()
+        self.coordinatorMock = ProjectsCoordinatorMock()
         self.apiClientMock = ApiClientMock()
         self.errorHandlerMock = ErrorHandlerMock()
         self.notificationCenterMock = NotificationCenterMock()
@@ -219,6 +221,7 @@ extension ProjectsViewModelTests {
     private func buildSUT() -> ProjectsViewModel {
         return ProjectsViewModel(
             userInterface: self.userInterfaceMock,
+            coordinator: self.coordinatorMock,
             apiClient: self.apiClientMock,
             errorHandler: self.errorHandlerMock,
             notificationCenter: self.notificationCenterMock)

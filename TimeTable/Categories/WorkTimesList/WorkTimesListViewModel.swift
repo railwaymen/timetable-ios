@@ -42,6 +42,7 @@ protocol WorkTimesListViewModelType: class {
     func viewRequestForNewWorkTimeView(sourceView: UIView)
     func viewRequestedForEditEntry(sourceView: UITableViewCell, at indexPath: IndexPath)
     func viewRequestToRefresh(completion: @escaping () -> Void)
+    func viewRequestForProfileView()
 }
 
 typealias WorkTimesListApiClientType = (ApiClientWorkTimesType & ApiClientMatchingFullTimeType)
@@ -240,6 +241,10 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
                 self?.handleFetch(error: error)
             }
         }
+    }
+    
+    func viewRequestForProfileView() {
+        self.coordinator?.workTimesRequestedForProfileView()
     }
 }
 

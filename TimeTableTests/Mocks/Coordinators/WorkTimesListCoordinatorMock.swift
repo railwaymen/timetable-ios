@@ -26,6 +26,9 @@ class WorkTimesListCoordinatorMock {
     struct WorkTimesRequestedForTaskHistoryParams {
         let taskForm: TaskForm
     }
+    
+    private(set) var workTimesRequestedForProfileViewParams: [WorkTimesRequestedForProfileViewParams] = []
+    struct WorkTimesRequestedForProfileViewParams {}
 }
 
 // MARK: - WorkTimesListCoordinatorDelegate
@@ -48,5 +51,9 @@ extension WorkTimesListCoordinatorMock: WorkTimesListCoordinatorDelegate {
     
     func workTimesRequestedForTaskHistory(taskForm: TaskForm) {
         self.workTimesRequestedForTaskHistoryParams.append(WorkTimesRequestedForTaskHistoryParams(taskForm: taskForm))
+    }
+    
+    func workTimesRequestedForProfileView() {
+        self.workTimesRequestedForProfileViewParams.append(WorkTimesRequestedForProfileViewParams())
     }
 }

@@ -99,4 +99,17 @@ class DependencyContainerMock: DependencyContainerType {
     var viewControllerBuilder: ViewControllerBuilderType {
         self.viewControllerBuilderMock
     }
+    
+    private(set) var parentCoordinatorSetCalled: Bool = false
+    private(set) var parentCoordinatorSetValue: ParentCoordinator?
+    var parentCoordinatorMock: ParentCoordinatorMock? = ParentCoordinatorMock()
+    var parentCoordinator: ParentCoordinator? {
+        get {
+            self.parentCoordinatorMock
+        }
+        set {
+            self.parentCoordinatorSetCalled = true
+            self.parentCoordinatorSetValue = newValue
+        }
+    }
 }

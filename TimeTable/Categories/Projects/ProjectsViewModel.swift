@@ -23,10 +23,12 @@ protocol ProjectsViewModelType: class {
     func item(at index: IndexPath) -> ProjectRecordDecoder?
     func configure(_ view: ErrorViewable)
     func refreshData(completion: @escaping () -> Void)
+    func profileButtonTapped()
 }
 
 class ProjectsViewModel {
     private weak var userInterface: ProjectsViewModelOutput?
+    private weak var coordinator: ProjectsCoordinatorType?
     private let apiClient: ApiClientProjectsType
     private let errorHandler: ErrorHandlerType
     private weak var notificationCenter: NotificationCenterType?
@@ -37,11 +39,13 @@ class ProjectsViewModel {
     // MARK: - Initialization
     init(
         userInterface: ProjectsViewModelOutput?,
+        coordinator: ProjectsCoordinatorType?,
         apiClient: ApiClientProjectsType,
         errorHandler: ErrorHandlerType,
         notificationCenter: NotificationCenterType
     ) {
         self.userInterface = userInterface
+        self.coordinator = coordinator
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.notificationCenter = notificationCenter
@@ -89,6 +93,10 @@ extension ProjectsViewModel: ProjectsViewModelType {
                 self?.handleFetch(error: error)
             }
         }
+    }
+    
+    func profileButtonTapped() {
+        self.coordinator?.showProfile()
     }
 }
  

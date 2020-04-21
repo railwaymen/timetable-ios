@@ -22,13 +22,10 @@ class TimeTableTabCoordinator: TabBarCoordinator {
         
         let projectsCoordinator = ProjectsCoordinator(dependencyContainer: dependencyContainer)
         let workTimeCoordinator = WorkTimesListCoordinator(dependencyContainer: dependencyContainer)
-        let userCoordinator = ProfileCoordinator(
-            dependencyContainer: dependencyContainer,
-            parent: self)
         
         self.tabBarController.tabBar.tintColor = .tint
         dependencyContainer.window?.rootViewController = self.tabBarController
-        let children = [projectsCoordinator, workTimeCoordinator, userCoordinator]
+        let children = [projectsCoordinator, workTimeCoordinator]
         children.forEach {
             self.add(child: $0)
             $0.start()

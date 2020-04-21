@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ProjectsCoordinatorType: class {
+    func showProfile()
+}
+
 class ProjectsCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
     private let dependencyContainer: DependencyContainerType
     
@@ -38,6 +42,14 @@ class ProjectsCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
     }
 }
 
+// MARK: - ProjectsCoordinatorType
+extension ProjectsCoordinator: ProjectsCoordinatorType {
+    func showProfile() {
+        let parentViewController = self.navigationController.topViewController ?? self.navigationController
+        self.dependencyContainer.parentCoordinator?.showProfile(parentViewController: parentViewController)
+    }
+}
+
 // MARK: - Private
 extension ProjectsCoordinator {
     private func runMainFlow() {
@@ -49,6 +61,7 @@ extension ProjectsCoordinator {
             let controller = try self.dependencyContainer.viewControllerBuilder.projects()
             let viewModel = ProjectsViewModel(
                 userInterface: controller,
+                coordinator: self,
                 apiClient: apiClient,
                 errorHandler: self.dependencyContainer.errorHandler,
                 notificationCenter: self.dependencyContainer.notificationCenter)

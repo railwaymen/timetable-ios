@@ -16,28 +16,21 @@ protocol ProfileCoordinatorDelegate: class {
    func userProfileDidLogoutUser()
 }
 
-class ProfileCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
+class ProfileCoordinator: NavigationCoordinator {
     private let dependencyContainer: DependencyContainerType
     private weak var parent: ProfileCoordinatorParentType?
-    
-    var root: UIViewController {
-        return self.navigationController
-    }
-    var tabBarItem: UITabBarItem
+    private weak var parentViewController: UIViewController?
     
     // MARK: - Initialization
     init(
         dependencyContainer: DependencyContainerType,
-        parent: ProfileCoordinatorParentType?
+        parent: ProfileCoordinatorParentType?,
+        parentViewController: UIViewController?
     ) {
         self.dependencyContainer = dependencyContainer
         self.parent = parent
-        self.tabBarItem = UITabBarItem(
-            title: R.string.localizable.tabbarTitleProfile(),
-            image: .profile,
-            selectedImage: nil)
+        self.parentViewController = parentViewController
         super.init(window: dependencyContainer.window)
-        self.root.tabBarItem = self.tabBarItem
     }
 
     // MARK: - Overridden
@@ -46,6 +39,7 @@ class ProfileCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
         self.runMainFlow()
         self.navigationController.setNavigationBarHidden(false, animated: false)
         self.navigationController.navigationBar.prefersLargeTitles = true
+        self.navigationController.navigationBar.tintColor = .tint
     }
 }
 
@@ -72,7 +66,8 @@ extension ProfileCoordinator {
                 accessService: self.dependencyContainer.accessService,
                 errorHandler: self.dependencyContainer.errorHandler)
             controller.configure(viewModel: viewModel)
-            self.navigationController.pushViewController(controller, animated: false)
+            self.navigationController.setViewControllers([controller], animated: false)
+            self.parentViewController?.present(self.navigationController, animated: true)
         } catch {
             self.dependencyContainer.errorHandler.stopInDebug("\(error)")
         }

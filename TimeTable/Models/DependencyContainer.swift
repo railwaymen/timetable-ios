@@ -25,6 +25,7 @@ protocol DependencyContainerType {
     var environmentReader: EnvironmentReaderType { get }
     var taskFormFactory: TaskFormFactoryType { get }
     var viewControllerBuilder: ViewControllerBuilderType { get }
+    var parentCoordinator: ParentCoordinator? { get set }
 }
 
 struct DependencyContainer: DependencyContainerType {
@@ -44,6 +45,7 @@ struct DependencyContainer: DependencyContainerType {
     let environmentReader: EnvironmentReaderType
     let taskFormFactory: TaskFormFactoryType
     let viewControllerBuilder: ViewControllerBuilderType
+    weak var parentCoordinator: ParentCoordinator?
     
     // MARK: - Initialization
     init(

@@ -45,6 +45,10 @@ class WorkTimesListViewController: UIViewController {
             }
         }
     }
+    
+    @objc private func profileButtonTapped() {
+        self.viewModel.viewRequestForProfileView()
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -119,6 +123,7 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
         self.setUpTableView()
         self.setUpRefreshControl()
         self.setUpNavigationItem()
+        self.setUpBarButtons()
         self.setUpActivityIndicator()
         self.viewModel.configure(errorView)
         self.tableView.set(isHidden: true)
@@ -263,9 +268,24 @@ extension WorkTimesListViewController {
     }
     
     private func setUpNavigationItem() {
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addNewRecordTapped))
-        self.navigationItem.setRightBarButtonItems([addButton], animated: false)
         self.title = R.string.localizable.tabbarTitleTimesheet()
+    }
+    
+    private func setUpBarButtons() {
+        guard let navigationBar = self.navigationController?.navigationBar else { return }
+        let addImageView = self.buildImageView(image: .plus, action: #selector(self.addNewRecordTapped))
+        let profileImageView = self.buildImageView(image: .profile, action: #selector(self.profileButtonTapped))
+        navigationBar.setLargeTitleRightViews([addImageView, profileImageView])
+    }
+    
+    private func buildImageView(image: UIImage?, action: Selector) -> UIImageView {
+        let imageView = UIImageView(image: image)
+        let tap = UITapGestureRecognizer(target: self, action: action)
+        imageView.tintColor = .tint
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(tap)
+        imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
+        return imageView
     }
     
     private func setUpActivityIndicator() {
