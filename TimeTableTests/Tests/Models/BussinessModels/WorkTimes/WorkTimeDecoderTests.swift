@@ -22,7 +22,7 @@ extension WorkTimeDecoderTests {
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
         let date = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 0)
         let project = try self.projectDecoderFactory.build(wrapper: .init(
-            identifier: 3,
+            id: 3,
             name: "Lorem Ipsum",
             color: UIColor(hexString: "fe0404"),
             isLunch: false,
@@ -32,16 +32,16 @@ extension WorkTimeDecoderTests {
         //Act
         let sut = try self.decoder.decode(WorkTimeDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 16239)
+        XCTAssertEqual(sut.id, 16239)
         XCTAssertFalse(sut.updatedByAdmin)
-        XCTAssertEqual(sut.projectId, 3)
+        XCTAssertEqual(sut.projectID, 3)
         XCTAssertEqual(sut.startsAt, startsAt)
         XCTAssertEqual(sut.endsAt, endsAt)
         XCTAssertEqual(sut.duration, 3600)
         XCTAssertEqual(sut.body, "Bracket - v2")
         XCTAssertEqual(sut.task, "https://www.example.com/task1")
         XCTAssertEqual(sut.taskPreview, "task1")
-        XCTAssertEqual(sut.userId, 11)
+        XCTAssertEqual(sut.userID, 11)
         XCTAssertEqual(sut.date, date)
         XCTAssertEqual(sut.project, project)
     }
@@ -65,7 +65,7 @@ extension WorkTimeDecoderTests {
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
         let date = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 0)
         let project = try self.projectDecoderFactory.build(wrapper: .init(
-            identifier: 3,
+            id: 3,
             name: "Lorem Ipsum",
             color: UIColor(hexString: "fe0404"),
             isLunch: false,
@@ -75,16 +75,16 @@ extension WorkTimeDecoderTests {
         //Act
         let sut = try self.decoder.decode(WorkTimeDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 16239)
+        XCTAssertEqual(sut.id, 16239)
         XCTAssertFalse(sut.updatedByAdmin)
-        XCTAssertEqual(sut.projectId, 3)
+        XCTAssertEqual(sut.projectID, 3)
         XCTAssertEqual(sut.startsAt, startsAt)
         XCTAssertEqual(sut.endsAt, endsAt)
         XCTAssertEqual(sut.duration, 3600)
         XCTAssertNil(sut.body)
         XCTAssertEqual(sut.task, "https://www.example.com/task1")
         XCTAssertEqual(sut.taskPreview, "task1")
-        XCTAssertEqual(sut.userId, 11)
+        XCTAssertEqual(sut.userID, 11)
         XCTAssertEqual(sut.date, date)
         XCTAssertEqual(sut.project, project)
     }
@@ -96,7 +96,7 @@ extension WorkTimeDecoderTests {
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
         let date = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 0)
         let project = try self.projectDecoderFactory.build(wrapper: .init(
-            identifier: 3,
+            id: 3,
             name: "Lorem Ipsum",
             color: UIColor(hexString: "fe0404"),
             isLunch: false,
@@ -106,16 +106,16 @@ extension WorkTimeDecoderTests {
         //Act
         let sut = try self.decoder.decode(WorkTimeDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 16239)
+        XCTAssertEqual(sut.id, 16239)
         XCTAssertFalse(sut.updatedByAdmin)
-        XCTAssertEqual(sut.projectId, 3)
+        XCTAssertEqual(sut.projectID, 3)
         XCTAssertEqual(sut.startsAt, startsAt)
         XCTAssertEqual(sut.endsAt, endsAt)
         XCTAssertEqual(sut.duration, 3600)
         XCTAssertNil(sut.body)
         XCTAssertEqual(sut.task, "https://www.example.com/task1")
         XCTAssertEqual(sut.taskPreview, "task1")
-        XCTAssertEqual(sut.userId, 11)
+        XCTAssertEqual(sut.userID, 11)
         XCTAssertEqual(sut.date, date)
         XCTAssertEqual(sut.project, project)
     }
@@ -127,7 +127,7 @@ extension WorkTimeDecoderTests {
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
         let date = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 0)
         let project = try self.projectDecoderFactory.build(wrapper: .init(
-            identifier: 3,
+            id: 3,
             name: "Lorem Ipsum",
             color: UIColor(hexString: "fe0404"),
             isLunch: false,
@@ -137,16 +137,16 @@ extension WorkTimeDecoderTests {
         //Act
         let sut = try self.decoder.decode(WorkTimeDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 16239)
+        XCTAssertEqual(sut.id, 16239)
         XCTAssertFalse(sut.updatedByAdmin)
-        XCTAssertEqual(sut.projectId, 3)
+        XCTAssertEqual(sut.projectID, 3)
         XCTAssertEqual(sut.startsAt, startsAt)
         XCTAssertEqual(sut.endsAt, endsAt)
         XCTAssertEqual(sut.duration, 3600)
         XCTAssertEqual(sut.body, "Bracket - v2")
         XCTAssertNil(sut.task)
         XCTAssertEqual(sut.taskPreview, "task1")
-        XCTAssertEqual(sut.userId, 11)
+        XCTAssertEqual(sut.userID, 11)
         XCTAssertEqual(sut.date, date)
         XCTAssertEqual(sut.project, project)
     }
@@ -158,7 +158,7 @@ extension WorkTimeDecoderTests {
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
         let date = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 0)
         let project = try self.projectDecoderFactory.build(wrapper: .init(
-            identifier: 3,
+            id: 3,
             name: "Lorem Ipsum",
             color: UIColor(hexString: "fe0404"),
             isLunch: false,
@@ -168,16 +168,16 @@ extension WorkTimeDecoderTests {
         //Act
         let sut = try self.decoder.decode(WorkTimeDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 16239)
+        XCTAssertEqual(sut.id, 16239)
         XCTAssertFalse(sut.updatedByAdmin)
-        XCTAssertEqual(sut.projectId, 3)
+        XCTAssertEqual(sut.projectID, 3)
         XCTAssertEqual(sut.startsAt, startsAt)
         XCTAssertEqual(sut.endsAt, endsAt)
         XCTAssertEqual(sut.duration, 3600)
         XCTAssertEqual(sut.body, "Bracket - v2")
         XCTAssertNil(sut.task)
         XCTAssertEqual(sut.taskPreview, "task1")
-        XCTAssertEqual(sut.userId, 11)
+        XCTAssertEqual(sut.userID, 11)
         XCTAssertEqual(sut.date, date)
         XCTAssertEqual(sut.project, project)
     }
@@ -189,7 +189,7 @@ extension WorkTimeDecoderTests {
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
         let date = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 0)
         let project = try self.projectDecoderFactory.build(wrapper: .init(
-            identifier: 3,
+            id: 3,
             name: "Lorem Ipsum",
             color: UIColor(hexString: "fe0404"),
             isLunch: false,
@@ -199,16 +199,16 @@ extension WorkTimeDecoderTests {
         //Act
         let sut = try self.decoder.decode(WorkTimeDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 16239)
+        XCTAssertEqual(sut.id, 16239)
         XCTAssertFalse(sut.updatedByAdmin)
-        XCTAssertEqual(sut.projectId, 3)
+        XCTAssertEqual(sut.projectID, 3)
         XCTAssertEqual(sut.startsAt, startsAt)
         XCTAssertEqual(sut.endsAt, endsAt)
         XCTAssertEqual(sut.duration, 3600)
         XCTAssertEqual(sut.body, "Bracket - v2")
         XCTAssertEqual(sut.task, "https://www.example.com/task1")
         XCTAssertNil(sut.taskPreview)
-        XCTAssertEqual(sut.userId, 11)
+        XCTAssertEqual(sut.userID, 11)
         XCTAssertEqual(sut.date, date)
         XCTAssertEqual(sut.project, project)
     }
@@ -220,7 +220,7 @@ extension WorkTimeDecoderTests {
         let endsAt = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 16)
         let date = try self.buildDate(timeZone: timeZone, year: 2018, month: 11, day: 21, hour: 0)
         let project = try self.projectDecoderFactory.build(wrapper: .init(
-            identifier: 3,
+            id: 3,
             name: "Lorem Ipsum",
             color: UIColor(hexString: "fe0404"),
             isLunch: false,
@@ -230,16 +230,16 @@ extension WorkTimeDecoderTests {
         //Act
         let sut = try self.decoder.decode(WorkTimeDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 16239)
+        XCTAssertEqual(sut.id, 16239)
         XCTAssertFalse(sut.updatedByAdmin)
-        XCTAssertEqual(sut.projectId, 3)
+        XCTAssertEqual(sut.projectID, 3)
         XCTAssertEqual(sut.startsAt, startsAt)
         XCTAssertEqual(sut.endsAt, endsAt)
         XCTAssertEqual(sut.duration, 3600)
         XCTAssertEqual(sut.body, "Bracket - v2")
         XCTAssertEqual(sut.task, "https://www.example.com/task1")
         XCTAssertNil(sut.taskPreview)
-        XCTAssertEqual(sut.userId, 11)
+        XCTAssertEqual(sut.userID, 11)
         XCTAssertEqual(sut.date, date)
         XCTAssertEqual(sut.project, project)
     }

@@ -111,8 +111,8 @@ extension WorkTimeContentProvider: WorkTimeContentProviderType {
     func save(taskForm: TaskFormType, completion: @escaping WorkTimeSaveTaskCompletion) {
         do {
             let task = try self.validate(taskForm: taskForm)
-            if let workTimeIdentifier = taskForm.workTimeIdentifier {
-                self.apiClient.updateWorkTime(identifier: workTimeIdentifier, parameters: task, completion: completion)
+            if let workTimeID = taskForm.workTimeID {
+                self.apiClient.updateWorkTime(id: workTimeID, parameters: task, completion: completion)
             } else {
                 self.apiClient.addWorkTime(parameters: task, completion: completion)
             }

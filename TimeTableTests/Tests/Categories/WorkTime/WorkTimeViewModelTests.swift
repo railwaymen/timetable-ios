@@ -39,7 +39,7 @@ class WorkTimeViewModelTests: XCTestCase {
 extension WorkTimeViewModelTests {
     func testInitialization_newEntry_buildsTaskForm() throws {
         //Arrange
-        let lastTask = try self.createTask(workTimeIdentifier: 12)
+        let lastTask = try self.createTask(workTimeID: 12)
         //Act
         _ = self.buildSUT(flowType: .newEntry(lastTask: lastTask))
         //Assert
@@ -50,7 +50,7 @@ extension WorkTimeViewModelTests {
     
     func testInitialization_editEntry_doesNotBuildTaskForm() throws {
         //Arrange
-        let task = try self.createTask(workTimeIdentifier: 123)
+        let task = try self.createTask(workTimeID: 123)
         //Act
         _ = self.buildSUT(flowType: .editEntry(editedTask: task))
         //Assert
@@ -59,8 +59,8 @@ extension WorkTimeViewModelTests {
     
     func testInitialization_duplicateEntry_buildsTaskForm() throws {
         //Arrange
-        let task = try self.createTask(workTimeIdentifier: 123)
-        let lastTask = try self.createTask(workTimeIdentifier: 12)
+        let task = try self.createTask(workTimeID: 123)
+        let lastTask = try self.createTask(workTimeID: 12)
         //Act
         _ = self.buildSUT(flowType: .duplicateEntry(duplicatedTask: task, lastTask: lastTask))
         //Assert
@@ -201,7 +201,7 @@ extension WorkTimeViewModelTests {
     // MARK: Edit entry
     func testViewDidLoad_editEntry_setsUpUI() throws {
         //Arrange
-        let task = try self.createTask(workTimeIdentifier: 123)
+        let task = try self.createTask(workTimeID: 123)
         let sut = self.buildSUT(flowType: .editEntry(editedTask: task))
         self.contentProviderMock.getPredefinedDayReturnValue = try XCTUnwrap(task.day)
         self.contentProviderMock.getPredefinedTimeBoundsReturnValue = (try XCTUnwrap(task.startsAt), try XCTUnwrap(task.endsAt))
@@ -643,9 +643,9 @@ extension WorkTimeViewModelTests {
     
     private func fetchProjects(sut: WorkTimeViewModel) throws {
         let projectDecoders = [
-            try self.projectDecoderFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 1)),
-            try self.projectDecoderFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 2)),
-            try self.projectDecoderFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 4))
+            try self.projectDecoderFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(id: 1)),
+            try self.projectDecoderFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(id: 2)),
+            try self.projectDecoderFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(id: 4))
         ]
         let tags: [ProjectTag] = [
             .development,
@@ -656,10 +656,10 @@ extension WorkTimeViewModelTests {
         sut.containerDidUpdate(projects: projectDecoders, tags: tags)
     }
     
-    private func createTask(workTimeIdentifier: Int64?) throws -> TaskForm {
+    private func createTask(workTimeID: Int64?) throws -> TaskForm {
         let project = try self.projectDecoderFactory.build()
         return TaskForm(
-            workTimeIdentifier: workTimeIdentifier,
+            workTimeID: workTimeID,
             project: project,
             body: "Blah blah blah",
             urlString: "http://example.com",

@@ -98,7 +98,7 @@ extension WorkTimesListViewController: UITableViewDelegate {
         _ tableView: UITableView,
         viewForHeaderInSection section: Int
     ) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: WorkTimesTableViewHeader.reuseIdentifier)
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: WorkTimesTableViewHeader.reuseID)
             as? WorkTimesTableViewHeaderable else {
                 return nil
         }
@@ -253,7 +253,7 @@ extension WorkTimesListViewController {
         self.tableView.register(WorkTimeTableViewCell.self)
         
         let nib = UINib(nibName: WorkTimesTableViewHeader.className, bundle: nil)
-        self.tableView.register(nib, forHeaderFooterViewReuseIdentifier: WorkTimesTableViewHeader.reuseIdentifier)
+        self.tableView.register(nib, forHeaderFooterViewReuseIdentifier: WorkTimesTableViewHeader.reuseID)
     }
     
     private func setUpRefreshControl() {

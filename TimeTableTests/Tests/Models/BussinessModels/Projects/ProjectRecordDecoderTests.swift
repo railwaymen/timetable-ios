@@ -19,13 +19,13 @@ extension ProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "Test Name")
         XCTAssertEqual(sut.color, UIColor(hexString: "0c0c0c"))
         XCTAssertEqual(sut.leader.firstName, "Leader")
         XCTAssertEqual(sut.leader.lastName, "Best")
         XCTAssertEqual(sut.users.count, 3)
-        XCTAssertEqual(sut.users.first?.identifier, 1)
+        XCTAssertEqual(sut.users.first?.id, 1)
         XCTAssertEqual(sut.users.first?.firstName, "John")
         XCTAssertEqual(sut.users.first?.lastName, "Smith")
     }
@@ -36,13 +36,13 @@ extension ProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "Test Name")
         XCTAssertNil(sut.color)
         XCTAssertEqual(sut.leader.firstName, "Leader")
         XCTAssertEqual(sut.leader.lastName, "Best")
         XCTAssertEqual(sut.users.count, 3)
-        XCTAssertEqual(sut.users.first?.identifier, 1)
+        XCTAssertEqual(sut.users.first?.id, 1)
         XCTAssertEqual(sut.users.first?.firstName, "John")
         XCTAssertEqual(sut.users.first?.lastName, "Smith")
     }
@@ -53,13 +53,13 @@ extension ProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "Test Name")
         XCTAssertNil(sut.color)
         XCTAssertEqual(sut.leader.firstName, "Leader")
         XCTAssertEqual(sut.leader.lastName, "Best")
         XCTAssertEqual(sut.users.count, 3)
-        XCTAssertEqual(sut.users.first?.identifier, 1)
+        XCTAssertEqual(sut.users.first?.id, 1)
         XCTAssertEqual(sut.users.first?.firstName, "John")
         XCTAssertEqual(sut.users.first?.lastName, "Smith")
     }
@@ -70,13 +70,13 @@ extension ProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "Test Name")
         XCTAssertEqual(sut.color, UIColor(hexString: "0c0c0c"))
         XCTAssertNil(sut.leader.firstName)
         XCTAssertEqual(sut.leader.lastName, "Best")
         XCTAssertEqual(sut.users.count, 3)
-        XCTAssertEqual(sut.users.first?.identifier, 1)
+        XCTAssertEqual(sut.users.first?.id, 1)
         XCTAssertEqual(sut.users.first?.firstName, "John")
         XCTAssertEqual(sut.users.first?.lastName, "Smith")
     }
@@ -87,13 +87,13 @@ extension ProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "Test Name")
         XCTAssertEqual(sut.color, UIColor(hexString: "0c0c0c"))
         XCTAssertNil(sut.leader.firstName)
         XCTAssertEqual(sut.leader.lastName, "Best")
         XCTAssertEqual(sut.users.count, 3)
-        XCTAssertEqual(sut.users.first?.identifier, 1)
+        XCTAssertEqual(sut.users.first?.id, 1)
         XCTAssertEqual(sut.users.first?.firstName, "John")
         XCTAssertEqual(sut.users.first?.lastName, "Smith")
     }
@@ -104,13 +104,13 @@ extension ProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "Test Name")
         XCTAssertEqual(sut.color, UIColor(hexString: "0c0c0c"))
         XCTAssertEqual(sut.leader.firstName, "Leader")
         XCTAssertNil(sut.leader.lastName)
         XCTAssertEqual(sut.users.count, 3)
-        XCTAssertEqual(sut.users.first?.identifier, 1)
+        XCTAssertEqual(sut.users.first?.id, 1)
         XCTAssertEqual(sut.users.first?.firstName, "John")
         XCTAssertEqual(sut.users.first?.lastName, "Smith")
     }
@@ -121,13 +121,13 @@ extension ProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "Test Name")
         XCTAssertEqual(sut.color, UIColor(hexString: "0c0c0c"))
         XCTAssertEqual(sut.leader.firstName, "Leader")
         XCTAssertNil(sut.leader.lastName)
         XCTAssertEqual(sut.users.count, 3)
-        XCTAssertEqual(sut.users.first?.identifier, 1)
+        XCTAssertEqual(sut.users.first?.id, 1)
         XCTAssertEqual(sut.users.first?.firstName, "John")
         XCTAssertEqual(sut.users.first?.lastName, "Smith")
     }
@@ -138,7 +138,7 @@ extension ProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "Test Name")
         XCTAssertEqual(sut.color, UIColor(hexString: "0c0c0c"))
         XCTAssertEqual(sut.leader.firstName, "Leader")
@@ -152,7 +152,7 @@ extension ProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(ProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "Test Name")
         XCTAssertEqual(sut.color, UIColor(hexString: "0c0c0c"))
         XCTAssertEqual(sut.leader.firstName, "Leader")

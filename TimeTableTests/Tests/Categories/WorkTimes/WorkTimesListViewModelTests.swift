@@ -394,7 +394,7 @@ extension WorkTimesListViewModelTests {
         XCTAssertEqual(self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.sourceView, cell)
         let flowType = self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.flowType
         guard case let .editEntry(editedTask) = flowType else { return XCTFail() }
-        XCTAssertEqual(editedTask.workTimeIdentifier, workTime.identifier)
+        XCTAssertEqual(editedTask.workTimeID, workTime.id)
         XCTAssertEqual(editedTask.project, workTime.project)
         XCTAssertEqual(editedTask.body, workTime.body)
         XCTAssertEqual(editedTask.url?.absoluteString, workTime.task)
@@ -423,7 +423,7 @@ extension WorkTimesListViewModelTests {
         XCTAssertEqual(self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.sourceView, cell)
         let flowType = self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.flowType
         guard case let .duplicateEntry(duplicatedTask, lastTask) = flowType else { return XCTFail() }
-        XCTAssertEqual(duplicatedTask.workTimeIdentifier, duplicatedWorkTime?.identifier)
+        XCTAssertEqual(duplicatedTask.workTimeID, duplicatedWorkTime?.id)
         XCTAssertEqual(duplicatedTask.project, duplicatedWorkTime?.project)
         XCTAssertEqual(duplicatedTask.body, duplicatedWorkTime?.body)
         XCTAssertEqual(duplicatedTask.url?.absoluteString, duplicatedWorkTime?.task)
@@ -431,7 +431,7 @@ extension WorkTimesListViewModelTests {
         XCTAssertEqual(duplicatedTask.startsAt, duplicatedWorkTime?.startsAt)
         XCTAssertEqual(duplicatedTask.endsAt, duplicatedWorkTime?.endsAt)
         
-        XCTAssertEqual(lastTask?.workTimeIdentifier, firstWorkTime?.identifier)
+        XCTAssertEqual(lastTask?.workTimeID, firstWorkTime?.id)
         XCTAssertEqual(lastTask?.project, firstWorkTime?.project)
         XCTAssertEqual(lastTask?.body, firstWorkTime?.body)
         XCTAssertEqual(lastTask?.url?.absoluteString, firstWorkTime?.task)
@@ -507,10 +507,10 @@ extension WorkTimesListViewModelTests {
         return try self.matchingFullTimeDecoderFactory.build(accountingPeriod: accountingPeriod, shouldWorked: 360)
     }
     
-    private func buildWorkTimesDecoder(identifier: Int64, startsAt: Date, endsAt: Date) throws -> WorkTimeDecoder {
+    private func buildWorkTimesDecoder(id: Int64, startsAt: Date, endsAt: Date) throws -> WorkTimeDecoder {
         let project = try SimpleProjectRecordDecoderFactory().build()
         let wrapper = WorkTimeDecoderFactory.Wrapper(
-            identifier: identifier,
+            id: id,
             startsAt: startsAt,
             endsAt: endsAt,
             body: "body",
@@ -522,11 +522,11 @@ extension WorkTimesListViewModelTests {
     private func buildDailyWorkTime() throws -> DailyWorkTime {
         let workTimes = [
             try self.buildWorkTimesDecoder(
-                identifier: 1,
+                id: 1,
                 startsAt: self.startsAt(hour: 15),
                 endsAt: self.endsAt(hour: 16)),
             try self.buildWorkTimesDecoder(
-                identifier: 2,
+                id: 2,
                 startsAt: self.startsAt(hour: 12),
                 endsAt: self.endsAt(hour: 14))
         ]

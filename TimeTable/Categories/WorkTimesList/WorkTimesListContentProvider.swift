@@ -93,7 +93,7 @@ extension WorkTimesListContentProvider: WorkTimesListContentProviderType {
     }
     
     func delete(workTime: WorkTimeDecoder, completion: @escaping WorkTimesListDeleteCompletion) {
-        self.apiClient.deleteWorkTime(identifier: workTime.identifier, completion: completion)
+        self.apiClient.deleteWorkTime(id: workTime.id, completion: completion)
     }
 }
 
@@ -101,7 +101,7 @@ extension WorkTimesListContentProvider: WorkTimesListContentProviderType {
 extension WorkTimesListContentProvider {
     private func fetchWorkTimes(date: Date?, completion: @escaping (Result<[DailyWorkTime], Error>) -> Void) {
         let dates = self.getStartAndEndDate(for: date)
-        let parameters = WorkTimesParameters(fromDate: dates.startOfMonth, toDate: dates.endOfMonth, projectId: nil)
+        let parameters = WorkTimesParameters(fromDate: dates.startOfMonth, toDate: dates.endOfMonth, projectID: nil)
         self.fetchListTask = self.apiClient.fetchWorkTimes(parameters: parameters) { result in
             switch result {
             case let .success(workTimes):
@@ -126,11 +126,11 @@ extension WorkTimesListContentProvider {
     
     private func fetchMatchingFullTime(date: Date?, completion: @escaping (Result<MatchingFullTimeDecoder, Error>) -> Void) {
         guard let unwrappedDate = date,
-            let userID = self.accessService.getLastLoggedInUserIdentifier() else {
+            let userID = self.accessService.getLastLoggedInUserID() else {
                 completion(.failure(ApiClientError(type: .invalidParameters)))
                 return
         }
-        let parameters = MatchingFullTimeEncoder(date: unwrappedDate, userId: userID)
+        let parameters = MatchingFullTimeEncoder(date: unwrappedDate, userID: userID)
         self.apiClient.fetchMatchingFullTime(parameters: parameters, completion: completion)
     }
     

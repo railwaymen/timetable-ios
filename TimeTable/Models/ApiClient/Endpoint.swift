@@ -27,10 +27,10 @@ enum Endpoint: RestlerEndpointable, Equatable {
         case .projectsSimpleList: return "/projects/simple"
         case .signIn: return "/users/sign_in"
         case .tags: return "/projects/tags"
-        case .workTime(let identifier): return "/work_times/\(identifier)"
+        case let .workTime(id): return "/work_times/\(id)"
         case .workTimes: return "/work_times"
         case .workTimesCreateWithFilling: return "/work_times/create_filling_gaps"
-        case .user(let identifier): return "/users/\(identifier)"
+        case let .user(id): return "/users/\(id)"
         }
     }
 }

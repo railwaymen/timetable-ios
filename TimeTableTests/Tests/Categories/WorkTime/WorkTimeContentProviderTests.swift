@@ -442,7 +442,7 @@ extension WorkTimeContentProviderTests {
     func testSaveTask_updatesEditedTask() throws {
         //Arrange
         let sut = self.buildSUT()
-        self.taskForm.workTimeIdentifierReturnValue = 133
+        self.taskForm.workTimeIDReturnValue = 133
         self.taskForm.generateEncodableRepresentationReturnValue = try self.buildTask()
         var completionResult: WorkTimeSaveTaskResult?
         //Act
@@ -452,13 +452,13 @@ extension WorkTimeContentProviderTests {
         //Assert
         XCTAssertNil(completionResult)
         XCTAssertEqual(self.apiClient.updateWorkTimeParams.count, 1)
-        XCTAssertEqual(self.apiClient.updateWorkTimeParams.last?.identifier, 133)
+        XCTAssertEqual(self.apiClient.updateWorkTimeParams.last?.id, 133)
     }
     
     func testSaveTask_updateTaskRequestSuccess() throws {
         //Arrange
         let sut = self.buildSUT()
-        self.taskForm.workTimeIdentifierReturnValue = 133
+        self.taskForm.workTimeIDReturnValue = 133
         self.taskForm.generateEncodableRepresentationReturnValue = try self.buildTask()
         var completionResult: WorkTimeSaveTaskResult?
         //Act
@@ -475,7 +475,7 @@ extension WorkTimeContentProviderTests {
         //Arrange
         let sut = self.buildSUT()
         let error = TestError(message: "error")
-        self.taskForm.workTimeIdentifierReturnValue = 133
+        self.taskForm.workTimeIDReturnValue = 133
         self.taskForm.generateEncodableRepresentationReturnValue = try self.buildTask()
         var completionResult: WorkTimeSaveTaskResult?
         //Act
@@ -956,9 +956,9 @@ extension WorkTimeContentProviderTests {
     
     private func buildProjects() throws -> [SimpleProjectRecordDecoder] {
         return [
-            try self.projectFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 1)),
-            try self.projectFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 2)),
-            try self.projectFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(identifier: 3))
+            try self.projectFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(id: 1)),
+            try self.projectFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(id: 2)),
+            try self.projectFactory.build(wrapper: SimpleProjectRecordDecoderFactory.Wrapper(id: 3))
         ]
     }
     

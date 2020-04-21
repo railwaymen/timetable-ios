@@ -20,7 +20,7 @@ class ApiClientUsersTests: XCTestCase {
     }
 }
 
-// MARK: - fetchUserProfile(forIdetifier identifier: Int64, completion: @escaping ((Result<UserDecoder, Error>) -> Void))
+// MARK: - fetchUserProfile(forID id: Int64, completion: @escaping ((Result<UserDecoder, Error>) -> Void))
 extension ApiClientUsersTests {
     func testFetchUserSucceed() throws {
         //Arrange
@@ -29,7 +29,7 @@ extension ApiClientUsersTests {
         let sut = self.buildSUT()
         var completionResult: Result<UserDecoder, Error>?
         //Act
-        sut.fetchUserProfile(forIdetifier: 2) { result in
+        sut.fetchUserProfile(forID: 2) { result in
             completionResult = result
         }
         try self.restler.getReturnValue.callCompletion(type: UserDecoder.self, result: .success(decoder))
@@ -43,7 +43,7 @@ extension ApiClientUsersTests {
         let sut = self.buildSUT()
         var completionResult: Result<UserDecoder, Error>?
         //Act
-        sut.fetchUserProfile(forIdetifier: 2) { result in
+        sut.fetchUserProfile(forID: 2) { result in
             completionResult = result
         }
         try self.restler.getReturnValue.callCompletion(type: UserDecoder.self, result: .failure(error))

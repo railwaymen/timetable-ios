@@ -9,7 +9,7 @@
 import UIKit
 
 struct SimpleProjectRecordDecoder: Decodable {
-    let identifier: Int
+    let id: Int
     let name: String
     let color: UIColor?
     let autofill: Bool?
@@ -21,7 +21,7 @@ struct SimpleProjectRecordDecoder: Decodable {
     let isTaggable: Bool
     
     enum CodingKeys: String, CodingKey {
-        case identifier = "id"
+        case id
         case name
         case color
         case autofill
@@ -36,7 +36,7 @@ struct SimpleProjectRecordDecoder: Decodable {
     // MARK: - Initialization
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.identifier = try container.decode(Int.self, forKey: .identifier)
+        self.id = try container.decode(Int.self, forKey: .id)
         self.name = try container.decode(String.self, forKey: .name)
         if let colorHexString = try? container.decode(String.self, forKey: .color) {
             self.color = UIColor(hexString: colorHexString)
@@ -56,6 +56,6 @@ struct SimpleProjectRecordDecoder: Decodable {
 // MARK: - Equatable
 extension SimpleProjectRecordDecoder: Equatable {
     public static func == (lhs: SimpleProjectRecordDecoder, rhs: SimpleProjectRecordDecoder) -> Bool {
-        return lhs.identifier == rhs.identifier
+        return lhs.id == rhs.id
     }
 }

@@ -20,7 +20,7 @@ extension SimpleProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 3)
+        XCTAssertEqual(sut.id, 3)
         XCTAssertEqual(sut.name, "Lorem ipsum")
         XCTAssertEqual(sut.color, UIColor(hexString: "fe0404"))
         XCTAssertNil(sut.autofill)
@@ -38,7 +38,7 @@ extension SimpleProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 3)
+        XCTAssertEqual(sut.id, 3)
         XCTAssertEqual(sut.name, "Lorem ipsum")
         XCTAssertNil(sut.color)
         XCTAssertNil(sut.autofill)
@@ -56,7 +56,7 @@ extension SimpleProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 3)
+        XCTAssertEqual(sut.id, 3)
         XCTAssertEqual(sut.name, "Lorem ipsum")
         XCTAssertNil(sut.color)
         XCTAssertNil(sut.autofill)
@@ -74,7 +74,7 @@ extension SimpleProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "asdsa")
         XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
         XCTAssertFalse(try XCTUnwrap(sut.autofill))
@@ -92,7 +92,7 @@ extension SimpleProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "asdsa")
         XCTAssertNil(sut.color)
         XCTAssertFalse(try XCTUnwrap(sut.autofill))
@@ -110,7 +110,7 @@ extension SimpleProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "asdsa")
         XCTAssertNil(sut.color)
         XCTAssertFalse(try XCTUnwrap(sut.autofill))
@@ -128,7 +128,7 @@ extension SimpleProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "asdsa")
         XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
         XCTAssertNil(sut.autofill)
@@ -146,7 +146,7 @@ extension SimpleProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "asdsa")
         XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
         XCTAssertNil(sut.autofill)
@@ -164,7 +164,7 @@ extension SimpleProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "asdsa")
         XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
         XCTAssertFalse(try XCTUnwrap(sut.autofill))
@@ -182,7 +182,7 @@ extension SimpleProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "asdsa")
         XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
         XCTAssertFalse(try XCTUnwrap(sut.autofill))
@@ -200,7 +200,7 @@ extension SimpleProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "asdsa")
         XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
         XCTAssertFalse(try XCTUnwrap(sut.autofill))
@@ -218,7 +218,7 @@ extension SimpleProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "asdsa")
         XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
         XCTAssertFalse(try XCTUnwrap(sut.autofill))
@@ -236,7 +236,7 @@ extension SimpleProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "asdsa")
         XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
         XCTAssertFalse(try XCTUnwrap(sut.autofill))
@@ -254,7 +254,7 @@ extension SimpleProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "asdsa")
         XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
         XCTAssertFalse(try XCTUnwrap(sut.autofill))
@@ -272,7 +272,7 @@ extension SimpleProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "asdsa")
         XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
         XCTAssertFalse(try XCTUnwrap(sut.autofill))
@@ -290,7 +290,7 @@ extension SimpleProjectRecordDecoderTests {
         //Act
         let sut = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 11)
+        XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.name, "asdsa")
         XCTAssertEqual(sut.color, UIColor(hexString: "0c0cOc"))
         XCTAssertFalse(try XCTUnwrap(sut.autofill))

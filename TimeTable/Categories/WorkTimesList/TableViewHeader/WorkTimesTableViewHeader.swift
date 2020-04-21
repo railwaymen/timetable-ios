@@ -18,7 +18,7 @@ protocol WorkTimesTableViewHeaderType: class {
 }
 
 class WorkTimesTableViewHeader: UITableViewHeaderFooterView {
-    static let reuseIdentifier = "WorkTimesTableViewHeaderIdentifier"
+    static let reuseID = "WorkTimesTableViewHeaderIdentifier"
     
     @IBOutlet private var dayLabel: UILabel!
     @IBOutlet private var summaryLabel: UILabel!

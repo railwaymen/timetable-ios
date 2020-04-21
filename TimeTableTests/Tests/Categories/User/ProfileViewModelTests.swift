@@ -40,7 +40,7 @@ extension ProfileViewModelTests {
     func testViewDidLoadDoesNotUpdateUserInterfaceAndThorwsErrorWhileLastUserIdetifierIsNil() {
         //Arrange
         let sut = self.buildSUT()
-        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = nil
+        self.accessServiceMock.getLastLoggedInUserIDReturnValue = nil
         //Act
         sut.viewDidLoad()
         //Assert
@@ -52,7 +52,7 @@ extension ProfileViewModelTests {
     func testViewDidLoadMakesRequest() {
         //Arrange
         let sut = self.buildSUT()
-        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
+        self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
         //Act
         sut.viewDidLoad()
         //Assert
@@ -66,7 +66,7 @@ extension ProfileViewModelTests {
         //Arrange
         let sut = self.buildSUT()
         let error = TestError(message: "error")
-        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
+        self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
         //Act
         sut.viewDidLoad()
         self.apiClientMock.fetchUserProfileParams.last?.completion(.failure(error))
@@ -80,7 +80,7 @@ extension ProfileViewModelTests {
     func testViewDidLoadFetchUserProfileSucceed() throws {
         //Arrange
         let sut = self.buildSUT()
-        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
+        self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
         let userDecoder = try UserDecoderFactory().build()
         //Act
         sut.viewDidLoad()
@@ -100,7 +100,7 @@ extension ProfileViewModelTests {
     func testLogoutButtonTapped_success_finishesCoordinator() {
         //Arrange
         let sut = self.buildSUT()
-        self.accessServiceMock.getLastLoggedInUserIdentifierReturnValue = 2
+        self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
         //Act
         sut.logoutButtonTapped()
         //Assert

@@ -127,7 +127,7 @@ extension WorkTimeTableViewCellModelTests {
 extension WorkTimeTableViewCellModelTests {
     func testTaskButtonTappedWithValidURLCallsParentOpenTask() throws {
         //Arrange
-        let workTimesDecoder = try self.buildWorkTimesDecoder(identifier: 1)
+        let workTimesDecoder = try self.buildWorkTimesDecoder(id: 1)
         let workTime = WorkTimeDisplayed(workTime: workTimesDecoder)
         let sut = self.buildSUT(workTime: workTime)
         //Act
@@ -157,7 +157,7 @@ extension WorkTimeTableViewCellModelTests {
         let startsAt = try self.startsAt()
         let endsAt = try self.endsAt()
         return WorkTimeDisplayed(
-            identifier: 0,
+            id: 0,
             body: "body",
             task: "https://example.com",
             taskPreview: "preview",
@@ -172,10 +172,10 @@ extension WorkTimeTableViewCellModelTests {
             changedFields: changedFields)
     }
     
-    private func buildWorkTimesDecoder(identifier: Int64) throws -> WorkTimeDecoder {
+    private func buildWorkTimesDecoder(id: Int64) throws -> WorkTimeDecoder {
         let project = try SimpleProjectRecordDecoderFactory().build()
         let wrapper = WorkTimeDecoderFactory.Wrapper(
-            identifier: identifier,
+            id: id,
             body: "body",
             project: project)
         return try self.workTimeDecoderFactory.build(wrapper: wrapper)
@@ -183,8 +183,8 @@ extension WorkTimeTableViewCellModelTests {
     
     private func buildDailyWorkTime() throws -> DailyWorkTime {
         let workTimes = [
-            try self.buildWorkTimesDecoder(identifier: 1),
-            try self.buildWorkTimesDecoder(identifier: 2)
+            try self.buildWorkTimesDecoder(id: 1),
+            try self.buildWorkTimesDecoder(id: 2)
         ]
         return DailyWorkTime(day: Date(), workTimes: workTimes)
     }

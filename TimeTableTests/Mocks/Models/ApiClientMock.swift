@@ -30,7 +30,7 @@ class ApiClientMock {
     var fetchWorkTimeDetailsReturnValue: RestlerTaskType?
     private(set) var fetchWorkTimeDetailsParams: [FetchWorkTimeDetailsParams] = []
     struct FetchWorkTimeDetailsParams {
-        let identifier: Int64
+        let id: Int64
         let completion: (Result<WorkTimeDecoder, Error>) -> Void
     }
     
@@ -48,13 +48,13 @@ class ApiClientMock {
     
     private(set) var deleteWorkTimeParams: [DeleteWorkTimeParams] = []
     struct DeleteWorkTimeParams {
-        let identifier: Int64
+        let id: Int64
         let completion: ((Result<Void, Error>) -> Void)
     }
     
     private(set) var updateWorkTimeParams: [UpdateWorkTimeParams] = []
     struct UpdateWorkTimeParams {
-        let identifier: Int64
+        let id: Int64
         let parameters: Task
         let completion: ((Result<Void, Error>) -> Void)
     }
@@ -80,7 +80,7 @@ class ApiClientMock {
     // MARK: - ApiClientUsersType
     private(set) var fetchUserProfileParams: [FetchUserProfileParams] = []
     struct FetchUserProfileParams {
-        let identifier: Int64
+        let id: Int64
         let completion: ((Result<UserDecoder, Error>) -> Void)
     }
     
@@ -110,10 +110,10 @@ extension ApiClientMock: ApiClientWorkTimesType {
     }
     
     func fetchWorkTimeDetails(
-        identifier: Int64,
+        id: Int64,
         completion: @escaping (Result<WorkTimeDecoder, Error>) -> Void
     ) -> RestlerTaskType? {
-        self.fetchWorkTimeDetailsParams.append(FetchWorkTimeDetailsParams(identifier: identifier, completion: completion))
+        self.fetchWorkTimeDetailsParams.append(FetchWorkTimeDetailsParams(id: id, completion: completion))
         return self.fetchWorkTimeDetailsReturnValue
     }
     
@@ -125,13 +125,13 @@ extension ApiClientMock: ApiClientWorkTimesType {
         self.addWorkTimeWithFillingParams.append(AddWorkTimeWithFillingParams(task: task, completion: completion))
     }
     
-    func deleteWorkTime(identifier: Int64, completion: @escaping ((Result<Void, Error>) -> Void)) {
-        self.deleteWorkTimeParams.append(DeleteWorkTimeParams(identifier: identifier, completion: completion))
+    func deleteWorkTime(id: Int64, completion: @escaping ((Result<Void, Error>) -> Void)) {
+        self.deleteWorkTimeParams.append(DeleteWorkTimeParams(id: id, completion: completion))
     }
     
-    func updateWorkTime(identifier: Int64, parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void)) {
+    func updateWorkTime(id: Int64, parameters: Task, completion: @escaping ((Result<Void, Error>) -> Void)) {
         self.updateWorkTimeParams.append(UpdateWorkTimeParams(
-            identifier: identifier,
+            id: id,
             parameters: parameters,
             completion: completion))
     }
@@ -158,8 +158,8 @@ extension ApiClientMock: ApiClientProjectsType {
 
 // MARK: - ApiClientUsersType
 extension ApiClientMock: ApiClientUsersType {
-    func fetchUserProfile(forIdetifier identifier: Int64, completion: @escaping ((Result<UserDecoder, Error>) -> Void)) {
-        self.fetchUserProfileParams.append(FetchUserProfileParams(identifier: identifier, completion: completion))
+    func fetchUserProfile(forID id: Int64, completion: @escaping ((Result<UserDecoder, Error>) -> Void)) {
+        self.fetchUserProfileParams.append(FetchUserProfileParams(id: id, completion: completion))
     }
 }
 

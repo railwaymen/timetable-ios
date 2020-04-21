@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol ProjectRecordDecoderFields {
-    var identifier: Int { get }
+    var id: Int { get }
     var name: String { get }
     var color: UIColor? { get }
     var leader: ProjectRecordDecoder.Leader { get }
@@ -23,20 +23,20 @@ protocol ProjectRecordDecoderLeaderFields {
 }
 
 protocol ProjectRecordDecoderUserFields {
-    var identifier: Int { get }
+    var id: Int { get }
     var firstName: String { get }
     var lastName: String { get }
 }
 
 struct ProjectRecordDecoder: Decodable, ProjectRecordDecoderFields {
-    let identifier: Int
+    let id: Int
     let name: String
     let color: UIColor?
     let leader: Leader
     let users: [User]
     
     enum CodingKeys: String, CodingKey {
-        case identifier = "projectId"
+        case id = "projectId"
         case name
         case color
         case users
@@ -45,7 +45,7 @@ struct ProjectRecordDecoder: Decodable, ProjectRecordDecoderFields {
     // MARK: - Initialization
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.identifier = try container.decode(Int.self, forKey: .identifier)
+        self.id = try container.decode(Int.self, forKey: .id)
         self.name = try container.decode(String.self, forKey: .name)
         if let colorHexString = try? container.decode(String.self, forKey: .color) {
             self.color = UIColor(hexString: colorHexString)
@@ -90,12 +90,12 @@ extension ProjectRecordDecoder {
     }
     
     struct User: Decodable, ProjectRecordDecoderUserFields {
-        let identifier: Int
+        let id: Int
         let firstName: String
         let lastName: String
         
         enum CodingKeys: String, CodingKey {
-            case identifier = "id"
+            case id
             case firstName
             case lastName
         }
@@ -110,7 +110,7 @@ extension ProjectRecordDecoder {
 // MARK: - Equatable
 extension ProjectRecordDecoder: Equatable {
     static func == (lhs: ProjectRecordDecoder, rhs: ProjectRecordDecoder) -> Bool {
-        return lhs.identifier == rhs.identifier
+        return lhs.id == rhs.id
     }
 }
 
@@ -118,6 +118,6 @@ extension ProjectRecordDecoder.Leader: Equatable {}
 
 extension ProjectRecordDecoder.User: Equatable {
     static func == (lhs: ProjectRecordDecoder.User, rhs: ProjectRecordDecoder.User) -> Bool {
-        return lhs.identifier == rhs.identifier
+        return lhs.id == rhs.id
     }
 }

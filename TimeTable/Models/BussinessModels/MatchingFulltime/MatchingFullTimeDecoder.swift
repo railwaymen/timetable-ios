@@ -14,7 +14,7 @@ protocol MatchingFullTimeDecoderFields {
 }
 
 protocol MatchingFullTimePeriodDecoder {
-    var identifier: Int { get }
+    var id: Int { get }
     var countedDuration: TimeInterval { get }
     var duration: TimeInterval { get }
 }
@@ -47,12 +47,12 @@ struct MatchingFullTimeDecoder: Decodable, MatchingFullTimeDecoderFields {
 // MARK: - Structures
 extension MatchingFullTimeDecoder {
     struct Period: Decodable, MatchingFullTimePeriodDecoder {
-        let identifier: Int
+        let id: Int
         let countedDuration: TimeInterval
         let duration: TimeInterval
         
         enum CodingKeys: String, CodingKey {
-            case identifier = "id"
+            case id
             case countedDuration
             case duration
         }
@@ -68,6 +68,6 @@ extension MatchingFullTimeDecoder: Equatable {
 
 extension MatchingFullTimeDecoder.Period: Equatable {
     static func == (lhs: MatchingFullTimeDecoder.Period, rhs: MatchingFullTimeDecoder.Period) -> Bool {
-        return lhs.identifier == rhs.identifier && lhs.countedDuration == rhs.countedDuration && lhs.duration == rhs.duration
+        return lhs.id == rhs.id && lhs.countedDuration == rhs.countedDuration && lhs.duration == rhs.duration
     }
 }

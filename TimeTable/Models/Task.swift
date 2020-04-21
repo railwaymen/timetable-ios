@@ -17,7 +17,7 @@ struct Task: Encodable {
     var tag: ProjectTag = .default
     
     private enum CodingKeys: String, CodingKey {
-        case projectId
+        case projectID = "projectId"
         case body
         case task
         case startsAt
@@ -28,7 +28,7 @@ struct Task: Encodable {
     // MARK: - Encodable
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(self.project.identifier, forKey: .projectId)
+        try container.encode(self.project.id, forKey: .projectID)
         try container.encode(self.body, forKey: .body)
         try container.encode(self.url, forKey: .task)
         try container.encode(self.startsAt, forKey: .startsAt)

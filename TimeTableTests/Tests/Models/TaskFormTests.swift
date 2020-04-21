@@ -24,7 +24,7 @@ extension TaskFormTests {
     func testTitle_withoutProject() {
         //Arrange
         let sut = TaskForm(
-            workTimeIdentifier: nil,
+            workTimeID: nil,
             project: nil,
             body: "body",
             urlString: "",
@@ -43,7 +43,7 @@ extension TaskFormTests {
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         let sut = TaskForm(
-            workTimeIdentifier: nil,
+            workTimeID: nil,
             project: projectDecoder,
             body: "body",
             urlString: "",
@@ -63,7 +63,7 @@ extension TaskFormTests {
     func testAllowTask_withoutProject() {
         //Arrange
         let sut = TaskForm(
-            workTimeIdentifier: nil,
+            workTimeID: nil,
             project: nil,
             body: "body",
             urlString: "",
@@ -82,7 +82,7 @@ extension TaskFormTests {
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         let sut = TaskForm(
-            workTimeIdentifier: nil,
+            workTimeID: nil,
             project: projectDecoder,
             body: "body",
             urlString: "",
@@ -102,7 +102,7 @@ extension TaskFormTests {
     func testIsTaggable_withoutProject() throws {
         //Arrange
         let sut = TaskForm(
-            workTimeIdentifier: nil,
+            workTimeID: nil,
             project: nil,
             body: "body",
             urlString: "",
@@ -121,7 +121,7 @@ extension TaskFormTests {
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithIsTaggableTrueResponse)
         let project = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         let sut = TaskForm(
-            workTimeIdentifier: nil,
+            workTimeID: nil,
             project: project,
             body: "body",
             urlString: "",
@@ -140,7 +140,7 @@ extension TaskFormTests {
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithIsTaggableFalseResponse)
         let project = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         let sut = TaskForm(
-            workTimeIdentifier: nil,
+            workTimeID: nil,
             project: project,
             body: "body",
             urlString: "",
@@ -160,7 +160,7 @@ extension TaskFormTests {
     func testType_withoutProject() {
         //Arrange
         let sut = TaskForm(
-            workTimeIdentifier: nil,
+            workTimeID: nil,
             project: nil,
             body: "body",
             urlString: "",
@@ -179,7 +179,7 @@ extension TaskFormTests {
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectFullResponse)
         let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         let sut = TaskForm(
-            workTimeIdentifier: nil,
+            workTimeID: nil,
             project: projectDecoder,
             body: "body",
             urlString: "",
@@ -198,7 +198,7 @@ extension TaskFormTests {
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithAutofillTrueResponse)
         let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         let sut = TaskForm(
-            workTimeIdentifier: nil,
+            workTimeID: nil,
             project: projectDecoder,
             body: "body",
             urlString: "",
@@ -217,7 +217,7 @@ extension TaskFormTests {
         let data = try self.json(from: SimpleProjectJSONResource.simpleProjectWithALunchTrueResponse)
         let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: data)
         let sut = TaskForm(
-            workTimeIdentifier: nil,
+            workTimeID: nil,
             project: projectDecoder,
             body: "body",
             urlString: "",
@@ -244,7 +244,7 @@ extension TaskFormTests {
         let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
         let endsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 10, minute: 8, second: 57)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: projectDecoder,
             body: body,
             urlString: self.exampleURL.absoluteString,
@@ -273,7 +273,7 @@ extension TaskFormTests {
         let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
         let endsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 10, minute: 8, second: 57)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: projectDecoder,
             body: body,
             urlString: "",
@@ -325,7 +325,7 @@ extension TaskFormTests {
         let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
         let endsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 10, minute: 8, second: 57)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: projectDecoder,
             body: "",
             urlString: self.exampleURL.absoluteString,
@@ -354,7 +354,7 @@ extension TaskFormTests {
         let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
         let endsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 10, minute: 8, second: 57)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: projectDecoder,
             body: body,
             urlString: "",
@@ -427,7 +427,7 @@ extension TaskFormTests {
         let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: projectData)
         let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: projectDecoder,
             body: "body",
             urlString: self.exampleURL.absoluteString,
@@ -447,7 +447,7 @@ extension TaskFormTests {
         let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: projectData)
         let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: projectDecoder,
             body: "body",
             urlString: self.exampleURL.absoluteString,
@@ -467,7 +467,7 @@ extension TaskFormTests {
         let projectDecoder = try self.decoder.decode(SimpleProjectRecordDecoder.self, from: projectData)
         let startsAt = try self.buildDate(year: 2019, month: 11, day: 12, hour: 9, minute: 8, second: 57)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: projectDecoder,
             body: "body",
             urlString: self.exampleURL.absoluteString,
@@ -491,7 +491,7 @@ extension TaskFormTests {
         let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
         let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: project,
             body: "Body",
             urlString: self.exampleURL.absoluteString,
@@ -511,7 +511,7 @@ extension TaskFormTests {
         let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
         let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: nil,
             body: "Body",
             urlString: self.exampleURL.absoluteString,
@@ -532,7 +532,7 @@ extension TaskFormTests {
         let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
         let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: project,
             body: "",
             urlString: "",
@@ -553,7 +553,7 @@ extension TaskFormTests {
         let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
         let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: project,
             body: "",
             urlString: "",
@@ -574,7 +574,7 @@ extension TaskFormTests {
         let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
         let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: project,
             body: "",
             urlString: self.exampleURL.absoluteString,
@@ -595,7 +595,7 @@ extension TaskFormTests {
         let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
         let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: project,
             body: "Body",
             urlString: "",
@@ -616,7 +616,7 @@ extension TaskFormTests {
         let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
         let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: project,
             body: "Body",
             urlString: " ",
@@ -637,7 +637,7 @@ extension TaskFormTests {
         let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
         let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: project,
             body: "",
             urlString: "",
@@ -658,7 +658,7 @@ extension TaskFormTests {
         let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
         let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: project,
             body: "",
             urlString: " ",
@@ -679,7 +679,7 @@ extension TaskFormTests {
         let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
         let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: project,
             body: "",
             urlString: self.exampleURL.absoluteString,
@@ -700,7 +700,7 @@ extension TaskFormTests {
         let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
         let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: project,
             body: "Body",
             urlString: "",
@@ -721,7 +721,7 @@ extension TaskFormTests {
         let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
         let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: project,
             body: "Body",
             urlString: " ",
@@ -741,7 +741,7 @@ extension TaskFormTests {
         let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
         let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: nil,
             body: "",
             urlString: self.exampleURL.absoluteString,
@@ -761,7 +761,7 @@ extension TaskFormTests {
         let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
         let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: nil,
             body: "Body",
             urlString: "",
@@ -781,7 +781,7 @@ extension TaskFormTests {
         let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
         let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: nil,
             body: "Body",
             urlString: " ",
@@ -801,7 +801,7 @@ extension TaskFormTests {
         let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
         let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: nil,
             body: "",
             urlString: "",
@@ -821,7 +821,7 @@ extension TaskFormTests {
         let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
         let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: project,
             body: "Body",
             urlString: self.exampleURL.absoluteString,
@@ -841,7 +841,7 @@ extension TaskFormTests {
         let day = try self.buildDate(year: 2019, month: 9, day: 12)
         let endsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 10)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: project,
             body: "Body",
             urlString: self.exampleURL.absoluteString,
@@ -861,7 +861,7 @@ extension TaskFormTests {
         let day = try self.buildDate(year: 2019, month: 9, day: 12)
         let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: project,
             body: "Body",
             urlString: self.exampleURL.absoluteString,
@@ -881,7 +881,7 @@ extension TaskFormTests {
         let day = try self.buildDate(year: 2019, month: 9, day: 12)
         let startsAt = try self.buildDate(year: 2020, month: 3, day: 1, hour: 9)
         let sut = TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: project,
             body: "Body",
             urlString: self.exampleURL.absoluteString,
@@ -898,7 +898,7 @@ extension TaskFormTests {
     func testValidationErrors_emptyForm_returnsAllValidationErrors() throws {
         //Arrange
         let sut = TaskForm(
-            workTimeIdentifier: nil,
+            workTimeID: nil,
             project: nil,
             body: "",
             urlString: "",

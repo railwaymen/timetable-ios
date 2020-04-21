@@ -75,12 +75,12 @@ extension WorkTimesTableViewHeaderViewModelTests {
     }
     
     private func buildWorkTimesDecoder(
-        identifier: Int64,
+        id: Int64,
         duration: Int64
     ) throws -> WorkTimeDecoder {
         let project = try SimpleProjectRecordDecoderFactory().build()
         let wrapper = WorkTimeDecoderFactory.Wrapper(
-            identifier: identifier,
+            id: id,
             duration: duration,
             project: project)
         return try self.workTimeDecoderFactory.build(wrapper: wrapper)
@@ -88,8 +88,8 @@ extension WorkTimesTableViewHeaderViewModelTests {
     
     private func buildWorkTimesDecoders() throws -> [WorkTimeDecoder] {
         return [
-            try self.buildWorkTimesDecoder(identifier: 1, duration: Int64(TimeInterval.hour)),
-            try self.buildWorkTimesDecoder(identifier: 2, duration: Int64(TimeInterval.hour * 2))
+            try self.buildWorkTimesDecoder(id: 1, duration: Int64(TimeInterval.hour)),
+            try self.buildWorkTimesDecoder(id: 2, duration: Int64(TimeInterval.hour * 2))
         ]
     }
 }

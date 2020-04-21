@@ -21,7 +21,7 @@ extension WorkTimeDisplayedTests {
         //Act
         let sut = WorkTimeDisplayed(workTime: workTime)
         //Assert
-        XCTAssertEqual(sut.identifier, 1)
+        XCTAssertEqual(sut.id, 1)
         XCTAssertEqual(sut.body, "Body ")
         XCTAssertEqual(sut.task, "some_url")
         XCTAssertEqual(sut.taskPreview, "TIM-56")
@@ -46,7 +46,7 @@ extension WorkTimeDisplayedTests {
         //Act
         let sut = WorkTimeDisplayed(workTime: workTime, version: version)
         //Assert
-        XCTAssertEqual(sut.identifier, 1)
+        XCTAssertEqual(sut.id, 1)
         XCTAssertEqual(sut.body, version.body.newest)
         XCTAssertEqual(sut.task, version.task.newest)
         XCTAssertEqual(sut.taskPreview, version.taskPreview.newest)
@@ -66,16 +66,16 @@ extension WorkTimeDisplayedTests {
 extension WorkTimeDisplayedTests {
     private func buildWorkTimeDecoder() throws -> WorkTimeDecoder {
         return try WorkTimeDecoderFactory().build(wrapper: .init(
-            identifier: 1,
+            id: 1,
             updatedByAdmin: false,
-            projectId: 154,
+            projectID: 154,
             startsAt: try self.startsAt(),
             endsAt: try self.endsAt(),
             duration: 3601,
             body: "Body ",
             task: "some_url",
             taskPreview: "TIM-56",
-            userId: 91,
+            userID: 91,
             project: try self.buildProject(),
             date: try self.date(),
             tag: .clientCommunication,

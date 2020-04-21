@@ -11,7 +11,7 @@ import XCTest
 
 class TaskFactory {
     func build(
-        workTimeIdentifier: Int64? = nil,
+        workTimeID: Int64? = nil,
         project: SimpleProjectRecordDecoder? = nil,
         body: String = "",
         urlString: String = "",
@@ -21,7 +21,7 @@ class TaskFactory {
         tag: ProjectTag = .default
     ) -> TaskForm {
         return TaskForm(
-            workTimeIdentifier: workTimeIdentifier,
+            workTimeID: workTimeID,
             project: project,
             body: body,
             urlString: urlString,

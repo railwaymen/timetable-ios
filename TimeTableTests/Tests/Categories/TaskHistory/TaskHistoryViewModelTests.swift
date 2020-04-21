@@ -23,7 +23,7 @@ class TaskHistoryViewModelTests: XCTestCase {
         self.apiClient = ApiClientMock()
         self.errorHandler = ErrorHandlerMock()
         self.taskForm = TaskFormMock()
-        self.taskForm.workTimeIdentifierReturnValue = 1
+        self.taskForm.workTimeIDReturnValue = 1
     }
 }
 
@@ -41,7 +41,7 @@ extension TaskHistoryViewModelTests {
     func testViewDidLoad_fetchWorkTimeDetails_before_taskWithoutWorkTimeID_stopsInDebug() {
         //Arrange
         let sut = self.buildSUT()
-        self.taskForm.workTimeIdentifierReturnValue = nil
+        self.taskForm.workTimeIDReturnValue = nil
         //Act
         sut.viewDidLoad()
         //Assert
@@ -257,13 +257,13 @@ extension TaskHistoryViewModelTests {
             task: NilableDiffElement(previous: "task", current: "new task"),
             taskPreview: NilableDiffElement(previous: "prev", current: "task preview"))
         let wrapper = WorkTimeDecoderFactory.Wrapper(
-            identifier: 16239,
-            projectId: 3,
+            id: 16239,
+            projectID: 3,
             duration: 3600,
             body: "body",
             task: "task",
             taskPreview: "preview",
-            userId: 2,
+            userID: 2,
             project: project,
             versions: [version])
         let decoder = try WorkTimeDecoderFactory().build(wrapper: wrapper)

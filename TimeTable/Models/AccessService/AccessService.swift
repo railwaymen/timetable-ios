@@ -14,7 +14,7 @@ typealias AccessServiceLoginType = (
     & AccessServiceApiClientType)
 
 protocol AccessServiceUserIDType: class {
-    func getLastLoggedInUserIdentifier() -> Int64?
+    func getLastLoggedInUserID() -> Int64?
 }
 
 protocol AccessServiceSessionType: class {
@@ -47,9 +47,9 @@ class AccessService {
 
 // MARK: - AccessServiceUserIDType
 extension AccessService: AccessServiceUserIDType {
-    func getLastLoggedInUserIdentifier() -> Int64? {
+    func getLastLoggedInUserID() -> Int64? {
         guard let session = self.getSession() else { return nil }
-        return Int64(session.identifier)
+        return Int64(session.id)
     }
 }
 

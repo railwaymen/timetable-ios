@@ -19,7 +19,7 @@ extension SessionDecoderTests {
         //Act
         let sut = try self.decoder.decode(SessionDecoder.self, from: data)
         //Assert
-        XCTAssertEqual(sut.identifier, 1)
+        XCTAssertEqual(sut.id, 1)
         XCTAssertEqual(sut.firstName, "Admin")
         XCTAssertEqual(sut.lastName, "Little")
         XCTAssertFalse(sut.isLeader)

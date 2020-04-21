@@ -27,7 +27,7 @@ extension ApiClientWorkTimesTests {
         let sut = self.buildSUT()
         let data = try self.json(from: WorkTimesJSONResource.workTimesResponse)
         let decoders = try self.decoder.decode([WorkTimeDecoder].self, from: data)
-        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
+        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectID: nil)
         var completionResult: Result<[WorkTimeDecoder], Error>?
         //Act
         _ = sut.fetchWorkTimes(parameters: parameters) { result in
@@ -42,7 +42,7 @@ extension ApiClientWorkTimesTests {
         //Arrange
         let sut = self.buildSUT()
         let error = TestError(message: "fetch failed")
-        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectId: nil)
+        let parameters = WorkTimesParameters(fromDate: nil, toDate: nil, projectID: nil)
         var completionResult: Result<[WorkTimeDecoder], Error>?
         //Act
         _ = sut.fetchWorkTimes(parameters: parameters) { result in
@@ -54,13 +54,13 @@ extension ApiClientWorkTimesTests {
     }
 }
 
-// MARK: - fetchWorkTimeDetails(identifier:completion:)
+// MARK: - fetchWorkTimeDetails(id: completion:)
 extension ApiClientWorkTimesTests {
     func testFetchDetails_requestsProperEndpoint() throws {
         //Arrange
         let sut = self.buildSUT()
         //Act
-        _ = sut.fetchWorkTimeDetails(identifier: 1) { _ in }
+        _ = sut.fetchWorkTimeDetails(id: 1) { _ in }
         //Assert
         XCTAssertEqual(self.restler.getParams.count, 1)
         XCTAssertEqual(self.restler.getParams.last?.endpoint as? Endpoint, Endpoint.workTime(1))
@@ -73,7 +73,7 @@ extension ApiClientWorkTimesTests {
         let decoder = try self.decoder.decode(WorkTimeDecoder.self, from: data)
         var completionResult: Result<WorkTimeDecoder, Error>?
         //Act
-        _ = sut.fetchWorkTimeDetails(identifier: 1) { result in
+        _ = sut.fetchWorkTimeDetails(id: 1) { result in
             completionResult = result
         }
         try self.restler.getReturnValue.callCompletion(type: WorkTimeDecoder.self, result: .success(decoder))
@@ -87,7 +87,7 @@ extension ApiClientWorkTimesTests {
         let error = TestError(message: "test error123")
         var completionResult: Result<WorkTimeDecoder, Error>?
         //Act
-        _ = sut.fetchWorkTimeDetails(identifier: 1) { result in
+        _ = sut.fetchWorkTimeDetails(id: 1) { result in
             completionResult = result
         }
         try self.restler.getReturnValue.callCompletion(type: WorkTimeDecoder.self, result: .failure(error))
@@ -171,14 +171,14 @@ extension ApiClientWorkTimesTests {
     }
 }
 
-// MARK: - deleteWorkTime(identifier:completion:)
+// MARK: - deleteWorkTime(id: completion:)
 extension ApiClientWorkTimesTests {
     func testDeleteWorkTimeSucceed() throws {
         //Arrange
         let sut = self.buildSUT()
         var completionResult: Result<Void, Error>?
         //Act
-        sut.deleteWorkTime(identifier: 2) { result in
+        sut.deleteWorkTime(id: 2) { result in
             completionResult = result
         }
         try self.restler.deleteReturnValue.callCompletion(type: Void.self, result: .success(Void()))
@@ -192,7 +192,7 @@ extension ApiClientWorkTimesTests {
         let error = TestError(message: "fetch failed")
         var completionResult: Result<Void, Error>?
         //Act
-        sut.deleteWorkTime(identifier: 2) { result in
+        sut.deleteWorkTime(id: 2) { result in
             completionResult = result
         }
         try self.restler.deleteReturnValue.callCompletion(type: Void.self, result: .failure(error))
@@ -201,7 +201,7 @@ extension ApiClientWorkTimesTests {
     }
 }
 
-// MARK: - updateWorkTime(identifier:parameters:completion:)
+// MARK: - updateWorkTime(id: parameters: completion:)
 extension ApiClientWorkTimesTests {
     func testUpdateWorkTime_succeed() throws {
         //Arrange
@@ -209,7 +209,7 @@ extension ApiClientWorkTimesTests {
         let task = try self.buildTask()
         var completionResult: Result<Void, Error>?
         //Act
-        _ = sut.updateWorkTime(identifier: 1, parameters: task) { result in
+        _ = sut.updateWorkTime(id: 1, parameters: task) { result in
             completionResult = result
         }
         try self.restler.putReturnValue.callCompletion(type: Void.self, result: .success(Void()))
@@ -224,7 +224,7 @@ extension ApiClientWorkTimesTests {
         let task = try self.buildTask()
         var completionResult: Result<Void, Error>?
         //Act
-        _ = sut.updateWorkTime(identifier: 1, parameters: task) { result in
+        _ = sut.updateWorkTime(id: 1, parameters: task) { result in
             completionResult = result
         }
         try self.restler.putReturnValue.callCompletion(type: Void.self, result: .failure(error))

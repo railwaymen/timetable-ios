@@ -57,7 +57,7 @@ extension WorkTimesListCoordinatorTests {
     
     private func createTask() -> TaskForm {
         return TaskForm(
-            workTimeIdentifier: 1,
+            workTimeID: 1,
             project: nil,
             body: "body",
             urlString: "",
