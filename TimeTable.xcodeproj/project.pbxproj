@@ -372,6 +372,7 @@
 		C1411C2A24503B2700BB4266 /* Vacations.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1411C2924503B2700BB4266 /* Vacations.storyboard */; };
 		C1411C2C24503B6000BB4266 /* VacationsViewContorller.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1411C2B24503B5F00BB4266 /* VacationsViewContorller.swift */; };
 		C1411C2E2450415A00BB4266 /* VacationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1411C2D2450415A00BB4266 /* VacationsViewModel.swift */; };
+		C1411C3124505B5D00BB4266 /* VacationsViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1411C3024505B5D00BB4266 /* VacationsViewControllerMock.swift */; };
 		C147D1F721F5F96A00A818BD /* AttributedTextFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C147D1F621F5F96A00A818BD /* AttributedTextFieldTests.swift */; };
 		C14B10FB21F9C64D00A42587 /* TimeTableTabCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14B10FA21F9C64D00A42587 /* TimeTableTabCoordinatorTests.swift */; };
 		C14EB0252372D9B0007F07D0 /* ErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14EB0242372D9B0007F07D0 /* ErrorViewModel.swift */; };
@@ -907,6 +908,7 @@
 		C1411C2924503B2700BB4266 /* Vacations.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Vacations.storyboard; sourceTree = "<group>"; };
 		C1411C2B24503B5F00BB4266 /* VacationsViewContorller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationsViewContorller.swift; sourceTree = "<group>"; };
 		C1411C2D2450415A00BB4266 /* VacationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationsViewModel.swift; sourceTree = "<group>"; };
+		C1411C3024505B5D00BB4266 /* VacationsViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationsViewControllerMock.swift; sourceTree = "<group>"; };
 		C147D1F621F5F96A00A818BD /* AttributedTextFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextFieldTests.swift; sourceTree = "<group>"; };
 		C14B10FA21F9C64D00A42587 /* TimeTableTabCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableTabCoordinatorTests.swift; sourceTree = "<group>"; };
 		C14EB0242372D9B0007F07D0 /* ErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewModel.swift; sourceTree = "<group>"; };
@@ -1373,6 +1375,7 @@
 				8A6B6D88237AB61E007D8D93 /* Projects */,
 				8A6B6D89237AB629007D8D93 /* ServerConfiguration */,
 				8A79A2D1242245FD0048B44B /* TaskHistory */,
+				C1411C2F24505B5000BB4266 /* Vacations */,
 				8A6B6D8B237AB64B007D8D93 /* WorkTime */,
 				8A6B6D8C237AB65D007D8D93 /* WorkTimes */,
 			);
@@ -2092,6 +2095,14 @@
 				C1411C2924503B2700BB4266 /* Vacations.storyboard */,
 				C1411C2B24503B5F00BB4266 /* VacationsViewContorller.swift */,
 				C1411C2D2450415A00BB4266 /* VacationsViewModel.swift */,
+			);
+			path = Vacations;
+			sourceTree = "<group>";
+		};
+		C1411C2F24505B5000BB4266 /* Vacations */ = {
+			isa = PBXGroup;
+			children = (
+				C1411C3024505B5D00BB4266 /* VacationsViewControllerMock.swift */,
 			);
 			path = Vacations;
 			sourceTree = "<group>";
@@ -3460,6 +3471,7 @@
 				C1249C852181B567005DB2A5 /* ErrorHandlerTests.swift in Sources */,
 				C10FD88E21F1FB6200A233C5 /* ProfileViewControllerMock.swift in Sources */,
 				C12260172188927A007D64A3 /* AuthenticationCoordinatorTests.swift in Sources */,
+				C1411C3124505B5D00BB4266 /* VacationsViewControllerMock.swift in Sources */,
 				8ADBB8D7243753B2009CA6FE /* TemporarySessionManagerMock.swift in Sources */,
 				C134296021A6937E00F4EA42 /* ApiClientSessionTests.swift in Sources */,
 				C153AC622182FCB7007A35BB /* UILabelExtensionTests.swift in Sources */,
