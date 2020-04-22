@@ -14,7 +14,6 @@ class JSONEncoderMock {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .formatted(DateFormatter.dateAndTimeExtended)
         encoder.outputFormatting = .prettyPrinted
-        encoder.keyEncodingStrategy = .convertToSnakeCase
         return encoder
     }()
     

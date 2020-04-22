@@ -14,13 +14,11 @@ extension XCTestCase {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .formatted(DateFormatter.dateAndTimeExtended)
         encoder.outputFormatting = .prettyPrinted
-        encoder.keyEncodingStrategy = .convertToSnakeCase
         return encoder
     }
     
     var decoder: JSONDecoder {
         let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
         decoder.dateDecodingStrategy = .formatted(DateFormatter.dateAndTimeExtended)
         return decoder
     }

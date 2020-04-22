@@ -13,7 +13,6 @@ import JSONFactorable
 extension JSONFactorable {
     var decoder: JSONDecoder {
         let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
         decoder.dateDecodingStrategy = .formatted(DateFormatter.dateAndTimeExtended)
         return decoder
     }

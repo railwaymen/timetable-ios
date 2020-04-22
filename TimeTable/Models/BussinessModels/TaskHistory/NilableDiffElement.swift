@@ -11,7 +11,7 @@ import Foundation
 struct NilableDiffElement<Element: Decodable & Equatable> {
     // MARK: - Static
     private static func previousKey(baseKey: String) -> StringCodingKey {
-        return StringCodingKey(stringLiteral: baseKey + "Was")
+        return StringCodingKey(stringLiteral: baseKey + "_was")
     }
     
     private static func currentKey(baseKey: String) -> StringCodingKey {

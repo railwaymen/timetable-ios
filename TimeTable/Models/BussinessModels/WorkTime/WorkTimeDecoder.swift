@@ -43,15 +43,15 @@ struct WorkTimeDecoder: Decodable, WorkTimeDecoderFieldsProtocol {
     
     enum CodingKeys: String, CodingKey {
         case id
-        case updatedByAdmin
-        case projectID = "projectId"
-        case startsAt
-        case endsAt
+        case updatedByAdmin = "updated_by_admin"
+        case projectID = "project_id"
+        case startsAt = "starts_at"
+        case endsAt = "ends_at"
         case duration
         case body
         case task
-        case taskPreview
-        case userID = "userId"
+        case taskPreview = "task_preview"
+        case userID = "user_id"
         case project
         case date
         case tag

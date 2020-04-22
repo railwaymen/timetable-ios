@@ -34,14 +34,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private lazy var encoder: JSONEncoderType = {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .formatted(DateFormatter.dateAndTimeExtended)
-        encoder.keyEncodingStrategy = .convertToSnakeCase
         return encoder
     }()
     
     private lazy var decoder: JSONDecoderType = {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(DateFormatter.dateAndTimeExtended)
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
         return decoder
     }()
     

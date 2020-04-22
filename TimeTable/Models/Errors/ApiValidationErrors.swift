@@ -19,10 +19,10 @@ extension ApiValidationErrors {
         
         enum CodingKeys: String, CodingKey {
             case base
-            case startsAt
-            case endsAt
+            case startsAt = "starts_at"
+            case endsAt = "ends_at"
             case duration
-            case invalidEmailOrPassword
+            case invalidEmailOrPassword = "invalid_email_or_password"
         }
         
         init(from decoder: Decoder) throws {

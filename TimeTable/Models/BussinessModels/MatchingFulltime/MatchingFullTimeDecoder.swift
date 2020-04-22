@@ -39,8 +39,8 @@ struct MatchingFullTimeDecoder: Decodable, MatchingFullTimeDecoderFields {
     }
     
     enum CodingKeys: String, CodingKey {
-        case accountingPeriod
-        case shouldWorked
+        case accountingPeriod = "accounting_period"
+        case shouldWorked = "should_worked"
     }
 }
 
@@ -53,7 +53,7 @@ extension MatchingFullTimeDecoder {
         
         enum CodingKeys: String, CodingKey {
             case id
-            case countedDuration
+            case countedDuration = "counted_duration"
             case duration
         }
     }
