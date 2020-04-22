@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol VacationsCoordinatorDelegate: class {
+    func vacationsRequestedForProfileView()
+}
+
 class VacationsCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
     private let dependencyContainer: DependencyContainerType
     
@@ -38,12 +42,20 @@ class VacationsCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
     }
 }
 
+// MARK: - VacationsCoordinatorDelegate
+extension VacationsCoordinator: VacationsCoordinatorDelegate {
+    func vacationsRequestedForProfileView() {
+        let parentViewController = self.navigationController.topViewController ?? self.navigationController
+        self.dependencyContainer.parentCoordinator?.showProfile(parentViewController: parentViewController)
+    }
+}
+
 // MARK: - Private
 extension VacationsCoordinator {
     private func runMainFlow() {
         do {
             let controller = try self.dependencyContainer.viewControllerBuilder.vacations()
-            let viwModel = VacationsViewModel(userInterface: controller)
+            let viwModel = VacationsViewModel(userInterface: controller, coordiantor: self)
             controller.configure(viewModel: viwModel)
             self.navigationController.setViewControllers([controller], animated: false)
         } catch {

@@ -9,23 +9,35 @@
 import Foundation
 
 protocol VacationsViewModelOutput: class {
-    
+    func setUpView()
 }
 
 protocol VacationsViewModelType: class {
-    
+    func viewDidLoad()
+    func viewRequestForProfileView()
 }
 
 class VacationsViewModel {
     private weak var userInterface: VacationsViewModelOutput?
+    private weak var coordiantor: VacationsCoordinatorDelegate?
     
     // MARK: - Initialization
-    init(userInterface: VacationsViewModelOutput?) {
+    init(
+        userInterface: VacationsViewModelOutput?,
+        coordiantor: VacationsCoordinatorDelegate?
+    ) {
         self.userInterface = userInterface
+        self.coordiantor = coordiantor
     }
 }
 
 // MARK: - VacationsViewModelType
 extension VacationsViewModel: VacationsViewModelType {
+    func viewDidLoad() {
+        self.userInterface?.setUpView()
+    }
     
+    func viewRequestForProfileView() {
+        self.coordiantor?.vacationsRequestedForProfileView()
+    }
 }
