@@ -1,0 +1,9 @@
+{
+  "id": 11,
+  "start_date": "2020-03-04",
+  "end_date": "2020-03-05",
+  "vacation_type": "requested",
+  "status": "accepted",
+  "full_name": "user 1",
+  "business_days_count": 2
+}

@@ -373,6 +373,7 @@
 		C1411C2C24503B6000BB4266 /* VacationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1411C2B24503B5F00BB4266 /* VacationViewController.swift */; };
 		C1411C2E2450415A00BB4266 /* VacationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1411C2D2450415A00BB4266 /* VacationViewModel.swift */; };
 		C1411C3124505B5D00BB4266 /* VacationViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1411C3024505B5D00BB4266 /* VacationViewControllerMock.swift */; };
+		C1411C372450904700BB4266 /* VacationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1411C362450904700BB4266 /* VacationResponse.swift */; };
 		C147D1F721F5F96A00A818BD /* AttributedTextFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C147D1F621F5F96A00A818BD /* AttributedTextFieldTests.swift */; };
 		C14B10FB21F9C64D00A42587 /* TimeTableTabCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14B10FA21F9C64D00A42587 /* TimeTableTabCoordinatorTests.swift */; };
 		C14EB0252372D9B0007F07D0 /* ErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14EB0242372D9B0007F07D0 /* ErrorViewModel.swift */; };
@@ -504,6 +505,22 @@
 		C1FA05DD2194288400BD8C9D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1FA05DC2194288400BD8C9D /* CoreData.framework */; };
 		C1FA05E4219440C700BD8C9D /* LoginContentProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA05E3219440C700BD8C9D /* LoginContentProviderTests.swift */; };
 		C1FA05E921945DA400BD8C9D /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA05E821945DA400BD8C9D /* XCTestCase+Extension.swift */; };
+		C1FB3FFA24517342008266C4 /* VacationResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FB3FF924517342008266C4 /* VacationResponseTests.swift */; };
+		C1FB3FFC2451734F008266C4 /* VacationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FB3FFB2451734F008266C4 /* VacationTests.swift */; };
+		C1FB3FFE2451738A008266C4 /* UsedVacationDaysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FB3FFD2451738A008266C4 /* UsedVacationDaysTests.swift */; };
+		C1FB400024517480008266C4 /* VacationJSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FB3FFF24517480008266C4 /* VacationJSONResource.swift */; };
+		C1FB40032451768D008266C4 /* vacationPlannedTypeResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1FB40022451768D008266C4 /* vacationPlannedTypeResponse.json */; };
+		C1FB40052451769A008266C4 /* vacationRequestedTypeResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1FB40042451769A008266C4 /* vacationRequestedTypeResponse.json */; };
+		C1FB4007245176B1008266C4 /* vacationCompassionateTypeResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1FB4006245176B1008266C4 /* vacationCompassionateTypeResponse.json */; };
+		C1FB4009245176BF008266C4 /* vacationOthersTypeResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1FB4008245176BF008266C4 /* vacationOthersTypeResponse.json */; };
+		C1FB400B245176CA008266C4 /* vacationUnconfirmedStatusResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1FB400A245176CA008266C4 /* vacationUnconfirmedStatusResponse.json */; };
+		C1FB400D245176D3008266C4 /* vacationDeclinedStatusResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1FB400C245176D3008266C4 /* vacationDeclinedStatusResponse.json */; };
+		C1FB400F245176DB008266C4 /* vacationApprovedStatusResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1FB400E245176DB008266C4 /* vacationApprovedStatusResponse.json */; };
+		C1FB4011245176E6008266C4 /* vacationAcceptedStatusResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1FB4010245176E6008266C4 /* vacationAcceptedStatusResponse.json */; };
+		C1FB40132451876E008266C4 /* VacationResponseJSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FB40122451876E008266C4 /* VacationResponseJSONResource.swift */; };
+		C1FB40162451878B008266C4 /* vacationResponseTypeResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1FB40152451878B008266C4 /* vacationResponseTypeResponse.json */; };
+		C1FB40192451884C008266C4 /* UsedVacationDaysJSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FB40182451884C008266C4 /* UsedVacationDaysJSONResource.swift */; };
+		C1FB401C24518875008266C4 /* usedVacationDaysResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1FB401B24518875008266C4 /* usedVacationDaysResponse.json */; };
 		C1FE49E821AC458F00E37E28 /* WorkTimesTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FE49E721AC458F00E37E28 /* WorkTimesTableViewHeader.swift */; };
 		C1FE49EA21AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FE49E921AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift */; };
 		D82AD08CFF4CD9B3DCE59DF6 /* Pods_TimeTableUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D079498D6352A89A81273FA /* Pods_TimeTableUITests.framework */; };
@@ -909,6 +926,7 @@
 		C1411C2B24503B5F00BB4266 /* VacationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationViewController.swift; sourceTree = "<group>"; };
 		C1411C2D2450415A00BB4266 /* VacationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationViewModel.swift; sourceTree = "<group>"; };
 		C1411C3024505B5D00BB4266 /* VacationViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationViewControllerMock.swift; sourceTree = "<group>"; };
+		C1411C362450904700BB4266 /* VacationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationResponse.swift; sourceTree = "<group>"; };
 		C147D1F621F5F96A00A818BD /* AttributedTextFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextFieldTests.swift; sourceTree = "<group>"; };
 		C14B10FA21F9C64D00A42587 /* TimeTableTabCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableTabCoordinatorTests.swift; sourceTree = "<group>"; };
 		C14EB0242372D9B0007F07D0 /* ErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewModel.swift; sourceTree = "<group>"; };
@@ -1048,6 +1066,22 @@
 		C1FA05DC2194288400BD8C9D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C1FA05E3219440C700BD8C9D /* LoginContentProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginContentProviderTests.swift; sourceTree = "<group>"; };
 		C1FA05E821945DA400BD8C9D /* XCTestCase+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extension.swift"; sourceTree = "<group>"; };
+		C1FB3FF924517342008266C4 /* VacationResponseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationResponseTests.swift; sourceTree = "<group>"; };
+		C1FB3FFB2451734F008266C4 /* VacationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationTests.swift; sourceTree = "<group>"; };
+		C1FB3FFD2451738A008266C4 /* UsedVacationDaysTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsedVacationDaysTests.swift; sourceTree = "<group>"; };
+		C1FB3FFF24517480008266C4 /* VacationJSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationJSONResource.swift; sourceTree = "<group>"; };
+		C1FB40022451768D008266C4 /* vacationPlannedTypeResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = vacationPlannedTypeResponse.json; sourceTree = "<group>"; };
+		C1FB40042451769A008266C4 /* vacationRequestedTypeResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = vacationRequestedTypeResponse.json; sourceTree = "<group>"; };
+		C1FB4006245176B1008266C4 /* vacationCompassionateTypeResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = vacationCompassionateTypeResponse.json; sourceTree = "<group>"; };
+		C1FB4008245176BF008266C4 /* vacationOthersTypeResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = vacationOthersTypeResponse.json; sourceTree = "<group>"; };
+		C1FB400A245176CA008266C4 /* vacationUnconfirmedStatusResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = vacationUnconfirmedStatusResponse.json; sourceTree = "<group>"; };
+		C1FB400C245176D3008266C4 /* vacationDeclinedStatusResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = vacationDeclinedStatusResponse.json; sourceTree = "<group>"; };
+		C1FB400E245176DB008266C4 /* vacationApprovedStatusResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = vacationApprovedStatusResponse.json; sourceTree = "<group>"; };
+		C1FB4010245176E6008266C4 /* vacationAcceptedStatusResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = vacationAcceptedStatusResponse.json; sourceTree = "<group>"; };
+		C1FB40122451876E008266C4 /* VacationResponseJSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationResponseJSONResource.swift; sourceTree = "<group>"; };
+		C1FB40152451878B008266C4 /* vacationResponseTypeResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = vacationResponseTypeResponse.json; sourceTree = "<group>"; };
+		C1FB40182451884C008266C4 /* UsedVacationDaysJSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsedVacationDaysJSONResource.swift; sourceTree = "<group>"; };
+		C1FB401B24518875008266C4 /* usedVacationDaysResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = usedVacationDaysResponse.json; sourceTree = "<group>"; };
 		C1FE49E721AC458F00E37E28 /* WorkTimesTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesTableViewHeader.swift; sourceTree = "<group>"; };
 		C1FE49E921AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesTableViewHeaderViewModel.swift; sourceTree = "<group>"; };
 		C606DDF3BB59C86E7F198617 /* Pods-TimeTableTests.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTableTests.stage.xcconfig"; path = "Target Support Files/Pods-TimeTableTests/Pods-TimeTableTests.stage.xcconfig"; sourceTree = "<group>"; };
@@ -2007,6 +2041,7 @@
 				C163BF28244F490600E87F4A /* Task */,
 				8A79A2492420D6600048B44B /* TaskHistory */,
 				C10FD87D21F1ED8300A233C5 /* User */,
+				C1411C352450901C00BB4266 /* Vacation */,
 				C12CA57721A58F860082FEB7 /* WorkTime */,
 			);
 			path = BussinessModels;
@@ -2022,6 +2057,7 @@
 				C163BF29244F494000E87F4A /* Task */,
 				8A79A24C2420DDF20048B44B /* TaskHistory */,
 				C10FD88221F1F27800A233C5 /* User */,
+				C1FB3FF824517311008266C4 /* Vacation */,
 				C12CA57F21A599CB0082FEB7 /* WorkTimes */,
 			);
 			path = BussinessModels;
@@ -2103,6 +2139,14 @@
 			isa = PBXGroup;
 			children = (
 				C1411C3024505B5D00BB4266 /* VacationViewControllerMock.swift */,
+			);
+			path = Vacation;
+			sourceTree = "<group>";
+		};
+		C1411C352450901C00BB4266 /* Vacation */ = {
+			isa = PBXGroup;
+			children = (
+				C1411C362450904700BB4266 /* VacationResponse.swift */,
 			);
 			path = Vacation;
 			sourceTree = "<group>";
@@ -2586,9 +2630,12 @@
 				8A065B54237ABA1B0072A21E /* SimpleProjectJSONResource.swift */,
 				8A79A24F2420DE4C0048B44B /* TaskVersionJSONResource.swift */,
 				8A065B5C237ABDBB0072A21E /* UserJSONResource.swift */,
+				C1FB3FFF24517480008266C4 /* VacationJSONResource.swift */,
+				C1FB40122451876E008266C4 /* VacationResponseJSONResource.swift */,
 				8A065B4E237AB8F50072A21E /* WorkTimesJSONResource.swift */,
 				8A065B56237ABC5A0072A21E /* WorkTimesProjectJSONResource.swift */,
 				8A6A4FAF2456D949004B4CF2 /* AccountingPeriods */,
+				C1FB40182451884C008266C4 /* UsedVacationDaysJSONResource.swift */,
 				C1B771F921EF415C00EFE06F /* ApiValidationErrors */,
 				C19D88A62203007F007CC867 /* MatchingFullTime */,
 				C12CA57021A58C6C0082FEB7 /* Projects */,
@@ -2596,6 +2643,7 @@
 				C1B8FA4F218C9A64009D10B4 /* Session */,
 				8A79A2512420DED60048B44B /* TaskHistory */,
 				C10FD88521F1F2FF00A233C5 /* User */,
+				C1FB400124517673008266C4 /* Vacation */,
 				C12CA57E21A599BE0082FEB7 /* WorkTimes */,
 			);
 			path = Resources;
@@ -2693,6 +2741,57 @@
 				C1F69B2D21903818005D9114 /* LoginContentProvider.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		C1FB3FF824517311008266C4 /* Vacation */ = {
+			isa = PBXGroup;
+			children = (
+				C1FB3FF924517342008266C4 /* VacationResponseTests.swift */,
+				C1FB3FFB2451734F008266C4 /* VacationTests.swift */,
+				C1FB3FFD2451738A008266C4 /* UsedVacationDaysTests.swift */,
+			);
+			path = Vacation;
+			sourceTree = "<group>";
+		};
+		C1FB400124517673008266C4 /* Vacation */ = {
+			isa = PBXGroup;
+			children = (
+				C1FB401A24518869008266C4 /* UsedVacationDays */,
+				C1FB401724518793008266C4 /* Vacation */,
+				C1FB40142451877E008266C4 /* VacationResponse */,
+			);
+			path = Vacation;
+			sourceTree = "<group>";
+		};
+		C1FB40142451877E008266C4 /* VacationResponse */ = {
+			isa = PBXGroup;
+			children = (
+				C1FB40152451878B008266C4 /* vacationResponseTypeResponse.json */,
+			);
+			path = VacationResponse;
+			sourceTree = "<group>";
+		};
+		C1FB401724518793008266C4 /* Vacation */ = {
+			isa = PBXGroup;
+			children = (
+				C1FB40022451768D008266C4 /* vacationPlannedTypeResponse.json */,
+				C1FB40042451769A008266C4 /* vacationRequestedTypeResponse.json */,
+				C1FB4006245176B1008266C4 /* vacationCompassionateTypeResponse.json */,
+				C1FB4008245176BF008266C4 /* vacationOthersTypeResponse.json */,
+				C1FB400A245176CA008266C4 /* vacationUnconfirmedStatusResponse.json */,
+				C1FB400C245176D3008266C4 /* vacationDeclinedStatusResponse.json */,
+				C1FB400E245176DB008266C4 /* vacationApprovedStatusResponse.json */,
+				C1FB4010245176E6008266C4 /* vacationAcceptedStatusResponse.json */,
+			);
+			path = Vacation;
+			sourceTree = "<group>";
+		};
+		C1FB401A24518869008266C4 /* UsedVacationDays */ = {
+			isa = PBXGroup;
+			children = (
+				C1FB401B24518875008266C4 /* usedVacationDaysResponse.json */,
+			);
+			path = UsedVacationDays;
 			sourceTree = "<group>";
 		};
 		C1FE49E521AC457200E37E28 /* TableViewCell */ = {
@@ -2892,7 +2991,10 @@
 				8AFFE5C824331C0B001D9E89 /* taskVersionMissingCurrentTaskKey.json in Resources */,
 				8A79A2AF2420F73C0048B44B /* taskVersionMissingPreviousEndsAtKey.json in Resources */,
 				8A79A2C22420F73C0048B44B /* taskVersionMissingPreviousBodyKey.json in Resources */,
+				C1FB400B245176CA008266C4 /* vacationUnconfirmedStatusResponse.json in Resources */,
 				8A79A2AD2420F73C0048B44B /* taskVersionNullPreviousEndsAt.json in Resources */,
+				C1FB40162451878B008266C4 /* vacationResponseTypeResponse.json in Resources */,
+				C1FB4009245176BF008266C4 /* vacationOthersTypeResponse.json in Resources */,
 				C11F51F121A59DF300FD626A /* workTimeResponse.json in Resources */,
 				8A2FB0FA242E27FF00DDBCB0 /* taskChangedStartsAtResponse.json in Resources */,
 				8A79A2C12420F73C0048B44B /* taskVersionMissingPreviousDurationKey.json in Resources */,
@@ -2910,7 +3012,9 @@
 				8A9832BD243B0023005245A8 /* serverErrorFullModel.json in Resources */,
 				8A21A0482435D74C00EE4A79 /* taskVersionNullCurrentTaskPreview.json in Resources */,
 				8A79A2C02420F73C0048B44B /* taskVersionNullCurrentTag.json in Resources */,
+				C1FB400F245176DB008266C4 /* vacationApprovedStatusResponse.json in Resources */,
 				8A79A2AE2420F73C0048B44B /* taskVersionNullPreviousTag.json in Resources */,
+				C1FB400D245176D3008266C4 /* vacationDeclinedStatusResponse.json in Resources */,
 				C134299D21A6DC6B00F4EA42 /* workTimeNullTask.json in Resources */,
 				C1B7720321EF423900EFE06F /* durationErrorKeyResponse.json in Resources */,
 				C1B771D521EF1DD200EFE06F /* simpleProjectNullColorResponse.json in Resources */,
@@ -2927,6 +3031,7 @@
 				8A79A2E9242369870048B44B /* projectRecordMissingLeaderFirstNameKeyResponse.json in Resources */,
 				8A79A2BF2420F73C0048B44B /* taskVersionNullProjectName.json in Resources */,
 				C12CA57621A58D2E0082FEB7 /* workTimesProjectMissingColorKeyResponse.json in Resources */,
+				C1FB4011245176E6008266C4 /* vacationAcceptedStatusResponse.json in Resources */,
 				8A79A2B32420F73C0048B44B /* taskVersionMissingCurrentTagKey.json in Resources */,
 				C1B7720521EF424300EFE06F /* invalidEmailOrPasswordErrorKeyResponse.json in Resources */,
 				C1B771E521EF1E7800EFE06F /* simpleProjectNullActiveResponse.json in Resources */,
@@ -2934,6 +3039,7 @@
 				8A79A2532420DEEB0048B44B /* taskVersionFullModel.json in Resources */,
 				C1B771FB21EF41C300EFE06F /* emptyErrosKeysResponse.json in Resources */,
 				8A79A2912420F0DE0048B44B /* taskVersionMissingCurrentDurationKey.json in Resources */,
+				C1FB40032451768D008266C4 /* vacationPlannedTypeResponse.json in Resources */,
 				8A79A2E72423696B0048B44B /* projectRecordNullLeaderFirstNameResponse.json in Resources */,
 				8A79A2B92420F73C0048B44B /* taskVersionMissingPreviousTagKey.json in Resources */,
 				8A79A2BC2420F73C0048B44B /* taskVersionMissingPreviousStartsAtKey.json in Resources */,
@@ -2966,6 +3072,7 @@
 				8AFFE5C424331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json in Resources */,
 				C13429A321A6DCA300F4EA42 /* workTimeMissingTaskPreviewKey.json in Resources */,
 				8A79A2C32420F73C0048B44B /* taskVersionNullCurrentDuration.json in Resources */,
+				C1FB4007245176B1008266C4 /* vacationCompassionateTypeResponse.json in Resources */,
 				8A79A2B42420F73C0048B44B /* taskVersionNullCurrentBody.json in Resources */,
 				8A79A2B62420F73C0048B44B /* taskVersionNullCurrentProjectName.json in Resources */,
 				8A79A2B02420F73C0048B44B /* taskVersionNullPreviousDuration.json in Resources */,
@@ -2976,8 +3083,10 @@
 				C1B771D321EF1CB100EFE06F /* simpleProjectFullResponse.json in Resources */,
 				8A6A4FC52456F299004B4CF2 /* accountingPeriodMissingNoteKey.json in Resources */,
 				8A79A2B12420F73C0048B44B /* taskVersionMissingPreviousProjectNameKey.json in Resources */,
+				C1FB401C24518875008266C4 /* usedVacationDaysResponse.json in Resources */,
 				8A2FB0FC242E282900DDBCB0 /* taskChangedEndsAtResponse.json in Resources */,
 				C13429A121A6DC9900F4EA42 /* workTimeNullTaskPreview.json in Resources */,
+				C1FB40052451769A008266C4 /* vacationRequestedTypeResponse.json in Resources */,
 				8A79A2812420F01A0048B44B /* taskVersionMissingCurrentEndsAtKey.json in Resources */,
 				8A79A2B22420F73C0048B44B /* taskVersionNullCurrentStartsAt.json in Resources */,
 				C13429A521A6DF1400F4EA42 /* workTimesResponse.json in Resources */,
@@ -3350,6 +3459,7 @@
 				C153AC472182EBC1007A35BB /* ServerConfigurationViewController.swift in Sources */,
 				8A798747237D4DC6003DC028 /* ProfileViewModel.swift in Sources */,
 				C12CA57D21A593F20082FEB7 /* DateFormatter+Extension.swift in Sources */,
+				C1411C372450904700BB4266 /* VacationResponse.swift in Sources */,
 				8A31CD8923742D15008E590D /* ProjectPickerCell.swift in Sources */,
 				C1E1F04B21AD3DBE007F9228 /* Calendar+Extension.swift in Sources */,
 				8A10F83B2350C7AF0004F389 /* WorkTimeCoordinator.swift in Sources */,
@@ -3392,6 +3502,7 @@
 				C10FD88421F1F28200A233C5 /* UserDecoderTests.swift in Sources */,
 				C12CA58221A599E60082FEB7 /* WorkTimeDecoderTests.swift in Sources */,
 				8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift in Sources */,
+				C1FB3FFC2451734F008266C4 /* VacationTests.swift in Sources */,
 				8A79A2D32422460C0048B44B /* TaskHistoryViewControllerMock.swift in Sources */,
 				8ADBB8D524374D21009CA6FE /* TemporarySessionManagerTests.swift in Sources */,
 				8A137C3B23FD74E4001569BB /* Asserts.swift in Sources */,
@@ -3408,6 +3519,7 @@
 				C1B771F721EF39FA00EFE06F /* ApiValidationErrorsTests.swift in Sources */,
 				8A31BFB524177B42004A1CE8 /* RestlerRequestBuilderMock.swift in Sources */,
 				C16B05D021F2140200BB63E6 /* ProfileCoordinatorTests.swift in Sources */,
+				C1FB40192451884C008266C4 /* UsedVacationDaysJSONResource.swift in Sources */,
 				8A065B5B237ABCD90072A21E /* SessionJSONResource.swift in Sources */,
 				C134298921A6C84F00F4EA42 /* ServerConfigurationViewControllerMock.swift in Sources */,
 				C1B8FA49218C963A009D10B4 /* LoginCredentialsTests.swift in Sources */,
@@ -3418,6 +3530,7 @@
 				8A08B50524372EB1007E8DCF /* TaskVersionFactory.swift in Sources */,
 				C134297521A6BE6F00F4EA42 /* AccessServiceMock.swift in Sources */,
 				C134296B21A6ABF200F4EA42 /* WorkTimesParametersTests.swift in Sources */,
+				C1FB40132451876E008266C4 /* VacationResponseJSONResource.swift in Sources */,
 				C1ECF0A82192C427006038C6 /* CustomJSONSerializationTests.swift in Sources */,
 				8AE00013237464A1002F783E /* WorkTimeCoordinatorMock.swift in Sources */,
 				C178B78D21EF8AE1001DA07F /* WorkTimeViewControllerMock.swift in Sources */,
@@ -3458,6 +3571,7 @@
 				8AF5696F23D71EA000A1D001 /* JSONFactorable+Extension.swift in Sources */,
 				8AB8AFC1244EF06F00A0D3D3 /* ParentCoordinatorMock.swift in Sources */,
 				C19706E221C132C9007AFED4 /* WorkTimeTableViewCellModelTests.swift in Sources */,
+				C1FB3FFA24517342008266C4 /* VacationResponseTests.swift in Sources */,
 				C1FA05E4219440C700BD8C9D /* LoginContentProviderTests.swift in Sources */,
 				8A79A2D524224A040048B44B /* TaskHistoryCoordinatorMock.swift in Sources */,
 				8A6A4FCF24582DE8004B4CF2 /* AccountingPeriodsParametersTests.swift in Sources */,
@@ -3477,6 +3591,7 @@
 				C153AC622182FCB7007A35BB /* UILabelExtensionTests.swift in Sources */,
 				C12CA56F21A58BE70082FEB7 /* SimpleProjectRecordDecoderTests.swift in Sources */,
 				8A6A4FD524584A18004B4CF2 /* IntExtensionTests.swift in Sources */,
+				C1FB3FFE2451738A008266C4 /* UsedVacationDaysTests.swift in Sources */,
 				8AE0001623746520002F783E /* ProjectPickerViewModelTests.swift in Sources */,
 				8A281B6E2460166A00A9564C /* LoginFormTests.swift in Sources */,
 				8AE55D1F23FD86A200F94242 /* TaskFormMock.swift in Sources */,
@@ -3486,6 +3601,7 @@
 				C1EF3A0921930722000E3511 /* StringExtensionTests.swift in Sources */,
 				8A523C8E2395091900215C61 /* DateExtensionTests.swift in Sources */,
 				C134296F21A6BCCD00F4EA42 /* RequestEncoderMock.swift in Sources */,
+				C1FB400024517480008266C4 /* VacationJSONResource.swift in Sources */,
 				8A99EBC123D9B95600CC9BA8 /* UIColor+Extension.swift in Sources */,
 				8A79A2502420DE4C0048B44B /* TaskVersionJSONResource.swift in Sources */,
 				8AF5696D23D71C0900A1D001 /* SimpleProjectRecordDecoderFactory.swift in Sources */,
