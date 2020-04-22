@@ -29,15 +29,15 @@ extension TaskTests {
             tag: .development)
         //Act
         let data = try self.encoder.encode(sut)
-        let params = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
         //Assert
-        XCTAssertEqual(params?.count, 6)
-        XCTAssertEqual(params?["project_id"] as? Int64, 1)
-        XCTAssertEqual(params?["body"] as? String, "task body")
-        XCTAssertNil(params?["task"] as? String)
-        XCTAssertEqual(params?["starts_at"] as? String, DateFormatter.dateAndTimeExtended.string(from: startsAt))
-        XCTAssertEqual(params?["ends_at"] as? String, DateFormatter.dateAndTimeExtended.string(from: endsAt))
-        XCTAssertEqual(params?["tag"] as? String, "dev")
+        let params = try XCTUnwrap(JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any])
+        XCTAssertEqual(params.count, 6)
+        XCTAssertEqual(params["project_id"] as? Int64, 1)
+        XCTAssertEqual(params["body"] as? String, "task body")
+        XCTAssert(params["task"] is NSNull)
+        XCTAssertEqual(params["starts_at"] as? String, DateFormatter.dateAndTimeExtended.string(from: startsAt))
+        XCTAssertEqual(params["ends_at"] as? String, DateFormatter.dateAndTimeExtended.string(from: endsAt))
+        XCTAssertEqual(params["tag"] as? String, "dev")
     }
     
     func testEncoding_nullURL() throws {
@@ -55,15 +55,15 @@ extension TaskTests {
             tag: .development)
         //Act
         let data = try self.encoder.encode(sut)
-        let params = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
         //Assert
-        XCTAssertEqual(params?.count, 6)
-        XCTAssertEqual(params?["project_id"] as? Int64, 1)
-        XCTAssertEqual(params?["body"] as? String, "task body")
-        XCTAssertEqual(params?["task"] as? String, url.absoluteString)
-        XCTAssertEqual(params?["starts_at"] as? String, DateFormatter.dateAndTimeExtended.string(from: startsAt))
-        XCTAssertEqual(params?["ends_at"] as? String, DateFormatter.dateAndTimeExtended.string(from: endsAt))
-        XCTAssertEqual(params?["tag"] as? String, "dev")
+        let params = try XCTUnwrap(JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any])
+        XCTAssertEqual(params.count, 6)
+        XCTAssertEqual(params["project_id"] as? Int64, 1)
+        XCTAssertEqual(params["body"] as? String, "task body")
+        XCTAssertEqual(params["task"] as? String, url.absoluteString)
+        XCTAssertEqual(params["starts_at"] as? String, DateFormatter.dateAndTimeExtended.string(from: startsAt))
+        XCTAssertEqual(params["ends_at"] as? String, DateFormatter.dateAndTimeExtended.string(from: endsAt))
+        XCTAssertEqual(params["tag"] as? String, "dev")
     }
 }
 
