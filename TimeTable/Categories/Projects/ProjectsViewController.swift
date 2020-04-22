@@ -26,7 +26,7 @@ class ProjectsViewController: UIViewController {
     private let projectCellStaticHeaderHeight: CGFloat = 88
     private let profileImageView: UIImageView = UIImageView(image: .profile)
 
-    // MARK: - Lifecycle
+    // MARK: - Overridden
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.viewDidLoad()

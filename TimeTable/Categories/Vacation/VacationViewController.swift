@@ -1,5 +1,5 @@
 //
-//  VacationsViewContorller.swift
+//  VacationViewContorller.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 22/04/2020.
@@ -8,16 +8,16 @@
 
 import UIKit
 
-typealias VacationsViewContorllerable = (UIViewController & VacationsViewContorllerType & VacationsViewModelOutput)
+typealias VacationViewControllerable = (UIViewController & VacationViewControllerType & VacationViewModelOutput)
 
-protocol VacationsViewContorllerType: class {
-    func configure(viewModel: VacationsViewModelType)
+protocol VacationViewControllerType: class {
+    func configure(viewModel: VacationViewModelType)
 }
 
-class VacationsViewContorller: UIViewController {
-    private var viewModel: VacationsViewModelType!
+class VacationViewController: UIViewController {
+    private var viewModel: VacationViewModelType!
 
-    // MARK: - Lifecycle
+    // MARK: - Overridden
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.viewDidLoad()
@@ -29,25 +29,25 @@ class VacationsViewContorller: UIViewController {
     }
 }
 
-// MARK: - VacationsViewModelOutput
-extension VacationsViewContorller: VacationsViewModelOutput {
+// MARK: - VacationViewModelOutput
+extension VacationViewController: VacationViewModelOutput {
     func setUpView() {
         self.setUpNavigationItem()
         self.setUpBarButtons()
     }
 }
 
-// MARK: - VacationsViewContorllerType
-extension VacationsViewContorller: VacationsViewContorllerType {
-    func configure(viewModel: VacationsViewModelType) {
+// MARK: - VacationViewControllerType
+extension VacationViewController: VacationViewControllerType {
+    func configure(viewModel: VacationViewModelType) {
         self.viewModel = viewModel
     }
 }
 
 // MARK: - Private
-extension VacationsViewContorller {
+extension VacationViewController {
     private func setUpNavigationItem() {
-        self.title = R.string.localizable.tabbar_title_vacations()
+        self.title = R.string.localizable.tabbar_title_vacation()
     }
     
     private func setUpBarButtons() {

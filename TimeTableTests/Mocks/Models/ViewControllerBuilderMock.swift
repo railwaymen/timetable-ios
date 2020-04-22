@@ -55,11 +55,11 @@ class ViewControllerBuilderMock {
     var accountingPeriodsReturnValue: AccountingPeriodsViewControllerable = AccountingPeriodsViewControllerMock()
     private(set) var accountingPeriodsParams: [AccountingPeriodsParams] = []
     struct AccountingPeriodsParams {}
-    
-    var vacationsThrownError: Error?
-    var vacationsReturnValue: VacationsViewContorllerable = VacationsViewControllerMock()
-    private(set) var vacationsParams: [VacationsParams] = []
-    struct VacationsParams {}
+
+    var vacationThrownError: Error?
+    var vacationReturnValue: VacationViewControllerable = VacationViewControllerMock()
+    private(set) var vacationParams: [VacationParams] = []
+    struct VacationParams {}
 }
 
 // MARK: - ViewControllerBuilderType
@@ -133,11 +133,11 @@ extension ViewControllerBuilderMock: ViewControllerBuilderType {
         return self.accountingPeriodsReturnValue
     }
     
-    func vacations() throws -> VacationsViewContorllerable {
-        self.vacationsParams.append(VacationsParams())
-        if let error = self.vacationsThrownError {
+    func vacation() throws -> VacationViewControllerable {
+        self.vacationParams.append(VacationParams())
+        if let error = self.vacationThrownError {
             throw error
         }
-        return self.vacationsReturnValue
+        return self.vacationReturnValue
     }
 }

@@ -28,7 +28,7 @@ class WorkTimeContainerViewController: UIViewController {
         return [self.formView, self.errorView].first(where: { !($0?.isHidden ?? true) })
     }
     
-    // MARK: - Lifecycle
+    // MARK: - Overridden
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.viewDidLoad()

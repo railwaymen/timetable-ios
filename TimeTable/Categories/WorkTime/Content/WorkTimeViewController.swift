@@ -34,7 +34,7 @@ class WorkTimeViewController: UIViewController {
     private var endAtDatePicker: UIDatePicker!
     private var viewModel: WorkTimeViewModelType!
     
-    // MARK: - Lifecycle
+    // MARK: - Overridden
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.viewDidLoad()

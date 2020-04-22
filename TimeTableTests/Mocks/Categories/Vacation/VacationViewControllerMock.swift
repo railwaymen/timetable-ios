@@ -1,5 +1,5 @@
 //
-//  VacationsViewControllerMock.swift
+//  VacationViewControllerMock.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 22/04/2020.
@@ -9,29 +9,29 @@
 import XCTest
 @testable import TimeTable
 
-class VacationsViewControllerMock: UIViewController {
+class VacationViewControllerMock: UIViewController {
     
-    // MARK: - VacationsViewModelOutput
+    // MARK: - VacationViewModelOutput
     private(set) var setUpParams: [SetUpParams] = []
     struct SetUpParams {}
     
-    // MARK: - VacationsViewContorllerType
+    // MARK: - VacationViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
-        var viewModel: VacationsViewModelType
+        var viewModel: VacationViewModelType
     }
 }
 
-// MARK: - VacationsViewModelOutput
-extension VacationsViewControllerMock: VacationsViewModelOutput {
+// MARK: - VacationViewModelOutput
+extension VacationViewControllerMock: VacationViewModelOutput {
     func setUpView() {
         self.setUpParams.append(SetUpParams())
     }
 }
 
-// MARK: - VacationsViewContorllerType
-extension VacationsViewControllerMock: VacationsViewContorllerType {
-    func configure(viewModel: VacationsViewModelType) {
+// MARK: - VacationViewControllerType
+extension VacationViewControllerMock: VacationViewControllerType {
+    func configure(viewModel: VacationViewModelType) {
         self.configureParams.append(ConfigureParams(viewModel: viewModel))
     }
 }
