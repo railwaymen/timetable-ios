@@ -521,6 +521,8 @@
 		C1FB40162451878B008266C4 /* vacationResponseTypeResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1FB40152451878B008266C4 /* vacationResponseTypeResponse.json */; };
 		C1FB40192451884C008266C4 /* UsedVacationDaysJSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FB40182451884C008266C4 /* UsedVacationDaysJSONResource.swift */; };
 		C1FB401C24518875008266C4 /* usedVacationDaysResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1FB401B24518875008266C4 /* usedVacationDaysResponse.json */; };
+		C1FB401E245191D8008266C4 /* ApiClient+Vacation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FB401D245191D8008266C4 /* ApiClient+Vacation.swift */; };
+		C1FB402024519357008266C4 /* ApiClientVacationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FB401F24519357008266C4 /* ApiClientVacationTests.swift */; };
 		C1FE49E821AC458F00E37E28 /* WorkTimesTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FE49E721AC458F00E37E28 /* WorkTimesTableViewHeader.swift */; };
 		C1FE49EA21AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FE49E921AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift */; };
 		D82AD08CFF4CD9B3DCE59DF6 /* Pods_TimeTableUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D079498D6352A89A81273FA /* Pods_TimeTableUITests.framework */; };
@@ -1082,6 +1084,8 @@
 		C1FB40152451878B008266C4 /* vacationResponseTypeResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = vacationResponseTypeResponse.json; sourceTree = "<group>"; };
 		C1FB40182451884C008266C4 /* UsedVacationDaysJSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsedVacationDaysJSONResource.swift; sourceTree = "<group>"; };
 		C1FB401B24518875008266C4 /* usedVacationDaysResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = usedVacationDaysResponse.json; sourceTree = "<group>"; };
+		C1FB401D245191D8008266C4 /* ApiClient+Vacation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiClient+Vacation.swift"; sourceTree = "<group>"; };
+		C1FB401F24519357008266C4 /* ApiClientVacationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientVacationTests.swift; sourceTree = "<group>"; };
 		C1FE49E721AC458F00E37E28 /* WorkTimesTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesTableViewHeader.swift; sourceTree = "<group>"; };
 		C1FE49E921AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesTableViewHeaderViewModel.swift; sourceTree = "<group>"; };
 		C606DDF3BB59C86E7F198617 /* Pods-TimeTableTests.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTableTests.stage.xcconfig"; path = "Target Support Files/Pods-TimeTableTests/Pods-TimeTableTests.stage.xcconfig"; sourceTree = "<group>"; };
@@ -2169,6 +2173,7 @@
 				C125F1B221DCCBE700594CDE /* ApiClient+Projects.swift */,
 				C134295D21A6934C00F4EA42 /* ApiClient+Session.swift */,
 				C10FD87E21F1EDA100A233C5 /* ApiClient+Users.swift */,
+				C1FB401D245191D8008266C4 /* ApiClient+Vacation.swift */,
 				C134296621A6951C00F4EA42 /* ApiClient+WorkTimes.swift */,
 				8A80A38C23D89C24002643A1 /* APIClientFactory.swift */,
 				C1531F032191C58000602A0C /* Endpoint.swift */,
@@ -2187,6 +2192,7 @@
 				C134295F21A6937E00F4EA42 /* ApiClientSessionTests.swift */,
 				C1531F062191CD4B00602A0C /* ApiClientTests.swift */,
 				C10FD88821F1F36300A233C5 /* ApiClientUsersTests.swift */,
+				C1FB401F24519357008266C4 /* ApiClientVacationTests.swift */,
 				C134296421A694F300F4EA42 /* ApiClientWorkTimesTests.swift */,
 				C13B2D40240E864C00FA4441 /* EndpointTests.swift */,
 				C1ECF0A92192CC25006038C6 /* RequestEncoderTests.swift */,
@@ -3335,6 +3341,7 @@
 				C1F926E6218838B80004A9BC /* LoginViewModel.swift in Sources */,
 				C1E6B350219EF52000019DC2 /* Keychain+Extension.swift in Sources */,
 				8A09DCBA23673E74003FC2A6 /* DispatchQueue+Extension.swift in Sources */,
+				C1FB401E245191D8008266C4 /* ApiClient+Vacation.swift in Sources */,
 				8A21A052243614D900EE4A79 /* KeychainBuilder.swift in Sources */,
 				C134295E21A6934C00F4EA42 /* ApiClient+Session.swift in Sources */,
 				C153AC6D21833BDC007A35BB /* AttributedButton.swift in Sources */,
@@ -3547,6 +3554,7 @@
 				C134299721A6D7F700F4EA42 /* BundleMock.swift in Sources */,
 				8AE55D2323FD933700F94242 /* DateFactoryMock.swift in Sources */,
 				8A5D48C22369E1E20082C13D /* DispatchGroupMock.swift in Sources */,
+				C1FB402024519357008266C4 /* ApiClientVacationTests.swift in Sources */,
 				C12BD9BB21E4B7B200A6EAF0 /* ApiClientProjectsTests.swift in Sources */,
 				8ADBB8D9243753D3009CA6FE /* SessionManagerMock.swift in Sources */,
 				8A79A2932420F58A0048B44B /* TaskVersionTests.swift in Sources */,

@@ -20,6 +20,7 @@ enum Endpoint: RestlerEndpointable, Equatable {
     case workTimes
     case workTimesCreateWithFilling
     case user(Int64)
+    case vacation
     
     var restlerEndpointValue: String {
         switch self {
@@ -33,6 +34,7 @@ enum Endpoint: RestlerEndpointable, Equatable {
         case .workTimes: return "/work_times"
         case .workTimesCreateWithFilling: return "/work_times/create_filling_gaps"
         case let .user(id): return "/users/\(id)"
+        case .vacation: return "/vacations"
         }
     }
 }

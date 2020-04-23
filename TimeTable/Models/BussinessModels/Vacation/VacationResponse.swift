@@ -108,3 +108,8 @@ extension VacationResponse.Vacation {
         case unconfirmed, declined, approved, accepted
     }
 }
+
+// MARK: - Equatable
+extension VacationResponse: Equatable {}
+extension VacationResponse.Vacation: Equatable {}
+extension VacationResponse.UsedVacationDays: Equatable {}
