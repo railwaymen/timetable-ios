@@ -13,7 +13,7 @@ struct VacationResponse: Decodable {
     let usedVacationDays: UsedVacationDays
     let vacation: [Vacation]
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case availableVacationDays = "available_vacation_days"
         case usedVacationDays = "used_vacation_days"
         case vacation = "vacations"
@@ -31,7 +31,7 @@ extension VacationResponse {
         let fullName: String
         let businessDaysCount: Int
         
-        enum CodingKeys: String, CodingKey {
+        private enum CodingKeys: String, CodingKey {
             case id
             case startDate = "start_date"
             case endDate = "end_date"
@@ -84,7 +84,7 @@ extension VacationResponse {
         let unpaid: Int
         let upbringing: Int
         
-        enum CodingKeys: String, CodingKey {
+        private enum CodingKeys: String, CodingKey {
             case care
             case compassionate
             case illness

@@ -24,12 +24,13 @@ class ApiClientVacationTests: XCTestCase {
 extension ApiClientVacationTests {
     func testFetchSucceed() throws {
         //Arrange
+        let parameters = VacationParameters(year: 2020)
         let sut = self.buildSUT()
         let data = try self.json(from: VacationResponseJSONResource.vacationResponseTypeResponse)
         let decoders = try self.decoder.decode(VacationResponse.self, from: data)
         var completionResult: VacationResult?
         //Act
-        _ = sut.fetchVacation { result in
+        _ = sut.fetchVacation(paramters: parameters) { result in
             completionResult = result
         }
         try self.restler.getReturnValue.callCompletion(type: VacationResponse.self, result: .success(decoders))
@@ -41,11 +42,12 @@ extension ApiClientVacationTests {
     
     func testFetchFailed() throws {
         //Arrange
+        let parameters = VacationParameters(year: 2020)
         let sut = self.buildSUT()
         let error = TestError(message: "fetch failed")
         var completionResult: VacationResult?
         //Act
-        _ = sut.fetchVacation { result in
+        _ = sut.fetchVacation(paramters: parameters) { result in
             completionResult = result
         }
         try self.restler.getReturnValue.callCompletion(type: VacationResponse.self, result: .failure(error))
