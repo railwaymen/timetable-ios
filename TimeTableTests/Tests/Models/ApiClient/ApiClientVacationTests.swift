@@ -30,14 +30,12 @@ extension ApiClientVacationTests {
         let decoders = try self.decoder.decode(VacationResponse.self, from: data)
         var completionResult: VacationResult?
         //Act
-        _ = sut.fetchVacation(paramters: parameters) { result in
+        _ = sut.fetchVacation(parameters: parameters) { result in
             completionResult = result
         }
         try self.restler.getReturnValue.callCompletion(type: VacationResponse.self, result: .success(decoders))
         //Assert
-        let result = try XCTUnwrap(completionResult).get()
-        
-        XCTAssertEqual(result, decoders)
+        XCTAssertEqual(try XCTUnwrap(completionResult).get(), decoders)
     }
     
     func testFetchFailed() throws {
@@ -47,7 +45,7 @@ extension ApiClientVacationTests {
         let error = TestError(message: "fetch failed")
         var completionResult: VacationResult?
         //Act
-        _ = sut.fetchVacation(paramters: parameters) { result in
+        _ = sut.fetchVacation(parameters: parameters) { result in
             completionResult = result
         }
         try self.restler.getReturnValue.callCompletion(type: VacationResponse.self, result: .failure(error))

@@ -22,3 +22,4 @@ struct VacationParameters: Encodable, RestlerQueryEncodable {
         try container.encode(self.year, forKey: .year)
     }
 }
+ 

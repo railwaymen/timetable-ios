@@ -83,19 +83,6 @@ extension VacationResponse {
         let requested: Int
         let unpaid: Int
         let upbringing: Int
-        
-        private enum CodingKeys: String, CodingKey {
-            case care
-            case compassionate
-            case illness
-            case parental
-            case paternity
-            case planned
-            case rehabilitation
-            case requested
-            case unpaid
-            case upbringing
-        }
     }
 }
 
