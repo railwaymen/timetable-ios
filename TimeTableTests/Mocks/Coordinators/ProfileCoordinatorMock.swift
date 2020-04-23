@@ -12,11 +12,18 @@ import XCTest
 class ProfileCoordinatorMock {
     private(set) var userProfileDidLogoutUserParams: [UserProfileDidLogoutUserParams] = []
     struct UserProfileDidLogoutUserParams {}
+    
+    private(set) var viewDidRequestToFinishParams: [ViewDidRequestToFinishParams] = []
+    struct ViewDidRequestToFinishParams {}
 }
 
 // MARK: - ProfileCoordinatorDelegate
 extension ProfileCoordinatorMock: ProfileCoordinatorDelegate {
     func userProfileDidLogoutUser() {
         self.userProfileDidLogoutUserParams.append(UserProfileDidLogoutUserParams())
+    }
+    
+    func viewDidRequestToFinish() {
+        self.viewDidRequestToFinishParams.append(ViewDidRequestToFinishParams())
     }
 }
