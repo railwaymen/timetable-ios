@@ -16,6 +16,16 @@ class AccessServiceMock {
     private(set) var getLastLoggedInUserIDParams: [GetLastLoggedInUserIDParams] = []
     struct GetLastLoggedInUserIDParams {}
     
+    // MARK: - UserDataManagerType
+    private(set) var setUserDataParams: [SetUserDataParams] = []
+    struct SetUserDataParams {
+        let user: UserDecoder
+    }
+    
+    var getUserDataReturnValue: UserDecoder?
+    private(set) var getUserDataParams: [GetUserDataParams] = []
+    struct GetUserDataParams {}
+    
     // MARK: - AccessServiceSessionType
     var isSessionOpenedReturnValue: Bool = false
     
@@ -53,6 +63,18 @@ extension AccessServiceMock: AccessServiceUserIDType {
     func getLastLoggedInUserID() -> Int64? {
         self.getLastLoggedInUserIDParams.append(GetLastLoggedInUserIDParams())
         return self.getLastLoggedInUserIDReturnValue
+    }
+}
+
+// MARK: - UserDataManagerType
+extension AccessServiceMock: UserDataManagerType {
+    func setUserData(_ user: UserDecoder) {
+        self.setUserDataParams.append(SetUserDataParams(user: user))
+    }
+    
+    func getUserData() -> UserDecoder? {
+        self.getUserDataParams.append(GetUserDataParams())
+        return self.getUserDataReturnValue
     }
 }
 

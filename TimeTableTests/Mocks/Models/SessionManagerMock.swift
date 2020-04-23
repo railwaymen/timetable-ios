@@ -23,6 +23,16 @@ class SessionManagerMock {
     var getSessionReturnValue: SessionDecoder?
     private(set) var getSessionParams: [GetSessionParams] = []
     struct GetSessionParams {}
+    
+    // MARK: - UserDataManagerType
+    private(set) var setUserDataParams: [SetUserDataParams] = []
+    struct SetUserDataParams {
+        let user: UserDecoder
+    }
+    
+    var getUserDataReturnValue: UserDecoder?
+    private(set) var getUserDataParams: [GetUserDataParams] = []
+    struct GetUserDataParams {}
 }
 
 // MARK: - SessionManagerType
@@ -38,5 +48,17 @@ extension SessionManagerMock: SessionManagerType {
     func getSession() -> SessionDecoder? {
         self.getSessionParams.append(GetSessionParams())
         return self.getSessionReturnValue
+    }
+}
+
+// MARK: - UserDataManagerType
+extension SessionManagerMock: UserDataManagerType {
+    func setUserData(_ user: UserDecoder) {
+        self.setUserDataParams.append(SetUserDataParams(user: user))
+    }
+    
+    func getUserData() -> UserDecoder? {
+        self.getUserDataParams.append(GetUserDataParams())
+        return self.getUserDataReturnValue
     }
 }

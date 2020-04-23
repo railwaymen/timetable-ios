@@ -26,9 +26,7 @@ protocol ProfileViewModelType: class {
 class ProfileViewModel {
     private weak var userInterface: ProfileViewModelOutput?
     private weak var coordinator: ProfileCoordinatorDelegate?
-    private let apiClient: ApiClientUsersType
-    private let accessService: AccessServiceLoginType
-    private let errorHandler: ErrorHandlerType
+    private let contentProvider: ProfileContentProviderViewModelInterface
     
     private weak var errorViewModel: ErrorViewModelParentType?
     private weak var headerView: ProfileHeaderViewConfigurationInterface?
@@ -37,15 +35,11 @@ class ProfileViewModel {
     init(
         userInterface: ProfileViewModelOutput?,
         coordinator: ProfileCoordinatorDelegate,
-        apiClient: ApiClientUsersType,
-        accessService: AccessServiceLoginType,
-        errorHandler: ErrorHandlerType
+        contentProvider: ProfileContentProviderViewModelInterface
     ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
-        self.apiClient = apiClient
-        self.accessService = accessService
-        self.errorHandler = errorHandler
+        self.contentProvider = contentProvider
     }
 }
 
@@ -80,6 +74,11 @@ extension ProfileViewModel {
 extension ProfileViewModel: ProfileViewModelType {
     func viewDidLoad() {
         self.userInterface?.setUp()
+        self.contentProvider.updateUserData { [weak self] userData in
+            self?.headerView?.configure(
+                name: userData.fullName,
+                email: userData.email)
+        }
     }
     
     func numberOfSections() -> Int {
@@ -105,14 +104,17 @@ extension ProfileViewModel: ProfileViewModelType {
     
     func configure(_ headerView: ProfileHeaderViewConfigurationInterface) {
         self.headerView = headerView
-        headerView.configure(name: "Name", email: "email")
+        let userData = self.contentProvider.getUserData()
+        headerView.configure(
+            name: userData?.fullName ?? "Your name",
+            email: userData?.email ?? "")
     }
     
     func userSelectedCell(at indexPath: IndexPath) {
         guard let cell = Cell(indexPath: indexPath) else { return }
         switch cell {
         case .logout:
-            self.accessService.closeSession()
+            self.contentProvider.closeSession()
             self.coordinator?.userProfileDidLogoutUser()
         }
     }

@@ -32,4 +32,8 @@ extension ServerConfigurationManagerMock: ServerConfigurationManagerType {
     func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void, Error>) -> Void)) {
         self.verifyParams.append(VerifyParams(configuration: configuration, completion: completion))
     }
+    
+    #if TEST
+    func set(configuration: ServerConfiguration) {}
+    #endif
 }

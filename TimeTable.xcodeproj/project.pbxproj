@@ -184,6 +184,8 @@
 		8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift */; };
 		8AADE6D42451A4790085FCA7 /* ProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AADE6D32451A4790085FCA7 /* ProfileHeaderView.xib */; };
 		8AADE6D62451A4850085FCA7 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AADE6D52451A4850085FCA7 /* ProfileHeaderView.swift */; };
+		8AADE6D82451D18F0085FCA7 /* ProfileContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AADE6D72451D18F0085FCA7 /* ProfileContentProvider.swift */; };
+		8AADE6DA2451DB730085FCA7 /* ProfileContentProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AADE6D92451DB730085FCA7 /* ProfileContentProviderMock.swift */; };
 		8AB8AFC1244EF06F00A0D3D3 /* ParentCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8AFC0244EF06F00A0D3D3 /* ParentCoordinatorMock.swift */; };
 		8AB8AFC3244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8AFC2244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift */; };
 		8AB8AFC5244EF45400A0D3D3 /* UINavigationBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8AFC4244EF45400A0D3D3 /* UINavigationBar+Extension.swift */; };
@@ -675,6 +677,8 @@
 		8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellModelTests.swift; sourceTree = "<group>"; };
 		8AADE6D32451A4790085FCA7 /* ProfileHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileHeaderView.xib; sourceTree = "<group>"; };
 		8AADE6D52451A4850085FCA7 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		8AADE6D72451D18F0085FCA7 /* ProfileContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileContentProvider.swift; sourceTree = "<group>"; };
+		8AADE6D92451DB730085FCA7 /* ProfileContentProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileContentProviderMock.swift; sourceTree = "<group>"; };
 		8AB8AFC0244EF06F00A0D3D3 /* ParentCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCoordinatorMock.swift; sourceTree = "<group>"; };
 		8AB8AFC2244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsCoordinatorMock.swift; sourceTree = "<group>"; };
 		8AB8AFC4244EF45400A0D3D3 /* UINavigationBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Extension.swift"; sourceTree = "<group>"; };
@@ -1245,6 +1249,7 @@
 		8A6B6D8A237AB636007D8D93 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				8AADE6D92451DB730085FCA7 /* ProfileContentProviderMock.swift */,
 				C10FD88D21F1FB6200A233C5 /* ProfileViewControllerMock.swift */,
 			);
 			path = Profile;
@@ -1288,6 +1293,7 @@
 			isa = PBXGroup;
 			children = (
 				8A798742237D4DC6003DC028 /* Profile.storyboard */,
+				8AADE6D72451D18F0085FCA7 /* ProfileContentProvider.swift */,
 				8A798743237D4DC6003DC028 /* ProfileViewController.swift */,
 				8A798744237D4DC6003DC028 /* ProfileViewModel.swift */,
 				8AB8AFD424507FDC00A0D3D3 /* ButtonCell */,
@@ -3007,6 +3013,7 @@
 				C153AC4A2182EE9F007A35BB /* UILabel+Extension .swift in Sources */,
 				C125F1B621DCCF4400594CDE /* ProjectsViewController.swift in Sources */,
 				C125F1AF21DCC95200594CDE /* ProjectRecordDecoder.swift in Sources */,
+				8AADE6D82451D18F0085FCA7 /* ProfileContentProvider.swift in Sources */,
 				C14EB0252372D9B0007F07D0 /* ErrorViewModel.swift in Sources */,
 				8A2FB102242E32B500DDBCB0 /* LabelTextParameters.swift in Sources */,
 				C16B3A75229E6A0700B6E9E6 /* ProjectTag.swift in Sources */,
@@ -3281,6 +3288,7 @@
 				8A065B57237ABC5B0072A21E /* WorkTimesProjectJSONResource.swift in Sources */,
 				C134298D21A6D35200F4EA42 /* LoginContentProviderMock.swift in Sources */,
 				C19706DF21C13056007AFED4 /* WorkTimesCoordinatorTests.swift in Sources */,
+				8AADE6DA2451DB730085FCA7 /* ProfileContentProviderMock.swift in Sources */,
 				C12CA56C21A57BAA0082FEB7 /* UIColorExtensionTests.swift in Sources */,
 				C122601A21898BD7007D64A3 /* LoginViewModelTests.swift in Sources */,
 				8AF5697723D751F400A1D001 /* SessionDecoderFactory.swift in Sources */,

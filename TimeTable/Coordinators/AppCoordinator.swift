@@ -68,6 +68,8 @@ class AppCoordinator: Coordinator {
             case .serverConfiguration, .login:
                 self.runAuthenticationFlow()
             default:
+                let configuration = ServerConfiguration(host: url)
+                self.dependencyContainer.serverConfigurationManager.set(configuration: configuration)
                 self.runMainFlow(apiClient: apiClient)
             }
             self.children.last?.openDeepLink(option: option)

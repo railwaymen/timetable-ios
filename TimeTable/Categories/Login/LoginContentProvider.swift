@@ -42,6 +42,12 @@ extension LoginContentProvider: LoginContentProviderType {
                 shouldSaveUser
                     ? self.accessService.openSession(session)
                     : self.accessService.openTemporarySession(session)
+                let userData = UserDecoder(
+                    id: session.id,
+                    firstName: session.firstName,
+                    lastName: session.lastName,
+                    email: credentials.email)
+                self.accessService.setUserData(userData)
                 completion(.success(session))
             case let .failure(error):
                 completion(.failure(error))

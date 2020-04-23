@@ -65,12 +65,14 @@ extension ProfileCoordinator {
         }
         do {
             let controller = try self.dependencyContainer.viewControllerBuilder.profile()
-            let viewModel = ProfileViewModel(
-                userInterface: controller,
-                coordinator: self,
+            let contentProvider = ProfileContentProvider(
                 apiClient: apiClient,
                 accessService: self.dependencyContainer.accessService,
                 errorHandler: self.dependencyContainer.errorHandler)
+            let viewModel = ProfileViewModel(
+                userInterface: controller,
+                coordinator: self,
+                contentProvider: contentProvider)
             controller.configure(viewModel: viewModel)
             self.navigationController.setViewControllers([controller], animated: false)
             self.parentViewController?.present(self.navigationController, animated: true)

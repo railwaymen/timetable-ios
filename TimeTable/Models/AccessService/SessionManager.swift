@@ -8,6 +8,8 @@
 
 import Foundation
 
+typealias SessionManagerable = SessionManagerType & UserDataManagerType
+
 protocol SessionManagerType: class {
     func open(session: SessionDecoder)
     func closeSession()
@@ -53,6 +55,7 @@ extension SessionManager {
     
     private struct Key {
         static let userSession = "key.time_table.user_session"
+        static let userData = "key.time_table.user_data"
     }
 }
 
@@ -70,6 +73,7 @@ extension SessionManager: SessionManagerType {
     func closeSession() {
         guard self.isSessionOpened else { return }
         do {
+            try self.keychainAccess.remove(Key.userData)
             try self.keychainAccess.remove(Key.userSession)
         } catch {
             self.errorHandler.stopInDebug("\(error)")
@@ -79,5 +83,22 @@ extension SessionManager: SessionManagerType {
     func getSession() -> SessionDecoder? {
         guard let data = try? self.keychainAccess.getData(Key.userSession) else { return nil }
         return try? self.decoder.decode(SessionDecoder.self, from: data)
+    }
+}
+
+// MARK: - UserDataManagerType
+extension SessionManager: UserDataManagerType {
+    func setUserData(_ user: UserDecoder) {
+        do {
+            let data = try self.encoder.encode(user)
+            try self.keychainAccess.set(data, key: Key.userData)
+        } catch {
+            self.errorHandler.stopInDebug("\(error)")
+        }
+    }
+    
+    func getUserData() -> UserDecoder? {
+        guard let data = try? self.keychainAccess.getData(Key.userData) else { return nil }
+        return try? self.decoder.decode(UserDecoder.self, from: data)
     }
 }

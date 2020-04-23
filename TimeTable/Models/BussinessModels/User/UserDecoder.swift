@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct UserDecoder: Decodable {
+struct UserDecoder: Codable {
     let id: Int
     let firstName: String
     let lastName: String
@@ -21,13 +21,8 @@ struct UserDecoder: Decodable {
         case email
     }
     
-    // MARK: - Initialization
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decode(Int.self, forKey: .id)
-        self.firstName = try container.decode(String.self, forKey: .firstName)
-        self.lastName = try container.decode(String.self, forKey: .lastName)
-        self.email = try container.decode(String.self, forKey: .email)
+    var fullName: String {
+        self.firstName + " " + self.lastName
     }
 }
 

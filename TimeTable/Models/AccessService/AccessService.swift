@@ -11,10 +11,16 @@ import Foundation
 typealias AccessServiceLoginType = (
     AccessServiceUserIDType
     & AccessServiceSessionType
-    & AccessServiceApiClientType)
+    & AccessServiceApiClientType
+    & UserDataManagerType)
 
 protocol AccessServiceUserIDType: class {
     func getLastLoggedInUserID() -> Int64?
+}
+
+protocol UserDataManagerType: class {
+    func setUserData(_ user: UserDecoder)
+    func getUserData() -> UserDecoder?
 }
 
 protocol AccessServiceSessionType: class {
@@ -32,13 +38,19 @@ protocol AccessServiceApiClientType: class {
 }
 
 class AccessService {
-    private let sessionManager: SessionManagerType
-    private let temporarySessionManager: TemporarySessionManagerType
+    private let sessionManager: SessionManagerable
+    private let temporarySessionManager: TemporarySessionManagerable
+    
+    private var currentUserDataManager: UserDataManagerType? {
+        guard self.sessionManager.getSession() == nil else { return self.sessionManager }
+        guard self.temporarySessionManager.getSession() == nil else { return self.temporarySessionManager }
+        return nil
+    }
     
     // MARK: - Initialization
     init(
-        sessionManager: SessionManagerType,
-        temporarySessionManager: TemporarySessionManagerType
+        sessionManager: SessionManagerable,
+        temporarySessionManager: TemporarySessionManagerable
     ) {
         self.sessionManager = sessionManager
         self.temporarySessionManager = temporarySessionManager
@@ -50,6 +62,17 @@ extension AccessService: AccessServiceUserIDType {
     func getLastLoggedInUserID() -> Int64? {
         guard let session = self.getSession() else { return nil }
         return Int64(session.id)
+    }
+}
+
+// MARK: - UserDataManagerType
+extension AccessService: UserDataManagerType {
+    func setUserData(_ user: UserDecoder) {
+        self.currentUserDataManager?.setUserData(user)
+    }
+    
+    func getUserData() -> UserDecoder? {
+        self.currentUserDataManager?.getUserData()
     }
 }
 
