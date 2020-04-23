@@ -54,6 +54,7 @@ extension ProfileViewController: ProfileViewModelOutput {
     func setUp() {
         self.title = R.string.localizable.tabbarTitleProfile()
         self.tableView.register(ProfileButtonCell.self)
+        self.setUpTableHeaderView()
         self.setUpBarButtons()
     }
 }
@@ -67,6 +68,14 @@ extension ProfileViewController: ProfileViewControllerType {
 
 // MARK: - Private
 extension ProfileViewController {
+    private func setUpTableHeaderView() {
+        guard let headerView = R.nib.profileHeaderView(owner: nil) else {
+            return
+        }
+        self.viewModel.configure(headerView)
+        self.tableView.tableHeaderView = headerView
+    }
+    
     private func setUpBarButtons() {
         let closeButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.closeButtonTapped))
         self.navigationItem.setRightBarButtonItems([closeButton], animated: false)

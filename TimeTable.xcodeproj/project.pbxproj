@@ -182,6 +182,8 @@
 		8AA3E5C9241648FB00322AEF /* RestlerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3E5C8241648FB00322AEF /* RestlerMock.swift */; };
 		8AA5C5DD235F34340083E121 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA5C5DC235F34340083E121 /* Colors.xcassets */; };
 		8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift */; };
+		8AADE6D42451A4790085FCA7 /* ProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AADE6D32451A4790085FCA7 /* ProfileHeaderView.xib */; };
+		8AADE6D62451A4850085FCA7 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AADE6D52451A4850085FCA7 /* ProfileHeaderView.swift */; };
 		8AB8AFC1244EF06F00A0D3D3 /* ParentCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8AFC0244EF06F00A0D3D3 /* ParentCoordinatorMock.swift */; };
 		8AB8AFC3244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8AFC2244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift */; };
 		8AB8AFC5244EF45400A0D3D3 /* UINavigationBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8AFC4244EF45400A0D3D3 /* UINavigationBar+Extension.swift */; };
@@ -671,6 +673,8 @@
 		8AA3E5C8241648FB00322AEF /* RestlerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestlerMock.swift; sourceTree = "<group>"; };
 		8AA5C5DC235F34340083E121 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellModelTests.swift; sourceTree = "<group>"; };
+		8AADE6D32451A4790085FCA7 /* ProfileHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileHeaderView.xib; sourceTree = "<group>"; };
+		8AADE6D52451A4850085FCA7 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		8AB8AFC0244EF06F00A0D3D3 /* ParentCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCoordinatorMock.swift; sourceTree = "<group>"; };
 		8AB8AFC2244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsCoordinatorMock.swift; sourceTree = "<group>"; };
 		8AB8AFC4244EF45400A0D3D3 /* UINavigationBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Extension.swift"; sourceTree = "<group>"; };
@@ -1287,6 +1291,7 @@
 				8A798743237D4DC6003DC028 /* ProfileViewController.swift */,
 				8A798744237D4DC6003DC028 /* ProfileViewModel.swift */,
 				8AB8AFD424507FDC00A0D3D3 /* ButtonCell */,
+				8AADE6D22451A44D0085FCA7 /* HeaderView */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1423,6 +1428,15 @@
 				8A9832BC243B0023005245A8 /* serverErrorFullModel.json */,
 			);
 			path = ServerError;
+			sourceTree = "<group>";
+		};
+		8AADE6D22451A44D0085FCA7 /* HeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				8AADE6D52451A4850085FCA7 /* ProfileHeaderView.swift */,
+				8AADE6D32451A4790085FCA7 /* ProfileHeaderView.xib */,
+			);
+			path = HeaderView;
 			sourceTree = "<group>";
 		};
 		8AB8AFD424507FDC00A0D3D3 /* ButtonCell */ = {
@@ -2635,6 +2649,7 @@
 				C13429AA21A7DB2300F4EA42 /* WorkTimesList.storyboard in Resources */,
 				C153AC592182F7BB007A35BB /* Localizable.strings in Resources */,
 				8A8EE1AB23F4455100416D31 /* GoogleService-Info.plist in Resources */,
+				8AADE6D42451A4790085FCA7 /* ProfileHeaderView.xib in Resources */,
 				8A5EF32523FE863D00AE4309 /* WorkTimeTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3061,6 +3076,7 @@
 				8A798746237D4DC6003DC028 /* ProfileViewController.swift in Sources */,
 				8A82B2EC243CB8F00042D7AB /* R.generated.swift in Sources */,
 				C13C2B0421EDD1C5008C9088 /* ServerError.swift in Sources */,
+				8AADE6D62451A4850085FCA7 /* ProfileHeaderView.swift in Sources */,
 				C125F1C121DCF17300594CDE /* ProjectCollectionViewCellModel.swift in Sources */,
 				8A5EF32723FE9A3000AE4309 /* UIViewController+Extension.swift in Sources */,
 				8AB8AFD62450803100A0D3D3 /* ProfileButtonCell.swift in Sources */,

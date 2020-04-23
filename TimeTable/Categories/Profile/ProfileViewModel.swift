@@ -18,6 +18,7 @@ protocol ProfileViewModelType: class {
     func numberOfRows(in section: Int) -> Int
     func cellType(for indexPath: IndexPath) -> ProfileViewModel.CellType?
     func configure(_ cell: ProfileButtonCellConfigurationInterface, for indexPath: IndexPath)
+    func configure(_ headerView: ProfileHeaderViewConfigurationInterface)
     func userSelectedCell(at indexPath: IndexPath)
     func closeButtonTapped()
 }
@@ -30,6 +31,7 @@ class ProfileViewModel {
     private let errorHandler: ErrorHandlerType
     
     private weak var errorViewModel: ErrorViewModelParentType?
+    private weak var headerView: ProfileHeaderViewConfigurationInterface?
     
     // MARK: - Initialization
     init(
@@ -101,6 +103,11 @@ extension ProfileViewModel: ProfileViewModelType {
         }
     }
     
+    func configure(_ headerView: ProfileHeaderViewConfigurationInterface) {
+        self.headerView = headerView
+        headerView.configure(name: "Name", email: "email")
+    }
+    
     func userSelectedCell(at indexPath: IndexPath) {
         guard let cell = Cell(indexPath: indexPath) else { return }
         switch cell {
@@ -117,35 +124,5 @@ extension ProfileViewModel: ProfileViewModelType {
 
 // MARK: - Private
 extension ProfileViewModel {
-//    private func fetchProfile() {
-//        guard let userID = self.accessService.getLastLoggedInUserID() else { return }
-//        self.userInterface?.setActivityIndicator(isHidden: false)
-//        self.apiClient.fetchUserProfile(forID: userID) { [weak self] result in
-//            self?.userInterface?.setActivityIndicator(isHidden: true)
-//            switch result {
-//            case let .success(profile):
-//                self?.handleFetchSuccess(profile: profile)
-//            case let .failure(error):
-//                self?.handleFetch(error: error)
-//            }
-//        }
-//    }
-//
-//    private func handleFetchSuccess(profile: UserDecoder) {
-//        self.userInterface?.showScrollView()
-//    }
-//
-//    private func handleFetch(error: Error) {
-//        if let error = error as? ApiClientError {
-//            if error.type == .unauthorized {
-//                self.errorHandler.throwing(error: error)
-//            } else {
-//                self.errorViewModel?.update(error: error)
-//            }
-//        } else {
-//            self.errorViewModel?.update(error: UIError.genericError)
-//            self.errorHandler.throwing(error: error)
-//        }
-//        self.userInterface?.showErrorView()
-//    }
+    
 }
