@@ -121,8 +121,3 @@ extension ProfileViewModel: ProfileViewModelType {
         self.coordinator?.viewDidRequestToFinish()
     }
 }
-
-// MARK: - Private
-extension ProfileViewModel {
-    
-}
