@@ -75,6 +75,9 @@
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL" returnKeyType="done" textContentType="url"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="serverconfiguration_address_url_placeholder"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="serverAddressTextFieldDidChange:" destination="keO-oL-LbZ" eventType="editingChanged" id="qSM-6L-pWN"/>
                                                             <outlet property="delegate" destination="keO-oL-LbZ" id="g8u-2e-xxT"/>
