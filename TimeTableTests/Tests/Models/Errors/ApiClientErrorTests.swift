@@ -141,7 +141,7 @@ extension ApiClientErrorTests {
     func testLocalizedDescription_invalidHostHasBeenGiven() throws {
         //Arrange
         let sut =  ApiClientError(type: .invalidHost(self.exampleURL))
-        let expectedResult = String(format: "api.error.invalid_url".localized, self.exampleURL.absoluteString)
+        let expectedResult = String(format: "serverconfiguration_error_invalid_url".localized, self.exampleURL.absoluteString)
         //Act
         let localizedString = sut.type.localizedDescription
         //Assert
@@ -151,7 +151,7 @@ extension ApiClientErrorTests {
     func testLocalizedDescription_nilHostHasBeenGiven() {
         //Arrange
         let sut = ApiClientError(type: .invalidHost(nil))
-        let expectedResult = String(format: "api.error.invalid_url".localized, "")
+        let expectedResult = String(format: "serverconfiguration_error_invalid_url".localized, "")
         //Act
         let localizedString = sut.type.localizedDescription
         //Assert
@@ -161,7 +161,7 @@ extension ApiClientErrorTests {
     func testLocalizedDescription_invalidParameters() {
         //Arrange
         let sut = ApiClientError(type: .invalidParameters)
-        let expectedResult = "api.error.invalid_parameters".localized
+        let expectedResult = "error_invalid_parameters".localized
         //Act
         let localizedString = sut.type.localizedDescription
         //Assert
@@ -171,7 +171,7 @@ extension ApiClientErrorTests {
     func testLocalizedDescription_invalidResponse() {
         //Arrange
         let sut = ApiClientError(type: .invalidResponse)
-        let expectedResult = "api.error.invalid_response".localized
+        let expectedResult = "error_invalid_response".localized
         //Act
         let localizedString = sut.type.localizedDescription
         //Assert
@@ -186,7 +186,7 @@ extension ApiClientErrorTests {
         //Act
         let localizedString = sut.type.localizedDescription
         //Assert
-        XCTAssertEqual(localizedString, "api_validation_error.overlap".localized)
+        XCTAssertEqual(localizedString, "worktimeform_error_overlap".localized)
     }
     
     func testLocalizedDescription_validationErrors_nilApiValidationErrors() throws {
@@ -195,7 +195,7 @@ extension ApiClientErrorTests {
         //Act
         let localizedString = sut.type.localizedDescription
         //Assert
-        XCTAssertEqual(localizedString, "ui.error.generic_error".localized)
+        XCTAssertEqual(localizedString, "error_something_went_wrong".localized)
     }
     
     func testLocalizedDescription_serverError() throws {
@@ -214,7 +214,7 @@ extension ApiClientErrorTests {
         //Act
         let localizedString = sut.type.localizedDescription
         //Assert
-        XCTAssertEqual(localizedString, "api.error.no_connection".localized)
+        XCTAssertEqual(localizedString, "error_no_connection".localized)
     }
     
     func testLocalizedDescription_timeout() throws {
@@ -223,6 +223,6 @@ extension ApiClientErrorTests {
         //Act
         let localizedString = sut.type.localizedDescription
         //Assert
-        XCTAssertEqual(localizedString, "api.error.timeout".localized)
+        XCTAssertEqual(localizedString, "error_timeout".localized)
     }
 }

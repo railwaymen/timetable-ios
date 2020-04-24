@@ -98,7 +98,7 @@ extension ProfileViewModel: ProfileViewModelType {
         guard let cell = Cell(indexPath: indexPath) else { return }
         switch cell {
         case .logout:
-            cellView.configure(text: R.string.localizable.profileButtonLogout())
+            cellView.configure(text: R.string.localizable.profile_logout_btn())
         }
     }
     

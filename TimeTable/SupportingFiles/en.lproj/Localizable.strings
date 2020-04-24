@@ -9,76 +9,71 @@
 "element.text_field.starts_at" = "Start date";
 "element.text_field.ends_at" = "End date";
 
-// MARK: - UIControls
-"tabbar.title.profile" = "Profile";
-"tabbar.title.timesheet" = "Timesheet";
-"tabbar.title.projects" = "Projects";
+// MARK: - Server Configuration
+"serverconfiguration_title" = "Log In";
+"serverconfiguration_enter_server_url" = "Enter you TimeTable server URL.";
+"serverconfiguration_address_url_placeholder" = "Server address";
+"serverconfiguration_continue_btn" = "LOG IN";
 
-"server_settings.label.title" = "Log In";
-"server_settings.label.explanation" = "Enter you TimeTable server URL.";
-"server_settings.label.address" = "Server address";
-"server_settings.button.continue" = "LOG IN";
-"server_settings.label.stay_signed_in" = "Stay signed in";
+"serverconfiguration_error_invalid_url" = "Given URL (%@) is invalid.";
 
-"login.label.title" = "Log In";
-"login.label.explanation" = "Please enter email and password";
-"login.label.stay_signed_in" = "Stay signed in";
-"login.text_field.username" = "Username";
-"login.text_field.password" = "Password";
-"login.button.log_in" = "Log in";
-"login.button.change_server_address" = "Would you like to change the server address?";
+// MARK: - Credential
+"credential_title" = "Log In";
+"credential_enter_email_password" = "Please enter email and password";
+"credential_stay_signed_in" = "Stay signed in";
+"credential_username_placeholder" = "Username";
+"credential_password_placeholder" = "Password";
+"credential_log_in_btn" = "Log in";
 
-"work_times.delete_alert.title" = "Delete time entry";
-"work_times.delete_alert.message" = "Are you sure, you want to delete the time entry?";
-"work_times.delete_alert.cancel" = "Cancel";
-"work_times.delete_alert.confirm" = "Delete permanently";
-"work_times.label.month_total" = "Month total";
+"credential_error_credentials_invalid" = "The given credentials are invalid. Check if you typed it correctly.";
 
-"work_time.title.new" = "Add new entry";
-"work_time.title.edit" = "Edit entry";
-"work_time.label.new_record" = "New record";
-"work_time.label.project" = "Project";
-"work_time.label.date" = "Date";
-"work_time.label.start_time" = "Start";
-"work_time.label.end_time" = "End";
-"work_time.text_field.what_have_you_done" = "What have you done?";
-"work_time.text_field.task_url" = "Task URL";
-"work_time.text_field.select_project" = "Select project";
-"work_time.text_field.select_day" = "Select day";
-"work_time.button.save" = "Save";
-"work_time.button.save_with_filling" = "Save with filling";
+// MARK: - Projects
+"projects_title" = "Projects";
 
-"task_history.title" = "Task history";
+// MARK: - Timesheet
+"timesheet_title" = "Timesheet";
+"timesheet_delete_alert_title" = "Delete time entry";
+"timesheet_delete_alert_message" = "Are you sure, you want to delete the time entry?";
+"timesheet_delete_alert_cancel" = "Cancel";
+"timesheet_delete_alert_confirm" = "Delete permanently";
+"timesheet_month_total" = "Month total";
 
-"profile.button.logout" = "LOG OUT";
+// MARK: - Work Time Form
+"worktimeform_new_entry_title" = "Add new entry";
+"worktimeform_edit_entry_title" = "Edit entry";
+"worktimeform_what_have_you_done" = "What have you done?";
+"worktimeform_task_url" = "Task URL";
+"worktimeform_select_project" = "Select project";
+"worktimeform_save_btn" = "Save";
+"worktimeform_save_with_filling" = "Save with filling";
 
-"error.button.refresh" = "REFRESH";
-
-// MARK: - UIErrors
-"ui.error.cannot_be_empty" = "%@ cannot be empty.";
-"ui.error.invalid_format" = "%@ has invalid format.";
-"ui.error.time_greater_than" = "Duration time must be greater than 0";
-"ui.error.generic_error" = "Oups! We couldn't finish your request. Please, try again later.";
-"ui.error.login_credentials_invalid" = "The given credentials are invalid. Check if you typed it correctly.";
-
-// MARK: - APIErrors
-"api.error.invalid_url" = "Given URL (%@) is invalid";
-"api.error.invalid_parameters" = "Invalid parameters were sent";
-"api.error.invalid_response" = "Invalid response";
-"api.error.no_connection" = "The device seems to be offline. Please, check your internet connection and try again.";
-"api.error.timeout" = "Your request has timed out. Please, check your internet connection and try again.";
-"api.error.unauthorized" = "Your session has timed out.";
-
-// MARK: - ApiValidationErrors
-"api_validation_error.overlap" = "There is another task done at the same time.";
-"api_validation_error.invalid_uri" = "Task URL has invalid format.";
-"api_validation_error.invalid_external" = "Task with given address URL doesn't exist.";
-"api_validation_error.too_old" = "Selected day or time is too far in the past.";
-"api_validation_error.no_gaps_to_fill" = "There are no gaps to fill in the given time range.";
-
-"invalid_email_or_password" = "Invalid email or password";
+"worktimeform_error_greater_than" = "Time range is invalid. Start time is greater or equal to end time.";
+"worktimeform_error_overlap" = "There is another task done at the same time.";
+"worktimeform_error_invalid_uri" = "Task URL has invalid format.";
+"worktimeform_error_invalid_external" = "Task with given address URL doesn't exist.";
+"worktimeform_error_too_old" = "Selected day or time is too far in the past.";
+"worktimeform_error_no_gaps_to_fill" = "There are no gaps to fill in the given time range.";
 
 // MARK: - Tags
-"project_im" = "Internal meeting";
-"project_cc" = "Client communication";
-"project_res" = "Research";
+"tag_internal_meeting" = "Internal meeting";
+"tag_client_communication" = "Client communication";
+"tag_research" = "Research";
+
+// MARK: - Task History
+"taskhistory_title" = "Task history";
+
+// MARK: - Profile
+"profile_title" = "Profile";
+"profile_logout_btn" = "LOG OUT";
+
+// MARK: - Generic Errors
+"error_cannot_be_empty" = "%@ cannot be empty.";
+"error_invalid_format" = "%@ has invalid format.";
+"error_something_went_wrong" = "Oups! We couldn't finish your request. Please, try again later.";
+"error_invalid_parameters" = "Invalid parameters were sent.";
+"error_invalid_response" = "Invalid server response.";
+"error_no_connection" = "No internet connection. To perform further operations, please connect to the internet.";
+"error_timeout" = "Your request has timed out. Please, check your internet connection and try again.";
+"error_unauthorized" = "Your session has timed out.";
+
+"error_refresh_btn" = "REFRESH";

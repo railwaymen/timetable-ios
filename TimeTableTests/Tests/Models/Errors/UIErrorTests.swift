@@ -16,7 +16,7 @@ extension UIErrorTests {
     func testLocalizedDescriptionIfCannotBeErrorIsCalled() {
         //Arrange
         let sut = UIError.cannotBeEmpty(.serverAddressTextField)
-        let expectedResult = String(format: "ui.error.cannot_be_empty".localized, UIElement.serverAddressTextField.localized)
+        let expectedResult = String(format: "error_cannot_be_empty".localized, UIElement.serverAddressTextField.localized)
         //Act
         let localizedString = sut.localizedDescription
         //Assert
@@ -26,7 +26,7 @@ extension UIErrorTests {
     func testLocalizedDescriptionIfInvalidFormatIsCalled() {
         //Arrange
         let sut = UIError.invalidFormat(.serverAddressTextField)
-        let expectedResult = String(format: "ui.error.invalid_format".localized, UIElement.serverAddressTextField.localized)
+        let expectedResult = String(format: "error_invalid_format".localized, UIElement.serverAddressTextField.localized)
         //Act
         let localizedString = sut.localizedDescription
         //Assert
@@ -36,7 +36,7 @@ extension UIErrorTests {
     func testLocalizedDescriptionIfTimeGreaterThan() {
         //Arrange
         let sut = UIError.timeGreaterThan
-        let expectedResult = "ui.error.time_greater_than".localized
+        let expectedResult = "worktimeform_error_greater_than".localized
         //Act
         let localizedString = sut.localizedDescription
         //Assert

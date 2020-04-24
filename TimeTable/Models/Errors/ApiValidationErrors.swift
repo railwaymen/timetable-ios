@@ -73,15 +73,15 @@ extension ApiValidationErrors {
         var localizedDescription: String {
             switch self {
             case .overlap:
-                return R.string.localizable.api_validation_errorOverlap()
+                return R.string.localizable.worktimeform_error_overlap()
             case .invalidURI:
-                return R.string.localizable.api_validation_errorInvalid_uri()
+                return R.string.localizable.worktimeform_error_invalid_uri()
             case .invalidExternal:
-                return R.string.localizable.api_validation_errorInvalid_external()
+                return R.string.localizable.worktimeform_error_invalid_external()
             case .tooOld:
-                return R.string.localizable.api_validation_errorToo_old()
+                return R.string.localizable.worktimeform_error_too_old()
             case .noGapsToFill:
-                return R.string.localizable.api_validation_errorNo_gaps_to_fill()
+                return R.string.localizable.worktimeform_error_no_gaps_to_fill()
             }
         }
     }

@@ -114,7 +114,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="work_time.text_field.what_have_you_done"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="worktimeform_what_have_you_done"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
@@ -151,7 +151,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="work_time.text_field.task_url"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="worktimeform_task_url"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
@@ -185,7 +185,7 @@
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                 <real key="value" value="5"/>
                                                             </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="work_time.button.save"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="worktimeform_save_btn"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="saveButtonTapped:" destination="vWa-gW-sZm" eventType="touchUpInside" id="sFe-cL-8n9"/>
@@ -202,7 +202,7 @@
                                                             <color key="titleColor" name="Enabled Button"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="work_time.button.save_with_filling"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="worktimeform_save_with_filling"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="saveWithFillingButtonTapped:" destination="vWa-gW-sZm" eventType="touchUpInside" id="s0y-U2-1Ea"/>

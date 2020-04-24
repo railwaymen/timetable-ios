@@ -52,7 +52,7 @@ class ProfileViewController: UITableViewController {
 // MARK: - ProfileViewModelOutput
 extension ProfileViewController: ProfileViewModelOutput {
     func setUp() {
-        self.title = R.string.localizable.tabbarTitleProfile()
+        self.title = R.string.localizable.profile_title()
         self.tableView.register(ProfileButtonCell.self)
         self.setUpTableHeaderView()
         self.setUpBarButtons()

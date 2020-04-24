@@ -9,76 +9,72 @@
 "element.text_field.starts_at" = "Data początkowa";
 "element.text_field.ends_at" = "Data końcowa";
 
-// MARK: - UIControls
-"tabbar.title.profile" = "Profil";
-"tabbar.title.timesheet" = "Czas Pracy";
-"tabbar.title.projects" = "Projekty";
+// MARK: - Server Configuration
+"serverconfiguration_title" = "Zaloguj się";
+"serverconfiguration_enter_server_url" = "Wprowadź adres serwera TimeTable.";
+"serverconfiguration_address_url_placeholder" = "Adres serwera";
+"serverconfiguration_continue_btn" = "ZALOGUJ SIĘ";
 
-"server_settings.label.title" = "Zaloguj się";
-"server_settings.label.explanation" = "Wprowadź adres serwera TimeTable.";
-"server_settings.label.address" = "Adres serwera";
-"server_settings.button.continue" = "ZALOGUJ SIĘ";
-"server_settings.label.stay_signed_in" = "Pozostań zalogowany";
+"serverconfiguration_error_invalid_url" = "Podany adres (%@) jest niepoprawny.";
 
-"login.label.title" = "Zaloguj się";
-"login.label.explanation" = "Wprowadź adres email i hasło";
-"login.label.stay_signed_in" = "Pozostań zalogowanym";
-"login.text_field.username" = "Użytkownik";
-"login.text_field.password" = "Hasło";
-"login.button.log_in" = "Zaloguj";
-"login.button.change_server_address" = "Chcesz zmienić adres serwera?";
+// MARK: - Credential
+"credential_title" = "Zaloguj się";
+"credential_enter_email_password" = "Wprowadź adres email i hasło";
+"credential_stay_signed_in" = "Pozostań zalogowanym";
+"credential_username_placeholder" = "Użytkownik";
+"credential_password_placeholder" = "Hasło";
+"credential_log_in_btn" = "Zaloguj";
 
-"work_times.delete_alert.title" = "Usuń wpis";
-"work_times.delete_alert.message" = "Jesteś pewien, że chcesz trwale usunąć wpis?";
-"work_times.delete_alert.cancel" = "Anuluj";
-"work_times.delete_alert.confirm" = "Usuń trwale";
-"work_times.label.month_total" = "Suma w miesiącu";
+"credential_error_credentials_invalid" = "Podane dane są niepoprawne. Upewnij się, czy dobrze je wpisałeś.";
 
-"work_time.title.new" = "Dodaj nowy wpis";
-"work_time.title.edit" = "Edytuj wpis";
-"work_time.label.new_record" = "Nowy wpis";
-"work_time.label.project" = "Projekt";
-"work_time.label.date" = "Dzień";
-"work_time.label.start_time" = "Początek";
-"work_time.label.end_time" = "Koniec";
-"work_time.text_field.what_have_you_done" = "Nad czym pracowałeś?";
-"work_time.text_field.task_url" = "URL taska";
-"work_time.text_field.select_project" = "Wybierz projekt";
-"work_time.text_field.select_day" = "Wybierz dzień";
-"work_time.button.save" = "Zapisz";
-"work_time.button.save_with_filling" = "Zapisz z wypełnieniem";
+// MARK: - Projects
+"projects_title" = "Projekty";
 
-"task_history.title" = "Historia edycji";
+// MARK: - Timesheet
+"timesheet_title" = "Czas Pracy";
+"timesheet_delete_alert_title" = "Usuń wpis";
+"timesheet_delete_alert_message" = "Jesteś pewien, że chcesz trwale usunąć wpis?";
+"timesheet_delete_alert_cancel" = "Anuluj";
+"timesheet_delete_alert_confirm" = "Usuń trwale";
+"timesheet_month_total" = "Suma w miesiącu";
 
-"profile.button.logout" = "WYLOGUJ";
+// MARK: - Work Time Form
+"worktimeform_new_entry_title" = "Dodaj nowy wpis";
+"worktimeform_edit_entry_title" = "Edytuj wpis";
+"worktimeform_what_have_you_done" = "Nad czym pracowałeś?";
+"worktimeform_task_url" = "URL taska";
+"worktimeform_select_project" = "Wybierz projekt";
+"worktimeform_save_btn" = "Zapisz";
+"worktimeform_save_with_filling" = "Zapisz z wypełnieniem";
 
-"error.button.refresh" = "ODŚWIEŻ";
-
-// MARK: - UIErrors
-"ui.error.cannot_be_empty" = "%@ - pole nie może być puste.";
-"ui.error.invalid_format" = "%@ ma niepoprawny format.";
-"ui.error.time_greater_than" = "Czas trwania musi być większy od zera";
-"ui.error.generic_error" = "Ups! Niestety nie mogliśmy zrealizować twojego żądania. Spróbuj później.";
-"ui.error.login_credentials_invalid" = "Podane dane są niepoprawne. Upewnij się, czy dobrze je wpisałeś.";
-
-// MARK: - ApiErrors
-"api.error.invalid_url" = "Podany adres (%@) jest niepoprawny";
-"api.error.invalid_parameters" = "Wysłano nieprawidłowe parametry";
-"api.error.invalid_response" = "Niepoprawna odpowiedź serwera";
-"api.error.no_connection" = "Wygląda na to, że nie masz internetu. Sprawdź połączenie i spróbuj ponownie.";
-"api.error.timeout" = "Twoje żądanie przekroczyło limit czasu i zostało przerwane. Sprawdź połączenie z internetem i spróbuj ponownie.";
-"api.error.unauthorized" = "Twoja sesja wygasła.";
-
-// MARK: - ApiValidationErrors
-"api_validation_error.overlap" = "Istnieje inne zadanie wykonane w tym samym czasie.";
-"api_validation_error.invalid_uri" = "Niepoprawny format adresu URL.";
-"api_validation_error.invalid_external" = "Zadanie z podanego adresu URL nie istnieje.";
-"api_validation_error.too_old" = "Już za późno, żeby dodać zadanie w tym czasie.";
-"api_validation_error.no_gaps_to_fill" = "Nie ma żadnych luk do wypełnienia w wybranym przedziale czasowym.";
-
-"invalid_email_or_password" = "Niepoprawny email lub hasło";
+"worktimeform_error_greater_than" = "Przedział czasu jest nieprawidłowy. Czas rozpoczęcia jest większy lub równy czasowi zakończenia.";
+"worktimeform_error_overlap" = "Istnieje inne zadanie wykonane w tym samym czasie.";
+"worktimeform_error_invalid_uri" = "Niepoprawny format adresu URL.";
+"worktimeform_error_invalid_external" = "Zadanie z podanego adresu URL nie istnieje.";
+"worktimeform_error_too_old" = "Już za późno, żeby dodać zadanie w tym czasie.";
+"worktimeform_error_no_gaps_to_fill" = "Nie ma żadnych luk do wypełnienia w wybranym przedziale czasowym.";
 
 // MARK: - Tags
-"project_im" = "Spotkanie wewnętrzne";
-"project_cc" = "Rozmowa z klientem";
-"project_res" = "Poszukiwanie informacji";
+"tag_internal_meeting" = "Spotkanie wewnętrzne";
+"tag_client_communication" = "Rozmowa z klientem";
+"tag_research" = "Poszukiwanie informacji";
+
+
+// MARK: - Task History
+"taskhistory_title" = "Historia edycji";
+
+// MARK: - Profile
+"profile_title" = "Profil";
+"profile_logout_btn" = "WYLOGUJ";
+
+// MARK: - Generic Errors
+"error_cannot_be_empty" = "%@ - pole nie może być puste.";
+"error_invalid_format" = "%@ ma niepoprawny format.";
+"error_something_went_wrong" = "Ups! Niestety nie mogliśmy zrealizować twojego żądania. Spróbuj później.";
+"error_invalid_parameters" = "Wysłano nieprawidłowe parametry.";
+"error_invalid_response" = "Niepoprawna odpowiedź serwera.";
+"error_no_connection" = "Brak połączenia z internetem. Aby kontynuować połącz sie z siecią.";
+"error_timeout" = "Twoje żądanie przekroczyło limit czasu i zostało przerwane. Sprawdź połączenie z internetem i spróbuj ponownie.";
+"error_unauthorized" = "Twoja sesja wygasła.";
+
+"error_refresh_btn" = "ODŚWIEŻ";

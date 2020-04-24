@@ -134,7 +134,7 @@ extension WorkTimeViewModelTests {
         XCTAssertEqual(self.userInterfaceMock.setTaskParams.last?.urlString, "")
         XCTAssertEqual(self.userInterfaceMock.setTagsCollectionViewParams.count, 1)
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setTagsCollectionViewParams.last?.isHidden))
-        XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, "work_time.text_field.select_project".localized)
+        XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, "worktimeform_select_project".localized)
     }
     
     func testViewDidLoad_newEntry_setsStartDate() throws {
