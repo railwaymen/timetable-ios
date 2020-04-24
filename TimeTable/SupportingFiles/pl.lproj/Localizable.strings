@@ -56,6 +56,9 @@
 "profile_title" = "Profil";
 "profile_logout_btn" = "WYLOGUJ";
 
+// MARK: - Accounting Periods
+"accoutingperiods_title" = "Okresy rozliczeniowe";
+
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Pole nie może być puste.";
 "error_invalid_format" = "Wartość ma niepoprawny format.";

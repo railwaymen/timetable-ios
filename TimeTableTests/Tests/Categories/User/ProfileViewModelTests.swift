@@ -13,12 +13,14 @@ class ProfileViewModelTests: XCTestCase {
     private var userInterfaceMock: ProfileViewControllerMock!
     private var coordinatorMock: ProfileCoordinatorMock!
     private var contentProvider: ProfileContentProviderMock!
+    private var errorHadler: ErrorHandlerMock!
         
     override func setUp() {
         super.setUp()
         self.userInterfaceMock = ProfileViewControllerMock()
         self.coordinatorMock = ProfileCoordinatorMock()
         self.contentProvider = ProfileContentProviderMock()
+        self.errorHadler = ErrorHandlerMock()
     }
 }
 
@@ -39,6 +41,7 @@ extension ProfileViewModelTests {
         return ProfileViewModel(
             userInterface: self.userInterfaceMock,
             coordinator: self.coordinatorMock,
-            contentProvider: self.contentProvider)
+            contentProvider: self.contentProvider,
+            errorHandler: self.errorHadler)
     }
 }

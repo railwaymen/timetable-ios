@@ -78,6 +78,8 @@
 		8A55BA772372D02D004FFA97 /* UIApplicationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */; };
 		8A56D18C242B7DC000A02682 /* XCUIElement+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A56D18B242B7DC000A02682 /* XCUIElement+Extension.swift */; };
 		8A56D18E242B7DE900A02682 /* XCUIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A56D18D242B7DE900A02682 /* XCUIApplication+Extension.swift */; };
+		8A56FC0C245311B10020F8CD /* ProfileLinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A56FC0B245311B10020F8CD /* ProfileLinkCell.swift */; };
+		8A56FC0E245312000020F8CD /* ProfileLinkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A56FC0D245312000020F8CD /* ProfileLinkCell.xib */; };
 		8A59AF202382E29200108C33 /* DailyWorkTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A59AF1F2382E29200108C33 /* DailyWorkTime.swift */; };
 		8A5D48BE2369E18C0082C13D /* DispatchGroupFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */; };
 		8A5D48C02369E1A30082C13D /* DispatchGroup+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48BF2369E1A20082C13D /* DispatchGroup+Extension.swift */; };
@@ -571,6 +573,8 @@
 		8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationMock.swift; sourceTree = "<group>"; };
 		8A56D18B242B7DC000A02682 /* XCUIElement+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Extension.swift"; sourceTree = "<group>"; };
 		8A56D18D242B7DE900A02682 /* XCUIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIApplication+Extension.swift"; sourceTree = "<group>"; };
+		8A56FC0B245311B10020F8CD /* ProfileLinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLinkCell.swift; sourceTree = "<group>"; };
+		8A56FC0D245312000020F8CD /* ProfileLinkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileLinkCell.xib; sourceTree = "<group>"; };
 		8A59AF1F2382E29200108C33 /* DailyWorkTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWorkTime.swift; sourceTree = "<group>"; };
 		8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupFactory.swift; sourceTree = "<group>"; };
 		8A5D48BF2369E1A20082C13D /* DispatchGroup+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchGroup+Extension.swift"; sourceTree = "<group>"; };
@@ -1124,6 +1128,15 @@
 			path = TimeTableUITests;
 			sourceTree = "<group>";
 		};
+		8A56FC0A2453117F0020F8CD /* LinkCell */ = {
+			isa = PBXGroup;
+			children = (
+				8A56FC0B245311B10020F8CD /* ProfileLinkCell.swift */,
+				8A56FC0D245312000020F8CD /* ProfileLinkCell.xib */,
+			);
+			path = LinkCell;
+			sourceTree = "<group>";
+		};
 		8A5EF32123FE848B00AE4309 /* TagCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1298,6 +1311,7 @@
 				8A798744237D4DC6003DC028 /* ProfileViewModel.swift */,
 				8AB8AFD424507FDC00A0D3D3 /* ButtonCell */,
 				8AADE6D22451A44D0085FCA7 /* HeaderView */,
+				8A56FC0A2453117F0020F8CD /* LinkCell */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -2645,6 +2659,7 @@
 				C1B5137721772D1400C3727C /* LaunchScreen.storyboard in Resources */,
 				C153AC452181E4E7007A35BB /* ServerConfiguration.storyboard in Resources */,
 				8A798745237D4DC6003DC028 /* Profile.storyboard in Resources */,
+				8A56FC0E245312000020F8CD /* ProfileLinkCell.xib in Resources */,
 				C1B5137421772D1400C3727C /* Assets.xcassets in Resources */,
 				C1F926EA218846F80004A9BC /* Login.storyboard in Resources */,
 				8A31CD8D23742E43008E590D /* ProjectPickerCell.xib in Resources */,
@@ -3067,6 +3082,7 @@
 				C12CA56821A578870082FEB7 /* SimpleProjectRecordDecoder.swift in Sources */,
 				8A31CD8023741FD0008E590D /* ProjectPickerViewController.swift in Sources */,
 				C1F69B2E21903818005D9114 /* LoginContentProvider.swift in Sources */,
+				8A56FC0C245311B10020F8CD /* ProfileLinkCell.swift in Sources */,
 				C152C22221E89CB8003ABD88 /* TaskForm.swift in Sources */,
 				C1ECF0A22192C337006038C6 /* JSONEncoder+Extension.swift in Sources */,
 				C175B56C227CAACA006D9944 /* MessagePresenter.swift in Sources */,

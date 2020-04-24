@@ -13,6 +13,10 @@ class ProfileCoordinatorMock {
     private(set) var userProfileDidLogoutUserParams: [UserProfileDidLogoutUserParams] = []
     struct UserProfileDidLogoutUserParams {}
     
+    private(set) var viewDidRequestToShowAccountingPeriodsParams: [ViewDidRequestToShowAccountingPeriodsParams] = []
+    // swiftlint:disable:next type_name
+    struct ViewDidRequestToShowAccountingPeriodsParams {}
+    
     private(set) var viewDidRequestToFinishParams: [ViewDidRequestToFinishParams] = []
     struct ViewDidRequestToFinishParams {}
 }
@@ -21,6 +25,10 @@ class ProfileCoordinatorMock {
 extension ProfileCoordinatorMock: ProfileCoordinatorDelegate {
     func userProfileDidLogoutUser() {
         self.userProfileDidLogoutUserParams.append(UserProfileDidLogoutUserParams())
+    }
+    
+    func viewDidRequestToShowAccountingPeriods() {
+        self.viewDidRequestToShowAccountingPeriodsParams.append(ViewDidRequestToShowAccountingPeriodsParams())
     }
     
     func viewDidRequestToFinish() {
