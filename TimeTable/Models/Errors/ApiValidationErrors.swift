@@ -19,6 +19,7 @@ extension ApiValidationErrors {
         
         enum CodingKeys: String, CodingKey {
             case base
+            case task
             case startsAt = "starts_at"
             case endsAt = "ends_at"
             case duration
@@ -30,6 +31,9 @@ extension ApiValidationErrors {
             var keys: [BasicErrorInfo] = []
             if let base = try? container.decode([BasicErrorInfo].self, forKey: .base) {
                 keys += base
+            }
+            if let task = try? container.decode([BasicErrorInfo].self, forKey: .task) {
+                keys += task
             }
             if let startsAt = try? container.decode([BasicErrorInfo].self, forKey: .startsAt) {
                 keys += startsAt
