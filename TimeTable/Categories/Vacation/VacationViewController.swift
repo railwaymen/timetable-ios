@@ -19,6 +19,7 @@ class VacationViewController: UIViewController {
     @IBOutlet private var errorView: ErrorView!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
+    private let tableViewRowHeight: CGFloat = 70
     private var viewModel: VacationViewModelType!
 
     // MARK: - Overridden
@@ -51,7 +52,7 @@ extension VacationViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension VacationViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
+        return self.tableViewRowHeight
     }
 }
 
@@ -60,9 +61,18 @@ extension VacationViewController: VacationViewModelOutput {
     func setUpView() {
         self.setUpNavigationItem()
         self.setUpBarButtons()
+        self.setUpTableHeaderView()
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.register(VacationCell.self)
+    }
+    
+    func setUpTableHeaderView() {
+        guard let headerView = R.nib.vacationTableHeader(owner: nil) else {
+            return
+        }
+        self.viewModel.configure(headerView)
+        self.tableView.tableHeaderView = headerView
     }
     
     func showTableView() {

@@ -12,6 +12,7 @@ protocol VacationViewModelOutput: class {
     func setUpView()
     func showTableView()
     func showErrorView()
+    func setUpTableHeaderView()
     func setActivityIndicator(isHidden: Bool)
     func updateView()
 }
@@ -22,6 +23,7 @@ protocol VacationViewModelType: class {
     func numberOfItems() -> Int
     func item(at index: IndexPath) -> VacationResponse.Vacation?
     func configure(_ cell: VacationCell, for indexPath: IndexPath)
+    func configure(_ view: VacationTableHeaderViewable)
     func configure(_ view: ErrorViewable)
 }
 
@@ -30,17 +32,21 @@ class VacationViewModel: ObservableObject {
     private weak var coordinator: VacationCoordinatorDelegate?
     private let apiClient: ApiClientVacationType
     private let errorHandler: ErrorHandlerType
-    
     private var errorViewModel: ErrorViewModelParentType?
+    
+    private var selectedYear: Int
     
     private var decisionState: DecisionState = .fetching {
         didSet {
             switch self.decisionState {
             case let .error(error):
+                self.userInterface?.setActivityIndicator(isHidden: true)
                 self.handleFetch(error: error)
-            case let .fetched(vacation):
-                self.handleFetch(vacation: vacation)
-            case .fetching: break
+            case let .fetched(response):
+                self.userInterface?.setActivityIndicator(isHidden: true)
+                self.handleFetch(vacation: response.vacation)
+            case .fetching:
+                self.userInterface?.setActivityIndicator(isHidden: false)
             }
         }
     }
@@ -56,6 +62,8 @@ class VacationViewModel: ObservableObject {
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.coordinator = coordinator
+        
+        self.selectedYear = Calendar.autoupdatingCurrent.component(.year, from: Date())
     }
 }
 
@@ -64,7 +72,7 @@ extension VacationViewModel {
     enum DecisionState {
         case fetching
         case error(Error)
-        case fetched([VacationResponse.Vacation])
+        case fetched(VacationResponse)
     }
 }
 
@@ -81,14 +89,14 @@ extension VacationViewModel: VacationViewModelType {
     
     func numberOfItems() -> Int {
         switch self.decisionState {
-        case let .fetched(vacation): return vacation.count
+        case let .fetched(response): return response.vacation.count
         case .error, .fetching: return 0
         }
     }
     
     func item(at index: IndexPath) -> VacationResponse.Vacation? {
         switch self.decisionState {
-        case let .fetched(vacation): return vacation[safeIndex: index.row]
+        case let .fetched(response): return response.vacation[safeIndex: index.row]
         case .error, .fetching: return nil
         }
     }
@@ -97,6 +105,21 @@ extension VacationViewModel: VacationViewModelType {
         guard let vacation = item(at: indexPath) else { return }
         let viewModel = VacationCellViewModel(userInterface: cell, vacation: vacation)
         cell.configure(viewModel: viewModel)
+    }
+    
+    func configure(_ view: VacationTableHeaderViewable) {
+        var availableVacationDays = 0
+        switch self.decisionState {
+        case let .fetched(response): availableVacationDays = response.availableVacationDays
+        case .error, .fetching: break
+        }
+        let viewModel = VacationTableHeaderViewModel(
+            userInterface: view,
+            availableVacationDays: availableVacationDays,
+            selectedYear: self.selectedYear,
+            onYearSelection: self.onYearSelection,
+            onMoreInfoSelection: self.onMoreInfoSelection)
+        view.configure(viewModel: viewModel)
     }
     
     func configure(_ view: ErrorViewable) {
@@ -110,11 +133,21 @@ extension VacationViewModel: VacationViewModelType {
 
 // MARK: - Private
 extension VacationViewModel {
+    private func onYearSelection(_ year: Int) {
+        self.selectedYear = year
+        self.fetchVacation()
+    }
+    
+    private func onMoreInfoSelection() {
+        // TO_DO: - present more information about vacation types
+    }
+    
     private func fetchVacation() {
-        _ = self.apiClient.fetchVacation(parameters: VacationParameters(year: 2020)) { result in
+        self.decisionState = .fetching
+        _ = self.apiClient.fetchVacation(parameters: VacationParameters(year: self.selectedYear)) { result in
             switch result {
             case let .success(response):
-                self.decisionState = .fetched(response.vacation)
+                self.decisionState = .fetched(response)
             case let .failure(error):
                 self.decisionState = .error(error)
             }
@@ -124,6 +157,7 @@ extension VacationViewModel {
     private func handleFetch(vacation: [VacationResponse.Vacation]) {
         self.userInterface?.showTableView()
         self.userInterface?.updateView()
+        self.userInterface?.setUpTableHeaderView()
     }
     
     private func handleFetch(error: Error) {

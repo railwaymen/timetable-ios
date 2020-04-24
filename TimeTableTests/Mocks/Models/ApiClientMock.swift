@@ -96,6 +96,14 @@ class ApiClientMock {
         let parameters: MatchingFullTimeEncoder
         let completion: ((Result<MatchingFullTimeDecoder, Error>) -> Void)
     }
+    
+    // MARK: - ApiClientVacationType
+    var fetchVacationReturnValue: RestlerTaskType?
+    private(set) var fetchVacationParams: [FetchVacationParams] = []
+    struct FetchVacationParams {
+        let parameters: VacationParameters
+        let completion: VacationCompletion
+    }
 }
 
 // MARK: - ApiClientSessionType
@@ -183,5 +191,13 @@ extension ApiClientMock: ApiClientAccountingPeriodsType {
         completion: @escaping ((Result<MatchingFullTimeDecoder, Error>) -> Void)
     ) {
         self.fetchMatchingFullTimeParams.append(FetchMatchingFullTimeParams(parameters: parameters, completion: completion))
+    }
+}
+
+// MARK: - ApiClientVacationType
+extension ApiClientMock: ApiClientVacationType {
+    func fetchVacation(parameters: VacationParameters, completion: @escaping VacationCompletion) -> RestlerTaskType? {
+        self.fetchVacationParams.append(FetchVacationParams(parameters: parameters, completion: completion))
+        return self.fetchVacationReturnValue
     }
 }

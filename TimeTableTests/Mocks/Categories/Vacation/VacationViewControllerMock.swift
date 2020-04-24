@@ -15,6 +15,23 @@ class VacationViewControllerMock: UIViewController {
     private(set) var setUpParams: [SetUpParams] = []
     struct SetUpParams {}
     
+    private(set) var showTableViewParams: [ShowTableViewParams] = []
+    struct ShowTableViewParams {}
+    
+    private(set) var showErrorViewParams: [ShowErrorViewParams] = []
+    struct ShowErrorViewParams {}
+    
+    private(set) var setUpTableHeaderViewParams: [SetUpTableHeaderViewParams] = []
+    struct SetUpTableHeaderViewParams {}
+    
+    private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
+    struct SetActivityIndicatorParams {
+        let isHidden: Bool
+    }
+    
+    private(set) var updateViewParams: [UpdateViewParams] = []
+    struct UpdateViewParams {}
+    
     // MARK: - VacationViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
@@ -26,6 +43,26 @@ class VacationViewControllerMock: UIViewController {
 extension VacationViewControllerMock: VacationViewModelOutput {
     func setUpView() {
         self.setUpParams.append(SetUpParams())
+    }
+
+    func showTableView() {
+        self.showTableViewParams.append(ShowTableViewParams())
+    }
+    
+    func showErrorView() {
+        self.showErrorViewParams.append(ShowErrorViewParams())
+    }
+    
+    func setUpTableHeaderView() {
+        self.setUpTableHeaderViewParams.append(SetUpTableHeaderViewParams())
+    }
+    
+    func setActivityIndicator(isHidden: Bool) {
+        self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isHidden))
+    }
+    
+    func updateView() {
+        self.updateViewParams.append(UpdateViewParams())
     }
 }
 
