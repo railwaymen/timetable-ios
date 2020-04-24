@@ -32,11 +32,19 @@ class ProfileViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellType = self.viewModel.cellType(for: indexPath)
-        guard cellType == .button else { return UITableViewCell() }
-        guard let cell = tableView.dequeueReusableCell(ProfileButtonCell.self, for: indexPath) else { return UITableViewCell() }
-        self.viewModel.configure(cell, for: indexPath)
-        return cell
+        guard let cellType = self.viewModel.cellType(for: indexPath) else { return UITableViewCell() }
+        var optionalCell: UITableViewCell?
+        switch cellType {
+        case .button:
+            guard let cell = tableView.dequeueReusableCell(ProfileButtonCell.self, for: indexPath) else { break }
+            self.viewModel.configure(cell, for: indexPath)
+            optionalCell = cell
+        case .link:
+            guard let cell = tableView.dequeueReusableCell(ProfileLinkCell.self, for: indexPath) else { break }
+            self.viewModel.configure(cell, for: indexPath)
+            optionalCell = cell
+        }
+        return optionalCell ?? UITableViewCell()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -54,6 +62,7 @@ extension ProfileViewController: ProfileViewModelOutput {
     func setUp() {
         self.title = R.string.localizable.profile_title()
         self.tableView.register(ProfileButtonCell.self)
+        self.tableView.register(ProfileLinkCell.self)
         self.setUpTableHeaderView()
         self.setUpBarButtons()
     }

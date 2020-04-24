@@ -14,6 +14,7 @@ protocol ProfileCoordinatorParentType: class {
 
 protocol ProfileCoordinatorDelegate: class {
     func userProfileDidLogoutUser()
+    func viewDidRequestToShowAccountingPeriods()
     func viewDidRequestToFinish()
 }
 
@@ -49,6 +50,10 @@ extension ProfileCoordinator: ProfileCoordinatorDelegate {
         self.parent?.childDidRequestToFinish()
     }
     
+    func viewDidRequestToShowAccountingPeriods() {
+        // TODO
+    }
+    
     func viewDidRequestToFinish() {
         self.navigationController.dismiss(animated: true) { [weak self] in
             self?.finish()
@@ -72,7 +77,8 @@ extension ProfileCoordinator {
             let viewModel = ProfileViewModel(
                 userInterface: controller,
                 coordinator: self,
-                contentProvider: contentProvider)
+                contentProvider: contentProvider,
+                errorHandler: self.dependencyContainer.errorHandler)
             controller.configure(viewModel: viewModel)
             self.navigationController.setViewControllers([controller], animated: false)
             self.parentViewController?.present(self.navigationController, animated: true)

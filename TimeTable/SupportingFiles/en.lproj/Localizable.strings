@@ -55,6 +55,9 @@
 "profile_title" = "Profile";
 "profile_logout_btn" = "LOG OUT";
 
+// MARK: - Accounting Periods
+"accoutingperiods_title" = "Accounting Periods";
+
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Field cannot be empty.";
 "error_invalid_format" = "Content has invalid format.";
