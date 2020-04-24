@@ -19,7 +19,7 @@ extension WorkTimeViewModelFlowTypeTests {
         //Arrange
         let sut: SUT = .newEntry(lastTask: nil)
         //Assert
-        XCTAssertEqual(sut.viewTitle, "work_time.title.new".localized)
+        XCTAssertEqual(sut.viewTitle, "worktimeform_new_entry_title".localized)
     }
     
     func testViewTitle_editEntry() {
@@ -27,7 +27,7 @@ extension WorkTimeViewModelFlowTypeTests {
         let task = self.buildTask(id: 1)
         let sut: SUT = .editEntry(editedTask: task)
         //Assert
-        XCTAssertEqual(sut.viewTitle, "work_time.title.edit".localized)
+        XCTAssertEqual(sut.viewTitle, "worktimeform_edit_entry_title".localized)
     }
     
     func testViewTitle_duplicateEntry() {
@@ -35,7 +35,7 @@ extension WorkTimeViewModelFlowTypeTests {
         let task = self.buildTask(id: 1)
         let sut: SUT = .duplicateEntry(duplicatedTask: task, lastTask: nil)
         //Assert
-        XCTAssertEqual(sut.viewTitle, "work_time.title.new".localized)
+        XCTAssertEqual(sut.viewTitle, "worktimeform_new_entry_title".localized)
     }
 }
 

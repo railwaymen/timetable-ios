@@ -35,7 +35,7 @@ extension TaskFormTests {
         //Act
         let title = sut.title
         //Assert
-        XCTAssertEqual(title, "work_time.text_field.select_project".localized)
+        XCTAssertEqual(title, "worktimeform_select_project".localized)
     }
     
     func testTitle_withProject() throws {

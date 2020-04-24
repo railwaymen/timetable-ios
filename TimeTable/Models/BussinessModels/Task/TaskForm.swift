@@ -39,7 +39,7 @@ struct TaskForm: TaskFormType {
     
     // MARK: - Getters
     var title: String {
-        guard let project = self.project else { return R.string.localizable.work_timeText_fieldSelect_project() }
+        guard let project = self.project else { return R.string.localizable.worktimeform_select_project() }
         return project.name
     }
     

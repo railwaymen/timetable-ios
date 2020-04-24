@@ -53,15 +53,15 @@ enum UIError: Error {
     var localizedDescription: String {
         switch self {
         case let .cannotBeEmpty(component):
-            return R.string.localizable.uiErrorCannot_be_empty(component.localized)
+            return R.string.localizable.error_cannot_be_empty(component.localized)
         case let .invalidFormat(component):
-            return R.string.localizable.uiErrorInvalid_format(component.localized)
+            return R.string.localizable.error_invalid_format(component.localized)
         case .timeGreaterThan:
-            return R.string.localizable.uiErrorTime_greater_than()
+            return R.string.localizable.worktimeform_error_greater_than()
         case .genericError:
-            return R.string.localizable.uiErrorGeneric_error()
+            return R.string.localizable.error_something_went_wrong()
         case .loginCredentialsInvalid:
-            return R.string.localizable.uiErrorLogin_credentials_invalid()
+            return R.string.localizable.credential_error_credentials_invalid()
         }
     }
 }

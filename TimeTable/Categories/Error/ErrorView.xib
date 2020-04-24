@@ -46,7 +46,7 @@
                                 <color key="titleColor" name="Crimson"/>
                             </state>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="error.button.refresh"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="error_refresh_btn"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="refreshButtonTapped:" destination="-1" eventType="touchUpInside" id="JGu-HL-aIS"/>

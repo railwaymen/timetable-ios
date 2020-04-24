@@ -21,11 +21,11 @@ enum ProjectTag: String, Codable {
     var localized: String? {
         switch self {
         case .internalMeeting:
-            return R.string.localizable.project_im()
+            return R.string.localizable.tag_internal_meeting()
         case .clientCommunication:
-            return R.string.localizable.project_cc()
+            return R.string.localizable.tag_client_communication()
         case .research:
-            return R.string.localizable.project_res()
+            return R.string.localizable.tag_research()
         case .development:
             return nil
         }

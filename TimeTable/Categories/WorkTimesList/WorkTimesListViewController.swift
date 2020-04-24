@@ -268,7 +268,7 @@ extension WorkTimesListViewController {
     }
     
     private func setUpNavigationItem() {
-        self.title = R.string.localizable.tabbarTitleTimesheet()
+        self.title = R.string.localizable.timesheet_title()
     }
     
     private func setUpBarButtons() {
