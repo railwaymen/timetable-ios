@@ -161,10 +161,8 @@ extension WorkTimeContentProvider {
     private func validate(taskForm: TaskFormType) throws -> Task {
         do {
             return try taskForm.generateEncodableRepresentation()
-        } catch let error as TaskForm.ValidationError {
-            throw self.getUIError(validationError: error)
         } catch {
-            self.errorHandler.stopInDebug("Unexpected error catched")
+            self.errorHandler.stopInDebug("Unexpected error catched: \(error)")
             throw UIError.genericError
         }
     }

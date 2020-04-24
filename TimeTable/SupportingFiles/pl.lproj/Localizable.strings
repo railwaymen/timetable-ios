@@ -1,14 +1,3 @@
-// MARK: - UIElements
-"element.text_field.server_address" = "Adres serwera";
-"element.text_field.login" = "Login";
-"element.text_field.password" = "Hasło";
-"element.text_field.project" = "Projekt";
-"element.text_field.task_url" = "URL zadania";
-"element.text_field.task_name" = "Nazwa zadania";
-"element.text_field.day" = "Dzień";
-"element.text_field.starts_at" = "Data początkowa";
-"element.text_field.ends_at" = "Data końcowa";
-
 // MARK: - Server Configuration
 "serverconfiguration_title" = "Zaloguj się";
 "serverconfiguration_enter_server_url" = "Wprowadź adres serwera TimeTable.";
@@ -68,8 +57,8 @@
 "profile_logout_btn" = "WYLOGUJ";
 
 // MARK: - Generic Errors
-"error_cannot_be_empty" = "%@ - pole nie może być puste.";
-"error_invalid_format" = "%@ ma niepoprawny format.";
+"error_cannot_be_empty" = "Pole nie może być puste.";
+"error_invalid_format" = "Wartość ma niepoprawny format.";
 "error_something_went_wrong" = "Ups! Niestety nie mogliśmy zrealizować twojego żądania. Spróbuj później.";
 "error_invalid_parameters" = "Wysłano nieprawidłowe parametry.";
 "error_invalid_response" = "Niepoprawna odpowiedź serwera.";

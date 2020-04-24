@@ -120,15 +120,6 @@ extension LoginViewModel: LoginViewModelType {
     }
     
     func viewRequestedToLogin() {
-        guard !self.loginCredentials.email.isEmpty else {
-            self.errorHandler.throwing(error: UIError.cannotBeEmpty(.loginTextField))
-            return
-        }
-        
-        guard !self.loginCredentials.password.isEmpty else {
-            self.errorHandler.throwing(error: UIError.cannotBeEmpty(.passwordTextField))
-            return
-        }
         self.userInterface?.setActivityIndicator(isHidden: false)
         self.contentProvider.login(
             with: self.loginCredentials,

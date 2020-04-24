@@ -79,12 +79,9 @@ extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
     }
     
     func continueButtonTapped() {
-        guard let host = self.serverAddress else {
-            self.errorHandler.throwing(error: UIError.cannotBeEmpty(.serverAddressTextField))
-            return
-        }
-        guard let hostURL = URL(string: host.apiSuffix().httpPrefix()) else {
-            self.errorHandler.throwing(error: UIError.invalidFormat(.serverAddressTextField))
+        guard let host = self.serverAddress,
+            let hostURL = URL(string: host.apiSuffix().httpPrefix()) else {
+            self.errorHandler.throwing(error: UIError.genericError)
             return
         }
         let configuration = ServerConfiguration(host: hostURL)

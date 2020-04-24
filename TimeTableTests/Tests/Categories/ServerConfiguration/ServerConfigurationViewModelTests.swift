@@ -92,7 +92,7 @@ extension ServerConfigurationViewModelTests {
     func testViewRequestedToContinue_emptyServerAddress_throwsError() {
         //Arrange
         let sut = self.buildSUT()
-        let expectedError = UIError.cannotBeEmpty(.serverAddressTextField)
+        let expectedError = UIError.genericError
         //Act
         sut.continueButtonTapped()
         //Assert
@@ -104,7 +104,7 @@ extension ServerConfigurationViewModelTests {
         //Arrange
         let sut = self.buildSUT()
         sut.serverAddressDidChange(text: "##invalid_address")
-        let expectedError = UIError.invalidFormat(.serverAddressTextField)
+        let expectedError = UIError.genericError
         //Act
         sut.continueButtonTapped()
         //Assert

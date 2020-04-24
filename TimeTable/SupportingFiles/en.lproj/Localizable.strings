@@ -1,14 +1,3 @@
-// MARK: - UIElements
-"element.text_field.server_address" = "Server address";
-"element.text_field.login" = "Login";
-"element.text_field.password" = "Password";
-"element.text_field.project" = "Project";
-"element.text_field.task_url" = "Task URL";
-"element.text_field.task_name" = "Task name";
-"element.text_field.day" = "Day";
-"element.text_field.starts_at" = "Start date";
-"element.text_field.ends_at" = "End date";
-
 // MARK: - Server Configuration
 "serverconfiguration_title" = "Log In";
 "serverconfiguration_enter_server_url" = "Enter you TimeTable server URL.";
@@ -67,8 +56,8 @@
 "profile_logout_btn" = "LOG OUT";
 
 // MARK: - Generic Errors
-"error_cannot_be_empty" = "%@ cannot be empty.";
-"error_invalid_format" = "%@ has invalid format.";
+"error_cannot_be_empty" = "Field cannot be empty.";
+"error_invalid_format" = "Content has invalid format.";
 "error_something_went_wrong" = "Oups! We couldn't finish your request. Please, try again later.";
 "error_invalid_parameters" = "Invalid parameters were sent.";
 "error_invalid_response" = "Invalid server response.";
