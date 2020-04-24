@@ -188,7 +188,7 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     
     func updateDay(with date: Date, dateString: String) {
         self.dayTextField.text = dateString
-        self.startAtDatePicker?.date = date
+        self.dayPicker?.date = date
     }
     
     func updateStartAtDate(with date: Date, dateString: String) {
