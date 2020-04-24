@@ -7,10 +7,10 @@ use_frameworks!
 def universal_pods
   pod 'CoordinatorsFoundation', '~> 0.2.2'
   pod 'Firebase/Analytics'
-  pod 'Firebase/Core', '~> 6.21.0'
+  pod 'Firebase/Core', '~> 6.23.0'
   pod 'Firebase/Crashlytics'
   pod 'KeychainAccess', '~> 4.1'
-  pod 'R.swift', '~> 5.1.0'
+  pod 'R.swift', '~> 5.2.0'
   pod 'Restler', '~> 0.5.2'
   pod 'SwiftLint', '~> 0.39'
 end
@@ -20,7 +20,7 @@ target 'TimeTable' do
 end
 
 target 'TimeTableTests' do
-  pod 'JSONFactorable', '~> 0.2.1'
+  pod 'JSONFactorable', '~> 0.2.2'
   universal_pods
 end
 
