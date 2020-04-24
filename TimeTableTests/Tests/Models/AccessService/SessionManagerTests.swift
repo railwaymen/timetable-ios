@@ -21,6 +21,10 @@ class SessionManagerTests: XCTestCase {
         "key.time_table.user_session"
     }
     
+    private var userDataKey: String {
+        "key.time_table.user_data"
+    }
+    
     override func setUp() {
         super.setUp()
         self.keychainBuilder = KeychainBuilderMock()
@@ -135,8 +139,8 @@ extension SessionManagerTests {
         //Act
         sut.closeSession()
         //Assert
-        XCTAssertEqual(self.keychainAccess.removeParams.count, 1)
-        XCTAssertEqual(self.keychainAccess.removeParams.last?.key, self.userSessionKey)
+        XCTAssertEqual(self.keychainAccess.removeParams.count, 2)
+        XCTAssertEqual(self.keychainAccess.removeParams.map(\.key), [self.userDataKey, self.userSessionKey])
     }
     
     func testCloseSession_sessionOpened_keychainErrorStopsAppInDebug() throws {

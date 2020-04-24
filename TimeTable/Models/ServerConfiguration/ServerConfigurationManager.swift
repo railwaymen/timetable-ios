@@ -11,6 +11,9 @@ import Foundation
 protocol ServerConfigurationManagerType: class {
     func getOldConfiguration() -> ServerConfiguration?
     func verify(configuration: ServerConfiguration, completion: @escaping ((Result<Void, Error>) -> Void))
+    #if TEST
+    func set(configuration: ServerConfiguration)
+    #endif
 }
 
 class ServerConfigurationManager {
@@ -67,6 +70,12 @@ extension ServerConfigurationManager: ServerConfigurationManagerType {
             })
             .start()
     }
+    
+    #if TEST
+    func set(configuration: ServerConfiguration) {
+        self.save(configuration: configuration)
+    }
+    #endif
 }
  
 // MARK: - Private

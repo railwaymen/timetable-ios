@@ -8,6 +8,8 @@
 
 import Foundation
 
+typealias TemporarySessionManagerable = TemporarySessionManagerType & UserDataManagerType
+
 protocol TemporarySessionManagerType: class {
     func open(session: SessionDecoder)
     func suspendSession()
@@ -22,7 +24,9 @@ class TemporarySessionManager {
     private let dateFactory: DateFactoryType
     private var session: SessionDecoder?
     private var lastSuspendDate: Date?
+    private var userData: UserDecoder?
     
+    // MARK: - Initialization
     init(dateFactory: DateFactoryType) {
         self.dateFactory = dateFactory
     }
@@ -44,12 +48,24 @@ extension TemporarySessionManager: TemporarySessionManagerType {
     }
     
     func closeSession() {
+        self.userData = nil
         self.session = nil
     }
     
     func getSession() -> SessionDecoder? {
         self.closeSessionIfTimedOut()
         return self.session
+    }
+}
+
+// MARK: - UserDataManagerType
+extension TemporarySessionManager: UserDataManagerType {
+    func setUserData(_ user: UserDecoder) {
+        self.userData = user
+    }
+    
+    func getUserData() -> UserDecoder? {
+        self.userData
     }
 }
 

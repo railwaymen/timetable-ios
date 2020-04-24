@@ -12,17 +12,13 @@ import XCTest
 class ProfileViewModelTests: XCTestCase {
     private var userInterfaceMock: ProfileViewControllerMock!
     private var coordinatorMock: ProfileCoordinatorMock!
-    private var apiClientMock: ApiClientMock!
-    private var accessServiceMock: AccessServiceMock!
-    private var errorHandlerMock: ErrorHandlerMock!
+    private var contentProvider: ProfileContentProviderMock!
         
     override func setUp() {
         super.setUp()
         self.userInterfaceMock = ProfileViewControllerMock()
         self.coordinatorMock = ProfileCoordinatorMock()
-        self.apiClientMock = ApiClientMock()
-        self.accessServiceMock = AccessServiceMock()
-        self.errorHandlerMock = ErrorHandlerMock()
+        self.contentProvider = ProfileContentProviderMock()
     }
 }
 
@@ -43,8 +39,6 @@ extension ProfileViewModelTests {
         return ProfileViewModel(
             userInterface: self.userInterfaceMock,
             coordinator: self.coordinatorMock,
-            apiClient: self.apiClientMock,
-            accessService: self.accessServiceMock,
-            errorHandler: self.errorHandlerMock)
+            contentProvider: self.contentProvider)
     }
 }
