@@ -1,6 +1,6 @@
 // MARK: - Server Configuration
 "serverconfiguration_title" = "Zaloguj się";
-"serverconfiguration_enter_server_url" = "Wprowadź adres serwera TimeTable.";
+"serverconfiguration_enter_server_url" = "Wprowadź adres serwera TimeTable.";
 "serverconfiguration_address_url_placeholder" = "Adres serwera";
 "serverconfiguration_continue_btn" = "ZALOGUJ SIĘ";
 
@@ -62,6 +62,9 @@
 "accountingperiods_hours" = "GODZINY";
 "accountingperiods_full_time_yes" = "etat: Tak";
 "accountingperiods_full_time_no" = "etat: Nie";
+
+// MARK: - Vacation
+"vacation_title" = "Urlopy";
 
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Pole nie może być puste.";

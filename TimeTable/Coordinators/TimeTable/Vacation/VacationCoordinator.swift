@@ -25,7 +25,7 @@ class VacationCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
         self.dependencyContainer = dependencyContainer
         
         self.tabBarItem = UITabBarItem(
-            title: R.string.localizable.tabbar_title_vacation(),
+            title: R.string.localizable.vacation_title(),
             image: R.image.tab_bar_vacation_icon(),
             selectedImage: nil)
         super.init(window: dependencyContainer.window)

@@ -47,7 +47,7 @@ extension VacationViewController: VacationViewControllerType {
 // MARK: - Private
 extension VacationViewController {
     private func setUpNavigationItem() {
-        self.title = R.string.localizable.tabbar_title_vacation()
+        self.title = R.string.localizable.vacation_title()
     }
     
     private func setUpBarButtons() {

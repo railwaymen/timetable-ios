@@ -63,6 +63,9 @@
 "accountingperiods_full_time_yes" = "full-time: Yes";
 "accountingperiods_full_time_no" = "full-time: No";
 
+// MARK: - Vacation
+"vacation_title" = "Vacation";
+
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Field cannot be empty.";
 "error_invalid_format" = "Content has invalid format.";
