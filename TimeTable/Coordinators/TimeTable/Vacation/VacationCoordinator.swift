@@ -53,9 +53,17 @@ extension VacationCoordinator: VacationCoordinatorDelegate {
 // MARK: - Private
 extension VacationCoordinator {
     private func runMainFlow() {
+        guard let apiClient = self.dependencyContainer.apiClient else {
+            self.dependencyContainer.errorHandler.stopInDebug("Api client is nil")
+            return
+        }
         do {
             let controller = try self.dependencyContainer.viewControllerBuilder.vacation()
-            let viewModel = VacationViewModel(userInterface: controller, coordinator: self)
+            let viewModel = VacationViewModel(
+                userInterface: controller,
+                apiClient: apiClient,
+                errorHandler: self.dependencyContainer.errorHandler,
+                coordinator: self)
             controller.configure(viewModel: viewModel)
             self.navigationController.setViewControllers([controller], animated: false)
         } catch {

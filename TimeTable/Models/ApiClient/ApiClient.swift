@@ -15,6 +15,7 @@ typealias ApiClientType =
     & ApiClientProjectsType
     & ApiClientUsersType
     & ApiClientAccountingPeriodsType
+    & ApiClientVacationType
 
 class ApiClient {
     var restler: RestlerType {

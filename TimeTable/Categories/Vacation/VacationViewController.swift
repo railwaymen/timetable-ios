@@ -15,12 +15,16 @@ protocol VacationViewControllerType: class {
 }
 
 class VacationViewController: UIViewController {
+    @IBOutlet private var tableView: UITableView!
+    @IBOutlet private var errorView: ErrorView!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+    
     private var viewModel: VacationViewModelType!
 
     // MARK: - Overridden
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.viewModel.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel.viewWillAppear()
     }
     
     // MARK: - Actions
@@ -29,11 +33,58 @@ class VacationViewController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDataSource
+extension VacationViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.viewModel.numberOfItems()
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(VacationCell.self, for: indexPath) else {
+            return UITableViewCell()
+        }
+        self.viewModel.configure(cell, for: indexPath)
+        return cell
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension VacationViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
+    }
+}
+
 // MARK: - VacationViewModelOutput
 extension VacationViewController: VacationViewModelOutput {
     func setUpView() {
         self.setUpNavigationItem()
         self.setUpBarButtons()
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.register(VacationCell.self)
+    }
+    
+    func showTableView() {
+        UIView.transition(with: self.tableView, duration: 0.2, animations: { [weak self] in
+            self?.tableView.set(isHidden: false)
+            self?.errorView.set(isHidden: true)
+        })
+    }
+    
+    func showErrorView() {
+        UIView.transition(with: errorView, duration: 0.2, animations: { [weak self] in
+            self?.tableView.set(isHidden: true)
+            self?.errorView.set(isHidden: false)
+        })
+    }
+    
+    func setActivityIndicator(isHidden: Bool) {
+        self.activityIndicator.set(isAnimating: !isHidden)
+    }
+    
+    func updateView() {
+        self.tableView.reloadData()
     }
 }
 
