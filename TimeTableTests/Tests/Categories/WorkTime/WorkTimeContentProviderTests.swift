@@ -320,7 +320,7 @@ extension WorkTimeContentProviderTests {
 
 // MARK: - save(taskForm:completion:)
 extension WorkTimeContentProviderTests {
-    func testSaveTask_formValidationError_projectIsNil() throws {
+    func testSaveTask_formValidationError_validationError() throws {
         //Arrange
         let sut = self.buildSUT()
         self.taskForm.generateEncodableRepresentationThrownError = TaskForm.ValidationError.projectIsNil
@@ -330,85 +330,8 @@ extension WorkTimeContentProviderTests {
             completionResult = result
         }
         //Assert
-        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: UIError.cannotBeEmpty(.projectTextField))
-    }
-    
-    func testSaveTask_formValidationError_urlIsNil() throws {
-        //Arrange
-        let sut = self.buildSUT()
-        self.taskForm.generateEncodableRepresentationThrownError = TaskForm.ValidationError.urlStringIsEmpty
-        var completionResult: WorkTimeSaveTaskResult?
-        //Act
-        sut.save(taskForm: self.taskForm) { result in
-            completionResult = result
-        }
-        //Assert
-        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: UIError.cannotBeEmpty(.taskUrlTextField))
-    }
-    
-    func testSaveTask_formValidationError_bodyIsEmpty() throws {
-        //Arrange
-        let sut = self.buildSUT()
-        self.taskForm.generateEncodableRepresentationThrownError = TaskForm.ValidationError.bodyIsEmpty
-        var completionResult: WorkTimeSaveTaskResult?
-        //Act
-        sut.save(taskForm: self.taskForm) { result in
-            completionResult = result
-        }
-        //Assert
-        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: UIError.cannotBeEmpty(.taskNameTextField))
-    }
-    
-    func testSaveTask_formValidationError_dayIsNil() throws {
-        //Arrange
-        let sut = self.buildSUT()
-        self.taskForm.generateEncodableRepresentationThrownError = TaskForm.ValidationError.dayIsNil
-        var completionResult: WorkTimeSaveTaskResult?
-        //Act
-        sut.save(taskForm: self.taskForm) { result in
-            completionResult = result
-        }
-        //Assert
-        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: UIError.cannotBeEmpty(.dayTextField))
-    }
-    
-    func testSaveTask_formValidationError_startsAtIsNil() throws {
-        //Arrange
-        let sut = self.buildSUT()
-        self.taskForm.generateEncodableRepresentationThrownError = TaskForm.ValidationError.startsAtIsNil
-        var completionResult: WorkTimeSaveTaskResult?
-        //Act
-        sut.save(taskForm: self.taskForm) { result in
-            completionResult = result
-        }
-        //Assert
-        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: UIError.cannotBeEmpty(.startsAtTextField))
-    }
-    
-    func testSaveTask_formValidationError_endsAtIsNil() throws {
-        //Arrange
-        let sut = self.buildSUT()
-        self.taskForm.generateEncodableRepresentationThrownError = TaskForm.ValidationError.endsAtIsNil
-        var completionResult: WorkTimeSaveTaskResult?
-        //Act
-        sut.save(taskForm: self.taskForm) { result in
-            completionResult = result
-        }
-        //Assert
-        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: UIError.cannotBeEmpty(.endsAtTextField))
-    }
-    
-    func testSaveTask_formValidationError_timeRangeIsIncorrect() throws {
-        //Arrange
-        let sut = self.buildSUT()
-        self.taskForm.generateEncodableRepresentationThrownError = TaskForm.ValidationError.timeRangeIsIncorrect
-        var completionResult: WorkTimeSaveTaskResult?
-        //Act
-        sut.save(taskForm: self.taskForm) { result in
-            completionResult = result
-        }
-        //Assert
-        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: UIError.timeGreaterThan)
+        XCTAssertEqual(self.errorHandler.stopInDebugParams.count, 1)
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: UIError.genericError)
     }
     
     func testSaveTask_formValidationError_internalError() throws {
@@ -546,7 +469,8 @@ extension WorkTimeContentProviderTests {
             completionResult = result
         }
         //Assert
-        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: UIError.cannotBeEmpty(.projectTextField))
+        XCTAssertEqual(self.errorHandler.stopInDebugParams.count, 1)
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: UIError.genericError)
     }
     
     func testSaveTaskWithFilling_addsNewTask() throws {

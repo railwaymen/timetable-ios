@@ -190,27 +190,11 @@ extension LoginViewModelTests {
 extension LoginViewModelTests {
     func testViewRequestedToLoginWhileLoginIsEmpty() throws {
         //Arrange
-        let expectedError = UIError.cannotBeEmpty(.loginTextField)
         let sut = self.buildSUT()
         //Act
         sut.viewRequestedToLogin()
         //Assert
-        let error = try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? UIError)
-        XCTAssertEqual(error, expectedError)
-        XCTAssertTrue(self.userInterfaceMock.setActivityIndicatorParams.isEmpty)
-    }
-    
-    func testViewRequestedToLoginWhilePasswordIsEmpty() throws {
-        //Arrange
-        let expectedError = UIError.cannotBeEmpty(.passwordTextField)
-        let sut = self.buildSUT()
-        sut.loginInputValueDidChange(value: "login")
-        //Act
-        sut.viewRequestedToLogin()
-        //Assert
-        let error = try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? UIError)
-        XCTAssertEqual(error, expectedError)
-        XCTAssertTrue(self.userInterfaceMock.setActivityIndicatorParams.isEmpty)
+        XCTAssertEqual(self.contentProviderMock.loginParams.count, 1)
     }
     
     func testViewRequestedToLoginWithCorrectCredentials() throws {

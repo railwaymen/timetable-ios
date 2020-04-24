@@ -9,7 +9,6 @@
 import Foundation
 
 enum UIElement {
-    case serverAddressTextField
     case loginTextField
     case passwordTextField
     case projectTextField
@@ -18,29 +17,6 @@ enum UIElement {
     case taskUrlTextField
     case startsAtTextField
     case endsAtTextField
-    
-    var localized: String {
-        switch self {
-        case .serverAddressTextField:
-            return R.string.localizable.elementText_fieldServer_address()
-        case .loginTextField:
-            return R.string.localizable.elementText_fieldLogin()
-        case .passwordTextField:
-            return R.string.localizable.elementText_fieldPassword()
-        case .projectTextField:
-            return R.string.localizable.elementText_fieldProject()
-        case .dayTextField:
-            return R.string.localizable.elementText_fieldDay()
-        case .taskNameTextField:
-            return R.string.localizable.elementText_fieldTask_name()
-        case .taskUrlTextField:
-            return R.string.localizable.elementText_fieldTask_url()
-        case .startsAtTextField:
-            return R.string.localizable.elementText_fieldStarts_at()
-        case .endsAtTextField:
-            return R.string.localizable.elementText_fieldEnds_at()
-        }
-    }
 }
 
 enum UIError: Error {
@@ -52,10 +28,10 @@ enum UIError: Error {
     
     var localizedDescription: String {
         switch self {
-        case let .cannotBeEmpty(component):
-            return R.string.localizable.error_cannot_be_empty(component.localized)
-        case let .invalidFormat(component):
-            return R.string.localizable.error_invalid_format(component.localized)
+        case .cannotBeEmpty:
+            return R.string.localizable.error_cannot_be_empty()
+        case .invalidFormat:
+            return R.string.localizable.error_invalid_format()
         case .timeGreaterThan:
             return R.string.localizable.worktimeform_error_greater_than()
         case .genericError:

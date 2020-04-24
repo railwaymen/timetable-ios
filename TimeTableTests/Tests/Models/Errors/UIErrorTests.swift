@@ -15,8 +15,8 @@ class UIErrorTests: XCTestCase {}
 extension UIErrorTests {
     func testLocalizedDescriptionIfCannotBeErrorIsCalled() {
         //Arrange
-        let sut = UIError.cannotBeEmpty(.serverAddressTextField)
-        let expectedResult = String(format: "error_cannot_be_empty".localized, UIElement.serverAddressTextField.localized)
+        let sut = UIError.cannotBeEmpty(.projectTextField)
+        let expectedResult = "error_cannot_be_empty".localized
         //Act
         let localizedString = sut.localizedDescription
         //Assert
@@ -25,8 +25,8 @@ extension UIErrorTests {
     
     func testLocalizedDescriptionIfInvalidFormatIsCalled() {
         //Arrange
-        let sut = UIError.invalidFormat(.serverAddressTextField)
-        let expectedResult = String(format: "error_invalid_format".localized, UIElement.serverAddressTextField.localized)
+        let sut = UIError.invalidFormat(.projectTextField)
+        let expectedResult = "error_invalid_format".localized
         //Act
         let localizedString = sut.localizedDescription
         //Assert
