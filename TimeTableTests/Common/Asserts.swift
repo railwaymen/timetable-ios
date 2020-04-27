@@ -63,6 +63,26 @@ func AssertResult<T, U>(
     }
 }
 
+func XCTAssertEqual(
+    _ expression1: @autoclosure () throws -> Date?,
+    _ expression2: @autoclosure () throws -> Date?,
+    accuracy: TimeInterval,
+    file: StaticString = #file,
+    line: UInt = #line
+) {
+    do {
+        let optionalLHS = try expression1()
+        let optionalRHS = try expression2()
+        guard let lhs = optionalLHS, let rhs = optionalRHS else {
+            XCTAssertEqual(optionalLHS, optionalRHS, file: file, line: line)
+            return
+        }
+        XCTAssertEqual(lhs.timeIntervalSince1970, rhs.timeIntervalSince1970, accuracy: accuracy, file: file, line: line)
+    } catch {
+        XCTFail("Error thrown: \(error)", file: file, line: line)
+    }
+}
+
 // MARK: - Private extensions
 private extension Result where Failure == Error {
     func validateEqualityErrorCase<U>(to errorCase: U) throws where U: Error & UniqueValuedEnumerator {
