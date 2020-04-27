@@ -14,6 +14,8 @@ protocol AccountingPeriodsViewModelOutput: class {
 
 protocol AccountingPeriodsViewModelType: class {
     func viewDidLoad()
+    func numberOfRows(in section: Int) -> Int
+    func configure(_ cell: AccountingPeriodsCellConfigurationInterface, for indexPath: IndexPath)
 }
 
 class AccountingPeriodsViewModel {
@@ -34,5 +36,13 @@ class AccountingPeriodsViewModel {
 extension AccountingPeriodsViewModel: AccountingPeriodsViewModelType {
     func viewDidLoad() {
         self.userInterface?.setUp()
+    }
+    
+    func numberOfRows(in section: Int) -> Int {
+        return 10
+    }
+    
+    func configure(_ cell: AccountingPeriodsCellConfigurationInterface, for indexPath: IndexPath) {
+        cell.configure(startsAt: "start", endsAt: "end", isFullTime: Bool.random(), hours: "0.00/168")
     }
 }

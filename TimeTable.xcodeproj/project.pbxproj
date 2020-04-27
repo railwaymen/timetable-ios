@@ -29,6 +29,8 @@
 		8A12C9612456A5130046603B /* AccountingPeriodsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A12C9602456A5130046603B /* AccountingPeriodsViewModel.swift */; };
 		8A12C9632456A5C70046603B /* AccountingPeriods.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A12C9622456A5C70046603B /* AccountingPeriods.storyboard */; };
 		8A12C9662456AA070046603B /* AccountingPeriodsViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A12C9652456AA070046603B /* AccountingPeriodsViewControllerMock.swift */; };
+		8A12C9692456AF140046603B /* AccountingPeriodsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A12C9682456AF140046603B /* AccountingPeriodsCell.swift */; };
+		8A12C96B2456AF6F0046603B /* AccountingPeriodsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A12C96A2456AF6F0046603B /* AccountingPeriodsCell.xib */; };
 		8A137C3923FD71D0001569BB /* WorkTimeContentProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A137C3823FD71D0001569BB /* WorkTimeContentProviderTests.swift */; };
 		8A137C3B23FD74E4001569BB /* Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A137C3A23FD74E4001569BB /* Asserts.swift */; };
 		8A137C3D23FD7538001569BB /* UniqueValuedEnumerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A137C3C23FD7538001569BB /* UniqueValuedEnumerator.swift */; };
@@ -527,6 +529,8 @@
 		8A12C9602456A5130046603B /* AccountingPeriodsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountingPeriodsViewModel.swift; sourceTree = "<group>"; };
 		8A12C9622456A5C70046603B /* AccountingPeriods.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AccountingPeriods.storyboard; sourceTree = "<group>"; };
 		8A12C9652456AA070046603B /* AccountingPeriodsViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountingPeriodsViewControllerMock.swift; sourceTree = "<group>"; };
+		8A12C9682456AF140046603B /* AccountingPeriodsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountingPeriodsCell.swift; sourceTree = "<group>"; };
+		8A12C96A2456AF6F0046603B /* AccountingPeriodsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountingPeriodsCell.xib; sourceTree = "<group>"; };
 		8A137C3823FD71D0001569BB /* WorkTimeContentProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContentProviderTests.swift; sourceTree = "<group>"; };
 		8A137C3A23FD74E4001569BB /* Asserts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asserts.swift; sourceTree = "<group>"; };
 		8A137C3C23FD7538001569BB /* UniqueValuedEnumerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniqueValuedEnumerator.swift; sourceTree = "<group>"; };
@@ -1046,6 +1050,15 @@
 			path = AccountingPeriods;
 			sourceTree = "<group>";
 		};
+		8A12C9672456AEDC0046603B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				8A12C9682456AF140046603B /* AccountingPeriodsCell.swift */,
+				8A12C96A2456AF6F0046603B /* AccountingPeriodsCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		8A18F7AF242A1F2600D06059 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -1169,6 +1182,7 @@
 				8A12C9622456A5C70046603B /* AccountingPeriods.storyboard */,
 				8A56FC1324531CA80020F8CD /* AccountingPeriodsViewController.swift */,
 				8A12C9602456A5130046603B /* AccountingPeriodsViewModel.swift */,
+				8A12C9672456AEDC0046603B /* Cell */,
 			);
 			path = AccountingPeriods;
 			sourceTree = "<group>";
@@ -2708,6 +2722,7 @@
 				C1E1F04221AD2372007F9228 /* WorkTimesTableViewHeader.xib in Resources */,
 				C13429AA21A7DB2300F4EA42 /* WorkTimesList.storyboard in Resources */,
 				C153AC592182F7BB007A35BB /* Localizable.strings in Resources */,
+				8A12C96B2456AF6F0046603B /* AccountingPeriodsCell.xib in Resources */,
 				8A8EE1AB23F4455100416D31 /* GoogleService-Info.plist in Resources */,
 				8AADE6D42451A4790085FCA7 /* ProfileHeaderView.xib in Resources */,
 				8A12C9632456A5C70046603B /* AccountingPeriods.storyboard in Resources */,
@@ -3119,6 +3134,7 @@
 				C1F7C2ED2191897A00F4FAF0 /* ApiClientError.swift in Sources */,
 				8A31CD8723742CEA008E590D /* ProjectPickerCellModel.swift in Sources */,
 				8AE55D2123FD92D200F94242 /* DateFactory.swift in Sources */,
+				8A12C9692456AF140046603B /* AccountingPeriodsCell.swift in Sources */,
 				8A10F841235454DA0004F389 /* UIBarButtonItem+Extension.swift in Sources */,
 				C13429AE21A7E48C00F4EA42 /* WorkTimesListViewModel.swift in Sources */,
 				C12CA56821A578870082FEB7 /* SimpleProjectRecordDecoder.swift in Sources */,
