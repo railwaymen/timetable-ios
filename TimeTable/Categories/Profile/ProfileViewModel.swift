@@ -118,7 +118,7 @@ extension ProfileViewModel: ProfileViewModelType {
         guard let cell = Cell(indexPath: indexPath) else { return }
         switch cell {
         case .accountingPeriods:
-            cellView.configure(text: R.string.localizable.accoutingperiods_title())
+            cellView.configure(text: R.string.localizable.accountingperiods_title())
         default:
             break
         }

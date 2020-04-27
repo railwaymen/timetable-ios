@@ -37,13 +37,20 @@ class AccountingPeriodsViewController: UITableViewController {
         self.viewModel.configure(cell, for: indexPath)
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueHeaderFooterView(AccountingPeriodsHeaderView.self) else { return nil }
+        header.configure()
+        return header
+    }
 }
 
 // MARK: - AccountingPeriodsViewModelOutput
 extension AccountingPeriodsViewController: AccountingPeriodsViewModelOutput {
     func setUp() {
-        self.title = R.string.localizable.accoutingperiods_title()
+        self.title = R.string.localizable.accountingperiods_title()
         self.tableView.register(AccountingPeriodsCell.self)
+        self.tableView.registerHeaderFooterView(AccountingPeriodsHeaderView.self)
     }
 }
 

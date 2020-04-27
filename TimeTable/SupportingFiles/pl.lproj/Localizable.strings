@@ -57,7 +57,11 @@
 "profile_logout_btn" = "WYLOGUJ";
 
 // MARK: - Accounting Periods
-"accoutingperiods_title" = "Okresy rozliczeniowe";
+"accountingperiods_title" = "Okresy rozliczeniowe";
+"accountingperiods_from" = "OD";
+"accountingperiods_to" = "DO";
+"accountingperiods_full_time" = "ETAT";
+"accountingperiods_hours" = "GODZINY";
 
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Pole nie może być puste.";
