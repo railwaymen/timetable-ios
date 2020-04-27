@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -62,10 +61,10 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="businessDays" destination="6bg-Fr-rOv" id="psd-sU-pcO"/>
-                <outlet property="dates" destination="h2W-BJ-KzS" id="Nns-6y-f3A"/>
-                <outlet property="status" destination="Jww-7y-nJC" id="iKU-WC-gLy"/>
-                <outlet property="title" destination="moQ-Ie-cFl" id="VYu-by-Uhj"/>
+                <outlet property="businessDaysLabel" destination="6bg-Fr-rOv" id="psd-sU-pcO"/>
+                <outlet property="datesLabel" destination="h2W-BJ-KzS" id="Nns-6y-f3A"/>
+                <outlet property="statusLabel" destination="Jww-7y-nJC" id="iKU-WC-gLy"/>
+                <outlet property="titleLabel" destination="moQ-Ie-cFl" id="VYu-by-Uhj"/>
             </connections>
             <point key="canvasLocation" x="142" y="146"/>
         </tableViewCell>

@@ -72,9 +72,7 @@ extension VacationViewController: VacationViewModelOutput {
     }
     
     func setUpTableHeaderView() {
-        guard let headerView = R.nib.vacationTableHeader(owner: nil) else {
-            return
-        }
+        guard let headerView = R.nib.vacationTableHeader(owner: nil) else { return }
         self.viewModel.configure(headerView)
         self.tableView.tableHeaderView = headerView
     }

@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol VacationTableHeaderViewModelable: class {
+    var availableVacationDays: Int { get set }
+}
+
 protocol VacationTableHeaderViewModelType: class {
     func setUp()
     func moreButtonTapped()
@@ -20,12 +24,22 @@ protocol VacationTableHeaderViewModelOutput: class {
     func update(selectedYear: Int, stringValue: String)
 }
 
-class VacationTableHeaderViewModel {
+class VacationTableHeaderViewModel: VacationTableHeaderViewModelable {
     private weak var userInterface: VacationTableHeaderViewModelOutput?
-    private var selectedYear: Int
-    private let availableVacationDays: Int
     private var onYearSelection: ((_ year: Int) -> Void)?
     private var onMoreInfoSelection: (() -> Void)?
+    private var selectedYear: Int {
+        didSet {
+            self.userInterface?.update(
+                selectedYear: self.selectedYear,
+                stringValue: "\(self.selectedYear)")
+        }
+    }
+    var availableVacationDays: Int {
+        didSet {
+            self.userInterface?.update(daysLeft: "\(self.availableVacationDays)")
+        }
+    }
     
     // MARK: - Initialization
     init(

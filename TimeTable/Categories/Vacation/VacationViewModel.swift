@@ -24,7 +24,7 @@ protocol VacationViewModelType: class {
     func viewHasBeenTapped()
     func numberOfItems() -> Int
     func item(at index: IndexPath) -> VacationResponse.Vacation?
-    func configure(_ cell: VacationCell, for indexPath: IndexPath)
+    func configure(_ cell: VacationCellable, for indexPath: IndexPath)
     func configure(_ view: VacationTableHeaderViewable)
     func configure(_ view: ErrorViewable)
 }
@@ -35,6 +35,7 @@ class VacationViewModel: ObservableObject {
     private let apiClient: ApiClientVacationType
     private let errorHandler: ErrorHandlerType
     private var errorViewModel: ErrorViewModelParentType?
+    private weak var headerViewModel: VacationTableHeaderViewModelable?
     
     private var selectedYear: Int
     
@@ -46,10 +47,17 @@ class VacationViewModel: ObservableObject {
                 self.handleFetch(error: error)
             case let .fetched(response):
                 self.userInterface?.setActivityIndicator(isHidden: true)
-                self.handleFetch(vacation: response.vacation)
+                self.handleFetch(response: response)
             case .fetching:
                 self.userInterface?.setActivityIndicator(isHidden: false)
             }
+        }
+    }
+    
+    private var availableVacationDays: Int {
+        switch self.decisionState {
+        case let .fetched(response): return response.availableVacationDays
+        case .error, .fetching: return 0
         }
     }
     
@@ -107,25 +115,21 @@ extension VacationViewModel: VacationViewModelType {
         }
     }
     
-    func configure(_ cell: VacationCell, for indexPath: IndexPath) {
-        guard let vacation = item(at: indexPath) else { return }
+    func configure(_ cell: VacationCellable, for indexPath: IndexPath) {
+        guard let vacation = self.item(at: indexPath) else { return }
         let viewModel = VacationCellViewModel(userInterface: cell, vacation: vacation)
         cell.configure(viewModel: viewModel)
     }
-    
+
     func configure(_ view: VacationTableHeaderViewable) {
-        var availableVacationDays = 0
-        switch self.decisionState {
-        case let .fetched(response): availableVacationDays = response.availableVacationDays
-        case .error, .fetching: break
-        }
         let viewModel = VacationTableHeaderViewModel(
             userInterface: view,
-            availableVacationDays: availableVacationDays,
+            availableVacationDays: self.availableVacationDays,
             selectedYear: self.selectedYear,
             onYearSelection: self.onYearSelection,
             onMoreInfoSelection: self.onMoreInfoSelection)
         view.configure(viewModel: viewModel)
+        self.headerViewModel = viewModel
     }
     
     func configure(_ view: ErrorViewable) {
@@ -150,29 +154,28 @@ extension VacationViewModel {
     
     private func fetchVacation() {
         self.decisionState = .fetching
-        _ = self.apiClient.fetchVacation(parameters: VacationParameters(year: self.selectedYear)) { result in
+        let paramters = VacationParameters(year: self.selectedYear)
+        _ = self.apiClient.fetchVacation(parameters: paramters) { [weak self] result in
             switch result {
             case let .success(response):
-                self.decisionState = .fetched(response)
+                self?.decisionState = .fetched(response)
             case let .failure(error):
-                self.decisionState = .error(error)
+                self?.decisionState = .error(error)
             }
         }
     }
     
-    private func handleFetch(vacation: [VacationResponse.Vacation]) {
+    private func handleFetch(response: VacationResponse) {
         self.userInterface?.showTableView()
         self.userInterface?.updateView()
-        self.userInterface?.setUpTableHeaderView()
+        self.headerViewModel?.availableVacationDays = response.availableVacationDays
     }
     
     private func handleFetch(error: Error) {
         if let error = error as? ApiClientError {
-            if error.type == .unauthorized {
-                self.errorHandler.throwing(error: error)
-            } else {
-                self.errorViewModel?.update(error: error)
-            }
+            error.type == .unauthorized
+                ? self.errorHandler.throwing(error: error)
+                : self.errorViewModel?.update(error: error)
         } else {
             self.errorViewModel?.update(error: UIError.genericError)
             self.errorHandler.throwing(error: error)
