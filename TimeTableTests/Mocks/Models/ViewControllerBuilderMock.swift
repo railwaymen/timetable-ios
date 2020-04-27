@@ -50,6 +50,11 @@ class ViewControllerBuilderMock {
     var profileReturnValue: ProfileViewControllerable = ProfileViewControllerMock()
     private(set) var profileParams: [ProfileParams] = []
     struct ProfileParams {}
+    
+    var accountingPeriodsThrownError: Error?
+    var accountingPeriodsReturnValue: AccountingPeriodsViewControllerable = AccountingPeriodsViewControllerMock()
+    private(set) var accountingPeriodsParams: [AccountingPeriodsParams] = []
+    struct AccountingPeriodsParams {}
 }
 
 // MARK: - ViewControllerBuilderType
@@ -113,5 +118,13 @@ extension ViewControllerBuilderMock: ViewControllerBuilderType {
             throw error
         }
         return self.profileReturnValue
+    }
+    
+    func accountingPeriods() throws -> AccountingPeriodsViewControllerable {
+        self.accountingPeriodsParams.append(AccountingPeriodsParams())
+        if let error = self.accountingPeriodsThrownError {
+            throw error
+        }
+        return self.accountingPeriodsReturnValue
     }
 }
