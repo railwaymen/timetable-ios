@@ -19,7 +19,7 @@ class VacationViewController: UIViewController {
     @IBOutlet private var errorView: ErrorView!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
-    private let tableViewRowHeight: CGFloat = 70
+    private let tableViewEstimatedRowHeight: CGFloat = 70
     private var viewModel: VacationViewModelType!
 
     // MARK: - Overridden
@@ -55,9 +55,6 @@ extension VacationViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 extension VacationViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.tableViewRowHeight
-    }
 }
 
 // MARK: - VacationViewModelOutput
@@ -66,10 +63,7 @@ extension VacationViewController: VacationViewModelOutput {
         self.setUpNavigationItem()
         self.setUpBarButtons()
         self.setUpTableHeaderView()
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
-        self.tableView.register(VacationCell.self)
-        self.viewModel.configure(self.errorView)
+        self.setUpTableView()
     }
     
     func setUpTableHeaderView() {
@@ -122,6 +116,14 @@ extension VacationViewController {
         guard let navigationBar = self.navigationController?.navigationBar else { return }
         let profileImageView = self.buildImageView(image: .profile, action: #selector(self.profileButtonTapped))
         navigationBar.setLargeTitleRightViews([profileImageView])
+    }
+    
+    private func setUpTableView() {
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.estimatedRowHeight = self.tableViewEstimatedRowHeight
+        self.tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.register(VacationCell.self)
     }
     
     private func buildImageView(image: UIImage?, action: Selector) -> UIImageView {

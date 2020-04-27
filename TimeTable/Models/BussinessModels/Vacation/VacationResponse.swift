@@ -6,7 +6,7 @@
 //  Copyright © 2020 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct VacationResponse: Decodable {
     let availableVacationDays: Int
@@ -89,10 +89,37 @@ extension VacationResponse {
 extension VacationResponse.Vacation {
     enum VacationType: String, Decodable {
         case planned, requested, compassionate, others
+        
+        var localizable: String {
+            switch self {
+            case .planned: return R.string.localizable.vacation_type_planned()
+            case .requested: return R.string.localizable.vacation_type_requested()
+            case .compassionate: return R.string.localizable.vacation_type_compassionate()
+            case .others: return R.string.localizable.vacation_type_others()
+            }
+        }
     }
     
     enum Status: String, Decodable {
         case unconfirmed, declined, approved, accepted
+        
+        var localizable: String {
+            switch self {
+            case .unconfirmed: return R.string.localizable.vacation_status_unconfirmed()
+            case .declined: return R.string.localizable.vacation_status_declined()
+            case .approved: return R.string.localizable.vacation_status_approved()
+            case .accepted: return R.string.localizable.vacation_status_accepted()
+            }
+        }
+        
+        var color: UIColor {
+            switch self {
+            case .unconfirmed: return UIColor.statusUnconfirmed
+            case .declined: return UIColor.statusDeclined
+            case .approved: return UIColor.statusAccepted
+            case .accepted: return UIColor.statusAccepted
+            }
+        }
     }
 }
 

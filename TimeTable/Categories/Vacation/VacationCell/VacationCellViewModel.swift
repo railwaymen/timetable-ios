@@ -6,14 +6,14 @@
 //  Copyright © 2020 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol VacationCellViewModelType: class {
     func viewConfigured()
 }
 
 protocol VacationCellViewModelOutput: class {
-    func updateView(title: String, dates: String, businessDays: String, status: String)
+    func updateView(title: String, dates: String, businessDays: String, status: String, statusColor: UIColor)
 }
 
 class VacationCellViewModel {
@@ -36,9 +36,10 @@ extension VacationCellViewModel: VacationCellViewModelType {
         let startDate = DateFormatter.simple.string(from: self.vacation.startDate)
         let endDate = DateFormatter.simple.string(from: self.vacation.endDate)
         self.userInterface?.updateView(
-            title: self.vacation.type.rawValue,
-            dates: "\(startDate)-\(endDate)",
-            businessDays: "\(self.vacation.businessDaysCount) days",
-            status: self.vacation.status.rawValue)
+            title: self.vacation.type.localizable,
+            dates: "\(startDate) - \(endDate)",
+            businessDays: R.string.localizable.days_key(days_key: self.vacation.businessDaysCount),
+            status: self.vacation.status.localizable,
+            statusColor: self.vacation.status.color)
     }
 }

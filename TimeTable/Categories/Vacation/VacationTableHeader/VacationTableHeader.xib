@@ -25,6 +25,9 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="vacation_remaining_vacation"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xtm-N1-Wml">
                                     <rect key="frame" x="0.0" y="28.5" width="156" height="53"/>
@@ -37,6 +40,9 @@
                                     <state key="normal" title="More about used days ">
                                         <color key="titleColor" name="Enabled Button"/>
                                     </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="vacation_more_used_days"/>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="moreButtonTapped" destination="FQZ-gz-udm" eventType="touchUpInside" id="ghU-ht-h9M"/>
                                     </connections>
@@ -48,6 +54,9 @@
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="vacation_history"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="2020" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rqk-tZ-PGL">
                             <rect key="frame" x="317" y="151.5" width="96" height="32.5"/>

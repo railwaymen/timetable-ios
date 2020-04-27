@@ -486,6 +486,7 @@
 		C1E6B34E219EF30600019DC2 /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E6B34D219EF30600019DC2 /* URL+Extension.swift */; };
 		C1E6B350219EF52000019DC2 /* Keychain+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E6B34F219EF52000019DC2 /* Keychain+Extension.swift */; };
 		C1E6B352219F014600019DC2 /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E6B351219F014600019DC2 /* Bundle+Extension.swift */; };
+		C1E908C624570D4C003E0368 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = C1E908C824570D4C003E0368 /* Localizable.stringsdict */; };
 		C1ECF09D2192BB51006038C6 /* RequestEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ECF09C2192BB51006038C6 /* RequestEncoder.swift */; };
 		C1ECF09F2192C1AB006038C6 /* JSONDecoder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ECF09E2192C1AB006038C6 /* JSONDecoder+Extension.swift */; };
 		C1ECF0A22192C337006038C6 /* JSONEncoder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ECF0A12192C337006038C6 /* JSONEncoder+Extension.swift */; };
@@ -1058,6 +1059,8 @@
 		C1E6B34D219EF30600019DC2 /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
 		C1E6B34F219EF52000019DC2 /* Keychain+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keychain+Extension.swift"; sourceTree = "<group>"; };
 		C1E6B351219F014600019DC2 /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
+		C1E908C724570D4C003E0368 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		C1E908C924570D4F003E0368 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = pl; path = pl.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		C1ECF09C2192BB51006038C6 /* RequestEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestEncoder.swift; sourceTree = "<group>"; };
 		C1ECF09E2192C1AB006038C6 /* JSONDecoder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Extension.swift"; sourceTree = "<group>"; };
 		C1ECF0A12192C337006038C6 /* JSONEncoder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONEncoder+Extension.swift"; sourceTree = "<group>"; };
@@ -1851,6 +1854,7 @@
 				C1B5137821772D1400C3727C /* Info.plist */,
 				C183F82B21F0A56000B07AB8 /* Fonts */,
 				C153AC5B2182F7BB007A35BB /* Localizable.strings */,
+				C1E908C824570D4C003E0368 /* Localizable.stringsdict */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -3007,6 +3011,7 @@
 				8A12C96E2456B8120046603B /* AccountingPeriodsHeaderView.xib in Resources */,
 				C18BE26E2452F89300FC71CC /* VacationTableHeader.xib in Resources */,
 				C14EB0292372E1A8007F07D0 /* ErrorView.xib in Resources */,
+				C1E908C624570D4C003E0368 /* Localizable.stringsdict in Resources */,
 				C1B5137721772D1400C3727C /* LaunchScreen.storyboard in Resources */,
 				C153AC452181E4E7007A35BB /* ServerConfiguration.storyboard in Resources */,
 				8A798745237D4DC6003DC028 /* Profile.storyboard in Resources */,
@@ -3764,6 +3769,15 @@
 				C153AC562182F77C007A35BB /* pl */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		C1E908C824570D4C003E0368 /* Localizable.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C1E908C724570D4C003E0368 /* en */,
+				C1E908C924570D4F003E0368 /* pl */,
+			);
+			name = Localizable.stringsdict;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

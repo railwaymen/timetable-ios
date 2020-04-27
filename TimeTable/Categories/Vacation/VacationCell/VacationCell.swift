@@ -33,10 +33,11 @@ extension VacationCell: VacationCellType {
 
 // MARK: - VacationCellViewModelOutput
 extension VacationCell: VacationCellViewModelOutput {
-    func updateView(title: String, dates: String, businessDays: String, status: String) {
+    func updateView(title: String, dates: String, businessDays: String, status: String, statusColor: UIColor) {
         self.titleLabel.text = title
         self.datesLabel.text = dates
         self.businessDaysLabel.text = businessDays
         self.statusLabel.text = status
+        self.statusLabel.textColor = statusColor
     }
 }

@@ -65,6 +65,17 @@
 
 // MARK: - Vacation
 "vacation_title" = "Urlopy";
+"vacation_status_unconfirmed" = "Niepotwierdzone";
+"vacation_status_declined" = "Odrzucony";
+"vacation_status_approved" = "Niepotwierdzone";
+"vacation_status_accepted" = "Zaakceptowany";
+"vacation_type_planned" = "Urlop wypoczynkowy";
+"vacation_type_requested" = "Urlop na żądanie";
+"vacation_type_compassionate" = "Urlop okolicznościowy";
+"vacation_type_others" = "Inne";
+"vacation_remaining_vacation" = "Pozostały urlop:";
+"vacation_more_used_days" = "Sprawdź wykorzystany urlop";
+"vacation_history" = "Historia";
 
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Pole nie może być puste.";

@@ -65,6 +65,17 @@
 
 // MARK: - Vacation
 "vacation_title" = "Vacation";
+"vacation_status_unconfirmed" = "Unconfirmed";
+"vacation_status_declined" = "Declined";
+"vacation_status_approved" = "Unconfirmed";
+"vacation_status_accepted" = "Accepted";
+"vacation_type_planned" = "Holiday leave";
+"vacation_type_requested" = "Leave on demand";
+"vacation_type_compassionate" = "Special leave";
+"vacation_type_others" = "Others";
+"vacation_remaining_vacation" = "Remaining vacation:";
+"vacation_more_used_days" = "More about used days";
+"vacation_history" = "History";
 
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Field cannot be empty.";
