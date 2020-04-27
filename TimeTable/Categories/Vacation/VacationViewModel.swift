@@ -15,11 +15,13 @@ protocol VacationViewModelOutput: class {
     func setUpTableHeaderView()
     func setActivityIndicator(isHidden: Bool)
     func updateView()
+    func dismissKeyboard()
 }
 
 protocol VacationViewModelType: class {
     func viewWillAppear()
     func viewRequestForProfileView()
+    func viewHasBeenTapped()
     func numberOfItems() -> Int
     func item(at index: IndexPath) -> VacationResponse.Vacation?
     func configure(_ cell: VacationCell, for indexPath: IndexPath)
@@ -85,6 +87,10 @@ extension VacationViewModel: VacationViewModelType {
     
     func viewRequestForProfileView() {
         self.coordinator?.vacationRequestedForProfileView()
+    }
+    
+    func viewHasBeenTapped() {
+        self.userInterface?.dismissKeyboard()
     }
     
     func numberOfItems() -> Int {

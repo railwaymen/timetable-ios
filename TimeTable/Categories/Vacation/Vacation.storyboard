@@ -48,6 +48,9 @@
                             <constraint firstItem="RLL-tH-bdB" firstAttribute="centerX" secondItem="POu-dr-NBm" secondAttribute="centerX" id="xkr-Xk-Q3G"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ycy-jR-fPh"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="chL-2B-a4H" appends="YES" id="lUj-86-Zc8"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="RLL-tH-bdB" id="ARo-ab-LTL"/>
@@ -56,6 +59,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mgl-tq-hB4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="chL-2B-a4H">
+                    <connections>
+                        <action selector="viewTapped:" destination="Rcv-s2-jrl" id="nL3-ix-uGL"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-4578.2608695652179" y="-2075.2232142857142"/>
         </scene>

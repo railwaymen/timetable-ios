@@ -32,6 +32,9 @@ class VacationViewControllerMock: UIViewController {
     private(set) var updateViewParams: [UpdateViewParams] = []
     struct UpdateViewParams {}
     
+    private(set) var dismissKeyboardParams: [DismissKeyboardParams] = []
+    struct DismissKeyboardParams {}
+    
     // MARK: - VacationViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
@@ -63,6 +66,10 @@ extension VacationViewControllerMock: VacationViewModelOutput {
     
     func updateView() {
         self.updateViewParams.append(UpdateViewParams())
+    }
+    
+    func dismissKeyboard() {
+        self.dismissKeyboardParams.append(DismissKeyboardParams())
     }
 }
 

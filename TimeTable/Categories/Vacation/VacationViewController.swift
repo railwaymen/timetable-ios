@@ -32,6 +32,10 @@ class VacationViewController: UIViewController {
     @objc private func profileButtonTapped() {
         self.viewModel.viewRequestForProfileView()
     }
+    
+    @IBAction private func viewTapped(_ sender: UITapGestureRecognizer) {
+        self.viewModel?.viewHasBeenTapped()
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -95,6 +99,10 @@ extension VacationViewController: VacationViewModelOutput {
     
     func updateView() {
         self.tableView.reloadData()
+    }
+    
+    func dismissKeyboard() {
+        self.view.endEditing(true)
     }
 }
 
