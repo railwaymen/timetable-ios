@@ -26,6 +26,9 @@
 		8A0AFA662386CFF70054D55F /* CoordinatorsFoundation+Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AFA652386CFF70054D55F /* CoordinatorsFoundation+Typealiases.swift */; };
 		8A10F83B2350C7AF0004F389 /* WorkTimeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F83A2350C7AF0004F389 /* WorkTimeCoordinator.swift */; };
 		8A10F841235454DA0004F389 /* UIBarButtonItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */; };
+		8A12C9612456A5130046603B /* AccountingPeriodsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A12C9602456A5130046603B /* AccountingPeriodsViewModel.swift */; };
+		8A12C9632456A5C70046603B /* AccountingPeriods.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A12C9622456A5C70046603B /* AccountingPeriods.storyboard */; };
+		8A12C9662456AA070046603B /* AccountingPeriodsViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A12C9652456AA070046603B /* AccountingPeriodsViewControllerMock.swift */; };
 		8A137C3923FD71D0001569BB /* WorkTimeContentProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A137C3823FD71D0001569BB /* WorkTimeContentProviderTests.swift */; };
 		8A137C3B23FD74E4001569BB /* Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A137C3A23FD74E4001569BB /* Asserts.swift */; };
 		8A137C3D23FD7538001569BB /* UniqueValuedEnumerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A137C3C23FD7538001569BB /* UniqueValuedEnumerator.swift */; };
@@ -80,6 +83,8 @@
 		8A56D18E242B7DE900A02682 /* XCUIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A56D18D242B7DE900A02682 /* XCUIApplication+Extension.swift */; };
 		8A56FC0C245311B10020F8CD /* ProfileLinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A56FC0B245311B10020F8CD /* ProfileLinkCell.swift */; };
 		8A56FC0E245312000020F8CD /* ProfileLinkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A56FC0D245312000020F8CD /* ProfileLinkCell.xib */; };
+		8A56FC1124531AE30020F8CD /* AccountingPeriodsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A56FC1024531AE30020F8CD /* AccountingPeriodsCoordinator.swift */; };
+		8A56FC1424531CA80020F8CD /* AccountingPeriodsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A56FC1324531CA80020F8CD /* AccountingPeriodsViewController.swift */; };
 		8A59AF202382E29200108C33 /* DailyWorkTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A59AF1F2382E29200108C33 /* DailyWorkTime.swift */; };
 		8A5D48BE2369E18C0082C13D /* DispatchGroupFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */; };
 		8A5D48C02369E1A30082C13D /* DispatchGroup+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D48BF2369E1A20082C13D /* DispatchGroup+Extension.swift */; };
@@ -519,6 +524,9 @@
 		8A0AFA652386CFF70054D55F /* CoordinatorsFoundation+Typealiases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoordinatorsFoundation+Typealiases.swift"; sourceTree = "<group>"; };
 		8A10F83A2350C7AF0004F389 /* WorkTimeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCoordinator.swift; sourceTree = "<group>"; };
 		8A10F840235454DA0004F389 /* UIBarButtonItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extension.swift"; sourceTree = "<group>"; };
+		8A12C9602456A5130046603B /* AccountingPeriodsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountingPeriodsViewModel.swift; sourceTree = "<group>"; };
+		8A12C9622456A5C70046603B /* AccountingPeriods.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AccountingPeriods.storyboard; sourceTree = "<group>"; };
+		8A12C9652456AA070046603B /* AccountingPeriodsViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountingPeriodsViewControllerMock.swift; sourceTree = "<group>"; };
 		8A137C3823FD71D0001569BB /* WorkTimeContentProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContentProviderTests.swift; sourceTree = "<group>"; };
 		8A137C3A23FD74E4001569BB /* Asserts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asserts.swift; sourceTree = "<group>"; };
 		8A137C3C23FD7538001569BB /* UniqueValuedEnumerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniqueValuedEnumerator.swift; sourceTree = "<group>"; };
@@ -575,6 +583,8 @@
 		8A56D18D242B7DE900A02682 /* XCUIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIApplication+Extension.swift"; sourceTree = "<group>"; };
 		8A56FC0B245311B10020F8CD /* ProfileLinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLinkCell.swift; sourceTree = "<group>"; };
 		8A56FC0D245312000020F8CD /* ProfileLinkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileLinkCell.xib; sourceTree = "<group>"; };
+		8A56FC1024531AE30020F8CD /* AccountingPeriodsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountingPeriodsCoordinator.swift; sourceTree = "<group>"; };
+		8A56FC1324531CA80020F8CD /* AccountingPeriodsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountingPeriodsViewController.swift; sourceTree = "<group>"; };
 		8A59AF1F2382E29200108C33 /* DailyWorkTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWorkTime.swift; sourceTree = "<group>"; };
 		8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchGroupFactory.swift; sourceTree = "<group>"; };
 		8A5D48BF2369E1A20082C13D /* DispatchGroup+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchGroup+Extension.swift"; sourceTree = "<group>"; };
@@ -1028,6 +1038,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		8A12C9642456A9F50046603B /* AccountingPeriods */ = {
+			isa = PBXGroup;
+			children = (
+				8A12C9652456AA070046603B /* AccountingPeriodsViewControllerMock.swift */,
+			);
+			path = AccountingPeriods;
+			sourceTree = "<group>";
+		};
 		8A18F7AF242A1F2600D06059 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -1137,6 +1155,24 @@
 			path = LinkCell;
 			sourceTree = "<group>";
 		};
+		8A56FC0F24531AAA0020F8CD /* AccountingPeriods */ = {
+			isa = PBXGroup;
+			children = (
+				8A56FC1024531AE30020F8CD /* AccountingPeriodsCoordinator.swift */,
+			);
+			path = AccountingPeriods;
+			sourceTree = "<group>";
+		};
+		8A56FC1224531C940020F8CD /* AccountingPeriods */ = {
+			isa = PBXGroup;
+			children = (
+				8A12C9622456A5C70046603B /* AccountingPeriods.storyboard */,
+				8A56FC1324531CA80020F8CD /* AccountingPeriodsViewController.swift */,
+				8A12C9602456A5130046603B /* AccountingPeriodsViewModel.swift */,
+			);
+			path = AccountingPeriods;
+			sourceTree = "<group>";
+		};
 		8A5EF32123FE848B00AE4309 /* TagCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1211,6 +1247,7 @@
 		8A6B6D85237AB602007D8D93 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				8A12C9642456A9F50046603B /* AccountingPeriods */,
 				8A6B6D86237AB608007D8D93 /* Login */,
 				8A6B6D8A237AB636007D8D93 /* Profile */,
 				8A6B6D87237AB613007D8D93 /* ProjectPicker */,
@@ -1596,6 +1633,7 @@
 		C1249C5E21819E16005DB2A5 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				8A56FC1224531C940020F8CD /* AccountingPeriods */,
 				C14EB0232372D9A0007F07D0 /* Error */,
 				C1B5137521772D1400C3727C /* LaunchScreen.storyboard */,
 				C1F926E121874FB40004A9BC /* Login */,
@@ -2207,12 +2245,12 @@
 			path = WorkTime;
 			sourceTree = "<group>";
 		};
-		C1AACFCD21A434780023FD32 /* User */ = {
+		C1AACFCD21A434780023FD32 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
 				C1AACFD521A438660023FD32 /* ProfileCoordinator.swift */,
 			);
-			path = User;
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		C1AFFFD721A2ACB100A7A632 /* AccessService */ = {
@@ -2229,8 +2267,9 @@
 			isa = PBXGroup;
 			children = (
 				C1AFFFE221A2D16F00A7A632 /* TimeTableTabCoordinator.swift */,
+				8A56FC0F24531AAA0020F8CD /* AccountingPeriods */,
+				C1AACFCD21A434780023FD32 /* Profile */,
 				C1AACFCB21A4345C0023FD32 /* Projects */,
-				C1AACFCD21A434780023FD32 /* User */,
 				C1AACFCC21A434650023FD32 /* WorkTime */,
 			);
 			path = TimeTable;
@@ -2671,6 +2710,7 @@
 				C153AC592182F7BB007A35BB /* Localizable.strings in Resources */,
 				8A8EE1AB23F4455100416D31 /* GoogleService-Info.plist in Resources */,
 				8AADE6D42451A4790085FCA7 /* ProfileHeaderView.xib in Resources */,
+				8A12C9632456A5C70046603B /* AccountingPeriods.storyboard in Resources */,
 				8A5EF32523FE863D00AE4309 /* WorkTimeTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3026,6 +3066,7 @@
 				C1AACFD821A4387F0023FD32 /* WorkTimesListCoordinator.swift in Sources */,
 				C1B8FA44218C929F009D10B4 /* SessionDecoder.swift in Sources */,
 				C153AC4A2182EE9F007A35BB /* UILabel+Extension .swift in Sources */,
+				8A56FC1124531AE30020F8CD /* AccountingPeriodsCoordinator.swift in Sources */,
 				C125F1B621DCCF4400594CDE /* ProjectsViewController.swift in Sources */,
 				C125F1AF21DCC95200594CDE /* ProjectRecordDecoder.swift in Sources */,
 				8AADE6D82451D18F0085FCA7 /* ProfileContentProvider.swift in Sources */,
@@ -3054,6 +3095,7 @@
 				8A5EF31823FE7D0800AE4309 /* UITableView+Extension.swift in Sources */,
 				C1CE041521F5E01200E80517 /* AttributedTextField.swift in Sources */,
 				C1FE49EA21AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift in Sources */,
+				8A56FC1424531CA80020F8CD /* AccountingPeriodsViewController.swift in Sources */,
 				C1E6B34E219EF30600019DC2 /* URL+Extension.swift in Sources */,
 				C13429AC21A7DDAB00F4EA42 /* WorkTimesListViewController.swift in Sources */,
 				8A59AF202382E29200108C33 /* DailyWorkTime.swift in Sources */,
@@ -3106,6 +3148,7 @@
 				C1AACFD621A438660023FD32 /* ProfileCoordinator.swift in Sources */,
 				8A31A860238E927E008DCC08 /* TimeInterval+Extension.swift in Sources */,
 				8A80A38D23D89C24002643A1 /* APIClientFactory.swift in Sources */,
+				8A12C9612456A5130046603B /* AccountingPeriodsViewModel.swift in Sources */,
 				C1E6B34C219EF08200019DC2 /* AccessService.swift in Sources */,
 				8AE55D1D23FD855E00F94242 /* Task.swift in Sources */,
 				C1531F042191C58000602A0C /* Endpoint.swift in Sources */,
@@ -3201,6 +3244,7 @@
 				C12BD99B21E48DD100A6EAF0 /* ProjectsViewControllerMock.swift in Sources */,
 				8A79A2F72423842A0048B44B /* ProjectRecordUserJSONResource.swift in Sources */,
 				C1249C7C2181AEB0005DB2A5 /* AppCoordinatorTests.swift in Sources */,
+				8A12C9662456AA070046603B /* AccountingPeriodsViewControllerMock.swift in Sources */,
 				C134299721A6D7F700F4EA42 /* BundleMock.swift in Sources */,
 				8AE55D2323FD933700F94242 /* DateFactoryMock.swift in Sources */,
 				8A5D48C22369E1E20082C13D /* DispatchGroupMock.swift in Sources */,

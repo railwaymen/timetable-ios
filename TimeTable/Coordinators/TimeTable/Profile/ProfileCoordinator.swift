@@ -51,7 +51,13 @@ extension ProfileCoordinator: ProfileCoordinatorDelegate {
     }
     
     func viewDidRequestToShowAccountingPeriods() {
-        // TODO
+        let coordinator = AccountingPeriodsCoordinator(
+            navigationController: self.navigationController,
+            dependencyContainer: self.dependencyContainer)
+        self.add(child: coordinator)
+        coordinator.start { [weak self, weak coordinator] in
+            self?.remove(child: coordinator)
+        }
     }
     
     func viewDidRequestToFinish() {
