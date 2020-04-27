@@ -69,6 +69,7 @@ extension VacationViewController: VacationViewModelOutput {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.register(VacationCell.self)
+        self.viewModel.configure(self.errorView)
     }
     
     func setUpTableHeaderView() {
