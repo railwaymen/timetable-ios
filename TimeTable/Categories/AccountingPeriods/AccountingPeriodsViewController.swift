@@ -17,7 +17,9 @@ protocol AccountingPeriodsViewControllerType: class {
     func configure(viewModel: AccountingPeriodsViewModelType)
 }
 
-class AccountingPeriodsViewController: UITableViewController {
+class AccountingPeriodsViewController: UIViewController {
+    @IBOutlet private var tableView: UITableView!
+    
     private var viewModel: AccountingPeriodsViewModelType!
     
     // MARK: - Overridden
@@ -25,20 +27,26 @@ class AccountingPeriodsViewController: UITableViewController {
         super.viewDidLoad()
         self.viewModel.viewDidLoad()
     }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+}
+
+// MARK: - UITableViewDataSource
+extension AccountingPeriodsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.viewModel.numberOfRows(in: section)
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(AccountingPeriodsCell.self, for: indexPath) else {
             return UITableViewCell()
         }
         self.viewModel.configure(cell, for: indexPath)
         return cell
     }
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+}
+
+// MARK: - UITableViewDelegate
+extension AccountingPeriodsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueHeaderFooterView(AccountingPeriodsHeaderView.self) else { return nil }
         header.configure()
         return header
