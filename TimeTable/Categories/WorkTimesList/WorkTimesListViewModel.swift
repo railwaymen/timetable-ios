@@ -45,7 +45,7 @@ protocol WorkTimesListViewModelType: class {
     func viewRequestForProfileView()
 }
 
-typealias WorkTimesListApiClientType = (ApiClientWorkTimesType & ApiClientMatchingFullTimeType)
+typealias WorkTimesListApiClientType = (ApiClientWorkTimesType & ApiClientAccountingPeriodsType)
 
 class WorkTimesListViewModel {
     private weak var userInterface: WorkTimesListViewModelOutput?

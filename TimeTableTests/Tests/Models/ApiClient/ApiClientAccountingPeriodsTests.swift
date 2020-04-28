@@ -1,5 +1,5 @@
 //
-//  ApiClientMatchingFullTimeTests.swift
+//  ApiClientAccountingPeriodsTests.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 04/02/2019.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import TimeTable
 
-class ApiClientMatchingFullTimeTests: XCTestCase {
+class ApiClientAccountingPeriodsTests: XCTestCase {
     private var restler: RestlerMock!
     private var accessService: AccessServiceMock!
     
@@ -20,9 +20,43 @@ class ApiClientMatchingFullTimeTests: XCTestCase {
     }
 }
 
+// MARK: - fetchAccountingPeriods(parameters:completion:)
+extension ApiClientAccountingPeriodsTests {
+    func testFetchAccountingPeriods_succeed() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let data = try self.json(from: AccountingPeriodsJSONResource.accountingPeriodsResponseFullResponse)
+        let decoder = try self.decoder.decode(AccountingPeriodsResponse.self, from: data)
+        let parameters = AccountingPeriodsParameters(page: 1, recordsPerPage: 10)
+        var completionResult: Result<AccountingPeriodsResponse, Error>?
+        //Act
+        sut.fetchAccountingPeriods(parameters: parameters) {
+            completionResult = $0
+        }
+        try self.restler.getReturnValue.callCompletion(type: AccountingPeriodsResponse.self, result: .success(decoder))
+        //Assert
+        XCTAssertNoThrow(try XCTUnwrap(completionResult).get())
+    }
+    
+    func testFetchAccountingPeriods_failed() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let error = "Some error"
+        let parameters = AccountingPeriodsParameters(page: 1, recordsPerPage: 10)
+        var completionResult: Result<AccountingPeriodsResponse, Error>?
+        //Act
+        sut.fetchAccountingPeriods(parameters: parameters) {
+            completionResult = $0
+        }
+        try self.restler.getReturnValue.callCompletion(type: AccountingPeriodsResponse.self, result: .failure(error))
+        //Assert
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
+    }
+}
+
 // MARK: - fetchMatchingFullTime(parameters:completion:)
-extension ApiClientMatchingFullTimeTests {
-    func testFetchMatchingFullTimeSucceed() throws {
+extension ApiClientAccountingPeriodsTests {
+    func testFetchMatchingFullTime_succeed() throws {
         //Arrange
         let sut = self.buildSUT()
         let data = try self.json(from: MatchingFullTimeJSONResource.matchingFullTimeFullResponse)
@@ -39,7 +73,7 @@ extension ApiClientMatchingFullTimeTests {
         XCTAssertEqual(try XCTUnwrap(completionResult).get(), decoder)
     }
     
-    func testFetchMatchingFullTimeFailed() throws {
+    func testFetchMatchingFullTime_failed() throws {
         //Arrange
         let sut = self.buildSUT()
         let error = TestError(message: "fetch matching full time failed")
@@ -57,8 +91,8 @@ extension ApiClientMatchingFullTimeTests {
 }
 
 // MARK: - Private
-extension ApiClientMatchingFullTimeTests {
-    private func buildSUT() -> ApiClientMatchingFullTimeType {
+extension ApiClientAccountingPeriodsTests {
+    private func buildSUT() -> ApiClientAccountingPeriodsType {
         return ApiClient(
             restler: self.restler,
             accessService: self.accessService)

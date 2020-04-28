@@ -12,7 +12,7 @@ typealias TimeTableTabApiClientType = (
     ApiClientWorkTimesType
     & ApiClientProjectsType
     & ApiClientUsersType
-    & ApiClientMatchingFullTimeType)
+    & ApiClientAccountingPeriodsType)
 
 class TimeTableTabCoordinator: TabBarCoordinator {
     

@@ -10,6 +10,7 @@ import Foundation
 import Restler
 
 enum Endpoint: RestlerEndpointable, Equatable {
+    case accountingPeriods
     case matchingFullTime
     case projects
     case projectsSimpleList
@@ -22,6 +23,7 @@ enum Endpoint: RestlerEndpointable, Equatable {
     
     var restlerEndpointValue: String {
         switch self {
+        case .accountingPeriods: return "/accounting_periods"
         case .matchingFullTime: return "/accounting_periods/matching_fulltime"
         case .projects: return "/projects"
         case .projectsSimpleList: return "/projects/simple"
