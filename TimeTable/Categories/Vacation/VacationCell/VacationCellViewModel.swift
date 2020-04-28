@@ -36,10 +36,10 @@ extension VacationCellViewModel: VacationCellViewModelType {
         let startDate = DateFormatter.simple.string(from: self.vacation.startDate)
         let endDate = DateFormatter.simple.string(from: self.vacation.endDate)
         self.userInterface?.updateView(
-            title: self.vacation.type.localizable,
+            title: self.vacation.type.localizableString,
             dates: "\(startDate) - \(endDate)",
             businessDays: R.string.localizable.days_key(days_key: self.vacation.businessDaysCount),
-            status: self.vacation.status.localizable,
+            status: self.vacation.status.localizableString,
             statusColor: self.vacation.status.color)
     }
 }

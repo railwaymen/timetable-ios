@@ -90,7 +90,7 @@ extension VacationResponse.Vacation {
     enum VacationType: String, Decodable {
         case planned, requested, compassionate, others
         
-        var localizable: String {
+        var localizableString: String {
             switch self {
             case .planned: return R.string.localizable.vacation_type_planned()
             case .requested: return R.string.localizable.vacation_type_requested()
@@ -103,7 +103,7 @@ extension VacationResponse.Vacation {
     enum Status: String, Decodable {
         case unconfirmed, declined, approved, accepted
         
-        var localizable: String {
+        var localizableString: String {
             switch self {
             case .unconfirmed: return R.string.localizable.vacation_status_unconfirmed()
             case .declined: return R.string.localizable.vacation_status_declined()
@@ -114,10 +114,10 @@ extension VacationResponse.Vacation {
         
         var color: UIColor {
             switch self {
-            case .unconfirmed: return UIColor.statusUnconfirmed
-            case .declined: return UIColor.statusDeclined
-            case .approved: return UIColor.statusAccepted
-            case .accepted: return UIColor.statusAccepted
+            case .unconfirmed: return .statusUnconfirmed
+            case .declined: return .statusDeclined
+            case .approved: return .statusAccepted
+            case .accepted: return .statusAccepted
             }
         }
     }
