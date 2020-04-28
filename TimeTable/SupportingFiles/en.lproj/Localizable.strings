@@ -56,7 +56,12 @@
 "profile_logout_btn" = "LOG OUT";
 
 // MARK: - Accounting Periods
-"accoutingperiods_title" = "Accounting Periods";
+"accountingperiods_title" = "Accounting Periods";
+"accountingperiods_from" = "FROM";
+"accountingperiods_to" = "TO";
+"accountingperiods_hours" = "HOURS";
+"accountingperiods_full_time_yes" = "full-time: Yes";
+"accountingperiods_full_time_no" = "full-time: No";
 
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Field cannot be empty.";
