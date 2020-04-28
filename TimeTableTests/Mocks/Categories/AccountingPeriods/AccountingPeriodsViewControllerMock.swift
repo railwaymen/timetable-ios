@@ -21,6 +21,14 @@ class AccountingPeriodsViewControllerMock: UIViewController {
     private(set) var showErrorViewParams: [ShowErrorViewParams] = []
     struct ShowErrorViewParams {}
     
+    private(set) var reloadDataParams: [ReloadDataParams] = []
+    struct ReloadDataParams {}
+    
+    private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
+    struct SetActivityIndicatorParams {
+        let isHidden: Bool
+    }
+    
     // MARK: - AccountingPeriodsViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
@@ -40,6 +48,14 @@ extension AccountingPeriodsViewControllerMock: AccountingPeriodsViewModelOutput 
     
     func showErrorView() {
         self.showErrorViewParams.append(ShowErrorViewParams())
+    }
+    
+    func reloadData() {
+        self.reloadDataParams.append(ReloadDataParams())
+    }
+    
+    func setActivityIndicator(isHidden: Bool) {
+        self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isHidden))
     }
 }
 

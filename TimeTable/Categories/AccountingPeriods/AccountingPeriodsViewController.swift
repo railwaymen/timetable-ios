@@ -20,6 +20,7 @@ protocol AccountingPeriodsViewControllerType: class {
 class AccountingPeriodsViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var errorView: ErrorView!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private var viewModel: AccountingPeriodsViewModelType!
     
@@ -76,6 +77,14 @@ extension AccountingPeriodsViewController: AccountingPeriodsViewModelOutput {
             self?.tableView.set(isHidden: true)
             self?.errorView.set(isHidden: false)
         })
+    }
+    
+    func reloadData() {
+        self.tableView.reloadData()
+    }
+    
+    func setActivityIndicator(isHidden: Bool) {
+        self.activityIndicator.set(isAnimating: !isHidden)
     }
 }
 
