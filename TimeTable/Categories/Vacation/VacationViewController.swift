@@ -28,6 +28,11 @@ class VacationViewController: UIViewController {
         self.viewModel.viewWillAppear()
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.viewModel.viewDidLoad()
+    }
+    
     // MARK: - Actions
     @objc private func profileButtonTapped() {
         self.viewModel.viewRequestForProfileView()
@@ -60,6 +65,8 @@ extension VacationViewController: UITableViewDelegate {
 // MARK: - VacationViewModelOutput
 extension VacationViewController: VacationViewModelOutput {
     func setUpView() {
+        self.tableView.set(isHidden: true)
+        self.errorView.set(isHidden: true)
         self.setUpNavigationItem()
         self.setUpBarButtons()
         self.setUpTableHeaderView()

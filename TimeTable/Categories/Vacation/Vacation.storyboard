@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -67,5 +68,57 @@
             </objects>
             <point key="canvasLocation" x="-4578.2608695652179" y="-2075.2232142857142"/>
         </scene>
+        <!--Used Vacation View Controller-->
+        <scene sceneID="dof-Yc-nh9">
+            <objects>
+                <viewController storyboardIdentifier="UsedVacationViewControllerID" id="Iiq-eE-1XY" customClass="UsedVacationViewController" customModule="TimeTable" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EF1-1t-dAJ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PNW-nV-Bvt">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <items>
+                                    <navigationItem title="Title" id="gEy-Ah-2rN">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="IhQ-15-Zne">
+                                            <color key="tintColor" name="Enabled Button"/>
+                                            <connections>
+                                                <action selector="closeButtonTapped" destination="Iiq-eE-1XY" id="Wgh-33-CMe"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gPn-kR-Ltq">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="PNW-nV-Bvt" secondAttribute="trailing" id="AXi-0t-yTX"/>
+                            <constraint firstItem="sE6-Qq-cB5" firstAttribute="trailing" secondItem="gPn-kR-Ltq" secondAttribute="trailing" id="FHz-8g-iHL"/>
+                            <constraint firstItem="PNW-nV-Bvt" firstAttribute="top" secondItem="sE6-Qq-cB5" secondAttribute="top" id="Fmj-zR-fyB"/>
+                            <constraint firstItem="gPn-kR-Ltq" firstAttribute="top" secondItem="PNW-nV-Bvt" secondAttribute="bottom" id="WKc-Jr-3gp"/>
+                            <constraint firstItem="PNW-nV-Bvt" firstAttribute="leading" secondItem="sE6-Qq-cB5" secondAttribute="leading" id="c2c-bm-Mca"/>
+                            <constraint firstItem="gPn-kR-Ltq" firstAttribute="leading" secondItem="sE6-Qq-cB5" secondAttribute="leading" id="ooX-SI-LtL"/>
+                            <constraint firstItem="sE6-Qq-cB5" firstAttribute="bottom" secondItem="gPn-kR-Ltq" secondAttribute="bottom" id="zqH-NV-ANu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="sE6-Qq-cB5"/>
+                    </view>
+                    <connections>
+                        <outlet property="navigationBar" destination="PNW-nV-Bvt" id="lro-AX-vOc"/>
+                        <outlet property="tableView" destination="gPn-kR-Ltq" id="Afn-pF-E3v"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lvx-ZM-3jz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3696" y="-2075"/>
+        </scene>
     </scenes>
+    <resources>
+        <namedColor name="Enabled Button">
+            <color red="0.79607843137254897" green="0.078431372549019607" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

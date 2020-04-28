@@ -19,6 +19,7 @@ protocol VacationViewModelOutput: class {
 }
 
 protocol VacationViewModelType: class {
+    func viewDidLoad()
     func viewWillAppear()
     func viewRequestForProfileView()
     func viewHasBeenTapped()
@@ -88,8 +89,11 @@ extension VacationViewModel {
 
 // MARK: - VacationViewModelType
 extension VacationViewModel: VacationViewModelType {
-    func viewWillAppear() {
+    func viewDidLoad() {
         self.userInterface?.setUpView()
+    }
+    
+    func viewWillAppear() {
         self.fetchVacation()
     }
     
@@ -149,7 +153,11 @@ extension VacationViewModel {
     }
     
     private func onMoreInfoSelection() {
-        // TO_DO: - present more information about vacation types
+        switch self.decisionState {
+        case let .fetched(response):
+            self.coordinator?.vacationRequestedForUsedDaysView(usedDays: response.usedVacationDays)
+        case .error, .fetching: break
+        }
     }
     
     private func fetchVacation() {

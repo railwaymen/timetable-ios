@@ -487,6 +487,12 @@
 		C1E6B350219EF52000019DC2 /* Keychain+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E6B34F219EF52000019DC2 /* Keychain+Extension.swift */; };
 		C1E6B352219F014600019DC2 /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E6B351219F014600019DC2 /* Bundle+Extension.swift */; };
 		C1E908C624570D4C003E0368 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = C1E908C824570D4C003E0368 /* Localizable.stringsdict */; };
+		C1E908CB24583E4F003E0368 /* UsedVacationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E908CA24583E4F003E0368 /* UsedVacationViewController.swift */; };
+		C1E908CD24583E64003E0368 /* UsedVacationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E908CC24583E64003E0368 /* UsedVacationViewModel.swift */; };
+		C1E908CF24584085003E0368 /* UsedVacationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E908CE24584085003E0368 /* UsedVacationCell.swift */; };
+		C1E908D2245841F3003E0368 /* UsedVacationCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E908D1245841F3003E0368 /* UsedVacationCellViewModel.swift */; };
+		C1E908D424584C16003E0368 /* UsedVacationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1E908D324584C16003E0368 /* UsedVacationCell.xib */; };
+		C1E908D624586432003E0368 /* UsedVacationViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E908D524586432003E0368 /* UsedVacationViewControllerMock.swift */; };
 		C1ECF09D2192BB51006038C6 /* RequestEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ECF09C2192BB51006038C6 /* RequestEncoder.swift */; };
 		C1ECF09F2192C1AB006038C6 /* JSONDecoder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ECF09E2192C1AB006038C6 /* JSONDecoder+Extension.swift */; };
 		C1ECF0A22192C337006038C6 /* JSONEncoder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ECF0A12192C337006038C6 /* JSONEncoder+Extension.swift */; };
@@ -1061,6 +1067,12 @@
 		C1E6B351219F014600019DC2 /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
 		C1E908C724570D4C003E0368 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		C1E908C924570D4F003E0368 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = pl; path = pl.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		C1E908CA24583E4F003E0368 /* UsedVacationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsedVacationViewController.swift; sourceTree = "<group>"; };
+		C1E908CC24583E64003E0368 /* UsedVacationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsedVacationViewModel.swift; sourceTree = "<group>"; };
+		C1E908CE24584085003E0368 /* UsedVacationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsedVacationCell.swift; sourceTree = "<group>"; };
+		C1E908D1245841F3003E0368 /* UsedVacationCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsedVacationCellViewModel.swift; sourceTree = "<group>"; };
+		C1E908D324584C16003E0368 /* UsedVacationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UsedVacationCell.xib; sourceTree = "<group>"; };
+		C1E908D524586432003E0368 /* UsedVacationViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsedVacationViewControllerMock.swift; sourceTree = "<group>"; };
 		C1ECF09C2192BB51006038C6 /* RequestEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestEncoder.swift; sourceTree = "<group>"; };
 		C1ECF09E2192C1AB006038C6 /* JSONDecoder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Extension.swift"; sourceTree = "<group>"; };
 		C1ECF0A12192C337006038C6 /* JSONEncoder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONEncoder+Extension.swift"; sourceTree = "<group>"; };
@@ -2155,8 +2167,11 @@
 			isa = PBXGroup;
 			children = (
 				C1411C2924503B2700BB4266 /* Vacation.storyboard */,
+				C1E908CA24583E4F003E0368 /* UsedVacationViewController.swift */,
+				C1E908CC24583E64003E0368 /* UsedVacationViewModel.swift */,
 				C1411C2B24503B5F00BB4266 /* VacationViewController.swift */,
 				C1411C2D2450415A00BB4266 /* VacationViewModel.swift */,
+				C1E908D02458408A003E0368 /* UsedVacationCell */,
 				C18BE2692452E96900FC71CC /* VacationCell */,
 				C18BE26C2452F82A00FC71CC /* VacationTableHeader */,
 			);
@@ -2167,6 +2182,7 @@
 			isa = PBXGroup;
 			children = (
 				C1411C3024505B5D00BB4266 /* VacationViewControllerMock.swift */,
+				C1E908D524586432003E0368 /* UsedVacationViewControllerMock.swift */,
 			);
 			path = Vacation;
 			sourceTree = "<group>";
@@ -2748,6 +2764,16 @@
 			path = AccessService;
 			sourceTree = "<group>";
 		};
+		C1E908D02458408A003E0368 /* UsedVacationCell */ = {
+			isa = PBXGroup;
+			children = (
+				C1E908CE24584085003E0368 /* UsedVacationCell.swift */,
+				C1E908D1245841F3003E0368 /* UsedVacationCellViewModel.swift */,
+				C1E908D324584C16003E0368 /* UsedVacationCell.xib */,
+			);
+			path = UsedVacationCell;
+			sourceTree = "<group>";
+		};
 		C1ECF0A02192C32A006038C6 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -3010,6 +3036,7 @@
 				8A79A2482420C6460048B44B /* TaskHistory.storyboard in Resources */,
 				8A12C96E2456B8120046603B /* AccountingPeriodsHeaderView.xib in Resources */,
 				C18BE26E2452F89300FC71CC /* VacationTableHeader.xib in Resources */,
+				C1E908D424584C16003E0368 /* UsedVacationCell.xib in Resources */,
 				C14EB0292372E1A8007F07D0 /* ErrorView.xib in Resources */,
 				C1E908C624570D4C003E0368 /* Localizable.stringsdict in Resources */,
 				C1B5137721772D1400C3727C /* LaunchScreen.storyboard in Resources */,
@@ -3386,6 +3413,7 @@
 				C13429B221A7F9F400F4EA42 /* WorkTimeTableViewCellModel.swift in Sources */,
 				C125F1B321DCCBE700594CDE /* ApiClient+Projects.swift in Sources */,
 				C13429B421A7FB1B00F4EA42 /* WorkTimeTableViewCell.swift in Sources */,
+				C1E908CF24584085003E0368 /* UsedVacationCell.swift in Sources */,
 				8A79A2462420C4FD0048B44B /* TaskHistoryViewModel.swift in Sources */,
 				8A21A0502436136B00EE4A79 /* TemporarySessionManager.swift in Sources */,
 				C1B8FA41218C91F3009D10B4 /* LoginCredentials.swift in Sources */,
@@ -3461,6 +3489,7 @@
 				C1E6B352219F014600019DC2 /* Bundle+Extension.swift in Sources */,
 				8A79A2FE2424DC250048B44B /* ProjectTagsDecoder.swift in Sources */,
 				8A5EF31C23FE808800AE4309 /* ReusableCellType.swift in Sources */,
+				C1E908D2245841F3003E0368 /* UsedVacationCellViewModel.swift in Sources */,
 				C1AFFFE321A2D16F00A7A632 /* TimeTableTabCoordinator.swift in Sources */,
 				C134296921A6964B00F4EA42 /* WorkTimesParameters.swift in Sources */,
 				C101603422003D4000DCE817 /* MatchingFullTimeEncoder.swift in Sources */,
@@ -3508,6 +3537,7 @@
 				C1E6B34C219EF08200019DC2 /* AccessService.swift in Sources */,
 				8AE55D1D23FD855E00F94242 /* Task.swift in Sources */,
 				C1531F042191C58000602A0C /* Endpoint.swift in Sources */,
+				C1E908CB24583E4F003E0368 /* UsedVacationViewController.swift in Sources */,
 				C153AC6921832073007A35BB /* AttributedView.swift in Sources */,
 				C11B3F3621F7258C00C46BA2 /* DateSelectorView.swift in Sources */,
 				C153AC6421830AFE007A35BB /* ServerConfigurationViewModel.swift in Sources */,
@@ -3531,6 +3561,7 @@
 				C153AC532182F1E3007A35BB /* UITextField+Extension.swift in Sources */,
 				C1E1F04421AD2952007F9228 /* NSObject+Extension.swift in Sources */,
 				8A9FB40A2434CABF00805F4E /* ViewControllerBuilder.swift in Sources */,
+				C1E908CD24583E64003E0368 /* UsedVacationViewModel.swift in Sources */,
 				8AB8AFC5244EF45400A0D3D3 /* UINavigationBar+Extension.swift in Sources */,
 				C153AC4C2182EF40007A35BB /* String+Extension.swift in Sources */,
 				C13C88E621E5EA8F00F68C6E /* WorkTimeViewController.swift in Sources */,
@@ -3666,6 +3697,7 @@
 				C1EF3A0921930722000E3511 /* StringExtensionTests.swift in Sources */,
 				8A523C8E2395091900215C61 /* DateExtensionTests.swift in Sources */,
 				C134296F21A6BCCD00F4EA42 /* RequestEncoderMock.swift in Sources */,
+				C1E908D624586432003E0368 /* UsedVacationViewControllerMock.swift in Sources */,
 				C1FB400024517480008266C4 /* VacationJSONResource.swift in Sources */,
 				8A99EBC123D9B95600CC9BA8 /* UIColor+Extension.swift in Sources */,
 				8A79A2502420DE4C0048B44B /* TaskVersionJSONResource.swift in Sources */,

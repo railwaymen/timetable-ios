@@ -10,6 +10,11 @@ import UIKit
 
 protocol VacationCoordinatorDelegate: class {
     func vacationRequestedForProfileView()
+    func vacationRequestedForUsedDaysView(usedDays: VacationResponse.UsedVacationDays)
+}
+
+protocol UsedVacationCoordinatorDelegate: class {
+    func usedVacationRequestToFinish()
 }
 
 class VacationCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
@@ -47,6 +52,24 @@ extension VacationCoordinator: VacationCoordinatorDelegate {
     func vacationRequestedForProfileView() {
         let parentViewController = self.navigationController.topViewController ?? self.navigationController
         self.dependencyContainer.parentCoordinator?.showProfile(parentViewController: parentViewController)
+    }
+    
+    func vacationRequestedForUsedDaysView(usedDays: VacationResponse.UsedVacationDays) {
+        do {
+            let controller = try self.dependencyContainer.viewControllerBuilder.usedVacation()
+            let viewModel = UsedVacationViewModel(userInterface: controller, coordinator: self, usedDays: usedDays)
+            controller.configure(viewModel: viewModel)
+            self.navigationController.present(controller, animated: true)
+        } catch {
+            self.dependencyContainer.errorHandler.stopInDebug("\(error)")
+        }
+    }
+}
+
+// MARK: - UsedVacationCoordinatorDelegate
+extension VacationCoordinator: UsedVacationCoordinatorDelegate {
+    func usedVacationRequestToFinish() {
+        self.navigationController.presentedViewController?.dismiss(animated: true)
     }
 }
 
