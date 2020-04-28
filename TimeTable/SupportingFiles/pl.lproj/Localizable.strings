@@ -60,8 +60,9 @@
 "accountingperiods_title" = "Okresy rozliczeniowe";
 "accountingperiods_from" = "OD";
 "accountingperiods_to" = "DO";
-"accountingperiods_full_time" = "ETAT";
 "accountingperiods_hours" = "GODZINY";
+"accountingperiods_full_time_yes" = "etat: Tak";
+"accountingperiods_full_time_no" = "etat: Nie";
 
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Pole nie może być puste.";

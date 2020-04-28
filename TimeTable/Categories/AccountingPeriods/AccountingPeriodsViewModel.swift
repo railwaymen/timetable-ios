@@ -39,10 +39,16 @@ extension AccountingPeriodsViewModel: AccountingPeriodsViewModelType {
     }
     
     func numberOfRows(in section: Int) -> Int {
-        return 10
+        return 24
     }
     
     func configure(_ cell: AccountingPeriodsCellConfigurationInterface, for indexPath: IndexPath) {
-        cell.configure(startsAt: "start", endsAt: "end", isFullTime: Bool.random(), hours: "0.00/168")
+        cell.configure(
+            startsAt: "2020-04-01",
+            endsAt: "2020-04-30",
+            hours: "0.00/168",
+            note: Bool.random() ? "Some Note\nHello" : "",
+            isFullTime: Bool.random(),
+            isClosed: Bool.random())
     }
 }
