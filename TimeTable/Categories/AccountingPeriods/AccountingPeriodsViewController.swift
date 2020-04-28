@@ -22,7 +22,6 @@ class AccountingPeriodsViewController: UIViewController {
     @IBOutlet private var errorView: ErrorView!
     
     private var viewModel: AccountingPeriodsViewModelType!
-    private var currentlyDisplayedView: UIView?
     
     // MARK: - Overridden
     override func viewDidLoad() {
