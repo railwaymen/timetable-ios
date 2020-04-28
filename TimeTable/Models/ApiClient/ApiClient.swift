@@ -14,7 +14,7 @@ typealias ApiClientType =
     & ApiClientWorkTimesType
     & ApiClientProjectsType
     & ApiClientUsersType
-    & ApiClientMatchingFullTimeType
+    & ApiClientAccountingPeriodsType
 
 class ApiClient {
     var restler: RestlerType {

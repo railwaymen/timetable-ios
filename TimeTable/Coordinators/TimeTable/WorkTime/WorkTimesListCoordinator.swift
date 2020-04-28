@@ -12,7 +12,7 @@ typealias WorkTimesListApiClient = (
     ApiClientProjectsType
     & ApiClientWorkTimesType
     & ApiClientUsersType
-    & ApiClientMatchingFullTimeType)
+    & ApiClientAccountingPeriodsType)
 
 protocol WorkTimesListCoordinatorDelegate: class {
     func workTimesRequestedForWorkTimeView(

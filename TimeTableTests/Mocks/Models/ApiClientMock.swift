@@ -84,7 +84,13 @@ class ApiClientMock {
         let completion: ((Result<UserDecoder, Error>) -> Void)
     }
     
-    // MARK: - ApiClientMatchingFullTimeType
+    // MARK: - ApiClientAccountingPeriodsType
+    private(set) var fetchAccountingPeriodsParams: [FetchAccountingPeriodsParams] = []
+    struct FetchAccountingPeriodsParams {
+        let parameters: AccountingPeriodsParameters
+        let completion: (Result<AccountingPeriodsResponse, Error>) -> Void
+    }
+    
     private(set) var fetchMatchingFullTimeParams: [FetchMatchingFullTimeParams] = []
     struct FetchMatchingFullTimeParams {
         let parameters: MatchingFullTimeEncoder
@@ -163,8 +169,15 @@ extension ApiClientMock: ApiClientUsersType {
     }
 }
 
-// MARK: - ApiClientMatchingFullTimeType
-extension ApiClientMock: ApiClientMatchingFullTimeType {
+// MARK: - ApiClientAccountingPeriodsType
+extension ApiClientMock: ApiClientAccountingPeriodsType {
+    func fetchAccountingPeriods(
+        parameters: AccountingPeriodsParameters,
+        completion: @escaping (Result<AccountingPeriodsResponse, Error>) -> Void
+    ) {
+        self.fetchAccountingPeriodsParams.append(FetchAccountingPeriodsParams(parameters: parameters, completion: completion))
+    }
+    
     func fetchMatchingFullTime(
         parameters: MatchingFullTimeEncoder,
         completion: @escaping ((Result<MatchingFullTimeDecoder, Error>) -> Void)

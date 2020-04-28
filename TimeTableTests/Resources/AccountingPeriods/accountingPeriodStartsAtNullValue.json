@@ -1,0 +1,13 @@
+{
+    "id": 114,
+    "user_id": 6,
+    "starts_at": null,
+    "ends_at": "2026-02-28T23:59:59.999+01:00",
+    "counted_duration": 3600,
+    "duration": 576000,
+    "closed": false,
+    "note": "Note",
+    "position": 57,
+    "full_time": true,
+    "protected": false
+}
