@@ -18,7 +18,7 @@ struct AccountingPeriod: Decodable {
     let note: String?
     let isFullTime: Bool
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case id
         case startsAt = "starts_at"
         case endsAt = "ends_at"

@@ -12,7 +12,7 @@ struct AccountingPeriodsResponse: Decodable {
     let totalPages: Int
     let records: [AccountingPeriod]
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case totalPages = "total_pages"
         case records
     }

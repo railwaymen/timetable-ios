@@ -13,7 +13,7 @@ struct AccountingPeriodsParameters: Encodable, RestlerQueryEncodable {
     let page: Int
     let recordsPerPage: Int
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case page
         case recordsPerPage = "per_page"
     }
