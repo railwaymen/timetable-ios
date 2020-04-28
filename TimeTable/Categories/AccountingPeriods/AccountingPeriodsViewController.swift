@@ -17,7 +17,10 @@ protocol AccountingPeriodsViewControllerType: class {
     func configure(viewModel: AccountingPeriodsViewModelType)
 }
 
-class AccountingPeriodsViewController: UITableViewController {
+class AccountingPeriodsViewController: UIViewController {
+    @IBOutlet private var tableView: UITableView!
+    @IBOutlet private var errorView: ErrorView!
+    
     private var viewModel: AccountingPeriodsViewModelType!
     
     // MARK: - Overridden
@@ -25,20 +28,26 @@ class AccountingPeriodsViewController: UITableViewController {
         super.viewDidLoad()
         self.viewModel.viewDidLoad()
     }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+}
+
+// MARK: - UITableViewDataSource
+extension AccountingPeriodsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.viewModel.numberOfRows(in: section)
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(AccountingPeriodsCell.self, for: indexPath) else {
             return UITableViewCell()
         }
         self.viewModel.configure(cell, for: indexPath)
         return cell
     }
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+}
+
+// MARK: - UITableViewDelegate
+extension AccountingPeriodsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueHeaderFooterView(AccountingPeriodsHeaderView.self) else { return nil }
         header.configure()
         return header
@@ -51,6 +60,22 @@ extension AccountingPeriodsViewController: AccountingPeriodsViewModelOutput {
         self.title = R.string.localizable.accountingperiods_title()
         self.tableView.register(AccountingPeriodsCell.self)
         self.tableView.registerHeaderFooterView(AccountingPeriodsHeaderView.self)
+        self.viewModel.configure(self.errorView)
+        self.hideAllViews()
+    }
+    
+    func showList() {
+        UIView.transition(with: self.tableView, duration: 0.3, animations: { [weak self] in
+            self?.tableView.set(isHidden: false)
+            self?.errorView.set(isHidden: true)
+        })
+    }
+    
+    func showErrorView() {
+        UIView.transition(with: self.errorView, duration: 0.3, animations: { [weak self] in
+            self?.tableView.set(isHidden: true)
+            self?.errorView.set(isHidden: false)
+        })
     }
 }
 
@@ -58,5 +83,13 @@ extension AccountingPeriodsViewController: AccountingPeriodsViewModelOutput {
 extension AccountingPeriodsViewController: AccountingPeriodsViewControllerType {
     func configure(viewModel: AccountingPeriodsViewModelType) {
         self.viewModel = viewModel
+    }
+}
+
+// MARK: - Private
+extension AccountingPeriodsViewController {
+    private func hideAllViews() {
+        self.tableView.set(isHidden: true)
+        self.errorView.set(isHidden: true)
     }
 }

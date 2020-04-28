@@ -8,7 +8,9 @@
 
 import UIKit
 
-protocol AccountingPeriodsCoordinatorViewModelInterface: class {}
+protocol AccountingPeriodsCoordinatorViewModelInterface: class {
+    func configure(_ errorView: ErrorViewable, refreshHandler: (() -> Void)?) -> ErrorViewModelParentType
+}
 
 class AccountingPeriodsCoordinator: NavigationCoordinator {
     private let dependencyContainer: DependencyContainerType
@@ -32,7 +34,16 @@ class AccountingPeriodsCoordinator: NavigationCoordinator {
 }
 
 // MARK: - AccountingPeriodsCoordinatorViewModelInterface
-extension AccountingPeriodsCoordinator: AccountingPeriodsCoordinatorViewModelInterface {}
+extension AccountingPeriodsCoordinator: AccountingPeriodsCoordinatorViewModelInterface {
+    func configure(_ errorView: ErrorViewable, refreshHandler: (() -> Void)?) -> ErrorViewModelParentType {
+        let viewModel = ErrorViewModel(
+            userInterface: errorView,
+            error: UIError.genericError,
+            actionHandler: refreshHandler)
+        errorView.configure(viewModel: viewModel)
+        return viewModel
+    }
+}
 
 // MARK: - Private
 extension AccountingPeriodsCoordinator {

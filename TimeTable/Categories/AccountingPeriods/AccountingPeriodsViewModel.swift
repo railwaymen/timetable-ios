@@ -10,17 +10,22 @@ import Foundation
 
 protocol AccountingPeriodsViewModelOutput: class {
     func setUp()
+    func showList()
+    func showErrorView()
 }
 
 protocol AccountingPeriodsViewModelType: class {
     func viewDidLoad()
     func numberOfRows(in section: Int) -> Int
     func configure(_ cell: AccountingPeriodsCellConfigurationInterface, for indexPath: IndexPath)
+    func configure(_ errorView: ErrorViewable)
 }
 
 class AccountingPeriodsViewModel {
     private weak var userInterface: AccountingPeriodsViewModelOutput?
     private weak var coordinator: AccountingPeriodsCoordinatorViewModelInterface?
+    
+    private weak var errorViewModel: ErrorViewModelParentType?
     
     // MARK: - Initialization
     init(
@@ -36,6 +41,7 @@ class AccountingPeriodsViewModel {
 extension AccountingPeriodsViewModel: AccountingPeriodsViewModelType {
     func viewDidLoad() {
         self.userInterface?.setUp()
+        self.userInterface?.showErrorView()
     }
     
     func numberOfRows(in section: Int) -> Int {
@@ -50,5 +56,11 @@ extension AccountingPeriodsViewModel: AccountingPeriodsViewModelType {
             note: Bool.random() ? "Some Note\nHello" : "",
             isFullTime: Bool.random(),
             isClosed: Bool.random())
+    }
+    
+    func configure(_ errorView: ErrorViewable) {
+        self.errorViewModel = self.coordinator?.configure(errorView, refreshHandler: {
+            // TODO: Fetch data
+        })
     }
 }
