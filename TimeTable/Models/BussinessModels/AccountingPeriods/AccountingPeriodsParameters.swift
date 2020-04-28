@@ -13,7 +13,14 @@ struct AccountingPeriodsParameters: Encodable, RestlerQueryEncodable {
     let page: Int
     let recordsPerPage: Int
     
+    enum CodingKeys: String, CodingKey {
+        case page
+        case recordsPerPage = "per_page"
+    }
+    
     func encodeToQuery(using encoder: RestlerQueryEncoderType) throws {
-        // TODO
+        let container = encoder.container(using: CodingKeys.self)
+        try container.encode(self.page, forKey: .page)
+        try container.encode(self.recordsPerPage, forKey: .recordsPerPage)
     }
 }
