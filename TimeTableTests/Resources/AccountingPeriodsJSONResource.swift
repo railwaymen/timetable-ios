@@ -9,6 +9,8 @@
 import Foundation
 
 enum AccountingPeriodsJSONResource: String, JSONFileResource {
+    case accountingPeriodsResponseFullResponse
+    
     case accountingPeriodFullResponse
     case accountingPeriodStartsAtNullValue
     case accountingPeriodMissingStartsAtKey

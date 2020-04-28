@@ -115,6 +115,9 @@
 		8A6A4FC12456F279004B4CF2 /* accountingPeriodMissingCountedDurationKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A6A4FC02456F279004B4CF2 /* accountingPeriodMissingCountedDurationKey.json */; };
 		8A6A4FC32456F289004B4CF2 /* accountingPeriodNoteNullValue.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A6A4FC22456F289004B4CF2 /* accountingPeriodNoteNullValue.json */; };
 		8A6A4FC52456F299004B4CF2 /* accountingPeriodMissingNoteKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A6A4FC42456F299004B4CF2 /* accountingPeriodMissingNoteKey.json */; };
+		8A6A4FC7245818DF004B4CF2 /* accountingPeriodsResponseFullResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A6A4FC6245818DF004B4CF2 /* accountingPeriodsResponseFullResponse.json */; };
+		8A6A4FC92458191D004B4CF2 /* AccountingPeriodsResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6A4FC82458191D004B4CF2 /* AccountingPeriodsResponseTests.swift */; };
+		8A6A4FCB24581A93004B4CF2 /* AccountingPeriodsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6A4FCA24581A93004B4CF2 /* AccountingPeriodsResponse.swift */; };
 		8A6B6D81237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B6D80237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift */; };
 		8A798745237D4DC6003DC028 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A798742237D4DC6003DC028 /* Profile.storyboard */; };
 		8A798746237D4DC6003DC028 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A798743237D4DC6003DC028 /* ProfileViewController.swift */; };
@@ -631,6 +634,9 @@
 		8A6A4FC02456F279004B4CF2 /* accountingPeriodMissingCountedDurationKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = accountingPeriodMissingCountedDurationKey.json; sourceTree = "<group>"; };
 		8A6A4FC22456F289004B4CF2 /* accountingPeriodNoteNullValue.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = accountingPeriodNoteNullValue.json; sourceTree = "<group>"; };
 		8A6A4FC42456F299004B4CF2 /* accountingPeriodMissingNoteKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = accountingPeriodMissingNoteKey.json; sourceTree = "<group>"; };
+		8A6A4FC6245818DF004B4CF2 /* accountingPeriodsResponseFullResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = accountingPeriodsResponseFullResponse.json; sourceTree = "<group>"; };
+		8A6A4FC82458191D004B4CF2 /* AccountingPeriodsResponseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountingPeriodsResponseTests.swift; sourceTree = "<group>"; };
+		8A6A4FCA24581A93004B4CF2 /* AccountingPeriodsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountingPeriodsResponse.swift; sourceTree = "<group>"; };
 		8A6B6D80237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCellViewModelParentMock.swift; sourceTree = "<group>"; };
 		8A798742237D4DC6003DC028 /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		8A798743237D4DC6003DC028 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -1239,6 +1245,7 @@
 			isa = PBXGroup;
 			children = (
 				8A6A4FAB2456D8D4004B4CF2 /* AccountingPeriod.swift */,
+				8A6A4FCA24581A93004B4CF2 /* AccountingPeriodsResponse.swift */,
 			);
 			path = AccountingPeriods;
 			sourceTree = "<group>";
@@ -1246,6 +1253,7 @@
 		8A6A4FAF2456D949004B4CF2 /* AccountingPeriods */ = {
 			isa = PBXGroup;
 			children = (
+				8A6A4FC6245818DF004B4CF2 /* accountingPeriodsResponseFullResponse.json */,
 				8A6A4FBE2456F264004B4CF2 /* accountingPeriodCountedDurationNullValue.json */,
 				8A6A4FBA2456F241004B4CF2 /* accountingPeriodEndsAtNullValue.json */,
 				8A6A4FB02456D963004B4CF2 /* accountingPeriodFullResponse.json */,
@@ -1262,6 +1270,7 @@
 		8A6A4FB22456D9E1004B4CF2 /* AccountingPeriods */ = {
 			isa = PBXGroup;
 			children = (
+				8A6A4FC82458191D004B4CF2 /* AccountingPeriodsResponseTests.swift */,
 				8A6A4FB32456D9F5004B4CF2 /* AccountingPeriodTests.swift */,
 			);
 			path = AccountingPeriods;
@@ -2872,6 +2881,7 @@
 				C11D0CFD2208240600066CA9 /* matchingFullTimeNullPeriod.json in Resources */,
 				8A6A4FC32456F289004B4CF2 /* accountingPeriodNoteNullValue.json in Resources */,
 				C13429B621A8307200F4EA42 /* workTimeMissingBodyKey.json in Resources */,
+				8A6A4FC7245818DF004B4CF2 /* accountingPeriodsResponseFullResponse.json in Resources */,
 				C1B8FA51218C9A86009D10B4 /* signInRequest.json in Resources */,
 				C1F69B2C21902FA5005D9114 /* signInResponse.json in Resources */,
 				8A79A2B72420F73C0048B44B /* taskVersionNullPreviousBody.json in Resources */,
@@ -3016,7 +3026,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		C1249C862181D0F6005DB2A5 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3197,6 +3207,7 @@
 				8A56FC1424531CA80020F8CD /* AccountingPeriodsViewController.swift in Sources */,
 				8A6A4FAC2456D8D4004B4CF2 /* AccountingPeriod.swift in Sources */,
 				C1E6B34E219EF30600019DC2 /* URL+Extension.swift in Sources */,
+				8A6A4FCB24581A93004B4CF2 /* AccountingPeriodsResponse.swift in Sources */,
 				C13429AC21A7DDAB00F4EA42 /* WorkTimesListViewController.swift in Sources */,
 				8A59AF202382E29200108C33 /* DailyWorkTime.swift in Sources */,
 				C122601C21899B84007D64A3 /* ServerConfigurationManager.swift in Sources */,
@@ -3317,6 +3328,7 @@
 				C134298F21A6D39C00F4EA42 /* LoginViewControllerMock.swift in Sources */,
 				8A3FE1B123ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift in Sources */,
 				8AFFE5D024336333001D9E89 /* TaskFormFactoryMock.swift in Sources */,
+				8A6A4FC92458191D004B4CF2 /* AccountingPeriodsResponseTests.swift in Sources */,
 				8A79A2F324237F760048B44B /* ProjectRecordDecoderLeaderTests.swift in Sources */,
 				8A79A2F5242382C40048B44B /* ProjectRecordDecoderUserTests.swift in Sources */,
 				C1E1F05421AD5FD2007F9228 /* WorkTimesTableViewHeaderViewModelTests.swift in Sources */,
