@@ -19,8 +19,10 @@ protocol AccountingPeriodsViewControllerType: class {
 
 class AccountingPeriodsViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
+    @IBOutlet private var errorView: ErrorView!
     
     private var viewModel: AccountingPeriodsViewModelType!
+    private var currentlyDisplayedView: UIView?
     
     // MARK: - Overridden
     override func viewDidLoad() {
@@ -59,6 +61,22 @@ extension AccountingPeriodsViewController: AccountingPeriodsViewModelOutput {
         self.title = R.string.localizable.accountingperiods_title()
         self.tableView.register(AccountingPeriodsCell.self)
         self.tableView.registerHeaderFooterView(AccountingPeriodsHeaderView.self)
+        self.viewModel.configure(self.errorView)
+        self.hideAllViews()
+    }
+    
+    func showList() {
+        UIView.transition(with: self.tableView, duration: 0.3, animations: { [weak self] in
+            self?.tableView.set(isHidden: false)
+            self?.errorView.set(isHidden: true)
+        })
+    }
+    
+    func showErrorView() {
+        UIView.transition(with: self.errorView, duration: 0.3, animations: { [weak self] in
+            self?.tableView.set(isHidden: true)
+            self?.errorView.set(isHidden: false)
+        })
     }
 }
 
@@ -66,5 +84,13 @@ extension AccountingPeriodsViewController: AccountingPeriodsViewModelOutput {
 extension AccountingPeriodsViewController: AccountingPeriodsViewControllerType {
     func configure(viewModel: AccountingPeriodsViewModelType) {
         self.viewModel = viewModel
+    }
+}
+
+// MARK: - Private
+extension AccountingPeriodsViewController {
+    private func hideAllViews() {
+        self.tableView.set(isHidden: true)
+        self.errorView.set(isHidden: true)
     }
 }
