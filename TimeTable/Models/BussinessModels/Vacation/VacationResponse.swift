@@ -87,19 +87,6 @@ extension VacationResponse {
 }
 
 extension VacationResponse.Vacation {
-    enum VacationType: String, Decodable {
-        case planned, requested, compassionate, others
-        
-        var localizableString: String {
-            switch self {
-            case .planned: return R.string.localizable.vacation_type_planned()
-            case .requested: return R.string.localizable.vacation_type_requested()
-            case .compassionate: return R.string.localizable.vacation_type_compassionate()
-            case .others: return R.string.localizable.vacation_type_others()
-            }
-        }
-    }
-    
     enum Status: String, Decodable {
         case unconfirmed, declined, approved, accepted
         

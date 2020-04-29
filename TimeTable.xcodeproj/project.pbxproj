@@ -431,6 +431,9 @@
 		C19D88A52202FE54007CC867 /* WorkTimesListContentProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19D88A42202FE54007CC867 /* WorkTimesListContentProviderMock.swift */; };
 		C19D88A8220300AA007CC867 /* matchingFullTimeFullResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C19D88A7220300AA007CC867 /* matchingFullTimeFullResponse.json */; };
 		C19DDB1321A42043008C6FA3 /* URLExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19DDB1221A42043008C6FA3 /* URLExtensionTests.swift */; };
+		C1A47BE7245969BE00FDA7F0 /* VacationEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A47BE6245969BE00FDA7F0 /* VacationEncoder.swift */; };
+		C1A47BE924596AD000FDA7F0 /* VacationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A47BE824596AD000FDA7F0 /* VacationType.swift */; };
+		C1A47BEB2459715A00FDA7F0 /* VacationEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A47BEA2459715A00FDA7F0 /* VacationEncoderTests.swift */; };
 		C1AACFCF21A4349B0023FD32 /* ProjectsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFCE21A4349B0023FD32 /* ProjectsCoordinator.swift */; };
 		C1AACFD621A438660023FD32 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD521A438660023FD32 /* ProfileCoordinator.swift */; };
 		C1AACFD821A4387F0023FD32 /* WorkTimesListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD721A4387F0023FD32 /* WorkTimesListCoordinator.swift */; };
@@ -1006,6 +1009,9 @@
 		C19D88A42202FE54007CC867 /* WorkTimesListContentProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListContentProviderMock.swift; sourceTree = "<group>"; };
 		C19D88A7220300AA007CC867 /* matchingFullTimeFullResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = matchingFullTimeFullResponse.json; sourceTree = "<group>"; };
 		C19DDB1221A42043008C6FA3 /* URLExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensionTests.swift; sourceTree = "<group>"; };
+		C1A47BE6245969BE00FDA7F0 /* VacationEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationEncoder.swift; sourceTree = "<group>"; };
+		C1A47BE824596AD000FDA7F0 /* VacationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationType.swift; sourceTree = "<group>"; };
+		C1A47BEA2459715A00FDA7F0 /* VacationEncoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationEncoderTests.swift; sourceTree = "<group>"; };
 		C1AACFCE21A4349B0023FD32 /* ProjectsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsCoordinator.swift; sourceTree = "<group>"; };
 		C1AACFD521A438660023FD32 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		C1AACFD721A4387F0023FD32 /* WorkTimesListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListCoordinator.swift; sourceTree = "<group>"; };
@@ -2190,8 +2196,10 @@
 		C1411C352450901C00BB4266 /* Vacation */ = {
 			isa = PBXGroup;
 			children = (
-				C1411C362450904700BB4266 /* VacationResponse.swift */,
+				C1A47BE6245969BE00FDA7F0 /* VacationEncoder.swift */,
 				C1FB40252451BA34008266C4 /* VacationParameters.swift */,
+				C1411C362450904700BB4266 /* VacationResponse.swift */,
+				C1A47BE824596AD000FDA7F0 /* VacationType.swift */,
 			);
 			path = Vacation;
 			sourceTree = "<group>";
@@ -2825,6 +2833,7 @@
 			isa = PBXGroup;
 			children = (
 				C1FB3FFD2451738A008266C4 /* UsedVacationDaysTests.swift */,
+				C1A47BEA2459715A00FDA7F0 /* VacationEncoderTests.swift */,
 				C1FB40232451AC23008266C4 /* VacationParametersTests.swift */,
 				C1FB3FF924517342008266C4 /* VacationResponseTests.swift */,
 				C1FB3FFB2451734F008266C4 /* VacationTests.swift */,
@@ -3515,6 +3524,7 @@
 				C14EB02B2372E261007F07D0 /* UIView+Extension.swift in Sources */,
 				C125F1BC21DCDA8800594CDE /* ProjectCollectionViewCell.swift in Sources */,
 				C12CA57B21A5900B0082FEB7 /* WorkTimeDecoder.swift in Sources */,
+				C1A47BE924596AD000FDA7F0 /* VacationType.swift in Sources */,
 				C1C4BA912189AE0900683F71 /* ApiValidationErrors.swift in Sources */,
 				8A79A2442420C40F0048B44B /* TaskHistoryViewController.swift in Sources */,
 				C1F187B021E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift in Sources */,
@@ -3552,6 +3562,7 @@
 				C153AC472182EBC1007A35BB /* ServerConfigurationViewController.swift in Sources */,
 				8A798747237D4DC6003DC028 /* ProfileViewModel.swift in Sources */,
 				C12CA57D21A593F20082FEB7 /* DateFormatter+Extension.swift in Sources */,
+				C1A47BE7245969BE00FDA7F0 /* VacationEncoder.swift in Sources */,
 				C1411C372450904700BB4266 /* VacationResponse.swift in Sources */,
 				8A31CD8923742D15008E590D /* ProjectPickerCell.swift in Sources */,
 				C1E1F04B21AD3DBE007F9228 /* Calendar+Extension.swift in Sources */,
@@ -3761,6 +3772,7 @@
 				8AB8AFC3244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift in Sources */,
 				8A9369B0237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift in Sources */,
 				8A3F0C542428B07E00564D6D /* RestlerTaskMock.swift in Sources */,
+				C1A47BEB2459715A00FDA7F0 /* VacationEncoderTests.swift in Sources */,
 				C1B8FA4B218C964C009D10B4 /* SessionDecoderTests.swift in Sources */,
 				8A9369B2237AA19D005F8199 /* TagCollectionViewCellMock.swift in Sources */,
 				C12BD9A121E49AE500A6EAF0 /* ProjectRecordDecoderTests.swift in Sources */,
