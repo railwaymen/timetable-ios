@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nEp-N9-oTh">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Accounting Periods View Controller-->
+        <scene sceneID="Z5c-Og-7Hn">
+            <objects>
+                <viewController id="nEp-N9-oTh" customClass="AccountingPeriodsViewController" customModule="TimeTable" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tV8-aZ-kRh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zxc-7M-yr0">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="nEp-N9-oTh" id="JF8-LJ-tYU"/>
+                                    <outlet property="delegate" destination="nEp-N9-oTh" id="p5d-S7-jaj"/>
+                                </connections>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gB9-eL-9hV" customClass="ErrorView" customModule="TimeTable" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="348" width="414" height="200"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" priority="1" constant="200" id="hX7-lw-NaU"/>
+                                </constraints>
+                            </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="MVR-RU-wjm">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="zxc-7M-yr0" firstAttribute="top" secondItem="tV8-aZ-kRh" secondAttribute="top" id="2Aa-OA-h2O"/>
+                            <constraint firstItem="gB9-eL-9hV" firstAttribute="leading" secondItem="6hZ-EW-KWX" secondAttribute="leading" id="C7Q-7e-aHO"/>
+                            <constraint firstItem="MVR-RU-wjm" firstAttribute="centerX" secondItem="tV8-aZ-kRh" secondAttribute="centerX" id="J1H-2x-Eqk"/>
+                            <constraint firstAttribute="bottom" secondItem="zxc-7M-yr0" secondAttribute="bottom" id="UOt-gI-Jby"/>
+                            <constraint firstItem="gB9-eL-9hV" firstAttribute="centerY" secondItem="tV8-aZ-kRh" secondAttribute="centerY" id="b3w-CO-9Hf"/>
+                            <constraint firstItem="MVR-RU-wjm" firstAttribute="centerY" secondItem="tV8-aZ-kRh" secondAttribute="centerY" id="cXJ-xW-IQi"/>
+                            <constraint firstItem="zxc-7M-yr0" firstAttribute="leading" secondItem="tV8-aZ-kRh" secondAttribute="leading" id="k3X-GP-wOr"/>
+                            <constraint firstAttribute="trailing" secondItem="zxc-7M-yr0" secondAttribute="trailing" id="koo-nP-qnz"/>
+                            <constraint firstItem="gB9-eL-9hV" firstAttribute="trailing" secondItem="6hZ-EW-KWX" secondAttribute="trailing" id="rpI-cv-x4r"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6hZ-EW-KWX"/>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="MVR-RU-wjm" id="aD7-j1-WWu"/>
+                        <outlet property="errorView" destination="gB9-eL-9hV" id="gjc-cE-1Xz"/>
+                        <outlet property="tableView" destination="zxc-7M-yr0" id="EDG-q3-QKy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ycq-Gy-Zde" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="169.56521739130437" y="119.86607142857142"/>
+        </scene>
+    </scenes>
+</document>

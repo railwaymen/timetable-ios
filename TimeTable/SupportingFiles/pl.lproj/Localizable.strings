@@ -48,13 +48,20 @@
 "tag_client_communication" = "Rozmowa z klientem";
 "tag_research" = "Poszukiwanie informacji";
 
-
 // MARK: - Task History
 "taskhistory_title" = "Historia edycji";
 
 // MARK: - Profile
 "profile_title" = "Profil";
 "profile_logout_btn" = "WYLOGUJ";
+
+// MARK: - Accounting Periods
+"accountingperiods_title" = "Okresy rozliczeniowe";
+"accountingperiods_from" = "OD";
+"accountingperiods_to" = "DO";
+"accountingperiods_hours" = "GODZINY";
+"accountingperiods_full_time_yes" = "etat: Tak";
+"accountingperiods_full_time_no" = "etat: Nie";
 
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Pole nie może być puste.";

@@ -18,6 +18,7 @@ protocol ProfileViewModelType: class {
     func numberOfRows(in section: Int) -> Int
     func cellType(for indexPath: IndexPath) -> ProfileViewModel.CellType?
     func configure(_ cell: ProfileButtonCellConfigurationInterface, for indexPath: IndexPath)
+    func configure(_ cellView: ProfileLinkCellConfigurationInterface, for indexPath: IndexPath)
     func configure(_ headerView: ProfileHeaderViewConfigurationInterface)
     func userSelectedCell(at indexPath: IndexPath)
     func closeButtonTapped()
@@ -27,6 +28,7 @@ class ProfileViewModel {
     private weak var userInterface: ProfileViewModelOutput?
     private weak var coordinator: ProfileCoordinatorDelegate?
     private let contentProvider: ProfileContentProviderViewModelInterface
+    private let errorHandler: ErrorHandlerType
     
     private weak var errorViewModel: ErrorViewModelParentType?
     private weak var headerView: ProfileHeaderViewConfigurationInterface?
@@ -35,11 +37,13 @@ class ProfileViewModel {
     init(
         userInterface: ProfileViewModelOutput?,
         coordinator: ProfileCoordinatorDelegate,
-        contentProvider: ProfileContentProviderViewModelInterface
+        contentProvider: ProfileContentProviderViewModelInterface,
+        errorHandler: ErrorHandlerType
     ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
         self.contentProvider = contentProvider
+        self.errorHandler = errorHandler
     }
 }
 
@@ -47,13 +51,17 @@ class ProfileViewModel {
 extension ProfileViewModel {
     enum CellType {
         case button
+        case link
     }
     
     enum Cell {
+        case accountingPeriods
         case logout
         
         var cellType: CellType {
             switch self {
+            case .accountingPeriods:
+                return .link
             case .logout:
                 return .button
             }
@@ -62,6 +70,8 @@ extension ProfileViewModel {
         init?(indexPath: IndexPath) {
             switch (indexPath.section, indexPath.row) {
             case (0, 0):
+                self = .accountingPeriods
+            case (1, 0):
                 self = .logout
             default:
                 return nil
@@ -82,7 +92,7 @@ extension ProfileViewModel: ProfileViewModelType {
     }
     
     func numberOfSections() -> Int {
-        return 1
+        return 2
     }
     
     func numberOfRows(in section: Int) -> Int {
@@ -99,6 +109,18 @@ extension ProfileViewModel: ProfileViewModelType {
         switch cell {
         case .logout:
             cellView.configure(text: R.string.localizable.profile_logout_btn())
+        default:
+            break
+        }
+    }
+    
+    func configure(_ cellView: ProfileLinkCellConfigurationInterface, for indexPath: IndexPath) {
+        guard let cell = Cell(indexPath: indexPath) else { return }
+        switch cell {
+        case .accountingPeriods:
+            cellView.configure(text: R.string.localizable.accountingperiods_title())
+        default:
+            break
         }
     }
     
@@ -113,6 +135,8 @@ extension ProfileViewModel: ProfileViewModelType {
     func userSelectedCell(at indexPath: IndexPath) {
         guard let cell = Cell(indexPath: indexPath) else { return }
         switch cell {
+        case .accountingPeriods:
+            self.coordinator?.viewDidRequestToShowAccountingPeriods()
         case .logout:
             self.contentProvider.closeSession()
             self.coordinator?.userProfileDidLogoutUser()

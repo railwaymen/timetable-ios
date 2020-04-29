@@ -13,6 +13,15 @@ class EndpointTests: XCTestCase {}
 
 // MARK: - stringValue: String
 extension EndpointTests {
+    func testRestlerEndpointValue_accountingPeriods() {
+        //Arrange
+        let sut: Endpoint = .accountingPeriods
+        //Act
+        let value = sut.restlerEndpointValue
+        //Assert
+        XCTAssertEqual(value, "/accounting_periods")
+    }
+    
     func testRestlerEndpointValue_matchingFullTime() {
         //Arrange
         let sut: Endpoint = .matchingFullTime
