@@ -13,9 +13,7 @@ class UsedVacationViewControllerMock: UIViewController {
     
     // MARK: - UsedVacationViewModelOutput
     private(set) var setUpParams: [SetUpParams] = []
-    struct SetUpParams {
-        let title: String
-    }
+    struct SetUpParams {}
     
     // MARK: - UsedVacationViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
@@ -26,8 +24,8 @@ class UsedVacationViewControllerMock: UIViewController {
 
 // MARK: - UsedVacationViewModelOutput
 extension UsedVacationViewControllerMock: UsedVacationViewModelOutput {
-    func setUp(title: String) {
-        self.setUpParams.append(SetUpParams(title: title))
+    func setUp() {
+        self.setUpParams.append(SetUpParams())
     }
 }
 

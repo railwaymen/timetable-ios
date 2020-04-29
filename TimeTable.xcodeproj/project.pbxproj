@@ -2181,8 +2181,8 @@
 		C1411C2F24505B5000BB4266 /* Vacation */ = {
 			isa = PBXGroup;
 			children = (
-				C1411C3024505B5D00BB4266 /* VacationViewControllerMock.swift */,
 				C1E908D524586432003E0368 /* UsedVacationViewControllerMock.swift */,
+				C1411C3024505B5D00BB4266 /* VacationViewControllerMock.swift */,
 			);
 			path = Vacation;
 			sourceTree = "<group>";
@@ -2438,9 +2438,9 @@
 		C18BE26C2452F82A00FC71CC /* VacationTableHeader */ = {
 			isa = PBXGroup;
 			children = (
-				C18BE26D2452F89300FC71CC /* VacationTableHeader.xib */,
 				C18BE26F2452FBD100FC71CC /* VacationTableHeader.swift */,
 				C18BE2712453072300FC71CC /* VacationTableHeaderViewModel.swift */,
+				C18BE26D2452F89300FC71CC /* VacationTableHeader.xib */,
 			);
 			path = VacationTableHeader;
 			sourceTree = "<group>";

@@ -9,7 +9,7 @@
 import Foundation
 
 protocol UsedVacationViewModelOutput: class {
-    func setUp(title: String)
+    func setUp()
 }
 
 protocol UsedVacationViewModelType: class {
@@ -39,7 +39,7 @@ class UsedVacationViewModel {
 // MARK: - Structures
 extension UsedVacationViewModel {
     struct VacationType {
-        let loclizedString: String
+        let localizedString: String
         let days: Int
     }
     
@@ -50,34 +50,34 @@ extension UsedVacationViewModel {
         init(usedDays: VacationResponse.UsedVacationDays) {
             self.types = [
                 VacationType(
-                    loclizedString: R.string.localizable.vacation_type_planned(),
+                    localizedString: R.string.localizable.vacation_type_planned(),
                     days: usedDays.planned),
                 VacationType(
-                    loclizedString: R.string.localizable.vacation_type_requested(),
+                    localizedString: R.string.localizable.vacation_type_requested(),
                     days: usedDays.requested),
                 VacationType(
-                    loclizedString: R.string.localizable.vacation_type_compassionate(),
+                    localizedString: R.string.localizable.vacation_type_compassionate(),
                     days: usedDays.compassionate),
                 VacationType(
-                    loclizedString: R.string.localizable.vacation_type_paternity(),
+                    localizedString: R.string.localizable.vacation_type_paternity(),
                     days: usedDays.paternity),
                 VacationType(
-                    loclizedString: R.string.localizable.vacation_type_parental(),
+                    localizedString: R.string.localizable.vacation_type_parental(),
                     days: usedDays.parental),
                 VacationType(
-                    loclizedString: R.string.localizable.vacation_type_upbringing(),
+                    localizedString: R.string.localizable.vacation_type_upbringing(),
                     days: usedDays.upbringing),
                 VacationType(
-                    loclizedString: R.string.localizable.vacation_type_unpaid(),
+                    localizedString: R.string.localizable.vacation_type_unpaid(),
                     days: usedDays.unpaid),
                 VacationType(
-                    loclizedString: R.string.localizable.vacation_type_rehabilitation(),
+                    localizedString: R.string.localizable.vacation_type_rehabilitation(),
                     days: usedDays.rehabilitation),
                 VacationType(
-                    loclizedString: R.string.localizable.vacation_type_illness(),
+                    localizedString: R.string.localizable.vacation_type_illness(),
                     days: usedDays.illness),
                 VacationType(
-                    loclizedString: R.string.localizable.vacation_type_care(),
+                    localizedString: R.string.localizable.vacation_type_care(),
                     days: usedDays.care)
             ]
         }
@@ -87,7 +87,7 @@ extension UsedVacationViewModel {
 // MARK: - UsedVacationViewModelType
 extension UsedVacationViewModel: UsedVacationViewModelType {
     func viewDidLoad() {
-        self.userInterface?.setUp(title: R.string.localizable.vacation_used_days_title())
+        self.userInterface?.setUp()
     }
     
     func closeButtonTapped() {

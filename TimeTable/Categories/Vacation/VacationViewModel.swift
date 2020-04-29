@@ -19,7 +19,7 @@ protocol VacationViewModelOutput: class {
 }
 
 protocol VacationViewModelType: class {
-    func viewDidLoad()
+    func loadView()
     func viewWillAppear()
     func viewRequestForProfileView()
     func viewHasBeenTapped()
@@ -89,7 +89,7 @@ extension VacationViewModel {
 
 // MARK: - VacationViewModelType
 extension VacationViewModel: VacationViewModelType {
-    func viewDidLoad() {
+    func loadView() {
         self.userInterface?.setUpView()
     }
     

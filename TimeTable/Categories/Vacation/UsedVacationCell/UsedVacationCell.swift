@@ -36,4 +36,3 @@ extension UsedVacationCell: UsedVacationCellType {
         self.viewModel.configure()
     }
 }
-

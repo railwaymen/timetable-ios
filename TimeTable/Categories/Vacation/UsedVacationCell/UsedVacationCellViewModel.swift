@@ -30,11 +30,11 @@ class UsedVacationCellViewModel {
     }
 }
 
-// MARK: - UsedVacationCellModelType
+// MARK: - UsedVacationCellViewModelType
 extension UsedVacationCellViewModel: UsedVacationCellViewModelType {
     func configure() {
         self.userInterface?.setUp(
-            type: self.type.loclizedString,
+            type: self.type.localizedString,
             days: R.string.localizable.days_key(days_key: self.type.days))
     }
 }

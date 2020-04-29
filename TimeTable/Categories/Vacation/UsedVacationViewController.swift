@@ -49,10 +49,10 @@ extension UsedVacationViewController: UITableViewDataSource {
 
 // MARK: - UsedVacationViewModelOutput
 extension UsedVacationViewController: UsedVacationViewModelOutput {
-    func setUp(title: String) {
+    func setUp() {
         self.tableView.dataSource = self
         self.tableView.register(UsedVacationCell.self)
-        self.setUpNavigationBarItems(title: title)
+        self.navigationBar.topItem?.title = R.string.localizable.vacation_used_days_title()
     }
 }
 
@@ -60,10 +60,5 @@ extension UsedVacationViewController: UsedVacationViewModelOutput {
 extension UsedVacationViewController: UsedVacationViewControllerType {
     func configure(viewModel: UsedVacationViewModelType) {
         self.viewModel = viewModel
-    }
-}
-extension UsedVacationViewController {
-    private func setUpNavigationBarItems(title: String) {
-        self.navigationBar.topItem?.title = title
     }
 }

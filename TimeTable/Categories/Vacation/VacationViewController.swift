@@ -23,14 +23,14 @@ class VacationViewController: UIViewController {
     private var viewModel: VacationViewModelType!
 
     // MARK: - Overridden
+    override func loadView() {
+        super.loadView()
+        self.viewModel.loadView()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.viewModel.viewWillAppear()
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.viewModel.viewDidLoad()
     }
     
     // MARK: - Actions
