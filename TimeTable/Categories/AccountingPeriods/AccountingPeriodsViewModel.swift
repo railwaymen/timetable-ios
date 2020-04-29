@@ -89,27 +89,34 @@ extension AccountingPeriodsViewModel {
         let params = self.parameters(page: 1)
         self.userInterface?.setActivityIndicator(isHidden: false)
         self.apiClient.fetchAccountingPeriods(parameters: params) { [weak self] result in
-            guard let self = self else { return }
-            self.userInterface?.setActivityIndicator(isHidden: true)
+            self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case let .success(response):
-                self.totalPages = response.totalPages
-                self.records = response.records
-                self.userInterface?.showList()
+                self?.handleFetchSuccess(response: response)
             case let .failure(error):
-                if let apiClientError = error as? ApiClientError {
-                    self.errorViewModel?.update(error: apiClientError)
-                } else {
-                    self.errorViewModel?.update(error: UIError.genericError)
-                    self.errorHandler.throwing(error: error)
-                }
-                self.userInterface?.showErrorView()
+                self?.handleFetchFailure(error: error)
             }
         }
     }
     
     private func parameters(page: Int) -> AccountingPeriodsParameters {
         AccountingPeriodsParameters(page: page, recordsPerPage: self.recordsPerPage)
+    }
+    
+    private func handleFetchSuccess(response: AccountingPeriodsResponse) {
+        self.totalPages = response.totalPages
+        self.records = response.records
+        self.userInterface?.showList()
+    }
+    
+    private func handleFetchFailure(error: Error) {
+        if let apiClientError = error as? ApiClientError {
+            self.errorViewModel?.update(error: apiClientError)
+        } else {
+            self.errorViewModel?.update(error: UIError.genericError)
+            self.errorHandler.throwing(error: error)
+        }
+        self.userInterface?.showErrorView()
     }
     
     private func record(at indexPath: IndexPath) -> AccountingPeriod? {
