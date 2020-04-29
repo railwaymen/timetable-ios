@@ -29,6 +29,15 @@ class AccountingPeriodsViewControllerMock: UIViewController {
         let isHidden: Bool
     }
     
+    private(set) var setBottomContentInsetParams: [SetBottomContentInsetParams] = []
+    struct SetBottomContentInsetParams {
+        let isHidden: Bool
+    }
+    
+    var getMaxCellsPerPageReturnValue: Int = 0
+    private(set) var getMaxCellsPerPageParams: [GetMaxCellsPerPageParams] = []
+    struct GetMaxCellsPerPageParams {}
+    
     // MARK: - AccountingPeriodsViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
@@ -56,6 +65,15 @@ extension AccountingPeriodsViewControllerMock: AccountingPeriodsViewModelOutput 
     
     func setActivityIndicator(isHidden: Bool) {
         self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isHidden))
+    }
+    
+    func setBottomContentInset(isHidden: Bool) {
+        self.setBottomContentInsetParams.append(SetBottomContentInsetParams(isHidden: isHidden))
+    }
+    
+    func getMaxCellsPerPage() -> Int {
+        self.getMaxCellsPerPageParams.append(GetMaxCellsPerPageParams())
+        return self.getMaxCellsPerPageReturnValue
     }
 }
 

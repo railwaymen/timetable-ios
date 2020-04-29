@@ -23,11 +23,17 @@ class AccountingPeriodsViewController: UIViewController {
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private var viewModel: AccountingPeriodsViewModelType!
+    private let minimumCellHeight: CGFloat = 63
     
     // MARK: - Overridden
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel.viewWillAppear()
     }
 }
 
@@ -53,6 +59,10 @@ extension AccountingPeriodsViewController: UITableViewDelegate {
         header.configure()
         return header
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        self.viewModel.viewWillDisplayCell(at: indexPath)
+    }
 }
 
 // MARK: - AccountingPeriodsViewModelOutput
@@ -62,6 +72,7 @@ extension AccountingPeriodsViewController: AccountingPeriodsViewModelOutput {
         self.tableView.register(AccountingPeriodsCell.self)
         self.tableView.registerHeaderFooterView(AccountingPeriodsHeaderView.self)
         self.viewModel.configure(self.errorView)
+        self.setBottomContentInset(isHidden: false)
         self.hideAllViews()
     }
     
@@ -85,6 +96,17 @@ extension AccountingPeriodsViewController: AccountingPeriodsViewModelOutput {
     
     func setActivityIndicator(isHidden: Bool) {
         self.activityIndicator.set(isAnimating: !isHidden)
+    }
+    
+    func setBottomContentInset(isHidden: Bool) {
+        self.tableView.contentInset.bottom = isHidden ? 0 : self.minimumCellHeight
+    }
+    
+    func getMaxCellsPerPage() -> Int {
+        self.tableView.layoutIfNeeded()
+        let verticalInsets = self.tableView.safeAreaInsets.top + self.tableView.safeAreaInsets.bottom
+        let visibleContentHeight = self.tableView.frame.height - verticalInsets
+        return Int((visibleContentHeight / self.minimumCellHeight).rounded(.up))
     }
 }
 

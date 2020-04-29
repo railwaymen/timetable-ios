@@ -14,13 +14,17 @@ protocol AccountingPeriodsViewModelOutput: class {
     func showErrorView()
     func reloadData()
     func setActivityIndicator(isHidden: Bool)
+    func setBottomContentInset(isHidden: Bool)
+    func getMaxCellsPerPage() -> Int
 }
 
 protocol AccountingPeriodsViewModelType: class {
     func viewDidLoad()
+    func viewWillAppear()
     func numberOfRows(in section: Int) -> Int
     func configure(_ cell: AccountingPeriodsCellConfigurationInterface, for indexPath: IndexPath)
     func configure(_ errorView: ErrorViewable)
+    func viewWillDisplayCell(at indexPath: IndexPath)
 }
 
 class AccountingPeriodsViewModel {
@@ -30,9 +34,10 @@ class AccountingPeriodsViewModel {
     private let errorHandler: ErrorHandlerType
     
     private let dateFormatter: DateFormatterType = DateFormatter.shortDate
-    private let recordsPerPage: Int = 24
+    private var recordsPerPage: Int = 24
     private weak var errorViewModel: ErrorViewModelParentType?
     private var totalPages: Int?
+    private var state: State?
     private var records: [AccountingPeriod] = [] {
         didSet {
             self.userInterface?.reloadData()
@@ -53,10 +58,24 @@ class AccountingPeriodsViewModel {
     }
 }
 
+// MARK: - Structures
+extension AccountingPeriodsViewModel {
+    enum State: Equatable {
+        case failedFetchingFirstPage
+        case fetching(page: Int)
+        case fetched(page: Int)
+    }
+}
+
 // MARK: - AccountingPeriodsViewModelType
 extension AccountingPeriodsViewModel: AccountingPeriodsViewModelType {
     func viewDidLoad() {
         self.userInterface?.setUp()
+    }
+    
+    func viewWillAppear() {
+        guard self.state == nil else { return }
+        self.setUpRecordsNumberPerPage()
         self.fetchFirstPage()
     }
     
@@ -81,42 +100,81 @@ extension AccountingPeriodsViewModel: AccountingPeriodsViewModelType {
             self.fetchFirstPage()
         })
     }
+    
+    func viewWillDisplayCell(at indexPath: IndexPath) {
+        let cellsToTheEndToBeginFetchingOfTheNextPage: Int = 6
+        let cellToBeginFetching = self.records.count - cellsToTheEndToBeginFetchingOfTheNextPage
+        guard cellToBeginFetching <= indexPath.row else { return }
+        self.fetchNextPage()
+    }
 }
 
 // MARK: - Private
 extension AccountingPeriodsViewModel {
+    private func setUpRecordsNumberPerPage() {
+        guard let cellsPerPage = self.userInterface?.getMaxCellsPerPage() else { return }
+        self.recordsPerPage = cellsPerPage * 2
+    }
+    
     private func fetchFirstPage() {
+        guard self.state == nil || self.state == .failedFetchingFirstPage else { return }
+        self.state = .fetching(page: 1)
         let params = self.parameters(page: 1)
         self.userInterface?.setActivityIndicator(isHidden: false)
         self.apiClient.fetchAccountingPeriods(parameters: params) { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case let .success(response):
-                self?.handleFetchSuccess(response: response)
+                self?.handleFirstFetchSuccess(response: response)
             case let .failure(error):
-                self?.handleFetchFailure(error: error)
+                self?.handleFirstFetchFailure(error: error)
             }
         }
     }
     
-    private func parameters(page: Int) -> AccountingPeriodsParameters {
-        AccountingPeriodsParameters(page: page, recordsPerPage: self.recordsPerPage)
-    }
-    
-    private func handleFetchSuccess(response: AccountingPeriodsResponse) {
+    private func handleFirstFetchSuccess(response: AccountingPeriodsResponse) {
         self.totalPages = response.totalPages
         self.records = response.records
+        self.state = .fetched(page: 1)
         self.userInterface?.showList()
     }
     
-    private func handleFetchFailure(error: Error) {
+    private func handleFirstFetchFailure(error: Error) {
         if let apiClientError = error as? ApiClientError {
             self.errorViewModel?.update(error: apiClientError)
         } else {
             self.errorViewModel?.update(error: UIError.genericError)
             self.errorHandler.throwing(error: error)
         }
+        self.state = .failedFetchingFirstPage
         self.userInterface?.showErrorView()
+    }
+    
+    private func fetchNextPage() {
+        guard case let .fetched(lastFetchedPage) = self.state else { return }
+        guard let totalPages = self.totalPages,
+            lastFetchedPage < totalPages else { return }
+        let nextPage = lastFetchedPage + 1
+        self.state = .fetching(page: nextPage)
+        let parameters = self.parameters(page: nextPage)
+        self.apiClient.fetchAccountingPeriods(parameters: parameters) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(response):
+                self.records += response.records
+                self.state = .fetched(page: nextPage)
+                guard nextPage == totalPages else { break }
+                self.userInterface?.setBottomContentInset(isHidden: true)
+            case let .failure(error):
+                // TODO: TIM-278
+                self.errorHandler.throwing(error: error)
+                self.state = .fetched(page: lastFetchedPage)
+            }
+        }
+    }
+    
+    private func parameters(page: Int) -> AccountingPeriodsParameters {
+        AccountingPeriodsParameters(page: page, recordsPerPage: self.recordsPerPage)
     }
     
     private func record(at indexPath: IndexPath) -> AccountingPeriod? {
