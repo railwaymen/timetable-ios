@@ -166,9 +166,9 @@ extension AccountingPeriodsViewModel {
                 guard nextPage == totalPages else { break }
                 self.userInterface?.setBottomContentInset(isHidden: true)
             case let .failure(error):
-                // TODO: TIM-278
-                self.errorHandler.throwing(error: error)
                 self.state = .fetched(page: lastFetchedPage)
+                guard !(error is ApiClientError) else { break }
+                self.errorHandler.throwing(error: error)
             }
         }
     }
