@@ -9,20 +9,34 @@
 import Foundation
 import Restler
 
-typealias VacationResult = Result<VacationResponse, Error>
-typealias VacationCompletion = (VacationResult) -> Void
+typealias FetchVacationResult = Result<VacationResponse, Error>
+typealias FetchVacationCompletion = (FetchVacationResult) -> Void
+
+typealias AddVacationResult = Result<VacationDecoder, Error>
+typealias AddVacationCompletion = (AddVacationResult) -> Void
 
 protocol ApiClientVacationType: class {
-    func fetchVacation(parameters: VacationParameters, completion: @escaping VacationCompletion) -> RestlerTaskType?
+    func fetchVacation(parameters: VacationParameters, completion: @escaping FetchVacationCompletion) -> RestlerTaskType?
+    func addVacation(vacation: VacationEncoder, completion: @escaping AddVacationCompletion) -> RestlerTaskType?
 }
 
 extension ApiClient: ApiClientVacationType {
-    func fetchVacation(parameters: VacationParameters, completion: @escaping VacationCompletion) -> RestlerTaskType? {
+    func fetchVacation(parameters: VacationParameters, completion: @escaping FetchVacationCompletion) -> RestlerTaskType? {
         return self.restler
             .get(Endpoint.vacation)
             .query(parameters)
             .decode(VacationResponse.self)
             .onCompletion(completion)
             .start()
+    }
+    
+    func addVacation(vacation: VacationEncoder, completion: @escaping AddVacationCompletion) -> RestlerTaskType? {
+        return self.restler
+            .post(Endpoint.vacation)
+            .body(vacation)
+            .decode(VacationDecoder.self)
+            .onCompletion(completion)
+            .start()
+        
     }
 }

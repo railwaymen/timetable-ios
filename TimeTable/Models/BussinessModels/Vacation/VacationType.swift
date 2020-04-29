@@ -20,3 +20,6 @@ enum VacationType: String, Codable {
         }
     }
 }
+
+// MARK: - Equatable
+extension VacationType: Equatable {}

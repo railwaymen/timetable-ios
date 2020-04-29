@@ -24,7 +24,7 @@ protocol VacationViewModelType: class {
     func viewRequestForProfileView()
     func viewHasBeenTapped()
     func numberOfItems() -> Int
-    func item(at index: IndexPath) -> VacationResponse.Vacation?
+    func item(at index: IndexPath) -> VacationDecoder?
     func configure(_ cell: VacationCellable, for indexPath: IndexPath)
     func configure(_ view: VacationTableHeaderViewable)
     func configure(_ view: ErrorViewable)
@@ -112,7 +112,7 @@ extension VacationViewModel: VacationViewModelType {
         }
     }
     
-    func item(at index: IndexPath) -> VacationResponse.Vacation? {
+    func item(at index: IndexPath) -> VacationDecoder? {
         switch self.decisionState {
         case let .fetched(response): return response.records[safeIndex: index.row]
         case .error, .fetching: return nil

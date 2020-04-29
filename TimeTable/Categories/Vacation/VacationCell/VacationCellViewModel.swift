@@ -18,12 +18,12 @@ protocol VacationCellViewModelOutput: class {
 
 class VacationCellViewModel {
     private weak var userInterface: VacationCellViewModelOutput?
-    private var vacation: VacationResponse.Vacation
+    private var vacation: VacationDecoder
     
     // MARK: - Initialization
     init(
         userInterface: VacationCellViewModelOutput,
-        vacation: VacationResponse.Vacation
+        vacation: VacationDecoder
     ) {
         self.userInterface = userInterface
         self.vacation = vacation

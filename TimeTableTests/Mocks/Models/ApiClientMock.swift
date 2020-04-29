@@ -102,7 +102,14 @@ class ApiClientMock {
     private(set) var fetchVacationParams: [FetchVacationParams] = []
     struct FetchVacationParams {
         let parameters: VacationParameters
-        let completion: VacationCompletion
+        let completion: FetchVacationCompletion
+    }
+    
+    var addVacationReturnValue: RestlerTaskType?
+    private(set) var addVacationParams: [AddVacationParams] = []
+    struct AddVacationParams {
+        let vacation: VacationEncoder
+        let completion: AddVacationCompletion
     }
 }
 
@@ -196,8 +203,13 @@ extension ApiClientMock: ApiClientAccountingPeriodsType {
 
 // MARK: - ApiClientVacationType
 extension ApiClientMock: ApiClientVacationType {
-    func fetchVacation(parameters: VacationParameters, completion: @escaping VacationCompletion) -> RestlerTaskType? {
+    func fetchVacation(parameters: VacationParameters, completion: @escaping FetchVacationCompletion) -> RestlerTaskType? {
         self.fetchVacationParams.append(FetchVacationParams(parameters: parameters, completion: completion))
         return self.fetchVacationReturnValue
+    }
+
+    func addVacation(vacation: VacationEncoder, completion: @escaping AddVacationCompletion) -> RestlerTaskType? {
+        self.addVacationParams.append(AddVacationParams(vacation: vacation, completion: completion))
+        return self.addVacationReturnValue
     }
 }

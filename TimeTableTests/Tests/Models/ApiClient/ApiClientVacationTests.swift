@@ -20,7 +20,7 @@ class ApiClientVacationTests: XCTestCase {
     }
 }
 
-// MARK: - fetchVacation(completion:)
+// MARK: - fetchVacation(parameters: completion:)
 extension ApiClientVacationTests {
     func testFetchSucceed() throws {
         //Arrange
@@ -28,7 +28,7 @@ extension ApiClientVacationTests {
         let sut = self.buildSUT()
         let data = try self.json(from: VacationResponseJSONResource.vacationResponseTypeResponse)
         let decoders = try self.decoder.decode(VacationResponse.self, from: data)
-        var completionResult: VacationResult?
+        var completionResult: FetchVacationResult?
         //Act
         _ = sut.fetchVacation(parameters: parameters) { result in
             completionResult = result
@@ -43,12 +43,46 @@ extension ApiClientVacationTests {
         let parameters = VacationParameters(year: 2020)
         let sut = self.buildSUT()
         let error = TestError(message: "fetch failed")
-        var completionResult: VacationResult?
+        var completionResult: FetchVacationResult?
         //Act
         _ = sut.fetchVacation(parameters: parameters) { result in
             completionResult = result
         }
         try self.restler.getReturnValue.callCompletion(type: VacationResponse.self, result: .failure(error))
+        //Assert
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
+    }
+}
+
+// MARK: - func addVacation(vacation, completion:)
+extension ApiClientVacationTests {
+    func testAddVacationSucceed() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let vaction = try self.buildVacationEncoder()
+        let data = try self.json(from: VacationJSONResource.vacationPlannedTypeResponse)
+        let decoder = try self.decoder.decode(VacationDecoder.self, from: data)
+        var completionResult: AddVacationResult?
+        //Act
+        _ = sut.addVacation(vacation: vaction) { result in
+            completionResult = result
+        }
+        try self.restler.postReturnValue.callCompletion(type: VacationDecoder.self, result: .success(decoder))
+        //Assert
+        XCTAssertEqual(try XCTUnwrap(completionResult).get(), decoder)
+    }
+    
+    func testAddVacationFailed() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let vaction = try self.buildVacationEncoder()
+        let error = TestError(message: "fetch failed")
+        var completionResult: AddVacationResult?
+        //Act
+        _ = sut.addVacation(vacation: vaction) { result in
+            completionResult = result
+        }
+        try self.restler.postReturnValue.callCompletion(type: VacationDecoder.self, result: .failure(error))
         //Assert
         AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
     }
@@ -60,5 +94,11 @@ extension ApiClientVacationTests {
         return ApiClient(
             restler: self.restler,
             accessService: self.accessService)
+    }
+    
+    private func buildVacationEncoder() throws -> VacationEncoder {
+        let startDate = try self.buildDate(year: 2020, month: 04, day: 28)
+        let endDate = try self.buildDate(year: 2020, month: 04, day: 30)
+        return VacationEncoder(type: .compassionate, description: nil, startDate: startDate, endDate: endDate)
     }
 }

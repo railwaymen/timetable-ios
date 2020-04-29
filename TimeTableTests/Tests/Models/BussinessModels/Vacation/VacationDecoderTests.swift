@@ -1,5 +1,5 @@
 //
-//  VacationTests.swift
+//  VacationDecoderTests.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 23/04/2020.
@@ -9,17 +9,17 @@
 import XCTest
 @testable import TimeTable
 
-class VacationTests: XCTestCase {}
+class VacationDecoderTests: XCTestCase {}
 
 // MARK: - Decodable
-extension VacationTests {
+extension VacationDecoderTests {
     func testDecodingVacation_plannedType() throws {
         //Arrange
         let startDate = try self.buildStartDate()
         let endDate = try self.buildEndDate()
         let data = try self.json(from: VacationJSONResource.vacationPlannedTypeResponse)
         //Act
-        let sut = try self.decoder.decode(VacationResponse.Vacation.self, from: data)
+        let sut = try self.decoder.decode(VacationDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.startDate, startDate)
@@ -36,7 +36,7 @@ extension VacationTests {
         let endDate = try self.buildEndDate()
         let data = try self.json(from: VacationJSONResource.vacationRequestedTypeResponse)
         //Act
-        let sut = try self.decoder.decode(VacationResponse.Vacation.self, from: data)
+        let sut = try self.decoder.decode(VacationDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.startDate, startDate)
@@ -53,7 +53,7 @@ extension VacationTests {
         let endDate = try self.buildEndDate()
         let data = try self.json(from: VacationJSONResource.vacationCompassionateTypeResponse)
         //Act
-        let sut = try self.decoder.decode(VacationResponse.Vacation.self, from: data)
+        let sut = try self.decoder.decode(VacationDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.startDate, startDate)
@@ -70,7 +70,7 @@ extension VacationTests {
         let endDate = try self.buildEndDate()
         let data = try self.json(from: VacationJSONResource.vacationOthersTypeResponse)
         //Act
-        let sut = try self.decoder.decode(VacationResponse.Vacation.self, from: data)
+        let sut = try self.decoder.decode(VacationDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.startDate, startDate)
@@ -87,7 +87,7 @@ extension VacationTests {
         let endDate = try self.buildEndDate()
         let data = try self.json(from: VacationJSONResource.vacationUnconfirmedStatusResponse)
         //Act
-        let sut = try self.decoder.decode(VacationResponse.Vacation.self, from: data)
+        let sut = try self.decoder.decode(VacationDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.startDate, startDate)
@@ -104,7 +104,7 @@ extension VacationTests {
         let endDate = try self.buildEndDate()
         let data = try self.json(from: VacationJSONResource.vacationDeclinedStatusResponse)
         //Act
-        let sut = try self.decoder.decode(VacationResponse.Vacation.self, from: data)
+        let sut = try self.decoder.decode(VacationDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.startDate, startDate)
@@ -121,7 +121,7 @@ extension VacationTests {
         let endDate = try self.buildEndDate()
         let data = try self.json(from: VacationJSONResource.vacationApprovedStatusResponse)
         //Act
-        let sut = try self.decoder.decode(VacationResponse.Vacation.self, from: data)
+        let sut = try self.decoder.decode(VacationDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.startDate, startDate)
@@ -138,7 +138,7 @@ extension VacationTests {
         let endDate = try self.buildEndDate()
         let data = try self.json(from: VacationJSONResource.vacationAcceptedStatusResponse)
         //Act
-        let sut = try self.decoder.decode(VacationResponse.Vacation.self, from: data)
+        let sut = try self.decoder.decode(VacationDecoder.self, from: data)
         //Assert
         XCTAssertEqual(sut.id, 11)
         XCTAssertEqual(sut.startDate, startDate)
@@ -151,7 +151,7 @@ extension VacationTests {
 }
 
 // MARK: - Private
-extension VacationTests {
+extension VacationDecoderTests {
     private func buildStartDate() throws -> Date {
         return try self.buildDate(year: 2020, month: 3, day: 4)
     }
