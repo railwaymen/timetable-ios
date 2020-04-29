@@ -120,6 +120,9 @@
 		8A6A4FCB24581A93004B4CF2 /* AccountingPeriodsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6A4FCA24581A93004B4CF2 /* AccountingPeriodsResponse.swift */; };
 		8A6A4FCD245826C5004B4CF2 /* AccountingPeriodsParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6A4FCC245826C5004B4CF2 /* AccountingPeriodsParameters.swift */; };
 		8A6A4FCF24582DE8004B4CF2 /* AccountingPeriodsParametersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6A4FCE24582DE8004B4CF2 /* AccountingPeriodsParametersTests.swift */; };
+		8A6A4FD324584398004B4CF2 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6A4FD224584398004B4CF2 /* Int+Extension.swift */; };
+		8A6A4FD524584A18004B4CF2 /* IntExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6A4FD424584A18004B4CF2 /* IntExtensionTests.swift */; };
+		8A6A4FD724584DAB004B4CF2 /* TimeIntervalExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6A4FD624584DAB004B4CF2 /* TimeIntervalExtensionTests.swift */; };
 		8A6B6D81237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B6D80237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift */; };
 		8A798745237D4DC6003DC028 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A798742237D4DC6003DC028 /* Profile.storyboard */; };
 		8A798746237D4DC6003DC028 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A798743237D4DC6003DC028 /* ProfileViewController.swift */; };
@@ -641,6 +644,9 @@
 		8A6A4FCA24581A93004B4CF2 /* AccountingPeriodsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountingPeriodsResponse.swift; sourceTree = "<group>"; };
 		8A6A4FCC245826C5004B4CF2 /* AccountingPeriodsParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountingPeriodsParameters.swift; sourceTree = "<group>"; };
 		8A6A4FCE24582DE8004B4CF2 /* AccountingPeriodsParametersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountingPeriodsParametersTests.swift; sourceTree = "<group>"; };
+		8A6A4FD224584398004B4CF2 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		8A6A4FD424584A18004B4CF2 /* IntExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensionTests.swift; sourceTree = "<group>"; };
+		8A6A4FD624584DAB004B4CF2 /* TimeIntervalExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalExtensionTests.swift; sourceTree = "<group>"; };
 		8A6B6D80237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCellViewModelParentMock.swift; sourceTree = "<group>"; };
 		8A798742237D4DC6003DC028 /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		8A798743237D4DC6003DC028 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -2119,6 +2125,7 @@
 				8A31A85D238E902B008DCC08 /* Date+Extension.swift */,
 				C12CA57C21A593F20082FEB7 /* DateFormatter+Extension.swift */,
 				8A09DCB923673E74003FC2A6 /* DispatchQueue+Extension.swift */,
+				8A6A4FD224584398004B4CF2 /* Int+Extension.swift */,
 				C1ECF09E2192C1AB006038C6 /* JSONDecoder+Extension.swift */,
 				C1ECF0A12192C337006038C6 /* JSONEncoder+Extension.swift */,
 				C1E6B34F219EF52000019DC2 /* Keychain+Extension.swift */,
@@ -2163,8 +2170,10 @@
 				C19706E321C13908007AFED4 /* CalendarExtensionTests.swift */,
 				8A523C8D2395091900215C61 /* DateExtensionTests.swift */,
 				C11F51F421A5AC5800FD626A /* DateFormatterExtensionTests.swift */,
+				8A6A4FD424584A18004B4CF2 /* IntExtensionTests.swift */,
 				C1EF3A0621930409000E3511 /* NSRegularExpresionExtensionTests.swift */,
 				C1EF3A0821930722000E3511 /* StringExtensionTests.swift */,
+				8A6A4FD624584DAB004B4CF2 /* TimeIntervalExtensionTests.swift */,
 				C153AC5D2182FA64007A35BB /* UIButtonExtensionTests.swift */,
 				C12CA56B21A57BAA0082FEB7 /* UIColorExtensionTests.swift */,
 				C153AC612182FCB7007A35BB /* UILabelExtensionTests.swift */,
@@ -3212,6 +3221,7 @@
 				C1FE49EA21AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift in Sources */,
 				8A56FC1424531CA80020F8CD /* AccountingPeriodsViewController.swift in Sources */,
 				8A6A4FAC2456D8D4004B4CF2 /* AccountingPeriod.swift in Sources */,
+				8A6A4FD324584398004B4CF2 /* Int+Extension.swift in Sources */,
 				C1E6B34E219EF30600019DC2 /* URL+Extension.swift in Sources */,
 				8A6A4FCB24581A93004B4CF2 /* AccountingPeriodsResponse.swift in Sources */,
 				C13429AC21A7DDAB00F4EA42 /* WorkTimesListViewController.swift in Sources */,
@@ -3410,6 +3420,7 @@
 				C134296021A6937E00F4EA42 /* ApiClientSessionTests.swift in Sources */,
 				C153AC622182FCB7007A35BB /* UILabelExtensionTests.swift in Sources */,
 				C12CA56F21A58BE70082FEB7 /* SimpleProjectRecordDecoderTests.swift in Sources */,
+				8A6A4FD524584A18004B4CF2 /* IntExtensionTests.swift in Sources */,
 				8AE0001623746520002F783E /* ProjectPickerViewModelTests.swift in Sources */,
 				8AE55D1F23FD86A200F94242 /* TaskFormMock.swift in Sources */,
 				8AFFE5CE24334AAC001D9E89 /* RestlerFactoryMock.swift in Sources */,
@@ -3425,6 +3436,7 @@
 				C134297121A6BDF100F4EA42 /* JSONEncoderMock.swift in Sources */,
 				8A0707FA236998580019FB8E /* DependencyContainerMock.swift in Sources */,
 				8AF5697923D754D600A1D001 /* UserDecoderFactory.swift in Sources */,
+				8A6A4FD724584DAB004B4CF2 /* TimeIntervalExtensionTests.swift in Sources */,
 				8A79A3022424E91C0048B44B /* ProjectTagJSONResource.swift in Sources */,
 				8AE000182374654D002F783E /* ProjectPickerCoordinatorMock.swift in Sources */,
 				8AF5697D23D759AE00A1D001 /* ServerErrorFactory.swift in Sources */,

@@ -29,6 +29,11 @@ struct AccountingPeriod: Decodable {
         case isFullTime = "full_time"
     }
     
+    var formattedCountedDuration: String {
+        let (hours, minutes) = self.countedDuration.timerBigComponents
+        return "\(hours):\(minutes.description(minimumDigitsCount: 2))"
+    }
+    
     // MARK: - Initialization
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)

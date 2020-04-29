@@ -48,11 +48,17 @@ extension AccountingPeriodsCoordinator: AccountingPeriodsCoordinatorViewModelInt
 // MARK: - Private
 extension AccountingPeriodsCoordinator {
     private func runMainFlow() {
+        guard let apiClient = self.dependencyContainer.apiClient else {
+            self.dependencyContainer.errorHandler.stopInDebug()
+            return
+        }
         do {
             let controller = try self.dependencyContainer.viewControllerBuilder.accountingPeriods()
             let viewModel = AccountingPeriodsViewModel(
                 userInterface: controller,
-                coordinator: self)
+                coordinator: self,
+                apiClient: apiClient,
+                errorHandler: self.dependencyContainer.errorHandler)
             controller.configure(viewModel: viewModel)
             self.navigationController.pushViewController(controller, animated: true)
         } catch {
