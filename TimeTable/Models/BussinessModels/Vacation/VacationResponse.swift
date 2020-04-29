@@ -11,12 +11,12 @@ import UIKit
 struct VacationResponse: Decodable {
     let availableVacationDays: Int
     let usedVacationDays: UsedVacationDays
-    let vacation: [Vacation]
+    let records: [Vacation]
     
     private enum CodingKeys: String, CodingKey {
         case availableVacationDays = "available_vacation_days"
         case usedVacationDays = "used_vacation_days"
-        case vacation = "vacations"
+        case records
     }
 }
 

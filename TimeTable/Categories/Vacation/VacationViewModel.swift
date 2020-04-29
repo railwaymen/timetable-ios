@@ -107,14 +107,14 @@ extension VacationViewModel: VacationViewModelType {
     
     func numberOfItems() -> Int {
         switch self.decisionState {
-        case let .fetched(response): return response.vacation.count
+        case let .fetched(response): return response.records.count
         case .error, .fetching: return 0
         }
     }
     
     func item(at index: IndexPath) -> VacationResponse.Vacation? {
         switch self.decisionState {
-        case let .fetched(response): return response.vacation[safeIndex: index.row]
+        case let .fetched(response): return response.records[safeIndex: index.row]
         case .error, .fetching: return nil
         }
     }

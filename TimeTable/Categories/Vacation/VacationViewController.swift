@@ -71,6 +71,7 @@ extension VacationViewController: VacationViewModelOutput {
         self.setUpBarButtons()
         self.setUpTableHeaderView()
         self.setUpTableView()
+        self.viewModel.configure(self.errorView)
     }
     
     func setUpTableHeaderView() {

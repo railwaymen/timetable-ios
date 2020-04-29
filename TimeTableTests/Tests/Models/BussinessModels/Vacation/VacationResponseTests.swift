@@ -21,6 +21,6 @@ extension VacationResponseTests {
         //Assert
         XCTAssertEqual(sut.availableVacationDays, 25)
         XCTAssertNotNil(sut.usedVacationDays)
-        XCTAssertEqual(sut.vacation.count, 3)
+        XCTAssertEqual(sut.records.count, 3)
     }
 }
