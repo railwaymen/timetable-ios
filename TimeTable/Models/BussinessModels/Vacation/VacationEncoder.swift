@@ -14,7 +14,7 @@ struct VacationEncoder: Encodable {
     let startDate: Date
     let endDate: Date
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case type = "vacation_type"
         case description
         case startDate = "start_date"

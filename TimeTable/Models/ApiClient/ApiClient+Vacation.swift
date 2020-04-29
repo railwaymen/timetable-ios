@@ -37,6 +37,5 @@ extension ApiClient: ApiClientVacationType {
             .decode(VacationDecoder.self)
             .onCompletion(completion)
             .start()
-        
     }
 }

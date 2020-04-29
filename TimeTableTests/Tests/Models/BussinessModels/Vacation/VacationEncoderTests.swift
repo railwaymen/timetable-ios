@@ -11,11 +11,11 @@ import XCTest
 
 class VacationEncoderTests: XCTestCase {}
 
+// MARK: - Encodable
 extension VacationEncoderTests {
     func testEncoding_plannedVacationType() throws {
         //Arrange
         let sut = try self.buildSut(type: .planned, description: "description")
-        
         //Act
         let data = try self.encoder.encode(sut)
         //Assert
@@ -30,7 +30,6 @@ extension VacationEncoderTests {
     func testEncoding_requestedVacationType() throws {
         //Arrange
         let sut = try self.buildSut(type: .requested, description: "description")
-        
         //Act
         let data = try self.encoder.encode(sut)
         //Assert
@@ -45,7 +44,6 @@ extension VacationEncoderTests {
     func testEncoding_compassionateVacationType() throws {
         //Arrange
         let sut = try self.buildSut(type: .compassionate, description: "description")
-        
         //Act
         let data = try self.encoder.encode(sut)
         //Assert
@@ -60,7 +58,6 @@ extension VacationEncoderTests {
     func testEncoding_othersVacationType() throws {
         //Arrange
         let sut = try self.buildSut(type: .others, description: "description")
-        
         //Act
         let data = try self.encoder.encode(sut)
         //Assert
@@ -75,7 +72,6 @@ extension VacationEncoderTests {
     func testEncoding_desciptionNotNull() throws {
         //Arrange
         let sut = try self.buildSut(type: .others, description: "description not null")
-        
         //Act
         let data = try self.encoder.encode(sut)
         //Assert
@@ -90,7 +86,6 @@ extension VacationEncoderTests {
     func testEncoding_desciptionNull() throws {
         //Arrange
         let sut = try self.buildSut(type: .others, description: nil)
-        
         //Act
         let data = try self.encoder.encode(sut)
         //Assert

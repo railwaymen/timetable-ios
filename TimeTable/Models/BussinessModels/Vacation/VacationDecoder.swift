@@ -9,7 +9,7 @@
 import Foundation
 
 struct VacationDecoder: Decodable {
-    let id: Int64
+    let id: Int
     let startDate: Date
     let endDate: Date
     let type: VacationType
@@ -30,7 +30,7 @@ struct VacationDecoder: Decodable {
     // MARK: - Initialization
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decode(Int64.self, forKey: .id)
+        self.id = try container.decode(Int.self, forKey: .id)
         self.type = try container.decode(VacationType.self, forKey: .type)
         self.status = try container.decode(VacationStatus.self, forKey: .status)
         self.fullName = try container.decode(String.self, forKey: .fullName)
