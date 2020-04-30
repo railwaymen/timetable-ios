@@ -88,7 +88,7 @@
 "vacation_type_illness" = "Urlop chorobowy";
 "vacation_type_care" = "Urlop opiekuńczy";
 
-// MARK: - NewVacationsb
+// MARK: - NewVacation
 "newvacation_title" = "Dodaj urlop";
 
 // MARK: - Generic Errors

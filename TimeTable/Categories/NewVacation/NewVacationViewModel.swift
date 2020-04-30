@@ -15,7 +15,7 @@ protocol NewVacationViewModelType: class {
     func titleOfType(for row: Int) -> String?
     func viewChanged(startAtDate date: Date)
     func viewChanged(endAtDate date: Date)
-    func viewSelectType(at row: Int)
+    func viewSelectedType(at row: Int)
     func viewHasBeenTapped()
 }
 
@@ -89,11 +89,11 @@ extension NewVacationViewModel: NewVacationViewModelType {
     }
     
     func numberOfTypes() -> Int {
-        return 1
+        return 5
     }
     
     func titleOfType(for row: Int) -> String? {
-        return "type"
+        return "type \(row)"
     }
     
     func viewChanged(startAtDate date: Date) {
@@ -104,8 +104,8 @@ extension NewVacationViewModel: NewVacationViewModelType {
         
     }
     
-    func viewSelectType(at row: Int) {
-        
+    func viewSelectedType(at row: Int) {
+        self.userInterface?.updateType(name: "type \(row)")
     }
     
     func viewHasBeenTapped() {

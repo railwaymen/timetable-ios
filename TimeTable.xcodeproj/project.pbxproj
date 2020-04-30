@@ -2180,8 +2180,8 @@
 		C1411C25245039D100BB4266 /* Vacation */ = {
 			isa = PBXGroup;
 			children = (
-				C1411C2624503A0400BB4266 /* VacationCoordinator.swift */,
 				C1A47BF6245AA97500FDA7F0 /* NewVacationCoordinator.swift */,
+				C1411C2624503A0400BB4266 /* VacationCoordinator.swift */,
 			);
 			path = Vacation;
 			sourceTree = "<group>";

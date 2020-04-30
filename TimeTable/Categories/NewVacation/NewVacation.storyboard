@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="sT2-Qh-sRx">
-                                        <rect key="frame" x="0.0" y="16" width="320" height="417.5"/>
+                                        <rect key="frame" x="0.0" y="16" width="320" height="432"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="iO6-eO-KNU">
                                                 <rect key="frame" x="16" y="0.0" width="288" height="21.5"/>
@@ -40,35 +40,38 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="OQ8-ab-WKM">
-                                                <rect key="frame" x="16" y="45.5" width="288" height="61.5"/>
+                                                <rect key="frame" x="16" y="45.5" width="288" height="76"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="1PU-hr-4N8">
-                                                        <rect key="frame" x="0.0" y="0.0" width="128" height="61.5"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="1PU-hr-4N8">
+                                                        <rect key="frame" x="0.0" y="0.0" width="128" height="76"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ng-IM-ipg">
-                                                                <rect key="frame" x="0.0" y="0.0" width="128" height="19.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="128" height="34"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="06/07/2020" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zLx-Dx-TiN" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="27.5" width="128" height="34"/>
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="06/07/2020" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zLx-Dx-TiN" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="42" width="128" height="34"/>
                                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
                                                         </subviews>
                                                     </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kgy-EJ-UdI">
-                                                        <rect key="frame" x="160" y="0.0" width="128" height="61.5"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kgy-EJ-UdI">
+                                                        <rect key="frame" x="160" y="0.0" width="128" height="76"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvR-xf-nUQ">
-                                                                <rect key="frame" x="0.0" y="0.0" width="128" height="19.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="128" height="34"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="06/07/2020" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zdw-xi-1yV" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="27.5" width="128" height="34"/>
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="06/07/2020" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zdw-xi-1yV" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="42" width="128" height="34"/>
                                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="34" id="U0k-sa-Eo5"/>
+                                                                </constraints>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -77,16 +80,19 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="p54-1c-k3R">
-                                                <rect key="frame" x="16" y="131" width="288" height="57.5"/>
+                                                <rect key="frame" x="16" y="145.5" width="288" height="57.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I2o-xv-p3D">
                                                         <rect key="frame" x="0.0" y="0.0" width="35.5" height="19.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Fk-DB-rl1" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
+                                                    <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Fk-DB-rl1" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="23.5" width="288" height="34"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="34" id="RVY-xG-8at"/>
+                                                        </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
@@ -97,7 +103,7 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="PrG-uC-OEr">
-                                                <rect key="frame" x="16" y="212.5" width="288" height="141"/>
+                                                <rect key="frame" x="16" y="227" width="288" height="141"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="S5F-j6-ArD">
                                                         <rect key="frame" x="0.0" y="0.0" width="288" height="19.5"/>
@@ -109,7 +115,7 @@
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Optional" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ica-tF-U6c">
                                                                 <rect key="frame" x="57.5" y="0.0" width="230.5" height="19.5"/>
-                                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                                                <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
                                                                 <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -117,6 +123,7 @@
                                                     </stackView>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="GoS-hI-TQJ" customClass="AttributerTextView" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="23.5" width="288" height="117.5"/>
+                                                        <color key="backgroundColor" name="Text Field Background"/>
                                                         <color key="tintColor" name="Tint"/>
                                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
                                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -140,7 +147,7 @@
                                                 </subviews>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NH4-wE-geL" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="377.5" width="288" height="40"/>
+                                                <rect key="frame" x="16" y="392" width="288" height="40"/>
                                                 <color key="backgroundColor" name="Enabled Button"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="Uuh-be-2JG"/>
@@ -224,6 +231,9 @@
     <resources>
         <namedColor name="Enabled Button">
             <color red="0.79607843137254897" green="0.078431372549019607" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Text Field Background">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Text Field Border">
             <color white="0.0" alpha="0.20000000298023224" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -34,6 +34,10 @@ class ProfileCoordinator: NavigationCoordinator {
         self.parentViewController = parentViewController
         super.init(window: dependencyContainer.window)
     }
+    
+    deinit {
+        self.navigationController.setViewControllers([], animated: false)
+    }
 
     // MARK: - Overridden
     override func start(finishHandler: (() -> Void)?) {
@@ -41,10 +45,6 @@ class ProfileCoordinator: NavigationCoordinator {
         self.runMainFlow()
         self.navigationController.setNavigationBarHidden(false, animated: false)
         self.navigationController.navigationBar.tintColor = .tint
-    }
-    
-    override func finish() {
-        super.finish()
     }
 }
 

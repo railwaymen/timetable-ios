@@ -37,7 +37,7 @@ class NewVacationViewController: UIViewController {
     }
     
     // MARK: - Actions
-    @objc func closeButtonTapped() {
+    @objc private func closeButtonTapped() {
         self.viewModel.closeButtonTapped()
     }
 
@@ -72,7 +72,7 @@ extension NewVacationViewController: UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.viewModel.viewSelectType(at: row)
+        self.viewModel.viewSelectedType(at: row)
     }
 }
 
@@ -85,7 +85,7 @@ extension NewVacationViewController: NewVacationViewModelOutput {
         self.setUpEndDayPickerView()
         self.setUpTypePickerView()
         self.setUpNoteTextView()
-        self.setUpSaveButtons()
+        self.setUpSaveButton()
         self.setUpActivityIndicator()
     }
     
@@ -120,7 +120,7 @@ extension NewVacationViewController: NewVacationViewModelOutput {
     }
     
     func setBottomContentInset(_ height: CGFloat) {
-        guard self.viewIfLoaded != nil else { return }
+        guard self.isViewLoaded else { return }
         let bottomInset = max(0, height - self.scrollView.safeAreaInsets.bottom)
         self.scrollView.contentInset.bottom = bottomInset
         self.scrollView.verticalScrollIndicatorInsets.bottom = bottomInset
@@ -169,7 +169,7 @@ extension NewVacationViewController {
         self.noteTextView.setTextFieldAppearance()
     }
     
-    private func setUpSaveButtons() {
+    private func setUpSaveButton() {
         self.saveButton.setBackgroundColor(.enabledButton, forState: .normal)
         self.saveButton.setBackgroundColor(.disabledButton, forState: .disabled)
     }
