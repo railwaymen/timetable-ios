@@ -22,16 +22,32 @@ class NewVacationViewController: UIViewController {
         super.loadView()
         self.viewModel.loadView()
     }
+    
+    // MARK: - Actions
+    @objc func closeButtonTapped() {
+        self.viewModel.closeButtonTapped()
+    }
 }
 
 // MARK: - NewVacationViewModelOutput
 extension NewVacationViewController: NewVacationViewModelOutput {
-    
+    func setUp() {
+        self.title = R.string.localizable.newvacation_title()
+        self.setUpBarButtons()
+    }
 }
 
 // MARK: - NewVacationViewControllerType
 extension NewVacationViewController: NewVacationViewControllerType {
     func configure(viewModel: NewVacationViewModelType) {
         self.viewModel = viewModel
+    }
+}
+
+// MARK: - Private
+extension NewVacationViewController {
+    private func setUpBarButtons() {
+        let closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(self.closeButtonTapped))
+        self.navigationItem.setRightBarButtonItems([closeButton], animated: false)
     }
 }

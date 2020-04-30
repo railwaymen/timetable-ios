@@ -10,10 +10,11 @@ import Foundation
 
 protocol NewVacationViewModelType: class {
     func loadView()
+    func closeButtonTapped()
 }
 
 protocol NewVacationViewModelOutput: class {
-    
+    func setUp()
 }
 
 class NewVacationViewModel {
@@ -39,6 +40,10 @@ class NewVacationViewModel {
 // MARK: - NewVacationViewModelType
 extension NewVacationViewModel: NewVacationViewModelType {
     func loadView() {
-        
+        self.userInterface?.setUp()
+    }
+    
+    func closeButtonTapped() {
+        self.coordinator?.finishFlow()
     }
 }

@@ -29,7 +29,7 @@ class NewVacationCoordinator: NavigationCoordinator {
         self.parentViewController = parentViewController
         super.init(window: dependencyContainer.window)
         self.navigationController.setNavigationBarHidden(false, animated: false)
-        self.navigationController.navigationBar.prefersLargeTitles = true
+        self.navigationController.navigationBar.prefersLargeTitles = false
         self.navigationController.navigationBar.tintColor = .tint
     }
     

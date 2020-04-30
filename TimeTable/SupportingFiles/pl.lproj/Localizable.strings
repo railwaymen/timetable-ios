@@ -88,6 +88,9 @@
 "vacation_type_illness" = "Urlop chorobowy";
 "vacation_type_care" = "Urlop opiekuńczy";
 
+// MARK: - NewVacationsb
+"newvacation_title" = "Dodaj urlop";
+
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Pole nie może być puste.";
 "error_invalid_format" = "Wartość ma niepoprawny format.";

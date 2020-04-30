@@ -88,6 +88,9 @@
 "vacation_type_illness" = "Illness";
 "vacation_type_care" = "Care";
 
+// MARK: - NewVacation
+"newvacation_title" = "Add vacation";
+
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Field cannot be empty.";
 "error_invalid_format" = "Content has invalid format.";
