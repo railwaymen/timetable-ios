@@ -67,7 +67,7 @@ extension VacationCoordinator: VacationCoordinatorDelegate {
     }
     
     func vacationRequestedForNewVacationForm() {
-
+        self.runNewVacationFlow()
     }
 }
 
@@ -96,6 +96,17 @@ extension VacationCoordinator {
             self.navigationController.setViewControllers([controller], animated: false)
         } catch {
             self.dependencyContainer.errorHandler.stopInDebug("\(error)")
+        }
+    }
+    
+    private func runNewVacationFlow() {
+        let parentViewController = self.navigationController.topViewController ?? self.navigationController
+        let coordinator = NewVacationCoordinator(
+            dependencyContainer: self.dependencyContainer,
+            parentViewController: parentViewController)
+        self.add(child: coordinator)
+        coordinator.start { [weak self, weak coordinator] in
+            self?.remove(child: coordinator)
         }
     }
 }

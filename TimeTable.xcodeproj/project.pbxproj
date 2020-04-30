@@ -436,6 +436,11 @@
 		C1A47BEB2459715A00FDA7F0 /* VacationEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A47BEA2459715A00FDA7F0 /* VacationEncoderTests.swift */; };
 		C1A47BEF2459934800FDA7F0 /* VacationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A47BEE2459934800FDA7F0 /* VacationStatus.swift */; };
 		C1A47BF32459966F00FDA7F0 /* VacationDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A47BF22459966F00FDA7F0 /* VacationDecoder.swift */; };
+		C1A47BF7245AA97500FDA7F0 /* NewVacationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A47BF6245AA97500FDA7F0 /* NewVacationCoordinator.swift */; };
+		C1A47BFA245AAA1B00FDA7F0 /* NewVacationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A47BF9245AAA1B00FDA7F0 /* NewVacationViewController.swift */; };
+		C1A47BFC245AACFA00FDA7F0 /* NewVacationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A47BFB245AACFA00FDA7F0 /* NewVacationViewModel.swift */; };
+		C1A47BFE245AAD1F00FDA7F0 /* NewVacation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1A47BFD245AAD1F00FDA7F0 /* NewVacation.storyboard */; };
+		C1A47C01245AAE2700FDA7F0 /* NewVacationViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A47C00245AAE2700FDA7F0 /* NewVacationViewControllerMock.swift */; };
 		C1AACFCF21A4349B0023FD32 /* ProjectsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFCE21A4349B0023FD32 /* ProjectsCoordinator.swift */; };
 		C1AACFD621A438660023FD32 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD521A438660023FD32 /* ProfileCoordinator.swift */; };
 		C1AACFD821A4387F0023FD32 /* WorkTimesListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD721A4387F0023FD32 /* WorkTimesListCoordinator.swift */; };
@@ -1016,6 +1021,11 @@
 		C1A47BEA2459715A00FDA7F0 /* VacationEncoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationEncoderTests.swift; sourceTree = "<group>"; };
 		C1A47BEE2459934800FDA7F0 /* VacationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationStatus.swift; sourceTree = "<group>"; };
 		C1A47BF22459966F00FDA7F0 /* VacationDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationDecoder.swift; sourceTree = "<group>"; };
+		C1A47BF6245AA97500FDA7F0 /* NewVacationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVacationCoordinator.swift; sourceTree = "<group>"; };
+		C1A47BF9245AAA1B00FDA7F0 /* NewVacationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVacationViewController.swift; sourceTree = "<group>"; };
+		C1A47BFB245AACFA00FDA7F0 /* NewVacationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVacationViewModel.swift; sourceTree = "<group>"; };
+		C1A47BFD245AAD1F00FDA7F0 /* NewVacation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewVacation.storyboard; sourceTree = "<group>"; };
+		C1A47C00245AAE2700FDA7F0 /* NewVacationViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVacationViewControllerMock.swift; sourceTree = "<group>"; };
 		C1AACFCE21A4349B0023FD32 /* ProjectsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsCoordinator.swift; sourceTree = "<group>"; };
 		C1AACFD521A438660023FD32 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		C1AACFD721A4387F0023FD32 /* WorkTimesListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListCoordinator.swift; sourceTree = "<group>"; };
@@ -1451,6 +1461,7 @@
 			children = (
 				8A12C9642456A9F50046603B /* AccountingPeriods */,
 				8A6B6D86237AB608007D8D93 /* Login */,
+				C1A47BFF245AAE1900FDA7F0 /* NewVacation */,
 				8A6B6D8A237AB636007D8D93 /* Profile */,
 				8A6B6D87237AB613007D8D93 /* ProjectPicker */,
 				8A6B6D88237AB61E007D8D93 /* Projects */,
@@ -1840,6 +1851,7 @@
 				C14EB0232372D9A0007F07D0 /* Error */,
 				C1B5137521772D1400C3727C /* LaunchScreen.storyboard */,
 				C1F926E121874FB40004A9BC /* Login */,
+				C1A47BF8245AAA0600FDA7F0 /* NewVacation */,
 				8A798741237D4DB6003DC028 /* Profile */,
 				8A31CD7E23741F93008E590D /* ProjectPicker */,
 				C125F1B421DCCF2F00594CDE /* Projects */,
@@ -2169,6 +2181,7 @@
 			isa = PBXGroup;
 			children = (
 				C1411C2624503A0400BB4266 /* VacationCoordinator.swift */,
+				C1A47BF6245AA97500FDA7F0 /* NewVacationCoordinator.swift */,
 			);
 			path = Vacation;
 			sourceTree = "<group>";
@@ -2505,6 +2518,24 @@
 				C11D0D002208243C00066CA9 /* matchingFullTimeMissingShouldWorkedKey.json */,
 			);
 			path = MatchingFullTime;
+			sourceTree = "<group>";
+		};
+		C1A47BF8245AAA0600FDA7F0 /* NewVacation */ = {
+			isa = PBXGroup;
+			children = (
+				C1A47BFD245AAD1F00FDA7F0 /* NewVacation.storyboard */,
+				C1A47BF9245AAA1B00FDA7F0 /* NewVacationViewController.swift */,
+				C1A47BFB245AACFA00FDA7F0 /* NewVacationViewModel.swift */,
+			);
+			path = NewVacation;
+			sourceTree = "<group>";
+		};
+		C1A47BFF245AAE1900FDA7F0 /* NewVacation */ = {
+			isa = PBXGroup;
+			children = (
+				C1A47C00245AAE2700FDA7F0 /* NewVacationViewControllerMock.swift */,
+			);
+			path = NewVacation;
 			sourceTree = "<group>";
 		};
 		C1AACFCB21A4345C0023FD32 /* Projects */ = {
@@ -3049,6 +3080,7 @@
 				C1411C2A24503B2700BB4266 /* Vacation.storyboard in Resources */,
 				8A79A2482420C6460048B44B /* TaskHistory.storyboard in Resources */,
 				8A12C96E2456B8120046603B /* AccountingPeriodsHeaderView.xib in Resources */,
+				C1A47BFE245AAD1F00FDA7F0 /* NewVacation.storyboard in Resources */,
 				C18BE26E2452F89300FC71CC /* VacationTableHeader.xib in Resources */,
 				C1E908D424584C16003E0368 /* UsedVacationCell.xib in Resources */,
 				C14EB0292372E1A8007F07D0 /* ErrorView.xib in Resources */,
@@ -3488,6 +3520,7 @@
 				C18BE2722453072300FC71CC /* VacationTableHeaderViewModel.swift in Sources */,
 				C1FE49EA21AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift in Sources */,
 				8A56FC1424531CA80020F8CD /* AccountingPeriodsViewController.swift in Sources */,
+				C1A47BFC245AACFA00FDA7F0 /* NewVacationViewModel.swift in Sources */,
 				8A6A4FAC2456D8D4004B4CF2 /* AccountingPeriod.swift in Sources */,
 				8A6A4FD324584398004B4CF2 /* Int+Extension.swift in Sources */,
 				C1E6B34E219EF30600019DC2 /* URL+Extension.swift in Sources */,
@@ -3524,6 +3557,7 @@
 				C18BE2662452E8C500FC71CC /* VacationCell.swift in Sources */,
 				C1F69B2E21903818005D9114 /* LoginContentProvider.swift in Sources */,
 				8A56FC0C245311B10020F8CD /* ProfileLinkCell.swift in Sources */,
+				C1A47BF7245AA97500FDA7F0 /* NewVacationCoordinator.swift in Sources */,
 				C152C22221E89CB8003ABD88 /* TaskForm.swift in Sources */,
 				C1ECF0A22192C337006038C6 /* JSONEncoder+Extension.swift in Sources */,
 				C175B56C227CAACA006D9944 /* MessagePresenter.swift in Sources */,
@@ -3557,6 +3591,7 @@
 				C153AC6921832073007A35BB /* AttributedView.swift in Sources */,
 				C11B3F3621F7258C00C46BA2 /* DateSelectorView.swift in Sources */,
 				C153AC6421830AFE007A35BB /* ServerConfigurationViewModel.swift in Sources */,
+				C1A47BFA245AAA1B00FDA7F0 /* NewVacationViewController.swift in Sources */,
 				8A3F0C592428CEE300564D6D /* WorkTimeContainerViewModel.swift in Sources */,
 				C1ECF09F2192C1AB006038C6 /* JSONDecoder+Extension.swift in Sources */,
 				C1ECF09D2192BB51006038C6 /* RequestEncoder.swift in Sources */,
@@ -3626,6 +3661,7 @@
 				8A6A4FC92458191D004B4CF2 /* AccountingPeriodsResponseTests.swift in Sources */,
 				8A79A2F324237F760048B44B /* ProjectRecordDecoderLeaderTests.swift in Sources */,
 				8A79A2F5242382C40048B44B /* ProjectRecordDecoderUserTests.swift in Sources */,
+				C1A47C01245AAE2700FDA7F0 /* NewVacationViewControllerMock.swift in Sources */,
 				C1E1F05421AD5FD2007F9228 /* WorkTimesTableViewHeaderViewModelTests.swift in Sources */,
 				C11D0CF9220820BD00066CA9 /* ApiClientAccountingPeriodsTests.swift in Sources */,
 				C1B771F721EF39FA00EFE06F /* ApiValidationErrorsTests.swift in Sources */,

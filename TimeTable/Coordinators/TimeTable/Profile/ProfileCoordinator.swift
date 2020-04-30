@@ -42,6 +42,10 @@ class ProfileCoordinator: NavigationCoordinator {
         self.navigationController.setNavigationBarHidden(false, animated: false)
         self.navigationController.navigationBar.tintColor = .tint
     }
+    
+    override func finish() {
+        super.finish()
+    }
 }
 
 // MARK: - ProfileCoordinatorDelegate

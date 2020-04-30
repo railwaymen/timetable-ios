@@ -61,6 +61,11 @@ class ViewControllerBuilderMock {
     private(set) var vacationParams: [VacationParams] = []
     struct VacationParams {}
     
+    var newVacationThrownError: Error?
+    var newVacationReturnValue: NewVacationViewControllerable = NewVacationViewControllerMock()
+    private(set) var newVacationParams: [NewVacationParams] = []
+    struct NewVacationParams {}
+    
     var usedVacationThrownError: Error?
     var usedVacationReturnValue: UsedVacationViewControllerable = UsedVacationViewControllerMock()
     private(set) var usedVacationParams: [UsedVacationParams] = []
@@ -144,6 +149,14 @@ extension ViewControllerBuilderMock: ViewControllerBuilderType {
             throw error
         }
         return self.vacationReturnValue
+    }
+    
+    func newVacation() throws -> NewVacationViewControllerable {
+        self.newVacationParams.append(NewVacationParams())
+        if let error = self.newVacationThrownError {
+            throw error
+        }
+        return self.newVacationReturnValue
     }
     
     func usedVacation() throws -> UsedVacationViewControllerable {

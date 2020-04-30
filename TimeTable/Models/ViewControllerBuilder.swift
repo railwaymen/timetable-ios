@@ -19,6 +19,7 @@ protocol ViewControllerBuilderType: class {
     func profile() throws -> ProfileViewControllerable
     func accountingPeriods() throws -> AccountingPeriodsViewControllerable
     func vacation() throws -> VacationViewControllerable
+    func newVacation() throws -> NewVacationViewControllerable
     func usedVacation() throws -> UsedVacationViewControllerable
 }
 
@@ -76,6 +77,10 @@ extension ViewControllerBuilder: ViewControllerBuilderType {
     
     func vacation() throws -> VacationViewControllerable {
         try self.cast(R.storyboard.vacation().instantiateInitialViewController())
+    }
+    
+    func newVacation() throws -> NewVacationViewControllerable {
+        try self.cast(R.storyboard.newVacation().instantiateInitialViewController())
     }
     
     func usedVacation() throws -> UsedVacationViewControllerable {
