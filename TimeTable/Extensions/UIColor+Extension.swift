@@ -34,6 +34,12 @@ extension UIColor {
         return color ?? #colorLiteral(red: 0.04705882353, green: 0.8156862745, blue: 0.631372549, alpha: 1)
     }()
     
+    static let accountingPeriods: UIColor = {
+        let color = R.color.accountingPeriods()
+        assert(color != nil)
+        return color ?? #colorLiteral(red: 0.1764705882, green: 0.6117647059, blue: 0.8588235294, alpha: 1)
+    }()
+    
     static let enabledButton: UIColor = {
         let color = R.color.enabledButton()
         assert(color != nil)
