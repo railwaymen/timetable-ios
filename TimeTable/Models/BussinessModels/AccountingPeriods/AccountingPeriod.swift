@@ -31,7 +31,12 @@ struct AccountingPeriod: Decodable {
     
     var formattedCountedDuration: String {
         let (hours, minutes) = self.countedDuration.timerBigComponents
-        return "\(hours):\(minutes.description(minimumDigitsCount: 2))"
+        return TimerFormatter().formatToTimer(hours, minutes)
+    }
+    
+    var formattedDuration: String {
+        let (hours, minutes) = self.duration.timerBigComponents
+        return TimerFormatter().formatToTimer(hours, minutes)
     }
     
     // MARK: - Initialization

@@ -225,6 +225,7 @@
 		8AC097242371CCFF00103FAD /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC097232371CCFF00103FAD /* UIApplication+Extension.swift */; };
 		8ACEF07F242C8BBB00F4E39D /* LoginUIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACEF07E242C8BBB00F4E39D /* LoginUIElements.swift */; };
 		8AD1345A2396B60B00572632 /* AttributedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD134592396B60B00572632 /* AttributedTextView.swift */; };
+		8AD14A6D245B054900BAE803 /* TimerFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD14A6C245B054900BAE803 /* TimerFormatter.swift */; };
 		8ADBB8D124373AC1009CA6FE /* SessionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADBB8D024373AC1009CA6FE /* SessionManagerTests.swift */; };
 		8ADBB8D324373DBA009CA6FE /* KeychainBuilderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADBB8D224373DBA009CA6FE /* KeychainBuilderMock.swift */; };
 		8ADBB8D524374D21009CA6FE /* TemporarySessionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADBB8D424374D21009CA6FE /* TemporarySessionManagerTests.swift */; };
@@ -752,6 +753,7 @@
 		8AC097292371D28100103FAD /* Stage.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Stage.xcconfig; sourceTree = "<group>"; };
 		8ACEF07E242C8BBB00F4E39D /* LoginUIElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUIElements.swift; sourceTree = "<group>"; };
 		8AD134592396B60B00572632 /* AttributedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextView.swift; sourceTree = "<group>"; };
+		8AD14A6C245B054900BAE803 /* TimerFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerFormatter.swift; sourceTree = "<group>"; };
 		8ADBB8D024373AC1009CA6FE /* SessionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManagerTests.swift; sourceTree = "<group>"; };
 		8ADBB8D224373DBA009CA6FE /* KeychainBuilderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainBuilderMock.swift; sourceTree = "<group>"; };
 		8ADBB8D424374D21009CA6FE /* TemporarySessionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporarySessionManagerTests.swift; sourceTree = "<group>"; };
@@ -1839,6 +1841,7 @@
 				8A2FB101242E32B500DDBCB0 /* LabelTextParameters.swift */,
 				C175B56B227CAACA006D9944 /* MessagePresenter.swift */,
 				8A5EF31B23FE808800AE4309 /* ReusableCellType.swift */,
+				8AD14A6C245B054900BAE803 /* TimerFormatter.swift */,
 				8A9FB4092434CABF00805F4E /* ViewControllerBuilder.swift */,
 				C1E6B34A219EF02100019DC2 /* AccessService */,
 				C1531F022191C52200602A0C /* ApiClient */,
@@ -3186,6 +3189,7 @@
 				8A31A85E238E902B008DCC08 /* Date+Extension.swift in Sources */,
 				8A5D48BE2369E18C0082C13D /* DispatchGroupFactory.swift in Sources */,
 				C1249C802181B4FC005DB2A5 /* ErrorHandler.swift in Sources */,
+				8AD14A6D245B054900BAE803 /* TimerFormatter.swift in Sources */,
 				8AF3073823688C5A00832FDD /* DependencyContainer.swift in Sources */,
 				C1AACFD821A4387F0023FD32 /* WorkTimesListCoordinator.swift in Sources */,
 				C1B8FA44218C929F009D10B4 /* SessionDecoder.swift in Sources */,

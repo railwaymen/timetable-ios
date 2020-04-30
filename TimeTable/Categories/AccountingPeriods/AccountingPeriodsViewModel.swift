@@ -89,7 +89,7 @@ extension AccountingPeriodsViewModel: AccountingPeriodsViewModelType {
         let config = AccountingPeriodsCell.Config(
             startsAt: self.formattedStartsAt(of: record),
             endsAt: self.formattedEndsAt(of: record),
-            hours: "\(record.formattedCountedDuration)/\(record.duration.timerBigComponents.hours)",
+            hours: "\(record.formattedCountedDuration)/\(record.formattedDuration)",
             hoursColor: self.color(for: record),
             note: record.note ?? "",
             isFullTime: record.isFullTime,
