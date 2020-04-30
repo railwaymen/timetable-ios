@@ -66,6 +66,7 @@ extension NewVacationCoordinator {
                 userInterface: controller,
                 apiClient: apiClient,
                 errorHandler: self.dependencyContainer.errorHandler,
+                notificationCenter: self.dependencyContainer.notificationCenter,
                 coordinator: self)
             controller.configure(viewModel: viewModel)
             self.navigationController.setViewControllers([controller], animated: false)
