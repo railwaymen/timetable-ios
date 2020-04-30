@@ -11,7 +11,7 @@ import UIKit
 protocol VacationCoordinatorDelegate: class {
     func vacationRequestedForProfileView()
     func vacationRequestedForUsedDaysView(usedDays: VacationResponse.UsedVacationDays)
-    func vacationRequestedForNewVacationForm()
+    func vacationRequestedForNewVacationForm(availableVacationDays: Int)
 }
 
 protocol UsedVacationCoordinatorDelegate: class {
@@ -66,8 +66,8 @@ extension VacationCoordinator: VacationCoordinatorDelegate {
         }
     }
     
-    func vacationRequestedForNewVacationForm() {
-        self.runNewVacationFlow()
+    func vacationRequestedForNewVacationForm(availableVacationDays: Int) {
+        self.runNewVacationFlow(availableVacationDays: availableVacationDays)
     }
 }
 
@@ -99,13 +99,13 @@ extension VacationCoordinator {
         }
     }
     
-    private func runNewVacationFlow() {
+    private func runNewVacationFlow(availableVacationDays: Int) {
         let parentViewController = self.navigationController.topViewController ?? self.navigationController
         let coordinator = NewVacationCoordinator(
             dependencyContainer: self.dependencyContainer,
             parentViewController: parentViewController)
         self.add(child: coordinator)
-        coordinator.start { [weak self, weak coordinator] in
+        coordinator.start(availableVacationDays: availableVacationDays) { [weak self, weak coordinator] in
             self?.remove(child: coordinator)
         }
     }

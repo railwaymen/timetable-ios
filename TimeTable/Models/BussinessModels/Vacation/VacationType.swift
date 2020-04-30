@@ -21,5 +21,8 @@ enum VacationType: String, Codable {
     }
 }
 
+// MARK: - CaseIterable
+extension VacationType: CaseIterable {}
+
 // MARK: - Equatable
 extension VacationType: Equatable {}

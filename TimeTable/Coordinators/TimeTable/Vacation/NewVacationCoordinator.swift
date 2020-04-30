@@ -38,9 +38,9 @@ class NewVacationCoordinator: NavigationCoordinator {
     }
     
     // MARK: - Overridden
-    override func start(finishHandler: (() -> Void)?) {
+    func start(availableVacationDays: Int, finishHandler: (() -> Void)?) {
         super.start(finishHandler: finishHandler)
-        self.runMainFlow()
+        self.runMainFlow(availableVacationDays: availableVacationDays)
     }
 }
 
@@ -55,7 +55,7 @@ extension NewVacationCoordinator: NewVacationCoordinatorDelegate {
 
 // MARK: - Private
 extension NewVacationCoordinator {
-    private func runMainFlow() {
+    private func runMainFlow(availableVacationDays: Int) {
         guard let apiClient = self.dependencyContainer.apiClient else {
             self.dependencyContainer.errorHandler.stopInDebug("Api client is nil")
             return
@@ -67,6 +67,7 @@ extension NewVacationCoordinator {
                 apiClient: apiClient,
                 errorHandler: self.dependencyContainer.errorHandler,
                 notificationCenter: self.dependencyContainer.notificationCenter,
+                availableVacationDays: availableVacationDays,
                 coordinator: self)
             controller.configure(viewModel: viewModel)
             self.navigationController.setViewControllers([controller], animated: false)

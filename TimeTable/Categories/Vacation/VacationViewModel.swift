@@ -99,7 +99,7 @@ extension VacationViewModel: VacationViewModelType {
     }
     
     func viewRequestForVacationForm() {
-        self.coordinator?.vacationRequestedForNewVacationForm()
+        self.coordinator?.vacationRequestedForNewVacationForm(availableVacationDays: self.availableVacationDays)
     }
     
     func viewRequestForProfileView() {

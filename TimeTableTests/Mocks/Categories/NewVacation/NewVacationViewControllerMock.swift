@@ -36,8 +36,8 @@ class NewVacationViewControllerMock: UIViewController {
         let dateString: String
     }
     
-    private(set) var updateEndAtDateParmas: [UpdateEndAtDateParmas] = []
-    struct UpdateEndAtDateParmas {
+    private(set) var updateEndDateParmas: [UpdateEndDateParmas] = []
+    struct UpdateEndDateParmas {
         let date: Date
         let dateString: String
     }
@@ -89,8 +89,8 @@ extension NewVacationViewControllerMock: NewVacationViewModelOutput {
         self.updateStartDateParams.append(UpdateStartDateParams(date: date, dateString: dateString))
     }
     
-    func updateEndAtDate(with date: Date, dateString: String) {
-        self.updateEndAtDateParmas.append(UpdateEndAtDateParmas(date: date, dateString: dateString))
+    func updateEndDate(with date: Date, dateString: String) {
+        self.updateEndDateParmas.append(UpdateEndDateParmas(date: date, dateString: dateString))
     }
     
     func updateType(name: String) {

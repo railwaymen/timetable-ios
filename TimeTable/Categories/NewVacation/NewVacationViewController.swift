@@ -76,10 +76,18 @@ extension NewVacationViewController: UIPickerViewDelegate {
     }
 }
 
+// MARK: - UITextViewDelegate
+extension NewVacationViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        self.viewModel.noteTextViewDidChanged(text: textView.text)
+    }
+}
+
 // MARK: - NewVacationViewModelOutput
 extension NewVacationViewController: NewVacationViewModelOutput {
-    func setUp() {
+    func setUp(availableVacationDays: String) {
         self.title = R.string.localizable.newvacation_title()
+        self.daysLabel.text = availableVacationDays
         self.setUpBarButtons()
         self.setUpStartDayPickerView()
         self.setUpEndDayPickerView()
@@ -97,6 +105,10 @@ extension NewVacationViewController: NewVacationViewModelOutput {
         self.noteTextView.text = text
     }
     
+    func setMinimumDateForStartDate(minDate: Date) {
+        self.startDatePicker.minimumDate = minDate
+    }
+    
     func setMinimumDateForEndDate(minDate: Date) {
         self.endDatePicker.minimumDate = minDate
     }
@@ -106,7 +118,7 @@ extension NewVacationViewController: NewVacationViewModelOutput {
         self.startDatePicker?.date = date
     }
     
-    func updateEndAtDate(with date: Date, dateString: String) {
+    func updateEndDate(with date: Date, dateString: String) {
         self.endDayTextField.text = dateString
         self.endDatePicker?.date = date
     }

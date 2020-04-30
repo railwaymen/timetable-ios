@@ -16,16 +16,18 @@ protocol NewVacationViewModelType: class {
     func viewChanged(startAtDate date: Date)
     func viewChanged(endAtDate date: Date)
     func viewSelectedType(at row: Int)
+    func noteTextViewDidChanged(text: String)
     func viewHasBeenTapped()
 }
 
 protocol NewVacationViewModelOutput: class {
-    func setUp()
+    func setUp(availableVacationDays: String)
     func setActivityIndicator(isHidden: Bool)
     func setNote(text: String)
+    func setMinimumDateForStartDate(minDate: Date)
     func setMinimumDateForEndDate(minDate: Date)
     func updateStartDate(with date: Date, dateString: String)
-    func updateEndAtDate(with date: Date, dateString: String)
+    func updateEndDate(with date: Date, dateString: String)
     func updateType(name: String)
     func setSaveButton(isEnabled: Bool)
     func setBottomContentInset(_ height: CGFloat)
@@ -38,6 +40,11 @@ class NewVacationViewModel {
     private let apiClient: ApiClientVacationType
     private let notificationCenter: NotificationCenterType
     private let errorHandler: ErrorHandlerType
+    private let vacationTypes: [VacationType]
+    private let availableVacationDays: Int
+    
+    private let defaultVacationType: VacationType = .planned
+    private var form: VacationForm
     
     // MARK: - Initialization
     init(
@@ -45,6 +52,7 @@ class NewVacationViewModel {
         apiClient: ApiClientVacationType,
         errorHandler: ErrorHandlerType,
         notificationCenter: NotificationCenterType,
+        availableVacationDays: Int,
         coordinator: NewVacationCoordinatorDelegate
     ) {
         self.userInterface = userInterface
@@ -52,7 +60,9 @@ class NewVacationViewModel {
         self.errorHandler = errorHandler
         self.notificationCenter = notificationCenter
         self.coordinator = coordinator
-        
+        self.availableVacationDays = availableVacationDays
+        self.vacationTypes = VacationType.allCases
+        self.form = VacationForm(startDate: Date(), endDate: Date(), type: self.defaultVacationType, note: nil)
         self.setUpNotification()
     }
     
@@ -75,13 +85,15 @@ class NewVacationViewModel {
 // MARK: - NewVacationViewModelType
 extension NewVacationViewModel: NewVacationViewModelType {
     func loadView() {
-        self.userInterface?.setUp()
-        self.userInterface?.setNote(text: "")
+        self.userInterface?.setUp(availableVacationDays: "\(self.availableVacationDays)")
+        self.userInterface?.updateType(name: self.defaultVacationType.localizableString)
         let date = Date()
-        let dateString = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none)
-        self.userInterface?.updateStartDate(with: date, dateString: dateString)
-        self.userInterface?.updateEndAtDate(with: date, dateString: dateString)
-        self.userInterface?.setSaveButton(isEnabled: false)
+        self.updateDateInput(with: date, action: self.userInterface?.updateStartDate)
+        self.updateDateInput(with: date, action: self.userInterface?.updateEndDate)
+        self.userInterface?.setMinimumDateForEndDate(minDate: date)
+        self.userInterface?.setMinimumDateForStartDate(minDate: date)
+        self.userInterface?.setNote(text: "")
+        self.userInterface?.setSaveButton(isEnabled: true)
     }
     
     func closeButtonTapped() {
@@ -89,23 +101,33 @@ extension NewVacationViewModel: NewVacationViewModelType {
     }
     
     func numberOfTypes() -> Int {
-        return 5
+        return self.vacationTypes.count
     }
     
     func titleOfType(for row: Int) -> String? {
-        return "type \(row)"
+        return self.vacationTypeTitle(for: row)
     }
     
     func viewChanged(startAtDate date: Date) {
-        
+        self.form.startDate = date
+        self.updateDateInput(with: date, action: self.userInterface?.updateStartDate)
+        self.userInterface?.setMinimumDateForEndDate(minDate: date)
+        guard self.form.endDate < date else { return }
+        self.viewChanged(endAtDate: date)
     }
     
     func viewChanged(endAtDate date: Date) {
-        
+        self.form.endDate = date
+        self.updateDateInput(with: date, action: self.userInterface?.updateEndDate)
     }
     
     func viewSelectedType(at row: Int) {
-        self.userInterface?.updateType(name: "type \(row)")
+        let title = self.vacationTypeTitle(for: row)
+        self.userInterface?.updateType(name: title)
+    }
+    
+    func noteTextViewDidChanged(text: String) {
+        self.form.note = text
     }
     
     func viewHasBeenTapped() {
@@ -126,5 +148,15 @@ extension NewVacationViewModel {
             selector: #selector(self.keyboardWillHide),
             name: UIResponder.keyboardWillHideNotification,
             object: nil)
+    }
+    
+    private func updateDateInput(with date: Date, action: ((Date, String) -> Void)?) {
+        let dateString = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none)
+        action?(date, dateString)
+    }
+    
+    private func vacationTypeTitle(for row: Int) -> String {
+        guard let type = self.vacationTypes[safeIndex: row] else { return "" }
+        return type.localizableString
     }
 }
