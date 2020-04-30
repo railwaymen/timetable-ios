@@ -34,6 +34,10 @@ class VacationViewController: UIViewController {
     }
     
     // MARK: - Actions
+    @objc private func addVacationButtonTapped() {
+        self.viewModel.viewRequestForVacationForm()
+    }
+    
     @objc private func profileButtonTapped() {
         self.viewModel.viewRequestForProfileView()
     }
@@ -122,8 +126,9 @@ extension VacationViewController {
     
     private func setUpBarButtons() {
         guard let navigationBar = self.navigationController?.navigationBar else { return }
+        let addImageView = self.buildImageView(image: .plus, action: #selector(self.addVacationButtonTapped))
         let profileImageView = self.buildImageView(image: .profile, action: #selector(self.profileButtonTapped))
-        navigationBar.setLargeTitleRightViews([profileImageView])
+        navigationBar.setLargeTitleRightViews([addImageView, profileImageView])
     }
     
     private func setUpTableView() {

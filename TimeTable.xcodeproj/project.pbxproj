@@ -2549,9 +2549,8 @@
 			children = (
 				C1AFFFE221A2D16F00A7A632 /* TimeTableTabCoordinator.swift */,
 				8A56FC0F24531AAA0020F8CD /* AccountingPeriods */,
-				C1AACFCD21A434780023FD32 /* Profile */,
 				C1AACFCB21A4345C0023FD32 /* Projects */,
-				C1AACFCD21A434780023FD32 /* User */,
+				C1AACFCD21A434780023FD32 /* Profile */,
 				C1411C25245039D100BB4266 /* Vacation */,
 				C1AACFCC21A434650023FD32 /* WorkTime */,
 			);

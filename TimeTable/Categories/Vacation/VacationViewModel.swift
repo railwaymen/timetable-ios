@@ -21,6 +21,7 @@ protocol VacationViewModelOutput: class {
 protocol VacationViewModelType: class {
     func loadView()
     func viewWillAppear()
+    func viewRequestForVacationForm()
     func viewRequestForProfileView()
     func viewHasBeenTapped()
     func numberOfItems() -> Int
@@ -95,6 +96,10 @@ extension VacationViewModel: VacationViewModelType {
     
     func viewWillAppear() {
         self.fetchVacation()
+    }
+    
+    func viewRequestForVacationForm() {
+        self.coordinator?.vacationRequestedForNewVacationForm()
     }
     
     func viewRequestForProfileView() {

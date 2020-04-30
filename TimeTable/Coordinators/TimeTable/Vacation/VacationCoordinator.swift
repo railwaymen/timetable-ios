@@ -11,6 +11,7 @@ import UIKit
 protocol VacationCoordinatorDelegate: class {
     func vacationRequestedForProfileView()
     func vacationRequestedForUsedDaysView(usedDays: VacationResponse.UsedVacationDays)
+    func vacationRequestedForNewVacationForm()
 }
 
 protocol UsedVacationCoordinatorDelegate: class {
@@ -63,6 +64,10 @@ extension VacationCoordinator: VacationCoordinatorDelegate {
         } catch {
             self.dependencyContainer.errorHandler.stopInDebug("\(error)")
         }
+    }
+    
+    func vacationRequestedForNewVacationForm() {
+
     }
 }
 
