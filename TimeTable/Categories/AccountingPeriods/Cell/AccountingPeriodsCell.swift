@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AccountingPeriodsCellConfigurationInterface: class {
-    func configure(startsAt: String, endsAt: String, hours: String, note: String, isFullTime: Bool, isClosed: Bool)
+    func configure(with config: AccountingPeriodsCell.Config)
 }
 
 class AccountingPeriodsCell: UITableViewCell, ReusableCellType {
@@ -22,19 +22,33 @@ class AccountingPeriodsCell: UITableViewCell, ReusableCellType {
     @IBOutlet private var noteStackView: UIStackView!
 }
 
+// MARK: - Structures
+extension AccountingPeriodsCell {
+    struct Config {
+        let startsAt: String
+        let endsAt: String
+        let hours: String
+        let hoursColor: UIColor
+        let note: String
+        let isFullTime: Bool
+        let isClosed: Bool
+    }
+}
+
 // MARK: - AccountingPeriodsCellConfigurationInterface
 extension AccountingPeriodsCell: AccountingPeriodsCellConfigurationInterface {
-    func configure(startsAt: String, endsAt: String, hours: String, note: String, isFullTime: Bool, isClosed: Bool) {
-        self.startsAtLabel.text = startsAt
-        self.endsAtLabel.text = endsAt
-        self.hoursLabel.text = hours
-        self.fullTimeLabel.text = isFullTime
+    func configure(with config: Config) {
+        self.startsAtLabel.text = config.startsAt
+        self.endsAtLabel.text = config.endsAt
+        self.hoursLabel.text = config.hours
+        self.hoursLabel.textColor = config.hoursColor
+        self.fullTimeLabel.text = config.isFullTime
             ? R.string.localizable.accountingperiods_full_time_yes()
             : R.string.localizable.accountingperiods_full_time_no()
-        self.noteLabel.text = note
+        self.noteLabel.text = config.note
         
-        let closedImageShouldBeHidden = !isClosed
-        let noteShouldBeHidden = note.isEmpty
+        let closedImageShouldBeHidden = !config.isClosed
+        let noteShouldBeHidden = config.note.isEmpty
         self.closedImageView.set(isHidden: closedImageShouldBeHidden)
         self.noteLabel.alpha = noteShouldBeHidden ? 0 : 1
         self.noteStackView.set(isHidden: noteShouldBeHidden && closedImageShouldBeHidden)

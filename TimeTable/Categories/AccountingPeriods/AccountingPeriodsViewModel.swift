@@ -6,7 +6,7 @@
 //  Copyright © 2020 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol AccountingPeriodsViewModelOutput: class {
     func setUp()
@@ -86,13 +86,15 @@ extension AccountingPeriodsViewModel: AccountingPeriodsViewModelType {
     
     func configure(_ cell: AccountingPeriodsCellConfigurationInterface, for indexPath: IndexPath) {
         guard let record = self.record(at: indexPath) else { return }
-        cell.configure(
+        let config = AccountingPeriodsCell.Config(
             startsAt: self.formattedStartsAt(of: record),
             endsAt: self.formattedEndsAt(of: record),
             hours: "\(record.formattedCountedDuration)/\(record.duration.timerBigComponents.hours)",
+            hoursColor: self.color(for: record),
             note: record.note ?? "",
             isFullTime: record.isFullTime,
             isClosed: record.isClosed)
+        cell.configure(with: config)
     }
     
     func configure(_ errorView: ErrorViewable) {
@@ -190,5 +192,15 @@ extension AccountingPeriodsViewModel {
     private func formattedEndsAt(of record: AccountingPeriod) -> String {
         guard let endsAtDate = record.endsAt else { return "" }
         return self.dateFormatter.string(from: endsAtDate)
+    }
+    
+    private func color(for record: AccountingPeriod) -> UIColor {
+        if record.countedDuration < record.duration {
+            return .tint
+        } else if record.countedDuration == record.duration {
+            return .defaultLabel
+        } else {
+            return .accountingPeriods
+        }
     }
 }
