@@ -6,7 +6,6 @@
 //  Copyright © 2020 Railwaymen. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 protocol AccountingPeriodsViewModelOutput: class {
