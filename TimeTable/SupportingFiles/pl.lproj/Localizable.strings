@@ -8,11 +8,11 @@
 
 // MARK: - Credential
 "credential_title" = "Zaloguj się";
-"credential_enter_email_password" = "Wprowadź adres email i hasło";
-"credential_stay_signed_in" = "Pozostań zalogowanym";
-"credential_username_placeholder" = "Użytkownik";
+"credential_enter_email_password" = "Wprowadź email i hasło:";
+"credential_stay_signed_in" = "Pozostań zalogowany";
+"credential_username_placeholder" = "Nazwa użytkownika";
 "credential_password_placeholder" = "Hasło";
-"credential_log_in_btn" = "Zaloguj";
+"credential_log_in_btn" = "Zaloguj się";
 
 "credential_error_credentials_invalid" = "Podane dane są niepoprawne. Upewnij się, czy dobrze je wpisałeś.";
 
@@ -25,7 +25,7 @@
 "timesheet_delete_alert_message" = "Jesteś pewien, że chcesz trwale usunąć wpis?";
 "timesheet_delete_alert_cancel" = "Anuluj";
 "timesheet_delete_alert_confirm" = "Usuń trwale";
-"timesheet_month_total" = "Suma w miesiącu";
+"timesheet_month_total" = "Miesiąc ogółem";
 
 // MARK: - Work Time Form
 "worktimeform_new_entry_title" = "Dodaj nowy wpis";
