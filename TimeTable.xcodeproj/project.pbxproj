@@ -50,6 +50,7 @@
 		8A21A04E2436134000EE4A79 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A21A04D2436134000EE4A79 /* SessionManager.swift */; };
 		8A21A0502436136B00EE4A79 /* TemporarySessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A21A04F2436136B00EE4A79 /* TemporarySessionManager.swift */; };
 		8A21A052243614D900EE4A79 /* KeychainBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A21A051243614D900EE4A79 /* KeychainBuilder.swift */; };
+		8A281B6E2460166A00A9564C /* LoginFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A281B6D2460166A00A9564C /* LoginFormTests.swift */; };
 		8A2FB0F4242E274700DDBCB0 /* taskChangedProjectResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A2FB0F3242E274700DDBCB0 /* taskChangedProjectResponse.json */; };
 		8A2FB0F6242E278C00DDBCB0 /* taskUnchangedResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A2FB0F5242E278C00DDBCB0 /* taskUnchangedResponse.json */; };
 		8A2FB0F8242E27DF00DDBCB0 /* taskChangedBodyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A2FB0F7242E27DF00DDBCB0 /* taskChangedBodyResponse.json */; };
@@ -574,6 +575,7 @@
 		8A21A04D2436134000EE4A79 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		8A21A04F2436136B00EE4A79 /* TemporarySessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporarySessionManager.swift; sourceTree = "<group>"; };
 		8A21A051243614D900EE4A79 /* KeychainBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainBuilder.swift; sourceTree = "<group>"; };
+		8A281B6D2460166A00A9564C /* LoginFormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormTests.swift; sourceTree = "<group>"; };
 		8A2FB0F3242E274700DDBCB0 /* taskChangedProjectResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedProjectResponse.json; sourceTree = "<group>"; };
 		8A2FB0F5242E278C00DDBCB0 /* taskUnchangedResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskUnchangedResponse.json; sourceTree = "<group>"; };
 		8A2FB0F7242E27DF00DDBCB0 /* taskChangedBodyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedBodyResponse.json; sourceTree = "<group>"; };
@@ -2514,6 +2516,7 @@
 			isa = PBXGroup;
 			children = (
 				C1B8FA48218C963A009D10B4 /* LoginCredentialsTests.swift */,
+				8A281B6D2460166A00A9564C /* LoginFormTests.swift */,
 				C1B8FA4A218C964C009D10B4 /* SessionDecoderTests.swift */,
 			);
 			path = Session;
@@ -3430,6 +3433,7 @@
 				C12CA56F21A58BE70082FEB7 /* SimpleProjectRecordDecoderTests.swift in Sources */,
 				8A6A4FD524584A18004B4CF2 /* IntExtensionTests.swift in Sources */,
 				8AE0001623746520002F783E /* ProjectPickerViewModelTests.swift in Sources */,
+				8A281B6E2460166A00A9564C /* LoginFormTests.swift in Sources */,
 				8AE55D1F23FD86A200F94242 /* TaskFormMock.swift in Sources */,
 				8AFFE5CE24334AAC001D9E89 /* RestlerFactoryMock.swift in Sources */,
 				C134297321A6BE3800F4EA42 /* JSONSerializationMock.swift in Sources */,
