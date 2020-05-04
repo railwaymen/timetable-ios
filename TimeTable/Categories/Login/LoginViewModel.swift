@@ -86,7 +86,6 @@ extension LoginViewModel: LoginViewModelType {
     func viewDidLoad() {
         self.userInterface?.setUpView(checkBoxIsActive: self.loginForm.shouldRememberUser)
         self.userInterface?.updateLoginFields(email: self.loginForm.email, password: self.loginForm.password)
-        self.updateValidation()
         self.updateLogInButton()
     }
     

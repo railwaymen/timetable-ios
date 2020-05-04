@@ -29,7 +29,11 @@ struct LoginForm: LoginFormType {
     }
     
     // MARK: - Initialization
-    init(email: String = "", password: String = "", shouldRememberUser: Bool = false) {
+    init(
+        email: String = "",
+        password: String = "",
+        shouldRememberUser: Bool = false
+    ) {
         self.email = email
         self.password = password
         self.shouldRememberUser = shouldRememberUser
