@@ -49,6 +49,16 @@ class LoginViewControllerMock: UIViewController {
         var height: CGFloat
     }
     
+    private(set) var setLoginTextFieldParams: [SetLoginTextFieldParams] = []
+    struct SetLoginTextFieldParams {
+        let isHighlighted: Bool
+    }
+    
+    private(set) var setPasswordTextFieldParams: [SetPasswordTextFieldParams] = []
+    struct SetPasswordTextFieldParams {
+        let isHighlighted: Bool
+    }
+    
     // MARK: - LoginViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
@@ -88,6 +98,14 @@ extension LoginViewControllerMock: LoginViewModelOutput {
     
     func setBottomContentInset(_ height: CGFloat) {
         self.setBottomContentInsetParams.append(SetBottomContentInsetParams(height: height))
+    }
+    
+    func setLoginTextField(isHighlighted: Bool) {
+        self.setLoginTextFieldParams.append(SetLoginTextFieldParams(isHighlighted: isHighlighted))
+    }
+    
+    func setPasswordTextField(isHighlighted: Bool) {
+        self.setPasswordTextFieldParams.append(SetPasswordTextFieldParams(isHighlighted: isHighlighted))
     }
 }
 

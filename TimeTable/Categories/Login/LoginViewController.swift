@@ -57,7 +57,9 @@ extension LoginViewController: LoginViewModelOutput {
     func setUpView(checkBoxIsActive: Bool) {
         self.checkBoxButton.isActive = checkBoxIsActive
         self.loginTextField.delegate = self
+        self.loginTextField.setTextFieldAppearance()
         self.passwordTextField.delegate = self
+        self.passwordTextField.setTextFieldAppearance()
         self.setUpActivityIndicator()
     }
     
@@ -101,6 +103,14 @@ extension LoginViewController: LoginViewModelOutput {
         let verticalSpacing = self.loginButton.convert(self.loginButton.bounds, to: self.passwordTextField).minY
         self.updateScrollViewInsets(with: max(height + verticalSpacing + bottomPadding, 0))
     }
+    
+    func setLoginTextField(isHighlighted: Bool) {
+        self.set(self.loginTextField, isHighlighted: isHighlighted)
+    }
+    
+    func setPasswordTextField(isHighlighted: Bool) {
+        self.set(self.passwordTextField, isHighlighted: isHighlighted)
+    }
 }
 
 // MARK: - UITextFieldDelegate
@@ -134,5 +144,20 @@ extension LoginViewController {
     private func setUpActivityIndicator() {
         self.activityIndicator.style = .large
         self.setActivityIndicator(isHidden: true)
+    }
+    
+    private func set(_ view: UIView, isHighlighted: Bool) {
+        let borderColor: CGColor = self.getBorderColor(isHighlighted: isHighlighted).cgColor
+        guard view.layer.borderColor != borderColor else { return }
+        let animation = CABasicAnimation(keyPath: #keyPath(CALayer.borderColor))
+        animation.fromValue = view.layer.borderColor
+        animation.toValue = borderColor
+        animation.duration = 0.3
+        view.layer.add(animation, forKey: "borderColor")
+        view.layer.borderColor = borderColor
+    }
+    
+    private func getBorderColor(isHighlighted: Bool) -> UIColor {
+        return isHighlighted ? .textFieldValidationErrorBorder : .textFieldBorder
     }
 }
