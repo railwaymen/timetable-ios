@@ -143,11 +143,7 @@ extension NewVacationViewController: NewVacationViewModelOutput {
     }
     
     func setNote(isHighlighted: Bool) {
-        UIView.animate(withDuration: 0.3) {
-            self.noteTextView.borderColor = isHighlighted
-                ? .textFieldValidationErrorBorder
-                : .textFieldBorder
-        }
+        self.set(self.noteTextView, isHighlighted: isHighlighted)
     }
     
     func dismissKeyboard() {
@@ -208,5 +204,20 @@ extension NewVacationViewController {
         picker = UIDatePicker()
         picker?.datePickerMode = .date
         picker?.addTarget(self, action: selector, for: .valueChanged)
+    }
+    
+    private func set(_ view: UIView, isHighlighted: Bool) {
+        let borderColor: CGColor = self.getBorderColor(isHighlighted: isHighlighted).cgColor
+        guard view.layer.borderColor != borderColor else { return }
+        let animation = CABasicAnimation(keyPath: #keyPath(CALayer.borderColor))
+        animation.fromValue = view.layer.borderColor
+        animation.toValue = borderColor
+        animation.duration = 0.3
+        view.layer.add(animation, forKey: "borderColor")
+        view.layer.borderColor = borderColor
+    }
+    
+    private func getBorderColor(isHighlighted: Bool) -> UIColor {
+        return isHighlighted ? .textFieldValidationErrorBorder : .textFieldBorder
     }
 }

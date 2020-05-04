@@ -24,6 +24,20 @@ struct VacationForm: VacationFormType {
     var type: VacationType
     var note: String?
     
+    // MARK: - Initialization
+    init(
+        startDate: Date = Date(),
+        endDate: Date = Date(),
+        type: VacationType = .planned,
+        note: String? = nil
+    ) {
+        self.startDate = startDate
+        self.endDate = endDate
+        self.type = type
+        self.note = note
+    }
+    
+    // MARK: - VacationFormType
     func validationErrors() -> [ValidationError] {
         guard self.type == .others else { return [] }
         guard note == nil else { return [] }

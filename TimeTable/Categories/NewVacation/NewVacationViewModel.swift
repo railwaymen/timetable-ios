@@ -45,7 +45,6 @@ class NewVacationViewModel {
     private let vacationTypes: [VacationType]
     private let availableVacationDays: Int
     
-    private let defaultVacationType: VacationType = .planned
     private var form: VacationFormType {
         didSet {
             self.updateValidationErrorsOnUI()
@@ -85,7 +84,7 @@ class NewVacationViewModel {
         self.availableVacationDays = availableVacationDays
         self.vacationTypes = VacationType.allCases
         self.decisionState = .preparing
-        self.form = VacationForm(startDate: Date(), endDate: Date(), type: self.defaultVacationType, note: nil)
+        self.form = VacationForm()
         self.setUpNotification()
     }
     
@@ -193,7 +192,7 @@ extension NewVacationViewModel {
     }
     
     private func updateViewForPreparingState() {
-        self.userInterface?.updateType(name: self.defaultVacationType.localizableString)
+        self.userInterface?.updateType(name: self.form.type.localizableString)
         let date = Date()
         self.updateDateInput(with: date, action: self.userInterface?.updateStartDate)
         self.updateDateInput(with: date, action: self.userInterface?.updateEndDate)

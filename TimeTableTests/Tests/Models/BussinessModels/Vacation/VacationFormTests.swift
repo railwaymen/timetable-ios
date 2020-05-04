@@ -187,9 +187,8 @@ extension VacationFormTests {
 extension VacationFormTests {
     private func buildSUT(type: VacationType, note: String?) throws -> VacationForm {
         VacationForm(
-            startDate: try self.buildDate(year: 2020, month: 04, day: 29),
-            endDate: try self.buildDate(year: 2020, month: 04, day: 29),
             type: type,
             note: note)
     }
 }
+
