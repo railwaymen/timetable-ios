@@ -33,6 +33,7 @@ protocol NewVacationViewModelOutput: class {
     func setSaveButton(isEnabled: Bool)
     func setBottomContentInset(_ height: CGFloat)
     func setNote(isHighlighted: Bool)
+    func setOptionalLabel(isHidden: Bool)
     func dismissKeyboard()
 }
 
@@ -48,6 +49,7 @@ class NewVacationViewModel {
     private var form: VacationFormType {
         didSet {
             self.updateValidationErrorsOnUI()
+            self.updateUIStaticComponents()
         }
     }
     
@@ -237,5 +239,9 @@ extension NewVacationViewModel {
         let errors = self.form.validationErrors()
         self.userInterface?.setSaveButton(isEnabled: errors.isEmpty)
         self.userInterface?.setNote(isHighlighted: errors.contains(.cannotBeEmpty(.noteTextView)))
+    }
+    
+    private func updateUIStaticComponents() {
+        self.userInterface?.setOptionalLabel(isHidden: self.form.type == .others)
     }
 }

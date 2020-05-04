@@ -234,6 +234,7 @@
                         <outlet property="daysLabel" destination="EPk-rq-91c" id="Pzr-XO-iIq"/>
                         <outlet property="endDayTextField" destination="Zdw-xi-1yV" id="gkf-6a-l7Z"/>
                         <outlet property="noteTextView" destination="GoS-hI-TQJ" id="TK7-fH-5pA"/>
+                        <outlet property="optionalStaticLabel" destination="ica-tF-U6c" id="VV8-dm-3go"/>
                         <outlet property="saveButton" destination="NH4-wE-geL" id="VDE-I0-sjs"/>
                         <outlet property="scrollView" destination="u79-Nk-NpM" id="4TD-my-jc3"/>
                         <outlet property="startDayTextField" destination="zLx-Dx-TiN" id="Hcn-XU-fpZ"/>

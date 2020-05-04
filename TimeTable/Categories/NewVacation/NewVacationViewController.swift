@@ -21,6 +21,7 @@ class NewVacationViewController: UIViewController {
     @IBOutlet private var startDayTextField: UITextField!
     @IBOutlet private var endDayTextField: UITextField!
     @IBOutlet private var typeTextField: UITextField!
+    @IBOutlet private var optionalStaticLabel: UILabel!
     @IBOutlet private var noteTextView: AttributerTextView!
     @IBOutlet private var saveButton: AttributedButton!
     
@@ -144,6 +145,10 @@ extension NewVacationViewController: NewVacationViewModelOutput {
     
     func setNote(isHighlighted: Bool) {
         self.set(self.noteTextView, isHighlighted: isHighlighted)
+    }
+    
+    func setOptionalLabel(isHidden: Bool) {
+        self.optionalStaticLabel.set(isHidden: isHidden)
     }
     
     func dismissKeyboard() {
