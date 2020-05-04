@@ -192,6 +192,7 @@
 		8A79A3092424EAF70048B44B /* projectTagsUnknownResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A3082424EAF70048B44B /* projectTagsUnknownResponse.json */; };
 		8A80A38D23D89C24002643A1 /* APIClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80A38C23D89C24002643A1 /* APIClientFactory.swift */; };
 		8A80A38F23D89ED3002643A1 /* APIClientFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */; };
+		8A81E873246003A40091846D /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A81E872246003A40091846D /* LoginForm.swift */; };
 		8A82B2EC243CB8F00042D7AB /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A82B2EB243CB8F00042D7AB /* R.generated.swift */; };
 		8A82EBF323FD46EC001393A8 /* WorkTimeContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */; };
 		8A82EBF523FD4DC6001393A8 /* WorkTimeContentProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A82EBF423FD4DC6001393A8 /* WorkTimeContentProviderMock.swift */; };
@@ -717,6 +718,7 @@
 		8A79A3082424EAF70048B44B /* projectTagsUnknownResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = projectTagsUnknownResponse.json; sourceTree = "<group>"; };
 		8A80A38C23D89C24002643A1 /* APIClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientFactory.swift; sourceTree = "<group>"; };
 		8A80A38E23D89ED3002643A1 /* APIClientFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientFactoryMock.swift; sourceTree = "<group>"; };
+		8A81E872246003A40091846D /* LoginForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
 		8A82B2EB243CB8F00042D7AB /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		8A82EBF223FD46EC001393A8 /* WorkTimeContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContentProvider.swift; sourceTree = "<group>"; };
 		8A82EBF423FD4DC6001393A8 /* WorkTimeContentProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeContentProviderMock.swift; sourceTree = "<group>"; };
@@ -2521,6 +2523,7 @@
 			isa = PBXGroup;
 			children = (
 				C1B8FA40218C91F3009D10B4 /* LoginCredentials.swift */,
+				8A81E872246003A40091846D /* LoginForm.swift */,
 				C1B8FA43218C929F009D10B4 /* SessionDecoder.swift */,
 			);
 			path = Session;
@@ -3220,6 +3223,7 @@
 				C134296721A6951C00F4EA42 /* ApiClient+WorkTimes.swift in Sources */,
 				C125C4DB21871C7A00FBA0DD /* ServerConfiguration.swift in Sources */,
 				C14EB0272372E113007F07D0 /* ErrorView.swift in Sources */,
+				8A81E873246003A40091846D /* LoginForm.swift in Sources */,
 				8A5EF31823FE7D0800AE4309 /* UITableView+Extension.swift in Sources */,
 				C1CE041521F5E01200E80517 /* AttributedTextField.swift in Sources */,
 				C1FE49EA21AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift in Sources */,

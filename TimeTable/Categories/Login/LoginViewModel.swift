@@ -40,12 +40,11 @@ class LoginViewModel {
     private let errorHandler: ErrorHandlerType
     private let notificationCenter: NotificationCenterType
     
-    private var loginCredentials: LoginCredentials {
+    private var loginForm: LoginFormType {
         didSet {
             self.updateValidation()
         }
     }
-    private var shouldRememberUser: Bool = false
     
     // MARK: - Initialization
     init(
@@ -53,14 +52,15 @@ class LoginViewModel {
         coordinator: LoginCoordinatorDelegate,
         contentProvider: LoginContentProviderType,
         errorHandler: ErrorHandlerType,
-        notificationCenter: NotificationCenterType
+        notificationCenter: NotificationCenterType,
+        loginForm: LoginFormType = LoginForm()
     ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
         self.contentProvider = contentProvider
         self.errorHandler = errorHandler
         self.notificationCenter = notificationCenter
-        self.loginCredentials = LoginCredentials(email: "", password: "")
+        self.loginForm = loginForm
         
         self.setUpNotifications()
     }
@@ -84,41 +84,40 @@ class LoginViewModel {
 // MARK: - LoginViewModelType
 extension LoginViewModel: LoginViewModelType {
     func viewDidLoad() {
-        self.userInterface?.setUpView(checkBoxIsActive: self.shouldRememberUser)
-        self.userInterface?.updateLoginFields(email: self.loginCredentials.email, password: self.loginCredentials.password)
+        self.userInterface?.setUpView(checkBoxIsActive: self.loginForm.shouldRememberUser)
+        self.userInterface?.updateLoginFields(email: self.loginForm.email, password: self.loginForm.password)
         self.updateValidation()
         self.updateLogInButton()
     }
     
     func loginInputValueDidChange(value: String?) {
-        guard let loginValue = value else { return }
-        self.loginCredentials.email = loginValue
+        guard let email = value else { return }
+        self.loginForm.email = email
         self.updateLogInButton()
     }
     
     func loginTextFieldDidRequestForReturn() -> Bool {
-        guard !self.loginCredentials.email.isEmpty else { return false }
+        guard !self.loginForm.email.isEmpty else { return false }
         self.userInterface?.focusOnPasswordTextField()
         return true
     }
     
     func passwordInputValueDidChange(value: String?) {
-        guard let passowrdValue = value else { return }
-        self.loginCredentials.password = passowrdValue
+        guard let password = value else { return }
+        self.loginForm.password = password
         self.updateLogInButton()
     }
     
     func passwordTextFieldDidRequestForReturn() -> Bool {
-        let isCorrect = !self.loginCredentials.email.isEmpty && !self.loginCredentials.password.isEmpty
-        if isCorrect {
+        if self.loginForm.isValid {
             self.viewRequestedToLogin()
         }
-        return isCorrect
+        return self.loginForm.isValid
     }
     
     func shouldRemeberUserBoxStatusDidChange(isActive: Bool) {
         let newValue = !isActive
-        self.shouldRememberUser = newValue
+        self.loginForm.shouldRememberUser = newValue
         self.userInterface?.checkBoxIsActiveState(newValue)
     }
     
@@ -127,26 +126,12 @@ extension LoginViewModel: LoginViewModelType {
     }
     
     func viewRequestedToLogin() {
-        self.userInterface?.setActivityIndicator(isHidden: false)
-        self.contentProvider.login(
-            with: self.loginCredentials,
-            shouldSaveUser: self.shouldRememberUser) { [weak self] result in
-                switch result {
-                case .success:
-                    self?.coordinator?.loginDidFinish(with: .loggedInCorrectly)
-                case let .failure(error):
-                    self?.userInterface?.setActivityIndicator(isHidden: true)
-                    if let apiError = error as? ApiClientError {
-                        switch apiError.type {
-                        case .validationErrors:
-                            self?.errorHandler.throwing(error: UIError.loginCredentialsInvalid)
-                        default:
-                            self?.errorHandler.throwing(error: error)
-                        }
-                    } else {
-                        self?.errorHandler.throwing(error: error)
-                    }
-                }
+        do {
+            let credentials = try self.loginForm.generateEncodableObject()
+            self.login(with: credentials)
+        } catch {
+            self.updateLogInButton()
+            self.updateValidation()
         }
     }
     
@@ -176,12 +161,41 @@ extension LoginViewModel {
     }
     
     private func updateLogInButton() {
-        let isLoginButtonEnabled = !self.loginCredentials.email.isEmpty && !self.loginCredentials.password.isEmpty
+        let isLoginButtonEnabled = self.loginForm.isValid
         self.userInterface?.loginButtonEnabledState(isLoginButtonEnabled)
     }
     
     private func updateValidation() {
-        self.userInterface?.setLoginTextField(isHighlighted: self.loginCredentials.email.isEmpty)
-        self.userInterface?.setPasswordTextField(isHighlighted: self.loginCredentials.password.isEmpty)
+        let errors = self.loginForm.validationErrors()
+        self.userInterface?.setLoginTextField(isHighlighted: errors.contains(.emailEmpty))
+        self.userInterface?.setPasswordTextField(isHighlighted: errors.contains(.passwordEmpty))
+    }
+    
+    private func login(with credentials: LoginCredentials) {
+        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.contentProvider.login(
+            with: credentials,
+            shouldSaveUser: self.loginForm.shouldRememberUser) { [weak self] result in
+                switch result {
+                case .success:
+                    self?.coordinator?.loginDidFinish(with: .loggedInCorrectly)
+                case let .failure(error):
+                    self?.handleLoginFailure(error: error)
+                }
+        }
+    }
+    
+    private func handleLoginFailure(error: Error) {
+        self.userInterface?.setActivityIndicator(isHidden: true)
+        if let apiError = error as? ApiClientError {
+            switch apiError.type {
+            case .validationErrors:
+                self.errorHandler.throwing(error: UIError.loginCredentialsInvalid)
+            default:
+                self.errorHandler.throwing(error: error)
+            }
+        } else {
+            self.errorHandler.throwing(error: error)
+        }
     }
 }
