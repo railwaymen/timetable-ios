@@ -15,14 +15,13 @@ protocol VacationTableHeaderType: class {
 }
 
 class VacationTableHeader: UITableViewHeaderFooterView, ReusableCellType {
-    static let reuseID = "VacationTableHeaderIdentifier"
-    
     @IBOutlet private var daysLeft: UILabel!
     @IBOutlet private var yearTextField: UITextField!
     private var yearPickerView: YearPickerView!
     
     private var viewModel: VacationTableHeaderViewModelType!
     
+    // MARK: - Actions
     @IBAction private func moreButtonTapped() {
         self.viewModel.moreButtonTapped()
     }

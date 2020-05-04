@@ -13,16 +13,16 @@ class VacationFormTests: XCTestCase {}
 
 // MARK: - func validationErrors() -> [VacationForm.ValidationError]
 extension VacationFormTests {
-    func testValidationErros_typePlanned_nullNote() throws {
+    func testValidationErros_typePlanned_emptyNote() throws {
         //Arrange
-        let sut = try self.buildSUT(type: .planned, note: nil)
+        let sut = try self.buildSUT(type: .planned)
         //Act
         let errors = sut.validationErrors()
         //Assert
         XCTAssert(errors.isEmpty)
     }
     
-    func testValidationErros_typePlanned_notNullNote() throws {
+    func testValidationErros_typePlanned_notEmptyNote() throws {
         //Arrange
         let sut = try self.buildSUT(type: .planned, note: "note")
         //Act
@@ -31,16 +31,16 @@ extension VacationFormTests {
         XCTAssert(errors.isEmpty)
     }
     
-    func testValidationErros_typeRequested_nullNote() throws {
+    func testValidationErros_typeRequested_emptyNote() throws {
         //Arrange
-        let sut = try self.buildSUT(type: .requested, note: nil)
+        let sut = try self.buildSUT(type: .requested)
         //Act
         let errors = sut.validationErrors()
         //Assert
         XCTAssert(errors.isEmpty)
     }
     
-    func testValidationErros_typeRequested_notNullNote() throws {
+    func testValidationErros_typeRequested_notEmptyNote() throws {
         //Arrange
         let sut = try self.buildSUT(type: .requested, note: "note")
         //Act
@@ -49,16 +49,16 @@ extension VacationFormTests {
         XCTAssert(errors.isEmpty)
     }
     
-    func testValidationErros_typeCompassionate_nullNote() throws {
+    func testValidationErros_typeCompassionate_emptyNote() throws {
         //Arrange
-        let sut = try self.buildSUT(type: .compassionate, note: nil)
+        let sut = try self.buildSUT(type: .compassionate)
         //Act
         let errors = sut.validationErrors()
         //Assert
         XCTAssert(errors.isEmpty)
     }
     
-    func testValidationErros_typeCompassionate_notNullNote() throws {
+    func testValidationErros_typeCompassionate_notEmptyNote() throws {
         //Arrange
         let sut = try self.buildSUT(type: .compassionate, note: "note")
         //Act
@@ -67,9 +67,9 @@ extension VacationFormTests {
         XCTAssert(errors.isEmpty)
     }
     
-    func testValidationErros_typeOthers_nullNote() throws {
+    func testValidationErros_typeOthers_emptyNote() throws {
         //Arrange
-        let sut = try self.buildSUT(type: .others, note: nil)
+        let sut = try self.buildSUT(type: .others)
         //Act
         let errors = sut.validationErrors()
         //Assert
@@ -77,7 +77,7 @@ extension VacationFormTests {
         XCTAssert(errors.contains(.cannotBeEmpty(.noteTextView)))
     }
     
-    func testValidationErros_typeOthers_notNullNote() throws {
+    func testValidationErros_typeOthers_notEmptyNote() throws {
         //Arrange
         let sut = try self.buildSUT(type: .others, note: "note")
         //Act
@@ -89,9 +89,9 @@ extension VacationFormTests {
 
 // MARK: - func convertToEncoder() throws -> VacationEncoder
 extension VacationFormTests {
-    func testConvertToEncoder_typePlanned_nullNote() throws {
+    func testConvertToEncoder_typePlanned_emptyNote() throws {
         //Arrange
-        let sut = try self.buildSUT(type: .planned, note: nil)
+        let sut = try self.buildSUT(type: .planned)
         //Act
         let encoder = try sut.convertToEncoder()
         //Assert
@@ -101,7 +101,7 @@ extension VacationFormTests {
         XCTAssert(encoder.note == sut.note)
     }
     
-    func testConvertToEncoder_typePlanned_notNullNote() throws {
+    func testConvertToEncoder_typePlanned_notEmptyNote() throws {
         //Arrange
         let sut = try self.buildSUT(type: .planned, note: "note")
         //Act
@@ -113,9 +113,9 @@ extension VacationFormTests {
         XCTAssert(encoder.note == sut.note)
     }
     
-    func testConvertToEncoder_typeRequested_nullNote() throws {
+    func testConvertToEncoder_typeRequested_emptyNote() throws {
         //Arrange
-        let sut = try self.buildSUT(type: .requested, note: nil)
+        let sut = try self.buildSUT(type: .requested)
         //Act
         let encoder = try sut.convertToEncoder()
         //Assert
@@ -125,7 +125,7 @@ extension VacationFormTests {
         XCTAssert(encoder.note == sut.note)
     }
     
-    func testConvertToEncoder_typeRequested_notNullNote() throws {
+    func testConvertToEncoder_typeRequested_notEmptyNote() throws {
         //Arrange
         let sut = try self.buildSUT(type: .requested, note: "note")
         //Act
@@ -137,9 +137,9 @@ extension VacationFormTests {
         XCTAssert(encoder.note == sut.note)
     }
     
-    func testConvertToEncoder_typeCompassionate_nullNote() throws {
+    func testConvertToEncoder_typeCompassionate_emptyNote() throws {
         //Arrange
-        let sut = try self.buildSUT(type: .compassionate, note: nil)
+        let sut = try self.buildSUT(type: .compassionate)
         //Act
         let encoder = try sut.convertToEncoder()
         //Assert
@@ -149,7 +149,7 @@ extension VacationFormTests {
         XCTAssert(encoder.note == sut.note)
     }
     
-    func testConvertToEncoder_typeCompassionate_notNullNote() throws {
+    func testConvertToEncoder_typeCompassionate_notEmptyNote() throws {
         //Arrange
         let sut = try self.buildSUT(type: .compassionate, note: "note")
         //Act
@@ -161,9 +161,9 @@ extension VacationFormTests {
         XCTAssert(encoder.note == sut.note)
     }
     
-    func testConvertToEncoder_typeOthers_nullNote() throws {
+    func testConvertToEncoder_typeOthers_emptyNote() throws {
         //Arrange
-        let sut = try self.buildSUT(type: .others, note: nil)
+        let sut = try self.buildSUT(type: .others)
         //Act
         XCTAssertThrowsError(try sut.convertToEncoder()) { error in
             //Assert
@@ -171,7 +171,7 @@ extension VacationFormTests {
         }
     }
     
-    func testConvertToEncoder_typeOthers_notNullNote() throws {
+    func testConvertToEncoder_typeOthers_notEmptyNote() throws {
         //Arrange
         let sut = try self.buildSUT(type: .others, note: "note")
         //Act
@@ -184,8 +184,9 @@ extension VacationFormTests {
     }
 }
 
+// MARK: - Private
 extension VacationFormTests {
-    private func buildSUT(type: VacationType, note: String?) throws -> VacationForm {
+    private func buildSUT(type: VacationType, note: String = "") throws -> VacationForm {
         VacationForm(
             type: type,
             note: note)

@@ -12,7 +12,8 @@ protocol VacationFormType {
     var startDate: Date { get set }
     var endDate: Date { get set }
     var type: VacationType { get set }
-    var note: String? { get set }
+    var note: String { get set }
+    var isNoteOptional: Bool { get }
     
     func validationErrors() -> [UIError]
     func convertToEncoder() throws -> VacationEncoder
@@ -22,14 +23,18 @@ struct VacationForm: VacationFormType {
     var startDate: Date
     var endDate: Date
     var type: VacationType
-    var note: String?
+    var note: String
+    
+    var isNoteOptional: Bool {
+        return self.type != .others
+    }
     
     // MARK: - Initialization
     init(
         startDate: Date = Date(),
         endDate: Date = Date(),
         type: VacationType = .planned,
-        note: String? = nil
+        note: String = ""
     ) {
         self.startDate = startDate
         self.endDate = endDate
@@ -39,9 +44,8 @@ struct VacationForm: VacationFormType {
     
     // MARK: - VacationFormType
     func validationErrors() -> [UIError] {
-        guard self.type == .others else { return [] }
-        guard let note = self.note, !note.isEmpty else { return [UIError.cannotBeEmpty(.noteTextView)] }
-        return []
+        guard self.type == .others && note.isEmpty else { return [] }
+        return [UIError.cannotBeEmpty(.noteTextView)]
     }
     
     func convertToEncoder() throws -> VacationEncoder {

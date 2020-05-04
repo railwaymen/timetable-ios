@@ -33,8 +33,8 @@ class VacationCellViewModel {
 // MARK: - VacationCellViewModelType
 extension VacationCellViewModel: VacationCellViewModelType {
     func viewConfigured() {
-        let startDate = DateFormatter.simple.string(from: self.vacation.startDate)
-        let endDate = DateFormatter.simple.string(from: self.vacation.endDate)
+        let startDate = DateFormatter.shortDate.string(from: self.vacation.startDate)
+        let endDate = DateFormatter.shortDate.string(from: self.vacation.endDate)
         self.userInterface?.updateView(
             title: self.vacation.type.localizableString,
             dates: "\(startDate) - \(endDate)",

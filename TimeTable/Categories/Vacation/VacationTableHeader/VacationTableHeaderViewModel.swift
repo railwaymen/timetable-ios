@@ -35,6 +35,7 @@ class VacationTableHeaderViewModel: VacationTableHeaderViewModelable {
                 stringValue: "\(self.selectedYear)")
         }
     }
+    
     var availableVacationDays: Int {
         didSet {
             self.userInterface?.update(daysLeft: "\(self.availableVacationDays)")

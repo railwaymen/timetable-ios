@@ -39,6 +39,12 @@ class NewVacationCoordinator: NavigationCoordinator {
     }
     
     // MARK: - Overridden
+    override func finish() {
+        self.customFinishCompletion?(nil)
+        super.finish()
+    }
+    
+    // MARK: - Internal
     func start(availableVacationDays: Int, finishHandler: ((VacationDecoder?) -> Void)?) {
         self.customFinishCompletion = finishHandler
         super.start()
@@ -47,11 +53,6 @@ class NewVacationCoordinator: NavigationCoordinator {
     
     func finish(response: VacationDecoder?) {
         self.customFinishCompletion?(response)
-        super.finish()
-    }
-    
-    override func finish() {
-        self.customFinishCompletion?(nil)
         super.finish()
     }
 }

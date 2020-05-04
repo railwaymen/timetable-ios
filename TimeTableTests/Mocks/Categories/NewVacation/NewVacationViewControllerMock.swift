@@ -69,6 +69,11 @@ class NewVacationViewControllerMock: UIViewController {
         let isHighlighted: Bool
     }
     
+    private(set) var setOptionalLabelParams: [SetOptionalLabelParams] = []
+    struct SetOptionalLabelParams {
+        let isHidden: Bool
+    }
+    
     private(set) var dismissKeyboardParams: [DismissKeyboardParams] = []
     struct DismissKeyboardParams {}
    
@@ -123,6 +128,10 @@ extension NewVacationViewControllerMock: NewVacationViewModelOutput {
 
     func setNote(isHighlighted: Bool) {
         self.setNoteHighlightedParams.append(SetNoteHighlightedParams(isHighlighted: isHighlighted))
+    }
+
+    func setOptionalLabel(isHidden: Bool) {
+        self.setOptionalLabelParams.append(SetOptionalLabelParams(isHidden: isHidden))
     }
     
     func dismissKeyboard() {

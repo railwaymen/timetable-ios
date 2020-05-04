@@ -55,7 +55,7 @@ class NewVacationViewController: UIViewController {
     }
     
     @IBAction private func viewTapped(_ sender: UITapGestureRecognizer) {
-        self.viewModel.viewHasBeenTapped()
+        self.viewModel.viewTapped()
     }
 }
 
@@ -84,7 +84,7 @@ extension NewVacationViewController: UIPickerViewDelegate {
 // MARK: - UITextViewDelegate
 extension NewVacationViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        self.viewModel.noteTextViewDidChanged(text: textView.text)
+        self.viewModel.noteTextViewDidChange(text: textView.text)
     }
 }
 

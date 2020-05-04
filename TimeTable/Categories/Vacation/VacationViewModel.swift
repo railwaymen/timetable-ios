@@ -23,10 +23,9 @@ protocol VacationViewModelType: class {
     func viewWillAppear()
     func viewRequestForVacationForm()
     func viewRequestForProfileView()
-    func viewHasBeenTapped()
+    func viewTapped()
     func viewRequestToDeclineVacation(at index: IndexPath, completion: @escaping (Bool) -> Void)
     func numberOfItems() -> Int
-    func item(at index: IndexPath) -> VacationDecoder?
     func configure(_ cell: VacationCellable, for indexPath: IndexPath)
     func configure(_ view: VacationTableHeaderViewable)
     func configure(_ view: ErrorViewable)
@@ -112,14 +111,16 @@ extension VacationViewModel: VacationViewModelType {
         self.coordinator?.vacationRequestedForProfileView()
     }
     
-    func viewHasBeenTapped() {
+    func viewTapped() {
         self.userInterface?.dismissKeyboard()
     }
     
     func viewRequestToDeclineVacation(at index: IndexPath, completion: @escaping (Bool) -> Void) {
         guard let vacation = self.item(at: index) else { return completion(false) }
+        self.userInterface?.setActivityIndicator(isHidden: false)
         _ = self.apiClient.declineVacation(vacation) { [weak self] result in
             guard let self = self else { return completion(false) }
+            self.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .success:
                 self.fetchVacation()
@@ -135,13 +136,6 @@ extension VacationViewModel: VacationViewModelType {
         switch self.decisionState {
         case let .fetched(response): return response.records.count
         case .error, .fetching: return 0
-        }
-    }
-    
-    func item(at index: IndexPath) -> VacationDecoder? {
-        switch self.decisionState {
-        case let .fetched(response): return response.records[safeIndex: index.row]
-        case .error, .fetching: return nil
         }
     }
     
@@ -186,10 +180,17 @@ extension VacationViewModel {
         }
     }
     
+    private func item(at index: IndexPath) -> VacationDecoder? {
+        switch self.decisionState {
+        case let .fetched(response): return response.records[safeIndex: index.row]
+        case .error, .fetching: return nil
+        }
+    }
+    
     private func fetchVacation() {
         self.decisionState = .fetching
-        let paramters = VacationParameters(year: self.selectedYear)
-        _ = self.apiClient.fetchVacation(parameters: paramters) { [weak self] result in
+        let parameters = VacationParameters(year: self.selectedYear)
+        _ = self.apiClient.fetchVacation(parameters: parameters) { [weak self] result in
             switch result {
             case let .success(response):
                 self?.decisionState = .fetched(response)

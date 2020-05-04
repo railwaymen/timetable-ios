@@ -67,7 +67,7 @@ class WorkTimeViewModel {
     private var projects: [SimpleProjectRecordDecoder]
     private var taskForm: TaskFormType {
         didSet {
-            self.updateValidationErrorsOnUI()
+            self.updateUI()
         }
     }
     private var tags: [ProjectTag]
@@ -150,7 +150,7 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     func userInterfaceStyleDidChange() {
         self.userInterface?.setUp()
         self.userInterface?.reloadTagsView()
-        self.updateValidationErrorsOnUI()
+        self.updateUI()
     }
     
     func configure(_ cell: TagCollectionViewCellable, for indexPath: IndexPath) {
@@ -335,9 +335,13 @@ extension WorkTimeViewModel {
         }
     }
     
-    private func updateValidationErrorsOnUI() {
+    private func updateUI() {
         let errors = self.contentProvider.getValidationErrors(forTaskForm: self.taskForm)
         self.userInterface?.setSaveButtons(isEnabled: errors.isEmpty)
+        self.updateUI(with: errors)
+    }
+    
+    private func updateUI(with errors: [UIError]) {
         self.userInterface?.setProject(isHighlighted: errors.contains(.cannotBeEmpty(.projectTextField)))
         self.userInterface?.setDay(isHighlighted: errors.contains(.cannotBeEmpty(.dayTextField)))
         self.userInterface?.setStartsAt(isHighlighted: errors.contains(.cannotBeEmpty(.startsAtTextField))

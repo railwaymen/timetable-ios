@@ -27,10 +27,11 @@ protocol WorkTimesListCoordinatorDelegate: class {
 class WorkTimesListCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
     private let dependencyContainer: DependencyContainerType
     
+    let tabBarItem: UITabBarItem
+    
     var root: UIViewController {
         return self.navigationController
     }
-    var tabBarItem: UITabBarItem
     
     // MARK: - Initialization
     init(dependencyContainer: DependencyContainerType) {

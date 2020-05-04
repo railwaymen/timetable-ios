@@ -43,7 +43,7 @@ class VacationViewController: UIViewController {
     }
     
     @IBAction private func viewTapped(_ sender: UITapGestureRecognizer) {
-        self.viewModel?.viewHasBeenTapped()
+        self.viewModel?.viewTapped()
     }
 }
 

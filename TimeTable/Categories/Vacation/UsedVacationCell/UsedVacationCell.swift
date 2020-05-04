@@ -21,7 +21,7 @@ class UsedVacationCell: UITableViewCell, ReusableCellType {
     private var viewModel: UsedVacationCellViewModelType!
 }
 
-// MARK: - UsedVacationCellModelOutput
+// MARK: - UsedVacationCellViewModelOutput
 extension UsedVacationCell: UsedVacationCellViewModelOutput {
     func setUp(type: String, days: String) {
         self.typeLabel.text = type

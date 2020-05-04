@@ -16,9 +16,9 @@ protocol NewVacationViewModelType: class {
     func viewChanged(startAtDate date: Date)
     func viewChanged(endAtDate date: Date)
     func viewSelectedType(at row: Int)
-    func noteTextViewDidChanged(text: String)
+    func noteTextViewDidChange(text: String)
     func saveButtonTapped()
-    func viewHasBeenTapped()
+    func viewTapped()
 }
 
 protocol NewVacationViewModelOutput: class {
@@ -48,7 +48,7 @@ class NewVacationViewModel {
     
     private var form: VacationFormType {
         didSet {
-            self.updateValidationErrorsOnUI()
+            self.updateUI()
             self.updateUIStaticComponents()
         }
     }
@@ -155,16 +155,15 @@ extension NewVacationViewModel: NewVacationViewModelType {
         self.userInterface?.updateType(name: type.localizableString)
     }
     
-    func noteTextViewDidChanged(text: String) {
+    func noteTextViewDidChange(text: String) {
         self.form.note = text
     }
     
     func saveButtonTapped() {
-        self.decisionState = .request
         self.postVacation()
     }
     
-    func viewHasBeenTapped() {
+    func viewTapped() {
         self.userInterface?.dismissKeyboard()
     }
 }
@@ -208,6 +207,7 @@ extension NewVacationViewModel {
     private func postVacation() {
         do {
             let vacation = try self.form.convertToEncoder()
+            self.decisionState = .request
             _ = self.apiClient.addVacation(vacation) { [weak self] result in
                 switch result {
                 case let .success(response):
@@ -217,7 +217,7 @@ extension NewVacationViewModel {
                 }
             }
         } catch {
-            self.updateValidationErrorsOnUI()
+            self.updateUI()
         }
     }
     
@@ -235,13 +235,17 @@ extension NewVacationViewModel {
         }
     }
     
-    private func updateValidationErrorsOnUI() {
+    private func updateUI() {
         let errors = self.form.validationErrors()
         self.userInterface?.setSaveButton(isEnabled: errors.isEmpty)
+        self.updateUI(with: errors)
+    }
+    
+    private func updateUI(with errors: [UIError]) {
         self.userInterface?.setNote(isHighlighted: errors.contains(.cannotBeEmpty(.noteTextView)))
     }
     
     private func updateUIStaticComponents() {
-        self.userInterface?.setOptionalLabel(isHidden: self.form.type == .others)
+        self.userInterface?.setOptionalLabel(isHidden: !self.form.isNoteOptional)
     }
 }
