@@ -111,4 +111,13 @@ extension EndpointTests {
         //Assert
         XCTAssertEqual(value, "/vacations")
     }
+    
+    func testRestlerEndpointValue_vacationDecline() {
+        //Arrange
+        let sut: Endpoint = .vacationDecline(2)
+        //Act
+        let value = sut.restlerEndpointValue
+        //Assert
+        XCTAssertEqual(value, "/vacations/2/self_decline")
+    }
 }
