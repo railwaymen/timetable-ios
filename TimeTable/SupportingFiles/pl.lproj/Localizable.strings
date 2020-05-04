@@ -90,6 +90,13 @@
 
 // MARK: - NewVacation
 "newvacation_title" = "Dodaj urlop";
+"newvacation_remaining_vacation" = "Pozostały urlop:";
+"newvacation_from_date" = "Od";
+"newvacation_to_date" = "Do";
+"newvacation_vacation_type" = "Typ";
+"newvacation_reason" = "Powód";
+"newvacation_optional" = "Opcjonalne";
+"newvacation_save_btn" = "Zapisz";
 
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Pole nie może być puste.";

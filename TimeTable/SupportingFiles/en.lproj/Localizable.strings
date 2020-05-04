@@ -90,6 +90,13 @@
 
 // MARK: - NewVacation
 "newvacation_title" = "Add vacation";
+"newvacation_remaining_vacation" = "Days to use:";
+"newvacation_from_date" = "From";
+"newvacation_to_date" = "To";
+"newvacation_vacation_type" = "Type";
+"newvacation_reason" = "Reason";
+"newvacation_optional" = "Optional";
+"newvacation_save_btn" = "Save";
 
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Field cannot be empty.";

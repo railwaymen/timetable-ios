@@ -30,6 +30,9 @@
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="newvacation_remaining_vacation"/>
+                                                        </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EPk-rq-91c">
                                                         <rect key="frame" x="107.5" y="0.0" width="180.5" height="21.5"/>
@@ -49,6 +52,9 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="128" height="34"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="newvacation_from_date"/>
+                                                                </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="06/07/2020" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zLx-Dx-TiN" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="42" width="128" height="34"/>
@@ -65,6 +71,9 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="128" height="34"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="newvacation_to_date"/>
+                                                                </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="06/07/2020" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zdw-xi-1yV" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="42" width="128" height="34"/>
@@ -86,6 +95,9 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="35.5" height="19.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="newvacation_vacation_type"/>
+                                                        </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Fk-DB-rl1" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="23.5" width="288" height="34"/>
@@ -112,12 +124,18 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="53.5" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="newvacation_reason"/>
+                                                                </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Optional" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ica-tF-U6c">
                                                                 <rect key="frame" x="57.5" y="0.0" width="230.5" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
                                                                 <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="newvacation_optional"/>
+                                                                </userDefinedRuntimeAttributes>
                                                             </label>
                                                         </subviews>
                                                     </stackView>
@@ -161,6 +179,7 @@
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="5"/>
                                                     </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="newvacation_save_btn"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="saveButtonTapped" destination="o9l-3b-Gnf" eventType="touchUpInside" id="CTI-q2-Bri"/>
