@@ -22,10 +22,10 @@ extension VacationResponseTests {
         XCTAssertEqual(sut.availableVacationDays, 25)
         XCTAssertNotNil(sut.usedVacationDays)
         XCTAssertEqual(sut.records.count, 3)
-        let fistRecord = try XCTUnwrap(sut.records[safeIndex: 0])
+        let firstRecord = try XCTUnwrap(sut.records[safeIndex: 0])
         let secondRecord = try XCTUnwrap(sut.records[safeIndex: 1])
         let thirdRecord = try XCTUnwrap(sut.records[safeIndex: 2])
-        XCTAssert(fistRecord.startDate > secondRecord.startDate)
+        XCTAssert(firstRecord.startDate > secondRecord.startDate)
         XCTAssert(secondRecord.startDate > thirdRecord.startDate)
     }
 }

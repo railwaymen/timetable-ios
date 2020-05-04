@@ -21,7 +21,7 @@ class NewVacationViewController: UIViewController {
     @IBOutlet private var startDayTextField: UITextField!
     @IBOutlet private var endDayTextField: UITextField!
     @IBOutlet private var typeTextField: UITextField!
-    @IBOutlet private var noteTextView: UITextView!
+    @IBOutlet private var noteTextView: AttributerTextView!
     @IBOutlet private var saveButton: AttributedButton!
     
     private var startDatePicker: UIDatePicker!
@@ -140,6 +140,14 @@ extension NewVacationViewController: NewVacationViewModelOutput {
         let bottomInset = max(0, height - self.scrollView.safeAreaInsets.bottom)
         self.scrollView.contentInset.bottom = bottomInset
         self.scrollView.verticalScrollIndicatorInsets.bottom = bottomInset
+    }
+    
+    func setNote(isHighlighted: Bool) {
+        UIView.animate(withDuration: 0.3) {
+            self.noteTextView.borderColor = isHighlighted
+                ? .textFieldValidationErrorBorder
+                : .textFieldBorder
+        }
     }
     
     func dismissKeyboard() {

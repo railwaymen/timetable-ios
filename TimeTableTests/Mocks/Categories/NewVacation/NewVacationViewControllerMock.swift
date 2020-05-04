@@ -64,6 +64,11 @@ class NewVacationViewControllerMock: UIViewController {
         let height: CGFloat
     }
     
+    private(set) var setNoteHighlightedParams: [SetNoteHighlightedParams] = []
+    struct SetNoteHighlightedParams {
+        let isHighlighted: Bool
+    }
+    
     private(set) var dismissKeyboardParams: [DismissKeyboardParams] = []
     struct DismissKeyboardParams {}
    
@@ -114,6 +119,10 @@ extension NewVacationViewControllerMock: NewVacationViewModelOutput {
     
     func setBottomContentInset(_ height: CGFloat) {
         self.setBottomContentInsetParams.append(SetBottomContentInsetParams(height: height))
+    }
+
+    func setNote(isHighlighted: Bool) {
+        self.setNoteHighlightedParams.append(SetNoteHighlightedParams(isHighlighted: isHighlighted))
     }
     
     func dismissKeyboard() {

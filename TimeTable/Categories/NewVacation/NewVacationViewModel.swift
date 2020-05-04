@@ -32,6 +32,7 @@ protocol NewVacationViewModelOutput: class {
     func updateType(name: String)
     func setSaveButton(isEnabled: Bool)
     func setBottomContentInset(_ height: CGFloat)
+    func setNote(isHighlighted: Bool)
     func dismissKeyboard()
 }
 
@@ -45,7 +46,11 @@ class NewVacationViewModel {
     private let availableVacationDays: Int
     
     private let defaultVacationType: VacationType = .planned
-    private var form: VacationForm
+    private var form: VacationFormType {
+        didSet {
+            self.updateValidationErrorsOnUI()
+        }
+    }
     
     private var decisionState: DecistionState {
         didSet {
@@ -100,6 +105,7 @@ class NewVacationViewModel {
     }
 }
 
+// MARK: - Structures
 extension NewVacationViewModel {
     enum DecistionState {
         case preparing
@@ -142,8 +148,9 @@ extension NewVacationViewModel: NewVacationViewModelType {
     }
     
     func viewSelectedType(at row: Int) {
-        let title = self.vacationTypeTitle(for: row)
-        self.userInterface?.updateType(name: title)
+        guard let type = self.vacationTypes[safeIndex: row] else { return }
+        self.form.type = type
+        self.userInterface?.updateType(name: type.localizableString)
     }
     
     func noteTextViewDidChanged(text: String) {
@@ -197,14 +204,24 @@ extension NewVacationViewModel {
     }
     
     private func postVacation() {
-        let vacation = self.form.convertToEncoder()
-        _ = self.apiClient.addVacation(vacation: vacation) { [weak self] result in
-            switch result {
-            case let .success(response):
-                self?.decisionState = .done(response)
-            case let .failure(error):
-                self?.decisionState = .error(error)
+        do {
+            let vacation = try self.form.convertToEncoder()
+            _ = self.apiClient.addVacation(vacation: vacation) { [weak self] result in
+                switch result {
+                case let .success(response):
+                    self?.decisionState = .done(response)
+                case let .failure(error):
+                    self?.decisionState = .error(error)
+                }
             }
+        } catch {
+            self.updateValidationErrorsOnUI()
         }
+    }
+    
+    private func updateValidationErrorsOnUI() {
+        let errors = self.form.validationErrors()
+        self.userInterface?.setSaveButton(isEnabled: errors.isEmpty)
+        self.userInterface?.setNote(isHighlighted: errors.contains(.noteIsNil))
     }
 }

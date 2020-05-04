@@ -99,6 +99,6 @@ extension ApiClientVacationTests {
     private func buildVacationEncoder() throws -> VacationEncoder {
         let startDate = try self.buildDate(year: 2020, month: 04, day: 28)
         let endDate = try self.buildDate(year: 2020, month: 04, day: 30)
-        return VacationEncoder(type: .compassionate, description: nil, startDate: startDate, endDate: endDate)
+        return VacationEncoder(type: .compassionate, note: nil, startDate: startDate, endDate: endDate)
     }
 }

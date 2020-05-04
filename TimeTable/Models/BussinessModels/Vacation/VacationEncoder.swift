@@ -10,13 +10,13 @@ import Foundation
 
 struct VacationEncoder: Encodable {
     let type: VacationType
-    let description: String?
+    let note: String?
     let startDate: Date
     let endDate: Date
     
     private enum CodingKeys: String, CodingKey {
         case type = "vacation_type"
-        case description
+        case note = "description"
         case startDate = "start_date"
         case endDate = "end_date"
     }
@@ -25,7 +25,7 @@ struct VacationEncoder: Encodable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(self.type, forKey: .type)
-        try container.encode(self.description, forKey: .description)
+        try container.encode(self.note, forKey: .note)
         try container.encode(DateFormatter.simple.string(from: self.startDate), forKey: .startDate)
         try container.encode(DateFormatter.simple.string(from: self.endDate), forKey: .endDate)
     }

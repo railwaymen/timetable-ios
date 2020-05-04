@@ -15,7 +15,7 @@ class VacationEncoderTests: XCTestCase {}
 extension VacationEncoderTests {
     func testEncoding_plannedVacationType() throws {
         //Arrange
-        let sut = try self.buildSut(type: .planned, description: "description")
+        let sut = try self.buildSut(type: .planned, note: "description")
         //Act
         let data = try self.encoder.encode(sut)
         //Assert
@@ -29,7 +29,7 @@ extension VacationEncoderTests {
     
     func testEncoding_requestedVacationType() throws {
         //Arrange
-        let sut = try self.buildSut(type: .requested, description: "description")
+        let sut = try self.buildSut(type: .requested, note: "description")
         //Act
         let data = try self.encoder.encode(sut)
         //Assert
@@ -43,7 +43,7 @@ extension VacationEncoderTests {
     
     func testEncoding_compassionateVacationType() throws {
         //Arrange
-        let sut = try self.buildSut(type: .compassionate, description: "description")
+        let sut = try self.buildSut(type: .compassionate, note: "description")
         //Act
         let data = try self.encoder.encode(sut)
         //Assert
@@ -57,7 +57,7 @@ extension VacationEncoderTests {
     
     func testEncoding_othersVacationType() throws {
         //Arrange
-        let sut = try self.buildSut(type: .others, description: "description")
+        let sut = try self.buildSut(type: .others, note: "description")
         //Act
         let data = try self.encoder.encode(sut)
         //Assert
@@ -71,7 +71,7 @@ extension VacationEncoderTests {
     
     func testEncoding_desciptionNotNull() throws {
         //Arrange
-        let sut = try self.buildSut(type: .others, description: "description not null")
+        let sut = try self.buildSut(type: .others, note: "description not null")
         //Act
         let data = try self.encoder.encode(sut)
         //Assert
@@ -85,7 +85,7 @@ extension VacationEncoderTests {
     
     func testEncoding_desciptionNull() throws {
         //Arrange
-        let sut = try self.buildSut(type: .others, description: nil)
+        let sut = try self.buildSut(type: .others, note: nil)
         //Act
         let data = try self.encoder.encode(sut)
         //Assert
@@ -99,10 +99,10 @@ extension VacationEncoderTests {
 }
 
 extension VacationEncoderTests {
-    private func buildSut(type: VacationType, description: String?) throws -> VacationEncoder {
+    private func buildSut(type: VacationType, note: String?) throws -> VacationEncoder {
         return VacationEncoder(
             type: type,
-            description: description,
+            note: note,
             startDate: try self.buildDate(year: 2020, month: 04, day: 29),
             endDate: try self.buildDate(year: 2020, month: 04, day: 30))
     }

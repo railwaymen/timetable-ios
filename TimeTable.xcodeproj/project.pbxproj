@@ -442,6 +442,7 @@
 		C1A47BFE245AAD1F00FDA7F0 /* NewVacation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1A47BFD245AAD1F00FDA7F0 /* NewVacation.storyboard */; };
 		C1A47C01245AAE2700FDA7F0 /* NewVacationViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A47C00245AAE2700FDA7F0 /* NewVacationViewControllerMock.swift */; };
 		C1A47C03245AF55D00FDA7F0 /* VacationForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A47C02245AF55D00FDA7F0 /* VacationForm.swift */; };
+		C1A681522460045D0044C2B9 /* VacationFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A681512460045D0044C2B9 /* VacationFormTests.swift */; };
 		C1AACFCF21A4349B0023FD32 /* ProjectsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFCE21A4349B0023FD32 /* ProjectsCoordinator.swift */; };
 		C1AACFD621A438660023FD32 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD521A438660023FD32 /* ProfileCoordinator.swift */; };
 		C1AACFD821A4387F0023FD32 /* WorkTimesListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD721A4387F0023FD32 /* WorkTimesListCoordinator.swift */; };
@@ -1028,6 +1029,7 @@
 		C1A47BFD245AAD1F00FDA7F0 /* NewVacation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewVacation.storyboard; sourceTree = "<group>"; };
 		C1A47C00245AAE2700FDA7F0 /* NewVacationViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVacationViewControllerMock.swift; sourceTree = "<group>"; };
 		C1A47C02245AF55D00FDA7F0 /* VacationForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationForm.swift; sourceTree = "<group>"; };
+		C1A681512460045D0044C2B9 /* VacationFormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationFormTests.swift; sourceTree = "<group>"; };
 		C1AACFCE21A4349B0023FD32 /* ProjectsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsCoordinator.swift; sourceTree = "<group>"; };
 		C1AACFD521A438660023FD32 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		C1AACFD721A4387F0023FD32 /* WorkTimesListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListCoordinator.swift; sourceTree = "<group>"; };
@@ -2874,6 +2876,7 @@
 				C1FB3FFD2451738A008266C4 /* UsedVacationDaysTests.swift */,
 				C1FB3FFB2451734F008266C4 /* VacationDecoderTests.swift */,
 				C1A47BEA2459715A00FDA7F0 /* VacationEncoderTests.swift */,
+				C1A681512460045D0044C2B9 /* VacationFormTests.swift */,
 				C1FB40232451AC23008266C4 /* VacationParametersTests.swift */,
 				C1FB3FF924517342008266C4 /* VacationResponseTests.swift */,
 			);
@@ -3756,6 +3759,7 @@
 				8A523C8E2395091900215C61 /* DateExtensionTests.swift in Sources */,
 				C134296F21A6BCCD00F4EA42 /* RequestEncoderMock.swift in Sources */,
 				C1E908D624586432003E0368 /* UsedVacationViewControllerMock.swift in Sources */,
+				C1A681522460045D0044C2B9 /* VacationFormTests.swift in Sources */,
 				C1FB400024517480008266C4 /* VacationJSONResource.swift in Sources */,
 				8A99EBC123D9B95600CC9BA8 /* UIColor+Extension.swift in Sources */,
 				8A79A2502420DE4C0048B44B /* TaskVersionJSONResource.swift in Sources */,
