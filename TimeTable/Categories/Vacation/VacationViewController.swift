@@ -64,6 +64,13 @@ extension VacationViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 extension VacationViewController: UITableViewDelegate {
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let deleteAction = self.buildDeleteContextualAction(indexPath: indexPath)
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
 }
 
 // MARK: - VacationViewModelOutput
@@ -147,5 +154,17 @@ extension VacationViewController {
         imageView.addGestureRecognizer(tap)
         imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
         return imageView
+    }
+    
+    private func buildDeleteContextualAction(indexPath: IndexPath) -> UIContextualAction {
+        let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (_, _, completion) in
+            guard let self = self else { return completion(false) }
+            self.viewModel.viewRequestToDeclineVacation(at: indexPath) { completed in
+                completion(completed)
+            }
+        }
+        deleteAction.backgroundColor = .deleteAction
+        deleteAction.image = .delete
+        return deleteAction
     }
 }

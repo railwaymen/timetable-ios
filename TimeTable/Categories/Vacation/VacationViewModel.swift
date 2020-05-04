@@ -24,6 +24,7 @@ protocol VacationViewModelType: class {
     func viewRequestForVacationForm()
     func viewRequestForProfileView()
     func viewHasBeenTapped()
+    func viewRequestToDeclineVacation(at index: IndexPath, completion: @escaping (Bool) -> Void)
     func numberOfItems() -> Int
     func item(at index: IndexPath) -> VacationDecoder?
     func configure(_ cell: VacationCellable, for indexPath: IndexPath)
@@ -113,6 +114,21 @@ extension VacationViewModel: VacationViewModelType {
     
     func viewHasBeenTapped() {
         self.userInterface?.dismissKeyboard()
+    }
+    
+    func viewRequestToDeclineVacation(at index: IndexPath, completion: @escaping (Bool) -> Void) {
+        guard let vacation = self.item(at: index) else { return completion(false) }
+        _ = self.apiClient.declineVacation(vacation) { [weak self] result in
+            guard let self = self else { return completion(false) }
+            switch result {
+            case .success:
+                self.fetchVacation()
+                completion(true)
+            case let .failure(error):
+                self.errorHandler.throwing(error: error)
+                completion(false)
+            }
+        }
     }
     
     func numberOfItems() -> Int {
