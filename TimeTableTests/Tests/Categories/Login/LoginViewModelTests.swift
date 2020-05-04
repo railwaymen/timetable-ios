@@ -194,7 +194,7 @@ extension LoginViewModelTests {
         //Act
         sut.viewRequestedToLogin()
         //Assert
-        XCTAssertEqual(self.contentProviderMock.loginParams.count, 1)
+        XCTAssertEqual(self.contentProviderMock.loginParams.count, 0)
     }
     
     func testViewRequestedToLoginWithCorrectCredentials() throws {
