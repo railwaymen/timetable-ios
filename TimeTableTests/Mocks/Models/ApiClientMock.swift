@@ -111,6 +111,13 @@ class ApiClientMock {
         let vacation: VacationEncoder
         let completion: AddVacationCompletion
     }
+    
+    var declineVacationReturnValue: RestlerTaskType?
+    private(set) var declineVacationParams: [DeclineVacationParams] = []
+    struct DeclineVacationParams {
+        let vacation: VacationDecoder
+        let completion: VoidCompletion
+    }
 }
 
 // MARK: - ApiClientSessionType
@@ -208,8 +215,13 @@ extension ApiClientMock: ApiClientVacationType {
         return self.fetchVacationReturnValue
     }
 
-    func addVacation(vacation: VacationEncoder, completion: @escaping AddVacationCompletion) -> RestlerTaskType? {
+    func addVacation(_ vacation: VacationEncoder, completion: @escaping AddVacationCompletion) -> RestlerTaskType? {
         self.addVacationParams.append(AddVacationParams(vacation: vacation, completion: completion))
         return self.addVacationReturnValue
+    }
+    
+    func declineVacation(_ vacation: VacationDecoder, completion: @escaping VoidCompletion) -> RestlerTaskType? {
+        self.declineVacationParams.append(DeclineVacationParams(vacation: vacation, completion: completion))
+        return self.declineVacationReturnValue
     }
 }

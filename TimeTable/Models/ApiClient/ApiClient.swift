@@ -17,6 +17,9 @@ typealias ApiClientType =
     & ApiClientAccountingPeriodsType
     & ApiClientVacationType
 
+typealias VoidResult = (Result<Void, Error>)
+typealias VoidCompletion = (VoidResult) -> Void
+
 class ApiClient {
     var restler: RestlerType {
         self._restler.header["token"] = self.accessService.getUserToken()

@@ -17,7 +17,8 @@ typealias AddVacationCompletion = (AddVacationResult) -> Void
 
 protocol ApiClientVacationType: class {
     func fetchVacation(parameters: VacationParameters, completion: @escaping FetchVacationCompletion) -> RestlerTaskType?
-    func addVacation(vacation: VacationEncoder, completion: @escaping AddVacationCompletion) -> RestlerTaskType?
+    func addVacation(_ vacation: VacationEncoder, completion: @escaping AddVacationCompletion) -> RestlerTaskType?
+    func declineVacation(_ vacation: VacationDecoder, completion: @escaping VoidCompletion) -> RestlerTaskType?
 }
 
 extension ApiClient: ApiClientVacationType {
@@ -30,11 +31,19 @@ extension ApiClient: ApiClientVacationType {
             .start()
     }
     
-    func addVacation(vacation: VacationEncoder, completion: @escaping AddVacationCompletion) -> RestlerTaskType? {
+    func addVacation(_ vacation: VacationEncoder, completion: @escaping AddVacationCompletion) -> RestlerTaskType? {
         return self.restler
             .post(Endpoint.vacation)
             .body(vacation)
             .decode(VacationDecoder.self)
+            .onCompletion(completion)
+            .start()
+    }
+    
+    func declineVacation(_ vacation: VacationDecoder, completion: @escaping VoidCompletion) -> RestlerTaskType? {
+        return self.restler
+            .put(Endpoint.vacationDecline(vacation.id))
+            .decode(Void.self)
             .onCompletion(completion)
             .start()
     }

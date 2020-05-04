@@ -206,7 +206,7 @@ extension NewVacationViewModel {
     private func postVacation() {
         do {
             let vacation = try self.form.convertToEncoder()
-            _ = self.apiClient.addVacation(vacation: vacation) { [weak self] result in
+            _ = self.apiClient.addVacation(vacation) { [weak self] result in
                 switch result {
                 case let .success(response):
                     self?.decisionState = .done(response)

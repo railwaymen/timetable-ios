@@ -54,7 +54,7 @@ extension ApiClientVacationTests {
     }
 }
 
-// MARK: - func addVacation(vacation, completion:)
+// MARK: - func addVacation(_ vacation:, completion:)
 extension ApiClientVacationTests {
     func testAddVacationSucceed() throws {
         //Arrange
@@ -64,7 +64,7 @@ extension ApiClientVacationTests {
         let decoder = try self.decoder.decode(VacationDecoder.self, from: data)
         var completionResult: AddVacationResult?
         //Act
-        _ = sut.addVacation(vacation: vaction) { result in
+        _ = sut.addVacation(vaction) { result in
             completionResult = result
         }
         try self.restler.postReturnValue.callCompletion(type: VacationDecoder.self, result: .success(decoder))
@@ -79,10 +79,44 @@ extension ApiClientVacationTests {
         let error = TestError(message: "fetch failed")
         var completionResult: AddVacationResult?
         //Act
-        _ = sut.addVacation(vacation: vaction) { result in
+        _ = sut.addVacation(vaction) { result in
             completionResult = result
         }
         try self.restler.postReturnValue.callCompletion(type: VacationDecoder.self, result: .failure(error))
+        //Assert
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
+    }
+}
+
+// MARK: - func declineVacation(_ vacation:, completion:)
+extension ApiClientVacationTests {
+    func testDeclineVacationSucceed() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let data = try self.json(from: VacationJSONResource.vacationPlannedTypeResponse)
+        let decoder = try self.decoder.decode(VacationDecoder.self, from: data)
+        var completionResult: VoidResult?
+        //Act
+        _ = sut.declineVacation(decoder) { result in
+            completionResult = result
+        }
+        try self.restler.putReturnValue.callCompletion(type: Void.self, result: .success(Void()))
+        //Assert
+        XCTAssertNotNil(try XCTUnwrap(completionResult).get())
+    }
+    
+    func testDeclineVacationFailed() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let data = try self.json(from: VacationJSONResource.vacationPlannedTypeResponse)
+        let decoder = try self.decoder.decode(VacationDecoder.self, from: data)
+        let error = TestError(message: "fetch failed")
+        var completionResult: VoidResult?
+        //Act
+        _ = sut.declineVacation(decoder) { result in
+            completionResult = result
+        }
+        try self.restler.putReturnValue.callCompletion(type: Void.self, result: .failure(error))
         //Assert
         AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
     }
