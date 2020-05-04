@@ -17,6 +17,8 @@ protocol LoginViewModelOutput: class {
     func dismissKeyboard()
     func setActivityIndicator(isHidden: Bool)
     func setBottomContentInset(_ height: CGFloat)
+    func setLoginTextField(isHighlighted: Bool)
+    func setPasswordTextField(isHighlighted: Bool)
 }
 
 protocol LoginViewModelType: class {
@@ -38,7 +40,11 @@ class LoginViewModel {
     private let errorHandler: ErrorHandlerType
     private let notificationCenter: NotificationCenterType
     
-    private var loginCredentials: LoginCredentials
+    private var loginCredentials: LoginCredentials {
+        didSet {
+            self.updateValidation()
+        }
+    }
     private var shouldRememberUser: Bool = false
     
     // MARK: - Initialization
@@ -80,6 +86,7 @@ extension LoginViewModel: LoginViewModelType {
     func viewDidLoad() {
         self.userInterface?.setUpView(checkBoxIsActive: self.shouldRememberUser)
         self.userInterface?.updateLoginFields(email: self.loginCredentials.email, password: self.loginCredentials.password)
+        self.updateValidation()
         self.updateLogInButton()
     }
     
@@ -171,5 +178,10 @@ extension LoginViewModel {
     private func updateLogInButton() {
         let isLoginButtonEnabled = !self.loginCredentials.email.isEmpty && !self.loginCredentials.password.isEmpty
         self.userInterface?.loginButtonEnabledState(isLoginButtonEnabled)
+    }
+    
+    private func updateValidation() {
+        self.userInterface?.setLoginTextField(isHighlighted: self.loginCredentials.email.isEmpty)
+        self.userInterface?.setPasswordTextField(isHighlighted: self.loginCredentials.password.isEmpty)
     }
 }

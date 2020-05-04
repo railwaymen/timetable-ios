@@ -68,64 +68,40 @@
                                                             </label>
                                                         </subviews>
                                                     </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Flm-B4-9kS">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z1B-zV-UZJ" customClass="AttributedTextField" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="83.5" width="354" height="35"/>
-                                                        <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z1B-zV-UZJ" customClass="AttributedTextField" customModule="TimeTable" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="354" height="30"/>
-                                                                <color key="tintColor" name="Crimson"/>
-                                                                <accessibility key="accessibilityConfiguration" identifier="loginTextField"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="30" id="W4a-KH-9gl"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="credential_username_placeholder"/>
-                                                                </userDefinedRuntimeAttributes>
-                                                                <connections>
-                                                                    <action selector="loginTextFieldDidChange:" destination="prJ-rF-eRP" eventType="editingChanged" id="Qm5-c9-Psy"/>
-                                                                    <outlet property="delegate" destination="prJ-rF-eRP" id="Pax-Gn-HpK"/>
-                                                                </connections>
-                                                            </textField>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Pp-Kd-Zld" userLabel="E-mail Seperator View">
-                                                                <rect key="frame" x="0.0" y="34" width="354" height="1"/>
-                                                                <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="1" id="53e-h8-O6f"/>
-                                                                </constraints>
-                                                            </view>
-                                                        </subviews>
-                                                    </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="om8-uw-Igt">
+                                                        <color key="tintColor" name="Crimson"/>
+                                                        <accessibility key="accessibilityConfiguration" identifier="loginTextField"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="35" id="W4a-KH-9gl"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="credential_username_placeholder"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="loginTextFieldDidChange:" destination="prJ-rF-eRP" eventType="editingChanged" id="Qm5-c9-Psy"/>
+                                                            <outlet property="delegate" destination="prJ-rF-eRP" id="Pax-Gn-HpK"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="justified" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zsz-ds-g8F" customClass="AttributedTextField" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="134.5" width="354" height="35"/>
-                                                        <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="justified" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zsz-ds-g8F" customClass="AttributedTextField" customModule="TimeTable" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="354" height="30"/>
-                                                                <color key="tintColor" name="Crimson"/>
-                                                                <accessibility key="accessibilityConfiguration" identifier="passwordTextField"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="30" id="RuR-st-rhm"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="credential_password_placeholder"/>
-                                                                </userDefinedRuntimeAttributes>
-                                                                <connections>
-                                                                    <action selector="passwordTextFieldDidChange:" destination="prJ-rF-eRP" eventType="editingChanged" id="IZ7-kt-I9N"/>
-                                                                    <outlet property="delegate" destination="prJ-rF-eRP" id="c4l-Iu-twB"/>
-                                                                </connections>
-                                                            </textField>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4z0-Hb-gpt" userLabel="Password Seperator View">
-                                                                <rect key="frame" x="0.0" y="34" width="354" height="1"/>
-                                                                <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="1" id="eci-BX-PkV"/>
-                                                                </constraints>
-                                                            </view>
-                                                        </subviews>
-                                                    </stackView>
+                                                        <color key="tintColor" name="Crimson"/>
+                                                        <accessibility key="accessibilityConfiguration" identifier="passwordTextField"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="35" id="RuR-st-rhm"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="credential_password_placeholder"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="passwordTextFieldDidChange:" destination="prJ-rF-eRP" eventType="editingChanged" id="IZ7-kt-I9N"/>
+                                                            <outlet property="delegate" destination="prJ-rF-eRP" id="c4l-Iu-twB"/>
+                                                        </connections>
+                                                    </textField>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="grs-fy-Sga">
                                                         <rect key="frame" x="0.0" y="185.5" width="354" height="25"/>
                                                         <subviews>
