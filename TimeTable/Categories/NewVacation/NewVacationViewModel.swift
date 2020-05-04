@@ -61,8 +61,9 @@ class NewVacationViewModel {
             case let .done(response):
                 self.userInterface?.setActivityIndicator(isHidden: true)
                 self.coordinator?.finishFlow(response: response)
-            case .error:
+            case let .error(error):
                 self.userInterface?.setActivityIndicator(isHidden: true)
+                self.handleResponse(error: error)
             }
         }
     }
@@ -218,9 +219,22 @@ extension NewVacationViewModel {
         }
     }
     
+    private func handleResponse(error: Error) {
+        if let apiError = error as? ApiClientError {
+            switch apiError.type {
+            case .validationErrors:
+                self.errorHandler.throwing(error: UIError.workTimeExists)
+            default:
+                self.errorHandler.throwing(error: UIError.genericError)
+            }
+        } else {
+            self.errorHandler.throwing(error: error)
+        }
+    }
+    
     private func updateValidationErrorsOnUI() {
         let errors = self.form.validationErrors()
         self.userInterface?.setSaveButton(isEnabled: errors.isEmpty)
-        self.userInterface?.setNote(isHighlighted: errors.contains(.noteIsNil))
+        self.userInterface?.setNote(isHighlighted: errors.contains(.cannotBeEmpty(.noteTextView)))
     }
 }

@@ -14,7 +14,7 @@ protocol VacationFormType {
     var type: VacationType { get set }
     var note: String? { get set }
     
-    func validationErrors() -> [VacationForm.ValidationError]
+    func validationErrors() -> [UIError]
     func convertToEncoder() throws -> VacationEncoder
 }
 
@@ -38,10 +38,10 @@ struct VacationForm: VacationFormType {
     }
     
     // MARK: - VacationFormType
-    func validationErrors() -> [ValidationError] {
+    func validationErrors() -> [UIError] {
         guard self.type == .others else { return [] }
         guard note == nil else { return [] }
-        return [.noteIsNil]
+        return [UIError.cannotBeEmpty(.noteTextView)]
     }
     
     func convertToEncoder() throws -> VacationEncoder {
@@ -50,12 +50,5 @@ struct VacationForm: VacationFormType {
             throw first
         }
         return VacationEncoder(type: self.type, note: self.note, startDate: self.startDate, endDate: self.endDate)
-    }
-}
-
-// MARK: - Structures
-extension VacationForm {
-    enum ValidationError: Error, Equatable {
-        case noteIsNil
     }
 }

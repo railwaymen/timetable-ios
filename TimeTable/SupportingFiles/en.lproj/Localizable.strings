@@ -100,5 +100,6 @@
 "error_no_connection" = "No internet connection. To perform further operations, please connect to the internet.";
 "error_timeout" = "Your request has timed out. Please, check your internet connection and try again.";
 "error_unauthorized" = "Your session has timed out.";
+"error_work_time_exists" = "There is work time with same date.";
 
 "error_refresh_btn" = "REFRESH";

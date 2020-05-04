@@ -74,7 +74,7 @@ extension VacationFormTests {
         let errors = sut.validationErrors()
         //Assert
         XCTAssert(!errors.isEmpty)
-        XCTAssert(errors.contains(.noteIsNil))
+        XCTAssert(errors.contains(.cannotBeEmpty(.noteTextView)))
     }
     
     func testValidationErros_typeOthers_notNullNote() throws {
@@ -167,7 +167,7 @@ extension VacationFormTests {
         //Act
         XCTAssertThrowsError(try sut.convertToEncoder()) { error in
             //Assert
-            XCTAssertEqual(error as? VacationForm.ValidationError, VacationForm.ValidationError.noteIsNil)
+            XCTAssertEqual(error as? UIError, UIError.cannotBeEmpty(.noteTextView))
         }
     }
     
@@ -191,4 +191,3 @@ extension VacationFormTests {
             note: note)
     }
 }
-

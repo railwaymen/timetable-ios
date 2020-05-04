@@ -24,6 +24,7 @@ extension ApiValidationErrors {
             case endsAt = "ends_at"
             case duration
             case invalidEmailOrPassword = "invalid_email_or_password"
+            case workTimeExists = "work_time_exists"
         }
         
         init(from decoder: Decoder) throws {
@@ -46,6 +47,9 @@ extension ApiValidationErrors {
             }
             if let invalidEmailOrPassword = try? container.decode([BasicErrorInfo].self, forKey: .invalidEmailOrPassword) {
                 keys += invalidEmailOrPassword
+            }
+            if let workTimeExists = try? container.decode([BasicErrorInfo].self, forKey: .workTimeExists) {
+                keys += workTimeExists
             }
             self.keys = keys
         }

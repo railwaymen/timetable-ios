@@ -17,6 +17,7 @@ enum UIElement {
     case taskUrlTextField
     case startsAtTextField
     case endsAtTextField
+    case noteTextView
 }
 
 enum UIError: Error {
@@ -25,6 +26,7 @@ enum UIError: Error {
     case timeGreaterThan
     case genericError
     case loginCredentialsInvalid
+    case workTimeExists
     
     var localizedDescription: String {
         switch self {
@@ -38,6 +40,8 @@ enum UIError: Error {
             return R.string.localizable.error_something_went_wrong()
         case .loginCredentialsInvalid:
             return R.string.localizable.credential_error_credentials_invalid()
+        case .workTimeExists:
+            return R.string.localizable.error_work_time_exists()
         }
     }
 }

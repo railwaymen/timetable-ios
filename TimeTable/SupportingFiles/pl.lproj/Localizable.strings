@@ -100,5 +100,6 @@
 "error_no_connection" = "Brak połączenia z internetem. Aby kontynuować połącz sie z siecią.";
 "error_timeout" = "Twoje żądanie przekroczyło limit czasu i zostało przerwane. Sprawdź połączenie z internetem i spróbuj ponownie.";
 "error_unauthorized" = "Twoja sesja wygasła.";
+"error_work_time_exists" = "Jest już czas pracy z tą samą datą.";
 
 "error_refresh_btn" = "ODŚWIEŻ";
