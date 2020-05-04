@@ -9,12 +9,13 @@
 import UIKit
 
 protocol NewVacationCoordinatorDelegate: class {
-    func finishFlow()
+    func finishFlow(response: VacationDecoder?)
 }
 
 class NewVacationCoordinator: NavigationCoordinator {
     private let dependencyContainer: DependencyContainerType
     private weak var parentViewController: UIViewController?
+    private var customFinishCompletion: ((VacationDecoder?) -> Void)?
     
     var root: UIViewController {
         return self.navigationController
@@ -38,17 +39,28 @@ class NewVacationCoordinator: NavigationCoordinator {
     }
     
     // MARK: - Overridden
-    func start(availableVacationDays: Int, finishHandler: (() -> Void)?) {
-        super.start(finishHandler: finishHandler)
+    func start(availableVacationDays: Int, finishHandler: ((VacationDecoder?) -> Void)?) {
+        self.customFinishCompletion = finishHandler
+        super.start()
         self.runMainFlow(availableVacationDays: availableVacationDays)
+    }
+    
+    func finish(response: VacationDecoder?) {
+        self.customFinishCompletion?(response)
+        super.finish()
+    }
+    
+    override func finish() {
+        self.customFinishCompletion?(nil)
+        super.finish()
     }
 }
 
 // MARK: - NewVacationCoordinatorDelegate
 extension NewVacationCoordinator: NewVacationCoordinatorDelegate {
-    func finishFlow() {
+    func finishFlow(response: VacationDecoder?) {
         self.navigationController.dismiss(animated: true) { [weak self] in
-            self?.finish()
+            self?.finish(response: response)
         }
     }
 }

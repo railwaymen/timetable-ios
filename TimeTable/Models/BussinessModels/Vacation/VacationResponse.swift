@@ -18,6 +18,15 @@ struct VacationResponse: Decodable {
         case usedVacationDays = "used_vacation_days"
         case records
     }
+    
+    // MARK: - Initialization
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.availableVacationDays = try container.decode(Int.self, forKey: .availableVacationDays)
+        self.usedVacationDays = try container.decode(UsedVacationDays.self, forKey: .usedVacationDays)
+        let records = try container.decode([VacationDecoder].self, forKey: .records)
+        self.records = records.sorted(by: { $0.startDate > $1.startDate })
+    }
 }
 
 // MARK: - Structs

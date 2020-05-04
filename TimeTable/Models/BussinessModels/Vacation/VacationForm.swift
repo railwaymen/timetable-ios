@@ -13,4 +13,8 @@ struct VacationForm {
     var endDate: Date
     var type: VacationType
     var note: String?
+    
+    func convertToEncoder() -> VacationEncoder {
+        return VacationEncoder(type: self.type, description: self.note, startDate: self.startDate, endDate: self.endDate)
+    }
 }

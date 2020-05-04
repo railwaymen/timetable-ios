@@ -17,6 +17,7 @@ protocol NewVacationViewModelType: class {
     func viewChanged(endAtDate date: Date)
     func viewSelectedType(at row: Int)
     func noteTextViewDidChanged(text: String)
+    func saveButtonTapped()
     func viewHasBeenTapped()
 }
 
@@ -46,6 +47,22 @@ class NewVacationViewModel {
     private let defaultVacationType: VacationType = .planned
     private var form: VacationForm
     
+    private var decisionState: DecistionState {
+        didSet {
+            switch self.decisionState {
+            case .preparing:
+                self.updateViewForPreparingState()
+            case .request:
+                self.userInterface?.setActivityIndicator(isHidden: false)
+            case let .done(response):
+                self.userInterface?.setActivityIndicator(isHidden: true)
+                self.coordinator?.finishFlow(response: response)
+            case .error:
+                self.userInterface?.setActivityIndicator(isHidden: true)
+            }
+        }
+    }
+    
     // MARK: - Initialization
     init(
         userInterface: NewVacationViewModelOutput,
@@ -62,6 +79,7 @@ class NewVacationViewModel {
         self.coordinator = coordinator
         self.availableVacationDays = availableVacationDays
         self.vacationTypes = VacationType.allCases
+        self.decisionState = .preparing
         self.form = VacationForm(startDate: Date(), endDate: Date(), type: self.defaultVacationType, note: nil)
         self.setUpNotification()
     }
@@ -82,22 +100,24 @@ class NewVacationViewModel {
     }
 }
 
+extension NewVacationViewModel {
+    enum DecistionState {
+        case preparing
+        case request
+        case done(VacationDecoder)
+        case error(Error)
+    }
+}
+
 // MARK: - NewVacationViewModelType
 extension NewVacationViewModel: NewVacationViewModelType {
     func loadView() {
         self.userInterface?.setUp(availableVacationDays: "\(self.availableVacationDays)")
-        self.userInterface?.updateType(name: self.defaultVacationType.localizableString)
-        let date = Date()
-        self.updateDateInput(with: date, action: self.userInterface?.updateStartDate)
-        self.updateDateInput(with: date, action: self.userInterface?.updateEndDate)
-        self.userInterface?.setMinimumDateForEndDate(minDate: date)
-        self.userInterface?.setMinimumDateForStartDate(minDate: date)
-        self.userInterface?.setNote(text: "")
-        self.userInterface?.setSaveButton(isEnabled: true)
+        self.decisionState = .preparing
     }
     
     func closeButtonTapped() {
-        self.coordinator?.finishFlow()
+        self.coordinator?.finishFlow(response: nil)
     }
     
     func numberOfTypes() -> Int {
@@ -130,6 +150,11 @@ extension NewVacationViewModel: NewVacationViewModelType {
         self.form.note = text
     }
     
+    func saveButtonTapped() {
+        self.decisionState = .request
+        self.postVacation()
+    }
+    
     func viewHasBeenTapped() {
         self.userInterface?.dismissKeyboard()
     }
@@ -158,5 +183,28 @@ extension NewVacationViewModel {
     private func vacationTypeTitle(for row: Int) -> String {
         guard let type = self.vacationTypes[safeIndex: row] else { return "" }
         return type.localizableString
+    }
+    
+    private func updateViewForPreparingState() {
+        self.userInterface?.updateType(name: self.defaultVacationType.localizableString)
+        let date = Date()
+        self.updateDateInput(with: date, action: self.userInterface?.updateStartDate)
+        self.updateDateInput(with: date, action: self.userInterface?.updateEndDate)
+        self.userInterface?.setMinimumDateForEndDate(minDate: date)
+        self.userInterface?.setMinimumDateForStartDate(minDate: date)
+        self.userInterface?.setNote(text: "")
+        self.userInterface?.setSaveButton(isEnabled: true)
+    }
+    
+    private func postVacation() {
+        let vacation = self.form.convertToEncoder()
+        _ = self.apiClient.addVacation(vacation: vacation) { [weak self] result in
+            switch result {
+            case let .success(response):
+                self?.decisionState = .done(response)
+            case let .failure(error):
+                self?.decisionState = .error(error)
+            }
+        }
     }
 }

@@ -49,6 +49,10 @@ class NewVacationViewController: UIViewController {
         self.viewModel.viewChanged(endAtDate: sender.date)
     }
     
+    @IBAction private func saveButtonTapped() {
+        self.viewModel.saveButtonTapped()
+    }
+    
     @IBAction private func viewTapped(_ sender: UITapGestureRecognizer) {
         self.viewModel.viewHasBeenTapped()
     }

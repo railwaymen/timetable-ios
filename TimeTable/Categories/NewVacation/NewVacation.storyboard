@@ -162,6 +162,9 @@
                                                         <real key="value" value="5"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="saveButtonTapped" destination="o9l-3b-Gnf" eventType="touchUpInside" id="CTI-q2-Bri"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>

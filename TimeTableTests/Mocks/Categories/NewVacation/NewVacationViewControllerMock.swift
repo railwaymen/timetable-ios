@@ -13,7 +13,9 @@ class NewVacationViewControllerMock: UIViewController {
     
     // MARK: - NewVacationViewModelOutput
     private(set) var setUpParams: [SetUpParams] = []
-    struct SetUpParams {}
+    struct SetUpParams {
+        let availableVacationDays: String
+    }
     
     private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
     struct SetActivityIndicatorParams {
@@ -23,6 +25,11 @@ class NewVacationViewControllerMock: UIViewController {
     private(set) var setNoteParams: [SetNoteParams] = []
     struct SetNoteParams {
         let text: String
+    }
+    
+    private(set) var setMinimumDateForStartDateParams: [SetMinimumDateForStartDateParams] = []
+    struct SetMinimumDateForStartDateParams {
+        let minDate: Date
     }
     
     private(set) var setMinimumDateForEndDateParams: [SetMinimumDateForEndDateParams] = []
@@ -69,8 +76,8 @@ class NewVacationViewControllerMock: UIViewController {
 
 // MARK: - NewVacationViewModelOutput
 extension NewVacationViewControllerMock: NewVacationViewModelOutput {
-    func setUp() {
-        self.setUpParams.append(SetUpParams())
+    func setUp(availableVacationDays: String) {
+        self.setUpParams.append(SetUpParams(availableVacationDays: availableVacationDays))
     }
     
     func setActivityIndicator(isHidden: Bool) {
@@ -79,6 +86,10 @@ extension NewVacationViewControllerMock: NewVacationViewModelOutput {
     
     func setNote(text: String) {
         self.setNoteParams.append(SetNoteParams(text: text))
+    }
+    
+    func setMinimumDateForStartDate(minDate: Date) {
+        self.setMinimumDateForStartDateParams.append(SetMinimumDateForStartDateParams(minDate: minDate))
     }
     
     func setMinimumDateForEndDate(minDate: Date) {
