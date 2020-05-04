@@ -40,8 +40,8 @@ struct VacationForm: VacationFormType {
     // MARK: - VacationFormType
     func validationErrors() -> [UIError] {
         guard self.type == .others else { return [] }
-        guard note == nil else { return [] }
-        return [UIError.cannotBeEmpty(.noteTextView)]
+        guard let note = self.note, !note.isEmpty else { return [UIError.cannotBeEmpty(.noteTextView)] }
+        return []
     }
     
     func convertToEncoder() throws -> VacationEncoder {
