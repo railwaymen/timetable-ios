@@ -87,19 +87,19 @@ extension UIColor {
     }
     
     static var statusAccepted: UIColor {
-        let color = R.color.statusUnconfirmed()
+        let color = R.color.statusAccepted()
         assert(color != nil)
         return color ?? #colorLiteral(red: 0.1529411765, green: 0.6823529412, blue: 0.3764705882, alpha: 1)
     }
     
     static var statusDeclined: UIColor {
-        let color = R.color.statusAccepted()
+        let color = R.color.statusDeclined()
         assert(color != nil)
         return color ?? #colorLiteral(red: 0.7921568627, green: 0.07450980392, blue: 0.1647058824, alpha: 1)
     }
     
     static var statusUnconfirmed: UIColor {
-        let color = R.color.statusDeclined()
+        let color = R.color.statusUnconfirmed()
         assert(color != nil)
         return color ?? #colorLiteral(red: 0.9490196078, green: 0.6, blue: 0.2901960784, alpha: 1)
     }
