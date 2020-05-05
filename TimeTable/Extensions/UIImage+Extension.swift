@@ -9,18 +9,6 @@
 import UIKit
 
 extension UIImage {
-    static let projects: UIImage = {
-        let image = UIImage(systemName: "rectangle.grid.2x2.fill")
-        assert(image != nil)
-        return image ?? #imageLiteral(resourceName: "project_icon")
-    }()
-    
-    static let timesheet: UIImage = {
-        let image = UIImage(systemName: "clock.fill")
-        assert(image != nil)
-        return image ?? #imageLiteral(resourceName: "work_times_icon")
-    }()
-    
     static let profile: UIImage = {
         let image = UIImage(systemName: "person.crop.circle.fill")
         assert(image != nil)

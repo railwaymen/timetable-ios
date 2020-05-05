@@ -39,7 +39,7 @@ class WorkTimesListCoordinator: NavigationCoordinator, TabBarChildCoordinatorTyp
         
         self.tabBarItem = UITabBarItem(
             title: R.string.localizable.timesheet_title(),
-            image: .timesheet,
+            image: #imageLiteral(resourceName: "tab_bar_timesheet_icon"),
             selectedImage: nil)
         super.init(window: dependencyContainer.window)
         self.navigationController.setNavigationBarHidden(false, animated: false)
