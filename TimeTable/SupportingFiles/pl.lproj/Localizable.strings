@@ -96,7 +96,7 @@
 "newvacation_vacation_type" = "Typ";
 "newvacation_reason" = "Powód";
 "newvacation_optional" = "Opcjonalne";
-"newvacation_save_btn" = "Zapisz";
+"newvacation_save_btn" = "Wyślij do zaakceptowania";
 
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Pole nie może być puste.";
