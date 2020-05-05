@@ -19,7 +19,7 @@ class VacationViewController: UIViewController {
     @IBOutlet private var errorView: ErrorView!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
-    private let tableViewEstimatedRowHeight: CGFloat = 80
+    private let tableViewEstimatedRowHeight: CGFloat = 60
     private var viewModel: VacationViewModelType!
 
     // MARK: - Overridden
