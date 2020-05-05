@@ -12,19 +12,20 @@ import XCTest
 class ProjectPickerCellMock: UITableViewCell {
     private(set) var setUpParams: [SetUpParams] = []
     struct SetUpParams {
-        var title: String
+        let title: String
+        let color: UIColor
     }
     
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
-        var viewModel: ProjectPickerCellModelType
+        let viewModel: ProjectPickerCellModelType
     }
 }
 
 // MARK: - ProjectPickerCellModelOutput
 extension ProjectPickerCellMock: ProjectPickerCellModelOutput {
-    func setUp(title: String) {
-        self.setUpParams.append(SetUpParams(title: title))
+    func setUp(title: String, color: UIColor) {
+        self.setUpParams.append(SetUpParams(title: title, color: color))
     }
 }
 

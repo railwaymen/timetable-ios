@@ -20,32 +20,75 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Sc1-v6-mIx">
-                                        <rect key="frame" x="0.0" y="16" width="414" height="595.66666666666663"/>
+                                        <rect key="frame" x="0.0" y="16" width="414" height="596.66666666666663"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qy7-kP-lwM" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
+                                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cpu-QP-3Nh" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="0.0" width="382" height="35"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="uYi-mt-JY1">
+                                                        <rect key="frame" x="158.66666666666666" y="0.0" width="64.666666666666657" height="35"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OmX-wh-tDs" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="9.6666666666666679" width="16" height="16"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="16" id="2Pi-nU-SKv"/>
+                                                                    <constraint firstAttribute="height" constant="16" id="VSZ-E8-xWT"/>
+                                                                </constraints>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                        <real key="value" value="4"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </view>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FhA-P5-nl2">
+                                                                <rect key="frame" x="23.999999999999996" y="7.9999999999999982" width="40.666666666666657" height="19.333333333333329"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qy7-kP-lwM">
+                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="35"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal">
+                                                            <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="projectButtonTapped:" destination="vWa-gW-sZm" eventType="touchUpInside" id="EOi-UM-KBn"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="35" id="XXO-Th-GFE"/>
+                                                    <constraint firstAttribute="trailing" secondItem="qy7-kP-lwM" secondAttribute="trailing" id="0Ra-Hk-ZZT"/>
+                                                    <constraint firstAttribute="bottom" secondItem="qy7-kP-lwM" secondAttribute="bottom" id="28x-mI-gBv"/>
+                                                    <constraint firstAttribute="height" constant="35" id="CbG-tc-8GU"/>
+                                                    <constraint firstItem="qy7-kP-lwM" firstAttribute="leading" secondItem="Cpu-QP-3Nh" secondAttribute="leading" id="OSo-Rv-1Z4"/>
+                                                    <constraint firstItem="uYi-mt-JY1" firstAttribute="centerX" secondItem="Cpu-QP-3Nh" secondAttribute="centerX" id="P86-uG-95R"/>
+                                                    <constraint firstItem="qy7-kP-lwM" firstAttribute="top" secondItem="Cpu-QP-3Nh" secondAttribute="top" id="VXN-Im-9hK"/>
+                                                    <constraint firstAttribute="bottom" secondItem="uYi-mt-JY1" secondAttribute="bottom" id="dbH-YA-euA"/>
+                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uYi-mt-JY1" secondAttribute="trailing" id="fdG-Mj-oyV"/>
+                                                    <constraint firstItem="uYi-mt-JY1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Cpu-QP-3Nh" secondAttribute="leading" id="ffh-un-kG7"/>
+                                                    <constraint firstItem="uYi-mt-JY1" firstAttribute="top" secondItem="Cpu-QP-3Nh" secondAttribute="top" id="zXD-CU-I6O"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                                <state key="normal">
-                                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                </state>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="5"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                        <real key="value" value="1"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" cocoaTouchSystemColor="lightTextColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="projectButtonTapped:" destination="vWa-gW-sZm" eventType="touchUpInside" id="EOi-UM-KBn"/>
-                                                </connections>
-                                            </button>
+                                            </view>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select Day" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s85-fU-VBR" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="59" width="382" height="35"/>
                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="35" id="c16-Xg-QMv"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <userDefinedRuntimeAttributes>
@@ -53,16 +96,19 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="vs0-xH-GvZ">
-                                                <rect key="frame" x="16" y="118" width="382" height="34"/>
+                                                <rect key="frame" x="16" y="118" width="382" height="35"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="08:00" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GPe-vx-7eJ" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="183" height="34"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="183" height="35"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="35" id="u5w-FI-6M8"/>
+                                                        </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="09:00" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pgu-1o-gtM" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
-                                                        <rect key="frame" x="199" y="0.0" width="183" height="34"/>
+                                                        <rect key="frame" x="199" y="0.0" width="183" height="35"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits"/>
@@ -70,7 +116,7 @@
                                                 </subviews>
                                             </stackView>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="05z-uo-ywe">
-                                                <rect key="frame" x="0.0" y="176" width="414" height="46"/>
+                                                <rect key="frame" x="0.0" y="177" width="414" height="46"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="46" id="c2T-q5-esL"/>
@@ -87,7 +133,7 @@
                                                 </connections>
                                             </collectionView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AqR-op-JKn">
-                                                <rect key="frame" x="16" y="246.00000000000003" width="382" height="121.33333333333334"/>
+                                                <rect key="frame" x="16" y="247.00000000000003" width="382" height="121.33333333333334"/>
                                                 <subviews>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5pA-GP-fz3" customClass="AttributerTextView" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="25.999999999999993" width="382" height="95.333333333333314"/>
@@ -131,7 +177,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPE-xV-Lbs">
-                                                <rect key="frame" x="16" y="391.33333333333331" width="382" height="84.333333333333314"/>
+                                                <rect key="frame" x="16" y="392.33333333333331" width="382" height="84.333333333333314"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dYn-5C-xtg" customClass="AttributedTextField" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="44.333333333333371" width="382" height="40"/>
@@ -168,7 +214,7 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="dbl-sc-bxX">
-                                                <rect key="frame" x="16" y="499.66666666666663" width="382" height="96"/>
+                                                <rect key="frame" x="16" y="500.66666666666663" width="382" height="96"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TSS-Hb-MVA" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="382" height="40"/>
@@ -215,19 +261,17 @@
                                             <constraint firstItem="qPE-xV-Lbs" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" constant="16" id="HSw-VQ-wOR"/>
                                             <constraint firstItem="AqR-op-JKn" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" constant="16" id="JMJ-WU-8uP"/>
                                             <constraint firstAttribute="trailing" secondItem="vs0-xH-GvZ" secondAttribute="trailing" constant="16" id="PNP-D2-UgW"/>
+                                            <constraint firstItem="Cpu-QP-3Nh" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" constant="16" id="S1m-bE-AH3"/>
                                             <constraint firstItem="05z-uo-ywe" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" id="TDC-9q-aij"/>
                                             <constraint firstAttribute="trailing" secondItem="dbl-sc-bxX" secondAttribute="trailing" constant="16" id="Z68-rX-cmI"/>
                                             <constraint firstAttribute="trailing" secondItem="s85-fU-VBR" secondAttribute="trailing" constant="16" id="cD1-iI-APK"/>
                                             <constraint firstAttribute="trailing" secondItem="05z-uo-ywe" secondAttribute="trailing" id="egW-So-7dt"/>
                                             <constraint firstItem="s85-fU-VBR" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" constant="16" id="gYm-7e-oTf"/>
                                             <constraint firstItem="dbl-sc-bxX" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" constant="16" id="nh2-aL-l2a"/>
-                                            <constraint firstItem="qy7-kP-lwM" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" constant="16" id="oVx-Cq-wwm"/>
                                             <constraint firstAttribute="trailing" secondItem="qPE-xV-Lbs" secondAttribute="trailing" constant="16" id="rOb-7D-0dx"/>
                                             <constraint firstAttribute="trailing" secondItem="AqR-op-JKn" secondAttribute="trailing" constant="16" id="t9k-tu-OKg"/>
-                                            <constraint firstItem="qy7-kP-lwM" firstAttribute="height" secondItem="s85-fU-VBR" secondAttribute="height" id="xWT-Xu-Z14"/>
-                                            <constraint firstAttribute="trailing" secondItem="qy7-kP-lwM" secondAttribute="trailing" constant="16" id="y6E-po-cHD"/>
+                                            <constraint firstAttribute="trailing" secondItem="Cpu-QP-3Nh" secondAttribute="trailing" constant="16" id="u0p-aQ-AYC"/>
                                             <constraint firstItem="vs0-xH-GvZ" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" constant="16" id="yBm-WV-KjH"/>
-                                            <constraint firstItem="qy7-kP-lwM" firstAttribute="height" secondItem="Pgu-1o-gtM" secondAttribute="height" multiplier="1.02941" id="yyG-W7-7Xh"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
@@ -265,7 +309,9 @@
                         <outlet property="bodyView" destination="AqR-op-JKn" id="hPj-dB-fn9"/>
                         <outlet property="dayTextField" destination="s85-fU-VBR" id="F63-Zq-OUV"/>
                         <outlet property="endAtDateTextField" destination="Pgu-1o-gtM" id="dZK-DO-5C1"/>
-                        <outlet property="projectButton" destination="qy7-kP-lwM" id="N6u-fk-fZe"/>
+                        <outlet property="projectColorView" destination="OmX-wh-tDs" id="HHa-tS-FiD"/>
+                        <outlet property="projectTitleLabel" destination="FhA-P5-nl2" id="EiP-N5-Lcr"/>
+                        <outlet property="projectView" destination="Cpu-QP-3Nh" id="XiR-dw-oT1"/>
                         <outlet property="saveButton" destination="TSS-Hb-MVA" id="LVA-KX-Gbz"/>
                         <outlet property="saveWithFillingButton" destination="6ta-Ew-UlV" id="zrd-bJ-L01"/>
                         <outlet property="scrollView" destination="bjN-hl-pu3" id="3bW-4d-ap5"/>

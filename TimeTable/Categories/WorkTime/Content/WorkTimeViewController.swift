@@ -16,7 +16,9 @@ protocol WorkTimeViewControllerType: class {
 
 class WorkTimeViewController: UIViewController {
     @IBOutlet private var scrollView: UIScrollView!
-    @IBOutlet private var projectButton: AttributedButton!
+    @IBOutlet private var projectView: AttributedView!
+    @IBOutlet private var projectColorView: UIView!
+    @IBOutlet private var projectTitleLabel: UILabel!
     @IBOutlet private var dayTextField: UITextField!
     @IBOutlet private var startAtDateTextField: UITextField!
     @IBOutlet private var endAtDateTextField: UITextField!
@@ -201,8 +203,9 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         self.endAtDatePicker?.date = date
     }
     
-    func updateProject(name: String) {
-        self.projectButton.setTitle(name, for: UIControl.State())
+    func updateProject(name: String, color: UIColor) {
+        self.projectTitleLabel.text = name
+        self.projectColorView.backgroundColor = color
     }
     
     func setActivityIndicator(isHidden: Bool) {
@@ -221,7 +224,7 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     }
     
     func setProject(isHighlighted: Bool) {
-        self.set(self.projectButton, isHighlighted: isHighlighted)
+        self.set(self.projectView, isHighlighted: isHighlighted)
     }
     
     func setDay(isHighlighted: Bool) {
@@ -261,7 +264,7 @@ extension WorkTimeViewController {
     }
     
     private func setUpProjectButton() {
-        self.projectButton.setTextFieldAppearance()
+        self.projectView.setTextFieldAppearance()
     }
     
     private func setUpDayPicker() {

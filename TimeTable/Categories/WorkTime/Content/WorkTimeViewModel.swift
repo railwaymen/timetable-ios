@@ -22,7 +22,7 @@ protocol WorkTimeViewModelOutput: class {
     func updateDay(with date: Date, dateString: String)
     func updateStartAtDate(with date: Date, dateString: String)
     func updateEndAtDate(with date: Date, dateString: String)
-    func updateProject(name: String)
+    func updateProject(name: String, color: UIColor)
     func setActivityIndicator(isHidden: Bool)
     func setBottomContentInset(_ height: CGFloat)
     func setTagsCollectionView(isHidden: Bool)
@@ -289,8 +289,9 @@ extension WorkTimeViewModel {
         self.userInterface?.setTagsCollectionView(isHidden: !self.taskForm.isProjectTaggable)
         self.updateEndAtDateView(with: endDate)
         self.updateStartAtDateView(with: startDate)
-        self.userInterface?.updateProject(name: self.taskForm.project?.name
-            ?? R.string.localizable.worktimeform_select_project())
+        self.userInterface?.updateProject(
+            name: self.taskForm.project?.name ?? R.string.localizable.worktimeform_select_project(),
+            color: self.taskForm.project?.color ?? .clear)
     }
     
     private func updateDayView(with date: Date) {
