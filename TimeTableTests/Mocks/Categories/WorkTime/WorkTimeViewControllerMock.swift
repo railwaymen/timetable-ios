@@ -77,6 +77,7 @@ class WorkTimeViewControllerMock: UIViewController {
     private(set) var updateProjectParams: [UpdateProjectParams] = []
     struct UpdateProjectParams {
         let name: String
+        let color: UIColor
     }
     
     private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
@@ -185,8 +186,8 @@ extension WorkTimeViewControllerMock: WorkTimeViewModelOutput {
         self.updateEndAtDateParams.append(UpdateEndAtDateParams(date: date, dateString: dateString))
     }
     
-    func updateProject(name: String) {
-        self.updateProjectParams.append(UpdateProjectParams(name: name))
+    func updateProject(name: String, color: UIColor) {
+        self.updateProjectParams.append(UpdateProjectParams(name: name, color: color))
     }
     
     func setActivityIndicator(isHidden: Bool) {

@@ -19,23 +19,23 @@
                         <rect key="frame" x="16" y="16" width="419" height="50"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tYv-2U-a1K" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="20" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="16" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="fhv-e3-Oyv"/>
-                                    <constraint firstAttribute="width" constant="20" id="rwH-td-4qD"/>
+                                    <constraint firstAttribute="height" constant="16" id="fhv-e3-Oyv"/>
+                                    <constraint firstAttribute="width" constant="16" id="rwH-td-4qD"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="0.0"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="5"/>
+                                        <real key="value" value="4"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mSm-HY-Uup">
-                                <rect key="frame" x="28" y="0.0" width="391" height="50"/>
+                                <rect key="frame" x="24" y="0.0" width="395" height="50"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
