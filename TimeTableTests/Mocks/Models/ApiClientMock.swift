@@ -96,6 +96,28 @@ class ApiClientMock {
         let parameters: MatchingFullTimeEncoder
         let completion: ((Result<MatchingFullTimeDecoder, Error>) -> Void)
     }
+    
+    // MARK: - ApiClientVacationType
+    var fetchVacationReturnValue: RestlerTaskType?
+    private(set) var fetchVacationParams: [FetchVacationParams] = []
+    struct FetchVacationParams {
+        let parameters: VacationParameters
+        let completion: FetchVacationCompletion
+    }
+    
+    var addVacationReturnValue: RestlerTaskType?
+    private(set) var addVacationParams: [AddVacationParams] = []
+    struct AddVacationParams {
+        let vacation: VacationEncoder
+        let completion: AddVacationCompletion
+    }
+    
+    var declineVacationReturnValue: RestlerTaskType?
+    private(set) var declineVacationParams: [DeclineVacationParams] = []
+    struct DeclineVacationParams {
+        let vacation: VacationDecoder
+        let completion: VoidCompletion
+    }
 }
 
 // MARK: - ApiClientSessionType
@@ -183,5 +205,23 @@ extension ApiClientMock: ApiClientAccountingPeriodsType {
         completion: @escaping ((Result<MatchingFullTimeDecoder, Error>) -> Void)
     ) {
         self.fetchMatchingFullTimeParams.append(FetchMatchingFullTimeParams(parameters: parameters, completion: completion))
+    }
+}
+
+// MARK: - ApiClientVacationType
+extension ApiClientMock: ApiClientVacationType {
+    func fetchVacation(parameters: VacationParameters, completion: @escaping FetchVacationCompletion) -> RestlerTaskType? {
+        self.fetchVacationParams.append(FetchVacationParams(parameters: parameters, completion: completion))
+        return self.fetchVacationReturnValue
+    }
+
+    func addVacation(_ vacation: VacationEncoder, completion: @escaping AddVacationCompletion) -> RestlerTaskType? {
+        self.addVacationParams.append(AddVacationParams(vacation: vacation, completion: completion))
+        return self.addVacationReturnValue
+    }
+    
+    func declineVacation(_ vacation: VacationDecoder, completion: @escaping VoidCompletion) -> RestlerTaskType? {
+        self.declineVacationParams.append(DeclineVacationParams(vacation: vacation, completion: completion))
+        return self.declineVacationReturnValue
     }
 }

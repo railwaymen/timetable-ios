@@ -24,7 +24,7 @@ class LoginViewController: UIViewController {
     
     private var viewModel: LoginViewModelType!
     
-    // MARK: - Lifecycle
+    // MARK: - Overridden
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.viewDidLoad()

@@ -26,7 +26,7 @@ class WorkTimesListViewController: UIViewController {
     private let heightForHeader: CGFloat = 50
     private var viewModel: WorkTimesListViewModelType!
     
-    // MARK: - Lifecycle
+    // MARK: - Overridden
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel?.viewDidLoad()

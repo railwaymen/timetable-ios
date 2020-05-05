@@ -63,6 +63,41 @@
 "accountingperiods_full_time_yes" = "full-time: Yes";
 "accountingperiods_full_time_no" = "full-time: No";
 
+// MARK: - Vacation
+"vacation_title" = "Vacation";
+"vacation_used_days_title" = "Used vacation";
+"vacation_status_unconfirmed" = "Unconfirmed";
+"vacation_status_declined" = "Declined";
+"vacation_status_approved" = "Unconfirmed";
+"vacation_status_accepted" = "Accepted";
+"vacation_type_planned" = "Holiday leave";
+"vacation_type_requested" = "Leave on demand";
+"vacation_type_compassionate" = "Special leave";
+"vacation_type_others" = "Others";
+"vacation_remaining_vacation" = "Remaining vacation:";
+"vacation_more_used_days" = "More about used days";
+"vacation_history" = "History";
+"vacation_type_planned" = "Holiday leave";
+"vacation_type_requested" = "Leave on demand";
+"vacation_type_compassionate" = "Special leave";
+"vacation_type_paternity" = "Paternity leave";
+"vacation_type_parental" = "Parental leave";
+"vacation_type_upbringing" = "Upbringing leave";
+"vacation_type_unpaid" = "Unpaid leave";
+"vacation_type_rehabilitation" = "Rehabilitation leave";
+"vacation_type_illness" = "Illness";
+"vacation_type_care" = "Care";
+
+// MARK: - NewVacation
+"newvacation_title" = "Add vacation";
+"newvacation_remaining_vacation" = "Days to use:";
+"newvacation_from_date" = "From";
+"newvacation_to_date" = "To";
+"newvacation_vacation_type" = "Type";
+"newvacation_reason" = "Reason";
+"newvacation_optional" = "Optional";
+"newvacation_save_btn" = "Save";
+
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Field cannot be empty.";
 "error_invalid_format" = "Content has invalid format.";
@@ -72,5 +107,6 @@
 "error_no_connection" = "No internet connection. To perform further operations, please connect to the internet.";
 "error_timeout" = "Your request has timed out. Please, check your internet connection and try again.";
 "error_unauthorized" = "Your session has timed out.";
+"error_work_time_exists" = "There is work time with same date.";
 
 "error_refresh_btn" = "REFRESH";

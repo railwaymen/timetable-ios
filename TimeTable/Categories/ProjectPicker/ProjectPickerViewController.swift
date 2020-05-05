@@ -20,7 +20,7 @@ class ProjectPickerViewController: UIViewController {
     
     private var viewModel: ProjectPickerViewModelType!
     
-    // MARK: - Lifecycle
+    // MARK: - Overridden
     override func loadView() {
         super.loadView()
         self.viewModel.loadView()

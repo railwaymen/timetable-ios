@@ -20,7 +20,7 @@ class TaskHistoryViewController: UIViewController {
     
     private var viewModel: TaskHistoryViewModelType!
     
-    // MARK: - Lifecycle
+    // MARK: - Overridden
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.viewDidLoad()

@@ -55,6 +55,21 @@ class ViewControllerBuilderMock {
     var accountingPeriodsReturnValue: AccountingPeriodsViewControllerable = AccountingPeriodsViewControllerMock()
     private(set) var accountingPeriodsParams: [AccountingPeriodsParams] = []
     struct AccountingPeriodsParams {}
+
+    var vacationThrownError: Error?
+    var vacationReturnValue: VacationViewControllerable = VacationViewControllerMock()
+    private(set) var vacationParams: [VacationParams] = []
+    struct VacationParams {}
+    
+    var newVacationThrownError: Error?
+    var newVacationReturnValue: NewVacationViewControllerable = NewVacationViewControllerMock()
+    private(set) var newVacationParams: [NewVacationParams] = []
+    struct NewVacationParams {}
+    
+    var usedVacationThrownError: Error?
+    var usedVacationReturnValue: UsedVacationViewControllerable = UsedVacationViewControllerMock()
+    private(set) var usedVacationParams: [UsedVacationParams] = []
+    struct UsedVacationParams {}
 }
 
 // MARK: - ViewControllerBuilderType
@@ -126,5 +141,29 @@ extension ViewControllerBuilderMock: ViewControllerBuilderType {
             throw error
         }
         return self.accountingPeriodsReturnValue
+    }
+    
+    func vacation() throws -> VacationViewControllerable {
+        self.vacationParams.append(VacationParams())
+        if let error = self.vacationThrownError {
+            throw error
+        }
+        return self.vacationReturnValue
+    }
+    
+    func newVacation() throws -> NewVacationViewControllerable {
+        self.newVacationParams.append(NewVacationParams())
+        if let error = self.newVacationThrownError {
+            throw error
+        }
+        return self.newVacationReturnValue
+    }
+    
+    func usedVacation() throws -> UsedVacationViewControllerable {
+        self.usedVacationParams.append(UsedVacationParams())
+        if let error = self.usedVacationThrownError {
+            throw error
+        }
+        return self.usedVacationReturnValue
     }
 }

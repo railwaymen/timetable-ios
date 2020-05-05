@@ -1,0 +1,44 @@
+{
+  "records": [
+    {
+      "id": 9,
+      "start_date": "2020-02-20",
+      "end_date": "2020-02-20",
+      "vacation_type": "planned",
+      "status": "declined",
+      "full_name": "user 1",
+      "business_days_count": 1
+    },
+    {
+      "id": 11,
+      "start_date": "2020-03-04",
+      "end_date": "2020-03-04",
+      "vacation_type": "requested",
+      "status": "accepted",
+      "full_name": "user 1",
+      "business_days_count": 1
+    },
+    {
+      "id": 97,
+      "start_date": "2020-04-27",
+      "end_date": "2020-04-28",
+      "vacation_type": "planned",
+      "status": "unconfirmed",
+      "full_name": "user 1",
+      "business_days_count": 2
+    }
+  ],
+  "available_vacation_days": 25,
+  "used_vacation_days": {
+    "planned": 0,
+    "requested": 1,
+    "compassionate": 0,
+    "paternity": 0,
+    "parental": 0,
+    "upbringing": 0,
+    "unpaid": 0,
+    "rehabilitation": 0,
+    "illness": 0,
+    "care": 0
+  }
+}

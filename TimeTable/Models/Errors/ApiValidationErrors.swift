@@ -24,6 +24,7 @@ extension ApiValidationErrors {
             case endsAt = "ends_at"
             case duration
             case invalidEmailOrPassword = "invalid_email_or_password"
+            case workTimeExists = "work_time_exists"
         }
         
         init(from decoder: Decoder) throws {
@@ -47,6 +48,9 @@ extension ApiValidationErrors {
             if let invalidEmailOrPassword = try? container.decode([BasicErrorInfo].self, forKey: .invalidEmailOrPassword) {
                 keys += invalidEmailOrPassword
             }
+            if let workTimeExists = try? container.decode([BasicErrorInfo].self, forKey: .workTimeExists) {
+                keys += workTimeExists
+            }
             self.keys = keys
         }
     }
@@ -69,6 +73,7 @@ extension ApiValidationErrors {
         case invalidExternal = "invalid_external"
         case tooOld = "too_old"
         case noGapsToFill = "no_gaps_to_fill"
+        case workTimeExists = "work_time_exists"
         
         var localizedDescription: String {
             switch self {
@@ -82,6 +87,8 @@ extension ApiValidationErrors {
                 return R.string.localizable.worktimeform_error_too_old()
             case .noGapsToFill:
                 return R.string.localizable.worktimeform_error_no_gaps_to_fill()
+            case .workTimeExists:
+                return R.string.localizable.error_work_time_exists()
             }
         }
     }

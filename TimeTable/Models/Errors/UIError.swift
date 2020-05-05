@@ -17,6 +17,7 @@ enum UIElement {
     case taskUrlTextField
     case startsAtTextField
     case endsAtTextField
+    case noteTextView
 }
 
 enum UIError: Error {

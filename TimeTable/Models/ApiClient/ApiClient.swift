@@ -15,6 +15,10 @@ typealias ApiClientType =
     & ApiClientProjectsType
     & ApiClientUsersType
     & ApiClientAccountingPeriodsType
+    & ApiClientVacationType
+
+typealias VoidResult = (Result<Void, Error>)
+typealias VoidCompletion = (VoidResult) -> Void
 
 class ApiClient {
     var restler: RestlerType {

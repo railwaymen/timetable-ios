@@ -25,7 +25,7 @@ class ServerConfigurationViewController: UIViewController {
     
     private var viewModel: ServerConfigurationViewModelType?
     
-    // MARK: - Lifecycle
+    // MARK: - Overridden
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel?.viewDidLoad()

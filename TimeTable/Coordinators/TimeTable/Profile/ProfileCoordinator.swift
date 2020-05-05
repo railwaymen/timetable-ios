@@ -34,6 +34,10 @@ class ProfileCoordinator: NavigationCoordinator {
         self.parentViewController = parentViewController
         super.init(window: dependencyContainer.window)
     }
+    
+    deinit {
+        self.navigationController.setViewControllers([], animated: false)
+    }
 
     // MARK: - Overridden
     override func start(finishHandler: (() -> Void)?) {

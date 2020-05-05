@@ -1,6 +1,6 @@
 // MARK: - Server Configuration
 "serverconfiguration_title" = "Zaloguj się";
-"serverconfiguration_enter_server_url" = "Wprowadź adres serwera TimeTable.";
+"serverconfiguration_enter_server_url" = "Wprowadź adres serwera TimeTable.";
 "serverconfiguration_address_url_placeholder" = "Adres serwera";
 "serverconfiguration_continue_btn" = "ZALOGUJ SIĘ";
 
@@ -63,6 +63,41 @@
 "accountingperiods_full_time_yes" = "etat: Tak";
 "accountingperiods_full_time_no" = "etat: Nie";
 
+// MARK: - Vacation
+"vacation_title" = "Urlopy";
+"vacation_used_days_title" = "Wykorzystany urlop";
+"vacation_status_unconfirmed" = "Niepotwierdzone";
+"vacation_status_declined" = "Odrzucony";
+"vacation_status_approved" = "Niepotwierdzone";
+"vacation_status_accepted" = "Zaakceptowany";
+"vacation_type_planned" = "Urlop wypoczynkowy";
+"vacation_type_requested" = "Urlop na żądanie";
+"vacation_type_compassionate" = "Urlop okolicznościowy";
+"vacation_type_others" = "Inne";
+"vacation_remaining_vacation" = "Pozostały urlop:";
+"vacation_more_used_days" = "Sprawdź wykorzystany urlop";
+"vacation_history" = "Historia";
+"vacation_type_planned" = "Urlop wypoczynkowy";
+"vacation_type_requested" = "Urlop na żądanie";
+"vacation_type_compassionate" = "Urlop okolicznościowy";
+"vacation_type_paternity" = "Urlop ojcowski";
+"vacation_type_parental" = "Urlop macierzyński";
+"vacation_type_upbringing" = "Urlop wychowawczy";
+"vacation_type_unpaid" = "Urlop bezpłatny";
+"vacation_type_rehabilitation" = "Urlop rehabilitacyjny";
+"vacation_type_illness" = "Urlop chorobowy";
+"vacation_type_care" = "Urlop opiekuńczy";
+
+// MARK: - NewVacation
+"newvacation_title" = "Dodaj urlop";
+"newvacation_remaining_vacation" = "Pozostały urlop:";
+"newvacation_from_date" = "Od";
+"newvacation_to_date" = "Do";
+"newvacation_vacation_type" = "Typ";
+"newvacation_reason" = "Powód";
+"newvacation_optional" = "Opcjonalne";
+"newvacation_save_btn" = "Zapisz";
+
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Pole nie może być puste.";
 "error_invalid_format" = "Wartość ma niepoprawny format.";
@@ -72,5 +107,6 @@
 "error_no_connection" = "Brak połączenia z internetem. Aby kontynuować połącz sie z siecią.";
 "error_timeout" = "Twoje żądanie przekroczyło limit czasu i zostało przerwane. Sprawdź połączenie z internetem i spróbuj ponownie.";
 "error_unauthorized" = "Twoja sesja wygasła.";
+"error_work_time_exists" = "Jest już czas pracy z tą samą datą.";
 
 "error_refresh_btn" = "ODŚWIEŻ";
