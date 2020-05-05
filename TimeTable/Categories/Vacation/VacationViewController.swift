@@ -68,6 +68,9 @@ extension VacationViewController: UITableViewDelegate {
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
+        guard self.viewModel.isAbleToDeclineVacation(at: indexPath) else {
+            return UISwipeActionsConfiguration(actions: [])
+        }
         let deleteAction = self.buildDeleteContextualAction(indexPath: indexPath)
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
