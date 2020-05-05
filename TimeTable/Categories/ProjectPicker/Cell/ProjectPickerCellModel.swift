@@ -6,10 +6,10 @@
 //  Copyright © 2019 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol ProjectPickerCellModelOutput: class {
-    func setUp(title: String)
+    func setUp(title: String, color: UIColor)
 }
 
 protocol ProjectPickerCellModelType: class {
@@ -33,6 +33,6 @@ class ProjectPickerCellModel {
 // MARK: - ProjectPickerCellModelType
 extension ProjectPickerCellModel: ProjectPickerCellModelType {
     func viewDidConfigure() {
-        self.userInterface?.setUp(title: self.project.name)
+        self.userInterface?.setUp(title: self.project.name, color: self.project.color ?? .clear)
     }
 }

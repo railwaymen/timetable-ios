@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,21 +15,43 @@
                 <rect key="frame" x="0.0" y="0.0" width="451" height="81"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mSm-HY-Uup">
-                        <rect key="frame" x="16" y="16" width="419" height="49"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hn6-cd-q4N">
+                        <rect key="frame" x="16" y="16" width="419" height="50"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tYv-2U-a1K" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="20" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="fhv-e3-Oyv"/>
+                                    <constraint firstAttribute="width" constant="20" id="rwH-td-4qD"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mSm-HY-Uup">
+                                <rect key="frame" x="28" y="0.0" width="391" height="50"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="mSm-HY-Uup" secondAttribute="bottom" constant="16" id="0Y5-o0-JUl"/>
-                    <constraint firstItem="mSm-HY-Uup" firstAttribute="leading" secondItem="nu0-NT-7WO" secondAttribute="leading" constant="16" id="IwM-bw-Qgq"/>
-                    <constraint firstAttribute="trailing" secondItem="mSm-HY-Uup" secondAttribute="trailing" constant="16" id="Wrh-GH-wgN"/>
-                    <constraint firstItem="mSm-HY-Uup" firstAttribute="top" secondItem="nu0-NT-7WO" secondAttribute="top" constant="16" id="fkB-Sd-7tJ"/>
+                    <constraint firstItem="hn6-cd-q4N" firstAttribute="leading" secondItem="nu0-NT-7WO" secondAttribute="leading" constant="16" id="8lF-AA-Npc"/>
+                    <constraint firstItem="hn6-cd-q4N" firstAttribute="top" secondItem="nu0-NT-7WO" secondAttribute="top" constant="16" id="E21-sC-7Qj"/>
+                    <constraint firstAttribute="trailing" secondItem="hn6-cd-q4N" secondAttribute="trailing" constant="16" id="a23-zN-ED8"/>
+                    <constraint firstAttribute="bottom" secondItem="hn6-cd-q4N" secondAttribute="bottom" constant="16" id="xqK-Di-EtI"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="colorView" destination="tYv-2U-a1K" id="34P-WX-qwQ"/>
                 <outlet property="titleLabel" destination="mSm-HY-Uup" id="rwv-Ud-4Cd"/>
             </connections>
             <point key="canvasLocation" x="7" y="81"/>

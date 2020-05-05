@@ -15,6 +15,7 @@ protocol ProjectPickerCellType: class {
 }
 
 class ProjectPickerCell: UITableViewCell, ReusableCellType {
+    @IBOutlet private var colorView: UIView!
     @IBOutlet private var titleLabel: UILabel!
 
     private var viewModel: ProjectPickerCellModelType!
@@ -22,8 +23,9 @@ class ProjectPickerCell: UITableViewCell, ReusableCellType {
 
 // MARK: - ProjectPickerCellModelOutput
 extension ProjectPickerCell: ProjectPickerCellModelOutput {
-    func setUp(title: String) {
+    func setUp(title: String, color: UIColor) {
         self.titleLabel.text = title
+        self.colorView.backgroundColor = color
     }
 }
 
