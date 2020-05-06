@@ -20,6 +20,7 @@ class WorkTimesListViewModelTests: XCTestCase {
     private var errorHandlerMock: ErrorHandlerMock!
     private var calendarMock: CalendarMock!
     private var messagePresenterMock: MessagePresenterMock!
+    private var notificationCenterMock: NotificationCenterMock!
 
     override func setUp() {
         super.setUp()
@@ -29,6 +30,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         self.contentProvider = WorkTimesListContentProviderMock()
         self.calendarMock = CalendarMock()
         self.messagePresenterMock = MessagePresenterMock()
+        self.notificationCenterMock = NotificationCenterMock()
     }
 }
 
@@ -447,7 +449,8 @@ extension WorkTimesListViewModelTests {
             contentProvider: self.contentProvider,
             errorHandler: self.errorHandlerMock,
             calendar: self.calendarMock,
-            messagePresenter: self.messagePresenterMock)
+            messagePresenter: self.messagePresenterMock,
+            notificationCenter: self.notificationCenterMock)
     }
     
     private func buildMatchingFullTimeDecoder() throws -> MatchingFullTimeDecoder {

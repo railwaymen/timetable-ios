@@ -95,7 +95,7 @@ class WorkTimesListViewModel {
         errorHandler: ErrorHandlerType,
         calendar: CalendarType = Calendar.autoupdatingCurrent,
         messagePresenter: MessagePresenterType?,
-        notificationCenter: NotificationCenterType = NotificationCenter.default
+        notificationCenter: NotificationCenterType
     ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
@@ -109,6 +109,10 @@ class WorkTimesListViewModel {
         self.selectedMonth = MonthPeriod()
         
         self.setUpNotifications()
+    }
+    
+    deinit {
+        self.notificationCenter.removeObserver(self)
     }
     
     // MARK: - Notifications
@@ -131,8 +135,8 @@ extension WorkTimesListViewModel {
     }
     
     private struct MonthPeriod: Equatable {
-        var month: Int
-        var year: Int
+        let month: Int
+        let year: Int
         
         var date: Date? {
             let calendar = Calendar(identifier: .gregorian)
