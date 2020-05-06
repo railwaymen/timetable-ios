@@ -25,7 +25,7 @@ class MonthYearPickerView: UIPickerView {
     
     var month: Int {
         get {
-            self.selectedRow(inComponent: 0)
+            self.selectedRow(inComponent: 0) + 1
         }
         set {
             self.selectRow(newValue - 1, inComponent: 0, animated: false)
@@ -88,14 +88,8 @@ extension MonthYearPickerView: UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let month = self.selectedRow(inComponent: 0) + 1
-        let year = self.years[self.selectedRow(inComponent: 1)]
-        self.onDateSelected?(month, year)
-        
-        self.month = month
-        self.year = year
+        self.onDateSelected?(self.month, self.year)
     }
-    
 }
 
 // MARK: - Private
