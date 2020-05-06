@@ -264,6 +264,7 @@
 		8AFBC35E2462F3A100032B96 /* RegisterRemoteWorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC35D2462F3A100032B96 /* RegisterRemoteWorkViewController.swift */; };
 		8AFBC3602462F4A400032B96 /* RegisterRemoteWorkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC35F2462F4A400032B96 /* RegisterRemoteWorkViewModel.swift */; };
 		8AFBC3622462F51200032B96 /* RegisterRemoteWork.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AFBC3612462F51200032B96 /* RegisterRemoteWork.storyboard */; };
+		8AFBC3642462F8ED00032B96 /* RegisterRemoteWorkViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC3632462F8ED00032B96 /* RegisterRemoteWorkViewControllerMock.swift */; };
 		8AFFE5C224331BDB001D9E89 /* taskVersionNullPreviousTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */; };
 		8AFFE5C424331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */; };
 		8AFFE5C624331BFB001D9E89 /* taskVersionNullCurrentTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */; };
@@ -875,6 +876,7 @@
 		8AFBC35D2462F3A100032B96 /* RegisterRemoteWorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRemoteWorkViewController.swift; sourceTree = "<group>"; };
 		8AFBC35F2462F4A400032B96 /* RegisterRemoteWorkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRemoteWorkViewModel.swift; sourceTree = "<group>"; };
 		8AFBC3612462F51200032B96 /* RegisterRemoteWork.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RegisterRemoteWork.storyboard; sourceTree = "<group>"; };
+		8AFBC3632462F8ED00032B96 /* RegisterRemoteWorkViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRemoteWorkViewControllerMock.swift; sourceTree = "<group>"; };
 		8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullPreviousTask.json; sourceTree = "<group>"; };
 		8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionMissingPreviousTaskKey.json; sourceTree = "<group>"; };
 		8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullCurrentTask.json; sourceTree = "<group>"; };
@@ -2551,6 +2553,7 @@
 			isa = PBXGroup;
 			children = (
 				C1860DBA2462E50B00C33C94 /* RemoteWorkViewControllerMock.swift */,
+				8AFBC3632462F8ED00032B96 /* RegisterRemoteWorkViewControllerMock.swift */,
 			);
 			path = RemoteWork;
 			sourceTree = "<group>";
@@ -3889,6 +3892,7 @@
 				C12BD9BB21E4B7B200A6EAF0 /* ApiClientProjectsTests.swift in Sources */,
 				8ADBB8D9243753D3009CA6FE /* SessionManagerMock.swift in Sources */,
 				8A79A2932420F58A0048B44B /* TaskVersionTests.swift in Sources */,
+				8AFBC3642462F8ED00032B96 /* RegisterRemoteWorkViewControllerMock.swift in Sources */,
 				8AE55D1B23FD7AAB00F94242 /* TaskFactory.swift in Sources */,
 				C17EA3B82189E04400A3F0CD /* ServerConfigurationManagerTests.swift in Sources */,
 				8A21A0422435BF2200EE4A79 /* ViewControllerBuilderMock.swift in Sources */,

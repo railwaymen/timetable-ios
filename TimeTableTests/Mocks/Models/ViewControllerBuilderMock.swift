@@ -75,6 +75,11 @@ class ViewControllerBuilderMock {
     struct RemoteWorkParams {}
     var remoteWorkThrownError: Error?
     var remoteWorkReturnValue: RemoteWorkViewControllerable = RemoteWorkViewControllerMock()
+    
+    private(set) var registerRemoteWorkParams: [RegisterRemoteWorkParams] = []
+    struct RegisterRemoteWorkParams {}
+    var registerRemoteWorkThrownError: Error?
+    var registerRemoteWorkReturnValue: RegisterRemoteWorkViewControllerable = RegisterRemoteWorkViewControllerMock()
 }
 
 // MARK: - ViewControllerBuilderType
@@ -178,5 +183,13 @@ extension ViewControllerBuilderMock: ViewControllerBuilderType {
             throw error
         }
         return self.remoteWorkReturnValue
+    }
+    
+    func registerRemoteWork() throws -> RegisterRemoteWorkViewControllerable {
+        self.registerRemoteWorkParams.append(RegisterRemoteWorkParams())
+        if let error = self.registerRemoteWorkThrownError {
+            throw error
+        }
+        return self.registerRemoteWorkReturnValue
     }
 }
