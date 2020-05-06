@@ -15,7 +15,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SCa-Yp-ddD">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SCa-Yp-ddD">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="chj-g6-Xkk">
@@ -59,8 +59,8 @@
                                         <constraint firstAttribute="trailing" secondItem="zXQ-Am-GFA" secondAttribute="trailing" constant="18" id="4CQ-dj-3vm">
                                             <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                                         </constraint>
-                                        <constraint firstItem="zXQ-Am-GFA" firstAttribute="top" secondItem="thS-4w-N61" secondAttribute="bottom" constant="32" id="CPn-9a-Pve"/>
                                         <constraint firstItem="zXQ-Am-GFA" firstAttribute="centerY" secondItem="hFZ-05-2OL" secondAttribute="centerY" id="Fnv-mn-Yxj"/>
+                                        <constraint firstItem="hFZ-05-2OL" firstAttribute="top" secondItem="thS-4w-N61" secondAttribute="bottom" constant="32" id="Zw1-J4-kNg"/>
                                         <constraint firstItem="zXQ-Am-GFA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hFZ-05-2OL" secondAttribute="trailing" constant="5" id="hrP-5h-5rZ"/>
                                         <constraint firstItem="thS-4w-N61" firstAttribute="leading" secondItem="chj-g6-Xkk" secondAttribute="leading" constant="24" id="lB4-tW-Cvh"/>
                                         <constraint firstItem="hFZ-05-2OL" firstAttribute="leading" secondItem="chj-g6-Xkk" secondAttribute="leading" constant="18" id="lf7-OV-3AM">
@@ -97,6 +97,9 @@
                             <constraint firstItem="1Mu-g3-i09" firstAttribute="centerX" secondItem="pV0-Kr-wuD" secondAttribute="centerX" id="rzt-3y-FAQ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pV0-Kr-wuD"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="mGc-Pp-vUE" appends="YES" id="CB4-s2-OzS"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Timesheet" largeTitleDisplayMode="always" id="7Ga-cn-eZa"/>
                     <connections>
@@ -109,6 +112,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3xt-eO-P6i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="mGc-Pp-vUE">
+                    <connections>
+                        <action selector="viewTapped" destination="rEk-z6-2rw" id="37y-JC-gLT"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="200.00000000000003" y="291.96428571428572"/>
         </scene>

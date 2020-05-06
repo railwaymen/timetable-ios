@@ -51,6 +51,10 @@ class WorkTimesListViewController: UIViewController {
     @objc private func profileButtonTapped() {
         self.viewModel.viewRequestForProfileView()
     }
+    
+    @IBAction private func viewTapped() {
+        self.view.endEditing(true)
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -185,6 +189,13 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
     
     func performBatchUpdates(_ updates: (() -> Void)?) {
         self.tableView.performBatchUpdates(updates, completion: nil)
+    }
+    
+    func setBottomContentInset(_ height: CGFloat) {
+        guard self.isViewLoaded else { return }
+        let bottomInset = max(0, height - self.tableView.safeAreaInsets.bottom)
+        self.tableView.contentInset.bottom = bottomInset
+        self.tableView.verticalScrollIndicatorInsets.bottom = bottomInset
     }
 }
 

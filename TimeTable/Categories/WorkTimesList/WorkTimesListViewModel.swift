@@ -22,6 +22,7 @@ protocol WorkTimesListViewModelOutput: class {
     func removeSections(_ sections: IndexSet)
     func reloadSections(_ sections: IndexSet)
     func performBatchUpdates(_ updates: (() -> Void)?)
+    func setBottomContentInset(_ height: CGFloat)
 }
 
 protocol WorkTimesListViewModelType: class {
@@ -53,6 +54,7 @@ class WorkTimesListViewModel {
     private let errorHandler: ErrorHandlerType
     private let calendar: CalendarType
     private let messagePresenter: MessagePresenterType?
+    private let notificationCenter: NotificationCenterType
     
     private var selectedMonth: MonthPeriod {
         didSet {
@@ -92,7 +94,8 @@ class WorkTimesListViewModel {
         contentProvider: WorkTimesListContentProviderType,
         errorHandler: ErrorHandlerType,
         calendar: CalendarType = Calendar.autoupdatingCurrent,
-        messagePresenter: MessagePresenterType?
+        messagePresenter: MessagePresenterType?,
+        notificationCenter: NotificationCenterType = NotificationCenter.default
     ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
@@ -100,9 +103,23 @@ class WorkTimesListViewModel {
         self.errorHandler = errorHandler
         self.calendar = calendar
         self.messagePresenter = messagePresenter
+        self.notificationCenter = notificationCenter
         
         self.dailyWorkTimesArray = []
         self.selectedMonth = MonthPeriod()
+        
+        self.setUpNotifications()
+    }
+    
+    // MARK: - Notifications
+    @objc func changeKeyboardFrame(notification: NSNotification) {
+        let userInfo = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
+        guard let keyboardHeight = userInfo?.cgRectValue.size.height else { return }
+        self.userInterface?.setBottomContentInset(keyboardHeight)
+    }
+    
+    @objc func keyboardWillHide() {
+        self.userInterface?.setBottomContentInset(0)
     }
 }
 
@@ -285,6 +302,24 @@ extension WorkTimesListViewModel: WorkTimeTableViewCellModelParentType {
 
 // MARK: - Private
 extension WorkTimesListViewModel {
+    private func setUpNotifications() {
+        self.notificationCenter.addObserver(
+            self,
+            selector: #selector(self.keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
+        self.notificationCenter.addObserver(
+            self,
+            selector: #selector(self.changeKeyboardFrame),
+            name: UIResponder.keyboardDidShowNotification,
+            object: nil)
+        self.notificationCenter.addObserver(
+            self,
+            selector: #selector(self.changeKeyboardFrame),
+            name: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil)
+    }
+    
     private func createTaskForm(for indexPath: IndexPath) -> TaskForm? {
         guard let dailyWorkTime = self.dailyWorkTime(for: indexPath) else { return nil }
         guard let workTime = self.workTime(for: indexPath) else { return nil }
@@ -366,7 +401,7 @@ extension WorkTimesListViewModel {
     
     private func string(for period: MonthPeriod) -> String {
         guard let monthSymbol = DateFormatter().standaloneMonthSymbols?[safeIndex: period.month - 1] else { return "" }
-        return "\(monthSymbol) \(period.year)"
+        return "\(monthSymbol.localizedCapitalized) \(period.year)"
     }
     
     private func getSectionsDiff(oldValue: [DailyWorkTime]) -> (insertions: IndexSet, removals: IndexSet) {
@@ -412,3 +447,4 @@ extension WorkTimesListViewModel {
         return self.dailyWorkTimesArray[safeIndex: indexPath.section]
     }
 }
+// swiftlint:disable:this file_length
