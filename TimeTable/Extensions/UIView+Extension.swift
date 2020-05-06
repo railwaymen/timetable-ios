@@ -29,4 +29,15 @@ extension UIView {
         guard let textField = self as? AttributedTextField else { return }
         textField.padding = CGPoint(x: 5, y: 5)
     }
+    
+    func set(borderColor: UIColor, animatingWithDuration duration: TimeInterval) {
+        let borderColor = borderColor.cgColor
+        guard self.layer.borderColor != borderColor else { return }
+        let animation = CABasicAnimation(keyPath: #keyPath(CALayer.borderColor))
+        animation.fromValue = self.layer.borderColor
+        animation.toValue = borderColor
+        animation.duration = duration
+        self.layer.borderColor = borderColor
+        self.layer.add(animation, forKey: "borderColor")
+    }
 }
