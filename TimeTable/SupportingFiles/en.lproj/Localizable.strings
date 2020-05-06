@@ -98,6 +98,9 @@
 "newvacation_optional" = "Optional";
 "newvacation_save_btn" = "Send to accept";
 
+// MARK: - RemoteWork
+"remotework_title" = "Remote work";
+
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Field cannot be empty.";
 "error_invalid_format" = "Content has invalid format.";

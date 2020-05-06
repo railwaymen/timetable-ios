@@ -98,6 +98,9 @@
 "newvacation_optional" = "Opcjonalne";
 "newvacation_save_btn" = "Wyślij do zaakceptowania";
 
+// MARK: - RemoteWork
+"remotework_title" = "Praca zdalna";
+
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Pole nie może być puste.";
 "error_invalid_format" = "Wartość ma niepoprawny format.";

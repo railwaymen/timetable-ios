@@ -421,6 +421,7 @@
 		C17EA3B82189E04400A3F0CD /* ServerConfigurationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3B72189E04400A3F0CD /* ServerConfigurationManagerTests.swift */; };
 		C17EA3BA2189E9BA00A3F0CD /* ApiClientErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3B92189E9BA00A3F0CD /* ApiClientErrorTests.swift */; };
 		C17EA3BC2189EC1700A3F0CD /* URLSessionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */; };
+		C1860DB12462DF0000C33C94 /* RemoteWorkCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DB02462DF0000C33C94 /* RemoteWorkCoordinator.swift */; };
 		C18A189C21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189B21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json */; };
 		C18A189E21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189D21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json */; };
 		C18A18A121EF88B300CB6E32 /* WorkTimeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18A18A021EF88B300CB6E32 /* WorkTimeViewModelTests.swift */; };
@@ -1015,6 +1016,7 @@
 		C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionExtensionTests.swift; sourceTree = "<group>"; };
 		C183F82C21F0A56700B07AB8 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
 		C183F82D21F0A57300B07AB8 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
+		C1860DB02462DF0000C33C94 /* RemoteWorkCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkCoordinator.swift; sourceTree = "<group>"; };
 		C18A189B21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithAutofillTrueResponse.json; sourceTree = "<group>"; };
 		C18A189D21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithALunchTrueResponse.json; sourceTree = "<group>"; };
 		C18A18A021EF88B300CB6E32 /* WorkTimeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeViewModelTests.swift; sourceTree = "<group>"; };
@@ -2467,6 +2469,14 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		C1860DAF2462DEEB00C33C94 /* RemoteWork */ = {
+			isa = PBXGroup;
+			children = (
+				C1860DB02462DF0000C33C94 /* RemoteWorkCoordinator.swift */,
+			);
+			path = RemoteWork;
+			sourceTree = "<group>";
+		};
 		C18A189F21EF889B00CB6E32 /* WorkTime */ = {
 			isa = PBXGroup;
 			children = (
@@ -2606,8 +2616,9 @@
 			children = (
 				C1AFFFE221A2D16F00A7A632 /* TimeTableTabCoordinator.swift */,
 				8A56FC0F24531AAA0020F8CD /* AccountingPeriods */,
-				C1AACFCB21A4345C0023FD32 /* Projects */,
 				C1AACFCD21A434780023FD32 /* Profile */,
+				C1AACFCB21A4345C0023FD32 /* Projects */,
+				C1860DAF2462DEEB00C33C94 /* RemoteWork */,
 				C1411C25245039D100BB4266 /* Vacation */,
 				C1AACFCC21A434650023FD32 /* WorkTime */,
 			);
@@ -3610,6 +3621,7 @@
 				8AADE6D62451A4850085FCA7 /* ProfileHeaderView.swift in Sources */,
 				C125F1C121DCF17300594CDE /* ProjectCollectionViewCellModel.swift in Sources */,
 				8A5EF32723FE9A3000AE4309 /* UIViewController+Extension.swift in Sources */,
+				C1860DB12462DF0000C33C94 /* RemoteWorkCoordinator.swift in Sources */,
 				8AB8AFD62450803100A0D3D3 /* ProfileButtonCell.swift in Sources */,
 				C1AACFD621A438660023FD32 /* ProfileCoordinator.swift in Sources */,
 				8A31A860238E927E008DCC08 /* TimeInterval+Extension.swift in Sources */,
