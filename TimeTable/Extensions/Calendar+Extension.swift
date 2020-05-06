@@ -46,6 +46,13 @@ extension CalendarType {
             repeatedTimePolicy: .first,
             direction: .forward)
     }
+    
+    func date(bySettingYear year: Int, month: Int, of date: Date) -> Date? {
+        var component = self.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        component.year = year
+        component.month = month
+        return self.date(from: component)
+    }
 }
 
 extension Calendar: CalendarType {}

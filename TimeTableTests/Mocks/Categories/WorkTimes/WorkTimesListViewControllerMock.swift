@@ -15,14 +15,13 @@ class WorkTimesListViewControllerMock: UIViewController {
     private(set) var setUpViewParams: [SetUpViewParams] = []
     struct SetUpViewParams {}
     
-    private(set) var updateViewParams: [UpdateViewParams] = []
-    struct UpdateViewParams {}
+    private(set) var reloadDataParams: [ReloadDataParams] = []
+    struct ReloadDataParams {}
     
-    private(set) var updateDateSelectorParams: [UpdateDateSelectorParams] = []
-    struct UpdateDateSelectorParams {
-        var currentDateString: String
-        var previousDateString: String
-        var nextDateString: String
+    private(set) var updateSelectedDateParams: [UpdateSelectedDateParams] = []
+    struct UpdateSelectedDateParams {
+        let dateString: String
+        let date: (month: Int, year: Int)
     }
     
     private(set) var updateHoursLabelParams: [UpdateHoursLabelParams] = []
@@ -66,6 +65,11 @@ class WorkTimesListViewControllerMock: UIViewController {
         var updates: (() -> Void)?
     }
     
+    private(set) var setBottomContentInsetParams: [SetBottomContentInsetParams] = []
+    struct SetBottomContentInsetParams {
+        let height: CGFloat
+    }
+    
     // MARK: - WorkTimesListViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
@@ -75,21 +79,16 @@ class WorkTimesListViewControllerMock: UIViewController {
 
 // MARK: - WorkTimesListViewModelOutput
 extension WorkTimesListViewControllerMock: WorkTimesListViewModelOutput {
-
     func setUpView() {
         self.setUpViewParams.append(SetUpViewParams())
     }
     
     func reloadData() {
-        self.updateViewParams.append(UpdateViewParams())
+        self.reloadDataParams.append(ReloadDataParams())
     }
     
-    func updateDateSelector(currentDateString: String, previousDateString: String, nextDateString: String) {
-        self.updateDateSelectorParams.append(
-            UpdateDateSelectorParams(
-            currentDateString: currentDateString,
-            previousDateString: previousDateString,
-            nextDateString: nextDateString))
+    func updateSelectedDate(_ dateString: String, date: (month: Int, year: Int)) {
+        self.updateSelectedDateParams.append(UpdateSelectedDateParams(dateString: dateString, date: date))
     }
    
     func updateHoursLabel(workedHours: String?) {
@@ -126,6 +125,10 @@ extension WorkTimesListViewControllerMock: WorkTimesListViewModelOutput {
     
     func performBatchUpdates(_ updates: (() -> Void)?) {
         self.performBatchUpdatesParams.append(PerformBatchUpdatesParams(updates: updates))
+    }
+    
+    func setBottomContentInset(_ height: CGFloat) {
+        self.setBottomContentInsetParams.append(SetBottomContentInsetParams(height: height))
     }
 }
 

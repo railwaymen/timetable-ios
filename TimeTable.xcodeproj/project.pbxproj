@@ -252,6 +252,7 @@
 		8AF5697923D754D600A1D001 /* UserDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5697823D754D600A1D001 /* UserDecoderFactory.swift */; };
 		8AF5697B23D756CA00A1D001 /* WorkTimeDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5697A23D756CA00A1D001 /* WorkTimeDecoderFactory.swift */; };
 		8AF5697D23D759AE00A1D001 /* ServerErrorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5697C23D759AE00A1D001 /* ServerErrorFactory.swift */; };
+		8AFBC3592462981300032B96 /* MonthYearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC3582462981300032B96 /* MonthYearPickerView.swift */; };
 		8AFFE5C224331BDB001D9E89 /* taskVersionNullPreviousTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */; };
 		8AFFE5C424331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */; };
 		8AFFE5C624331BFB001D9E89 /* taskVersionNullCurrentTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */; };
@@ -273,7 +274,6 @@
 		C10FD88C21F1FB2800A233C5 /* ProfileViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88B21F1FB2800A233C5 /* ProfileViewModelTests.swift */; };
 		C10FD88E21F1FB6200A233C5 /* ProfileViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88D21F1FB6200A233C5 /* ProfileViewControllerMock.swift */; };
 		C10FD89021F1FE3800A233C5 /* ProfileCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88F21F1FE3800A233C5 /* ProfileCoordinatorMock.swift */; };
-		C11B3F3621F7258C00C46BA2 /* DateSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B3F3521F7258C00C46BA2 /* DateSelectorView.swift */; };
 		C11D0CF7220816D800066CA9 /* MatchingFullTimeEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11D0CF6220816D800066CA9 /* MatchingFullTimeEncoderTests.swift */; };
 		C11D0CF9220820BD00066CA9 /* ApiClientAccountingPeriodsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11D0CF8220820BD00066CA9 /* ApiClientAccountingPeriodsTests.swift */; };
 		C11D0CFB220820F200066CA9 /* MatchingFullTimeDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11D0CFA220820F200066CA9 /* MatchingFullTimeDecoderTests.swift */; };
@@ -834,6 +834,7 @@
 		8AF5697823D754D600A1D001 /* UserDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDecoderFactory.swift; sourceTree = "<group>"; };
 		8AF5697A23D756CA00A1D001 /* WorkTimeDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeDecoderFactory.swift; sourceTree = "<group>"; };
 		8AF5697C23D759AE00A1D001 /* ServerErrorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerErrorFactory.swift; sourceTree = "<group>"; };
+		8AFBC3582462981300032B96 /* MonthYearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthYearPickerView.swift; sourceTree = "<group>"; };
 		8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullPreviousTask.json; sourceTree = "<group>"; };
 		8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionMissingPreviousTaskKey.json; sourceTree = "<group>"; };
 		8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullCurrentTask.json; sourceTree = "<group>"; };
@@ -856,7 +857,6 @@
 		C10FD88B21F1FB2800A233C5 /* ProfileViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModelTests.swift; sourceTree = "<group>"; };
 		C10FD88D21F1FB6200A233C5 /* ProfileViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewControllerMock.swift; sourceTree = "<group>"; };
 		C10FD88F21F1FE3800A233C5 /* ProfileCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinatorMock.swift; sourceTree = "<group>"; };
-		C11B3F3521F7258C00C46BA2 /* DateSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectorView.swift; sourceTree = "<group>"; };
 		C11D0CF6220816D800066CA9 /* MatchingFullTimeEncoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFullTimeEncoderTests.swift; sourceTree = "<group>"; };
 		C11D0CF8220820BD00066CA9 /* ApiClientAccountingPeriodsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientAccountingPeriodsTests.swift; sourceTree = "<group>"; };
 		C11D0CFA220820F200066CA9 /* MatchingFullTimeDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFullTimeDecoderTests.swift; sourceTree = "<group>"; };
@@ -2171,7 +2171,6 @@
 			children = (
 				C13429A921A7DB2300F4EA42 /* WorkTimesList.storyboard */,
 				8A59AF1F2382E29200108C33 /* DailyWorkTime.swift */,
-				C11B3F3521F7258C00C46BA2 /* DateSelectorView.swift */,
 				C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */,
 				C13429AB21A7DDAB00F4EA42 /* WorkTimesListViewController.swift */,
 				C13429AD21A7E48C00F4EA42 /* WorkTimesListViewModel.swift */,
@@ -2361,6 +2360,7 @@
 				C153AC6821832073007A35BB /* AttributedView.swift */,
 				C125C4D62187086C00FBA0DD /* CheckBoxButton.swift */,
 				8A79A2FB2424BFF90048B44B /* DatePickerTextField.swift */,
+				8AFBC3582462981300032B96 /* MonthYearPickerView.swift */,
 				C1F187B121E37C760037B8C2 /* ProjectsCollectionViewLayout.swift */,
 				C10515D32456B2BC00413EDE /* YearPickerView.swift */,
 			);
@@ -3595,7 +3595,6 @@
 				C1531F042191C58000602A0C /* Endpoint.swift in Sources */,
 				C1E908CB24583E4F003E0368 /* UsedVacationViewController.swift in Sources */,
 				C153AC6921832073007A35BB /* AttributedView.swift in Sources */,
-				C11B3F3621F7258C00C46BA2 /* DateSelectorView.swift in Sources */,
 				C153AC6421830AFE007A35BB /* ServerConfigurationViewModel.swift in Sources */,
 				C1A47BFA245AAA1B00FDA7F0 /* NewVacationViewController.swift in Sources */,
 				8A3F0C592428CEE300564D6D /* WorkTimeContainerViewModel.swift in Sources */,
@@ -3603,6 +3602,7 @@
 				C1ECF09D2192BB51006038C6 /* RequestEncoder.swift in Sources */,
 				C153AC512182EFEC007A35BB /* UIButton+Extension.swift in Sources */,
 				C1EF3A05219303A7000E3511 /* NSRegularExpression+Extension.swift in Sources */,
+				8AFBC3592462981300032B96 /* MonthYearPickerView.swift in Sources */,
 				C1249C742181A3D0005DB2A5 /* AppCoordinator.swift in Sources */,
 				C12CA56A21A57ADD0082FEB7 /* UIColor+Extension.swift in Sources */,
 				C1A47BF32459966F00FDA7F0 /* VacationDecoder.swift in Sources */,

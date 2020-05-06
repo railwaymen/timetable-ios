@@ -20,6 +20,7 @@ class WorkTimesListViewModelTests: XCTestCase {
     private var errorHandlerMock: ErrorHandlerMock!
     private var calendarMock: CalendarMock!
     private var messagePresenterMock: MessagePresenterMock!
+    private var notificationCenterMock: NotificationCenterMock!
 
     override func setUp() {
         super.setUp()
@@ -29,6 +30,7 @@ class WorkTimesListViewModelTests: XCTestCase {
         self.contentProvider = WorkTimesListContentProviderMock()
         self.calendarMock = CalendarMock()
         self.messagePresenterMock = MessagePresenterMock()
+        self.notificationCenterMock = NotificationCenterMock()
     }
 }
 
@@ -134,7 +136,7 @@ extension WorkTimesListViewModelTests {
         sut.viewDidLoad()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
         //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateViewParams.count, 0)
+        XCTAssertEqual(self.userInterfaceMock.reloadDataParams.count, 0)
     }
     
     func testViewDidLoadRunsFetchWorkTimesSuccessCallsShowTableViewOnUserInterface() throws {
@@ -170,58 +172,6 @@ extension WorkTimesListViewModelTests {
         //Assert
         let error = try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? TestError)
         XCTAssertEqual(error, expectedError)
-    }
-}
-
-// MARK: - viewRequestForPreviousMonth()
-extension WorkTimesListViewModelTests {
-    func testViewRequestForPreviousMonthWhileSelectedMonthIsNilValue() throws {
-        //Arrange
-        let sut = try self.buildSUT(isSelectedDate: false)
-        //Act
-        sut.viewRequestForPreviousMonth()
-        //Assert
-        XCTAssertTrue(self.userInterfaceMock.updateAccountingPeriodLabelParams.isEmpty)
-        XCTAssertTrue(self.userInterfaceMock.updateHoursLabelParams.isEmpty)
-    }
-    
-    func testViewRequestForPreviousMonthWhileSelectedMonth() throws {
-        //Arrange
-        let sut = try self.buildSUT()
-        let components = DateComponents(year: 2019, month: 1, day: 1)
-        self.calendarMock.dateByAddingDateComponentsReturnValue = try self.buildDate(components)
-        self.calendarMock.dateComponentsReturnValue = components
-        //Act
-        sut.viewRequestForPreviousMonth()
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateDateSelectorParams.last?.currentDateString, "Jan 2019")
-        XCTAssertEqual(self.userInterfaceMock.updateDateSelectorParams.last?.nextDateString, "Jan 2019")
-        XCTAssertEqual(self.userInterfaceMock.updateDateSelectorParams.last?.previousDateString, "Jan 2019")
-    }
-    
-    func testViewRequestForNextMonthWhileSelectedMonthIsNilValue() throws {
-        //Act
-        let sut = try self.buildSUT(isSelectedDate: false)
-        sut.viewRequestForPreviousMonth()
-        //Assert
-        XCTAssertTrue(self.userInterfaceMock.updateAccountingPeriodLabelParams.isEmpty)
-        XCTAssertTrue(self.userInterfaceMock.updateHoursLabelParams.isEmpty)
-    }
-}
-
-// MARK: - viewRequestForNextMonth()
-extension WorkTimesListViewModelTests {
-    func testViewRequestForNextMonthWhileSelectedMonth() throws {
-        //Arrange
-        let sut = try self.buildSUT()
-        self.calendarMock.dateByAddingDateComponentsReturnValue = try self.buildDate(year: 2019, month: 1, day: 1)
-        self.calendarMock.dateComponentsReturnValue = DateComponents(year: 2019, month: 3)
-        //Act
-        sut.viewRequestForNextMonth()
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.updateDateSelectorParams.last?.currentDateString, "Mar 2019")
-        XCTAssertEqual(self.userInterfaceMock.updateDateSelectorParams.last?.nextDateString, "Mar 2019")
-        XCTAssertEqual(self.userInterfaceMock.updateDateSelectorParams.last?.previousDateString, "Mar 2019")
     }
 }
 
@@ -499,7 +449,8 @@ extension WorkTimesListViewModelTests {
             contentProvider: self.contentProvider,
             errorHandler: self.errorHandlerMock,
             calendar: self.calendarMock,
-            messagePresenter: self.messagePresenterMock)
+            messagePresenter: self.messagePresenterMock,
+            notificationCenter: self.notificationCenterMock)
     }
     
     private func buildMatchingFullTimeDecoder() throws -> MatchingFullTimeDecoder {
