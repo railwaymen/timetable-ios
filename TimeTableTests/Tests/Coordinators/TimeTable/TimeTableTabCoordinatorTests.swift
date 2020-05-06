@@ -26,7 +26,7 @@ extension TimeTableTabCoordinatorTests {
         //Act
         sut.start {}
         //Assert
-        XCTAssertEqual(sut.children.count, 3)
+        XCTAssertEqual(sut.children.count, 4)
     }
     
     func testFinishCalled() {
