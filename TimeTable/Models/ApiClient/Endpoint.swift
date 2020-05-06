@@ -14,6 +14,7 @@ enum Endpoint: RestlerEndpointable, Equatable {
     case matchingFullTime
     case projects
     case projectsSimpleList
+    case remoteWorks
     case signIn
     case tags
     case workTime(Int64)
@@ -23,12 +24,14 @@ enum Endpoint: RestlerEndpointable, Equatable {
     case vacation
     case vacationDecline(Int)
     
+    
     var restlerEndpointValue: String {
         switch self {
         case .accountingPeriods: return "/accounting_periods"
         case .matchingFullTime: return "/accounting_periods/matching_fulltime"
         case .projects: return "/projects"
         case .projectsSimpleList: return "/projects/simple"
+        case .remoteWorks: return "/remote_works"
         case .signIn: return "/users/sign_in"
         case .tags: return "/projects/tags"
         case let .workTime(id): return "/work_times/\(id)"
