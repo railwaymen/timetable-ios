@@ -101,6 +101,9 @@
 // MARK: - RemoteWork
 "remotework_title" = "Praca zdalna";
 
+// MARK: - Register Remote Work
+"registerremotework_title" = "Zarejestruj pracę zdalną";
+
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Pole nie może być puste.";
 "error_invalid_format" = "Wartość ma niepoprawny format.";

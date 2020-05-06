@@ -14,6 +14,7 @@ protocol RegisterRemoteWorkViewModelOutput: class {
 
 protocol RegisterRemoteWorkViewModelType: class {
     func loadView()
+    func closeButtonTapped()
 }
 
 class RegisterRemoteWorkViewModel {
@@ -34,5 +35,9 @@ class RegisterRemoteWorkViewModel {
 extension RegisterRemoteWorkViewModel: RegisterRemoteWorkViewModelType {
     func loadView() {
         self.userInterface?.setUp()
+    }
+    
+    func closeButtonTapped() {
+        self.coordinator?.registerRemoteWorkDidRequestToDismiss()
     }
 }

@@ -101,6 +101,9 @@
 // MARK: - RemoteWork
 "remotework_title" = "Remote work";
 
+// MARK: - Register Remote Work
+"registerremotework_title" = "Register remote work";
+
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Field cannot be empty.";
 "error_invalid_format" = "Content has invalid format.";

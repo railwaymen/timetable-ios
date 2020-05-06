@@ -8,7 +8,9 @@
 
 import UIKit
 
-protocol RegisterRemoteWorkCoordinatorType: class {}
+protocol RegisterRemoteWorkCoordinatorType: class {
+    func registerRemoteWorkDidRequestToDismiss()
+}
 
 class RegisterRemoteWorkCoordinator: NavigationCoordinator {
     private let dependencyContainer: DependencyContainerType
@@ -27,6 +29,10 @@ class RegisterRemoteWorkCoordinator: NavigationCoordinator {
         self.navigationController.navigationBar.tintColor = .tint
     }
     
+    deinit {
+        self.navigationController.setViewControllers([], animated: false)
+    }
+    
     // MARK: - Overridden
     override func start(finishHandler: (() -> Void)?) {
         super.start(finishHandler: finishHandler)
@@ -35,7 +41,13 @@ class RegisterRemoteWorkCoordinator: NavigationCoordinator {
 }
 
 // MARK: - RegisterRemoteWorkCoordinatorType
-extension RegisterRemoteWorkCoordinator: RegisterRemoteWorkCoordinatorType {}
+extension RegisterRemoteWorkCoordinator: RegisterRemoteWorkCoordinatorType {
+    func registerRemoteWorkDidRequestToDismiss() {
+        self.navigationController.dismiss(animated: true) { [weak self] in
+            self?.finish()
+        }
+    }
+}
 
 // MARK: - Private
 extension RegisterRemoteWorkCoordinator {

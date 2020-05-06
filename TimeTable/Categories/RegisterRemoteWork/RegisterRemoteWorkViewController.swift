@@ -25,12 +25,18 @@ class RegisterRemoteWorkViewController: UIViewController {
         super.loadView()
         self.viewModel.loadView()
     }
+    
+    // MARK: - Actions
+    @objc private func closeButtonTapped() {
+        self.viewModel.closeButtonTapped()
+    }
 }
 
 // MARK: - RegisterRemoteWorkViewModelOutput
 extension RegisterRemoteWorkViewController: RegisterRemoteWorkViewModelOutput {
     func setUp() {
-        
+        self.setUpTitle()
+        self.setUpBarButtons()
     }
 }
 
@@ -43,5 +49,15 @@ extension RegisterRemoteWorkViewController: RegisterRemoteWorkViewControllerType
 
 // MARK: - Private
 extension RegisterRemoteWorkViewController {
+    private func setUpTitle() {
+        self.title = R.string.localizable.registerremotework_title()
+    }
     
+    private func setUpBarButtons() {
+        let closeButton = UIBarButtonItem(
+            barButtonSystemItem: .closeButton,
+            target: self,
+            action: #selector(self.closeButtonTapped))
+        self.navigationItem.setRightBarButton(closeButton, animated: false)
+    }
 }
