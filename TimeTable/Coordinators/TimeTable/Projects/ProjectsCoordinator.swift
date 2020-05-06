@@ -26,7 +26,7 @@ class ProjectsCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
         self.dependencyContainer = dependencyContainer
         self.tabBarItem = UITabBarItem(
             title: R.string.localizable.projects_title(),
-            image: .projects,
+            image: #imageLiteral(resourceName: "tab_bar_projects_icon"),
             selectedImage: nil)
         super.init(window: dependencyContainer.window)
         self.navigationController.setNavigationBarHidden(false, animated: false)
