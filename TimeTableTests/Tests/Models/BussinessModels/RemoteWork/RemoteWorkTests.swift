@@ -13,7 +13,7 @@ class RemoteWorkTests: XCTestCase {}
 
 // MARK: - Decodable
 extension RemoteWorkTests {
-    func testDecodingRemoteWork() throws {
+    func testDecoding_fullModel() throws {
         //Arrange
         let startsAt = try self.buildDate(hour: 8)
         let endsAt = try self.buildDate(hour: 10)

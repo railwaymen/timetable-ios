@@ -13,7 +13,7 @@ class RemoteWorkResponseTests: XCTestCase {}
 
 // MARK: - Decodable
 extension RemoteWorkResponseTests {
-    func testDecodingRemoteWork_fullModel() throws {
+    func testDecoding_fullModel() throws {
         //Arrange
         let data = try self.json(from: RemoteWorkResponseJSONResource.remoteWorkResponseFullModel)
         //Act
@@ -23,7 +23,7 @@ extension RemoteWorkResponseTests {
         XCTAssertEqual(sut.records.count, 1)
     }
     
-    func testDecodingRemoteWork_emptyRecordsArray() throws {
+    func testDecoding_emptyRecordsArray() throws {
         //Arrange
         let data = try self.json(from: RemoteWorkResponseJSONResource.remoteWorkResponseRecordsEmptyArray)
         //Act
