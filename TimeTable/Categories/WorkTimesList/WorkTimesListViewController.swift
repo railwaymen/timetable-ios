@@ -15,12 +15,14 @@ protocol WorkTimesListViewControllerType: class {
 }
 
 class WorkTimesListViewController: UIViewController {
-    @IBOutlet private var dateSelectorView: DateSelectorView!
+    @IBOutlet private var monthSelectionTextField: UITextField!
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var errorView: ErrorView!
     @IBOutlet private var workedHoursLabel: UILabel!
     @IBOutlet private var accountingPeriodLabel: UILabel!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+    
+    private var monthPicker: MonthYearPickerView?
 
     private let tableViewEstimatedRowHeight: CGFloat = 150
     private let heightForHeader: CGFloat = 50
@@ -119,7 +121,7 @@ extension WorkTimesListViewController: UITableViewDelegate {
 // MARK: - WorkTimesListViewModelOutput
 extension WorkTimesListViewController: WorkTimesListViewModelOutput {
     func setUpView() {
-        self.dateSelectorView.delegate = self
+        self.setUpMonthPicker()
         self.setUpTableView()
         self.setUpRefreshControl()
         self.setUpNavigationItem()
@@ -134,11 +136,10 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
         self.tableView.reloadData()
     }
     
-    func updateDateSelector(currentDateString: String, previousDateString: String, nextDateString: String) {
-        self.dateSelectorView.update(
-            currentDateString: currentDateString,
-            previousDateString: previousDateString,
-            nextDateString: nextDateString)
+    func updateSelectedDate(_ dateString: String, date: (month: Int, year: Int)) {
+        self.monthSelectionTextField.text = dateString
+        self.monthPicker?.month = date.month
+        self.monthPicker?.year = date.year
     }
     
     func updateHoursLabel(workedHours: String?) {
@@ -194,17 +195,6 @@ extension WorkTimesListViewController: WorkTimesListViewControllerType {
     }
 }
 
-// MARK: - DateSelectorViewDelegate
-extension WorkTimesListViewController: DateSelectorViewDelegate {
-    func dateSelectorRequestedForPreviousDate() {
-        self.viewModel.viewRequestForPreviousMonth()
-    }
-    
-    func dateSelectorRequestedForNextDate() {
-        self.viewModel.viewRequestForNextMonth()
-    }
-}
-
 // MARK: - Private
 extension WorkTimesListViewController {
     private func buildDeleteContextualAction(indexPath: IndexPath) -> UIContextualAction {
@@ -246,6 +236,16 @@ extension WorkTimesListViewController {
         action.backgroundColor = .systemBlue
         action.image = .history
         return action
+    }
+    
+    private func setUpMonthPicker() {
+        let picker = MonthYearPickerView()
+        picker.onDateSelected = { [weak self] month, year in
+            self?.viewModel.viewRequestForNewDate(month: month, year: year)
+        }
+        self.monthPicker = picker
+        self.monthSelectionTextField.inputView = picker
+        self.monthSelectionTextField.setTextFieldAppearance()
     }
     
     private func setUpTableView() {

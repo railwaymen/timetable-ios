@@ -2,8 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rEk-z6-2rw">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,75 +22,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="141.66666666666663"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KTO-4j-KGE" customClass="DateSelectorView" customModule="TimeTable" customModuleProvider="target">
-                                            <rect key="frame" x="18" y="10" width="284" height="50"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="42h-bD-cZ3">
-                                                    <rect key="frame" x="0.0" y="0.0" width="94.5" height="50"/>
-                                                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <state key="normal" title="Button">
-                                                        <color key="titleColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="previousDateButtonTapped:" destination="KTO-4j-KGE" eventType="touchUpInside" id="yaG-ub-JJy"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IfL-Pr-if0">
-                                                    <rect key="frame" x="94.5" y="0.0" width="95" height="50"/>
-                                                    <color key="backgroundColor" name="Crimson"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" priority="999" constant="140" id="AcU-aE-un4"/>
-                                                        <constraint firstAttribute="height" constant="50" id="vxN-hN-ayA"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                    <state key="normal" title="Button">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </state>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DdI-8m-JGR">
-                                                    <rect key="frame" x="189.5" y="0.0" width="94.5" height="50"/>
-                                                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <state key="normal" title="Button">
-                                                        <color key="titleColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="nextDateButtonTapped:" destination="KTO-4j-KGE" eventType="touchUpInside" id="drQ-pJ-f9i"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <constraints>
-                                                <constraint firstItem="DdI-8m-JGR" firstAttribute="width" secondItem="IfL-Pr-if0" secondAttribute="width" id="22H-h8-AUs"/>
-                                                <constraint firstItem="DdI-8m-JGR" firstAttribute="top" secondItem="KTO-4j-KGE" secondAttribute="top" id="2wa-QQ-XBJ"/>
-                                                <constraint firstItem="42h-bD-cZ3" firstAttribute="height" secondItem="IfL-Pr-if0" secondAttribute="height" id="4eY-0Y-DOc"/>
-                                                <constraint firstAttribute="bottom" secondItem="42h-bD-cZ3" secondAttribute="bottom" id="5iA-79-1Cq"/>
-                                                <constraint firstItem="IfL-Pr-if0" firstAttribute="leading" secondItem="42h-bD-cZ3" secondAttribute="trailing" id="Q63-5i-N7W"/>
-                                                <constraint firstItem="IfL-Pr-if0" firstAttribute="top" secondItem="KTO-4j-KGE" secondAttribute="top" id="ShS-Gr-yGB"/>
-                                                <constraint firstItem="42h-bD-cZ3" firstAttribute="leading" secondItem="KTO-4j-KGE" secondAttribute="leading" id="YI1-X2-E5t"/>
-                                                <constraint firstItem="DdI-8m-JGR" firstAttribute="height" secondItem="IfL-Pr-if0" secondAttribute="height" id="c06-hv-IL4"/>
-                                                <constraint firstAttribute="bottom" secondItem="DdI-8m-JGR" secondAttribute="bottom" id="hwY-By-zID"/>
-                                                <constraint firstItem="42h-bD-cZ3" firstAttribute="width" secondItem="IfL-Pr-if0" secondAttribute="width" id="mkN-ec-13r"/>
-                                                <constraint firstAttribute="trailing" secondItem="DdI-8m-JGR" secondAttribute="trailing" id="ox6-lp-rzs"/>
-                                                <constraint firstAttribute="bottom" secondItem="IfL-Pr-if0" secondAttribute="bottom" id="pSt-31-4DJ"/>
-                                                <constraint firstItem="DdI-8m-JGR" firstAttribute="leading" secondItem="IfL-Pr-if0" secondAttribute="trailing" id="qPK-E0-W6S"/>
-                                                <constraint firstItem="42h-bD-cZ3" firstAttribute="top" secondItem="KTO-4j-KGE" secondAttribute="top" id="yHo-76-zgY"/>
-                                            </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                    <real key="value" value="5"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <outlet property="currentDateButton" destination="IfL-Pr-if0" id="awv-Kn-QaI"/>
-                                                <outlet property="nextDateButton" destination="DdI-8m-JGR" id="yJQ-OV-gfH"/>
-                                                <outlet property="previousDateButton" destination="42h-bD-cZ3" id="OLQ-ej-Yvp"/>
-                                            </connections>
-                                        </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Month total" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFZ-05-2OL">
-                                            <rect key="frame" x="18" y="90" width="92.5" height="21.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <rect key="frame" x="18" y="90" width="95.5" height="21.5"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                             <userDefinedRuntimeAttributes>
@@ -115,46 +48,30 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="December 2019" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="thS-4w-N61" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
+                                            <rect key="frame" x="24" y="16" width="272" height="42"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="zXQ-Am-GFA" secondAttribute="trailing" constant="18" id="4CQ-dj-3vm">
                                             <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                                         </constraint>
-                                        <constraint firstItem="KTO-4j-KGE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="chj-g6-Xkk" secondAttribute="leading" constant="18" id="Fm4-t9-xVN"/>
+                                        <constraint firstItem="zXQ-Am-GFA" firstAttribute="top" secondItem="thS-4w-N61" secondAttribute="bottom" constant="32" id="CPn-9a-Pve"/>
                                         <constraint firstItem="zXQ-Am-GFA" firstAttribute="centerY" secondItem="hFZ-05-2OL" secondAttribute="centerY" id="Fnv-mn-Yxj"/>
                                         <constraint firstItem="zXQ-Am-GFA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hFZ-05-2OL" secondAttribute="trailing" constant="5" id="hrP-5h-5rZ"/>
+                                        <constraint firstItem="thS-4w-N61" firstAttribute="leading" secondItem="chj-g6-Xkk" secondAttribute="leading" constant="24" id="lB4-tW-Cvh"/>
                                         <constraint firstItem="hFZ-05-2OL" firstAttribute="leading" secondItem="chj-g6-Xkk" secondAttribute="leading" constant="18" id="lf7-OV-3AM">
                                             <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                                         </constraint>
-                                        <constraint firstItem="KTO-4j-KGE" firstAttribute="centerX" secondItem="chj-g6-Xkk" secondAttribute="centerX" id="qOn-yz-3wQ"/>
+                                        <constraint firstAttribute="trailing" secondItem="thS-4w-N61" secondAttribute="trailing" constant="24" id="o70-Sx-0Fh"/>
                                         <constraint firstAttribute="bottom" secondItem="hFZ-05-2OL" secondAttribute="bottom" constant="30" id="qPI-4M-qSc">
                                             <variation key="heightClass=compact-widthClass=regular" constant="10"/>
                                         </constraint>
-                                        <constraint firstItem="KTO-4j-KGE" firstAttribute="top" secondItem="chj-g6-Xkk" secondAttribute="top" constant="10" id="vTN-JP-JJy"/>
-                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="KTO-4j-KGE" secondAttribute="trailing" constant="18" id="wlx-0s-b3A"/>
-                                        <constraint firstItem="hFZ-05-2OL" firstAttribute="top" secondItem="KTO-4j-KGE" secondAttribute="bottom" constant="30" id="zDd-JT-7g0">
-                                            <variation key="heightClass=compact-widthClass=regular" constant="10"/>
-                                        </constraint>
+                                        <constraint firstItem="thS-4w-N61" firstAttribute="top" secondItem="chj-g6-Xkk" secondAttribute="top" constant="16" id="qoM-jR-3hp"/>
                                     </constraints>
-                                    <variation key="heightClass=compact-widthClass=compact">
-                                        <mask key="constraints">
-                                            <exclude reference="Fm4-t9-xVN"/>
-                                            <exclude reference="wlx-0s-b3A"/>
-                                        </mask>
-                                    </variation>
-                                    <variation key="heightClass=compact-widthClass=regular">
-                                        <mask key="constraints">
-                                            <exclude reference="Fm4-t9-xVN"/>
-                                            <exclude reference="wlx-0s-b3A"/>
-                                        </mask>
-                                    </variation>
-                                    <variation key="heightClass=regular-widthClass=regular">
-                                        <mask key="constraints">
-                                            <exclude reference="Fm4-t9-xVN"/>
-                                            <exclude reference="wlx-0s-b3A"/>
-                                        </mask>
-                                    </variation>
                                 </view>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eBv-9n-dEF" customClass="ErrorView" customModule="TimeTable" customModuleProvider="target">
@@ -185,8 +102,8 @@
                     <connections>
                         <outlet property="accountingPeriodLabel" destination="YBd-4h-a3P" id="puT-X8-6cX"/>
                         <outlet property="activityIndicator" destination="1Mu-g3-i09" id="cv6-Ww-sXX"/>
-                        <outlet property="dateSelectorView" destination="KTO-4j-KGE" id="neF-yZ-OrX"/>
                         <outlet property="errorView" destination="eBv-9n-dEF" id="anC-gi-dwo"/>
+                        <outlet property="monthSelectionTextField" destination="thS-4w-N61" id="Egm-tb-ko0"/>
                         <outlet property="tableView" destination="SCa-Yp-ddD" id="XMe-dB-XMK"/>
                         <outlet property="workedHoursLabel" destination="lBK-2K-mAQ" id="q5g-sC-22l"/>
                     </connections>
@@ -196,9 +113,4 @@
             <point key="canvasLocation" x="200.00000000000003" y="291.96428571428572"/>
         </scene>
     </scenes>
-    <resources>
-        <namedColor name="Crimson">
-            <color red="0.79607843137254897" green="0.078431372549019607" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-    </resources>
 </document>
