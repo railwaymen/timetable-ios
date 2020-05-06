@@ -11,6 +11,10 @@ import XCTest
 
 class RemoteWorkViewControllerMock: UIViewController {
     
+    // MARK: - RemoteWorkViewModelOutput
+    private(set) var setUpParams: [SetUpParams] = []
+    struct SetUpParams {}
+    
     // MARK: - RemoteWorkViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
@@ -19,7 +23,11 @@ class RemoteWorkViewControllerMock: UIViewController {
 }
 
 // MARK: - RemoteWorkViewModelOutput
-extension RemoteWorkViewControllerMock: RemoteWorkViewModelOutput {}
+extension RemoteWorkViewControllerMock: RemoteWorkViewModelOutput {
+    func setUp() {
+        self.setUpParams.append(SetUpParams())
+    }
+}
 
 // MARK: - RemoteWorkViewControllerType
 extension RemoteWorkViewControllerMock: RemoteWorkViewControllerType {

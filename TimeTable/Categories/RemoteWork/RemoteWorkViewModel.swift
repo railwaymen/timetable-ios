@@ -10,22 +10,39 @@ import Foundation
 
 protocol RemoteWorkViewModelType: class {
     func loadView()
+    func addNewRecordTapped()
+    func profileButtonTapped()
 }
 
-protocol RemoteWorkViewModelOutput: class {}
+protocol RemoteWorkViewModelOutput: class {
+    func setUp()
+}
 
 class RemoteWorkViewModel {
     private weak var userInterface: RemoteWorkViewModelOutput?
+    private weak var coordinator: RemoteWorkCoordinatorType?
     
     // MARK: - Initialization
-    init(userInterface: RemoteWorkViewModelOutput) {
+    init(
+        userInterface: RemoteWorkViewModelOutput,
+        coordinator: RemoteWorkCoordinatorType
+    ) {
         self.userInterface = userInterface
+        self.coordinator = coordinator
     }
 }
 
 // MARK: - RemoteWorkViewModelType
 extension RemoteWorkViewModel: RemoteWorkViewModelType {
     func loadView() {
-        
+        self.userInterface?.setUp()
+    }
+    
+    func addNewRecordTapped() {
+        self.coordinator?.remoteWorkDidRequestForFormView()
+    }
+    
+    func profileButtonTapped() {
+        self.coordinator?.remoteWorkDidRequestForProfileView()
     }
 }

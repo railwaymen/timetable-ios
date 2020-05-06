@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol RemoteWorkCoordinatorType: class {
+    func remoteWorkDidRequestForProfileView()
+    func remoteWorkDidRequestForFormView()
+}
+
 class RemoteWorkCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
     private let dependencyContainer: DependencyContainerType
     
@@ -38,12 +43,26 @@ class RemoteWorkCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
     }
 }
 
+// MARK: - RemoteWorkCoordinatorType
+extension RemoteWorkCoordinator: RemoteWorkCoordinatorType {
+    func remoteWorkDidRequestForProfileView() {
+        let parentViewController = self.navigationController.topViewController ?? self.navigationController
+        self.dependencyContainer.parentCoordinator?.showProfile(parentViewController: parentViewController)
+    }
+    
+    func remoteWorkDidRequestForFormView() {
+        // TODO
+    }
+}
+
 // MARK: - Private
 extension RemoteWorkCoordinator {
     private func runMainFlow() {
         do {
             let controller = try self.dependencyContainer.viewControllerBuilder.remoteWork()
-            let viewModel = RemoteWorkViewModel(userInterface: controller)
+            let viewModel = RemoteWorkViewModel(
+                userInterface: controller,
+                coordinator: self)
             controller.configure(viewModel: viewModel)
             self.navigationController.setViewControllers([controller], animated: false)
         } catch {
