@@ -29,3 +29,6 @@ struct RemoteWork: Decodable {
         case userID = "user_id"
     }
 }
+
+// MARK: - Equatable
+extension RemoteWork: Equatable {}

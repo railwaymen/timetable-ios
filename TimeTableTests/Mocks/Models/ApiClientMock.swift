@@ -118,6 +118,14 @@ class ApiClientMock {
         let vacation: VacationDecoder
         let completion: VoidCompletion
     }
+    
+    // MARK: - ApiClientRemoteWorkType
+    var fetchRemoteWorkReturnValue: RestlerTaskType?
+    private(set) var fetchRemoteWorkParams: [FetchRemoteWorkParams] = []
+    struct FetchRemoteWorkParams {
+        let parameters: RemoteWorkParameters
+        let completion: FetchRemoteWorkCompletion
+    }
 }
 
 // MARK: - ApiClientSessionType
@@ -223,5 +231,16 @@ extension ApiClientMock: ApiClientVacationType {
     func declineVacation(_ vacation: VacationDecoder, completion: @escaping VoidCompletion) -> RestlerTaskType? {
         self.declineVacationParams.append(DeclineVacationParams(vacation: vacation, completion: completion))
         return self.declineVacationReturnValue
+    }
+}
+
+// MARK: - ApiClientRemoteWorkType
+extension ApiClientMock: ApiClientRemoteWorkType {
+    func fetchRemoteWork(
+        parameters: RemoteWorkParameters,
+        completion: @escaping FetchRemoteWorkCompletion
+    ) -> RestlerTaskType? {
+        self.fetchRemoteWorkParams.append(FetchRemoteWorkParams(parameters: parameters, completion: completion))
+        return self.fetchRemoteWorkReturnValue
     }
 }

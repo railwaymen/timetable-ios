@@ -17,3 +17,6 @@ struct RemoteWorkResponse: Decodable {
         case records
     }
 }
+
+// MARK: - Equatable
+extension RemoteWorkResponse: Equatable {}

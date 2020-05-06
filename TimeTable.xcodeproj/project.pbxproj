@@ -437,6 +437,8 @@
 		C1860DD22462F0C700C33C94 /* RemoteWorkResponseJSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DD12462F0C700C33C94 /* RemoteWorkResponseJSONResource.swift */; };
 		C1860DD42462F12000C33C94 /* remoteWorkResponseRecordsEmptyArray.json in Resources */ = {isa = PBXBuildFile; fileRef = C1860DD32462F12000C33C94 /* remoteWorkResponseRecordsEmptyArray.json */; };
 		C1860DD62462F12C00C33C94 /* remoteWorkResponseFullModel.json in Resources */ = {isa = PBXBuildFile; fileRef = C1860DD52462F12C00C33C94 /* remoteWorkResponseFullModel.json */; };
+		C1860DD82462F26A00C33C94 /* ApiClient+RemoteWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DD72462F26A00C33C94 /* ApiClient+RemoteWork.swift */; };
+		C1860DDA2462F3F900C33C94 /* ApiClientRemoteWorkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DD92462F3F900C33C94 /* ApiClientRemoteWorkTests.swift */; };
 		C18A189C21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189B21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json */; };
 		C18A189E21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189D21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json */; };
 		C18A18A121EF88B300CB6E32 /* WorkTimeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18A18A021EF88B300CB6E32 /* WorkTimeViewModelTests.swift */; };
@@ -1047,6 +1049,8 @@
 		C1860DD12462F0C700C33C94 /* RemoteWorkResponseJSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkResponseJSONResource.swift; sourceTree = "<group>"; };
 		C1860DD32462F12000C33C94 /* remoteWorkResponseRecordsEmptyArray.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = remoteWorkResponseRecordsEmptyArray.json; sourceTree = "<group>"; };
 		C1860DD52462F12C00C33C94 /* remoteWorkResponseFullModel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = remoteWorkResponseFullModel.json; sourceTree = "<group>"; };
+		C1860DD72462F26A00C33C94 /* ApiClient+RemoteWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiClient+RemoteWork.swift"; sourceTree = "<group>"; };
+		C1860DD92462F3F900C33C94 /* ApiClientRemoteWorkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientRemoteWorkTests.swift; sourceTree = "<group>"; };
 		C18A189B21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithAutofillTrueResponse.json; sourceTree = "<group>"; };
 		C18A189D21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithALunchTrueResponse.json; sourceTree = "<group>"; };
 		C18A18A021EF88B300CB6E32 /* WorkTimeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeViewModelTests.swift; sourceTree = "<group>"; };
@@ -2300,6 +2304,7 @@
 				C1F7C2EA2191858800F4FAF0 /* ApiClient.swift */,
 				C198BD1E21FF3FC900B5F847 /* ApiClient+AccountingPeriods.swift */,
 				C125F1B221DCCBE700594CDE /* ApiClient+Projects.swift */,
+				C1860DD72462F26A00C33C94 /* ApiClient+RemoteWork.swift */,
 				C134295D21A6934C00F4EA42 /* ApiClient+Session.swift */,
 				C10FD87E21F1EDA100A233C5 /* ApiClient+Users.swift */,
 				C1FB401D245191D8008266C4 /* ApiClient+Vacation.swift */,
@@ -2318,6 +2323,7 @@
 			children = (
 				C11D0CF8220820BD00066CA9 /* ApiClientAccountingPeriodsTests.swift */,
 				C12BD9BA21E4B7B200A6EAF0 /* ApiClientProjectsTests.swift */,
+				C1860DD92462F3F900C33C94 /* ApiClientRemoteWorkTests.swift */,
 				C134295F21A6937E00F4EA42 /* ApiClientSessionTests.swift */,
 				C1531F062191CD4B00602A0C /* ApiClientTests.swift */,
 				C10FD88821F1F36300A233C5 /* ApiClientUsersTests.swift */,
@@ -3735,6 +3741,7 @@
 				8AB8AFD62450803100A0D3D3 /* ProfileButtonCell.swift in Sources */,
 				C1AACFD621A438660023FD32 /* ProfileCoordinator.swift in Sources */,
 				8A31A860238E927E008DCC08 /* TimeInterval+Extension.swift in Sources */,
+				C1860DD82462F26A00C33C94 /* ApiClient+RemoteWork.swift in Sources */,
 				8A80A38D23D89C24002643A1 /* APIClientFactory.swift in Sources */,
 				8A12C9612456A5130046603B /* AccountingPeriodsViewModel.swift in Sources */,
 				C1E6B34C219EF08200019DC2 /* AccessService.swift in Sources */,
@@ -3972,6 +3979,7 @@
 				C134298D21A6D35200F4EA42 /* LoginContentProviderMock.swift in Sources */,
 				C19706DF21C13056007AFED4 /* WorkTimesCoordinatorTests.swift in Sources */,
 				8AADE6DA2451DB730085FCA7 /* ProfileContentProviderMock.swift in Sources */,
+				C1860DDA2462F3F900C33C94 /* ApiClientRemoteWorkTests.swift in Sources */,
 				C12CA56C21A57BAA0082FEB7 /* UIColorExtensionTests.swift in Sources */,
 				C1860DC92462EDC300C33C94 /* RemoteWorkResponseTests.swift in Sources */,
 				C122601A21898BD7007D64A3 /* LoginViewModelTests.swift in Sources */,
