@@ -261,6 +261,9 @@
 		8AF5697D23D759AE00A1D001 /* ServerErrorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5697C23D759AE00A1D001 /* ServerErrorFactory.swift */; };
 		8AFBC3592462981300032B96 /* MonthYearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC3582462981300032B96 /* MonthYearPickerView.swift */; };
 		8AFBC35B2462F1E300032B96 /* RegisterRemoteWorkCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC35A2462F1E300032B96 /* RegisterRemoteWorkCoordinator.swift */; };
+		8AFBC35E2462F3A100032B96 /* RegisterRemoteWorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC35D2462F3A100032B96 /* RegisterRemoteWorkViewController.swift */; };
+		8AFBC3602462F4A400032B96 /* RegisterRemoteWorkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC35F2462F4A400032B96 /* RegisterRemoteWorkViewModel.swift */; };
+		8AFBC3622462F51200032B96 /* RegisterRemoteWork.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AFBC3612462F51200032B96 /* RegisterRemoteWork.storyboard */; };
 		8AFFE5C224331BDB001D9E89 /* taskVersionNullPreviousTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */; };
 		8AFFE5C424331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */; };
 		8AFFE5C624331BFB001D9E89 /* taskVersionNullCurrentTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */; };
@@ -869,6 +872,9 @@
 		8AF5697C23D759AE00A1D001 /* ServerErrorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerErrorFactory.swift; sourceTree = "<group>"; };
 		8AFBC3582462981300032B96 /* MonthYearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthYearPickerView.swift; sourceTree = "<group>"; };
 		8AFBC35A2462F1E300032B96 /* RegisterRemoteWorkCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRemoteWorkCoordinator.swift; sourceTree = "<group>"; };
+		8AFBC35D2462F3A100032B96 /* RegisterRemoteWorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRemoteWorkViewController.swift; sourceTree = "<group>"; };
+		8AFBC35F2462F4A400032B96 /* RegisterRemoteWorkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRemoteWorkViewModel.swift; sourceTree = "<group>"; };
+		8AFBC3612462F51200032B96 /* RegisterRemoteWork.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RegisterRemoteWork.storyboard; sourceTree = "<group>"; };
 		8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullPreviousTask.json; sourceTree = "<group>"; };
 		8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionMissingPreviousTaskKey.json; sourceTree = "<group>"; };
 		8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullCurrentTask.json; sourceTree = "<group>"; };
@@ -1802,6 +1808,16 @@
 			path = Factories;
 			sourceTree = "<group>";
 		};
+		8AFBC35C2462F38400032B96 /* RegisterRemoteWork */ = {
+			isa = PBXGroup;
+			children = (
+				8AFBC3612462F51200032B96 /* RegisterRemoteWork.storyboard */,
+				8AFBC35D2462F3A100032B96 /* RegisterRemoteWorkViewController.swift */,
+				8AFBC35F2462F4A400032B96 /* RegisterRemoteWorkViewModel.swift */,
+			);
+			path = RegisterRemoteWork;
+			sourceTree = "<group>";
+		};
 		C10FD87D21F1ED8300A233C5 /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -1915,6 +1931,7 @@
 				8A798741237D4DB6003DC028 /* Profile */,
 				8A31CD7E23741F93008E590D /* ProjectPicker */,
 				C125F1B421DCCF2F00594CDE /* Projects */,
+				8AFBC35C2462F38400032B96 /* RegisterRemoteWork */,
 				C1860DB22462E1B400C33C94 /* RemoteWork */,
 				C153AC432181E4CC007A35BB /* ServerConfiguration */,
 				8A79A2422420C4000048B44B /* TaskHistory */,
@@ -2514,8 +2531,8 @@
 		C1860DAF2462DEEB00C33C94 /* RemoteWork */ = {
 			isa = PBXGroup;
 			children = (
-				C1860DB02462DF0000C33C94 /* RemoteWorkCoordinator.swift */,
 				8AFBC35A2462F1E300032B96 /* RegisterRemoteWorkCoordinator.swift */,
+				C1860DB02462DF0000C33C94 /* RemoteWorkCoordinator.swift */,
 			);
 			path = RemoteWork;
 			sourceTree = "<group>";
@@ -3243,6 +3260,7 @@
 				C125F1BA21DCCF5D00594CDE /* Projects.storyboard in Resources */,
 				8A5EF32023FE81AC00AE4309 /* ProjectUserViewTableViewCell.xib in Resources */,
 				8A5EF31E23FE812C00AE4309 /* ProjectCollectionViewCell.xib in Resources */,
+				8AFBC3622462F51200032B96 /* RegisterRemoteWork.storyboard in Resources */,
 				C1E1F04221AD2372007F9228 /* WorkTimesTableViewHeader.xib in Resources */,
 				C13429AA21A7DB2300F4EA42 /* WorkTimesList.storyboard in Resources */,
 				C153AC592182F7BB007A35BB /* Localizable.strings in Resources */,
@@ -3608,6 +3626,7 @@
 			files = (
 				8A79A2412420C3160048B44B /* TaskHistoryCoordinator.swift in Sources */,
 				C1411C2724503A0400BB4266 /* VacationCoordinator.swift in Sources */,
+				8AFBC3602462F4A400032B96 /* RegisterRemoteWorkViewModel.swift in Sources */,
 				8A79A2CD242231890048B44B /* UIActivityIndicatorView+Extension.swift in Sources */,
 				C18BE26B2452EC1000FC71CC /* VacationCellViewModel.swift in Sources */,
 				C1860DC52462ED9A00C33C94 /* RemoteWork.swift in Sources */,
@@ -3665,6 +3684,7 @@
 				8AFBC35B2462F1E300032B96 /* RegisterRemoteWorkCoordinator.swift in Sources */,
 				C1F7C2E221904E0900F4FAF0 /* UserDefaults+Extension.swift in Sources */,
 				C198BD1F21FF3FC900B5F847 /* ApiClient+AccountingPeriods.swift in Sources */,
+				8AFBC35E2462F3A100032B96 /* RegisterRemoteWorkViewController.swift in Sources */,
 				8A5EF31A23FE806900AE4309 /* UICollectionView+Extension.swift in Sources */,
 				8AE866B0246A7636001BD475 /* Constants.swift in Sources */,
 				8A79A2FC2424BFF90048B44B /* DatePickerTextField.swift in Sources */,

@@ -41,7 +41,13 @@ extension RegisterRemoteWorkCoordinator: RegisterRemoteWorkCoordinatorType {}
 extension RegisterRemoteWorkCoordinator {
     private func runMainFlow() {
         do {
-            // TODO
+            let controller = try self.dependencyContainer.viewControllerBuilder.registerRemoteWork()
+            let viewModel = RegisterRemoteWorkViewModel(
+                userInterface: controller,
+                coordinator: self)
+            controller.configure(viewModel: viewModel)
+            self.navigationController.setViewControllers([controller], animated: false)
+            self.parentViewController?.present(self.navigationController, animated: true)
         } catch {
             self.dependencyContainer.errorHandler.stopInDebug("\(error)")
         }
