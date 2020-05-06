@@ -426,6 +426,8 @@
 		C1860DB62462E34200C33C94 /* RemoteWorkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DB52462E34200C33C94 /* RemoteWorkViewModel.swift */; };
 		C1860DB82462E37900C33C94 /* RemoteWork.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1860DB72462E37900C33C94 /* RemoteWork.storyboard */; };
 		C1860DBB2462E50B00C33C94 /* RemoteWorkViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DBA2462E50B00C33C94 /* RemoteWorkViewControllerMock.swift */; };
+		C1860DBE2462EB3F00C33C94 /* RemoteWorkParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DBD2462EB3F00C33C94 /* RemoteWorkParameters.swift */; };
+		C1860DC12462EC0D00C33C94 /* RemoteWorkParametersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DC02462EC0D00C33C94 /* RemoteWorkParametersTests.swift */; };
 		C18A189C21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189B21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json */; };
 		C18A189E21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189D21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json */; };
 		C18A18A121EF88B300CB6E32 /* WorkTimeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18A18A021EF88B300CB6E32 /* WorkTimeViewModelTests.swift */; };
@@ -1025,6 +1027,8 @@
 		C1860DB52462E34200C33C94 /* RemoteWorkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkViewModel.swift; sourceTree = "<group>"; };
 		C1860DB72462E37900C33C94 /* RemoteWork.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RemoteWork.storyboard; sourceTree = "<group>"; };
 		C1860DBA2462E50B00C33C94 /* RemoteWorkViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkViewControllerMock.swift; sourceTree = "<group>"; };
+		C1860DBD2462EB3F00C33C94 /* RemoteWorkParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkParameters.swift; sourceTree = "<group>"; };
+		C1860DC02462EC0D00C33C94 /* RemoteWorkParametersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkParametersTests.swift; sourceTree = "<group>"; };
 		C18A189B21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithAutofillTrueResponse.json; sourceTree = "<group>"; };
 		C18A189D21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithALunchTrueResponse.json; sourceTree = "<group>"; };
 		C18A18A021EF88B300CB6E32 /* WorkTimeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeViewModelTests.swift; sourceTree = "<group>"; };
@@ -2134,6 +2138,7 @@
 				8A6A4FAA2456D8B6004B4CF2 /* AccountingPeriods */,
 				C198BD1B21FF3DB800B5F847 /* MatchingFulltime */,
 				C12CA56621A5786E0082FEB7 /* Projects */,
+				C1860DBC2462EB2800C33C94 /* RemoteWork */,
 				C1B8FA47218C9617009D10B4 /* Session */,
 				C163BF28244F490600E87F4A /* Task */,
 				8A79A2492420D6600048B44B /* TaskHistory */,
@@ -2150,6 +2155,7 @@
 				8A6A4FB22456D9E1004B4CF2 /* AccountingPeriods */,
 				C11D0CF5220816BE00066CA9 /* MatchingFulltime */,
 				C12CA56D21A58BD70082FEB7 /* Projects */,
+				C1860DBF2462EC0000C33C94 /* RemoteWork */,
 				C1B8FA46218C95D3009D10B4 /* Session */,
 				C163BF29244F494000E87F4A /* Task */,
 				8A79A24C2420DDF20048B44B /* TaskHistory */,
@@ -2501,6 +2507,22 @@
 			isa = PBXGroup;
 			children = (
 				C1860DBA2462E50B00C33C94 /* RemoteWorkViewControllerMock.swift */,
+			);
+			path = RemoteWork;
+			sourceTree = "<group>";
+		};
+		C1860DBC2462EB2800C33C94 /* RemoteWork */ = {
+			isa = PBXGroup;
+			children = (
+				C1860DBD2462EB3F00C33C94 /* RemoteWorkParameters.swift */,
+			);
+			path = RemoteWork;
+			sourceTree = "<group>";
+		};
+		C1860DBF2462EC0000C33C94 /* RemoteWork */ = {
+			isa = PBXGroup;
+			children = (
+				C1860DC02462EC0D00C33C94 /* RemoteWorkParametersTests.swift */,
 			);
 			path = RemoteWork;
 			sourceTree = "<group>";
@@ -3560,6 +3582,7 @@
 				C125F1AF21DCC95200594CDE /* ProjectRecordDecoder.swift in Sources */,
 				8AADE6D82451D18F0085FCA7 /* ProfileContentProvider.swift in Sources */,
 				C14EB0252372D9B0007F07D0 /* ErrorViewModel.swift in Sources */,
+				C1860DBE2462EB3F00C33C94 /* RemoteWorkParameters.swift in Sources */,
 				8A2FB102242E32B500DDBCB0 /* LabelTextParameters.swift in Sources */,
 				C1411C2C24503B6000BB4266 /* VacationViewController.swift in Sources */,
 				C16B3A75229E6A0700B6E9E6 /* ProjectTag.swift in Sources */,
@@ -3739,6 +3762,7 @@
 				8A79A2F324237F760048B44B /* ProjectRecordDecoderLeaderTests.swift in Sources */,
 				8A79A2F5242382C40048B44B /* ProjectRecordDecoderUserTests.swift in Sources */,
 				C1A47C01245AAE2700FDA7F0 /* NewVacationViewControllerMock.swift in Sources */,
+				C1860DC12462EC0D00C33C94 /* RemoteWorkParametersTests.swift in Sources */,
 				C1E1F05421AD5FD2007F9228 /* WorkTimesTableViewHeaderViewModelTests.swift in Sources */,
 				C11D0CF9220820BD00066CA9 /* ApiClientAccountingPeriodsTests.swift in Sources */,
 				C1B771F721EF39FA00EFE06F /* ApiValidationErrorsTests.swift in Sources */,
