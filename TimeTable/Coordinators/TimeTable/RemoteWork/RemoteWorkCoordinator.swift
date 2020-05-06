@@ -40,5 +40,14 @@ class RemoteWorkCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
 
 // MARK: - Private
 extension RemoteWorkCoordinator {
-    private func runMainFlow() {}
+    private func runMainFlow() {
+        do {
+            let controller = try self.dependencyContainer.viewControllerBuilder.remoteWork()
+            let viewModel = RemoteWorkViewModel(userInterface: controller)
+            controller.configure(viewModel: viewModel)
+            self.navigationController.setViewControllers([controller], animated: false)
+        } catch {
+            self.dependencyContainer.errorHandler.stopInDebug("\(error)")
+        }
+    }
 }

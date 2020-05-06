@@ -422,6 +422,9 @@
 		C17EA3BA2189E9BA00A3F0CD /* ApiClientErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3B92189E9BA00A3F0CD /* ApiClientErrorTests.swift */; };
 		C17EA3BC2189EC1700A3F0CD /* URLSessionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */; };
 		C1860DB12462DF0000C33C94 /* RemoteWorkCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DB02462DF0000C33C94 /* RemoteWorkCoordinator.swift */; };
+		C1860DB42462E1C400C33C94 /* RemoteWorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DB32462E1C400C33C94 /* RemoteWorkViewController.swift */; };
+		C1860DB62462E34200C33C94 /* RemoteWorkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DB52462E34200C33C94 /* RemoteWorkViewModel.swift */; };
+		C1860DB82462E37900C33C94 /* RemoteWork.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1860DB72462E37900C33C94 /* RemoteWork.storyboard */; };
 		C18A189C21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189B21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json */; };
 		C18A189E21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189D21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json */; };
 		C18A18A121EF88B300CB6E32 /* WorkTimeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18A18A021EF88B300CB6E32 /* WorkTimeViewModelTests.swift */; };
@@ -1017,6 +1020,9 @@
 		C183F82C21F0A56700B07AB8 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
 		C183F82D21F0A57300B07AB8 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
 		C1860DB02462DF0000C33C94 /* RemoteWorkCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkCoordinator.swift; sourceTree = "<group>"; };
+		C1860DB32462E1C400C33C94 /* RemoteWorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkViewController.swift; sourceTree = "<group>"; };
+		C1860DB52462E34200C33C94 /* RemoteWorkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkViewModel.swift; sourceTree = "<group>"; };
+		C1860DB72462E37900C33C94 /* RemoteWork.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RemoteWork.storyboard; sourceTree = "<group>"; };
 		C18A189B21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithAutofillTrueResponse.json; sourceTree = "<group>"; };
 		C18A189D21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithALunchTrueResponse.json; sourceTree = "<group>"; };
 		C18A18A021EF88B300CB6E32 /* WorkTimeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeViewModelTests.swift; sourceTree = "<group>"; };
@@ -1878,6 +1884,7 @@
 				8A798741237D4DB6003DC028 /* Profile */,
 				8A31CD7E23741F93008E590D /* ProjectPicker */,
 				C125F1B421DCCF2F00594CDE /* Projects */,
+				C1860DB22462E1B400C33C94 /* RemoteWork */,
 				C153AC432181E4CC007A35BB /* ServerConfiguration */,
 				8A79A2422420C4000048B44B /* TaskHistory */,
 				C1411C2824503B1700BB4266 /* Vacation */,
@@ -2473,6 +2480,16 @@
 			isa = PBXGroup;
 			children = (
 				C1860DB02462DF0000C33C94 /* RemoteWorkCoordinator.swift */,
+			);
+			path = RemoteWork;
+			sourceTree = "<group>";
+		};
+		C1860DB22462E1B400C33C94 /* RemoteWork */ = {
+			isa = PBXGroup;
+			children = (
+				C1860DB72462E37900C33C94 /* RemoteWork.storyboard */,
+				C1860DB32462E1C400C33C94 /* RemoteWorkViewController.swift */,
+				C1860DB52462E34200C33C94 /* RemoteWorkViewModel.swift */,
 			);
 			path = RemoteWork;
 			sourceTree = "<group>";
@@ -3138,6 +3155,7 @@
 				C153AC592182F7BB007A35BB /* Localizable.strings in Resources */,
 				8A12C96B2456AF6F0046603B /* AccountingPeriodsCell.xib in Resources */,
 				8A8EE1AB23F4455100416D31 /* GoogleService-Info.plist in Resources */,
+				C1860DB82462E37900C33C94 /* RemoteWork.storyboard in Resources */,
 				8AADE6D42451A4790085FCA7 /* ProfileHeaderView.xib in Resources */,
 				8A12C9632456A5C70046603B /* AccountingPeriods.storyboard in Resources */,
 				C18BE2682452E93A00FC71CC /* VacationCell.xib in Resources */,
@@ -3517,6 +3535,7 @@
 				8AADE06A2465B12F001B0BF9 /* KeyboardManager.swift in Sources */,
 				C1F7C2EB2191858800F4FAF0 /* ApiClient.swift in Sources */,
 				C153AC6621831499007A35BB /* NotificationCenter+Extenison.swift in Sources */,
+				C1860DB42462E1C400C33C94 /* RemoteWorkViewController.swift in Sources */,
 				8A31A85E238E902B008DCC08 /* Date+Extension.swift in Sources */,
 				8A5D48BE2369E18C0082C13D /* DispatchGroupFactory.swift in Sources */,
 				C1249C802181B4FC005DB2A5 /* ErrorHandler.swift in Sources */,
@@ -3588,6 +3607,7 @@
 				8AD1345A2396B60B00572632 /* AttributedTextView.swift in Sources */,
 				8A79A2552420E5600048B44B /* NilableDiffElement.swift in Sources */,
 				8A79A2C524210AAC0048B44B /* WorkTimeDisplayed.swift in Sources */,
+				C1860DB62462E34200C33C94 /* RemoteWorkViewModel.swift in Sources */,
 				C1F7C2ED2191897A00F4FAF0 /* ApiClientError.swift in Sources */,
 				8A31CD8723742CEA008E590D /* ProjectPickerCellModel.swift in Sources */,
 				8AE55D2123FD92D200F94242 /* DateFactory.swift in Sources */,
