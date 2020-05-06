@@ -12,7 +12,7 @@ struct RemoteWorkResponse: Decodable {
     let totalPages: Int
     let records: [RemoteWork]
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case totalPages = "total_pages"
         case records
     }
