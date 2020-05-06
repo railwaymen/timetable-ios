@@ -51,7 +51,14 @@ extension RemoteWorkCoordinator: RemoteWorkCoordinatorType {
     }
     
     func remoteWorkDidRequestForFormView() {
-        // TODO
+        let parentViewController = self.navigationController.topViewController ?? self.navigationController
+        let coordinator = RegisterRemoteWorkCoordinator(
+            dependencyContainer: self.dependencyContainer,
+            parentViewController: parentViewController)
+        self.add(child: coordinator)
+        coordinator.start { [weak self, weak coordinator] in
+            self?.remove(child: coordinator)
+        }
     }
 }
 
