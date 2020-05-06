@@ -24,7 +24,6 @@ enum Endpoint: RestlerEndpointable, Equatable {
     case vacation
     case vacationDecline(Int)
     
-    
     var restlerEndpointValue: String {
         switch self {
         case .accountingPeriods: return "/accounting_periods"

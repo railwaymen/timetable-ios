@@ -428,6 +428,15 @@
 		C1860DBB2462E50B00C33C94 /* RemoteWorkViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DBA2462E50B00C33C94 /* RemoteWorkViewControllerMock.swift */; };
 		C1860DBE2462EB3F00C33C94 /* RemoteWorkParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DBD2462EB3F00C33C94 /* RemoteWorkParameters.swift */; };
 		C1860DC12462EC0D00C33C94 /* RemoteWorkParametersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DC02462EC0D00C33C94 /* RemoteWorkParametersTests.swift */; };
+		C1860DC32462ECE700C33C94 /* RemoteWorkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DC22462ECE700C33C94 /* RemoteWorkResponse.swift */; };
+		C1860DC52462ED9A00C33C94 /* RemoteWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DC42462ED9A00C33C94 /* RemoteWork.swift */; };
+		C1860DC72462EDB300C33C94 /* RemoteWorkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DC62462EDB300C33C94 /* RemoteWorkTests.swift */; };
+		C1860DC92462EDC300C33C94 /* RemoteWorkResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DC82462EDC300C33C94 /* RemoteWorkResponseTests.swift */; };
+		C1860DCE2462EE0900C33C94 /* RemoteWorkJSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DCD2462EE0900C33C94 /* RemoteWorkJSONResource.swift */; };
+		C1860DD02462EE3F00C33C94 /* remoteWorkFullModel.json in Resources */ = {isa = PBXBuildFile; fileRef = C1860DCF2462EE3F00C33C94 /* remoteWorkFullModel.json */; };
+		C1860DD22462F0C700C33C94 /* RemoteWorkResponseJSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DD12462F0C700C33C94 /* RemoteWorkResponseJSONResource.swift */; };
+		C1860DD42462F12000C33C94 /* remoteWorkResponseRecordsEmptyArray.json in Resources */ = {isa = PBXBuildFile; fileRef = C1860DD32462F12000C33C94 /* remoteWorkResponseRecordsEmptyArray.json */; };
+		C1860DD62462F12C00C33C94 /* remoteWorkResponseFullModel.json in Resources */ = {isa = PBXBuildFile; fileRef = C1860DD52462F12C00C33C94 /* remoteWorkResponseFullModel.json */; };
 		C18A189C21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189B21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json */; };
 		C18A189E21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189D21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json */; };
 		C18A18A121EF88B300CB6E32 /* WorkTimeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18A18A021EF88B300CB6E32 /* WorkTimeViewModelTests.swift */; };
@@ -1029,6 +1038,15 @@
 		C1860DBA2462E50B00C33C94 /* RemoteWorkViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkViewControllerMock.swift; sourceTree = "<group>"; };
 		C1860DBD2462EB3F00C33C94 /* RemoteWorkParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkParameters.swift; sourceTree = "<group>"; };
 		C1860DC02462EC0D00C33C94 /* RemoteWorkParametersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkParametersTests.swift; sourceTree = "<group>"; };
+		C1860DC22462ECE700C33C94 /* RemoteWorkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkResponse.swift; sourceTree = "<group>"; };
+		C1860DC42462ED9A00C33C94 /* RemoteWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWork.swift; sourceTree = "<group>"; };
+		C1860DC62462EDB300C33C94 /* RemoteWorkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkTests.swift; sourceTree = "<group>"; };
+		C1860DC82462EDC300C33C94 /* RemoteWorkResponseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkResponseTests.swift; sourceTree = "<group>"; };
+		C1860DCD2462EE0900C33C94 /* RemoteWorkJSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkJSONResource.swift; sourceTree = "<group>"; };
+		C1860DCF2462EE3F00C33C94 /* remoteWorkFullModel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = remoteWorkFullModel.json; sourceTree = "<group>"; };
+		C1860DD12462F0C700C33C94 /* RemoteWorkResponseJSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkResponseJSONResource.swift; sourceTree = "<group>"; };
+		C1860DD32462F12000C33C94 /* remoteWorkResponseRecordsEmptyArray.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = remoteWorkResponseRecordsEmptyArray.json; sourceTree = "<group>"; };
+		C1860DD52462F12C00C33C94 /* remoteWorkResponseFullModel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = remoteWorkResponseFullModel.json; sourceTree = "<group>"; };
 		C18A189B21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithAutofillTrueResponse.json; sourceTree = "<group>"; };
 		C18A189D21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithALunchTrueResponse.json; sourceTree = "<group>"; };
 		C18A18A021EF88B300CB6E32 /* WorkTimeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeViewModelTests.swift; sourceTree = "<group>"; };
@@ -2514,7 +2532,9 @@
 		C1860DBC2462EB2800C33C94 /* RemoteWork */ = {
 			isa = PBXGroup;
 			children = (
+				C1860DC42462ED9A00C33C94 /* RemoteWork.swift */,
 				C1860DBD2462EB3F00C33C94 /* RemoteWorkParameters.swift */,
+				C1860DC22462ECE700C33C94 /* RemoteWorkResponse.swift */,
 			);
 			path = RemoteWork;
 			sourceTree = "<group>";
@@ -2523,6 +2543,34 @@
 			isa = PBXGroup;
 			children = (
 				C1860DC02462EC0D00C33C94 /* RemoteWorkParametersTests.swift */,
+				C1860DC82462EDC300C33C94 /* RemoteWorkResponseTests.swift */,
+				C1860DC62462EDB300C33C94 /* RemoteWorkTests.swift */,
+			);
+			path = RemoteWork;
+			sourceTree = "<group>";
+		};
+		C1860DCA2462EDDB00C33C94 /* RemoteWork */ = {
+			isa = PBXGroup;
+			children = (
+				C1860DCC2462EDF000C33C94 /* RemoteWork */,
+				C1860DCB2462EDE700C33C94 /* RemoteWorkResponse */,
+			);
+			path = RemoteWork;
+			sourceTree = "<group>";
+		};
+		C1860DCB2462EDE700C33C94 /* RemoteWorkResponse */ = {
+			isa = PBXGroup;
+			children = (
+				C1860DD52462F12C00C33C94 /* remoteWorkResponseFullModel.json */,
+				C1860DD32462F12000C33C94 /* remoteWorkResponseRecordsEmptyArray.json */,
+			);
+			path = RemoteWorkResponse;
+			sourceTree = "<group>";
+		};
+		C1860DCC2462EDF000C33C94 /* RemoteWork */ = {
+			isa = PBXGroup;
+			children = (
+				C1860DCF2462EE3F00C33C94 /* remoteWorkFullModel.json */,
 			);
 			path = RemoteWork;
 			sourceTree = "<group>";
@@ -2824,20 +2872,23 @@
 				8A065B58237ABC8A0072A21E /* ProjectRecordJSONResource.swift */,
 				8A79A2F62423842A0048B44B /* ProjectRecordUserJSONResource.swift */,
 				8A79A3012424E91C0048B44B /* ProjectTagJSONResource.swift */,
+				C1860DCD2462EE0900C33C94 /* RemoteWorkJSONResource.swift */,
+				C1860DD12462F0C700C33C94 /* RemoteWorkResponseJSONResource.swift */,
 				8A9832B9243AFFF7005245A8 /* ServerErrorJSONResource.swift */,
 				8A065B5A237ABCD90072A21E /* SessionJSONResource.swift */,
 				8A065B54237ABA1B0072A21E /* SimpleProjectJSONResource.swift */,
 				8A79A24F2420DE4C0048B44B /* TaskVersionJSONResource.swift */,
+				C1FB40182451884C008266C4 /* UsedVacationDaysJSONResource.swift */,
 				8A065B5C237ABDBB0072A21E /* UserJSONResource.swift */,
 				C1FB3FFF24517480008266C4 /* VacationJSONResource.swift */,
 				C1FB40122451876E008266C4 /* VacationResponseJSONResource.swift */,
 				8A065B4E237AB8F50072A21E /* WorkTimesJSONResource.swift */,
 				8A065B56237ABC5A0072A21E /* WorkTimesProjectJSONResource.swift */,
 				8A6A4FAF2456D949004B4CF2 /* AccountingPeriods */,
-				C1FB40182451884C008266C4 /* UsedVacationDaysJSONResource.swift */,
 				C1B771F921EF415C00EFE06F /* ApiValidationErrors */,
 				C19D88A62203007F007CC867 /* MatchingFullTime */,
 				C12CA57021A58C6C0082FEB7 /* Projects */,
+				C1860DCA2462EDDB00C33C94 /* RemoteWork */,
 				8A9832BB243B0006005245A8 /* ServerError */,
 				C1B8FA4F218C9A64009D10B4 /* Session */,
 				8A79A2512420DED60048B44B /* TaskHistory */,
@@ -3220,6 +3271,7 @@
 				8A79A2BB2420F73C0048B44B /* taskVersionNullEvent.json in Resources */,
 				8A79A3092424EAF70048B44B /* projectTagsUnknownResponse.json in Resources */,
 				C1B771D921EF1DFF00EFE06F /* simpleProjectNullAutofillResponse.json in Resources */,
+				C1860DD62462F12C00C33C94 /* remoteWorkResponseFullModel.json in Resources */,
 				8A21A0462435D72E00EE4A79 /* taskVersionMissingPreviousTaskPreviewKey.json in Resources */,
 				8AFFE5CA24331F77001D9E89 /* taskChangedTaskResponse.json in Resources */,
 				C1B771D721EF1DE100EFE06F /* simpleProjectMissingColorKeyResponse.json in Resources */,
@@ -3287,6 +3339,7 @@
 				8A79A2712420EF2F0048B44B /* taskVersionMissingCurrentBodyKey.json in Resources */,
 				C1B771DF21EF1E3E00EFE06F /* simpleProjectMissingInternalKeyResponse.json in Resources */,
 				8A79A3052424E9460048B44B /* projectTagsResponse.json in Resources */,
+				C1860DD42462F12000C33C94 /* remoteWorkResponseRecordsEmptyArray.json in Resources */,
 				8A9987CE23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json in Resources */,
 				8A912D82246BC7AC00D88DA8 /* taskChangedDayAndTimeResponse.json in Resources */,
 				8AFFE5C424331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json in Resources */,
@@ -3327,6 +3380,7 @@
 				C11D0D012208243C00066CA9 /* matchingFullTimeMissingShouldWorkedKey.json in Resources */,
 				8A79A2BA2420F73C0048B44B /* taskVersionNullCurrentEndsAt.json in Resources */,
 				8A79A2B82420F73C0048B44B /* taskVersionMissingEventKey.json in Resources */,
+				C1860DD02462EE3F00C33C94 /* remoteWorkFullModel.json in Resources */,
 				C13429B821A8308600F4EA42 /* workTimeBodyNull.json in Resources */,
 				C11D0CFF2208241C00066CA9 /* matchingFullTimeMissingPeriodKey.json in Resources */,
 				C12BD9AD21E49CAA00A6EAF0 /* projectRecordMissingColorKeyResponse.json in Resources */,
@@ -3547,6 +3601,7 @@
 				C1411C2724503A0400BB4266 /* VacationCoordinator.swift in Sources */,
 				8A79A2CD242231890048B44B /* UIActivityIndicatorView+Extension.swift in Sources */,
 				C18BE26B2452EC1000FC71CC /* VacationCellViewModel.swift in Sources */,
+				C1860DC52462ED9A00C33C94 /* RemoteWork.swift in Sources */,
 				C13429B221A7F9F400F4EA42 /* WorkTimeTableViewCellModel.swift in Sources */,
 				C125F1B321DCCBE700594CDE /* ApiClient+Projects.swift in Sources */,
 				C13429B421A7FB1B00F4EA42 /* WorkTimeTableViewCell.swift in Sources */,
@@ -3649,6 +3704,7 @@
 				8A10F841235454DA0004F389 /* UIBarButtonItem+Extension.swift in Sources */,
 				C13429AE21A7E48C00F4EA42 /* WorkTimesListViewModel.swift in Sources */,
 				C12CA56821A578870082FEB7 /* SimpleProjectRecordDecoder.swift in Sources */,
+				C1860DC32462ECE700C33C94 /* RemoteWorkResponse.swift in Sources */,
 				8A31CD8023741FD0008E590D /* ProjectPickerViewController.swift in Sources */,
 				C18BE2662452E8C500FC71CC /* VacationCell.swift in Sources */,
 				C1F69B2E21903818005D9114 /* LoginContentProvider.swift in Sources */,
@@ -3757,6 +3813,7 @@
 				C10FD88921F1F36300A233C5 /* ApiClientUsersTests.swift in Sources */,
 				C134298F21A6D39C00F4EA42 /* LoginViewControllerMock.swift in Sources */,
 				8A3FE1B123ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift in Sources */,
+				C1860DC72462EDB300C33C94 /* RemoteWorkTests.swift in Sources */,
 				8AFFE5D024336333001D9E89 /* TaskFormFactoryMock.swift in Sources */,
 				8A6A4FC92458191D004B4CF2 /* AccountingPeriodsResponseTests.swift in Sources */,
 				8A79A2F324237F760048B44B /* ProjectRecordDecoderLeaderTests.swift in Sources */,
@@ -3839,6 +3896,7 @@
 				C12260172188927A007D64A3 /* AuthenticationCoordinatorTests.swift in Sources */,
 				C1411C3124505B5D00BB4266 /* VacationViewControllerMock.swift in Sources */,
 				8ADBB8D7243753B2009CA6FE /* TemporarySessionManagerMock.swift in Sources */,
+				C1860DD22462F0C700C33C94 /* RemoteWorkResponseJSONResource.swift in Sources */,
 				C134296021A6937E00F4EA42 /* ApiClientSessionTests.swift in Sources */,
 				C153AC622182FCB7007A35BB /* UILabelExtensionTests.swift in Sources */,
 				C12CA56F21A58BE70082FEB7 /* SimpleProjectRecordDecoderTests.swift in Sources */,
@@ -3870,6 +3928,7 @@
 				C134296521A694F300F4EA42 /* ApiClientWorkTimesTests.swift in Sources */,
 				C125C4D32186F4D800FBA0DD /* ErrorHandlerTypeTests.swift in Sources */,
 				8AE0001A23746885002F783E /* ProjectPickerViewControllerMock.swift in Sources */,
+				C1860DCE2462EE0900C33C94 /* RemoteWorkJSONResource.swift in Sources */,
 				C12BD9C121E4C44900A6EAF0 /* ProjectCollectionViewCellModelTests.swift in Sources */,
 				8A065B55237ABA1B0072A21E /* SimpleProjectJSONResource.swift in Sources */,
 				8A80A38F23D89ED3002643A1 /* APIClientFactoryMock.swift in Sources */,
@@ -3914,6 +3973,7 @@
 				C19706DF21C13056007AFED4 /* WorkTimesCoordinatorTests.swift in Sources */,
 				8AADE6DA2451DB730085FCA7 /* ProfileContentProviderMock.swift in Sources */,
 				C12CA56C21A57BAA0082FEB7 /* UIColorExtensionTests.swift in Sources */,
+				C1860DC92462EDC300C33C94 /* RemoteWorkResponseTests.swift in Sources */,
 				C122601A21898BD7007D64A3 /* LoginViewModelTests.swift in Sources */,
 				8AF5697723D751F400A1D001 /* SessionDecoderFactory.swift in Sources */,
 				8AB8AFC3244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift in Sources */,
