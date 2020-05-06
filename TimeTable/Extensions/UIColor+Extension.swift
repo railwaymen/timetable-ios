@@ -10,6 +10,7 @@ import UIKit
 
 extension UIColor {
     
+    // MARK: - Static
     static let tint: UIColor = {
         let color = R.color.tint()
         assert(color != nil)
@@ -105,6 +106,13 @@ extension UIColor {
     }
     
     static let textFieldValidationErrorBorder: UIColor = .tint
+    
+    // MARK: - Static functions
+    static func textFieldBorderColor(isHighlighted: Bool) -> UIColor {
+        return isHighlighted
+            ? .textFieldValidationErrorBorder
+            : .textFieldBorder
+    }
     
     // MARK: - Initialization
     convenience init?(hexString: String, alpha: CGFloat = 1.0) {

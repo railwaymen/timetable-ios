@@ -147,17 +147,8 @@ extension LoginViewController {
     }
     
     private func set(_ view: UIView, isHighlighted: Bool) {
-        let borderColor: CGColor = self.getBorderColor(isHighlighted: isHighlighted).cgColor
-        guard view.layer.borderColor != borderColor else { return }
-        let animation = CABasicAnimation(keyPath: #keyPath(CALayer.borderColor))
-        animation.fromValue = view.layer.borderColor
-        animation.toValue = borderColor
-        animation.duration = 0.3
-        view.layer.add(animation, forKey: "borderColor")
-        view.layer.borderColor = borderColor
-    }
-    
-    private func getBorderColor(isHighlighted: Bool) -> UIColor {
-        return isHighlighted ? .textFieldValidationErrorBorder : .textFieldBorder
+        view.set(
+            borderColor: .textFieldBorderColor(isHighlighted: isHighlighted),
+            animatingWithDuration: 0.3)
     }
 }
