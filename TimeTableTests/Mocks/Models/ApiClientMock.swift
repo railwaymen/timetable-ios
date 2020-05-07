@@ -133,6 +133,13 @@ class ApiClientMock {
         let parameters: RemoteWorkRequest
         let completion: RegisterRemoteWorkCompletion
     }
+    
+    var deleteRemoteWorkReturnValue: RestlerTaskType?
+    private(set) var deleteRemoteWorkParams: [DeleteRemoteWorkParams] = []
+    struct DeleteRemoteWorkParams {
+        let remoteWork: RemoteWork
+        let completion: VoidCompletion
+    }
 }
 
 // MARK: - ApiClientSessionType
@@ -257,5 +264,10 @@ extension ApiClientMock: ApiClientRemoteWorkType {
     ) -> RestlerTaskType? {
         self.registerRemoteWorkParams.append(RegisterRemoteWorkParams(parameters: parameters, completion: completion))
         return self.registerRemoteWorkReturnValue
+    }
+    
+    func deleteRemoteWork(_ remoteWork: RemoteWork, completion: @escaping VoidCompletion) -> RestlerTaskType? {
+        self.deleteRemoteWorkParams.append(DeleteRemoteWorkParams(remoteWork: remoteWork, completion: completion))
+        return self.deleteRemoteWorkReturnValue
     }
 }

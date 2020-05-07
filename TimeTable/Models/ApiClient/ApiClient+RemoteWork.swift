@@ -22,6 +22,7 @@ protocol ApiClientRemoteWorkType: class {
     func registerRemoteWork(
         parameters: RemoteWorkRequest,
         completion: @escaping RegisterRemoteWorkCompletion) -> RestlerTaskType?
+    func deleteRemoteWork(_ remoteWork: RemoteWork, completion: @escaping VoidCompletion) -> RestlerTaskType?
 }
 
 // MARK: - ApiClientRemoteWorkType
@@ -46,6 +47,15 @@ extension ApiClient: ApiClientRemoteWorkType {
             .post(Endpoint.remoteWorks)
             .body(parameters)
             .decode([RemoteWork].self)
+            .onCompletion(completion)
+            .start()
+    }
+    
+    func deleteRemoteWork(_ remoteWork: RemoteWork, completion: @escaping VoidCompletion) -> RestlerTaskType? {
+        self.restler
+            .delete(Endpoint
+            .remoteWork(remoteWork.id))
+            .decode(Void.self)
             .onCompletion(completion)
             .start()
     }

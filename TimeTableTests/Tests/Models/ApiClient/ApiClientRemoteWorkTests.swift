@@ -60,8 +60,7 @@ extension ApiClientRemoteWorkTests {
         //Arrange
         let sut = self.buildSUT()
         let parameters = try self.buildRemoteWorkRequest()
-        let data = try self.json(from: RemoteWorkJSONResource.remoteWorkFullModel)
-        let decoder = try self.decoder.decode(RemoteWork.self, from: data)
+        let decoder = try self.buildRemoteWork()
         var completionResult: RemoteWorkArrayResult?
         //Act
         _ = sut.registerRemoteWork(parameters: parameters) { result in
@@ -88,6 +87,38 @@ extension ApiClientRemoteWorkTests {
     }
 }
 
+// MARK: - deleteRemoteWork(_:completion:)
+extension ApiClientRemoteWorkTests {
+    func testDeleteRemoteWork_succeed() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let remoteWork = try self.buildRemoteWork()
+        var completionResult: VoidResult?
+        //Act
+        _ = sut.deleteRemoteWork(remoteWork) { result in
+            completionResult = result
+        }
+        try self.restler.deleteReturnValue.callCompletion(type: Void.self, result: .success(Void()))
+        //Assert
+        XCTAssertNoThrow(try XCTUnwrap(completionResult).get())
+    }
+    
+    func testDeleteRemoteWork_failed() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let remoteWork = try self.buildRemoteWork()
+        let error = TestError(message: "delete failed")
+        var completionResult: VoidResult?
+        //Act
+        _ = sut.deleteRemoteWork(remoteWork) { result in
+            completionResult = result
+        }
+        try self.restler.deleteReturnValue.callCompletion(type: Void.self, result: .failure(error))
+        //Assert
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
+    }
+}
+
 // MARK: - Private
 extension ApiClientRemoteWorkTests {
     private func buildSUT() -> ApiClientRemoteWorkType {
@@ -100,5 +131,10 @@ extension ApiClientRemoteWorkTests {
         let startsAt = try self.buildDate(year: 2020, month: 4, day: 14)
         let endsAt = try self.buildDate(year: 2020, month: 5, day: 3)
         return RemoteWorkRequest(note: "note", startsAt: startsAt, endsAt: endsAt)
+    }
+    
+    private func buildRemoteWork() throws -> RemoteWork {
+        let data = try self.json(from: RemoteWorkJSONResource.remoteWorkFullModel)
+        return try self.decoder.decode(RemoteWork.self, from: data)
     }
 }

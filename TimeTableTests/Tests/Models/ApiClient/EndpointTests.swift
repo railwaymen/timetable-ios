@@ -49,6 +49,15 @@ extension EndpointTests {
         XCTAssertEqual(value, "/projects/simple")
     }
     
+    func testRestlerEndpointValue_remoteWork() {
+        //Arrange
+        let sut: Endpoint = .remoteWork(54)
+        //Act
+        let value = sut.restlerEndpointValue
+        //Assert
+        XCTAssertEqual(value, "/remote_works/54")
+    }
+    
     func testRestlerEndpointValue_remoteWorks() {
         //Arrange
         let sut: Endpoint = .remoteWorks
