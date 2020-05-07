@@ -16,11 +16,20 @@ protocol RemoteWorkViewControllerType: class {
 
 class RemoteWorkViewController: UIViewController {
     private var viewModel: RemoteWorkViewModelType!
+    @IBOutlet private var tableView: UITableView!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+    
+    private let tableViewEstimatedRowHeight: CGFloat = 80
     
     // MARK: - Overridden
     override func loadView() {
         super.loadView()
         self.viewModel.loadView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel.viewWillAppear()
     }
     
     // MARK: - Actions
@@ -33,11 +42,51 @@ class RemoteWorkViewController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDelegate
+extension RemoteWorkViewController: UITableViewDelegate {
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        return UISwipeActionsConfiguration(actions: []) // TO_DO TIM-287
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension RemoteWorkViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.viewModel.numberOfItems()
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(RemoteWorkCell.self, for: indexPath) else { return UITableViewCell() }
+        self.viewModel.configure(cell, for: indexPath)
+        return cell
+    }
+}
+
 // MARK: - RemoteWorkViewModelOutput
 extension RemoteWorkViewController: RemoteWorkViewModelOutput {
     func setUp() {
+        self.tableView.set(isHidden: true)
         self.setUpTitle()
         self.setUpBarButtons()
+        self.setUpActivityIndicator()
+        self.setUpBarButtons()
+    }
+    
+    func showTableView() {
+        UIView.transition(with: self.tableView, duration: 0.2, animations: { [weak self] in
+            self?.tableView.set(isHidden: false)
+        })
+    }
+    
+    func setActivityIndicator(isHidden: Bool) {
+        self.activityIndicator.set(isAnimating: !isHidden)
+    }
+    
+    func updateView() {
+        self.tableView.reloadData()
     }
 }
 
@@ -69,5 +118,19 @@ extension RemoteWorkViewController {
         imageView.addGestureRecognizer(tap)
         imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
         return imageView
+    }
+    
+    private func setUpActivityIndicator() {
+        self.activityIndicator.style = .large
+        self.activityIndicator.hidesWhenStopped = true
+        self.setActivityIndicator(isHidden: true)
+    }
+    
+    private func setUpTableView() {
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.estimatedRowHeight = self.tableViewEstimatedRowHeight
+        self.tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.register(RemoteWorkCell.self)
     }
 }

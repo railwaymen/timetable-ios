@@ -65,10 +65,15 @@ extension RemoteWorkCoordinator: RemoteWorkCoordinatorType {
 // MARK: - Private
 extension RemoteWorkCoordinator {
     private func runMainFlow() {
+        guard let apiClient = self.dependencyContainer.apiClient else {
+            self.dependencyContainer.errorHandler.stopInDebug("Api client or access service is nil")
+            return
+        }
         do {
             let controller = try self.dependencyContainer.viewControllerBuilder.remoteWork()
             let viewModel = RemoteWorkViewModel(
                 userInterface: controller,
+                apiClient: apiClient,
                 coordinator: self)
             controller.configure(viewModel: viewModel)
             self.navigationController.setViewControllers([controller], animated: false)

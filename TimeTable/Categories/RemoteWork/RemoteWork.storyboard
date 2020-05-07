@@ -14,9 +14,35 @@
                     <view key="view" contentMode="scaleToFill" id="rTl-Ez-mGt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="I7V-ZK-2jx">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="LN9-hk-k4g">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                </view>
+                            </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="2sC-zG-nmh">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="I7V-ZK-2jx" firstAttribute="top" secondItem="rTl-Ez-mGt" secondAttribute="top" id="Ea0-ir-3Ns"/>
+                            <constraint firstItem="I7V-ZK-2jx" firstAttribute="leading" secondItem="1Kz-7h-JgO" secondAttribute="leading" id="FcO-se-Cd1"/>
+                            <constraint firstItem="I7V-ZK-2jx" firstAttribute="trailing" secondItem="1Kz-7h-JgO" secondAttribute="trailing" id="MPg-FQ-bnF"/>
+                            <constraint firstItem="1Kz-7h-JgO" firstAttribute="bottom" secondItem="I7V-ZK-2jx" secondAttribute="bottom" id="jwg-dm-30s"/>
+                            <constraint firstItem="2sC-zG-nmh" firstAttribute="centerY" secondItem="rTl-Ez-mGt" secondAttribute="centerY" id="mtb-k9-SnJ"/>
+                            <constraint firstItem="2sC-zG-nmh" firstAttribute="centerX" secondItem="rTl-Ez-mGt" secondAttribute="centerX" id="tJZ-DW-qMu"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="1Kz-7h-JgO"/>
                     </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="2sC-zG-nmh" id="VyG-Iq-uBE"/>
+                        <outlet property="tableView" destination="I7V-ZK-2jx" id="gNT-QM-W36"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rAT-ch-h9Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
