@@ -126,6 +126,13 @@ class ApiClientMock {
         let parameters: RemoteWorkParameters
         let completion: FetchRemoteWorkCompletion
     }
+    
+    var registerRemoteWorkReturnValue: RestlerTaskType?
+    private(set) var registerRemoteWorkParams: [RegisterRemoteWorkParams] = []
+    struct RegisterRemoteWorkParams {
+        let parameters: RemoteWorkRequest
+        let completion: RegisterRemoteWorkCompletion
+    }
 }
 
 // MARK: - ApiClientSessionType
@@ -242,5 +249,13 @@ extension ApiClientMock: ApiClientRemoteWorkType {
     ) -> RestlerTaskType? {
         self.fetchRemoteWorkParams.append(FetchRemoteWorkParams(parameters: parameters, completion: completion))
         return self.fetchRemoteWorkReturnValue
+    }
+    
+    func registerRemoteWork(
+        parameters: RemoteWorkRequest,
+        completion: @escaping RegisterRemoteWorkCompletion
+    ) -> RestlerTaskType? {
+        self.registerRemoteWorkParams.append(RegisterRemoteWorkParams(parameters: parameters, completion: completion))
+        return self.registerRemoteWorkReturnValue
     }
 }
