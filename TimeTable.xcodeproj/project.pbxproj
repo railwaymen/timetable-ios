@@ -426,6 +426,7 @@
 		C172089C2463F17C0010ED38 /* RemoteWorkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C172089B2463F17C0010ED38 /* RemoteWorkCell.xib */; };
 		C172089E2463F7FC0010ED38 /* remoteWorkNullNote.json in Resources */ = {isa = PBXBuildFile; fileRef = C172089D2463F7FC0010ED38 /* remoteWorkNullNote.json */; };
 		C17208A0246401DB0010ED38 /* DateComponentsFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C172089F246401DB0010ED38 /* DateComponentsFormatter+Extension.swift */; };
+		C17208A2246411BD0010ED38 /* RemoteWorkForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17208A1246411BD0010ED38 /* RemoteWorkForm.swift */; };
 		C175B56C227CAACA006D9944 /* MessagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C175B56B227CAACA006D9944 /* MessagePresenter.swift */; };
 		C175B56E227CAB01006D9944 /* MessagePresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C175B56D227CAB01006D9944 /* MessagePresenterMock.swift */; };
 		C1784DDD21E4E03600C83E2A /* WorkTime.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1784DDC21E4E03600C83E2A /* WorkTime.storyboard */; };
@@ -1048,6 +1049,7 @@
 		C172089B2463F17C0010ED38 /* RemoteWorkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemoteWorkCell.xib; sourceTree = "<group>"; };
 		C172089D2463F7FC0010ED38 /* remoteWorkNullNote.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = remoteWorkNullNote.json; sourceTree = "<group>"; };
 		C172089F246401DB0010ED38 /* DateComponentsFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateComponentsFormatter+Extension.swift"; sourceTree = "<group>"; };
+		C17208A1246411BD0010ED38 /* RemoteWorkForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkForm.swift; sourceTree = "<group>"; };
 		C175B56B227CAACA006D9944 /* MessagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePresenter.swift; sourceTree = "<group>"; };
 		C175B56D227CAB01006D9944 /* MessagePresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePresenterMock.swift; sourceTree = "<group>"; };
 		C1784DDC21E4E03600C83E2A /* WorkTime.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WorkTime.storyboard; sourceTree = "<group>"; };
@@ -2588,6 +2590,7 @@
 			isa = PBXGroup;
 			children = (
 				C1860DC42462ED9A00C33C94 /* RemoteWork.swift */,
+				C17208A1246411BD0010ED38 /* RemoteWorkForm.swift */,
 				C1860DBD2462EB3F00C33C94 /* RemoteWorkParameters.swift */,
 				8AFBC3652463DCBF00032B96 /* RemoteWorkRequest.swift */,
 				C1860DC22462ECE700C33C94 /* RemoteWorkResponse.swift */,
@@ -3742,6 +3745,7 @@
 				C1E6B34E219EF30600019DC2 /* URL+Extension.swift in Sources */,
 				8A6A4FCB24581A93004B4CF2 /* AccountingPeriodsResponse.swift in Sources */,
 				C13429AC21A7DDAB00F4EA42 /* WorkTimesListViewController.swift in Sources */,
+				C17208A2246411BD0010ED38 /* RemoteWorkForm.swift in Sources */,
 				8A59AF202382E29200108C33 /* DailyWorkTime.swift in Sources */,
 				8A6A4FCD245826C5004B4CF2 /* AccountingPeriodsParameters.swift in Sources */,
 				C122601C21899B84007D64A3 /* ServerConfigurationManager.swift in Sources */,

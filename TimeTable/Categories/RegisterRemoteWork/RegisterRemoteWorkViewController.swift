@@ -18,6 +18,16 @@ protocol RegisterRemoteWorkViewControllerType: class {
 }
 
 class RegisterRemoteWorkViewController: UIViewController {
+    @IBOutlet private var scrollView: UIScrollView!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private var startDayTextField: UITextField!
+    @IBOutlet private var endDayTextField: UITextField!
+    @IBOutlet private var noteTextView: AttributedTextView!
+    @IBOutlet private var saveButton: AttributedButton!
+    
+    private var startDatePicker: UIDatePicker!
+    private var endDatePicker: UIDatePicker!
+    
     private var viewModel: RegisterRemoteWorkViewModelType!
     
     // MARK: - Overridden
@@ -30,6 +40,29 @@ class RegisterRemoteWorkViewController: UIViewController {
     @objc private func closeButtonTapped() {
         self.viewModel.closeButtonTapped()
     }
+    
+    @objc private func startDateTextFieldDidChanged(_ sender: UIDatePicker) {
+        self.viewModel.viewChanged(startAtDate: sender.date)
+    }
+    
+    @objc private func endDateTextFieldDidChanged(_ sender: UIDatePicker) {
+        self.viewModel.viewChanged(endAtDate: sender.date)
+    }
+    
+    @IBAction private func saveButtonTapped() {
+        self.viewModel.saveButtonTapped()
+    }
+    
+    @IBAction private func viewTapped(_ sender: UITapGestureRecognizer) {
+        self.viewModel.viewTapped()
+    }
+}
+
+// MARK: - UITextViewDelegate
+extension RegisterRemoteWorkViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        self.viewModel.noteTextViewDidChange(text: textView.text)
+    }
 }
 
 // MARK: - RegisterRemoteWorkViewModelOutput
@@ -37,6 +70,47 @@ extension RegisterRemoteWorkViewController: RegisterRemoteWorkViewModelOutput {
     func setUp() {
         self.setUpTitle()
         self.setUpBarButtons()
+        self.setUpStartDayPickerView()
+        self.setUpEndDayPickerView()
+        self.setUpNoteTextView()
+        self.setUpActivityIndicator()
+    }
+    
+    func setActivityIndicator(isHidden: Bool) {
+        self.activityIndicator.set(isAnimating: !isHidden)
+    }
+    
+    func setNote(text: String) {
+        self.noteTextView.text = text
+    }
+    
+    func setMinimumDateForStartDate(minDate: Date) {
+        self.startDatePicker.minimumDate = minDate
+    }
+    
+    func setMinimumDateForEndDate(minDate: Date) {
+        self.endDatePicker.minimumDate = minDate
+    }
+    
+    func updateStartDate(with date: Date, dateString: String) {
+        self.startDayTextField.text = dateString
+        self.startDatePicker?.date = date
+    }
+    
+    func updateEndDate(with date: Date, dateString: String) {
+        self.endDayTextField.text = dateString
+        self.endDatePicker?.date = date
+    }
+    
+    func setBottomContentInset(_ height: CGFloat) {
+        guard self.isViewLoaded else { return }
+        let bottomInset = max(0, height - self.scrollView.safeAreaInsets.bottom)
+        self.scrollView.contentInset.bottom = bottomInset
+        self.scrollView.verticalScrollIndicatorInsets.bottom = bottomInset
+    }
+    
+    func dismissKeyboard() {
+        self.view.endEditing(true)
     }
 }
 
@@ -59,5 +133,33 @@ extension RegisterRemoteWorkViewController {
             target: self,
             action: #selector(self.closeButtonTapped))
         self.navigationItem.setRightBarButton(closeButton, animated: false)
+    }
+    
+    private func setUpStartDayPickerView() {
+        self.setUpTimePicker(&self.startDatePicker, selector: #selector(self.startDateTextFieldDidChanged))
+        self.startDayTextField.inputView = self.startDatePicker
+        self.startDayTextField.setTextFieldAppearance()
+    }
+    
+    private func setUpEndDayPickerView() {
+        self.setUpTimePicker(&self.endDatePicker, selector: #selector(self.endDateTextFieldDidChanged))
+        self.endDayTextField.inputView = self.endDatePicker
+        self.endDayTextField.setTextFieldAppearance()
+    }
+    
+    private func setUpNoteTextView() {
+        self.noteTextView.setTextFieldAppearance()
+    }
+    
+    private func setUpActivityIndicator() {
+        self.activityIndicator.style = .large
+        self.activityIndicator.hidesWhenStopped = true
+        self.setActivityIndicator(isHidden: true)
+    }
+    
+    private func setUpTimePicker(_ picker: inout UIDatePicker?, selector: Selector) {
+        picker = UIDatePicker()
+        picker?.datePickerMode = .dateAndTime
+        picker?.addTarget(self, action: selector, for: .valueChanged)
     }
 }
