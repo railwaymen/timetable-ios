@@ -10,4 +10,5 @@ import Foundation
 
 enum RemoteWorkJSONResource: String, JSONFileResource {
     case remoteWorkFullModel
+    case remoteWorkNull
 }

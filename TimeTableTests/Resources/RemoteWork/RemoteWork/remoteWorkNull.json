@@ -1,0 +1,10 @@
+{
+  "id": 1,
+  "creator_id": 2,
+  "starts_at": "2020-03-04T08:00:00.000Z",
+  "ends_at": "2020-03-04T010:00:00.000Z",
+  "duration": 604800,
+  "note": null,
+  "updated_by_admin": false,
+  "user_id": 3
+}

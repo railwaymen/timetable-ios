@@ -14,7 +14,7 @@ struct RemoteWork: Decodable {
     let startsAt: Date
     let endsAt: Date
     let duration: Int
-    let note: String
+    let note: String?
     let updatedByAdmin: Bool
     let userID: Int
     
