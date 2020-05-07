@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="GRa-xb-hMH">
-                                        <rect key="frame" x="0.0" y="16" width="320" height="390.5"/>
+                                        <rect key="frame" x="0.0" y="16" width="320" height="376"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WZS-b7-shx">
                                                 <rect key="frame" x="16" y="0.0" width="288" height="61.5"/>
@@ -44,11 +44,11 @@
                                                     </textField>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Piu-kD-BnD">
-                                                <rect key="frame" x="16" y="85.5" width="288" height="76"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Piu-kD-BnD">
+                                                <rect key="frame" x="16" y="85.5" width="288" height="61.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Pa-NT-FpP">
-                                                        <rect key="frame" x="0.0" y="0.0" width="288" height="34"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="288" height="19.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
@@ -56,7 +56,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="06/07/2020" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GcS-bc-oay" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="42" width="288" height="34"/>
+                                                        <rect key="frame" x="0.0" y="27.5" width="288" height="34"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="34" id="2cC-0c-GsA"/>
@@ -67,14 +67,14 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="9jE-U5-8x7">
-                                                <rect key="frame" x="16" y="185.5" width="288" height="141"/>
+                                                <rect key="frame" x="16" y="171" width="288" height="141"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Reason" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bz8-x1-oiP">
                                                         <rect key="frame" x="0.0" y="0.0" width="288" height="19.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="registerremotework_reason"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="registerremotework_note"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="UAz-mx-avy" customClass="AttributedTextView" customModule="TimeTable" customModuleProvider="target">
@@ -100,7 +100,7 @@
                                                 </subviews>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Au-ax-INQ" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="350.5" width="288" height="40"/>
+                                                <rect key="frame" x="16" y="336" width="288" height="40"/>
                                                 <color key="backgroundColor" name="Enabled Button"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="z6e-zm-6Ek"/>

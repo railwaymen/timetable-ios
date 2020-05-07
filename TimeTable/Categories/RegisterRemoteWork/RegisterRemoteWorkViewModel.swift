@@ -77,7 +77,6 @@ extension RegisterRemoteWorkViewModel {
 extension RegisterRemoteWorkViewModel: RegisterRemoteWorkViewModelType {
     func loadView() {
         self.userInterface?.setUp()
-        self.decisionState = .preparing
     }
     
     func closeButtonTapped() {

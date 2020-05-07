@@ -105,7 +105,7 @@
 "registerremotework_title" = "Register remote work";
 "registerremotework_starts" = "Starts";
 "registerremotework_ends" = "Ends";
-"registerremotework_reason" = "Reason";
+"registerremotework_note" = "Note";
 "registerremotework_save_btn" = "Save";
 
 // MARK: - Generic Errors

@@ -108,7 +108,6 @@ extension NewVacationViewModel {
 extension NewVacationViewModel: NewVacationViewModelType {
     func loadView() {
         self.userInterface?.setUp(availableVacationDays: "\(self.availableVacationDays)")
-        self.decisionState = .preparing
     }
     
     func viewWillAppear() {
