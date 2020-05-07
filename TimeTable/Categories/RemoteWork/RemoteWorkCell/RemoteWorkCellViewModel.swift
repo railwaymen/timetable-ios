@@ -9,7 +9,7 @@
 import Foundation
 
 protocol RemoteWorkCellViewModelType: class {
-    func viewConfigured()
+    func viewDidConfigure()
 }
 
 protocol RemoteWorkCellViewModelOutput: class {
@@ -32,7 +32,7 @@ class RemoteWorkCellViewModel {
 
 // MARK: - RemoteWorkCellViewModelType
 extension RemoteWorkCellViewModel: RemoteWorkCellViewModelType {
-    func viewConfigured() {
+    func viewDidConfigure() {
         let day = DateFormatter.shortDate.string(from: self.remoteWork.startsAt)
         let startsAtHours = DateFormatter.shortTime.string(from: self.remoteWork.startsAt)
         let endsAtHours = DateFormatter.shortTime.string(from: self.remoteWork.endsAt)

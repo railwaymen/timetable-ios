@@ -27,7 +27,7 @@ class RemoteWorkCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
         self.dependencyContainer = dependencyContainer
         self.tabBarItem = UITabBarItem(
             title: R.string.localizable.remotework_title(),
-            image: #imageLiteral(resourceName: "tab_bar_projects_icon"), // TO_DO - change tab bar icon TIM-332
+            image: #imageLiteral(resourceName: "tab_bar_projects_icon"), // TODO - change tab bar icon TIM-332
             selectedImage: nil)
         super.init(window: dependencyContainer.window)
         self.navigationController.setNavigationBarHidden(false, animated: false)
@@ -66,7 +66,7 @@ extension RemoteWorkCoordinator: RemoteWorkCoordinatorType {
 extension RemoteWorkCoordinator {
     private func runMainFlow() {
         guard let apiClient = self.dependencyContainer.apiClient else {
-            self.dependencyContainer.errorHandler.stopInDebug("Api client or access service is nil")
+            self.dependencyContainer.errorHandler.stopInDebug("Api client is nil")
             return
         }
         do {

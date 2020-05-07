@@ -35,7 +35,7 @@ extension RemoteWorkTests {
         //Arrange
         let startsAt = try self.buildDate(hour: 8)
         let endsAt = try self.buildDate(hour: 10)
-        let data = try self.json(from: RemoteWorkJSONResource.remoteWorkNull)
+        let data = try self.json(from: RemoteWorkJSONResource.remoteWorkNullNote)
         //Act
         let sut = try self.decoder.decode(RemoteWork.self, from: data)
         //Assert

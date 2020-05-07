@@ -68,7 +68,7 @@ extension TaskHistoryCoordinator: WorkTimeTableViewCellModelParentType {
 extension TaskHistoryCoordinator {
     private func runMainFlow() {
         guard let apiClient = self.dependencyContainer.apiClient else {
-            self.dependencyContainer.errorHandler.stopInDebug("API client mustn't be nil")
+            self.dependencyContainer.errorHandler.stopInDebug("API client is nil")
             return
         }
         do {

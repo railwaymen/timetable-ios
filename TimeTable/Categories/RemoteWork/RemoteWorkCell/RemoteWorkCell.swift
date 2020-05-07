@@ -39,6 +39,6 @@ extension RemoteWorkCell: RemoteWorkCellViewModelOutput {
 extension RemoteWorkCell: RemoteWorkCellType {
     func configure(viewModel: RemoteWorkCellViewModelType) {
         self.viewModel = viewModel
-        self.viewModel.viewConfigured()
+        self.viewModel.viewDidConfigure()
     }
 }

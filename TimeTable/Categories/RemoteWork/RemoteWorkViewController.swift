@@ -48,7 +48,7 @@ extension RemoteWorkViewController: UITableViewDelegate {
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
-        return UISwipeActionsConfiguration(actions: []) // TO_DO TIM-287
+        return UISwipeActionsConfiguration(actions: []) // TODO TIM-287
     }
 }
 
@@ -72,7 +72,6 @@ extension RemoteWorkViewController: RemoteWorkViewModelOutput {
         self.setUpTitle()
         self.setUpBarButtons()
         self.setUpActivityIndicator()
-        self.setUpBarButtons()
         self.setUpTableView()
     }
     

@@ -80,7 +80,7 @@ extension RemoteWorkViewModel {
     }
     
     private func fetchRemoteWorks() {
-        // TO_DO - TIM-293 pagination
+        // TODO - TIM-293 pagination
         let parameters = RemoteWorkParameters(page: 0, perPage: self.itemsPerPage)
         self.userInterface?.setActivityIndicator(isHidden: false)
         _ = self.apiClient.fetchRemoteWork(parameters: parameters) { [weak self] result in
@@ -101,6 +101,6 @@ extension RemoteWorkViewModel {
     }
     
     private func handleFetch(error: Error) {
-        // TO_DO - TIM-292 error handling
+        // TODO - TIM-292 error handling
     }
 }
