@@ -47,8 +47,10 @@ extension XCTestCase {
         second: Int = 0,
         milisecond: Int = 0
     ) throws -> Date {
+        var calendar = Calendar(identifier: .iso8601)
+        calendar.timeZone = timeZone
         let components = DateComponents(
-            calendar: Calendar(identifier: .iso8601),
+            calendar: calendar,
             timeZone: timeZone,
             year: year,
             month: month,

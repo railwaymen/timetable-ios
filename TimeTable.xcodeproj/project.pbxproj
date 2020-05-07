@@ -265,6 +265,8 @@
 		8AFBC3602462F4A400032B96 /* RegisterRemoteWorkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC35F2462F4A400032B96 /* RegisterRemoteWorkViewModel.swift */; };
 		8AFBC3622462F51200032B96 /* RegisterRemoteWork.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AFBC3612462F51200032B96 /* RegisterRemoteWork.storyboard */; };
 		8AFBC3642462F8ED00032B96 /* RegisterRemoteWorkViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC3632462F8ED00032B96 /* RegisterRemoteWorkViewControllerMock.swift */; };
+		8AFBC3662463DCBF00032B96 /* RemoteWorkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC3652463DCBF00032B96 /* RemoteWorkRequest.swift */; };
+		8AFBC3682463DD4700032B96 /* RemoteWorkRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC3672463DD4700032B96 /* RemoteWorkRequestTests.swift */; };
 		8AFFE5C224331BDB001D9E89 /* taskVersionNullPreviousTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */; };
 		8AFFE5C424331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */; };
 		8AFFE5C624331BFB001D9E89 /* taskVersionNullCurrentTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */; };
@@ -877,6 +879,8 @@
 		8AFBC35F2462F4A400032B96 /* RegisterRemoteWorkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRemoteWorkViewModel.swift; sourceTree = "<group>"; };
 		8AFBC3612462F51200032B96 /* RegisterRemoteWork.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RegisterRemoteWork.storyboard; sourceTree = "<group>"; };
 		8AFBC3632462F8ED00032B96 /* RegisterRemoteWorkViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRemoteWorkViewControllerMock.swift; sourceTree = "<group>"; };
+		8AFBC3652463DCBF00032B96 /* RemoteWorkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkRequest.swift; sourceTree = "<group>"; };
+		8AFBC3672463DD4700032B96 /* RemoteWorkRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkRequestTests.swift; sourceTree = "<group>"; };
 		8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullPreviousTask.json; sourceTree = "<group>"; };
 		8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionMissingPreviousTaskKey.json; sourceTree = "<group>"; };
 		8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullCurrentTask.json; sourceTree = "<group>"; };
@@ -2563,6 +2567,7 @@
 			children = (
 				C1860DC42462ED9A00C33C94 /* RemoteWork.swift */,
 				C1860DBD2462EB3F00C33C94 /* RemoteWorkParameters.swift */,
+				8AFBC3652463DCBF00032B96 /* RemoteWorkRequest.swift */,
 				C1860DC22462ECE700C33C94 /* RemoteWorkResponse.swift */,
 			);
 			path = RemoteWork;
@@ -2574,6 +2579,7 @@
 				C1860DC02462EC0D00C33C94 /* RemoteWorkParametersTests.swift */,
 				C1860DC82462EDC300C33C94 /* RemoteWorkResponseTests.swift */,
 				C1860DC62462EDB300C33C94 /* RemoteWorkTests.swift */,
+				8AFBC3672463DD4700032B96 /* RemoteWorkRequestTests.swift */,
 			);
 			path = RemoteWork;
 			sourceTree = "<group>";
@@ -3695,6 +3701,7 @@
 				C125F1B821DCCF5100594CDE /* ProjectsViewModel.swift in Sources */,
 				C10515D42456B2BC00413EDE /* YearPickerView.swift in Sources */,
 				C134296721A6951C00F4EA42 /* ApiClient+WorkTimes.swift in Sources */,
+				8AFBC3662463DCBF00032B96 /* RemoteWorkRequest.swift in Sources */,
 				C125C4DB21871C7A00FBA0DD /* ServerConfiguration.swift in Sources */,
 				C14EB0272372E113007F07D0 /* ErrorView.swift in Sources */,
 				8A81E873246003A40091846D /* LoginForm.swift in Sources */,
@@ -3923,6 +3930,7 @@
 				8A79A2CB2422105F0048B44B /* DateFormatterMock.swift in Sources */,
 				C19706E421C13908007AFED4 /* CalendarExtensionTests.swift in Sources */,
 				C134298521A6C79600F4EA42 /* ErrorHandlerMock.swift in Sources */,
+				8AFBC3682463DD4700032B96 /* RemoteWorkRequestTests.swift in Sources */,
 				C10FD89021F1FE3800A233C5 /* ProfileCoordinatorMock.swift in Sources */,
 				C1F7C2E721908DD400F4FAF0 /* AttributedButtonTests.swift in Sources */,
 				8A79A2D0242243280048B44B /* TaskHistoryViewModelTests.swift in Sources */,
