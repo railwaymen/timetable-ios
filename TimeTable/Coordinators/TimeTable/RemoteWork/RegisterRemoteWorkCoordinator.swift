@@ -10,11 +10,13 @@ import UIKit
 
 protocol RegisterRemoteWorkCoordinatorType: class {
     func registerRemoteWorkDidRequestToDismiss()
+    func registerRemoteWorkDidFinish(response: [RemoteWork])
 }
 
 class RegisterRemoteWorkCoordinator: NavigationCoordinator {
-    private let dependencyContainer: DependencyContainerType
     private weak var parentViewController: UIViewController?
+    private let dependencyContainer: DependencyContainerType
+    private var customFinishCompletion: (([RemoteWork]) -> Void)?
     
     // MARK: - Initialization
     init(
@@ -34,8 +36,15 @@ class RegisterRemoteWorkCoordinator: NavigationCoordinator {
     }
     
     // MARK: - Overridden
-    override func start(finishHandler: (() -> Void)?) {
-        super.start(finishHandler: finishHandler)
+    override func finish() {
+        self.customFinishCompletion?([])
+        super.finish()
+    }
+    
+    // MARK: - Internal
+    func start(finishHandler: @escaping ([RemoteWork]) -> Void) {
+        self.customFinishCompletion = finishHandler
+        super.start()
         self.runMainFlow()
     }
 }
@@ -47,15 +56,25 @@ extension RegisterRemoteWorkCoordinator: RegisterRemoteWorkCoordinatorType {
             self?.finish()
         }
     }
+    
+    func registerRemoteWorkDidFinish(response: [RemoteWork]) {
+        
+    }
 }
 
 // MARK: - Private
 extension RegisterRemoteWorkCoordinator {
     private func runMainFlow() {
+        guard let apiClient = self.dependencyContainer.apiClient else {
+            self.dependencyContainer.errorHandler.stopInDebug("Api client is nil")
+            return
+        }
         do {
             let controller = try self.dependencyContainer.viewControllerBuilder.registerRemoteWork()
             let viewModel = RegisterRemoteWorkViewModel(
                 userInterface: controller,
+                apiClient: apiClient,
+                errorHandler: self.dependencyContainer.errorHandler,
                 coordinator: self)
             controller.configure(viewModel: viewModel)
             self.navigationController.setViewControllers([controller], animated: false)

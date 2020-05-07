@@ -33,20 +33,22 @@ protocol RegisterRemoteWorkViewModelType: class {
 class RegisterRemoteWorkViewModel {
     private weak var userInterface: RegisterRemoteWorkViewModelOutput?
     private weak var coordinator: RegisterRemoteWorkCoordinatorType?
+    private let apiClient: ApiClientRemoteWorkType
+    private let errorHandler: ErrorHandlerType
     private var form: RemoteWorkFormType
     
-    private var decisionState: DecistionState {
+    private var decisionState: DecistionState? {
         didSet {
             switch self.decisionState {
-            case .preparing:
-                self.updateViewForPreparingState()
             case .request:
                 self.userInterface?.setActivityIndicator(isHidden: false)
-            case .done:
+            case let .done(response):
                 self.userInterface?.setActivityIndicator(isHidden: true)
+                self.coordinator?.registerRemoteWorkDidFinish(response: response)
             case let .error(error):
                 self.userInterface?.setActivityIndicator(isHidden: true)
                 self.handleResponse(error: error)
+            case .none: break
             }
         }
     }
@@ -54,19 +56,21 @@ class RegisterRemoteWorkViewModel {
     // MARK: - Initialization
     init(
         userInterface: RegisterRemoteWorkViewModelOutput,
+        apiClient: ApiClientRemoteWorkType,
+        errorHandler: ErrorHandlerType,
         coordinator: RegisterRemoteWorkCoordinatorType
     ) {
         self.userInterface = userInterface
+        self.apiClient = apiClient
+        self.errorHandler = errorHandler
         self.coordinator = coordinator
         self.form = RemoteWorkForm()
-        self.decisionState = .preparing
     }
 }
 
 // MARK: - Structures
 extension RegisterRemoteWorkViewModel {
     enum DecistionState {
-        case preparing
         case request
         case done([RemoteWork])
         case error(Error)
@@ -77,6 +81,7 @@ extension RegisterRemoteWorkViewModel {
 extension RegisterRemoteWorkViewModel: RegisterRemoteWorkViewModelType {
     func loadView() {
         self.userInterface?.setUp()
+        self.updateViewForPreparingState()
     }
     
     func closeButtonTapped() {
@@ -126,9 +131,18 @@ extension RegisterRemoteWorkViewModel {
     
     private func postVacation() {
         self.decisionState = .request
+        let parameters = self.form.convertToEncoder()
+        _ = apiClient.registerRemoteWork(parameters: parameters) { [weak self] result in
+            switch result {
+            case let .success(response):
+                self?.decisionState = .done(response)
+            case let .failure(error):
+                self?.decisionState = .error(error)
+            }
+        }
     }
     
     private func handleResponse(error: Error) {
-        
+        self.errorHandler.throwing(error: error)
     }
 }

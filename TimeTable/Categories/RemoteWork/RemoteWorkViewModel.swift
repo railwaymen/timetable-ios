@@ -79,7 +79,9 @@ extension RemoteWorkViewModel: RemoteWorkViewModelType {
     }
     
     func addNewRecordTapped() {
-        self.coordinator?.remoteWorkDidRequestForFormView()
+        self.coordinator?.remoteWorkDidRequestForFormView { [weak self] newRecords in
+            self?.handleNewRecords(newRecords)
+        }
     }
     
     func profileButtonTapped() {
@@ -202,5 +204,11 @@ extension RemoteWorkViewModel {
         _ = self.records.remove(at: index)
         self.userInterface?.removeRows(at: [IndexPath(row: index, section: 0)])
         completion(true)
+    }
+    
+    private func handleNewRecords(_ newRecords: [RemoteWork]) {
+        self.records += newRecords
+        self.records.sort(by: { $0.startsAt > $1.startsAt })
+        self.userInterface?.updateView()
     }
 }

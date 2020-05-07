@@ -10,7 +10,7 @@ import UIKit
 
 protocol RemoteWorkCoordinatorType: class {
     func remoteWorkDidRequestForProfileView()
-    func remoteWorkDidRequestForFormView()
+    func remoteWorkDidRequestForFormView(finishHandler: @escaping ([RemoteWork]) -> Void)
 }
 
 class RemoteWorkCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
@@ -50,14 +50,15 @@ extension RemoteWorkCoordinator: RemoteWorkCoordinatorType {
         self.dependencyContainer.parentCoordinator?.showProfile(parentViewController: parentViewController)
     }
     
-    func remoteWorkDidRequestForFormView() {
+    func remoteWorkDidRequestForFormView(finishHandler: @escaping ([RemoteWork]) -> Void) {
         let parentViewController = self.navigationController.topViewController ?? self.navigationController
         let coordinator = RegisterRemoteWorkCoordinator(
             dependencyContainer: self.dependencyContainer,
             parentViewController: parentViewController)
         self.add(child: coordinator)
-        coordinator.start { [weak self, weak coordinator] in
+        coordinator.start { [weak self, weak coordinator] response in
             self?.remove(child: coordinator)
+            finishHandler(response)
         }
     }
 }

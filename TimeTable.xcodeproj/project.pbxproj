@@ -427,6 +427,7 @@
 		C172089E2463F7FC0010ED38 /* remoteWorkNullNote.json in Resources */ = {isa = PBXBuildFile; fileRef = C172089D2463F7FC0010ED38 /* remoteWorkNullNote.json */; };
 		C17208A0246401DB0010ED38 /* DateComponentsFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C172089F246401DB0010ED38 /* DateComponentsFormatter+Extension.swift */; };
 		C17208A2246411BD0010ED38 /* RemoteWorkForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17208A1246411BD0010ED38 /* RemoteWorkForm.swift */; };
+		C17208A424644C860010ED38 /* RemoteWorkFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17208A324644C860010ED38 /* RemoteWorkFormTests.swift */; };
 		C175B56C227CAACA006D9944 /* MessagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C175B56B227CAACA006D9944 /* MessagePresenter.swift */; };
 		C175B56E227CAB01006D9944 /* MessagePresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C175B56D227CAB01006D9944 /* MessagePresenterMock.swift */; };
 		C1784DDD21E4E03600C83E2A /* WorkTime.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1784DDC21E4E03600C83E2A /* WorkTime.storyboard */; };
@@ -1050,6 +1051,7 @@
 		C172089D2463F7FC0010ED38 /* remoteWorkNullNote.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = remoteWorkNullNote.json; sourceTree = "<group>"; };
 		C172089F246401DB0010ED38 /* DateComponentsFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateComponentsFormatter+Extension.swift"; sourceTree = "<group>"; };
 		C17208A1246411BD0010ED38 /* RemoteWorkForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkForm.swift; sourceTree = "<group>"; };
+		C17208A324644C860010ED38 /* RemoteWorkFormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkFormTests.swift; sourceTree = "<group>"; };
 		C175B56B227CAACA006D9944 /* MessagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePresenter.swift; sourceTree = "<group>"; };
 		C175B56D227CAB01006D9944 /* MessagePresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePresenterMock.swift; sourceTree = "<group>"; };
 		C1784DDC21E4E03600C83E2A /* WorkTime.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WorkTime.storyboard; sourceTree = "<group>"; };
@@ -2601,10 +2603,11 @@
 		C1860DBF2462EC0000C33C94 /* RemoteWork */ = {
 			isa = PBXGroup;
 			children = (
+				C17208A324644C860010ED38 /* RemoteWorkFormTests.swift */,
 				C1860DC02462EC0D00C33C94 /* RemoteWorkParametersTests.swift */,
+				8AFBC3672463DD4700032B96 /* RemoteWorkRequestTests.swift */,
 				C1860DC82462EDC300C33C94 /* RemoteWorkResponseTests.swift */,
 				C1860DC62462EDB300C33C94 /* RemoteWorkTests.swift */,
-				8AFBC3672463DD4700032B96 /* RemoteWorkRequestTests.swift */,
 			);
 			path = RemoteWork;
 			sourceTree = "<group>";
@@ -3985,6 +3988,7 @@
 				8AE0001C23746C99002F783E /* ProjectPickerCellMock.swift in Sources */,
 				C1EF3A0921930722000E3511 /* StringExtensionTests.swift in Sources */,
 				8A523C8E2395091900215C61 /* DateExtensionTests.swift in Sources */,
+				C17208A424644C860010ED38 /* RemoteWorkFormTests.swift in Sources */,
 				C134296F21A6BCCD00F4EA42 /* RequestEncoderMock.swift in Sources */,
 				C1E908D624586432003E0368 /* UsedVacationViewControllerMock.swift in Sources */,
 				C1A681522460045D0044C2B9 /* VacationFormTests.swift in Sources */,
