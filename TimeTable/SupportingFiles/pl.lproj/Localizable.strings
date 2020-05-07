@@ -103,6 +103,10 @@
 
 // MARK: - Register Remote Work
 "registerremotework_title" = "Zarejestruj pracę zdalną";
+"registerremotework_starts" = "Od";
+"registerremotework_ends" = "Do";
+"registerremotework_reason" = "Notatka";
+"registerremotework_save_btn" = "Zapisz";
 
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Pole nie może być puste.";

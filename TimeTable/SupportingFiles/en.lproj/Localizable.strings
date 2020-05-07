@@ -103,6 +103,10 @@
 
 // MARK: - Register Remote Work
 "registerremotework_title" = "Register remote work";
+"registerremotework_starts" = "Starts";
+"registerremotework_ends" = "Ends";
+"registerremotework_reason" = "Reason";
+"registerremotework_save_btn" = "Save";
 
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Field cannot be empty.";
