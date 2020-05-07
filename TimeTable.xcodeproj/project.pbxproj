@@ -425,6 +425,7 @@
 		C17208982463F0020010ED38 /* RemoteWorkCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17208972463F0020010ED38 /* RemoteWorkCellViewModel.swift */; };
 		C172089C2463F17C0010ED38 /* RemoteWorkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C172089B2463F17C0010ED38 /* RemoteWorkCell.xib */; };
 		C172089E2463F7FC0010ED38 /* remoteWorkNull.json in Resources */ = {isa = PBXBuildFile; fileRef = C172089D2463F7FC0010ED38 /* remoteWorkNull.json */; };
+		C17208A0246401DB0010ED38 /* DateComponentsFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C172089F246401DB0010ED38 /* DateComponentsFormatter+Extension.swift */; };
 		C175B56C227CAACA006D9944 /* MessagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C175B56B227CAACA006D9944 /* MessagePresenter.swift */; };
 		C175B56E227CAB01006D9944 /* MessagePresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C175B56D227CAB01006D9944 /* MessagePresenterMock.swift */; };
 		C1784DDD21E4E03600C83E2A /* WorkTime.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1784DDC21E4E03600C83E2A /* WorkTime.storyboard */; };
@@ -1046,6 +1047,7 @@
 		C17208972463F0020010ED38 /* RemoteWorkCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkCellViewModel.swift; sourceTree = "<group>"; };
 		C172089B2463F17C0010ED38 /* RemoteWorkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemoteWorkCell.xib; sourceTree = "<group>"; };
 		C172089D2463F7FC0010ED38 /* remoteWorkNull.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = remoteWorkNull.json; sourceTree = "<group>"; };
+		C172089F246401DB0010ED38 /* DateComponentsFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateComponentsFormatter+Extension.swift"; sourceTree = "<group>"; };
 		C175B56B227CAACA006D9944 /* MessagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePresenter.swift; sourceTree = "<group>"; };
 		C175B56D227CAB01006D9944 /* MessagePresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePresenterMock.swift; sourceTree = "<group>"; };
 		C1784DDC21E4E03600C83E2A /* WorkTime.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WorkTime.storyboard; sourceTree = "<group>"; };
@@ -2387,6 +2389,7 @@
 				C1E1F04A21AD3DBE007F9228 /* Calendar+Extension.swift */,
 				8A31A85D238E902B008DCC08 /* Date+Extension.swift */,
 				C12CA57C21A593F20082FEB7 /* DateFormatter+Extension.swift */,
+				C172089F246401DB0010ED38 /* DateComponentsFormatter+Extension.swift */,
 				8A09DCB923673E74003FC2A6 /* DispatchQueue+Extension.swift */,
 				8A6A4FD224584398004B4CF2 /* Int+Extension.swift */,
 				C1ECF09E2192C1AB006038C6 /* JSONDecoder+Extension.swift */,
@@ -3762,6 +3765,7 @@
 				C1860DB62462E34200C33C94 /* RemoteWorkViewModel.swift in Sources */,
 				C1F7C2ED2191897A00F4FAF0 /* ApiClientError.swift in Sources */,
 				8A31CD8723742CEA008E590D /* ProjectPickerCellModel.swift in Sources */,
+				C17208A0246401DB0010ED38 /* DateComponentsFormatter+Extension.swift in Sources */,
 				8AE55D2123FD92D200F94242 /* DateFactory.swift in Sources */,
 				8A12C9692456AF140046603B /* AccountingPeriodsCell.swift in Sources */,
 				8A10F841235454DA0004F389 /* UIBarButtonItem+Extension.swift in Sources */,

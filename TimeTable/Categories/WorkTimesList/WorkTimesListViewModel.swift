@@ -89,14 +89,6 @@ class WorkTimesListViewModel: KeyboardManagerObserverable {
         }
     }
     
-    private lazy var dateComponentsFormatter: DateComponentsFormatter = {
-        let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .abbreviated
-        formatter.allowedUnits = [.hour, .minute]
-        formatter.zeroFormattingBehavior = .default
-        return formatter
-    }()
-    
     private weak var errorViewModel: ErrorViewModelParentType?
     
     // MARK: - Initialization
@@ -386,7 +378,7 @@ extension WorkTimesListViewModel {
     
     private func updateWorkedHoursLabel() {
         let duration = TimeInterval(self.dailyWorkTimesArray.flatMap(\.workTimes).map(\.duration).reduce(0, +))
-        let durationText = self.dateComponentsFormatter.string(from: duration)
+        let durationText = DateComponentsFormatter.timeAbbreviated.string(from: duration)
         self.userInterface?.updateHoursLabel(workedHours: durationText)
     }
     

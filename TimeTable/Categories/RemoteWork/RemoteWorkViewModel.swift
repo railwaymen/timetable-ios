@@ -11,7 +11,6 @@ import Foundation
 protocol RemoteWorkViewModelType: class {
     func loadView()
     func viewWillAppear()
-    
     func addNewRecordTapped()
     func profileButtonTapped()
     func numberOfItems() -> Int

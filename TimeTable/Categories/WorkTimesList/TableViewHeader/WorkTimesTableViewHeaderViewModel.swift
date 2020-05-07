@@ -21,14 +21,6 @@ class WorkTimesTableViewHeaderViewModel {
     private let calendar: CalendarType
     private let dailyWorkTime: DailyWorkTime
     
-    private lazy var dateComponentsFormatter: DateComponentsFormatter = {
-        let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .abbreviated
-        formatter.allowedUnits = [.hour, .minute]
-        formatter.zeroFormattingBehavior = .default
-        return formatter
-    }()
-    
     // MARK: - Initialization
     init(
         userInterface: WorkTimesTableViewHeaderViewModelOutput,
@@ -51,7 +43,7 @@ extension WorkTimesTableViewHeaderViewModel: WorkTimesTableViewHeaderViewModelTy
             .build()
         dayText = dateFormatter.string(from: self.dailyWorkTime.day)
         let duration = TimeInterval(self.dailyWorkTime.workTimes.map(\.duration).reduce(0, +))
-        let durationText = self.dateComponentsFormatter.string(from: duration)
+        let durationText = DateComponentsFormatter.timeAbbreviated.string(from: duration)
         self.userInterface?.updateView(dayText: dayText, durationText: durationText)
     }
 }

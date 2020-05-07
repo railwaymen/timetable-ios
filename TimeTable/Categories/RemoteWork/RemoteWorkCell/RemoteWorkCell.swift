@@ -25,7 +25,14 @@ class RemoteWorkCell: UITableViewCell, ReusableCellType {
 
 // MAKR: - RemoteWorkCellViewModelOutput
 extension RemoteWorkCell: RemoteWorkCellViewModelOutput {
-    
+    func updateView(day: String, timeInterval: String, duration: String?, note: String?) {
+        self.dayLabel.text = day
+        self.timeIntervalLabel.text = timeInterval
+        self.durationLabel.set(isHidden: duration == nil)
+        self.durationLabel.text = duration
+        self.noteLabel.set(isHidden: note == nil)
+        self.noteLabel.text = note
+    }
 }
 
 // MARK: - RemoteWorkCellType

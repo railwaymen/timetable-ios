@@ -73,6 +73,7 @@ extension RemoteWorkViewController: RemoteWorkViewModelOutput {
         self.setUpBarButtons()
         self.setUpActivityIndicator()
         self.setUpBarButtons()
+        self.setUpTableView()
     }
     
     func showTableView() {

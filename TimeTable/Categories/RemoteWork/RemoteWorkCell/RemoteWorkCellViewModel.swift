@@ -13,7 +13,7 @@ protocol RemoteWorkCellViewModelType: class {
 }
 
 protocol RemoteWorkCellViewModelOutput: class {
-    
+    func updateView(day: String, timeInterval: String, duration: String?, note: String?)
 }
 
 class RemoteWorkCellViewModel {
@@ -33,6 +33,13 @@ class RemoteWorkCellViewModel {
 // MARK: - RemoteWorkCellViewModelType
 extension RemoteWorkCellViewModel: RemoteWorkCellViewModelType {
     func viewConfigured() {
-        
+        let day = DateFormatter.shortDate.string(from: self.remoteWork.startsAt)
+        let startsAtHours = DateFormatter.shortTime.string(from: self.remoteWork.startsAt)
+        let endsAtHours = DateFormatter.shortTime.string(from: self.remoteWork.endsAt)
+        self.userInterface?.updateView(
+            day: day,
+            timeInterval: "\(startsAtHours) - \(endsAtHours)",
+            duration: DateComponentsFormatter.timeAbbreviated.string(from: self.remoteWork.duration),
+            note: self.remoteWork.note)
     }
 }
