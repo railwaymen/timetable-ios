@@ -10,11 +10,12 @@ import Foundation
 
 protocol RemoteWorkViewModelType: class {
     func loadView()
-    func viewWillAppear()
+    func viewDidLayoutSubviews()
     func addNewRecordTapped()
     func profileButtonTapped()
     func numberOfItems() -> Int
     func configure(_ cell: RemoteWorkCellable, for indexPath: IndexPath)
+    func viewWillDisplayCell(at indexPath: IndexPath)
 }
 
 protocol RemoteWorkViewModelOutput: class {
@@ -22,26 +23,35 @@ protocol RemoteWorkViewModelOutput: class {
     func showTableView()
     func setActivityIndicator(isHidden: Bool)
     func updateView()
+    func getMaxCellsPerTableHeight() -> Int
 }
 
 class RemoteWorkViewModel {
     private weak var userInterface: RemoteWorkViewModelOutput?
     private weak var coordinator: RemoteWorkCoordinatorType?
-    
     private let apiClient: ApiClientRemoteWorkType
-    private let itemsPerPage = 24
+    private let errorHandler: ErrorHandlerType
+    
+    private let tableHeightsPerPage: Int = 4
+    private var cellsPerTableHeight: Int = 6
     private var state: State?
     private var records: [RemoteWork] = []
+    
+    private var recordsPerPage: Int {
+        self.cellsPerTableHeight * self.tableHeightsPerPage
+    }
     
     // MARK: - Initialization
     init(
         userInterface: RemoteWorkViewModelOutput,
+        coordinator: RemoteWorkCoordinatorType,
         apiClient: ApiClientRemoteWorkType,
-        coordinator: RemoteWorkCoordinatorType
+        errorHandler: ErrorHandlerType
     ) {
         self.userInterface = userInterface
-        self.apiClient = apiClient
         self.coordinator = coordinator
+        self.apiClient = apiClient
+        self.errorHandler = errorHandler
     }
 }
 
@@ -60,7 +70,9 @@ extension RemoteWorkViewModel: RemoteWorkViewModelType {
         self.userInterface?.setUp()
     }
     
-    func viewWillAppear() {
+    func viewDidLayoutSubviews() {
+        guard self.state == .none else { return }
+        self.setUpRecordsNumberPerPage()
         self.fetchFirstPage()
     }
     
@@ -81,10 +93,27 @@ extension RemoteWorkViewModel: RemoteWorkViewModelType {
         let viewModel = RemoteWorkCellViewModel(userInterface: cell, remoteWork: remoteWork)
         cell.configure(viewModel: viewModel)
     }
+    
+    func viewWillDisplayCell(at indexPath: IndexPath) {
+        let tableHeightsToEndToStartFetchingNextPage = 1
+        let cellsToEndToStartFetchingNextPage = self.cellsPerTableHeight * tableHeightsToEndToStartFetchingNextPage
+        let cellToBeginFetching = self.records.count - cellsToEndToStartFetchingNextPage
+        guard cellToBeginFetching <= indexPath.row else { return }
+        self.fetchNextPage()
+    }
 }
 
 // MARK: - Private
 extension RemoteWorkViewModel {
+    private func setUpRecordsNumberPerPage() {
+        guard let cellsPerTableHeight = self.userInterface?.getMaxCellsPerTableHeight() else { return }
+        guard cellsPerTableHeight != 0 else {
+            self.errorHandler.stopInDebug()
+            return
+        }
+        self.cellsPerTableHeight = cellsPerTableHeight
+    }
+    
     private func item(for index: IndexPath) -> RemoteWork? {
         self.records[safeIndex: index.row]
     }
@@ -147,6 +176,6 @@ extension RemoteWorkViewModel {
     }
     
     private func parameters(forPage page: Int) -> RemoteWorkParameters {
-        RemoteWorkParameters(page: page, perPage: self.itemsPerPage)
+        RemoteWorkParameters(page: page, perPage: self.recordsPerPage)
     }
 }

@@ -73,8 +73,9 @@ extension RemoteWorkCoordinator {
             let controller = try self.dependencyContainer.viewControllerBuilder.remoteWork()
             let viewModel = RemoteWorkViewModel(
                 userInterface: controller,
+                coordinator: self,
                 apiClient: apiClient,
-                coordinator: self)
+                errorHandler: self.dependencyContainer.errorHandler)
             controller.configure(viewModel: viewModel)
             self.navigationController.setViewControllers([controller], animated: false)
         } catch {

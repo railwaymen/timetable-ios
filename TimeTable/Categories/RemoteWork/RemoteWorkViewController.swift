@@ -15,11 +15,13 @@ protocol RemoteWorkViewControllerType: class {
 }
 
 class RemoteWorkViewController: UIViewController {
-    private var viewModel: RemoteWorkViewModelType!
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
+    private var viewModel: RemoteWorkViewModelType!
+    
     private let tableViewEstimatedRowHeight: CGFloat = 80
+    private let minimumCellHeight: CGFloat = 74
     
     // MARK: - Overridden
     override func loadView() {
@@ -27,9 +29,9 @@ class RemoteWorkViewController: UIViewController {
         self.viewModel.loadView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.viewModel.viewWillAppear()
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.viewModel.viewDidLayoutSubviews()
     }
     
     // MARK: - Actions
@@ -50,6 +52,10 @@ extension RemoteWorkViewController: UITableViewDelegate {
     ) -> UISwipeActionsConfiguration? {
         return UISwipeActionsConfiguration(actions: []) // TODO TIM-287
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        self.viewModel.viewWillDisplayCell(at: indexPath)
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -68,11 +74,11 @@ extension RemoteWorkViewController: UITableViewDataSource {
 // MARK: - RemoteWorkViewModelOutput
 extension RemoteWorkViewController: RemoteWorkViewModelOutput {
     func setUp() {
-        self.tableView.set(isHidden: true)
         self.setUpTitle()
         self.setUpBarButtons()
         self.setUpActivityIndicator()
         self.setUpTableView()
+        self.tableView.set(isHidden: true)
     }
     
     func showTableView() {
@@ -87,6 +93,13 @@ extension RemoteWorkViewController: RemoteWorkViewModelOutput {
     
     func updateView() {
         self.tableView.reloadData()
+    }
+    
+    func getMaxCellsPerTableHeight() -> Int {
+        self.tableView.layoutIfNeeded()
+        let verticalInsets = self.tableView.safeAreaInsets.top + self.tableView.safeAreaInsets.bottom
+        let visibleContentHeight = self.tableView.frame.height - verticalInsets
+        return Int((visibleContentHeight / self.minimumCellHeight).rounded(.up))
     }
 }
 
@@ -129,8 +142,6 @@ extension RemoteWorkViewController {
     private func setUpTableView() {
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.estimatedRowHeight = self.tableViewEstimatedRowHeight
-        self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.register(RemoteWorkCell.self)
     }
 }
