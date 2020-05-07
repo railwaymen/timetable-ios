@@ -50,7 +50,8 @@ extension RemoteWorkViewController: UITableViewDelegate {
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
-        return UISwipeActionsConfiguration(actions: []) // TODO TIM-287
+        let deleteAction = self.deleteAction(for: indexPath)
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -143,5 +144,22 @@ extension RemoteWorkViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(RemoteWorkCell.self)
+    }
+    
+    private func deleteAction(for indexPath: IndexPath) -> UIContextualAction {
+        let deleteAction = UIContextualAction(style: .destructive, title: "") {
+            [weak self] (_, _, completion) in
+            guard let self = self else { return completion(false) }
+            self.viewModel.viewRequestToDelete(at: indexPath) { [weak self] success in
+                guard let self = self else { return completion(success) }
+                self.tableView.beginUpdates()
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                completion(true)
+                self.tableView.endUpdates()
+            }
+        }
+        deleteAction.backgroundColor = .deleteAction
+        deleteAction.image = .delete
+        return deleteAction
     }
 }

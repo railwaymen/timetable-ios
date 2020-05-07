@@ -16,6 +16,7 @@ protocol RemoteWorkViewModelType: class {
     func numberOfItems() -> Int
     func configure(_ cell: RemoteWorkCellable, for indexPath: IndexPath)
     func viewWillDisplayCell(at indexPath: IndexPath)
+    func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void)
 }
 
 protocol RemoteWorkViewModelOutput: class {
@@ -100,6 +101,23 @@ extension RemoteWorkViewModel: RemoteWorkViewModelType {
         let cellToBeginFetching = self.records.count - cellsToEndToStartFetchingNextPage
         guard cellToBeginFetching <= indexPath.row else { return }
         self.fetchNextPage()
+    }
+    
+    func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void) {
+        guard let remoteWork = self.item(for: index) else { return completion(false) }
+        self.userInterface?.setActivityIndicator(isHidden: false)
+        _ = self.apiClient.deleteRemoteWork(remoteWork) { [weak self] result in
+            guard let self = self else { return completion(false) }
+            self.userInterface?.setActivityIndicator(isHidden: true)
+            switch result {
+            case .success:
+                self.records.remove(at: index.row)
+                completion(true)
+            case let .failure(error):
+                self.errorHandler.throwing(error: error)
+                completion(false)
+            }
+        }
     }
 }
 
