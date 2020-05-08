@@ -160,6 +160,7 @@ extension RegisterRemoteWorkViewController {
     private func setUpTimePicker(_ picker: inout UIDatePicker?, selector: Selector) {
         picker = UIDatePicker()
         picker?.datePickerMode = .dateAndTime
+        picker?.minuteInterval = 15
         picker?.addTarget(self, action: selector, for: .valueChanged)
     }
 }
