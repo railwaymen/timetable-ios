@@ -119,6 +119,40 @@ extension ApiClientRemoteWorkTests {
     }
 }
 
+// MARK: - updateRemoteWork(_:with:completion:)
+extension ApiClientRemoteWorkTests {
+    func testUpdateRemoteWork_succeeded() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let parameters = try self.buildRemoteWorkRequest()
+        let decoder = try self.buildRemoteWork()
+        var completionResult: RemoteWorkResult?
+        //Act
+        _ = sut.updateRemoteWork(decoder, with: parameters, completion: { result in
+            completionResult = result
+        })
+        try self.restler.putReturnValue.callCompletion(type: RemoteWork.self, result: .success(decoder))
+        //Assert
+        XCTAssertEqual(try XCTUnwrap(completionResult).get(), decoder)
+    }
+    
+    func testUpdateRemoteWork_failed() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let parameters = try self.buildRemoteWorkRequest()
+        let decoder = try self.buildRemoteWork()
+        let error = TestError(message: "PUT failed")
+        var completionResult: RemoteWorkResult?
+        //Act
+        _ = sut.updateRemoteWork(decoder, with: parameters, completion: { result in
+            completionResult = result
+        })
+        try self.restler.putReturnValue.callCompletion(type: RemoteWork.self, result: .failure(error))
+        //Assert
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
+    }
+}
+
 // MARK: - Private
 extension ApiClientRemoteWorkTests {
     private func buildSUT() -> ApiClientRemoteWorkType {

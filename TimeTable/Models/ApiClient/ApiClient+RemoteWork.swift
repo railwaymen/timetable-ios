@@ -15,6 +15,9 @@ typealias FetchRemoteWorkCompletion = (RemoteWorkResponseResult) -> Void
 typealias RemoteWorkArrayResult = Result<[RemoteWork], Error>
 typealias RegisterRemoteWorkCompletion = (RemoteWorkArrayResult) -> Void
 
+typealias RemoteWorkResult = Result<RemoteWork, Error>
+typealias UpdateRemoteWorkCompletion = (RemoteWorkResult) -> Void
+
 protocol ApiClientRemoteWorkType: class {
     func fetchRemoteWork(
         parameters: RemoteWorkParameters,
@@ -23,6 +26,10 @@ protocol ApiClientRemoteWorkType: class {
         parameters: RemoteWorkRequest,
         completion: @escaping RegisterRemoteWorkCompletion) -> RestlerTaskType?
     func deleteRemoteWork(_ remoteWork: RemoteWork, completion: @escaping VoidCompletion) -> RestlerTaskType?
+    func updateRemoteWork(
+        _ remoteWork: RemoteWork,
+        with parameters: RemoteWorkRequest,
+        completion: @escaping UpdateRemoteWorkCompletion) -> RestlerTaskType?
 }
 
 // MARK: - ApiClientRemoteWorkType
@@ -53,9 +60,21 @@ extension ApiClient: ApiClientRemoteWorkType {
     
     func deleteRemoteWork(_ remoteWork: RemoteWork, completion: @escaping VoidCompletion) -> RestlerTaskType? {
         self.restler
-            .delete(Endpoint
-            .remoteWork(remoteWork.id))
+            .delete(Endpoint.remoteWork(remoteWork.id))
             .decode(Void.self)
+            .onCompletion(completion)
+            .start()
+    }
+    
+    func updateRemoteWork(
+        _ remoteWork: RemoteWork,
+        with parameters: RemoteWorkRequest,
+        completion: @escaping UpdateRemoteWorkCompletion
+    ) -> RestlerTaskType? {
+        self.restler
+            .put(Endpoint.remoteWork(remoteWork.id))
+            .body(parameters)
+            .decode(RemoteWork.self)
             .onCompletion(completion)
             .start()
     }
