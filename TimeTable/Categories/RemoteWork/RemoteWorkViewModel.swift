@@ -24,6 +24,7 @@ protocol RemoteWorkViewModelOutput: class {
     func showTableView()
     func setActivityIndicator(isHidden: Bool)
     func updateView()
+    func removeRows(at indexPaths: [IndexPath])
     func getMaxCellsPerTableHeight() -> Int
 }
 
@@ -111,8 +112,7 @@ extension RemoteWorkViewModel: RemoteWorkViewModelType {
             self.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .success:
-                self.records.remove(at: index.row)
-                completion(true)
+                self.remove(remoteWork: remoteWork, completion: completion)
             case let .failure(error):
                 self.errorHandler.throwing(error: error)
                 completion(false)
@@ -195,5 +195,12 @@ extension RemoteWorkViewModel {
     
     private func parameters(forPage page: Int) -> RemoteWorkParameters {
         RemoteWorkParameters(page: page, perPage: self.recordsPerPage)
+    }
+    
+    private func remove(remoteWork: RemoteWork, completion: @escaping (Bool) -> Void) {
+        guard let index = self.records.firstIndex(of: remoteWork) else { return completion(false) }
+        _ = self.records.remove(at: index)
+        self.userInterface?.removeRows(at: [IndexPath(row: index, section: 0)])
+        completion(true)
     }
 }

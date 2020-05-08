@@ -96,6 +96,10 @@ extension RemoteWorkViewController: RemoteWorkViewModelOutput {
         self.tableView.reloadData()
     }
     
+    func removeRows(at indexPaths: [IndexPath]) {
+        self.tableView.deleteRows(at: indexPaths, with: .fade)
+    }
+    
     func getMaxCellsPerTableHeight() -> Int {
         self.tableView.layoutIfNeeded()
         let verticalInsets = self.tableView.safeAreaInsets.top + self.tableView.safeAreaInsets.bottom
@@ -150,13 +154,7 @@ extension RemoteWorkViewController {
         let deleteAction = UIContextualAction(style: .destructive, title: "") {
             [weak self] (_, _, completion) in
             guard let self = self else { return completion(false) }
-            self.viewModel.viewRequestToDelete(at: indexPath) { [weak self] success in
-                guard let self = self else { return completion(success) }
-                self.tableView.beginUpdates()
-                self.tableView.deleteRows(at: [indexPath], with: .automatic)
-                completion(true)
-                self.tableView.endUpdates()
-            }
+            self.viewModel.viewRequestToDelete(at: indexPath, completion: completion)
         }
         deleteAction.backgroundColor = .deleteAction
         deleteAction.image = .delete

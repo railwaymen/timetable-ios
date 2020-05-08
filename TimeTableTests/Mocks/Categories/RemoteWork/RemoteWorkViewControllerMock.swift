@@ -26,6 +26,11 @@ class RemoteWorkViewControllerMock: UIViewController {
     private(set) var updateViewParams: [UpdateViewParams] = []
     struct UpdateViewParams {}
     
+    private(set) var removeRowsParams: [RemoveRowsParams] = []
+    struct RemoveRowsParams {
+        let indexPaths: [IndexPath]
+    }
+    
     var getMaxCellsPerTableHeightReturnValue: Int = 1
     private(set) var getMaxCellsPerTableHeightParams: [GetMaxCellsPerTableHeightParams] = []
     struct GetMaxCellsPerTableHeightParams {}
@@ -53,6 +58,10 @@ extension RemoteWorkViewControllerMock: RemoteWorkViewModelOutput {
     
     func updateView() {
         self.updateViewParams.append(UpdateViewParams())
+    }
+
+    func removeRows(at indexPaths: [IndexPath]) {
+        self.removeRowsParams.append(RemoveRowsParams(indexPaths: indexPaths))
     }
     
     func getMaxCellsPerTableHeight() -> Int {
