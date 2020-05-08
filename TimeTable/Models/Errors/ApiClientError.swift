@@ -25,9 +25,6 @@ struct ApiClientError: Error, RestlerErrorDecodable {
     
     init?(response: Restler.Response) {
         if let data = response.data,
-            let validationErrors = try? ApiClientError.decoder.decode(ApiValidationErrors.self, from: data) {
-            self.type = .validationErrors(validationErrors)
-        } else if let data = response.data,
             let serverError = try? ApiClientError.decoder.decode(ServerError.self, from: data) {
             self.type = .serverError(serverError)
         } else if let code = response.response?.statusCode ?? (response.error as NSError?)?.code {
@@ -40,8 +37,6 @@ struct ApiClientError: Error, RestlerErrorDecodable {
                 self.type = .invalidResponse
             case 401:
                 self.type = .unauthorized
-            case 422:
-                self.type = .validationErrors(nil)
             default:
                 return nil
             }

@@ -26,7 +26,12 @@ enum UIError: Error {
     case workTimeGreaterThan
     case genericError
     case loginCredentialsInvalid
-    case remoteWorkTimeGreaterThan
+    
+    case remoteWorkStartsAtOvelap
+    case remoteWorkStartsAtTooOld
+    case remoteWorkStatsAtEmpty
+    case remoteWorkStatsAtIncorrectHours
+    case remoteWorkEndsAtEmpty
     
     var localizedDescription: String {
         switch self {
@@ -40,8 +45,16 @@ enum UIError: Error {
             return R.string.localizable.error_something_went_wrong()
         case .loginCredentialsInvalid:
             return R.string.localizable.credential_error_credentials_invalid()
-        case .remoteWorkTimeGreaterThan:
-            return R.string.localizable.registerremotework_error_greater_than()
+        case .remoteWorkStartsAtOvelap:
+            return R.string.localizable.remotework_startsAt_ovelap()
+        case .remoteWorkStartsAtTooOld:
+            return R.string.localizable.remotework_startsAt_tooOld()
+        case .remoteWorkStatsAtEmpty:
+            return R.string.localizable.remotework_statsAt_empty()
+        case .remoteWorkStatsAtIncorrectHours:
+            return R.string.localizable.remotework_statsAt_incorrectHours()
+        case .remoteWorkEndsAtEmpty:
+            return R.string.localizable.remotework_endsAt_empty()
         }
     }
 }

@@ -36,7 +36,7 @@ struct RemoteWorkForm: RemoteWorkFormType {
     // MARK: - RemoteWorkFormType
     func validationErrors() -> [UIError] {
         guard self.startsAt >= self.endsAt else { return [] }
-        return [.remoteWorkTimeGreaterThan]
+        return [.remoteWorkStatsAtIncorrectHours]
     }
     
     func convertToEncoder() throws -> RemoteWorkRequest {

@@ -428,6 +428,9 @@
 		C17208A0246401DB0010ED38 /* DateComponentsFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C172089F246401DB0010ED38 /* DateComponentsFormatter+Extension.swift */; };
 		C17208A2246411BD0010ED38 /* RemoteWorkForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17208A1246411BD0010ED38 /* RemoteWorkForm.swift */; };
 		C17208A424644C860010ED38 /* RemoteWorkFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17208A324644C860010ED38 /* RemoteWorkFormTests.swift */; };
+		C172D13D24656655005AC63B /* BasicError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C172D13C24656655005AC63B /* BasicError.swift */; };
+		C172D13F246566A0005AC63B /* RegisterRemoteWorkValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C172D13E246566A0005AC63B /* RegisterRemoteWorkValidationError.swift */; };
+		C172D14124656FF2005AC63B /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C172D14024656FF2005AC63B /* ValidationError.swift */; };
 		C175B56C227CAACA006D9944 /* MessagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C175B56B227CAACA006D9944 /* MessagePresenter.swift */; };
 		C175B56E227CAB01006D9944 /* MessagePresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C175B56D227CAB01006D9944 /* MessagePresenterMock.swift */; };
 		C1784DDD21E4E03600C83E2A /* WorkTime.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1784DDC21E4E03600C83E2A /* WorkTime.storyboard */; };
@@ -555,6 +558,7 @@
 		C1EF3A0921930722000E3511 /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EF3A0821930722000E3511 /* StringExtensionTests.swift */; };
 		C1F187B021E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F187AF21E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift */; };
 		C1F187B221E37C760037B8C2 /* ProjectsCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F187B121E37C760037B8C2 /* ProjectsCollectionViewLayout.swift */; };
+		C1F62B1B24691ADC00AB8C00 /* UIErrorRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B1A24691ADC00AB8C00 /* UIErrorRepresentable.swift */; };
 		C1F69B2C21902FA5005D9114 /* signInResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F69B2B21902FA5005D9114 /* signInResponse.json */; };
 		C1F69B2E21903818005D9114 /* LoginContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F69B2D21903818005D9114 /* LoginContentProvider.swift */; };
 		C1F7C2DE2190436B00F4FAF0 /* AuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F7C2DD2190436B00F4FAF0 /* AuthenticationCoordinator.swift */; };
@@ -1052,6 +1056,9 @@
 		C172089F246401DB0010ED38 /* DateComponentsFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateComponentsFormatter+Extension.swift"; sourceTree = "<group>"; };
 		C17208A1246411BD0010ED38 /* RemoteWorkForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkForm.swift; sourceTree = "<group>"; };
 		C17208A324644C860010ED38 /* RemoteWorkFormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkFormTests.swift; sourceTree = "<group>"; };
+		C172D13C24656655005AC63B /* BasicError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicError.swift; sourceTree = "<group>"; };
+		C172D13E246566A0005AC63B /* RegisterRemoteWorkValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRemoteWorkValidationError.swift; sourceTree = "<group>"; };
+		C172D14024656FF2005AC63B /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
 		C175B56B227CAACA006D9944 /* MessagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePresenter.swift; sourceTree = "<group>"; };
 		C175B56D227CAB01006D9944 /* MessagePresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePresenterMock.swift; sourceTree = "<group>"; };
 		C1784DDC21E4E03600C83E2A /* WorkTime.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WorkTime.storyboard; sourceTree = "<group>"; };
@@ -1186,6 +1193,7 @@
 		C1EF3A0821930722000E3511 /* StringExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionTests.swift; sourceTree = "<group>"; };
 		C1F187AF21E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUserViewTableViewCell.swift; sourceTree = "<group>"; };
 		C1F187B121E37C760037B8C2 /* ProjectsCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsCollectionViewLayout.swift; sourceTree = "<group>"; };
+		C1F62B1A24691ADC00AB8C00 /* UIErrorRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIErrorRepresentable.swift; sourceTree = "<group>"; };
 		C1F69B2B21902FA5005D9114 /* signInResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInResponse.json; sourceTree = "<group>"; };
 		C1F69B2D21903818005D9114 /* LoginContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginContentProvider.swift; sourceTree = "<group>"; };
 		C1F7C2DD2190436B00F4FAF0 /* AuthenticationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinator.swift; sourceTree = "<group>"; };
@@ -2079,6 +2087,7 @@
 		C1249C7D2181B4CF005DB2A5 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
+				C172D13B24656641005AC63B /* ValidationErrors */,
 				C1F7C2EC2191897A00F4FAF0 /* ApiClientError.swift */,
 				C1C4BA902189AE0900683F71 /* ApiValidationErrors.swift */,
 				C1AFFFDA21A2CD2000A7A632 /* AppError.swift */,
@@ -2528,6 +2537,17 @@
 				C172089B2463F17C0010ED38 /* RemoteWorkCell.xib */,
 			);
 			path = RemoteWorkCell;
+			sourceTree = "<group>";
+		};
+		C172D13B24656641005AC63B /* ValidationErrors */ = {
+			isa = PBXGroup;
+			children = (
+				C172D13C24656655005AC63B /* BasicError.swift */,
+				C172D13E246566A0005AC63B /* RegisterRemoteWorkValidationError.swift */,
+				C1F62B1A24691ADC00AB8C00 /* UIErrorRepresentable.swift */,
+				C172D14024656FF2005AC63B /* ValidationError.swift */,
+			);
+			path = ValidationErrors;
 			sourceTree = "<group>";
 		};
 		C1784DDB21E4E01B00C83E2A /* WorkTime */ = {
@@ -3718,6 +3738,7 @@
 				8A5D48C02369E1A30082C13D /* DispatchGroup+Extension.swift in Sources */,
 				C1F7C2DE2190436B00F4FAF0 /* AuthenticationCoordinator.swift in Sources */,
 				8A31CD8223742639008E590D /* ProjectPickerViewModel.swift in Sources */,
+				C1F62B1B24691ADC00AB8C00 /* UIErrorRepresentable.swift in Sources */,
 				C17208982463F0020010ED38 /* RemoteWorkCellViewModel.swift in Sources */,
 				C1411C2E2450415A00BB4266 /* VacationViewModel.swift in Sources */,
 				8A79A2C724220BB20048B44B /* DateFormatterBuilder.swift in Sources */,
@@ -3791,6 +3812,7 @@
 				C125F1BC21DCDA8800594CDE /* ProjectCollectionViewCell.swift in Sources */,
 				C12CA57B21A5900B0082FEB7 /* WorkTimeDecoder.swift in Sources */,
 				C1A47BE924596AD000FDA7F0 /* VacationType.swift in Sources */,
+				C172D13F246566A0005AC63B /* RegisterRemoteWorkValidationError.swift in Sources */,
 				C1C4BA912189AE0900683F71 /* ApiValidationErrors.swift in Sources */,
 				8A79A2442420C40F0048B44B /* TaskHistoryViewController.swift in Sources */,
 				C1F187B021E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift in Sources */,
@@ -3811,6 +3833,7 @@
 				8A31A860238E927E008DCC08 /* TimeInterval+Extension.swift in Sources */,
 				C1860DD82462F26A00C33C94 /* ApiClient+RemoteWork.swift in Sources */,
 				8A80A38D23D89C24002643A1 /* APIClientFactory.swift in Sources */,
+				C172D14124656FF2005AC63B /* ValidationError.swift in Sources */,
 				8A12C9612456A5130046603B /* AccountingPeriodsViewModel.swift in Sources */,
 				C1E6B34C219EF08200019DC2 /* AccessService.swift in Sources */,
 				8AE55D1D23FD855E00F94242 /* Task.swift in Sources */,
@@ -3822,6 +3845,7 @@
 				8A3F0C592428CEE300564D6D /* WorkTimeContainerViewModel.swift in Sources */,
 				C17208962463ED7E0010ED38 /* RemoteWorkCell.swift in Sources */,
 				C1ECF09F2192C1AB006038C6 /* JSONDecoder+Extension.swift in Sources */,
+				C172D13D24656655005AC63B /* BasicError.swift in Sources */,
 				C1ECF09D2192BB51006038C6 /* RequestEncoder.swift in Sources */,
 				C153AC512182EFEC007A35BB /* UIButton+Extension.swift in Sources */,
 				C1EF3A05219303A7000E3511 /* NSRegularExpression+Extension.swift in Sources */,

@@ -19,12 +19,11 @@ extension ApiClientErrorTests {
     func testRestlerErrorDecoding_validationErrorInData() throws {
         //Arrange
         let data = try self.json(from: ApiValidationJSONResource.baseErrorKeyResponse)
-        let validationErrors = try self.decoder.decode(ApiValidationErrors.self, from: data)
         let response = Restler.Response(data: data, response: nil, error: nil)
         //Act
         let sut = ApiClientError(response: response)
         //Assert
-        XCTAssertEqual(sut?.type, .validationErrors(validationErrors))
+        XCTAssertNil(sut?.type)
     }
     
     func testRestlerErrorDecoding_serverErrorInData() throws {
@@ -57,7 +56,7 @@ extension ApiClientErrorTests {
         //Act
         let sut = ApiClientError(response: response)
         //Assert
-        XCTAssertEqual(sut?.type, .validationErrors(nil))
+        XCTAssertNil(sut?.type)
     }
     
     func testRestlerErrorDecoding_responseCode502() throws {

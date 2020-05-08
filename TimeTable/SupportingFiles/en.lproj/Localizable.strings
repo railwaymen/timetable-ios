@@ -108,7 +108,11 @@
 "registerremotework_note" = "Note";
 "registerremotework_save_btn" = "Save";
 
-"registerremotework_error_greater_than" = "Time range is invalid. Start time is greater or equal to end time.";
+"remotework_startsAt_ovelap" = "There is vaction with same date.";
+"remotework_startsAt_tooOld" = "Given date is too old.";
+"remotework_statsAt_empty" = "Starts at date cannot be empty.";
+"remotework_statsAt_incorrectHours" = "Time range is invalid. Start time is greater or equal to end time.";
+"remotework_endsAt_empty" = "Ends at date cannot be empty.";
 
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Field cannot be empty.";

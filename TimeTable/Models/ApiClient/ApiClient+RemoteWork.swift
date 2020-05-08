@@ -53,6 +53,7 @@ extension ApiClient: ApiClientRemoteWorkType {
         self.restler
             .post(Endpoint.remoteWorks)
             .body(parameters)
+            .failureDecode(ValidationError<RegisterRemoteWorkValidationError>.self)
             .decode([RemoteWork].self)
             .onCompletion(completion)
             .start()

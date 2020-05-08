@@ -114,7 +114,7 @@ extension RegisterRemoteWorkViewModel: RegisterRemoteWorkViewModelType {
     }
     
     func saveButtonTapped() {
-        self.postVacation()
+        self.postRemoteWork()
     }
     
     func viewTapped() {
@@ -140,7 +140,7 @@ extension RegisterRemoteWorkViewModel {
         action?(date, dateString)
     }
     
-    private func postVacation() {
+    private func postRemoteWork() {
         do {
             let parameters = try self.form.convertToEncoder()
             self.decisionState = .request
@@ -158,7 +158,17 @@ extension RegisterRemoteWorkViewModel {
     }
     
     private func handleResponse(error: Error) {
-        self.errorHandler.throwing(error: error)
+        if let errors = (error as? ValidationError<RegisterRemoteWorkValidationError>)?.errors {
+            if !errors.startsAt.isEmpty, let error = errors.startsAt.first {
+                self.errorHandler.throwing(error: error.uiError)
+            } else if !errors.endsAt.isEmpty, let error = errors.endsAt.first {
+                self.errorHandler.throwing(error: error.uiError)
+            } else {
+                self.errorHandler.throwing(error: UIError.genericError)
+            }
+        } else {
+            self.errorHandler.throwing(error: error)
+        }
     }
     
     private func updateUI() {
@@ -168,7 +178,7 @@ extension RegisterRemoteWorkViewModel {
     }
     
     private func updateUI(with errors: [UIError]) {
-        self.userInterface?.setStartsAt(isHighlighted: errors.contains(.remoteWorkTimeGreaterThan))
-        self.userInterface?.setEndsAt(isHighlighted: errors.contains(.remoteWorkTimeGreaterThan))
+        self.userInterface?.setStartsAt(isHighlighted: errors.contains(.remoteWorkStatsAtIncorrectHours))
+        self.userInterface?.setEndsAt(isHighlighted: errors.contains(.remoteWorkStatsAtIncorrectHours))
     }
 }

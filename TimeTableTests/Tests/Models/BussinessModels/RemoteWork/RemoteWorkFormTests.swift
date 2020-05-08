@@ -20,7 +20,7 @@ extension RemoteWorkFormTests {
         //Act
         XCTAssertThrowsError(try sut.convertToEncoder()) { error in
             //Assert
-            XCTAssertEqual(error as? UIError, UIError.remoteWorkTimeGreaterThan)
+            XCTAssertEqual(error as? UIError, UIError.remoteWorkStatsAtIncorrectHours)
         }
     }
     
@@ -32,7 +32,7 @@ extension RemoteWorkFormTests {
         //Act
         XCTAssertThrowsError(try sut.convertToEncoder()) { error in
             //Assert
-            XCTAssertEqual(error as? UIError, UIError.remoteWorkTimeGreaterThan)
+            XCTAssertEqual(error as? UIError, UIError.remoteWorkStatsAtIncorrectHours)
         }
     }
     
