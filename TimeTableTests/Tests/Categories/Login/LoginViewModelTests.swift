@@ -16,6 +16,7 @@ class LoginViewModelTests: XCTestCase {
     private var errorHandlerMock: ErrorHandlerMock!
     private var accessServiceMock: AccessServiceMock!
     private var notificationCenterMock: NotificationCenterMock!
+    private var keyboardManagerMock: KeyboardManagerMock!
         
     override func setUp() {
         super.setUp()
@@ -25,6 +26,7 @@ class LoginViewModelTests: XCTestCase {
         self.errorHandlerMock = ErrorHandlerMock()
         self.accessServiceMock = AccessServiceMock()
         self.notificationCenterMock = NotificationCenterMock()
+        self.keyboardManagerMock = KeyboardManagerMock()
     }
 }
 
@@ -270,6 +272,7 @@ extension LoginViewModelTests {
             coordinator: self.coordinatorMock,
             contentProvider: self.contentProviderMock,
             errorHandler: self.errorHandlerMock,
-            notificationCenter: self.notificationCenterMock)
+            notificationCenter: self.notificationCenterMock,
+            keyboardManager: self.keyboardManagerMock)
     }
 }

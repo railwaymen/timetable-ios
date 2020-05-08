@@ -29,6 +29,16 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         self.viewModel.viewDidLoad()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel.viewWillAppear()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.viewModel.viewDidDisappear()
+    }
 
     // MARK: - Actions
     @IBAction private func loginTextFieldDidChange(_ sender: UITextField) {

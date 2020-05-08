@@ -148,7 +148,8 @@ extension AuthenticationCoordinator {
                 coordinator: self,
                 contentProvider: contentProvider,
                 errorHandler: self.dependencyContainer.errorHandler,
-                notificationCenter: self.dependencyContainer.notificationCenter)
+                notificationCenter: self.dependencyContainer.notificationCenter,
+                keyboardManager: self.dependencyContainer.keyboardManager)
             controller.configure(viewModel: viewModel)
             self.navigationController.pushViewController(controller, animated: animated)
             self.navigationController.navigationBar.backItem?.title = ""
