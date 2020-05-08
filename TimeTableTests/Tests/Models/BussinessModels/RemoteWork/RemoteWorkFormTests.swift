@@ -11,16 +11,16 @@ import XCTest
 
 class RemoteWorkFormTests: XCTestCase {}
 
-// MARK: - func convertToEncoder() -> RemoteWorkRequest
+// MARK: - func convertToEncoder()
 extension RemoteWorkFormTests {
-    func testConverToEncoder() {
+    func testConvertToEncoder() {
         //Arrange
         let sut = RemoteWorkForm()
         //Act
         let encoder = sut.convertToEncoder()
         //Assert
-        XCTAssert(encoder.startsAt == sut.startsAt)
-        XCTAssert(encoder.endsAt == sut.endsAt)
-        XCTAssert(encoder.note == sut.note)
+        XCTAssertEqual(encoder.startsAt, sut.startsAt)
+        XCTAssertEqual(encoder.endsAt, sut.endsAt)
+        XCTAssertEqual(encoder.note, sut.note)
     }
 }

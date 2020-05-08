@@ -23,12 +23,12 @@ struct RemoteWorkForm: RemoteWorkFormType {
     
     // MARK: - Initialization
     init(
-        startDate: Date = Date(),
-        endDate: Date = Date(),
+        startsAt: Date = Date(),
+        endsAt: Date = Date(),
         note: String = ""
     ) {
-        self.startsAt = startDate
-        self.endsAt = endDate
+        self.startsAt = startsAt
+        self.endsAt = endsAt
         self.note = note
     }
     
