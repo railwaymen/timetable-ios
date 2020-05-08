@@ -369,7 +369,7 @@ extension WorkTimesListViewModel {
             let userInterface = self.userInterface else { return completion(false) }
         let newDailyWorkTime = dailyWorkTime.removing(workTime: workTime)
         userInterface.performBatchUpdates { [weak self] in
-            completion(newDailyWorkTime != dailyWorkTime)
+            completion(newDailyWorkTime.workTimes != dailyWorkTime.workTimes)
             guard let self = self else { return }
             newDailyWorkTime.workTimes.isEmpty
                 ? self.dailyWorkTimesArray.removeAll { $0 == dailyWorkTime }

@@ -36,7 +36,7 @@ class WorkTimesListViewModelTests: XCTestCase {
 
 // MARK: - numberOfSections()
 extension WorkTimesListViewModelTests {
-    func testNumberOfSectionsOnInitialization() throws {
+    func testNumberOfSections_beforeFetch() throws {
         //Arrange
         let sut = try self.buildSUT()
         //Act
@@ -45,12 +45,12 @@ extension WorkTimesListViewModelTests {
         XCTAssertEqual(sections, 0)
     }
     
-    func testNumberOfSectionsAfterFetchingWorkTimes() throws {
+    func testNumberOfSections_afterFetchingWorkTimes() throws {
         //Arrange
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         let dailyWorkTime = try self.buildDailyWorkTime()
         let sut = try self.buildSUT()
-        sut.viewDidLoad()
+        sut.viewWillAppear()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
         //Act
         let sections = sut.numberOfSections()
@@ -61,7 +61,7 @@ extension WorkTimesListViewModelTests {
 
 // MARK: - numberOfRows(in section: Int) -> Int
 extension WorkTimesListViewModelTests {
-    func testNumberOfRowsInSectionOnInitialization() throws {
+    func testNumberOfRowsInSection_beforeFetch() throws {
         //Arrange
         let sut = try self.buildSUT()
         //Act
@@ -70,12 +70,12 @@ extension WorkTimesListViewModelTests {
         XCTAssertEqual(rows, 0)
     }
     
-    func testNumberOfRowsInSectionAfterFetchingWorkTimes() throws {
+    func testNumberOfRowsInSection_afterFetchingWorkTimes() throws {
         //Arrange
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         let dailyWorkTime = try self.buildDailyWorkTime()
         let sut = try self.buildSUT()
-        sut.viewDidLoad()
+        sut.viewWillAppear()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
         //Act
         let rows = sut.numberOfRows(in: 0)
@@ -86,7 +86,7 @@ extension WorkTimesListViewModelTests {
  
 // MARK: - viewDidLoad()
 extension WorkTimesListViewModelTests {
-    func testViewDidLoad() throws {
+    func testViewDidLoad_setsUpUserInterface() throws {
         //Arrange
         let sut = try self.buildSUT()
         //Act
@@ -94,80 +94,100 @@ extension WorkTimesListViewModelTests {
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setUpViewParams.count, 1)
     }
-    
-    func testViewDidLoadFetchWorkTimesShowsActivityIndicatorBeforeFetch() throws {
+}
+
+// MARK: - viewWillAppear()
+extension WorkTimesListViewModelTests {
+    func testViewWillAppear_fetchWorkTimes_beforeFetch_showsActivityIndicator() throws {
         //Arrange
         let sut = try self.buildSUT()
         //Act
-        sut.viewDidLoad()
+        sut.viewWillAppear()
         //Assert
         XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
     }
     
-    func testViewDidLoadFetchWorkTimesHidesActivityIndicatorAfterSuccessfulFetch() throws {
+    // MARK: After Successful Fetch
+    func testViewWillAppear_fetchWorkTimes_success_hidesActivityIndicator() throws {
         //Arrange
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         let dailyWorkTime = try self.buildDailyWorkTime()
         let sut = try self.buildSUT()
         //Act
-        sut.viewDidLoad()
+        sut.viewWillAppear()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
-        //Assert
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-    }
-    
-    func testViewDidLoadFetchWorkTimesHidesActivityIndicatorAfterFailedFetch() throws {
-        //Arrange
-        let error = TestError(message: "Error")
-        let sut = try self.buildSUT()
-        //Act
-        sut.viewDidLoad()
-        self.contentProvider.fetchWorkTimesDataParams.last?.completion(.failure(error))
         //Assert
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
     }
 
-    func testViewDidLoadRunsFetchWorkTimesSuccessCallsUpdateViewOnUserInterface() throws {
+    func testViewWillAppear_fetchWorkTimes_success_beforeUILayout_doesNotUpdateUI() throws {
         //Arrange
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         let dailyWorkTime = try self.buildDailyWorkTime()
         let sut = try self.buildSUT()
         //Act
-        sut.viewDidLoad()
+        sut.viewWillAppear()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
         //Assert
+        XCTAssertEqual(self.userInterfaceMock.performBatchUpdatesParams.count, 0)
         XCTAssertEqual(self.userInterfaceMock.reloadDataParams.count, 0)
     }
     
-    func testViewDidLoadRunsFetchWorkTimesSuccessCallsShowTableViewOnUserInterface() throws {
+    func testViewWillAppear_fetchWorkTimes_success_afterUILayout_updatesUI() throws {
         //Arrange
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         let dailyWorkTime = try self.buildDailyWorkTime()
         let sut = try self.buildSUT()
         //Act
-        sut.viewDidLoad()
+        sut.viewWillAppear()
+        sut.viewDidLayoutSubviews()
+        self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
+        //Assert
+        XCTAssertEqual(self.userInterfaceMock.performBatchUpdatesParams.count, 1)
+        XCTAssertEqual(self.userInterfaceMock.reloadDataParams.count, 1)
+    }
+    
+    func testViewWillAppear_fetchWorkTimes_success_showsTableView() throws {
+        //Arrange
+        let matchingFullTime = try self.buildMatchingFullTimeDecoder()
+        let dailyWorkTime = try self.buildDailyWorkTime()
+        let sut = try self.buildSUT()
+        //Act
+        sut.viewWillAppear()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
         //Assert
         XCTAssertEqual(self.userInterfaceMock.showTableViewParams.count, 1)
     }
     
-    func testViewDidLoadRunsFetchWorkTimesFailureCallsShowErrorViewOnUserInterface() throws {
+    // MARK: After Failed Fetch
+    func testViewWillAppear_fetchWorkTimes_failure_hidesActivityIndicator() throws {
         //Arrange
         let error = TestError(message: "Error")
         let sut = try self.buildSUT()
         //Act
-        sut.viewDidLoad()
+        sut.viewWillAppear()
+        self.contentProvider.fetchWorkTimesDataParams.last?.completion(.failure(error))
+        //Assert
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+    }
+    
+    func testViewWillAppear_fetchWorkTimes_failure_showsErrorView() throws {
+        //Arrange
+        let error = TestError(message: "Error")
+        let sut = try self.buildSUT()
+        //Act
+        sut.viewWillAppear()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.failure(error))
         //Assert
         XCTAssertEqual(self.userInterfaceMock.showErrorViewParams.count, 1)
     }
     
-    func testViewWillAppearRunsFetchWorkTimesFinishWithError() throws {
+    func testViewWillAppear_fetchWorkTimes_failure_passesErrorToErrorHandler() throws {
         //Arrange
         let expectedError = TestError(message: "Error")
         let sut = try self.buildSUT()
         //Act
-        sut.viewDidLoad()
+        sut.viewWillAppear()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.failure(expectedError))
         //Assert
         let error = try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? TestError)
@@ -193,7 +213,7 @@ extension WorkTimesListViewModelTests {
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         let dailyWorkTime = try self.buildDailyWorkTime()
         let sut = try self.buildSUT()
-        sut.viewDidLoad()
+        sut.viewWillAppear()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
         //Act
         sut.configure(mockedCell, for: IndexPath(row: 0, section: 0))
@@ -204,7 +224,7 @@ extension WorkTimesListViewModelTests {
 
 // MARK: - viewRequestForHeaderModel(at:header:)
 extension WorkTimesListViewModelTests {
-    func testViewRequestForHeaderModelOnInitialization() throws {
+    func testViewRequestForHeaderModel_beforeFetch() throws {
         //Arrange
         let sut = try self.buildSUT()
         let mockedHeader = WorkTimesTableViewHeaderViewMock()
@@ -214,13 +234,13 @@ extension WorkTimesListViewModelTests {
         XCTAssertNil(headerViewModel)
     }
     
-    func testViewRequestForHeaderModelAfterFetchingWorkTimes() throws {
+    func testViewRequestForHeaderModel_afterFetchingWorkTimes() throws {
         //Arrange
         let mockedHeader = WorkTimesTableViewHeaderViewMock()
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         let dailyWorkTime = try self.buildDailyWorkTime()
         let sut = try self.buildSUT()
-        sut.viewDidLoad()
+        sut.viewWillAppear()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
         //Act
         let headerViewModel = sut.viewRequestForHeaderModel(at: 0, header: mockedHeader)
@@ -229,7 +249,7 @@ extension WorkTimesListViewModelTests {
     }
 }
 
-// MARK: - viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void)
+// MARK: - viewRequestToDelete(at:completion:)
 extension WorkTimesListViewModelTests {
     func testViewRequestToDeleteWorkTime_invalidIndexPath() throws {
         //Arrange
@@ -243,41 +263,82 @@ extension WorkTimesListViewModelTests {
         XCTAssertFalse(try XCTUnwrap(requestCompleted))
     }
     
-    func testViewRequestToDeleteWorkTime_errorResponse() throws {
+    func testViewRequestToDeleteWorkTime_promptsForConfirmation() throws {
+        //Arrange
+        let matchingFullTime = try self.buildMatchingFullTimeDecoder()
+        let dailyWorkTime = try self.buildDailyWorkTime()
+        let sut = try self.buildSUT()
+        sut.viewWillAppear()
+        self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
+        var requestCompleted: Bool?
+        //Act
+        sut.viewRequestToDelete(at: IndexPath(row: 0, section: 0)) { completed in
+            requestCompleted = completed
+        }
+        //Assert
+        XCTAssertNil(requestCompleted)
+        XCTAssertEqual(self.messagePresenterMock.requestDecisionParams.count, 1)
+    }
+    
+    func testViewRequestToDeleteWorkTime_declinedDeletion() throws {
+        //Arrange
+        let matchingFullTime = try self.buildMatchingFullTimeDecoder()
+        let dailyWorkTime = try self.buildDailyWorkTime()
+        let sut = try self.buildSUT()
+        sut.viewWillAppear()
+        self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
+        var requestCompleted: Bool?
+        //Act
+        sut.viewRequestToDelete(at: IndexPath(row: 0, section: 0)) { completed in
+            requestCompleted = completed
+        }
+        try XCTUnwrap(self.messagePresenterMock.requestDecisionParams.last?.cancelButtonConfig.action)()
+        //Assert
+        XCTAssertFalse(try XCTUnwrap(requestCompleted))
+    }
+    
+    func testViewRequestToDeleteWorkTime_confirmedDeletion_requestFailure() throws {
         //Arrange
         let expectedError = TestError(message: "Error")
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         let dailyWorkTime = try self.buildDailyWorkTime()
         let sut = try self.buildSUT()
-        sut.viewDidLoad()
+        sut.viewWillAppear()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
+        var requestCompleted: Bool?
         //Act
         sut.viewRequestToDelete(at: IndexPath(row: 0, section: 0)) { completed in
-            //Assert
-            XCTAssertFalse(completed)
+            requestCompleted = completed
         }
+        try XCTUnwrap(self.messagePresenterMock.requestDecisionParams.last?.confirmButtonConfig.action)()
         self.contentProvider.deleteWorkTimeParams.last?.completion(.failure(expectedError))
+        //Assert
+        XCTAssertFalse(try XCTUnwrap(requestCompleted))
     }
     
-    func testViewRequestToDeleteWorkTime_succeed() throws {
+    func testViewRequestToDeleteWorkTime_confirmedDeletion_requestSuccess() throws {
         //Arrange
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         let dailyWorkTime = try self.buildDailyWorkTime()
         let sut = try self.buildSUT()
-        sut.viewDidLoad()
+        sut.viewWillAppear()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
+        var requestCompleted: Bool?
         //Act
         sut.viewRequestToDelete(at: IndexPath(row: 0, section: 0)) { completed in
-            //Assert
-            XCTAssertTrue(completed)
+            requestCompleted = completed
         }
+        try XCTUnwrap(self.messagePresenterMock.requestDecisionParams.last?.confirmButtonConfig.action)()
         self.contentProvider.deleteWorkTimeParams.last?.completion(.success(Void()))
+        try XCTUnwrap(self.userInterfaceMock.performBatchUpdatesParams.last?.updates)()
+        //Assert
+        XCTAssertTrue(try XCTUnwrap(requestCompleted))
     }
 }
 
-// MARK: - viewRequestForCellType(at index: IndexPath) -> WorkTimesListViewModel.CellType
+// MARK: - viewRequestForCellType(at:)
 extension WorkTimesListViewModelTests {
-    func testViewRequestForCellTypeBeforeViewWillAppear() throws {
+    func testViewRequestForCellType_beforeFetch() throws {
         //Arrange
         let indexPath = IndexPath(row: 0, section: 0)
         let sut = try self.buildSUT()
@@ -287,13 +348,13 @@ extension WorkTimesListViewModelTests {
         XCTAssertEqual(type, .standard)
     }
     
-    func testViewRequestForCellType() throws {
+    func testViewRequestForCellType_afterFetch() throws {
         //Arrange
         let indexPath = IndexPath(row: 0, section: 0)
         let dailyWorkTime = try self.buildDailyWorkTime()
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         let sut = try self.buildSUT()
-        sut.viewDidLoad()
+        sut.viewWillAppear()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
         //Act
         let type = sut.viewRequestForCellType(at: indexPath)
@@ -302,7 +363,7 @@ extension WorkTimesListViewModelTests {
     }
 }
 
-// MARK: - viewRequestForNewWorkTimeView(sourceView: UIView)
+// MARK: - viewRequestForNewWorkTimeView(sourceView:)
 extension WorkTimesListViewModelTests {
     func testViewRequestForNewWorkTimeView() throws {
         //Arrange
@@ -315,7 +376,7 @@ extension WorkTimesListViewModelTests {
     }
 }
  
-// MARK: - viewRequestedForEditEntry(sourceView: UITableViewCell, at indexPath: IndexPath)
+// MARK: - viewRequestedForEditEntry(sourceView:at:)
 extension WorkTimesListViewModelTests {
     func testViewRequestedForEditEntry_withoutDailyWorkTimes() throws {
         //Arrange
@@ -336,7 +397,7 @@ extension WorkTimesListViewModelTests {
         let dailyWorkTime = try self.buildDailyWorkTime()
         let workTime = try XCTUnwrap(dailyWorkTime.workTimes[safeIndex: 0])
         let sut = try self.buildSUT()
-        sut.viewDidLoad()
+        sut.viewWillAppear()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
         //Act
         sut.viewRequestedForEditEntry(sourceView: cell, at: indexPath)
@@ -365,7 +426,7 @@ extension WorkTimesListViewModelTests {
         let duplicatedWorkTime = dailyWorkTime.workTimes[safeIndex: 1]
         let firstWorkTime = dailyWorkTime.workTimes[safeIndex: 0]
         let sut = try self.buildSUT()
-        sut.viewDidLoad()
+        sut.viewWillAppear()
         self.contentProvider.fetchWorkTimesDataParams.last?.completion(.success(([dailyWorkTime], matchingFullTime)))
         //Act
         sut.viewRequestToDuplicate(sourceView: cell, at: indexPath)
@@ -391,9 +452,9 @@ extension WorkTimesListViewModelTests {
     }
 }
 
-// MARK: - viewRequestToRefresh(completion: @escaping () -> Void)
+// MARK: - viewRequestToRefresh(completion:)
 extension WorkTimesListViewModelTests {
-    func testViewRequestToRefreshCallsFetch() throws {
+    func testViewRequestToRefresh_callsFetch() throws {
         //Arrange
         let sut = try self.buildSUT()
         var completionCalledCount = 0
@@ -406,7 +467,7 @@ extension WorkTimesListViewModelTests {
         XCTAssertEqual(completionCalledCount, 0)
     }
     
-    func testViewRequestToRefreshCallsCompletionOnFailedRequest() throws {
+    func testViewRequestToRefresh_failedRequest_callsCompletion() throws {
         //Arrange
         let sut = try self.buildSUT()
         var completionCalledCount = 0
@@ -419,7 +480,7 @@ extension WorkTimesListViewModelTests {
         XCTAssertEqual(completionCalledCount, 1)
     }
     
-    func testViewRequestToRefreshCallsCompletionOnSuccessfulRequest() throws {
+    func testViewRequestToRefresh_successfulRequest_callsCompletion() throws {
         //Arrange
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         let dailyWorkTime = try self.buildDailyWorkTime()
