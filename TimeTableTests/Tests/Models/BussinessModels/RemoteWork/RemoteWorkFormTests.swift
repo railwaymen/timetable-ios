@@ -13,7 +13,7 @@ class RemoteWorkFormTests: XCTestCase {}
 
 // MARK: - func convertToEncoder()
 extension RemoteWorkFormTests {
-    func testConvertToEncoder_throwsError_equalDates() throws {
+    func testConvertToEncoder_equalDates_throwsError() throws {
         //Arrange
         let date = try self.buildDate(hour: 9, minute: 0)
         let sut = RemoteWorkForm(startsAt: date, endsAt: date)
@@ -24,7 +24,7 @@ extension RemoteWorkFormTests {
         }
     }
     
-    func testConvertToEncoder_throwsError_startsAtGratherThanEndsAt() throws {
+    func testConvertToEncoder_startsAtGreaterThanEndsAt_throwsError() throws {
         //Arrange
         let startsAt = try self.buildDate(hour: 9, minute: 0)
         let endsAt = try self.buildDate(hour: 8, minute: 30)
