@@ -47,6 +47,11 @@ class RegisterRemoteWorkCoordinator: NavigationCoordinator {
         super.start()
         self.runMainFlow()
     }
+    
+    func finish(response: [RemoteWork]) {
+        self.customFinishCompletion?(response)
+        super.finish()
+    }
 }
 
 // MARK: - RegisterRemoteWorkCoordinatorType
@@ -58,7 +63,9 @@ extension RegisterRemoteWorkCoordinator: RegisterRemoteWorkCoordinatorType {
     }
     
     func registerRemoteWorkDidFinish(response: [RemoteWork]) {
-        
+        self.navigationController.dismiss(animated: true) { [weak self] in
+            self?.finish(response: response)
+        }
     }
 }
 
