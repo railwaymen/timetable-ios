@@ -125,7 +125,7 @@ extension RegisterRemoteWorkViewModel {
     }
     
     private func updateDateInput(with date: Date, action: ((Date, String) -> Void)?) {
-        let dateString = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none)
+        let dateString = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
         action?(date, dateString)
     }
     
