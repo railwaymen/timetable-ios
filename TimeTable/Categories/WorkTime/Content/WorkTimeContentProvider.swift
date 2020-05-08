@@ -184,7 +184,7 @@ extension WorkTimeContentProvider {
         case .endsAtIsNil:
             return UIError.cannotBeEmpty(.endsAtTextField)
         case .timeRangeIsIncorrect:
-            return UIError.timeGreaterThan
+            return UIError.workTimeGreaterThan
         case .internalError:
             self.errorHandler.stopInDebug("TaskForm internal error")
             return UIError.genericError

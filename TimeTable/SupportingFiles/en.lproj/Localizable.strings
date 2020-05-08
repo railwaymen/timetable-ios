@@ -108,6 +108,8 @@
 "registerremotework_note" = "Note";
 "registerremotework_save_btn" = "Save";
 
+"registerremotework_error_greater_than" = "Time range is invalid. Start time is greater or equal to end time.";
+
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Field cannot be empty.";
 "error_invalid_format" = "Content has invalid format.";

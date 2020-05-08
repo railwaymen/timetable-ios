@@ -108,6 +108,8 @@
 "registerremotework_note" = "Notatka";
 "registerremotework_save_btn" = "Zapisz";
 
+"registerremotework_error_greater_than" = "Przedział czasu jest nieprawidłowy. Czas rozpoczęcia jest większy lub równy czasowi zakończenia.";
+
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Pole nie może być puste.";
 "error_invalid_format" = "Wartość ma niepoprawny format.";

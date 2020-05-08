@@ -73,6 +73,7 @@ extension RegisterRemoteWorkViewController: RegisterRemoteWorkViewModelOutput {
         self.setUpStartDayPickerView()
         self.setUpEndDayPickerView()
         self.setUpNoteTextView()
+        self.setUpSaveButton()
         self.setUpActivityIndicator()
     }
     
@@ -111,6 +112,18 @@ extension RegisterRemoteWorkViewController: RegisterRemoteWorkViewModelOutput {
     
     func dismissKeyboard() {
         self.view.endEditing(true)
+    }
+    
+    func setSaveButton(isEnabled: Bool) {
+        self.saveButton.setWithAnimation(isEnabled: isEnabled)
+    }
+    
+    func setStartsAt(isHighlighted: Bool) {
+        self.set(self.startDayTextField, isHighlighted: isHighlighted)
+    }
+    
+    func setEndsAt(isHighlighted: Bool) {
+        self.set(self.endDayTextField, isHighlighted: isHighlighted)
     }
 }
 
@@ -151,6 +164,11 @@ extension RegisterRemoteWorkViewController {
         self.noteTextView.setTextFieldAppearance()
     }
     
+    private func setUpSaveButton() {
+        self.saveButton.setBackgroundColor(.enabledButton, forState: .normal)
+        self.saveButton.setBackgroundColor(.disabledButton, forState: .disabled)
+    }
+    
     private func setUpActivityIndicator() {
         self.activityIndicator.style = .large
         self.activityIndicator.hidesWhenStopped = true
@@ -162,5 +180,11 @@ extension RegisterRemoteWorkViewController {
         picker?.datePickerMode = .dateAndTime
         picker?.minuteInterval = 15
         picker?.addTarget(self, action: selector, for: .valueChanged)
+    }
+    
+    private func set(_ view: UIView, isHighlighted: Bool) {
+        view.set(
+            borderColor: .textFieldBorderColor(isHighlighted: isHighlighted),
+            animatingWithDuration: 0.3)
     }
 }

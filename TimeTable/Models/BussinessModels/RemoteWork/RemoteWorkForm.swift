@@ -13,7 +13,8 @@ protocol RemoteWorkFormType {
     var endsAt: Date { get set }
     var note: String { get set }
     
-    func convertToEncoder() -> RemoteWorkRequest
+    func validationErrors() -> [UIError]
+    func convertToEncoder() throws -> RemoteWorkRequest
 }
 
 struct RemoteWorkForm: RemoteWorkFormType {
@@ -33,7 +34,16 @@ struct RemoteWorkForm: RemoteWorkFormType {
     }
     
     // MARK: - RemoteWorkFormType
-    func convertToEncoder() -> RemoteWorkRequest {
+    func validationErrors() -> [UIError] {
+        guard self.startsAt >= self.endsAt else { return [] }
+        return [.remoteWorkTimeGreaterThan]
+    }
+    
+    func convertToEncoder() throws -> RemoteWorkRequest {
+        let errors = self.validationErrors()
+        if let first = errors.first {
+            throw first
+        }
         return RemoteWorkRequest(note: self.note, startsAt: self.startsAt, endsAt: self.endsAt)
     }
 }

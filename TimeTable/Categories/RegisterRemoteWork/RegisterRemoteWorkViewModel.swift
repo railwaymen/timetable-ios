@@ -18,6 +18,9 @@ protocol RegisterRemoteWorkViewModelOutput: class {
     func updateEndDate(with date: Date, dateString: String)
     func setBottomContentInset(_ height: CGFloat)
     func dismissKeyboard()
+    func setSaveButton(isEnabled: Bool)
+    func setStartsAt(isHighlighted: Bool)
+    func setEndsAt(isHighlighted: Bool)
 }
 
 protocol RegisterRemoteWorkViewModelType: class {
@@ -35,7 +38,12 @@ class RegisterRemoteWorkViewModel {
     private weak var coordinator: RegisterRemoteWorkCoordinatorType?
     private let apiClient: ApiClientRemoteWorkType
     private let errorHandler: ErrorHandlerType
-    private var form: RemoteWorkFormType
+    
+    private var form: RemoteWorkFormType {
+        didSet {
+            self.updateUI()
+        }
+    }
     
     private var decisionState: DecistionState? {
         didSet {
@@ -124,6 +132,7 @@ extension RegisterRemoteWorkViewModel {
         self.userInterface?.setMinimumDateForEndDate(minDate: date)
         self.userInterface?.setMinimumDateForStartDate(minDate: date)
         self.userInterface?.setNote(text: "")
+        self.updateUI()
     }
     
     private func updateDateInput(with date: Date, action: ((Date, String) -> Void)?) {
@@ -132,19 +141,34 @@ extension RegisterRemoteWorkViewModel {
     }
     
     private func postVacation() {
-        self.decisionState = .request
-        let parameters = self.form.convertToEncoder()
-        _ = apiClient.registerRemoteWork(parameters: parameters) { [weak self] result in
-            switch result {
-            case let .success(response):
-                self?.decisionState = .done(response)
-            case let .failure(error):
-                self?.decisionState = .error(error)
+        do {
+            let parameters = try self.form.convertToEncoder()
+            self.decisionState = .request
+            _ = apiClient.registerRemoteWork(parameters: parameters) { [weak self] result in
+                switch result {
+                case let .success(response):
+                    self?.decisionState = .done(response)
+                case let .failure(error):
+                    self?.decisionState = .error(error)
+                }
             }
+        } catch {
+            self.updateUI()
         }
     }
     
     private func handleResponse(error: Error) {
         self.errorHandler.throwing(error: error)
+    }
+    
+    private func updateUI() {
+        let errors = self.form.validationErrors()
+        self.userInterface?.setSaveButton(isEnabled: errors.isEmpty)
+        self.updateUI(with: errors)
+    }
+    
+    private func updateUI(with errors: [UIError]) {
+        self.userInterface?.setStartsAt(isHighlighted: errors.contains(.remoteWorkTimeGreaterThan))
+        self.userInterface?.setEndsAt(isHighlighted: errors.contains(.remoteWorkTimeGreaterThan))
     }
 }

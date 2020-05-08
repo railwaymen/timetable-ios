@@ -35,7 +35,7 @@ extension UIErrorTests {
     
     func testLocalizedDescriptionIfTimeGreaterThan() {
         //Arrange
-        let sut = UIError.timeGreaterThan
+        let sut = UIError.workTimeGreaterThan
         let expectedResult = "worktimeform_error_greater_than".localized
         //Act
         let localizedString = sut.localizedDescription

@@ -23,9 +23,10 @@ enum UIElement {
 enum UIError: Error {
     case cannotBeEmpty(UIElement)
     case invalidFormat(UIElement)
-    case timeGreaterThan
+    case workTimeGreaterThan
     case genericError
     case loginCredentialsInvalid
+    case remoteWorkTimeGreaterThan
     
     var localizedDescription: String {
         switch self {
@@ -33,12 +34,14 @@ enum UIError: Error {
             return R.string.localizable.error_cannot_be_empty()
         case .invalidFormat:
             return R.string.localizable.error_invalid_format()
-        case .timeGreaterThan:
+        case .workTimeGreaterThan:
             return R.string.localizable.worktimeform_error_greater_than()
         case .genericError:
             return R.string.localizable.error_something_went_wrong()
         case .loginCredentialsInvalid:
             return R.string.localizable.credential_error_credentials_invalid()
+        case .remoteWorkTimeGreaterThan:
+            return R.string.localizable.registerremotework_error_greater_than()
         }
     }
 }

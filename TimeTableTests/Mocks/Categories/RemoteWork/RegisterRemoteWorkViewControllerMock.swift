@@ -55,6 +55,21 @@ class RegisterRemoteWorkViewControllerMock: UIViewController {
     private(set) var dismissKeyboardParams: [DismissKeyboardParams] = []
     struct DismissKeyboardParams {}
     
+    private(set) var setSaveButtonParams: [SetSaveButtonParams] = []
+    struct SetSaveButtonParams {
+        let isEnabled: Bool
+    }
+    
+    private(set) var setStartsAtParams: [SetStartsAtParams] = []
+    struct SetStartsAtParams {
+        let isHighlighted: Bool
+    }
+    
+    private(set) var setEndsAtParams: [SetEndsAtParams] = []
+    struct SetEndsAtParams {
+        let isHighlighted: Bool
+    }
+    
     // MARK: - RegisterRemoteWorkViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
@@ -98,6 +113,18 @@ extension RegisterRemoteWorkViewControllerMock: RegisterRemoteWorkViewModelOutpu
     
     func dismissKeyboard() {
         self.dismissKeyboardParams.append(DismissKeyboardParams())
+    }
+    
+    func setSaveButton(isEnabled: Bool) {
+        self.setSaveButtonParams.append(SetSaveButtonParams(isEnabled: isEnabled))
+    }
+    
+    func setStartsAt(isHighlighted: Bool) {
+        self.setStartsAtParams.append(SetStartsAtParams(isHighlighted: isHighlighted))
+    }
+    
+    func setEndsAt(isHighlighted: Bool) {
+        self.setEndsAtParams.append(SetEndsAtParams(isHighlighted: isHighlighted))
     }
 }
 

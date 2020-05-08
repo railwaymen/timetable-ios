@@ -815,7 +815,7 @@ extension WorkTimeContentProviderTests {
         //Act
         let errorsArray = sut.getValidationErrors(forTaskForm: taskForm)
         //Assert
-        XCTAssertEqual(errorsArray, [.timeGreaterThan])
+        XCTAssertEqual(errorsArray, [.workTimeGreaterThan])
     }
     
     func testGetValidationErrors_internalError_returnsProperError() throws {
@@ -853,7 +853,7 @@ extension WorkTimeContentProviderTests {
             .cannotBeEmpty(.dayTextField),
             .cannotBeEmpty(.startsAtTextField),
             .cannotBeEmpty(.endsAtTextField),
-            .timeGreaterThan,
+            .workTimeGreaterThan,
             .genericError
         ])
     }
