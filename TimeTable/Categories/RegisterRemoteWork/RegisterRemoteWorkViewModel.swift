@@ -117,8 +117,10 @@ extension RegisterRemoteWorkViewModel: RegisterRemoteWorkViewModelType {
 extension RegisterRemoteWorkViewModel {
     private func updateViewForPreparingState() {
         let date = Date().roundedToQuarter()
-        self.updateDateInput(with: date, action: self.userInterface?.updateStartDate)
-        self.updateDateInput(with: date, action: self.userInterface?.updateEndDate)
+        self.form.startsAt = date
+        self.form.endsAt = date.addingTimeInterval(.hour)
+        self.updateDateInput(with: self.form.startsAt, action: self.userInterface?.updateStartDate)
+        self.updateDateInput(with: self.form.endsAt, action: self.userInterface?.updateEndDate)
         self.userInterface?.setMinimumDateForEndDate(minDate: date)
         self.userInterface?.setMinimumDateForStartDate(minDate: date)
         self.userInterface?.setNote(text: "")
