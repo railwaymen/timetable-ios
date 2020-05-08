@@ -15,19 +15,12 @@ class RemoteWorkFormTests: XCTestCase {}
 extension RemoteWorkFormTests {
     func testConverToEncoder() {
         //Arrange
-        let sut = try self.buildSUT()
+        let sut = RemoteWorkForm()
         //Act
         let encoder = sut.convertToEncoder()
         //Assert
-        XCTAssert(encoder.startDate == sut.startDate)
-        XCTAssert(encoder.endDate == sut.endDate)
+        XCTAssert(encoder.startsAt == sut.startsAt)
+        XCTAssert(encoder.endsAt == sut.endsAt)
         XCTAssert(encoder.note == sut.note)
-    }
-}
-
-// MARK: - Private
-extension RemoteWorkFormTests {
-    private func buildSUT() -> RemoteWorkForm {
-        return RemoteWorkRequest(note: "note", startsAt: Date(), endsAt: Date())
     }
 }

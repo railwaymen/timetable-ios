@@ -10,8 +10,18 @@ import Foundation
 
 extension Date {
     func roundedToFiveMinutes() -> Date {
-        let fiveMinutesInterval = 5 * TimeInterval.minute
-        let timestamp = round(self.timeIntervalSince1970 / fiveMinutesInterval) * fiveMinutesInterval
+        return self.roundDate(with: 5 * TimeInterval.minute)
+    }
+    
+    func roundedToQuarter() -> Date {
+        return self.roundDate(with: 15 * TimeInterval.minute)
+    }
+}
+
+// MARK: - Private
+extension Date {
+    private func roundDate(with inteval: TimeInterval) -> Date {
+        let timestamp = round(self.timeIntervalSince1970 / inteval) * inteval
         return Date(timeIntervalSince1970: timestamp)
     }
 }

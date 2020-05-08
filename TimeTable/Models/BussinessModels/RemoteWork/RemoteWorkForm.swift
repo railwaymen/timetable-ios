@@ -9,16 +9,16 @@
 import Foundation
 
 protocol RemoteWorkFormType {
-    var startDate: Date { get set }
-    var endDate: Date { get set }
+    var startsAt: Date { get set }
+    var endsAt: Date { get set }
     var note: String { get set }
     
     func convertToEncoder() -> RemoteWorkRequest
 }
 
 struct RemoteWorkForm: RemoteWorkFormType {
-    var startDate: Date
-    var endDate: Date
+    var startsAt: Date
+    var endsAt: Date
     var note: String
     
     // MARK: - Initialization
@@ -27,13 +27,13 @@ struct RemoteWorkForm: RemoteWorkFormType {
         endDate: Date = Date(),
         note: String = ""
     ) {
-        self.startDate = startDate
-        self.endDate = endDate
+        self.startsAt = startDate
+        self.endsAt = endDate
         self.note = note
     }
     
     // MARK: - RemoteWorkFormType
     func convertToEncoder() -> RemoteWorkRequest {
-        return RemoteWorkRequest(note: self.note, startsAt: self.startDate, endsAt: self.endDate)
+        return RemoteWorkRequest(note: self.note, startsAt: self.startsAt, endsAt: self.endsAt)
     }
 }
