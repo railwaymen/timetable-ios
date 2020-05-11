@@ -1,0 +1,11 @@
+{
+    "base": [],
+    "description": [],
+    "start_date": [],
+    "end_date": [
+        {
+            "error": "blank"
+        }
+    ],
+    "vacation_type": []
+}

@@ -1,0 +1,11 @@
+{
+    "base": [
+        {
+          "error": "work_time_exists"
+        }
+    ],
+    "description": [],
+    "start_date": [],
+    "end_date": [],
+    "vacation_type": []
+}

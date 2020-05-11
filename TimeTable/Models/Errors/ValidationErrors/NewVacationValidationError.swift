@@ -19,8 +19,8 @@ struct NewVacationValidationError: Error, ValidationErrorType {
         case base
         case description
         case startDate = "start_date"
-        case endDate
-        case vacationType
+        case endDate = "end_date"
+        case vacationType = "vacation_type"
     }
     
     var isEmpty: Bool {

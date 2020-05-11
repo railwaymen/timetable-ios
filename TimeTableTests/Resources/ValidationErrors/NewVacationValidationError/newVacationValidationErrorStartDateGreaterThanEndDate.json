@@ -1,0 +1,11 @@
+{
+    "base": [],
+    "description": [],
+    "start_date": [
+        {
+            "error": "greater_than_end_date"
+        }
+    ],
+    "end_date": [],
+    "vacation_type": []
+}
