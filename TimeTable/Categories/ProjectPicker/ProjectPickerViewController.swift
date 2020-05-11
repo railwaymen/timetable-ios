@@ -25,6 +25,16 @@ class ProjectPickerViewController: UIViewController {
         super.loadView()
         self.viewModel.loadView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel.viewWillAppear()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.viewModel.viewDidDisappear()
+    }
 
     // MARK: - Actions
     @objc private func closeButtonTapped() {
@@ -71,7 +81,7 @@ extension ProjectPickerViewController: ProjectPickerViewModelOutput {
         self.tableView.reloadData()
     }
     
-    func setBottomContentInsets(_ inset: CGFloat) {
+    func setBottomContentInset(_ inset: CGFloat) {
         let calculatedInset = max(inset - self.tableView.safeAreaInsets.bottom, 0)
         self.tableView.contentInset.bottom = calculatedInset
         self.tableView.verticalScrollIndicatorInsets.bottom = calculatedInset

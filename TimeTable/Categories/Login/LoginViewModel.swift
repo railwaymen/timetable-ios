@@ -23,6 +23,8 @@ protocol LoginViewModelOutput: class {
 
 protocol LoginViewModelType: class {
     func viewDidLoad()
+    func viewWillAppear()
+    func viewDidDisappear()
     func loginInputValueDidChange(value: String?)
     func loginTextFieldDidRequestForReturn() -> Bool
     func passwordInputValueDidChange(value: String?)
@@ -33,12 +35,12 @@ protocol LoginViewModelType: class {
     func viewRequestedToChangeServerAddress()
 }
 
-class LoginViewModel {
+class LoginViewModel: KeyboardManagerObserverable {
     private weak var userInterface: LoginViewModelOutput?
     private weak var coordinator: LoginCoordinatorDelegate?
     private let contentProvider: LoginContentProviderType
     private let errorHandler: ErrorHandlerType
-    private let notificationCenter: NotificationCenterType
+    private let keyboardManager: KeyboardManagerable?
     
     private var loginForm: LoginFormType {
         didSet {
@@ -52,32 +54,15 @@ class LoginViewModel {
         coordinator: LoginCoordinatorDelegate,
         contentProvider: LoginContentProviderType,
         errorHandler: ErrorHandlerType,
-        notificationCenter: NotificationCenterType,
-        loginForm: LoginFormType = LoginForm()
+        loginForm: LoginFormType = LoginForm(),
+        keyboardManager: KeyboardManagerable
     ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
         self.contentProvider = contentProvider
         self.errorHandler = errorHandler
-        self.notificationCenter = notificationCenter
         self.loginForm = loginForm
-        
-        self.setUpNotifications()
-    }
-    
-    deinit {
-        self.notificationCenter.removeObserver(self)
-    }
-    
-    // MARK: - Notifications
-    @objc func changeKeyboardFrame(notification: NSNotification) {
-        let userInfo = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
-        guard let keyboardHeight = userInfo?.cgRectValue.size.height else { return }
-        self.userInterface?.setBottomContentInset(keyboardHeight)
-    }
-    
-    @objc func keyboardWillHide() {
-        self.userInterface?.setBottomContentInset(0)
+        self.keyboardManager = keyboardManager
     }
 }
 
@@ -87,6 +72,16 @@ extension LoginViewModel: LoginViewModelType {
         self.userInterface?.setUpView(checkBoxIsActive: self.loginForm.shouldRememberUser)
         self.userInterface?.updateLoginFields(email: self.loginForm.email, password: self.loginForm.password)
         self.updateLogInButton()
+    }
+    
+    func viewWillAppear() {
+        self.keyboardManager?.setKeyboardHeightChangeHandler(for: self) { [weak userInterface] keyboardHeight in
+            userInterface?.setBottomContentInset(keyboardHeight)
+        }
+    }
+    
+    func viewDidDisappear() {
+        self.keyboardManager?.removeHandler(for: self)
     }
     
     func loginInputValueDidChange(value: String?) {
@@ -141,24 +136,6 @@ extension LoginViewModel: LoginViewModelType {
 
 // MARK: - Private
 extension LoginViewModel {
-    private func setUpNotifications() {
-        self.notificationCenter.addObserver(
-            self,
-            selector: #selector(self.keyboardWillHide),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil)
-        self.notificationCenter.addObserver(
-            self,
-            selector: #selector(self.changeKeyboardFrame),
-            name: UIResponder.keyboardDidShowNotification,
-            object: nil)
-        self.notificationCenter.addObserver(
-            self,
-            selector: #selector(self.changeKeyboardFrame),
-            name: UIResponder.keyboardWillChangeFrameNotification,
-            object: nil)
-    }
-    
     private func updateLogInButton() {
         let isLoginButtonEnabled = self.loginForm.isValid
         self.userInterface?.loginButtonEnabledState(isLoginButtonEnabled)

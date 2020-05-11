@@ -14,13 +14,13 @@ class ProjectPickerViewModelTests: XCTestCase {
     
     private var userInterfaceMock: ProjectPickerViewControllerMock!
     private var coordinatorMock: ProjectPickerCoordinatorMock!
-    private var dependencyContainerMock: DependencyContainerMock!
+    private var keyboardManagerMock: KeyboardManagerMock!
     
     override func setUp() {
         super.setUp()
         self.userInterfaceMock = ProjectPickerViewControllerMock()
         self.coordinatorMock = ProjectPickerCoordinatorMock()
-        self.dependencyContainerMock = DependencyContainerMock()
+        self.keyboardManagerMock = KeyboardManagerMock()
     }
 }
 
@@ -199,7 +199,7 @@ extension ProjectPickerViewModelTests {
         return ProjectPickerViewModel(
             userInterface: self.userInterfaceMock,
             coordinator: self.coordinatorMock,
-            notificationCenter: self.dependencyContainerMock.notificationCenter,
+            keyboardManager: self.keyboardManagerMock,
             projects: projects)
     }
 }

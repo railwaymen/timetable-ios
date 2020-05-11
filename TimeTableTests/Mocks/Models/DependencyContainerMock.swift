@@ -85,7 +85,7 @@ class DependencyContainerMock: DependencyContainerType {
     
     var dateFactoryMock = DateFactoryMock()
     var dateFactory: DateFactoryType {
-        return self.dateFactoryMock
+        self.dateFactoryMock
     }
     
     let environmentReader: EnvironmentReaderType = EnvironmentReader()
@@ -98,6 +98,11 @@ class DependencyContainerMock: DependencyContainerType {
     var viewControllerBuilderMock = ViewControllerBuilderMock()
     var viewControllerBuilder: ViewControllerBuilderType {
         self.viewControllerBuilderMock
+    }
+    
+    var keyboardManagerMock = KeyboardManagerMock()
+    var keyboardManager: KeyboardManagerable {
+        self.keyboardManagerMock
     }
     
     private(set) var parentCoordinatorSetCalled: Bool = false

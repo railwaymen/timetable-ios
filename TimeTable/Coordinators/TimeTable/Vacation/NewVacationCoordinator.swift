@@ -77,11 +77,11 @@ extension NewVacationCoordinator {
             let controller = try self.dependencyContainer.viewControllerBuilder.newVacation()
             let viewModel = NewVacationViewModel(
                 userInterface: controller,
+                coordinator: self,
                 apiClient: apiClient,
                 errorHandler: self.dependencyContainer.errorHandler,
-                notificationCenter: self.dependencyContainer.notificationCenter,
-                availableVacationDays: availableVacationDays,
-                coordinator: self)
+                keyboardManager: self.dependencyContainer.keyboardManager,
+                availableVacationDays: availableVacationDays)
             controller.configure(viewModel: viewModel)
             self.navigationController.setViewControllers([controller], animated: false)
             self.parentViewController?.present(self.navigationController, animated: true)

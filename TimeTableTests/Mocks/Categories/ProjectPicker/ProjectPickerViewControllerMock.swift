@@ -37,7 +37,7 @@ extension ProjectPickerViewControllerMock: ProjectPickerViewModelOutput {
         self.reloadDataParams.append(ReloadDataParams())
     }
     
-    func setBottomContentInsets(_ inset: CGFloat) {
+    func setBottomContentInset(_ inset: CGFloat) {
         self.setBottomContentInsetsParams.append(SetBottomContentInsetsParams(inset: inset))
     }
 }

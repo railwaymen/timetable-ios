@@ -71,7 +71,7 @@ extension ProjectPickerCoordinator {
         let viewModel = ProjectPickerViewModel(
             userInterface: controller,
             coordinator: self,
-            notificationCenter: self.dependencyContainer.notificationCenter,
+            keyboardManager: self.dependencyContainer.keyboardManager,
             projects: self.projects)
         controller.configure(viewModel: viewModel)
         self.navigationController.setViewControllers([controller], animated: false)

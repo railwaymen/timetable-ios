@@ -215,6 +215,7 @@
 		8AA3E5C9241648FB00322AEF /* RestlerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3E5C8241648FB00322AEF /* RestlerMock.swift */; };
 		8AA5C5DD235F34340083E121 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA5C5DC235F34340083E121 /* Colors.xcassets */; };
 		8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift */; };
+		8AADE06A2465B12F001B0BF9 /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AADE0692465B12F001B0BF9 /* KeyboardManager.swift */; };
 		8AADE6D42451A4790085FCA7 /* ProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AADE6D32451A4790085FCA7 /* ProfileHeaderView.xib */; };
 		8AADE6D62451A4850085FCA7 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AADE6D52451A4850085FCA7 /* ProfileHeaderView.swift */; };
 		8AADE6D82451D18F0085FCA7 /* ProfileContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AADE6D72451D18F0085FCA7 /* ProfileContentProvider.swift */; };
@@ -244,6 +245,8 @@
 		8AE55D1F23FD86A200F94242 /* TaskFormMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE55D1E23FD86A200F94242 /* TaskFormMock.swift */; };
 		8AE55D2123FD92D200F94242 /* DateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE55D2023FD92D200F94242 /* DateFactory.swift */; };
 		8AE55D2323FD933700F94242 /* DateFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE55D2223FD933700F94242 /* DateFactoryMock.swift */; };
+		8AE866AC246918F9001BD475 /* KeyboardManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE866AB246918F9001BD475 /* KeyboardManagerMock.swift */; };
+		8AE866AE246927C9001BD475 /* KeyboardManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE866AD246927C9001BD475 /* KeyboardManagerTests.swift */; };
 		8AF3073823688C5A00832FDD /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3073723688C5A00832FDD /* DependencyContainer.swift */; };
 		8AF5696D23D71C0900A1D001 /* SimpleProjectRecordDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5696C23D71C0900A1D001 /* SimpleProjectRecordDecoderFactory.swift */; };
 		8AF5696F23D71EA000A1D001 /* JSONFactorable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5696E23D71EA000A1D001 /* JSONFactorable+Extension.swift */; };
@@ -794,6 +797,7 @@
 		8AA3E5C8241648FB00322AEF /* RestlerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestlerMock.swift; sourceTree = "<group>"; };
 		8AA5C5DC235F34340083E121 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellModelTests.swift; sourceTree = "<group>"; };
+		8AADE0692465B12F001B0BF9 /* KeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManager.swift; sourceTree = "<group>"; };
 		8AADE6D32451A4790085FCA7 /* ProfileHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileHeaderView.xib; sourceTree = "<group>"; };
 		8AADE6D52451A4850085FCA7 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		8AADE6D72451D18F0085FCA7 /* ProfileContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileContentProvider.swift; sourceTree = "<group>"; };
@@ -826,6 +830,8 @@
 		8AE55D1E23FD86A200F94242 /* TaskFormMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormMock.swift; sourceTree = "<group>"; };
 		8AE55D2023FD92D200F94242 /* DateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFactory.swift; sourceTree = "<group>"; };
 		8AE55D2223FD933700F94242 /* DateFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFactoryMock.swift; sourceTree = "<group>"; };
+		8AE866AB246918F9001BD475 /* KeyboardManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManagerMock.swift; sourceTree = "<group>"; };
+		8AE866AD246927C9001BD475 /* KeyboardManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManagerTests.swift; sourceTree = "<group>"; };
 		8AF3073723688C5A00832FDD /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		8AF5696C23D71C0900A1D001 /* SimpleProjectRecordDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleProjectRecordDecoderFactory.swift; sourceTree = "<group>"; };
 		8AF5696E23D71EA000A1D001 /* JSONFactorable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONFactorable+Extension.swift"; sourceTree = "<group>"; };
@@ -1413,6 +1419,7 @@
 				8A09DCBB23673EED003FC2A6 /* DispatchQueueManagerMock.swift */,
 				C134298421A6C79600F4EA42 /* ErrorHandlerMock.swift */,
 				C134297221A6BE3800F4EA42 /* JSONSerializationMock.swift */,
+				8AE866AB246918F9001BD475 /* KeyboardManagerMock.swift */,
 				C134297A21A6C27700F4EA42 /* KeychainAccessMock.swift */,
 				8ADBB8D224373DBA009CA6FE /* KeychainBuilderMock.swift */,
 				C175B56D227CAB01006D9944 /* MessagePresenterMock.swift */,
@@ -1952,6 +1959,7 @@
 				8A5D48BD2369E18C0082C13D /* DispatchGroupFactory.swift */,
 				8A09DCB723673E58003FC2A6 /* DispatchQueueManager.swift */,
 				8A8E8432242CE82800003AB1 /* EnvironmentReader.swift */,
+				8AADE0692465B12F001B0BF9 /* KeyboardManager.swift */,
 				8A2FB101242E32B500DDBCB0 /* LabelTextParameters.swift */,
 				C175B56B227CAACA006D9944 /* MessagePresenter.swift */,
 				8A5EF31B23FE808800AE4309 /* ReusableCellType.swift */,
@@ -1969,6 +1977,7 @@
 		C1249C782181AC35005DB2A5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8AE866AD246927C9001BD475 /* KeyboardManagerTests.swift */,
 				C1AFFFD721A2ACB100A7A632 /* AccessService */,
 				C1531F052191CD2800602A0C /* ApiClient */,
 				C12CA57921A58FD20082FEB7 /* BussinessModels */,
@@ -3480,6 +3489,7 @@
 				C153AC4E2182EF82007A35BB /* UIElementLocalizedType.swift in Sources */,
 				C125C4D72187086C00FBA0DD /* CheckBoxButton.swift in Sources */,
 				8AFFE5CC24334A56001D9E89 /* RestlerFactory.swift in Sources */,
+				8AADE06A2465B12F001B0BF9 /* KeyboardManager.swift in Sources */,
 				C1F7C2EB2191858800F4FAF0 /* ApiClient.swift in Sources */,
 				C153AC6621831499007A35BB /* NotificationCenter+Extenison.swift in Sources */,
 				8A31A85E238E902B008DCC08 /* Date+Extension.swift in Sources */,
@@ -3644,6 +3654,7 @@
 			files = (
 				C12BD99921E48D5700A6EAF0 /* ProjectsViewModelTests.swift in Sources */,
 				8A6B6D81237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift in Sources */,
+				8AE866AC246918F9001BD475 /* KeyboardManagerMock.swift in Sources */,
 				8A065B53237AB9780072A21E /* MatchingFullTimeJSONResource.swift in Sources */,
 				C10FD88C21F1FB2800A233C5 /* ProfileViewModelTests.swift in Sources */,
 				8A79A3002424E3B80048B44B /* ProjectTagsDecoderTests.swift in Sources */,
@@ -3799,6 +3810,7 @@
 				8AF5697B23D756CA00A1D001 /* WorkTimeDecoderFactory.swift in Sources */,
 				8A065B4F237AB8F50072A21E /* WorkTimesJSONResource.swift in Sources */,
 				C12BD99F21E48F9000A6EAF0 /* ApiClientMock.swift in Sources */,
+				8AE866AE246927C9001BD475 /* KeyboardManagerTests.swift in Sources */,
 				8AF5697123D7222800A1D001 /* ProjectRecordDecoderFactory.swift in Sources */,
 				C1EF3A0721930409000E3511 /* NSRegularExpresionExtensionTests.swift in Sources */,
 				8A065B59237ABC8A0072A21E /* ProjectRecordJSONResource.swift in Sources */,

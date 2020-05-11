@@ -19,18 +19,19 @@ protocol ServerConfigurationViewModelOutput: class {
 protocol ServerConfigurationViewModelType: class {
     func viewDidLoad()
     func viewWillAppear()
+    func viewDidDisappear()
     func continueButtonTapped()
     func serverAddressDidChange(text: String?)
     func serverAddressTextFieldDidRequestForReturn() -> Bool
     func viewTapped()
 }
 
-class ServerConfigurationViewModel {
+class ServerConfigurationViewModel: KeyboardManagerObserverable {
     private weak var userInterface: ServerConfigurationViewModelOutput?
     private let coordinator: ServerConfigurationCoordinatorDelegate
     private let serverConfigurationManager: ServerConfigurationManagerType
     private let errorHandler: ErrorHandlerType
-    private let notificationCenter: NotificationCenterType
+    private let keyboardManager: KeyboardManagerable?
     
     private var serverAddress: String?
     
@@ -40,29 +41,13 @@ class ServerConfigurationViewModel {
         coordinator: ServerConfigurationCoordinatorDelegate,
         serverConfigurationManager: ServerConfigurationManagerType,
         errorHandler: ErrorHandlerType,
-        notificationCenter: NotificationCenterType
+        keyboardManager: KeyboardManagerable
     ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
         self.serverConfigurationManager = serverConfigurationManager
         self.errorHandler = errorHandler
-        self.notificationCenter = notificationCenter
-        self.setUpNotifications()
-    }
-    
-    deinit {
-        self.notificationCenter.removeObserver(self)
-    }
-    
-    // MARK: - Notification
-    @objc func changeKeyboardFrame(notification: NSNotification) {
-        let userInfo = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
-        guard let keyboardHeight = userInfo?.cgRectValue.size.height else { return }
-        self.userInterface?.setBottomContentInset(keyboardHeight)
-    }
-    
-    @objc func keyboardWillHide() {
-        self.userInterface?.setBottomContentInset(0)
+        self.keyboardManager = keyboardManager
     }
 }
 
@@ -75,7 +60,14 @@ extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
     }
     
     func viewWillAppear() {
+        self.keyboardManager?.setKeyboardHeightChangeHandler(for: self) { [weak userInterface] keyboardHeight in
+            userInterface?.setBottomContentInset(keyboardHeight)
+        }
         self.updateContinueButton()
+    }
+    
+    func viewDidDisappear() {
+        self.keyboardManager?.removeHandler(for: self)
     }
     
     func continueButtonTapped() {
@@ -117,24 +109,6 @@ extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
 
 // MARK: - Private
 extension ServerConfigurationViewModel {
-    private func setUpNotifications() {
-        self.notificationCenter.addObserver(
-            self,
-            selector: #selector(self.keyboardWillHide),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil)
-        self.notificationCenter.addObserver(
-            self,
-            selector: #selector(self.changeKeyboardFrame),
-            name: UIResponder.keyboardDidShowNotification,
-            object: nil)
-        self.notificationCenter.addObserver(
-            self,
-            selector: #selector(self.changeKeyboardFrame),
-            name: UIResponder.keyboardWillChangeFrameNotification,
-            object: nil)
-    }
-    
     private func updateContinueButton() {
         self.userInterface?.continueButtonEnabledState(self.isServerURLValid())
     }

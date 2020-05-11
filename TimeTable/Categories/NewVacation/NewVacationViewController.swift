@@ -37,6 +37,16 @@ class NewVacationViewController: UIViewController {
         self.viewModel.loadView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel.viewWillAppear()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.viewModel.viewDidDisappear()
+    }
+    
     // MARK: - Actions
     @objc private func closeButtonTapped() {
         self.viewModel.closeButtonTapped()

@@ -98,7 +98,7 @@ extension WorkTimesListCoordinator {
                 contentProvider: contentProvider,
                 errorHandler: self.dependencyContainer.errorHandler,
                 messagePresenter: self.dependencyContainer.messagePresenter,
-                notificationCenter: self.dependencyContainer.notificationCenter)
+                keyboardManager: self.dependencyContainer.keyboardManager)
             controller.configure(viewModel: viewModel)
             self.navigationController.setViewControllers([controller], animated: false)
         } catch {

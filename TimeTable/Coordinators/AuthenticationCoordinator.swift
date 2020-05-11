@@ -125,7 +125,7 @@ extension AuthenticationCoordinator {
                 coordinator: self,
                 serverConfigurationManager: self.dependencyContainer.serverConfigurationManager,
                 errorHandler: self.dependencyContainer.errorHandler,
-                notificationCenter: self.dependencyContainer.notificationCenter)
+                keyboardManager: self.dependencyContainer.keyboardManager)
             controller.configure(viewModel: viewModel)
             self.navigationController.setViewControllers([controller], animated: animated)
         } catch {
@@ -148,7 +148,7 @@ extension AuthenticationCoordinator {
                 coordinator: self,
                 contentProvider: contentProvider,
                 errorHandler: self.dependencyContainer.errorHandler,
-                notificationCenter: self.dependencyContainer.notificationCenter)
+                keyboardManager: self.dependencyContainer.keyboardManager)
             controller.configure(viewModel: viewModel)
             self.navigationController.pushViewController(controller, animated: animated)
             self.navigationController.navigationBar.backItem?.title = ""

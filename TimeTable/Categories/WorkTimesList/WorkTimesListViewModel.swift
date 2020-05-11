@@ -29,6 +29,7 @@ protocol WorkTimesListViewModelType: class {
     func viewDidLoad()
     func viewWillAppear()
     func viewDidLayoutSubviews()
+    func viewDidDisappear()
     func numberOfSections() -> Int
     func numberOfRows(in section: Int) -> Int
     func configure(_ view: ErrorViewable)
@@ -49,14 +50,14 @@ protocol WorkTimesListViewModelType: class {
 
 typealias WorkTimesListApiClientType = (ApiClientWorkTimesType & ApiClientAccountingPeriodsType)
 
-class WorkTimesListViewModel {
+class WorkTimesListViewModel: KeyboardManagerObserverable {
     private weak var userInterface: WorkTimesListViewModelOutput?
     private weak var coordinator: WorkTimesListCoordinatorDelegate?
     private let contentProvider: WorkTimesListContentProviderType
     private let errorHandler: ErrorHandlerType
     private let calendar: CalendarType
     private let messagePresenter: MessagePresenterType?
-    private let notificationCenter: NotificationCenterType
+    private let keyboardManager: KeyboardManagerable
     
     private var selectedMonth: MonthPeriod {
         didSet {
@@ -106,7 +107,7 @@ class WorkTimesListViewModel {
         errorHandler: ErrorHandlerType,
         calendar: CalendarType = Calendar.autoupdatingCurrent,
         messagePresenter: MessagePresenterType?,
-        notificationCenter: NotificationCenterType
+        keyboardManager: KeyboardManagerable
     ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
@@ -114,27 +115,10 @@ class WorkTimesListViewModel {
         self.errorHandler = errorHandler
         self.calendar = calendar
         self.messagePresenter = messagePresenter
-        self.notificationCenter = notificationCenter
+        self.keyboardManager = keyboardManager
         
         self.dailyWorkTimesArray = []
         self.selectedMonth = MonthPeriod()
-        
-        self.setUpNotifications()
-    }
-    
-    deinit {
-        self.notificationCenter.removeObserver(self)
-    }
-    
-    // MARK: - Notifications
-    @objc func changeKeyboardFrame(notification: NSNotification) {
-        let userInfo = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
-        guard let keyboardHeight = userInfo?.cgRectValue.size.height else { return }
-        self.userInterface?.setBottomContentInset(keyboardHeight)
-    }
-    
-    @objc func keyboardWillHide() {
-        self.userInterface?.setBottomContentInset(0)
     }
 }
 
@@ -181,6 +165,9 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     func viewWillAppear() {
+        self.keyboardManager.setKeyboardHeightChangeHandler(for: self) { [weak userInterface] keyboardHeight in
+            userInterface?.setBottomContentInset(keyboardHeight)
+        }
         guard self.state == .none else { return }
         self.updateDateSelectorView(withCurrentMonth: self.selectedMonth)
         self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
@@ -189,6 +176,10 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     func viewDidLayoutSubviews() {
         guard !self.didViewLayoutSubviews else { return }
         self.didViewLayoutSubviews = true
+    }
+    
+    func viewDidDisappear() {
+        self.keyboardManager.removeHandler(for: self)
     }
     
     func numberOfSections() -> Int {
@@ -332,24 +323,6 @@ extension WorkTimesListViewModel: WorkTimeTableViewCellModelParentType {
 
 // MARK: - Private
 extension WorkTimesListViewModel {
-    private func setUpNotifications() {
-        self.notificationCenter.addObserver(
-            self,
-            selector: #selector(self.keyboardWillHide),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil)
-        self.notificationCenter.addObserver(
-            self,
-            selector: #selector(self.changeKeyboardFrame),
-            name: UIResponder.keyboardDidShowNotification,
-            object: nil)
-        self.notificationCenter.addObserver(
-            self,
-            selector: #selector(self.changeKeyboardFrame),
-            name: UIResponder.keyboardWillChangeFrameNotification,
-            object: nil)
-    }
-    
     private func createTaskForm(for indexPath: IndexPath) -> TaskForm? {
         guard let dailyWorkTime = self.dailyWorkTime(for: indexPath) else { return nil }
         guard let workTime = self.workTime(for: indexPath) else { return nil }

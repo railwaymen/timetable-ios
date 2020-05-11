@@ -14,7 +14,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
     private var coordinatorMock: CoordinatorMock!
     private var serverConfigurationManagerMock: ServerConfigurationManagerMock!
     private var errorHandlerMock: ErrorHandlerMock!
-    private var notificationCenterMock: NotificationCenterMock!
+    private var keyboardManagerMock: KeyboardManagerMock!
     
     override func setUp() {
         super.setUp()
@@ -22,7 +22,7 @@ class ServerConfigurationViewModelTests: XCTestCase {
         self.errorHandlerMock = ErrorHandlerMock()
         self.coordinatorMock = CoordinatorMock()
         self.serverConfigurationManagerMock = ServerConfigurationManagerMock()
-        self.notificationCenterMock = NotificationCenterMock()
+        self.keyboardManagerMock = KeyboardManagerMock()
     }
 }
  
@@ -250,6 +250,6 @@ extension ServerConfigurationViewModelTests {
             coordinator: self.coordinatorMock,
             serverConfigurationManager: self.serverConfigurationManagerMock,
             errorHandler: self.errorHandlerMock,
-            notificationCenter: self.notificationCenterMock)
+            keyboardManager: self.keyboardManagerMock)
     }
 }

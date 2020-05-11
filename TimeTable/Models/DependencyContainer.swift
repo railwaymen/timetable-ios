@@ -25,6 +25,7 @@ protocol DependencyContainerType {
     var environmentReader: EnvironmentReaderType { get }
     var taskFormFactory: TaskFormFactoryType { get }
     var viewControllerBuilder: ViewControllerBuilderType { get }
+    var keyboardManager: KeyboardManagerable { get }
     var parentCoordinator: ParentCoordinator? { get set }
 }
 
@@ -45,6 +46,7 @@ struct DependencyContainer: DependencyContainerType {
     let environmentReader: EnvironmentReaderType
     let taskFormFactory: TaskFormFactoryType
     let viewControllerBuilder: ViewControllerBuilderType
+    let keyboardManager: KeyboardManagerable
     weak var parentCoordinator: ParentCoordinator?
     
     // MARK: - Initialization
@@ -57,9 +59,10 @@ struct DependencyContainer: DependencyContainerType {
         accessService: AccessServiceLoginType,
         encoder: JSONEncoderType,
         decoder: JSONDecoderType,
-        notificationCenter: NotificationCenterType,
+        notificationCenter: NotificationCenterType = NotificationCenter.default,
         taskFormFactory: TaskFormFactoryType,
-        viewControllerBuilder: ViewControllerBuilder
+        viewControllerBuilder: ViewControllerBuilderType = ViewControllerBuilder(),
+        keyboardManager: KeyboardManagerable = KeyboardManager()
     ) {
         self.application = application
         self.window = window
@@ -72,6 +75,7 @@ struct DependencyContainer: DependencyContainerType {
         self.notificationCenter = notificationCenter
         self.taskFormFactory = taskFormFactory
         self.viewControllerBuilder = viewControllerBuilder
+        self.keyboardManager = keyboardManager
         
         self.dispatchGroupFactory = DispatchGroupFactory()
         self.apiClientFactory = APIClientFactory(
