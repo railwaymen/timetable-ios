@@ -74,6 +74,7 @@ extension ServerConfigurationViewController: ServerConfigurationViewControllerTy
 extension ServerConfigurationViewController: ServerConfigurationViewModelOutput {
     func setUpView(serverAddress: String) {
         self.serverAddressTextField.text = serverAddress
+        self.serverAddressTextField.setTextFieldAppearance()
         self.continueButton.isEnabled = !serverAddress.isEmpty
         self.setUpActivityIndicator()
     }
@@ -89,16 +90,17 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
     
     func setActivityIndicator(isHidden: Bool) {
         self.activityIndicator.set(isAnimating: !isHidden)
-        self.activityIndicator.set(isHidden: isHidden)
     }
     
-    func setBottomContentInset(_ height: CGFloat) {
+    func setBottomContentInset(_ keyboardHeight: CGFloat) {
         guard self.isViewLoaded else { return }
         self.view.layoutIfNeeded()
         let bottomPadding: CGFloat = 16
         let verticalSpacing = self.continueButton.convert(self.continueButton.bounds, to: self.serverAddressTextField).minY
             -  self.serverAddressTextField.frame.height
-        self.updateScrollViewInsets(with: max(height + verticalSpacing + bottomPadding, 0))
+        let continueButtonHeight = self.continueButton.frame.height
+        let preferredBottomInset = keyboardHeight + verticalSpacing + bottomPadding + continueButtonHeight
+        self.updateScrollViewInsets(with: max(preferredBottomInset, 0))
     }
 }
 
@@ -111,6 +113,7 @@ extension ServerConfigurationViewController {
     
     private func setUpActivityIndicator() {
         self.activityIndicator.style = .large
+        self.activityIndicator.hidesWhenStopped = true
         self.setActivityIndicator(isHidden: true)
     }
 }
