@@ -44,6 +44,11 @@ class WorkTimesListViewController: UIViewController {
         self.viewModel.viewDidLayoutSubviews()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.viewModel.viewDidDisappear()
+    }
+    
     // MARK: - Actions
     @objc private func addNewRecordTapped(_ sender: UIBarButtonItem) {
         let sourceView = sender.view ?? self.navigationController?.navigationBar ?? UIView()
