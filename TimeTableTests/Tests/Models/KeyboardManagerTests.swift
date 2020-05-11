@@ -39,12 +39,12 @@ extension KeyboardManagerTests {
         //Arrange
         let sut = self.buildSUT()
         let notification = self.notificationWithoutKeyboardHeight()
-        let observer = ObserverMock()
-        sut.addKeyboardHeightChange(observer: observer)
+        let handlerManager = KeyboardHandlerManager()
+        handlerManager.setHandler(in: sut, for: ObserverMock.self)
         //Act
         sut.keyboardWillChangeFrame(notification: notification)
         //Assert
-        XCTAssertEqual(observer.keyboardHeightDidChangeParams.count, 0)
+        XCTAssertEqual(handlerManager.handlerParams.count, 0)
     }
     
     func testKeyboardWillChangeFrame_withKeyboardHeight_notifiesOneObserver() {
@@ -52,29 +52,31 @@ extension KeyboardManagerTests {
         let sut = self.buildSUT()
         let keyboardHeight: CGFloat = 100
         let notification = self.notification(withKeyboardHeight: keyboardHeight)
-        let observer = ObserverMock()
-        sut.addKeyboardHeightChange(observer: observer)
+        let handlerManager = KeyboardHandlerManager()
+        handlerManager.setHandler(in: sut, for: ObserverMock.self)
         //Act
         sut.keyboardWillChangeFrame(notification: notification)
         //Assert
-        XCTAssertEqual(observer.keyboardHeightDidChangeParams.count, 1)
-        XCTAssertEqual(observer.keyboardHeightDidChangeParams.last?.keyboardHeight, keyboardHeight)
+        XCTAssertEqual(handlerManager.handlerParams.count, 1)
+        XCTAssertEqual(handlerManager.handlerParams.last?.keyboardHeight, keyboardHeight)
     }
-    
-    func testKeyboardWillChangeFrame_withKeyboardHeight_notifiesMultipleObservers() {
+
+    func testKeyboardWillChangeFrame_withKeyboardHeight_notifiesTwoObservers() {
         //Arrange
         let sut = self.buildSUT()
         let keyboardHeight: CGFloat = 100
         let notification = self.notification(withKeyboardHeight: keyboardHeight)
-        let observers = (0..<20).map { _ in ObserverMock() }
-        observers.forEach { sut.addKeyboardHeightChange(observer: $0) }
+        let firstHandlerManager = KeyboardHandlerManager()
+        firstHandlerManager.setHandler(in: sut, for: ObserverMock.self)
+        let secondHandlerManager = KeyboardHandlerManager()
+        secondHandlerManager.setHandler(in: sut, for: SecondObserverMock.self)
         //Act
         sut.keyboardWillChangeFrame(notification: notification)
         //Assert
-        observers.forEach { observer in
-            XCTAssertEqual(observer.keyboardHeightDidChangeParams.count, 1)
-            XCTAssertEqual(observer.keyboardHeightDidChangeParams.last?.keyboardHeight, keyboardHeight)
-        }
+        XCTAssertEqual(firstHandlerManager.handlerParams.count, 1)
+        XCTAssertEqual(firstHandlerManager.handlerParams.last?.keyboardHeight, keyboardHeight)
+        XCTAssertEqual(secondHandlerManager.handlerParams.count, 1)
+        XCTAssertEqual(secondHandlerManager.handlerParams.last?.keyboardHeight, keyboardHeight)
     }
 }
 
@@ -84,42 +86,44 @@ extension KeyboardManagerTests {
         //Arrange
         let sut = self.buildSUT()
         let notification = self.notificationWithoutKeyboardHeight()
-        let observer = ObserverMock()
-        sut.addKeyboardHeightChange(observer: observer)
+        let handlerManager = KeyboardHandlerManager()
+        handlerManager.setHandler(in: sut, for: ObserverMock.self)
         //Act
         sut.keyboardDidShow(notification: notification)
         //Assert
-        XCTAssertEqual(observer.keyboardHeightDidChangeParams.count, 0)
+        XCTAssertEqual(handlerManager.handlerParams.count, 0)
     }
-    
+
     func testKeyboardDidShow_withKeyboardHeight_notifiesOneObserver() {
         //Arrange
         let sut = self.buildSUT()
         let keyboardHeight: CGFloat = 100
         let notification = self.notification(withKeyboardHeight: keyboardHeight)
-        let observer = ObserverMock()
-        sut.addKeyboardHeightChange(observer: observer)
+        let handlerManager = KeyboardHandlerManager()
+        handlerManager.setHandler(in: sut, for: ObserverMock.self)
         //Act
         sut.keyboardDidShow(notification: notification)
         //Assert
-        XCTAssertEqual(observer.keyboardHeightDidChangeParams.count, 1)
-        XCTAssertEqual(observer.keyboardHeightDidChangeParams.last?.keyboardHeight, keyboardHeight)
+        XCTAssertEqual(handlerManager.handlerParams.count, 1)
+        XCTAssertEqual(handlerManager.handlerParams.last?.keyboardHeight, keyboardHeight)
     }
-    
+
     func testKeyboardDidShow_withKeyboardHeight_notifiesMultipleObservers() {
         //Arrange
         let sut = self.buildSUT()
         let keyboardHeight: CGFloat = 100
         let notification = self.notification(withKeyboardHeight: keyboardHeight)
-        let observers = (0..<20).map { _ in ObserverMock() }
-        observers.forEach { sut.addKeyboardHeightChange(observer: $0) }
+        let firstHandlerManager = KeyboardHandlerManager()
+        firstHandlerManager.setHandler(in: sut, for: ObserverMock.self)
+        let secondHandlerManager = KeyboardHandlerManager()
+        secondHandlerManager.setHandler(in: sut, for: SecondObserverMock.self)
         //Act
         sut.keyboardDidShow(notification: notification)
         //Assert
-        observers.forEach { observer in
-            XCTAssertEqual(observer.keyboardHeightDidChangeParams.count, 1)
-            XCTAssertEqual(observer.keyboardHeightDidChangeParams.last?.keyboardHeight, keyboardHeight)
-        }
+        XCTAssertEqual(firstHandlerManager.handlerParams.count, 1)
+        XCTAssertEqual(firstHandlerManager.handlerParams.last?.keyboardHeight, keyboardHeight)
+        XCTAssertEqual(secondHandlerManager.handlerParams.count, 1)
+        XCTAssertEqual(secondHandlerManager.handlerParams.last?.keyboardHeight, keyboardHeight)
     }
 }
 
@@ -128,27 +132,29 @@ extension KeyboardManagerTests {
     func testKeyboardWillHide_notifiesOneObserver() {
         //Arrange
         let sut = self.buildSUT()
-        let observer = ObserverMock()
-        sut.addKeyboardHeightChange(observer: observer)
+        let handlerManager = KeyboardHandlerManager()
+        handlerManager.setHandler(in: sut, for: ObserverMock.self)
         //Act
         sut.keyboardWillHide()
         //Assert
-        XCTAssertEqual(observer.keyboardHeightDidChangeParams.count, 1)
-        XCTAssertEqual(observer.keyboardHeightDidChangeParams.last?.keyboardHeight, 0)
+        XCTAssertEqual(handlerManager.handlerParams.count, 1)
+        XCTAssertEqual(handlerManager.handlerParams.last?.keyboardHeight, 0)
     }
-    
+
     func testKeyboardWillHide_notifiesMultipleObservers() {
         //Arrange
         let sut = self.buildSUT()
-        let observers = (0..<20).map { _ in ObserverMock() }
-        observers.forEach { sut.addKeyboardHeightChange(observer: $0) }
+        let firstHandlerManager = KeyboardHandlerManager()
+        firstHandlerManager.setHandler(in: sut, for: ObserverMock.self)
+        let secondHandlerManager = KeyboardHandlerManager()
+        secondHandlerManager.setHandler(in: sut, for: SecondObserverMock.self)
         //Act
         sut.keyboardWillHide()
         //Assert
-        observers.forEach { observer in
-            XCTAssertEqual(observer.keyboardHeightDidChangeParams.count, 1)
-            XCTAssertEqual(observer.keyboardHeightDidChangeParams.last?.keyboardHeight, 0)
-        }
+        XCTAssertEqual(firstHandlerManager.handlerParams.count, 1)
+        XCTAssertEqual(firstHandlerManager.handlerParams.last?.keyboardHeight, 0)
+        XCTAssertEqual(secondHandlerManager.handlerParams.count, 1)
+        XCTAssertEqual(secondHandlerManager.handlerParams.last?.keyboardHeight, 0)
     }
 }
 
@@ -157,64 +163,67 @@ extension KeyboardManagerTests {
     func testKeyboardDidHide_notifiesOneObserver() {
         //Arrange
         let sut = self.buildSUT()
-        let observer = ObserverMock()
-        sut.addKeyboardHeightChange(observer: observer)
+        let handlerManager = KeyboardHandlerManager()
+        handlerManager.setHandler(in: sut, for: ObserverMock.self)
         //Act
         sut.keyboardDidHide()
         //Assert
-        XCTAssertEqual(observer.keyboardHeightDidChangeParams.count, 1)
-        XCTAssertEqual(observer.keyboardHeightDidChangeParams.last?.keyboardHeight, 0)
+        XCTAssertEqual(handlerManager.handlerParams.count, 1)
+        XCTAssertEqual(handlerManager.handlerParams.last?.keyboardHeight, 0)
     }
-    
+
     func testKeyboardDidHide_notifiesMultipleObservers() {
         //Arrange
         let sut = self.buildSUT()
-        let observers = (0..<20).map { _ in ObserverMock() }
-        observers.forEach { sut.addKeyboardHeightChange(observer: $0) }
+        let firstHandlerManager = KeyboardHandlerManager()
+        firstHandlerManager.setHandler(in: sut, for: ObserverMock.self)
+        let secondHandlerManager = KeyboardHandlerManager()
+        secondHandlerManager.setHandler(in: sut, for: SecondObserverMock.self)
         //Act
         sut.keyboardDidHide()
         //Assert
-        observers.forEach { observer in
-            XCTAssertEqual(observer.keyboardHeightDidChangeParams.count, 1)
-            XCTAssertEqual(observer.keyboardHeightDidChangeParams.last?.keyboardHeight, 0)
-        }
+        XCTAssertEqual(firstHandlerManager.handlerParams.count, 1)
+        XCTAssertEqual(firstHandlerManager.handlerParams.last?.keyboardHeight, 0)
+        XCTAssertEqual(secondHandlerManager.handlerParams.count, 1)
+        XCTAssertEqual(secondHandlerManager.handlerParams.last?.keyboardHeight, 0)
     }
 }
 
-// MARK: - addKeyboardHeightChange(observer:)
+// MARK: - setKeyboardHeightChangeHandler(for:handler:)
 extension KeyboardManagerTests {
-    func testAddKeyboardHeightChangeObserver_keyboardDidHide_addsObserverOnlyOnce() {
+    func testSetKeyboardHeightChangeHandler_keyboardDidHide_overridesPreviousHandler() {
         //Arrange
         let sut = self.buildSUT()
-        let firstObserver = ObserverMock()
-        let secondObserver = ObserverMock()
+        let firstHandlerManager = KeyboardHandlerManager()
+        let secondHandlerManager = KeyboardHandlerManager()
+        let thirdHandlerManager = KeyboardHandlerManager()
         //Act
-        sut.addKeyboardHeightChange(observer: firstObserver)
-        sut.addKeyboardHeightChange(observer: firstObserver)
-        sut.addKeyboardHeightChange(observer: secondObserver)
-        sut.addKeyboardHeightChange(observer: firstObserver)
+        firstHandlerManager.setHandler(in: sut, for: ObserverMock.self)
+        secondHandlerManager.setHandler(in: sut, for: SecondObserverMock.self)
+        thirdHandlerManager.setHandler(in: sut, for: ObserverMock.self)
         //Assert
         sut.keyboardDidHide()
-        XCTAssertEqual(firstObserver.keyboardHeightDidChangeParams.count, 1)
-        XCTAssertEqual(secondObserver.keyboardHeightDidChangeParams.count, 1)
+        XCTAssertEqual(firstHandlerManager.handlerParams.count, 0)
+        XCTAssertEqual(secondHandlerManager.handlerParams.count, 1)
+        XCTAssertEqual(thirdHandlerManager.handlerParams.count, 1)
     }
 }
 
-// MARK: - remove(observer:)
+// MARK: - removeHandler(for:)
 extension KeyboardManagerTests {
     func testRemoveObserver_keyboardDidHide_doesNotNotify() {
         //Arrange
         let sut = self.buildSUT()
-        let firstObserver = ObserverMock()
-        let secondObserver = ObserverMock()
-        sut.addKeyboardHeightChange(observer: firstObserver)
-        sut.addKeyboardHeightChange(observer: secondObserver)
+        let firstHandlerManager = KeyboardHandlerManager()
+        let secondHandlerManager = KeyboardHandlerManager()
+        firstHandlerManager.setHandler(in: sut, for: ObserverMock.self)
+        secondHandlerManager.setHandler(in: sut, for: SecondObserverMock.self)
         //Act
-        sut.remove(observer: firstObserver)
+        sut.removeHandler(for: ObserverMock.self)
         //Assert
         sut.keyboardDidHide()
-        XCTAssertEqual(firstObserver.keyboardHeightDidChangeParams.count, 0)
-        XCTAssertEqual(secondObserver.keyboardHeightDidChangeParams.count, 1)
+        XCTAssertEqual(firstHandlerManager.handlerParams.count, 0)
+        XCTAssertEqual(secondHandlerManager.handlerParams.count, 1)
     }
 }
 
@@ -238,13 +247,20 @@ extension KeyboardManagerTests {
 }
 
 // MARK: - Structures
-private class ObserverMock: KeyboardManagerObserverable {
-    private(set) var keyboardHeightDidChangeParams: [KeyboardHeightDidChangeParams] = []
-    struct KeyboardHeightDidChangeParams {
+private class ObserverMock: KeyboardManagerObserverable {}
+private class SecondObserverMock: KeyboardManagerObserverable {}
+
+private class KeyboardHandlerManager {
+    
+    private(set) var handlerParams: [HandlerParams] = []
+    struct HandlerParams {
         let keyboardHeight: CGFloat
     }
     
-    func keyboardHeightDidChange(to keyboardHeight: CGFloat) {
-        self.keyboardHeightDidChangeParams.append(KeyboardHeightDidChangeParams(keyboardHeight: keyboardHeight))
+    // MARK: - Internal
+    func setHandler(in manager: KeyboardManager, for observer: KeyboardManagerObserverable.Type) {
+        manager.setKeyboardHeightChangeHandler(for: observer) { [weak self] keyboardHeight in
+            self?.handlerParams.append(HandlerParams(keyboardHeight: keyboardHeight))
+        }
     }
 }

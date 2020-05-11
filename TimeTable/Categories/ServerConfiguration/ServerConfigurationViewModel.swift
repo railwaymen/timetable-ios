@@ -26,12 +26,12 @@ protocol ServerConfigurationViewModelType: class {
     func viewTapped()
 }
 
-class ServerConfigurationViewModel {
+class ServerConfigurationViewModel: KeyboardManagerObserverable {
     private weak var userInterface: ServerConfigurationViewModelOutput?
     private let coordinator: ServerConfigurationCoordinatorDelegate
     private let serverConfigurationManager: ServerConfigurationManagerType
     private let errorHandler: ErrorHandlerType
-    private weak var keyboardManager: KeyboardManagerable?
+    private let keyboardManager: KeyboardManagerable?
     
     private var serverAddress: String?
     
@@ -60,12 +60,14 @@ extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
     }
     
     func viewWillAppear() {
-        self.keyboardManager?.addKeyboardHeightChange(observer: self)
+        self.keyboardManager?.setKeyboardHeightChangeHandler(for: Self.self) { [weak userInterface] keyboardHeight in
+            userInterface?.setBottomContentInset(keyboardHeight)
+        }
         self.updateContinueButton()
     }
     
     func viewDidDisappear() {
-        self.keyboardManager?.remove(observer: self)
+        self.keyboardManager?.removeHandler(for: Self.self)
     }
     
     func continueButtonTapped() {
@@ -102,13 +104,6 @@ extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
     
     func viewTapped() {
         self.userInterface?.dismissKeyboard()
-    }
-}
-
-// MARK: - KeyboardManagerObserverable
-extension ServerConfigurationViewModel: KeyboardManagerObserverable {
-    func keyboardHeightDidChange(to keyboardHeight: CGFloat) {
-        self.userInterface?.setBottomContentInset(keyboardHeight)
     }
 }
 

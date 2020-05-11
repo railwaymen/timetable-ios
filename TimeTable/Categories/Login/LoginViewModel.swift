@@ -35,12 +35,12 @@ protocol LoginViewModelType: class {
     func viewRequestedToChangeServerAddress()
 }
 
-class LoginViewModel {
+class LoginViewModel: KeyboardManagerObserverable {
     private weak var userInterface: LoginViewModelOutput?
     private weak var coordinator: LoginCoordinatorDelegate?
     private let contentProvider: LoginContentProviderType
     private let errorHandler: ErrorHandlerType
-    private weak var keyboardManager: KeyboardManagerable?
+    private let keyboardManager: KeyboardManagerable?
     
     private var loginForm: LoginFormType {
         didSet {
@@ -75,11 +75,13 @@ extension LoginViewModel: LoginViewModelType {
     }
     
     func viewWillAppear() {
-        self.keyboardManager?.addKeyboardHeightChange(observer: self)
+        self.keyboardManager?.setKeyboardHeightChangeHandler(for: Self.self) { [weak userInterface] keyboardHeight in
+            userInterface?.setBottomContentInset(keyboardHeight)
+        }
     }
     
     func viewDidDisappear() {
-        self.keyboardManager?.remove(observer: self)
+        self.keyboardManager?.removeHandler(for: Self.self)
     }
     
     func loginInputValueDidChange(value: String?) {
@@ -129,13 +131,6 @@ extension LoginViewModel: LoginViewModelType {
     
     func viewRequestedToChangeServerAddress() {
         self.coordinator?.loginDidFinish(with: .changeAddress)
-    }
-}
-
-// MARK: - KeyboardManagerObserverable
-extension LoginViewModel: KeyboardManagerObserverable {
-    func keyboardHeightDidChange(to keyboardHeight: CGFloat) {
-        self.userInterface?.setBottomContentInset(keyboardHeight)
     }
 }
 

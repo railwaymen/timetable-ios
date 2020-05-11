@@ -11,24 +11,31 @@ import XCTest
 
 class KeyboardManagerMock {
     
-    private(set) var addKeyboardHeightChangeObserverParams: [AddKeyboardHeightChangeObserverParams] = []
-    struct AddKeyboardHeightChangeObserverParams {
-        let observer: KeyboardManagerObserverable
+    private(set) var setKeyboardHeightChangeHandlerParams: [SetKeyboardHeightChangeHandlerParams] = []
+    struct SetKeyboardHeightChangeHandlerParams {
+        let observer: KeyboardManagerObserverable.Type
+        let handler: KeyboardManager.HeightChangeHandler
     }
     
-    private(set) var removeObserverParams: [RemoveObserverParams] = []
-    struct RemoveObserverParams {
-        let observer: KeyboardManagerObserverable
+    private(set) var removeHandlerParams: [RemoveHandlerParams] = []
+    struct RemoveHandlerParams {
+        let observer: KeyboardManagerObserverable.Type
     }
+    
 }
 
 // MARK: - KeyboardManagerable
 extension KeyboardManagerMock: KeyboardManagerable {
-    func addKeyboardHeightChange(observer: KeyboardManagerObserverable) {
-        self.addKeyboardHeightChangeObserverParams.append(AddKeyboardHeightChangeObserverParams(observer: observer))
+    func setKeyboardHeightChangeHandler(
+        for observer: KeyboardManagerObserverable.Type,
+        handler: @escaping KeyboardManager.HeightChangeHandler
+    ) {
+        self.setKeyboardHeightChangeHandlerParams.append(SetKeyboardHeightChangeHandlerParams(
+            observer: observer,
+            handler: handler))
     }
     
-    func remove(observer: KeyboardManagerObserverable) {
-        self.removeObserverParams.append(RemoveObserverParams(observer: observer))
+    func removeHandler(for observer: KeyboardManagerObserverable.Type) {
+        self.removeHandlerParams.append(RemoveHandlerParams(observer: observer))
     }
 }

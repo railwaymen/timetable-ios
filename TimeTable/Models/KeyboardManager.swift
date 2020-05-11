@@ -8,30 +8,29 @@
 
 import UIKit
 
-protocol KeyboardManagerObserverable: class {
-    func keyboardHeightDidChange(to keyboardHeight: CGFloat)
+protocol KeyboardManagerObserverable {}
+
+extension KeyboardManagerObserverable {
+    static var uniqueID: String {
+        String(describing: Self.self)
+    }
 }
 
 protocol KeyboardManagerable: class {
     
-    /// Registers observer for keyboard height changes - needs removing to release the observer.
-    ///
-    /// - Parameters:
-    ///   - observer:
-    ///     An observer of keyboard height.
-    ///     It should be released as soon as it isn't needed because of a strong reference.
-    func addKeyboardHeightChange(observer: KeyboardManagerObserverable)
+    func setKeyboardHeightChangeHandler(
+        for observer: KeyboardManagerObserverable.Type,
+        handler: @escaping KeyboardManager.HeightChangeHandler)
     
-    /// Removes observer for keyboard height changes. Need to be called before object can be released.
-    ///
-    /// - Parameters:
-    ///   - observer: An observer of keyboard height.
-    func remove(observer: KeyboardManagerObserverable)
+    func removeHandler(for observer: KeyboardManagerObserverable.Type)
 }
 
 class KeyboardManager {
+    typealias HeightChangeHandler = (CGFloat) -> Void
+    
     private weak var notificationCenter: NotificationCenterType?
     private var observers: [KeyboardManagerObserverable] = []
+    private var handlers: [String: HeightChangeHandler] = [:]
     
     // MARK: - Initialization
     init(notificationCenter: NotificationCenterType = NotificationCenter.default) {
@@ -74,13 +73,15 @@ extension KeyboardManager {
 
 // MARK: - KeyboardManagerable
 extension KeyboardManager: KeyboardManagerable {
-    func addKeyboardHeightChange(observer: KeyboardManagerObserverable) {
-        guard !self.observers.contains(where: { $0 === observer }) else { return }
-        self.observers.append(observer)
+    func setKeyboardHeightChangeHandler(
+        for observer: KeyboardManagerObserverable.Type,
+        handler: @escaping HeightChangeHandler
+    ) {
+        self.handlers[observer.uniqueID] = handler
     }
     
-    func remove(observer: KeyboardManagerObserverable) {
-        self.observers.removeAll { $0 === observer }
+    func removeHandler(for observer: KeyboardManagerObserverable.Type) {
+        self.handlers.removeValue(forKey: observer.uniqueID)
     }
 }
 
@@ -108,8 +109,8 @@ extension KeyboardManager {
     }
     
     private func notifyObservers(keyboardHeight: CGFloat) {
-        self.observers.forEach {
-            $0.keyboardHeightDidChange(to: keyboardHeight)
+        self.handlers.values.forEach { handler in
+            handler(keyboardHeight)
         }
     }
 }
