@@ -16,6 +16,8 @@ protocol ProjectPickerViewModelOutput: class {
 
 protocol ProjectPickerViewModelType: class {
     func loadView()
+    func viewWillAppear()
+    func viewDidDisappear()
     func numberOfRows(in section: Int) -> Int
     func configure(cell: ProjectPickerCellable, for indexPath: IndexPath)
     func updateSearchResults(for text: String)
@@ -23,41 +25,26 @@ protocol ProjectPickerViewModelType: class {
     func closeButtonTapped()
 }
 
-class ProjectPickerViewModel {
+class ProjectPickerViewModel: KeyboardManagerObserverable {
     private weak var userInterface: ProjectPickerViewModelOutput?
     private weak var coordinator: ProjectPickerCoordinatorType?
-    private let notificationCenter: NotificationCenterType
+    private let keyboardManager: KeyboardManagerable
     
     private let projects: [SimpleProjectRecordDecoder]
     private var filteredProjects: [SimpleProjectRecordDecoder] = []
     
     // MARK: - Initialization
-    init(userInterface: ProjectPickerViewModelOutput?,
-         coordinator: ProjectPickerCoordinatorType?,
-         notificationCenter: NotificationCenterType,
-         projects: [SimpleProjectRecordDecoder]) {
+    init(
+        userInterface: ProjectPickerViewModelOutput?,
+        coordinator: ProjectPickerCoordinatorType?,
+        keyboardManager: KeyboardManagerable,
+        projects: [SimpleProjectRecordDecoder]
+    ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
-        self.notificationCenter = notificationCenter
+        self.keyboardManager = keyboardManager
         self.projects = projects
         self.filteredProjects = projects
-        
-        self.setUpNotifications()
-    }
-    
-    deinit {
-        self.notificationCenter.removeObserver(self)
-    }
-    
-    // MARK: - Notifications
-    @objc private func changeKeyboardFrame(notification: NSNotification) {
-        let userInfo = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
-        guard let keyboardHeight = userInfo?.cgRectValue.size.height else { return }
-        self.userInterface?.setBottomContentInsets(keyboardHeight)
-    }
-    
-    @objc private func keyboardWillHide() {
-        self.userInterface?.setBottomContentInsets(0)
     }
 }
 
@@ -65,6 +52,16 @@ class ProjectPickerViewModel {
 extension ProjectPickerViewModel: ProjectPickerViewModelType {
     func loadView() {
         self.userInterface?.setUp()
+    }
+    
+    func viewWillAppear() {
+        self.keyboardManager.setKeyboardHeightChangeHandler(for: Self.self) { [weak userInterface] keyboardHeight in
+            userInterface?.setBottomContentInsets(keyboardHeight)
+        }
+    }
+    
+    func viewDidDisappear() {
+        self.keyboardManager.removeHandler(for: Self.self)
     }
     
     func numberOfRows(in section: Int) -> Int {
@@ -96,24 +93,6 @@ extension ProjectPickerViewModel: ProjectPickerViewModelType {
 
 // MARK: - Private
 extension ProjectPickerViewModel {
-    private func setUpNotifications() {
-        self.notificationCenter.addObserver(
-            self,
-            selector: #selector(self.changeKeyboardFrame),
-            name: UIResponder.keyboardWillChangeFrameNotification,
-            object: nil)
-        self.notificationCenter.addObserver(
-            self,
-            selector: #selector(self.changeKeyboardFrame),
-            name: UIResponder.keyboardDidShowNotification,
-            object: nil)
-        self.notificationCenter.addObserver(
-            self,
-            selector: #selector(self.keyboardWillHide),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil)
-    }
-    
     private func filterProjects(with text: String) {
         self.filteredProjects = text.isEmpty
             ? self.projects
