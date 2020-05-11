@@ -31,7 +31,17 @@ class WorkTimesListViewController: UIViewController {
     // MARK: - Overridden
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.viewModel?.viewDidLoad()
+        self.viewModel.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel.viewWillAppear()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.viewModel.viewDidLayoutSubviews()
     }
     
     // MARK: - Actions

@@ -26,9 +26,11 @@ protocol WorkTimesListViewModelOutput: class {
 }
 
 protocol WorkTimesListViewModelType: class {
+    func viewDidLoad()
+    func viewWillAppear()
+    func viewDidLayoutSubviews()
     func numberOfSections() -> Int
     func numberOfRows(in section: Int) -> Int
-    func viewDidLoad()
     func configure(_ view: ErrorViewable)
     func viewRequestForNewDate(month: Int, year: Int)
     func viewRequestForCellType(at index: IndexPath) -> WorkTimesListViewModel.CellType
@@ -64,8 +66,17 @@ class WorkTimesListViewModel {
         }
     }
     
+    private var state: State?
+    private var didViewLayoutSubviews: Bool = false {
+        didSet {
+            guard self.didViewLayoutSubviews else { return }
+            self.userInterface?.reloadData()
+        }
+    }
+    
     private var dailyWorkTimesArray: [DailyWorkTime] {
         didSet {
+            guard self.didViewLayoutSubviews else { return }
             let (insertedSections, removedSections) = self.getSectionsDiff(oldValue: oldValue)
             let (insertedRows, removedRows) = self.getRowsDiff(oldValue: oldValue)
             let updatedSections = IndexSet((insertedRows + removedRows).map(\.section))
@@ -155,22 +166,37 @@ extension WorkTimesListViewModel {
             self.year = year
         }
     }
+    
+    private enum State {
+        case fetching
+        case fetched
+        case error
+    }
 }
  
 // MARK: - WorkTimesListViewModelType
 extension WorkTimesListViewModel: WorkTimesListViewModelType {
+    func viewDidLoad() {
+        self.userInterface?.setUpView()
+    }
+    
+    func viewWillAppear() {
+        guard self.state == .none else { return }
+        self.updateDateSelectorView(withCurrentMonth: self.selectedMonth)
+        self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
+    }
+    
+    func viewDidLayoutSubviews() {
+        guard !self.didViewLayoutSubviews else { return }
+        self.didViewLayoutSubviews = true
+    }
+    
     func numberOfSections() -> Int {
         return self.dailyWorkTimesArray.count
     }
     
     func numberOfRows(in section: Int) -> Int {
         return self.dailyWorkTimesArray[safeIndex: section]?.workTimes.count ?? 0
-    }
-    
-    func viewDidLoad() {
-        self.userInterface?.setUpView()
-        self.updateDateSelectorView(withCurrentMonth: self.selectedMonth)
-        self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
     }
     
     func configure(_ view: ErrorViewable) {
@@ -343,7 +369,7 @@ extension WorkTimesListViewModel {
             let userInterface = self.userInterface else { return completion(false) }
         let newDailyWorkTime = dailyWorkTime.removing(workTime: workTime)
         userInterface.performBatchUpdates { [weak self] in
-            completion(newDailyWorkTime != dailyWorkTime)
+            completion(newDailyWorkTime.workTimes != dailyWorkTime.workTimes)
             guard let self = self else { return }
             newDailyWorkTime.workTimes.isEmpty
                 ? self.dailyWorkTimesArray.removeAll { $0 == dailyWorkTime }
@@ -361,6 +387,7 @@ extension WorkTimesListViewModel {
             self.errorHandler.stopInDebug()
             return
         }
+        self.state = .fetching
         self.userInterface?.setActivityIndicator(isHidden: false)
         self.dailyWorkTimesArray.removeAll()
         self.userInterface?.updateHoursLabel(workedHours: "")
@@ -378,6 +405,7 @@ extension WorkTimesListViewModel {
     
     private func handleFetchSuccess(dailyWorkTimes: [DailyWorkTime], matchingFullTime: MatchingFullTimeDecoder) {
         self.dailyWorkTimesArray = dailyWorkTimes
+        self.state = .fetched
         self.updateWorkedHoursLabel()
         self.userInterface?.updateAccountingPeriodLabel(text: matchingFullTime.accountingPeriodText)
         self.userInterface?.showTableView()
@@ -400,6 +428,7 @@ extension WorkTimesListViewModel {
             self.errorViewModel?.update(error: UIError.genericError)
             self.errorHandler.throwing(error: error)
         }
+        self.state = .error
         self.userInterface?.showErrorView()
     }
     
