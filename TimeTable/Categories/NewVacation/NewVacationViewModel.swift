@@ -203,14 +203,9 @@ extension NewVacationViewModel {
     }
     
     private func handleResponse(error: Error) {
-        if let apiError = error as? ApiClientError {
-            switch apiError.type {
-            case let .validationErrors(base):
-                guard let base = base, base.errors.keys.contains(where: { $0.errorKey == .workTimeExists }) else { fallthrough }
-                self.errorHandler.throwing(error: error)
-            default:
-                self.errorHandler.throwing(error: UIError.genericError)
-            }
+        if let errors = (error as? ValidationError<NewVacationValidationError>)?.errors {
+            let error: UIError = errors.uiErrors.first ?? .genericError
+            self.errorHandler.throwing(error: error)
         } else {
             self.errorHandler.throwing(error: error)
         }

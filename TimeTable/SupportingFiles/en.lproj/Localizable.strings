@@ -97,6 +97,13 @@
 "newvacation_reason" = "Reason";
 "newvacation_optional" = "Optional";
 "newvacation_save_btn" = "Send to accept";
+"newvacation_base_workTimeExists" = "There is work time with same date.";
+"newvacation_description_blank" = "Description cannot be empty.";
+"newvacation_startDate_blank" = "Start date cannot be empty.";
+"newvacation_startDate_greaterThanEndDate" = "Time range is invalid. Start time is greater or equal to end time.";
+"newvacation_endDate_blank" = "End date cannot be empty.";
+"newvacation_vacationType_blank" = "Vacation type cannot be empty.";
+"newvacation_vacationType_inclusion" = "Vacation type inclusion.";
 
 // MARK: - RemoteWork
 "remotework_title" = "Remote work";
@@ -123,6 +130,4 @@
 "error_no_connection" = "No internet connection. To perform further operations, please connect to the internet.";
 "error_timeout" = "Your request has timed out. Please, check your internet connection and try again.";
 "error_unauthorized" = "Your session has timed out.";
-"error_work_time_exists" = "There is work time with same date.";
-
 "error_refresh_btn" = "REFRESH";

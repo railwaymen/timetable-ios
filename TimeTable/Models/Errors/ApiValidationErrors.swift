@@ -73,7 +73,6 @@ extension ApiValidationErrors {
         case invalidExternal = "invalid_external"
         case tooOld = "too_old"
         case noGapsToFill = "no_gaps_to_fill"
-        case workTimeExists = "work_time_exists"
         
         var localizedDescription: String {
             switch self {
@@ -87,8 +86,6 @@ extension ApiValidationErrors {
                 return R.string.localizable.worktimeform_error_too_old()
             case .noGapsToFill:
                 return R.string.localizable.worktimeform_error_no_gaps_to_fill()
-            case .workTimeExists:
-                return R.string.localizable.error_work_time_exists()
             }
         }
     }

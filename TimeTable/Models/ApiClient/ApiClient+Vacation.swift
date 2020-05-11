@@ -35,6 +35,7 @@ extension ApiClient: ApiClientVacationType {
         return self.restler
             .post(Endpoint.vacation)
             .body(vacation)
+            .failureDecode(ValidationError<NewVacationValidationError>.self)
             .decode(VacationDecoder.self)
             .onCompletion(completion)
             .start()

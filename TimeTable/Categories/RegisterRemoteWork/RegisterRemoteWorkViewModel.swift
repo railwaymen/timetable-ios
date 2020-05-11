@@ -159,7 +159,7 @@ extension RegisterRemoteWorkViewModel {
     
     private func handleResponse(error: Error) {
         if let errors = (error as? ValidationError<RegisterRemoteWorkValidationError>)?.errors {
-            let error: UIError = errors.startsAt.first?.uiError ?? errors.endsAt.first?.uiError ?? .genericError
+            let error: UIError = errors.uiErrors.first ?? .genericError
             self.errorHandler.throwing(error: error)
         } else {
             self.errorHandler.throwing(error: error)

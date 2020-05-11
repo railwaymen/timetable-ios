@@ -45,6 +45,13 @@ extension RegisterRemoteWorkValidationError {
     }
 }
 
+// MARK: - ValidationErrorUIRepresentable
+extension RegisterRemoteWorkValidationError: ValidationErrorUIRepresentable {
+    var uiErrors: [UIError] {
+        return self.startsAt.map(\.uiError) + self.endsAt.map(\.uiError)
+    }
+}
+
 // MARK: - UIErrorRepresentable
 extension RegisterRemoteWorkValidationError.StartsAtErrorKey: UIErrorRepresentable {
     var uiError: UIError {

@@ -574,6 +574,8 @@
 		C1F62B3D24694C0800AB8C00 /* ValidationErrorResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B3C24694C0800AB8C00 /* ValidationErrorResource.swift */; };
 		C1F62B4024694D6900AB8C00 /* validationErrorFullModelResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B3F24694D6900AB8C00 /* validationErrorFullModelResponse.json */; };
 		C1F62B422469512500AB8C00 /* validationErrorEmptyValidationErrorResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B412469512500AB8C00 /* validationErrorEmptyValidationErrorResponse.json */; };
+		C1F62B442469535100AB8C00 /* NewVacationValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B432469535100AB8C00 /* NewVacationValidationError.swift */; };
+		C1F62B4624695D7C00AB8C00 /* ValidationErrorUIRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B4524695D7C00AB8C00 /* ValidationErrorUIRepresentable.swift */; };
 		C1F69B2C21902FA5005D9114 /* signInResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F69B2B21902FA5005D9114 /* signInResponse.json */; };
 		C1F69B2E21903818005D9114 /* LoginContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F69B2D21903818005D9114 /* LoginContentProvider.swift */; };
 		C1F7C2DE2190436B00F4FAF0 /* AuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F7C2DD2190436B00F4FAF0 /* AuthenticationCoordinator.swift */; };
@@ -1224,6 +1226,8 @@
 		C1F62B3C24694C0800AB8C00 /* ValidationErrorResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationErrorResource.swift; sourceTree = "<group>"; };
 		C1F62B3F24694D6900AB8C00 /* validationErrorFullModelResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = validationErrorFullModelResponse.json; sourceTree = "<group>"; };
 		C1F62B412469512500AB8C00 /* validationErrorEmptyValidationErrorResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = validationErrorEmptyValidationErrorResponse.json; sourceTree = "<group>"; };
+		C1F62B432469535100AB8C00 /* NewVacationValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVacationValidationError.swift; sourceTree = "<group>"; };
+		C1F62B4524695D7C00AB8C00 /* ValidationErrorUIRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationErrorUIRepresentable.swift; sourceTree = "<group>"; };
 		C1F69B2B21902FA5005D9114 /* signInResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInResponse.json; sourceTree = "<group>"; };
 		C1F69B2D21903818005D9114 /* LoginContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginContentProvider.swift; sourceTree = "<group>"; };
 		C1F7C2DD2190436B00F4FAF0 /* AuthenticationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinator.swift; sourceTree = "<group>"; };
@@ -2117,7 +2121,6 @@
 		C1249C7D2181B4CF005DB2A5 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
-				C172D13B24656641005AC63B /* ValidationErrors */,
 				C1F7C2EC2191897A00F4FAF0 /* ApiClientError.swift */,
 				C1C4BA902189AE0900683F71 /* ApiValidationErrors.swift */,
 				C1AFFFDA21A2CD2000A7A632 /* AppError.swift */,
@@ -2125,6 +2128,7 @@
 				C1249C812181B547005DB2A5 /* ErrorHandlerType.swift */,
 				C13C2B0321EDD1C5008C9088 /* ServerError.swift */,
 				C153AC6A218324DB007A35BB /* UIError.swift */,
+				C172D13B24656641005AC63B /* ValidationErrors */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -2574,9 +2578,11 @@
 			isa = PBXGroup;
 			children = (
 				C172D13C24656655005AC63B /* BasicError.swift */,
+				C1F62B432469535100AB8C00 /* NewVacationValidationError.swift */,
 				C172D13E246566A0005AC63B /* RegisterRemoteWorkValidationError.swift */,
 				C1F62B1A24691ADC00AB8C00 /* UIErrorRepresentable.swift */,
 				C172D14024656FF2005AC63B /* ValidationError.swift */,
+				C1F62B4524695D7C00AB8C00 /* ValidationErrorUIRepresentable.swift */,
 			);
 			path = ValidationErrors;
 			sourceTree = "<group>";
@@ -3794,6 +3800,7 @@
 				C18BE2702452FBD100FC71CC /* VacationTableHeader.swift in Sources */,
 				8A09DCBA23673E74003FC2A6 /* DispatchQueue+Extension.swift in Sources */,
 				C1FB401E245191D8008266C4 /* ApiClient+Vacation.swift in Sources */,
+				C1F62B4624695D7C00AB8C00 /* ValidationErrorUIRepresentable.swift in Sources */,
 				8A21A052243614D900EE4A79 /* KeychainBuilder.swift in Sources */,
 				C134295E21A6934C00F4EA42 /* ApiClient+Session.swift in Sources */,
 				C153AC6D21833BDC007A35BB /* AttributedButton.swift in Sources */,
@@ -3822,6 +3829,7 @@
 				C1411C2C24503B6000BB4266 /* VacationViewController.swift in Sources */,
 				C16B3A75229E6A0700B6E9E6 /* ProjectTag.swift in Sources */,
 				C1AACFCF21A4349B0023FD32 /* ProjectsCoordinator.swift in Sources */,
+				C1F62B442469535100AB8C00 /* NewVacationValidationError.swift in Sources */,
 				C1FE49E821AC458F00E37E28 /* WorkTimesTableViewHeader.swift in Sources */,
 				C1ECF0A52192C37E006038C6 /* CustomJSONSerialization.swift in Sources */,
 				C1A47BEF2459934800FDA7F0 /* VacationStatus.swift in Sources */,

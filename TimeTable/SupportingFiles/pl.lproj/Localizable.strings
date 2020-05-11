@@ -97,6 +97,13 @@
 "newvacation_reason" = "Powód";
 "newvacation_optional" = "Opcjonalne";
 "newvacation_save_btn" = "Wyślij do zaakceptowania";
+"newvacation_base_workTimeExists" = "Jest już czas pracy z tą samą datą.";
+"newvacation_description_blank" = "Opis nie może być pusty.";
+"newvacation_startDate_blank" = "Data początkowa nie może być pusta.";
+"newvacation_startDate_greaterThanEndDate" = "Przedział czasu jest nieprawidłowy. Czas rozpoczęcia jest większy lub równy czasowi zakończenia.";
+"newvacation_endDate_blank" = "Data końcowa nie może być pusta.";
+"newvacation_vacationType_blank" = "Typ urlopu nie może być pusty.";
+"newvacation_vacationType_inclusion" = "Niepoprawny typ urlopu.";
 
 // MARK: - RemoteWork
 "remotework_title" = "Praca zdalna";
@@ -123,6 +130,4 @@
 "error_no_connection" = "Brak połączenia z internetem. Aby kontynuować połącz sie z siecią.";
 "error_timeout" = "Twoje żądanie przekroczyło limit czasu i zostało przerwane. Sprawdź połączenie z internetem i spróbuj ponownie.";
 "error_unauthorized" = "Twoja sesja wygasła.";
-"error_work_time_exists" = "Jest już czas pracy z tą samą datą.";
-
 "error_refresh_btn" = "ODŚWIEŻ";

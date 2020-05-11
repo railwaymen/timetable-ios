@@ -102,3 +102,52 @@ extension RegisterRemoteWorkValidationErrorTests {
         XCTAssertFalse(sut.isEmpty)
     }
 }
+
+// MARK: - ValidationErrorUIRepresentable
+extension RegisterRemoteWorkValidationErrorTests {
+    func testUIErrors_emptyStartsAtAndEndsAt() throws {
+        //Arrange
+        let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteEmptyStartsAtAndEndsAtResponse)
+        //Act
+        let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
+        //Assert
+        XCTAssertEqual(sut.uiErrors.count, 0)
+    }
+    
+    func testUIErrors_startsAtFullModel() throws {
+        //Arrange
+        let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteStartsAtFullModelResponse)
+        //Act
+        let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
+        //Assert
+        XCTAssertEqual(sut.uiErrors.count, 4)
+        XCTAssert(sut.uiErrors.contains(.remoteWorkStartsAtOvelap))
+        XCTAssert(sut.uiErrors.contains(.remoteWorkStartsAtTooOld))
+        XCTAssert(sut.uiErrors.contains(.remoteWorkStartsAtEmpty))
+        XCTAssert(sut.uiErrors.contains(.remoteWorkStartsAtIncorrectHours))
+    }
+    
+    func testUIErrors_endsAtFullModel() throws {
+        //Arrange
+        let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteEndsAtFullModelResponse)
+        //Act
+        let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
+        //Assert
+        XCTAssertEqual(sut.uiErrors.count, 1)
+        XCTAssert(sut.uiErrors.contains(.remoteWorkEndsAtEmpty))
+    }
+    
+    func testUIErrors_fullModelResponse() throws {
+        //Arrange
+        let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteFullModelResponse)
+        //Act
+        let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
+        //Assert
+        XCTAssertEqual(sut.uiErrors.count, 5)
+        XCTAssert(sut.uiErrors.contains(.remoteWorkStartsAtOvelap))
+        XCTAssert(sut.uiErrors.contains(.remoteWorkStartsAtTooOld))
+        XCTAssert(sut.uiErrors.contains(.remoteWorkStartsAtEmpty))
+        XCTAssert(sut.uiErrors.contains(.remoteWorkStartsAtIncorrectHours))
+        XCTAssert(sut.uiErrors.contains(.remoteWorkEndsAtEmpty))
+    }
+}
