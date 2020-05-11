@@ -165,7 +165,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     func viewWillAppear() {
-        self.keyboardManager.setKeyboardHeightChangeHandler(for: Self.self) { [weak userInterface] keyboardHeight in
+        self.keyboardManager.setKeyboardHeightChangeHandler(for: self) { [weak userInterface] keyboardHeight in
             userInterface?.setBottomContentInset(keyboardHeight)
         }
         guard self.state == .none else { return }
@@ -179,7 +179,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     func viewDidDisappear() {
-        self.keyboardManager.removeHandler(for: Self.self)
+        self.keyboardManager.removeHandler(for: self)
     }
     
     func numberOfSections() -> Int {

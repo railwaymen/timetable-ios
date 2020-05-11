@@ -40,7 +40,7 @@ extension KeyboardManagerTests {
         let sut = self.buildSUT()
         let notification = self.notificationWithoutKeyboardHeight()
         let handlerManager = KeyboardHandlerManager()
-        handlerManager.setHandler(in: sut, for: ObserverMock.self)
+        handlerManager.setHandler(in: sut, for: ObserverMock())
         //Act
         sut.keyboardWillChangeFrame(notification: notification)
         //Assert
@@ -53,7 +53,7 @@ extension KeyboardManagerTests {
         let keyboardHeight: CGFloat = 100
         let notification = self.notification(withKeyboardHeight: keyboardHeight)
         let handlerManager = KeyboardHandlerManager()
-        handlerManager.setHandler(in: sut, for: ObserverMock.self)
+        handlerManager.setHandler(in: sut, for: ObserverMock())
         //Act
         sut.keyboardWillChangeFrame(notification: notification)
         //Assert
@@ -67,9 +67,9 @@ extension KeyboardManagerTests {
         let keyboardHeight: CGFloat = 100
         let notification = self.notification(withKeyboardHeight: keyboardHeight)
         let firstHandlerManager = KeyboardHandlerManager()
-        firstHandlerManager.setHandler(in: sut, for: ObserverMock.self)
+        firstHandlerManager.setHandler(in: sut, for: ObserverMock())
         let secondHandlerManager = KeyboardHandlerManager()
-        secondHandlerManager.setHandler(in: sut, for: SecondObserverMock.self)
+        secondHandlerManager.setHandler(in: sut, for: SecondObserverMock())
         //Act
         sut.keyboardWillChangeFrame(notification: notification)
         //Assert
@@ -87,7 +87,7 @@ extension KeyboardManagerTests {
         let sut = self.buildSUT()
         let notification = self.notificationWithoutKeyboardHeight()
         let handlerManager = KeyboardHandlerManager()
-        handlerManager.setHandler(in: sut, for: ObserverMock.self)
+        handlerManager.setHandler(in: sut, for: ObserverMock())
         //Act
         sut.keyboardDidShow(notification: notification)
         //Assert
@@ -100,7 +100,7 @@ extension KeyboardManagerTests {
         let keyboardHeight: CGFloat = 100
         let notification = self.notification(withKeyboardHeight: keyboardHeight)
         let handlerManager = KeyboardHandlerManager()
-        handlerManager.setHandler(in: sut, for: ObserverMock.self)
+        handlerManager.setHandler(in: sut, for: ObserverMock())
         //Act
         sut.keyboardDidShow(notification: notification)
         //Assert
@@ -114,9 +114,9 @@ extension KeyboardManagerTests {
         let keyboardHeight: CGFloat = 100
         let notification = self.notification(withKeyboardHeight: keyboardHeight)
         let firstHandlerManager = KeyboardHandlerManager()
-        firstHandlerManager.setHandler(in: sut, for: ObserverMock.self)
+        firstHandlerManager.setHandler(in: sut, for: ObserverMock())
         let secondHandlerManager = KeyboardHandlerManager()
-        secondHandlerManager.setHandler(in: sut, for: SecondObserverMock.self)
+        secondHandlerManager.setHandler(in: sut, for: SecondObserverMock())
         //Act
         sut.keyboardDidShow(notification: notification)
         //Assert
@@ -133,7 +133,7 @@ extension KeyboardManagerTests {
         //Arrange
         let sut = self.buildSUT()
         let handlerManager = KeyboardHandlerManager()
-        handlerManager.setHandler(in: sut, for: ObserverMock.self)
+        handlerManager.setHandler(in: sut, for: ObserverMock())
         //Act
         sut.keyboardWillHide()
         //Assert
@@ -145,9 +145,9 @@ extension KeyboardManagerTests {
         //Arrange
         let sut = self.buildSUT()
         let firstHandlerManager = KeyboardHandlerManager()
-        firstHandlerManager.setHandler(in: sut, for: ObserverMock.self)
+        firstHandlerManager.setHandler(in: sut, for: ObserverMock())
         let secondHandlerManager = KeyboardHandlerManager()
-        secondHandlerManager.setHandler(in: sut, for: SecondObserverMock.self)
+        secondHandlerManager.setHandler(in: sut, for: SecondObserverMock())
         //Act
         sut.keyboardWillHide()
         //Assert
@@ -164,7 +164,7 @@ extension KeyboardManagerTests {
         //Arrange
         let sut = self.buildSUT()
         let handlerManager = KeyboardHandlerManager()
-        handlerManager.setHandler(in: sut, for: ObserverMock.self)
+        handlerManager.setHandler(in: sut, for: ObserverMock())
         //Act
         sut.keyboardDidHide()
         //Assert
@@ -176,9 +176,9 @@ extension KeyboardManagerTests {
         //Arrange
         let sut = self.buildSUT()
         let firstHandlerManager = KeyboardHandlerManager()
-        firstHandlerManager.setHandler(in: sut, for: ObserverMock.self)
+        firstHandlerManager.setHandler(in: sut, for: ObserverMock())
         let secondHandlerManager = KeyboardHandlerManager()
-        secondHandlerManager.setHandler(in: sut, for: SecondObserverMock.self)
+        secondHandlerManager.setHandler(in: sut, for: SecondObserverMock())
         //Act
         sut.keyboardDidHide()
         //Assert
@@ -198,9 +198,9 @@ extension KeyboardManagerTests {
         let secondHandlerManager = KeyboardHandlerManager()
         let thirdHandlerManager = KeyboardHandlerManager()
         //Act
-        firstHandlerManager.setHandler(in: sut, for: ObserverMock.self)
-        secondHandlerManager.setHandler(in: sut, for: SecondObserverMock.self)
-        thirdHandlerManager.setHandler(in: sut, for: ObserverMock.self)
+        firstHandlerManager.setHandler(in: sut, for: ObserverMock())
+        secondHandlerManager.setHandler(in: sut, for: SecondObserverMock())
+        thirdHandlerManager.setHandler(in: sut, for: ObserverMock())
         //Assert
         sut.keyboardDidHide()
         XCTAssertEqual(firstHandlerManager.handlerParams.count, 0)
@@ -216,10 +216,10 @@ extension KeyboardManagerTests {
         let sut = self.buildSUT()
         let firstHandlerManager = KeyboardHandlerManager()
         let secondHandlerManager = KeyboardHandlerManager()
-        firstHandlerManager.setHandler(in: sut, for: ObserverMock.self)
-        secondHandlerManager.setHandler(in: sut, for: SecondObserverMock.self)
+        firstHandlerManager.setHandler(in: sut, for: ObserverMock())
+        secondHandlerManager.setHandler(in: sut, for: SecondObserverMock())
         //Act
-        sut.removeHandler(for: ObserverMock.self)
+        sut.removeHandler(for: ObserverMock())
         //Assert
         sut.keyboardDidHide()
         XCTAssertEqual(firstHandlerManager.handlerParams.count, 0)
@@ -258,7 +258,7 @@ private class KeyboardHandlerManager {
     }
     
     // MARK: - Internal
-    func setHandler(in manager: KeyboardManager, for observer: KeyboardManagerObserverable.Type) {
+    func setHandler(in manager: KeyboardManager, for observer: KeyboardManagerObserverable) {
         manager.setKeyboardHeightChangeHandler(for: observer) { [weak self] keyboardHeight in
             self?.handlerParams.append(HandlerParams(keyboardHeight: keyboardHeight))
         }

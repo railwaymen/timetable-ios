@@ -11,25 +11,22 @@ import UIKit
 protocol KeyboardManagerObserverable {}
 
 extension KeyboardManagerObserverable {
-    static var uniqueID: String {
+    var uniqueID: String {
         String(describing: Self.self)
     }
 }
 
 protocol KeyboardManagerable: class {
-    
     func setKeyboardHeightChangeHandler(
-        for observer: KeyboardManagerObserverable.Type,
+        for observer: KeyboardManagerObserverable,
         handler: @escaping KeyboardManager.HeightChangeHandler)
-    
-    func removeHandler(for observer: KeyboardManagerObserverable.Type)
+    func removeHandler(for observer: KeyboardManagerObserverable)
 }
 
 class KeyboardManager {
     typealias HeightChangeHandler = (CGFloat) -> Void
     
     private weak var notificationCenter: NotificationCenterType?
-    private var observers: [KeyboardManagerObserverable] = []
     private var handlers: [String: HeightChangeHandler] = [:]
     
     // MARK: - Initialization
@@ -74,13 +71,13 @@ extension KeyboardManager {
 // MARK: - KeyboardManagerable
 extension KeyboardManager: KeyboardManagerable {
     func setKeyboardHeightChangeHandler(
-        for observer: KeyboardManagerObserverable.Type,
+        for observer: KeyboardManagerObserverable,
         handler: @escaping HeightChangeHandler
     ) {
         self.handlers[observer.uniqueID] = handler
     }
     
-    func removeHandler(for observer: KeyboardManagerObserverable.Type) {
+    func removeHandler(for observer: KeyboardManagerObserverable) {
         self.handlers.removeValue(forKey: observer.uniqueID)
     }
 }

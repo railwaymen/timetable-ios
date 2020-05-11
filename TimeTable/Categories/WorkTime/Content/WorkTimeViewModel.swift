@@ -133,13 +133,13 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func viewWillAppear() {
-        self.keyboardManager.setKeyboardHeightChangeHandler(for: Self.self) { [weak userInterface] keyboardHeight in
+        self.keyboardManager.setKeyboardHeightChangeHandler(for: self) { [weak userInterface] keyboardHeight in
             userInterface?.setBottomContentInset(keyboardHeight)
         }
     }
     
     func viewDidDisappear() {
-        self.keyboardManager.removeHandler(for: Self.self)
+        self.keyboardManager.removeHandler(for: self)
     }
     
     func userInterfaceStyleDidChange() {
