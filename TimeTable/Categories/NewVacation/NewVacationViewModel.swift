@@ -10,6 +10,8 @@ import UIKit
 
 protocol NewVacationViewModelType: class {
     func loadView()
+    func viewWillAppear()
+    func viewDidDisappear()
     func closeButtonTapped()
     func numberOfTypes() -> Int
     func titleOfType(for row: Int) -> String?
@@ -37,12 +39,12 @@ protocol NewVacationViewModelOutput: class {
     func dismissKeyboard()
 }
 
-class NewVacationViewModel {
+class NewVacationViewModel: KeyboardManagerObserverable {
     private weak var userInterface: NewVacationViewModelOutput?
     private weak var coordinator: NewVacationCoordinatorDelegate?
     private let apiClient: ApiClientVacationType
-    private let notificationCenter: NotificationCenterType
     private let errorHandler: ErrorHandlerType
+    private let keyboardManager: KeyboardManagerable
     private let vacationTypes: [VacationType]
     private let availableVacationDays: Int
     
@@ -73,37 +75,22 @@ class NewVacationViewModel {
     // MARK: - Initialization
     init(
         userInterface: NewVacationViewModelOutput,
+        coordinator: NewVacationCoordinatorDelegate,
         apiClient: ApiClientVacationType,
         errorHandler: ErrorHandlerType,
-        notificationCenter: NotificationCenterType,
-        availableVacationDays: Int,
-        coordinator: NewVacationCoordinatorDelegate
+        keyboardManager: KeyboardManagerable,
+        availableVacationDays: Int
     ) {
         self.userInterface = userInterface
+        self.coordinator = coordinator
         self.apiClient = apiClient
         self.errorHandler = errorHandler
-        self.notificationCenter = notificationCenter
-        self.coordinator = coordinator
+        self.keyboardManager = keyboardManager
         self.availableVacationDays = availableVacationDays
+        
         self.vacationTypes = VacationType.allCases
         self.decisionState = .preparing
         self.form = VacationForm()
-        self.setUpNotification()
-    }
-    
-    deinit {
-        self.notificationCenter.removeObserver(self)
-    }
-    
-    // MARK: - Notifications
-    @objc func keyboardFrameWillChange(_ notification: NSNotification) {
-        let userInfo = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
-        guard let keyboardHeight = userInfo?.cgRectValue.size.height else { return }
-        self.userInterface?.setBottomContentInset(keyboardHeight)
-    }
-    
-    @objc func keyboardWillHide() {
-        self.userInterface?.setBottomContentInset(0)
     }
 }
 
@@ -122,6 +109,16 @@ extension NewVacationViewModel: NewVacationViewModelType {
     func loadView() {
         self.userInterface?.setUp(availableVacationDays: "\(self.availableVacationDays)")
         self.decisionState = .preparing
+    }
+    
+    func viewWillAppear() {
+        self.keyboardManager.setKeyboardHeightChangeHandler(for: Self.self) { [weak userInterface] keyboardHeight in
+            userInterface?.setBottomContentInset(keyboardHeight)
+        }
+    }
+    
+    func viewDidDisappear() {
+        self.keyboardManager.removeHandler(for: Self.self)
     }
     
     func closeButtonTapped() {
@@ -170,19 +167,6 @@ extension NewVacationViewModel: NewVacationViewModelType {
 
 // MARK: - Private
 extension NewVacationViewModel {
-    private func setUpNotification() {
-        self.notificationCenter.addObserver(
-            self,
-            selector: #selector(self.keyboardFrameWillChange),
-            name: UIResponder.keyboardWillChangeFrameNotification,
-            object: nil)
-        self.notificationCenter.addObserver(
-            self,
-            selector: #selector(self.keyboardWillHide),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil)
-    }
-    
     private func updateDateInput(with date: Date, action: ((Date, String) -> Void)?) {
         let dateString = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none)
         action?(date, dateString)
