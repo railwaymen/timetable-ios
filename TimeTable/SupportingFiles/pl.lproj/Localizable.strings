@@ -110,8 +110,8 @@
 
 "remotework_startsAt_ovelap" = "Jest już urlop z tą samoą datą.";
 "remotework_startsAt_tooOld" = "Podany przedział czasowy jest za stary.";
-"remotework_statsAt_empty" = "Data rozpoczęcia nie może być pusta.";
-"remotework_statsAt_incorrectHours" = "Przedział czasu jest nieprawidłowy. Czas rozpoczęcia jest większy lub równy czasowi zakończenia.";
+"remotework_startsAt_empty" = "Data rozpoczęcia nie może być pusta.";
+"remotework_startsAt_incorrectHours" = "Przedział czasu jest nieprawidłowy. Czas rozpoczęcia jest większy lub równy czasowi zakończenia.";
 "remotework_endsAt_empty" = "Data zakończenia nie może być pusta.";
 
 // MARK: - Generic Errors

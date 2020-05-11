@@ -159,13 +159,8 @@ extension RegisterRemoteWorkViewModel {
     
     private func handleResponse(error: Error) {
         if let errors = (error as? ValidationError<RegisterRemoteWorkValidationError>)?.errors {
-            if !errors.startsAt.isEmpty, let error = errors.startsAt.first {
-                self.errorHandler.throwing(error: error.uiError)
-            } else if !errors.endsAt.isEmpty, let error = errors.endsAt.first {
-                self.errorHandler.throwing(error: error.uiError)
-            } else {
-                self.errorHandler.throwing(error: UIError.genericError)
-            }
+            let error: UIError = errors.startsAt.first?.uiError ?? errors.endsAt.first?.uiError ?? .genericError
+            self.errorHandler.throwing(error: error)
         } else {
             self.errorHandler.throwing(error: error)
         }
@@ -178,7 +173,7 @@ extension RegisterRemoteWorkViewModel {
     }
     
     private func updateUI(with errors: [UIError]) {
-        self.userInterface?.setStartsAt(isHighlighted: errors.contains(.remoteWorkStatsAtIncorrectHours))
-        self.userInterface?.setEndsAt(isHighlighted: errors.contains(.remoteWorkStatsAtIncorrectHours))
+        self.userInterface?.setStartsAt(isHighlighted: errors.contains(.remoteWorkStartsAtIncorrectHours))
+        self.userInterface?.setEndsAt(isHighlighted: errors.contains(.remoteWorkStartsAtIncorrectHours))
     }
 }

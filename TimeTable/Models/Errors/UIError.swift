@@ -29,8 +29,8 @@ enum UIError: Error {
     
     case remoteWorkStartsAtOvelap
     case remoteWorkStartsAtTooOld
-    case remoteWorkStatsAtEmpty
-    case remoteWorkStatsAtIncorrectHours
+    case remoteWorkStartsAtEmpty
+    case remoteWorkStartsAtIncorrectHours
     case remoteWorkEndsAtEmpty
     
     var localizedDescription: String {
@@ -49,10 +49,10 @@ enum UIError: Error {
             return R.string.localizable.remotework_startsAt_ovelap()
         case .remoteWorkStartsAtTooOld:
             return R.string.localizable.remotework_startsAt_tooOld()
-        case .remoteWorkStatsAtEmpty:
-            return R.string.localizable.remotework_statsAt_empty()
-        case .remoteWorkStatsAtIncorrectHours:
-            return R.string.localizable.remotework_statsAt_incorrectHours()
+        case .remoteWorkStartsAtEmpty:
+            return R.string.localizable.remotework_startsAt_empty()
+        case .remoteWorkStartsAtIncorrectHours:
+            return R.string.localizable.remotework_startsAt_incorrectHours()
         case .remoteWorkEndsAtEmpty:
             return R.string.localizable.remotework_endsAt_empty()
         }

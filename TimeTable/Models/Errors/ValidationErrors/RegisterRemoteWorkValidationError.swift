@@ -28,7 +28,6 @@ struct RegisterRemoteWorkValidationError: Error, ValidationErrorType {
         self.startsAt = startsAt?.map(\.error) ?? []
         let endsAt = try? container.decode([BasicError<EndsAtErrorKey>].self, forKey: .endsAt)
         self.endsAt = endsAt?.map(\.error) ?? []
-        
     }
 }
 
@@ -52,8 +51,8 @@ extension RegisterRemoteWorkValidationError.StartsAtErrorKey: UIErrorRepresentab
         switch self {
         case .overlap: return UIError.remoteWorkStartsAtOvelap
         case .tooOld: return UIError.remoteWorkStartsAtTooOld
-        case .blank: return UIError.remoteWorkStatsAtEmpty
-        case .incorrectHours: return UIError.remoteWorkStatsAtIncorrectHours
+        case .blank: return UIError.remoteWorkStartsAtEmpty
+        case .incorrectHours: return UIError.remoteWorkStartsAtIncorrectHours
         }
     }
 }

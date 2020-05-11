@@ -1,0 +1,17 @@
+{
+    "starts_at": [
+        {
+            "error": "overlap"
+        },
+        {
+            "error": "too_old"
+        },
+        {
+            "error": "blank"
+        },
+        {
+            "error": "incorrect_hours"
+        }
+    ],
+    "ends_at": []
+}
