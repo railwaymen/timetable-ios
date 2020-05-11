@@ -59,10 +59,10 @@ struct DependencyContainer: DependencyContainerType {
         accessService: AccessServiceLoginType,
         encoder: JSONEncoderType,
         decoder: JSONDecoderType,
-        notificationCenter: NotificationCenterType,
+        notificationCenter: NotificationCenterType = NotificationCenter.default,
         taskFormFactory: TaskFormFactoryType,
-        viewControllerBuilder: ViewControllerBuilder,
-        keyboardManager: KeyboardManagerable
+        viewControllerBuilder: ViewControllerBuilderType = ViewControllerBuilder(),
+        keyboardManager: KeyboardManagerable = KeyboardManager()
     ) {
         self.application = application
         self.window = window

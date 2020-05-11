@@ -30,7 +30,7 @@ protocol KeyboardManagerable: class {
 }
 
 class KeyboardManager {
-    private let notificationCenter: NotificationCenterType
+    private weak var notificationCenter: NotificationCenterType?
     private var observers: [KeyboardManagerObserverable] = []
     
     // MARK: - Initialization
@@ -41,7 +41,7 @@ class KeyboardManager {
     }
     
     deinit {
-        self.notificationCenter.removeObserver(self)
+        self.notificationCenter?.removeObserver(self)
     }
     
     // MARK: - Notifications
@@ -75,6 +75,7 @@ extension KeyboardManager {
 // MARK: - KeyboardManagerable
 extension KeyboardManager: KeyboardManagerable {
     func addKeyboardHeightChange(observer: KeyboardManagerObserverable) {
+        guard !self.observers.contains(where: { $0 === observer }) else { return }
         self.observers.append(observer)
     }
     
@@ -93,7 +94,7 @@ extension KeyboardManager {
             .init(selector: #selector(self.keyboardDidHide), name: UIResponder.keyboardDidHideNotification)
         ]
         notificationsConfiguration.forEach { config in
-            self.notificationCenter.addObserver(
+            self.notificationCenter?.addObserver(
                 self,
                 selector: config.selector,
                 name: config.name,

@@ -246,6 +246,7 @@
 		8AE55D2123FD92D200F94242 /* DateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE55D2023FD92D200F94242 /* DateFactory.swift */; };
 		8AE55D2323FD933700F94242 /* DateFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE55D2223FD933700F94242 /* DateFactoryMock.swift */; };
 		8AE866AC246918F9001BD475 /* KeyboardManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE866AB246918F9001BD475 /* KeyboardManagerMock.swift */; };
+		8AE866AE246927C9001BD475 /* KeyboardManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE866AD246927C9001BD475 /* KeyboardManagerTests.swift */; };
 		8AF3073823688C5A00832FDD /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3073723688C5A00832FDD /* DependencyContainer.swift */; };
 		8AF5696D23D71C0900A1D001 /* SimpleProjectRecordDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5696C23D71C0900A1D001 /* SimpleProjectRecordDecoderFactory.swift */; };
 		8AF5696F23D71EA000A1D001 /* JSONFactorable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5696E23D71EA000A1D001 /* JSONFactorable+Extension.swift */; };
@@ -830,6 +831,7 @@
 		8AE55D2023FD92D200F94242 /* DateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFactory.swift; sourceTree = "<group>"; };
 		8AE55D2223FD933700F94242 /* DateFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFactoryMock.swift; sourceTree = "<group>"; };
 		8AE866AB246918F9001BD475 /* KeyboardManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManagerMock.swift; sourceTree = "<group>"; };
+		8AE866AD246927C9001BD475 /* KeyboardManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManagerTests.swift; sourceTree = "<group>"; };
 		8AF3073723688C5A00832FDD /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		8AF5696C23D71C0900A1D001 /* SimpleProjectRecordDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleProjectRecordDecoderFactory.swift; sourceTree = "<group>"; };
 		8AF5696E23D71EA000A1D001 /* JSONFactorable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONFactorable+Extension.swift"; sourceTree = "<group>"; };
@@ -1975,6 +1977,7 @@
 		C1249C782181AC35005DB2A5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8AE866AD246927C9001BD475 /* KeyboardManagerTests.swift */,
 				C1AFFFD721A2ACB100A7A632 /* AccessService */,
 				C1531F052191CD2800602A0C /* ApiClient */,
 				C12CA57921A58FD20082FEB7 /* BussinessModels */,
@@ -3807,6 +3810,7 @@
 				8AF5697B23D756CA00A1D001 /* WorkTimeDecoderFactory.swift in Sources */,
 				8A065B4F237AB8F50072A21E /* WorkTimesJSONResource.swift in Sources */,
 				C12BD99F21E48F9000A6EAF0 /* ApiClientMock.swift in Sources */,
+				8AE866AE246927C9001BD475 /* KeyboardManagerTests.swift in Sources */,
 				8AF5697123D7222800A1D001 /* ProjectRecordDecoderFactory.swift in Sources */,
 				C1EF3A0721930409000E3511 /* NSRegularExpresionExtensionTests.swift in Sources */,
 				8A065B59237ABC8A0072A21E /* ProjectRecordJSONResource.swift in Sources */,
