@@ -37,6 +37,8 @@ protocol WorkTimeViewModelOutput: class {
 
 protocol WorkTimeViewModelType: class {
     func viewDidLoad()
+    func viewWillAppear()
+    func viewDidDisappear()
     func userInterfaceStyleDidChange()
     func configure(_ cell: TagCollectionViewCellable, for indexPath: IndexPath)
     func projectButtonTapped()
@@ -54,13 +56,13 @@ protocol WorkTimeViewModelType: class {
     func viewHasBeenTapped()
 }
 
-class WorkTimeViewModel {
+class WorkTimeViewModel: KeyboardManagerObserverable {
     private weak var userInterface: WorkTimeViewModelOutput?
     private weak var coordinator: WorkTimeCoordinatorType?
     private let contentProvider: WorkTimeContentProviderType
     private let errorHandler: ErrorHandlerType
     private let calendar: CalendarType
-    private let notificationCenter: NotificationCenterType
+    private let keyboardManager: KeyboardManagerable
     private let lastTask: TaskForm?
     private let flowType: FlowType
     
@@ -79,7 +81,7 @@ class WorkTimeViewModel {
         contentProvider: WorkTimeContentProviderType,
         errorHandler: ErrorHandlerType,
         calendar: CalendarType,
-        notificationCenter: NotificationCenterType,
+        keyboardManager: KeyboardManagerable,
         flowType: FlowType,
         taskFormFactory: TaskFormFactoryType
     ) {
@@ -88,7 +90,7 @@ class WorkTimeViewModel {
         self.contentProvider = contentProvider
         self.errorHandler = errorHandler
         self.calendar = calendar
-        self.notificationCenter = notificationCenter
+        self.keyboardManager = keyboardManager
         self.flowType = flowType
         
         switch flowType {
@@ -104,23 +106,6 @@ class WorkTimeViewModel {
         }
         self.projects = []
         self.tags = []
-        
-        self.setUpNotification()
-    }
-    
-    deinit {
-        self.notificationCenter.removeObserver(self)
-    }
-    
-    // MARK: - Notifications
-    @objc func keyboardFrameWillChange(_ notification: NSNotification) {
-        let userInfo = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
-        guard let keyboardHeight = userInfo?.cgRectValue.size.height else { return }
-        self.userInterface?.setBottomContentInset(keyboardHeight)
-    }
-    
-    @objc func keyboardWillHide() {
-        self.userInterface?.setBottomContentInset(0)
     }
 }
 
@@ -145,6 +130,16 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     func viewDidLoad() {
         self.setDefaultDay()
         self.setUpUI()
+    }
+    
+    func viewWillAppear() {
+        self.keyboardManager.setKeyboardHeightChangeHandler(for: Self.self) { [weak userInterface] keyboardHeight in
+            userInterface?.setBottomContentInset(keyboardHeight)
+        }
+    }
+    
+    func viewDidDisappear() {
+        self.keyboardManager.removeHandler(for: Self.self)
     }
     
     func userInterfaceStyleDidChange() {
@@ -236,19 +231,6 @@ extension WorkTimeViewModel: WorkTimeContainerContentType {
 
 // MARK: - Private
 extension WorkTimeViewModel {
-    private func setUpNotification() {
-        self.notificationCenter.addObserver(
-            self,
-            selector: #selector(self.keyboardFrameWillChange),
-            name: UIResponder.keyboardWillChangeFrameNotification,
-            object: nil)
-        self.notificationCenter.addObserver(
-            self,
-            selector: #selector(self.keyboardWillHide),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil)
-    }
-    
     private func setUpUI() {
         self.userInterface?.setUp()
         switch self.flowType {

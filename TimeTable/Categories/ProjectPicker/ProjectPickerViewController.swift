@@ -81,7 +81,7 @@ extension ProjectPickerViewController: ProjectPickerViewModelOutput {
         self.tableView.reloadData()
     }
     
-    func setBottomContentInsets(_ inset: CGFloat) {
+    func setBottomContentInset(_ inset: CGFloat) {
         let calculatedInset = max(inset - self.tableView.safeAreaInsets.bottom, 0)
         self.tableView.contentInset.bottom = calculatedInset
         self.tableView.verticalScrollIndicatorInsets.bottom = calculatedInset

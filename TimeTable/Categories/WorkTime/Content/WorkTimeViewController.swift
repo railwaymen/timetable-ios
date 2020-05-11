@@ -42,6 +42,16 @@ class WorkTimeViewController: UIViewController {
         self.viewModel.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel.viewWillAppear()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.viewModel.viewDidDisappear()
+    }
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         guard self.traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }

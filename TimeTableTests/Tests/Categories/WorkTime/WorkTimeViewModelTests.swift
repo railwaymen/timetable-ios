@@ -17,6 +17,7 @@ class WorkTimeViewModelTests: XCTestCase {
     private var contentProviderMock: WorkTimeContentProviderMock!
     private var errorHandlerMock: ErrorHandlerMock!
     private var calendarMock: CalendarMock!
+    private var keyboardManagerMock: KeyboardManagerMock!
     private var notificationCenterMock: NotificationCenterMock!
     private var taskForm: TaskFormMock!
     private var taskFormFactoryMock: TaskFormFactoryMock!
@@ -28,6 +29,7 @@ class WorkTimeViewModelTests: XCTestCase {
         self.contentProviderMock = WorkTimeContentProviderMock()
         self.errorHandlerMock = ErrorHandlerMock()
         self.calendarMock = CalendarMock()
+        self.keyboardManagerMock = KeyboardManagerMock()
         self.notificationCenterMock = NotificationCenterMock()
         self.taskForm = TaskFormMock()
         self.taskFormFactoryMock = TaskFormFactoryMock()
@@ -67,46 +69,6 @@ extension WorkTimeViewModelTests {
         XCTAssertEqual(self.taskFormFactoryMock.buildTaskFormParams.count, 1)
         XCTAssertEqual(try XCTUnwrap(self.taskFormFactoryMock.buildTaskFormParams.last).duplicatedTask, task)
         XCTAssertEqual(try XCTUnwrap(self.taskFormFactoryMock.buildTaskFormParams.last).lastTask, lastTask)
-    }
-}
-
-// MARK: - keyboardFrameWillChange(_:)
-extension WorkTimeViewModelTests {
-    func testKeyboardFrameWillChange_withNonZeroHeight_setsProperContentInset() {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let rect = CGRect(x: 0, y: 0, width: 0, height: 100)
-        let notification = NSNotification(
-            name: UIResponder.keyboardWillChangeFrameNotification,
-            object: nil,
-            userInfo: [UIResponder.keyboardFrameEndUserInfoKey: NSValue(cgRect: rect)])
-        //Act
-        sut.keyboardFrameWillChange(notification)
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.setBottomContentInsetParams.count, 1)
-        XCTAssertEqual(self.userInterfaceMock.setBottomContentInsetParams.last?.height, 100)
-    }
-    
-    func testKeyboardFrameWillChange_withoutKeyboardHeight_doesNotSetContentInset() {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let notification = NSNotification(name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-        //Act
-        sut.keyboardFrameWillChange(notification)
-        //Assert
-        XCTAssertTrue(self.userInterfaceMock.setBottomContentInsetParams.isEmpty)
-    }
-}
-
-// MARK: - keyboardWillHide()
-extension WorkTimeViewModelTests {
-    func testKeyboardWillHide_setsContentInsetToZero() {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        //Act
-        sut.keyboardWillHide()
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.setBottomContentInsetParams.last?.height, 0)
     }
 }
  
@@ -636,7 +598,7 @@ extension WorkTimeViewModelTests {
             contentProvider: self.contentProviderMock,
             errorHandler: self.errorHandlerMock,
             calendar: self.calendarMock,
-            notificationCenter: self.notificationCenterMock,
+            keyboardManager: self.keyboardManagerMock,
             flowType: flowType,
             taskFormFactory: self.taskFormFactoryMock)
     }
