@@ -41,6 +41,11 @@ class ServerConfigurationViewController: UIViewController {
         self.view.endEditing(true)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.viewModel?.viewDidDisappear()
+    }
+    
     // MARK: - Actions
     @IBAction private func serverAddressTextFieldDidChange(_ sender: UITextField) {
         self.viewModel?.serverAddressDidChange(text: sender.text)

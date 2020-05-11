@@ -40,7 +40,6 @@ class LoginViewModel {
     private weak var coordinator: LoginCoordinatorDelegate?
     private let contentProvider: LoginContentProviderType
     private let errorHandler: ErrorHandlerType
-    private let notificationCenter: NotificationCenterType
     private weak var keyboardManager: KeyboardManagerable?
     
     private var loginForm: LoginFormType {
@@ -55,7 +54,6 @@ class LoginViewModel {
         coordinator: LoginCoordinatorDelegate,
         contentProvider: LoginContentProviderType,
         errorHandler: ErrorHandlerType,
-        notificationCenter: NotificationCenterType,
         loginForm: LoginFormType = LoginForm(),
         keyboardManager: KeyboardManagerable
     ) {
@@ -63,10 +61,8 @@ class LoginViewModel {
         self.coordinator = coordinator
         self.contentProvider = contentProvider
         self.errorHandler = errorHandler
-        self.notificationCenter = notificationCenter
         self.loginForm = loginForm
         self.keyboardManager = keyboardManager
-        self.keyboardManager?.addKeyboardHeightChange(observer: self)
     }
 }
 
