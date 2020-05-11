@@ -567,6 +567,9 @@
 		C1F62B2E24693BFB00AB8C00 /* registerRemoteFullModelResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B2D24693BFB00AB8C00 /* registerRemoteFullModelResponse.json */; };
 		C1F62B302469456B00AB8C00 /* RegisterRemoteWorkStartsAtErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B2F2469456B00AB8C00 /* RegisterRemoteWorkStartsAtErrorKeyTests.swift */; };
 		C1F62B322469466200AB8C00 /* RegisterRemoteWorkEndsAtErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B312469466200AB8C00 /* RegisterRemoteWorkEndsAtErrorKeyTests.swift */; };
+		C1F62B342469487800AB8C00 /* BasicErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B332469487800AB8C00 /* BasicErrorTests.swift */; };
+		C1F62B3724694A1C00AB8C00 /* BasicErrorResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B3624694A1C00AB8C00 /* BasicErrorResource.swift */; };
+		C1F62B3924694A6500AB8C00 /* basicErrorResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B3824694A6500AB8C00 /* basicErrorResponse.json */; };
 		C1F69B2C21902FA5005D9114 /* signInResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F69B2B21902FA5005D9114 /* signInResponse.json */; };
 		C1F69B2E21903818005D9114 /* LoginContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F69B2D21903818005D9114 /* LoginContentProvider.swift */; };
 		C1F7C2DE2190436B00F4FAF0 /* AuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F7C2DD2190436B00F4FAF0 /* AuthenticationCoordinator.swift */; };
@@ -1210,6 +1213,9 @@
 		C1F62B2D24693BFB00AB8C00 /* registerRemoteFullModelResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = registerRemoteFullModelResponse.json; sourceTree = "<group>"; };
 		C1F62B2F2469456B00AB8C00 /* RegisterRemoteWorkStartsAtErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRemoteWorkStartsAtErrorKeyTests.swift; sourceTree = "<group>"; };
 		C1F62B312469466200AB8C00 /* RegisterRemoteWorkEndsAtErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRemoteWorkEndsAtErrorKeyTests.swift; sourceTree = "<group>"; };
+		C1F62B332469487800AB8C00 /* BasicErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicErrorTests.swift; sourceTree = "<group>"; };
+		C1F62B3624694A1C00AB8C00 /* BasicErrorResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicErrorResource.swift; sourceTree = "<group>"; };
+		C1F62B3824694A6500AB8C00 /* basicErrorResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = basicErrorResponse.json; sourceTree = "<group>"; };
 		C1F69B2B21902FA5005D9114 /* signInResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInResponse.json; sourceTree = "<group>"; };
 		C1F69B2D21903818005D9114 /* LoginContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginContentProvider.swift; sourceTree = "<group>"; };
 		C1F7C2DD2190436B00F4FAF0 /* AuthenticationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinator.swift; sourceTree = "<group>"; };
@@ -3089,6 +3095,7 @@
 				C1F62B1D24692FB200AB8C00 /* RegisterRemoteWorkValidationErrorTests.swift */,
 				C1F62B2F2469456B00AB8C00 /* RegisterRemoteWorkStartsAtErrorKeyTests.swift */,
 				C1F62B312469466200AB8C00 /* RegisterRemoteWorkEndsAtErrorKeyTests.swift */,
+				C1F62B332469487800AB8C00 /* BasicErrorTests.swift */,
 			);
 			path = ValidationErrors;
 			sourceTree = "<group>";
@@ -3096,7 +3103,9 @@
 		C1F62B1F2469324100AB8C00 /* ValidationErrors */ = {
 			isa = PBXGroup;
 			children = (
+				C1F62B3624694A1C00AB8C00 /* BasicErrorResource.swift */,
 				C1F62B20246935B000AB8C00 /* RegisterRemoteWorkValidationResource.swift */,
+				C1F62B3524694A0E00AB8C00 /* BasicError */,
 				C1F62B242469364A00AB8C00 /* RegisterRemoteWorkValidation */,
 			);
 			path = ValidationErrors;
@@ -3111,6 +3120,14 @@
 				C1F62B2D24693BFB00AB8C00 /* registerRemoteFullModelResponse.json */,
 			);
 			path = RegisterRemoteWorkValidation;
+			sourceTree = "<group>";
+		};
+		C1F62B3524694A0E00AB8C00 /* BasicError */ = {
+			isa = PBXGroup;
+			children = (
+				C1F62B3824694A6500AB8C00 /* basicErrorResponse.json */,
+			);
+			path = BasicError;
 			sourceTree = "<group>";
 		};
 		C1F7C2E321908B3100F4FAF0 /* Views */ = {
@@ -3525,6 +3542,7 @@
 				C12BD9AD21E49CAA00A6EAF0 /* projectRecordMissingColorKeyResponse.json in Resources */,
 				8A79A2BD2420F73C0048B44B /* taskVersionNullPreviousStartsAt.json in Resources */,
 				C11D0D032208244E00066CA9 /* matchingFullTimeNullShouldWorked.json in Resources */,
+				C1F62B3924694A6500AB8C00 /* basicErrorResponse.json in Resources */,
 				C12BD9B921E4B20400A6EAF0 /* projectsRecordsResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4020,6 +4038,7 @@
 				8A55BA772372D02D004FFA97 /* UIApplicationMock.swift in Sources */,
 				C11F51F521A5AC5800FD626A /* DateFormatterExtensionTests.swift in Sources */,
 				C1E1F04D21AD3EB8007F9228 /* CalendarMock.swift in Sources */,
+				C1F62B342469487800AB8C00 /* BasicErrorTests.swift in Sources */,
 				C1FA05E921945DA400BD8C9D /* XCTestCase+Extension.swift in Sources */,
 				C134296321A693F400F4EA42 /* TestError.swift in Sources */,
 				8A08B50324371DF6007E8DCF /* WorkTimeDisplayedTests.swift in Sources */,
@@ -4096,6 +4115,7 @@
 				C1249C6C2181A23A005DB2A5 /* String+Error.swift in Sources */,
 				C134299B21A6D87900F4EA42 /* CoordinatorMock.swift in Sources */,
 				8A6A4FB42456D9F5004B4CF2 /* AccountingPeriodTests.swift in Sources */,
+				C1F62B3724694A1C00AB8C00 /* BasicErrorResource.swift in Sources */,
 				8A137C3923FD71D0001569BB /* WorkTimeContentProviderTests.swift in Sources */,
 				8A82EBF523FD4DC6001393A8 /* WorkTimeContentProviderMock.swift in Sources */,
 				8AE0001E23747036002F783E /* ProjectPickerCellModelTests.swift in Sources */,
