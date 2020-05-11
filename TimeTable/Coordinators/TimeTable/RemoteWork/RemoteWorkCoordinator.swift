@@ -27,7 +27,7 @@ class RemoteWorkCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
         self.dependencyContainer = dependencyContainer
         self.tabBarItem = UITabBarItem(
             title: R.string.localizable.remotework_title(),
-            image: #imageLiteral(resourceName: "tab_bar_projects_icon"), // TODO - change tab bar icon TIM-332
+            image: #imageLiteral(resourceName: "tab_bar_remote_work_icon"),
             selectedImage: nil)
         super.init(window: dependencyContainer.window)
         self.navigationController.setNavigationBarHidden(false, animated: false)
