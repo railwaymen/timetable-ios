@@ -60,6 +60,12 @@ class TaskFormMock {
         let newValue: ProjectTag
     }
     
+    var saveWithFillingReturnValue: Bool = false
+    private(set) var saveWithFillingSetParams: [SaveWithFillingSetParams] = []
+    struct SaveWithFillingSetParams {
+        let newValue: Bool
+    }
+    
     var titleReturnValue: String = ""
     
     var allowsTaskReturnValue: Bool = false
@@ -149,6 +155,15 @@ extension TaskFormMock: TaskFormType {
         }
         set {
             self.tagSetParams.append(TagSetParams(newValue: newValue))
+        }
+    }
+    
+    var saveWithFilling: Bool {
+        get {
+            self.saveWithFillingReturnValue
+        }
+        set {
+            self.saveWithFillingSetParams.append(SaveWithFillingSetParams(newValue: newValue))
         }
     }
     

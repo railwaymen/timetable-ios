@@ -27,8 +27,9 @@ class WorkTimeViewController: UIViewController {
     @IBOutlet private var bodyTextView: UITextView!
     @IBOutlet private var taskURLView: UIView!
     @IBOutlet private var taskURLTextField: UITextField!
+    @IBOutlet private var saveWithFillingView: UIStackView!
+    @IBOutlet private var saveWithFillingCheckbox: CheckBoxButton!
     @IBOutlet private var saveButton: AttributedButton!
-    @IBOutlet private var saveWithFillingButton: AttributedButton!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private var dayPicker: UIDatePicker!
@@ -71,8 +72,8 @@ class WorkTimeViewController: UIViewController {
         self.viewModel.viewRequestedToSave()
     }
     
-    @IBAction private func saveWithFillingButtonTapped(_ sender: UIButton) {
-        self.viewModel.viewRequestedToSaveWithFilling()
+    @IBAction private func saveWithFillingCheckboxTapped(_ sender: CheckBoxButton) {
+        self.viewModel.saveWithFillingCheckboxTapped(isActive: sender.isActive)
     }
     
     @IBAction private func viewTapped(_ sender: UITapGestureRecognizer) {
@@ -144,7 +145,7 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     func setUp() {
         self.setUpTagsCollectionView()
         self.setUpActivityIndicator()
-        self.setUpSaveButtons()
+        self.setUpSaveButton()
         
         self.setUpProjectButton()
         
@@ -177,13 +178,16 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         self.taskURLTextField.text = urlString
     }
     
-    func setSaveWithFillingButton(isHidden: Bool) {
-        self.saveWithFillingButton.set(isHidden: isHidden)
+    func setSaveWithFilling(isHidden: Bool) {
+        self.saveWithFillingView.set(isHidden: isHidden)
     }
     
-    func setSaveButtons(isEnabled: Bool) {
+    func setSaveWithFilling(isChecked: Bool) {
+        self.saveWithFillingCheckbox.isActive = isChecked
+    }
+    
+    func setSaveButton(isEnabled: Bool) {
         self.saveButton.setWithAnimation(isEnabled: isEnabled)
-        self.saveWithFillingButton.setWithAnimation(isEnabled: isEnabled)
     }
     
     func reloadTagsView() {
@@ -331,11 +335,9 @@ extension WorkTimeViewController {
         self.tagsCollectionView.dataSource = self
     }
     
-    private func setUpSaveButtons() {
+    private func setUpSaveButton() {
         self.saveButton.setBackgroundColor(.enabledButton, forState: .normal)
         self.saveButton.setBackgroundColor(.disabledButton, forState: .disabled)
-        self.saveWithFillingButton.setTitleColor(.enabledButton, for: .normal)
-        self.saveWithFillingButton.setTitleColor(.disabledButton, for: .disabled)
     }
     
     private func set(_ view: UIView, isHighlighted: Bool) {

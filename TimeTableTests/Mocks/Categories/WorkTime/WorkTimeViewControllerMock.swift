@@ -35,9 +35,14 @@ class WorkTimeViewControllerMock: UIViewController {
         let urlString: String
     }
     
-    private(set) var setSaveWithFillingButtonParams: [SetSaveWithFillingButtonParams] = []
-    struct SetSaveWithFillingButtonParams {
+    private(set) var setSaveWithFillingIsHiddenParams: [SetSaveWithFillingIsHiddenParams] = []
+    struct SetSaveWithFillingIsHiddenParams {
         let isHidden: Bool
+    }
+    
+    private(set) var setSaveWithFillingIsCheckedParams: [SetSaveWithFillingIsCheckedParams] = []
+    struct SetSaveWithFillingIsCheckedParams {
+        let isChecked: Bool
     }
     
     private(set) var setSaveButtonsParams: [SetSaveButtonsParams] = []
@@ -154,11 +159,15 @@ extension WorkTimeViewControllerMock: WorkTimeViewModelOutput {
         self.setTaskParams.append(SetTaskParams(urlString: urlString))
     }
     
-    func setSaveWithFillingButton(isHidden: Bool) {
-        self.setSaveWithFillingButtonParams.append(SetSaveWithFillingButtonParams(isHidden: isHidden))
+    func setSaveWithFilling(isHidden: Bool) {
+        self.setSaveWithFillingIsHiddenParams.append(SetSaveWithFillingIsHiddenParams(isHidden: isHidden))
     }
     
-    func setSaveButtons(isEnabled: Bool) {
+    func setSaveWithFilling(isChecked: Bool) {
+        self.setSaveWithFillingIsCheckedParams.append(SetSaveWithFillingIsCheckedParams(isChecked: isChecked))
+    }
+    
+    func setSaveButton(isEnabled: Bool) {
         self.setSaveButtonsParams.append(SetSaveButtonsParams(isEnabled: isEnabled))
     }
     

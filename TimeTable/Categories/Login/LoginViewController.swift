@@ -54,7 +54,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction private func checkBoxButtonTapped(_ sender: CheckBoxButton) {
-        self.viewModel?.shouldRemeberUserBoxStatusDidChange(isActive: sender.isActive)
+        self.viewModel?.shouldRememberUserBoxStatusDidChange(isActive: sender.isActive)
     }
     
     @IBAction private func viewTapped(_ sender: Any) {

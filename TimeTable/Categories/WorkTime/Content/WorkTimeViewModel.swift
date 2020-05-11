@@ -14,8 +14,9 @@ protocol WorkTimeViewModelOutput: class {
     func setTaskURLView(isHidden: Bool)
     func setBody(text: String)
     func setTask(urlString: String)
-    func setSaveWithFillingButton(isHidden: Bool)
-    func setSaveButtons(isEnabled: Bool)
+    func setSaveWithFilling(isHidden: Bool)
+    func setSaveWithFilling(isChecked: Bool)
+    func setSaveButton(isEnabled: Bool)
     func reloadTagsView()
     func dismissKeyboard()
     func setMinimumDateForTypeEndAtDate(minDate: Date)
@@ -52,7 +53,7 @@ protocol WorkTimeViewModelType: class {
     func viewChanged(day: Date)
     func viewChanged(endAtDate date: Date)
     func viewRequestedToSave()
-    func viewRequestedToSaveWithFilling()
+    func saveWithFillingCheckboxTapped(isActive: Bool)
     func viewHasBeenTapped()
 }
 
@@ -207,11 +208,12 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func viewRequestedToSave() {
-        self.saveTask(withFilling: false)
+        self.saveTask()
     }
     
-    func viewRequestedToSaveWithFilling() {
-        self.saveTask(withFilling: true)
+    func saveWithFillingCheckboxTapped(isActive: Bool) {
+        let newValue = !isActive
+        self.taskForm.saveWithFilling = newValue
     }
     
     func viewHasBeenTapped() {
@@ -235,9 +237,9 @@ extension WorkTimeViewModel {
         self.userInterface?.setUp()
         switch self.flowType {
         case .editEntry:
-            self.userInterface?.setSaveWithFillingButton(isHidden: true)
+            self.userInterface?.setSaveWithFilling(isHidden: true)
         case .newEntry, .duplicateEntry:
-            self.userInterface?.setSaveWithFillingButton(isHidden: false)
+            self.userInterface?.setSaveWithFilling(isHidden: false)
         }
         self.updateViewWithCurrentSelectedProject()
     }
@@ -296,11 +298,11 @@ extension WorkTimeViewModel {
         self.userInterface?.updateEndAtDate(with: date, dateString: dateString)
     }
     
-    private func saveTask(withFilling: Bool) {
+    private func saveTask() {
         let completion: WorkTimeSaveTaskCompletion = self.getSaveCompletion()
-        self.userInterface?.setSaveButtons(isEnabled: false)
+        self.userInterface?.setSaveButton(isEnabled: false)
         self.userInterface?.setActivityIndicator(isHidden: false)
-        withFilling
+        self.taskForm.saveWithFilling
             ? self.contentProvider.saveWithFilling(taskForm: self.taskForm, completion: completion)
             : self.contentProvider.save(taskForm: self.taskForm, completion: completion)
     }
@@ -312,7 +314,7 @@ extension WorkTimeViewModel {
             case .success:
                 self?.coordinator?.dismissView(isTaskChanged: true)
             case let .failure(error):
-                self?.userInterface?.setSaveButtons(isEnabled: true)
+                self?.userInterface?.setSaveButton(isEnabled: true)
                 self?.errorHandler.throwing(error: error)
             }
         }
@@ -320,7 +322,8 @@ extension WorkTimeViewModel {
     
     private func updateUI() {
         let errors = self.contentProvider.getValidationErrors(forTaskForm: self.taskForm)
-        self.userInterface?.setSaveButtons(isEnabled: errors.isEmpty)
+        self.userInterface?.setSaveButton(isEnabled: errors.isEmpty)
+        self.userInterface?.setSaveWithFilling(isChecked: self.taskForm.saveWithFilling)
         self.updateUI(with: errors)
     }
     
