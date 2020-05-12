@@ -6,7 +6,7 @@
 //  Copyright © 2020 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol VacationViewModelOutput: class {
     func setUpView()
@@ -15,12 +15,14 @@ protocol VacationViewModelOutput: class {
     func setUpTableHeaderView()
     func setActivityIndicator(isHidden: Bool)
     func updateView()
+    func setBottomContentInset(height: CGFloat)
     func dismissKeyboard()
 }
 
 protocol VacationViewModelType: class {
     func loadView()
     func viewWillAppear()
+    func viewDidDisappear()
     func viewRequestForVacationForm()
     func viewRequestForProfileView()
     func viewTapped()
@@ -32,11 +34,13 @@ protocol VacationViewModelType: class {
     func configure(_ view: ErrorViewable)
 }
 
-class VacationViewModel: ObservableObject {
+class VacationViewModel: KeyboardManagerObserverable {
     private weak var userInterface: VacationViewModelOutput?
     private weak var coordinator: VacationCoordinatorDelegate?
     private let apiClient: ApiClientVacationType
     private let errorHandler: ErrorHandlerType
+    private let keyboardManager: KeyboardManagerable
+    
     private var errorViewModel: ErrorViewModelParentType?
     private weak var headerViewModel: VacationTableHeaderViewModelable?
     
@@ -67,14 +71,16 @@ class VacationViewModel: ObservableObject {
     // MARK: - Initialization
     init(
         userInterface: VacationViewModelOutput,
+        coordinator: VacationCoordinatorDelegate,
         apiClient: ApiClientVacationType,
         errorHandler: ErrorHandlerType,
-        coordinator: VacationCoordinatorDelegate
+        keyboardManager: KeyboardManagerable
     ) {
         self.userInterface = userInterface
+        self.coordinator = coordinator
         self.apiClient = apiClient
         self.errorHandler = errorHandler
-        self.coordinator = coordinator
+        self.keyboardManager = keyboardManager
         
         self.selectedYear = Calendar.autoupdatingCurrent.component(.year, from: Date())
     }
@@ -96,7 +102,14 @@ extension VacationViewModel: VacationViewModelType {
     }
     
     func viewWillAppear() {
+        self.keyboardManager.setKeyboardHeightChangeHandler(for: self) { [weak userInterface] keyboardHeight in
+            userInterface?.setBottomContentInset(height: keyboardHeight)
+        }
         self.fetchVacation()
+    }
+    
+    func viewDidDisappear() {
+        self.keyboardManager.removeHandler(for: self)
     }
     
     func viewRequestForVacationForm() {
