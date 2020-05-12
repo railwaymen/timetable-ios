@@ -58,7 +58,7 @@ test_project:
     paths:
     - output/tests/*
     - output/lint/*
-    when: on_success
+  when: on_success
   tags:
     - ios_simulator
   coverage: '/Test\ Coverage:\ \D*([\d\.]*)\%/'
