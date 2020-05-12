@@ -25,6 +25,7 @@ protocol VacationViewModelType: class {
     func viewDidDisappear()
     func viewRequestForVacationForm()
     func viewRequestForProfileView()
+    func refreshControlDidActivate(completion: @escaping () -> Void)
     func viewTapped()
     func isAbleToDeclineVacation(at index: IndexPath) -> Bool
     func viewRequestToDeclineVacation(at index: IndexPath, completion: @escaping (Bool) -> Void)
@@ -125,6 +126,10 @@ extension VacationViewModel: VacationViewModelType {
         self.coordinator?.vacationRequestedForProfileView()
     }
     
+    func refreshControlDidActivate(completion: @escaping () -> Void) {
+        self.fetchVacation(completion: completion)
+    }
+    
     func viewTapped() {
         self.userInterface?.dismissKeyboard()
     }
@@ -206,10 +211,11 @@ extension VacationViewModel {
         }
     }
     
-    private func fetchVacation() {
+    private func fetchVacation(completion: (() -> Void)? = nil) {
         self.decisionState = .fetching
         let parameters = VacationParameters(year: self.selectedYear)
         _ = self.apiClient.fetchVacation(parameters: parameters) { [weak self] result in
+            defer { completion?() }
             switch result {
             case let .success(response):
                 self?.decisionState = .fetched(response)
