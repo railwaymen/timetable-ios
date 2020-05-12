@@ -29,9 +29,10 @@ class SessionManager {
     }
     
     private var isSessionOpened: Bool {
-        self.getSession() != nil
+        self.readSessionDecoderFromKeychain() != nil
     }
     
+    // MARK: - Initialization
     init(
         keychainBuilder: KeychainBuilderType,
         encoder: JSONEncoderType,
@@ -81,8 +82,7 @@ extension SessionManager: SessionManagerType {
     }
     
     func getSession() -> SessionDecoder? {
-        guard let data = try? self.keychainAccess.getData(Key.userSession) else { return nil }
-        return try? self.decoder.decode(SessionDecoder.self, from: data)
+        return self.readSessionDecoderFromKeychain()
     }
 }
 
@@ -100,5 +100,13 @@ extension SessionManager: UserDataManagerType {
     func getUserData() -> UserDecoder? {
         guard let data = try? self.keychainAccess.getData(Key.userData) else { return nil }
         return try? self.decoder.decode(UserDecoder.self, from: data)
+    }
+}
+
+// MARK: - Private
+extension SessionManager {
+    private func readSessionDecoderFromKeychain() -> SessionDecoder? {
+        guard let data = try? self.keychainAccess.getData(Key.userSession) else { return nil }
+        return try? self.decoder.decode(SessionDecoder.self, from: data)
     }
 }

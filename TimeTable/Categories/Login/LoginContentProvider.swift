@@ -9,6 +9,7 @@
 import Foundation
 
 protocol LoginContentProviderType: class {
+    func closeSession()
     func login(
         with credentials: LoginCredentials,
         shouldSaveUser: Bool,
@@ -31,6 +32,10 @@ class LoginContentProvider {
     
 // MARK: - LoginContentProviderType
 extension LoginContentProvider: LoginContentProviderType {
+    func closeSession() {
+        self.accessService.closeSession()
+    }
+    
     func login(
         with credentials: LoginCredentials,
         shouldSaveUser: Bool,

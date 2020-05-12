@@ -10,6 +10,11 @@ import XCTest
 @testable import TimeTable
 
 class LoginContentProviderMock {
+    
+    // MARK: - LoginContentProviderType
+    private(set) var closeSessionParams: [CloseSessionParams] = []
+    struct CloseSessionParams {}
+    
     private(set) var loginParams: [LoginParams] = []
     struct LoginParams {
         let credentials: LoginCredentials
@@ -20,6 +25,10 @@ class LoginContentProviderMock {
 
 // MARK: - LoginContentProviderType
 extension LoginContentProviderMock: LoginContentProviderType {
+    func closeSession() {
+        self.closeSessionParams.append(CloseSessionParams())
+    }
+    
     func login(
         with credentials: LoginCredentials,
         shouldSaveUser: Bool,
