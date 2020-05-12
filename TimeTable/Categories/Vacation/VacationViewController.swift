@@ -33,6 +33,11 @@ class VacationViewController: UIViewController {
         self.viewModel.viewWillAppear()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.viewModel.viewDidDisappear()
+    }
+    
     // MARK: - Actions
     @objc private func addVacationButtonTapped() {
         self.viewModel.viewRequestForVacationForm()
@@ -114,6 +119,13 @@ extension VacationViewController: VacationViewModelOutput {
     
     func updateView() {
         self.tableView.reloadData()
+    }
+    
+    func setBottomContentInset(height: CGFloat) {
+        guard self.isViewLoaded else { return }
+        let bottomInset = max(0, height - self.view.safeAreaInsets.bottom)
+        self.tableView.contentInset.bottom = bottomInset
+        self.tableView.verticalScrollIndicatorInsets.bottom = bottomInset
     }
     
     func dismissKeyboard() {

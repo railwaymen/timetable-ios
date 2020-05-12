@@ -90,9 +90,10 @@ extension VacationCoordinator {
             let controller = try self.dependencyContainer.viewControllerBuilder.vacation()
             let viewModel = VacationViewModel(
                 userInterface: controller,
+                coordinator: self,
                 apiClient: apiClient,
                 errorHandler: self.dependencyContainer.errorHandler,
-                coordinator: self)
+                keyboardManager: self.dependencyContainer.keyboardManager)
             controller.configure(viewModel: viewModel)
             self.navigationController.setViewControllers([controller], animated: false)
         } catch {
