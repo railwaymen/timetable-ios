@@ -13,13 +13,12 @@ STAGE_FIREBASE_APP_ID = ENV["STAGE_FIREBASE_APP_ID"]
 
 STAGE_DIR_PATH = "output/TimeTable/stage"
 
+LAST_QA_DEPLOYED_COMMIT = ENV["LAST_QA_DEPLOYED_COMMIT"]
+
 platform :ios do
 
   before_all do
-    xcversion(version: "11.4")
-    if ENV['CI_PIPELINE_ID']
-      increment_build_number(build_number: "#{ENV['CI_PIPELINE_ID']}")
-    end
+    xcversion(version: "11.4.1")
   end
 
   after_all do |lane|
@@ -52,12 +51,19 @@ platform :ios do
 
     version_number = get_ipa_info_plist_value(ipa: info_plist_path, key: "CFBundleShortVersionString")
     build_number = get_ipa_info_plist_value(ipa: info_plist_path, key: "CFBundleVersion")
-    release_notes = "iOS QA - #{version_number} (#{build_number})"
+    changelog_from_git_commits(
+      between: [LAST_QA_DEPLOYED_COMMIT, "HEAD"],
+      pretty: "- (%ae) %s",
+      merge_commit_filtering: "only_include_merges"
+    )
+    release_notes = "iOS QA - #{version_number} (#{build_number})\n\n#{lane_context[SharedValues::FL_CHANGELOG]}"
     firebase_app_distribution(
         app: STAGE_FIREBASE_APP_ID,
         testers: STAGE_TESTERS_EMAILS,
         release_notes: release_notes
     )
+    commit = last_git_commit
+    ENV["LAST_QA_DEPLOYED_COMMIT"] = commit[:abbreviated_commit_hash]
   end
 
   #PRIVATE LANES
