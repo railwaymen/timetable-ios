@@ -69,6 +69,7 @@ class LoginViewModel: KeyboardManagerObserverable {
 // MARK: - LoginViewModelType
 extension LoginViewModel: LoginViewModelType {
     func viewDidLoad() {
+        self.contentProvider.closeSession()
         self.userInterface?.setUpView(checkBoxIsActive: self.loginForm.shouldRememberUser)
         self.userInterface?.updateLoginFields(email: self.loginForm.email, password: self.loginForm.password)
         self.updateLogInButton()

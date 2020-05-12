@@ -36,6 +36,7 @@ extension LoginViewModelTests {
         //Act
         sut.viewDidLoad()
         //Assert
+        XCTAssertEqual(self.contentProviderMock.closeSessionParams.count, 1)
         XCTAssertEqual(self.userInterfaceMock.setUpViewParams.count, 1)
         XCTAssertEqual(self.userInterfaceMock.updateLoginFieldsParams.first?.email, "")
         XCTAssertEqual(self.userInterfaceMock.updateLoginFieldsParams.first?.password, "")

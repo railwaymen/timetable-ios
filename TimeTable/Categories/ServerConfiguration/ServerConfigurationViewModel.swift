@@ -28,7 +28,7 @@ protocol ServerConfigurationViewModelType: class {
 
 class ServerConfigurationViewModel: KeyboardManagerObserverable {
     private weak var userInterface: ServerConfigurationViewModelOutput?
-    private let coordinator: ServerConfigurationCoordinatorDelegate
+    private weak var coordinator: ServerConfigurationCoordinatorDelegate?
     private let serverConfigurationManager: ServerConfigurationManagerType
     private let errorHandler: ErrorHandlerType
     private let keyboardManager: KeyboardManagerable?
@@ -83,7 +83,7 @@ extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case .success:
-                self?.coordinator.serverConfigurationDidFinish(with: configuration)
+                self?.coordinator?.serverConfigurationDidFinish(with: configuration)
             case let .failure(error):
                 self?.userInterface?.continueButtonEnabledState(true)
                 self?.errorHandler.throwing(error: error)

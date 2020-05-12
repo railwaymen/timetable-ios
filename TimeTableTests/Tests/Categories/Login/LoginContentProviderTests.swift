@@ -20,6 +20,18 @@ class LoginContentProviderTests: XCTestCase {
     }
 }
 
+// MARK: - closeSession()
+extension LoginContentProviderTests {
+    func testCloseSession() {
+        //Arrange
+        let sut = self.buildSUT()
+        //Act
+        sut.closeSession()
+        //Assert
+        XCTAssertEqual(self.accessServiceMock.closeSessionParams.count, 1)
+    }
+}
+
 // MARK: - login(with:fetchCompletion:saveCompletion:)
 extension LoginContentProviderTests {
     func testLogin_fetchingError_callsCompletionWithProperError() throws {
