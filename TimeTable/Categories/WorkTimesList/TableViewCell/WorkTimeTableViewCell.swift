@@ -21,7 +21,8 @@ class WorkTimeTableViewCell: UITableViewCell, ReusableCellType {
     @IBOutlet private var projectTitleLabel: UILabel!
     @IBOutlet private var durationLabel: UILabel!
     @IBOutlet private var fromToDateLabel: UILabel!
-    @IBOutlet private var stackView: UIStackView!
+    @IBOutlet private var taskInfoVerticalStackView: UIStackView!
+    @IBOutlet private var taskInfoHorizontalStackView: UIStackView!
     @IBOutlet private var bodyLabel: UILabel!
     @IBOutlet private var taskButton: UIButton!
     @IBOutlet private var tagView: AttributedView!
@@ -70,8 +71,8 @@ extension WorkTimeTableViewCell: WorkTimeTableViewCellModelOutput {
         self.tagView.set(isHidden: data.tagTitle == nil)
         self.tagLabel.text = data.tagTitle
         self.tagView.backgroundColor = data.tagColor
-        self.stackView.setCustomSpacing(16, after: self.taskButton)
-        self.stackView.setCustomSpacing(self.taskButton.isHidden ? 16 : 8, after: self.bodyLabel)
+        self.taskInfoVerticalStackView.setCustomSpacing(self.taskButton.isHidden ? 16 : 8, after: self.bodyLabel)
+        self.taskInfoHorizontalStackView.set(isHidden: self.taskButton.isHidden && self.tagView.isHidden)
     }
 }
 
