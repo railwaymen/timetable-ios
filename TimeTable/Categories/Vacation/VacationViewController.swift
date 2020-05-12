@@ -47,6 +47,14 @@ class VacationViewController: UIViewController {
         self.viewModel.viewRequestForProfileView()
     }
     
+    @objc private func refreshControlDidActivate() {
+        self.viewModel.refreshControlDidActivate { [weak self] in
+            guard let refreshControl = self?.tableView.refreshControl else { return }
+            guard refreshControl.isRefreshing else { return }
+            refreshControl.endRefreshing()
+        }
+    }
+    
     @IBAction private func viewTapped(_ sender: UITapGestureRecognizer) {
         self.viewModel?.viewTapped()
     }
@@ -90,6 +98,7 @@ extension VacationViewController: VacationViewModelOutput {
         self.setUpBarButtons()
         self.setUpTableHeaderView()
         self.setUpTableView()
+        self.setUpRefreshControl()
         self.viewModel.configure(self.errorView)
     }
     
@@ -181,5 +190,11 @@ extension VacationViewController {
         deleteAction.backgroundColor = .deleteAction
         deleteAction.image = .delete
         return deleteAction
+    }
+    
+    private func setUpRefreshControl() {
+        let control = UIRefreshControl()
+        control.addTarget(self, action: #selector(self.refreshControlDidActivate), for: .valueChanged)
+        self.tableView.refreshControl = control
     }
 }
