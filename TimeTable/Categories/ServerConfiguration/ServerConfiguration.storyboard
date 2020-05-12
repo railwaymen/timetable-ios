@@ -62,7 +62,7 @@
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="tRW-KP-B2P" customClass="AttributedTextField" customModule="TimeTable" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Config" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="tRW-KP-B2P" customClass="AttributedTextField" customModule="TimeTable" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="99.5" width="374" height="35"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" name="Crimson"/>
@@ -142,8 +142,10 @@
                     <connections>
                         <outlet property="activityIndicator" destination="vyY-Nf-RVa" id="vPa-M9-f3p"/>
                         <outlet property="continueButton" destination="iZC-rm-3eU" id="9ot-LR-o2f"/>
+                        <outlet property="continueButtonHeightConstraint" destination="MAp-ID-HU3" id="8wt-GH-hfe"/>
                         <outlet property="scrollView" destination="aDX-gO-HPG" id="1Se-6a-pI6"/>
                         <outlet property="serverAddressTextField" destination="tRW-KP-B2P" id="shE-SH-leX"/>
+                        <outlet property="serverAddressTextFieldHeightConstraint" destination="V0K-xO-CGo" id="HNN-Sc-43A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b3h-MC-lgy" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -25,6 +25,9 @@ class NewVacationViewController: UIViewController {
     @IBOutlet private var noteTextView: AttributedTextView!
     @IBOutlet private var saveButton: AttributedButton!
     
+    @IBOutlet private var textFieldsHeightConstraints: [NSLayoutConstraint]!
+    @IBOutlet private var saveButtonHeightConstraint: NSLayoutConstraint!
+    
     private var startDatePicker: UIDatePicker!
     private var endDatePicker: UIDatePicker!
     private var typePicker: UIPickerView!
@@ -109,6 +112,7 @@ extension NewVacationViewController: NewVacationViewModelOutput {
         self.setUpTypePickerView()
         self.setUpNoteTextView()
         self.setUpSaveButton()
+        self.setUpConstraints()
         self.setUpActivityIndicator()
     }
     
@@ -207,6 +211,13 @@ extension NewVacationViewController {
     private func setUpSaveButton() {
         self.saveButton.setBackgroundColor(.enabledButton, forState: .normal)
         self.saveButton.setBackgroundColor(.disabledButton, forState: .disabled)
+    }
+    
+    private func setUpConstraints() {
+        self.textFieldsHeightConstraints.forEach {
+            $0.constant = Constants.defaultTextFieldHeight
+        }
+        self.saveButtonHeightConstraint.constant = Constants.defaultButtonHeight
     }
     
     private func setUpActivityIndicator() {
