@@ -169,7 +169,7 @@ extension LoginViewModelTests {
         //Arrange
         let sut = self.buildSUT()
         //Act
-        sut.shouldRemeberUserBoxStatusDidChange(isActive: false)
+        sut.shouldRememberUserBoxStatusDidChange(isActive: false)
         //Assert
         XCTAssertEqual(self.userInterfaceMock.checkBoxIsActiveStateParams.count, 1)
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.checkBoxIsActiveStateParams.last?.isActive))
@@ -179,7 +179,7 @@ extension LoginViewModelTests {
         //Arrange
         let sut = self.buildSUT()
         //Act
-        sut.shouldRemeberUserBoxStatusDidChange(isActive: false)
+        sut.shouldRememberUserBoxStatusDidChange(isActive: false)
         //Assert
         XCTAssertEqual(self.userInterfaceMock.checkBoxIsActiveStateParams.count, 1)
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.checkBoxIsActiveStateParams.last?.isActive))

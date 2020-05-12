@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GIW-gv-4e0">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -19,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Sc1-v6-mIx">
-                                        <rect key="frame" x="0.0" y="16" width="414" height="596.5"/>
+                                        <rect key="frame" x="0.0" y="16" width="414" height="589.5"/>
                                         <subviews>
                                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cpu-QP-3Nh" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="0.0" width="382" height="35"/>
@@ -212,8 +213,44 @@
                                                     <constraint firstAttribute="trailing" secondItem="Oxn-gQ-FYm" secondAttribute="trailing" id="sbC-iO-pQk"/>
                                                 </constraints>
                                             </view>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="TcK-dP-571">
+                                                <rect key="frame" x="16" y="500.5" width="382" height="25"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gh-b5-IiA" customClass="CheckBoxButton" customModule="TimeTable" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="EWJ-aU-4vS"/>
+                                                            <constraint firstAttribute="width" constant="25" id="TmX-wo-7Ep"/>
+                                                        </constraints>
+                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isActive" value="YES"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="saveWithFillingCheckboxTapped:" destination="vWa-gW-sZm" eventType="touchUpInside" id="fBG-UP-k0Z"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save with filling" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="nhe-OL-53e">
+                                                        <rect key="frame" x="33" y="0.0" width="349" height="25"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="worktimeform_save_with_filling"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="dbl-sc-bxX">
-                                                <rect key="frame" x="16" y="500.5" width="382" height="96"/>
+                                                <rect key="frame" x="16" y="549.5" width="382" height="40"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TSS-Hb-MVA" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="382" height="40"/>
@@ -236,32 +273,17 @@
                                                             <action selector="saveButtonTapped:" destination="vWa-gW-sZm" eventType="touchUpInside" id="sFe-cL-8n9"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ta-Ew-UlV" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="56" width="382" height="40"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="ft6-ks-ZnY"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                                        <color key="tintColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <state key="normal" title="SAVE">
-                                                            <color key="titleColor" name="Enabled Button"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="worktimeform_save_with_filling"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="saveWithFillingButtonTapped:" destination="vWa-gW-sZm" eventType="touchUpInside" id="s0y-U2-1Ea"/>
-                                                        </connections>
-                                                    </button>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="TcK-dP-571" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" constant="16" id="6SZ-S6-Hcj"/>
                                             <constraint firstItem="qPE-xV-Lbs" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" constant="16" id="HSw-VQ-wOR"/>
                                             <constraint firstItem="AqR-op-JKn" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" constant="16" id="JMJ-WU-8uP"/>
                                             <constraint firstAttribute="trailing" secondItem="vs0-xH-GvZ" secondAttribute="trailing" constant="16" id="PNP-D2-UgW"/>
                                             <constraint firstItem="Cpu-QP-3Nh" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" constant="16" id="S1m-bE-AH3"/>
                                             <constraint firstItem="05z-uo-ywe" firstAttribute="leading" secondItem="Sc1-v6-mIx" secondAttribute="leading" id="TDC-9q-aij"/>
+                                            <constraint firstAttribute="trailing" secondItem="TcK-dP-571" secondAttribute="trailing" constant="16" id="TGH-qm-7Rq"/>
                                             <constraint firstAttribute="trailing" secondItem="dbl-sc-bxX" secondAttribute="trailing" constant="16" id="Z68-rX-cmI"/>
                                             <constraint firstAttribute="trailing" secondItem="s85-fU-VBR" secondAttribute="trailing" constant="16" id="cD1-iI-APK"/>
                                             <constraint firstAttribute="trailing" secondItem="05z-uo-ywe" secondAttribute="trailing" id="egW-So-7dt"/>
@@ -283,7 +305,7 @@
                                 </constraints>
                             </scrollView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="yy6-It-HYM">
-                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                                <rect key="frame" x="197" y="443" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -312,7 +334,8 @@
                         <outlet property="projectTitleLabel" destination="FhA-P5-nl2" id="EiP-N5-Lcr"/>
                         <outlet property="projectView" destination="Cpu-QP-3Nh" id="XiR-dw-oT1"/>
                         <outlet property="saveButton" destination="TSS-Hb-MVA" id="LVA-KX-Gbz"/>
-                        <outlet property="saveWithFillingButton" destination="6ta-Ew-UlV" id="zrd-bJ-L01"/>
+                        <outlet property="saveWithFillingCheckbox" destination="7gh-b5-IiA" id="0jn-Qr-MjW"/>
+                        <outlet property="saveWithFillingView" destination="TcK-dP-571" id="h8g-AI-nFl"/>
                         <outlet property="scrollView" destination="bjN-hl-pu3" id="3bW-4d-ap5"/>
                         <outlet property="startAtDateTextField" destination="GPe-vx-7eJ" id="T6d-7v-C73"/>
                         <outlet property="tagsCollectionView" destination="05z-uo-ywe" id="knM-oA-b0k"/>
@@ -334,24 +357,24 @@
             <objects>
                 <viewController id="GIW-gv-4e0" customClass="WorkTimeContainerViewController" customModule="TimeTable" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Thn-Vz-A7M">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Ci-5v-5Cz" customClass="ErrorView" customModule="TimeTable" customModuleProvider="target">
-                                <rect key="frame" x="16" y="150" width="568" height="300"/>
+                                <rect key="frame" x="16" y="298" width="382" height="300"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="100" constant="300" id="k8s-lf-g4Q"/>
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qqb-aA-Bsa">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <connections>
                                     <segue destination="vWa-gW-sZm" kind="embed" id="Js0-7l-2Zp"/>
                                 </connections>
                             </containerView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="0o8-PS-40x">
-                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>

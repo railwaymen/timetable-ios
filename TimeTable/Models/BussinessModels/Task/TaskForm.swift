@@ -17,6 +17,7 @@ protocol TaskFormType {
     var startsAt: Date? { get set }
     var endsAt: Date? { get set }
     var tag: ProjectTag { get set }
+    var saveWithFilling: Bool { get set }
     
     var title: String { get }
     var allowsTask: Bool { get }
@@ -36,6 +37,7 @@ struct TaskForm: TaskFormType {
     var startsAt: Date?
     var endsAt: Date?
     var tag: ProjectTag = .default
+    var saveWithFilling: Bool = false
     
     // MARK: - Getters
     var title: String {

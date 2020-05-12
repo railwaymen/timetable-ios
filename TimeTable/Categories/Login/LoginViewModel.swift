@@ -29,7 +29,7 @@ protocol LoginViewModelType: class {
     func loginTextFieldDidRequestForReturn() -> Bool
     func passwordInputValueDidChange(value: String?)
     func passwordTextFieldDidRequestForReturn() -> Bool
-    func shouldRemeberUserBoxStatusDidChange(isActive: Bool)
+    func shouldRememberUserBoxStatusDidChange(isActive: Bool)
     func viewTapped()
     func viewRequestedToLogin()
     func viewRequestedToChangeServerAddress()
@@ -109,7 +109,7 @@ extension LoginViewModel: LoginViewModelType {
         return self.loginForm.isValid
     }
     
-    func shouldRemeberUserBoxStatusDidChange(isActive: Bool) {
+    func shouldRememberUserBoxStatusDidChange(isActive: Bool) {
         let newValue = !isActive
         self.loginForm.shouldRememberUser = newValue
         self.userInterface?.checkBoxIsActiveState(newValue)

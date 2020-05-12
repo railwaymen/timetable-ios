@@ -84,8 +84,8 @@ extension WorkTimeViewModelTests {
         sut.viewDidLoad()
         //Assert
         XCTAssertEqual(self.userInterfaceMock.updateDayParams.count, 1)
-        XCTAssertEqual(self.userInterfaceMock.setSaveWithFillingButtonParams.count, 1)
-        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setSaveWithFillingButtonParams.last?.isHidden))
+        XCTAssertEqual(self.userInterfaceMock.setSaveWithFillingIsHiddenParams.count, 1)
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setSaveWithFillingIsHiddenParams.last?.isHidden))
         XCTAssertEqual(self.userInterfaceMock.setBodyViewParams.count, 1)
         XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setBodyViewParams.last?.isHidden))
         XCTAssertEqual(self.userInterfaceMock.setTaskURLViewParams.count, 1)
@@ -176,7 +176,7 @@ extension WorkTimeViewModelTests {
         XCTAssertEqual(self.userInterfaceMock.updateProjectParams.last?.name, task.project?.name)
         XCTAssertEqual(self.userInterfaceMock.setBodyParams.last?.text, task.body)
         XCTAssertEqual(try XCTUnwrap(self.userInterfaceMock.setTaskParams.last?.urlString), task.url?.absoluteString)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setSaveWithFillingButtonParams.last?.isHidden))
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setSaveWithFillingIsHiddenParams.last?.isHidden))
     }
 }
 
@@ -402,85 +402,6 @@ extension WorkTimeViewModelTests {
         //Act
         sut.viewRequestedToSave()
         try XCTUnwrap(self.contentProviderMock.saveTaskParams.last).completion(.failure(error))
-        //Assert
-        XCTAssertEqual(self.errorHandlerMock.throwingParams.count, 1)
-        XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? TestError, error)
-    }
-}
-
-// MARK: - viewRequestedToSaveWithFilling()
-extension WorkTimeViewModelTests {
-    func testViewRequestedToSaveWithFilling_beforeRequest_showsActivityIndicator() {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        //Act
-        sut.viewRequestedToSaveWithFilling()
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
-        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-    }
-    
-    func testViewRequestedToSaveWithFilling_beforeRequest_callsContentProvider() {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        //Act
-        sut.viewRequestedToSaveWithFilling()
-        //Assert
-        XCTAssertEqual(self.contentProviderMock.saveTaskWithFillingParams.count, 1)
-    }
-    
-    func testViewRequestedToSaveWithFilling_resultSuccess_hidesActivityIndicator() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        //Act
-        sut.viewRequestedToSaveWithFilling()
-        try XCTUnwrap(self.contentProviderMock.saveTaskWithFillingParams.last).completion(.success(Void()))
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-    }
-    
-    func testViewRequestedToSaveWithFilling_resultSuccess_dismissesView() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        //Act
-        sut.viewRequestedToSaveWithFilling()
-        try XCTUnwrap(self.contentProviderMock.saveTaskWithFillingParams.last).completion(.success(Void()))
-        //Assert
-        XCTAssertEqual(self.coordinatorMock.dismissViewParams.count, 1)
-        XCTAssertTrue(try XCTUnwrap(self.coordinatorMock.dismissViewParams.last?.isTaskChanged))
-    }
-    
-    func testViewRequestedToSaveWithFilling_resultFailure_hidesActivityIndicator() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let error = TestError(message: "error")
-        //Act
-        sut.viewRequestedToSaveWithFilling()
-        try XCTUnwrap(self.contentProviderMock.saveTaskWithFillingParams.last).completion(.failure(error))
-        //Assert
-        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-    }
-    
-    func testViewRequestedToSaveWithFilling_resultFailure_doesNotDismissView() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let error = TestError(message: "error")
-        //Act
-        sut.viewRequestedToSaveWithFilling()
-        try XCTUnwrap(self.contentProviderMock.saveTaskWithFillingParams.last).completion(.failure(error))
-        //Assert
-        XCTAssertEqual(self.coordinatorMock.dismissViewParams.count, 0)
-    }
-    
-    func testViewRequestedToSaveWithFilling_resultFailure_passesErrorToErrorHandler() throws {
-        //Arrange
-        let sut = self.buildSUT(flowType: .newEntry(lastTask: nil))
-        let error = TestError(message: "error")
-        //Act
-        sut.viewRequestedToSaveWithFilling()
-        try XCTUnwrap(self.contentProviderMock.saveTaskWithFillingParams.last).completion(.failure(error))
         //Assert
         XCTAssertEqual(self.errorHandlerMock.throwingParams.count, 1)
         XCTAssertEqual(self.errorHandlerMock.throwingParams.last?.error as? TestError, error)
