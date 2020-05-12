@@ -23,6 +23,9 @@ class ServerConfigurationViewController: UIViewController {
     @IBOutlet private var serverAddressTextField: UITextField!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet private var serverAddressTextFieldHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private var continueButtonHeightConstraint: NSLayoutConstraint!
+    
     private var viewModel: ServerConfigurationViewModelType?
     
     // MARK: - Overridden
@@ -82,6 +85,7 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
         self.serverAddressTextField.setTextFieldAppearance()
         self.continueButton.isEnabled = !serverAddress.isEmpty
         self.setUpActivityIndicator()
+        self.setUpConstraints()
     }
     
     func continueButtonEnabledState(_ isEnabled: Bool) {
@@ -120,5 +124,10 @@ extension ServerConfigurationViewController {
         self.activityIndicator.style = .large
         self.activityIndicator.hidesWhenStopped = true
         self.setActivityIndicator(isHidden: true)
+    }
+    
+    private func setUpConstraints() {
+        self.serverAddressTextFieldHeightConstraint.constant = Constants.defaultTextFieldHeight
+        self.continueButtonHeightConstraint.constant = Constants.defaultButtonHeight
     }
 }

@@ -32,6 +32,9 @@ class WorkTimeViewController: UIViewController {
     @IBOutlet private var saveButton: AttributedButton!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet private var textFieldsHeightConstraints: [NSLayoutConstraint]!
+    @IBOutlet private var saveButtonHeightConstraint: NSLayoutConstraint!
+    
     private var dayPicker: UIDatePicker!
     private var startAtDatePicker: UIDatePicker!
     private var endAtDatePicker: UIDatePicker!
@@ -146,6 +149,7 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         self.setUpTagsCollectionView()
         self.setUpActivityIndicator()
         self.setUpSaveButton()
+        self.setUpConstraints()
         
         self.setUpProjectButton()
         
@@ -338,6 +342,13 @@ extension WorkTimeViewController {
     private func setUpSaveButton() {
         self.saveButton.setBackgroundColor(.enabledButton, forState: .normal)
         self.saveButton.setBackgroundColor(.disabledButton, forState: .disabled)
+    }
+    
+    private func setUpConstraints() {
+        self.textFieldsHeightConstraints.forEach {
+            $0.constant = Constants.defaultTextFieldHeight
+        }
+        self.saveButtonHeightConstraint.constant = Constants.defaultButtonHeight
     }
     
     private func set(_ view: UIView, isHighlighted: Bool) {

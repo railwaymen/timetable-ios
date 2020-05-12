@@ -22,6 +22,8 @@ class WorkTimesListViewController: UIViewController {
     @IBOutlet private var accountingPeriodLabel: UILabel!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet private var monthTextFieldHeightConstraint: NSLayoutConstraint!
+    
     private var monthPicker: MonthYearPickerView?
 
     private let tableViewEstimatedRowHeight: CGFloat = 150
@@ -146,6 +148,7 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
         self.setUpNavigationItem()
         self.setUpBarButtons()
         self.setUpActivityIndicator()
+        self.setUpConstraints()
         self.viewModel.configure(errorView)
         self.tableView.set(isHidden: true)
         self.errorView.set(isHidden: true)
@@ -317,5 +320,9 @@ extension WorkTimesListViewController {
     private func setUpActivityIndicator() {
         self.activityIndicator.style = .large
         self.setActivityIndicator(isHidden: true)
+    }
+    
+    private func setUpConstraints() {
+        self.monthTextFieldHeightConstraint.constant = Constants.defaultTextFieldHeight
     }
 }

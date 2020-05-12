@@ -22,6 +22,9 @@ class LoginViewController: UIViewController {
     @IBOutlet private var loginButton: UIButton!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet private var textFieldHeightConstraints: [NSLayoutConstraint]!
+    @IBOutlet private var loginButtonHeightConstraint: NSLayoutConstraint!
+    
     private var viewModel: LoginViewModelType!
     
     // MARK: - Overridden
@@ -71,6 +74,7 @@ extension LoginViewController: LoginViewModelOutput {
         self.passwordTextField.delegate = self
         self.passwordTextField.setTextFieldAppearance()
         self.setUpActivityIndicator()
+        self.setUpConstraints()
     }
     
     func updateLoginFields(email: String, password: String) {
@@ -154,6 +158,13 @@ extension LoginViewController {
     private func setUpActivityIndicator() {
         self.activityIndicator.style = .large
         self.setActivityIndicator(isHidden: true)
+    }
+    
+    private func setUpConstraints() {
+        self.textFieldHeightConstraints.forEach {
+            $0.constant = Constants.defaultTextFieldHeight
+        }
+        self.loginButtonHeightConstraint.constant = Constants.defaultButtonHeight
     }
     
     private func set(_ view: UIView, isHighlighted: Bool) {

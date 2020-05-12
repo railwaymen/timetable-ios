@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="o9l-3b-Gnf">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -142,6 +143,9 @@
                                                         <rect key="frame" x="0.0" y="23.5" width="288" height="117.5"/>
                                                         <color key="backgroundColor" name="Text Field Background"/>
                                                         <color key="tintColor" name="Tint"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="Wce-q1-h3H"/>
+                                                        </constraints>
                                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
                                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -208,7 +212,7 @@
                                 </constraints>
                             </scrollView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="WSi-Ma-hHX">
-                                <rect key="frame" x="150" y="340" width="20" height="20"/>
+                                <rect key="frame" x="150" y="362" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -235,9 +239,13 @@
                         <outlet property="noteTextView" destination="GoS-hI-TQJ" id="TK7-fH-5pA"/>
                         <outlet property="optionalStaticLabel" destination="ica-tF-U6c" id="VV8-dm-3go"/>
                         <outlet property="saveButton" destination="NH4-wE-geL" id="VDE-I0-sjs"/>
+                        <outlet property="saveButtonHeightConstraint" destination="Uuh-be-2JG" id="2Vv-1m-2E7"/>
                         <outlet property="scrollView" destination="u79-Nk-NpM" id="4TD-my-jc3"/>
                         <outlet property="startDayTextField" destination="zLx-Dx-TiN" id="Hcn-XU-fpZ"/>
                         <outlet property="typeTextField" destination="8Fk-DB-rl1" id="O7x-rQ-KaK"/>
+                        <outletCollection property="textFieldsHeightConstraints" destination="RVY-xG-8at" collectionClass="NSMutableArray" id="Nuv-W3-tHj"/>
+                        <outletCollection property="textFieldsHeightConstraints" destination="Wce-q1-h3H" collectionClass="NSMutableArray" id="7vP-yJ-sda"/>
+                        <outletCollection property="textFieldsHeightConstraints" destination="U0k-sa-Eo5" collectionClass="NSMutableArray" id="9xc-Mf-cfB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7pk-BR-jVY" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -27,7 +27,7 @@ extension UIView {
         self.layer.backgroundColor = UIColor.textFieldBackground.cgColor
         self.layer.cornerRadius = 5
         guard let textField = self as? AttributedTextField else { return }
-        textField.padding = CGPoint(x: 5, y: 5)
+        textField.padding = CGPoint(x: 8, y: 8)
     }
     
     func set(borderColor: UIColor, animatingWithDuration duration: TimeInterval) {

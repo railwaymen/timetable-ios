@@ -138,6 +138,9 @@
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5pA-GP-fz3" customClass="AttributedTextView" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="26" width="382" height="95.5"/>
                                                         <color key="tintColor" name="Tint"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="95.5" id="24u-Dt-yHF"/>
+                                                        </constraints>
                                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
                                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -334,6 +337,7 @@
                         <outlet property="projectTitleLabel" destination="FhA-P5-nl2" id="EiP-N5-Lcr"/>
                         <outlet property="projectView" destination="Cpu-QP-3Nh" id="XiR-dw-oT1"/>
                         <outlet property="saveButton" destination="TSS-Hb-MVA" id="LVA-KX-Gbz"/>
+                        <outlet property="saveButtonHeightConstraint" destination="Wjx-xj-X70" id="AD6-DX-zgt"/>
                         <outlet property="saveWithFillingCheckbox" destination="7gh-b5-IiA" id="0jn-Qr-MjW"/>
                         <outlet property="saveWithFillingView" destination="TcK-dP-571" id="h8g-AI-nFl"/>
                         <outlet property="scrollView" destination="bjN-hl-pu3" id="3bW-4d-ap5"/>
@@ -341,6 +345,11 @@
                         <outlet property="tagsCollectionView" destination="05z-uo-ywe" id="knM-oA-b0k"/>
                         <outlet property="taskURLTextField" destination="dYn-5C-xtg" id="qHZ-kE-zYM"/>
                         <outlet property="taskURLView" destination="qPE-xV-Lbs" id="Xoh-uB-q7X"/>
+                        <outletCollection property="textFieldsHeightConstraints" destination="CbG-tc-8GU" collectionClass="NSMutableArray" id="N8j-N0-2rw"/>
+                        <outletCollection property="textFieldsHeightConstraints" destination="c16-Xg-QMv" collectionClass="NSMutableArray" id="SYT-MW-QUt"/>
+                        <outletCollection property="textFieldsHeightConstraints" destination="u5w-FI-6M8" collectionClass="NSMutableArray" id="sHw-Vi-LHV"/>
+                        <outletCollection property="textFieldsHeightConstraints" destination="FA8-YM-png" collectionClass="NSMutableArray" id="NJc-e1-EKa"/>
+                        <outletCollection property="textFieldsHeightConstraints" destination="24u-Dt-yHF" collectionClass="NSMutableArray" id="jPL-1a-7vF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qjf-dp-sLH" userLabel="First Responder" sceneMemberID="firstResponder"/>
