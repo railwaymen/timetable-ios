@@ -11,14 +11,14 @@ import XCTest
 
 class RegisterRemoteWorkEndsAtErrorKeyTests: XCTestCase {}
 
-// MARK: - uiError
+// MARK: - localizedDescription
 extension RegisterRemoteWorkEndsAtErrorKeyTests {
-    func testUIError_blank() {
+    func testLocalizedDescription_blank() {
         //Arrange
         let sut = RegisterRemoteWorkValidationError.EndsAtErrorKey.blank
         //Act
-        let uiError = sut.uiError
+        let localizedDescription = sut.localizedDescription
         //Assert
-        XCTAssertEqual(uiError, UIError.remoteWorkEndsAtEmpty)
+        XCTAssertEqual(localizedDescription, R.string.localizable.remotework_endsAt_empty())
     }
 }

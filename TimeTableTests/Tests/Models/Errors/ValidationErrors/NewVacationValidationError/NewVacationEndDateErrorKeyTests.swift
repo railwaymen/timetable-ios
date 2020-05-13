@@ -11,14 +11,14 @@ import XCTest
 
 class NewVacationEndDateErrorKeyTests: XCTestCase {}
 
-// MARK: - uiError
+// MARK: - localizedDescription
 extension NewVacationEndDateErrorKeyTests {
-    func testUIError_blank() {
+    func testLocalizedDescription_blank() {
         //Arrange
         let sut = NewVacationValidationError.EndDateErrorKey.blank
         //Act
-        let uiError = sut.uiError
+        let localizedDescription = sut.localizedDescription
         //Assert
-        XCTAssertEqual(uiError, UIError.newVacationEndDateBlank)
+        XCTAssertEqual(localizedDescription, R.string.localizable.newvacation_endDate_blank())
     }
 }

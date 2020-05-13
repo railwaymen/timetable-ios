@@ -15,6 +15,14 @@ struct NewVacationValidationError: Error, ValidationErrorType {
     let endDate: [EndDateErrorKey]
     let vacationType: [VacationTypeErrorKey]
     
+    private var localizedDescriptions: [String] {
+        return base.map(\.localizedDescription) +
+            description.map(\.localizedDescription) +
+            startDate.map(\.localizedDescription) +
+            endDate.map(\.localizedDescription) +
+            vacationType.map(\.localizedDescription)
+    }
+    
     private enum CodingKeys: String, CodingKey {
         case base
         case description
@@ -72,56 +80,51 @@ extension NewVacationValidationError {
     }
 }
 
-// MARK: - ValidationErrorUIRepresentable
-extension NewVacationValidationError: ValidationErrorUIRepresentable {
-    var uiErrors: [UIError] {
-        return base.map(\.uiError) +
-            description.map(\.uiError) +
-            startDate.map(\.uiError) +
-            endDate.map(\.uiError) +
-            vacationType.map(\.uiError)
+// MARK: - LocalizedDescriptionable
+extension NewVacationValidationError: LocalizedDescriptionable {
+    var localizedDescription: String {
+        return self.localizedDescriptions.first ?? ""
     }
 }
 
-// MARK: - UIErrorRepresentable
-extension NewVacationValidationError.BaseErrorKey: UIErrorRepresentable {
-    var uiError: UIError {
+extension NewVacationValidationError.BaseErrorKey: LocalizedDescriptionable {
+    var localizedDescription: String {
         switch self {
-        case .workTimeExists: return UIError.newVacationBaseWorkTimeExists
+        case .workTimeExists: return R.string.localizable.newvacation_base_workTimeExists()
         }
     }
 }
 
-extension NewVacationValidationError.DescriptionErrorKey: UIErrorRepresentable {
-    var uiError: UIError {
+extension NewVacationValidationError.DescriptionErrorKey: LocalizedDescriptionable {
+    var localizedDescription: String {
         switch self {
-        case .blank: return UIError.newVacationDescriptionBlank
+        case .blank: return R.string.localizable.newvacation_description_blank()
         }
     }
 }
 
-extension NewVacationValidationError.StartDateErrorKey: UIErrorRepresentable {
-    var uiError: UIError {
+extension NewVacationValidationError.StartDateErrorKey: LocalizedDescriptionable {
+    var localizedDescription: String {
         switch self {
-        case .blank: return UIError.newVacationStartDateBlank
-        case .greaterThanEndDate: return UIError.newVacationStartDateGreaterThanEndDate
+        case .blank: return R.string.localizable.newvacation_startDate_blank()
+        case .greaterThanEndDate: return R.string.localizable.newvacation_startDate_greaterThanEndDate()
         }
     }
 }
 
-extension NewVacationValidationError.EndDateErrorKey: UIErrorRepresentable {
-    var uiError: UIError {
+extension NewVacationValidationError.EndDateErrorKey: LocalizedDescriptionable {
+    var localizedDescription: String {
         switch self {
-        case .blank: return UIError.newVacationEndDateBlank
+        case .blank: return R.string.localizable.newvacation_endDate_blank()
         }
     }
 }
 
-extension NewVacationValidationError.VacationTypeErrorKey: UIErrorRepresentable {
-    var uiError: UIError {
+extension NewVacationValidationError.VacationTypeErrorKey: LocalizedDescriptionable {
+    var localizedDescription: String {
         switch self {
-        case .blank: return UIError.newVacationVacationTypeBlank
-        case .inclusion: return UIError.newVacationVacationTypeInclusion
+        case .blank: return R.string.localizable.newvacation_vacationType_blank()
+        case .inclusion: return R.string.localizable.newvacation_vacationType_inclusion()
         }
     }
 }

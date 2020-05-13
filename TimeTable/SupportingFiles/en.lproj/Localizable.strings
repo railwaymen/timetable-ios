@@ -115,7 +115,7 @@
 "registerremotework_note" = "Note";
 "registerremotework_save_btn" = "Save";
 
-"remotework_startsAt_ovelap" = "There is vaction with same date.";
+"remotework_startsAt_overlap" = "There is vaction with same date.";
 "remotework_startsAt_tooOld" = "Given date is too old.";
 "remotework_startsAt_empty" = "Starts at date cannot be empty.";
 "remotework_startsAt_incorrectHours" = "Time range is invalid. Start time is greater or equal to end time.";

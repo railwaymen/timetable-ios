@@ -99,47 +99,53 @@ extension RegisterRemoteWorkValidationErrorTests {
     }
 }
 
-// MARK: - uiErrors
+// MARK: - localizedDescription
 extension RegisterRemoteWorkValidationErrorTests {
-    func testUIErrors_emptyStartsAtAndEndsAt() throws {
+    func testLocalizedDescription_emptyStartsAtAndEndsAt() throws {
         //Arrange
         let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteEmptyStartsAtAndEndsAtResponse)
         let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
         //Assert
-        XCTAssertEqual(sut.uiErrors.count, 0)
+        XCTAssertEqual(sut.localizedDescription, "")
     }
     
-    func testUIErrors_startsAtFullModel() throws {
+    func testLocalizedDescription_startsAtOverlap() throws {
         //Arrange
-        let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteStartsAtFullModelResponse)
+        let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteStartsAtOverlapResponse)
         let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
         //Assert
-        XCTAssertEqual(sut.uiErrors.count, 4)
-        XCTAssert(sut.uiErrors.contains(.remoteWorkStartsAtOvelap))
-        XCTAssert(sut.uiErrors.contains(.remoteWorkStartsAtTooOld))
-        XCTAssert(sut.uiErrors.contains(.remoteWorkStartsAtEmpty))
-        XCTAssert(sut.uiErrors.contains(.remoteWorkStartsAtIncorrectHours))
+        XCTAssertEqual(sut.localizedDescription, R.string.localizable.remotework_startsAt_overlap())
     }
     
-    func testUIErrors_endsAtFullModel() throws {
+    func testLocalizedDescription_startsAtTooOld() throws {
+        //Arrange
+        let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteStartsAtTooOldResponse)
+        let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
+        //Assert
+        XCTAssertEqual(sut.localizedDescription, R.string.localizable.remotework_startsAt_tooOld())
+    }
+    
+    func testLocalizedDescription_startsAtEmpty() throws {
+        //Arrange
+        let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteStartsAtEmptyResponse)
+        let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
+        //Assert
+        XCTAssertEqual(sut.localizedDescription, R.string.localizable.remotework_startsAt_empty())
+    }
+    
+    func testLocalizedDescription_startsAtIncorrectHours() throws {
+        //Arrange
+        let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteStartsAtIncorrectHoursResponse)
+        let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
+        //Assert
+        XCTAssertEqual(sut.localizedDescription, R.string.localizable.remotework_startsAt_incorrectHours())
+    }
+    
+    func testLocalizedDescription_endsAtEmpty() throws {
         //Arrange
         let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteEndsAtFullModelResponse)
         let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
         //Assert
-        XCTAssertEqual(sut.uiErrors.count, 1)
-        XCTAssert(sut.uiErrors.contains(.remoteWorkEndsAtEmpty))
-    }
-    
-    func testUIErrors_fullModelResponse() throws {
-        //Arrange
-        let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteFullModelResponse)
-        let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
-        //Assert
-        XCTAssertEqual(sut.uiErrors.count, 5)
-        XCTAssert(sut.uiErrors.contains(.remoteWorkStartsAtOvelap))
-        XCTAssert(sut.uiErrors.contains(.remoteWorkStartsAtTooOld))
-        XCTAssert(sut.uiErrors.contains(.remoteWorkStartsAtEmpty))
-        XCTAssert(sut.uiErrors.contains(.remoteWorkStartsAtIncorrectHours))
-        XCTAssert(sut.uiErrors.contains(.remoteWorkEndsAtEmpty))
+        XCTAssertEqual(sut.localizedDescription, R.string.localizable.remotework_endsAt_empty())
     }
 }

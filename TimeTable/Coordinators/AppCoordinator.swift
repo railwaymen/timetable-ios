@@ -98,6 +98,8 @@ extension AppCoordinator: ParentCoordinator {
             self.dependencyContainer.messagePresenter?.presentAlertController(withMessage: uiError.localizedDescription)
         } else if let apiError = error as? ApiClientError {
             self.dependencyContainer.messagePresenter?.presentAlertController(withMessage: apiError.type.localizedDescription)
+        } else if let validationError = error as? LocalizedDescriptionable {
+            self.dependencyContainer.messagePresenter?.presentAlertController(withMessage: validationError.localizedDescription)
         }
     }
     

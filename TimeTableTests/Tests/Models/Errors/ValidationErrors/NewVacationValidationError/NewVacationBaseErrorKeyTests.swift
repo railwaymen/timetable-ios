@@ -11,14 +11,14 @@ import XCTest
 
 class NewVacationBaseErrorKeyTests: XCTestCase {}
 
-// MARK: - uiError
+// MARK: - localizedDescription
 extension NewVacationBaseErrorKeyTests {
-    func testUIError_blank() {
+    func testLocalizedDescription_blank() {
         //Arrange
         let sut = NewVacationValidationError.BaseErrorKey.workTimeExists
         //Act
-        let uiError = sut.uiError
+        let localizedDescription = sut.localizedDescription
         //Assert
-        XCTAssertEqual(uiError, UIError.newVacationBaseWorkTimeExists)
+        XCTAssertEqual(localizedDescription, R.string.localizable.newvacation_base_workTimeExists())
     }
 }

@@ -203,12 +203,7 @@ extension NewVacationViewModel {
     }
     
     private func handleResponse(error: Error) {
-        if let errors = (error as? ValidationError<NewVacationValidationError>)?.errors {
-            let error: UIError = errors.uiErrors.first ?? .genericError
-            self.errorHandler.throwing(error: error)
-        } else {
-            self.errorHandler.throwing(error: error)
-        }
+        self.errorHandler.throwing(error: error)
     }
     
     private func updateUI() {

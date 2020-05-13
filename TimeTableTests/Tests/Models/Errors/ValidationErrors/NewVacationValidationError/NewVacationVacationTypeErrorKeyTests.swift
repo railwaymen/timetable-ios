@@ -11,23 +11,23 @@ import XCTest
 
 class NewVacationVacationTypeErrorKeyTests: XCTestCase {}
 
-// MARK: - uiError
+// MARK: - localizedDescription
 extension NewVacationVacationTypeErrorKeyTests {
-    func testUIError_blank() {
+    func testLocalizedDescription_blank() {
         //Arrange
         let sut = NewVacationValidationError.VacationTypeErrorKey.blank
         //Act
-        let uiError = sut.uiError
+        let localizedDescription = sut.localizedDescription
         //Assert
-        XCTAssertEqual(uiError, UIError.newVacationVacationTypeBlank)
+        XCTAssertEqual(localizedDescription, R.string.localizable.newvacation_vacationType_blank())
     }
     
-    func testUIError_inclusion() {
+    func testLocalizedDescription_inclusion() {
         //Arrange
         let sut = NewVacationValidationError.VacationTypeErrorKey.inclusion
         //Act
-        let uiError = sut.uiError
+        let localizedDescription = sut.localizedDescription
         //Assert
-        XCTAssertEqual(uiError, UIError.newVacationVacationTypeInclusion)
+        XCTAssertEqual(localizedDescription, R.string.localizable.newvacation_vacationType_inclusion())
     }
 }

@@ -220,92 +220,70 @@ extension NewVacationValidationErrorTests {
     }
 }
 
-// MARK: - uiErrors
+// MARK: - localizedDescription
 extension NewVacationValidationErrorTests {
-    func testUIErrors_allErrorsEmpty() throws {
+    func testLocalizedDescription_allErrorsEmpty() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorEmpty)
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
-        XCTAssert(sut.uiErrors.isEmpty)
+        XCTAssertEqual(sut.localizedDescription, "")
     }
     
-    func testUIErrors_baseNotEmpty() throws {
+    func testLocalizedDescription_baseNotEmpty() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorBase)
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
-        XCTAssertEqual(sut.uiErrors.count, 1)
-        XCTAssert(sut.uiErrors.contains(.newVacationBaseWorkTimeExists))
+        XCTAssertEqual(sut.localizedDescription, R.string.localizable.newvacation_base_workTimeExists())
     }
     
-    func testUIErrors_desciptionEmpty() throws {
+    func testLocalizedDescription_desciptionEmpty() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorDescriptionBlank)
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Act
         //Assert
-        XCTAssertEqual(sut.uiErrors.count, 1)
-        XCTAssert(sut.uiErrors.contains(.newVacationDescriptionBlank))
+        XCTAssertEqual(sut.localizedDescription, R.string.localizable.newvacation_description_blank())
     }
     
-    func testUIErrors_startDateBlank() throws {
+    func testLocalizedDescription_startDateBlank() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorStartDateBlank)
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
-        XCTAssertEqual(sut.uiErrors.count, 1)
-        XCTAssert(sut.uiErrors.contains(.newVacationStartDateBlank))
+        XCTAssertEqual(sut.localizedDescription, R.string.localizable.newvacation_startDate_blank())
     }
     
-    func testUIErrors_startDateGreaterThanEndDate() throws {
+    func testLocalizedDescription_startDateGreaterThanEndDate() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorStartDateGreaterThanEndDate)
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
-        XCTAssertEqual(sut.uiErrors.count, 1)
-        XCTAssert(sut.uiErrors.contains(.newVacationStartDateGreaterThanEndDate))
+        XCTAssertEqual(sut.localizedDescription, R.string.localizable.newvacation_startDate_greaterThanEndDate())
     }
     
-    func testUIErrors_endDateBlank() throws {
+    func testLocalizedDescription_endDateBlank() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorEndDateBlank)
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
-        XCTAssertEqual(sut.uiErrors.count, 1)
-        XCTAssert(sut.uiErrors.contains(.newVacationEndDateBlank))
+        XCTAssertEqual(sut.localizedDescription, R.string.localizable.newvacation_endDate_blank())
     }
     
-    func testUIErrors_vacationTypeBlank() throws {
+    func testLocalizedDescription_vacationTypeBlank() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorVacationTypeBlank)
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
-        XCTAssertEqual(sut.uiErrors.count, 1)
-        XCTAssert(sut.uiErrors.contains(.newVacationVacationTypeBlank))
+        XCTAssertEqual(sut.localizedDescription, R.string.localizable.newvacation_vacationType_blank())
     }
     
-    func testUIErrors_vacationTypeInclusion() throws {
+    func testLocalizedDescription_vacationTypeInclusion() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorVacationTypeInclusion)
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
-        XCTAssertEqual(sut.uiErrors.count, 1)
-        XCTAssert(sut.uiErrors.contains(.newVacationVacationTypeInclusion))
-    }
-    
-    func testUIErrors_fullModel() throws {
-        //Arrange
-        let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorFullModel)
-        let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
-        //Assert
-        XCTAssertEqual(sut.uiErrors.count, 7)
-        XCTAssert(sut.uiErrors.contains(.newVacationBaseWorkTimeExists))
-        XCTAssert(sut.uiErrors.contains(.newVacationDescriptionBlank))
-        XCTAssert(sut.uiErrors.contains(.newVacationStartDateBlank))
-        XCTAssert(sut.uiErrors.contains(.newVacationStartDateGreaterThanEndDate))
-        XCTAssert(sut.uiErrors.contains(.newVacationEndDateBlank))
-        XCTAssert(sut.uiErrors.contains(.newVacationVacationTypeBlank))
-        XCTAssert(sut.uiErrors.contains(.newVacationVacationTypeInclusion))
+        XCTAssertEqual(sut.localizedDescription, R.string.localizable.newvacation_vacationType_inclusion())
     }
 }

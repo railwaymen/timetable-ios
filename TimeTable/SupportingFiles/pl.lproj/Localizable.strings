@@ -115,7 +115,7 @@
 "registerremotework_note" = "Notatka";
 "registerremotework_save_btn" = "Zapisz";
 
-"remotework_startsAt_ovelap" = "Jest już urlop z tą samoą datą.";
+"remotework_startsAt_overlap" = "Jest już urlop z tą samoą datą.";
 "remotework_startsAt_tooOld" = "Podany przedział czasowy jest za stary.";
 "remotework_startsAt_empty" = "Data rozpoczęcia nie może być pusta.";
 "remotework_startsAt_incorrectHours" = "Przedział czasu jest nieprawidłowy. Czas rozpoczęcia jest większy lub równy czasowi zakończenia.";

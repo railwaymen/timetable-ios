@@ -11,6 +11,10 @@ import Foundation
 struct RegisterRemoteWorkValidationError: Error, ValidationErrorType {
     let startsAt: [StartsAtErrorKey]
     let endsAt: [EndsAtErrorKey]
+    
+    private var localizedDescriptions: [String] {
+        return self.startsAt.map(\.localizedDescription) + self.endsAt.map(\.localizedDescription)
+    }
 
     private enum CodingKeys: String, CodingKey {
         case startsAt = "starts_at"
@@ -45,29 +49,33 @@ extension RegisterRemoteWorkValidationError {
     }
 }
 
-// MARK: - ValidationErrorUIRepresentable
-extension RegisterRemoteWorkValidationError: ValidationErrorUIRepresentable {
-    var uiErrors: [UIError] {
-        return self.startsAt.map(\.uiError) + self.endsAt.map(\.uiError)
+// MARK: - LocalizedDescriptionable
+extension RegisterRemoteWorkValidationError: LocalizedDescriptionable {
+    var localizedDescription: String {
+        return self.localizedDescriptions.first ?? ""
     }
 }
 
-// MARK: - UIErrorRepresentable
-extension RegisterRemoteWorkValidationError.StartsAtErrorKey: UIErrorRepresentable {
-    var uiError: UIError {
+extension RegisterRemoteWorkValidationError.StartsAtErrorKey: LocalizedDescriptionable {
+    var localizedDescription: String {
         switch self {
-        case .overlap: return UIError.remoteWorkStartsAtOvelap
-        case .tooOld: return UIError.remoteWorkStartsAtTooOld
-        case .blank: return UIError.remoteWorkStartsAtEmpty
-        case .incorrectHours: return UIError.remoteWorkStartsAtIncorrectHours
+        case .overlap:
+            return R.string.localizable.remotework_startsAt_overlap()
+        case .tooOld:
+            return R.string.localizable.remotework_startsAt_tooOld()
+        case .blank:
+            return R.string.localizable.remotework_startsAt_empty()
+        case .incorrectHours:
+            return R.string.localizable.remotework_startsAt_incorrectHours()
         }
     }
 }
 
-extension RegisterRemoteWorkValidationError.EndsAtErrorKey: UIErrorRepresentable {
-    var uiError: UIError {
+extension RegisterRemoteWorkValidationError.EndsAtErrorKey: LocalizedDescriptionable {
+    var localizedDescription: String {
         switch self {
-        case .blank: return UIError.remoteWorkEndsAtEmpty
+        case .blank:
+            return R.string.localizable.remotework_endsAt_empty()
         }
     }
 }

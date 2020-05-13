@@ -9,11 +9,13 @@
 import Foundation
 import Restler
 
+typealias ValidationErrorable = (ValidationErrorType & LocalizedDescriptionable)
+
 protocol ValidationErrorType: Decodable {
     var isEmpty: Bool { get }
 }
 
-struct ValidationError<T: ValidationErrorType>: Error, RestlerErrorDecodable, Decodable {
+struct ValidationError<T: ValidationErrorable>: Error, RestlerErrorDecodable, Decodable {
     let errors: T
     
     private enum CodingKeys: String, CodingKey {
@@ -38,5 +40,11 @@ struct ValidationError<T: ValidationErrorType>: Error, RestlerErrorDecodable, De
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.errors = try container.decode(T.self, forKey: .errors)
+    }
+}
+
+extension ValidationError: LocalizedDescriptionable {
+    var localizedDescription: String {
+        return self.errors.localizedDescription
     }
 }
