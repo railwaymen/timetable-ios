@@ -145,12 +145,11 @@ extension NewVacationValidationErrorTests {
     }
 }
 
-// MARK: - ValidationErrorType
+// MARK: - isEmpty
 extension NewVacationValidationErrorTests {
     func testIsEmpty_allErrorsEmpty() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorEmpty)
-        //Act
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
         XCTAssert(sut.isEmpty)
@@ -159,7 +158,6 @@ extension NewVacationValidationErrorTests {
     func testIsEmpty_baseNotEmpty() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorBase)
-        //Act
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
         XCTAssertFalse(sut.isEmpty)
@@ -168,7 +166,6 @@ extension NewVacationValidationErrorTests {
     func testIsEmpty_desciptionEmpty() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorDescriptionBlank)
-        //Act
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
         XCTAssertFalse(sut.isEmpty)
@@ -177,7 +174,6 @@ extension NewVacationValidationErrorTests {
     func testIsEmpty_startDateBlank() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorStartDateBlank)
-        //Act
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
         XCTAssertFalse(sut.isEmpty)
@@ -186,7 +182,6 @@ extension NewVacationValidationErrorTests {
     func testIsEmpty_startDateGreaterThanEndDate() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorStartDateGreaterThanEndDate)
-        //Act
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
         XCTAssertFalse(sut.isEmpty)
@@ -195,7 +190,6 @@ extension NewVacationValidationErrorTests {
     func testIsEmpty_endDateBlank() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorEndDateBlank)
-        //Act
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
         XCTAssertFalse(sut.isEmpty)
@@ -204,7 +198,6 @@ extension NewVacationValidationErrorTests {
     func testIsEmpty_vacationTypeBlank() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorVacationTypeBlank)
-        //Act
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
         XCTAssertFalse(sut.isEmpty)
@@ -213,7 +206,6 @@ extension NewVacationValidationErrorTests {
     func testIsEmpty_vacationTypeInclusion() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorVacationTypeInclusion)
-        //Act
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
         XCTAssertFalse(sut.isEmpty)
@@ -222,20 +214,17 @@ extension NewVacationValidationErrorTests {
     func testIsEmpty_fullModel() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorFullModel)
-        //Act
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
         XCTAssertFalse(sut.isEmpty)
     }
 }
 
-// MARK: - ValidationErrorUIRepresentable
+// MARK: - uiErrors
 extension NewVacationValidationErrorTests {
-    
     func testUIErrors_allErrorsEmpty() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorEmpty)
-        //Act
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
         XCTAssert(sut.uiErrors.isEmpty)
@@ -244,7 +233,6 @@ extension NewVacationValidationErrorTests {
     func testUIErrors_baseNotEmpty() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorBase)
-        //Act
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
         XCTAssertEqual(sut.uiErrors.count, 1)
@@ -254,8 +242,8 @@ extension NewVacationValidationErrorTests {
     func testUIErrors_desciptionEmpty() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorDescriptionBlank)
-        //Act
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
+        //Act
         //Assert
         XCTAssertEqual(sut.uiErrors.count, 1)
         XCTAssert(sut.uiErrors.contains(.newVacationDescriptionBlank))
@@ -264,7 +252,6 @@ extension NewVacationValidationErrorTests {
     func testUIErrors_startDateBlank() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorStartDateBlank)
-        //Act
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
         XCTAssertEqual(sut.uiErrors.count, 1)
@@ -274,7 +261,6 @@ extension NewVacationValidationErrorTests {
     func testUIErrors_startDateGreaterThanEndDate() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorStartDateGreaterThanEndDate)
-        //Act
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
         XCTAssertEqual(sut.uiErrors.count, 1)
@@ -284,7 +270,6 @@ extension NewVacationValidationErrorTests {
     func testUIErrors_endDateBlank() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorEndDateBlank)
-        //Act
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
         XCTAssertEqual(sut.uiErrors.count, 1)
@@ -294,7 +279,6 @@ extension NewVacationValidationErrorTests {
     func testUIErrors_vacationTypeBlank() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorVacationTypeBlank)
-        //Act
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
         XCTAssertEqual(sut.uiErrors.count, 1)
@@ -304,7 +288,6 @@ extension NewVacationValidationErrorTests {
     func testUIErrors_vacationTypeInclusion() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorVacationTypeInclusion)
-        //Act
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
         XCTAssertEqual(sut.uiErrors.count, 1)
@@ -314,7 +297,6 @@ extension NewVacationValidationErrorTests {
     func testUIErrors_fullModel() throws {
         //Arrange
         let data = try self.json(from: NewVacationValidationErrorResponse.newVacationValidationErrorFullModel)
-        //Act
         let sut = try self.decoder.decode(NewVacationValidationError.self, from: data)
         //Assert
         XCTAssertEqual(sut.uiErrors.count, 7)

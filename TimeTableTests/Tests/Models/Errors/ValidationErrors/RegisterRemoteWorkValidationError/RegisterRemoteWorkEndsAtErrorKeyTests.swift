@@ -11,7 +11,7 @@ import XCTest
 
 class RegisterRemoteWorkEndsAtErrorKeyTests: XCTestCase {}
 
-// MARK: - EndsAtErrorKey.UIErrorRepresentable
+// MARK: - uiError
 extension RegisterRemoteWorkEndsAtErrorKeyTests {
     func testUIError_blank() {
         //Arrange

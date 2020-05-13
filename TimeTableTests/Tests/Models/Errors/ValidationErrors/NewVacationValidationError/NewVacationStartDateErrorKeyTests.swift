@@ -11,7 +11,7 @@ import XCTest
 
 class NewVacationStartDateErrorKeyTests: XCTestCase {}
 
-// MARK: - StartDateErrorKey.UIErrorRepresentable
+// MARK: - uiError
 extension NewVacationStartDateErrorKeyTests {
     func testUIError_blank() {
         //Arrange

@@ -11,7 +11,7 @@ import XCTest
 
 class NewVacationDescriptionErrorKeyTests: XCTestCase {}
 
-// MARK: - DescriptionErrorKey.UIErrorRepresentable
+// MARK: - uiError
 extension NewVacationDescriptionErrorKeyTests {
     func testUIError_blank() {
         //Arrange

@@ -11,7 +11,7 @@ import XCTest
 
 class RegisterRemoteWorkStartsAtErrorKeyTests: XCTestCase {}
 
-// MARK: - StartsAtErrorKey.UIErrorRepresentable
+// MARK: - uiError
 extension RegisterRemoteWorkStartsAtErrorKeyTests {
     func testUIError_overlap() {
         //Arrange

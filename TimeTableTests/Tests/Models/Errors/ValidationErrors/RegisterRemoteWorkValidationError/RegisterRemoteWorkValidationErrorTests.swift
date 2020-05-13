@@ -64,12 +64,11 @@ extension RegisterRemoteWorkValidationErrorTests {
     }
 }
 
-// MARK: - ValidationErrorType
+// MARK: - isEmpty
 extension RegisterRemoteWorkValidationErrorTests {
     func testIsEmpty_true() throws {
         //Arrange
         let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteEmptyStartsAtAndEndsAtResponse)
-        //Act
         let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
         //Assert
         XCTAssert(sut.isEmpty)
@@ -78,37 +77,33 @@ extension RegisterRemoteWorkValidationErrorTests {
     func testIsEmpty_startsNotEmpty() throws {
         //Arrange
         let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteStartsAtFullModelResponse)
-        //Act
         let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
         //Assert
         XCTAssertFalse(sut.isEmpty)
     }
     
     func testIsEmpty_endsNotEmpty() throws {
-         //Arrange
-         let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteEndsAtFullModelResponse)
-         //Act
-         let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
-         //Assert
-         XCTAssertFalse(sut.isEmpty)
+        //Arrange
+        let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteEndsAtFullModelResponse)
+        let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
+        //Assert
+        XCTAssertFalse(sut.isEmpty)
     }
     
     func testIsEmpty_startsAtAndEndsNotEmpty() throws {
         //Arrange
         let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteFullModelResponse)
-        //Act
         let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
         //Assert
         XCTAssertFalse(sut.isEmpty)
     }
 }
 
-// MARK: - ValidationErrorUIRepresentable
+// MARK: - uiErrors
 extension RegisterRemoteWorkValidationErrorTests {
     func testUIErrors_emptyStartsAtAndEndsAt() throws {
         //Arrange
         let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteEmptyStartsAtAndEndsAtResponse)
-        //Act
         let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
         //Assert
         XCTAssertEqual(sut.uiErrors.count, 0)
@@ -117,7 +112,6 @@ extension RegisterRemoteWorkValidationErrorTests {
     func testUIErrors_startsAtFullModel() throws {
         //Arrange
         let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteStartsAtFullModelResponse)
-        //Act
         let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
         //Assert
         XCTAssertEqual(sut.uiErrors.count, 4)
@@ -130,7 +124,6 @@ extension RegisterRemoteWorkValidationErrorTests {
     func testUIErrors_endsAtFullModel() throws {
         //Arrange
         let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteEndsAtFullModelResponse)
-        //Act
         let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
         //Assert
         XCTAssertEqual(sut.uiErrors.count, 1)
@@ -140,7 +133,6 @@ extension RegisterRemoteWorkValidationErrorTests {
     func testUIErrors_fullModelResponse() throws {
         //Arrange
         let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteFullModelResponse)
-        //Act
         let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
         //Assert
         XCTAssertEqual(sut.uiErrors.count, 5)
