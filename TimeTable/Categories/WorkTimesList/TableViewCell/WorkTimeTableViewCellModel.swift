@@ -70,6 +70,7 @@ extension WorkTimeTableViewCellModel {
         let durationParameters: LabelTextParameters
         let bodyParameters: LabelTextParameters
         let taskUrlParameters: LabelTextParameters
+        let dayParameters: LabelTextParameters
         let fromToDateText: NSAttributedString
         let projectTitleParameters: LabelTextParameters
         let projectColor: UIColor?
@@ -83,6 +84,7 @@ extension WorkTimeTableViewCellModel {
         case body
         case projectName
         case task
+        case day
         
         var taskVersionField: TaskVersion.Field {
             switch self {
@@ -90,6 +92,7 @@ extension WorkTimeTableViewCellModel {
             case .body: return .body
             case .projectName: return .projectName
             case .task: return .task
+            case .day: return .day
             }
         }
     }
@@ -125,6 +128,7 @@ extension WorkTimeTableViewCellModel {
             durationParameters: self.getParameters(for: .duration),
             bodyParameters: self.getParameters(for: .body),
             taskUrlParameters: self.getParameters(for: .task),
+            dayParameters: self.getParameters(for: .day),
             fromToDateText: fromToDateText,
             projectTitleParameters: self.getParameters(for: .projectName),
             projectColor: self.workTime.projectColor,
@@ -174,6 +178,8 @@ extension WorkTimeTableViewCellModel {
             return self.dateComponentsFormatter.string(from: self.workTime.duration)
         case .task:
             return self.workTime.taskPreview
+        case .day:
+            return DateFormatter.shortDate.string(from: self.workTime.startsAt)
         }
     }
     
@@ -182,7 +188,7 @@ extension WorkTimeTableViewCellModel {
         switch field {
         case .body, .projectName:
             defaultColor = .defaultLabel
-        case .duration, .startsAt, .endsAt, .task:
+        case .duration, .startsAt, .endsAt, .task, .day:
             defaultColor = .defaultSecondaryLabel
         case .tag:
             self.errorHandler.stopInDebug("There's no default color for tag and it's not expected to be needed.")

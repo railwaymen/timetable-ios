@@ -20,6 +20,7 @@ class WorkTimeTableViewCell: UITableViewCell, ReusableCellType {
     @IBOutlet private var projectViews: [UIView]!
     @IBOutlet private var projectTitleLabel: UILabel!
     @IBOutlet private var durationLabel: UILabel!
+    @IBOutlet private var dayLabel: UILabel!
     @IBOutlet private var fromToDateLabel: UILabel!
     @IBOutlet private var taskInfoVerticalStackView: UIStackView!
     @IBOutlet private var taskInfoHorizontalStackView: UIStackView!
@@ -55,11 +56,15 @@ extension WorkTimeTableViewCell: WorkTimeTableViewCellModelOutput {
         self.shadowView.layer.cornerRadius = self.roundedContainerView.cornerRadius
     }
     
+    // TODO: Clean this mess
     func updateView(data: WorkTimeTableViewCellModel.ViewData) {
         self.editionViewHeightConstraint.constant = 0
         self.editionViewHeightConstraint.isActive = data.edition == nil
         self.editedByLabel.text = data.edition?.author
         self.updatedAtLabel.text = data.edition?.date
+        self.dayLabel.text = data.dayParameters.text
+        self.dayLabel.textColor = data.dayParameters.textColor
+        self.dayLabel.set(isHidden: data.edition == nil)
         self.fromToDateLabel.attributedText = data.fromToDateText
         self.durationLabel.set(textParameters: data.durationParameters)
         self.bodyLabel.set(textParameters: data.bodyParameters)

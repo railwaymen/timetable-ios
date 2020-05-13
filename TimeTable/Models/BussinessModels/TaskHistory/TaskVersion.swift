@@ -105,6 +105,7 @@ extension TaskVersion {
     enum Field {
         case projectName
         case body
+        case day
         case startsAt
         case endsAt
         case tag
