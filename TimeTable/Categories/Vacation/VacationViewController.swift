@@ -102,12 +102,6 @@ extension VacationViewController: VacationViewModelOutput {
         self.viewModel.configure(self.errorView)
     }
     
-    func setUpTableHeaderView() {
-        guard let headerView = R.nib.vacationTableHeader(owner: nil) else { return }
-        self.viewModel.configure(headerView)
-        self.tableView.tableHeaderView = headerView
-    }
-    
     func showTableView() {
         UIView.transition(with: self.tableView, duration: 0.2, animations: { [weak self] in
             self?.tableView.set(isHidden: false)
@@ -160,6 +154,12 @@ extension VacationViewController {
         let addImageView = self.buildImageView(image: .plus, tapAction: #selector(self.addVacationButtonTapped))
         let profileImageView = self.buildImageView(image: .profile, tapAction: #selector(self.profileButtonTapped))
         navigationBar.setLargeTitleRightViews([addImageView, profileImageView])
+    }
+    
+    private func setUpTableHeaderView() {
+        guard let headerView = R.nib.vacationTableHeader(owner: nil) else { return }
+        self.viewModel.configure(headerView)
+        self.tableView.tableHeaderView = headerView
     }
     
     private func setUpTableView() {

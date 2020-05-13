@@ -12,7 +12,6 @@ protocol VacationViewModelOutput: class {
     func setUpView()
     func showTableView()
     func showErrorView()
-    func setUpTableHeaderView()
     func setActivityIndicator(isHidden: Bool)
     func updateView()
     func setBottomContentInset(height: CGFloat)
