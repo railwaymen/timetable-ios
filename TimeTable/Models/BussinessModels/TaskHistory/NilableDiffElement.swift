@@ -49,17 +49,17 @@ extension NilableDiffElement where Element == Date {
     var hasTimeChanged: Bool {
         guard let currentDate = self.current,
             let previousDate = self.previous else { return self.hasChanged }
-        let calendar = Calendar.autoupdatingCurrent
-        let currentDateTimeComponents = calendar.dateComponents([.hour, .minute, .second], from: currentDate)
-        return self.hasChanged && !calendar.date(previousDate, matchesComponents: currentDateTimeComponents)
+        return self.hasChanged && !self.calendar.isDate(currentDate, inSameTimeAs: previousDate)
     }
     
     var hasDayChanged: Bool {
         guard let currentDate = self.current,
             let previousDate = self.previous else { return self.hasChanged }
-        let calendar = Calendar.autoupdatingCurrent
-        let currentDateDayComponents = calendar.dateComponents([.year, .month, .day], from: currentDate)
-        return self.hasChanged && !calendar.date(previousDate, matchesComponents: currentDateDayComponents)
+        return self.hasChanged && !self.calendar.isDate(currentDate, inSameDayAs: previousDate)
+    }
+    
+    private var calendar: CalendarType {
+        Calendar.autoupdatingCurrent
     }
 }
 
