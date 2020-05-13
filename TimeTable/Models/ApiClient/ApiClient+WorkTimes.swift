@@ -50,6 +50,7 @@ extension ApiClient: ApiClientWorkTimesType {
         _ = self.restler
             .post(Endpoint.workTimes)
             .body(parameters)
+            .failureDecode(ValidationError<WorkTimeValidationError>.self)
             .decode(Void.self)
             .onCompletion(completion)
             .start()
@@ -59,6 +60,7 @@ extension ApiClient: ApiClientWorkTimesType {
         _ = self.restler
             .post(Endpoint.workTimesCreateWithFilling)
             .body(task)
+            .failureDecode(ValidationError<WorkTimeValidationError>.self)
             .decode(Void.self)
             .onCompletion(completion)
             .start()
@@ -76,6 +78,7 @@ extension ApiClient: ApiClientWorkTimesType {
         _ = self.restler
             .put(Endpoint.workTime(id))
             .body(parameters)
+            .failureDecode(ValidationError<WorkTimeValidationError>.self)
             .decode(Void.self)
             .onCompletion(completion)
             .start()

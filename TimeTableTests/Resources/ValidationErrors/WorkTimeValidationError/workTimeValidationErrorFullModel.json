@@ -1,0 +1,39 @@
+{
+    "body": [
+        {
+            "error": "body_or_task_blank"
+        }
+    ],
+    "task": [
+        {
+            "error": "invalid_uri"
+        },
+        {
+            "error": "invalid_external"
+        }
+    ],
+    "starts_at": [
+        {
+            "error": "overlap"
+        },
+        {
+            "error": "too_old"
+        },
+        {
+            "error": "overlap_midnight"
+        },
+        {
+            "error": "no_gaps_to_fill"
+        }
+    ],
+    "duration": [
+        {
+            "error": "greater_than"
+        }
+    ],
+    "project_id": [
+        {
+            "error": "blank"
+        }
+    ]
+}

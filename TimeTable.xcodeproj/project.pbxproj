@@ -280,6 +280,23 @@
 		C101603222003A9500DCE817 /* WorkTimesListContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */; };
 		C101603422003D4000DCE817 /* MatchingFullTimeEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101603322003D4000DCE817 /* MatchingFullTimeEncoder.swift */; };
 		C10515D42456B2BC00413EDE /* YearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10515D32456B2BC00413EDE /* YearPickerView.swift */; };
+		C1055A66246D1EFA00EF64ED /* workTimeValidationErrorProjectIDBlank.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A5B246D1EFA00EF64ED /* workTimeValidationErrorProjectIDBlank.json */; };
+		C1055A67246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlap.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A5C246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlap.json */; };
+		C1055A68246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlapMidnight.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A5D246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlapMidnight.json */; };
+		C1055A69246D1EFA00EF64ED /* workTimeValidationErrorBodyOrTaskBlank.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A5E246D1EFA00EF64ED /* workTimeValidationErrorBodyOrTaskBlank.json */; };
+		C1055A6A246D1EFA00EF64ED /* workTimeValidationErrorStartsAtNoGapsToFill.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A5F246D1EFA00EF64ED /* workTimeValidationErrorStartsAtNoGapsToFill.json */; };
+		C1055A6B246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidExternal.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A60246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidExternal.json */; };
+		C1055A6C246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidURI.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A61246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidURI.json */; };
+		C1055A6D246D1EFA00EF64ED /* workTimeValidationErrorFullModel.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A62246D1EFA00EF64ED /* workTimeValidationErrorFullModel.json */; };
+		C1055A6E246D1EFA00EF64ED /* workTimeValidationErrorEmptyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A63246D1EFA00EF64ED /* workTimeValidationErrorEmptyResponse.json */; };
+		C1055A6F246D1EFA00EF64ED /* workTimeValidationErrorDurationGreaterThan.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A64246D1EFA00EF64ED /* workTimeValidationErrorDurationGreaterThan.json */; };
+		C1055A70246D1EFA00EF64ED /* workTimeValidationErrorStartsAtTooOld.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A65246D1EFA00EF64ED /* workTimeValidationErrorStartsAtTooOld.json */; };
+		C1055A73246D225D00EF64ED /* WorkTimeValidationErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1055A72246D225D00EF64ED /* WorkTimeValidationErrorTests.swift */; };
+		C1055A75246D2D2200EF64ED /* WorkTimeBodyErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1055A74246D2D2200EF64ED /* WorkTimeBodyErrorKeyTests.swift */; };
+		C1055A77246D2D2A00EF64ED /* WorkTimeTaskErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1055A76246D2D2A00EF64ED /* WorkTimeTaskErrorKeyTests.swift */; };
+		C1055A79246D2D3300EF64ED /* WorkTimeStartsAtErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1055A78246D2D3300EF64ED /* WorkTimeStartsAtErrorKeyTests.swift */; };
+		C1055A7B246D2D3D00EF64ED /* WorkTimeDurationErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1055A7A246D2D3D00EF64ED /* WorkTimeDurationErrorKeyTests.swift */; };
+		C1055A7D246D2D4700EF64ED /* WorkTimeProjectIDErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1055A7C246D2D4700EF64ED /* WorkTimeProjectIDErrorKeyTests.swift */; };
 		C10FD87F21F1EDA100A233C5 /* ApiClient+Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD87E21F1EDA100A233C5 /* ApiClient+Users.swift */; };
 		C10FD88121F1F15100A233C5 /* UserDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88021F1F15100A233C5 /* UserDecoder.swift */; };
 		C10FD88421F1F28200A233C5 /* UserDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88321F1F28200A233C5 /* UserDecoderTests.swift */; };
@@ -499,6 +516,7 @@
 		C1A47C01245AAE2700FDA7F0 /* NewVacationViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A47C00245AAE2700FDA7F0 /* NewVacationViewControllerMock.swift */; };
 		C1A47C03245AF55D00FDA7F0 /* VacationForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A47C02245AF55D00FDA7F0 /* VacationForm.swift */; };
 		C1A681522460045D0044C2B9 /* VacationFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A681512460045D0044C2B9 /* VacationFormTests.swift */; };
+		C1AA80D4246D1DAC00AC8FB4 /* WorkTimeValidationErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AA80D3246D1DAC00AC8FB4 /* WorkTimeValidationErrorResponse.swift */; };
 		C1AACFCF21A4349B0023FD32 /* ProjectsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFCE21A4349B0023FD32 /* ProjectsCoordinator.swift */; };
 		C1AACFD621A438660023FD32 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD521A438660023FD32 /* ProfileCoordinator.swift */; };
 		C1AACFD821A4387F0023FD32 /* WorkTimesListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD721A4387F0023FD32 /* WorkTimesListCoordinator.swift */; };
@@ -550,6 +568,7 @@
 		C1E1F04D21AD3EB8007F9228 /* CalendarMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E1F04C21AD3EB8007F9228 /* CalendarMock.swift */; };
 		C1E1F04F21AD52BA007F9228 /* workTimesResponseNotSorted.json in Resources */ = {isa = PBXBuildFile; fileRef = C1E1F04E21AD52BA007F9228 /* workTimesResponseNotSorted.json */; };
 		C1E1F05421AD5FD2007F9228 /* WorkTimesTableViewHeaderViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E1F05321AD5FD2007F9228 /* WorkTimesTableViewHeaderViewModelTests.swift */; };
+		C1E50B86246C2DB000503008 /* WorkTimeValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E50B85246C2DB000503008 /* WorkTimeValidationError.swift */; };
 		C1E6B34C219EF08200019DC2 /* AccessService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E6B34B219EF08200019DC2 /* AccessService.swift */; };
 		C1E6B34E219EF30600019DC2 /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E6B34D219EF30600019DC2 /* URL+Extension.swift */; };
 		C1E6B350219EF52000019DC2 /* Keychain+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E6B34F219EF52000019DC2 /* Keychain+Extension.swift */; };
@@ -951,6 +970,23 @@
 		C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListContentProvider.swift; sourceTree = "<group>"; };
 		C101603322003D4000DCE817 /* MatchingFullTimeEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFullTimeEncoder.swift; sourceTree = "<group>"; };
 		C10515D32456B2BC00413EDE /* YearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearPickerView.swift; sourceTree = "<group>"; };
+		C1055A5B246D1EFA00EF64ED /* workTimeValidationErrorProjectIDBlank.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorProjectIDBlank.json; sourceTree = "<group>"; };
+		C1055A5C246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlap.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorStartsAtOverlap.json; sourceTree = "<group>"; };
+		C1055A5D246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlapMidnight.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorStartsAtOverlapMidnight.json; sourceTree = "<group>"; };
+		C1055A5E246D1EFA00EF64ED /* workTimeValidationErrorBodyOrTaskBlank.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorBodyOrTaskBlank.json; sourceTree = "<group>"; };
+		C1055A5F246D1EFA00EF64ED /* workTimeValidationErrorStartsAtNoGapsToFill.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorStartsAtNoGapsToFill.json; sourceTree = "<group>"; };
+		C1055A60246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidExternal.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorTaskInvalidExternal.json; sourceTree = "<group>"; };
+		C1055A61246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidURI.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorTaskInvalidURI.json; sourceTree = "<group>"; };
+		C1055A62246D1EFA00EF64ED /* workTimeValidationErrorFullModel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorFullModel.json; sourceTree = "<group>"; };
+		C1055A63246D1EFA00EF64ED /* workTimeValidationErrorEmptyResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorEmptyResponse.json; sourceTree = "<group>"; };
+		C1055A64246D1EFA00EF64ED /* workTimeValidationErrorDurationGreaterThan.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorDurationGreaterThan.json; sourceTree = "<group>"; };
+		C1055A65246D1EFA00EF64ED /* workTimeValidationErrorStartsAtTooOld.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorStartsAtTooOld.json; sourceTree = "<group>"; };
+		C1055A72246D225D00EF64ED /* WorkTimeValidationErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeValidationErrorTests.swift; sourceTree = "<group>"; };
+		C1055A74246D2D2200EF64ED /* WorkTimeBodyErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeBodyErrorKeyTests.swift; sourceTree = "<group>"; };
+		C1055A76246D2D2A00EF64ED /* WorkTimeTaskErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeTaskErrorKeyTests.swift; sourceTree = "<group>"; };
+		C1055A78246D2D3300EF64ED /* WorkTimeStartsAtErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeStartsAtErrorKeyTests.swift; sourceTree = "<group>"; };
+		C1055A7A246D2D3D00EF64ED /* WorkTimeDurationErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeDurationErrorKeyTests.swift; sourceTree = "<group>"; };
+		C1055A7C246D2D4700EF64ED /* WorkTimeProjectIDErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeProjectIDErrorKeyTests.swift; sourceTree = "<group>"; };
 		C10FD87E21F1EDA100A233C5 /* ApiClient+Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiClient+Users.swift"; sourceTree = "<group>"; };
 		C10FD88021F1F15100A233C5 /* UserDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDecoder.swift; sourceTree = "<group>"; };
 		C10FD88321F1F28200A233C5 /* UserDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDecoderTests.swift; sourceTree = "<group>"; };
@@ -1174,6 +1210,7 @@
 		C1A47C00245AAE2700FDA7F0 /* NewVacationViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVacationViewControllerMock.swift; sourceTree = "<group>"; };
 		C1A47C02245AF55D00FDA7F0 /* VacationForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationForm.swift; sourceTree = "<group>"; };
 		C1A681512460045D0044C2B9 /* VacationFormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationFormTests.swift; sourceTree = "<group>"; };
+		C1AA80D3246D1DAC00AC8FB4 /* WorkTimeValidationErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeValidationErrorResponse.swift; sourceTree = "<group>"; };
 		C1AACFCE21A4349B0023FD32 /* ProjectsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsCoordinator.swift; sourceTree = "<group>"; };
 		C1AACFD521A438660023FD32 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		C1AACFD721A4387F0023FD32 /* WorkTimesListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListCoordinator.swift; sourceTree = "<group>"; };
@@ -1229,6 +1266,7 @@
 		C1E1F04C21AD3EB8007F9228 /* CalendarMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMock.swift; sourceTree = "<group>"; };
 		C1E1F04E21AD52BA007F9228 /* workTimesResponseNotSorted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimesResponseNotSorted.json; sourceTree = "<group>"; };
 		C1E1F05321AD5FD2007F9228 /* WorkTimesTableViewHeaderViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesTableViewHeaderViewModelTests.swift; sourceTree = "<group>"; };
+		C1E50B85246C2DB000503008 /* WorkTimeValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeValidationError.swift; sourceTree = "<group>"; };
 		C1E6B34B219EF08200019DC2 /* AccessService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessService.swift; sourceTree = "<group>"; };
 		C1E6B34D219EF30600019DC2 /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
 		C1E6B34F219EF52000019DC2 /* Keychain+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keychain+Extension.swift"; sourceTree = "<group>"; };
@@ -1934,6 +1972,37 @@
 				8AFBC35F2462F4A400032B96 /* RegisterRemoteWorkViewModel.swift */,
 			);
 			path = RegisterRemoteWork;
+			sourceTree = "<group>";
+		};
+		C1055A5A246D1E7F00EF64ED /* WorkTimeValidationError */ = {
+			isa = PBXGroup;
+			children = (
+				C1055A5E246D1EFA00EF64ED /* workTimeValidationErrorBodyOrTaskBlank.json */,
+				C1055A64246D1EFA00EF64ED /* workTimeValidationErrorDurationGreaterThan.json */,
+				C1055A63246D1EFA00EF64ED /* workTimeValidationErrorEmptyResponse.json */,
+				C1055A62246D1EFA00EF64ED /* workTimeValidationErrorFullModel.json */,
+				C1055A5B246D1EFA00EF64ED /* workTimeValidationErrorProjectIDBlank.json */,
+				C1055A5F246D1EFA00EF64ED /* workTimeValidationErrorStartsAtNoGapsToFill.json */,
+				C1055A5C246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlap.json */,
+				C1055A5D246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlapMidnight.json */,
+				C1055A65246D1EFA00EF64ED /* workTimeValidationErrorStartsAtTooOld.json */,
+				C1055A60246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidExternal.json */,
+				C1055A61246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidURI.json */,
+			);
+			path = WorkTimeValidationError;
+			sourceTree = "<group>";
+		};
+		C1055A71246D225100EF64ED /* WorkTimeValidationError */ = {
+			isa = PBXGroup;
+			children = (
+				C1055A74246D2D2200EF64ED /* WorkTimeBodyErrorKeyTests.swift */,
+				C1055A7A246D2D3D00EF64ED /* WorkTimeDurationErrorKeyTests.swift */,
+				C1055A7C246D2D4700EF64ED /* WorkTimeProjectIDErrorKeyTests.swift */,
+				C1055A78246D2D3300EF64ED /* WorkTimeStartsAtErrorKeyTests.swift */,
+				C1055A76246D2D2A00EF64ED /* WorkTimeTaskErrorKeyTests.swift */,
+				C1055A72246D225D00EF64ED /* WorkTimeValidationErrorTests.swift */,
+			);
+			path = WorkTimeValidationError;
 			sourceTree = "<group>";
 		};
 		C10FD87D21F1ED8300A233C5 /* User */ = {
@@ -2668,6 +2737,7 @@
 				C172D13E246566A0005AC63B /* RegisterRemoteWorkValidationError.swift */,
 				C130B142246BE2B4002D23AB /* SignInValidationError.swift */,
 				C172D14024656FF2005AC63B /* ValidationError.swift */,
+				C1E50B85246C2DB000503008 /* WorkTimeValidationError.swift */,
 			);
 			path = ValidationErrors;
 			sourceTree = "<group>";
@@ -3196,6 +3266,7 @@
 				C1F62B4A246972D400AB8C00 /* NewVacationValidationError */,
 				C1F62B49246972C700AB8C00 /* RegisterRemoteWorkValidationError */,
 				C130B144246BE75C002D23AB /* SignInValidationError */,
+				C1055A71246D225100EF64ED /* WorkTimeValidationError */,
 			);
 			path = ValidationErrors;
 			sourceTree = "<group>";
@@ -3208,11 +3279,13 @@
 				C1F62B20246935B000AB8C00 /* RegisterRemoteWorkValidationResource.swift */,
 				C130B147246BE7E2002D23AB /* SignInValidationErrorResponse.swift */,
 				C1F62B3C24694C0800AB8C00 /* ValidationErrorResource.swift */,
+				C1AA80D3246D1DAC00AC8FB4 /* WorkTimeValidationErrorResponse.swift */,
 				C1F62B3524694A0E00AB8C00 /* BasicError */,
 				C1F62B4D246974FA00AB8C00 /* NewVacationValidationError */,
 				C1F62B242469364A00AB8C00 /* RegisterRemoteWorkValidation */,
 				C130B149246BE8D6002D23AB /* SignInValidationError */,
 				C1F62B3E24694D5600AB8C00 /* ValidationError */,
+				C1055A5A246D1E7F00EF64ED /* WorkTimeValidationError */,
 			);
 			path = ValidationErrors;
 			sourceTree = "<group>";
@@ -3587,6 +3660,7 @@
 				8A21A04A2435D75900EE4A79 /* taskVersionMissingCurrentTaskPreviewKey.json in Resources */,
 				8A79A2BB2420F73C0048B44B /* taskVersionNullEvent.json in Resources */,
 				C1F62B422469512500AB8C00 /* validationErrorEmptyValidationErrorResponse.json in Resources */,
+				C1055A6F246D1EFA00EF64ED /* workTimeValidationErrorDurationGreaterThan.json in Resources */,
 				8A79A3092424EAF70048B44B /* projectTagsUnknownResponse.json in Resources */,
 				C1B771D921EF1DFF00EFE06F /* simpleProjectNullAutofillResponse.json in Resources */,
 				C1860DD62462F12C00C33C94 /* remoteWorkResponseFullModel.json in Resources */,
@@ -3594,6 +3668,7 @@
 				8AFFE5CA24331F77001D9E89 /* taskChangedTaskResponse.json in Resources */,
 				C1B771D721EF1DE100EFE06F /* simpleProjectMissingColorKeyResponse.json in Resources */,
 				C1B771FD21EF421900EFE06F /* baseErrorKeyResponse.json in Resources */,
+				C1055A6A246D1EFA00EF64ED /* workTimeValidationErrorStartsAtNoGapsToFill.json in Resources */,
 				8A6A4FC12456F279004B4CF2 /* accountingPeriodMissingCountedDurationKey.json in Resources */,
 				8A912D80246BC69900D88DA8 /* taskChangedDayResponse.json in Resources */,
 				C1F62B51246975CE00AB8C00 /* newVacationValidationErrorBase.json in Resources */,
@@ -3602,6 +3677,8 @@
 				8A9832BD243B0023005245A8 /* serverErrorFullModel.json in Resources */,
 				8A21A0482435D74C00EE4A79 /* taskVersionNullCurrentTaskPreview.json in Resources */,
 				8A79A2C02420F73C0048B44B /* taskVersionNullCurrentTag.json in Resources */,
+				C1055A68246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlapMidnight.json in Resources */,
+				C1055A66246D1EFA00EF64ED /* workTimeValidationErrorProjectIDBlank.json in Resources */,
 				C1FB400F245176DB008266C4 /* vacationApprovedStatusResponse.json in Resources */,
 				8A79A2AE2420F73C0048B44B /* taskVersionNullPreviousTag.json in Resources */,
 				C1FB400D245176D3008266C4 /* vacationDeclinedStatusResponse.json in Resources */,
@@ -3614,6 +3691,7 @@
 				8A2FB0FE242E284900DDBCB0 /* taskChangedTagResponse.json in Resources */,
 				C1B771E321EF1E6800EFE06F /* simpleProjectMissingCountDurationKeyResponse.json in Resources */,
 				8A79A2AC2420F73C0048B44B /* taskVersionUnknownEvent.json in Resources */,
+				C1055A69246D1EFA00EF64ED /* workTimeValidationErrorBodyOrTaskBlank.json in Resources */,
 				C18A189C21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json in Resources */,
 				C1B7720121EF423000EFE06F /* endsAtErrorKeyResponse.json in Resources */,
 				C1B771EB21EF1EB100EFE06F /* simpleProjectMissingLunchKeyResponse.json in Resources */,
@@ -3627,8 +3705,10 @@
 				C1B771E521EF1E7800EFE06F /* simpleProjectNullActiveResponse.json in Resources */,
 				C1B771F321EF2A2A00EFE06F /* simpleProjectArrayResponse.json in Resources */,
 				8A79A2532420DEEB0048B44B /* taskVersionFullModel.json in Resources */,
+				C1055A6B246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidExternal.json in Resources */,
 				C1B771FB21EF41C300EFE06F /* emptyErrosKeysResponse.json in Resources */,
 				8A79A2912420F0DE0048B44B /* taskVersionMissingCurrentDurationKey.json in Resources */,
+				C1055A67246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlap.json in Resources */,
 				C1FB40032451768D008266C4 /* vacationPlannedTypeResponse.json in Resources */,
 				8A79A2E72423696B0048B44B /* projectRecordNullLeaderFirstNameResponse.json in Resources */,
 				8A79A2B92420F73C0048B44B /* taskVersionMissingPreviousTagKey.json in Resources */,
@@ -3694,10 +3774,13 @@
 				8A2FB0F8242E27DF00DDBCB0 /* taskChangedBodyResponse.json in Resources */,
 				C1B771EF21EF1EE000EFE06F /* simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json in Resources */,
 				C1F62B232469364000AB8C00 /* registerRemoteEmptyStartsAtAndEndsAtResponse.json in Resources */,
+				C1055A70246D1EFA00EF64ED /* workTimeValidationErrorStartsAtTooOld.json in Resources */,
+				C1055A6C246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidURI.json in Resources */,
 				C1F62B5B24697CD800AB8C00 /* newVacationValidationErrorVacationTypeBlank.json in Resources */,
 				C13429A721A6E73F00F4EA42 /* workTimeRequest.json in Resources */,
 				C1E1F04F21AD52BA007F9228 /* workTimesResponseNotSorted.json in Resources */,
 				C134299F21A6DC7600F4EA42 /* workTimeMissingTaskKey.json in Resources */,
+				C1055A6E246D1EFA00EF64ED /* workTimeValidationErrorEmptyResponse.json in Resources */,
 				C172089E2463F7FC0010ED38 /* remoteWorkNullNote.json in Resources */,
 				8A79A2682420EBD90048B44B /* taskVersionMissingCurrentProjectNameKey.json in Resources */,
 				C130B13F246BDAA3002D23AB /* registerRemoteStartsAtEmptyResponse.json in Resources */,
@@ -3711,6 +3794,7 @@
 				C18A189E21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json in Resources */,
 				8A79A2B52420F73C0048B44B /* taskVersionNullPreviousProjectName.json in Resources */,
 				C11D0D012208243C00066CA9 /* matchingFullTimeMissingShouldWorkedKey.json in Resources */,
+				C1055A6D246D1EFA00EF64ED /* workTimeValidationErrorFullModel.json in Resources */,
 				8A79A2BA2420F73C0048B44B /* taskVersionNullCurrentEndsAt.json in Resources */,
 				8A79A2B82420F73C0048B44B /* taskVersionMissingEventKey.json in Resources */,
 				C1860DD02462EE3F00C33C94 /* remoteWorkFullModel.json in Resources */,
@@ -4081,6 +4165,7 @@
 				C130B139246BD333002D23AB /* LocalizedDescribable.swift in Sources */,
 				C1AACFD621A438660023FD32 /* ProfileCoordinator.swift in Sources */,
 				8A31A860238E927E008DCC08 /* TimeInterval+Extension.swift in Sources */,
+				C1E50B86246C2DB000503008 /* WorkTimeValidationError.swift in Sources */,
 				C1860DD82462F26A00C33C94 /* ApiClient+RemoteWork.swift in Sources */,
 				8A80A38D23D89C24002643A1 /* APIClientFactory.swift in Sources */,
 				C172D14124656FF2005AC63B /* ValidationError.swift in Sources */,
@@ -4151,12 +4236,14 @@
 				8A31BFB724177BB2004A1CE8 /* RestlerRequestMock.swift in Sources */,
 				C134299321A6D73500F4EA42 /* ServerConfigurationManagerMock.swift in Sources */,
 				C153AC7321834F22007A35BB /* ServerConfigurationViewModelTests.swift in Sources */,
+				C1055A7D246D2D4700EF64ED /* WorkTimeProjectIDErrorKeyTests.swift in Sources */,
 				C134298121A6C71200F4EA42 /* URLSessionMock.swift in Sources */,
 				C10FD88421F1F28200A233C5 /* UserDecoderTests.swift in Sources */,
 				C12CA58221A599E60082FEB7 /* WorkTimeDecoderTests.swift in Sources */,
 				8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift in Sources */,
 				C1F62B4C246974CB00AB8C00 /* NewVacationValidationErrorResponse.swift in Sources */,
 				C1FB3FFC2451734F008266C4 /* VacationDecoderTests.swift in Sources */,
+				C1055A7B246D2D3D00EF64ED /* WorkTimeDurationErrorKeyTests.swift in Sources */,
 				8A79A2D32422460C0048B44B /* TaskHistoryViewControllerMock.swift in Sources */,
 				8ADBB8D524374D21009CA6FE /* TemporarySessionManagerTests.swift in Sources */,
 				8A137C3B23FD74E4001569BB /* Asserts.swift in Sources */,
@@ -4180,6 +4267,7 @@
 				C16B05D021F2140200BB63E6 /* ProfileCoordinatorTests.swift in Sources */,
 				C1FB40192451884C008266C4 /* UsedVacationDaysJSONResource.swift in Sources */,
 				8A065B5B237ABCD90072A21E /* SessionJSONResource.swift in Sources */,
+				C1AA80D4246D1DAC00AC8FB4 /* WorkTimeValidationErrorResponse.swift in Sources */,
 				C134298921A6C84F00F4EA42 /* ServerConfigurationViewControllerMock.swift in Sources */,
 				C1B8FA49218C963A009D10B4 /* LoginCredentialsTests.swift in Sources */,
 				C134298B21A6D33300F4EA42 /* LoginCoordinatorMock.swift in Sources */,
@@ -4197,6 +4285,7 @@
 				C134297B21A6C27700F4EA42 /* KeychainAccessMock.swift in Sources */,
 				8ADBB8D124373AC1009CA6FE /* SessionManagerTests.swift in Sources */,
 				C13B2D41240E864C00FA4441 /* EndpointTests.swift in Sources */,
+				C1055A77246D2D2A00EF64ED /* WorkTimeTaskErrorKeyTests.swift in Sources */,
 				C1F62B1E24692FB200AB8C00 /* RegisterRemoteWorkValidationErrorTests.swift in Sources */,
 				8A065B5D237ABDBB0072A21E /* UserJSONResource.swift in Sources */,
 				C13C2B0621EDE589008C9088 /* WorkTimesListCoordinatorMock.swift in Sources */,
@@ -4231,6 +4320,7 @@
 				8A5D48C42369E20E0082C13D /* DispatchGroupFactoryMock.swift in Sources */,
 				C17EA3BA2189E9BA00A3F0CD /* ApiClientErrorTests.swift in Sources */,
 				C11D0D0522082A4400066CA9 /* WorkTimesListContentProviderTests.swift in Sources */,
+				C1055A75246D2D2200EF64ED /* WorkTimeBodyErrorKeyTests.swift in Sources */,
 				8A065B51237AB9340072A21E /* ApiValidationJSONResource.swift in Sources */,
 				C134298321A6C73000F4EA42 /* URLSessionDataTaskMock.swift in Sources */,
 				8A0707FC23699BE50019FB8E /* NotificationCenterMock.swift in Sources */,
@@ -4243,6 +4333,7 @@
 				C1FB3FFA24517342008266C4 /* VacationResponseTests.swift in Sources */,
 				C1FA05E4219440C700BD8C9D /* LoginContentProviderTests.swift in Sources */,
 				8A79A2D524224A040048B44B /* TaskHistoryCoordinatorMock.swift in Sources */,
+				C1055A79246D2D3300EF64ED /* WorkTimeStartsAtErrorKeyTests.swift in Sources */,
 				8A6A4FCF24582DE8004B4CF2 /* AccountingPeriodsParametersTests.swift in Sources */,
 				8ADBB8D324373DBA009CA6FE /* KeychainBuilderMock.swift in Sources */,
 				C1F62B482469724100AB8C00 /* NewVacationValidationErrorTests.swift in Sources */,
@@ -4283,6 +4374,7 @@
 				8A79A2502420DE4C0048B44B /* TaskVersionJSONResource.swift in Sources */,
 				8AF5696D23D71C0900A1D001 /* SimpleProjectRecordDecoderFactory.swift in Sources */,
 				C1531F072191CD4B00602A0C /* ApiClientTests.swift in Sources */,
+				C1055A73246D225D00EF64ED /* WorkTimeValidationErrorTests.swift in Sources */,
 				C134297121A6BDF100F4EA42 /* JSONEncoderMock.swift in Sources */,
 				8A0707FA236998580019FB8E /* DependencyContainerMock.swift in Sources */,
 				8AF5697923D754D600A1D001 /* UserDecoderFactory.swift in Sources */,

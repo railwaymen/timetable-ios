@@ -37,12 +37,15 @@
 "worktimeform_save_btn" = "Zapisz";
 "worktimeform_save_with_filling" = "Zapisz z wypełnieniem";
 
-"worktimeform_error_greater_than" = "Przedział czasu jest nieprawidłowy. Czas rozpoczęcia jest większy lub równy czasowi zakończenia.";
-"worktimeform_error_overlap" = "Istnieje inne zadanie wykonane w tym samym czasie.";
+"worktimeform_error_body_or_task_blank" = "Uzupełnij opis zadania lub adres URL ";
 "worktimeform_error_invalid_uri" = "Niepoprawny format adresu URL.";
 "worktimeform_error_invalid_external" = "Zadanie z podanego adresu URL nie istnieje.";
-"worktimeform_error_too_old" = "Już za późno, żeby dodać zadanie w tym czasie.";
 "worktimeform_error_no_gaps_to_fill" = "Nie ma żadnych luk do wypełnienia w wybranym przedziale czasowym.";
+"worktimeform_error_overlap" = "Istnieje inne zadanie wykonane w tym samym czasie.";
+"worktimeform_error_overlap_midnight" = "Czas wykonania zadania nie może przekroczyć północy.";
+"worktimeform_error_too_old" = "Wyznaczony dzień jest zbyt odległy w czasie.";
+"worktimeform_error_greater_than" = "Przedział czasu jest nieprawidłowy. Czas rozpoczęcia jest większy lub równy czasowi zakończenia.";
+"worktimeform_error_blank" = "Wybierz projekt.";
 
 // MARK: - Tags
 "tag_internal_meeting" = "Spotkanie wewnętrzne";

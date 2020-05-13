@@ -37,12 +37,15 @@
 "worktimeform_save_btn" = "Save";
 "worktimeform_save_with_filling" = "Save with filling";
 
-"worktimeform_error_greater_than" = "Time range is invalid. Start time is greater or equal to end time.";
-"worktimeform_error_overlap" = "There is another task done at the same time.";
+"worktimeform_error_body_or_task_blank" = "Body or task can't be blank.";
 "worktimeform_error_invalid_uri" = "Task URL has invalid format.";
 "worktimeform_error_invalid_external" = "Task with given address URL doesn't exist.";
-"worktimeform_error_too_old" = "Selected day or time is too far in the past.";
 "worktimeform_error_no_gaps_to_fill" = "There are no gaps to fill in the given time range.";
+"worktimeform_error_overlap" = "There is another task done at the same time.";
+"worktimeform_error_overlap_midnight" = "Task overlaps midnight.";
+"worktimeform_error_too_old" = "Selected day or time is too far in the past.";
+"worktimeform_error_greater_than" = "Time range is invalid. Start time is greater or equal to end time.";
+"worktimeform_error_blank" = "Project is not selected.";
 
 // MARK: - Tags
 "tag_internal_meeting" = "Internal meeting";
