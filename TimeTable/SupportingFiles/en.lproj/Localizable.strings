@@ -15,6 +15,7 @@
 "credential_log_in_btn" = "Log in";
 
 "credential_error_credentials_invalid" = "The given credentials are invalid. Check if you typed it correctly.";
+"credential_error_inactive" = "The account is inactive.";
 
 // MARK: - Projects
 "projects_title" = "Projects";

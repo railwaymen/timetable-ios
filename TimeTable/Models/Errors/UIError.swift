@@ -25,7 +25,6 @@ enum UIError: Error {
     case invalidFormat(UIElement)
     case workTimeGreaterThan
     case genericError
-    case loginCredentialsInvalid
     case remoteWorkStartsAtIncorrectHours
     
     var localizedDescription: String {
@@ -38,8 +37,6 @@ enum UIError: Error {
             return R.string.localizable.worktimeform_error_greater_than()
         case .genericError:
             return R.string.localizable.error_something_went_wrong()
-        case .loginCredentialsInvalid:
-            return R.string.localizable.credential_error_credentials_invalid()
         case .remoteWorkStartsAtIncorrectHours:
             return R.string.localizable.remotework_startsAt_incorrectHours()
         }

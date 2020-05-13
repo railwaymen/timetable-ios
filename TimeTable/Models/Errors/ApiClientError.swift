@@ -52,7 +52,6 @@ extension ApiClientError {
         case invalidHost(URL?)
         case invalidParameters
         case invalidResponse
-        case validationErrors(ApiValidationErrors?)
         case serverError(ServerError)
         case noConnection
         case timeout
@@ -66,9 +65,6 @@ extension ApiClientError {
                 return R.string.localizable.error_invalid_parameters()
             case .invalidResponse:
                 return R.string.localizable.error_invalid_response()
-            case .validationErrors(let validationErrors):
-                let text = validationErrors?.errors.keys.compactMap(\.localizedDescription).first ?? ""
-                return text.isEmpty ? UIError.genericError.localizedDescription : text
             case .serverError(let serverError):
                 return  "\(serverError.status) - \(serverError.error)"
             case .noConnection:

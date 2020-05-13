@@ -15,6 +15,7 @@
 "credential_log_in_btn" = "Zaloguj się";
 
 "credential_error_credentials_invalid" = "Podane dane są niepoprawne. Upewnij się, czy dobrze je wpisałeś.";
+"credential_error_inactive" = "Konto nieaktywne.";
 
 // MARK: - Projects
 "projects_title" = "Projekty";

@@ -164,15 +164,6 @@ extension LoginViewModel {
     
     private func handleLoginFailure(error: Error) {
         self.userInterface?.setActivityIndicator(isHidden: true)
-        if let apiError = error as? ApiClientError {
-            switch apiError.type {
-            case .validationErrors:
-                self.errorHandler.throwing(error: UIError.loginCredentialsInvalid)
-            default:
-                self.errorHandler.throwing(error: error)
-            }
-        } else {
-            self.errorHandler.throwing(error: error)
-        }
+        self.errorHandler.throwing(error: error)
     }
 }

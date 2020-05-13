@@ -347,6 +347,14 @@
 		C130B13D246BDA45002D23AB /* registerRemoteStartsAtTooOldResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B13C246BDA45002D23AB /* registerRemoteStartsAtTooOldResponse.json */; };
 		C130B13F246BDAA3002D23AB /* registerRemoteStartsAtEmptyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B13E246BDAA3002D23AB /* registerRemoteStartsAtEmptyResponse.json */; };
 		C130B141246BDB3B002D23AB /* registerRemoteStartsAtIncorrectHoursResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B140246BDB3B002D23AB /* registerRemoteStartsAtIncorrectHoursResponse.json */; };
+		C130B143246BE2B4002D23AB /* SignInValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C130B142246BE2B4002D23AB /* SignInValidationError.swift */; };
+		C130B146246BE768002D23AB /* SignInValidationErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C130B145246BE768002D23AB /* SignInValidationErrorTests.swift */; };
+		C130B148246BE7E2002D23AB /* SignInValidationErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C130B147246BE7E2002D23AB /* SignInValidationErrorResponse.swift */; };
+		C130B14B246BE8E2002D23AB /* signInValidationErrorEmptyBase.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B14A246BE8E2002D23AB /* signInValidationErrorEmptyBase.json */; };
+		C130B14D246BE8EC002D23AB /* signInValidationErrorBaseInvalidEmailOrPassword.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B14C246BE8EC002D23AB /* signInValidationErrorBaseInvalidEmailOrPassword.json */; };
+		C130B14F246BE8F8002D23AB /* signInValidationErrorBaseInactive.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B14E246BE8F8002D23AB /* signInValidationErrorBaseInactive.json */; };
+		C130B151246BE901002D23AB /* signInValidationErrorFullModel.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B150246BE901002D23AB /* signInValidationErrorFullModel.json */; };
+		C130B153246BEAC3002D23AB /* SignInBaseErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C130B152246BEAC3002D23AB /* SignInBaseErrorKeyTests.swift */; };
 		C134295E21A6934C00F4EA42 /* ApiClient+Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134295D21A6934C00F4EA42 /* ApiClient+Session.swift */; };
 		C134296021A6937E00F4EA42 /* ApiClientSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134295F21A6937E00F4EA42 /* ApiClientSessionTests.swift */; };
 		C134296321A693F400F4EA42 /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134296221A693F400F4EA42 /* TestError.swift */; };
@@ -1010,6 +1018,14 @@
 		C130B13C246BDA45002D23AB /* registerRemoteStartsAtTooOldResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = registerRemoteStartsAtTooOldResponse.json; sourceTree = "<group>"; };
 		C130B13E246BDAA3002D23AB /* registerRemoteStartsAtEmptyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = registerRemoteStartsAtEmptyResponse.json; sourceTree = "<group>"; };
 		C130B140246BDB3B002D23AB /* registerRemoteStartsAtIncorrectHoursResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = registerRemoteStartsAtIncorrectHoursResponse.json; sourceTree = "<group>"; };
+		C130B142246BE2B4002D23AB /* SignInValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInValidationError.swift; sourceTree = "<group>"; };
+		C130B145246BE768002D23AB /* SignInValidationErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInValidationErrorTests.swift; sourceTree = "<group>"; };
+		C130B147246BE7E2002D23AB /* SignInValidationErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInValidationErrorResponse.swift; sourceTree = "<group>"; };
+		C130B14A246BE8E2002D23AB /* signInValidationErrorEmptyBase.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInValidationErrorEmptyBase.json; sourceTree = "<group>"; };
+		C130B14C246BE8EC002D23AB /* signInValidationErrorBaseInvalidEmailOrPassword.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInValidationErrorBaseInvalidEmailOrPassword.json; sourceTree = "<group>"; };
+		C130B14E246BE8F8002D23AB /* signInValidationErrorBaseInactive.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInValidationErrorBaseInactive.json; sourceTree = "<group>"; };
+		C130B150246BE901002D23AB /* signInValidationErrorFullModel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInValidationErrorFullModel.json; sourceTree = "<group>"; };
+		C130B152246BEAC3002D23AB /* SignInBaseErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInBaseErrorKeyTests.swift; sourceTree = "<group>"; };
 		C134295D21A6934C00F4EA42 /* ApiClient+Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiClient+Session.swift"; sourceTree = "<group>"; };
 		C134295F21A6937E00F4EA42 /* ApiClientSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientSessionTests.swift; sourceTree = "<group>"; };
 		C134296221A693F400F4EA42 /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
@@ -2340,6 +2356,26 @@
 			path = WorkTimes;
 			sourceTree = "<group>";
 		};
+		C130B144246BE75C002D23AB /* SignInValidationError */ = {
+			isa = PBXGroup;
+			children = (
+				C130B152246BEAC3002D23AB /* SignInBaseErrorKeyTests.swift */,
+				C130B145246BE768002D23AB /* SignInValidationErrorTests.swift */,
+			);
+			path = SignInValidationError;
+			sourceTree = "<group>";
+		};
+		C130B149246BE8D6002D23AB /* SignInValidationError */ = {
+			isa = PBXGroup;
+			children = (
+				C130B14A246BE8E2002D23AB /* signInValidationErrorEmptyBase.json */,
+				C130B14C246BE8EC002D23AB /* signInValidationErrorBaseInvalidEmailOrPassword.json */,
+				C130B14E246BE8F8002D23AB /* signInValidationErrorBaseInactive.json */,
+				C130B150246BE901002D23AB /* signInValidationErrorFullModel.json */,
+			);
+			path = SignInValidationError;
+			sourceTree = "<group>";
+		};
 		C134296121A693D000F4EA42 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2621,6 +2657,7 @@
 				C172D13C24656655005AC63B /* BasicError.swift */,
 				C1F62B432469535100AB8C00 /* NewVacationValidationError.swift */,
 				C172D13E246566A0005AC63B /* RegisterRemoteWorkValidationError.swift */,
+				C130B142246BE2B4002D23AB /* SignInValidationError.swift */,
 				C172D14024656FF2005AC63B /* ValidationError.swift */,
 				C1F62B4524695D7C00AB8C00 /* ValidationErrorUIRepresentable.swift */,
 			);
@@ -3150,6 +3187,7 @@
 				C1F62B3A24694BB100AB8C00 /* ValidationErrorTests.swift */,
 				C1F62B4A246972D400AB8C00 /* NewVacationValidationError */,
 				C1F62B49246972C700AB8C00 /* RegisterRemoteWorkValidationError */,
+				C130B144246BE75C002D23AB /* SignInValidationError */,
 			);
 			path = ValidationErrors;
 			sourceTree = "<group>";
@@ -3160,10 +3198,12 @@
 				C1F62B3624694A1C00AB8C00 /* BasicErrorResource.swift */,
 				C1F62B4B246974CB00AB8C00 /* NewVacationValidationErrorResponse.swift */,
 				C1F62B20246935B000AB8C00 /* RegisterRemoteWorkValidationResource.swift */,
+				C130B147246BE7E2002D23AB /* SignInValidationErrorResponse.swift */,
 				C1F62B3C24694C0800AB8C00 /* ValidationErrorResource.swift */,
 				C1F62B3524694A0E00AB8C00 /* BasicError */,
 				C1F62B4D246974FA00AB8C00 /* NewVacationValidationError */,
 				C1F62B242469364A00AB8C00 /* RegisterRemoteWorkValidation */,
+				C130B149246BE8D6002D23AB /* SignInValidationError */,
 				C1F62B3E24694D5600AB8C00 /* ValidationError */,
 			);
 			path = ValidationErrors;
@@ -3214,12 +3254,12 @@
 		C1F62B4A246972D400AB8C00 /* NewVacationValidationError */ = {
 			isa = PBXGroup;
 			children = (
-				C1F62B472469724100AB8C00 /* NewVacationValidationErrorTests.swift */,
 				C1F62B62246984B200AB8C00 /* NewVacationBaseErrorKeyTests.swift */,
 				C1F62B64246984C700AB8C00 /* NewVacationDescriptionErrorKeyTests.swift */,
-				C1F62B66246984D500AB8C00 /* NewVacationStartDateErrorKeyTests.swift */,
 				C1F62B682469850600AB8C00 /* NewVacationEndDateErrorKeyTests.swift */,
+				C1F62B66246984D500AB8C00 /* NewVacationStartDateErrorKeyTests.swift */,
 				C1F62B6A2469851B00AB8C00 /* NewVacationVacationTypeErrorKeyTests.swift */,
+				C1F62B472469724100AB8C00 /* NewVacationValidationErrorTests.swift */,
 			);
 			path = NewVacationValidationError;
 			sourceTree = "<group>";
@@ -3513,6 +3553,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1F62B2C24693BB600AB8C00 /* registerRemoteEndsAtFullModelResponse.json in Resources */,
+				C130B14F246BE8F8002D23AB /* signInValidationErrorBaseInactive.json in Resources */,
 				C130B13B246BDA1C002D23AB /* registerRemoteStartsAtOverlapResponse.json in Resources */,
 				8A2FB100242E286C00DDBCB0 /* taskChangedDurationResponse.json in Resources */,
 				C1F62B5D24697CE300AB8C00 /* newVacationValidationErrorVacationTypeInclusion.json in Resources */,
@@ -3593,6 +3634,7 @@
 				8A6A4FC32456F289004B4CF2 /* accountingPeriodNoteNullValue.json in Resources */,
 				C1F62B4F2469750700AB8C00 /* newVacationValidationErrorEmpty.json in Resources */,
 				C1F62B6124697D5B00AB8C00 /* newVacationValidationErrorFullModel.json in Resources */,
+				C130B14D246BE8EC002D23AB /* signInValidationErrorBaseInvalidEmailOrPassword.json in Resources */,
 				C13429B621A8307200F4EA42 /* workTimeMissingBodyKey.json in Resources */,
 				8A6A4FC7245818DF004B4CF2 /* accountingPeriodsResponseFullResponse.json in Resources */,
 				C1B8FA51218C9A86009D10B4 /* signInRequest.json in Resources */,
@@ -3611,6 +3653,7 @@
 				C1B771DF21EF1E3E00EFE06F /* simpleProjectMissingInternalKeyResponse.json in Resources */,
 				8A79A3052424E9460048B44B /* projectTagsResponse.json in Resources */,
 				C1F62B5724697CC400AB8C00 /* newVacationValidationErrorStartDateGreaterThanEndDate.json in Resources */,
+				C130B14B246BE8E2002D23AB /* signInValidationErrorEmptyBase.json in Resources */,
 				C1860DD42462F12000C33C94 /* remoteWorkResponseRecordsEmptyArray.json in Resources */,
 				8A9987CE23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json in Resources */,
 				8A912D82246BC7AC00D88DA8 /* taskChangedDayAndTimeResponse.json in Resources */,
@@ -3653,6 +3696,7 @@
 				8A2FB0F6242E278C00DDBCB0 /* taskUnchangedResponse.json in Resources */,
 				8A79A2EB242369970048B44B /* projectRecordNullLeaderLastNameResponse.json in Resources */,
 				8A9987D023951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json in Resources */,
+				C130B151246BE901002D23AB /* signInValidationErrorFullModel.json in Resources */,
 				8A2FB0F4242E274700DDBCB0 /* taskChangedProjectResponse.json in Resources */,
 				C130B13D246BDA45002D23AB /* registerRemoteStartsAtTooOldResponse.json in Resources */,
 				C18A189E21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json in Resources */,
@@ -3976,6 +4020,7 @@
 				8A3F0C572428CDAE00564D6D /* WorkTimeContainerViewController.swift in Sources */,
 				C1E6B352219F014600019DC2 /* Bundle+Extension.swift in Sources */,
 				8A79A2FE2424DC250048B44B /* ProjectTagsDecoder.swift in Sources */,
+				C130B143246BE2B4002D23AB /* SignInValidationError.swift in Sources */,
 				8A5EF31C23FE808800AE4309 /* ReusableCellType.swift in Sources */,
 				C1E908D2245841F3003E0368 /* UsedVacationCellViewModel.swift in Sources */,
 				C1AFFFE321A2D16F00A7A632 /* TimeTableTabCoordinator.swift in Sources */,
@@ -4123,6 +4168,7 @@
 				C11D0CF9220820BD00066CA9 /* ApiClientAccountingPeriodsTests.swift in Sources */,
 				C1B771F721EF39FA00EFE06F /* ApiValidationErrorsTests.swift in Sources */,
 				8A31BFB524177B42004A1CE8 /* RestlerRequestBuilderMock.swift in Sources */,
+				C130B153246BEAC3002D23AB /* SignInBaseErrorKeyTests.swift in Sources */,
 				C16B05D021F2140200BB63E6 /* ProfileCoordinatorTests.swift in Sources */,
 				C1FB40192451884C008266C4 /* UsedVacationDaysJSONResource.swift in Sources */,
 				8A065B5B237ABCD90072A21E /* SessionJSONResource.swift in Sources */,
@@ -4170,6 +4216,7 @@
 				C1F62B342469487800AB8C00 /* BasicErrorTests.swift in Sources */,
 				C1FA05E921945DA400BD8C9D /* XCTestCase+Extension.swift in Sources */,
 				C134296321A693F400F4EA42 /* TestError.swift in Sources */,
+				C130B146246BE768002D23AB /* SignInValidationErrorTests.swift in Sources */,
 				8A08B50324371DF6007E8DCF /* WorkTimeDisplayedTests.swift in Sources */,
 				C1CCC118244DACF900177DAA /* ProjectTagsDecoderFactory.swift in Sources */,
 				C153AC602182FC4B007A35BB /* UITextFieldExtensionTests.swift in Sources */,
@@ -4247,6 +4294,7 @@
 				C1E1F04921AD3712007F9228 /* WorkTimesListViewControllerMock.swift in Sources */,
 				8A6A4FAE2456D915004B4CF2 /* AccountingPeriodsJSONResource.swift in Sources */,
 				C1249C6C2181A23A005DB2A5 /* String+Error.swift in Sources */,
+				C130B148246BE7E2002D23AB /* SignInValidationErrorResponse.swift in Sources */,
 				C134299B21A6D87900F4EA42 /* CoordinatorMock.swift in Sources */,
 				8A6A4FB42456D9F5004B4CF2 /* AccountingPeriodTests.swift in Sources */,
 				C1F62B3724694A1C00AB8C00 /* BasicErrorResource.swift in Sources */,

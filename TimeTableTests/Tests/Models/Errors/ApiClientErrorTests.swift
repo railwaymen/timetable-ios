@@ -177,26 +177,6 @@ extension ApiClientErrorTests {
         XCTAssertEqual(localizedString, expectedResult)
     }
     
-    func testLocalizedDescription_validationErrors() throws {
-        //Arrange
-        let data = try self.json(from: ApiValidationJSONResource.baseErrorKeyResponse)
-        let apiValidationErrors = try self.decoder.decode(ApiValidationErrors.self, from: data)
-        let sut = ApiClientError(type: .validationErrors(apiValidationErrors))
-        //Act
-        let localizedString = sut.type.localizedDescription
-        //Assert
-        XCTAssertEqual(localizedString, "worktimeform_error_overlap".localized)
-    }
-    
-    func testLocalizedDescription_validationErrors_nilApiValidationErrors() throws {
-        //Arrange
-        let sut = ApiClientError(type: .validationErrors(nil))
-        //Act
-        let localizedString = sut.type.localizedDescription
-        //Assert
-        XCTAssertEqual(localizedString, "error_something_went_wrong".localized)
-    }
-    
     func testLocalizedDescription_serverError() throws {
         //Arrange
         let serverError = try self.serverErrorFactory.build(wrapper: .init(error: "Internal server sut", status: 500))
