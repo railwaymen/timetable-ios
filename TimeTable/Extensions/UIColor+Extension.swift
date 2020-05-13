@@ -54,7 +54,7 @@ extension UIColor {
     static let diffChanged: UIColor = {
         let color = R.color.diffChanged()
         assert(color != nil)
-        return color ?? #colorLiteral(red: 0.04705882353, green: 0.8156862745, blue: 0.631372549, alpha: 1)
+        return color ?? #colorLiteral(red: 0.1764705882, green: 0.4901960784, blue: 0.8588235294, alpha: 1)
     }()
     
     static let deleteAction: UIColor = {
