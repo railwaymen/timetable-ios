@@ -15,37 +15,37 @@ class RegisterRemoteWorkStartsAtErrorKeyTests: XCTestCase {}
 extension RegisterRemoteWorkStartsAtErrorKeyTests {
     func testLocalizedDescription_overlap() {
         //Arrange
-        let sut = RegisterRemoteWorkValidationError.StartsAtErrorKey.overlap
+        let sut: RegisterRemoteWorkValidationError.StartsAtErrorKey = .overlap
         //Act
         let localizedDescription = sut.localizedDescription
         //Assert
-        XCTAssertEqual(localizedDescription, R.string.localizable.remotework_startsAt_overlap())
+        XCTAssertEqual(localizedDescription, R.string.localizable.registerremotework_error_startsAt_overlap())
     }
     
     func testLocalizedDescription_tooOld() {
         //Arrange
-        let sut = RegisterRemoteWorkValidationError.StartsAtErrorKey.tooOld
+        let sut: RegisterRemoteWorkValidationError.StartsAtErrorKey = .tooOld
         //Act
         let localizedDescription = sut.localizedDescription
         //Assert
-        XCTAssertEqual(localizedDescription, R.string.localizable.remotework_startsAt_tooOld())
+        XCTAssertEqual(localizedDescription, R.string.localizable.registerremotework_error_startsAt_tooOld())
     }
     
     func testLocalizedDescription_blank() {
         //Arrange
-        let sut = RegisterRemoteWorkValidationError.StartsAtErrorKey.blank
+        let sut: RegisterRemoteWorkValidationError.StartsAtErrorKey = .blank
         //Act
         let localizedDescription = sut.localizedDescription
         //Assert
-        XCTAssertEqual(localizedDescription, R.string.localizable.remotework_startsAt_empty())
+        XCTAssertEqual(localizedDescription, R.string.localizable.registerremotework_error_startsAt_empty())
     }
     
     func testLocalizedDescription_incorrectHours() {
         //Arrange
-        let sut = RegisterRemoteWorkValidationError.StartsAtErrorKey.incorrectHours
+        let sut: RegisterRemoteWorkValidationError.StartsAtErrorKey = .incorrectHours
         //Act
         let localizedDescription = sut.localizedDescription
         //Assert
-        XCTAssertEqual(localizedDescription, R.string.localizable.remotework_startsAt_incorrectHours())
+        XCTAssertEqual(localizedDescription, R.string.localizable.registerremotework_error_startsAt_incorrectHours())
     }
 }

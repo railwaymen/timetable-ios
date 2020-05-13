@@ -342,7 +342,7 @@
 		C12CA57B21A5900B0082FEB7 /* WorkTimeDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12CA57A21A5900B0082FEB7 /* WorkTimeDecoder.swift */; };
 		C12CA57D21A593F20082FEB7 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12CA57C21A593F20082FEB7 /* DateFormatter+Extension.swift */; };
 		C12CA58221A599E60082FEB7 /* WorkTimeDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12CA58121A599E60082FEB7 /* WorkTimeDecoderTests.swift */; };
-		C130B139246BD333002D23AB /* LocalizedDescriptionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C130B138246BD333002D23AB /* LocalizedDescriptionable.swift */; };
+		C130B139246BD333002D23AB /* LocalizedDescribable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C130B138246BD333002D23AB /* LocalizedDescribable.swift */; };
 		C130B13B246BDA1C002D23AB /* registerRemoteStartsAtOverlapResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B13A246BDA1C002D23AB /* registerRemoteStartsAtOverlapResponse.json */; };
 		C130B13D246BDA45002D23AB /* registerRemoteStartsAtTooOldResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B13C246BDA45002D23AB /* registerRemoteStartsAtTooOldResponse.json */; };
 		C130B13F246BDAA3002D23AB /* registerRemoteStartsAtEmptyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B13E246BDAA3002D23AB /* registerRemoteStartsAtEmptyResponse.json */; };
@@ -588,7 +588,6 @@
 		C1F62B4024694D6900AB8C00 /* validationErrorFullModelResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B3F24694D6900AB8C00 /* validationErrorFullModelResponse.json */; };
 		C1F62B422469512500AB8C00 /* validationErrorEmptyValidationErrorResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B412469512500AB8C00 /* validationErrorEmptyValidationErrorResponse.json */; };
 		C1F62B442469535100AB8C00 /* NewVacationValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B432469535100AB8C00 /* NewVacationValidationError.swift */; };
-		C1F62B4624695D7C00AB8C00 /* ValidationErrorUIRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B4524695D7C00AB8C00 /* ValidationErrorUIRepresentable.swift */; };
 		C1F62B482469724100AB8C00 /* NewVacationValidationErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B472469724100AB8C00 /* NewVacationValidationErrorTests.swift */; };
 		C1F62B4C246974CB00AB8C00 /* NewVacationValidationErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B4B246974CB00AB8C00 /* NewVacationValidationErrorResponse.swift */; };
 		C1F62B4F2469750700AB8C00 /* newVacationValidationErrorEmpty.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B4E2469750700AB8C00 /* newVacationValidationErrorEmpty.json */; };
@@ -1014,7 +1013,7 @@
 		C12CA57A21A5900B0082FEB7 /* WorkTimeDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeDecoder.swift; sourceTree = "<group>"; };
 		C12CA57C21A593F20082FEB7 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 		C12CA58121A599E60082FEB7 /* WorkTimeDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeDecoderTests.swift; sourceTree = "<group>"; };
-		C130B138246BD333002D23AB /* LocalizedDescriptionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedDescriptionable.swift; sourceTree = "<group>"; };
+		C130B138246BD333002D23AB /* LocalizedDescribable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedDescribable.swift; sourceTree = "<group>"; };
 		C130B13A246BDA1C002D23AB /* registerRemoteStartsAtOverlapResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = registerRemoteStartsAtOverlapResponse.json; sourceTree = "<group>"; };
 		C130B13C246BDA45002D23AB /* registerRemoteStartsAtTooOldResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = registerRemoteStartsAtTooOldResponse.json; sourceTree = "<group>"; };
 		C130B13E246BDAA3002D23AB /* registerRemoteStartsAtEmptyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = registerRemoteStartsAtEmptyResponse.json; sourceTree = "<group>"; };
@@ -1269,7 +1268,6 @@
 		C1F62B3F24694D6900AB8C00 /* validationErrorFullModelResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = validationErrorFullModelResponse.json; sourceTree = "<group>"; };
 		C1F62B412469512500AB8C00 /* validationErrorEmptyValidationErrorResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = validationErrorEmptyValidationErrorResponse.json; sourceTree = "<group>"; };
 		C1F62B432469535100AB8C00 /* NewVacationValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVacationValidationError.swift; sourceTree = "<group>"; };
-		C1F62B4524695D7C00AB8C00 /* ValidationErrorUIRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationErrorUIRepresentable.swift; sourceTree = "<group>"; };
 		C1F62B472469724100AB8C00 /* NewVacationValidationErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVacationValidationErrorTests.swift; sourceTree = "<group>"; };
 		C1F62B4B246974CB00AB8C00 /* NewVacationValidationErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVacationValidationErrorResponse.swift; sourceTree = "<group>"; };
 		C1F62B4E2469750700AB8C00 /* newVacationValidationErrorEmpty.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = newVacationValidationErrorEmpty.json; sourceTree = "<group>"; };
@@ -2150,7 +2148,7 @@
 				8A8E8432242CE82800003AB1 /* EnvironmentReader.swift */,
 				8AADE0692465B12F001B0BF9 /* KeyboardManager.swift */,
 				8A2FB101242E32B500DDBCB0 /* LabelTextParameters.swift */,
-				C130B138246BD333002D23AB /* LocalizedDescriptionable.swift */,
+				C130B138246BD333002D23AB /* LocalizedDescribable.swift */,
 				C175B56B227CAACA006D9944 /* MessagePresenter.swift */,
 				8A5EF31B23FE808800AE4309 /* ReusableCellType.swift */,
 				8AD14A6C245B054900BAE803 /* TimerFormatter.swift */,
@@ -2670,7 +2668,6 @@
 				C172D13E246566A0005AC63B /* RegisterRemoteWorkValidationError.swift */,
 				C130B142246BE2B4002D23AB /* SignInValidationError.swift */,
 				C172D14024656FF2005AC63B /* ValidationError.swift */,
-				C1F62B4524695D7C00AB8C00 /* ValidationErrorUIRepresentable.swift */,
 			);
 			path = ValidationErrors;
 			sourceTree = "<group>";
@@ -3953,7 +3950,6 @@
 				C18BE2702452FBD100FC71CC /* VacationTableHeader.swift in Sources */,
 				8A09DCBA23673E74003FC2A6 /* DispatchQueue+Extension.swift in Sources */,
 				C1FB401E245191D8008266C4 /* ApiClient+Vacation.swift in Sources */,
-				C1F62B4624695D7C00AB8C00 /* ValidationErrorUIRepresentable.swift in Sources */,
 				8A21A052243614D900EE4A79 /* KeychainBuilder.swift in Sources */,
 				C134295E21A6934C00F4EA42 /* ApiClient+Session.swift in Sources */,
 				C153AC6D21833BDC007A35BB /* AttributedButton.swift in Sources */,
@@ -4082,7 +4078,7 @@
 				8A5EF32723FE9A3000AE4309 /* UIViewController+Extension.swift in Sources */,
 				C1860DB12462DF0000C33C94 /* RemoteWorkCoordinator.swift in Sources */,
 				8AB8AFD62450803100A0D3D3 /* ProfileButtonCell.swift in Sources */,
-				C130B139246BD333002D23AB /* LocalizedDescriptionable.swift in Sources */,
+				C130B139246BD333002D23AB /* LocalizedDescribable.swift in Sources */,
 				C1AACFD621A438660023FD32 /* ProfileCoordinator.swift in Sources */,
 				8A31A860238E927E008DCC08 /* TimeInterval+Extension.swift in Sources */,
 				C1860DD82462F26A00C33C94 /* ApiClient+RemoteWork.swift in Sources */,

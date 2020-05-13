@@ -15,19 +15,19 @@ class NewVacationStartDateErrorKeyTests: XCTestCase {}
 extension NewVacationStartDateErrorKeyTests {
     func testLocalizedDescription_blank() {
         //Arrange
-        let sut = NewVacationValidationError.StartDateErrorKey.blank
+        let sut: NewVacationValidationError.StartDateErrorKey = .blank
         //Act
         let localizedDescription = sut.localizedDescription
         //Assert
-        XCTAssertEqual(localizedDescription, R.string.localizable.newvacation_startDate_blank())
+        XCTAssertEqual(localizedDescription, R.string.localizable.newvacation_error_startDate_blank())
     }
     
     func testLocalizedDescription_greaterThanEndDate() {
         //Arrange
-        let sut = NewVacationValidationError.StartDateErrorKey.greaterThanEndDate
+        let sut: NewVacationValidationError.StartDateErrorKey = .greaterThanEndDate
         //Act
         let localizedDescription = sut.localizedDescription
         //Assert
-        XCTAssertEqual(localizedDescription, R.string.localizable.newvacation_startDate_greaterThanEndDate())
+        XCTAssertEqual(localizedDescription, R.string.localizable.newvacation_error_startDate_greaterThanEndDate())
     }
 }

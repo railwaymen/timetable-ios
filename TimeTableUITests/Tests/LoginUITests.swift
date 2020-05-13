@@ -77,8 +77,9 @@ extension LoginUITests {
     }
 }
 
+// MARK: - Private
 extension LoginUITests {
-    func buildValidationErrorData() throws -> Data {
+    private func buildValidationErrorData() throws -> Data {
         return try self.json(from: MockResponse.signInValidationErrorBaseInvalidEmailOrPassword)
     }
 }

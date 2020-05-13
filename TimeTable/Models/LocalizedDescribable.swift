@@ -1,5 +1,5 @@
 //
-//  LocalizedDescriptionable.swift
+//  LocalizedDescribable.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 13/05/2020.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol LocalizedDescriptionable {
+protocol LocalizedDescribable {
     var localizedDescription: String { get }
 }

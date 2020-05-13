@@ -9,7 +9,7 @@
 import Foundation
 import Restler
 
-typealias ValidationErrorable = (ValidationErrorType & LocalizedDescriptionable)
+typealias ValidationErrorable = (ValidationErrorType & LocalizedDescribable)
 
 protocol ValidationErrorType: Decodable {
     var isEmpty: Bool { get }
@@ -17,12 +17,12 @@ protocol ValidationErrorType: Decodable {
 
 struct ValidationError<T: ValidationErrorable>: Error, RestlerErrorDecodable, Decodable {
     let errors: T
+
+    private let decoder = JSONDecoder()
     
     private enum CodingKeys: String, CodingKey {
         case errors
     }
-    
-    private let decoder = JSONDecoder()
     
     // MARK: - Initialization
     init?(response: Restler.Response) {
@@ -43,7 +43,8 @@ struct ValidationError<T: ValidationErrorable>: Error, RestlerErrorDecodable, De
     }
 }
 
-extension ValidationError: LocalizedDescriptionable {
+// MARK: - LocalizedDescribable
+extension ValidationError: LocalizedDescribable {
     var localizedDescription: String {
         return self.errors.localizedDescription
     }

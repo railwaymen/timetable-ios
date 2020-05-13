@@ -15,10 +15,10 @@ class NewVacationDescriptionErrorKeyTests: XCTestCase {}
 extension NewVacationDescriptionErrorKeyTests {
     func testLocalizedDescription_blank() {
         //Arrange
-        let sut = NewVacationValidationError.DescriptionErrorKey.blank
+        let sut: NewVacationValidationError.DescriptionErrorKey = .blank
         //Act
         let localizedDescription = sut.localizedDescription
         //Assert
-        XCTAssertEqual(localizedDescription, R.string.localizable.newvacation_description_blank())
+        XCTAssertEqual(localizedDescription, R.string.localizable.newvacation_error_description_blank())
     }
 }

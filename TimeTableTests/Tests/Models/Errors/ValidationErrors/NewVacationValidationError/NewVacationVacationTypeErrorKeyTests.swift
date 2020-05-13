@@ -15,19 +15,19 @@ class NewVacationVacationTypeErrorKeyTests: XCTestCase {}
 extension NewVacationVacationTypeErrorKeyTests {
     func testLocalizedDescription_blank() {
         //Arrange
-        let sut = NewVacationValidationError.VacationTypeErrorKey.blank
+        let sut: NewVacationValidationError.VacationTypeErrorKey = .blank
         //Act
         let localizedDescription = sut.localizedDescription
         //Assert
-        XCTAssertEqual(localizedDescription, R.string.localizable.newvacation_vacationType_blank())
+        XCTAssertEqual(localizedDescription, R.string.localizable.newvacation_error_vacationType_blank())
     }
     
     func testLocalizedDescription_inclusion() {
         //Arrange
-        let sut = NewVacationValidationError.VacationTypeErrorKey.inclusion
+        let sut: NewVacationValidationError.VacationTypeErrorKey = .inclusion
         //Act
         let localizedDescription = sut.localizedDescription
         //Assert
-        XCTAssertEqual(localizedDescription, R.string.localizable.newvacation_vacationType_inclusion())
+        XCTAssertEqual(localizedDescription, R.string.localizable.newvacation_error_vacationType_inclusion())
     }
 }

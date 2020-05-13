@@ -10,10 +10,6 @@ import Foundation
 
 struct SignInValidationError: Error, ValidationErrorType {
     let base: [BaseErrorKey]
-    
-    private var localizedDescriptions: [String] {
-        return self.base.map(\.localizedDescription)
-    }
 
     var isEmpty: Bool {
         self.base.isEmpty
@@ -39,14 +35,18 @@ extension SignInValidationError {
     }
 }
 
-// MARK: - LocalizedDescriptionable
-extension SignInValidationError: LocalizedDescriptionable {
+// MARK: - LocalizedDescribable
+extension SignInValidationError: LocalizedDescribable {
     var localizedDescription: String {
         return self.localizedDescriptions.first ?? ""
     }
+    
+    private var localizedDescriptions: [String] {
+        return self.base.map(\.localizedDescription)
+    }
 }
 
-extension SignInValidationError.BaseErrorKey: LocalizedDescriptionable {
+extension SignInValidationError.BaseErrorKey: LocalizedDescribable {
     var localizedDescription: String {
         switch self {
         case .invalidEmailOrPassword:

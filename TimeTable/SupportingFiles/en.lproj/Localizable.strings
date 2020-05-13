@@ -98,13 +98,13 @@
 "newvacation_reason" = "Reason";
 "newvacation_optional" = "Optional";
 "newvacation_save_btn" = "Send to accept";
-"newvacation_base_workTimeExists" = "There is work time with same date.";
-"newvacation_description_blank" = "Description cannot be empty.";
-"newvacation_startDate_blank" = "Start date cannot be empty.";
-"newvacation_startDate_greaterThanEndDate" = "Time range is invalid. Start time is greater or equal to end time.";
-"newvacation_endDate_blank" = "End date cannot be empty.";
-"newvacation_vacationType_blank" = "Vacation type cannot be empty.";
-"newvacation_vacationType_inclusion" = "Vacation type inclusion.";
+"newvacation_error_base_workTimeExists" = "There is work time with same date.";
+"newvacation_error_description_blank" = "Description cannot be empty.";
+"newvacation_error_startDate_blank" = "Start date cannot be empty.";
+"newvacation_error_startDate_greaterThanEndDate" = "Time range is invalid. Start time is greater or equal to end time.";
+"newvacation_error_endDate_blank" = "End date cannot be empty.";
+"newvacation_error_vacationType_blank" = "Vacation type cannot be empty.";
+"newvacation_error_vacationType_inclusion" = "Vacation type inclusion.";
 
 // MARK: - RemoteWork
 "remotework_title" = "Remote work";
@@ -116,11 +116,11 @@
 "registerremotework_note" = "Note";
 "registerremotework_save_btn" = "Save";
 
-"remotework_startsAt_overlap" = "There is vaction with same date.";
-"remotework_startsAt_tooOld" = "Given date is too old.";
-"remotework_startsAt_empty" = "Starts at date cannot be empty.";
-"remotework_startsAt_incorrectHours" = "Time range is invalid. Start time is greater or equal to end time.";
-"remotework_endsAt_empty" = "Ends at date cannot be empty.";
+"registerremotework_error_startsAt_overlap" = "There is vaction with same date.";
+"registerremotework_error_startsAt_tooOld" = "Given date is too old.";
+"registerremotework_error_startsAt_empty" = "Starts at date cannot be empty.";
+"registerremotework_error_startsAt_incorrectHours" = "Time range is invalid. Start time is greater or equal to end time.";
+"registerremotework_error_endsAt_empty" = "Ends at date cannot be empty.";
 
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Field cannot be empty.";

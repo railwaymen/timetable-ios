@@ -15,7 +15,7 @@ class SignInBaseErrorKeyTests: XCTestCase {}
 extension SignInBaseErrorKeyTests {
     func testLocalizedDescription_invalidEmailOrPassword() {
         //Arrange
-        let sut = SignInValidationError.BaseErrorKey.invalidEmailOrPassword
+        let sut: SignInValidationError.BaseErrorKey = .invalidEmailOrPassword
         //Act
         let localizedDescription = sut.localizedDescription
         //Assert
@@ -24,7 +24,7 @@ extension SignInBaseErrorKeyTests {
     
     func testLocalizedDescription_inactive() {
         //Arrange
-        let sut = SignInValidationError.BaseErrorKey.inactive
+        let sut: SignInValidationError.BaseErrorKey = .inactive
         //Act
         let localizedDescription = sut.localizedDescription
         //Assert

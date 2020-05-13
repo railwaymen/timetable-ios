@@ -85,7 +85,6 @@ extension ValidationErrorTests {
 // MARK: - Private
 extension ValidationErrorTests {
     private func buildHTTPURLResponse(statusCode: Int) throws -> HTTPURLResponse {
-        let url = try XCTUnwrap(URL(string: "https://www.example.com"))
-        return try XCTUnwrap(HTTPURLResponse(url: url, statusCode: statusCode, httpVersion: nil, headerFields: nil))
+        return try XCTUnwrap(HTTPURLResponse(url: self.exampleURL, statusCode: statusCode, httpVersion: nil, headerFields: nil))
     }
 }

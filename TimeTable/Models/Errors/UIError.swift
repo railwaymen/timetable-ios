@@ -38,7 +38,7 @@ enum UIError: Error {
         case .genericError:
             return R.string.localizable.error_something_went_wrong()
         case .remoteWorkStartsAtIncorrectHours:
-            return R.string.localizable.remotework_startsAt_incorrectHours()
+            return R.string.localizable.registerremotework_error_startsAt_incorrectHours()
         }
     }
 }

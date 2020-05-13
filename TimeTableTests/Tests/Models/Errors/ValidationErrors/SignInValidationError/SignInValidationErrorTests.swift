@@ -58,8 +58,7 @@ extension SignInValidationErrorTests {
 extension SignInValidationErrorTests {
     func testLocalizedDescription_emptyBase() throws {
         //Arrange
-        let data = try self.json(from: SignInValidationErrorResponse.signInValidationErrorEmptyBase)
-        let sut = try self.decoder.decode(SignInValidationError.self, from: data)
+        let sut = try self.buildSUT(type: .signInValidationErrorEmptyBase)
         //Act
         let localizedDescription = sut.localizedDescription
         //Assert
@@ -68,8 +67,7 @@ extension SignInValidationErrorTests {
     
     func testLocalizedDescription_baseInvalidEmailOrPassword() throws {
         //Arrange
-        let data = try self.json(from: SignInValidationErrorResponse.signInValidationErrorBaseInvalidEmailOrPassword)
-        let sut = try self.decoder.decode(SignInValidationError.self, from: data)
+        let sut = try self.buildSUT(type: .signInValidationErrorBaseInvalidEmailOrPassword)
         //Act
         let localizedDescription = sut.localizedDescription
         //Assert
@@ -78,21 +76,27 @@ extension SignInValidationErrorTests {
     
     func testLocalizedDescription_baseInactive() throws {
         //Arrange
-        let data = try self.json(from: SignInValidationErrorResponse.signInValidationErrorBaseInactive)
-        let sut = try self.decoder.decode(SignInValidationError.self, from: data)
+        let sut = try self.buildSUT(type: .signInValidationErrorBaseInactive)
         //Act
         let localizedDescription = sut.localizedDescription
         //Assert
         XCTAssertEqual(localizedDescription, R.string.localizable.credential_error_inactive())
     }
     
-    func testLocalizedDescription_signInValidationErrorFullModel() throws {
+    func testLocalizedDescription_fullModel() throws {
         //Arrange
-        let data = try self.json(from: SignInValidationErrorResponse.signInValidationErrorFullModel)
-        let sut = try self.decoder.decode(SignInValidationError.self, from: data)
+        let sut = try self.buildSUT(type: .signInValidationErrorFullModel)
         //Act
         let localizedDescription = sut.localizedDescription
         //Assert
         XCTAssertEqual(localizedDescription, R.string.localizable.credential_error_credentials_invalid())
+    }
+}
+
+// MARK: - Private
+extension SignInValidationErrorTests {
+    private func buildSUT(type: SignInValidationErrorResponse) throws -> SignInValidationError {
+        let data = try self.json(from: type)
+        return try self.decoder.decode(SignInValidationError.self, from: data)
     }
 }

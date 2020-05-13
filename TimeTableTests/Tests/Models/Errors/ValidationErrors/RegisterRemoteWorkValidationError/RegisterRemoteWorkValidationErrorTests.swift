@@ -68,32 +68,28 @@ extension RegisterRemoteWorkValidationErrorTests {
 extension RegisterRemoteWorkValidationErrorTests {
     func testIsEmpty_true() throws {
         //Arrange
-        let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteEmptyStartsAtAndEndsAtResponse)
-        let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
+        let sut = try self.buildSUT(type: .registerRemoteEmptyStartsAtAndEndsAtResponse)
         //Assert
         XCTAssert(sut.isEmpty)
     }
     
     func testIsEmpty_startsNotEmpty() throws {
         //Arrange
-        let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteStartsAtFullModelResponse)
-        let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
+        let sut = try self.buildSUT(type: .registerRemoteStartsAtFullModelResponse)
         //Assert
         XCTAssertFalse(sut.isEmpty)
     }
     
     func testIsEmpty_endsNotEmpty() throws {
         //Arrange
-        let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteEndsAtFullModelResponse)
-        let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
+        let sut = try self.buildSUT(type: .registerRemoteEndsAtFullModelResponse)
         //Assert
         XCTAssertFalse(sut.isEmpty)
     }
     
     func testIsEmpty_startsAtAndEndsNotEmpty() throws {
         //Arrange
-        let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteFullModelResponse)
-        let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
+        let sut = try self.buildSUT(type: .registerRemoteFullModelResponse)
         //Assert
         XCTAssertFalse(sut.isEmpty)
     }
@@ -103,49 +99,51 @@ extension RegisterRemoteWorkValidationErrorTests {
 extension RegisterRemoteWorkValidationErrorTests {
     func testLocalizedDescription_emptyStartsAtAndEndsAt() throws {
         //Arrange
-        let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteEmptyStartsAtAndEndsAtResponse)
-        let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
+        let sut = try self.buildSUT(type: .registerRemoteEmptyStartsAtAndEndsAtResponse)
         //Assert
         XCTAssertEqual(sut.localizedDescription, "")
     }
     
     func testLocalizedDescription_startsAtOverlap() throws {
         //Arrange
-        let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteStartsAtOverlapResponse)
-        let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
+        let sut = try self.buildSUT(type: .registerRemoteStartsAtOverlapResponse)
         //Assert
-        XCTAssertEqual(sut.localizedDescription, R.string.localizable.remotework_startsAt_overlap())
+        XCTAssertEqual(sut.localizedDescription, R.string.localizable.registerremotework_error_startsAt_overlap())
     }
     
     func testLocalizedDescription_startsAtTooOld() throws {
         //Arrange
-        let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteStartsAtTooOldResponse)
-        let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
+        let sut = try self.buildSUT(type: .registerRemoteStartsAtTooOldResponse)
         //Assert
-        XCTAssertEqual(sut.localizedDescription, R.string.localizable.remotework_startsAt_tooOld())
+        XCTAssertEqual(sut.localizedDescription, R.string.localizable.registerremotework_error_startsAt_tooOld())
     }
     
     func testLocalizedDescription_startsAtEmpty() throws {
         //Arrange
-        let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteStartsAtEmptyResponse)
-        let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
+        let sut = try self.buildSUT(type: .registerRemoteStartsAtEmptyResponse)
         //Assert
-        XCTAssertEqual(sut.localizedDescription, R.string.localizable.remotework_startsAt_empty())
+        XCTAssertEqual(sut.localizedDescription, R.string.localizable.registerremotework_error_startsAt_empty())
     }
     
     func testLocalizedDescription_startsAtIncorrectHours() throws {
         //Arrange
-        let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteStartsAtIncorrectHoursResponse)
-        let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
+        let sut = try self.buildSUT(type: .registerRemoteStartsAtIncorrectHoursResponse)
         //Assert
-        XCTAssertEqual(sut.localizedDescription, R.string.localizable.remotework_startsAt_incorrectHours())
+        XCTAssertEqual(sut.localizedDescription, R.string.localizable.registerremotework_error_startsAt_incorrectHours())
     }
     
     func testLocalizedDescription_endsAtEmpty() throws {
         //Arrange
-        let data = try self.json(from: RegisterRemoteWorkValidationResponse.registerRemoteEndsAtFullModelResponse)
-        let sut = try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
+        let sut = try self.buildSUT(type: .registerRemoteEndsAtFullModelResponse)
         //Assert
-        XCTAssertEqual(sut.localizedDescription, R.string.localizable.remotework_endsAt_empty())
+        XCTAssertEqual(sut.localizedDescription, R.string.localizable.registerremotework_error_endsAt_empty())
+    }
+}
+
+// MARK: - Private
+extension RegisterRemoteWorkValidationErrorTests {
+    private func buildSUT(type: RegisterRemoteWorkValidationResponse) throws -> RegisterRemoteWorkValidationError {
+        let data = try self.json(from: type)
+        return try self.decoder.decode(RegisterRemoteWorkValidationError.self, from: data)
     }
 }

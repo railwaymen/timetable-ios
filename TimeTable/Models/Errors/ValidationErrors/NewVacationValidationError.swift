@@ -15,12 +15,12 @@ struct NewVacationValidationError: Error, ValidationErrorType {
     let endDate: [EndDateErrorKey]
     let vacationType: [VacationTypeErrorKey]
     
-    private var localizedDescriptions: [String] {
-        return base.map(\.localizedDescription) +
-            description.map(\.localizedDescription) +
-            startDate.map(\.localizedDescription) +
-            endDate.map(\.localizedDescription) +
-            vacationType.map(\.localizedDescription)
+    var isEmpty: Bool {
+        return self.base.isEmpty
+            && self.description.isEmpty
+            && self.startDate.isEmpty
+            && self.endDate.isEmpty
+            && self.vacationType.isEmpty
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -29,14 +29,6 @@ struct NewVacationValidationError: Error, ValidationErrorType {
         case startDate = "start_date"
         case endDate = "end_date"
         case vacationType = "vacation_type"
-    }
-    
-    var isEmpty: Bool {
-        return self.base.isEmpty
-            && self.description.isEmpty
-            && self.startDate.isEmpty
-            && self.endDate.isEmpty
-            && self.vacationType.isEmpty
     }
     
     // MARK: - Initialization
@@ -80,51 +72,59 @@ extension NewVacationValidationError {
     }
 }
 
-// MARK: - LocalizedDescriptionable
-extension NewVacationValidationError: LocalizedDescriptionable {
+// MARK: - LocalizedDescribable
+extension NewVacationValidationError: LocalizedDescribable {
     var localizedDescription: String {
         return self.localizedDescriptions.first ?? ""
     }
+    
+    private var localizedDescriptions: [String] {
+        return self.base.map(\.localizedDescription) +
+            self.description.map(\.localizedDescription) +
+            self.startDate.map(\.localizedDescription) +
+            self.endDate.map(\.localizedDescription) +
+            self.vacationType.map(\.localizedDescription)
+    }
 }
 
-extension NewVacationValidationError.BaseErrorKey: LocalizedDescriptionable {
+extension NewVacationValidationError.BaseErrorKey: LocalizedDescribable {
     var localizedDescription: String {
         switch self {
-        case .workTimeExists: return R.string.localizable.newvacation_base_workTimeExists()
+        case .workTimeExists: return R.string.localizable.newvacation_error_base_workTimeExists()
         }
     }
 }
 
-extension NewVacationValidationError.DescriptionErrorKey: LocalizedDescriptionable {
+extension NewVacationValidationError.DescriptionErrorKey: LocalizedDescribable {
     var localizedDescription: String {
         switch self {
-        case .blank: return R.string.localizable.newvacation_description_blank()
+        case .blank: return R.string.localizable.newvacation_error_description_blank()
         }
     }
 }
 
-extension NewVacationValidationError.StartDateErrorKey: LocalizedDescriptionable {
+extension NewVacationValidationError.StartDateErrorKey: LocalizedDescribable {
     var localizedDescription: String {
         switch self {
-        case .blank: return R.string.localizable.newvacation_startDate_blank()
-        case .greaterThanEndDate: return R.string.localizable.newvacation_startDate_greaterThanEndDate()
+        case .blank: return R.string.localizable.newvacation_error_startDate_blank()
+        case .greaterThanEndDate: return R.string.localizable.newvacation_error_startDate_greaterThanEndDate()
         }
     }
 }
 
-extension NewVacationValidationError.EndDateErrorKey: LocalizedDescriptionable {
+extension NewVacationValidationError.EndDateErrorKey: LocalizedDescribable {
     var localizedDescription: String {
         switch self {
-        case .blank: return R.string.localizable.newvacation_endDate_blank()
+        case .blank: return R.string.localizable.newvacation_error_endDate_blank()
         }
     }
 }
 
-extension NewVacationValidationError.VacationTypeErrorKey: LocalizedDescriptionable {
+extension NewVacationValidationError.VacationTypeErrorKey: LocalizedDescribable {
     var localizedDescription: String {
         switch self {
-        case .blank: return R.string.localizable.newvacation_vacationType_blank()
-        case .inclusion: return R.string.localizable.newvacation_vacationType_inclusion()
+        case .blank: return R.string.localizable.newvacation_error_vacationType_blank()
+        case .inclusion: return R.string.localizable.newvacation_error_vacationType_inclusion()
         }
     }
 }

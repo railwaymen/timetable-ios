@@ -12,17 +12,13 @@ struct RegisterRemoteWorkValidationError: Error, ValidationErrorType {
     let startsAt: [StartsAtErrorKey]
     let endsAt: [EndsAtErrorKey]
     
-    private var localizedDescriptions: [String] {
-        return self.startsAt.map(\.localizedDescription) + self.endsAt.map(\.localizedDescription)
+    var isEmpty: Bool {
+        self.startsAt.isEmpty && self.endsAt.isEmpty
     }
-
+    
     private enum CodingKeys: String, CodingKey {
         case startsAt = "starts_at"
         case endsAt = "ends_at"
-    }
-    
-    var isEmpty: Bool {
-        self.startsAt.isEmpty && self.endsAt.isEmpty
     }
     
     // MARK: - Initialization
@@ -49,33 +45,37 @@ extension RegisterRemoteWorkValidationError {
     }
 }
 
-// MARK: - LocalizedDescriptionable
-extension RegisterRemoteWorkValidationError: LocalizedDescriptionable {
+// MARK: - LocalizedDescribable
+extension RegisterRemoteWorkValidationError: LocalizedDescribable {
     var localizedDescription: String {
         return self.localizedDescriptions.first ?? ""
     }
+    
+    private var localizedDescriptions: [String] {
+        return self.startsAt.map(\.localizedDescription) + self.endsAt.map(\.localizedDescription)
+    }
 }
 
-extension RegisterRemoteWorkValidationError.StartsAtErrorKey: LocalizedDescriptionable {
+extension RegisterRemoteWorkValidationError.StartsAtErrorKey: LocalizedDescribable {
     var localizedDescription: String {
         switch self {
         case .overlap:
-            return R.string.localizable.remotework_startsAt_overlap()
+            return R.string.localizable.registerremotework_error_startsAt_overlap()
         case .tooOld:
-            return R.string.localizable.remotework_startsAt_tooOld()
+            return R.string.localizable.registerremotework_error_startsAt_tooOld()
         case .blank:
-            return R.string.localizable.remotework_startsAt_empty()
+            return R.string.localizable.registerremotework_error_startsAt_empty()
         case .incorrectHours:
-            return R.string.localizable.remotework_startsAt_incorrectHours()
+            return R.string.localizable.registerremotework_error_startsAt_incorrectHours()
         }
     }
 }
 
-extension RegisterRemoteWorkValidationError.EndsAtErrorKey: LocalizedDescriptionable {
+extension RegisterRemoteWorkValidationError.EndsAtErrorKey: LocalizedDescribable {
     var localizedDescription: String {
         switch self {
         case .blank:
-            return R.string.localizable.remotework_endsAt_empty()
+            return R.string.localizable.registerremotework_error_endsAt_empty()
         }
     }
 }
