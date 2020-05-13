@@ -22,31 +22,37 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="141.66666666666663"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Month total" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFZ-05-2OL">
-                                            <rect key="frame" x="18" y="88" width="95.5" height="23.5"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="timesheet_month_total"/>
-                                            </userDefinedRuntimeAttributes>
-                                        </label>
-                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="zXQ-Am-GFA">
-                                            <rect key="frame" x="190" y="89" width="112" height="21.5"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aaq-iA-R1B">
+                                            <rect key="frame" x="16" y="80" width="288" height="45.5"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lBK-2K-mAQ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="49" height="21.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Month total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFZ-05-2OL">
+                                                    <rect key="frame" x="0.0" y="0.0" width="95.5" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="timesheet_month_total"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/ 00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBd-4h-a3P">
-                                                    <rect key="frame" x="53" y="0.0" width="59" height="21.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="zXQ-Am-GFA">
+                                                    <rect key="frame" x="0.0" y="24" width="112" height="21.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lBK-2K-mAQ">
+                                                            <rect key="frame" x="0.0" y="0.0" width="49" height="21.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="/ 00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBd-4h-a3P">
+                                                            <rect key="frame" x="53" y="0.0" width="59" height="21.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
+                                            <variation key="widthClass=regular" alignment="fill" axis="horizontal" spacing="16"/>
                                         </stackView>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="December 2019" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="thS-4w-N61" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
                                             <rect key="frame" x="24" y="16" width="272" height="40"/>
@@ -59,21 +65,13 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="zXQ-Am-GFA" secondAttribute="trailing" constant="18" id="4CQ-dj-3vm">
-                                            <variation key="heightClass=regular-widthClass=regular" constant="60"/>
-                                        </constraint>
-                                        <constraint firstItem="zXQ-Am-GFA" firstAttribute="centerY" secondItem="hFZ-05-2OL" secondAttribute="centerY" id="Fnv-mn-Yxj"/>
-                                        <constraint firstItem="hFZ-05-2OL" firstAttribute="top" secondItem="thS-4w-N61" secondAttribute="bottom" priority="900" constant="32" id="Zw1-J4-kNg"/>
-                                        <constraint firstItem="zXQ-Am-GFA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hFZ-05-2OL" secondAttribute="trailing" constant="5" id="hrP-5h-5rZ"/>
+                                        <constraint firstItem="aaq-iA-R1B" firstAttribute="top" secondItem="thS-4w-N61" secondAttribute="bottom" constant="24" id="4OQ-Ci-ZoJ"/>
+                                        <constraint firstAttribute="bottom" secondItem="aaq-iA-R1B" secondAttribute="bottom" constant="16" id="WO2-So-rKd"/>
+                                        <constraint firstItem="aaq-iA-R1B" firstAttribute="leading" secondItem="chj-g6-Xkk" secondAttribute="leading" constant="16" id="jsY-M1-sjM"/>
                                         <constraint firstItem="thS-4w-N61" firstAttribute="leading" secondItem="chj-g6-Xkk" secondAttribute="leading" constant="24" id="lB4-tW-Cvh"/>
-                                        <constraint firstItem="hFZ-05-2OL" firstAttribute="leading" secondItem="chj-g6-Xkk" secondAttribute="leading" constant="18" id="lf7-OV-3AM">
-                                            <variation key="heightClass=regular-widthClass=regular" constant="60"/>
-                                        </constraint>
                                         <constraint firstAttribute="trailing" secondItem="thS-4w-N61" secondAttribute="trailing" constant="24" id="o70-Sx-0Fh"/>
-                                        <constraint firstAttribute="bottom" secondItem="hFZ-05-2OL" secondAttribute="bottom" constant="30" id="qPI-4M-qSc">
-                                            <variation key="heightClass=compact-widthClass=regular" constant="10"/>
-                                        </constraint>
                                         <constraint firstItem="thS-4w-N61" firstAttribute="top" secondItem="chj-g6-Xkk" secondAttribute="top" constant="16" id="qoM-jR-3hp"/>
+                                        <constraint firstAttribute="trailing" secondItem="aaq-iA-R1B" secondAttribute="trailing" constant="16" id="vSA-fg-qG6"/>
                                     </constraints>
                                 </view>
                             </tableView>
