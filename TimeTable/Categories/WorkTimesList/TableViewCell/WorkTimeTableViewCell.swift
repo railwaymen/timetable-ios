@@ -56,28 +56,45 @@ extension WorkTimeTableViewCell: WorkTimeTableViewCellModelOutput {
         self.shadowView.layer.cornerRadius = self.roundedContainerView.cornerRadius
     }
     
-    // TODO: Clean this mess
-    func updateView(data: WorkTimeTableViewCellModel.ViewData) {
+    func updateEditionView(author: String?, date: String?) {
+        let shouldBeHidden = author == nil && date == nil
         self.editionViewHeightConstraint.constant = 0
-        self.editionViewHeightConstraint.isActive = data.edition == nil
-        self.editedByLabel.text = data.edition?.author
-        self.updatedAtLabel.text = data.edition?.date
-        self.dayLabel.text = data.dayParameters.text
-        self.dayLabel.textColor = data.dayParameters.textColor
-        self.dayLabel.set(isHidden: data.edition == nil)
-        self.fromToDateLabel.attributedText = data.fromToDateText
-        self.durationLabel.set(textParameters: data.durationParameters)
-        self.bodyLabel.set(textParameters: data.bodyParameters)
-        self.projectTitleLabel.set(textParameters: data.projectTitleParameters)
-        self.projectViews.forEach { $0.backgroundColor = data.projectColor }
-        self.taskButton.set(isHidden: data.taskUrlParameters.text == nil)
-        self.taskButton?.setTitle(data.taskUrlParameters.text, for: .normal)
-        self.taskButton.setTitleColor(data.taskUrlParameters.textColor, for: .normal)
-        self.tagView.set(isHidden: data.tagTitle == nil)
-        self.tagLabel.text = data.tagTitle
-        self.tagView.backgroundColor = data.tagColor
-        self.taskInfoVerticalStackView.setCustomSpacing(self.taskButton.isHidden ? 16 : 8, after: self.bodyLabel)
-        self.taskInfoHorizontalStackView.set(isHidden: self.taskButton.isHidden && self.tagView.isHidden)
+        self.editionViewHeightConstraint.isActive = shouldBeHidden
+        self.editedByLabel.text = author
+        self.updatedAtLabel.text = date
+    }
+    
+    func updateBody(textParameters: LabelTextParameters) {
+        self.bodyLabel.set(textParameters: textParameters)
+    }
+    
+    func updateProject(textParameters: LabelTextParameters, projectColor: UIColor?) {
+        self.projectTitleLabel.set(textParameters: textParameters)
+        self.projectViews.forEach { $0.backgroundColor = projectColor }
+    }
+    
+    func updateDayLabel(textParameters: LabelTextParameters) {
+        self.dayLabel.set(textParameters: textParameters)
+    }
+    
+    func updateFromToDateLabel(attributedText: NSAttributedString) {
+        self.fromToDateLabel.attributedText = attributedText
+    }
+    
+    func updateDuration(textParameters: LabelTextParameters) {
+        self.durationLabel.set(textParameters: textParameters)
+    }
+    
+    func updateTaskButton(titleParameters: ButtonTitleParameters) {
+        self.taskButton.set(titleParameters: titleParameters)
+        self.updateTaskInfoStackViews()
+    }
+    
+    func updateTagView(text: String?, color: UIColor?) {
+        self.tagView.set(isHidden: text == nil)
+        self.tagLabel.text = text
+        self.tagView.backgroundColor = color
+        self.updateTaskInfoStackViews()
     }
 }
 
@@ -86,5 +103,13 @@ extension WorkTimeTableViewCell: WorkTimeTableViewCellType {
     func configure(viewModel: WorkTimeTableViewCellModelType) {
         self.viewModel = viewModel
         self.viewModel?.viewConfigured()
+    }
+}
+
+// MARK: - Private
+extension WorkTimeTableViewCell {
+    private func updateTaskInfoStackViews() {
+        self.taskInfoVerticalStackView.setCustomSpacing(self.taskButton.isHidden ? 16 : 8, after: self.bodyLabel)
+        self.taskInfoHorizontalStackView.set(isHidden: self.taskButton.isHidden && self.tagView.isHidden)
     }
 }

@@ -204,6 +204,7 @@
 		8A8EE1AD23F4455900416D31 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A8EE1AC23F4455900416D31 /* GoogleService-Info.plist */; };
 		8A912D80246BC69900D88DA8 /* taskChangedDayResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A912D7F246BC69900D88DA8 /* taskChangedDayResponse.json */; };
 		8A912D82246BC7AC00D88DA8 /* taskChangedDayAndTimeResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A912D81246BC7AC00D88DA8 /* taskChangedDayAndTimeResponse.json */; };
+		8A912D84246BDEE200D88DA8 /* ButtonTitleParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A912D83246BDEE200D88DA8 /* ButtonTitleParameters.swift */; };
 		8A9369B0237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369AF237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift */; };
 		8A9369B2237AA19D005F8199 /* TagCollectionViewCellMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B1237AA19D005F8199 /* TagCollectionViewCellMock.swift */; };
 		8A9369B4237AA293005F8199 /* WorkTimeCellViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */; };
@@ -789,6 +790,7 @@
 		8A8EE1AC23F4455900416D31 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8A912D7F246BC69900D88DA8 /* taskChangedDayResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedDayResponse.json; sourceTree = "<group>"; };
 		8A912D81246BC7AC00D88DA8 /* taskChangedDayAndTimeResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedDayAndTimeResponse.json; sourceTree = "<group>"; };
+		8A912D83246BDEE200D88DA8 /* ButtonTitleParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTitleParameters.swift; sourceTree = "<group>"; };
 		8A9369AF237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUserViewTableViewCellMock.swift; sourceTree = "<group>"; };
 		8A9369B1237AA19D005F8199 /* TagCollectionViewCellMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellMock.swift; sourceTree = "<group>"; };
 		8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCellViewMock.swift; sourceTree = "<group>"; };
@@ -1960,6 +1962,7 @@
 		C1249C752181AAD2005DB2A5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8A912D83246BDEE200D88DA8 /* ButtonTitleParameters.swift */,
 				8AE866AF246A7636001BD475 /* Constants.swift */,
 				8AE55D2023FD92D200F94242 /* DateFactory.swift */,
 				8A79A2C624220BB20048B44B /* DateFormatterBuilder.swift */,
@@ -3634,6 +3637,7 @@
 				C12CA57D21A593F20082FEB7 /* DateFormatter+Extension.swift in Sources */,
 				C1A47BE7245969BE00FDA7F0 /* VacationEncoder.swift in Sources */,
 				C1411C372450904700BB4266 /* VacationResponse.swift in Sources */,
+				8A912D84246BDEE200D88DA8 /* ButtonTitleParameters.swift in Sources */,
 				8A31CD8923742D15008E590D /* ProjectPickerCell.swift in Sources */,
 				C1E1F04B21AD3DBE007F9228 /* Calendar+Extension.swift in Sources */,
 				8A10F83B2350C7AF0004F389 /* WorkTimeCoordinator.swift in Sources */,
