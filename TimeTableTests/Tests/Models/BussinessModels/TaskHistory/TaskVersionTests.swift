@@ -45,7 +45,7 @@ extension TaskVersionTests {
         XCTAssert(changes.contains(.body))
     }
     
-    func testChanges_changedStartsAt() throws {
+    func testChanges_changedStartsAtTime() throws {
         //Arrange
         let data = try self.json(from: TaskVersionJSONResource.taskChangedStartsAtResponse)
         let sut = try self.decoder.decode(TaskVersion.self, from: data)
@@ -56,7 +56,7 @@ extension TaskVersionTests {
         XCTAssert(changes.contains(.startsAt))
     }
     
-    func testChanges_changedEndsAt() throws {
+    func testChanges_changedEndsAtTime() throws {
         //Arrange
         let data = try self.json(from: TaskVersionJSONResource.taskChangedEndsAtResponse)
         let sut = try self.decoder.decode(TaskVersion.self, from: data)
@@ -65,6 +65,30 @@ extension TaskVersionTests {
         //Assert
         XCTAssertEqual(changes.count, 1)
         XCTAssert(changes.contains(.endsAt))
+    }
+    
+    func testChanges_changedDay() throws {
+        //Arrange
+        let data = try self.json(from: TaskVersionJSONResource.taskChangedDayResponse)
+        let sut = try self.decoder.decode(TaskVersion.self, from: data)
+        //Act
+        let changes = sut.changes
+        //Assert
+        XCTAssertEqual(changes.count, 1)
+        XCTAssert(changes.contains(.day))
+    }
+    
+    func testChanges_changedDayAndTime() throws {
+        //Arrange
+        let data = try self.json(from: TaskVersionJSONResource.taskChangedDayAndTimeResponse)
+        let sut = try self.decoder.decode(TaskVersion.self, from: data)
+        //Act
+        let changes = sut.changes
+        //Assert
+        XCTAssertEqual(changes.count, 3)
+        XCTAssert(changes.contains(.startsAt))
+        XCTAssert(changes.contains(.endsAt))
+        XCTAssert(changes.contains(.day))
     }
     
     func testChanges_changedTag() throws {
@@ -118,11 +142,12 @@ extension TaskVersionTests {
         //Act
         let changes = sut.changes
         //Assert
-        XCTAssertEqual(changes.count, 7)
+        XCTAssertEqual(changes.count, 8)
         XCTAssert(changes.contains(.projectName))
         XCTAssert(changes.contains(.body))
         XCTAssert(changes.contains(.startsAt))
         XCTAssert(changes.contains(.endsAt))
+        XCTAssert(changes.contains(.day))
         XCTAssert(changes.contains(.tag))
         XCTAssert(changes.contains(.duration))
         XCTAssert(changes.contains(.task))
@@ -145,9 +170,9 @@ extension TaskVersionTests {
         XCTAssertEqual(sut.body.previous, "old task body")
         XCTAssertEqual(sut.body.current, "new task body")
         XCTAssertEqual(sut.startsAt.previous, try self.previousStartsAt())
-        XCTAssertEqual(sut.startsAt.current, try self.currentStartsAt())
+        XCTAssertEqual(sut.startsAt.current, try self.currentStartsAtForFullModel())
         XCTAssertEqual(sut.endsAt.previous, try self.previousEndsAt())
-        XCTAssertEqual(sut.endsAt.current, try self.currentEndsAt())
+        XCTAssertEqual(sut.endsAt.current, try self.currentEndsAtForFullModel())
         XCTAssertEqual(sut.tag.previous, .development)
         XCTAssertEqual(sut.tag.current, .internalMeeting)
         XCTAssertEqual(sut.task.previous, "TIM-70")
@@ -1168,27 +1193,35 @@ extension TaskVersionTests {
 // MARK: - Private
 extension TaskVersionTests {
     private func createdAt() throws -> Date {
-        return try self.buildDate(timeZone: self.utcTimeZone(), year: 2020, month: 3, day: 17, hour: 9, minute: 15, second: 4)
+        try self.buildDate(timeZone: self.utcTimeZone(), year: 2020, month: 3, day: 17, hour: 9, minute: 15, second: 4)
     }
     
     private func previousStartsAt() throws -> Date {
-        return try self.buildDate(timeZone: self.utcTimeZone(), year: 2020, month: 3, day: 17, hour: 9, minute: 0, second: 0)
+        try self.buildDate(timeZone: self.utcTimeZone(), year: 2020, month: 3, day: 17, hour: 9, minute: 0, second: 0)
     }
     
     private func currentStartsAt() throws -> Date {
-        return try self.buildDate(timeZone: self.utcTimeZone(), year: 2020, month: 3, day: 17, hour: 8, minute: 50, second: 0)
+        try self.buildDate(timeZone: self.utcTimeZone(), year: 2020, month: 3, day: 17, hour: 8, minute: 50, second: 0)
+    }
+    
+    private func currentStartsAtForFullModel() throws -> Date {
+        try self.buildDate(timeZone: self.utcTimeZone(), year: 2020, month: 3, day: 19, hour: 8, minute: 50, second: 0)
     }
     
     private func previousEndsAt() throws -> Date {
-        return try self.buildDate(timeZone: self.utcTimeZone(), year: 2020, month: 3, day: 17, hour: 9, minute: 10, second: 0)
+        try self.buildDate(timeZone: self.utcTimeZone(), year: 2020, month: 3, day: 17, hour: 9, minute: 10, second: 0)
     }
     
     private func currentEndsAt() throws -> Date {
-        return try self.buildDate(timeZone: self.utcTimeZone(), year: 2020, month: 3, day: 17, hour: 9, minute: 20, second: 0)
+        try self.buildDate(timeZone: self.utcTimeZone(), year: 2020, month: 3, day: 17, hour: 9, minute: 20, second: 0)
+    }
+    
+    private func currentEndsAtForFullModel() throws -> Date {
+        try self.buildDate(timeZone: self.utcTimeZone(), year: 2020, month: 3, day: 19, hour: 9, minute: 20, second: 0)
     }
     
     private func utcTimeZone() throws -> TimeZone {
-        return try XCTUnwrap(TimeZone(secondsFromGMT: 0))
+        try XCTUnwrap(TimeZone(secondsFromGMT: 0))
     }
 }
 // swiftlint:disable:this file_length

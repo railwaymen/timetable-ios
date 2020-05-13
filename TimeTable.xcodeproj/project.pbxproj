@@ -202,6 +202,8 @@
 		8A8E8435242D054800003AB1 /* DefaultUITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E8434242D054800003AB1 /* DefaultUITestCase.swift */; };
 		8A8EE1AB23F4455100416D31 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A8EE1AA23F4455100416D31 /* GoogleService-Info.plist */; };
 		8A8EE1AD23F4455900416D31 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A8EE1AC23F4455900416D31 /* GoogleService-Info.plist */; };
+		8A912D80246BC69900D88DA8 /* taskChangedDayResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A912D7F246BC69900D88DA8 /* taskChangedDayResponse.json */; };
+		8A912D82246BC7AC00D88DA8 /* taskChangedDayAndTimeResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A912D81246BC7AC00D88DA8 /* taskChangedDayAndTimeResponse.json */; };
 		8A9369B0237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369AF237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift */; };
 		8A9369B2237AA19D005F8199 /* TagCollectionViewCellMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B1237AA19D005F8199 /* TagCollectionViewCellMock.swift */; };
 		8A9369B4237AA293005F8199 /* WorkTimeCellViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */; };
@@ -785,6 +787,8 @@
 		8A8E8434242D054800003AB1 /* DefaultUITestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUITestCase.swift; sourceTree = "<group>"; };
 		8A8EE1AA23F4455100416D31 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8A8EE1AC23F4455900416D31 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8A912D7F246BC69900D88DA8 /* taskChangedDayResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedDayResponse.json; sourceTree = "<group>"; };
+		8A912D81246BC7AC00D88DA8 /* taskChangedDayAndTimeResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedDayAndTimeResponse.json; sourceTree = "<group>"; };
 		8A9369AF237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUserViewTableViewCellMock.swift; sourceTree = "<group>"; };
 		8A9369B1237AA19D005F8199 /* TagCollectionViewCellMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellMock.swift; sourceTree = "<group>"; };
 		8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCellViewMock.swift; sourceTree = "<group>"; };
@@ -1611,6 +1615,8 @@
 			isa = PBXGroup;
 			children = (
 				8A2FB0F7242E27DF00DDBCB0 /* taskChangedBodyResponse.json */,
+				8A912D81246BC7AC00D88DA8 /* taskChangedDayAndTimeResponse.json */,
+				8A912D7F246BC69900D88DA8 /* taskChangedDayResponse.json */,
 				8A2FB0FF242E286C00DDBCB0 /* taskChangedDurationResponse.json */,
 				8A2FB0FB242E282900DDBCB0 /* taskChangedEndsAtResponse.json */,
 				8A2FB0F3242E274700DDBCB0 /* taskChangedProjectResponse.json */,
@@ -3154,6 +3160,7 @@
 				C1B771D721EF1DE100EFE06F /* simpleProjectMissingColorKeyResponse.json in Resources */,
 				C1B771FD21EF421900EFE06F /* baseErrorKeyResponse.json in Resources */,
 				8A6A4FC12456F279004B4CF2 /* accountingPeriodMissingCountedDurationKey.json in Resources */,
+				8A912D80246BC69900D88DA8 /* taskChangedDayResponse.json in Resources */,
 				8A6A4FBD2456F252004B4CF2 /* accountingPeriodMissingEndsAtKey.json in Resources */,
 				8A21A0442435D71700EE4A79 /* taskVersionNullPreviousTaskPreview.json in Resources */,
 				8A9832BD243B0023005245A8 /* serverErrorFullModel.json in Resources */,
@@ -3216,6 +3223,7 @@
 				C1B771DF21EF1E3E00EFE06F /* simpleProjectMissingInternalKeyResponse.json in Resources */,
 				8A79A3052424E9460048B44B /* projectTagsResponse.json in Resources */,
 				8A9987CE23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json in Resources */,
+				8A912D82246BC7AC00D88DA8 /* taskChangedDayAndTimeResponse.json in Resources */,
 				8AFFE5C424331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json in Resources */,
 				C13429A321A6DCA300F4EA42 /* workTimeMissingTaskPreviewKey.json in Resources */,
 				8A79A2C32420F73C0048B44B /* taskVersionNullCurrentDuration.json in Resources */,

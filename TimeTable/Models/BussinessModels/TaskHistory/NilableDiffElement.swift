@@ -44,6 +44,25 @@ struct NilableDiffElement<Element: Decodable & Equatable> {
     }
 }
 
+// MARK: - Date Extension
+extension NilableDiffElement where Element == Date {
+    var hasTimeChanged: Bool {
+        guard let currentDate = self.current,
+            let previousDate = self.previous else { return self.hasChanged }
+        let calendar = Calendar.autoupdatingCurrent
+        let currentDateTimeComponents = calendar.dateComponents([.hour, .minute, .second], from: currentDate)
+        return self.hasChanged && !calendar.date(previousDate, matchesComponents: currentDateTimeComponents)
+    }
+    
+    var hasDayChanged: Bool {
+        guard let currentDate = self.current,
+            let previousDate = self.previous else { return self.hasChanged }
+        let calendar = Calendar.autoupdatingCurrent
+        let currentDateDayComponents = calendar.dateComponents([.year, .month, .day], from: currentDate)
+        return self.hasChanged && !calendar.date(previousDate, matchesComponents: currentDateDayComponents)
+    }
+}
+
 // MARK: - Private Structures
 private struct StringCodingKey: CodingKey, ExpressibleByStringLiteral {
     var stringValue: String

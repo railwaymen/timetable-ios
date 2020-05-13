@@ -63,6 +63,8 @@ enum TaskVersionJSONResource: String, JSONFileResource {
     case taskChangedBodyResponse
     case taskChangedStartsAtResponse
     case taskChangedEndsAtResponse
+    case taskChangedDayResponse
+    case taskChangedDayAndTimeResponse
     case taskChangedTagResponse
     case taskChangedDurationResponse
     case taskChangedTaskResponse

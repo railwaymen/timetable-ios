@@ -58,11 +58,14 @@ struct TaskVersion: Decodable, TaskVersionFieldsProtocol {
         if self.body.hasChanged {
             changes.append(.body)
         }
-        if self.startsAt.hasChanged {
+        if self.startsAt.hasTimeChanged {
             changes.append(.startsAt)
         }
-        if self.endsAt.hasChanged {
+        if self.endsAt.hasTimeChanged {
             changes.append(.endsAt)
+        }
+        if self.startsAt.hasDayChanged {
+            changes.append(.day)
         }
         if self.tag.hasChanged {
             changes.append(.tag)
