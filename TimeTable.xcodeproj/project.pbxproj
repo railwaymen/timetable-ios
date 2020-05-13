@@ -355,6 +355,7 @@
 		C130B14F246BE8F8002D23AB /* signInValidationErrorBaseInactive.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B14E246BE8F8002D23AB /* signInValidationErrorBaseInactive.json */; };
 		C130B151246BE901002D23AB /* signInValidationErrorFullModel.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B150246BE901002D23AB /* signInValidationErrorFullModel.json */; };
 		C130B153246BEAC3002D23AB /* SignInBaseErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C130B152246BEAC3002D23AB /* SignInBaseErrorKeyTests.swift */; };
+		C130B157246BEE1C002D23AB /* signInValidationErrorBaseInvalidEmailOrPassword.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B156246BEE1C002D23AB /* signInValidationErrorBaseInvalidEmailOrPassword.json */; };
 		C134295E21A6934C00F4EA42 /* ApiClient+Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134295D21A6934C00F4EA42 /* ApiClient+Session.swift */; };
 		C134296021A6937E00F4EA42 /* ApiClientSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134295F21A6937E00F4EA42 /* ApiClientSessionTests.swift */; };
 		C134296321A693F400F4EA42 /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134296221A693F400F4EA42 /* TestError.swift */; };
@@ -1026,6 +1027,7 @@
 		C130B14E246BE8F8002D23AB /* signInValidationErrorBaseInactive.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInValidationErrorBaseInactive.json; sourceTree = "<group>"; };
 		C130B150246BE901002D23AB /* signInValidationErrorFullModel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInValidationErrorFullModel.json; sourceTree = "<group>"; };
 		C130B152246BEAC3002D23AB /* SignInBaseErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInBaseErrorKeyTests.swift; sourceTree = "<group>"; };
+		C130B156246BEE1C002D23AB /* signInValidationErrorBaseInvalidEmailOrPassword.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInValidationErrorBaseInvalidEmailOrPassword.json; sourceTree = "<group>"; };
 		C134295D21A6934C00F4EA42 /* ApiClient+Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiClient+Session.swift"; sourceTree = "<group>"; };
 		C134295F21A6937E00F4EA42 /* ApiClientSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientSessionTests.swift; sourceTree = "<group>"; };
 		C134296221A693F400F4EA42 /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
@@ -1419,8 +1421,8 @@
 		8A18F7B0242A1F2E00D06059 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				8A3F0C692429EFA700564D6D /* signInResponse.json */,
 				8A3F0C6F2429F04300564D6D /* MockResponse.swift */,
+				C130B158246BEE29002D23AB /* SignIn */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -2374,6 +2376,15 @@
 				C130B150246BE901002D23AB /* signInValidationErrorFullModel.json */,
 			);
 			path = SignInValidationError;
+			sourceTree = "<group>";
+		};
+		C130B158246BEE29002D23AB /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				8A3F0C692429EFA700564D6D /* signInResponse.json */,
+				C130B156246BEE1C002D23AB /* signInValidationErrorBaseInvalidEmailOrPassword.json */,
+			);
+			path = SignIn;
 			sourceTree = "<group>";
 		};
 		C134296121A693D000F4EA42 /* Mocks */ = {
@@ -3504,6 +3515,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A3F0C6A2429EFA700564D6D /* signInResponse.json in Resources */,
+				C130B157246BEE1C002D23AB /* signInValidationErrorBaseInvalidEmailOrPassword.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
