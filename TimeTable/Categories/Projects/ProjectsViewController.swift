@@ -24,7 +24,6 @@ class ProjectsViewController: UIViewController {
     private let contentInset = UIEdgeInsets(top: 16, left: 8, bottom: 16, right: 8)
     private let projectCellTableViewHeight: CGFloat = 28
     private let projectCellStaticHeaderHeight: CGFloat = 88
-    private let profileImageView: UIImageView = UIImageView(image: .profile)
 
     // MARK: - Overridden
     override func viewDidLoad() {
@@ -156,11 +155,7 @@ extension ProjectsViewController {
     
     private func setUpBarButtons() {
         guard let navigationBar = self.navigationController?.navigationBar else { return }
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.profileButtonTapped))
-        self.profileImageView.isUserInteractionEnabled = true
-        self.profileImageView.addGestureRecognizer(tap)
-        self.profileImageView.clipsToBounds = true
-        self.profileImageView.widthAnchor.constraint(equalTo: self.profileImageView.heightAnchor).isActive = true
-        navigationBar.setLargeTitleRightViews([self.profileImageView])
+        let profileImageView = self.buildImageView(image: .profile, tapAction: #selector(self.profileButtonTapped))
+        navigationBar.setLargeTitleRightViews([profileImageView])
     }
 }

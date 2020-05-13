@@ -302,19 +302,9 @@ extension WorkTimesListViewController {
     
     private func setUpBarButtons() {
         guard let navigationBar = self.navigationController?.navigationBar else { return }
-        let addImageView = self.buildImageView(image: .plus, action: #selector(self.addNewRecordTapped))
-        let profileImageView = self.buildImageView(image: .profile, action: #selector(self.profileButtonTapped))
+        let addImageView = self.buildImageView(image: .plus, tapAction: #selector(self.addNewRecordTapped))
+        let profileImageView = self.buildImageView(image: .profile, tapAction: #selector(self.profileButtonTapped))
         navigationBar.setLargeTitleRightViews([addImageView, profileImageView])
-    }
-    
-    private func buildImageView(image: UIImage?, action: Selector) -> UIImageView {
-        let imageView = UIImageView(image: image)
-        let tap = UITapGestureRecognizer(target: self, action: action)
-        imageView.tintColor = .tint
-        imageView.isUserInteractionEnabled = true
-        imageView.addGestureRecognizer(tap)
-        imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
-        return imageView
     }
     
     private func setUpActivityIndicator() {

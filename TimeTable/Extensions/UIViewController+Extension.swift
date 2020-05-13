@@ -9,6 +9,7 @@
 import UIKit
 
 extension UIViewController {
+    
     /// Returns `UIViewController` on top of this view controller
     ///
     /// Calling this function on the window's root view controller gives currently displaying view controller
@@ -21,5 +22,16 @@ extension UIViewController {
             return visibleViewController.topController()
         }
         return self
+    }
+    
+    func buildImageView(image: UIImage?, tapAction: Selector) -> UIImageView {
+        let imageView = UIImageView(image: image)
+        let tap = UITapGestureRecognizer(target: self, action: tapAction)
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .tint
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(tap)
+        imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
+        return imageView
     }
 }

@@ -157,8 +157,8 @@ extension VacationViewController {
     
     private func setUpBarButtons() {
         guard let navigationBar = self.navigationController?.navigationBar else { return }
-        let addImageView = self.buildImageView(image: .plus, action: #selector(self.addVacationButtonTapped))
-        let profileImageView = self.buildImageView(image: .profile, action: #selector(self.profileButtonTapped))
+        let addImageView = self.buildImageView(image: .plus, tapAction: #selector(self.addVacationButtonTapped))
+        let profileImageView = self.buildImageView(image: .profile, tapAction: #selector(self.profileButtonTapped))
         navigationBar.setLargeTitleRightViews([addImageView, profileImageView])
     }
     
@@ -168,16 +168,6 @@ extension VacationViewController {
         self.tableView.estimatedRowHeight = self.tableViewEstimatedRowHeight
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.register(VacationCell.self)
-    }
-    
-    private func buildImageView(image: UIImage?, action: Selector) -> UIImageView {
-        let imageView = UIImageView(image: image)
-        let tap = UITapGestureRecognizer(target: self, action: action)
-        imageView.tintColor = .tint
-        imageView.isUserInteractionEnabled = true
-        imageView.addGestureRecognizer(tap)
-        imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
-        return imageView
     }
     
     private func buildDeleteContextualAction(indexPath: IndexPath) -> UIContextualAction {
