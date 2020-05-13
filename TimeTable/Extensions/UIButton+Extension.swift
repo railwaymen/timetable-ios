@@ -29,4 +29,10 @@ extension UIButton: UIElementLocalizedType {
                 self?.isEnabled = isEnabled
         })
     }
+    
+    func set(titleParameters: ButtonTitleParameters) {
+        self.set(isHidden: titleParameters.title == nil)
+        self.setTitle(titleParameters.title, for: .normal)
+        self.setTitleColor(titleParameters.titleColor, for: .normal)
+    }
 }

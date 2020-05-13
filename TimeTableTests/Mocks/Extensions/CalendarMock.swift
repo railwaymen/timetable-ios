@@ -11,6 +11,8 @@ import Foundation
 
 // swiftlint:disable function_parameter_count
 class CalendarMock {
+    
+    // MARK: - CalendarType
     var dateComponentsReturnValue: DateComponents?
     private(set) var dateComponentsParams: [DateComponentsParams] = []
     struct DateComponentsParams {
@@ -71,6 +73,27 @@ class CalendarMock {
     private(set) var isDateInYesterdayParams: [IsDateInYesterdayParams] = []
     struct IsDateInYesterdayParams {
         var date: Date
+    }
+    
+    var isDateInSameDayReturnValue: Bool = false
+    private(set) var isDateInSameDayParams: [IsDateInSameDayParams] = []
+    struct IsDateInSameDayParams {
+        let date1: Date
+        let date2: Date
+    }
+    
+    var isDateInSameTimeAsReturnValue: Bool = false
+    private(set) var isDateInSameTimeAsParams: [IsDateInSameTimeAsParams] = []
+    struct IsDateInSameTimeAsParams {
+        let date1: Date
+        let date2: Date
+    }
+    
+    var dateMatchesComponentsReturnValue: Bool = false
+    private(set) var dateMatchesComponentsParams: [DateMatchesComponentsParams] = []
+    struct DateMatchesComponentsParams {
+        let date: Date
+        let components: DateComponents
     }
 }
 
@@ -139,9 +162,18 @@ extension CalendarMock: CalendarType {
         return self.isDateInTodayReturnValue
     }
     
-    func isDateInYesterday(_ date: Date) -> Bool {
-        self.isDateInYesterdayParams.append(IsDateInYesterdayParams(date: date))
-        return self.isDateInYesterdayReturnValue
+    func isDate(_ date1: Date, inSameDayAs date2: Date) -> Bool {
+        self.isDateInSameDayParams.append(IsDateInSameDayParams(date1: date1, date2: date2))
+        return self.isDateInSameDayReturnValue
+    }
+    
+    func isDate(_ date1: Date, inSameTimeAs date2: Date) -> Bool {
+        self.isDateInSameTimeAsParams.append(IsDateInSameTimeAsParams(date1: date1, date2: date2))
+        return self.isDateInSameTimeAsReturnValue
+    }
+    
+    func date(_ date: Date, matchesComponents components: DateComponents) -> Bool {
+        self.dateMatchesComponentsParams.append(DateMatchesComponentsParams(date: date, components: components))
+        return self.dateMatchesComponentsReturnValue
     }
 }
-// swiftlint:enable function_parameter_count

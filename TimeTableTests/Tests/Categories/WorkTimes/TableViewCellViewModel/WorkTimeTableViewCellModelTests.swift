@@ -38,12 +38,14 @@ extension WorkTimeTableViewCellModelTests {
         //Act
         sut.viewConfigured()
         //Assert
-        XCTAssertEqual(self.userInterface.updateViewParams.count, 1)
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.durationParameters.text, "1h")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.bodyParameters.text, "body")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.taskUrlParameters.text, "preview")
-        XCTAssertNil(self.userInterface.updateViewParams.last?.data.edition)
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.fromToDateText.string, "\(startsAt) - \(endsAt)")
+        self.assertUpdatedView(times: 1)
+        XCTAssertEqual(self.userInterface.updateDurationParams.last?.textParameters.text, "1h")
+        XCTAssertEqual(self.userInterface.updateBodyParams.last?.textParameters.text, "body")
+        XCTAssertEqual(self.userInterface.updateTaskButtonParams.last?.titleParameters.title, "preview")
+        XCTAssertEqual(self.userInterface.updateFromToDateLabelParams.last?.attributedText.string, "\(startsAt) - \(endsAt)")
+        let edition = try XCTUnwrap(self.userInterface.updateEditionViewParams.last)
+        XCTAssertNil(edition.author)
+        XCTAssertNil(edition.date)
     }
     
     func testViewConfigured_callsUpdateView_fullInfo() throws {
@@ -58,13 +60,14 @@ extension WorkTimeTableViewCellModelTests {
         //Act
         sut.viewConfigured()
         //Assert
-        XCTAssertEqual(self.userInterface.updateViewParams.count, 1)
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.durationParameters.text, "1h")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.bodyParameters.text, "body")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.taskUrlParameters.text, "preview")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.edition?.author, updatedBy)
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.edition?.date, "time")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.fromToDateText.string, "\(startsAt) - \(endsAt)")
+        self.assertUpdatedView(times: 1)
+        XCTAssertEqual(self.userInterface.updateDurationParams.last?.textParameters.text, "1h")
+        XCTAssertEqual(self.userInterface.updateBodyParams.last?.textParameters.text, "body")
+        XCTAssertEqual(self.userInterface.updateTaskButtonParams.last?.titleParameters.title, "preview")
+        XCTAssertEqual(self.userInterface.updateFromToDateLabelParams.last?.attributedText.string, "\(startsAt) - \(endsAt)")
+        let edition = try XCTUnwrap(self.userInterface.updateEditionViewParams.last)
+        XCTAssertEqual(edition.author, updatedBy)
+        XCTAssertEqual(edition.date, "time")
     }
     
     func testViewConfigured_callsUpdateView_withoutUpdateAt() throws {
@@ -76,12 +79,14 @@ extension WorkTimeTableViewCellModelTests {
         //Act
         sut.viewConfigured()
         //Assert
-        XCTAssertEqual(self.userInterface.updateViewParams.count, 1)
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.durationParameters.text, "1h")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.bodyParameters.text, "body")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.taskUrlParameters.text, "preview")
-        XCTAssertNil(self.userInterface.updateViewParams.last?.data.edition)
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.fromToDateText.string, "\(startsAt) - \(endsAt)")
+        self.assertUpdatedView(times: 1)
+        XCTAssertEqual(self.userInterface.updateDurationParams.last?.textParameters.text, "1h")
+        XCTAssertEqual(self.userInterface.updateBodyParams.last?.textParameters.text, "body")
+        XCTAssertEqual(self.userInterface.updateTaskButtonParams.last?.titleParameters.title, "preview")
+        XCTAssertEqual(self.userInterface.updateFromToDateLabelParams.last?.attributedText.string, "\(startsAt) - \(endsAt)")
+        let edition = try XCTUnwrap(self.userInterface.updateEditionViewParams.last)
+        XCTAssertNil(edition.author)
+        XCTAssertNil(edition.date)
     }
     
     func testViewConfigured_callsUpdateView_withoutUpdateBy() throws {
@@ -94,18 +99,20 @@ extension WorkTimeTableViewCellModelTests {
         //Act
         sut.viewConfigured()
         //Assert
-        XCTAssertEqual(self.userInterface.updateViewParams.count, 1)
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.durationParameters.text, "1h")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.bodyParameters.text, "body")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.taskUrlParameters.text, "preview")
-        XCTAssertNil(self.userInterface.updateViewParams.last?.data.edition)
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.fromToDateText.string, "\(startsAt) - \(endsAt)")
+        self.assertUpdatedView(times: 1)
+        XCTAssertEqual(self.userInterface.updateDurationParams.last?.textParameters.text, "1h")
+        XCTAssertEqual(self.userInterface.updateBodyParams.last?.textParameters.text, "body")
+        XCTAssertEqual(self.userInterface.updateTaskButtonParams.last?.titleParameters.title, "preview")
+        XCTAssertEqual(self.userInterface.updateFromToDateLabelParams.last?.attributedText.string, "\(startsAt) - \(endsAt)")
+        let edition = try XCTUnwrap(self.userInterface.updateEditionViewParams.last)
+        XCTAssertNil(edition.author)
+        XCTAssertNil(edition.date)
     }
 }
 
 // MARK: - prepareForReuse()
 extension WorkTimeTableViewCellModelTests {
-    func testPrepareForReuse_callsUpdateView() throws {
+    func testPrepareForReuse_updatesView() throws {
         //Arrange
         let workTime = try self.buildWorkTime()
         let sut = self.buildSUT(workTime: workTime)
@@ -114,12 +121,14 @@ extension WorkTimeTableViewCellModelTests {
         //Act
         sut.prepareForReuse()
         //Assert
-        XCTAssertEqual(self.userInterface.updateViewParams.count, 1)
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.durationParameters.text, "1h")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.bodyParameters.text, "body")
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.taskUrlParameters.text, "preview")
-        XCTAssertNil(self.userInterface.updateViewParams.last?.data.edition)
-        XCTAssertEqual(self.userInterface.updateViewParams.last?.data.fromToDateText.string, "\(startsAt) - \(endsAt)")
+        self.assertUpdatedView(times: 1)
+        XCTAssertEqual(self.userInterface.updateDurationParams.last?.textParameters.text, "1h")
+        XCTAssertEqual(self.userInterface.updateBodyParams.last?.textParameters.text, "body")
+        XCTAssertEqual(self.userInterface.updateTaskButtonParams.last?.titleParameters.title, "preview")
+        XCTAssertEqual(self.userInterface.updateFromToDateLabelParams.last?.attributedText.string, "\(startsAt) - \(endsAt)")
+        let edition = try XCTUnwrap(self.userInterface.updateEditionViewParams.last)
+        XCTAssertNil(edition.author)
+        XCTAssertNil(edition.date)
     }
 }
 
@@ -220,5 +229,16 @@ extension WorkTimeTableViewCellModelTests {
             hour: 11,
             minute: 0,
             second: 0)
+    }
+    
+    private func assertUpdatedView(times: Int, file: StaticString = #file, line: UInt = #line) {
+        XCTAssertEqual(self.userInterface.updateEditionViewParams.count, times, file: file, line: line)
+        XCTAssertEqual(self.userInterface.updateBodyParams.count, times, file: file, line: line)
+        XCTAssertEqual(self.userInterface.updateProjectParams.count, times, file: file, line: line)
+        XCTAssertEqual(self.userInterface.updateDayLabelParams.count, times, file: file, line: line)
+        XCTAssertEqual(self.userInterface.updateFromToDateLabelParams.count, times, file: file, line: line)
+        XCTAssertEqual(self.userInterface.updateDurationParams.count, times, file: file, line: line)
+        XCTAssertEqual(self.userInterface.updateTaskButtonParams.count, times, file: file, line: line)
+        XCTAssertEqual(self.userInterface.updateTagViewParams.count, times, file: file, line: line)
     }
 }

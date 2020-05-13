@@ -24,7 +24,8 @@ protocol CalendarType {
     func date(byAdding components: DateComponents, to date: Date, wrappingComponents: Bool) -> Date?
     func date(byAdding component: Calendar.Component, value: Int, to date: Date, wrappingComponents: Bool) -> Date?
     func isDateInToday(_ date: Date) -> Bool
-    func isDateInYesterday(_ date: Date) -> Bool
+    func isDate(_ date1: Date, inSameDayAs date2: Date) -> Bool
+    func date(_ date: Date, matchesComponents components: DateComponents) -> Bool
 }
 
 extension CalendarType {
@@ -52,6 +53,11 @@ extension CalendarType {
         component.year = year
         component.month = month
         return self.date(from: component)
+    }
+    
+    func isDate(_ date1: Date, inSameTimeAs date2: Date) -> Bool {
+        let timeComponents = self.dateComponents([.hour, .minute, .second], from: date1)
+        return self.date(date2, matchesComponents: timeComponents)
     }
 }
 

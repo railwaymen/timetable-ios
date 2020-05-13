@@ -21,6 +21,7 @@ extension UILabel: UIElementLocalizedType {
     
     // MARK: - Internal
     func set(textParameters: LabelTextParameters) {
+        self.set(isHidden: textParameters.text == nil)
         self.text = textParameters.text ?? ""
         self.textColor = textParameters.textColor ?? .clear
     }
