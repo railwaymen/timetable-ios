@@ -94,11 +94,11 @@ class AppCoordinator: Coordinator {
 // MARK: - ParentCoordinator
 extension AppCoordinator: ParentCoordinator {
     func present(error: Error) {
-        if let uiError = error as? UIError {
-            self.dependencyContainer.messagePresenter?.presentAlertController(withMessage: uiError.localizedDescription)
-        } else if let localizedError = error as? LocalizedDescribable {
-            self.dependencyContainer.messagePresenter?.presentAlertController(withMessage: localizedError.localizedDescription)
+        guard let localizedError = error as? LocalizedDescribable else {
+            self.errorHandler.stopInDebug("Passed error does not conform to LocalizedDescribable.")
+            return
         }
+        self.dependencyContainer.messagePresenter?.presentAlertController(withMessage: localizedError.localizedDescription)
     }
     
     func showProfile(parentViewController: UIViewController) {

@@ -8,25 +8,16 @@
 
 import Foundation
 
-enum UIElement {
-    case loginTextField
-    case passwordTextField
-    case projectTextField
-    case dayTextField
-    case taskNameTextField
-    case taskUrlTextField
-    case startsAtTextField
-    case endsAtTextField
-    case noteTextView
-}
-
 enum UIError: Error {
     case cannotBeEmpty(UIElement)
     case invalidFormat(UIElement)
     case workTimeGreaterThan
     case genericError
     case remoteWorkStartsAtIncorrectHours
-    
+}
+
+// MARK: - LocalizedDescribable
+extension UIError {
     var localizedDescription: String {
         switch self {
         case .cannotBeEmpty:
