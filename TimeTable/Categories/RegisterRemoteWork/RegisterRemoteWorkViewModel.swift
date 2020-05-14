@@ -65,6 +65,15 @@ class RegisterRemoteWorkViewModel: KeyboardManagerObserverable {
         }
     }
     
+    private var canSaveEntry: Bool {
+        switch self.decisionState {
+        case .done, .request:
+            return false
+        case .error, .none:
+            return true
+        }
+    }
+    
     // MARK: - Initialization
     init(
         userInterface: RegisterRemoteWorkViewModelOutput,
@@ -148,7 +157,12 @@ extension RegisterRemoteWorkViewModel: RegisterRemoteWorkViewModelType {
     }
     
     func saveButtonTapped() {
-        self.postRemoteWork()
+        do {
+            let parameters = try self.form.convertToEncoder()
+            self.saveRemoteWork(parameters: parameters)
+        } catch {
+            self.updateUI()
+        }
     }
     
     func viewTapped() {
@@ -172,20 +186,37 @@ extension RegisterRemoteWorkViewModel {
         action?(date, dateString)
     }
     
-    private func postRemoteWork() {
-        do {
-            let parameters = try self.form.convertToEncoder()
-            self.decisionState = .request
-            _ = apiClient.registerRemoteWork(parameters: parameters) { [weak self] result in
-                switch result {
-                case let .success(response):
-                    self?.decisionState = .done(response)
-                case let .failure(error):
-                    self?.decisionState = .error(error)
-                }
+    private func saveRemoteWork(parameters: RemoteWorkRequest) {
+        guard self.canSaveEntry else { return }
+        switch self.mode {
+        case .newEntry:
+            self.postRemoteWork(parameters: parameters)
+        case let .editEntry(remoteWork):
+            self.updateRemoteWork(remoteWork, parameters: parameters)
+        }
+    }
+    
+    private func postRemoteWork(parameters: RemoteWorkRequest) {
+        self.decisionState = .request
+        _ = apiClient.registerRemoteWork(parameters: parameters) { [weak self] result in
+            switch result {
+            case let .success(response):
+                self?.decisionState = .done(response)
+            case let .failure(error):
+                self?.decisionState = .error(error)
             }
-        } catch {
-            self.updateUI()
+        }
+    }
+    
+    private func updateRemoteWork(_ remoteWork: RemoteWork, parameters: RemoteWorkRequest) {
+        self.decisionState = .request
+        _ = apiClient.updateRemoteWork(remoteWork, with: parameters) { [weak self] result in
+            switch result {
+            case let .success(response):
+                self?.decisionState = .done([response])
+            case let .failure(error):
+                self?.decisionState = .error(error)
+            }
         }
     }
     
