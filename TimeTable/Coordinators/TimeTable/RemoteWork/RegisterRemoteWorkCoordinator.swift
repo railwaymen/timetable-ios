@@ -80,9 +80,10 @@ extension RegisterRemoteWorkCoordinator {
             let controller = try self.dependencyContainer.viewControllerBuilder.registerRemoteWork()
             let viewModel = RegisterRemoteWorkViewModel(
                 userInterface: controller,
+                coordinator: self,
                 apiClient: apiClient,
                 errorHandler: self.dependencyContainer.errorHandler,
-                coordinator: self)
+                keyboardManager: self.dependencyContainer.keyboardManager)
             controller.configure(viewModel: viewModel)
             self.navigationController.setViewControllers([controller], animated: false)
             self.parentViewController?.present(self.navigationController, animated: true)

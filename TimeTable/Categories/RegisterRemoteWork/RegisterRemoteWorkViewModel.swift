@@ -25,6 +25,8 @@ protocol RegisterRemoteWorkViewModelOutput: class {
 
 protocol RegisterRemoteWorkViewModelType: class {
     func loadView()
+    func viewWillAppear()
+    func viewDidDisappear()
     func closeButtonTapped()
     func viewChanged(startAtDate date: Date)
     func viewChanged(endAtDate date: Date)
@@ -33,11 +35,12 @@ protocol RegisterRemoteWorkViewModelType: class {
     func viewTapped()
 }
 
-class RegisterRemoteWorkViewModel {
+class RegisterRemoteWorkViewModel: KeyboardManagerObserverable {
     private weak var userInterface: RegisterRemoteWorkViewModelOutput?
     private weak var coordinator: RegisterRemoteWorkCoordinatorType?
     private let apiClient: ApiClientRemoteWorkType
     private let errorHandler: ErrorHandlerType
+    private let keyboardManager: KeyboardManagerable
     
     private var form: RemoteWorkFormType {
         didSet {
@@ -64,21 +67,23 @@ class RegisterRemoteWorkViewModel {
     // MARK: - Initialization
     init(
         userInterface: RegisterRemoteWorkViewModelOutput,
+        coordinator: RegisterRemoteWorkCoordinatorType,
         apiClient: ApiClientRemoteWorkType,
         errorHandler: ErrorHandlerType,
-        coordinator: RegisterRemoteWorkCoordinatorType
+        keyboardManager: KeyboardManagerable
     ) {
         self.userInterface = userInterface
+        self.coordinator = coordinator
         self.apiClient = apiClient
         self.errorHandler = errorHandler
-        self.coordinator = coordinator
+        self.keyboardManager = keyboardManager
         self.form = RemoteWorkForm()
     }
 }
 
 // MARK: - Structures
 extension RegisterRemoteWorkViewModel {
-    enum DecistionState {
+    private enum DecistionState {
         case request
         case done([RemoteWork])
         case error(Error)
@@ -90,6 +95,16 @@ extension RegisterRemoteWorkViewModel: RegisterRemoteWorkViewModelType {
     func loadView() {
         self.userInterface?.setUp()
         self.updateViewForPreparingState()
+    }
+    
+    func viewWillAppear() {
+        self.keyboardManager.setKeyboardHeightChangeHandler(for: self) { [weak userInterface] keyboardHeight in
+            userInterface?.setBottomContentInset(keyboardHeight)
+        }
+    }
+    
+    func viewDidDisappear() {
+        self.keyboardManager.removeHandler(for: self)
     }
     
     func closeButtonTapped() {
