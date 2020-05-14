@@ -101,6 +101,7 @@
 "newvacation_reason" = "Powód";
 "newvacation_optional" = "Opcjonalne";
 "newvacation_save_btn" = "Wyślij do zaakceptowania";
+
 "newvacation_error_base_workTimeExists" = "Jest już czas pracy z tą samą datą.";
 "newvacation_error_description_blank" = "Opis nie może być pusty.";
 "newvacation_error_startDate_blank" = "Data początkowa nie może być pusta.";
@@ -120,6 +121,7 @@
 "registerremotework_save_btn" = "Zapisz";
 
 "registerremotework_error_startsAt_overlap" = "Jest już urlop z tą samoą datą.";
+"registerremotework_error_startsAt_overlapMidnight" = "Czas wpisu pracy zdalnej nie może obejmować kilku dni.";
 "registerremotework_error_startsAt_tooOld" = "Podany przedział czasowy jest za stary.";
 "registerremotework_error_startsAt_empty" = "Data rozpoczęcia nie może być pusta.";
 "registerremotework_error_startsAt_incorrectHours" = "Przedział czasu jest nieprawidłowy. Czas rozpoczęcia jest większy lub równy czasowi zakończenia.";

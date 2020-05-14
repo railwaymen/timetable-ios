@@ -101,6 +101,7 @@
 "newvacation_reason" = "Reason";
 "newvacation_optional" = "Optional";
 "newvacation_save_btn" = "Send to accept";
+
 "newvacation_error_base_workTimeExists" = "There is work time with same date.";
 "newvacation_error_description_blank" = "Description cannot be empty.";
 "newvacation_error_startDate_blank" = "Start date cannot be empty.";
@@ -119,7 +120,8 @@
 "registerremotework_note" = "Note";
 "registerremotework_save_btn" = "Save";
 
-"registerremotework_error_startsAt_overlap" = "There is vaction with same date.";
+"registerremotework_error_startsAt_overlap" = "There is vacation with same date.";
+"registerremotework_error_startsAt_overlapMidnight" = "Time range of a remote work period cannot pass through midnight.";
 "registerremotework_error_startsAt_tooOld" = "Given date is too old.";
 "registerremotework_error_startsAt_empty" = "Starts at date cannot be empty.";
 "registerremotework_error_startsAt_incorrectHours" = "Time range is invalid. Start time is greater or equal to end time.";

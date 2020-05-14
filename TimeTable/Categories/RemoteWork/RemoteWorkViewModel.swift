@@ -257,5 +257,6 @@ extension RemoteWorkViewModel {
             let newItem = updatedRecords.first(where: { $0.id == record.id })
             return newItem ?? record
         }
+        self.userInterface?.updateView()
     }
 }

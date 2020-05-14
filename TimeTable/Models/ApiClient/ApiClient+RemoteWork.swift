@@ -75,6 +75,7 @@ extension ApiClient: ApiClientRemoteWorkType {
         self.restler
             .put(Endpoint.remoteWork(remoteWork.id))
             .body(parameters)
+            .failureDecode(ValidationError<UpdateRemoteWorkValidationError>.self)
             .decode(RemoteWork.self)
             .onCompletion(completion)
             .start()

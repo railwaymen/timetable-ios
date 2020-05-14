@@ -1,0 +1,8 @@
+{
+    "starts_at": [
+        {
+            "error": "overlap_midnight"
+        }
+    ],
+    "ends_at": []
+}
