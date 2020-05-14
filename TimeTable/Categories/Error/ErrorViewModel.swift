@@ -10,11 +10,13 @@ import Foundation
 
 protocol ErrorViewModelParentType: class {
     func update(error: Error)
+    func setRefreshButton(isEnabled: Bool)
 }
 
 protocol ErrorViewModelOutput: class {
     func setUp(refreshIsHidden: Bool)
     func update(title: String)
+    func setRefreshButton(isEnabled: Bool)
 }
 
 protocol ErrorViewModelType: class {
@@ -56,6 +58,10 @@ extension ErrorViewModel: ErrorViewModelParentType {
     func update(error: Error) {
         self.error = error
         self.updateErrorTitle()
+    }
+    
+    func setRefreshButton(isEnabled: Bool) {
+        self.userInterface?.setRefreshButton(isEnabled: isEnabled)
     }
 }
 

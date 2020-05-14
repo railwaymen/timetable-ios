@@ -24,16 +24,28 @@
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 </view>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UzU-yj-bwL" customClass="ErrorView" customModule="TimeTable" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="303" width="414" height="300"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" priority="1" constant="300" id="dbu-x1-K5b"/>
+                                </constraints>
+                            </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="2sC-zG-nmh">
                                 <rect key="frame" x="197" y="438" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="UzU-yj-bwL" firstAttribute="trailing" secondItem="1Kz-7h-JgO" secondAttribute="trailing" id="2GC-aC-RBd"/>
+                            <constraint firstItem="UzU-yj-bwL" firstAttribute="leading" secondItem="1Kz-7h-JgO" secondAttribute="leading" id="6tA-e9-Q3b"/>
                             <constraint firstItem="I7V-ZK-2jx" firstAttribute="top" secondItem="rTl-Ez-mGt" secondAttribute="top" id="Ea0-ir-3Ns"/>
                             <constraint firstItem="I7V-ZK-2jx" firstAttribute="leading" secondItem="1Kz-7h-JgO" secondAttribute="leading" id="FcO-se-Cd1"/>
+                            <constraint firstItem="UzU-yj-bwL" firstAttribute="centerY" secondItem="1Kz-7h-JgO" secondAttribute="centerY" id="HS9-2i-Gr3"/>
                             <constraint firstItem="I7V-ZK-2jx" firstAttribute="trailing" secondItem="1Kz-7h-JgO" secondAttribute="trailing" id="MPg-FQ-bnF"/>
+                            <constraint firstItem="UzU-yj-bwL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="1Kz-7h-JgO" secondAttribute="top" id="MwK-Nh-lc0"/>
                             <constraint firstItem="1Kz-7h-JgO" firstAttribute="bottom" secondItem="I7V-ZK-2jx" secondAttribute="bottom" id="jwg-dm-30s"/>
+                            <constraint firstItem="1Kz-7h-JgO" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="UzU-yj-bwL" secondAttribute="bottom" id="laT-eJ-ztn"/>
                             <constraint firstItem="2sC-zG-nmh" firstAttribute="centerY" secondItem="rTl-Ez-mGt" secondAttribute="centerY" id="mtb-k9-SnJ"/>
                             <constraint firstItem="2sC-zG-nmh" firstAttribute="centerX" secondItem="rTl-Ez-mGt" secondAttribute="centerX" id="tJZ-DW-qMu"/>
                         </constraints>
@@ -41,12 +53,13 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="2sC-zG-nmh" id="VyG-Iq-uBE"/>
+                        <outlet property="errorView" destination="UzU-yj-bwL" id="haf-ri-5su"/>
                         <outlet property="tableView" destination="I7V-ZK-2jx" id="gNT-QM-W36"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rAT-ch-h9Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-216" y="140"/>
+            <point key="canvasLocation" x="-217.39130434782609" y="139.95535714285714"/>
         </scene>
     </scenes>
 </document>

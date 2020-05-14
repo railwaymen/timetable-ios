@@ -16,6 +16,7 @@ protocol RemoteWorkViewControllerType: class {
 
 class RemoteWorkViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
+    @IBOutlet private var errorView: ErrorView!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private var viewModel: RemoteWorkViewModelType!
@@ -80,11 +81,21 @@ extension RemoteWorkViewController: RemoteWorkViewModelOutput {
         self.setUpActivityIndicator()
         self.setUpTableView()
         self.tableView.set(isHidden: true)
+        self.errorView.set(isHidden: true)
+        self.viewModel.configure(self.errorView)
     }
     
     func showTableView() {
         UIView.transition(with: self.tableView, duration: 0.2, animations: { [weak self] in
             self?.tableView.set(isHidden: false)
+            self?.errorView.set(isHidden: true)
+        })
+    }
+    
+    func showErrorView() {
+        UIView.transition(with: self.errorView, duration: 0.2, animations: { [weak self] in
+            self?.tableView.set(isHidden: true)
+            self?.errorView.set(isHidden: false)
         })
     }
     

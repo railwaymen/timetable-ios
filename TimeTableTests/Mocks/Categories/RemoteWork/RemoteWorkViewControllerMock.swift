@@ -18,6 +18,9 @@ class RemoteWorkViewControllerMock: UIViewController {
     private(set) var showTableViewParams: [ShowTableViewParams] = []
     struct ShowTableViewParams {}
     
+    private(set) var showErrorViewParams: [ShowErrorViewParams] = []
+    struct ShowErrorViewParams {}
+    
     private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
     struct SetActivityIndicatorParams {
         let isHidden: Bool
@@ -50,6 +53,10 @@ extension RemoteWorkViewControllerMock: RemoteWorkViewModelOutput {
     
     func showTableView() {
         self.showTableViewParams.append(ShowTableViewParams())
+    }
+    
+    func showErrorView() {
+        self.showErrorViewParams.append(ShowErrorViewParams())
     }
     
     func setActivityIndicator(isHidden: Bool) {

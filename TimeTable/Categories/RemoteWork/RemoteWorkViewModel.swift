@@ -14,6 +14,7 @@ protocol RemoteWorkViewModelType: class {
     func addNewRecordTapped()
     func profileButtonTapped()
     func numberOfItems() -> Int
+    func configure(_ view: ErrorViewable)
     func configure(_ cell: RemoteWorkCellable, for indexPath: IndexPath)
     func viewWillDisplayCell(at indexPath: IndexPath)
     func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void)
@@ -22,6 +23,7 @@ protocol RemoteWorkViewModelType: class {
 protocol RemoteWorkViewModelOutput: class {
     func setUp()
     func showTableView()
+    func showErrorView()
     func setActivityIndicator(isHidden: Bool)
     func updateView()
     func removeRows(at indexPaths: [IndexPath])
@@ -34,10 +36,25 @@ class RemoteWorkViewModel {
     private let apiClient: ApiClientRemoteWorkType
     private let errorHandler: ErrorHandlerType
     
+    private weak var errorViewModel: ErrorViewModelParentType?
     private let tableHeightsPerPage: Int = 4
     private var cellsPerTableHeight: Int = 6
-    private var state: State?
     private var records: [RemoteWork] = []
+    
+    private var state: State? {
+        didSet {
+            switch self.state {
+            case .fetching:
+                self.errorViewModel?.setRefreshButton(isEnabled: false)
+            case .fetched:
+                self.errorViewModel?.setRefreshButton(isEnabled: true)
+            case .firstPageFetchFailed:
+                self.errorViewModel?.setRefreshButton(isEnabled: true)
+            case .none:
+                self.errorViewModel?.setRefreshButton(isEnabled: true)
+            }
+        }
+    }
     
     private var recordsPerPage: Int {
         self.cellsPerTableHeight * self.tableHeightsPerPage
@@ -59,7 +76,7 @@ class RemoteWorkViewModel {
 
 // MARK: - Structures
 extension RemoteWorkViewModel {
-    enum State: Equatable {
+    private enum State: Equatable {
         case fetching(page: Int)
         case fetched(page: Int, totalPages: Int)
         case firstPageFetchFailed
@@ -90,6 +107,14 @@ extension RemoteWorkViewModel: RemoteWorkViewModelType {
     
     func numberOfItems() -> Int {
         return self.records.count
+    }
+    
+    func configure(_ view: ErrorViewable) {
+        let viewModel = ErrorViewModel(userInterface: view, error: UIError.genericError) { [weak self] in
+            self?.fetchFirstPage()
+        }
+        view.configure(viewModel: viewModel)
+        self.errorViewModel = viewModel
     }
     
     func configure(_ cell: RemoteWorkCellable, for indexPath: IndexPath) {
@@ -164,7 +189,8 @@ extension RemoteWorkViewModel {
     
     private func handleFirstPageFetchFailure(error: Error) {
         self.state = .firstPageFetchFailed
-        // TODO: TIM-292 error handling
+        self.errorViewModel?.update(error: error as? ApiClientError ?? UIError.genericError)
+        self.userInterface?.showErrorView()
     }
     
     private func fetchNextPage() {
