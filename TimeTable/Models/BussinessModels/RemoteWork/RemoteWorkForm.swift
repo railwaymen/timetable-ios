@@ -33,6 +33,12 @@ struct RemoteWorkForm: RemoteWorkFormType {
         self.note = note
     }
     
+    init(remoteWork: RemoteWork) {
+        self.startsAt = remoteWork.startsAt
+        self.endsAt = remoteWork.endsAt
+        self.note = remoteWork.note ?? ""
+    }
+    
     // MARK: - RemoteWorkFormType
     func validationErrors() -> [UIError] {
         guard self.startsAt >= self.endsAt else { return [] }

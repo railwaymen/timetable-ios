@@ -80,7 +80,7 @@ class RegisterRemoteWorkViewModel: KeyboardManagerObserverable {
         self.errorHandler = errorHandler
         self.keyboardManager = keyboardManager
         self.mode = mode
-        self.form = RemoteWorkForm()
+        self.form = mode.preferredForm
     }
 }
 
@@ -89,6 +89,17 @@ extension RegisterRemoteWorkViewModel {
     enum Mode: Equatable {
         case newEntry
         case editEntry(RemoteWork)
+        
+        var preferredForm: RemoteWorkForm {
+            switch self {
+            case .newEntry:
+                let startsAt = Date().roundedToQuarter()
+                let endsAt = startsAt.addingTimeInterval(.hour)
+                return RemoteWorkForm(startsAt: startsAt, endsAt: endsAt)
+            case let .editEntry(remoteWork):
+                return RemoteWorkForm(remoteWork: remoteWork)
+            }
+        }
     }
     
     private enum DecistionState {
@@ -147,14 +158,12 @@ extension RegisterRemoteWorkViewModel: RegisterRemoteWorkViewModelType {
 
 extension RegisterRemoteWorkViewModel {
     private func updateViewForPreparingState() {
-        let date = Date().roundedToQuarter()
-        self.form.startsAt = date
-        self.form.endsAt = date.addingTimeInterval(.hour)
+        let minDate = Date().roundedToQuarter()
         self.updateDateInput(with: self.form.startsAt, action: self.userInterface?.updateStartDate)
         self.updateDateInput(with: self.form.endsAt, action: self.userInterface?.updateEndDate)
-        self.userInterface?.setMinimumDateForEndDate(minDate: date)
-        self.userInterface?.setMinimumDateForStartDate(minDate: date)
-        self.userInterface?.setNote(text: "")
+        self.userInterface?.setMinimumDateForEndDate(minDate: self.form.startsAt)
+        self.userInterface?.setMinimumDateForStartDate(minDate: minDate)
+        self.userInterface?.setNote(text: self.form.note)
         self.updateUI()
     }
     
