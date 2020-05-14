@@ -25,6 +25,9 @@ class RegisterRemoteWorkViewController: UIViewController {
     @IBOutlet private var noteTextView: AttributedTextView!
     @IBOutlet private var saveButton: AttributedButton!
     
+    @IBOutlet private var textFieldsHeightConstraints: [NSLayoutConstraint]!
+    @IBOutlet private var saveButtonHeightConstraint: NSLayoutConstraint!
+    
     private var startDatePicker: UIDatePicker!
     private var endDatePicker: UIDatePicker!
     
@@ -75,6 +78,7 @@ extension RegisterRemoteWorkViewController: RegisterRemoteWorkViewModelOutput {
         self.setUpNoteTextView()
         self.setUpSaveButton()
         self.setUpActivityIndicator()
+        self.setUpConstraints()
     }
     
     func setActivityIndicator(isHidden: Bool) {
@@ -173,6 +177,13 @@ extension RegisterRemoteWorkViewController {
         self.activityIndicator.style = .large
         self.activityIndicator.hidesWhenStopped = true
         self.setActivityIndicator(isHidden: true)
+    }
+    
+    private func setUpConstraints() {
+        self.textFieldsHeightConstraints.forEach {
+            $0.constant = Constants.defaultTextFieldHeight
+        }
+        self.saveButtonHeightConstraint.constant = Constants.defaultButtonHeight
     }
     
     private func setUpTimePicker(_ picker: inout UIDatePicker?, selector: Selector) {

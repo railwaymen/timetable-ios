@@ -81,6 +81,9 @@
                                                         <rect key="frame" x="0.0" y="23.5" width="288" height="117.5"/>
                                                         <color key="backgroundColor" name="Text Field Background"/>
                                                         <color key="tintColor" name="Tint"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="YgP-kG-GD7"/>
+                                                        </constraints>
                                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
                                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -167,8 +170,12 @@
                         <outlet property="endDayTextField" destination="GcS-bc-oay" id="CTn-rW-F8Y"/>
                         <outlet property="noteTextView" destination="UAz-mx-avy" id="JsO-zj-FXt"/>
                         <outlet property="saveButton" destination="6Au-ax-INQ" id="xhM-T6-Rd7"/>
+                        <outlet property="saveButtonHeightConstraint" destination="z6e-zm-6Ek" id="d9h-LH-sw0"/>
                         <outlet property="scrollView" destination="IPj-OB-wEg" id="wpC-FR-CYu"/>
                         <outlet property="startDayTextField" destination="Rrt-6R-i69" id="PEb-6B-tl1"/>
+                        <outletCollection property="textFieldsHeightConstraints" destination="pwq-AQ-rGk" collectionClass="NSMutableArray" id="4kE-Z3-W6q"/>
+                        <outletCollection property="textFieldsHeightConstraints" destination="2cC-0c-GsA" collectionClass="NSMutableArray" id="lRt-aD-QPh"/>
+                        <outletCollection property="textFieldsHeightConstraints" destination="YgP-kG-GD7" collectionClass="NSMutableArray" id="o6d-j5-L7A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oqc-c0-Jdz" userLabel="First Responder" sceneMemberID="firstResponder"/>
