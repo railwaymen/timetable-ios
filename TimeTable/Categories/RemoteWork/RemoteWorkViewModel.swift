@@ -25,6 +25,7 @@ protocol RemoteWorkViewModelOutput: class {
     func showTableView()
     func showErrorView()
     func setActivityIndicator(isHidden: Bool)
+    func setBottomContentInset(isHidden: Bool)
     func updateView()
     func removeRows(at indexPaths: [IndexPath])
     func getMaxCellsPerTableHeight() -> Int
@@ -214,11 +215,14 @@ extension RemoteWorkViewModel {
         self.records.append(contentsOf: response.records)
         self.state = .fetched(page: pageFetched, totalPages: response.totalPages)
         self.userInterface?.updateView()
+        guard pageFetched == response.totalPages else { return }
+        self.userInterface?.setBottomContentInset(isHidden: true)
     }
     
     private func handleNextPageFetchFailure(error: Error, previousState: State) {
         self.state = previousState
-        // TODO: TIM-292 error handling
+        guard !(error is ApiClientError) else { return }
+        self.errorHandler.throwing(error: error)
     }
     
     private func parameters(forPage page: Int) -> RemoteWorkParameters {

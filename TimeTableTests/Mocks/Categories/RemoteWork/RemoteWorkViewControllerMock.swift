@@ -25,6 +25,11 @@ class RemoteWorkViewControllerMock: UIViewController {
     struct SetActivityIndicatorParams {
         let isHidden: Bool
     }
+    
+    private(set) var setBottomContentInsetParams: [SetBottomContentInsetParams] = []
+    struct SetBottomContentInsetParams {
+        let isHidden: Bool
+    }
 
     private(set) var updateViewParams: [UpdateViewParams] = []
     struct UpdateViewParams {}
@@ -61,6 +66,10 @@ extension RemoteWorkViewControllerMock: RemoteWorkViewModelOutput {
     
     func setActivityIndicator(isHidden: Bool) {
         self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isHidden))
+    }
+    
+    func setBottomContentInset(isHidden: Bool) {
+        self.setBottomContentInsetParams.append(SetBottomContentInsetParams(isHidden: isHidden))
     }
     
     func updateView() {

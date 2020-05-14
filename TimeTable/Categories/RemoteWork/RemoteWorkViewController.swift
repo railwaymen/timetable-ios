@@ -103,6 +103,10 @@ extension RemoteWorkViewController: RemoteWorkViewModelOutput {
         self.activityIndicator.set(isAnimating: !isHidden)
     }
     
+    func setBottomContentInset(isHidden: Bool) {
+        self.tableView.contentInset.bottom = isHidden ? 0 : self.minimumCellHeight
+    }
+    
     func updateView() {
         self.tableView.reloadData()
     }
@@ -149,6 +153,7 @@ extension RemoteWorkViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(RemoteWorkCell.self)
+        self.setBottomContentInset(isHidden: false)
     }
     
     private func deleteAction(for indexPath: IndexPath) -> UIContextualAction {
