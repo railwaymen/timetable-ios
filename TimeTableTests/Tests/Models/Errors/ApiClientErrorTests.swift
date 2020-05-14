@@ -16,16 +16,6 @@ class ApiClientErrorTests: XCTestCase {
 
 // MARK: - RestlerErrorDecodable
 extension ApiClientErrorTests {
-    func testRestlerErrorDecoding_validationErrorInData() throws {
-        //Arrange
-        let data = try self.json(from: ApiValidationJSONResource.baseErrorKeyResponse)
-        let response = Restler.Response(data: data, response: nil, error: nil)
-        //Act
-        let sut = ApiClientError(response: response)
-        //Assert
-        XCTAssertNil(sut?.type)
-    }
-    
     func testRestlerErrorDecoding_serverErrorInData() throws {
         //Arrange
         let data = try self.json(from: ServerErrorJSONResource.serverErrorFullModel)
