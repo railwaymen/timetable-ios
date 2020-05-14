@@ -16,18 +16,18 @@ struct WorkTimeValidationError: Error, ValidationErrorType {
     let projectID: [ProjectIDErrorKey]
     
     var isEmpty: Bool {
-        return self.body.isEmpty &&
-            self.task.isEmpty &&
-            self.startsAt.isEmpty &&
-            self.duration.isEmpty &&
-            self.projectID.isEmpty
+        return self.body.isEmpty
+            && self.task.isEmpty
+            && self.startsAt.isEmpty
+            && self.duration.isEmpty
+            && self.projectID.isEmpty
     }
     
     private enum CodingKeys: String, CodingKey {
         case body
         case task
         case startsAt = "starts_at"
-        case duration = "duration"
+        case duration
         case projectID = "project_id"
     }
     

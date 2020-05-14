@@ -23,7 +23,7 @@ struct AccountingPeriod: Decodable {
         case startsAt = "starts_at"
         case endsAt = "ends_at"
         case countedDuration = "counted_duration"
-        case duration = "duration"
+        case duration
         case isClosed = "closed"
         case note
         case isFullTime = "full_time"
