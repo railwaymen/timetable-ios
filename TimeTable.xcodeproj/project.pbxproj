@@ -337,6 +337,7 @@
 		C125F1BC21DCDA8800594CDE /* ProjectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C125F1BB21DCDA8800594CDE /* ProjectCollectionViewCell.swift */; };
 		C125F1C121DCF17300594CDE /* ProjectCollectionViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C125F1C021DCF17300594CDE /* ProjectCollectionViewCellModel.swift */; };
 		C128C80C246D83A500F24183 /* UIElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = C128C80B246D83A500F24183 /* UIElement.swift */; };
+		C128C810246D859C00F24183 /* ServerErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C128C80F246D859C00F24183 /* ServerErrorTests.swift */; };
 		C12BD99921E48D5700A6EAF0 /* ProjectsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12BD99821E48D5700A6EAF0 /* ProjectsViewModelTests.swift */; };
 		C12BD99B21E48DD100A6EAF0 /* ProjectsViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12BD99A21E48DD100A6EAF0 /* ProjectsViewControllerMock.swift */; };
 		C12BD99F21E48F9000A6EAF0 /* ApiClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12BD99E21E48F9000A6EAF0 /* ApiClientMock.swift */; };
@@ -1018,6 +1019,7 @@
 		C125F1BB21DCDA8800594CDE /* ProjectCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCollectionViewCell.swift; sourceTree = "<group>"; };
 		C125F1C021DCF17300594CDE /* ProjectCollectionViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCollectionViewCellModel.swift; sourceTree = "<group>"; };
 		C128C80B246D83A500F24183 /* UIElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIElement.swift; sourceTree = "<group>"; };
+		C128C80F246D859C00F24183 /* ServerErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerErrorTests.swift; sourceTree = "<group>"; };
 		C12BD99821E48D5700A6EAF0 /* ProjectsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewModelTests.swift; sourceTree = "<group>"; };
 		C12BD99A21E48DD100A6EAF0 /* ProjectsViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewControllerMock.swift; sourceTree = "<group>"; };
 		C12BD99E21E48F9000A6EAF0 /* ApiClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientMock.swift; sourceTree = "<group>"; };
@@ -2294,6 +2296,7 @@
 			isa = PBXGroup;
 			children = (
 				C17EA3B92189E9BA00A3F0CD /* ApiClientErrorTests.swift */,
+				C128C80F246D859C00F24183 /* ServerErrorTests.swift */,
 			);
 			path = ApiErrors;
 			sourceTree = "<group>";
@@ -4228,6 +4231,7 @@
 				C153AC7321834F22007A35BB /* ServerConfigurationViewModelTests.swift in Sources */,
 				C1055A7D246D2D4700EF64ED /* WorkTimeProjectIDErrorKeyTests.swift in Sources */,
 				C134298121A6C71200F4EA42 /* URLSessionMock.swift in Sources */,
+				C128C810246D859C00F24183 /* ServerErrorTests.swift in Sources */,
 				C10FD88421F1F28200A233C5 /* UserDecoderTests.swift in Sources */,
 				C12CA58221A599E60082FEB7 /* WorkTimeDecoderTests.swift in Sources */,
 				8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift in Sources */,
