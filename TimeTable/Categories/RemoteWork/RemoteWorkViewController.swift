@@ -58,6 +58,10 @@ extension RemoteWorkViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         self.viewModel.viewWillDisplayCell(at: indexPath)
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.viewModel.viewDidSelectCell(at: indexPath)
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -120,6 +124,10 @@ extension RemoteWorkViewController: RemoteWorkViewModelOutput {
         let verticalInsets = self.tableView.safeAreaInsets.top + self.tableView.safeAreaInsets.bottom
         let visibleContentHeight = self.tableView.frame.height - verticalInsets
         return Int((visibleContentHeight / self.minimumCellHeight).rounded(.up))
+    }
+    
+    func deselectAllRows() {
+        self.tableView.deselectAllRows(animated: true)
     }
 }
 

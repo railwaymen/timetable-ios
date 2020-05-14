@@ -31,4 +31,8 @@ struct RemoteWork: Decodable {
 }
 
 // MARK: - Equatable
-extension RemoteWork: Equatable {}
+extension RemoteWork: Equatable {
+    static func == (lhs: RemoteWork, rhs: RemoteWork) -> Bool {
+        return lhs.id == rhs.id
+    }
+}

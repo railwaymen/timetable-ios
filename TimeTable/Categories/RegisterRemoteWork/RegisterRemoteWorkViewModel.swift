@@ -41,6 +41,7 @@ class RegisterRemoteWorkViewModel: KeyboardManagerObserverable {
     private let apiClient: ApiClientRemoteWorkType
     private let errorHandler: ErrorHandlerType
     private let keyboardManager: KeyboardManagerable
+    private let mode: Mode
     
     private var form: RemoteWorkFormType {
         didSet {
@@ -70,19 +71,26 @@ class RegisterRemoteWorkViewModel: KeyboardManagerObserverable {
         coordinator: RegisterRemoteWorkCoordinatorType,
         apiClient: ApiClientRemoteWorkType,
         errorHandler: ErrorHandlerType,
-        keyboardManager: KeyboardManagerable
+        keyboardManager: KeyboardManagerable,
+        mode: Mode
     ) {
         self.userInterface = userInterface
         self.coordinator = coordinator
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.keyboardManager = keyboardManager
+        self.mode = mode
         self.form = RemoteWorkForm()
     }
 }
 
 // MARK: - Structures
 extension RegisterRemoteWorkViewModel {
+    enum Mode: Equatable {
+        case newEntry
+        case editEntry(RemoteWork)
+    }
+    
     private enum DecistionState {
         case request
         case done([RemoteWork])

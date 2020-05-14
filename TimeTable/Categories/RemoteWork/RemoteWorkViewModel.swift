@@ -17,6 +17,7 @@ protocol RemoteWorkViewModelType: class {
     func configure(_ view: ErrorViewable)
     func configure(_ cell: RemoteWorkCellable, for indexPath: IndexPath)
     func viewWillDisplayCell(at indexPath: IndexPath)
+    func viewDidSelectCell(at indexPath: IndexPath)
     func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void)
 }
 
@@ -29,6 +30,7 @@ protocol RemoteWorkViewModelOutput: class {
     func updateView()
     func removeRows(at indexPaths: [IndexPath])
     func getMaxCellsPerTableHeight() -> Int
+    func deselectAllRows()
 }
 
 class RemoteWorkViewModel {
@@ -97,7 +99,7 @@ extension RemoteWorkViewModel: RemoteWorkViewModelType {
     }
     
     func addNewRecordTapped() {
-        self.coordinator?.remoteWorkDidRequestForFormView { [weak self] newRecords in
+        self.coordinator?.remoteWorkDidRequestForNewFormView { [weak self] newRecords in
             self?.handleNewRecords(newRecords)
         }
     }
@@ -130,6 +132,14 @@ extension RemoteWorkViewModel: RemoteWorkViewModelType {
         let cellToBeginFetching = self.records.count - cellsToEndToStartFetchingNextPage
         guard cellToBeginFetching <= indexPath.row else { return }
         self.fetchNextPage()
+    }
+    
+    func viewDidSelectCell(at indexPath: IndexPath) {
+        guard let item = self.item(for: indexPath) else { return }
+        self.coordinator?.remoteWorkDidRequestForEditFormView(entry: item) { [weak self] updatedRecords in
+            self?.userInterface?.deselectAllRows()
+            self?.handleUpdateRecords(updatedRecords)
+        }
     }
     
     func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void) {
@@ -240,5 +250,12 @@ extension RemoteWorkViewModel {
         self.records += newRecords
         self.records.sort(by: { $0.startsAt > $1.startsAt })
         self.userInterface?.updateView()
+    }
+    
+    private func handleUpdateRecords(_ updatedRecords: [RemoteWork]) {
+        self.records = self.records.map { record in
+            let newItem = updatedRecords.first(where: { $0.id == record.id })
+            return newItem ?? record
+        }
     }
 }

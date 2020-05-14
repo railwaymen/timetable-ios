@@ -16,15 +16,18 @@ protocol RegisterRemoteWorkCoordinatorType: class {
 class RegisterRemoteWorkCoordinator: NavigationCoordinator {
     private weak var parentViewController: UIViewController?
     private let dependencyContainer: DependencyContainerType
+    private let mode: RegisterRemoteWorkViewModel.Mode
     private var customFinishCompletion: (([RemoteWork]) -> Void)?
     
     // MARK: - Initialization
     init(
         dependencyContainer: DependencyContainerType,
-        parentViewController: UIViewController
+        parentViewController: UIViewController,
+        mode: RegisterRemoteWorkViewModel.Mode
     ) {
         self.dependencyContainer = dependencyContainer
         self.parentViewController = parentViewController
+        self.mode = mode
         super.init(window: dependencyContainer.window)
         self.navigationController.setNavigationBarHidden(false, animated: false)
         self.navigationController.navigationBar.prefersLargeTitles = false
@@ -83,7 +86,8 @@ extension RegisterRemoteWorkCoordinator {
                 coordinator: self,
                 apiClient: apiClient,
                 errorHandler: self.dependencyContainer.errorHandler,
-                keyboardManager: self.dependencyContainer.keyboardManager)
+                keyboardManager: self.dependencyContainer.keyboardManager,
+                mode: self.mode)
             controller.configure(viewModel: viewModel)
             self.navigationController.setViewControllers([controller], animated: false)
             self.parentViewController?.present(self.navigationController, animated: true)
