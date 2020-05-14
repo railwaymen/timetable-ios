@@ -96,8 +96,6 @@ extension AppCoordinator: ParentCoordinator {
     func present(error: Error) {
         if let uiError = error as? UIError {
             self.dependencyContainer.messagePresenter?.presentAlertController(withMessage: uiError.localizedDescription)
-        } else if let apiError = error as? ApiClientError {
-            self.dependencyContainer.messagePresenter?.presentAlertController(withMessage: apiError.type.localizedDescription)
         } else if let localizedError = error as? LocalizedDescribable {
             self.dependencyContainer.messagePresenter?.presentAlertController(withMessage: localizedError.localizedDescription)
         }

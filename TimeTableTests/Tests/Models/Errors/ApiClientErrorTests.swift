@@ -125,7 +125,7 @@ extension ApiClientErrorTests {
     }
 }
 
-// MARK: - localizedDescription: String
+// MARK: - localizedDescription
 extension ApiClientErrorTests {
     func testLocalizedDescription_invalidHostHasBeenGiven() throws {
         //Arrange

@@ -56,24 +56,33 @@ extension ApiClientError {
         case noConnection
         case timeout
         case unauthorized
-        
-        var localizedDescription: String {
-            switch self {
-            case .invalidHost(let url):
-                return R.string.localizable.serverconfiguration_error_invalid_url(url?.absoluteString ?? "")
-            case .invalidParameters:
-                return R.string.localizable.error_invalid_parameters()
-            case .invalidResponse:
-                return R.string.localizable.error_invalid_response()
-            case .serverError(let serverError):
-                return  "\(serverError.status) - \(serverError.error)"
-            case .noConnection:
-                return R.string.localizable.error_no_connection()
-            case .timeout:
-                return R.string.localizable.error_timeout()
-            case .unauthorized :
-                return R.string.localizable.error_unauthorized()
-            }
+    }
+}
+
+// MARK: - LocalizedDescribable
+extension ApiClientError: LocalizedDescribable {
+    var localizedDescription: String {
+        return self.type.localizedDescription
+    }
+}
+
+extension ApiClientError.ErrorType: LocalizedDescribable {
+    var localizedDescription: String {
+        switch self {
+        case .invalidHost(let url):
+            return R.string.localizable.serverconfiguration_error_invalid_url(url?.absoluteString ?? "")
+        case .invalidParameters:
+            return R.string.localizable.error_invalid_parameters()
+        case .invalidResponse:
+            return R.string.localizable.error_invalid_response()
+        case .serverError(let serverError):
+            return  "\(serverError.status) - \(serverError.error)"
+        case .noConnection:
+            return R.string.localizable.error_no_connection()
+        case .timeout:
+            return R.string.localizable.error_timeout()
+        case .unauthorized :
+            return R.string.localizable.error_unauthorized()
         }
     }
 }
