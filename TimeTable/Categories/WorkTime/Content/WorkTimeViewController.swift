@@ -56,7 +56,6 @@ class WorkTimeViewController: UIViewController {
         self.viewModel.viewDidDisappear()
     }
     
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         guard self.traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }

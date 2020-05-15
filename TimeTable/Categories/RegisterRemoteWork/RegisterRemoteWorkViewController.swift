@@ -33,6 +33,10 @@ class RegisterRemoteWorkViewController: UIViewController {
     private var endDatePicker: UIDatePicker!
     private var focusedView: UIView?
     
+    private var viewsOrder: [UIView] {
+        [self.startDayTextField, self.endDayTextField, self.noteTextView, self.saveButton]
+    }
+    
     private var viewModel: RegisterRemoteWorkViewModelType!
     
     // MARK: - Overridden
@@ -231,8 +235,7 @@ extension RegisterRemoteWorkViewController {
     
     private func getViewUnderFocusedView() -> UIView? {
         guard let focusedView = self.focusedView else { return nil }
-        let viewsOrder: [UIView] = [self.startDayTextField, self.endDayTextField, self.noteTextView, self.saveButton]
-        guard let focusedViewIndex = viewsOrder.firstIndex(of: focusedView) else { return nil }
+        guard let focusedViewIndex = self.viewsOrder.firstIndex(of: focusedView) else { return nil }
         return viewsOrder[safeIndex: focusedViewIndex + 1]
     }
 }
