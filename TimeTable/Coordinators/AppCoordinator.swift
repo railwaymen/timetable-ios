@@ -8,8 +8,10 @@
 
 import UIKit
 
-protocol ParentCoordinator: class {
-    func present(error: Error)
+typealias LocalizedError = (Error & LocalizedDescribable)
+
+protocol ParentCoordinator: class {    
+    func present(localizedError: LocalizedError)
     func showProfile(parentViewController: UIViewController)
 }
 
@@ -24,7 +26,7 @@ class AppCoordinator: Coordinator {
                 self?.dependencyContainer.apiClient = nil
                 (self?.children.last as? TimeTableTabCoordinator)?.finish()
             } else {
-                self?.present(error: error)
+                self?.present(localizedError: error as? LocalizedError ?? UIError.genericError)
             }
         })
     }
@@ -93,11 +95,7 @@ class AppCoordinator: Coordinator {
 
 // MARK: - ParentCoordinator
 extension AppCoordinator: ParentCoordinator {
-    func present(error: Error) {
-        guard let localizedError = error as? LocalizedDescribable else {
-            self.errorHandler.stopInDebug("Passed error does not conform to LocalizedDescribable.")
-            return
-        }
+    func present(localizedError: LocalizedError) {
         self.dependencyContainer.messagePresenter?.presentAlertController(withMessage: localizedError.localizedDescription)
     }
     

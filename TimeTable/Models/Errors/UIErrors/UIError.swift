@@ -17,7 +17,7 @@ enum UIError: Error {
 }
 
 // MARK: - LocalizedDescribable
-extension UIError {
+extension UIError: LocalizedDescribable {
     var localizedDescription: String {
         switch self {
         case .cannotBeEmpty:

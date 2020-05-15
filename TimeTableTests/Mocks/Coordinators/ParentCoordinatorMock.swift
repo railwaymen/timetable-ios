@@ -12,7 +12,7 @@ import XCTest
 class ParentCoordinatorMock {
     private(set) var presentErrorParams: [PresentErrorParams] = []
     struct PresentErrorParams {
-        let error: Error
+        let localizedError: TimeTable.LocalizedError
     }
     
     private(set) var showProfileParams: [ShowProfileParams] = []
@@ -23,8 +23,8 @@ class ParentCoordinatorMock {
 
 // MARK: - ParentCoordinator
 extension ParentCoordinatorMock: ParentCoordinator {
-    func present(error: Error) {
-        self.presentErrorParams.append(PresentErrorParams(error: error))
+    func present(localizedError: TimeTable.LocalizedError) {
+        self.presentErrorParams.append(PresentErrorParams(localizedError: localizedError))
     }
     
     func showProfile(parentViewController: UIViewController) {
