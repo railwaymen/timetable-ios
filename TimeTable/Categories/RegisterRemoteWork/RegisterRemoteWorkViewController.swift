@@ -113,11 +113,20 @@ extension RegisterRemoteWorkViewController: RegisterRemoteWorkViewModelOutput {
         self.endDatePicker?.date = date
     }
     
-    func setBottomContentInset(_ height: CGFloat) {
+    func keyboardHeightDidChange(to keyboardHeight: CGFloat) {
         guard self.isViewLoaded else { return }
-        let bottomInset = max(0, height - self.scrollView.safeAreaInsets.bottom)
+        self.setBottomContentInset(keyboardHeight: keyboardHeight)
+        self.setContentOffset()
+    }
+    
+    private func setBottomContentInset(keyboardHeight: CGFloat) {
+        let bottomInset = max(0, keyboardHeight - self.view.safeAreaInsets.bottom)
         self.scrollView.contentInset.bottom = bottomInset
         self.scrollView.verticalScrollIndicatorInsets.bottom = bottomInset
+    }
+    
+    private func setContentOffset() {
+        self.scrollView.scrollTo(.bottom, of: self.saveButton, addingOffset: 16, adjustingMode: .minimumMovement)
     }
     
     func dismissKeyboard() {
