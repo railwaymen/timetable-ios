@@ -10,11 +10,11 @@ import Foundation
 
 extension Date {
     func roundedToFiveMinutes() -> Date {
-        return self.roundDate(with: 5 * .minute)
+        self.roundDate(with: 5 * .minute)
     }
     
     func roundedToQuarter() -> Date {
-        return self.roundDate(with: 15 * .minute)
+        self.roundDate(with: .quarter(of: .hour))
     }
 }
 

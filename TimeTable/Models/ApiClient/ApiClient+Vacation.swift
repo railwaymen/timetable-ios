@@ -23,7 +23,7 @@ protocol ApiClientVacationType: class {
 
 extension ApiClient: ApiClientVacationType {
     func fetchVacation(parameters: VacationParameters, completion: @escaping FetchVacationCompletion) -> RestlerTaskType? {
-        return self.restler
+        self.restler
             .get(Endpoint.vacation)
             .query(parameters)
             .decode(VacationResponse.self)
@@ -32,7 +32,7 @@ extension ApiClient: ApiClientVacationType {
     }
     
     func addVacation(_ vacation: VacationEncoder, completion: @escaping AddVacationCompletion) -> RestlerTaskType? {
-        return self.restler
+        self.restler
             .post(Endpoint.vacation)
             .body(vacation)
             .failureDecode(ValidationError<NewVacationValidationError>.self)
@@ -42,7 +42,7 @@ extension ApiClient: ApiClientVacationType {
     }
     
     func declineVacation(_ vacation: VacationDecoder, completion: @escaping VoidCompletion) -> RestlerTaskType? {
-        return self.restler
+        self.restler
             .put(Endpoint.vacationDecline(vacation.id))
             .decode(Void.self)
             .onCompletion(completion)

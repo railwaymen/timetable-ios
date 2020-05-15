@@ -135,12 +135,11 @@ extension RegisterRemoteWorkViewModel: RegisterRemoteWorkViewModelType {
     }
     
     func closeButtonTapped() {
-        self.coordinator?.registerRemoteWorkDidRequestToDismiss()
+        self.coordinator?.registerRemoteWorkDidFinish()
     }
     
     func viewChanged(startAtDate date: Date) {
         self.form.startsAt = date
-        self.updateDateInput(with: date, action: self.userInterface?.updateStartDate)
         self.userInterface?.setMinimumDateForEndDate(minDate: date)
         guard self.form.endsAt < date else { return }
         self.viewChanged(endAtDate: date)
@@ -148,7 +147,6 @@ extension RegisterRemoteWorkViewModel: RegisterRemoteWorkViewModelType {
     
     func viewChanged(endAtDate date: Date) {
         self.form.endsAt = date
-        self.updateDateInput(with: date, action: self.userInterface?.updateEndDate)
     }
     
     func noteTextViewDidChange(text: String) {
@@ -169,12 +167,11 @@ extension RegisterRemoteWorkViewModel: RegisterRemoteWorkViewModelType {
     }
 }
 
+// MARK: - Private
 extension RegisterRemoteWorkViewModel {
     private func updateViewForPreparingState() {
-        self.updateDateInput(with: self.form.startsAt, action: self.userInterface?.updateStartDate)
-        self.updateDateInput(with: self.form.endsAt, action: self.userInterface?.updateEndDate)
-        self.userInterface?.setMinimumDateForEndDate(minDate: self.form.startsAt)
         self.userInterface?.setNote(text: self.form.note)
+        self.userInterface?.setMinimumDateForEndDate(minDate: self.form.startsAt)
         self.updateUI()
     }
     
@@ -225,6 +222,8 @@ extension RegisterRemoteWorkViewModel {
         let errors = self.form.validationErrors()
         self.userInterface?.setSaveButton(isEnabled: errors.isEmpty)
         self.updateUI(with: errors)
+        self.updateDateInput(with: self.form.startsAt, action: self.userInterface?.updateStartDate)
+        self.updateDateInput(with: self.form.endsAt, action: self.userInterface?.updateEndDate)
     }
     
     private func updateUI(with errors: [UIError]) {

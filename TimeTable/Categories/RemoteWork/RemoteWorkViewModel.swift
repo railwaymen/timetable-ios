@@ -190,10 +190,10 @@ extension RemoteWorkViewModel {
             self.userInterface?.setActivityIndicator(isHidden: false)
         }
         _ = self.apiClient.fetchRemoteWork(parameters: parameters) { [weak self] result in
+            defer { completion?() }
             if showActivityIndicator {
                 self?.userInterface?.setActivityIndicator(isHidden: true)
             }
-            completion?()
             switch result {
             case let .success(response):
                 self?.handleFirstPageFetchSuccess(response: response)

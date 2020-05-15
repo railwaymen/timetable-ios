@@ -29,6 +29,7 @@ class RegisterRemoteWorkViewController: UIViewController {
     @IBOutlet private var saveButtonHeightConstraint: NSLayoutConstraint!
     
     private let bottomPadding: CGFloat = 16
+    private var viewModel: RegisterRemoteWorkViewModelType!
     private var startDatePicker: UIDatePicker!
     private var endDatePicker: UIDatePicker!
     private var focusedView: UIView?
@@ -36,8 +37,6 @@ class RegisterRemoteWorkViewController: UIViewController {
     private var viewsOrder: [UIView] {
         [self.startDayTextField, self.endDayTextField, self.noteTextView, self.saveButton]
     }
-    
-    private var viewModel: RegisterRemoteWorkViewModelType!
     
     // MARK: - Overridden
     override func loadView() {

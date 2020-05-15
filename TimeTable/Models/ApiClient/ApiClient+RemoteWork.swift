@@ -38,7 +38,7 @@ extension ApiClient: ApiClientRemoteWorkType {
         parameters: RemoteWorkParameters,
         completion: @escaping FetchRemoteWorkCompletion
     ) -> RestlerTaskType? {
-        return self.restler
+        self.restler
             .get(Endpoint.remoteWorks)
             .query(parameters)
             .decode(RemoteWorkResponse.self)

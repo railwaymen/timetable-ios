@@ -13,7 +13,7 @@ struct RemoteWorkParameters: RestlerQueryEncodable {
     let page: Int
     let perPage: Int
     
-    private  enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case page
         case perPage = "per_page"
     }

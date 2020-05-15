@@ -18,7 +18,7 @@ struct RemoteWork: Decodable {
     let updatedByAdmin: Bool
     let userID: Int
     
-    private  enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case id
         case creatorID = "creator_id"
         case startsAt = "starts_at"

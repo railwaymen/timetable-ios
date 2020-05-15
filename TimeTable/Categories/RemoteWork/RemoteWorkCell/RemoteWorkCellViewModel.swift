@@ -36,10 +36,11 @@ extension RemoteWorkCellViewModel: RemoteWorkCellViewModelType {
         let day = DateFormatter.shortDate.string(from: self.remoteWork.startsAt)
         let startsAtHours = DateFormatter.shortTime.string(from: self.remoteWork.startsAt)
         let endsAtHours = DateFormatter.shortTime.string(from: self.remoteWork.endsAt)
+        let duration = DateComponentsFormatter.timeAbbreviated.string(from: self.remoteWork.duration)
         self.userInterface?.updateView(
             day: day,
             timeInterval: "\(startsAtHours) - \(endsAtHours)",
-            duration: DateComponentsFormatter.timeAbbreviated.string(from: self.remoteWork.duration),
+            duration: duration,
             note: self.remoteWork.note)
     }
 }

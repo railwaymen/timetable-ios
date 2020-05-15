@@ -21,7 +21,6 @@ class RemoteWorkViewController: UIViewController {
     
     private var viewModel: RemoteWorkViewModelType!
     
-    private let tableViewEstimatedRowHeight: CGFloat = 80
     private let minimumCellHeight: CGFloat = 74
     
     // MARK: - Overridden

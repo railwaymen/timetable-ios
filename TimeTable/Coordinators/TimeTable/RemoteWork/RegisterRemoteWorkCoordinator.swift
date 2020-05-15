@@ -9,8 +9,13 @@
 import UIKit
 
 protocol RegisterRemoteWorkCoordinatorType: class {
-    func registerRemoteWorkDidRequestToDismiss()
     func registerRemoteWorkDidFinish(response: [RemoteWork])
+}
+
+extension RegisterRemoteWorkCoordinatorType {
+    func registerRemoteWorkDidFinish() {
+        self.registerRemoteWorkDidFinish(response: [])
+    }
 }
 
 class RegisterRemoteWorkCoordinator: NavigationCoordinator {
@@ -29,9 +34,7 @@ class RegisterRemoteWorkCoordinator: NavigationCoordinator {
         self.parentViewController = parentViewController
         self.mode = mode
         super.init(window: dependencyContainer.window)
-        self.navigationController.setNavigationBarHidden(false, animated: false)
-        self.navigationController.navigationBar.prefersLargeTitles = false
-        self.navigationController.navigationBar.tintColor = .tint
+        self.setUpNavigationController()
     }
     
     deinit {
@@ -59,12 +62,6 @@ class RegisterRemoteWorkCoordinator: NavigationCoordinator {
 
 // MARK: - RegisterRemoteWorkCoordinatorType
 extension RegisterRemoteWorkCoordinator: RegisterRemoteWorkCoordinatorType {
-    func registerRemoteWorkDidRequestToDismiss() {
-        self.navigationController.dismiss(animated: true) { [weak self] in
-            self?.finish()
-        }
-    }
-    
     func registerRemoteWorkDidFinish(response: [RemoteWork]) {
         self.navigationController.dismiss(animated: true) { [weak self] in
             self?.finish(response: response)
@@ -74,6 +71,12 @@ extension RegisterRemoteWorkCoordinator: RegisterRemoteWorkCoordinatorType {
 
 // MARK: - Private
 extension RegisterRemoteWorkCoordinator {
+    private func setUpNavigationController() {
+        self.navigationController.setNavigationBarHidden(false, animated: false)
+        self.navigationController.navigationBar.prefersLargeTitles = false
+        self.navigationController.navigationBar.tintColor = .tint
+    }
+    
     private func runMainFlow() {
         guard let apiClient = self.dependencyContainer.apiClient else {
             self.dependencyContainer.errorHandler.stopInDebug("Api client is nil")

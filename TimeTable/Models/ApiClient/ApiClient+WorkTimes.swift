@@ -27,7 +27,7 @@ extension ApiClient: ApiClientWorkTimesType {
         parameters: WorkTimesParameters,
         completion: @escaping ((Result<[WorkTimeDecoder], Error>) -> Void)
     ) -> RestlerTaskType? {
-        return self.restler
+        self.restler
             .get(Endpoint.workTimes)
             .query(parameters)
             .decode([WorkTimeDecoder].self)
@@ -39,7 +39,7 @@ extension ApiClient: ApiClientWorkTimesType {
         id: Int64,
         completion: @escaping (Result<WorkTimeDecoder, Error>) -> Void
     ) -> RestlerTaskType? {
-        return self.restler
+        self.restler
             .get(Endpoint.workTime(id))
             .decode(WorkTimeDecoder.self)
             .onCompletion(completion)
