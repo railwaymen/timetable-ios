@@ -32,7 +32,12 @@ class RegisterRemoteWorkViewController: UIViewController {
     private var viewModel: RegisterRemoteWorkViewModelType!
     private var startDatePicker: UIDatePicker!
     private var endDatePicker: UIDatePicker!
-    private var focusedView: UIView?
+    private var lastKeyboardHeight: CGFloat?
+    private var focusedView: UIView? {
+        didSet {
+            self.setContentOffset(animated: true)
+        }
+    }
     
     private var viewsOrder: [UIView] {
         [self.startDayTextField, self.endDayTextField, self.noteTextView, self.saveButton]
@@ -84,6 +89,7 @@ class RegisterRemoteWorkViewController: UIViewController {
 extension RegisterRemoteWorkViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         self.viewModel.noteTextViewDidChange(text: textView.text)
+        self.setContentOffset(animated: false)
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
@@ -129,11 +135,13 @@ extension RegisterRemoteWorkViewController: RegisterRemoteWorkViewModelOutput {
     
     func keyboardHeightDidChange(to keyboardHeight: CGFloat) {
         guard self.isViewLoaded else { return }
+        guard self.lastKeyboardHeight != keyboardHeight else { return }
+        self.lastKeyboardHeight = keyboardHeight
         if keyboardHeight == 0 {
             self.focusedView = nil
         }
         self.setBottomContentInset(keyboardHeight: keyboardHeight)
-        self.setContentOffset()
+        self.setContentOffset(animated: true)
     }
     
     func dismissKeyboard() {
@@ -227,9 +235,26 @@ extension RegisterRemoteWorkViewController {
         self.scrollView.verticalScrollIndicatorInsets.bottom = bottomInset
     }
     
-    private func setContentOffset() {
+    private func setContentOffset(animated: Bool) {
+        guard let currentView = self.focusedView else { return }
         guard let nextView = self.getViewUnderFocusedView() else { return }
-        self.scrollView.scrollTo(.bottom, of: nextView, addingOffset: self.bottomPadding)
+        DispatchQueue.main.async {
+            self.scrollView.layoutIfNeeded()
+            if let textView = currentView as? UITextView,
+                let selectedRange = textView.selectedTextRange {
+                let cursorYPosition = min(textView.firstRect(for: selectedRange).minY, textView.bounds.maxY)
+                let action = self.scrollView.buildScrollAction()
+                    .scroll(to: .top, of: currentView, addingOffset: -32)
+                    .scroll(to: .bottom, of: nextView, addingOffset: self.bottomPadding)
+                    .scroll(to: .top, of: currentView, addingOffset: cursorYPosition - self.bottomPadding)
+                action.perform(animated: animated)
+            } else {
+                self.scrollView.buildScrollAction()
+                    .scroll(to: .bottom, of: nextView, addingOffset: self.bottomPadding)
+                    .scroll(to: .top, of: currentView, addingOffset: -32)
+                    .perform(animated: animated)
+            }
+        }
     }
     
     private func getViewUnderFocusedView() -> UIView? {

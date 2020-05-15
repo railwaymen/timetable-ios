@@ -8,14 +8,41 @@
 
 import UIKit
 
-// MARK: - Getters
-extension UIScrollView {
+protocol UIScrollViewType: class {
+    var adjustedContentInset: UIEdgeInsets { get }
+    var bounds: CGRect { get }
+    var frame: CGRect { get }
+    var contentSize: CGSize { get }
+    var contentOffset: CGPoint { get }
+    
+    func setContentOffset(_ contentOffset: CGPoint, animated: Bool)
+    func contains(_ view: UIFocusEnvironment) -> Bool
+    func viewEdgeYPosition(view: UIView, verticalPosition: UIScrollView.VerticalPosition) -> CGFloat
+}
+
+extension UIScrollViewType {
     var minYOffset: CGFloat {
         -self.adjustedContentInset.top
     }
     
     var maxYOffset: CGFloat {
         self.contentSize.height - self.bounds.height + self.adjustedContentInset.bottom
+    }
+    
+    func adjustToContentOffsetBounds(yOffset: CGFloat) -> CGFloat {
+        max(self.minYOffset, min(yOffset, self.maxYOffset))
+    }
+}
+
+extension UIScrollView: UIScrollViewType {
+    func viewEdgeYPosition(view: UIView, verticalPosition: VerticalPosition) -> CGFloat {
+        let viewYPosition = view.convert(view.bounds, to: self).minY
+        switch verticalPosition {
+        case .top:
+            return viewYPosition
+        case .bottom:
+            return viewYPosition + view.frame.height
+        }
     }
 }
 
@@ -26,52 +53,59 @@ extension UIScrollView {
         case bottom
     }
     
-    enum OffsetAdjustingMode {
-        case exact
-        case minimumMovement
+    final class ScrollAction {
+        let scrollView: UIScrollViewType
+        let contentOffset: CGPoint
         
-        func calculatedOffset(currentOffset: CGFloat, expectedOffset: CGFloat) -> CGFloat {
-            switch self {
-            case .exact:
-                return expectedOffset
-            case .minimumMovement:
-                return max(currentOffset, expectedOffset)
+        // MARK: - Initialization
+        init(scrollView: UIScrollViewType) {
+            self.scrollView = scrollView
+            self.contentOffset = scrollView.contentOffset
+        }
+        
+        private init(scrollView: UIScrollViewType, contentOffset: CGPoint) {
+            self.scrollView = scrollView
+            self.contentOffset = contentOffset
+        }
+        
+        // MARK: - Internal
+        func scroll(
+            to verticalPosition: VerticalPosition,
+            of view: UIView,
+            addingOffset offset: CGFloat = 0
+        ) -> ScrollAction {
+            guard self.scrollView.contains(view) else { return self }
+            let overlappingHeight = self.scrollView.adjustedContentInset.bottom + self.scrollView.adjustedContentInset.top
+            let viewEdgeYPosition = self.scrollView.viewEdgeYPosition(view: view, verticalPosition: verticalPosition)
+            let visiblePartHeight: CGFloat = self.scrollView.bounds.height - overlappingHeight
+            let minVisibleYPosition: CGFloat = self.contentOffset.y + self.scrollView.adjustedContentInset.top
+            let maxVisibleYPosition: CGFloat = minVisibleYPosition + visiblePartHeight
+            let expectedOffset: CGFloat = viewEdgeYPosition + offset
+            let distanceToTop: CGFloat = abs(minVisibleYPosition.distance(to: expectedOffset))
+            let distanceToBottom: CGFloat = abs(maxVisibleYPosition.distance(to: expectedOffset))
+            let yOffset: CGFloat
+            
+            if minVisibleYPosition...maxVisibleYPosition ~= expectedOffset {
+                return self
+            } else if distanceToTop > distanceToBottom {
+                yOffset = expectedOffset - visiblePartHeight
+            } else {
+                yOffset = expectedOffset - self.scrollView.adjustedContentInset.top
             }
+            
+            let newOffset = CGPoint(x: self.contentOffset.x, y: self.scrollView.adjustToContentOffsetBounds(yOffset: yOffset))
+            return ScrollAction(scrollView: self.scrollView, contentOffset: newOffset)
+        }
+        
+        func perform(animated: Bool) {
+            self.scrollView.setContentOffset(self.contentOffset, animated: animated)
         }
     }
 }
 
 // MARK: - Internal
 extension UIScrollView {
-    func scrollTo(
-        _ verticalPosition: VerticalPosition,
-        of view: UIView,
-        addingOffset padding: CGFloat = 0,
-        adjustingMode: OffsetAdjustingMode = .minimumMovement
-    ) {
-        guard self.contains(view) else { return }
-        let overlappingHeight = self.contentInset.bottom
-        let viewEdgeYPosition = self.viewEdgeYPosition(view: view, verticalPosition: verticalPosition)
-        let expectedOffset = viewEdgeYPosition + padding - self.bounds.height + overlappingHeight
-        let yOffset = adjustingMode.calculatedOffset(currentOffset: self.contentOffset.y, expectedOffset: expectedOffset)
-        let newOffset = CGPoint(x: self.contentOffset.x, y: self.adjustToContentOffsetBounds(yOffset: yOffset))
-        self.setContentOffset(newOffset, animated: true)
-    }
-}
-
-// MARK: - Private
-extension UIScrollView {
-    private func viewEdgeYPosition(view: UIView, verticalPosition: VerticalPosition) -> CGFloat {
-        let viewYPosition = view.convert(view.bounds, to: self).minY
-        switch verticalPosition {
-        case .top:
-            return viewYPosition
-        case .bottom:
-            return viewYPosition + view.frame.height
-        }
-    }
-    
-    private func adjustToContentOffsetBounds(yOffset: CGFloat) -> CGFloat {
-        max(self.minYOffset, min(yOffset, self.maxYOffset))
+    func buildScrollAction() -> ScrollAction {
+        ScrollAction(scrollView: self)
     }
 }

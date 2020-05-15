@@ -227,6 +227,7 @@
 		8A9987CE23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A9987CD23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json */; };
 		8A9987D023951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A9987CF23951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json */; };
 		8A99EBC123D9B95600CC9BA8 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A99EBC023D9B95600CC9BA8 /* UIColor+Extension.swift */; };
+		8A9CA52B2472680000E78DCD /* UIScrollViewScrollActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9CA52A2472680000E78DCD /* UIScrollViewScrollActionTests.swift */; };
 		8A9FB40A2434CABF00805F4E /* ViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9FB4092434CABF00805F4E /* ViewControllerBuilder.swift */; };
 		8AA1D33A246E75E80037EB9C /* UIScrollView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA1D339246E75E80037EB9C /* UIScrollView+Extension.swift */; };
 		8AA3E5C9241648FB00322AEF /* RestlerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3E5C8241648FB00322AEF /* RestlerMock.swift */; };
@@ -920,6 +921,7 @@
 		8A9987CD23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithIsTaggableTrueResponse.json; sourceTree = "<group>"; };
 		8A9987CF23951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithIsTaggableFalseResponse.json; sourceTree = "<group>"; };
 		8A99EBC023D9B95600CC9BA8 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		8A9CA52A2472680000E78DCD /* UIScrollViewScrollActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollViewScrollActionTests.swift; sourceTree = "<group>"; };
 		8A9FB4092434CABF00805F4E /* ViewControllerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerBuilder.swift; sourceTree = "<group>"; };
 		8AA1D339246E75E80037EB9C /* UIScrollView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Extension.swift"; sourceTree = "<group>"; };
 		8AA3E5C8241648FB00322AEF /* RestlerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestlerMock.swift; sourceTree = "<group>"; };
@@ -2721,6 +2723,7 @@
 				C153AC5F2182FC4B007A35BB /* UITextFieldExtensionTests.swift */,
 				C19DDB1221A42043008C6FA3 /* URLExtensionTests.swift */,
 				C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */,
+				8A9CA52A2472680000E78DCD /* UIScrollViewScrollActionTests.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -4464,6 +4467,7 @@
 				C1249C6C2181A23A005DB2A5 /* String+Error.swift in Sources */,
 				C130B148246BE7E2002D23AB /* SignInValidationErrorResponse.swift in Sources */,
 				C134299B21A6D87900F4EA42 /* CoordinatorMock.swift in Sources */,
+				8A9CA52B2472680000E78DCD /* UIScrollViewScrollActionTests.swift in Sources */,
 				8A6A4FB42456D9F5004B4CF2 /* AccountingPeriodTests.swift in Sources */,
 				C1F62B3724694A1C00AB8C00 /* BasicErrorResource.swift in Sources */,
 				8A137C3923FD71D0001569BB /* WorkTimeContentProviderTests.swift in Sources */,
