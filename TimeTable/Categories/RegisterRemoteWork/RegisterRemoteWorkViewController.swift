@@ -28,8 +28,10 @@ class RegisterRemoteWorkViewController: UIViewController {
     @IBOutlet private var textFieldsHeightConstraints: [NSLayoutConstraint]!
     @IBOutlet private var saveButtonHeightConstraint: NSLayoutConstraint!
     
+    private let bottomPadding: CGFloat = 16
     private var startDatePicker: UIDatePicker!
     private var endDatePicker: UIDatePicker!
+    private var focusedView: UIView?
     
     private var viewModel: RegisterRemoteWorkViewModelType!
     
@@ -54,6 +56,10 @@ class RegisterRemoteWorkViewController: UIViewController {
         self.viewModel.closeButtonTapped()
     }
     
+    @IBAction private func textFieldDidBeginEditing(_ sender: UITextField) {
+        self.focusedView = sender
+    }
+    
     @objc private func startDateTextFieldChanged(_ sender: UIDatePicker) {
         self.viewModel.viewChanged(startAtDate: sender.date)
     }
@@ -75,6 +81,11 @@ class RegisterRemoteWorkViewController: UIViewController {
 extension RegisterRemoteWorkViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         self.viewModel.noteTextViewDidChange(text: textView.text)
+    }
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        self.focusedView = textView
+        return true
     }
 }
 
@@ -115,18 +126,11 @@ extension RegisterRemoteWorkViewController: RegisterRemoteWorkViewModelOutput {
     
     func keyboardHeightDidChange(to keyboardHeight: CGFloat) {
         guard self.isViewLoaded else { return }
+        if keyboardHeight == 0 {
+            self.focusedView = nil
+        }
         self.setBottomContentInset(keyboardHeight: keyboardHeight)
         self.setContentOffset()
-    }
-    
-    private func setBottomContentInset(keyboardHeight: CGFloat) {
-        let bottomInset = max(0, keyboardHeight - self.view.safeAreaInsets.bottom)
-        self.scrollView.contentInset.bottom = bottomInset
-        self.scrollView.verticalScrollIndicatorInsets.bottom = bottomInset
-    }
-    
-    private func setContentOffset() {
-        self.scrollView.scrollTo(.bottom, of: self.saveButton, addingOffset: 16, adjustingMode: .minimumMovement)
     }
     
     func dismissKeyboard() {
@@ -212,5 +216,23 @@ extension RegisterRemoteWorkViewController {
         view.set(
             borderColor: .textFieldBorderColor(isHighlighted: isHighlighted),
             animatingWithDuration: 0.3)
+    }
+    
+    private func setBottomContentInset(keyboardHeight: CGFloat) {
+        let bottomInset = max(0, keyboardHeight - self.view.safeAreaInsets.bottom)
+        self.scrollView.contentInset.bottom = bottomInset
+        self.scrollView.verticalScrollIndicatorInsets.bottom = bottomInset
+    }
+    
+    private func setContentOffset() {
+        guard let nextView = self.getViewUnderFocusedView() else { return }
+        self.scrollView.scrollTo(.bottom, of: nextView, addingOffset: self.bottomPadding)
+    }
+    
+    private func getViewUnderFocusedView() -> UIView? {
+        guard let focusedView = self.focusedView else { return nil }
+        let viewsOrder: [UIView] = [self.startDayTextField, self.endDayTextField, self.noteTextView, self.saveButton]
+        guard let focusedViewIndex = viewsOrder.firstIndex(of: focusedView) else { return nil }
+        return viewsOrder[safeIndex: focusedViewIndex + 1]
     }
 }

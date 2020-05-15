@@ -41,6 +41,9 @@
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <action selector="textFieldDidBeginEditing:" destination="fKC-JE-EtX" eventType="editingDidBegin" id="Ne8-Iw-pVG"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
@@ -63,6 +66,9 @@
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <action selector="textFieldDidBeginEditing:" destination="fKC-JE-EtX" eventType="editingDidBegin" id="zRf-za-14l"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
@@ -144,7 +150,7 @@
                                     <constraint firstItem="GRa-xb-hMH" firstAttribute="leading" secondItem="IPj-OB-wEg" secondAttribute="leading" id="QQZ-sH-LHZ"/>
                                     <constraint firstItem="GRa-xb-hMH" firstAttribute="top" secondItem="IPj-OB-wEg" secondAttribute="top" constant="16" id="gd1-i1-gxF"/>
                                     <constraint firstAttribute="trailing" secondItem="GRa-xb-hMH" secondAttribute="trailing" id="mKd-nk-ioq"/>
-                                    <constraint firstAttribute="bottom" secondItem="GRa-xb-hMH" secondAttribute="bottom" constant="8" id="xK1-AH-KwG"/>
+                                    <constraint firstAttribute="bottom" secondItem="GRa-xb-hMH" secondAttribute="bottom" constant="16" id="xK1-AH-KwG"/>
                                 </constraints>
                             </scrollView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="xug-eL-lyb">
