@@ -54,8 +54,6 @@ class RemoteWorkViewModel {
                 self.errorViewModel?.setRefreshButton(isEnabled: true)
             case .firstPageFetchFailed:
                 self.errorViewModel?.setRefreshButton(isEnabled: true)
-            case .forceFirstPageFetching:
-                self.errorViewModel?.setRefreshButton(isEnabled: false)
             case .none:
                 self.errorViewModel?.setRefreshButton(isEnabled: true)
             }
@@ -64,12 +62,6 @@ class RemoteWorkViewModel {
     
     private var recordsPerPage: Int {
         self.cellsPerTableHeight * self.tableHeightsPerPage
-    }
-    
-    private var isAbleToFetchFristPage: Bool {
-        return self.state == .none
-            || self.state == .firstPageFetchFailed
-            || self.state == .forceFirstPageFetching
     }
     
     // MARK: - Initialization
@@ -92,7 +84,6 @@ extension RemoteWorkViewModel {
         case fetching(page: Int)
         case fetched(page: Int, totalPages: Int)
         case firstPageFetchFailed
-        case forceFirstPageFetching
     }
 }
 
@@ -172,8 +163,7 @@ extension RemoteWorkViewModel: RemoteWorkViewModelType {
     }
     
     func viewRequestToRefresh(completion: @escaping () -> Void) {
-        self.state = .forceFirstPageFetching
-        self.fetchFirstPage(completion: completion)
+        self.fetchFirstPage(showActivityIndicator: false, completion: completion)
     }
 }
 
@@ -192,14 +182,17 @@ extension RemoteWorkViewModel {
         self.records[safeIndex: index.row]
     }
     
-    private func fetchFirstPage(completion: (() -> Void)? = nil) {
-        guard self.isAbleToFetchFristPage else { return }
+    private func fetchFirstPage(showActivityIndicator: Bool = true, completion: (() -> Void)? = nil) {
         let pageNumber = 1
         let parameters = self.parameters(forPage: pageNumber)
         self.state = .fetching(page: pageNumber)
-        self.userInterface?.setActivityIndicator(isHidden: false)
+        if showActivityIndicator {
+            self.userInterface?.setActivityIndicator(isHidden: false)
+        }
         _ = self.apiClient.fetchRemoteWork(parameters: parameters) { [weak self] result in
-            self?.userInterface?.setActivityIndicator(isHidden: true)
+            if showActivityIndicator {
+                self?.userInterface?.setActivityIndicator(isHidden: true)
+            }
             completion?()
             switch result {
             case let .success(response):
