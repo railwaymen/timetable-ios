@@ -99,6 +99,9 @@
                                                                 <color key="value" name="Text Field Border"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="fKC-JE-EtX" id="10p-oB-zNP"/>
+                                                        </connections>
                                                     </textView>
                                                 </subviews>
                                             </stackView>

@@ -135,7 +135,10 @@ extension RemoteWorkViewModel: RemoteWorkViewModelType {
     }
     
     func viewDidSelectCell(at indexPath: IndexPath) {
-        guard let item = self.item(for: indexPath) else { return }
+        guard let item = self.item(for: indexPath) else {
+            self.userInterface?.deselectAllRows()
+            return
+        }
         self.coordinator?.remoteWorkDidRequestForEditFormView(entry: item) { [weak self] updatedRecords in
             self?.userInterface?.deselectAllRows()
             self?.handleUpdateRecords(updatedRecords)

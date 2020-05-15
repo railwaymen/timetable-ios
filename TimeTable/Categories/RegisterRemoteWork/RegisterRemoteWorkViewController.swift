@@ -99,10 +99,6 @@ extension RegisterRemoteWorkViewController: RegisterRemoteWorkViewModelOutput {
         self.noteTextView.text = text
     }
     
-    func setMinimumDateForStartDate(minDate: Date) {
-        self.startDatePicker.minimumDate = minDate
-    }
-    
     func setMinimumDateForEndDate(minDate: Date) {
         self.endDatePicker.minimumDate = minDate
     }

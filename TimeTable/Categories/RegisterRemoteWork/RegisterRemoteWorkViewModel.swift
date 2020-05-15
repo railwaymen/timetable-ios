@@ -12,7 +12,6 @@ protocol RegisterRemoteWorkViewModelOutput: class {
     func setUp()
     func setActivityIndicator(isHidden: Bool)
     func setNote(text: String)
-    func setMinimumDateForStartDate(minDate: Date)
     func setMinimumDateForEndDate(minDate: Date)
     func updateStartDate(with date: Date, dateString: String)
     func updateEndDate(with date: Date, dateString: String)
@@ -172,11 +171,9 @@ extension RegisterRemoteWorkViewModel: RegisterRemoteWorkViewModelType {
 
 extension RegisterRemoteWorkViewModel {
     private func updateViewForPreparingState() {
-        let minDate = Date().roundedToQuarter()
         self.updateDateInput(with: self.form.startsAt, action: self.userInterface?.updateStartDate)
         self.updateDateInput(with: self.form.endsAt, action: self.userInterface?.updateEndDate)
         self.userInterface?.setMinimumDateForEndDate(minDate: self.form.startsAt)
-        self.userInterface?.setMinimumDateForStartDate(minDate: minDate)
         self.userInterface?.setNote(text: self.form.note)
         self.updateUI()
     }
