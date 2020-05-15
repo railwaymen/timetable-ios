@@ -43,6 +43,14 @@ class RemoteWorkViewController: UIViewController {
     @objc private func profileButtonTapped() {
         self.viewModel.profileButtonTapped()
     }
+    
+    @objc private func viewRequestToRefresh() {
+        self.viewModel.viewRequestToRefresh { [weak self] in
+            guard let refreshControl = self?.tableView.refreshControl else { return }
+            guard refreshControl.isRefreshing else { return }
+            refreshControl.endRefreshing()
+        }
+    }
 }
 
 // MARK: - UITableViewDelegate
@@ -84,6 +92,7 @@ extension RemoteWorkViewController: RemoteWorkViewModelOutput {
         self.setUpBarButtons()
         self.setUpActivityIndicator()
         self.setUpTableView()
+        self.setUpRefreshControl()
         self.tableView.set(isHidden: true)
         self.errorView.set(isHidden: true)
         self.viewModel.configure(self.errorView)
@@ -173,5 +182,11 @@ extension RemoteWorkViewController {
         deleteAction.backgroundColor = .deleteAction
         deleteAction.image = .delete
         return deleteAction
+    }
+    
+    private func setUpRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.viewRequestToRefresh), for: .valueChanged)
+        self.tableView.refreshControl = refreshControl
     }
 }

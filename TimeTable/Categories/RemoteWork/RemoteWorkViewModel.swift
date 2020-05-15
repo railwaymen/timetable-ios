@@ -19,6 +19,7 @@ protocol RemoteWorkViewModelType: class {
     func viewWillDisplayCell(at indexPath: IndexPath)
     func viewDidSelectCell(at indexPath: IndexPath)
     func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void)
+    func viewRequestToRefresh(completion: @escaping () -> Void)
 }
 
 protocol RemoteWorkViewModelOutput: class {
@@ -53,6 +54,8 @@ class RemoteWorkViewModel {
                 self.errorViewModel?.setRefreshButton(isEnabled: true)
             case .firstPageFetchFailed:
                 self.errorViewModel?.setRefreshButton(isEnabled: true)
+            case .forceFirstPageFetching:
+                self.errorViewModel?.setRefreshButton(isEnabled: false)
             case .none:
                 self.errorViewModel?.setRefreshButton(isEnabled: true)
             }
@@ -61,6 +64,12 @@ class RemoteWorkViewModel {
     
     private var recordsPerPage: Int {
         self.cellsPerTableHeight * self.tableHeightsPerPage
+    }
+    
+    private var isAbleToFetchFristPage: Bool {
+        return self.state == .none
+            || self.state == .firstPageFetchFailed
+            || self.state == .forceFirstPageFetching
     }
     
     // MARK: - Initialization
@@ -83,6 +92,7 @@ extension RemoteWorkViewModel {
         case fetching(page: Int)
         case fetched(page: Int, totalPages: Int)
         case firstPageFetchFailed
+        case forceFirstPageFetching
     }
 }
 
@@ -160,6 +170,11 @@ extension RemoteWorkViewModel: RemoteWorkViewModelType {
             }
         }
     }
+    
+    func viewRequestToRefresh(completion: @escaping () -> Void) {
+        self.state = .forceFirstPageFetching
+        self.fetchFirstPage(completion: completion)
+    }
 }
 
 // MARK: - Private
@@ -177,14 +192,15 @@ extension RemoteWorkViewModel {
         self.records[safeIndex: index.row]
     }
     
-    private func fetchFirstPage() {
-        guard self.state == .none || self.state == .firstPageFetchFailed else { return }
+    private func fetchFirstPage(completion: (() -> Void)? = nil) {
+        guard self.isAbleToFetchFristPage else { return }
         let pageNumber = 1
         let parameters = self.parameters(forPage: pageNumber)
         self.state = .fetching(page: pageNumber)
         self.userInterface?.setActivityIndicator(isHidden: false)
         _ = self.apiClient.fetchRemoteWork(parameters: parameters) { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)
+            completion?()
             switch result {
             case let .success(response):
                 self?.handleFirstPageFetchSuccess(response: response)
