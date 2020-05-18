@@ -228,6 +228,8 @@
 		8A9987D023951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A9987CF23951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json */; };
 		8A99EBC123D9B95600CC9BA8 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A99EBC023D9B95600CC9BA8 /* UIColor+Extension.swift */; };
 		8A9CA52B2472680000E78DCD /* UIScrollViewScrollActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9CA52A2472680000E78DCD /* UIScrollViewScrollActionTests.swift */; };
+		8A9CA52D2472B23F00E78DCD /* UIScrollViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9CA52C2472B23F00E78DCD /* UIScrollViewMock.swift */; };
+		8A9CA52F2472B27D00E78DCD /* UIEdgeInsets+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9CA52E2472B27D00E78DCD /* UIEdgeInsets+Extension.swift */; };
 		8A9FB40A2434CABF00805F4E /* ViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9FB4092434CABF00805F4E /* ViewControllerBuilder.swift */; };
 		8AA1D33A246E75E80037EB9C /* UIScrollView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA1D339246E75E80037EB9C /* UIScrollView+Extension.swift */; };
 		8AA3E5C9241648FB00322AEF /* RestlerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3E5C8241648FB00322AEF /* RestlerMock.swift */; };
@@ -922,6 +924,8 @@
 		8A9987CF23951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithIsTaggableFalseResponse.json; sourceTree = "<group>"; };
 		8A99EBC023D9B95600CC9BA8 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		8A9CA52A2472680000E78DCD /* UIScrollViewScrollActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollViewScrollActionTests.swift; sourceTree = "<group>"; };
+		8A9CA52C2472B23F00E78DCD /* UIScrollViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollViewMock.swift; sourceTree = "<group>"; };
+		8A9CA52E2472B27D00E78DCD /* UIEdgeInsets+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Extension.swift"; sourceTree = "<group>"; };
 		8A9FB4092434CABF00805F4E /* ViewControllerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerBuilder.swift; sourceTree = "<group>"; };
 		8AA1D339246E75E80037EB9C /* UIScrollView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Extension.swift"; sourceTree = "<group>"; };
 		8AA3E5C8241648FB00322AEF /* RestlerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestlerMock.swift; sourceTree = "<group>"; };
@@ -1669,6 +1673,7 @@
 				C134297021A6BDF100F4EA42 /* JSONEncoderMock.swift */,
 				8A0707FB23699BE50019FB8E /* NotificationCenterMock.swift */,
 				8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */,
+				8A9CA52C2472B23F00E78DCD /* UIScrollViewMock.swift */,
 				C134298221A6C73000F4EA42 /* URLSessionDataTaskMock.swift */,
 				C134298021A6C71200F4EA42 /* URLSessionMock.swift */,
 			);
@@ -2682,6 +2687,7 @@
 				C153AC502182EFEC007A35BB /* UIButton+Extension.swift */,
 				8A5EF31923FE806900AE4309 /* UICollectionView+Extension.swift */,
 				C12CA56921A57ADD0082FEB7 /* UIColor+Extension.swift */,
+				8A9CA52E2472B27D00E78DCD /* UIEdgeInsets+Extension.swift */,
 				8A5D48C52369ED990082C13D /* UIImage+Extension.swift */,
 				C153AC492182EE9F007A35BB /* UILabel+Extension .swift */,
 				8AB8AFC4244EF45400A0D3D3 /* UINavigationBar+Extension.swift */,
@@ -2720,10 +2726,10 @@
 				C153AC5D2182FA64007A35BB /* UIButtonExtensionTests.swift */,
 				C12CA56B21A57BAA0082FEB7 /* UIColorExtensionTests.swift */,
 				C153AC612182FCB7007A35BB /* UILabelExtensionTests.swift */,
+				8A9CA52A2472680000E78DCD /* UIScrollViewScrollActionTests.swift */,
 				C153AC5F2182FC4B007A35BB /* UITextFieldExtensionTests.swift */,
 				C19DDB1221A42043008C6FA3 /* URLExtensionTests.swift */,
 				C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */,
-				8A9CA52A2472680000E78DCD /* UIScrollViewScrollActionTests.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -4119,6 +4125,7 @@
 				C1AACFD821A4387F0023FD32 /* WorkTimesListCoordinator.swift in Sources */,
 				C1B8FA44218C929F009D10B4 /* SessionDecoder.swift in Sources */,
 				C153AC4A2182EE9F007A35BB /* UILabel+Extension .swift in Sources */,
+				8A9CA52F2472B27D00E78DCD /* UIEdgeInsets+Extension.swift in Sources */,
 				8A56FC1124531AE30020F8CD /* AccountingPeriodsCoordinator.swift in Sources */,
 				C125F1B621DCCF4400594CDE /* ProjectsViewController.swift in Sources */,
 				C125F1AF21DCC95200594CDE /* ProjectRecordDecoder.swift in Sources */,
@@ -4434,6 +4441,7 @@
 				C1EF3A0921930722000E3511 /* StringExtensionTests.swift in Sources */,
 				8A523C8E2395091900215C61 /* DateExtensionTests.swift in Sources */,
 				C1F62B65246984C700AB8C00 /* NewVacationDescriptionErrorKeyTests.swift in Sources */,
+				8A9CA52D2472B23F00E78DCD /* UIScrollViewMock.swift in Sources */,
 				C17208A424644C860010ED38 /* RemoteWorkFormTests.swift in Sources */,
 				C134296F21A6BCCD00F4EA42 /* RequestEncoderMock.swift in Sources */,
 				C1E908D624586432003E0368 /* UsedVacationViewControllerMock.swift in Sources */,

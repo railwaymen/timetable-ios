@@ -63,7 +63,10 @@ extension UIScrollView {
             self.contentOffset = scrollView.contentOffset
         }
         
-        private init(scrollView: UIScrollViewType, contentOffset: CGPoint) {
+        private init(
+            scrollView: UIScrollViewType,
+            contentOffset: CGPoint
+        ) {
             self.scrollView = scrollView
             self.contentOffset = contentOffset
         }
@@ -75,9 +78,8 @@ extension UIScrollView {
             addingOffset offset: CGFloat = 0
         ) -> ScrollAction {
             guard self.scrollView.contains(view) else { return self }
-            let overlappingHeight = self.scrollView.adjustedContentInset.bottom + self.scrollView.adjustedContentInset.top
-            let viewEdgeYPosition = self.scrollView.viewEdgeYPosition(view: view, verticalPosition: verticalPosition)
-            let visiblePartHeight: CGFloat = self.scrollView.bounds.height - overlappingHeight
+            let viewEdgeYPosition: CGFloat = self.scrollView.viewEdgeYPosition(view: view, verticalPosition: verticalPosition)
+            let visiblePartHeight: CGFloat = self.scrollView.bounds.height - self.scrollView.adjustedContentInset.vertical
             let minVisibleYPosition: CGFloat = self.contentOffset.y + self.scrollView.adjustedContentInset.top
             let maxVisibleYPosition: CGFloat = minVisibleYPosition + visiblePartHeight
             let expectedOffset: CGFloat = viewEdgeYPosition + offset
