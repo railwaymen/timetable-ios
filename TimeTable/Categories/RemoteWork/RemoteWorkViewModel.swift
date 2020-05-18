@@ -114,7 +114,7 @@ extension RemoteWorkViewModel: RemoteWorkViewModelType {
     }
     
     func configure(_ view: ErrorViewable) {
-        let viewModel = ErrorViewModel(userInterface: view, error: UIError.genericError) { [weak self] in
+        let viewModel = ErrorViewModel(userInterface: view, localizedError: UIError.genericError) { [weak self] in
             self?.fetchFirstPage()
         }
         view.configure(viewModel: viewModel)
@@ -212,7 +212,7 @@ extension RemoteWorkViewModel {
     
     private func handleFirstPageFetchFailure(error: Error) {
         self.state = .firstPageFetchFailed
-        self.errorViewModel?.update(error: error as? ApiClientError ?? UIError.genericError)
+        self.errorViewModel?.update(localizedError: error as? ApiClientError ?? UIError.genericError)
         self.userInterface?.showErrorView()
     }
     

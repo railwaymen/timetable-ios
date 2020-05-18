@@ -38,7 +38,7 @@ extension AccountingPeriodsCoordinator: AccountingPeriodsCoordinatorViewModelInt
     func configure(_ errorView: ErrorViewable, refreshHandler: (() -> Void)?) -> ErrorViewModelParentType {
         let viewModel = ErrorViewModel(
             userInterface: errorView,
-            error: UIError.genericError,
+            localizedError: UIError.genericError,
             actionHandler: refreshHandler)
         errorView.configure(viewModel: viewModel)
         return viewModel

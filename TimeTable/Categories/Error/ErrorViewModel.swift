@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ErrorViewModelParentType: class {
-    func update(error: Error)
+    func update(localizedError: LocalizedError)
     func setRefreshButton(isEnabled: Bool)
 }
 
@@ -26,17 +26,17 @@ protocol ErrorViewModelType: class {
 
 class ErrorViewModel {
     private weak var userInterface: ErrorViewModelOutput?
-    private var error: Error
+    private var localizedError: LocalizedError
     private let actionHandler: (() -> Void)?
     
     // MARK: - Initialization
     init(
         userInterface: ErrorViewModelOutput?,
-        error: Error,
+        localizedError: LocalizedError,
         actionHandler: (() -> Void)?
     ) {
         self.userInterface = userInterface
-        self.error = error
+        self.localizedError = localizedError
         self.actionHandler = actionHandler
     }
 }
@@ -55,8 +55,8 @@ extension ErrorViewModel: ErrorViewModelType {
 
 // MARK: - ErrorViewModelParentType
 extension ErrorViewModel: ErrorViewModelParentType {
-    func update(error: Error) {
-        self.error = error
+    func update(localizedError: LocalizedError) {
+        self.localizedError = localizedError
         self.updateErrorTitle()
     }
     
@@ -68,12 +68,6 @@ extension ErrorViewModel: ErrorViewModelParentType {
 // MARK: - Private
 extension ErrorViewModel {
     private func updateErrorTitle() {
-        var title: String = ""
-        if let error = self.error as? UIError {
-            title = error.localizedDescription
-        } else if let error = self.error as? ApiClientError {
-            title = error.type.localizedDescription
-        }
-        self.userInterface?.update(title: title)
+        self.userInterface?.update(title: self.localizedError.localizedDescription)
     }
 }

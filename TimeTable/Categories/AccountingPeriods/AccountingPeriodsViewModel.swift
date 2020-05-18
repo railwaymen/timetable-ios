@@ -143,9 +143,9 @@ extension AccountingPeriodsViewModel {
     
     private func handleFirstFetchFailure(error: Error) {
         if let apiClientError = error as? ApiClientError {
-            self.errorViewModel?.update(error: apiClientError)
+            self.errorViewModel?.update(localizedError: apiClientError)
         } else {
-            self.errorViewModel?.update(error: UIError.genericError)
+            self.errorViewModel?.update(localizedError: UIError.genericError)
             self.errorHandler.throwing(error: error)
         }
         self.state = .failedFetchingFirstPage

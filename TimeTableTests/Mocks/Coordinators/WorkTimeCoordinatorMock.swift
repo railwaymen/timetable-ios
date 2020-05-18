@@ -46,7 +46,7 @@ extension WorkTimeCoordinatorMock: WorkTimeCoordinatorType {
     func configure(errorView: ErrorViewable, action: @escaping () -> Void) -> ErrorViewModelParentType {
         self.configureErrorViewParams.append(ConfigureErrorViewParams(errorView: errorView, action: action))
         return self.configureErrorViewReturnValue
-            ?? ErrorViewModel(userInterface: errorView, error: UIError.genericError, actionHandler: action)
+            ?? ErrorViewModel(userInterface: errorView, localizedError: UIError.genericError, actionHandler: action)
     }
     
     func showProjectPicker(

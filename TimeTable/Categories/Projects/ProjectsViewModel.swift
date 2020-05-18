@@ -76,7 +76,7 @@ extension ProjectsViewModel: ProjectsViewModelType {
     }
     
     func configure(_ view: ErrorViewable) {
-        let viewModel = ErrorViewModel(userInterface: view, error: UIError.genericError) { [weak self] in
+        let viewModel = ErrorViewModel(userInterface: view, localizedError: UIError.genericError) { [weak self] in
             self?.fetchProjects()
         }
         view.configure(viewModel: viewModel)
@@ -128,10 +128,10 @@ extension ProjectsViewModel {
             if error.type == .unauthorized {
                 self.errorHandler.throwing(error: error)
             } else {
-                self.errorViewModel?.update(error: error)
+                self.errorViewModel?.update(localizedError: error)
             }
         } else {
-            self.errorViewModel?.update(error: UIError.genericError)
+            self.errorViewModel?.update(localizedError: UIError.genericError)
             self.errorHandler.throwing(error: error)
         }
         self.userInterface?.showErrorView()
