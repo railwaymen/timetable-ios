@@ -28,9 +28,9 @@ class VacationViewController: UIViewController {
         self.viewModel.loadView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.viewModel.viewWillAppear()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.viewModel.viewDidLoad()
     }
     
     override func viewDidDisappear(_ animated: Bool) {

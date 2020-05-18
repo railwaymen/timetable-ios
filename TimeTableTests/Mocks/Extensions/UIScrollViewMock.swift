@@ -74,4 +74,3 @@ extension UIScrollViewMock: UIScrollViewType {
         return self.viewEdgeYPositionReturnValue
     }
 }
-
