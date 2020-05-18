@@ -15,7 +15,7 @@ protocol RegisterRemoteWorkViewModelOutput: class {
     func setMinimumDateForEndDate(minDate: Date)
     func updateStartDate(with date: Date, dateString: String)
     func updateEndDate(with date: Date, dateString: String)
-    func keyboardHeightDidChange(to keyboardHeight: CGFloat)
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState)
     func dismissKeyboard()
     func setSaveButton(isEnabled: Bool)
     func setStartsAt(isHighlighted: Bool)
@@ -125,8 +125,8 @@ extension RegisterRemoteWorkViewModel: RegisterRemoteWorkViewModelType {
     }
     
     func viewWillAppear() {
-        self.keyboardManager.setKeyboardHeightChangeHandler(for: self) { [weak userInterface] keyboardHeight in
-            userInterface?.keyboardHeightDidChange(to: keyboardHeight)
+        self.keyboardManager.setKeyboardStateChangeHandler(for: self) { [weak userInterface] state in
+            userInterface?.keyboardStateDidChange(to: state)
         }
     }
     

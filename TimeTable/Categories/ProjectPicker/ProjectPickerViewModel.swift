@@ -11,7 +11,7 @@ import UIKit
 protocol ProjectPickerViewModelOutput: class {
     func setUp()
     func reloadData()
-    func setBottomContentInset(_ inset: CGFloat)
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState)
 }
 
 protocol ProjectPickerViewModelType: class {
@@ -55,8 +55,8 @@ extension ProjectPickerViewModel: ProjectPickerViewModelType {
     }
     
     func viewWillAppear() {
-        self.keyboardManager.setKeyboardHeightChangeHandler(for: self) { [weak userInterface] keyboardHeight in
-            userInterface?.setBottomContentInset(keyboardHeight)
+        self.keyboardManager.setKeyboardStateChangeHandler(for: self) { [weak userInterface] state in
+            userInterface?.keyboardStateDidChange(to: state)
         }
     }
     

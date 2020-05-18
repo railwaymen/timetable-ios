@@ -133,14 +133,12 @@ extension RegisterRemoteWorkViewController: RegisterRemoteWorkViewModelOutput {
         self.endDatePicker?.date = date
     }
     
-    func keyboardHeightDidChange(to keyboardHeight: CGFloat) {
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
         guard self.isViewLoaded else { return }
-        guard self.lastKeyboardHeight != keyboardHeight else { return }
-        self.lastKeyboardHeight = keyboardHeight
-        if keyboardHeight == 0 {
+        if keyboardState == .hidden {
             self.focusedView = nil
         }
-        self.setBottomContentInset(keyboardHeight: keyboardHeight)
+        self.setBottomContentInset(keyboardHeight: keyboardState.keyboardHeight)
         self.setContentOffset(animated: true)
     }
     

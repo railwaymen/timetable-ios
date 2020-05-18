@@ -16,7 +16,7 @@ protocol LoginViewModelOutput: class {
     func checkBoxIsActiveState(_ isActive: Bool)
     func dismissKeyboard()
     func setActivityIndicator(isHidden: Bool)
-    func setBottomContentInset(_ height: CGFloat)
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState)
     func setLoginTextField(isHighlighted: Bool)
     func setPasswordTextField(isHighlighted: Bool)
 }
@@ -76,8 +76,8 @@ extension LoginViewModel: LoginViewModelType {
     }
     
     func viewWillAppear() {
-        self.keyboardManager?.setKeyboardHeightChangeHandler(for: self) { [weak userInterface] keyboardHeight in
-            userInterface?.setBottomContentInset(keyboardHeight)
+        self.keyboardManager?.setKeyboardStateChangeHandler(for: self) { [weak userInterface] state in
+            userInterface?.keyboardStateDidChange(to: state)
         }
     }
     

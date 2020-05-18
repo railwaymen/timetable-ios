@@ -36,7 +36,7 @@ class WorkTimesListViewControllerMock: UIViewController {
     
     private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
     struct SetActivityIndicatorParams {
-        var isHidden: Bool
+        let isHidden: Bool
     }
     
     private(set) var showTableViewParams: [ShowTableViewParams] = []
@@ -62,18 +62,18 @@ class WorkTimesListViewControllerMock: UIViewController {
     
     private(set) var performBatchUpdatesParams: [PerformBatchUpdatesParams] = []
     struct PerformBatchUpdatesParams {
-        var updates: (() -> Void)?
+        let updates: (() -> Void)?
     }
     
-    private(set) var setBottomContentInsetParams: [SetBottomContentInsetParams] = []
-    struct SetBottomContentInsetParams {
-        let height: CGFloat
+    private(set) var keyboardStateDidChangeParams: [KeyboardStateDidChangeParams] = []
+    struct KeyboardStateDidChangeParams {
+        let keyboardState: KeyboardManager.KeyboardState
     }
     
     // MARK: - WorkTimesListViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
-        var viewModel: WorkTimesListViewModelType
+        let viewModel: WorkTimesListViewModelType
     }
 }
 
@@ -127,8 +127,8 @@ extension WorkTimesListViewControllerMock: WorkTimesListViewModelOutput {
         self.performBatchUpdatesParams.append(PerformBatchUpdatesParams(updates: updates))
     }
     
-    func setBottomContentInset(_ height: CGFloat) {
-        self.setBottomContentInsetParams.append(SetBottomContentInsetParams(height: height))
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
+        self.keyboardStateDidChangeParams.append(KeyboardStateDidChangeParams(keyboardState: keyboardState))
     }
 }
 

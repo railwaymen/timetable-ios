@@ -15,7 +15,7 @@ class KeyboardManagerMock {
     private(set) var setKeyboardHeightChangeHandlerParams: [SetKeyboardHeightChangeHandlerParams] = []
     struct SetKeyboardHeightChangeHandlerParams {
         let observer: KeyboardManagerObserverable
-        let handler: KeyboardManager.HeightChangeHandler
+        let handler: KeyboardManager.StateChangeHandler
     }
     
     private(set) var removeHandlerParams: [RemoveHandlerParams] = []
@@ -26,9 +26,9 @@ class KeyboardManagerMock {
 
 // MARK: - KeyboardManagerable
 extension KeyboardManagerMock: KeyboardManagerable {
-    func setKeyboardHeightChangeHandler(
+    func setKeyboardStateChangeHandler(
         for observer: KeyboardManagerObserverable,
-        handler: @escaping KeyboardManager.HeightChangeHandler
+        handler: @escaping KeyboardManager.StateChangeHandler
     ) {
         self.setKeyboardHeightChangeHandlerParams.append(SetKeyboardHeightChangeHandlerParams(
             observer: observer,

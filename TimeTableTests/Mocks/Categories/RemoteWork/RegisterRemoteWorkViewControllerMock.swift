@@ -47,9 +47,9 @@ class RegisterRemoteWorkViewControllerMock: UIViewController {
         let dateString: String
     }
     
-    private(set) var keyboardHeightDidChangeParams: [KeyboardHeightDidChangeParams] = []
-    struct KeyboardHeightDidChangeParams {
-        let keyboardHeight: CGFloat
+    private(set) var keyboardStateDidChangeParams: [KeyboardStateDidChangeParams] = []
+    struct KeyboardStateDidChangeParams {
+        let keyboardState: KeyboardManager.KeyboardState
     }
     
     private(set) var dismissKeyboardParams: [DismissKeyboardParams] = []
@@ -107,8 +107,8 @@ extension RegisterRemoteWorkViewControllerMock: RegisterRemoteWorkViewModelOutpu
         self.updateEndDateParams.append(UpdateEndDateParams(date: date, dateString: dateString))
     }
     
-    func keyboardHeightDidChange(to keyboardHeight: CGFloat) {
-        self.keyboardHeightDidChangeParams.append(KeyboardHeightDidChangeParams(keyboardHeight: keyboardHeight))
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
+        self.keyboardStateDidChangeParams.append(KeyboardStateDidChangeParams(keyboardState: keyboardState))
     }
     
     func dismissKeyboard() {

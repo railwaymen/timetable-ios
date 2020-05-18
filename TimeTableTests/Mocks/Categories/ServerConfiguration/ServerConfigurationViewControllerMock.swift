@@ -14,17 +14,17 @@ class ServerConfigurationViewControllerMock: UIViewController {
     // MARK: - ServerConfigurationViewModelOutput
     private(set) var setUpViewParams: [SetUpViewParams] = []
     struct SetUpViewParams {
-        var serverAddress: String
+        let serverAddress: String
     }
     
     private(set) var continueButtonEnabledStateParams: [ContinueButtonEnabledStateParams] = []
     struct ContinueButtonEnabledStateParams {
-        var isEnabled: Bool
+        let isEnabled: Bool
     }
     
     private(set) var checkBoxIsActiveStateParams: [CheckBoxIsActiveStateParams] = []
     struct CheckBoxIsActiveStateParams {
-        var isActive: Bool
+        let isActive: Bool
     }
     
     private(set) var dismissKeyboardParams: [DismissKeyboardParams] = []
@@ -32,18 +32,18 @@ class ServerConfigurationViewControllerMock: UIViewController {
     
     private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
     struct SetActivityIndicatorParams {
-        var isHidden: Bool
+        let isHidden: Bool
     }
     
-    private(set) var setBottomContentInsetParams: [SetBottomContentInsetParams] = []
-    struct SetBottomContentInsetParams {
-        var height: CGFloat
+    private(set) var keyboardStateDidChangeParams: [KeyboardStateDidChangeParams] = []
+    struct KeyboardStateDidChangeParams {
+        let keyboardState: KeyboardManager.KeyboardState
     }
     
     // MARK: - ServerConfigurationViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
-        var viewModel: ServerConfigurationViewModelType
+        let viewModel: ServerConfigurationViewModelType
     }
 }
 
@@ -69,8 +69,8 @@ extension ServerConfigurationViewControllerMock: ServerConfigurationViewModelOut
         self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isHidden))
     }
     
-    func setBottomContentInset(_ height: CGFloat) {
-        self.setBottomContentInsetParams.append(SetBottomContentInsetParams(height: height))
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
+        self.keyboardStateDidChangeParams.append(KeyboardStateDidChangeParams(keyboardState: keyboardState))
     }
 }
 

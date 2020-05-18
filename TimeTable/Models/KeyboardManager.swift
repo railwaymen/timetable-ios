@@ -17,17 +17,23 @@ extension KeyboardManagerObserverable {
 }
 
 protocol KeyboardManagerable: class {
-    func setKeyboardHeightChangeHandler(
+    func setKeyboardStateChangeHandler(
         for observer: KeyboardManagerObserverable,
-        handler: @escaping KeyboardManager.HeightChangeHandler)
+        handler: @escaping KeyboardManager.StateChangeHandler)
     func removeHandler(for observer: KeyboardManagerObserverable)
 }
 
 class KeyboardManager {
-    typealias HeightChangeHandler = (CGFloat) -> Void
+    typealias StateChangeHandler = (KeyboardState) -> Void
     
     private weak var notificationCenter: NotificationCenterType?
-    private var handlers: [String: HeightChangeHandler] = [:]
+    private var handlers: [String: StateChangeHandler] = [:]
+    private var currentStateForHandler: [String: KeyboardState] = [:]
+    private var currentState: KeyboardState = .hidden {
+        didSet {
+            self.notifyObservers(state: self.currentState)
+        }
+    }
     
     // MARK: - Initialization
     init(notificationCenter: NotificationCenterType = NotificationCenter.default) {
@@ -42,26 +48,44 @@ class KeyboardManager {
     
     // MARK: - Notifications
     @objc func keyboardWillChangeFrame(notification: Notification) {
-        guard let keyboardHeight = self.getKeyboardHeight(from: notification) else { return }
-        self.notifyObservers(keyboardHeight: keyboardHeight)
+        guard let keyboardState = self.getKeyboardState(from: notification) else { return }
+        self.currentState = keyboardState
     }
     
     @objc func keyboardDidShow(notification: Notification) {
-        guard let keyboardHeight = self.getKeyboardHeight(from: notification) else { return }
-        self.notifyObservers(keyboardHeight: keyboardHeight)
+        guard let keyboardState = self.getKeyboardState(from: notification) else { return }
+        self.currentState = keyboardState
     }
     
     @objc func keyboardWillHide() {
-        self.notifyObservers(keyboardHeight: 0)
+        self.currentState = .hidden
     }
     
     @objc func keyboardDidHide() {
-        self.notifyObservers(keyboardHeight: 0)
+        self.currentState = .hidden
     }
 }
 
 // MARK: - Structures
 extension KeyboardManager {
+    enum KeyboardState: Equatable {
+        case shown(height: CGFloat)
+        case hidden
+        
+        init(height: CGFloat) {
+            self = height == 0 ? .hidden : .shown(height: height)
+        }
+        
+        var keyboardHeight: CGFloat {
+            switch self {
+            case .hidden:
+                return 0
+            case let .shown(height):
+                return height
+            }
+        }
+    }
+    
     private struct NotificationSetup {
         let selector: Selector
         let name: NSNotification.Name
@@ -70,15 +94,17 @@ extension KeyboardManager {
 
 // MARK: - KeyboardManagerable
 extension KeyboardManager: KeyboardManagerable {
-    func setKeyboardHeightChangeHandler(
+    func setKeyboardStateChangeHandler(
         for observer: KeyboardManagerObserverable,
-        handler: @escaping HeightChangeHandler
+        handler: @escaping StateChangeHandler
     ) {
         self.handlers[observer.uniqueID] = handler
+        self.currentStateForHandler[observer.uniqueID] = .hidden
     }
     
     func removeHandler(for observer: KeyboardManagerObserverable) {
         self.handlers.removeValue(forKey: observer.uniqueID)
+        self.currentStateForHandler.removeValue(forKey: observer.uniqueID)
     }
 }
 
@@ -100,14 +126,17 @@ extension KeyboardManager {
         }
     }
     
-    private func getKeyboardHeight(from notification: Notification) -> CGFloat? {
+    private func getKeyboardState(from notification: Notification) -> KeyboardState? {
         let userInfo = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
-        return userInfo?.cgRectValue.size.height
+        guard let height = userInfo?.cgRectValue.size.height else { return nil }
+        return KeyboardState(height: height)
     }
     
-    private func notifyObservers(keyboardHeight: CGFloat) {
-        self.handlers.values.forEach { handler in
-            handler(keyboardHeight)
+    private func notifyObservers(state: KeyboardState) {
+        self.handlers.keys.forEach { key in
+            guard self.currentStateForHandler[key] != state else { return }
+            self.handlers[key]?(state)
+            self.currentStateForHandler[key] = state
         }
     }
 }
