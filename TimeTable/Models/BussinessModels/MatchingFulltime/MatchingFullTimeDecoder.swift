@@ -24,10 +24,7 @@ struct MatchingFullTimeDecoder: Decodable, MatchingFullTimeDecoderFields {
     let shouldWorked: TimeInterval?
     
     var accountingPeriodText: String? {
-        let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .abbreviated
-        formatter.allowedUnits = [.hour, .minute]
-        formatter.zeroFormattingBehavior = .default
+        let formatter = DateComponentsFormatter.timeAbbreviated
         
         guard let shouldWorked = self.shouldWorked,
             let duration = self.accountingPeriod?.duration,

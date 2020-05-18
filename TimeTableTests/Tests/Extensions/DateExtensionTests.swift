@@ -109,3 +109,102 @@ extension DateExtensionTests {
         XCTAssertEqual(components.year, 2020)
     }
 }
+
+// MARK: - roundedToQuarter() -> Date
+extension DateExtensionTests {
+    func testRoundedToQuarter_rounded() throws {
+        //Arrange
+        let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 0))
+        let sut = try self.buildDate(timeZone: timeZone, year: 2019, month: 1, day: 1, hour: 12, minute: 30, second: 0)
+        //Act
+        let roundedDate = sut.roundedToQuarter()
+        //Assert
+        let components = Calendar(identifier: .iso8601).dateComponents(in: timeZone, from: roundedDate)
+        XCTAssertEqual(components.second, 0)
+        XCTAssertEqual(components.minute, 30)
+        XCTAssertEqual(components.hour, 12)
+        XCTAssertEqual(components.day, 1)
+        XCTAssertEqual(components.month, 1)
+        XCTAssertEqual(components.year, 2019)
+    }
+    
+    func testRoundedToQuarter_roundsUp() throws {
+        //Arrange
+        let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 0))
+        let sut = try self.buildDate(timeZone: timeZone, year: 2019, month: 1, day: 1, hour: 12, minute: 40, second: 30)
+        //Act
+        let roundedDate = sut.roundedToQuarter()
+        //Assert
+        let components = Calendar(identifier: .iso8601).dateComponents(in: timeZone, from: roundedDate)
+        XCTAssertEqual(components.second, 0)
+        XCTAssertEqual(components.minute, 45)
+        XCTAssertEqual(components.hour, 12)
+        XCTAssertEqual(components.day, 1)
+        XCTAssertEqual(components.month, 1)
+        XCTAssertEqual(components.year, 2019)
+    }
+    
+    func testRoundedToQuarter_roundsDown() throws {
+        //Arrange
+        let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 0))
+        let sut = try self.buildDate(timeZone: timeZone, year: 2019, month: 1, day: 1, hour: 12, minute: 32, second: 29)
+        //Act
+        let roundedDate = sut.roundedToQuarter()
+        //Assert
+        let components = Calendar(identifier: .iso8601).dateComponents(in: timeZone, from: roundedDate)
+        XCTAssertEqual(components.second, 0)
+        XCTAssertEqual(components.minute, 30)
+        XCTAssertEqual(components.hour, 12)
+        XCTAssertEqual(components.day, 1)
+        XCTAssertEqual(components.month, 1)
+        XCTAssertEqual(components.year, 2019)
+    }
+    
+    func testRoundedToQuarter_switchesDayWhileRoundingUp() throws {
+        //Arrange
+        let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 0))
+        let sut = try self.buildDate(timeZone: timeZone, year: 2019, month: 1, day: 1, hour: 23, minute: 59, second: 30)
+        //Act
+        let roundedDate = sut.roundedToQuarter()
+        //Assert
+        let components = Calendar(identifier: .iso8601).dateComponents(in: timeZone, from: roundedDate)
+        XCTAssertEqual(components.second, 0)
+        XCTAssertEqual(components.minute, 0)
+        XCTAssertEqual(components.hour, 0)
+        XCTAssertEqual(components.day, 2)
+        XCTAssertEqual(components.month, 1)
+        XCTAssertEqual(components.year, 2019)
+    }
+    
+    func testRoundedToQuarter_switchesMonthWhileRoundingUp() throws {
+        //Arrange
+        let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 0))
+        let sut = try self.buildDate(timeZone: timeZone, year: 2019, month: 1, day: 31, hour: 23, minute: 59, second: 30)
+        //Act
+        let roundedDate = sut.roundedToQuarter()
+        //Assert
+        let components = Calendar(identifier: .iso8601).dateComponents(in: timeZone, from: roundedDate)
+        XCTAssertEqual(components.second, 0)
+        XCTAssertEqual(components.minute, 0)
+        XCTAssertEqual(components.hour, 0)
+        XCTAssertEqual(components.day, 1)
+        XCTAssertEqual(components.month, 2)
+        XCTAssertEqual(components.year, 2019)
+    }
+    
+    func testRoundedToQuarter_switchesYearWhileRoundingUp() throws {
+        //Arrange
+        let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 0))
+        let sut = try self.buildDate(timeZone: timeZone, year: 2019, month: 12, day: 31, hour: 23, minute: 59, second: 30)
+        //Act
+        let roundedDate = sut.roundedToQuarter()
+        //Assert
+        let components = Calendar(identifier: .iso8601).dateComponents(in: timeZone, from: roundedDate)
+        XCTAssertEqual(components.second, 0)
+        XCTAssertEqual(components.minute, 0)
+        XCTAssertEqual(components.hour, 0)
+        XCTAssertEqual(components.day, 1)
+        XCTAssertEqual(components.month, 1)
+        XCTAssertEqual(components.year, 2020)
+    }
+}

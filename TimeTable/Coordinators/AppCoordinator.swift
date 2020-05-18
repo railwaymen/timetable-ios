@@ -8,8 +8,10 @@
 
 import UIKit
 
-protocol ParentCoordinator: class {
-    func present(error: Error)
+typealias LocalizedError = (Error & LocalizedDescribable)
+
+protocol ParentCoordinator: class {    
+    func present(localizedError: LocalizedError)
     func showProfile(parentViewController: UIViewController)
 }
 
@@ -24,7 +26,7 @@ class AppCoordinator: Coordinator {
                 self?.dependencyContainer.apiClient = nil
                 (self?.children.last as? TimeTableTabCoordinator)?.finish()
             } else {
-                self?.present(error: error)
+                self?.present(localizedError: error as? LocalizedError ?? UIError.genericError)
             }
         })
     }
@@ -93,12 +95,8 @@ class AppCoordinator: Coordinator {
 
 // MARK: - ParentCoordinator
 extension AppCoordinator: ParentCoordinator {
-    func present(error: Error) {
-        if let uiError = error as? UIError {
-            self.dependencyContainer.messagePresenter?.presentAlertController(withMessage: uiError.localizedDescription)
-        } else if let apiError = error as? ApiClientError {
-            self.dependencyContainer.messagePresenter?.presentAlertController(withMessage: apiError.type.localizedDescription)
-        }
+    func present(localizedError: LocalizedError) {
+        self.dependencyContainer.messagePresenter?.presentAlertController(withMessage: localizedError.localizedDescription)
     }
     
     func showProfile(parentViewController: UIViewController) {

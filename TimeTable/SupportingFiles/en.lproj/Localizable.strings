@@ -15,6 +15,7 @@
 "credential_log_in_btn" = "Log in";
 
 "credential_error_credentials_invalid" = "The given credentials are invalid. Check if you typed it correctly.";
+"credential_error_inactive" = "The account is inactive.";
 
 // MARK: - Projects
 "projects_title" = "Projects";
@@ -36,12 +37,15 @@
 "worktimeform_save_btn" = "Save";
 "worktimeform_save_with_filling" = "Save with filling";
 
-"worktimeform_error_greater_than" = "Time range is invalid. Start time is greater or equal to end time.";
-"worktimeform_error_overlap" = "There is another task done at the same time.";
+"worktimeform_error_body_or_task_blank" = "Body or task can't be blank.";
 "worktimeform_error_invalid_uri" = "Task URL has invalid format.";
 "worktimeform_error_invalid_external" = "Task with given address URL doesn't exist.";
-"worktimeform_error_too_old" = "Selected day or time is too far in the past.";
 "worktimeform_error_no_gaps_to_fill" = "There are no gaps to fill in the given time range.";
+"worktimeform_error_overlap" = "There is another task done at the same time.";
+"worktimeform_error_overlap_midnight" = "Task overlaps midnight.";
+"worktimeform_error_too_old" = "Selected day or time is too far in the past.";
+"worktimeform_error_greater_than" = "Time range is invalid. Start time is greater or equal to end time.";
+"worktimeform_error_blank" = "Project is not selected.";
 
 // MARK: - Tags
 "tag_internal_meeting" = "Internal meeting";
@@ -98,6 +102,31 @@
 "newvacation_optional" = "Optional";
 "newvacation_save_btn" = "Send to accept";
 
+"newvacation_error_base_workTimeExists" = "There is work time with same date.";
+"newvacation_error_description_blank" = "Description cannot be empty.";
+"newvacation_error_startDate_blank" = "Start date cannot be empty.";
+"newvacation_error_startDate_greaterThanEndDate" = "Time range is invalid. Start time is greater or equal to end time.";
+"newvacation_error_endDate_blank" = "End date cannot be empty.";
+"newvacation_error_vacationType_blank" = "Vacation type cannot be empty.";
+"newvacation_error_vacationType_inclusion" = "Vacation type inclusion.";
+
+// MARK: - RemoteWork
+"remotework_title" = "Remote work";
+
+// MARK: - Register Remote Work
+"registerremotework_title" = "Register remote work";
+"registerremotework_starts" = "Starts";
+"registerremotework_ends" = "Ends";
+"registerremotework_note" = "Note";
+"registerremotework_save_btn" = "Save";
+
+"registerremotework_error_startsAt_overlap" = "There is vacation with same date.";
+"registerremotework_error_startsAt_overlapMidnight" = "Time range of a remote work period cannot pass through midnight.";
+"registerremotework_error_startsAt_tooOld" = "Given date is too old.";
+"registerremotework_error_startsAt_empty" = "Starts at date cannot be empty.";
+"registerremotework_error_startsAt_incorrectHours" = "Time range is invalid. Start time is greater or equal to end time.";
+"registerremotework_error_endsAt_empty" = "Ends at date cannot be empty.";
+
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Field cannot be empty.";
 "error_invalid_format" = "Content has invalid format.";
@@ -107,6 +136,4 @@
 "error_no_connection" = "No internet connection. To perform further operations, please connect to the internet.";
 "error_timeout" = "Your request has timed out. Please, check your internet connection and try again.";
 "error_unauthorized" = "Your session has timed out.";
-"error_work_time_exists" = "There is work time with same date.";
-
 "error_refresh_btn" = "REFRESH";

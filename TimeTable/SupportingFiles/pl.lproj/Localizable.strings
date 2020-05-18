@@ -15,6 +15,7 @@
 "credential_log_in_btn" = "Zaloguj się";
 
 "credential_error_credentials_invalid" = "Podane dane są niepoprawne. Upewnij się, czy dobrze je wpisałeś.";
+"credential_error_inactive" = "Konto nieaktywne.";
 
 // MARK: - Projects
 "projects_title" = "Projekty";
@@ -36,12 +37,15 @@
 "worktimeform_save_btn" = "Zapisz";
 "worktimeform_save_with_filling" = "Zapisz z wypełnieniem";
 
-"worktimeform_error_greater_than" = "Przedział czasu jest nieprawidłowy. Czas rozpoczęcia jest większy lub równy czasowi zakończenia.";
-"worktimeform_error_overlap" = "Istnieje inne zadanie wykonane w tym samym czasie.";
+"worktimeform_error_body_or_task_blank" = "Uzupełnij opis zadania lub adres URL ";
 "worktimeform_error_invalid_uri" = "Niepoprawny format adresu URL.";
 "worktimeform_error_invalid_external" = "Zadanie z podanego adresu URL nie istnieje.";
-"worktimeform_error_too_old" = "Już za późno, żeby dodać zadanie w tym czasie.";
 "worktimeform_error_no_gaps_to_fill" = "Nie ma żadnych luk do wypełnienia w wybranym przedziale czasowym.";
+"worktimeform_error_overlap" = "Istnieje inne zadanie wykonane w tym samym czasie.";
+"worktimeform_error_overlap_midnight" = "Czas wykonania zadania nie może przekroczyć północy.";
+"worktimeform_error_too_old" = "Wyznaczony dzień jest zbyt odległy w czasie.";
+"worktimeform_error_greater_than" = "Przedział czasu jest nieprawidłowy. Czas rozpoczęcia jest większy lub równy czasowi zakończenia.";
+"worktimeform_error_blank" = "Wybierz projekt.";
 
 // MARK: - Tags
 "tag_internal_meeting" = "Spotkanie wewnętrzne";
@@ -98,6 +102,31 @@
 "newvacation_optional" = "Opcjonalne";
 "newvacation_save_btn" = "Wyślij do zaakceptowania";
 
+"newvacation_error_base_workTimeExists" = "Jest już czas pracy z tą samą datą.";
+"newvacation_error_description_blank" = "Opis nie może być pusty.";
+"newvacation_error_startDate_blank" = "Data początkowa nie może być pusta.";
+"newvacation_error_startDate_greaterThanEndDate" = "Przedział czasu jest nieprawidłowy. Czas rozpoczęcia jest większy lub równy czasowi zakończenia.";
+"newvacation_error_endDate_blank" = "Data końcowa nie może być pusta.";
+"newvacation_error_vacationType_blank" = "Typ urlopu nie może być pusty.";
+"newvacation_error_vacationType_inclusion" = "Niepoprawny typ urlopu.";
+
+// MARK: - RemoteWork
+"remotework_title" = "Praca zdalna";
+
+// MARK: - Register Remote Work
+"registerremotework_title" = "Zarejestruj pracę zdalną";
+"registerremotework_starts" = "Od";
+"registerremotework_ends" = "Do";
+"registerremotework_note" = "Notatka";
+"registerremotework_save_btn" = "Zapisz";
+
+"registerremotework_error_startsAt_overlap" = "Jest już urlop z tą samoą datą.";
+"registerremotework_error_startsAt_overlapMidnight" = "Czas wpisu pracy zdalnej nie może obejmować kilku dni.";
+"registerremotework_error_startsAt_tooOld" = "Podany przedział czasowy jest za stary.";
+"registerremotework_error_startsAt_empty" = "Data rozpoczęcia nie może być pusta.";
+"registerremotework_error_startsAt_incorrectHours" = "Przedział czasu jest nieprawidłowy. Czas rozpoczęcia jest większy lub równy czasowi zakończenia.";
+"registerremotework_error_endsAt_empty" = "Data zakończenia nie może być pusta.";
+
 // MARK: - Generic Errors
 "error_cannot_be_empty" = "Pole nie może być puste.";
 "error_invalid_format" = "Wartość ma niepoprawny format.";
@@ -107,6 +136,4 @@
 "error_no_connection" = "Brak połączenia z internetem. Aby kontynuować połącz sie z siecią.";
 "error_timeout" = "Twoje żądanie przekroczyło limit czasu i zostało przerwane. Sprawdź połączenie z internetem i spróbuj ponownie.";
 "error_unauthorized" = "Twoja sesja wygasła.";
-"error_work_time_exists" = "Jest już czas pracy z tą samą datą.";
-
 "error_refresh_btn" = "ODŚWIEŻ";

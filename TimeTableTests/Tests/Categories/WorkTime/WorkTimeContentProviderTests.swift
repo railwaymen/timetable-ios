@@ -296,7 +296,7 @@ extension WorkTimeContentProviderTests {
         try XCTUnwrap(group.notifyParams.last).work()
         //Assert
         XCTAssertEqual(self.errorHandler.stopInDebugParams.count, 1)
-        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: AppError.internalError)
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: UIError.genericError)
     }
     
     func testFetchData_fetchCompletion_success_noResponseForProjects_callsAssert() throws {
@@ -314,7 +314,7 @@ extension WorkTimeContentProviderTests {
         try XCTUnwrap(group.notifyParams.last).work()
         //Assert
         XCTAssertEqual(self.errorHandler.stopInDebugParams.count, 1)
-        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: AppError.internalError)
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: UIError.genericError)
     }
 }
 
@@ -815,7 +815,7 @@ extension WorkTimeContentProviderTests {
         //Act
         let errorsArray = sut.getValidationErrors(forTaskForm: taskForm)
         //Assert
-        XCTAssertEqual(errorsArray, [.timeGreaterThan])
+        XCTAssertEqual(errorsArray, [.workTimeGreaterThan])
     }
     
     func testGetValidationErrors_internalError_returnsProperError() throws {
@@ -853,7 +853,7 @@ extension WorkTimeContentProviderTests {
             .cannotBeEmpty(.dayTextField),
             .cannotBeEmpty(.startsAtTextField),
             .cannotBeEmpty(.endsAtTextField),
-            .timeGreaterThan,
+            .workTimeGreaterThan,
             .genericError
         ])
     }

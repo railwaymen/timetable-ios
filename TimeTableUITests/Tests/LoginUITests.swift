@@ -50,13 +50,14 @@ extension LoginUITests {
 
 // MARK: - Login button action
 extension LoginUITests {
-    func testLoginButtonAction_withInvalidCredentials_showsAlert() {
+    func testLoginButtonAction_withInvalidCredentials_showsAlert() throws {
         //Arrange
+        let validationErrorData = try self.buildValidationErrorData()
         self.elements.loginTextField.tap()
         self.elements.loginTextField.typeText("user")
         self.elements.passwordTextField.tap()
         self.elements.passwordTextField.typeText("password")
-        Self.server.setResponse(.validationError(data: Data()), method: .post, endpoint: .signIn)
+        Self.server.setResponse(.validationError(data: validationErrorData), method: .post, endpoint: .signIn)
         //Act
         self.elements.loginButton.tap()
         //Assert
@@ -73,5 +74,12 @@ extension LoginUITests {
         self.elements.loginButton.tap()
         //Assert
         XCTAssertTrue(self.app.tabBars.firstMatch.waitToAppear(timeout: self.defaultTimeout))
+    }
+}
+
+// MARK: - Private
+extension LoginUITests {
+    private func buildValidationErrorData() throws -> Data {
+        return try self.json(from: MockResponse.signInValidationErrorBaseInvalidEmailOrPassword)
     }
 }

@@ -28,7 +28,7 @@ extension ApiClient: ApiClientProjectsType {
     func fetchSimpleListOfProjects(
         completion: @escaping ((Result<[SimpleProjectRecordDecoder], Error>) -> Void)
     ) -> RestlerTaskType? {
-        return self.restler
+        self.restler
             .get(Endpoint.projectsSimpleList)
             .decode([SimpleProjectRecordDecoder].self)
             .onCompletion(completion)
@@ -36,7 +36,7 @@ extension ApiClient: ApiClientProjectsType {
     }
     
     func fetchTags(completion: @escaping (Result<ProjectTagsDecoder, Error>) -> Void) -> RestlerTaskType? {
-        return self.restler
+        self.restler
             .get(Endpoint.tags)
             .decode(ProjectTagsDecoder.self)
             .onCompletion(completion)

@@ -30,4 +30,10 @@ extension UITableView {
     func dequeueHeaderFooterView<T>(_ type: T.Type) -> T? where T: ReusableHeaderFooterView {
         self.dequeueReusableHeaderFooterView(withIdentifier: type.reuseID) as? T
     }
+    
+    func deselectAllRows(animated: Bool) {
+        self.indexPathsForSelectedRows?.forEach {
+            self.deselectRow(at: $0, animated: animated)
+        }
+    }
 }

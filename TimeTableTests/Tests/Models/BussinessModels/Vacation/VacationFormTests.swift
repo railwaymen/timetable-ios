@@ -95,10 +95,10 @@ extension VacationFormTests {
         //Act
         let encoder = try sut.convertToEncoder()
         //Assert
-        XCTAssert(encoder.startDate == sut.startDate)
-        XCTAssert(encoder.endDate == sut.endDate)
-        XCTAssert(encoder.type == sut.type)
-        XCTAssert(encoder.note == sut.note)
+        XCTAssertEqual(encoder.startDate, sut.startDate)
+        XCTAssertEqual(encoder.endDate, sut.endDate)
+        XCTAssertEqual(encoder.type, sut.type)
+        XCTAssertEqual(encoder.note, sut.note)
     }
     
     func testConvertToEncoder_typePlanned_notEmptyNote() throws {
@@ -107,10 +107,10 @@ extension VacationFormTests {
         //Act
         let encoder = try sut.convertToEncoder()
         //Assert
-        XCTAssert(encoder.startDate == sut.startDate)
-        XCTAssert(encoder.endDate == sut.endDate)
-        XCTAssert(encoder.type == sut.type)
-        XCTAssert(encoder.note == sut.note)
+        XCTAssertEqual(encoder.startDate, sut.startDate)
+        XCTAssertEqual(encoder.endDate, sut.endDate)
+        XCTAssertEqual(encoder.type, sut.type)
+        XCTAssertEqual(encoder.note, sut.note)
     }
     
     func testConvertToEncoder_typeRequested_emptyNote() throws {
@@ -119,10 +119,10 @@ extension VacationFormTests {
         //Act
         let encoder = try sut.convertToEncoder()
         //Assert
-        XCTAssert(encoder.startDate == sut.startDate)
-        XCTAssert(encoder.endDate == sut.endDate)
-        XCTAssert(encoder.type == sut.type)
-        XCTAssert(encoder.note == sut.note)
+        XCTAssertEqual(encoder.startDate, sut.startDate)
+        XCTAssertEqual(encoder.endDate, sut.endDate)
+        XCTAssertEqual(encoder.type, sut.type)
+        XCTAssertEqual(encoder.note, sut.note)
     }
     
     func testConvertToEncoder_typeRequested_notEmptyNote() throws {
@@ -131,10 +131,10 @@ extension VacationFormTests {
         //Act
         let encoder = try sut.convertToEncoder()
         //Assert
-        XCTAssert(encoder.startDate == sut.startDate)
-        XCTAssert(encoder.endDate == sut.endDate)
-        XCTAssert(encoder.type == sut.type)
-        XCTAssert(encoder.note == sut.note)
+        XCTAssertEqual(encoder.startDate, sut.startDate)
+        XCTAssertEqual(encoder.endDate, sut.endDate)
+        XCTAssertEqual(encoder.type, sut.type)
+        XCTAssertEqual(encoder.note, sut.note)
     }
     
     func testConvertToEncoder_typeCompassionate_emptyNote() throws {
@@ -143,10 +143,10 @@ extension VacationFormTests {
         //Act
         let encoder = try sut.convertToEncoder()
         //Assert
-        XCTAssert(encoder.startDate == sut.startDate)
-        XCTAssert(encoder.endDate == sut.endDate)
-        XCTAssert(encoder.type == sut.type)
-        XCTAssert(encoder.note == sut.note)
+        XCTAssertEqual(encoder.startDate, sut.startDate)
+        XCTAssertEqual(encoder.endDate, sut.endDate)
+        XCTAssertEqual(encoder.type, sut.type)
+        XCTAssertEqual(encoder.note, sut.note)
     }
     
     func testConvertToEncoder_typeCompassionate_notEmptyNote() throws {
@@ -155,10 +155,10 @@ extension VacationFormTests {
         //Act
         let encoder = try sut.convertToEncoder()
         //Assert
-        XCTAssert(encoder.startDate == sut.startDate)
-        XCTAssert(encoder.endDate == sut.endDate)
-        XCTAssert(encoder.type == sut.type)
-        XCTAssert(encoder.note == sut.note)
+        XCTAssertEqual(encoder.startDate, sut.startDate)
+        XCTAssertEqual(encoder.endDate, sut.endDate)
+        XCTAssertEqual(encoder.type, sut.type)
+        XCTAssertEqual(encoder.note, sut.note)
     }
     
     func testConvertToEncoder_typeOthers_emptyNote() throws {
@@ -177,10 +177,10 @@ extension VacationFormTests {
         //Act
         let encoder = try sut.convertToEncoder()
         //Assert
-        XCTAssert(encoder.startDate == sut.startDate)
-        XCTAssert(encoder.endDate == sut.endDate)
-        XCTAssert(encoder.type == sut.type)
-        XCTAssert(encoder.note == sut.note)
+        XCTAssertEqual(encoder.startDate, sut.startDate)
+        XCTAssertEqual(encoder.endDate, sut.endDate)
+        XCTAssertEqual(encoder.type, sut.type)
+        XCTAssertEqual(encoder.note, sut.note)
     }
 }
 

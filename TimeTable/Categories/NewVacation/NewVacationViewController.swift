@@ -55,11 +55,11 @@ class NewVacationViewController: UIViewController {
         self.viewModel.closeButtonTapped()
     }
 
-    @objc private func startDateTextFieldDidChanged(_ sender: UIDatePicker) {
+    @objc private func startDateTextFieldChanged(_ sender: UIDatePicker) {
         self.viewModel.viewChanged(startAtDate: sender.date)
     }
     
-    @objc private func endDateTextFieldDidChanged(_ sender: UIDatePicker) {
+    @objc private func endDateTextFieldChanged(_ sender: UIDatePicker) {
         self.viewModel.viewChanged(endAtDate: sender.date)
     }
     
@@ -185,13 +185,13 @@ extension NewVacationViewController {
     }
     
     private func setUpStartDayPickerView() {
-        self.setUpTimePicker(&self.startDatePicker, selector: #selector(self.startDateTextFieldDidChanged))
+        self.setUpTimePicker(&self.startDatePicker, selector: #selector(self.startDateTextFieldChanged))
         self.startDayTextField.inputView = self.startDatePicker
         self.startDayTextField.setTextFieldAppearance()
     }
     
     private func setUpEndDayPickerView() {
-        self.setUpTimePicker(&self.endDatePicker, selector: #selector(self.endDateTextFieldDidChanged))
+        self.setUpTimePicker(&self.endDatePicker, selector: #selector(self.endDateTextFieldChanged))
         self.endDayTextField.inputView = self.endDatePicker
         self.endDayTextField.setTextFieldAppearance()
     }

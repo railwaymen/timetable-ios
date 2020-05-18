@@ -16,6 +16,7 @@ typealias ApiClientType =
     & ApiClientUsersType
     & ApiClientAccountingPeriodsType
     & ApiClientVacationType
+    & ApiClientRemoteWorkType
 
 typealias VoidResult = (Result<Void, Error>)
 typealias VoidCompletion = (VoidResult) -> Void

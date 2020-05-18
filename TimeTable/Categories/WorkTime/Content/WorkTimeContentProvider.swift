@@ -100,7 +100,7 @@ extension WorkTimeContentProvider: WorkTimeContainerContentProviderType {
                 completion(.failure(error))
             } else {
                 errorHandler.stopInDebug("Expected response from both requests.")
-                completion(.failure(AppError.internalError))
+                completion(.failure(UIError.genericError))
             }
         }
     }
@@ -184,7 +184,7 @@ extension WorkTimeContentProvider {
         case .endsAtIsNil:
             return UIError.cannotBeEmpty(.endsAtTextField)
         case .timeRangeIsIncorrect:
-            return UIError.timeGreaterThan
+            return UIError.workTimeGreaterThan
         case .internalError:
             self.errorHandler.stopInDebug("TaskForm internal error")
             return UIError.genericError

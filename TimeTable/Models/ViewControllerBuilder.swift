@@ -21,6 +21,8 @@ protocol ViewControllerBuilderType: class {
     func vacation() throws -> VacationViewControllerable
     func newVacation() throws -> NewVacationViewControllerable
     func usedVacation() throws -> UsedVacationViewControllerable
+    func remoteWork() throws -> RemoteWorkViewControllerable
+    func registerRemoteWork() throws -> RegisterRemoteWorkViewControllerable
 }
 
 class ViewControllerBuilder {}
@@ -85,6 +87,14 @@ extension ViewControllerBuilder: ViewControllerBuilderType {
     
     func usedVacation() throws -> UsedVacationViewControllerable {
         try self.cast(R.storyboard.vacation().instantiateViewController(identifier: "UsedVacationViewControllerID"))
+    }
+    
+    func remoteWork() throws -> RemoteWorkViewControllerable {
+        try self.cast(R.storyboard.remoteWork().instantiateInitialViewController())
+    }
+    
+    func registerRemoteWork() throws -> RegisterRemoteWorkViewControllerable {
+        try self.cast(R.storyboard.registerRemoteWork().instantiateInitialViewController())
     }
 }
 

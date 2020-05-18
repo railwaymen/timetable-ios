@@ -54,7 +54,7 @@ extension ProjectsCoordinator: ProjectsCoordinatorType {
 extension ProjectsCoordinator {
     private func runMainFlow() {
         guard let apiClient = self.dependencyContainer.apiClient else {
-            self.dependencyContainer.errorHandler.stopInDebug("Api client or access service is nil")
+            self.dependencyContainer.errorHandler.stopInDebug("Api client is nil")
             return
         }
         do {

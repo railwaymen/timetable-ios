@@ -55,11 +55,9 @@ class NewVacationViewModel: KeyboardManagerObserverable {
         }
     }
     
-    private var decisionState: DecistionState {
+    private var decisionState: DecistionState? {
         didSet {
             switch self.decisionState {
-            case .preparing:
-                self.updateViewForPreparingState()
             case .request:
                 self.userInterface?.setActivityIndicator(isHidden: false)
             case let .done(response):
@@ -68,6 +66,7 @@ class NewVacationViewModel: KeyboardManagerObserverable {
             case let .error(error):
                 self.userInterface?.setActivityIndicator(isHidden: true)
                 self.handleResponse(error: error)
+            case .none: break
             }
         }
     }
@@ -89,7 +88,6 @@ class NewVacationViewModel: KeyboardManagerObserverable {
         self.availableVacationDays = availableVacationDays
         
         self.vacationTypes = VacationType.allCases
-        self.decisionState = .preparing
         self.form = VacationForm()
     }
 }
@@ -97,7 +95,6 @@ class NewVacationViewModel: KeyboardManagerObserverable {
 // MARK: - Structures
 extension NewVacationViewModel {
     enum DecistionState {
-        case preparing
         case request
         case done(VacationDecoder)
         case error(Error)
@@ -108,7 +105,7 @@ extension NewVacationViewModel {
 extension NewVacationViewModel: NewVacationViewModelType {
     func loadView() {
         self.userInterface?.setUp(availableVacationDays: "\(self.availableVacationDays)")
-        self.decisionState = .preparing
+        self.updateViewForPreparingState()
     }
     
     func viewWillAppear() {
@@ -206,17 +203,7 @@ extension NewVacationViewModel {
     }
     
     private func handleResponse(error: Error) {
-        if let apiError = error as? ApiClientError {
-            switch apiError.type {
-            case let .validationErrors(base):
-                guard let base = base, base.errors.keys.contains(where: { $0.errorKey == .workTimeExists }) else { fallthrough }
-                self.errorHandler.throwing(error: error)
-            default:
-                self.errorHandler.throwing(error: UIError.genericError)
-            }
-        } else {
-            self.errorHandler.throwing(error: error)
-        }
+        self.errorHandler.throwing(error: error)
     }
     
     private func updateUI() {

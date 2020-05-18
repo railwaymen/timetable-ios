@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fKC-JE-EtX">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Register Remote Work View Controller-->
+        <scene sceneID="XtF-ur-cC5">
+            <objects>
+                <viewController id="fKC-JE-EtX" customClass="RegisterRemoteWorkViewController" customModule="TimeTable" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tZT-eN-S55">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="always" translatesAutoresizingMaskIntoConstraints="NO" id="IPj-OB-wEg">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="GRa-xb-hMH">
+                                        <rect key="frame" x="0.0" y="16" width="320" height="376"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WZS-b7-shx">
+                                                <rect key="frame" x="16" y="0.0" width="288" height="61.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yxB-1K-VsN">
+                                                        <rect key="frame" x="0.0" y="0.0" width="288" height="19.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="registerremotework_starts"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="06/07/2020" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rrt-6R-i69" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="27.5" width="288" height="34"/>
+                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="34" id="pwq-AQ-rGk"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <action selector="textFieldDidBeginEditing:" destination="fKC-JE-EtX" eventType="editingDidBegin" id="Ne8-Iw-pVG"/>
+                                                        </connections>
+                                                    </textField>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Piu-kD-BnD">
+                                                <rect key="frame" x="16" y="85.5" width="288" height="61.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Pa-NT-FpP">
+                                                        <rect key="frame" x="0.0" y="0.0" width="288" height="19.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="registerremotework_ends"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="06/07/2020" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GcS-bc-oay" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="27.5" width="288" height="34"/>
+                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="34" id="2cC-0c-GsA"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <action selector="textFieldDidBeginEditing:" destination="fKC-JE-EtX" eventType="editingDidBegin" id="zRf-za-14l"/>
+                                                        </connections>
+                                                    </textField>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="9jE-U5-8x7">
+                                                <rect key="frame" x="16" y="171" width="288" height="141"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Reason" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bz8-x1-oiP">
+                                                        <rect key="frame" x="0.0" y="0.0" width="288" height="19.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="registerremotework_note"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="UAz-mx-avy" customClass="AttributedTextView" customModule="TimeTable" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="23.5" width="288" height="117.5"/>
+                                                        <color key="backgroundColor" name="Text Field Background"/>
+                                                        <color key="tintColor" name="Tint"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="YgP-kG-GD7"/>
+                                                        </constraints>
+                                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+                                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" name="Text Field Border"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="fKC-JE-EtX" id="10p-oB-zNP"/>
+                                                        </connections>
+                                                    </textView>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Au-ax-INQ" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="336" width="288" height="40"/>
+                                                <color key="backgroundColor" name="Enabled Button"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="z6e-zm-6Ek"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                <color key="tintColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" title="SAVE">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="registerremotework_save_btn"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="saveButtonTapped" destination="fKC-JE-EtX" eventType="touchUpInside" id="Duj-I1-DtS"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="6Au-ax-INQ" secondAttribute="trailing" constant="16" id="3cE-Su-bsC"/>
+                                            <constraint firstItem="6Au-ax-INQ" firstAttribute="leading" secondItem="GRa-xb-hMH" secondAttribute="leading" constant="16" id="Gjf-gN-Dtf"/>
+                                            <constraint firstItem="9jE-U5-8x7" firstAttribute="leading" secondItem="GRa-xb-hMH" secondAttribute="leading" constant="16" id="XfV-NA-yQW"/>
+                                            <constraint firstItem="WZS-b7-shx" firstAttribute="leading" secondItem="GRa-xb-hMH" secondAttribute="leading" constant="16" id="j7h-q1-uHa"/>
+                                            <constraint firstAttribute="trailing" secondItem="9jE-U5-8x7" secondAttribute="trailing" constant="16" id="lTj-IO-SQH"/>
+                                            <constraint firstAttribute="trailing" secondItem="WZS-b7-shx" secondAttribute="trailing" constant="16" id="oOu-SA-jHs"/>
+                                            <constraint firstAttribute="trailing" secondItem="Piu-kD-BnD" secondAttribute="trailing" constant="16" id="oZe-fb-Ion"/>
+                                            <constraint firstItem="Piu-kD-BnD" firstAttribute="leading" secondItem="GRa-xb-hMH" secondAttribute="leading" constant="16" id="wPk-Sw-uyc"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="GRa-xb-hMH" firstAttribute="leading" secondItem="IPj-OB-wEg" secondAttribute="leading" id="QQZ-sH-LHZ"/>
+                                    <constraint firstItem="GRa-xb-hMH" firstAttribute="top" secondItem="IPj-OB-wEg" secondAttribute="top" constant="16" id="gd1-i1-gxF"/>
+                                    <constraint firstAttribute="trailing" secondItem="GRa-xb-hMH" secondAttribute="trailing" id="mKd-nk-ioq"/>
+                                    <constraint firstAttribute="bottom" secondItem="GRa-xb-hMH" secondAttribute="bottom" constant="16" id="xK1-AH-KwG"/>
+                                </constraints>
+                            </scrollView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="xug-eL-lyb">
+                                <rect key="frame" x="150" y="362" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="IPj-OB-wEg" firstAttribute="leading" secondItem="tZT-eN-S55" secondAttribute="leading" id="8EU-Wp-RKC"/>
+                            <constraint firstAttribute="bottom" secondItem="IPj-OB-wEg" secondAttribute="bottom" id="8d2-PN-dsO"/>
+                            <constraint firstItem="FrU-ZK-tA2" firstAttribute="trailing" secondItem="GRa-xb-hMH" secondAttribute="trailing" id="DX0-IA-Kcr"/>
+                            <constraint firstItem="IPj-OB-wEg" firstAttribute="top" secondItem="tZT-eN-S55" secondAttribute="top" id="M9m-dZ-VJo"/>
+                            <constraint firstItem="xug-eL-lyb" firstAttribute="centerX" secondItem="FrU-ZK-tA2" secondAttribute="centerX" id="OGk-Wa-OOS"/>
+                            <constraint firstItem="xug-eL-lyb" firstAttribute="centerY" secondItem="FrU-ZK-tA2" secondAttribute="centerY" id="Z5O-ib-nLP"/>
+                            <constraint firstAttribute="trailing" secondItem="IPj-OB-wEg" secondAttribute="trailing" id="air-hP-k3l"/>
+                            <constraint firstItem="GRa-xb-hMH" firstAttribute="leading" secondItem="FrU-ZK-tA2" secondAttribute="leading" id="pGk-FZ-uSP"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="FrU-ZK-tA2"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="7NC-vA-gdk" appends="YES" id="pmw-rQ-td0"/>
+                        </connections>
+                    </view>
+                    <size key="freeformSize" width="320" height="700"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="xug-eL-lyb" id="aho-L3-bdf"/>
+                        <outlet property="endDayTextField" destination="GcS-bc-oay" id="CTn-rW-F8Y"/>
+                        <outlet property="noteTextView" destination="UAz-mx-avy" id="JsO-zj-FXt"/>
+                        <outlet property="saveButton" destination="6Au-ax-INQ" id="xhM-T6-Rd7"/>
+                        <outlet property="saveButtonHeightConstraint" destination="z6e-zm-6Ek" id="d9h-LH-sw0"/>
+                        <outlet property="scrollView" destination="IPj-OB-wEg" id="wpC-FR-CYu"/>
+                        <outlet property="startDayTextField" destination="Rrt-6R-i69" id="PEb-6B-tl1"/>
+                        <outletCollection property="textFieldsHeightConstraints" destination="pwq-AQ-rGk" collectionClass="NSMutableArray" id="4kE-Z3-W6q"/>
+                        <outletCollection property="textFieldsHeightConstraints" destination="2cC-0c-GsA" collectionClass="NSMutableArray" id="lRt-aD-QPh"/>
+                        <outletCollection property="textFieldsHeightConstraints" destination="YgP-kG-GD7" collectionClass="NSMutableArray" id="o6d-j5-L7A"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oqc-c0-Jdz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer cancelsTouchesInView="NO" id="7NC-vA-gdk">
+                    <connections>
+                        <action selector="viewTapped:" destination="fKC-JE-EtX" id="cbp-xO-jGU"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="936" y="-331"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="Enabled Button">
+            <color red="0.79607843137254897" green="0.078431372549019607" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Text Field Background">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Text Field Border">
+            <color white="0.0" alpha="0.20000000298023224" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+        <namedColor name="Tint">
+            <color red="0.79600000381469727" green="0.078000001609325409" blue="0.16500000655651093" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

@@ -118,6 +118,36 @@ class ApiClientMock {
         let vacation: VacationDecoder
         let completion: VoidCompletion
     }
+    
+    // MARK: - ApiClientRemoteWorkType
+    var fetchRemoteWorkReturnValue: RestlerTaskType?
+    private(set) var fetchRemoteWorkParams: [FetchRemoteWorkParams] = []
+    struct FetchRemoteWorkParams {
+        let parameters: RemoteWorkParameters
+        let completion: FetchRemoteWorkCompletion
+    }
+    
+    var registerRemoteWorkReturnValue: RestlerTaskType?
+    private(set) var registerRemoteWorkParams: [RegisterRemoteWorkParams] = []
+    struct RegisterRemoteWorkParams {
+        let parameters: RemoteWorkRequest
+        let completion: RegisterRemoteWorkCompletion
+    }
+    
+    var deleteRemoteWorkReturnValue: RestlerTaskType?
+    private(set) var deleteRemoteWorkParams: [DeleteRemoteWorkParams] = []
+    struct DeleteRemoteWorkParams {
+        let remoteWork: RemoteWork
+        let completion: VoidCompletion
+    }
+    
+    var updateRemoteWorkReturnValue: RestlerTaskType?
+    private(set) var updateRemoteWorkParams: [UpdateRemoteWorkParams] = []
+    struct UpdateRemoteWorkParams {
+        let remoteWork: RemoteWork
+        let parameters: RemoteWorkRequest
+        let completion: UpdateRemoteWorkCompletion
+    }
 }
 
 // MARK: - ApiClientSessionType
@@ -223,5 +253,41 @@ extension ApiClientMock: ApiClientVacationType {
     func declineVacation(_ vacation: VacationDecoder, completion: @escaping VoidCompletion) -> RestlerTaskType? {
         self.declineVacationParams.append(DeclineVacationParams(vacation: vacation, completion: completion))
         return self.declineVacationReturnValue
+    }
+}
+
+// MARK: - ApiClientRemoteWorkType
+extension ApiClientMock: ApiClientRemoteWorkType {
+    func fetchRemoteWork(
+        parameters: RemoteWorkParameters,
+        completion: @escaping FetchRemoteWorkCompletion
+    ) -> RestlerTaskType? {
+        self.fetchRemoteWorkParams.append(FetchRemoteWorkParams(parameters: parameters, completion: completion))
+        return self.fetchRemoteWorkReturnValue
+    }
+    
+    func registerRemoteWork(
+        parameters: RemoteWorkRequest,
+        completion: @escaping RegisterRemoteWorkCompletion
+    ) -> RestlerTaskType? {
+        self.registerRemoteWorkParams.append(RegisterRemoteWorkParams(parameters: parameters, completion: completion))
+        return self.registerRemoteWorkReturnValue
+    }
+    
+    func deleteRemoteWork(_ remoteWork: RemoteWork, completion: @escaping VoidCompletion) -> RestlerTaskType? {
+        self.deleteRemoteWorkParams.append(DeleteRemoteWorkParams(remoteWork: remoteWork, completion: completion))
+        return self.deleteRemoteWorkReturnValue
+    }
+    
+    func updateRemoteWork(
+        _ remoteWork: RemoteWork,
+        with parameters: RemoteWorkRequest,
+        completion: @escaping UpdateRemoteWorkCompletion
+    ) -> RestlerTaskType? {
+        self.updateRemoteWorkParams.append(UpdateRemoteWorkParams(
+            remoteWork: remoteWork,
+            parameters: parameters,
+            completion: completion))
+        return self.updateRemoteWorkReturnValue
     }
 }

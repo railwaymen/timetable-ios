@@ -10,4 +10,5 @@ import Foundation
 
 enum MockResponse: String, JSONFileResource {
     case signInResponse
+    case signInValidationErrorBaseInvalidEmailOrPassword
 }

@@ -70,6 +70,16 @@ class ViewControllerBuilderMock {
     var usedVacationReturnValue: UsedVacationViewControllerable = UsedVacationViewControllerMock()
     private(set) var usedVacationParams: [UsedVacationParams] = []
     struct UsedVacationParams {}
+    
+    private(set) var remoteWorkParams: [RemoteWorkParams] = []
+    struct RemoteWorkParams {}
+    var remoteWorkThrownError: Error?
+    var remoteWorkReturnValue: RemoteWorkViewControllerable = RemoteWorkViewControllerMock()
+    
+    private(set) var registerRemoteWorkParams: [RegisterRemoteWorkParams] = []
+    struct RegisterRemoteWorkParams {}
+    var registerRemoteWorkThrownError: Error?
+    var registerRemoteWorkReturnValue: RegisterRemoteWorkViewControllerable = RegisterRemoteWorkViewControllerMock()
 }
 
 // MARK: - ViewControllerBuilderType
@@ -165,5 +175,21 @@ extension ViewControllerBuilderMock: ViewControllerBuilderType {
             throw error
         }
         return self.usedVacationReturnValue
+    }
+    
+    func remoteWork() throws -> RemoteWorkViewControllerable {
+        self.remoteWorkParams.append(RemoteWorkParams())
+        if let error = self.remoteWorkThrownError {
+            throw error
+        }
+        return self.remoteWorkReturnValue
+    }
+    
+    func registerRemoteWork() throws -> RegisterRemoteWorkViewControllerable {
+        self.registerRemoteWorkParams.append(RegisterRemoteWorkParams())
+        if let error = self.registerRemoteWorkThrownError {
+            throw error
+        }
+        return self.registerRemoteWorkReturnValue
     }
 }

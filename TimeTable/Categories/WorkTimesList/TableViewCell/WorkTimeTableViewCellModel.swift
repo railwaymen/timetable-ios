@@ -37,14 +37,6 @@ class WorkTimeTableViewCellModel {
     private let errorHandler: ErrorHandlerType
     private let workTime: WorkTimeDisplayed
     
-    private lazy var dateComponentsFormatter: DateComponentsFormatter = {
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.hour, .minute]
-        formatter.zeroFormattingBehavior = .default
-        formatter.unitsStyle = .abbreviated
-        return formatter
-    }()
-    
     private var updateAtDateFormatter: DateFormatterType {
         self.dateFormatterBuilder
             .dateStyle(.long)
@@ -195,7 +187,7 @@ extension WorkTimeTableViewCellModel {
         case .body:
             return self.workTime.body
         case .duration:
-            return self.dateComponentsFormatter.string(from: self.workTime.duration)
+            return DateComponentsFormatter.timeAbbreviated.string(from: self.workTime.duration)
         case .task:
             return self.workTime.taskPreview
         case .day:

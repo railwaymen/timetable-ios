@@ -1,0 +1,33 @@
+{
+    "base": [
+        {
+            "error": "work_time_exists"
+        }
+    ],
+    "description": [
+        {
+            "error": "blank"
+        }
+    ],
+    "start_date": [
+        {
+            "error": "greater_than_end_date"
+        },
+        {
+            "error": "blank"
+        }
+    ],
+    "end_date": [
+        {
+            "error": "blank"
+        }
+    ],
+    "vacation_type": [
+        {
+            "error": "blank"
+        },
+        {
+            "error": "inclusion"
+        }
+    ]
+}

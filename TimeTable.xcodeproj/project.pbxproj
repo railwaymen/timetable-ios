@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0AF1DD403C2E47D3343C2878 /* Pods_TimeTable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88922A1AB918F19A04B07211 /* Pods_TimeTable.framework */; };
 		8A065B4F237AB8F50072A21E /* WorkTimesJSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A065B4E237AB8F50072A21E /* WorkTimesJSONResource.swift */; };
-		8A065B51237AB9340072A21E /* ApiValidationJSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A065B50237AB9340072A21E /* ApiValidationJSONResource.swift */; };
 		8A065B53237AB9780072A21E /* MatchingFullTimeJSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A065B52237AB9780072A21E /* MatchingFullTimeJSONResource.swift */; };
 		8A065B55237ABA1B0072A21E /* SimpleProjectJSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A065B54237ABA1B0072A21E /* SimpleProjectJSONResource.swift */; };
 		8A065B57237ABC5B0072A21E /* WorkTimesProjectJSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A065B56237ABC5A0072A21E /* WorkTimesProjectJSONResource.swift */; };
@@ -205,6 +204,20 @@
 		8A912D80246BC69900D88DA8 /* taskChangedDayResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A912D7F246BC69900D88DA8 /* taskChangedDayResponse.json */; };
 		8A912D82246BC7AC00D88DA8 /* taskChangedDayAndTimeResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A912D81246BC7AC00D88DA8 /* taskChangedDayAndTimeResponse.json */; };
 		8A912D84246BDEE200D88DA8 /* ButtonTitleParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A912D83246BDEE200D88DA8 /* ButtonTitleParameters.swift */; };
+		8A912D86246D545600D88DA8 /* UpdateRemoteWorkValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A912D85246D545600D88DA8 /* UpdateRemoteWorkValidationError.swift */; };
+		8A912D89246D5A6600D88DA8 /* UpdateRemoteWorkValidationErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A912D88246D5A6600D88DA8 /* UpdateRemoteWorkValidationErrorTests.swift */; };
+		8A912D8B246D5AA300D88DA8 /* UpdateRemoteWorkValidationResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A912D8A246D5AA300D88DA8 /* UpdateRemoteWorkValidationResource.swift */; };
+		8A912D95246D5B3700D88DA8 /* updateRemoteStartsAtFullModelResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A912D8D246D5B3700D88DA8 /* updateRemoteStartsAtFullModelResponse.json */; };
+		8A912D96246D5B3700D88DA8 /* updateRemoteFullModelResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A912D8E246D5B3700D88DA8 /* updateRemoteFullModelResponse.json */; };
+		8A912D97246D5B3700D88DA8 /* updateRemoteStartsAtIncorrectHoursResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A912D8F246D5B3700D88DA8 /* updateRemoteStartsAtIncorrectHoursResponse.json */; };
+		8A912D98246D5B3700D88DA8 /* updateRemoteEmptyStartsAtAndEndsAtResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A912D90246D5B3700D88DA8 /* updateRemoteEmptyStartsAtAndEndsAtResponse.json */; };
+		8A912D99246D5B3700D88DA8 /* updateRemoteStartsAtOverlapResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A912D91246D5B3700D88DA8 /* updateRemoteStartsAtOverlapResponse.json */; };
+		8A912D9A246D5B3700D88DA8 /* updateRemoteStartsAtTooOldResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A912D92246D5B3700D88DA8 /* updateRemoteStartsAtTooOldResponse.json */; };
+		8A912D9B246D5B3700D88DA8 /* updateRemoteEndsAtFullModelResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A912D93246D5B3700D88DA8 /* updateRemoteEndsAtFullModelResponse.json */; };
+		8A912D9C246D5B3700D88DA8 /* updateRemoteStartsAtEmptyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A912D94246D5B3700D88DA8 /* updateRemoteStartsAtEmptyResponse.json */; };
+		8A912D9E246D5B7600D88DA8 /* updateRemoteStartsAtOverlapMidnightResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A912D9D246D5B7600D88DA8 /* updateRemoteStartsAtOverlapMidnightResponse.json */; };
+		8A912DA0246D5D4F00D88DA8 /* UpdateRemoteWorkEndsAtErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A912D9F246D5D4F00D88DA8 /* UpdateRemoteWorkEndsAtErrorKeyTests.swift */; };
+		8A912DA2246D5D8400D88DA8 /* UpdateRemoteWorkStartsAtErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A912DA1246D5D8400D88DA8 /* UpdateRemoteWorkStartsAtErrorKeyTests.swift */; };
 		8A9369B0237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369AF237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift */; };
 		8A9369B2237AA19D005F8199 /* TagCollectionViewCellMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B1237AA19D005F8199 /* TagCollectionViewCellMock.swift */; };
 		8A9369B4237AA293005F8199 /* WorkTimeCellViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */; };
@@ -214,7 +227,11 @@
 		8A9987CE23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A9987CD23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json */; };
 		8A9987D023951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A9987CF23951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json */; };
 		8A99EBC123D9B95600CC9BA8 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A99EBC023D9B95600CC9BA8 /* UIColor+Extension.swift */; };
+		8A9CA52B2472680000E78DCD /* UIScrollViewScrollActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9CA52A2472680000E78DCD /* UIScrollViewScrollActionTests.swift */; };
+		8A9CA52D2472B23F00E78DCD /* UIScrollViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9CA52C2472B23F00E78DCD /* UIScrollViewMock.swift */; };
+		8A9CA52F2472B27D00E78DCD /* UIEdgeInsets+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9CA52E2472B27D00E78DCD /* UIEdgeInsets+Extension.swift */; };
 		8A9FB40A2434CABF00805F4E /* ViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9FB4092434CABF00805F4E /* ViewControllerBuilder.swift */; };
+		8AA1D33A246E75E80037EB9C /* UIScrollView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA1D339246E75E80037EB9C /* UIScrollView+Extension.swift */; };
 		8AA3E5C9241648FB00322AEF /* RestlerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3E5C8241648FB00322AEF /* RestlerMock.swift */; };
 		8AA5C5DD235F34340083E121 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA5C5DC235F34340083E121 /* Colors.xcassets */; };
 		8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift */; };
@@ -260,6 +277,13 @@
 		8AF5697B23D756CA00A1D001 /* WorkTimeDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5697A23D756CA00A1D001 /* WorkTimeDecoderFactory.swift */; };
 		8AF5697D23D759AE00A1D001 /* ServerErrorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5697C23D759AE00A1D001 /* ServerErrorFactory.swift */; };
 		8AFBC3592462981300032B96 /* MonthYearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC3582462981300032B96 /* MonthYearPickerView.swift */; };
+		8AFBC35B2462F1E300032B96 /* RegisterRemoteWorkCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC35A2462F1E300032B96 /* RegisterRemoteWorkCoordinator.swift */; };
+		8AFBC35E2462F3A100032B96 /* RegisterRemoteWorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC35D2462F3A100032B96 /* RegisterRemoteWorkViewController.swift */; };
+		8AFBC3602462F4A400032B96 /* RegisterRemoteWorkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC35F2462F4A400032B96 /* RegisterRemoteWorkViewModel.swift */; };
+		8AFBC3622462F51200032B96 /* RegisterRemoteWork.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AFBC3612462F51200032B96 /* RegisterRemoteWork.storyboard */; };
+		8AFBC3642462F8ED00032B96 /* RegisterRemoteWorkViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC3632462F8ED00032B96 /* RegisterRemoteWorkViewControllerMock.swift */; };
+		8AFBC3662463DCBF00032B96 /* RemoteWorkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC3652463DCBF00032B96 /* RemoteWorkRequest.swift */; };
+		8AFBC3682463DD4700032B96 /* RemoteWorkRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC3672463DD4700032B96 /* RemoteWorkRequestTests.swift */; };
 		8AFFE5C224331BDB001D9E89 /* taskVersionNullPreviousTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */; };
 		8AFFE5C424331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */; };
 		8AFFE5C624331BFB001D9E89 /* taskVersionNullCurrentTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */; };
@@ -273,6 +297,23 @@
 		C101603222003A9500DCE817 /* WorkTimesListContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */; };
 		C101603422003D4000DCE817 /* MatchingFullTimeEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101603322003D4000DCE817 /* MatchingFullTimeEncoder.swift */; };
 		C10515D42456B2BC00413EDE /* YearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10515D32456B2BC00413EDE /* YearPickerView.swift */; };
+		C1055A66246D1EFA00EF64ED /* workTimeValidationErrorProjectIDBlank.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A5B246D1EFA00EF64ED /* workTimeValidationErrorProjectIDBlank.json */; };
+		C1055A67246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlap.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A5C246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlap.json */; };
+		C1055A68246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlapMidnight.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A5D246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlapMidnight.json */; };
+		C1055A69246D1EFA00EF64ED /* workTimeValidationErrorBodyOrTaskBlank.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A5E246D1EFA00EF64ED /* workTimeValidationErrorBodyOrTaskBlank.json */; };
+		C1055A6A246D1EFA00EF64ED /* workTimeValidationErrorStartsAtNoGapsToFill.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A5F246D1EFA00EF64ED /* workTimeValidationErrorStartsAtNoGapsToFill.json */; };
+		C1055A6B246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidExternal.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A60246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidExternal.json */; };
+		C1055A6C246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidURI.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A61246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidURI.json */; };
+		C1055A6D246D1EFA00EF64ED /* workTimeValidationErrorFullModel.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A62246D1EFA00EF64ED /* workTimeValidationErrorFullModel.json */; };
+		C1055A6E246D1EFA00EF64ED /* workTimeValidationErrorEmptyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A63246D1EFA00EF64ED /* workTimeValidationErrorEmptyResponse.json */; };
+		C1055A6F246D1EFA00EF64ED /* workTimeValidationErrorDurationGreaterThan.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A64246D1EFA00EF64ED /* workTimeValidationErrorDurationGreaterThan.json */; };
+		C1055A70246D1EFA00EF64ED /* workTimeValidationErrorStartsAtTooOld.json in Resources */ = {isa = PBXBuildFile; fileRef = C1055A65246D1EFA00EF64ED /* workTimeValidationErrorStartsAtTooOld.json */; };
+		C1055A73246D225D00EF64ED /* WorkTimeValidationErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1055A72246D225D00EF64ED /* WorkTimeValidationErrorTests.swift */; };
+		C1055A75246D2D2200EF64ED /* WorkTimeBodyErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1055A74246D2D2200EF64ED /* WorkTimeBodyErrorKeyTests.swift */; };
+		C1055A77246D2D2A00EF64ED /* WorkTimeTaskErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1055A76246D2D2A00EF64ED /* WorkTimeTaskErrorKeyTests.swift */; };
+		C1055A79246D2D3300EF64ED /* WorkTimeStartsAtErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1055A78246D2D3300EF64ED /* WorkTimeStartsAtErrorKeyTests.swift */; };
+		C1055A7B246D2D3D00EF64ED /* WorkTimeDurationErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1055A7A246D2D3D00EF64ED /* WorkTimeDurationErrorKeyTests.swift */; };
+		C1055A7D246D2D4700EF64ED /* WorkTimeProjectIDErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1055A7C246D2D4700EF64ED /* WorkTimeProjectIDErrorKeyTests.swift */; };
 		C10FD87F21F1EDA100A233C5 /* ApiClient+Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD87E21F1EDA100A233C5 /* ApiClient+Users.swift */; };
 		C10FD88121F1F15100A233C5 /* UserDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88021F1F15100A233C5 /* UserDecoder.swift */; };
 		C10FD88421F1F28200A233C5 /* UserDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10FD88321F1F28200A233C5 /* UserDecoderTests.swift */; };
@@ -313,6 +354,8 @@
 		C125F1BA21DCCF5D00594CDE /* Projects.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C125F1B921DCCF5D00594CDE /* Projects.storyboard */; };
 		C125F1BC21DCDA8800594CDE /* ProjectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C125F1BB21DCDA8800594CDE /* ProjectCollectionViewCell.swift */; };
 		C125F1C121DCF17300594CDE /* ProjectCollectionViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C125F1C021DCF17300594CDE /* ProjectCollectionViewCellModel.swift */; };
+		C128C80C246D83A500F24183 /* UIElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = C128C80B246D83A500F24183 /* UIElement.swift */; };
+		C128C810246D859C00F24183 /* ServerErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C128C80F246D859C00F24183 /* ServerErrorTests.swift */; };
 		C12BD99921E48D5700A6EAF0 /* ProjectsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12BD99821E48D5700A6EAF0 /* ProjectsViewModelTests.swift */; };
 		C12BD99B21E48DD100A6EAF0 /* ProjectsViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12BD99A21E48DD100A6EAF0 /* ProjectsViewControllerMock.swift */; };
 		C12BD99F21E48F9000A6EAF0 /* ApiClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12BD99E21E48F9000A6EAF0 /* ApiClientMock.swift */; };
@@ -335,6 +378,20 @@
 		C12CA57B21A5900B0082FEB7 /* WorkTimeDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12CA57A21A5900B0082FEB7 /* WorkTimeDecoder.swift */; };
 		C12CA57D21A593F20082FEB7 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12CA57C21A593F20082FEB7 /* DateFormatter+Extension.swift */; };
 		C12CA58221A599E60082FEB7 /* WorkTimeDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12CA58121A599E60082FEB7 /* WorkTimeDecoderTests.swift */; };
+		C130B139246BD333002D23AB /* LocalizedDescribable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C130B138246BD333002D23AB /* LocalizedDescribable.swift */; };
+		C130B13B246BDA1C002D23AB /* registerRemoteStartsAtOverlapResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B13A246BDA1C002D23AB /* registerRemoteStartsAtOverlapResponse.json */; };
+		C130B13D246BDA45002D23AB /* registerRemoteStartsAtTooOldResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B13C246BDA45002D23AB /* registerRemoteStartsAtTooOldResponse.json */; };
+		C130B13F246BDAA3002D23AB /* registerRemoteStartsAtEmptyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B13E246BDAA3002D23AB /* registerRemoteStartsAtEmptyResponse.json */; };
+		C130B141246BDB3B002D23AB /* registerRemoteStartsAtIncorrectHoursResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B140246BDB3B002D23AB /* registerRemoteStartsAtIncorrectHoursResponse.json */; };
+		C130B143246BE2B4002D23AB /* SignInValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C130B142246BE2B4002D23AB /* SignInValidationError.swift */; };
+		C130B146246BE768002D23AB /* SignInValidationErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C130B145246BE768002D23AB /* SignInValidationErrorTests.swift */; };
+		C130B148246BE7E2002D23AB /* SignInValidationErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C130B147246BE7E2002D23AB /* SignInValidationErrorResponse.swift */; };
+		C130B14B246BE8E2002D23AB /* signInValidationErrorEmptyBase.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B14A246BE8E2002D23AB /* signInValidationErrorEmptyBase.json */; };
+		C130B14D246BE8EC002D23AB /* signInValidationErrorBaseInvalidEmailOrPassword.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B14C246BE8EC002D23AB /* signInValidationErrorBaseInvalidEmailOrPassword.json */; };
+		C130B14F246BE8F8002D23AB /* signInValidationErrorBaseInactive.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B14E246BE8F8002D23AB /* signInValidationErrorBaseInactive.json */; };
+		C130B151246BE901002D23AB /* signInValidationErrorFullModel.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B150246BE901002D23AB /* signInValidationErrorFullModel.json */; };
+		C130B153246BEAC3002D23AB /* SignInBaseErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C130B152246BEAC3002D23AB /* SignInBaseErrorKeyTests.swift */; };
+		C130B157246BEE1C002D23AB /* signInValidationErrorBaseInvalidEmailOrPassword.json in Resources */ = {isa = PBXBuildFile; fileRef = C130B156246BEE1C002D23AB /* signInValidationErrorBaseInvalidEmailOrPassword.json */; };
 		C134295E21A6934C00F4EA42 /* ApiClient+Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134295D21A6934C00F4EA42 /* ApiClient+Session.swift */; };
 		C134296021A6937E00F4EA42 /* ApiClientSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134295F21A6937E00F4EA42 /* ApiClientSessionTests.swift */; };
 		C134296321A693F400F4EA42 /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134296221A693F400F4EA42 /* TestError.swift */; };
@@ -414,6 +471,16 @@
 		C16B3A75229E6A0700B6E9E6 /* ProjectTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16B3A74229E6A0700B6E9E6 /* ProjectTag.swift */; };
 		C16B3A77229E6BDF00B6E9E6 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16B3A76229E6BDF00B6E9E6 /* TagCollectionViewCell.swift */; };
 		C16B3A79229E742600B6E9E6 /* TagCollectionViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16B3A78229E742600B6E9E6 /* TagCollectionViewCellModel.swift */; };
+		C17208962463ED7E0010ED38 /* RemoteWorkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17208952463ED7E0010ED38 /* RemoteWorkCell.swift */; };
+		C17208982463F0020010ED38 /* RemoteWorkCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17208972463F0020010ED38 /* RemoteWorkCellViewModel.swift */; };
+		C172089C2463F17C0010ED38 /* RemoteWorkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C172089B2463F17C0010ED38 /* RemoteWorkCell.xib */; };
+		C172089E2463F7FC0010ED38 /* remoteWorkNullNote.json in Resources */ = {isa = PBXBuildFile; fileRef = C172089D2463F7FC0010ED38 /* remoteWorkNullNote.json */; };
+		C17208A0246401DB0010ED38 /* DateComponentsFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C172089F246401DB0010ED38 /* DateComponentsFormatter+Extension.swift */; };
+		C17208A2246411BD0010ED38 /* RemoteWorkForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17208A1246411BD0010ED38 /* RemoteWorkForm.swift */; };
+		C17208A424644C860010ED38 /* RemoteWorkFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17208A324644C860010ED38 /* RemoteWorkFormTests.swift */; };
+		C172D13D24656655005AC63B /* BasicError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C172D13C24656655005AC63B /* BasicError.swift */; };
+		C172D13F246566A0005AC63B /* RegisterRemoteWorkValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C172D13E246566A0005AC63B /* RegisterRemoteWorkValidationError.swift */; };
+		C172D14124656FF2005AC63B /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C172D14024656FF2005AC63B /* ValidationError.swift */; };
 		C175B56C227CAACA006D9944 /* MessagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C175B56B227CAACA006D9944 /* MessagePresenter.swift */; };
 		C175B56E227CAB01006D9944 /* MessagePresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C175B56D227CAB01006D9944 /* MessagePresenterMock.swift */; };
 		C1784DDD21E4E03600C83E2A /* WorkTime.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1784DDC21E4E03600C83E2A /* WorkTime.storyboard */; };
@@ -421,6 +488,24 @@
 		C17EA3B82189E04400A3F0CD /* ServerConfigurationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3B72189E04400A3F0CD /* ServerConfigurationManagerTests.swift */; };
 		C17EA3BA2189E9BA00A3F0CD /* ApiClientErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3B92189E9BA00A3F0CD /* ApiClientErrorTests.swift */; };
 		C17EA3BC2189EC1700A3F0CD /* URLSessionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */; };
+		C1860DB12462DF0000C33C94 /* RemoteWorkCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DB02462DF0000C33C94 /* RemoteWorkCoordinator.swift */; };
+		C1860DB42462E1C400C33C94 /* RemoteWorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DB32462E1C400C33C94 /* RemoteWorkViewController.swift */; };
+		C1860DB62462E34200C33C94 /* RemoteWorkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DB52462E34200C33C94 /* RemoteWorkViewModel.swift */; };
+		C1860DB82462E37900C33C94 /* RemoteWork.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1860DB72462E37900C33C94 /* RemoteWork.storyboard */; };
+		C1860DBB2462E50B00C33C94 /* RemoteWorkViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DBA2462E50B00C33C94 /* RemoteWorkViewControllerMock.swift */; };
+		C1860DBE2462EB3F00C33C94 /* RemoteWorkParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DBD2462EB3F00C33C94 /* RemoteWorkParameters.swift */; };
+		C1860DC12462EC0D00C33C94 /* RemoteWorkParametersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DC02462EC0D00C33C94 /* RemoteWorkParametersTests.swift */; };
+		C1860DC32462ECE700C33C94 /* RemoteWorkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DC22462ECE700C33C94 /* RemoteWorkResponse.swift */; };
+		C1860DC52462ED9A00C33C94 /* RemoteWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DC42462ED9A00C33C94 /* RemoteWork.swift */; };
+		C1860DC72462EDB300C33C94 /* RemoteWorkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DC62462EDB300C33C94 /* RemoteWorkTests.swift */; };
+		C1860DC92462EDC300C33C94 /* RemoteWorkResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DC82462EDC300C33C94 /* RemoteWorkResponseTests.swift */; };
+		C1860DCE2462EE0900C33C94 /* RemoteWorkJSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DCD2462EE0900C33C94 /* RemoteWorkJSONResource.swift */; };
+		C1860DD02462EE3F00C33C94 /* remoteWorkFullModel.json in Resources */ = {isa = PBXBuildFile; fileRef = C1860DCF2462EE3F00C33C94 /* remoteWorkFullModel.json */; };
+		C1860DD22462F0C700C33C94 /* RemoteWorkResponseJSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DD12462F0C700C33C94 /* RemoteWorkResponseJSONResource.swift */; };
+		C1860DD42462F12000C33C94 /* remoteWorkResponseRecordsEmptyArray.json in Resources */ = {isa = PBXBuildFile; fileRef = C1860DD32462F12000C33C94 /* remoteWorkResponseRecordsEmptyArray.json */; };
+		C1860DD62462F12C00C33C94 /* remoteWorkResponseFullModel.json in Resources */ = {isa = PBXBuildFile; fileRef = C1860DD52462F12C00C33C94 /* remoteWorkResponseFullModel.json */; };
+		C1860DD82462F26A00C33C94 /* ApiClient+RemoteWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DD72462F26A00C33C94 /* ApiClient+RemoteWork.swift */; };
+		C1860DDA2462F3F900C33C94 /* ApiClientRemoteWorkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1860DD92462F3F900C33C94 /* ApiClientRemoteWorkTests.swift */; };
 		C18A189C21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189B21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json */; };
 		C18A189E21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C18A189D21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json */; };
 		C18A18A121EF88B300CB6E32 /* WorkTimeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18A18A021EF88B300CB6E32 /* WorkTimeViewModelTests.swift */; };
@@ -450,11 +535,11 @@
 		C1A47C01245AAE2700FDA7F0 /* NewVacationViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A47C00245AAE2700FDA7F0 /* NewVacationViewControllerMock.swift */; };
 		C1A47C03245AF55D00FDA7F0 /* VacationForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A47C02245AF55D00FDA7F0 /* VacationForm.swift */; };
 		C1A681522460045D0044C2B9 /* VacationFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A681512460045D0044C2B9 /* VacationFormTests.swift */; };
+		C1AA80D4246D1DAC00AC8FB4 /* WorkTimeValidationErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AA80D3246D1DAC00AC8FB4 /* WorkTimeValidationErrorResponse.swift */; };
 		C1AACFCF21A4349B0023FD32 /* ProjectsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFCE21A4349B0023FD32 /* ProjectsCoordinator.swift */; };
 		C1AACFD621A438660023FD32 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD521A438660023FD32 /* ProfileCoordinator.swift */; };
 		C1AACFD821A4387F0023FD32 /* WorkTimesListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AACFD721A4387F0023FD32 /* WorkTimesListCoordinator.swift */; };
 		C1AFFFD921A2ACC100A7A632 /* AccessServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AFFFD821A2ACC100A7A632 /* AccessServiceTests.swift */; };
-		C1AFFFDB21A2CD2000A7A632 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AFFFDA21A2CD2000A7A632 /* AppError.swift */; };
 		C1AFFFE321A2D16F00A7A632 /* TimeTableTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AFFFE221A2D16F00A7A632 /* TimeTableTabCoordinator.swift */; };
 		C1B5136D21772D1200C3727C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B5136C21772D1200C3727C /* AppDelegate.swift */; };
 		C1B5137421772D1400C3727C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1B5137321772D1400C3727C /* Assets.xcassets */; };
@@ -476,20 +561,12 @@
 		C1B771EF21EF1EE000EFE06F /* simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771EE21EF1EE000EFE06F /* simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json */; };
 		C1B771F321EF2A2A00EFE06F /* simpleProjectArrayResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771F221EF2A2A00EFE06F /* simpleProjectArrayResponse.json */; };
 		C1B771F521EF2C5800EFE06F /* TaskFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B771F421EF2C5800EFE06F /* TaskFormTests.swift */; };
-		C1B771F721EF39FA00EFE06F /* ApiValidationErrorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B771F621EF39FA00EFE06F /* ApiValidationErrorsTests.swift */; };
-		C1B771FB21EF41C300EFE06F /* emptyErrosKeysResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771FA21EF41C300EFE06F /* emptyErrosKeysResponse.json */; };
-		C1B771FD21EF421900EFE06F /* baseErrorKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771FC21EF421900EFE06F /* baseErrorKeyResponse.json */; };
-		C1B771FF21EF422600EFE06F /* startAtErrorKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B771FE21EF422600EFE06F /* startAtErrorKeyResponse.json */; };
-		C1B7720121EF423000EFE06F /* endsAtErrorKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B7720021EF423000EFE06F /* endsAtErrorKeyResponse.json */; };
-		C1B7720321EF423900EFE06F /* durationErrorKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B7720221EF423900EFE06F /* durationErrorKeyResponse.json */; };
-		C1B7720521EF424300EFE06F /* invalidEmailOrPasswordErrorKeyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B7720421EF424300EFE06F /* invalidEmailOrPasswordErrorKeyResponse.json */; };
 		C1B8FA41218C91F3009D10B4 /* LoginCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8FA40218C91F3009D10B4 /* LoginCredentials.swift */; };
 		C1B8FA44218C929F009D10B4 /* SessionDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8FA43218C929F009D10B4 /* SessionDecoder.swift */; };
 		C1B8FA49218C963A009D10B4 /* LoginCredentialsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8FA48218C963A009D10B4 /* LoginCredentialsTests.swift */; };
 		C1B8FA4B218C964C009D10B4 /* SessionDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8FA4A218C964C009D10B4 /* SessionDecoderTests.swift */; };
 		C1B8FA4D218C9A04009D10B4 /* JSONFileResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8FA4C218C9A04009D10B4 /* JSONFileResource.swift */; };
 		C1B8FA51218C9A86009D10B4 /* signInRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = C1B8FA50218C9A86009D10B4 /* signInRequest.json */; };
-		C1C4BA912189AE0900683F71 /* ApiValidationErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C4BA902189AE0900683F71 /* ApiValidationErrors.swift */; };
 		C1CCC118244DACF900177DAA /* ProjectTagsDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCC117244DACF900177DAA /* ProjectTagsDecoderFactory.swift */; };
 		C1CCC11B244DB38100177DAA /* MatchingFullTimeDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCC11A244DB38100177DAA /* MatchingFullTimeDecoderFactory.swift */; };
 		C1CE041521F5E01200E80517 /* AttributedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CE041421F5E01200E80517 /* AttributedTextField.swift */; };
@@ -501,6 +578,7 @@
 		C1E1F04D21AD3EB8007F9228 /* CalendarMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E1F04C21AD3EB8007F9228 /* CalendarMock.swift */; };
 		C1E1F04F21AD52BA007F9228 /* workTimesResponseNotSorted.json in Resources */ = {isa = PBXBuildFile; fileRef = C1E1F04E21AD52BA007F9228 /* workTimesResponseNotSorted.json */; };
 		C1E1F05421AD5FD2007F9228 /* WorkTimesTableViewHeaderViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E1F05321AD5FD2007F9228 /* WorkTimesTableViewHeaderViewModelTests.swift */; };
+		C1E50B86246C2DB000503008 /* WorkTimeValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E50B85246C2DB000503008 /* WorkTimeValidationError.swift */; };
 		C1E6B34C219EF08200019DC2 /* AccessService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E6B34B219EF08200019DC2 /* AccessService.swift */; };
 		C1E6B34E219EF30600019DC2 /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E6B34D219EF30600019DC2 /* URL+Extension.swift */; };
 		C1E6B350219EF52000019DC2 /* Keychain+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E6B34F219EF52000019DC2 /* Keychain+Extension.swift */; };
@@ -523,6 +601,38 @@
 		C1EF3A0921930722000E3511 /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EF3A0821930722000E3511 /* StringExtensionTests.swift */; };
 		C1F187B021E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F187AF21E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift */; };
 		C1F187B221E37C760037B8C2 /* ProjectsCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F187B121E37C760037B8C2 /* ProjectsCollectionViewLayout.swift */; };
+		C1F62B1E24692FB200AB8C00 /* RegisterRemoteWorkValidationErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B1D24692FB200AB8C00 /* RegisterRemoteWorkValidationErrorTests.swift */; };
+		C1F62B21246935B000AB8C00 /* RegisterRemoteWorkValidationResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B20246935B000AB8C00 /* RegisterRemoteWorkValidationResource.swift */; };
+		C1F62B232469364000AB8C00 /* registerRemoteEmptyStartsAtAndEndsAtResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B222469364000AB8C00 /* registerRemoteEmptyStartsAtAndEndsAtResponse.json */; };
+		C1F62B2824693B8600AB8C00 /* registerRemoteStartsAtFullModelResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B2724693B8600AB8C00 /* registerRemoteStartsAtFullModelResponse.json */; };
+		C1F62B2C24693BB600AB8C00 /* registerRemoteEndsAtFullModelResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B2B24693BB600AB8C00 /* registerRemoteEndsAtFullModelResponse.json */; };
+		C1F62B2E24693BFB00AB8C00 /* registerRemoteFullModelResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B2D24693BFB00AB8C00 /* registerRemoteFullModelResponse.json */; };
+		C1F62B302469456B00AB8C00 /* RegisterRemoteWorkStartsAtErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B2F2469456B00AB8C00 /* RegisterRemoteWorkStartsAtErrorKeyTests.swift */; };
+		C1F62B322469466200AB8C00 /* RegisterRemoteWorkEndsAtErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B312469466200AB8C00 /* RegisterRemoteWorkEndsAtErrorKeyTests.swift */; };
+		C1F62B342469487800AB8C00 /* BasicErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B332469487800AB8C00 /* BasicErrorTests.swift */; };
+		C1F62B3724694A1C00AB8C00 /* BasicErrorResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B3624694A1C00AB8C00 /* BasicErrorResource.swift */; };
+		C1F62B3924694A6500AB8C00 /* basicErrorResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B3824694A6500AB8C00 /* basicErrorResponse.json */; };
+		C1F62B3B24694BB100AB8C00 /* ValidationErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B3A24694BB100AB8C00 /* ValidationErrorTests.swift */; };
+		C1F62B3D24694C0800AB8C00 /* ValidationErrorResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B3C24694C0800AB8C00 /* ValidationErrorResource.swift */; };
+		C1F62B4024694D6900AB8C00 /* validationErrorFullModelResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B3F24694D6900AB8C00 /* validationErrorFullModelResponse.json */; };
+		C1F62B422469512500AB8C00 /* validationErrorEmptyValidationErrorResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B412469512500AB8C00 /* validationErrorEmptyValidationErrorResponse.json */; };
+		C1F62B442469535100AB8C00 /* NewVacationValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B432469535100AB8C00 /* NewVacationValidationError.swift */; };
+		C1F62B482469724100AB8C00 /* NewVacationValidationErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B472469724100AB8C00 /* NewVacationValidationErrorTests.swift */; };
+		C1F62B4C246974CB00AB8C00 /* NewVacationValidationErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B4B246974CB00AB8C00 /* NewVacationValidationErrorResponse.swift */; };
+		C1F62B4F2469750700AB8C00 /* newVacationValidationErrorEmpty.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B4E2469750700AB8C00 /* newVacationValidationErrorEmpty.json */; };
+		C1F62B51246975CE00AB8C00 /* newVacationValidationErrorBase.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B50246975CE00AB8C00 /* newVacationValidationErrorBase.json */; };
+		C1F62B5324697C8B00AB8C00 /* newVacationValidationErrorDescriptionBlank.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B5224697C8B00AB8C00 /* newVacationValidationErrorDescriptionBlank.json */; };
+		C1F62B5524697CBA00AB8C00 /* newVacationValidationErrorStartDateBlank.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B5424697CBA00AB8C00 /* newVacationValidationErrorStartDateBlank.json */; };
+		C1F62B5724697CC400AB8C00 /* newVacationValidationErrorStartDateGreaterThanEndDate.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B5624697CC400AB8C00 /* newVacationValidationErrorStartDateGreaterThanEndDate.json */; };
+		C1F62B5924697CCC00AB8C00 /* newVacationValidationErrorEndDateBlank.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B5824697CCC00AB8C00 /* newVacationValidationErrorEndDateBlank.json */; };
+		C1F62B5B24697CD800AB8C00 /* newVacationValidationErrorVacationTypeBlank.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B5A24697CD800AB8C00 /* newVacationValidationErrorVacationTypeBlank.json */; };
+		C1F62B5D24697CE300AB8C00 /* newVacationValidationErrorVacationTypeInclusion.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B5C24697CE300AB8C00 /* newVacationValidationErrorVacationTypeInclusion.json */; };
+		C1F62B6124697D5B00AB8C00 /* newVacationValidationErrorFullModel.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F62B6024697D5B00AB8C00 /* newVacationValidationErrorFullModel.json */; };
+		C1F62B63246984B200AB8C00 /* NewVacationBaseErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B62246984B200AB8C00 /* NewVacationBaseErrorKeyTests.swift */; };
+		C1F62B65246984C700AB8C00 /* NewVacationDescriptionErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B64246984C700AB8C00 /* NewVacationDescriptionErrorKeyTests.swift */; };
+		C1F62B67246984D500AB8C00 /* NewVacationStartDateErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B66246984D500AB8C00 /* NewVacationStartDateErrorKeyTests.swift */; };
+		C1F62B692469850600AB8C00 /* NewVacationEndDateErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B682469850600AB8C00 /* NewVacationEndDateErrorKeyTests.swift */; };
+		C1F62B6B2469851B00AB8C00 /* NewVacationVacationTypeErrorKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F62B6A2469851B00AB8C00 /* NewVacationVacationTypeErrorKeyTests.swift */; };
 		C1F69B2C21902FA5005D9114 /* signInResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C1F69B2B21902FA5005D9114 /* signInResponse.json */; };
 		C1F69B2E21903818005D9114 /* LoginContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F69B2D21903818005D9114 /* LoginContentProvider.swift */; };
 		C1F7C2DE2190436B00F4FAF0 /* AuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F7C2DD2190436B00F4FAF0 /* AuthenticationCoordinator.swift */; };
@@ -593,7 +703,6 @@
 		709A006A1AEE2AB10E218C48 /* Pods-TimeTable.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTable.stage.xcconfig"; path = "Target Support Files/Pods-TimeTable/Pods-TimeTable.stage.xcconfig"; sourceTree = "<group>"; };
 		88922A1AB918F19A04B07211 /* Pods_TimeTable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeTable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A065B4E237AB8F50072A21E /* WorkTimesJSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesJSONResource.swift; sourceTree = "<group>"; };
-		8A065B50237AB9340072A21E /* ApiValidationJSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiValidationJSONResource.swift; sourceTree = "<group>"; };
 		8A065B52237AB9780072A21E /* MatchingFullTimeJSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFullTimeJSONResource.swift; sourceTree = "<group>"; };
 		8A065B54237ABA1B0072A21E /* SimpleProjectJSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleProjectJSONResource.swift; sourceTree = "<group>"; };
 		8A065B56237ABC5A0072A21E /* WorkTimesProjectJSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesProjectJSONResource.swift; sourceTree = "<group>"; };
@@ -791,6 +900,20 @@
 		8A912D7F246BC69900D88DA8 /* taskChangedDayResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedDayResponse.json; sourceTree = "<group>"; };
 		8A912D81246BC7AC00D88DA8 /* taskChangedDayAndTimeResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedDayAndTimeResponse.json; sourceTree = "<group>"; };
 		8A912D83246BDEE200D88DA8 /* ButtonTitleParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTitleParameters.swift; sourceTree = "<group>"; };
+		8A912D85246D545600D88DA8 /* UpdateRemoteWorkValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRemoteWorkValidationError.swift; sourceTree = "<group>"; };
+		8A912D88246D5A6600D88DA8 /* UpdateRemoteWorkValidationErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRemoteWorkValidationErrorTests.swift; sourceTree = "<group>"; };
+		8A912D8A246D5AA300D88DA8 /* UpdateRemoteWorkValidationResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRemoteWorkValidationResource.swift; sourceTree = "<group>"; };
+		8A912D8D246D5B3700D88DA8 /* updateRemoteStartsAtFullModelResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = updateRemoteStartsAtFullModelResponse.json; sourceTree = "<group>"; };
+		8A912D8E246D5B3700D88DA8 /* updateRemoteFullModelResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = updateRemoteFullModelResponse.json; sourceTree = "<group>"; };
+		8A912D8F246D5B3700D88DA8 /* updateRemoteStartsAtIncorrectHoursResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = updateRemoteStartsAtIncorrectHoursResponse.json; sourceTree = "<group>"; };
+		8A912D90246D5B3700D88DA8 /* updateRemoteEmptyStartsAtAndEndsAtResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = updateRemoteEmptyStartsAtAndEndsAtResponse.json; sourceTree = "<group>"; };
+		8A912D91246D5B3700D88DA8 /* updateRemoteStartsAtOverlapResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = updateRemoteStartsAtOverlapResponse.json; sourceTree = "<group>"; };
+		8A912D92246D5B3700D88DA8 /* updateRemoteStartsAtTooOldResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = updateRemoteStartsAtTooOldResponse.json; sourceTree = "<group>"; };
+		8A912D93246D5B3700D88DA8 /* updateRemoteEndsAtFullModelResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = updateRemoteEndsAtFullModelResponse.json; sourceTree = "<group>"; };
+		8A912D94246D5B3700D88DA8 /* updateRemoteStartsAtEmptyResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = updateRemoteStartsAtEmptyResponse.json; sourceTree = "<group>"; };
+		8A912D9D246D5B7600D88DA8 /* updateRemoteStartsAtOverlapMidnightResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = updateRemoteStartsAtOverlapMidnightResponse.json; sourceTree = "<group>"; };
+		8A912D9F246D5D4F00D88DA8 /* UpdateRemoteWorkEndsAtErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRemoteWorkEndsAtErrorKeyTests.swift; sourceTree = "<group>"; };
+		8A912DA1246D5D8400D88DA8 /* UpdateRemoteWorkStartsAtErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRemoteWorkStartsAtErrorKeyTests.swift; sourceTree = "<group>"; };
 		8A9369AF237AA07A005F8199 /* ProjectUserViewTableViewCellMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUserViewTableViewCellMock.swift; sourceTree = "<group>"; };
 		8A9369B1237AA19D005F8199 /* TagCollectionViewCellMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellMock.swift; sourceTree = "<group>"; };
 		8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCellViewMock.swift; sourceTree = "<group>"; };
@@ -800,7 +923,11 @@
 		8A9987CD23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithIsTaggableTrueResponse.json; sourceTree = "<group>"; };
 		8A9987CF23951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithIsTaggableFalseResponse.json; sourceTree = "<group>"; };
 		8A99EBC023D9B95600CC9BA8 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		8A9CA52A2472680000E78DCD /* UIScrollViewScrollActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollViewScrollActionTests.swift; sourceTree = "<group>"; };
+		8A9CA52C2472B23F00E78DCD /* UIScrollViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollViewMock.swift; sourceTree = "<group>"; };
+		8A9CA52E2472B27D00E78DCD /* UIEdgeInsets+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Extension.swift"; sourceTree = "<group>"; };
 		8A9FB4092434CABF00805F4E /* ViewControllerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerBuilder.swift; sourceTree = "<group>"; };
+		8AA1D339246E75E80037EB9C /* UIScrollView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Extension.swift"; sourceTree = "<group>"; };
 		8AA3E5C8241648FB00322AEF /* RestlerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestlerMock.swift; sourceTree = "<group>"; };
 		8AA5C5DC235F34340083E121 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		8AABFE15232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellModelTests.swift; sourceTree = "<group>"; };
@@ -849,6 +976,13 @@
 		8AF5697A23D756CA00A1D001 /* WorkTimeDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeDecoderFactory.swift; sourceTree = "<group>"; };
 		8AF5697C23D759AE00A1D001 /* ServerErrorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerErrorFactory.swift; sourceTree = "<group>"; };
 		8AFBC3582462981300032B96 /* MonthYearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthYearPickerView.swift; sourceTree = "<group>"; };
+		8AFBC35A2462F1E300032B96 /* RegisterRemoteWorkCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRemoteWorkCoordinator.swift; sourceTree = "<group>"; };
+		8AFBC35D2462F3A100032B96 /* RegisterRemoteWorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRemoteWorkViewController.swift; sourceTree = "<group>"; };
+		8AFBC35F2462F4A400032B96 /* RegisterRemoteWorkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRemoteWorkViewModel.swift; sourceTree = "<group>"; };
+		8AFBC3612462F51200032B96 /* RegisterRemoteWork.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RegisterRemoteWork.storyboard; sourceTree = "<group>"; };
+		8AFBC3632462F8ED00032B96 /* RegisterRemoteWorkViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRemoteWorkViewControllerMock.swift; sourceTree = "<group>"; };
+		8AFBC3652463DCBF00032B96 /* RemoteWorkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkRequest.swift; sourceTree = "<group>"; };
+		8AFBC3672463DD4700032B96 /* RemoteWorkRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkRequestTests.swift; sourceTree = "<group>"; };
 		8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullPreviousTask.json; sourceTree = "<group>"; };
 		8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionMissingPreviousTaskKey.json; sourceTree = "<group>"; };
 		8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullCurrentTask.json; sourceTree = "<group>"; };
@@ -863,6 +997,23 @@
 		C101603122003A9500DCE817 /* WorkTimesListContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListContentProvider.swift; sourceTree = "<group>"; };
 		C101603322003D4000DCE817 /* MatchingFullTimeEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFullTimeEncoder.swift; sourceTree = "<group>"; };
 		C10515D32456B2BC00413EDE /* YearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearPickerView.swift; sourceTree = "<group>"; };
+		C1055A5B246D1EFA00EF64ED /* workTimeValidationErrorProjectIDBlank.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorProjectIDBlank.json; sourceTree = "<group>"; };
+		C1055A5C246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlap.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorStartsAtOverlap.json; sourceTree = "<group>"; };
+		C1055A5D246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlapMidnight.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorStartsAtOverlapMidnight.json; sourceTree = "<group>"; };
+		C1055A5E246D1EFA00EF64ED /* workTimeValidationErrorBodyOrTaskBlank.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorBodyOrTaskBlank.json; sourceTree = "<group>"; };
+		C1055A5F246D1EFA00EF64ED /* workTimeValidationErrorStartsAtNoGapsToFill.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorStartsAtNoGapsToFill.json; sourceTree = "<group>"; };
+		C1055A60246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidExternal.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorTaskInvalidExternal.json; sourceTree = "<group>"; };
+		C1055A61246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidURI.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorTaskInvalidURI.json; sourceTree = "<group>"; };
+		C1055A62246D1EFA00EF64ED /* workTimeValidationErrorFullModel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorFullModel.json; sourceTree = "<group>"; };
+		C1055A63246D1EFA00EF64ED /* workTimeValidationErrorEmptyResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorEmptyResponse.json; sourceTree = "<group>"; };
+		C1055A64246D1EFA00EF64ED /* workTimeValidationErrorDurationGreaterThan.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorDurationGreaterThan.json; sourceTree = "<group>"; };
+		C1055A65246D1EFA00EF64ED /* workTimeValidationErrorStartsAtTooOld.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workTimeValidationErrorStartsAtTooOld.json; sourceTree = "<group>"; };
+		C1055A72246D225D00EF64ED /* WorkTimeValidationErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeValidationErrorTests.swift; sourceTree = "<group>"; };
+		C1055A74246D2D2200EF64ED /* WorkTimeBodyErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeBodyErrorKeyTests.swift; sourceTree = "<group>"; };
+		C1055A76246D2D2A00EF64ED /* WorkTimeTaskErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeTaskErrorKeyTests.swift; sourceTree = "<group>"; };
+		C1055A78246D2D3300EF64ED /* WorkTimeStartsAtErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeStartsAtErrorKeyTests.swift; sourceTree = "<group>"; };
+		C1055A7A246D2D3D00EF64ED /* WorkTimeDurationErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeDurationErrorKeyTests.swift; sourceTree = "<group>"; };
+		C1055A7C246D2D4700EF64ED /* WorkTimeProjectIDErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeProjectIDErrorKeyTests.swift; sourceTree = "<group>"; };
 		C10FD87E21F1EDA100A233C5 /* ApiClient+Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiClient+Users.swift"; sourceTree = "<group>"; };
 		C10FD88021F1F15100A233C5 /* UserDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDecoder.swift; sourceTree = "<group>"; };
 		C10FD88321F1F28200A233C5 /* UserDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDecoderTests.swift; sourceTree = "<group>"; };
@@ -903,6 +1054,8 @@
 		C125F1B921DCCF5D00594CDE /* Projects.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Projects.storyboard; sourceTree = "<group>"; };
 		C125F1BB21DCDA8800594CDE /* ProjectCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCollectionViewCell.swift; sourceTree = "<group>"; };
 		C125F1C021DCF17300594CDE /* ProjectCollectionViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCollectionViewCellModel.swift; sourceTree = "<group>"; };
+		C128C80B246D83A500F24183 /* UIElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIElement.swift; sourceTree = "<group>"; };
+		C128C80F246D859C00F24183 /* ServerErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerErrorTests.swift; sourceTree = "<group>"; };
 		C12BD99821E48D5700A6EAF0 /* ProjectsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewModelTests.swift; sourceTree = "<group>"; };
 		C12BD99A21E48DD100A6EAF0 /* ProjectsViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewControllerMock.swift; sourceTree = "<group>"; };
 		C12BD99E21E48F9000A6EAF0 /* ApiClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientMock.swift; sourceTree = "<group>"; };
@@ -925,6 +1078,20 @@
 		C12CA57A21A5900B0082FEB7 /* WorkTimeDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeDecoder.swift; sourceTree = "<group>"; };
 		C12CA57C21A593F20082FEB7 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 		C12CA58121A599E60082FEB7 /* WorkTimeDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeDecoderTests.swift; sourceTree = "<group>"; };
+		C130B138246BD333002D23AB /* LocalizedDescribable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedDescribable.swift; sourceTree = "<group>"; };
+		C130B13A246BDA1C002D23AB /* registerRemoteStartsAtOverlapResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = registerRemoteStartsAtOverlapResponse.json; sourceTree = "<group>"; };
+		C130B13C246BDA45002D23AB /* registerRemoteStartsAtTooOldResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = registerRemoteStartsAtTooOldResponse.json; sourceTree = "<group>"; };
+		C130B13E246BDAA3002D23AB /* registerRemoteStartsAtEmptyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = registerRemoteStartsAtEmptyResponse.json; sourceTree = "<group>"; };
+		C130B140246BDB3B002D23AB /* registerRemoteStartsAtIncorrectHoursResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = registerRemoteStartsAtIncorrectHoursResponse.json; sourceTree = "<group>"; };
+		C130B142246BE2B4002D23AB /* SignInValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInValidationError.swift; sourceTree = "<group>"; };
+		C130B145246BE768002D23AB /* SignInValidationErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInValidationErrorTests.swift; sourceTree = "<group>"; };
+		C130B147246BE7E2002D23AB /* SignInValidationErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInValidationErrorResponse.swift; sourceTree = "<group>"; };
+		C130B14A246BE8E2002D23AB /* signInValidationErrorEmptyBase.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInValidationErrorEmptyBase.json; sourceTree = "<group>"; };
+		C130B14C246BE8EC002D23AB /* signInValidationErrorBaseInvalidEmailOrPassword.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInValidationErrorBaseInvalidEmailOrPassword.json; sourceTree = "<group>"; };
+		C130B14E246BE8F8002D23AB /* signInValidationErrorBaseInactive.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInValidationErrorBaseInactive.json; sourceTree = "<group>"; };
+		C130B150246BE901002D23AB /* signInValidationErrorFullModel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInValidationErrorFullModel.json; sourceTree = "<group>"; };
+		C130B152246BEAC3002D23AB /* SignInBaseErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInBaseErrorKeyTests.swift; sourceTree = "<group>"; };
+		C130B156246BEE1C002D23AB /* signInValidationErrorBaseInvalidEmailOrPassword.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInValidationErrorBaseInvalidEmailOrPassword.json; sourceTree = "<group>"; };
 		C134295D21A6934C00F4EA42 /* ApiClient+Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiClient+Session.swift"; sourceTree = "<group>"; };
 		C134295F21A6937E00F4EA42 /* ApiClientSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientSessionTests.swift; sourceTree = "<group>"; };
 		C134296221A693F400F4EA42 /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
@@ -1006,6 +1173,16 @@
 		C16B3A74229E6A0700B6E9E6 /* ProjectTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTag.swift; sourceTree = "<group>"; };
 		C16B3A76229E6BDF00B6E9E6 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		C16B3A78229E742600B6E9E6 /* TagCollectionViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellModel.swift; sourceTree = "<group>"; };
+		C17208952463ED7E0010ED38 /* RemoteWorkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkCell.swift; sourceTree = "<group>"; };
+		C17208972463F0020010ED38 /* RemoteWorkCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkCellViewModel.swift; sourceTree = "<group>"; };
+		C172089B2463F17C0010ED38 /* RemoteWorkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemoteWorkCell.xib; sourceTree = "<group>"; };
+		C172089D2463F7FC0010ED38 /* remoteWorkNullNote.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = remoteWorkNullNote.json; sourceTree = "<group>"; };
+		C172089F246401DB0010ED38 /* DateComponentsFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateComponentsFormatter+Extension.swift"; sourceTree = "<group>"; };
+		C17208A1246411BD0010ED38 /* RemoteWorkForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkForm.swift; sourceTree = "<group>"; };
+		C17208A324644C860010ED38 /* RemoteWorkFormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkFormTests.swift; sourceTree = "<group>"; };
+		C172D13C24656655005AC63B /* BasicError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicError.swift; sourceTree = "<group>"; };
+		C172D13E246566A0005AC63B /* RegisterRemoteWorkValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRemoteWorkValidationError.swift; sourceTree = "<group>"; };
+		C172D14024656FF2005AC63B /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
 		C175B56B227CAACA006D9944 /* MessagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePresenter.swift; sourceTree = "<group>"; };
 		C175B56D227CAB01006D9944 /* MessagePresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePresenterMock.swift; sourceTree = "<group>"; };
 		C1784DDC21E4E03600C83E2A /* WorkTime.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WorkTime.storyboard; sourceTree = "<group>"; };
@@ -1015,6 +1192,24 @@
 		C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionExtensionTests.swift; sourceTree = "<group>"; };
 		C183F82C21F0A56700B07AB8 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
 		C183F82D21F0A57300B07AB8 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
+		C1860DB02462DF0000C33C94 /* RemoteWorkCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkCoordinator.swift; sourceTree = "<group>"; };
+		C1860DB32462E1C400C33C94 /* RemoteWorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkViewController.swift; sourceTree = "<group>"; };
+		C1860DB52462E34200C33C94 /* RemoteWorkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkViewModel.swift; sourceTree = "<group>"; };
+		C1860DB72462E37900C33C94 /* RemoteWork.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RemoteWork.storyboard; sourceTree = "<group>"; };
+		C1860DBA2462E50B00C33C94 /* RemoteWorkViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkViewControllerMock.swift; sourceTree = "<group>"; };
+		C1860DBD2462EB3F00C33C94 /* RemoteWorkParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkParameters.swift; sourceTree = "<group>"; };
+		C1860DC02462EC0D00C33C94 /* RemoteWorkParametersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkParametersTests.swift; sourceTree = "<group>"; };
+		C1860DC22462ECE700C33C94 /* RemoteWorkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkResponse.swift; sourceTree = "<group>"; };
+		C1860DC42462ED9A00C33C94 /* RemoteWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWork.swift; sourceTree = "<group>"; };
+		C1860DC62462EDB300C33C94 /* RemoteWorkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkTests.swift; sourceTree = "<group>"; };
+		C1860DC82462EDC300C33C94 /* RemoteWorkResponseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkResponseTests.swift; sourceTree = "<group>"; };
+		C1860DCD2462EE0900C33C94 /* RemoteWorkJSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkJSONResource.swift; sourceTree = "<group>"; };
+		C1860DCF2462EE3F00C33C94 /* remoteWorkFullModel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = remoteWorkFullModel.json; sourceTree = "<group>"; };
+		C1860DD12462F0C700C33C94 /* RemoteWorkResponseJSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkResponseJSONResource.swift; sourceTree = "<group>"; };
+		C1860DD32462F12000C33C94 /* remoteWorkResponseRecordsEmptyArray.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = remoteWorkResponseRecordsEmptyArray.json; sourceTree = "<group>"; };
+		C1860DD52462F12C00C33C94 /* remoteWorkResponseFullModel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = remoteWorkResponseFullModel.json; sourceTree = "<group>"; };
+		C1860DD72462F26A00C33C94 /* ApiClient+RemoteWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiClient+RemoteWork.swift"; sourceTree = "<group>"; };
+		C1860DD92462F3F900C33C94 /* ApiClientRemoteWorkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientRemoteWorkTests.swift; sourceTree = "<group>"; };
 		C18A189B21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithAutofillTrueResponse.json; sourceTree = "<group>"; };
 		C18A189D21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithALunchTrueResponse.json; sourceTree = "<group>"; };
 		C18A18A021EF88B300CB6E32 /* WorkTimeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeViewModelTests.swift; sourceTree = "<group>"; };
@@ -1044,11 +1239,11 @@
 		C1A47C00245AAE2700FDA7F0 /* NewVacationViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVacationViewControllerMock.swift; sourceTree = "<group>"; };
 		C1A47C02245AF55D00FDA7F0 /* VacationForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationForm.swift; sourceTree = "<group>"; };
 		C1A681512460045D0044C2B9 /* VacationFormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationFormTests.swift; sourceTree = "<group>"; };
+		C1AA80D3246D1DAC00AC8FB4 /* WorkTimeValidationErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeValidationErrorResponse.swift; sourceTree = "<group>"; };
 		C1AACFCE21A4349B0023FD32 /* ProjectsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsCoordinator.swift; sourceTree = "<group>"; };
 		C1AACFD521A438660023FD32 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		C1AACFD721A4387F0023FD32 /* WorkTimesListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesListCoordinator.swift; sourceTree = "<group>"; };
 		C1AFFFD821A2ACC100A7A632 /* AccessServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessServiceTests.swift; sourceTree = "<group>"; };
-		C1AFFFDA21A2CD2000A7A632 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		C1AFFFE221A2D16F00A7A632 /* TimeTableTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableTabCoordinator.swift; sourceTree = "<group>"; };
 		C1B5136921772D1200C3727C /* TimeTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeTable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1B5136C21772D1200C3727C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1074,20 +1269,12 @@
 		C1B771EE21EF1EE000EFE06F /* simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json; sourceTree = "<group>"; };
 		C1B771F221EF2A2A00EFE06F /* simpleProjectArrayResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectArrayResponse.json; sourceTree = "<group>"; };
 		C1B771F421EF2C5800EFE06F /* TaskFormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormTests.swift; sourceTree = "<group>"; };
-		C1B771F621EF39FA00EFE06F /* ApiValidationErrorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiValidationErrorsTests.swift; sourceTree = "<group>"; };
-		C1B771FA21EF41C300EFE06F /* emptyErrosKeysResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = emptyErrosKeysResponse.json; sourceTree = "<group>"; };
-		C1B771FC21EF421900EFE06F /* baseErrorKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = baseErrorKeyResponse.json; sourceTree = "<group>"; };
-		C1B771FE21EF422600EFE06F /* startAtErrorKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = startAtErrorKeyResponse.json; sourceTree = "<group>"; };
-		C1B7720021EF423000EFE06F /* endsAtErrorKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = endsAtErrorKeyResponse.json; sourceTree = "<group>"; };
-		C1B7720221EF423900EFE06F /* durationErrorKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = durationErrorKeyResponse.json; sourceTree = "<group>"; };
-		C1B7720421EF424300EFE06F /* invalidEmailOrPasswordErrorKeyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = invalidEmailOrPasswordErrorKeyResponse.json; sourceTree = "<group>"; };
 		C1B8FA40218C91F3009D10B4 /* LoginCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCredentials.swift; sourceTree = "<group>"; };
 		C1B8FA43218C929F009D10B4 /* SessionDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDecoder.swift; sourceTree = "<group>"; };
 		C1B8FA48218C963A009D10B4 /* LoginCredentialsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCredentialsTests.swift; sourceTree = "<group>"; };
 		C1B8FA4A218C964C009D10B4 /* SessionDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDecoderTests.swift; sourceTree = "<group>"; };
 		C1B8FA4C218C9A04009D10B4 /* JSONFileResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONFileResource.swift; sourceTree = "<group>"; };
 		C1B8FA50218C9A86009D10B4 /* signInRequest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInRequest.json; sourceTree = "<group>"; };
-		C1C4BA902189AE0900683F71 /* ApiValidationErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiValidationErrors.swift; sourceTree = "<group>"; };
 		C1CCC117244DACF900177DAA /* ProjectTagsDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTagsDecoderFactory.swift; sourceTree = "<group>"; };
 		C1CCC11A244DB38100177DAA /* MatchingFullTimeDecoderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFullTimeDecoderFactory.swift; sourceTree = "<group>"; };
 		C1CE041421F5E01200E80517 /* AttributedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextField.swift; sourceTree = "<group>"; };
@@ -1099,6 +1286,7 @@
 		C1E1F04C21AD3EB8007F9228 /* CalendarMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMock.swift; sourceTree = "<group>"; };
 		C1E1F04E21AD52BA007F9228 /* workTimesResponseNotSorted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workTimesResponseNotSorted.json; sourceTree = "<group>"; };
 		C1E1F05321AD5FD2007F9228 /* WorkTimesTableViewHeaderViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesTableViewHeaderViewModelTests.swift; sourceTree = "<group>"; };
+		C1E50B85246C2DB000503008 /* WorkTimeValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeValidationError.swift; sourceTree = "<group>"; };
 		C1E6B34B219EF08200019DC2 /* AccessService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessService.swift; sourceTree = "<group>"; };
 		C1E6B34D219EF30600019DC2 /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
 		C1E6B34F219EF52000019DC2 /* Keychain+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keychain+Extension.swift"; sourceTree = "<group>"; };
@@ -1122,6 +1310,38 @@
 		C1EF3A0821930722000E3511 /* StringExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionTests.swift; sourceTree = "<group>"; };
 		C1F187AF21E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUserViewTableViewCell.swift; sourceTree = "<group>"; };
 		C1F187B121E37C760037B8C2 /* ProjectsCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsCollectionViewLayout.swift; sourceTree = "<group>"; };
+		C1F62B1D24692FB200AB8C00 /* RegisterRemoteWorkValidationErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRemoteWorkValidationErrorTests.swift; sourceTree = "<group>"; };
+		C1F62B20246935B000AB8C00 /* RegisterRemoteWorkValidationResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRemoteWorkValidationResource.swift; sourceTree = "<group>"; };
+		C1F62B222469364000AB8C00 /* registerRemoteEmptyStartsAtAndEndsAtResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = registerRemoteEmptyStartsAtAndEndsAtResponse.json; sourceTree = "<group>"; };
+		C1F62B2724693B8600AB8C00 /* registerRemoteStartsAtFullModelResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = registerRemoteStartsAtFullModelResponse.json; sourceTree = "<group>"; };
+		C1F62B2B24693BB600AB8C00 /* registerRemoteEndsAtFullModelResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = registerRemoteEndsAtFullModelResponse.json; sourceTree = "<group>"; };
+		C1F62B2D24693BFB00AB8C00 /* registerRemoteFullModelResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = registerRemoteFullModelResponse.json; sourceTree = "<group>"; };
+		C1F62B2F2469456B00AB8C00 /* RegisterRemoteWorkStartsAtErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRemoteWorkStartsAtErrorKeyTests.swift; sourceTree = "<group>"; };
+		C1F62B312469466200AB8C00 /* RegisterRemoteWorkEndsAtErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRemoteWorkEndsAtErrorKeyTests.swift; sourceTree = "<group>"; };
+		C1F62B332469487800AB8C00 /* BasicErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicErrorTests.swift; sourceTree = "<group>"; };
+		C1F62B3624694A1C00AB8C00 /* BasicErrorResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicErrorResource.swift; sourceTree = "<group>"; };
+		C1F62B3824694A6500AB8C00 /* basicErrorResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = basicErrorResponse.json; sourceTree = "<group>"; };
+		C1F62B3A24694BB100AB8C00 /* ValidationErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationErrorTests.swift; sourceTree = "<group>"; };
+		C1F62B3C24694C0800AB8C00 /* ValidationErrorResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationErrorResource.swift; sourceTree = "<group>"; };
+		C1F62B3F24694D6900AB8C00 /* validationErrorFullModelResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = validationErrorFullModelResponse.json; sourceTree = "<group>"; };
+		C1F62B412469512500AB8C00 /* validationErrorEmptyValidationErrorResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = validationErrorEmptyValidationErrorResponse.json; sourceTree = "<group>"; };
+		C1F62B432469535100AB8C00 /* NewVacationValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVacationValidationError.swift; sourceTree = "<group>"; };
+		C1F62B472469724100AB8C00 /* NewVacationValidationErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVacationValidationErrorTests.swift; sourceTree = "<group>"; };
+		C1F62B4B246974CB00AB8C00 /* NewVacationValidationErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVacationValidationErrorResponse.swift; sourceTree = "<group>"; };
+		C1F62B4E2469750700AB8C00 /* newVacationValidationErrorEmpty.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = newVacationValidationErrorEmpty.json; sourceTree = "<group>"; };
+		C1F62B50246975CE00AB8C00 /* newVacationValidationErrorBase.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = newVacationValidationErrorBase.json; sourceTree = "<group>"; };
+		C1F62B5224697C8B00AB8C00 /* newVacationValidationErrorDescriptionBlank.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = newVacationValidationErrorDescriptionBlank.json; sourceTree = "<group>"; };
+		C1F62B5424697CBA00AB8C00 /* newVacationValidationErrorStartDateBlank.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = newVacationValidationErrorStartDateBlank.json; sourceTree = "<group>"; };
+		C1F62B5624697CC400AB8C00 /* newVacationValidationErrorStartDateGreaterThanEndDate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = newVacationValidationErrorStartDateGreaterThanEndDate.json; sourceTree = "<group>"; };
+		C1F62B5824697CCC00AB8C00 /* newVacationValidationErrorEndDateBlank.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = newVacationValidationErrorEndDateBlank.json; sourceTree = "<group>"; };
+		C1F62B5A24697CD800AB8C00 /* newVacationValidationErrorVacationTypeBlank.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = newVacationValidationErrorVacationTypeBlank.json; sourceTree = "<group>"; };
+		C1F62B5C24697CE300AB8C00 /* newVacationValidationErrorVacationTypeInclusion.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = newVacationValidationErrorVacationTypeInclusion.json; sourceTree = "<group>"; };
+		C1F62B6024697D5B00AB8C00 /* newVacationValidationErrorFullModel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = newVacationValidationErrorFullModel.json; sourceTree = "<group>"; };
+		C1F62B62246984B200AB8C00 /* NewVacationBaseErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVacationBaseErrorKeyTests.swift; sourceTree = "<group>"; };
+		C1F62B64246984C700AB8C00 /* NewVacationDescriptionErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVacationDescriptionErrorKeyTests.swift; sourceTree = "<group>"; };
+		C1F62B66246984D500AB8C00 /* NewVacationStartDateErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVacationStartDateErrorKeyTests.swift; sourceTree = "<group>"; };
+		C1F62B682469850600AB8C00 /* NewVacationEndDateErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVacationEndDateErrorKeyTests.swift; sourceTree = "<group>"; };
+		C1F62B6A2469851B00AB8C00 /* NewVacationVacationTypeErrorKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVacationVacationTypeErrorKeyTests.swift; sourceTree = "<group>"; };
 		C1F69B2B21902FA5005D9114 /* signInResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = signInResponse.json; sourceTree = "<group>"; };
 		C1F69B2D21903818005D9114 /* LoginContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginContentProvider.swift; sourceTree = "<group>"; };
 		C1F7C2DD2190436B00F4FAF0 /* AuthenticationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinator.swift; sourceTree = "<group>"; };
@@ -1257,8 +1477,8 @@
 		8A18F7B0242A1F2E00D06059 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				8A3F0C692429EFA700564D6D /* signInResponse.json */,
 				8A3F0C6F2429F04300564D6D /* MockResponse.swift */,
+				C130B158246BEE29002D23AB /* SignIn */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1453,6 +1673,7 @@
 				C134297021A6BDF100F4EA42 /* JSONEncoderMock.swift */,
 				8A0707FB23699BE50019FB8E /* NotificationCenterMock.swift */,
 				8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */,
+				8A9CA52C2472B23F00E78DCD /* UIScrollViewMock.swift */,
 				C134298221A6C73000F4EA42 /* URLSessionDataTaskMock.swift */,
 				C134298021A6C71200F4EA42 /* URLSessionMock.swift */,
 			);
@@ -1484,6 +1705,7 @@
 				8A6B6D8A237AB636007D8D93 /* Profile */,
 				8A6B6D87237AB613007D8D93 /* ProjectPicker */,
 				8A6B6D88237AB61E007D8D93 /* Projects */,
+				C1860DB92462E4FB00C33C94 /* RemoteWork */,
 				8A6B6D89237AB629007D8D93 /* ServerConfiguration */,
 				8A79A2D1242245FD0048B44B /* TaskHistory */,
 				C1411C2F24505B5000BB4266 /* Vacation */,
@@ -1714,6 +1936,32 @@
 			path = ../Configuration;
 			sourceTree = "<group>";
 		};
+		8A912D87246D5A4000D88DA8 /* UpdateRemoteWorkValidationError */ = {
+			isa = PBXGroup;
+			children = (
+				8A912D88246D5A6600D88DA8 /* UpdateRemoteWorkValidationErrorTests.swift */,
+				8A912D9F246D5D4F00D88DA8 /* UpdateRemoteWorkEndsAtErrorKeyTests.swift */,
+				8A912DA1246D5D8400D88DA8 /* UpdateRemoteWorkStartsAtErrorKeyTests.swift */,
+			);
+			path = UpdateRemoteWorkValidationError;
+			sourceTree = "<group>";
+		};
+		8A912D8C246D5AE900D88DA8 /* UpdateRemoteWorkValidation */ = {
+			isa = PBXGroup;
+			children = (
+				8A912D90246D5B3700D88DA8 /* updateRemoteEmptyStartsAtAndEndsAtResponse.json */,
+				8A912D93246D5B3700D88DA8 /* updateRemoteEndsAtFullModelResponse.json */,
+				8A912D8E246D5B3700D88DA8 /* updateRemoteFullModelResponse.json */,
+				8A912D94246D5B3700D88DA8 /* updateRemoteStartsAtEmptyResponse.json */,
+				8A912D8D246D5B3700D88DA8 /* updateRemoteStartsAtFullModelResponse.json */,
+				8A912D8F246D5B3700D88DA8 /* updateRemoteStartsAtIncorrectHoursResponse.json */,
+				8A912D91246D5B3700D88DA8 /* updateRemoteStartsAtOverlapResponse.json */,
+				8A912D92246D5B3700D88DA8 /* updateRemoteStartsAtTooOldResponse.json */,
+				8A912D9D246D5B7600D88DA8 /* updateRemoteStartsAtOverlapMidnightResponse.json */,
+			);
+			path = UpdateRemoteWorkValidation;
+			sourceTree = "<group>";
+		};
 		8A9832BB243B0006005245A8 /* ServerError */ = {
 			isa = PBXGroup;
 			children = (
@@ -1761,6 +2009,47 @@
 				C12230D72449E9DF00DF5E86 /* WorkTime */,
 			);
 			path = Factories;
+			sourceTree = "<group>";
+		};
+		8AFBC35C2462F38400032B96 /* RegisterRemoteWork */ = {
+			isa = PBXGroup;
+			children = (
+				8AFBC3612462F51200032B96 /* RegisterRemoteWork.storyboard */,
+				8AFBC35D2462F3A100032B96 /* RegisterRemoteWorkViewController.swift */,
+				8AFBC35F2462F4A400032B96 /* RegisterRemoteWorkViewModel.swift */,
+			);
+			path = RegisterRemoteWork;
+			sourceTree = "<group>";
+		};
+		C1055A5A246D1E7F00EF64ED /* WorkTimeValidationError */ = {
+			isa = PBXGroup;
+			children = (
+				C1055A5E246D1EFA00EF64ED /* workTimeValidationErrorBodyOrTaskBlank.json */,
+				C1055A64246D1EFA00EF64ED /* workTimeValidationErrorDurationGreaterThan.json */,
+				C1055A63246D1EFA00EF64ED /* workTimeValidationErrorEmptyResponse.json */,
+				C1055A62246D1EFA00EF64ED /* workTimeValidationErrorFullModel.json */,
+				C1055A5B246D1EFA00EF64ED /* workTimeValidationErrorProjectIDBlank.json */,
+				C1055A5F246D1EFA00EF64ED /* workTimeValidationErrorStartsAtNoGapsToFill.json */,
+				C1055A5C246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlap.json */,
+				C1055A5D246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlapMidnight.json */,
+				C1055A65246D1EFA00EF64ED /* workTimeValidationErrorStartsAtTooOld.json */,
+				C1055A60246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidExternal.json */,
+				C1055A61246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidURI.json */,
+			);
+			path = WorkTimeValidationError;
+			sourceTree = "<group>";
+		};
+		C1055A71246D225100EF64ED /* WorkTimeValidationError */ = {
+			isa = PBXGroup;
+			children = (
+				C1055A74246D2D2200EF64ED /* WorkTimeBodyErrorKeyTests.swift */,
+				C1055A7A246D2D3D00EF64ED /* WorkTimeDurationErrorKeyTests.swift */,
+				C1055A7C246D2D4700EF64ED /* WorkTimeProjectIDErrorKeyTests.swift */,
+				C1055A78246D2D3300EF64ED /* WorkTimeStartsAtErrorKeyTests.swift */,
+				C1055A76246D2D2A00EF64ED /* WorkTimeTaskErrorKeyTests.swift */,
+				C1055A72246D225D00EF64ED /* WorkTimeValidationErrorTests.swift */,
+			);
+			path = WorkTimeValidationError;
 			sourceTree = "<group>";
 		};
 		C10FD87D21F1ED8300A233C5 /* User */ = {
@@ -1876,6 +2165,8 @@
 				8A798741237D4DB6003DC028 /* Profile */,
 				8A31CD7E23741F93008E590D /* ProjectPicker */,
 				C125F1B421DCCF2F00594CDE /* Projects */,
+				8AFBC35C2462F38400032B96 /* RegisterRemoteWork */,
+				C1860DB22462E1B400C33C94 /* RemoteWork */,
 				C153AC432181E4CC007A35BB /* ServerConfiguration */,
 				8A79A2422420C4000048B44B /* TaskHistory */,
 				C1411C2824503B1700BB4266 /* Vacation */,
@@ -1973,6 +2264,7 @@
 				8A8E8432242CE82800003AB1 /* EnvironmentReader.swift */,
 				8AADE0692465B12F001B0BF9 /* KeyboardManager.swift */,
 				8A2FB101242E32B500DDBCB0 /* LabelTextParameters.swift */,
+				C130B138246BD333002D23AB /* LocalizedDescribable.swift */,
 				C175B56B227CAACA006D9944 /* MessagePresenter.swift */,
 				8A5EF31B23FE808800AE4309 /* ReusableCellType.swift */,
 				8AD14A6C245B054900BAE803 /* TimerFormatter.swift */,
@@ -2002,13 +2294,11 @@
 		C1249C7D2181B4CF005DB2A5 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
-				C1F7C2EC2191897A00F4FAF0 /* ApiClientError.swift */,
-				C1C4BA902189AE0900683F71 /* ApiValidationErrors.swift */,
-				C1AFFFDA21A2CD2000A7A632 /* AppError.swift */,
 				C1249C7F2181B4FC005DB2A5 /* ErrorHandler.swift */,
 				C1249C812181B547005DB2A5 /* ErrorHandlerType.swift */,
-				C13C2B0321EDD1C5008C9088 /* ServerError.swift */,
-				C153AC6A218324DB007A35BB /* UIError.swift */,
+				C128C809246D838100F24183 /* ApiErrors */,
+				C128C80A246D838F00F24183 /* UIErrors */,
+				C172D13B24656641005AC63B /* ValidationErrors */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -2016,11 +2306,11 @@
 		C1249C832181B556005DB2A5 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
-				C17EA3B92189E9BA00A3F0CD /* ApiClientErrorTests.swift */,
-				C1B771F621EF39FA00EFE06F /* ApiValidationErrorsTests.swift */,
-				C125C4D22186F4D800FBA0DD /* ErrorHandlerTypeTests.swift */,
 				C1249C842181B567005DB2A5 /* ErrorHandlerTests.swift */,
-				C153AC6E218342F6007A35BB /* UIErrorTests.swift */,
+				C125C4D22186F4D800FBA0DD /* ErrorHandlerTypeTests.swift */,
+				C128C80D246D83BF00F24183 /* ApiErrors */,
+				C128C80E246D83D100F24183 /* UIErrors */,
+				C1F62B1C24692F9B00AB8C00 /* ValidationErrors */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -2045,6 +2335,41 @@
 				8A5EF31D23FE812C00AE4309 /* ProjectCollectionViewCell.xib */,
 			);
 			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		C128C809246D838100F24183 /* ApiErrors */ = {
+			isa = PBXGroup;
+			children = (
+				C1F7C2EC2191897A00F4FAF0 /* ApiClientError.swift */,
+				C13C2B0321EDD1C5008C9088 /* ServerError.swift */,
+			);
+			path = ApiErrors;
+			sourceTree = "<group>";
+		};
+		C128C80A246D838F00F24183 /* UIErrors */ = {
+			isa = PBXGroup;
+			children = (
+				C128C80B246D83A500F24183 /* UIElement.swift */,
+				C153AC6A218324DB007A35BB /* UIError.swift */,
+			);
+			path = UIErrors;
+			sourceTree = "<group>";
+		};
+		C128C80D246D83BF00F24183 /* ApiErrors */ = {
+			isa = PBXGroup;
+			children = (
+				C17EA3B92189E9BA00A3F0CD /* ApiClientErrorTests.swift */,
+				C128C80F246D859C00F24183 /* ServerErrorTests.swift */,
+			);
+			path = ApiErrors;
+			sourceTree = "<group>";
+		};
+		C128C80E246D83D100F24183 /* UIErrors */ = {
+			isa = PBXGroup;
+			children = (
+				C153AC6E218342F6007A35BB /* UIErrorTests.swift */,
+			);
+			path = UIErrors;
 			sourceTree = "<group>";
 		};
 		C12BD99721E48D3D00A6EAF0 /* Projects */ = {
@@ -2122,6 +2447,7 @@
 				8A6A4FAA2456D8B6004B4CF2 /* AccountingPeriods */,
 				C198BD1B21FF3DB800B5F847 /* MatchingFulltime */,
 				C12CA56621A5786E0082FEB7 /* Projects */,
+				C1860DBC2462EB2800C33C94 /* RemoteWork */,
 				C1B8FA47218C9617009D10B4 /* Session */,
 				C163BF28244F490600E87F4A /* Task */,
 				8A79A2492420D6600048B44B /* TaskHistory */,
@@ -2138,6 +2464,7 @@
 				8A6A4FB22456D9E1004B4CF2 /* AccountingPeriods */,
 				C11D0CF5220816BE00066CA9 /* MatchingFulltime */,
 				C12CA56D21A58BD70082FEB7 /* Projects */,
+				C1860DBF2462EC0000C33C94 /* RemoteWork */,
 				C1B8FA46218C95D3009D10B4 /* Session */,
 				C163BF29244F494000E87F4A /* Task */,
 				8A79A24C2420DDF20048B44B /* TaskHistory */,
@@ -2174,6 +2501,35 @@
 				C134296A21A6ABF200F4EA42 /* WorkTimesParametersTests.swift */,
 			);
 			path = WorkTimes;
+			sourceTree = "<group>";
+		};
+		C130B144246BE75C002D23AB /* SignInValidationError */ = {
+			isa = PBXGroup;
+			children = (
+				C130B152246BEAC3002D23AB /* SignInBaseErrorKeyTests.swift */,
+				C130B145246BE768002D23AB /* SignInValidationErrorTests.swift */,
+			);
+			path = SignInValidationError;
+			sourceTree = "<group>";
+		};
+		C130B149246BE8D6002D23AB /* SignInValidationError */ = {
+			isa = PBXGroup;
+			children = (
+				C130B14A246BE8E2002D23AB /* signInValidationErrorEmptyBase.json */,
+				C130B14C246BE8EC002D23AB /* signInValidationErrorBaseInvalidEmailOrPassword.json */,
+				C130B14E246BE8F8002D23AB /* signInValidationErrorBaseInactive.json */,
+				C130B150246BE901002D23AB /* signInValidationErrorFullModel.json */,
+			);
+			path = SignInValidationError;
+			sourceTree = "<group>";
+		};
+		C130B158246BEE29002D23AB /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				8A3F0C692429EFA700564D6D /* signInResponse.json */,
+				C130B156246BEE1C002D23AB /* signInValidationErrorBaseInvalidEmailOrPassword.json */,
+			);
+			path = SignIn;
 			sourceTree = "<group>";
 		};
 		C134296121A693D000F4EA42 /* Mocks */ = {
@@ -2264,6 +2620,7 @@
 				C1F7C2EA2191858800F4FAF0 /* ApiClient.swift */,
 				C198BD1E21FF3FC900B5F847 /* ApiClient+AccountingPeriods.swift */,
 				C125F1B221DCCBE700594CDE /* ApiClient+Projects.swift */,
+				C1860DD72462F26A00C33C94 /* ApiClient+RemoteWork.swift */,
 				C134295D21A6934C00F4EA42 /* ApiClient+Session.swift */,
 				C10FD87E21F1EDA100A233C5 /* ApiClient+Users.swift */,
 				C1FB401D245191D8008266C4 /* ApiClient+Vacation.swift */,
@@ -2282,6 +2639,7 @@
 			children = (
 				C11D0CF8220820BD00066CA9 /* ApiClientAccountingPeriodsTests.swift */,
 				C12BD9BA21E4B7B200A6EAF0 /* ApiClientProjectsTests.swift */,
+				C1860DD92462F3F900C33C94 /* ApiClientRemoteWorkTests.swift */,
 				C134295F21A6937E00F4EA42 /* ApiClientSessionTests.swift */,
 				C1531F062191CD4B00602A0C /* ApiClientTests.swift */,
 				C10FD88821F1F36300A233C5 /* ApiClientUsersTests.swift */,
@@ -2311,6 +2669,7 @@
 				C1E6B351219F014600019DC2 /* Bundle+Extension.swift */,
 				C1E1F04A21AD3DBE007F9228 /* Calendar+Extension.swift */,
 				8A31A85D238E902B008DCC08 /* Date+Extension.swift */,
+				C172089F246401DB0010ED38 /* DateComponentsFormatter+Extension.swift */,
 				C12CA57C21A593F20082FEB7 /* DateFormatter+Extension.swift */,
 				8A09DCB923673E74003FC2A6 /* DispatchQueue+Extension.swift */,
 				8A6A4FD224584398004B4CF2 /* Int+Extension.swift */,
@@ -2328,9 +2687,11 @@
 				C153AC502182EFEC007A35BB /* UIButton+Extension.swift */,
 				8A5EF31923FE806900AE4309 /* UICollectionView+Extension.swift */,
 				C12CA56921A57ADD0082FEB7 /* UIColor+Extension.swift */,
+				8A9CA52E2472B27D00E78DCD /* UIEdgeInsets+Extension.swift */,
 				8A5D48C52369ED990082C13D /* UIImage+Extension.swift */,
 				C153AC492182EE9F007A35BB /* UILabel+Extension .swift */,
 				8AB8AFC4244EF45400A0D3D3 /* UINavigationBar+Extension.swift */,
+				8AA1D339246E75E80037EB9C /* UIScrollView+Extension.swift */,
 				8A5EF31723FE7D0800AE4309 /* UITableView+Extension.swift */,
 				C153AC522182F1E3007A35BB /* UITextField+Extension.swift */,
 				C14EB02A2372E261007F07D0 /* UIView+Extension.swift */,
@@ -2365,6 +2726,7 @@
 				C153AC5D2182FA64007A35BB /* UIButtonExtensionTests.swift */,
 				C12CA56B21A57BAA0082FEB7 /* UIColorExtensionTests.swift */,
 				C153AC612182FCB7007A35BB /* UILabelExtensionTests.swift */,
+				8A9CA52A2472680000E78DCD /* UIScrollViewScrollActionTests.swift */,
 				C153AC5F2182FC4B007A35BB /* UITextFieldExtensionTests.swift */,
 				C19DDB1221A42043008C6FA3 /* URLExtensionTests.swift */,
 				C17EA3BB2189EC1700A3F0CD /* URLSessionExtensionTests.swift */,
@@ -2438,6 +2800,30 @@
 			path = User;
 			sourceTree = "<group>";
 		};
+		C17208942463ED670010ED38 /* RemoteWorkCell */ = {
+			isa = PBXGroup;
+			children = (
+				C17208952463ED7E0010ED38 /* RemoteWorkCell.swift */,
+				C17208972463F0020010ED38 /* RemoteWorkCellViewModel.swift */,
+				C172089B2463F17C0010ED38 /* RemoteWorkCell.xib */,
+			);
+			path = RemoteWorkCell;
+			sourceTree = "<group>";
+		};
+		C172D13B24656641005AC63B /* ValidationErrors */ = {
+			isa = PBXGroup;
+			children = (
+				C172D13C24656655005AC63B /* BasicError.swift */,
+				C1F62B432469535100AB8C00 /* NewVacationValidationError.swift */,
+				C172D13E246566A0005AC63B /* RegisterRemoteWorkValidationError.swift */,
+				C130B142246BE2B4002D23AB /* SignInValidationError.swift */,
+				8A912D85246D545600D88DA8 /* UpdateRemoteWorkValidationError.swift */,
+				C172D14024656FF2005AC63B /* ValidationError.swift */,
+				C1E50B85246C2DB000503008 /* WorkTimeValidationError.swift */,
+			);
+			path = ValidationErrors;
+			sourceTree = "<group>";
+		};
 		C1784DDB21E4E01B00C83E2A /* WorkTime */ = {
 			isa = PBXGroup;
 			children = (
@@ -2465,6 +2851,86 @@
 				C183F82C21F0A56700B07AB8 /* SF-Pro-Display-Bold.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		C1860DAF2462DEEB00C33C94 /* RemoteWork */ = {
+			isa = PBXGroup;
+			children = (
+				8AFBC35A2462F1E300032B96 /* RegisterRemoteWorkCoordinator.swift */,
+				C1860DB02462DF0000C33C94 /* RemoteWorkCoordinator.swift */,
+			);
+			path = RemoteWork;
+			sourceTree = "<group>";
+		};
+		C1860DB22462E1B400C33C94 /* RemoteWork */ = {
+			isa = PBXGroup;
+			children = (
+				C1860DB72462E37900C33C94 /* RemoteWork.storyboard */,
+				C1860DB32462E1C400C33C94 /* RemoteWorkViewController.swift */,
+				C1860DB52462E34200C33C94 /* RemoteWorkViewModel.swift */,
+				C17208942463ED670010ED38 /* RemoteWorkCell */,
+			);
+			path = RemoteWork;
+			sourceTree = "<group>";
+		};
+		C1860DB92462E4FB00C33C94 /* RemoteWork */ = {
+			isa = PBXGroup;
+			children = (
+				C1860DBA2462E50B00C33C94 /* RemoteWorkViewControllerMock.swift */,
+				8AFBC3632462F8ED00032B96 /* RegisterRemoteWorkViewControllerMock.swift */,
+			);
+			path = RemoteWork;
+			sourceTree = "<group>";
+		};
+		C1860DBC2462EB2800C33C94 /* RemoteWork */ = {
+			isa = PBXGroup;
+			children = (
+				C1860DC42462ED9A00C33C94 /* RemoteWork.swift */,
+				C17208A1246411BD0010ED38 /* RemoteWorkForm.swift */,
+				C1860DBD2462EB3F00C33C94 /* RemoteWorkParameters.swift */,
+				8AFBC3652463DCBF00032B96 /* RemoteWorkRequest.swift */,
+				C1860DC22462ECE700C33C94 /* RemoteWorkResponse.swift */,
+			);
+			path = RemoteWork;
+			sourceTree = "<group>";
+		};
+		C1860DBF2462EC0000C33C94 /* RemoteWork */ = {
+			isa = PBXGroup;
+			children = (
+				C17208A324644C860010ED38 /* RemoteWorkFormTests.swift */,
+				C1860DC02462EC0D00C33C94 /* RemoteWorkParametersTests.swift */,
+				8AFBC3672463DD4700032B96 /* RemoteWorkRequestTests.swift */,
+				C1860DC82462EDC300C33C94 /* RemoteWorkResponseTests.swift */,
+				C1860DC62462EDB300C33C94 /* RemoteWorkTests.swift */,
+			);
+			path = RemoteWork;
+			sourceTree = "<group>";
+		};
+		C1860DCA2462EDDB00C33C94 /* RemoteWork */ = {
+			isa = PBXGroup;
+			children = (
+				C1860DCC2462EDF000C33C94 /* RemoteWork */,
+				C1860DCB2462EDE700C33C94 /* RemoteWorkResponse */,
+			);
+			path = RemoteWork;
+			sourceTree = "<group>";
+		};
+		C1860DCB2462EDE700C33C94 /* RemoteWorkResponse */ = {
+			isa = PBXGroup;
+			children = (
+				C1860DD52462F12C00C33C94 /* remoteWorkResponseFullModel.json */,
+				C1860DD32462F12000C33C94 /* remoteWorkResponseRecordsEmptyArray.json */,
+			);
+			path = RemoteWorkResponse;
+			sourceTree = "<group>";
+		};
+		C1860DCC2462EDF000C33C94 /* RemoteWork */ = {
+			isa = PBXGroup;
+			children = (
+				C1860DCF2462EE3F00C33C94 /* remoteWorkFullModel.json */,
+				C172089D2463F7FC0010ED38 /* remoteWorkNullNote.json */,
+			);
+			path = RemoteWork;
 			sourceTree = "<group>";
 		};
 		C18A189F21EF889B00CB6E32 /* WorkTime */ = {
@@ -2606,8 +3072,9 @@
 			children = (
 				C1AFFFE221A2D16F00A7A632 /* TimeTableTabCoordinator.swift */,
 				8A56FC0F24531AAA0020F8CD /* AccountingPeriods */,
-				C1AACFCB21A4345C0023FD32 /* Projects */,
 				C1AACFCD21A434780023FD32 /* Profile */,
+				C1AACFCB21A4345C0023FD32 /* Projects */,
+				C1860DAF2462DEEB00C33C94 /* RemoteWork */,
 				C1411C25245039D100BB4266 /* Vacation */,
 				C1AACFCC21A434650023FD32 /* WorkTime */,
 			);
@@ -2721,19 +3188,6 @@
 			path = ProjectSimple;
 			sourceTree = "<group>";
 		};
-		C1B771F921EF415C00EFE06F /* ApiValidationErrors */ = {
-			isa = PBXGroup;
-			children = (
-				C1B771FC21EF421900EFE06F /* baseErrorKeyResponse.json */,
-				C1B7720221EF423900EFE06F /* durationErrorKeyResponse.json */,
-				C1B771FA21EF41C300EFE06F /* emptyErrosKeysResponse.json */,
-				C1B7720021EF423000EFE06F /* endsAtErrorKeyResponse.json */,
-				C1B7720421EF424300EFE06F /* invalidEmailOrPasswordErrorKeyResponse.json */,
-				C1B771FE21EF422600EFE06F /* startAtErrorKeyResponse.json */,
-			);
-			path = ApiValidationErrors;
-			sourceTree = "<group>";
-		};
 		C1B8FA46218C95D3009D10B4 /* Session */ = {
 			isa = PBXGroup;
 			children = (
@@ -2758,30 +3212,32 @@
 			isa = PBXGroup;
 			children = (
 				8A6A4FAD2456D915004B4CF2 /* AccountingPeriodsJSONResource.swift */,
-				8A065B50237AB9340072A21E /* ApiValidationJSONResource.swift */,
 				8A065B52237AB9780072A21E /* MatchingFullTimeJSONResource.swift */,
 				8A065B58237ABC8A0072A21E /* ProjectRecordJSONResource.swift */,
 				8A79A2F62423842A0048B44B /* ProjectRecordUserJSONResource.swift */,
 				8A79A3012424E91C0048B44B /* ProjectTagJSONResource.swift */,
+				C1860DCD2462EE0900C33C94 /* RemoteWorkJSONResource.swift */,
+				C1860DD12462F0C700C33C94 /* RemoteWorkResponseJSONResource.swift */,
 				8A9832B9243AFFF7005245A8 /* ServerErrorJSONResource.swift */,
 				8A065B5A237ABCD90072A21E /* SessionJSONResource.swift */,
 				8A065B54237ABA1B0072A21E /* SimpleProjectJSONResource.swift */,
 				8A79A24F2420DE4C0048B44B /* TaskVersionJSONResource.swift */,
+				C1FB40182451884C008266C4 /* UsedVacationDaysJSONResource.swift */,
 				8A065B5C237ABDBB0072A21E /* UserJSONResource.swift */,
 				C1FB3FFF24517480008266C4 /* VacationJSONResource.swift */,
 				C1FB40122451876E008266C4 /* VacationResponseJSONResource.swift */,
 				8A065B4E237AB8F50072A21E /* WorkTimesJSONResource.swift */,
 				8A065B56237ABC5A0072A21E /* WorkTimesProjectJSONResource.swift */,
 				8A6A4FAF2456D949004B4CF2 /* AccountingPeriods */,
-				C1FB40182451884C008266C4 /* UsedVacationDaysJSONResource.swift */,
-				C1B771F921EF415C00EFE06F /* ApiValidationErrors */,
 				C19D88A62203007F007CC867 /* MatchingFullTime */,
 				C12CA57021A58C6C0082FEB7 /* Projects */,
+				C1860DCA2462EDDB00C33C94 /* RemoteWork */,
 				8A9832BB243B0006005245A8 /* ServerError */,
 				C1B8FA4F218C9A64009D10B4 /* Session */,
 				8A79A2512420DED60048B44B /* TaskHistory */,
 				C10FD88521F1F2FF00A233C5 /* User */,
 				C1FB400124517673008266C4 /* Vacation */,
+				C1F62B1F2469324100AB8C00 /* ValidationErrors */,
 				C12CA57E21A599BE0082FEB7 /* WorkTimes */,
 			);
 			path = Resources;
@@ -2867,6 +3323,112 @@
 				8A5EF31F23FE81AC00AE4309 /* ProjectUserViewTableViewCell.xib */,
 			);
 			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		C1F62B1C24692F9B00AB8C00 /* ValidationErrors */ = {
+			isa = PBXGroup;
+			children = (
+				C1F62B332469487800AB8C00 /* BasicErrorTests.swift */,
+				C1F62B3A24694BB100AB8C00 /* ValidationErrorTests.swift */,
+				C1F62B4A246972D400AB8C00 /* NewVacationValidationError */,
+				C1F62B49246972C700AB8C00 /* RegisterRemoteWorkValidationError */,
+				C130B144246BE75C002D23AB /* SignInValidationError */,
+				8A912D87246D5A4000D88DA8 /* UpdateRemoteWorkValidationError */,
+				C1055A71246D225100EF64ED /* WorkTimeValidationError */,
+			);
+			path = ValidationErrors;
+			sourceTree = "<group>";
+		};
+		C1F62B1F2469324100AB8C00 /* ValidationErrors */ = {
+			isa = PBXGroup;
+			children = (
+				C1F62B3624694A1C00AB8C00 /* BasicErrorResource.swift */,
+				C1F62B4B246974CB00AB8C00 /* NewVacationValidationErrorResponse.swift */,
+				C1F62B20246935B000AB8C00 /* RegisterRemoteWorkValidationResource.swift */,
+				C130B147246BE7E2002D23AB /* SignInValidationErrorResponse.swift */,
+				8A912D8A246D5AA300D88DA8 /* UpdateRemoteWorkValidationResource.swift */,
+				C1F62B3C24694C0800AB8C00 /* ValidationErrorResource.swift */,
+				C1AA80D3246D1DAC00AC8FB4 /* WorkTimeValidationErrorResponse.swift */,
+				C1F62B3524694A0E00AB8C00 /* BasicError */,
+				C1F62B4D246974FA00AB8C00 /* NewVacationValidationError */,
+				C1F62B242469364A00AB8C00 /* RegisterRemoteWorkValidation */,
+				C130B149246BE8D6002D23AB /* SignInValidationError */,
+				8A912D8C246D5AE900D88DA8 /* UpdateRemoteWorkValidation */,
+				C1F62B3E24694D5600AB8C00 /* ValidationError */,
+				C1055A5A246D1E7F00EF64ED /* WorkTimeValidationError */,
+			);
+			path = ValidationErrors;
+			sourceTree = "<group>";
+		};
+		C1F62B242469364A00AB8C00 /* RegisterRemoteWorkValidation */ = {
+			isa = PBXGroup;
+			children = (
+				C1F62B222469364000AB8C00 /* registerRemoteEmptyStartsAtAndEndsAtResponse.json */,
+				C1F62B2724693B8600AB8C00 /* registerRemoteStartsAtFullModelResponse.json */,
+				C130B13A246BDA1C002D23AB /* registerRemoteStartsAtOverlapResponse.json */,
+				C130B13C246BDA45002D23AB /* registerRemoteStartsAtTooOldResponse.json */,
+				C130B13E246BDAA3002D23AB /* registerRemoteStartsAtEmptyResponse.json */,
+				C130B140246BDB3B002D23AB /* registerRemoteStartsAtIncorrectHoursResponse.json */,
+				C1F62B2B24693BB600AB8C00 /* registerRemoteEndsAtFullModelResponse.json */,
+				C1F62B2D24693BFB00AB8C00 /* registerRemoteFullModelResponse.json */,
+			);
+			path = RegisterRemoteWorkValidation;
+			sourceTree = "<group>";
+		};
+		C1F62B3524694A0E00AB8C00 /* BasicError */ = {
+			isa = PBXGroup;
+			children = (
+				C1F62B3824694A6500AB8C00 /* basicErrorResponse.json */,
+			);
+			path = BasicError;
+			sourceTree = "<group>";
+		};
+		C1F62B3E24694D5600AB8C00 /* ValidationError */ = {
+			isa = PBXGroup;
+			children = (
+				C1F62B3F24694D6900AB8C00 /* validationErrorFullModelResponse.json */,
+				C1F62B412469512500AB8C00 /* validationErrorEmptyValidationErrorResponse.json */,
+			);
+			path = ValidationError;
+			sourceTree = "<group>";
+		};
+		C1F62B49246972C700AB8C00 /* RegisterRemoteWorkValidationError */ = {
+			isa = PBXGroup;
+			children = (
+				C1F62B312469466200AB8C00 /* RegisterRemoteWorkEndsAtErrorKeyTests.swift */,
+				C1F62B2F2469456B00AB8C00 /* RegisterRemoteWorkStartsAtErrorKeyTests.swift */,
+				C1F62B1D24692FB200AB8C00 /* RegisterRemoteWorkValidationErrorTests.swift */,
+			);
+			path = RegisterRemoteWorkValidationError;
+			sourceTree = "<group>";
+		};
+		C1F62B4A246972D400AB8C00 /* NewVacationValidationError */ = {
+			isa = PBXGroup;
+			children = (
+				C1F62B62246984B200AB8C00 /* NewVacationBaseErrorKeyTests.swift */,
+				C1F62B64246984C700AB8C00 /* NewVacationDescriptionErrorKeyTests.swift */,
+				C1F62B682469850600AB8C00 /* NewVacationEndDateErrorKeyTests.swift */,
+				C1F62B66246984D500AB8C00 /* NewVacationStartDateErrorKeyTests.swift */,
+				C1F62B6A2469851B00AB8C00 /* NewVacationVacationTypeErrorKeyTests.swift */,
+				C1F62B472469724100AB8C00 /* NewVacationValidationErrorTests.swift */,
+			);
+			path = NewVacationValidationError;
+			sourceTree = "<group>";
+		};
+		C1F62B4D246974FA00AB8C00 /* NewVacationValidationError */ = {
+			isa = PBXGroup;
+			children = (
+				C1F62B4E2469750700AB8C00 /* newVacationValidationErrorEmpty.json */,
+				C1F62B50246975CE00AB8C00 /* newVacationValidationErrorBase.json */,
+				C1F62B5224697C8B00AB8C00 /* newVacationValidationErrorDescriptionBlank.json */,
+				C1F62B5424697CBA00AB8C00 /* newVacationValidationErrorStartDateBlank.json */,
+				C1F62B5624697CC400AB8C00 /* newVacationValidationErrorStartDateGreaterThanEndDate.json */,
+				C1F62B5824697CCC00AB8C00 /* newVacationValidationErrorEndDateBlank.json */,
+				C1F62B5A24697CD800AB8C00 /* newVacationValidationErrorVacationTypeBlank.json */,
+				C1F62B5C24697CE300AB8C00 /* newVacationValidationErrorVacationTypeInclusion.json */,
+				C1F62B6024697D5B00AB8C00 /* newVacationValidationErrorFullModel.json */,
+			);
+			path = NewVacationValidationError;
 			sourceTree = "<group>";
 		};
 		C1F7C2E321908B3100F4FAF0 /* Views */ = {
@@ -3093,6 +3655,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A3F0C6A2429EFA700564D6D /* signInResponse.json in Resources */,
+				C130B157246BEE1C002D23AB /* signInValidationErrorBaseInvalidEmailOrPassword.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3122,11 +3685,14 @@
 				C125F1BA21DCCF5D00594CDE /* Projects.storyboard in Resources */,
 				8A5EF32023FE81AC00AE4309 /* ProjectUserViewTableViewCell.xib in Resources */,
 				8A5EF31E23FE812C00AE4309 /* ProjectCollectionViewCell.xib in Resources */,
+				8AFBC3622462F51200032B96 /* RegisterRemoteWork.storyboard in Resources */,
 				C1E1F04221AD2372007F9228 /* WorkTimesTableViewHeader.xib in Resources */,
+				C172089C2463F17C0010ED38 /* RemoteWorkCell.xib in Resources */,
 				C13429AA21A7DB2300F4EA42 /* WorkTimesList.storyboard in Resources */,
 				C153AC592182F7BB007A35BB /* Localizable.strings in Resources */,
 				8A12C96B2456AF6F0046603B /* AccountingPeriodsCell.xib in Resources */,
 				8A8EE1AB23F4455100416D31 /* GoogleService-Info.plist in Resources */,
+				C1860DB82462E37900C33C94 /* RemoteWork.storyboard in Resources */,
 				8AADE6D42451A4790085FCA7 /* ProfileHeaderView.xib in Resources */,
 				8A12C9632456A5C70046603B /* AccountingPeriods.storyboard in Resources */,
 				C18BE2682452E93A00FC71CC /* VacationCell.xib in Resources */,
@@ -3138,42 +3704,58 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1F62B2C24693BB600AB8C00 /* registerRemoteEndsAtFullModelResponse.json in Resources */,
+				8A912D9A246D5B3700D88DA8 /* updateRemoteStartsAtTooOldResponse.json in Resources */,
+				C130B14F246BE8F8002D23AB /* signInValidationErrorBaseInactive.json in Resources */,
+				C130B13B246BDA1C002D23AB /* registerRemoteStartsAtOverlapResponse.json in Resources */,
 				8A2FB100242E286C00DDBCB0 /* taskChangedDurationResponse.json in Resources */,
+				C1F62B5D24697CE300AB8C00 /* newVacationValidationErrorVacationTypeInclusion.json in Resources */,
 				C1B771ED21EF1EC300EFE06F /* simpleProjectNullWorkTimesAllowsTaskResponse.json in Resources */,
 				8A6A4FBB2456F241004B4CF2 /* accountingPeriodEndsAtNullValue.json in Resources */,
 				8A79A2792420EFBC0048B44B /* taskVersionMissingCurrentStartsAtKey.json in Resources */,
 				C1B771DD21EF1E2800EFE06F /* simpleProjectNullInternalResponse.json in Resources */,
 				C1B771DB21EF1E1400EFE06F /* simpleProjectMissingAutofillKeyResponse.json in Resources */,
+				C1F62B5924697CCC00AB8C00 /* newVacationValidationErrorEndDateBlank.json in Resources */,
 				8AFFE5C824331C0B001D9E89 /* taskVersionMissingCurrentTaskKey.json in Resources */,
 				8A79A2AF2420F73C0048B44B /* taskVersionMissingPreviousEndsAtKey.json in Resources */,
 				8A79A2C22420F73C0048B44B /* taskVersionMissingPreviousBodyKey.json in Resources */,
 				C1FB400B245176CA008266C4 /* vacationUnconfirmedStatusResponse.json in Resources */,
+				C130B141246BDB3B002D23AB /* registerRemoteStartsAtIncorrectHoursResponse.json in Resources */,
+				8A912D96246D5B3700D88DA8 /* updateRemoteFullModelResponse.json in Resources */,
 				8A79A2AD2420F73C0048B44B /* taskVersionNullPreviousEndsAt.json in Resources */,
 				C1FB40162451878B008266C4 /* vacationResponseTypeResponse.json in Resources */,
+				C1F62B2E24693BFB00AB8C00 /* registerRemoteFullModelResponse.json in Resources */,
 				C1FB4009245176BF008266C4 /* vacationOthersTypeResponse.json in Resources */,
+				8A912D97246D5B3700D88DA8 /* updateRemoteStartsAtIncorrectHoursResponse.json in Resources */,
 				C11F51F121A59DF300FD626A /* workTimeResponse.json in Resources */,
 				8A2FB0FA242E27FF00DDBCB0 /* taskChangedStartsAtResponse.json in Resources */,
 				8A79A2C12420F73C0048B44B /* taskVersionMissingPreviousDurationKey.json in Resources */,
 				8A21A04A2435D75900EE4A79 /* taskVersionMissingCurrentTaskPreviewKey.json in Resources */,
 				8A79A2BB2420F73C0048B44B /* taskVersionNullEvent.json in Resources */,
+				C1F62B422469512500AB8C00 /* validationErrorEmptyValidationErrorResponse.json in Resources */,
+				C1055A6F246D1EFA00EF64ED /* workTimeValidationErrorDurationGreaterThan.json in Resources */,
 				8A79A3092424EAF70048B44B /* projectTagsUnknownResponse.json in Resources */,
+				8A912D99246D5B3700D88DA8 /* updateRemoteStartsAtOverlapResponse.json in Resources */,
 				C1B771D921EF1DFF00EFE06F /* simpleProjectNullAutofillResponse.json in Resources */,
+				C1860DD62462F12C00C33C94 /* remoteWorkResponseFullModel.json in Resources */,
 				8A21A0462435D72E00EE4A79 /* taskVersionMissingPreviousTaskPreviewKey.json in Resources */,
 				8AFFE5CA24331F77001D9E89 /* taskChangedTaskResponse.json in Resources */,
 				C1B771D721EF1DE100EFE06F /* simpleProjectMissingColorKeyResponse.json in Resources */,
-				C1B771FD21EF421900EFE06F /* baseErrorKeyResponse.json in Resources */,
+				C1055A6A246D1EFA00EF64ED /* workTimeValidationErrorStartsAtNoGapsToFill.json in Resources */,
 				8A6A4FC12456F279004B4CF2 /* accountingPeriodMissingCountedDurationKey.json in Resources */,
 				8A912D80246BC69900D88DA8 /* taskChangedDayResponse.json in Resources */,
+				C1F62B51246975CE00AB8C00 /* newVacationValidationErrorBase.json in Resources */,
 				8A6A4FBD2456F252004B4CF2 /* accountingPeriodMissingEndsAtKey.json in Resources */,
 				8A21A0442435D71700EE4A79 /* taskVersionNullPreviousTaskPreview.json in Resources */,
 				8A9832BD243B0023005245A8 /* serverErrorFullModel.json in Resources */,
 				8A21A0482435D74C00EE4A79 /* taskVersionNullCurrentTaskPreview.json in Resources */,
 				8A79A2C02420F73C0048B44B /* taskVersionNullCurrentTag.json in Resources */,
+				C1055A68246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlapMidnight.json in Resources */,
+				C1055A66246D1EFA00EF64ED /* workTimeValidationErrorProjectIDBlank.json in Resources */,
 				C1FB400F245176DB008266C4 /* vacationApprovedStatusResponse.json in Resources */,
 				8A79A2AE2420F73C0048B44B /* taskVersionNullPreviousTag.json in Resources */,
 				C1FB400D245176D3008266C4 /* vacationDeclinedStatusResponse.json in Resources */,
 				C134299D21A6DC6B00F4EA42 /* workTimeNullTask.json in Resources */,
-				C1B7720321EF423900EFE06F /* durationErrorKeyResponse.json in Resources */,
 				C1B771D521EF1DD200EFE06F /* simpleProjectNullColorResponse.json in Resources */,
 				8A79A2F1242369E00048B44B /* projectRecordMissingUsersKeyResponse.json in Resources */,
 				C12CA57221A58D020082FEB7 /* workTimesProjectResponse.json in Resources */,
@@ -3181,8 +3763,8 @@
 				8A2FB0FE242E284900DDBCB0 /* taskChangedTagResponse.json in Resources */,
 				C1B771E321EF1E6800EFE06F /* simpleProjectMissingCountDurationKeyResponse.json in Resources */,
 				8A79A2AC2420F73C0048B44B /* taskVersionUnknownEvent.json in Resources */,
+				C1055A69246D1EFA00EF64ED /* workTimeValidationErrorBodyOrTaskBlank.json in Resources */,
 				C18A189C21EF824B00CB6E32 /* simpleProjectWithAutofillTrueResponse.json in Resources */,
-				C1B7720121EF423000EFE06F /* endsAtErrorKeyResponse.json in Resources */,
 				C1B771EB21EF1EB100EFE06F /* simpleProjectMissingLunchKeyResponse.json in Resources */,
 				8A79A2FA242384560048B44B /* projectRecordUserFullResponse.json in Resources */,
 				8A79A2E9242369870048B44B /* projectRecordMissingLeaderFirstNameKeyResponse.json in Resources */,
@@ -3190,25 +3772,30 @@
 				C12CA57621A58D2E0082FEB7 /* workTimesProjectMissingColorKeyResponse.json in Resources */,
 				C1FB4011245176E6008266C4 /* vacationAcceptedStatusResponse.json in Resources */,
 				8A79A2B32420F73C0048B44B /* taskVersionMissingCurrentTagKey.json in Resources */,
-				C1B7720521EF424300EFE06F /* invalidEmailOrPasswordErrorKeyResponse.json in Resources */,
 				C1B771E521EF1E7800EFE06F /* simpleProjectNullActiveResponse.json in Resources */,
 				C1B771F321EF2A2A00EFE06F /* simpleProjectArrayResponse.json in Resources */,
 				8A79A2532420DEEB0048B44B /* taskVersionFullModel.json in Resources */,
-				C1B771FB21EF41C300EFE06F /* emptyErrosKeysResponse.json in Resources */,
+				C1055A6B246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidExternal.json in Resources */,
 				8A79A2912420F0DE0048B44B /* taskVersionMissingCurrentDurationKey.json in Resources */,
+				C1055A67246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlap.json in Resources */,
 				C1FB40032451768D008266C4 /* vacationPlannedTypeResponse.json in Resources */,
+				8A912D9B246D5B3700D88DA8 /* updateRemoteEndsAtFullModelResponse.json in Resources */,
 				8A79A2E72423696B0048B44B /* projectRecordNullLeaderFirstNameResponse.json in Resources */,
 				8A79A2B92420F73C0048B44B /* taskVersionMissingPreviousTagKey.json in Resources */,
 				8A79A2BC2420F73C0048B44B /* taskVersionMissingPreviousStartsAtKey.json in Resources */,
 				C1B771E921EF1EA200EFE06F /* simpleProjectNullLunchResponse.json in Resources */,
-				C1B771FF21EF422600EFE06F /* startAtErrorKeyResponse.json in Resources */,
 				8A79A2BE2420F73C0048B44B /* taskVersionMissingProjectNameKeys.json in Resources */,
 				C10FD88721F1F30E00A233C5 /* userFullResponse.json in Resources */,
 				8AFFE5C624331BFB001D9E89 /* taskVersionNullCurrentTask.json in Resources */,
 				C1B771E721EF1E9000EFE06F /* simpleProjectMissingActiveKeyResponse.json in Resources */,
 				C11D0CFD2208240600066CA9 /* matchingFullTimeNullPeriod.json in Resources */,
 				8A6A4FC32456F289004B4CF2 /* accountingPeriodNoteNullValue.json in Resources */,
+				C1F62B4F2469750700AB8C00 /* newVacationValidationErrorEmpty.json in Resources */,
+				C1F62B6124697D5B00AB8C00 /* newVacationValidationErrorFullModel.json in Resources */,
+				C130B14D246BE8EC002D23AB /* signInValidationErrorBaseInvalidEmailOrPassword.json in Resources */,
 				C13429B621A8307200F4EA42 /* workTimeMissingBodyKey.json in Resources */,
+				8A912D9E246D5B7600D88DA8 /* updateRemoteStartsAtOverlapMidnightResponse.json in Resources */,
+				8A912D95246D5B3700D88DA8 /* updateRemoteStartsAtFullModelResponse.json in Resources */,
 				8A6A4FC7245818DF004B4CF2 /* accountingPeriodsResponseFullResponse.json in Resources */,
 				C1B8FA51218C9A86009D10B4 /* signInRequest.json in Resources */,
 				C1F69B2C21902FA5005D9114 /* signInResponse.json in Resources */,
@@ -3225,14 +3812,20 @@
 				8A79A2712420EF2F0048B44B /* taskVersionMissingCurrentBodyKey.json in Resources */,
 				C1B771DF21EF1E3E00EFE06F /* simpleProjectMissingInternalKeyResponse.json in Resources */,
 				8A79A3052424E9460048B44B /* projectTagsResponse.json in Resources */,
+				C1F62B5724697CC400AB8C00 /* newVacationValidationErrorStartDateGreaterThanEndDate.json in Resources */,
+				C130B14B246BE8E2002D23AB /* signInValidationErrorEmptyBase.json in Resources */,
+				C1860DD42462F12000C33C94 /* remoteWorkResponseRecordsEmptyArray.json in Resources */,
 				8A9987CE23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json in Resources */,
 				8A912D82246BC7AC00D88DA8 /* taskChangedDayAndTimeResponse.json in Resources */,
+				C1F62B4024694D6900AB8C00 /* validationErrorFullModelResponse.json in Resources */,
 				8AFFE5C424331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json in Resources */,
 				C13429A321A6DCA300F4EA42 /* workTimeMissingTaskPreviewKey.json in Resources */,
 				8A79A2C32420F73C0048B44B /* taskVersionNullCurrentDuration.json in Resources */,
 				C1FB4007245176B1008266C4 /* vacationCompassionateTypeResponse.json in Resources */,
+				8A912D98246D5B3700D88DA8 /* updateRemoteEmptyStartsAtAndEndsAtResponse.json in Resources */,
 				8A79A2B42420F73C0048B44B /* taskVersionNullCurrentBody.json in Resources */,
 				8A79A2B62420F73C0048B44B /* taskVersionNullCurrentProjectName.json in Resources */,
+				C1F62B2824693B8600AB8C00 /* registerRemoteStartsAtFullModelResponse.json in Resources */,
 				8A79A2B02420F73C0048B44B /* taskVersionNullPreviousDuration.json in Resources */,
 				C19D88A8220300AA007CC867 /* matchingFullTimeFullResponse.json in Resources */,
 				C12CA57421A58D150082FEB7 /* workTimesProjectNullColorResponse.json in Resources */,
@@ -3247,30 +3840,45 @@
 				C1FB40052451769A008266C4 /* vacationRequestedTypeResponse.json in Resources */,
 				8A79A2812420F01A0048B44B /* taskVersionMissingCurrentEndsAtKey.json in Resources */,
 				8A79A2B22420F73C0048B44B /* taskVersionNullCurrentStartsAt.json in Resources */,
+				C1F62B5524697CBA00AB8C00 /* newVacationValidationErrorStartDateBlank.json in Resources */,
 				C13429A521A6DF1400F4EA42 /* workTimesResponse.json in Resources */,
 				C12BD9A921E49C4600A6EAF0 /* projectRecordResponse.json in Resources */,
 				8A2FB0F8242E27DF00DDBCB0 /* taskChangedBodyResponse.json in Resources */,
 				C1B771EF21EF1EE000EFE06F /* simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json in Resources */,
+				8A912D9C246D5B3700D88DA8 /* updateRemoteStartsAtEmptyResponse.json in Resources */,
+				C1F62B232469364000AB8C00 /* registerRemoteEmptyStartsAtAndEndsAtResponse.json in Resources */,
+				C1055A70246D1EFA00EF64ED /* workTimeValidationErrorStartsAtTooOld.json in Resources */,
+				C1055A6C246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidURI.json in Resources */,
+				C1F62B5B24697CD800AB8C00 /* newVacationValidationErrorVacationTypeBlank.json in Resources */,
 				C13429A721A6E73F00F4EA42 /* workTimeRequest.json in Resources */,
 				C1E1F04F21AD52BA007F9228 /* workTimesResponseNotSorted.json in Resources */,
 				C134299F21A6DC7600F4EA42 /* workTimeMissingTaskKey.json in Resources */,
+				C1055A6E246D1EFA00EF64ED /* workTimeValidationErrorEmptyResponse.json in Resources */,
+				C172089E2463F7FC0010ED38 /* remoteWorkNullNote.json in Resources */,
 				8A79A2682420EBD90048B44B /* taskVersionMissingCurrentProjectNameKey.json in Resources */,
+				C130B13F246BDAA3002D23AB /* registerRemoteStartsAtEmptyResponse.json in Resources */,
 				8A79A2EF242369BC0048B44B /* projectRecordNullUsersResponse.json in Resources */,
 				8A2FB0F6242E278C00DDBCB0 /* taskUnchangedResponse.json in Resources */,
 				8A79A2EB242369970048B44B /* projectRecordNullLeaderLastNameResponse.json in Resources */,
 				8A9987D023951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json in Resources */,
+				C130B151246BE901002D23AB /* signInValidationErrorFullModel.json in Resources */,
 				8A2FB0F4242E274700DDBCB0 /* taskChangedProjectResponse.json in Resources */,
+				C130B13D246BDA45002D23AB /* registerRemoteStartsAtTooOldResponse.json in Resources */,
 				C18A189E21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json in Resources */,
 				8A79A2B52420F73C0048B44B /* taskVersionNullPreviousProjectName.json in Resources */,
 				C11D0D012208243C00066CA9 /* matchingFullTimeMissingShouldWorkedKey.json in Resources */,
+				C1055A6D246D1EFA00EF64ED /* workTimeValidationErrorFullModel.json in Resources */,
 				8A79A2BA2420F73C0048B44B /* taskVersionNullCurrentEndsAt.json in Resources */,
 				8A79A2B82420F73C0048B44B /* taskVersionMissingEventKey.json in Resources */,
+				C1860DD02462EE3F00C33C94 /* remoteWorkFullModel.json in Resources */,
 				C13429B821A8308600F4EA42 /* workTimeBodyNull.json in Resources */,
 				C11D0CFF2208241C00066CA9 /* matchingFullTimeMissingPeriodKey.json in Resources */,
 				C12BD9AD21E49CAA00A6EAF0 /* projectRecordMissingColorKeyResponse.json in Resources */,
 				8A79A2BD2420F73C0048B44B /* taskVersionNullPreviousStartsAt.json in Resources */,
 				C11D0D032208244E00066CA9 /* matchingFullTimeNullShouldWorked.json in Resources */,
+				C1F62B3924694A6500AB8C00 /* basicErrorResponse.json in Resources */,
 				C12BD9B921E4B20400A6EAF0 /* projectsRecordsResponse.json in Resources */,
+				C1F62B5324697C8B00AB8C00 /* newVacationValidationErrorDescriptionBlank.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3483,8 +4091,10 @@
 			files = (
 				8A79A2412420C3160048B44B /* TaskHistoryCoordinator.swift in Sources */,
 				C1411C2724503A0400BB4266 /* VacationCoordinator.swift in Sources */,
+				8AFBC3602462F4A400032B96 /* RegisterRemoteWorkViewModel.swift in Sources */,
 				8A79A2CD242231890048B44B /* UIActivityIndicatorView+Extension.swift in Sources */,
 				C18BE26B2452EC1000FC71CC /* VacationCellViewModel.swift in Sources */,
+				C1860DC52462ED9A00C33C94 /* RemoteWork.swift in Sources */,
 				C13429B221A7F9F400F4EA42 /* WorkTimeTableViewCellModel.swift in Sources */,
 				C125F1B321DCCBE700594CDE /* ApiClient+Projects.swift in Sources */,
 				C13429B421A7FB1B00F4EA42 /* WorkTimeTableViewCell.swift in Sources */,
@@ -3506,6 +4116,7 @@
 				8AADE06A2465B12F001B0BF9 /* KeyboardManager.swift in Sources */,
 				C1F7C2EB2191858800F4FAF0 /* ApiClient.swift in Sources */,
 				C153AC6621831499007A35BB /* NotificationCenter+Extenison.swift in Sources */,
+				C1860DB42462E1C400C33C94 /* RemoteWorkViewController.swift in Sources */,
 				8A31A85E238E902B008DCC08 /* Date+Extension.swift in Sources */,
 				8A5D48BE2369E18C0082C13D /* DispatchGroupFactory.swift in Sources */,
 				C1249C802181B4FC005DB2A5 /* ErrorHandler.swift in Sources */,
@@ -3514,15 +4125,18 @@
 				C1AACFD821A4387F0023FD32 /* WorkTimesListCoordinator.swift in Sources */,
 				C1B8FA44218C929F009D10B4 /* SessionDecoder.swift in Sources */,
 				C153AC4A2182EE9F007A35BB /* UILabel+Extension .swift in Sources */,
+				8A9CA52F2472B27D00E78DCD /* UIEdgeInsets+Extension.swift in Sources */,
 				8A56FC1124531AE30020F8CD /* AccountingPeriodsCoordinator.swift in Sources */,
 				C125F1B621DCCF4400594CDE /* ProjectsViewController.swift in Sources */,
 				C125F1AF21DCC95200594CDE /* ProjectRecordDecoder.swift in Sources */,
 				8AADE6D82451D18F0085FCA7 /* ProfileContentProvider.swift in Sources */,
 				C14EB0252372D9B0007F07D0 /* ErrorViewModel.swift in Sources */,
+				C1860DBE2462EB3F00C33C94 /* RemoteWorkParameters.swift in Sources */,
 				8A2FB102242E32B500DDBCB0 /* LabelTextParameters.swift in Sources */,
 				C1411C2C24503B6000BB4266 /* VacationViewController.swift in Sources */,
 				C16B3A75229E6A0700B6E9E6 /* ProjectTag.swift in Sources */,
 				C1AACFCF21A4349B0023FD32 /* ProjectsCoordinator.swift in Sources */,
+				C1F62B442469535100AB8C00 /* NewVacationValidationError.swift in Sources */,
 				C1FE49E821AC458F00E37E28 /* WorkTimesTableViewHeader.swift in Sources */,
 				C1ECF0A52192C37E006038C6 /* CustomJSONSerialization.swift in Sources */,
 				C1A47BEF2459934800FDA7F0 /* VacationStatus.swift in Sources */,
@@ -3531,11 +4145,14 @@
 				8A5D48C02369E1A30082C13D /* DispatchGroup+Extension.swift in Sources */,
 				C1F7C2DE2190436B00F4FAF0 /* AuthenticationCoordinator.swift in Sources */,
 				8A31CD8223742639008E590D /* ProjectPickerViewModel.swift in Sources */,
+				C17208982463F0020010ED38 /* RemoteWorkCellViewModel.swift in Sources */,
 				C1411C2E2450415A00BB4266 /* VacationViewModel.swift in Sources */,
 				8A79A2C724220BB20048B44B /* DateFormatterBuilder.swift in Sources */,
 				C16B3A79229E742600B6E9E6 /* TagCollectionViewCellModel.swift in Sources */,
+				8AFBC35B2462F1E300032B96 /* RegisterRemoteWorkCoordinator.swift in Sources */,
 				C1F7C2E221904E0900F4FAF0 /* UserDefaults+Extension.swift in Sources */,
 				C198BD1F21FF3FC900B5F847 /* ApiClient+AccountingPeriods.swift in Sources */,
+				8AFBC35E2462F3A100032B96 /* RegisterRemoteWorkViewController.swift in Sources */,
 				8A5EF31A23FE806900AE4309 /* UICollectionView+Extension.swift in Sources */,
 				8AE866B0246A7636001BD475 /* Constants.swift in Sources */,
 				8A79A2FC2424BFF90048B44B /* DatePickerTextField.swift in Sources */,
@@ -3543,11 +4160,13 @@
 				C125F1B821DCCF5100594CDE /* ProjectsViewModel.swift in Sources */,
 				C10515D42456B2BC00413EDE /* YearPickerView.swift in Sources */,
 				C134296721A6951C00F4EA42 /* ApiClient+WorkTimes.swift in Sources */,
+				8AFBC3662463DCBF00032B96 /* RemoteWorkRequest.swift in Sources */,
 				C125C4DB21871C7A00FBA0DD /* ServerConfiguration.swift in Sources */,
 				C14EB0272372E113007F07D0 /* ErrorView.swift in Sources */,
 				8A81E873246003A40091846D /* LoginForm.swift in Sources */,
 				8A5EF31823FE7D0800AE4309 /* UITableView+Extension.swift in Sources */,
 				C1CE041521F5E01200E80517 /* AttributedTextField.swift in Sources */,
+				C128C80C246D83A500F24183 /* UIElement.swift in Sources */,
 				C18BE2722453072300FC71CC /* VacationTableHeaderViewModel.swift in Sources */,
 				C1FE49EA21AC467F00E37E28 /* WorkTimesTableViewHeaderViewModel.swift in Sources */,
 				8A56FC1424531CA80020F8CD /* AccountingPeriodsViewController.swift in Sources */,
@@ -3557,6 +4176,8 @@
 				C1E6B34E219EF30600019DC2 /* URL+Extension.swift in Sources */,
 				8A6A4FCB24581A93004B4CF2 /* AccountingPeriodsResponse.swift in Sources */,
 				C13429AC21A7DDAB00F4EA42 /* WorkTimesListViewController.swift in Sources */,
+				8A912D86246D545600D88DA8 /* UpdateRemoteWorkValidationError.swift in Sources */,
+				C17208A2246411BD0010ED38 /* RemoteWorkForm.swift in Sources */,
 				8A59AF202382E29200108C33 /* DailyWorkTime.swift in Sources */,
 				8A6A4FCD245826C5004B4CF2 /* AccountingPeriodsParameters.swift in Sources */,
 				C122601C21899B84007D64A3 /* ServerConfigurationManager.swift in Sources */,
@@ -3567,6 +4188,7 @@
 				8A3F0C572428CDAE00564D6D /* WorkTimeContainerViewController.swift in Sources */,
 				C1E6B352219F014600019DC2 /* Bundle+Extension.swift in Sources */,
 				8A79A2FE2424DC250048B44B /* ProjectTagsDecoder.swift in Sources */,
+				C130B143246BE2B4002D23AB /* SignInValidationError.swift in Sources */,
 				8A5EF31C23FE808800AE4309 /* ReusableCellType.swift in Sources */,
 				C1E908D2245841F3003E0368 /* UsedVacationCellViewModel.swift in Sources */,
 				C1AFFFE321A2D16F00A7A632 /* TimeTableTabCoordinator.swift in Sources */,
@@ -3577,13 +4199,16 @@
 				8AD1345A2396B60B00572632 /* AttributedTextView.swift in Sources */,
 				8A79A2552420E5600048B44B /* NilableDiffElement.swift in Sources */,
 				8A79A2C524210AAC0048B44B /* WorkTimeDisplayed.swift in Sources */,
+				C1860DB62462E34200C33C94 /* RemoteWorkViewModel.swift in Sources */,
 				C1F7C2ED2191897A00F4FAF0 /* ApiClientError.swift in Sources */,
 				8A31CD8723742CEA008E590D /* ProjectPickerCellModel.swift in Sources */,
+				C17208A0246401DB0010ED38 /* DateComponentsFormatter+Extension.swift in Sources */,
 				8AE55D2123FD92D200F94242 /* DateFactory.swift in Sources */,
 				8A12C9692456AF140046603B /* AccountingPeriodsCell.swift in Sources */,
 				8A10F841235454DA0004F389 /* UIBarButtonItem+Extension.swift in Sources */,
 				C13429AE21A7E48C00F4EA42 /* WorkTimesListViewModel.swift in Sources */,
 				C12CA56821A578870082FEB7 /* SimpleProjectRecordDecoder.swift in Sources */,
+				C1860DC32462ECE700C33C94 /* RemoteWorkResponse.swift in Sources */,
 				8A31CD8023741FD0008E590D /* ProjectPickerViewController.swift in Sources */,
 				C18BE2662452E8C500FC71CC /* VacationCell.swift in Sources */,
 				C1F69B2E21903818005D9114 /* LoginContentProvider.swift in Sources */,
@@ -3594,9 +4219,10 @@
 				C175B56C227CAACA006D9944 /* MessagePresenter.swift in Sources */,
 				C14EB02B2372E261007F07D0 /* UIView+Extension.swift in Sources */,
 				C125F1BC21DCDA8800594CDE /* ProjectCollectionViewCell.swift in Sources */,
+				8AA1D33A246E75E80037EB9C /* UIScrollView+Extension.swift in Sources */,
 				C12CA57B21A5900B0082FEB7 /* WorkTimeDecoder.swift in Sources */,
 				C1A47BE924596AD000FDA7F0 /* VacationType.swift in Sources */,
-				C1C4BA912189AE0900683F71 /* ApiValidationErrors.swift in Sources */,
+				C172D13F246566A0005AC63B /* RegisterRemoteWorkValidationError.swift in Sources */,
 				8A79A2442420C40F0048B44B /* TaskHistoryViewController.swift in Sources */,
 				C1F187B021E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift in Sources */,
 				8AC097242371CCFF00103FAD /* UIApplication+Extension.swift in Sources */,
@@ -3610,10 +4236,15 @@
 				8AADE6D62451A4850085FCA7 /* ProfileHeaderView.swift in Sources */,
 				C125F1C121DCF17300594CDE /* ProjectCollectionViewCellModel.swift in Sources */,
 				8A5EF32723FE9A3000AE4309 /* UIViewController+Extension.swift in Sources */,
+				C1860DB12462DF0000C33C94 /* RemoteWorkCoordinator.swift in Sources */,
 				8AB8AFD62450803100A0D3D3 /* ProfileButtonCell.swift in Sources */,
+				C130B139246BD333002D23AB /* LocalizedDescribable.swift in Sources */,
 				C1AACFD621A438660023FD32 /* ProfileCoordinator.swift in Sources */,
 				8A31A860238E927E008DCC08 /* TimeInterval+Extension.swift in Sources */,
+				C1E50B86246C2DB000503008 /* WorkTimeValidationError.swift in Sources */,
+				C1860DD82462F26A00C33C94 /* ApiClient+RemoteWork.swift in Sources */,
 				8A80A38D23D89C24002643A1 /* APIClientFactory.swift in Sources */,
+				C172D14124656FF2005AC63B /* ValidationError.swift in Sources */,
 				8A12C9612456A5130046603B /* AccountingPeriodsViewModel.swift in Sources */,
 				C1E6B34C219EF08200019DC2 /* AccessService.swift in Sources */,
 				8AE55D1D23FD855E00F94242 /* Task.swift in Sources */,
@@ -3623,7 +4254,9 @@
 				C153AC6421830AFE007A35BB /* ServerConfigurationViewModel.swift in Sources */,
 				C1A47BFA245AAA1B00FDA7F0 /* NewVacationViewController.swift in Sources */,
 				8A3F0C592428CEE300564D6D /* WorkTimeContainerViewModel.swift in Sources */,
+				C17208962463ED7E0010ED38 /* RemoteWorkCell.swift in Sources */,
 				C1ECF09F2192C1AB006038C6 /* JSONDecoder+Extension.swift in Sources */,
+				C172D13D24656655005AC63B /* BasicError.swift in Sources */,
 				C1ECF09D2192BB51006038C6 /* RequestEncoder.swift in Sources */,
 				C153AC512182EFEC007A35BB /* UIButton+Extension.swift in Sources */,
 				C1EF3A05219303A7000E3511 /* NSRegularExpression+Extension.swift in Sources */,
@@ -3650,7 +4283,6 @@
 				8AB8AFC5244EF45400A0D3D3 /* UINavigationBar+Extension.swift in Sources */,
 				C153AC4C2182EF40007A35BB /* String+Extension.swift in Sources */,
 				C13C88E621E5EA8F00F68C6E /* WorkTimeViewController.swift in Sources */,
-				C1AFFFDB21A2CD2000A7A632 /* AppError.swift in Sources */,
 				C1B5136D21772D1200C3727C /* AppDelegate.swift in Sources */,
 				8A5D48C62369ED990082C13D /* UIImage+Extension.swift in Sources */,
 				C10FD88121F1F15100A233C5 /* UserDecoder.swift in Sources */,
@@ -3679,30 +4311,39 @@
 				8A31BFB724177BB2004A1CE8 /* RestlerRequestMock.swift in Sources */,
 				C134299321A6D73500F4EA42 /* ServerConfigurationManagerMock.swift in Sources */,
 				C153AC7321834F22007A35BB /* ServerConfigurationViewModelTests.swift in Sources */,
+				C1055A7D246D2D4700EF64ED /* WorkTimeProjectIDErrorKeyTests.swift in Sources */,
 				C134298121A6C71200F4EA42 /* URLSessionMock.swift in Sources */,
+				C128C810246D859C00F24183 /* ServerErrorTests.swift in Sources */,
 				C10FD88421F1F28200A233C5 /* UserDecoderTests.swift in Sources */,
 				C12CA58221A599E60082FEB7 /* WorkTimeDecoderTests.swift in Sources */,
 				8AABFE16232B8B5800D5C7EF /* TagCollectionViewCellModelTests.swift in Sources */,
+				C1F62B4C246974CB00AB8C00 /* NewVacationValidationErrorResponse.swift in Sources */,
 				C1FB3FFC2451734F008266C4 /* VacationDecoderTests.swift in Sources */,
+				C1055A7B246D2D3D00EF64ED /* WorkTimeDurationErrorKeyTests.swift in Sources */,
 				8A79A2D32422460C0048B44B /* TaskHistoryViewControllerMock.swift in Sources */,
 				8ADBB8D524374D21009CA6FE /* TemporarySessionManagerTests.swift in Sources */,
+				8A912D89246D5A6600D88DA8 /* UpdateRemoteWorkValidationErrorTests.swift in Sources */,
 				8A137C3B23FD74E4001569BB /* Asserts.swift in Sources */,
 				C1B771F521EF2C5800EFE06F /* TaskFormTests.swift in Sources */,
 				C10FD88921F1F36300A233C5 /* ApiClientUsersTests.swift in Sources */,
 				C134298F21A6D39C00F4EA42 /* LoginViewControllerMock.swift in Sources */,
 				8A3FE1B123ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift in Sources */,
+				C1860DC72462EDB300C33C94 /* RemoteWorkTests.swift in Sources */,
 				8AFFE5D024336333001D9E89 /* TaskFormFactoryMock.swift in Sources */,
+				C1F62B3D24694C0800AB8C00 /* ValidationErrorResource.swift in Sources */,
 				8A6A4FC92458191D004B4CF2 /* AccountingPeriodsResponseTests.swift in Sources */,
 				8A79A2F324237F760048B44B /* ProjectRecordDecoderLeaderTests.swift in Sources */,
 				8A79A2F5242382C40048B44B /* ProjectRecordDecoderUserTests.swift in Sources */,
 				C1A47C01245AAE2700FDA7F0 /* NewVacationViewControllerMock.swift in Sources */,
+				C1860DC12462EC0D00C33C94 /* RemoteWorkParametersTests.swift in Sources */,
 				C1E1F05421AD5FD2007F9228 /* WorkTimesTableViewHeaderViewModelTests.swift in Sources */,
 				C11D0CF9220820BD00066CA9 /* ApiClientAccountingPeriodsTests.swift in Sources */,
-				C1B771F721EF39FA00EFE06F /* ApiValidationErrorsTests.swift in Sources */,
 				8A31BFB524177B42004A1CE8 /* RestlerRequestBuilderMock.swift in Sources */,
+				C130B153246BEAC3002D23AB /* SignInBaseErrorKeyTests.swift in Sources */,
 				C16B05D021F2140200BB63E6 /* ProfileCoordinatorTests.swift in Sources */,
 				C1FB40192451884C008266C4 /* UsedVacationDaysJSONResource.swift in Sources */,
 				8A065B5B237ABCD90072A21E /* SessionJSONResource.swift in Sources */,
+				C1AA80D4246D1DAC00AC8FB4 /* WorkTimeValidationErrorResponse.swift in Sources */,
 				C134298921A6C84F00F4EA42 /* ServerConfigurationViewControllerMock.swift in Sources */,
 				C1B8FA49218C963A009D10B4 /* LoginCredentialsTests.swift in Sources */,
 				C134298B21A6D33300F4EA42 /* LoginCoordinatorMock.swift in Sources */,
@@ -3720,57 +4361,72 @@
 				C134297B21A6C27700F4EA42 /* KeychainAccessMock.swift in Sources */,
 				8ADBB8D124373AC1009CA6FE /* SessionManagerTests.swift in Sources */,
 				C13B2D41240E864C00FA4441 /* EndpointTests.swift in Sources */,
+				C1055A77246D2D2A00EF64ED /* WorkTimeTaskErrorKeyTests.swift in Sources */,
+				C1F62B1E24692FB200AB8C00 /* RegisterRemoteWorkValidationErrorTests.swift in Sources */,
 				8A065B5D237ABDBB0072A21E /* UserJSONResource.swift in Sources */,
 				C13C2B0621EDE589008C9088 /* WorkTimesListCoordinatorMock.swift in Sources */,
+				C1860DBB2462E50B00C33C94 /* RemoteWorkViewControllerMock.swift in Sources */,
 				C12BD99B21E48DD100A6EAF0 /* ProjectsViewControllerMock.swift in Sources */,
 				8A79A2F72423842A0048B44B /* ProjectRecordUserJSONResource.swift in Sources */,
 				C1249C7C2181AEB0005DB2A5 /* AppCoordinatorTests.swift in Sources */,
 				8A12C9662456AA070046603B /* AccountingPeriodsViewControllerMock.swift in Sources */,
 				C134299721A6D7F700F4EA42 /* BundleMock.swift in Sources */,
 				8AE55D2323FD933700F94242 /* DateFactoryMock.swift in Sources */,
+				C1F62B322469466200AB8C00 /* RegisterRemoteWorkEndsAtErrorKeyTests.swift in Sources */,
 				8A5D48C22369E1E20082C13D /* DispatchGroupMock.swift in Sources */,
 				C1FB402024519357008266C4 /* ApiClientVacationTests.swift in Sources */,
 				C12BD9BB21E4B7B200A6EAF0 /* ApiClientProjectsTests.swift in Sources */,
 				8ADBB8D9243753D3009CA6FE /* SessionManagerMock.swift in Sources */,
 				8A79A2932420F58A0048B44B /* TaskVersionTests.swift in Sources */,
+				8AFBC3642462F8ED00032B96 /* RegisterRemoteWorkViewControllerMock.swift in Sources */,
 				8AE55D1B23FD7AAB00F94242 /* TaskFactory.swift in Sources */,
 				C17EA3B82189E04400A3F0CD /* ServerConfigurationManagerTests.swift in Sources */,
 				8A21A0422435BF2200EE4A79 /* ViewControllerBuilderMock.swift in Sources */,
+				C1F62B302469456B00AB8C00 /* RegisterRemoteWorkStartsAtErrorKeyTests.swift in Sources */,
 				8A55BA772372D02D004FFA97 /* UIApplicationMock.swift in Sources */,
 				C11F51F521A5AC5800FD626A /* DateFormatterExtensionTests.swift in Sources */,
 				C1E1F04D21AD3EB8007F9228 /* CalendarMock.swift in Sources */,
+				C1F62B342469487800AB8C00 /* BasicErrorTests.swift in Sources */,
 				C1FA05E921945DA400BD8C9D /* XCTestCase+Extension.swift in Sources */,
 				C134296321A693F400F4EA42 /* TestError.swift in Sources */,
+				C130B146246BE768002D23AB /* SignInValidationErrorTests.swift in Sources */,
 				8A08B50324371DF6007E8DCF /* WorkTimeDisplayedTests.swift in Sources */,
 				C1CCC118244DACF900177DAA /* ProjectTagsDecoderFactory.swift in Sources */,
 				C153AC602182FC4B007A35BB /* UITextFieldExtensionTests.swift in Sources */,
 				8A5D48C42369E20E0082C13D /* DispatchGroupFactoryMock.swift in Sources */,
 				C17EA3BA2189E9BA00A3F0CD /* ApiClientErrorTests.swift in Sources */,
 				C11D0D0522082A4400066CA9 /* WorkTimesListContentProviderTests.swift in Sources */,
-				8A065B51237AB9340072A21E /* ApiValidationJSONResource.swift in Sources */,
+				C1055A75246D2D2200EF64ED /* WorkTimeBodyErrorKeyTests.swift in Sources */,
 				C134298321A6C73000F4EA42 /* URLSessionDataTaskMock.swift in Sources */,
 				8A0707FC23699BE50019FB8E /* NotificationCenterMock.swift in Sources */,
 				C11D0CF7220816D800066CA9 /* MatchingFullTimeEncoderTests.swift in Sources */,
 				8AF5696F23D71EA000A1D001 /* JSONFactorable+Extension.swift in Sources */,
 				8AB8AFC1244EF06F00A0D3D3 /* ParentCoordinatorMock.swift in Sources */,
 				C19706E221C132C9007AFED4 /* WorkTimeTableViewCellModelTests.swift in Sources */,
+				C1F62B3B24694BB100AB8C00 /* ValidationErrorTests.swift in Sources */,
 				C1FB40242451AC23008266C4 /* VacationParametersTests.swift in Sources */,
 				C1FB3FFA24517342008266C4 /* VacationResponseTests.swift in Sources */,
 				C1FA05E4219440C700BD8C9D /* LoginContentProviderTests.swift in Sources */,
 				8A79A2D524224A040048B44B /* TaskHistoryCoordinatorMock.swift in Sources */,
+				C1055A79246D2D3300EF64ED /* WorkTimeStartsAtErrorKeyTests.swift in Sources */,
 				8A6A4FCF24582DE8004B4CF2 /* AccountingPeriodsParametersTests.swift in Sources */,
 				8ADBB8D324373DBA009CA6FE /* KeychainBuilderMock.swift in Sources */,
+				C1F62B482469724100AB8C00 /* NewVacationValidationErrorTests.swift in Sources */,
 				8A79A2CB2422105F0048B44B /* DateFormatterMock.swift in Sources */,
 				C19706E421C13908007AFED4 /* CalendarExtensionTests.swift in Sources */,
 				C134298521A6C79600F4EA42 /* ErrorHandlerMock.swift in Sources */,
+				8AFBC3682463DD4700032B96 /* RemoteWorkRequestTests.swift in Sources */,
 				C10FD89021F1FE3800A233C5 /* ProfileCoordinatorMock.swift in Sources */,
 				C1F7C2E721908DD400F4FAF0 /* AttributedButtonTests.swift in Sources */,
+				8A912DA2246D5D8400D88DA8 /* UpdateRemoteWorkStartsAtErrorKeyTests.swift in Sources */,
 				8A79A2D0242243280048B44B /* TaskHistoryViewModelTests.swift in Sources */,
 				C1249C852181B567005DB2A5 /* ErrorHandlerTests.swift in Sources */,
 				C10FD88E21F1FB6200A233C5 /* ProfileViewControllerMock.swift in Sources */,
 				C12260172188927A007D64A3 /* AuthenticationCoordinatorTests.swift in Sources */,
+				C1F62B67246984D500AB8C00 /* NewVacationStartDateErrorKeyTests.swift in Sources */,
 				C1411C3124505B5D00BB4266 /* VacationViewControllerMock.swift in Sources */,
 				8ADBB8D7243753B2009CA6FE /* TemporarySessionManagerMock.swift in Sources */,
+				C1860DD22462F0C700C33C94 /* RemoteWorkResponseJSONResource.swift in Sources */,
 				C134296021A6937E00F4EA42 /* ApiClientSessionTests.swift in Sources */,
 				C153AC622182FCB7007A35BB /* UILabelExtensionTests.swift in Sources */,
 				C12CA56F21A58BE70082FEB7 /* SimpleProjectRecordDecoderTests.swift in Sources */,
@@ -3784,14 +4440,19 @@
 				8AE0001C23746C99002F783E /* ProjectPickerCellMock.swift in Sources */,
 				C1EF3A0921930722000E3511 /* StringExtensionTests.swift in Sources */,
 				8A523C8E2395091900215C61 /* DateExtensionTests.swift in Sources */,
+				C1F62B65246984C700AB8C00 /* NewVacationDescriptionErrorKeyTests.swift in Sources */,
+				8A9CA52D2472B23F00E78DCD /* UIScrollViewMock.swift in Sources */,
+				C17208A424644C860010ED38 /* RemoteWorkFormTests.swift in Sources */,
 				C134296F21A6BCCD00F4EA42 /* RequestEncoderMock.swift in Sources */,
 				C1E908D624586432003E0368 /* UsedVacationViewControllerMock.swift in Sources */,
 				C1A681522460045D0044C2B9 /* VacationFormTests.swift in Sources */,
+				8A912DA0246D5D4F00D88DA8 /* UpdateRemoteWorkEndsAtErrorKeyTests.swift in Sources */,
 				C1FB400024517480008266C4 /* VacationJSONResource.swift in Sources */,
 				8A99EBC123D9B95600CC9BA8 /* UIColor+Extension.swift in Sources */,
 				8A79A2502420DE4C0048B44B /* TaskVersionJSONResource.swift in Sources */,
 				8AF5696D23D71C0900A1D001 /* SimpleProjectRecordDecoderFactory.swift in Sources */,
 				C1531F072191CD4B00602A0C /* ApiClientTests.swift in Sources */,
+				C1055A73246D225D00EF64ED /* WorkTimeValidationErrorTests.swift in Sources */,
 				C134297121A6BDF100F4EA42 /* JSONEncoderMock.swift in Sources */,
 				8A0707FA236998580019FB8E /* DependencyContainerMock.swift in Sources */,
 				8AF5697923D754D600A1D001 /* UserDecoderFactory.swift in Sources */,
@@ -3801,7 +4462,10 @@
 				8AF5697D23D759AE00A1D001 /* ServerErrorFactory.swift in Sources */,
 				C134296521A694F300F4EA42 /* ApiClientWorkTimesTests.swift in Sources */,
 				C125C4D32186F4D800FBA0DD /* ErrorHandlerTypeTests.swift in Sources */,
+				C1F62B6B2469851B00AB8C00 /* NewVacationVacationTypeErrorKeyTests.swift in Sources */,
 				8AE0001A23746885002F783E /* ProjectPickerViewControllerMock.swift in Sources */,
+				8A912D8B246D5AA300D88DA8 /* UpdateRemoteWorkValidationResource.swift in Sources */,
+				C1860DCE2462EE0900C33C94 /* RemoteWorkJSONResource.swift in Sources */,
 				C12BD9C121E4C44900A6EAF0 /* ProjectCollectionViewCellModelTests.swift in Sources */,
 				8A065B55237ABA1B0072A21E /* SimpleProjectJSONResource.swift in Sources */,
 				8A80A38F23D89ED3002643A1 /* APIClientFactoryMock.swift in Sources */,
@@ -3809,8 +4473,11 @@
 				C1E1F04921AD3712007F9228 /* WorkTimesListViewControllerMock.swift in Sources */,
 				8A6A4FAE2456D915004B4CF2 /* AccountingPeriodsJSONResource.swift in Sources */,
 				C1249C6C2181A23A005DB2A5 /* String+Error.swift in Sources */,
+				C130B148246BE7E2002D23AB /* SignInValidationErrorResponse.swift in Sources */,
 				C134299B21A6D87900F4EA42 /* CoordinatorMock.swift in Sources */,
+				8A9CA52B2472680000E78DCD /* UIScrollViewScrollActionTests.swift in Sources */,
 				8A6A4FB42456D9F5004B4CF2 /* AccountingPeriodTests.swift in Sources */,
+				C1F62B3724694A1C00AB8C00 /* BasicErrorResource.swift in Sources */,
 				8A137C3923FD71D0001569BB /* WorkTimeContentProviderTests.swift in Sources */,
 				8A82EBF523FD4DC6001393A8 /* WorkTimeContentProviderMock.swift in Sources */,
 				8AE0001E23747036002F783E /* ProjectPickerCellModelTests.swift in Sources */,
@@ -3824,11 +4491,14 @@
 				C1E1F04721AD36B3007F9228 /* WorkTimesListViewModelTests.swift in Sources */,
 				C1F7C2E921908E1900F4FAF0 /* CheckBoxButtonTests.swift in Sources */,
 				8AF5697B23D756CA00A1D001 /* WorkTimeDecoderFactory.swift in Sources */,
+				C1F62B21246935B000AB8C00 /* RegisterRemoteWorkValidationResource.swift in Sources */,
+				C1F62B692469850600AB8C00 /* NewVacationEndDateErrorKeyTests.swift in Sources */,
 				8A065B4F237AB8F50072A21E /* WorkTimesJSONResource.swift in Sources */,
 				C12BD99F21E48F9000A6EAF0 /* ApiClientMock.swift in Sources */,
 				8AE866AE246927C9001BD475 /* KeyboardManagerTests.swift in Sources */,
 				8AF5697123D7222800A1D001 /* ProjectRecordDecoderFactory.swift in Sources */,
 				C1EF3A0721930409000E3511 /* NSRegularExpresionExtensionTests.swift in Sources */,
+				C1F62B63246984B200AB8C00 /* NewVacationBaseErrorKeyTests.swift in Sources */,
 				8A065B59237ABC8A0072A21E /* ProjectRecordJSONResource.swift in Sources */,
 				8A09DCBC23673EED003FC2A6 /* DispatchQueueManagerMock.swift in Sources */,
 				8A137C3D23FD7538001569BB /* UniqueValuedEnumerator.swift in Sources */,
@@ -3845,7 +4515,9 @@
 				C134298D21A6D35200F4EA42 /* LoginContentProviderMock.swift in Sources */,
 				C19706DF21C13056007AFED4 /* WorkTimesCoordinatorTests.swift in Sources */,
 				8AADE6DA2451DB730085FCA7 /* ProfileContentProviderMock.swift in Sources */,
+				C1860DDA2462F3F900C33C94 /* ApiClientRemoteWorkTests.swift in Sources */,
 				C12CA56C21A57BAA0082FEB7 /* UIColorExtensionTests.swift in Sources */,
+				C1860DC92462EDC300C33C94 /* RemoteWorkResponseTests.swift in Sources */,
 				C122601A21898BD7007D64A3 /* LoginViewModelTests.swift in Sources */,
 				8AF5697723D751F400A1D001 /* SessionDecoderFactory.swift in Sources */,
 				8AB8AFC3244EF1AF00A0D3D3 /* ProjectsCoordinatorMock.swift in Sources */,

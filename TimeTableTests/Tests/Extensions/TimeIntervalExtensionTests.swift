@@ -11,6 +11,45 @@ import XCTest
 
 class TimeIntervalExtensionTests: XCTestCase {}
 
+// MARK: - quarter(of interval: TimeInterval)
+extension TimeIntervalExtensionTests {
+    func testQuater_zero() {
+        //Arrange
+        let sut: TimeInterval = 0
+        //Act
+        let result = TimeInterval.quarter(of: sut)
+        //Assert
+        XCTAssertEqual(result, 0)
+    }
+    
+    func testQuater_minute() {
+        //Arrange
+        let sut: TimeInterval = .minute
+        //Act
+        let result = TimeInterval.quarter(of: sut)
+        //Assert
+        XCTAssertEqual(result, 15)
+    }
+    
+    func testQuater_hour() {
+        //Arrange
+        let sut: TimeInterval = .hour
+        //Act
+        let result = TimeInterval.quarter(of: sut)
+        //Assert
+        XCTAssertEqual(result, 900)
+    }
+    
+    func testQuater_day() {
+        //Arrange
+        let sut: TimeInterval = .day
+        //Act
+        let result = TimeInterval.quarter(of: sut)
+        //Assert
+        XCTAssertEqual(result, 21_600)
+    }
+}
+
 // MARK: - timerBigComponents
 extension TimeIntervalExtensionTests {
     func testTimerBigComponents_lessThanMinute() {

@@ -43,10 +43,16 @@ class ErrorView: UIView {
 extension ErrorView: ErrorViewModelOutput {
     func setUp(refreshIsHidden: Bool) {
         self.refreshButton.set(isHidden: refreshIsHidden)
+        self.refreshButton.setTitleColor(.enabledButton, for: .normal)
+        self.refreshButton.setTitleColor(.disabledButton, for: .disabled)
     }
     
     func update(title: String) {
         self.titleLabel.text = title
+    }
+    
+    func setRefreshButton(isEnabled: Bool) {
+        self.refreshButton.isEnabled = isEnabled
     }
 }
 
