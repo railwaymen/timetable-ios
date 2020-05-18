@@ -57,6 +57,8 @@ class VacationViewModel: KeyboardManagerObserverable {
                 self.handleFetch(response: response)
             case .fetching:
                 self.userInterface?.setActivityIndicator(isHidden: false)
+            case .refresh:
+                break
             }
         }
     }
@@ -64,7 +66,7 @@ class VacationViewModel: KeyboardManagerObserverable {
     private var availableVacationDays: Int {
         switch self.decisionState {
         case let .fetched(response): return response.availableVacationDays
-        case .error, .fetching: return 0
+        case .error, .fetching, .refresh: return 0
         }
     }
     
@@ -90,6 +92,7 @@ class VacationViewModel: KeyboardManagerObserverable {
 extension VacationViewModel {
     enum DecisionState {
         case fetching
+        case refresh
         case error(Error)
         case fetched(VacationResponse)
     }
@@ -126,7 +129,7 @@ extension VacationViewModel: VacationViewModelType {
     }
     
     func refreshControlDidActivate(completion: @escaping () -> Void) {
-        self.fetchVacation(completion: completion)
+        self.fetchVacation(decisionState: .refresh, completion: completion)
     }
     
     func viewTapped() {
@@ -158,7 +161,7 @@ extension VacationViewModel: VacationViewModelType {
     func numberOfItems() -> Int {
         switch self.decisionState {
         case let .fetched(response): return response.records.count
-        case .error, .fetching: return 0
+        case .error, .fetching, .refresh: return 0
         }
     }
     
@@ -199,19 +202,19 @@ extension VacationViewModel {
         switch self.decisionState {
         case let .fetched(response):
             self.coordinator?.vacationRequestedForUsedDaysView(usedDays: response.usedVacationDays)
-        case .error, .fetching: break
+        case .error, .fetching, .refresh: break
         }
     }
     
     private func item(at index: IndexPath) -> VacationDecoder? {
         switch self.decisionState {
         case let .fetched(response): return response.records[safeIndex: index.row]
-        case .error, .fetching: return nil
+        case .error, .fetching, .refresh: return nil
         }
     }
     
-    private func fetchVacation(completion: (() -> Void)? = nil) {
-        self.decisionState = .fetching
+    private func fetchVacation(decisionState: DecisionState = .fetching, completion: (() -> Void)? = nil) {
+        self.decisionState = decisionState
         let parameters = VacationParameters(year: self.selectedYear)
         _ = self.apiClient.fetchVacation(parameters: parameters) { [weak self] result in
             defer { completion?() }
