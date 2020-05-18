@@ -183,7 +183,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     func configure(_ view: ErrorViewable) {
-        let viewModel = ErrorViewModel(userInterface: view, error: UIError.genericError) { [weak self] in
+        let viewModel = ErrorViewModel(userInterface: view, localizedError: UIError.genericError) { [weak self] in
             guard let self = self else { return }
             self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
         }
@@ -387,10 +387,10 @@ extension WorkTimesListViewModel {
             if error.type == .unauthorized {
                 self.errorHandler.throwing(error: error)
             } else {
-                self.errorViewModel?.update(error: error)
+                self.errorViewModel?.update(localizedError: error)
             }
         } else {
-            self.errorViewModel?.update(error: UIError.genericError)
+            self.errorViewModel?.update(localizedError: UIError.genericError)
             self.errorHandler.throwing(error: error)
         }
         self.state = .error

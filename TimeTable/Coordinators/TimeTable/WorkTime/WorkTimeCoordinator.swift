@@ -99,7 +99,7 @@ extension WorkTimeCoordinator: WorkTimeCoordinatorType {
     func configure(errorView: ErrorViewable, action: @escaping () -> Void) -> ErrorViewModelParentType {
         let viewModel = ErrorViewModel(
             userInterface: errorView,
-            error: UIError.genericError,
+            localizedError: UIError.genericError,
             actionHandler: action)
         errorView.configure(viewModel: viewModel)
         return viewModel
