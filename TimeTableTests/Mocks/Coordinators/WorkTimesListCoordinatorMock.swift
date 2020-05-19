@@ -29,6 +29,12 @@ class WorkTimesListCoordinatorMock {
     
     private(set) var workTimesRequestedForProfileViewParams: [WorkTimesRequestedForProfileViewParams] = []
     struct WorkTimesRequestedForProfileViewParams {}
+    
+    private(set) var workTimesRequestedForProjectPickerParams: [WorkTimesRequestedForProjectPickerParams] = []
+    struct WorkTimesRequestedForProjectPickerParams {
+        let projects: [SimpleProjectRecordDecoder]
+        let completion: (SimpleProjectRecordDecoder?) -> Void
+    }
 }
 
 // MARK: - WorkTimesListCoordinatorDelegate
@@ -55,5 +61,14 @@ extension WorkTimesListCoordinatorMock: WorkTimesListCoordinatorDelegate {
     
     func workTimesRequestedForProfileView() {
         self.workTimesRequestedForProfileViewParams.append(WorkTimesRequestedForProfileViewParams())
+    }
+    
+    func workTimesRequestedForProjectPicker(
+        projects: [SimpleProjectRecordDecoder],
+        completion: @escaping (SimpleProjectRecordDecoder?) -> Void
+    ) {
+        self.workTimesRequestedForProjectPickerParams.append(WorkTimesRequestedForProjectPickerParams(
+            projects: projects,
+            completion: completion))
     }
 }

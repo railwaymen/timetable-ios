@@ -78,6 +78,11 @@ class WorkTimesListViewModel: KeyboardManagerObserverable {
     }
     
     private var projects: [SimpleProjectRecordDecoder] = []
+    private var selectedProject: SimpleProjectRecordDecoder? {
+        didSet {
+            // TODO: Filter out work times
+        }
+    }
     
     private var dailyWorkTimesArray: [DailyWorkTime] {
         didSet {
@@ -202,7 +207,10 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     func projectButtonTapped() {
-        // TODO
+        guard !self.projects.isEmpty else { return }
+        self.coordinator?.workTimesRequestedForProjectPicker(projects: self.projects) { [weak self] selectedProject in
+            self?.selectedProject = selectedProject
+        }
     }
     
     func viewRequestForNewDate(month: Int, year: Int) {

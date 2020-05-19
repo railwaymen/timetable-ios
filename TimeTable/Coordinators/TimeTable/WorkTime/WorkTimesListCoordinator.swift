@@ -22,6 +22,9 @@ protocol WorkTimesListCoordinatorDelegate: class {
     func workTimesRequestedForSafari(url: URL)
     func workTimesRequestedForTaskHistory(taskForm: TaskForm)
     func workTimesRequestedForProfileView()
+    func workTimesRequestedForProjectPicker(
+        projects: [SimpleProjectRecordDecoder],
+        completion: @escaping (SimpleProjectRecordDecoder?) -> Void)
 }
 
 class WorkTimesListCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
@@ -76,6 +79,13 @@ extension WorkTimesListCoordinator: WorkTimesListCoordinatorDelegate {
     func workTimesRequestedForProfileView() {
         let parentViewController = self.navigationController.topViewController ?? self.navigationController
         self.dependencyContainer.parentCoordinator?.showProfile(parentViewController: parentViewController)
+    }
+    
+    func workTimesRequestedForProjectPicker(
+        projects: [SimpleProjectRecordDecoder],
+        completion: @escaping (SimpleProjectRecordDecoder?) -> Void
+    ) {
+        self.runProjectPickerFlow(projects: projects, completion: completion)
     }
 }
 
@@ -132,6 +142,23 @@ extension WorkTimesListCoordinator {
         self.add(child: coordinator)
         coordinator.start { [weak self, weak coordinator] in
             self?.remove(child: coordinator)
+        }
+    }
+    
+    private func runProjectPickerFlow(
+        projects: [SimpleProjectRecordDecoder],
+        completion: @escaping (SimpleProjectRecordDecoder?) -> Void
+    ) {
+        let parentViewController = self.navigationController.topViewController ?? self.navigationController
+        let coordinator = ProjectPickerCoordinator(
+            dependencyContainer: self.dependencyContainer,
+            parentViewController: parentViewController,
+            projects: projects)
+        self.add(child: coordinator)
+        coordinator.start { [weak self, weak coordinator] project in
+            self?.remove(child: coordinator)
+            completion(project)
+            
         }
     }
 }
