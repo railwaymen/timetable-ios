@@ -15,9 +15,6 @@ typealias WorkTimesListFetchCompletion = (WorkTimesListFetchResult) -> Void
 typealias WorkTimesListDeleteResult = Result<Void, Error>
 typealias WorkTimesListDeleteCompletion = (WorkTimesListDeleteResult) -> Void
 
-typealias SimpleProjectsFetchResult = Result<[SimpleProjectRecordDecoder], Error>
-typealias SimpleProjectsFetchCompletion = (SimpleProjectsFetchResult) -> Void
-
 typealias WorkTimesListFetchRequiredDataResult = Result<WorkTimesListViewModel.RequiredData, Error>
 typealias WorkTimesListFetchRequiredDataCompletion = (WorkTimesListFetchRequiredDataResult) -> Void
 
@@ -65,7 +62,7 @@ extension WorkTimesListContentProvider: WorkTimesListContentProviderType {
         var workTimesFetchError: Error?
         
         group.enter()
-        _ = apiClient.fetchSimpleListOfProjects { result in
+        _ = self.apiClient.fetchSimpleListOfProjects { result in
             switch result {
             case let .success(response):
                 projects = response

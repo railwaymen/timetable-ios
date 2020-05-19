@@ -33,13 +33,14 @@ class WorkTimesListContentProviderTests: XCTestCase {
 
 // MARK: - fetchWorkTimesData(for:completion:)
 extension WorkTimesListContentProviderTests {
-    func testFetchWorkTimeDataMakesRequest() {
+    func testFetchWorkTimeData_makesRequest() {
         //Arrange
         let sut = self.buildSUT()
         self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
+        var completionResult: WorkTimesListFetchResult?
         //Act
-        sut.fetchWorkTimesData(for: Date()) { _ in
-            XCTFail()
+        sut.fetchWorkTimesData(for: Date()) { result in
+            completionResult = result
         }
         //Assert
         XCTAssertEqual(self.dispatchGroupMock.enterParams.count, 2)
@@ -47,22 +48,18 @@ extension WorkTimesListContentProviderTests {
         XCTAssertEqual(self.dispatchGroupMock.notifyParams.count, 1)
         XCTAssertEqual(self.apiClientMock.fetchWorkTimesParams.count, 1)
         XCTAssertEqual(self.apiClientMock.fetchMatchingFullTimeParams.count, 1)
+        XCTAssertNil(completionResult)
     }
     
-    func testFetchWorkTimeDataWhileGivenDateIsNil() throws {
+    func testFetchWorkTimeData_givenDateIsNil() throws {
         //Arrange
         let sut = self.buildSUT()
-        var expectedError: Error?
         let error = TestError(message: "Work times error")
         self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
+        var completionResult: WorkTimesListFetchResult?
         //Act
         sut.fetchWorkTimesData(for: nil) { result in
-            switch result {
-            case .success:
-                XCTFail()
-            case .failure(let error):
-                expectedError = error
-            }
+            completionResult = result
         }
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
         self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.failure(error))
@@ -70,26 +67,20 @@ extension WorkTimesListContentProviderTests {
         XCTAssertEqual(self.dispatchGroupMock.enterParams.count, 2)
         XCTAssertEqual(self.dispatchGroupMock.leaveParams.count, 2)
         XCTAssertEqual(self.dispatchGroupMock.notifyParams.count, 1)
-        XCTAssertEqual(expectedError as? TestError, error)
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
     }
     
-    func testFetchWorkTimeDataWhileGivenDateIsInvalid_dateComponentsFails() throws {
+    func testFetchWorkTimeData_givenDateIsInvalid_dateComponentsFails() throws {
         //Arrange
         let sut = self.buildSUT()
+        let error = TestError(message: "Work times error")
         let dateComponents = DateComponents(year: 2019, month: 2, day: 1)
         self.calendarMock.dateComponentsReturnValue = dateComponents
-        
-        var expectedError: Error?
-        let error = TestError(message: "Work times error")
         self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
+        var completionResult: WorkTimesListFetchResult?
         //Act
         sut.fetchWorkTimesData(for: nil) { result in
-            switch result {
-            case .success:
-                XCTFail()
-            case .failure(let error):
-                expectedError = error
-            }
+            completionResult = result
         }
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
         self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.failure(error))
@@ -97,28 +88,22 @@ extension WorkTimesListContentProviderTests {
         XCTAssertEqual(self.dispatchGroupMock.enterParams.count, 2)
         XCTAssertEqual(self.dispatchGroupMock.leaveParams.count, 2)
         XCTAssertEqual(self.dispatchGroupMock.notifyParams.count, 1)
-        XCTAssertEqual(expectedError as? TestError, error)
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
     }
     
-    func testFetchWorkTimeDataWhileGivenDateIsInvalid_dateFromComponentsFails() throws {
+    func testFetchWorkTimeData_givenDateIsInvalid_dateFromComponentsFails() throws {
         //Arrange
         let sut = self.buildSUT()
+        let error = TestError(message: "Work times error")
         let dateComponents = DateComponents(year: 2019, month: 2, day: 1)
-        self.calendarMock.dateComponentsReturnValue = dateComponents
         let date = try self.buildDate(dateComponents)
+        self.calendarMock.dateComponentsReturnValue = dateComponents
         self.calendarMock.dateFromDateComponentsReturnValue = date
-        
-        var expectedError: Error?
-        let error = TestError(message: "Work times error")
         self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
+        var completionResult: WorkTimesListFetchResult?
         //Act
         sut.fetchWorkTimesData(for: date) { result in
-            switch result {
-            case .success:
-                XCTFail()
-            case .failure(let error):
-                expectedError = error
-            }
+            completionResult = result
         }
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
         self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.failure(error))
@@ -126,24 +111,19 @@ extension WorkTimesListContentProviderTests {
         XCTAssertEqual(self.dispatchGroupMock.enterParams.count, 2)
         XCTAssertEqual(self.dispatchGroupMock.leaveParams.count, 2)
         XCTAssertEqual(self.dispatchGroupMock.notifyParams.count, 1)
-        XCTAssertEqual(expectedError as? TestError, error)
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
     }
     
-    func testFetchWorkTimeDataWhileFetchWorkTimesFinishWithError() throws {
+    func testFetchWorkTimeData_fetchWorkTimesFailed() throws {
         //Arrange
         let sut = self.buildSUT()
-        self.accessServiceMock.getLastLoggedInUserIDReturnValue = 1
-        var expectedError: Error?
         let error = TestError(message: "Fetching Work Times Error")
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
+        self.accessServiceMock.getLastLoggedInUserIDReturnValue = 1
+        var completionResult: WorkTimesListFetchResult?
         //Act
         sut.fetchWorkTimesData(for: nil) { result in
-            switch result {
-            case .success:
-                XCTFail()
-            case .failure(let error):
-                expectedError = error
-            }
+            completionResult = result
         }
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
         self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.success(matchingFullTime))
@@ -151,10 +131,10 @@ extension WorkTimesListContentProviderTests {
         XCTAssertEqual(self.dispatchGroupMock.enterParams.count, 2)
         XCTAssertEqual(self.dispatchGroupMock.leaveParams.count, 2)
         XCTAssertEqual(self.dispatchGroupMock.notifyParams.count, 1)
-        XCTAssertEqual(expectedError as? TestError, error)
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
     }
     
-    func testFetchWorkTimeDataWhileFetchWorkTimesSucceed() throws {
+    func testFetchWorkTimeData_fetchWorkTimesSucceeded() throws {
         //Arrange
         let sut = self.buildSUT()
         let dateComponents = DateComponents(year: 2019, month: 2, day: 1)
@@ -163,18 +143,13 @@ extension WorkTimesListContentProviderTests {
         self.calendarMock.dateFromDateComponentsReturnValue = try self.buildDate(dateComponents)
         self.calendarMock.dateByAddingCalendarComponentReturnValue = try self.buildDate(year: 2019, month: 2, day: 28)
         
-        var expectedResponse: ([DailyWorkTime], MatchingFullTimeDecoder)?
         let date = try self.buildDate(dateComponents)
         let workTimes = try self.buildWorkTimes()
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
+        var completionResult: WorkTimesListFetchResult?
         //Act
         sut.fetchWorkTimesData(for: date) { result in
-            switch result {
-            case .success(let response):
-                expectedResponse = response
-            case .failure:
-                XCTFail()
-            }
+            completionResult = result
         }
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.success(workTimes))
         self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.success(matchingFullTime))
@@ -182,8 +157,9 @@ extension WorkTimesListContentProviderTests {
         XCTAssertEqual(self.dispatchGroupMock.enterParams.count, 2)
         XCTAssertEqual(self.dispatchGroupMock.leaveParams.count, 2)
         XCTAssertEqual(self.dispatchGroupMock.notifyParams.count, 1)
-        XCTAssertEqual(expectedResponse?.0.count, 1)
-        XCTAssertEqual(try XCTUnwrap(expectedResponse?.1), matchingFullTime)
+        let expectedResponse = try XCTUnwrap(completionResult).get()
+        XCTAssertEqual(expectedResponse.0.count, 1)
+        XCTAssertEqual(try XCTUnwrap(expectedResponse.1), matchingFullTime)
     }
 }
 
@@ -202,10 +178,7 @@ extension WorkTimesListContentProviderTests {
         self.apiClientMock.deleteWorkTimeParams.last?.completion(.success(Void()))
         //Assert
         XCTAssertEqual(self.apiClientMock.deleteWorkTimeParams.count, 1)
-        switch completionResult {
-        case .some(.success): break
-        default: XCTFail()
-        }
+        XCTAssertNoThrow(try XCTUnwrap(completionResult).get())
     }
 }
 
@@ -217,6 +190,14 @@ extension WorkTimesListContentProviderTests {
             accessService: self.accessServiceMock,
             calendar: self.calendarMock,
             dispatchGroupFactory: self.dispatchGroupFactoryMock)
+    }
+    
+    private func buildSimpleProjects() throws -> [SimpleProjectRecordDecoder] {
+        [
+            try self.simpleProjectRecordDecoderFactory.build(wrapper: .init(id: 0)),
+            try self.simpleProjectRecordDecoderFactory.build(wrapper: .init(id: 1)),
+            try self.simpleProjectRecordDecoderFactory.build(wrapper: .init(id: 2))
+        ]
     }
     
     private func buildMatchingFullTimeDecoder() throws -> MatchingFullTimeDecoder {

@@ -158,7 +158,6 @@ extension WorkTimesListCoordinator {
         coordinator.start { [weak self, weak coordinator] project in
             self?.remove(child: coordinator)
             completion(project)
-            
         }
     }
 }
