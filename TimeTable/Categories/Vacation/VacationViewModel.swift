@@ -21,6 +21,7 @@ protocol VacationViewModelOutput: class {
 protocol VacationViewModelType: class {
     func loadView()
     func viewDidLoad()
+    func viewWillAppear()
     func viewDidDisappear()
     func viewRequestForVacationForm()
     func viewRequestForProfileView()
@@ -105,10 +106,13 @@ extension VacationViewModel: VacationViewModelType {
     }
     
     func viewDidLoad() {
+        self.fetchVacation()
+    }
+    
+    func viewWillAppear() {
         self.keyboardManager.setKeyboardHeightChangeHandler(for: self) { [weak userInterface] keyboardHeight in
             userInterface?.setBottomContentInset(height: keyboardHeight)
         }
-        self.fetchVacation()
     }
     
     func viewDidDisappear() {
