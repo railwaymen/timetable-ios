@@ -48,9 +48,6 @@ class WorkTimeViewController: UIViewController {
     
     private var viewsOrder: [UIView] {
         [
-            self.dayTextField,
-            self.startAtDateTextField,
-            self.endAtDateTextField,
             self.bodyTextView,
             self.taskURLTextField,
             self.saveButton
@@ -139,6 +136,7 @@ extension WorkTimeViewController: UICollectionViewDataSource {
 extension WorkTimeViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         self.viewModel.taskNameDidChange(value: textView.text)
+        self.setContentOffset(animated: false)
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
