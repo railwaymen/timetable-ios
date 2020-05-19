@@ -13,7 +13,7 @@ protocol ServerConfigurationViewModelOutput: class {
     func continueButtonEnabledState(_ isEnabled: Bool)
     func dismissKeyboard()
     func setActivityIndicator(isHidden: Bool)
-    func setBottomContentInset(_ height: CGFloat)
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState)
 }
 
 protocol ServerConfigurationViewModelType: class {
@@ -60,8 +60,8 @@ extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
     }
     
     func viewWillAppear() {
-        self.keyboardManager?.setKeyboardHeightChangeHandler(for: self) { [weak userInterface] keyboardHeight in
-            userInterface?.setBottomContentInset(keyboardHeight)
+        self.keyboardManager?.setKeyboardStateChangeHandler(for: self) { [weak userInterface] state in
+            userInterface?.keyboardStateDidChange(to: state)
         }
         self.updateContinueButton()
     }

@@ -209,9 +209,9 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
         self.tableView.performBatchUpdates(updates, completion: nil)
     }
     
-    func setBottomContentInset(_ height: CGFloat) {
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
         guard self.isViewLoaded else { return }
-        let bottomInset = max(0, height - self.tableView.safeAreaInsets.bottom)
+        let bottomInset = max(0, keyboardState.keyboardHeight - self.tableView.safeAreaInsets.bottom)
         self.tableView.contentInset.bottom = bottomInset
         self.tableView.verticalScrollIndicatorInsets.bottom = bottomInset
     }

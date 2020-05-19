@@ -33,7 +33,7 @@ protocol NewVacationViewModelOutput: class {
     func updateEndDate(with date: Date, dateString: String)
     func updateType(name: String)
     func setSaveButton(isEnabled: Bool)
-    func setBottomContentInset(_ height: CGFloat)
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState)
     func setNote(isHighlighted: Bool)
     func setOptionalLabel(isHidden: Bool)
     func dismissKeyboard()
@@ -109,8 +109,8 @@ extension NewVacationViewModel: NewVacationViewModelType {
     }
     
     func viewWillAppear() {
-        self.keyboardManager.setKeyboardHeightChangeHandler(for: self) { [weak userInterface] keyboardHeight in
-            userInterface?.setBottomContentInset(keyboardHeight)
+        self.keyboardManager.setKeyboardStateChangeHandler(for: self) { [weak userInterface] state in
+            userInterface?.keyboardStateDidChange(to: state)
         }
     }
     

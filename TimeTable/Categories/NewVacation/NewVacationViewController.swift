@@ -150,9 +150,9 @@ extension NewVacationViewController: NewVacationViewModelOutput {
         self.saveButton.setWithAnimation(isEnabled: isEnabled)
     }
     
-    func setBottomContentInset(_ height: CGFloat) {
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
         guard self.isViewLoaded else { return }
-        let bottomInset = max(0, height - self.scrollView.safeAreaInsets.bottom)
+        let bottomInset = max(0, keyboardState.keyboardHeight - self.scrollView.safeAreaInsets.bottom)
         self.scrollView.contentInset.bottom = bottomInset
         self.scrollView.verticalScrollIndicatorInsets.bottom = bottomInset
     }

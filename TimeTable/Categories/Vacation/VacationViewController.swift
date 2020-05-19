@@ -125,9 +125,9 @@ extension VacationViewController: VacationViewModelOutput {
         self.tableView.reloadData()
     }
     
-    func setBottomContentInset(height: CGFloat) {
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
         guard self.isViewLoaded else { return }
-        let bottomInset = max(0, height - self.view.safeAreaInsets.bottom)
+        let bottomInset = max(0, keyboardState.keyboardHeight - self.view.safeAreaInsets.bottom)
         self.tableView.contentInset.bottom = bottomInset
         self.tableView.verticalScrollIndicatorInsets.bottom = bottomInset
     }

@@ -110,12 +110,12 @@ extension LoginViewController: LoginViewModelOutput {
         self.activityIndicator.set(isHidden: isHidden)
     }
     
-    func setBottomContentInset(_ height: CGFloat) {
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
         guard self.isViewLoaded else { return }
         self.view.layoutIfNeeded()
         let bottomPadding: CGFloat = 16
         let verticalSpacing = self.loginButton.convert(self.loginButton.bounds, to: self.passwordTextField).minY
-        self.updateScrollViewInsets(with: max(height + verticalSpacing + bottomPadding, 0))
+        self.updateScrollViewInsets(with: max(keyboardState.keyboardHeight + verticalSpacing + bottomPadding, 0))
     }
     
     func setLoginTextField(isHighlighted: Bool) {

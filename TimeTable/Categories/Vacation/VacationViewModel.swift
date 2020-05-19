@@ -14,7 +14,7 @@ protocol VacationViewModelOutput: class {
     func showErrorView()
     func setActivityIndicator(isHidden: Bool)
     func updateView()
-    func setBottomContentInset(height: CGFloat)
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState)
     func dismissKeyboard()
 }
 
@@ -105,8 +105,8 @@ extension VacationViewModel: VacationViewModelType {
     }
     
     func viewWillAppear() {
-        self.keyboardManager.setKeyboardHeightChangeHandler(for: self) { [weak userInterface] keyboardHeight in
-            userInterface?.setBottomContentInset(height: keyboardHeight)
+        self.keyboardManager.setKeyboardStateChangeHandler(for: self) { [weak userInterface] state in
+            userInterface?.keyboardStateDidChange(to: state)
         }
         self.fetchVacation()
     }

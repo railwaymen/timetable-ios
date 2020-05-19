@@ -101,14 +101,14 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
         self.activityIndicator.set(isAnimating: !isHidden)
     }
     
-    func setBottomContentInset(_ keyboardHeight: CGFloat) {
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
         guard self.isViewLoaded else { return }
         self.view.layoutIfNeeded()
         let bottomPadding: CGFloat = 16
         let verticalSpacing = self.continueButton.convert(self.continueButton.bounds, to: self.serverAddressTextField).minY
             -  self.serverAddressTextField.frame.height
         let continueButtonHeight = self.continueButton.frame.height
-        let preferredBottomInset = keyboardHeight + verticalSpacing + bottomPadding + continueButtonHeight
+        let preferredBottomInset = keyboardState.keyboardHeight + verticalSpacing + bottomPadding + continueButtonHeight
         self.updateScrollViewInsets(with: max(preferredBottomInset, 0))
     }
 }

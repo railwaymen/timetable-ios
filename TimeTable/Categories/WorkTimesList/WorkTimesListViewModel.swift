@@ -22,7 +22,7 @@ protocol WorkTimesListViewModelOutput: class {
     func removeSections(_ sections: IndexSet)
     func reloadSections(_ sections: IndexSet)
     func performBatchUpdates(_ updates: (() -> Void)?)
-    func setBottomContentInset(_ height: CGFloat)
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState)
 }
 
 protocol WorkTimesListViewModelType: class {
@@ -157,8 +157,8 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     func viewWillAppear() {
-        self.keyboardManager.setKeyboardHeightChangeHandler(for: self) { [weak userInterface] keyboardHeight in
-            userInterface?.setBottomContentInset(keyboardHeight)
+        self.keyboardManager.setKeyboardStateChangeHandler(for: self) { [weak userInterface] state in
+            userInterface?.keyboardStateDidChange(to: state)
         }
         guard self.state == .none else { return }
         self.updateDateSelectorView(withCurrentMonth: self.selectedMonth)

@@ -14,18 +14,18 @@ class LoginViewControllerMock: UIViewController {
     // MARK: - LoginViewModelOutput
     private(set) var setUpViewParams: [SetUpViewParams] = []
     struct SetUpViewParams {
-        var checkBoxIsActive: Bool
+        let checkBoxIsActive: Bool
     }
     
     private(set) var updateLoginFieldsParams: [UpdateLoginFieldsParams] = []
     struct UpdateLoginFieldsParams {
-        var email: String
-        var password: String
+        let email: String
+        let password: String
     }
     
     private(set) var loginButtonEnabledStateParams: [LoginButtonEnabledStateParams] = []
     struct LoginButtonEnabledStateParams {
-        var isEnabled: Bool
+        let isEnabled: Bool
     }
     
     private(set) var focusOnPasswordTextFieldParams: [FocusOnPasswordTextFieldParams] = []
@@ -33,7 +33,7 @@ class LoginViewControllerMock: UIViewController {
     
     private(set) var checkBoxIsActiveStateParams: [CheckBoxIsActiveStateParams] = []
     struct CheckBoxIsActiveStateParams {
-        var isActive: Bool
+        let isActive: Bool
     }
     
     private(set) var dismissKeyboardParams: [DismissKeyboardParams] = []
@@ -41,12 +41,12 @@ class LoginViewControllerMock: UIViewController {
     
     private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
     struct SetActivityIndicatorParams {
-        var isHidden: Bool
+        let isHidden: Bool
     }
     
-    private(set) var setBottomContentInsetParams: [SetBottomContentInsetParams] = []
-    struct SetBottomContentInsetParams {
-        var height: CGFloat
+    private(set) var keyboardStateDidChangeParams: [KeyboardStateDidChangeParams] = []
+    struct KeyboardStateDidChangeParams {
+        let keyboardState: KeyboardManager.KeyboardState
     }
     
     private(set) var setLoginTextFieldParams: [SetLoginTextFieldParams] = []
@@ -62,7 +62,7 @@ class LoginViewControllerMock: UIViewController {
     // MARK: - LoginViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
-        var viewModel: LoginViewModelType
+        let viewModel: LoginViewModelType
     }
 }
 
@@ -96,8 +96,8 @@ extension LoginViewControllerMock: LoginViewModelOutput {
         self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isHidden))
     }
     
-    func setBottomContentInset(_ height: CGFloat) {
-        self.setBottomContentInsetParams.append(SetBottomContentInsetParams(height: height))
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
+        self.keyboardStateDidChangeParams.append(KeyboardStateDidChangeParams(keyboardState: keyboardState))
     }
     
     func setLoginTextField(isHighlighted: Bool) {

@@ -16,14 +16,14 @@ class ProjectPickerViewControllerMock: UIViewController {
     private(set) var reloadDataParams: [ReloadDataParams] = []
     struct ReloadDataParams {}
     
-    private(set) var setBottomContentInsetsParams: [SetBottomContentInsetsParams] = []
-    struct SetBottomContentInsetsParams {
-        var inset: CGFloat
+    private(set) var keyboardStateDidChangeParams: [KeyboardStateDidChangeParams] = []
+    struct KeyboardStateDidChangeParams {
+        let keyboardState: KeyboardManager.KeyboardState
     }
     
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
-        var viewModel: ProjectPickerViewModelType
+        let viewModel: ProjectPickerViewModelType
     }
 }
 
@@ -37,8 +37,8 @@ extension ProjectPickerViewControllerMock: ProjectPickerViewModelOutput {
         self.reloadDataParams.append(ReloadDataParams())
     }
     
-    func setBottomContentInset(_ inset: CGFloat) {
-        self.setBottomContentInsetsParams.append(SetBottomContentInsetsParams(inset: inset))
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
+        self.keyboardStateDidChangeParams.append(KeyboardStateDidChangeParams(keyboardState: keyboardState))
     }
 }
 

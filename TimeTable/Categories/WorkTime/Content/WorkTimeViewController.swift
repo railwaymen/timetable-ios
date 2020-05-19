@@ -230,9 +230,9 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         self.activityIndicator.set(isAnimating: !isHidden)
     }
     
-    func setBottomContentInset(_ height: CGFloat) {
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
         guard self.viewIfLoaded != nil else { return }
-        let bottomInset = max(0, height - self.scrollView.safeAreaInsets.bottom)
+        let bottomInset = max(0, keyboardState.keyboardHeight - self.scrollView.safeAreaInsets.bottom)
         self.scrollView.contentInset.bottom = bottomInset
         self.scrollView.verticalScrollIndicatorInsets.bottom = bottomInset
     }

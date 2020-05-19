@@ -25,7 +25,7 @@ protocol WorkTimeViewModelOutput: class {
     func updateEndAtDate(with date: Date, dateString: String)
     func updateProject(name: String, color: UIColor)
     func setActivityIndicator(isHidden: Bool)
-    func setBottomContentInset(_ height: CGFloat)
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState)
     func setTagsCollectionView(isHidden: Bool)
     
     func setProject(isHighlighted: Bool)
@@ -134,8 +134,8 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func viewWillAppear() {
-        self.keyboardManager.setKeyboardHeightChangeHandler(for: self) { [weak userInterface] keyboardHeight in
-            userInterface?.setBottomContentInset(keyboardHeight)
+        self.keyboardManager.setKeyboardStateChangeHandler(for: self) { [weak userInterface] state in
+            userInterface?.keyboardStateDidChange(to: state)
         }
     }
     

@@ -59,9 +59,9 @@ class NewVacationViewControllerMock: UIViewController {
         let isEnabled: Bool
     }
     
-    private(set) var setBottomContentInsetParams: [SetBottomContentInsetParams] = []
-    struct SetBottomContentInsetParams {
-        let height: CGFloat
+    private(set) var keyboardStateDidChangeParams: [KeyboardStateDidChangeParams] = []
+    struct KeyboardStateDidChangeParams {
+        let keyboardState: KeyboardManager.KeyboardState
     }
     
     private(set) var setNoteHighlightedParams: [SetNoteHighlightedParams] = []
@@ -122,8 +122,8 @@ extension NewVacationViewControllerMock: NewVacationViewModelOutput {
         self.setSaveButtonParams.append(SetSaveButtonParams(isEnabled: isEnabled))
     }
     
-    func setBottomContentInset(_ height: CGFloat) {
-        self.setBottomContentInsetParams.append(SetBottomContentInsetParams(height: height))
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
+        self.keyboardStateDidChangeParams.append(KeyboardStateDidChangeParams(keyboardState: keyboardState))
     }
 
     func setNote(isHighlighted: Bool) {

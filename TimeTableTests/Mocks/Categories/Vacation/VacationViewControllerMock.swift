@@ -32,9 +32,9 @@ class VacationViewControllerMock: UIViewController {
     private(set) var updateViewParams: [UpdateViewParams] = []
     struct UpdateViewParams {}
     
-    private(set) var setBottomContentInsetParams: [SetBottomContentInsetParams] = []
-    struct SetBottomContentInsetParams {
-        let height: CGFloat
+    private(set) var keyboardStateDidChangeParams: [KeyboardStateDidChangeParams] = []
+    struct KeyboardStateDidChangeParams {
+        let keyboardState: KeyboardManager.KeyboardState
     }
     
     private(set) var dismissKeyboardParams: [DismissKeyboardParams] = []
@@ -73,8 +73,8 @@ extension VacationViewControllerMock: VacationViewModelOutput {
         self.updateViewParams.append(UpdateViewParams())
     }
     
-    func setBottomContentInset(height: CGFloat) {
-        self.setBottomContentInsetParams.append(SetBottomContentInsetParams(height: height))
+    func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
+        self.keyboardStateDidChangeParams.append(KeyboardStateDidChangeParams(keyboardState: keyboardState))
     }
     
     func dismissKeyboard() {
