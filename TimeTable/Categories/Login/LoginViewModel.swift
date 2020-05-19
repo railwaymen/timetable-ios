@@ -10,6 +10,7 @@ import UIKit
 
 protocol LoginViewModelOutput: class {
     func setUpView(checkBoxIsActive: Bool)
+    func updateColors()
     func updateLoginFields(email: String, password: String)
     func loginButtonEnabledState(_ isEnabled: Bool)
     func focusOnPasswordTextField()
@@ -25,6 +26,7 @@ protocol LoginViewModelType: class {
     func viewDidLoad()
     func viewWillAppear()
     func viewDidDisappear()
+    func viewShouldUpdateColors()
     func loginInputValueDidChange(value: String?)
     func loginTextFieldDidRequestForReturn() -> Bool
     func passwordInputValueDidChange(value: String?)
@@ -83,6 +85,10 @@ extension LoginViewModel: LoginViewModelType {
     
     func viewDidDisappear() {
         self.keyboardManager?.removeHandler(for: self)
+    }
+    
+    func viewShouldUpdateColors() {
+        self.userInterface?.updateColors()
     }
     
     func loginInputValueDidChange(value: String?) {
