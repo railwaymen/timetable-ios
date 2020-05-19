@@ -14,12 +14,14 @@ protocol ServerConfigurationViewModelOutput: class {
     func dismissKeyboard()
     func setActivityIndicator(isHidden: Bool)
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState)
+    func updateColors()
 }
 
 protocol ServerConfigurationViewModelType: class {
     func viewDidLoad()
     func viewWillAppear()
     func viewDidDisappear()
+    func viewColorsShouldUpdate()
     func continueButtonTapped()
     func serverAddressDidChange(text: String?)
     func serverAddressTextFieldDidRequestForReturn() -> Bool
@@ -68,6 +70,10 @@ extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
     
     func viewDidDisappear() {
         self.keyboardManager?.removeHandler(for: self)
+    }
+    
+    func viewColorsShouldUpdate() {
+        self.userInterface?.updateColors()
     }
     
     func continueButtonTapped() {
