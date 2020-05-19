@@ -78,7 +78,7 @@ class WorkTimesListViewModel: KeyboardManagerObserverable {
     }
     
     private var projects: [SimpleProjectRecordDecoder] = []
-    private var selectedProject: SimpleProjectRecordDecoder? {
+    private var selectedProject: SimpleProjectRecordDecoder = .allProjects {
         didSet {
             self.filterWorkTimesBySelectedProject()
             self.updateUI()
@@ -212,7 +212,9 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     
     func projectButtonTapped() {
         guard !self.projects.isEmpty else { return }
-        self.coordinator?.workTimesRequestedForProjectPicker(projects: self.projects) { [weak self] selectedProject in
+        let projects: [SimpleProjectRecordDecoder] = [.allProjects] + self.projects
+        self.coordinator?.workTimesRequestedForProjectPicker(projects: projects) { [weak self] selectedProject in
+            guard let selectedProject = selectedProject else { return }
             self?.selectedProject = selectedProject
         }
     }
@@ -373,9 +375,9 @@ extension WorkTimesListViewModel {
     }
     
     private func dailyWorkTimesFilteredBySelectedProject() -> [DailyWorkTime] {
-        guard let project = self.selectedProject else { return self.allDailyWorkTimes }
-        return self.allDailyWorkTimes.compactMap { dailyWorkTime in
-            let workTimes = dailyWorkTime.workTimes.filter { $0.projectID == project.id }
+        guard self.selectedProject != .allProjects else { return self.allDailyWorkTimes }
+        return self.allDailyWorkTimes.compactMap { [selectedProject] dailyWorkTime in
+            let workTimes = dailyWorkTime.workTimes.filter { $0.projectID == selectedProject.id }
             guard !workTimes.isEmpty else { return nil }
             return DailyWorkTime(day: dailyWorkTime.day, workTimes: workTimes)
         }
@@ -476,8 +478,8 @@ extension WorkTimesListViewModel {
     
     private func updateSelectedProjectView() {
         self.userInterface?.updateSelectedProject(
-            title: selectedProject?.name ?? R.string.localizable.timesheet_all_projects(),
-            color: selectedProject?.color)
+            title: self.selectedProject.name,
+            color: self.selectedProject.color)
     }
     
     private func string(for period: MonthPeriod) -> String {
