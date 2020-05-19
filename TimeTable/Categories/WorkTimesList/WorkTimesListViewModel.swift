@@ -80,7 +80,8 @@ class WorkTimesListViewModel: KeyboardManagerObserverable {
     private var projects: [SimpleProjectRecordDecoder] = []
     private var selectedProject: SimpleProjectRecordDecoder? {
         didSet {
-            // TODO: Filter out work times
+            self.updateUI()
+            // TODO: Filter work times
         }
     }
     
@@ -176,7 +177,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
             userInterface?.keyboardStateDidChange(to: state)
         }
         guard self.state == .none else { return }
-        self.updateDateSelectorView()
+        self.updateUI()
         self.fetchRequiredData()
     }
     
@@ -403,7 +404,7 @@ extension WorkTimesListViewModel {
     private func prepareForFethingWorkTimes() {
         self.state = .fetching
         self.dailyWorkTimesArray.removeAll()
-        self.userInterface?.updateHoursLabel(workedHours: "")
+        self.updateUI()
         self.userInterface?.updateAccountingPeriodLabel(text: nil)
     }
     
@@ -415,7 +416,7 @@ extension WorkTimesListViewModel {
     private func handleFetchSuccess(dailyWorkTimes: [DailyWorkTime], matchingFullTime: MatchingFullTimeDecoder) {
         self.dailyWorkTimesArray = dailyWorkTimes
         self.state = .fetched
-        self.updateWorkedHoursLabel()
+        self.updateUI()
         self.userInterface?.updateAccountingPeriodLabel(text: matchingFullTime.accountingPeriodText)
         self.userInterface?.showTableView()
     }
@@ -435,15 +436,32 @@ extension WorkTimesListViewModel {
         self.userInterface?.showErrorView()
     }
     
+    private func updateUI() {
+        self.updateWorkedHoursLabel()
+        self.updateDateSelectorView()
+        self.updateSelectedProjectView()
+    }
+    
     private func updateWorkedHoursLabel() {
-        let duration = TimeInterval(self.dailyWorkTimesArray.flatMap(\.workTimes).map(\.duration).reduce(0, +))
-        let durationText = DateComponentsFormatter.timeAbbreviated.string(from: duration)
-        self.userInterface?.updateHoursLabel(workedHours: durationText)
+        switch self.state {
+        case .fetching:
+            self.userInterface?.updateHoursLabel(workedHours: "")
+        default:
+            let duration = TimeInterval(self.dailyWorkTimesArray.flatMap(\.workTimes).map(\.duration).reduce(0, +))
+            let durationText = DateComponentsFormatter.timeAbbreviated.string(from: duration)
+            self.userInterface?.updateHoursLabel(workedHours: durationText)
+        }
     }
     
     private func updateDateSelectorView() {
         let currentDateString = self.string(for: self.selectedMonth)
         self.userInterface?.updateSelectedDate(currentDateString, date: (self.selectedMonth.month, self.selectedMonth.year))
+    }
+    
+    private func updateSelectedProjectView() {
+        self.userInterface?.updateSelectedProject(
+            title: selectedProject?.name ?? "All Projects",
+            color: selectedProject?.color)
     }
     
     private func string(for period: MonthPeriod) -> String {
