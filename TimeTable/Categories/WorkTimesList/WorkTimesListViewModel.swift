@@ -476,7 +476,7 @@ extension WorkTimesListViewModel {
     
     private func updateSelectedProjectView() {
         self.userInterface?.updateSelectedProject(
-            title: selectedProject?.name ?? "All Projects",
+            title: selectedProject?.name ?? R.string.localizable.timesheet_all_projects(),
             color: selectedProject?.color)
     }
     

@@ -22,6 +22,9 @@
 
 // MARK: - Timesheet
 "timesheet_title" = "Timesheet";
+"timesheet_all_projects" = "All Projects";
+"timesheet_project" = "Project";
+"timesheet_date" = "Date";
 "timesheet_delete_alert_title" = "Delete time entry";
 "timesheet_delete_alert_message" = "Are you sure, you want to delete the time entry?";
 "timesheet_delete_alert_cancel" = "Cancel";
