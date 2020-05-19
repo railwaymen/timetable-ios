@@ -20,6 +20,7 @@ protocol VacationViewModelOutput: class {
 
 protocol VacationViewModelType: class {
     func loadView()
+    func viewDidLoad()
     func viewWillAppear()
     func viewDidDisappear()
     func viewRequestForVacationForm()
@@ -104,11 +105,14 @@ extension VacationViewModel: VacationViewModelType {
         self.userInterface?.setUpView()
     }
     
+    func viewDidLoad() {
+        self.fetchVacation()
+    }
+    
     func viewWillAppear() {
         self.keyboardManager.setKeyboardStateChangeHandler(for: self) { [weak userInterface] state in
             userInterface?.keyboardStateDidChange(to: state)
         }
-        self.fetchVacation()
     }
     
     func viewDidDisappear() {
