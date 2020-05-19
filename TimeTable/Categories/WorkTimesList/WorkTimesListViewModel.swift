@@ -12,6 +12,7 @@ import UIKit
 protocol WorkTimesListViewModelOutput: class {
     func setUpView()
     func reloadData()
+    func updateSelectedProject(title: String, color: UIColor?)
     func updateSelectedDate(_ dateString: String, date: (month: Int, year: Int))
     func updateHoursLabel(workedHours: String?)
     func updateAccountingPeriodLabel(text: String?)
@@ -33,6 +34,7 @@ protocol WorkTimesListViewModelType: class {
     func numberOfSections() -> Int
     func numberOfRows(in section: Int) -> Int
     func configure(_ view: ErrorViewable)
+    func projectButtonTapped()
     func viewRequestForNewDate(month: Int, year: Int)
     func viewRequestForCellType(at index: IndexPath) -> WorkTimesListViewModel.CellType
     func configure(_ cell: WorkTimeTableViewCellable, for indexPath: IndexPath)
@@ -197,6 +199,10 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
         }
         view.configure(viewModel: viewModel)
         self.errorViewModel = viewModel
+    }
+    
+    func projectButtonTapped() {
+        // TODO
     }
     
     func viewRequestForNewDate(month: Int, year: Int) {
