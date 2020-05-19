@@ -17,18 +17,155 @@ class WorkTimesListContentProviderTests: XCTestCase {
     private var apiClientMock: ApiClientMock!
     private var accessServiceMock: AccessServiceMock!
     private var calendarMock: CalendarMock!
-    private var dispatchGroupMock: DispatchGroupMock!
     private var dispatchGroupFactoryMock: DispatchGroupFactoryMock!
+    
+    private var lastDispatchGroupMock: DispatchGroupMock? {
+        self.dispatchGroupFactoryMock.createDispatchGroupReturnedValues.last
+    }
     
     override func setUp() {
         super.setUp()
         self.apiClientMock = ApiClientMock()
         self.accessServiceMock = AccessServiceMock()
         self.calendarMock = CalendarMock()
-        self.dispatchGroupMock = DispatchGroupMock()
         self.dispatchGroupFactoryMock = DispatchGroupFactoryMock()
-        self.dispatchGroupFactoryMock.createDispatchGroupReturnValue = self.dispatchGroupMock
     }
+}
+
+// MARK: - fetchRequiredData(for:completion:)
+extension WorkTimesListContentProviderTests {
+    func testFetchRequiredData_makesRequests() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
+        var completionResult: WorkTimesListFetchRequiredDataResult?
+        //Act
+        sut.fetchRequiredData(for: Date()) { result in
+            completionResult = result
+        }
+        //Assert
+        XCTAssertNil(completionResult)
+        XCTAssertEqual(self.dispatchGroupFactoryMock.createDispatchGroupParams.count, 2)
+        let dispatchGroups = self.dispatchGroupFactoryMock.createDispatchGroupReturnedValues
+        XCTAssertEqual(dispatchGroups[safeIndex: 0]?.enterParams.count, 2)
+        XCTAssertEqual(dispatchGroups[safeIndex: 0]?.leaveParams.count, 0)
+        XCTAssertEqual(dispatchGroups[safeIndex: 0]?.notifyParams.count, 1)
+        XCTAssertEqual(dispatchGroups[safeIndex: 1]?.enterParams.count, 2)
+        XCTAssertEqual(dispatchGroups[safeIndex: 1]?.leaveParams.count, 0)
+        XCTAssertEqual(dispatchGroups[safeIndex: 1]?.notifyParams.count, 1)
+    }
+    
+    func testFetchRequiredData_fetchSimpleProjectsFailed() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let error = TestError(message: "Fetching Simple Projects Error")
+        let workTimes = try self.buildWorkTimes()
+        let matchingFullTime = try self.buildMatchingFullTimeDecoder()
+        self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
+        var completionResult: WorkTimesListFetchRequiredDataResult?
+        //Act
+        sut.fetchRequiredData(for: Date()) { result in
+            completionResult = result
+        }
+        self.apiClientMock.fetchSimpleListOfProjectsParams.last?.completion(.failure(error))
+        self.apiClientMock.fetchWorkTimesParams.last?.completion(.success(workTimes))
+        self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.success(matchingFullTime))
+        //Assert
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
+        XCTAssertEqual(self.dispatchGroupFactoryMock.createDispatchGroupParams.count, 2)
+        let dispatchGroups = self.dispatchGroupFactoryMock.createDispatchGroupReturnedValues
+        XCTAssertEqual(dispatchGroups[safeIndex: 0]?.enterParams.count, 2)
+        XCTAssertEqual(dispatchGroups[safeIndex: 0]?.leaveParams.count, 2)
+        XCTAssertEqual(dispatchGroups[safeIndex: 0]?.notifyParams.count, 1)
+        XCTAssertEqual(dispatchGroups[safeIndex: 1]?.enterParams.count, 2)
+        XCTAssertEqual(dispatchGroups[safeIndex: 1]?.leaveParams.count, 2)
+        XCTAssertEqual(dispatchGroups[safeIndex: 1]?.notifyParams.count, 1)
+    }
+    
+    func testFetchRequiredData_fetchWorkTimesFailed() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let projects = try self.buildSimpleProjects()
+        let error = TestError(message: "Fetching Work Times Error")
+        let matchingFullTime = try self.buildMatchingFullTimeDecoder()
+        self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
+        var completionResult: WorkTimesListFetchRequiredDataResult?
+        //Act
+        sut.fetchRequiredData(for: Date()) { result in
+            completionResult = result
+        }
+        self.apiClientMock.fetchSimpleListOfProjectsParams.last?.completion(.success(projects))
+        self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
+        self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.success(matchingFullTime))
+        //Assert
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
+        XCTAssertEqual(self.dispatchGroupFactoryMock.createDispatchGroupParams.count, 2)
+        let dispatchGroups = self.dispatchGroupFactoryMock.createDispatchGroupReturnedValues
+        XCTAssertEqual(dispatchGroups[safeIndex: 0]?.enterParams.count, 2)
+        XCTAssertEqual(dispatchGroups[safeIndex: 0]?.leaveParams.count, 2)
+        XCTAssertEqual(dispatchGroups[safeIndex: 0]?.notifyParams.count, 1)
+        XCTAssertEqual(dispatchGroups[safeIndex: 1]?.enterParams.count, 2)
+        XCTAssertEqual(dispatchGroups[safeIndex: 1]?.leaveParams.count, 2)
+        XCTAssertEqual(dispatchGroups[safeIndex: 1]?.notifyParams.count, 1)
+    }
+    
+    func testFetchRequiredData_fetchMatchingFulltimeFailed() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let projects = try self.buildSimpleProjects()
+        let workTimes = try self.buildWorkTimes()
+        let error = TestError(message: "Fetching Matching Fulltime Error")
+        self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
+        var completionResult: WorkTimesListFetchRequiredDataResult?
+        //Act
+        sut.fetchRequiredData(for: Date()) { result in
+            completionResult = result
+        }
+        self.apiClientMock.fetchSimpleListOfProjectsParams.last?.completion(.success(projects))
+        self.apiClientMock.fetchWorkTimesParams.last?.completion(.success(workTimes))
+        self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.failure(error))
+        //Assert
+        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
+        XCTAssertEqual(self.dispatchGroupFactoryMock.createDispatchGroupParams.count, 2)
+        let dispatchGroups = self.dispatchGroupFactoryMock.createDispatchGroupReturnedValues
+        XCTAssertEqual(dispatchGroups[safeIndex: 0]?.enterParams.count, 2)
+        XCTAssertEqual(dispatchGroups[safeIndex: 0]?.leaveParams.count, 2)
+        XCTAssertEqual(dispatchGroups[safeIndex: 0]?.notifyParams.count, 1)
+        XCTAssertEqual(dispatchGroups[safeIndex: 1]?.enterParams.count, 2)
+        XCTAssertEqual(dispatchGroups[safeIndex: 1]?.leaveParams.count, 2)
+        XCTAssertEqual(dispatchGroups[safeIndex: 1]?.notifyParams.count, 1)
+    }
+    
+    func testFetchRequiredData_success() throws {
+        //Arrange
+        let sut = self.buildSUT()
+        let projects = try self.buildSimpleProjects()
+        let workTimes = try self.buildWorkTimes()
+        let matchingFullTime = try self.buildMatchingFullTimeDecoder()
+        self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
+        var completionResult: WorkTimesListFetchRequiredDataResult?
+        //Act
+        sut.fetchRequiredData(for: Date()) { result in
+            completionResult = result
+        }
+        self.apiClientMock.fetchSimpleListOfProjectsParams.last?.completion(.success(projects))
+        self.apiClientMock.fetchWorkTimesParams.last?.completion(.success(workTimes))
+        self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.success(matchingFullTime))
+        //Assert
+        let data = try XCTUnwrap(completionResult).get()
+        XCTAssertEqual(data.simpleProjects, projects)
+        XCTAssertEqual(data.dailyWorkTimes.count, 1)
+        XCTAssertEqual(data.matchingFulltime, matchingFullTime)
+        XCTAssertEqual(self.dispatchGroupFactoryMock.createDispatchGroupParams.count, 2)
+        let dispatchGroups = self.dispatchGroupFactoryMock.createDispatchGroupReturnedValues
+        XCTAssertEqual(dispatchGroups[safeIndex: 0]?.enterParams.count, 2)
+        XCTAssertEqual(dispatchGroups[safeIndex: 0]?.leaveParams.count, 2)
+        XCTAssertEqual(dispatchGroups[safeIndex: 0]?.notifyParams.count, 1)
+        XCTAssertEqual(dispatchGroups[safeIndex: 1]?.enterParams.count, 2)
+        XCTAssertEqual(dispatchGroups[safeIndex: 1]?.leaveParams.count, 2)
+        XCTAssertEqual(dispatchGroups[safeIndex: 1]?.notifyParams.count, 1)
+    }
+
 }
 
 // MARK: - fetchWorkTimesData(for:completion:)
@@ -43,12 +180,13 @@ extension WorkTimesListContentProviderTests {
             completionResult = result
         }
         //Assert
-        XCTAssertEqual(self.dispatchGroupMock.enterParams.count, 2)
-        XCTAssertEqual(self.dispatchGroupMock.leaveParams.count, 0)
-        XCTAssertEqual(self.dispatchGroupMock.notifyParams.count, 1)
+        XCTAssertNil(completionResult)
+        XCTAssertEqual(self.dispatchGroupFactoryMock.createDispatchGroupParams.count, 1)
+        XCTAssertEqual(self.lastDispatchGroupMock?.enterParams.count, 2)
+        XCTAssertEqual(self.lastDispatchGroupMock?.leaveParams.count, 0)
+        XCTAssertEqual(self.lastDispatchGroupMock?.notifyParams.count, 1)
         XCTAssertEqual(self.apiClientMock.fetchWorkTimesParams.count, 1)
         XCTAssertEqual(self.apiClientMock.fetchMatchingFullTimeParams.count, 1)
-        XCTAssertNil(completionResult)
     }
     
     func testFetchWorkTimeData_givenDateIsNil() throws {
@@ -64,10 +202,10 @@ extension WorkTimesListContentProviderTests {
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
         self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.failure(error))
         //Assert
-        XCTAssertEqual(self.dispatchGroupMock.enterParams.count, 2)
-        XCTAssertEqual(self.dispatchGroupMock.leaveParams.count, 2)
-        XCTAssertEqual(self.dispatchGroupMock.notifyParams.count, 1)
         AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
+        XCTAssertEqual(self.lastDispatchGroupMock?.enterParams.count, 2)
+        XCTAssertEqual(self.lastDispatchGroupMock?.leaveParams.count, 2)
+        XCTAssertEqual(self.lastDispatchGroupMock?.notifyParams.count, 1)
     }
     
     func testFetchWorkTimeData_givenDateIsInvalid_dateComponentsFails() throws {
@@ -85,10 +223,10 @@ extension WorkTimesListContentProviderTests {
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
         self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.failure(error))
         //Assert
-        XCTAssertEqual(self.dispatchGroupMock.enterParams.count, 2)
-        XCTAssertEqual(self.dispatchGroupMock.leaveParams.count, 2)
-        XCTAssertEqual(self.dispatchGroupMock.notifyParams.count, 1)
         AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
+        XCTAssertEqual(self.lastDispatchGroupMock?.enterParams.count, 2)
+        XCTAssertEqual(self.lastDispatchGroupMock?.leaveParams.count, 2)
+        XCTAssertEqual(self.lastDispatchGroupMock?.notifyParams.count, 1)
     }
     
     func testFetchWorkTimeData_givenDateIsInvalid_dateFromComponentsFails() throws {
@@ -108,10 +246,10 @@ extension WorkTimesListContentProviderTests {
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
         self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.failure(error))
         //Assert
-        XCTAssertEqual(self.dispatchGroupMock.enterParams.count, 2)
-        XCTAssertEqual(self.dispatchGroupMock.leaveParams.count, 2)
-        XCTAssertEqual(self.dispatchGroupMock.notifyParams.count, 1)
         AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
+        XCTAssertEqual(self.lastDispatchGroupMock?.enterParams.count, 2)
+        XCTAssertEqual(self.lastDispatchGroupMock?.leaveParams.count, 2)
+        XCTAssertEqual(self.lastDispatchGroupMock?.notifyParams.count, 1)
     }
     
     func testFetchWorkTimeData_fetchWorkTimesFailed() throws {
@@ -128,10 +266,10 @@ extension WorkTimesListContentProviderTests {
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
         self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.success(matchingFullTime))
         //Assert
-        XCTAssertEqual(self.dispatchGroupMock.enterParams.count, 2)
-        XCTAssertEqual(self.dispatchGroupMock.leaveParams.count, 2)
-        XCTAssertEqual(self.dispatchGroupMock.notifyParams.count, 1)
         AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
+        XCTAssertEqual(self.lastDispatchGroupMock?.enterParams.count, 2)
+        XCTAssertEqual(self.lastDispatchGroupMock?.leaveParams.count, 2)
+        XCTAssertEqual(self.lastDispatchGroupMock?.notifyParams.count, 1)
     }
     
     func testFetchWorkTimeData_fetchWorkTimesSucceeded() throws {
@@ -154,9 +292,9 @@ extension WorkTimesListContentProviderTests {
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.success(workTimes))
         self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.success(matchingFullTime))
         //Assert
-        XCTAssertEqual(self.dispatchGroupMock.enterParams.count, 2)
-        XCTAssertEqual(self.dispatchGroupMock.leaveParams.count, 2)
-        XCTAssertEqual(self.dispatchGroupMock.notifyParams.count, 1)
+        XCTAssertEqual(self.lastDispatchGroupMock?.enterParams.count, 2)
+        XCTAssertEqual(self.lastDispatchGroupMock?.leaveParams.count, 2)
+        XCTAssertEqual(self.lastDispatchGroupMock?.notifyParams.count, 1)
         let expectedResponse = try XCTUnwrap(completionResult).get()
         XCTAssertEqual(expectedResponse.0.count, 1)
         XCTAssertEqual(try XCTUnwrap(expectedResponse.1), matchingFullTime)
