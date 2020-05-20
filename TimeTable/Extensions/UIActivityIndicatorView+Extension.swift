@@ -14,12 +14,8 @@ extension UIActivityIndicatorView {
             ? self.startAnimating
             : self.stopAnimating
         
-        if animated {
-            UIView.transition(with: self, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                closure()
-            })
-        } else {
-            closure()
-        }
+        animated
+            ? UIView.transition(with: self, duration: 0.2, options: .transitionCrossDissolve, animations: closure)
+            : closure()
     }
 }
