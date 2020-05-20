@@ -54,6 +54,12 @@ class WorkTimesListViewController: UIViewController {
         self.viewModel.viewDidDisappear()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else { return }
+        self.viewModel.viewShouldUpdateColors()
+    }
+    
     // MARK: - Actions
     @IBAction private func projectButtonTapped() {
         self.viewModel.projectButtonTapped()
@@ -161,6 +167,11 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
         self.viewModel.configure(self.errorView)
         self.tableView.set(isHidden: true)
         self.errorView.set(isHidden: true)
+    }
+    
+    func updateColors() {
+        self.projectSelectionView.setTextFieldAppearance()
+        self.monthSelectionTextField.setTextFieldAppearance()
     }
     
     func reloadData() {

@@ -11,6 +11,7 @@ import UIKit
 
 protocol WorkTimesListViewModelOutput: class {
     func setUpView()
+    func updateColors()
     func reloadData()
     func updateSelectedProject(title: String, color: UIColor?)
     func updateSelectedDate(_ dateString: String, date: (month: Int, year: Int))
@@ -31,6 +32,7 @@ protocol WorkTimesListViewModelType: class {
     func viewWillAppear()
     func viewDidLayoutSubviews()
     func viewDidDisappear()
+    func viewShouldUpdateColors()
     func numberOfSections() -> Int
     func numberOfRows(in section: Int) -> Int
     func configure(_ view: ErrorViewable)
@@ -191,6 +193,11 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     
     func viewDidDisappear() {
         self.keyboardManager.removeHandler(for: self)
+    }
+    
+    func viewShouldUpdateColors() {
+        self.userInterface?.updateColors()
+        self.userInterface?.reloadData()
     }
     
     func numberOfSections() -> Int {

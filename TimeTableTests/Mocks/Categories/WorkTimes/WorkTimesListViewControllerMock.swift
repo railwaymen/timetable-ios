@@ -15,6 +15,9 @@ class WorkTimesListViewControllerMock: UIViewController {
     private(set) var setUpViewParams: [SetUpViewParams] = []
     struct SetUpViewParams {}
     
+    private(set) var updateColorsParams: [UpdateColorsParams] = []
+    struct UpdateColorsParams {}
+    
     private(set) var reloadDataParams: [ReloadDataParams] = []
     struct ReloadDataParams {}
     
@@ -87,6 +90,10 @@ class WorkTimesListViewControllerMock: UIViewController {
 extension WorkTimesListViewControllerMock: WorkTimesListViewModelOutput {
     func setUpView() {
         self.setUpViewParams.append(SetUpViewParams())
+    }
+    
+    func updateColors() {
+        self.updateColorsParams.append(UpdateColorsParams())
     }
     
     func reloadData() {
