@@ -9,6 +9,7 @@
 import UIKit
 import KeychainAccess
 import Firebase
+import LayoutInspector
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -83,6 +84,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.appCoordinator.openDeepLink(option: .testPage(coordinatorType))
         }
         #endif
+        
+        #if DEBUG
+            LayoutInspector.shared.setAutoTrigger(.shake)
+        #endif
         return true
     }
     
@@ -94,8 +99,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.accessService.continueSuspendedSession()
         self.appCoordinator.appDidResume()
     }
-}
-
-// MARK: - Private
-extension AppDelegate {
 }
