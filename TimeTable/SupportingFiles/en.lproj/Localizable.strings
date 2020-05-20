@@ -117,7 +117,8 @@
 "remotework_title" = "Remote work";
 
 // MARK: - Register Remote Work
-"registerremotework_title" = "Register remote work";
+"registerremotework_create_title" = "Register remote work";
+"registerremotework_edit_title" = "Edit remote work";
 "registerremotework_starts" = "Starts";
 "registerremotework_ends" = "Ends";
 "registerremotework_note" = "Note";

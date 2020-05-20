@@ -107,7 +107,6 @@ extension RegisterRemoteWorkViewController: UITextViewDelegate {
 // MARK: - RegisterRemoteWorkViewModelOutput
 extension RegisterRemoteWorkViewController: RegisterRemoteWorkViewModelOutput {
     func setUp() {
-        self.setUpTitle()
         self.setUpBarButtons()
         self.setUpStartDayPickerView()
         self.setUpEndDayPickerView()
@@ -115,6 +114,10 @@ extension RegisterRemoteWorkViewController: RegisterRemoteWorkViewModelOutput {
         self.setUpSaveButtonColors()
         self.setUpActivityIndicator()
         self.setUpConstraints()
+    }
+    
+    func setUp(title: String) {
+        self.title = title
     }
     
     func updateColors() {
@@ -181,10 +184,6 @@ extension RegisterRemoteWorkViewController: RegisterRemoteWorkViewControllerType
 
 // MARK: - Private
 extension RegisterRemoteWorkViewController {
-    private func setUpTitle() {
-        self.title = R.string.localizable.registerremotework_title()
-    }
-    
     private func setUpBarButtons() {
         let closeButton = UIBarButtonItem(
             barButtonSystemItem: .closeButton,

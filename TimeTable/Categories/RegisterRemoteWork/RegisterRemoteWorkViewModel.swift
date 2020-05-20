@@ -10,6 +10,7 @@ import UIKit
 
 protocol RegisterRemoteWorkViewModelOutput: class {
     func setUp()
+    func setUp(title: String)
     func updateColors()
     func setActivityIndicator(isHidden: Bool)
     func setNote(text: String)
@@ -110,6 +111,13 @@ extension RegisterRemoteWorkViewModel {
                 return RemoteWorkForm(remoteWork: remoteWork)
             }
         }
+        
+        var title: String {
+            switch self {
+            case .newEntry: return R.string.localizable.registerremotework_create_title()
+            case .editEntry: return R.string.localizable.registerremotework_edit_title()
+            }
+        }
     }
     
     private enum DecistionState {
@@ -123,6 +131,7 @@ extension RegisterRemoteWorkViewModel {
 extension RegisterRemoteWorkViewModel: RegisterRemoteWorkViewModelType {
     func loadView() {
         self.userInterface?.setUp()
+        self.userInterface?.setUp(title: self.mode.title)
         self.updateViewForPreparingState()
     }
     

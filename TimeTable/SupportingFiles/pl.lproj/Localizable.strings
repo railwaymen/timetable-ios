@@ -117,7 +117,8 @@
 "remotework_title" = "Praca zdalna";
 
 // MARK: - Register Remote Work
-"registerremotework_title" = "Zarejestruj pracę zdalną";
+"registerremotework_create_title" = "Zarejestruj pracę zdalną";
+"registerremotework_edit_title" = "Edytuj pracę zdalną";
 "registerremotework_starts" = "Od";
 "registerremotework_ends" = "Do";
 "registerremotework_note" = "Notatka";
