@@ -9,6 +9,7 @@ def universal_pods
   pod 'Firebase/Analytics'
   pod 'Firebase/Core', '~> 6.23.0'
   pod 'Firebase/Crashlytics'
+  pod 'LayoutInspector', '~> 1.2.1'
   pod 'KeychainAccess', '~> 4.1'
   pod 'R.swift', '~> 5.2.0'
   pod 'Restler', '~> 0.5.2'
