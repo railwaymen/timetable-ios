@@ -31,7 +31,7 @@ import UIKit
     }
     
     @IBInspectable var borderColor: UIColor? {
-        didSet {            
+        didSet {
             self.layer.borderColor = self.borderColor?.cgColor
             self.layer.borderWidth = self.borderWidth
         }
@@ -50,5 +50,7 @@ extension CheckBoxButton {
     private func updateColors() {
         self.backgroundColor = self.isActive ? .white : .clear
         self.tintColor = .tint
+        self.layer.borderColor = self.borderColor?.cgColor
+        self.layer.borderWidth = self.borderWidth
     }
 }

@@ -15,6 +15,9 @@ class WorkTimeViewControllerMock: UIViewController {
     private(set) var setUpParams: [SetUpParams] = []
     struct SetUpParams {}
     
+    private(set) var updateColorsParams: [UpdateColorsParams] = []
+    struct UpdateColorsParams {}
+    
     private(set) var setBodyViewParams: [SetBodyViewParams] = []
     struct SetBodyViewParams {
         let isHidden: Bool
@@ -141,6 +144,10 @@ class WorkTimeViewControllerMock: UIViewController {
 extension WorkTimeViewControllerMock: WorkTimeViewModelOutput {
     func setUp() {
         self.setUpParams.append(SetUpParams())
+    }
+    
+    func updateColors() {
+        self.updateColorsParams.append(UpdateColorsParams())
     }
     
     func setBodyView(isHidden: Bool) {

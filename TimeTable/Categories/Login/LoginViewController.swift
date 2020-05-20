@@ -87,7 +87,6 @@ extension LoginViewController: LoginViewModelOutput {
         self.loginTextField.setTextFieldAppearance()
         self.passwordTextField.setTextFieldAppearance()
         self.loginButton.backgroundColor = self.loginButton.isEnabled ? .enabledButton : .disabledButton
-        self.checkBoxButton.borderColor = .label
     }
     
     func updateLoginFields(email: String, password: String) {
