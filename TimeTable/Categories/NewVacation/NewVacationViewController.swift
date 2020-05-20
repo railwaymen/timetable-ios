@@ -50,6 +50,12 @@ class NewVacationViewController: UIViewController {
         self.viewModel.viewDidDisappear()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else { return }
+        self.viewModel.viewShouldUpdateColors()
+    }
+    
     // MARK: - Actions
     @objc private func closeButtonTapped() {
         self.viewModel.closeButtonTapped()
@@ -111,9 +117,17 @@ extension NewVacationViewController: NewVacationViewModelOutput {
         self.setUpEndDayPickerView()
         self.setUpTypePickerView()
         self.setUpNoteTextView()
-        self.setUpSaveButton()
+        self.setUpSaveButtonColors()
         self.setUpConstraints()
         self.setUpActivityIndicator()
+    }
+    
+    func updateColors() {
+        self.startDayTextField.setTextFieldAppearance()
+        self.endDayTextField.setTextFieldAppearance()
+        self.typeTextField.setTextFieldAppearance()
+        self.noteTextView.setTextFieldAppearance()
+        self.setUpSaveButtonColors()
     }
     
     func setActivityIndicator(isHidden: Bool) {
@@ -208,7 +222,7 @@ extension NewVacationViewController {
         self.noteTextView.setTextFieldAppearance()
     }
     
-    private func setUpSaveButton() {
+    private func setUpSaveButtonColors() {
         self.saveButton.setBackgroundColor(.enabledButton, forState: .normal)
         self.saveButton.setBackgroundColor(.disabledButton, forState: .disabled)
     }

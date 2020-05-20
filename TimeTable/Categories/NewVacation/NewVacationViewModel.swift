@@ -12,6 +12,7 @@ protocol NewVacationViewModelType: class {
     func loadView()
     func viewWillAppear()
     func viewDidDisappear()
+    func viewShouldUpdateColors()
     func closeButtonTapped()
     func numberOfTypes() -> Int
     func titleOfType(for row: Int) -> String?
@@ -25,6 +26,7 @@ protocol NewVacationViewModelType: class {
 
 protocol NewVacationViewModelOutput: class {
     func setUp(availableVacationDays: String)
+    func updateColors()
     func setActivityIndicator(isHidden: Bool)
     func setNote(text: String)
     func setMinimumDateForStartDate(minDate: Date)
@@ -116,6 +118,11 @@ extension NewVacationViewModel: NewVacationViewModelType {
     
     func viewDidDisappear() {
         self.keyboardManager.removeHandler(for: self)
+    }
+    
+    func viewShouldUpdateColors() {
+        self.userInterface?.updateColors()
+        self.updateUI()
     }
     
     func closeButtonTapped() {
