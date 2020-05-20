@@ -95,8 +95,7 @@ class TimesheetViewModel: KeyboardManagerObserverable {
         didSet {
             guard self.didViewLayoutSubviews else { return }
             let (insertedSections, removedSections) = self.getSectionsDiff(oldValue: oldValue)
-            let (insertedRows, removedRows) = self.getRowsDiff(oldValue: oldValue)
-            let updatedSections = IndexSet((insertedRows + removedRows).map(\.section))
+            let updatedSections = self.getUpdatedSections(oldValue: oldValue)
             self.userInterface?.performBatchUpdates { [weak userInterface] in
                 userInterface?.removeSections(removedSections)
                 userInterface?.insertSections(insertedSections)
@@ -507,24 +506,14 @@ extension TimesheetViewModel {
         return (insertions, removals)
     }
     
-    private func getRowsDiff(oldValue: [DailyWorkTime]) -> (insertions: [IndexPath], removals: [IndexPath]) {
-        var insertions: [IndexPath] = []
-        var removals: [IndexPath] = []
-        
-        self.visibleDailyWorkTimes.enumerated().forEach { (newSection, dailyWorkTime) in
+    private func getUpdatedSections(oldValue: [DailyWorkTime]) -> IndexSet {
+        let sections: [Int] = self.visibleDailyWorkTimes.compactMap { dailyWorkTime in
             guard let oldSection = oldValue.firstIndex(of: dailyWorkTime),
-                let oldDailyWorkTime = oldValue[safeIndex: oldSection] else { return }
-            let diff = dailyWorkTime.workTimes.difference(from: oldDailyWorkTime.workTimes)
-            diff.forEach { change in
-                switch change {
-                case let .insert(offset, _, _):
-                    insertions.append(IndexPath(row: offset, section: newSection))
-                case let .remove(offset, _, _):
-                    removals.append(IndexPath(row: offset, section: oldSection))
-                }
-            }
+                let oldDailyWorkTime = oldValue[safeIndex: oldSection] else { return nil }
+            guard dailyWorkTime.workTimes != oldDailyWorkTime.workTimes else { return nil }
+            return oldSection
         }
-        return (insertions, removals)
+        return IndexSet(sections)
     }
     
     private func workTime(for indexPath: IndexPath) -> WorkTimeDecoder? {
