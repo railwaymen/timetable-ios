@@ -59,6 +59,12 @@ class RegisterRemoteWorkViewController: UIViewController {
         self.viewModel.viewDidDisappear()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else { return }
+        self.viewModel.viewShouldUpdateColors()
+    }
+    
     // MARK: - Actions
     @objc private func closeButtonTapped() {
         self.viewModel.closeButtonTapped()
@@ -106,9 +112,16 @@ extension RegisterRemoteWorkViewController: RegisterRemoteWorkViewModelOutput {
         self.setUpStartDayPickerView()
         self.setUpEndDayPickerView()
         self.setUpNoteTextView()
-        self.setUpSaveButton()
+        self.setUpSaveButtonColors()
         self.setUpActivityIndicator()
         self.setUpConstraints()
+    }
+    
+    func updateColors() {
+        self.startDayTextField.setTextFieldAppearance()
+        self.endDayTextField.setTextFieldAppearance()
+        self.noteTextView.setTextFieldAppearance()
+        self.setUpSaveButtonColors()
     }
     
     func setActivityIndicator(isHidden: Bool) {
@@ -196,7 +209,7 @@ extension RegisterRemoteWorkViewController {
         self.noteTextView.setTextFieldAppearance()
     }
     
-    private func setUpSaveButton() {
+    private func setUpSaveButtonColors() {
         self.saveButton.setBackgroundColor(.enabledButton, forState: .normal)
         self.saveButton.setBackgroundColor(.disabledButton, forState: .disabled)
     }

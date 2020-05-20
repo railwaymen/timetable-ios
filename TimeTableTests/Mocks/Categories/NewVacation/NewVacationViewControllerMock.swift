@@ -17,6 +17,9 @@ class NewVacationViewControllerMock: UIViewController {
         let availableVacationDays: String
     }
     
+    private(set) var updateColorsParams: [UpdateColorsParams] = []
+    struct UpdateColorsParams {}
+    
     private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
     struct SetActivityIndicatorParams {
         let isHidden: Bool
@@ -88,6 +91,10 @@ class NewVacationViewControllerMock: UIViewController {
 extension NewVacationViewControllerMock: NewVacationViewModelOutput {
     func setUp(availableVacationDays: String) {
         self.setUpParams.append(SetUpParams(availableVacationDays: availableVacationDays))
+    }
+    
+    func updateColors() {
+        self.updateColorsParams.append(UpdateColorsParams())
     }
     
     func setActivityIndicator(isHidden: Bool) {

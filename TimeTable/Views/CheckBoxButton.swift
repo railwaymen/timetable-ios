@@ -13,8 +13,7 @@ import UIKit
     @IBInspectable var isActive: Bool = false {
         didSet {
             self.setImage(self.isActive ? UIImage(named: "check") : nil, for: .normal)
-            self.backgroundColor = self.isActive ? .white : .clear
-            self.tintColor = .tint
+            self.updateColors()
         }
     }
 
@@ -32,9 +31,26 @@ import UIKit
     }
     
     @IBInspectable var borderColor: UIColor? {
-        didSet {            
+        didSet {
             self.layer.borderColor = self.borderColor?.cgColor
             self.layer.borderWidth = self.borderWidth
         }
+    }
+    
+    // MARK: - Overridden
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else { return }
+        self.updateColors()
+    }
+}
+
+// MARK: - Private
+extension CheckBoxButton {
+    private func updateColors() {
+        self.backgroundColor = self.isActive ? .white : .clear
+        self.tintColor = .tint
+        self.layer.borderColor = self.borderColor?.cgColor
+        self.layer.borderWidth = self.borderWidth
     }
 }

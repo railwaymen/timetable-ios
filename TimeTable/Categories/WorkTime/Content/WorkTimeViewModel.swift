@@ -10,6 +10,7 @@ import UIKit
 
 protocol WorkTimeViewModelOutput: class {
     func setUp()
+    func updateColors()
     func setBodyView(isHidden: Bool)
     func setTaskURLView(isHidden: Bool)
     func setBody(text: String)
@@ -40,7 +41,7 @@ protocol WorkTimeViewModelType: class {
     func viewDidLoad()
     func viewWillAppear()
     func viewDidDisappear()
-    func userInterfaceStyleDidChange()
+    func viewShouldUpdateColors()
     func configure(_ cell: TagCollectionViewCellable, for indexPath: IndexPath)
     func projectButtonTapped()
     func viewRequestedForNumberOfTags() -> Int
@@ -143,8 +144,8 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
         self.keyboardManager.removeHandler(for: self)
     }
     
-    func userInterfaceStyleDidChange() {
-        self.userInterface?.setUp()
+    func viewShouldUpdateColors() {
+        self.userInterface?.updateColors()
         self.userInterface?.reloadTagsView()
         self.updateUI()
     }

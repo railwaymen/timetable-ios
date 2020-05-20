@@ -17,6 +17,9 @@ class LoginViewControllerMock: UIViewController {
         let checkBoxIsActive: Bool
     }
     
+    private(set) var updateColorsParams: [UpdateColorsParams] = []
+    struct UpdateColorsParams {}
+    
     private(set) var updateLoginFieldsParams: [UpdateLoginFieldsParams] = []
     struct UpdateLoginFieldsParams {
         let email: String
@@ -70,6 +73,10 @@ class LoginViewControllerMock: UIViewController {
 extension LoginViewControllerMock: LoginViewModelOutput {
     func setUpView(checkBoxIsActive: Bool) {
         self.setUpViewParams.append(SetUpViewParams(checkBoxIsActive: checkBoxIsActive))
+    }
+    
+    func updateColors() {
+        self.updateColorsParams.append(UpdateColorsParams())
     }
     
     func updateLoginFields(email: String, password: String) {

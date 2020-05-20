@@ -10,6 +10,7 @@ import UIKit
 
 protocol RegisterRemoteWorkViewModelOutput: class {
     func setUp()
+    func updateColors()
     func setActivityIndicator(isHidden: Bool)
     func setNote(text: String)
     func setMinimumDateForEndDate(minDate: Date)
@@ -26,6 +27,7 @@ protocol RegisterRemoteWorkViewModelType: class {
     func loadView()
     func viewWillAppear()
     func viewDidDisappear()
+    func viewShouldUpdateColors()
     func closeButtonTapped()
     func viewChanged(startAtDate date: Date)
     func viewChanged(endAtDate date: Date)
@@ -132,6 +134,11 @@ extension RegisterRemoteWorkViewModel: RegisterRemoteWorkViewModelType {
     
     func viewDidDisappear() {
         self.keyboardManager.removeHandler(for: self)
+    }
+    
+    func viewShouldUpdateColors() {
+        self.userInterface?.updateColors()
+        self.updateUI()
     }
     
     func closeButtonTapped() {

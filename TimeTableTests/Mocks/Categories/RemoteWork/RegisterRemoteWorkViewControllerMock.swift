@@ -15,6 +15,9 @@ class RegisterRemoteWorkViewControllerMock: UIViewController {
     private(set) var setUpParams: [SetUpParams] = []
     struct SetUpParams {}
     
+    private(set) var updateColorsParams: [UpdateColorsParams] = []
+    struct UpdateColorsParams {}
+    
     private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
     struct SetActivityIndicatorParams {
         let isHidden: Bool
@@ -81,6 +84,10 @@ class RegisterRemoteWorkViewControllerMock: UIViewController {
 extension RegisterRemoteWorkViewControllerMock: RegisterRemoteWorkViewModelOutput {
     func setUp() {
         self.setUpParams.append(SetUpParams())
+    }
+    
+    func updateColors() {
+        self.updateColorsParams.append(UpdateColorsParams())
     }
     
     func setActivityIndicator(isHidden: Bool) {

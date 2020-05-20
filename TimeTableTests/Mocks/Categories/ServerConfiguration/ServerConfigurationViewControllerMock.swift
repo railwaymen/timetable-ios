@@ -40,6 +40,9 @@ class ServerConfigurationViewControllerMock: UIViewController {
         let keyboardState: KeyboardManager.KeyboardState
     }
     
+    private(set) var updateColorsParams: [UpdateColorsParams] = []
+    struct UpdateColorsParams {}
+    
     // MARK: - ServerConfigurationViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
@@ -71,6 +74,10 @@ extension ServerConfigurationViewControllerMock: ServerConfigurationViewModelOut
     
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
         self.keyboardStateDidChangeParams.append(KeyboardStateDidChangeParams(keyboardState: keyboardState))
+    }
+    
+    func updateColors() {
+        self.updateColorsParams.append(UpdateColorsParams())
     }
 }
 

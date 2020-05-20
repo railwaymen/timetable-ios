@@ -8,6 +8,7 @@
 
 import UIKit
 
+// swiftlint:disable file_length
 typealias WorkTimeViewControllerable = (UIViewController & WorkTimeViewControllerType & WorkTimeViewModelOutput)
 
 protocol WorkTimeViewControllerType: class {
@@ -72,8 +73,8 @@ class WorkTimeViewController: UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        guard self.traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }
-        self.viewModel.userInterfaceStyleDidChange()
+        guard self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else { return }
+        self.viewModel.viewShouldUpdateColors()
     }
     
     // MARK: - Actions
@@ -172,7 +173,7 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     func setUp() {
         self.setUpTagsCollectionView()
         self.setUpActivityIndicator()
-        self.setUpSaveButton()
+        self.setUpSaveButtonColors()
         self.setUpConstraints()
         self.setUpProjectButton()
         self.setUpDayPicker()
@@ -183,6 +184,16 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         self.setUpEndAtTextField()
         self.setUpBodyTextView()
         self.setUpTaskTextField()
+    }
+    
+    func updateColors() {
+        self.setUpSaveButtonColors()
+        self.projectView.setTextFieldAppearance()
+        self.dayTextField.setTextFieldAppearance()
+        self.startAtDateTextField.setTextFieldAppearance()
+        self.endAtDateTextField.setTextFieldAppearance()
+        self.bodyTextView.setTextFieldAppearance()
+        self.taskURLTextField.setTextFieldAppearance()
     }
     
     func setBodyView(isHidden: Bool) {
@@ -360,7 +371,7 @@ extension WorkTimeViewController {
         self.tagsCollectionView.dataSource = self
     }
     
-    private func setUpSaveButton() {
+    private func setUpSaveButtonColors() {
         self.saveButton.setBackgroundColor(.enabledButton, forState: .normal)
         self.saveButton.setBackgroundColor(.disabledButton, forState: .disabled)
     }

@@ -26,17 +26,17 @@ class ServerConfigurationViewController: UIViewController {
     @IBOutlet private var serverAddressTextFieldHeightConstraint: NSLayoutConstraint!
     @IBOutlet private var continueButtonHeightConstraint: NSLayoutConstraint!
     
-    private var viewModel: ServerConfigurationViewModelType?
+    private var viewModel: ServerConfigurationViewModelType!
     
     // MARK: - Overridden
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.viewModel?.viewDidLoad()
+        self.viewModel.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.viewModel?.viewWillAppear()
+        self.viewModel.viewWillAppear()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -46,20 +46,26 @@ class ServerConfigurationViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        self.viewModel?.viewDidDisappear()
+        self.viewModel.viewDidDisappear()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else { return }
+        self.viewModel.viewColorsShouldUpdate()
     }
     
     // MARK: - Actions
     @IBAction private func serverAddressTextFieldDidChange(_ sender: UITextField) {
-        self.viewModel?.serverAddressDidChange(text: sender.text)
+        self.viewModel.serverAddressDidChange(text: sender.text)
     }
     
     @IBAction private func continueButtonTapped(_ sender: UIButton) {
-        self.viewModel?.continueButtonTapped()
+        self.viewModel.continueButtonTapped()
     }
     
     @IBAction private func viewTapped(_ sender: UITapGestureRecognizer) {
-        self.viewModel?.viewTapped()
+        self.viewModel.viewTapped()
     }
 }
 
@@ -67,7 +73,7 @@ class ServerConfigurationViewController: UIViewController {
 extension ServerConfigurationViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard self.serverAddressTextField == textField else { return false }
-        return self.viewModel?.serverAddressTextFieldDidRequestForReturn() ?? false
+        return self.viewModel.serverAddressTextFieldDidRequestForReturn()
     }
 }
 
@@ -110,6 +116,11 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
         let continueButtonHeight = self.continueButton.frame.height
         let preferredBottomInset = keyboardState.keyboardHeight + verticalSpacing + bottomPadding + continueButtonHeight
         self.updateScrollViewInsets(with: max(preferredBottomInset, 0))
+    }
+    
+    func updateColors() {
+        self.serverAddressTextField.setTextFieldAppearance()
+        self.continueButton.backgroundColor = self.continueButton.isEnabled ? .enabledButton : .disabledButton
     }
 }
 

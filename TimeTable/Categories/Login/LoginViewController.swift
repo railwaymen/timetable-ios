@@ -42,6 +42,12 @@ class LoginViewController: UIViewController {
         super.viewDidDisappear(animated)
         self.viewModel.viewDidDisappear()
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else { return }
+        self.viewModel.viewShouldUpdateColors()
+    }
 
     // MARK: - Actions
     @IBAction private func loginTextFieldDidChange(_ sender: UITextField) {
@@ -75,6 +81,12 @@ extension LoginViewController: LoginViewModelOutput {
         self.passwordTextField.setTextFieldAppearance()
         self.setUpActivityIndicator()
         self.setUpConstraints()
+    }
+    
+    func updateColors() {
+        self.loginTextField.setTextFieldAppearance()
+        self.passwordTextField.setTextFieldAppearance()
+        self.loginButton.backgroundColor = self.loginButton.isEnabled ? .enabledButton : .disabledButton
     }
     
     func updateLoginFields(email: String, password: String) {
