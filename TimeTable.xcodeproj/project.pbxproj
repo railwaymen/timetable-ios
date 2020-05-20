@@ -222,6 +222,7 @@
 		8A9369B2237AA19D005F8199 /* TagCollectionViewCellMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B1237AA19D005F8199 /* TagCollectionViewCellMock.swift */; };
 		8A9369B4237AA293005F8199 /* WorkTimeCellViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */; };
 		8A9369B6237AA348005F8199 /* WorkTimesTableViewHeaderViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B5237AA348005F8199 /* WorkTimesTableViewHeaderViewMock.swift */; };
+		8A94E5FA24751041009ECCCA /* ApiClient+Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A94E5F924751041009ECCCA /* ApiClient+Typealiases.swift */; };
 		8A9832BA243AFFF7005245A8 /* ServerErrorJSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9832B9243AFFF7005245A8 /* ServerErrorJSONResource.swift */; };
 		8A9832BD243B0023005245A8 /* serverErrorFullModel.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A9832BC243B0023005245A8 /* serverErrorFullModel.json */; };
 		8A9987CE23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A9987CD23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json */; };
@@ -918,6 +919,7 @@
 		8A9369B1237AA19D005F8199 /* TagCollectionViewCellMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCellMock.swift; sourceTree = "<group>"; };
 		8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCellViewMock.swift; sourceTree = "<group>"; };
 		8A9369B5237AA348005F8199 /* WorkTimesTableViewHeaderViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimesTableViewHeaderViewMock.swift; sourceTree = "<group>"; };
+		8A94E5F924751041009ECCCA /* ApiClient+Typealiases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiClient+Typealiases.swift"; sourceTree = "<group>"; };
 		8A9832B9243AFFF7005245A8 /* ServerErrorJSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerErrorJSONResource.swift; sourceTree = "<group>"; };
 		8A9832BC243B0023005245A8 /* serverErrorFullModel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = serverErrorFullModel.json; sourceTree = "<group>"; };
 		8A9987CD23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithIsTaggableTrueResponse.json; sourceTree = "<group>"; };
@@ -2622,6 +2624,7 @@
 				C125F1B221DCCBE700594CDE /* ApiClient+Projects.swift */,
 				C1860DD72462F26A00C33C94 /* ApiClient+RemoteWork.swift */,
 				C134295D21A6934C00F4EA42 /* ApiClient+Session.swift */,
+				8A94E5F924751041009ECCCA /* ApiClient+Typealiases.swift */,
 				C10FD87E21F1EDA100A233C5 /* ApiClient+Users.swift */,
 				C1FB401D245191D8008266C4 /* ApiClient+Vacation.swift */,
 				C134296621A6951C00F4EA42 /* ApiClient+WorkTimes.swift */,
@@ -4219,6 +4222,7 @@
 				C175B56C227CAACA006D9944 /* MessagePresenter.swift in Sources */,
 				C14EB02B2372E261007F07D0 /* UIView+Extension.swift in Sources */,
 				C125F1BC21DCDA8800594CDE /* ProjectCollectionViewCell.swift in Sources */,
+				8A94E5FA24751041009ECCCA /* ApiClient+Typealiases.swift in Sources */,
 				8AA1D33A246E75E80037EB9C /* UIScrollView+Extension.swift in Sources */,
 				C12CA57B21A5900B0082FEB7 /* WorkTimeDecoder.swift in Sources */,
 				C1A47BE924596AD000FDA7F0 /* VacationType.swift in Sources */,

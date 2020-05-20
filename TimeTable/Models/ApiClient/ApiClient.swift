@@ -9,15 +9,6 @@
 import Foundation
 import Restler
 
-typealias ApiClientType =
-    ApiClientSessionType
-    & ApiClientWorkTimesType
-    & ApiClientProjectsType
-    & ApiClientUsersType
-    & ApiClientAccountingPeriodsType
-    & ApiClientVacationType
-    & ApiClientRemoteWorkType
-
 typealias VoidResult = (Result<Void, Error>)
 typealias VoidCompletion = (VoidResult) -> Void
 
