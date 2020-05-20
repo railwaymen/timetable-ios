@@ -1,5 +1,5 @@
 //
-//  WorkTimesListViewController.swift
+//  TimesheetViewController.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 23/11/2018.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-typealias WorkTimesListViewControllerable = (UIViewController & WorkTimesListViewControllerType & WorkTimesListViewModelOutput)
+typealias TimesheetViewControllerable = (UIViewController & TimesheetViewControllerType & TimesheetViewModelOutput)
 
-protocol WorkTimesListViewControllerType: class {
-    func configure(viewModel: WorkTimesListViewModelType)
+protocol TimesheetViewControllerType: class {
+    func configure(viewModel: TimesheetViewModelType)
 }
 
-class WorkTimesListViewController: UIViewController {
+class TimesheetViewController: UIViewController {
     @IBOutlet private var projectSelectionView: UIView!
     @IBOutlet private var projectColorView: AttributedButton!
     @IBOutlet private var projectNameLabel: UILabel!
@@ -31,7 +31,7 @@ class WorkTimesListViewController: UIViewController {
 
     private let tableViewEstimatedRowHeight: CGFloat = 150
     private let heightForHeader: CGFloat = 50
-    private var viewModel: WorkTimesListViewModelType!
+    private var viewModel: TimesheetViewModelType!
     
     // MARK: - Overridden
     override func viewDidLoad() {
@@ -88,7 +88,7 @@ class WorkTimesListViewController: UIViewController {
 }
 
 // MARK: - UITableViewDataSource
-extension WorkTimesListViewController: UITableViewDataSource {
+extension TimesheetViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.viewModel.numberOfSections()
     }
@@ -111,7 +111,7 @@ extension WorkTimesListViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
-extension WorkTimesListViewController: UITableViewDelegate {
+extension TimesheetViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
         self.viewModel.viewRequestedForEditEntry(sourceView: cell, at: indexPath)
@@ -138,10 +138,7 @@ extension WorkTimesListViewController: UITableViewDelegate {
         _ tableView: UITableView,
         viewForHeaderInSection section: Int
     ) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: WorkTimesTableViewHeader.reuseID)
-            as? WorkTimesTableViewHeaderable else {
-                return nil
-        }
+        guard let header = tableView.dequeueHeaderFooterView(TimesheetSectionHeaderView.self) else { return nil }
         guard let headerViewModel = self.viewModel.viewRequestForHeaderModel(at: section, header: header) else { return nil }
         header.configure(viewModel: headerViewModel)
         return header
@@ -152,8 +149,8 @@ extension WorkTimesListViewController: UITableViewDelegate {
     }
 }
 
-// MARK: - WorkTimesListViewModelOutput
-extension WorkTimesListViewController: WorkTimesListViewModelOutput {
+// MARK: - TimesheetViewModelOutput
+extension TimesheetViewController: TimesheetViewModelOutput {
     func setUpView() {
         self.setUpProjectView()
         self.setUpMonthPicker()
@@ -243,15 +240,15 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
     }
 }
 
-// MARK: - WorkTimesListViewControllerType
-extension WorkTimesListViewController: WorkTimesListViewControllerType {
-    func configure(viewModel: WorkTimesListViewModelType) {
+// MARK: - TimesheetViewControllerType
+extension TimesheetViewController: TimesheetViewControllerType {
+    func configure(viewModel: TimesheetViewModelType) {
         self.viewModel = viewModel
     }
 }
 
 // MARK: - Private
-extension WorkTimesListViewController {
+extension TimesheetViewController {
     private func buildDeleteContextualAction(indexPath: IndexPath) -> UIContextualAction {
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (_, _, completion) in
             guard let self = self else { return completion(false) }
@@ -315,9 +312,7 @@ extension WorkTimesListViewController {
         self.tableView.estimatedRowHeight = tableViewEstimatedRowHeight
         
         self.tableView.register(WorkTimeTableViewCell.self)
-        
-        let nib = UINib(nibName: WorkTimesTableViewHeader.className, bundle: nil)
-        self.tableView.register(nib, forHeaderFooterViewReuseIdentifier: WorkTimesTableViewHeader.reuseID)
+        self.tableView.registerHeaderFooterView(TimesheetSectionHeaderView.self)
     }
     
     private func setUpRefreshControl() {

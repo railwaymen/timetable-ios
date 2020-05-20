@@ -12,7 +12,7 @@ protocol ViewControllerBuilderType: class {
     func serverConfiguration() throws -> ServerConfigurationViewControllerable
     func login() throws -> LoginViewControllerable
     func projects() throws -> ProjectsViewControllerable
-    func workTimesList() throws -> WorkTimesListViewControllerable
+    func timesheet() throws -> TimesheetViewControllerable
     func workTimeContainer() throws -> WorkTimeContainerViewControllerable
     func projectPicker() -> ProjectPickerViewControllerable
     func taskHistory() throws -> TaskHistoryViewControllerable
@@ -53,8 +53,8 @@ extension ViewControllerBuilder: ViewControllerBuilderType {
         try self.cast(R.storyboard.projects().instantiateInitialViewController())
     }
     
-    func workTimesList() throws -> WorkTimesListViewControllerable {
-        try self.cast(R.storyboard.workTimesList().instantiateInitialViewController())
+    func timesheet() throws -> TimesheetViewControllerable {
+        try self.cast(R.storyboard.timesheet().instantiateInitialViewController())
     }
     
     func workTimeContainer() throws -> WorkTimeContainerViewControllerable {

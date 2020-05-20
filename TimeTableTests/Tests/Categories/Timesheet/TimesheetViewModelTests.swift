@@ -1,5 +1,5 @@
 //
-//  WorkTimesListViewModelTests.swift
+//  TimesheetViewModelTests.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 27/11/2018.
@@ -10,13 +10,13 @@ import XCTest
 @testable import TimeTable
 
 // swiftlint:disable file_length
-class WorkTimesListViewModelTests: XCTestCase {
+class TimesheetViewModelTests: XCTestCase {
     private let matchingFullTimeDecoderFactory = MatchingFullTimeDecoderFactory()
     private let workTimeDecoderFactory = WorkTimeDecoderFactory()
     
-    private var userInterfaceMock: WorkTimesListViewControllerMock!
-    private var coordinatorMock: WorkTimesListCoordinatorMock!
-    private var contentProvider: WorkTimesListContentProviderMock!
+    private var userInterfaceMock: TimesheetViewControllerMock!
+    private var coordinatorMock: TimesheetCoordinatorMock!
+    private var contentProvider: TimesheetContentProviderMock!
     private var errorHandlerMock: ErrorHandlerMock!
     private var calendarMock: CalendarMock!
     private var messagePresenterMock: MessagePresenterMock!
@@ -24,10 +24,10 @@ class WorkTimesListViewModelTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        self.userInterfaceMock = WorkTimesListViewControllerMock()
-        self.coordinatorMock = WorkTimesListCoordinatorMock()
+        self.userInterfaceMock = TimesheetViewControllerMock()
+        self.coordinatorMock = TimesheetCoordinatorMock()
         self.errorHandlerMock = ErrorHandlerMock()
-        self.contentProvider = WorkTimesListContentProviderMock()
+        self.contentProvider = TimesheetContentProviderMock()
         self.calendarMock = CalendarMock()
         self.messagePresenterMock = MessagePresenterMock()
         self.keyboardManagerMock = KeyboardManagerMock()
@@ -35,7 +35,7 @@ class WorkTimesListViewModelTests: XCTestCase {
 }
 
 // MARK: - numberOfSections()
-extension WorkTimesListViewModelTests {
+extension TimesheetViewModelTests {
     func testNumberOfSections_beforeFetch() throws {
         //Arrange
         let sut = try self.buildSUT()
@@ -57,7 +57,7 @@ extension WorkTimesListViewModelTests {
 }
 
 // MARK: - numberOfRows(in:)
-extension WorkTimesListViewModelTests {
+extension TimesheetViewModelTests {
     func testNumberOfRowsInSection_beforeFetch() throws {
         //Arrange
         let sut = try self.buildSUT()
@@ -79,7 +79,7 @@ extension WorkTimesListViewModelTests {
 }
  
 // MARK: - viewDidLoad()
-extension WorkTimesListViewModelTests {
+extension TimesheetViewModelTests {
     func testViewDidLoad_setsUpUserInterface() throws {
         //Arrange
         let sut = try self.buildSUT()
@@ -91,7 +91,7 @@ extension WorkTimesListViewModelTests {
 }
 
 // MARK: - viewWillAppear()
-extension WorkTimesListViewModelTests {
+extension TimesheetViewModelTests {
     func testViewWillAppear_fetchRequiredData_beforeFetch_showsActivityIndicator() throws {
         //Arrange
         let sut = try self.buildSUT()
@@ -186,7 +186,7 @@ extension WorkTimesListViewModelTests {
 }
 
 // MARK: - configure(_:for:)
-extension WorkTimesListViewModelTests {
+extension TimesheetViewModelTests {
     func testConfigureCell_beforeFetch() throws {
         //Arrange
         let sut = try self.buildSUT()
@@ -210,11 +210,11 @@ extension WorkTimesListViewModelTests {
 }
 
 // MARK: - viewRequestForHeaderModel(at:header:)
-extension WorkTimesListViewModelTests {
+extension TimesheetViewModelTests {
     func testViewRequestForHeaderModel_beforeFetch() throws {
         //Arrange
         let sut = try self.buildSUT()
-        let mockedHeader = WorkTimesTableViewHeaderViewMock()
+        let mockedHeader = TimesheetSectionHeaderViewMock()
         //Act
         let headerViewModel = sut.viewRequestForHeaderModel(at: 0, header: mockedHeader)
         //Assert
@@ -223,7 +223,7 @@ extension WorkTimesListViewModelTests {
     
     func testViewRequestForHeaderModel_afterFetch() throws {
         //Arrange
-        let mockedHeader = WorkTimesTableViewHeaderViewMock()
+        let mockedHeader = TimesheetSectionHeaderViewMock()
         let sut = try self.buildSUT()
         try self.fetchData(for: sut)
         //Act
@@ -234,7 +234,7 @@ extension WorkTimesListViewModelTests {
 }
 
 // MARK: - viewRequestToDelete(at:completion:)
-extension WorkTimesListViewModelTests {
+extension TimesheetViewModelTests {
     func testViewRequestToDeleteWorkTime_invalidIndexPath() throws {
         //Arrange
         let sut = try self.buildSUT()
@@ -309,7 +309,7 @@ extension WorkTimesListViewModelTests {
 }
 
 // MARK: - viewRequestForCellType(at:)
-extension WorkTimesListViewModelTests {
+extension TimesheetViewModelTests {
     func testViewRequestForCellType_beforeFetch() throws {
         //Arrange
         let indexPath = IndexPath(row: 0, section: 0)
@@ -333,7 +333,7 @@ extension WorkTimesListViewModelTests {
 }
 
 // MARK: - viewRequestForNewWorkTimeView(sourceView:)
-extension WorkTimesListViewModelTests {
+extension TimesheetViewModelTests {
     func testViewRequestForNewWorkTimeView() throws {
         //Arrange
         let button = UIButton()
@@ -341,12 +341,12 @@ extension WorkTimesListViewModelTests {
         //Act
         sut.viewRequestForNewWorkTimeView(sourceView: button)
         //Assert
-        XCTAssertEqual(self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.flowType, .newEntry(lastTask: nil))
+        XCTAssertEqual(self.coordinatorMock.timesheetRequestedForWorkTimeViewParams.last?.flowType, .newEntry(lastTask: nil))
     }
 }
  
 // MARK: - viewRequestedForEditEntry(sourceView:at:)
-extension WorkTimesListViewModelTests {
+extension TimesheetViewModelTests {
     func testViewRequestedForEditEntry_withoutDailyWorkTimes() throws {
         //Arrange
         let cell = UITableViewCell()
@@ -355,7 +355,7 @@ extension WorkTimesListViewModelTests {
         //Act
         sut.viewRequestedForEditEntry(sourceView: cell, at: indexPath)
         //Assert
-        XCTAssertTrue(self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.isEmpty)
+        XCTAssertTrue(self.coordinatorMock.timesheetRequestedForWorkTimeViewParams.isEmpty)
     }
     
     func testViewRequestedForEditEntry_withDailyWorkTimes() throws {
@@ -370,8 +370,8 @@ extension WorkTimesListViewModelTests {
         //Act
         sut.viewRequestedForEditEntry(sourceView: cell, at: indexPath)
         //Assert
-        XCTAssertEqual(self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.sourceView, cell)
-        let flowType = self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.flowType
+        XCTAssertEqual(self.coordinatorMock.timesheetRequestedForWorkTimeViewParams.last?.sourceView, cell)
+        let flowType = self.coordinatorMock.timesheetRequestedForWorkTimeViewParams.last?.flowType
         guard case let .editEntry(editedTask) = flowType else { return XCTFail() }
         XCTAssertEqual(editedTask.workTimeID, workTime.id)
         XCTAssertEqual(editedTask.project, workTime.project)
@@ -384,7 +384,7 @@ extension WorkTimesListViewModelTests {
 }
 
 // MARK: - viewRequestToDuplicate(sourceView:at:)
-extension WorkTimesListViewModelTests {
+extension TimesheetViewModelTests {
     func testViewRequestToDuplicate() throws {
         //Arrange
         let indexPath = IndexPath(row: 1, section: 0)
@@ -398,8 +398,8 @@ extension WorkTimesListViewModelTests {
         //Act
         sut.viewRequestToDuplicate(sourceView: cell, at: indexPath)
         //Assert
-        XCTAssertEqual(self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.sourceView, cell)
-        let flowType = self.coordinatorMock.workTimesRequestedForWorkTimeViewParams.last?.flowType
+        XCTAssertEqual(self.coordinatorMock.timesheetRequestedForWorkTimeViewParams.last?.sourceView, cell)
+        let flowType = self.coordinatorMock.timesheetRequestedForWorkTimeViewParams.last?.flowType
         guard case let .duplicateEntry(duplicatedTask, lastTask) = flowType else { return XCTFail() }
         XCTAssertEqual(duplicatedTask.workTimeID, duplicatedWorkTime.id)
         XCTAssertEqual(duplicatedTask.project, duplicatedWorkTime.project)
@@ -420,7 +420,7 @@ extension WorkTimesListViewModelTests {
 }
 
 // MARK: - viewRequestToRefresh(completion:)
-extension WorkTimesListViewModelTests {
+extension TimesheetViewModelTests {
     func testViewRequestToRefresh_callsFetch() throws {
         //Arrange
         let sut = try self.buildSUT()
@@ -463,14 +463,14 @@ extension WorkTimesListViewModelTests {
 }
 
 // MARK: - Private
-extension WorkTimesListViewModelTests {
-    private func buildSUT(isSelectedDate: Bool = true) throws -> WorkTimesListViewModel {
+extension TimesheetViewModelTests {
+    private func buildSUT(isSelectedDate: Bool = true) throws -> TimesheetViewModel {
         let components = DateComponents(year: 2019, month: 2, day: 2)
         self.calendarMock.dateComponentsReturnValue = components
         if isSelectedDate {
             self.calendarMock.dateFromDateComponentsReturnValue = try self.buildDate(components)
         }
-        return WorkTimesListViewModel(
+        return TimesheetViewModel(
             userInterface: self.userInterfaceMock,
             coordinator: self.coordinatorMock,
             contentProvider: self.contentProvider,
@@ -480,17 +480,17 @@ extension WorkTimesListViewModelTests {
             keyboardManager: self.keyboardManagerMock)
     }
     
-    private func fetchData(for sut: WorkTimesListViewModel, result: WorkTimesListFetchRequiredDataResult? = nil) throws {
+    private func fetchData(for sut: TimesheetViewModel, result: TimesheetFetchRequiredDataResult? = nil) throws {
         let finalResult = try result ?? .success(try self.buildRequiredData())
         sut.viewWillAppear()
         self.contentProvider.fetchRequiredDataParams.last?.completion(finalResult)
     }
     
-    private func buildRequiredData() throws -> WorkTimesListViewModel.RequiredData {
+    private func buildRequiredData() throws -> TimesheetViewModel.RequiredData {
         let dailyWorkTime = try self.buildDailyWorkTime()
         let matchingFulltime = try self.buildMatchingFullTimeDecoder()
         let project = try self.buildSimpleProjectDecoder()
-        return WorkTimesListViewModel.RequiredData(
+        return TimesheetViewModel.RequiredData(
             dailyWorkTimes: [dailyWorkTime],
             matchingFulltime: matchingFulltime,
             simpleProjects: [project])

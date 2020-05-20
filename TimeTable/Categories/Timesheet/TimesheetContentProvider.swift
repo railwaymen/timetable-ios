@@ -1,5 +1,5 @@
 //
-//  WorkTimesListContentProvider.swift
+//  TimesheetContentProvider.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 29/01/2019.
@@ -9,23 +9,23 @@
 import Foundation
 import Restler
 
-typealias WorkTimesListFetchResult = Result<([DailyWorkTime], MatchingFullTimeDecoder), Error>
-typealias WorkTimesListFetchCompletion = (WorkTimesListFetchResult) -> Void
+typealias TimesheetFetchResult = Result<([DailyWorkTime], MatchingFullTimeDecoder), Error>
+typealias TimesheetFetchCompletion = (TimesheetFetchResult) -> Void
 
-typealias WorkTimesListDeleteResult = Result<Void, Error>
-typealias WorkTimesListDeleteCompletion = (WorkTimesListDeleteResult) -> Void
+typealias TimesheetDeleteResult = Result<Void, Error>
+typealias TimesheetDeleteCompletion = (TimesheetDeleteResult) -> Void
 
-typealias WorkTimesListFetchRequiredDataResult = Result<WorkTimesListViewModel.RequiredData, Error>
-typealias WorkTimesListFetchRequiredDataCompletion = (WorkTimesListFetchRequiredDataResult) -> Void
+typealias TimesheetFetchRequiredDataResult = Result<TimesheetViewModel.RequiredData, Error>
+typealias TimesheetFetchRequiredDataCompletion = (TimesheetFetchRequiredDataResult) -> Void
 
-protocol WorkTimesListContentProviderType: class {
-    func fetchRequiredData(for date: Date?, completion: @escaping WorkTimesListFetchRequiredDataCompletion)
-    func fetchWorkTimesData(for date: Date?, completion: @escaping WorkTimesListFetchCompletion)
-    func delete(workTime: WorkTimeDecoder, completion: @escaping WorkTimesListDeleteCompletion)
+protocol TimesheetContentProviderType: class {
+    func fetchRequiredData(for date: Date?, completion: @escaping TimesheetFetchRequiredDataCompletion)
+    func fetchTimesheetData(for date: Date?, completion: @escaping TimesheetFetchCompletion)
+    func delete(workTime: WorkTimeDecoder, completion: @escaping TimesheetDeleteCompletion)
 }
 
-class WorkTimesListContentProvider {
-    private let apiClient: WorkTimesListApiClientType
+class TimesheetContentProvider {
+    private let apiClient: TimesheetApiClientType
     private let accessService: AccessServiceUserIDType
     private let calendar: CalendarType
     private let dispatchGroupFactory: DispatchGroupFactoryType
@@ -38,7 +38,7 @@ class WorkTimesListContentProvider {
     
     // MARK: - Initialization
     init(
-        apiClient: WorkTimesListApiClientType,
+        apiClient: TimesheetApiClientType,
         accessService: AccessServiceUserIDType,
         calendar: CalendarType = Calendar.autoupdatingCurrent,
         dispatchGroupFactory: DispatchGroupFactoryType
@@ -50,9 +50,9 @@ class WorkTimesListContentProvider {
     }
 }
  
-// MARK: - WorkTimesListContentProviderType
-extension WorkTimesListContentProvider: WorkTimesListContentProviderType {
-    func fetchRequiredData(for date: Date?, completion: @escaping WorkTimesListFetchRequiredDataCompletion) {
+// MARK: - TimesheetContentProviderType
+extension TimesheetContentProvider: TimesheetContentProviderType {
+    func fetchRequiredData(for date: Date?, completion: @escaping TimesheetFetchRequiredDataCompletion) {
         let group = self.dispatchGroupFactory.createDispatchGroup()
         
         var projects: [SimpleProjectRecordDecoder] = []
@@ -73,7 +73,7 @@ extension WorkTimesListContentProvider: WorkTimesListContentProviderType {
         }
         
         group.enter()
-        self.fetchWorkTimesData(for: date) { result in
+        self.fetchTimesheetData(for: date) { result in
             switch result {
             case let .success(response):
                 dailyWorkTimes = response.0
@@ -88,7 +88,7 @@ extension WorkTimesListContentProvider: WorkTimesListContentProviderType {
             if let error = projectsError ?? workTimesFetchError {
                 completion(.failure(error))
             } else if let matchingFullTime = matchingFullTime {
-                let requiredData = WorkTimesListViewModel.RequiredData(
+                let requiredData = TimesheetViewModel.RequiredData(
                     dailyWorkTimes: dailyWorkTimes,
                     matchingFulltime: matchingFullTime,
                     simpleProjects: projects)
@@ -99,7 +99,7 @@ extension WorkTimesListContentProvider: WorkTimesListContentProviderType {
         }
     }
     
-    func fetchWorkTimesData(for date: Date?, completion: @escaping WorkTimesListFetchCompletion) {
+    func fetchTimesheetData(for date: Date?, completion: @escaping TimesheetFetchCompletion) {
         var dailyWorkTimes: [DailyWorkTime] = []
         var matchingFullTime: MatchingFullTimeDecoder?
         var fetchError: Error?
@@ -138,13 +138,13 @@ extension WorkTimesListContentProvider: WorkTimesListContentProviderType {
         }
     }
     
-    func delete(workTime: WorkTimeDecoder, completion: @escaping WorkTimesListDeleteCompletion) {
+    func delete(workTime: WorkTimeDecoder, completion: @escaping TimesheetDeleteCompletion) {
         self.apiClient.deleteWorkTime(id: workTime.id, completion: completion)
     }
 }
 
 // MARK: - Private
-extension WorkTimesListContentProvider {
+extension TimesheetContentProvider {
     private func fetchWorkTimes(date: Date?, completion: @escaping (Result<[DailyWorkTime], Error>) -> Void) {
         let dates = self.getStartAndEndDate(for: date)
         let parameters = WorkTimesParameters(fromDate: dates.startOfMonth, toDate: dates.endOfMonth, projectID: nil)

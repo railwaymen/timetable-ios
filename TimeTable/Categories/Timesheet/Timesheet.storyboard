@@ -10,7 +10,7 @@
         <!--Timesheet-->
         <scene sceneID="fDV-Bn-Jtn">
             <objects>
-                <viewController id="rEk-z6-2rw" customClass="WorkTimesListViewController" customModule="TimeTable" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="rEk-z6-2rw" customClass="TimesheetViewController" customModule="TimeTable" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gSW-q8-FeV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

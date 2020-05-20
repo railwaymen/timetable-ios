@@ -27,10 +27,10 @@ class ViewControllerBuilderMock {
     private(set) var projectsParams: [ProjectsParams] = []
     struct ProjectsParams {}
     
-    var workTimesListThrownError: Error?
-    var workTimesListReturnValue: WorkTimesListViewControllerable = WorkTimesListViewControllerMock()
-    private(set) var workTimesListParams: [WorkTimesListParams] = []
-    struct WorkTimesListParams {}
+    var timesheetThrownError: Error?
+    var timesheetReturnValue: TimesheetViewControllerable = TimesheetViewControllerMock()
+    private(set) var timesheetParams: [TimesheetParams] = []
+    struct TimesheetParams {}
     
     var workTimeContainerThrownError: Error?
     var workTimeContainerReturnValue: WorkTimeContainerViewControllerable!
@@ -108,12 +108,12 @@ extension ViewControllerBuilderMock: ViewControllerBuilderType {
         return self.projectsReturnValue
     }
     
-    func workTimesList() throws -> WorkTimesListViewControllerable {
-        self.workTimesListParams.append(WorkTimesListParams())
-        if let error = self.workTimesListThrownError {
+    func timesheet() throws -> TimesheetViewControllerable {
+        self.timesheetParams.append(TimesheetParams())
+        if let error = self.timesheetThrownError {
             throw error
         }
-        return self.workTimesListReturnValue
+        return self.timesheetReturnValue
     }
     
     func workTimeContainer() throws -> WorkTimeContainerViewControllerable {

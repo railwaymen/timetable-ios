@@ -1,5 +1,5 @@
 //
-//  WorkTimesTableViewHeaderViewModelTests.swift
+//  TimesheetSectionHeaderViewModelTests.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 27/11/2018.
@@ -9,21 +9,21 @@
 import XCTest
 @testable import TimeTable
 
-class WorkTimesTableViewHeaderViewModelTests: XCTestCase {
+class TimesheetSectionHeaderViewModelTests: XCTestCase {
     private let workTimeDecoderFactory = WorkTimeDecoderFactory()
     
-    private var userInterface: WorkTimesTableViewHeaderViewMock!
+    private var userInterface: TimesheetSectionHeaderViewMock!
     private var calendar: CalendarMock!
     
     override func setUp() {
         super.setUp()
-        self.userInterface = WorkTimesTableViewHeaderViewMock()
+        self.userInterface = TimesheetSectionHeaderViewMock()
         self.calendar = CalendarMock()
     }
 }
 
 // MARK: - viewConfigured()
-extension WorkTimesTableViewHeaderViewModelTests {
+extension TimesheetSectionHeaderViewModelTests {
     func testViewConfiguredWithTodayDate() throws {
         //Arrange
         let date = Date()
@@ -66,9 +66,9 @@ extension WorkTimesTableViewHeaderViewModelTests {
 }
 
 // MARK: - Private
-extension WorkTimesTableViewHeaderViewModelTests {
-    private func buildSUT(dailyWorkTime: DailyWorkTime) -> WorkTimesTableViewHeaderViewModel {
-        return WorkTimesTableViewHeaderViewModel(
+extension TimesheetSectionHeaderViewModelTests {
+    private func buildSUT(dailyWorkTime: DailyWorkTime) -> TimesheetSectionHeaderViewModel {
+        return TimesheetSectionHeaderViewModel(
             userInterface: self.userInterface,
             dailyWorkTime: dailyWorkTime,
             calendar: self.calendar)

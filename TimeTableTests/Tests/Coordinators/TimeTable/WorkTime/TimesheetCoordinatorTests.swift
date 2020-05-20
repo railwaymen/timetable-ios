@@ -1,5 +1,5 @@
 //
-//  WorkTimesCoordinatorTests.swift
+//  TimesheetCoordinatorTests.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 12/12/2018.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import TimeTable
 
-class WorkTimesListCoordinatorTests: XCTestCase {
+class TimesheetCoordinatorTests: XCTestCase {
     private var dependencyContainer: DependencyContainerMock!
     
     private var viewControllerBuilderMock: ViewControllerBuilderMock {
@@ -22,13 +22,13 @@ class WorkTimesListCoordinatorTests: XCTestCase {
     }
 }
 
-// MARK: - start(finishHandler: (() -> Void)?)
-extension WorkTimesListCoordinatorTests {
+// MARK: - start(finishHandler:)
+extension TimesheetCoordinatorTests {
     func testStart_viewControllerBuilderThrows_doesNotRunMainFlow() {
         //Arrange
         let sut = self.buildSUT()
         let error = "Error message"
-        self.dependencyContainer.viewControllerBuilderMock.workTimesListThrownError = error
+        self.dependencyContainer.viewControllerBuilderMock.timesheetThrownError = error
         //Act
         sut.start()
         //Assert
@@ -40,19 +40,19 @@ extension WorkTimesListCoordinatorTests {
     func testRunMainFlowRunsMainFlow() {
         //Arrange
         let sut = self.buildSUT()
-        self.viewControllerBuilderMock.workTimesListReturnValue = WorkTimesListViewControllerMock()
+        self.viewControllerBuilderMock.timesheetReturnValue = TimesheetViewControllerMock()
         //Act
         sut.start()
         //Assert
         XCTAssertFalse(sut.navigationController.children.isEmpty)
-        XCTAssertNotNil(sut.navigationController.children.first as? WorkTimesListViewControllerable)
+        XCTAssertNotNil(sut.navigationController.children.first as? TimesheetViewControllerable)
     }
 }
 
 // MARK: - Private
-extension WorkTimesListCoordinatorTests {
-    private func buildSUT() -> WorkTimesListCoordinator {
-        return WorkTimesListCoordinator(dependencyContainer: self.dependencyContainer)
+extension TimesheetCoordinatorTests {
+    private func buildSUT() -> TimesheetCoordinator {
+        return TimesheetCoordinator(dependencyContainer: self.dependencyContainer)
     }
     
     private func createTask() -> TaskForm {

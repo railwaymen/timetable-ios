@@ -1,5 +1,5 @@
 //
-//  WorkTimesListContentProviderTests.swift
+//  TimesheetContentProviderTests.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 04/02/2019.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import TimeTable
 
-class WorkTimesListContentProviderTests: XCTestCase {
+class TimesheetContentProviderTests: XCTestCase {
     private let matchingFullTimeDecoderFactory = MatchingFullTimeDecoderFactory()
     private let workTimeDecoderFactory = WorkTimeDecoderFactory()
     private let simpleProjectRecordDecoderFactory = SimpleProjectRecordDecoderFactory()
@@ -33,12 +33,12 @@ class WorkTimesListContentProviderTests: XCTestCase {
 }
 
 // MARK: - fetchRequiredData(for:completion:)
-extension WorkTimesListContentProviderTests {
+extension TimesheetContentProviderTests {
     func testFetchRequiredData_makesRequests() throws {
         //Arrange
         let sut = self.buildSUT()
         self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
-        var completionResult: WorkTimesListFetchRequiredDataResult?
+        var completionResult: TimesheetFetchRequiredDataResult?
         //Act
         sut.fetchRequiredData(for: Date()) { result in
             completionResult = result
@@ -62,7 +62,7 @@ extension WorkTimesListContentProviderTests {
         let workTimes = try self.buildWorkTimes()
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
-        var completionResult: WorkTimesListFetchRequiredDataResult?
+        var completionResult: TimesheetFetchRequiredDataResult?
         //Act
         sut.fetchRequiredData(for: Date()) { result in
             completionResult = result
@@ -89,7 +89,7 @@ extension WorkTimesListContentProviderTests {
         let error = TestError(message: "Fetching Work Times Error")
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
-        var completionResult: WorkTimesListFetchRequiredDataResult?
+        var completionResult: TimesheetFetchRequiredDataResult?
         //Act
         sut.fetchRequiredData(for: Date()) { result in
             completionResult = result
@@ -116,7 +116,7 @@ extension WorkTimesListContentProviderTests {
         let workTimes = try self.buildWorkTimes()
         let error = TestError(message: "Fetching Matching Fulltime Error")
         self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
-        var completionResult: WorkTimesListFetchRequiredDataResult?
+        var completionResult: TimesheetFetchRequiredDataResult?
         //Act
         sut.fetchRequiredData(for: Date()) { result in
             completionResult = result
@@ -143,7 +143,7 @@ extension WorkTimesListContentProviderTests {
         let workTimes = try self.buildWorkTimes()
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
-        var completionResult: WorkTimesListFetchRequiredDataResult?
+        var completionResult: TimesheetFetchRequiredDataResult?
         //Act
         sut.fetchRequiredData(for: Date()) { result in
             completionResult = result
@@ -168,15 +168,15 @@ extension WorkTimesListContentProviderTests {
 
 }
 
-// MARK: - fetchWorkTimesData(for:completion:)
-extension WorkTimesListContentProviderTests {
+// MARK: - fetchTimesheetData(for:completion:)
+extension TimesheetContentProviderTests {
     func testFetchWorkTimeData_makesRequest() {
         //Arrange
         let sut = self.buildSUT()
         self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
-        var completionResult: WorkTimesListFetchResult?
+        var completionResult: TimesheetFetchResult?
         //Act
-        sut.fetchWorkTimesData(for: Date()) { result in
+        sut.fetchTimesheetData(for: Date()) { result in
             completionResult = result
         }
         //Assert
@@ -194,9 +194,9 @@ extension WorkTimesListContentProviderTests {
         let sut = self.buildSUT()
         let error = TestError(message: "Work times error")
         self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
-        var completionResult: WorkTimesListFetchResult?
+        var completionResult: TimesheetFetchResult?
         //Act
-        sut.fetchWorkTimesData(for: nil) { result in
+        sut.fetchTimesheetData(for: nil) { result in
             completionResult = result
         }
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
@@ -215,9 +215,9 @@ extension WorkTimesListContentProviderTests {
         let dateComponents = DateComponents(year: 2019, month: 2, day: 1)
         self.calendarMock.dateComponentsReturnValue = dateComponents
         self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
-        var completionResult: WorkTimesListFetchResult?
+        var completionResult: TimesheetFetchResult?
         //Act
-        sut.fetchWorkTimesData(for: nil) { result in
+        sut.fetchTimesheetData(for: nil) { result in
             completionResult = result
         }
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
@@ -238,9 +238,9 @@ extension WorkTimesListContentProviderTests {
         self.calendarMock.dateComponentsReturnValue = dateComponents
         self.calendarMock.dateFromDateComponentsReturnValue = date
         self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
-        var completionResult: WorkTimesListFetchResult?
+        var completionResult: TimesheetFetchResult?
         //Act
-        sut.fetchWorkTimesData(for: date) { result in
+        sut.fetchTimesheetData(for: date) { result in
             completionResult = result
         }
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
@@ -258,9 +258,9 @@ extension WorkTimesListContentProviderTests {
         let error = TestError(message: "Fetching Work Times Error")
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         self.accessServiceMock.getLastLoggedInUserIDReturnValue = 1
-        var completionResult: WorkTimesListFetchResult?
+        var completionResult: TimesheetFetchResult?
         //Act
-        sut.fetchWorkTimesData(for: nil) { result in
+        sut.fetchTimesheetData(for: nil) { result in
             completionResult = result
         }
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
@@ -284,9 +284,9 @@ extension WorkTimesListContentProviderTests {
         let date = try self.buildDate(dateComponents)
         let workTimes = try self.buildWorkTimes()
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
-        var completionResult: WorkTimesListFetchResult?
+        var completionResult: TimesheetFetchResult?
         //Act
-        sut.fetchWorkTimesData(for: date) { result in
+        sut.fetchTimesheetData(for: date) { result in
             completionResult = result
         }
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.success(workTimes))
@@ -302,13 +302,13 @@ extension WorkTimesListContentProviderTests {
 }
 
 // MARK: - delete(workTime:completion:)
-extension WorkTimesListContentProviderTests {
+extension TimesheetContentProviderTests {
     func testDelete() throws {
         //Arrange
         let sut = self.buildSUT()
         let project = try self.simpleProjectRecordDecoderFactory.build()
         let workTime = try self.workTimeDecoderFactory.build(wrapper: WorkTimeDecoderFactory.Wrapper(project: project))
-        var completionResult: WorkTimesListDeleteResult?
+        var completionResult: TimesheetDeleteResult?
         //Act
         sut.delete(workTime: workTime) { result in
             completionResult = result
@@ -321,9 +321,9 @@ extension WorkTimesListContentProviderTests {
 }
 
 // MARK: - Private
-extension WorkTimesListContentProviderTests {
-    private func buildSUT() -> WorkTimesListContentProvider {
-        return WorkTimesListContentProvider(
+extension TimesheetContentProviderTests {
+    private func buildSUT() -> TimesheetContentProvider {
+        return TimesheetContentProvider(
             apiClient: self.apiClientMock,
             accessService: self.accessServiceMock,
             calendar: self.calendarMock,

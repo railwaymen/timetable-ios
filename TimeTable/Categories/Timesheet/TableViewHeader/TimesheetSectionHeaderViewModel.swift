@@ -1,5 +1,5 @@
 //
-//  WorkTimesTableViewHeaderViewModel.swift
+//  TimesheetSectionHeaderViewModel.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 26/11/2018.
@@ -8,22 +8,22 @@
 
 import Foundation
 
-protocol WorkTimesTableViewHeaderViewModelOutput: class {
+protocol TimesheetSectionHeaderViewModelOutput: class {
     func updateView(dayText: String?, durationText: String?)
 }
 
-protocol WorkTimesTableViewHeaderViewModelType: class {
+protocol TimesheetSectionHeaderViewModelType: class {
     func viewConfigured()
 }
 
-class WorkTimesTableViewHeaderViewModel {
-    private weak var userInterface: WorkTimesTableViewHeaderViewModelOutput?
+class TimesheetSectionHeaderViewModel {
+    private weak var userInterface: TimesheetSectionHeaderViewModelOutput?
     private let calendar: CalendarType
     private let dailyWorkTime: DailyWorkTime
     
     // MARK: - Initialization
     init(
-        userInterface: WorkTimesTableViewHeaderViewModelOutput,
+        userInterface: TimesheetSectionHeaderViewModelOutput,
         dailyWorkTime: DailyWorkTime,
         calendar: CalendarType = Calendar.autoupdatingCurrent
     ) {
@@ -33,8 +33,8 @@ class WorkTimesTableViewHeaderViewModel {
     }
 }
  
-// MARK: - WorkTimesTableViewHeaderViewModelType
-extension WorkTimesTableViewHeaderViewModel: WorkTimesTableViewHeaderViewModelType {
+// MARK: - TimesheetSectionHeaderViewModelType
+extension TimesheetSectionHeaderViewModel: TimesheetSectionHeaderViewModelType {
     func viewConfigured() {
         var dayText: String?
         let dateFormatter = DateFormatterBuilder()
