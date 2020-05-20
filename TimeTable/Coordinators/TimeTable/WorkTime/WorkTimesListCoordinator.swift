@@ -8,12 +8,6 @@
 
 import UIKit
 
-typealias WorkTimesListApiClient = (
-    ApiClientProjectsType
-    & ApiClientWorkTimesType
-    & ApiClientUsersType
-    & ApiClientAccountingPeriodsType)
-
 protocol WorkTimesListCoordinatorDelegate: class {
     func workTimesRequestedForWorkTimeView(
         sourceView: UIView,

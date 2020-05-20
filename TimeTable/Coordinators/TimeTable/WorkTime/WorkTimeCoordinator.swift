@@ -8,8 +8,6 @@
 
 import UIKit
 
-typealias WorkTimeApiClientType = ApiClientWorkTimesType & ApiClientProjectsType
-
 protocol WorkTimeCoordinatorType: class {
     func configure(contentViewController: WorkTimeViewControllerable) -> WorkTimeContainerContentType?
     func configure(errorView: ErrorViewable, action: @escaping () -> Void) -> ErrorViewModelParentType

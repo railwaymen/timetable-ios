@@ -52,8 +52,6 @@ protocol WorkTimesListViewModelType: class {
     func viewRequestForProfileView()
 }
 
-typealias WorkTimesListApiClientType = (ApiClientWorkTimesType & ApiClientAccountingPeriodsType & ApiClientProjectsType)
-
 class WorkTimesListViewModel: KeyboardManagerObserverable {
     private weak var userInterface: WorkTimesListViewModelOutput?
     private weak var coordinator: WorkTimesListCoordinatorDelegate?
