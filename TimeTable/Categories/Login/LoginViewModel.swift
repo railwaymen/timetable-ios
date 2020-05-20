@@ -46,6 +46,7 @@ class LoginViewModel: KeyboardManagerObserverable {
     
     private var loginForm: LoginFormType {
         didSet {
+            self.updateLogInButton()
             self.updateValidation()
         }
     }
@@ -94,7 +95,6 @@ extension LoginViewModel: LoginViewModelType {
     func loginInputValueDidChange(value: String?) {
         guard let email = value else { return }
         self.loginForm.email = email
-        self.updateLogInButton()
     }
     
     func loginTextFieldDidRequestForReturn() -> Bool {
@@ -106,7 +106,6 @@ extension LoginViewModel: LoginViewModelType {
     func passwordInputValueDidChange(value: String?) {
         guard let password = value else { return }
         self.loginForm.password = password
-        self.updateLogInButton()
     }
     
     func passwordTextFieldDidRequestForReturn() -> Bool {
@@ -144,8 +143,7 @@ extension LoginViewModel: LoginViewModelType {
 // MARK: - Private
 extension LoginViewModel {
     private func updateLogInButton() {
-        let isLoginButtonEnabled = self.loginForm.isValid
-        self.userInterface?.loginButtonEnabledState(isLoginButtonEnabled)
+        self.userInterface?.loginButtonEnabledState(self.loginForm.isValid)
     }
     
     private func updateValidation() {

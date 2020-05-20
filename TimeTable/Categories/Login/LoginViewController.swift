@@ -19,8 +19,7 @@ class LoginViewController: UIViewController {
     @IBOutlet private var loginTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
     @IBOutlet private var checkBoxButton: CheckBoxButton!
-    @IBOutlet private var loginButton: UIButton!
-    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private var loginButton: LoadingButton!
     
     @IBOutlet private var textFieldHeightConstraints: [NSLayoutConstraint]!
     @IBOutlet private var loginButtonHeightConstraint: NSLayoutConstraint!
@@ -75,18 +74,16 @@ class LoginViewController: UIViewController {
 extension LoginViewController: LoginViewModelOutput {
     func setUpView(checkBoxIsActive: Bool) {
         self.checkBoxButton.isActive = checkBoxIsActive
-        self.loginTextField.delegate = self
-        self.loginTextField.setTextFieldAppearance()
-        self.passwordTextField.delegate = self
-        self.passwordTextField.setTextFieldAppearance()
-        self.setUpActivityIndicator()
+        self.setUpLoginTextField()
+        self.setUpPasswordTextField()
+        self.setUpLoginButtonColors()
         self.setUpConstraints()
     }
     
     func updateColors() {
         self.loginTextField.setTextFieldAppearance()
         self.passwordTextField.setTextFieldAppearance()
-        self.loginButton.backgroundColor = self.loginButton.isEnabled ? .enabledButton : .disabledButton
+        self.setUpLoginButtonColors()
     }
     
     func updateLoginFields(email: String, password: String) {
@@ -96,7 +93,6 @@ extension LoginViewController: LoginViewModelOutput {
     
     func loginButtonEnabledState(_ isEnabled: Bool) {
         self.loginButton.isEnabled = isEnabled
-        self.loginButton.backgroundColor = isEnabled ? .enabledButton : .disabledButton
     }
     
     func focusOnPasswordTextField() {
@@ -118,8 +114,7 @@ extension LoginViewController: LoginViewModelOutput {
     }
     
     func setActivityIndicator(isHidden: Bool) {
-        self.activityIndicator.set(isAnimating: !isHidden)
-        self.activityIndicator.set(isHidden: isHidden)
+        self.loginButton.set(isLoading: !isHidden)
     }
     
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
@@ -167,9 +162,19 @@ extension LoginViewController {
         self.scrollView.verticalScrollIndicatorInsets.bottom = height
     }
     
-    private func setUpActivityIndicator() {
-        self.activityIndicator.style = .large
-        self.setActivityIndicator(isHidden: true)
+    private func setUpLoginTextField() {
+        self.loginTextField.delegate = self
+        self.loginTextField.setTextFieldAppearance()
+    }
+    
+    private func setUpPasswordTextField() {
+        self.passwordTextField.delegate = self
+        self.passwordTextField.setTextFieldAppearance()
+    }
+    
+    private func setUpLoginButtonColors() {
+        self.loginButton.setBackgroundColor(.enabledButton, forState: .normal)
+        self.loginButton.setBackgroundColor(.disabledButton, forState: .disabled)
     }
     
     private func setUpConstraints() {
