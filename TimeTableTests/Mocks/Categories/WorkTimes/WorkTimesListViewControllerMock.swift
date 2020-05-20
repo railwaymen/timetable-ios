@@ -18,6 +18,12 @@ class WorkTimesListViewControllerMock: UIViewController {
     private(set) var reloadDataParams: [ReloadDataParams] = []
     struct ReloadDataParams {}
     
+    private(set) var updateSelectedProjectParams: [UpdateSelectedProjectParams] = []
+    struct UpdateSelectedProjectParams {
+        let title: String
+        let color: UIColor?
+    }
+    
     private(set) var updateSelectedDateParams: [UpdateSelectedDateParams] = []
     struct UpdateSelectedDateParams {
         let dateString: String
@@ -85,6 +91,10 @@ extension WorkTimesListViewControllerMock: WorkTimesListViewModelOutput {
     
     func reloadData() {
         self.reloadDataParams.append(ReloadDataParams())
+    }
+    
+    func updateSelectedProject(title: String, color: UIColor?) {
+        self.updateSelectedProjectParams.append(UpdateSelectedProjectParams(title: title, color: color))
     }
     
     func updateSelectedDate(_ dateString: String, date: (month: Int, year: Int)) {

@@ -10,25 +10,34 @@ import Foundation
 @testable import TimeTable
 
 class WorkTimesListContentProviderMock {
+    
+    // MARK: - WorkTimesListContentProviderType
+    private(set) var fetchRequiredDataParams: [FetchRequiredDataParams] = []
+    struct FetchRequiredDataParams {
+        let date: Date?
+        let completion: WorkTimesListFetchRequiredDataCompletion
+    }
+    
     private(set) var fetchWorkTimesDataParams: [FetchWorkTimesDataParams] = []
     struct FetchWorkTimesDataParams {
-        var date: Date?
-        var completion: WorkTimesListFetchCompletion
+        let date: Date?
+        let completion: WorkTimesListFetchCompletion
     }
     
     private(set) var deleteWorkTimeParams: [DeleteWorkTimeParams] = []
     struct DeleteWorkTimeParams {
-        var workTime: WorkTimeDecoder
-        var completion: WorkTimesListDeleteCompletion
+        let workTime: WorkTimeDecoder
+        let completion: WorkTimesListDeleteCompletion
     }
 }
 
 // MARK: - WorkTimesListContentProviderType
 extension WorkTimesListContentProviderMock: WorkTimesListContentProviderType {
-    func fetchWorkTimesData(
-        for date: Date?,
-        completion: @escaping WorkTimesListFetchCompletion
-    ) {
+    func fetchRequiredData(for date: Date?, completion: @escaping WorkTimesListFetchRequiredDataCompletion) {
+        self.fetchRequiredDataParams.append(FetchRequiredDataParams(date: date, completion: completion))
+    }
+    
+    func fetchWorkTimesData(for date: Date?, completion: @escaping WorkTimesListFetchCompletion) {
         self.fetchWorkTimesDataParams.append(FetchWorkTimesDataParams(date: date, completion: completion))
     }
     

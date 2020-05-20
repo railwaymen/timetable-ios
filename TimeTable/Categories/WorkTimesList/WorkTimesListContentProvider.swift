@@ -15,10 +15,12 @@ typealias WorkTimesListFetchCompletion = (WorkTimesListFetchResult) -> Void
 typealias WorkTimesListDeleteResult = Result<Void, Error>
 typealias WorkTimesListDeleteCompletion = (WorkTimesListDeleteResult) -> Void
 
+typealias WorkTimesListFetchRequiredDataResult = Result<WorkTimesListViewModel.RequiredData, Error>
+typealias WorkTimesListFetchRequiredDataCompletion = (WorkTimesListFetchRequiredDataResult) -> Void
+
 protocol WorkTimesListContentProviderType: class {
-    func fetchWorkTimesData(
-        for date: Date?,
-        completion: @escaping WorkTimesListFetchCompletion)
+    func fetchRequiredData(for date: Date?, completion: @escaping WorkTimesListFetchRequiredDataCompletion)
+    func fetchWorkTimesData(for date: Date?, completion: @escaping WorkTimesListFetchCompletion)
     func delete(workTime: WorkTimeDecoder, completion: @escaping WorkTimesListDeleteCompletion)
 }
 
@@ -50,10 +52,54 @@ class WorkTimesListContentProvider {
  
 // MARK: - WorkTimesListContentProviderType
 extension WorkTimesListContentProvider: WorkTimesListContentProviderType {
-    func fetchWorkTimesData(
-        for date: Date?,
-        completion: @escaping WorkTimesListFetchCompletion
-    ) {
+    func fetchRequiredData(for date: Date?, completion: @escaping WorkTimesListFetchRequiredDataCompletion) {
+        let group = self.dispatchGroupFactory.createDispatchGroup()
+        
+        var projects: [SimpleProjectRecordDecoder] = []
+        var projectsError: Error?
+        var dailyWorkTimes: [DailyWorkTime] = []
+        var matchingFullTime: MatchingFullTimeDecoder?
+        var workTimesFetchError: Error?
+        
+        group.enter()
+        _ = self.apiClient.fetchSimpleListOfProjects { result in
+            switch result {
+            case let .success(response):
+                projects = response
+            case let .failure(error):
+                projectsError = error
+            }
+            group.leave()
+        }
+        
+        group.enter()
+        self.fetchWorkTimesData(for: date) { result in
+            switch result {
+            case let .success(response):
+                dailyWorkTimes = response.0
+                matchingFullTime = response.1
+            case let .failure(error):
+                workTimesFetchError = error
+            }
+            group.leave()
+        }
+        
+        group.notify(qos: .userInteractive, queue: .main) {
+            if let error = projectsError ?? workTimesFetchError {
+                completion(.failure(error))
+            } else if let matchingFullTime = matchingFullTime {
+                let requiredData = WorkTimesListViewModel.RequiredData(
+                    dailyWorkTimes: dailyWorkTimes,
+                    matchingFulltime: matchingFullTime,
+                    simpleProjects: projects)
+                completion(.success(requiredData))
+            } else {
+                completion(.failure(ApiClientError(type: .invalidResponse)))
+            }
+        }
+    }
+    
+    func fetchWorkTimesData(for date: Date?, completion: @escaping WorkTimesListFetchCompletion) {
         var dailyWorkTimes: [DailyWorkTime] = []
         var matchingFullTime: MatchingFullTimeDecoder?
         var fetchError: Error?
@@ -62,9 +108,9 @@ extension WorkTimesListContentProvider: WorkTimesListContentProviderType {
         dispatchGroup.enter()
         self.fetchWorkTimes(date: date) { result in
             switch result {
-            case .success(let workTimes):
+            case let .success(workTimes):
                 dailyWorkTimes = workTimes
-            case .failure(let error):
+            case let .failure(error):
                 fetchError = error
             }
             dispatchGroup.leave()
@@ -73,15 +119,15 @@ extension WorkTimesListContentProvider: WorkTimesListContentProviderType {
         dispatchGroup.enter()
         self.fetchMatchingFullTime(date: date) { result in
             switch result {
-            case .success(let time):
+            case let .success(time):
                 matchingFullTime = time
-            case .failure(let error):
+            case let .failure(error):
                 fetchError = error
             }
             dispatchGroup.leave()
         }
         
-        dispatchGroup.notify(qos: .userInitiated, queue: .main) {
+        dispatchGroup.notify(qos: .userInteractive, queue: .main) {
             if let error = fetchError {
                 completion(.failure(error))
             } else if let matchingFullTime = matchingFullTime {

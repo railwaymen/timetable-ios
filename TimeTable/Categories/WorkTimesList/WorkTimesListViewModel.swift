@@ -12,6 +12,7 @@ import UIKit
 protocol WorkTimesListViewModelOutput: class {
     func setUpView()
     func reloadData()
+    func updateSelectedProject(title: String, color: UIColor?)
     func updateSelectedDate(_ dateString: String, date: (month: Int, year: Int))
     func updateHoursLabel(workedHours: String?)
     func updateAccountingPeriodLabel(text: String?)
@@ -33,6 +34,7 @@ protocol WorkTimesListViewModelType: class {
     func numberOfSections() -> Int
     func numberOfRows(in section: Int) -> Int
     func configure(_ view: ErrorViewable)
+    func projectButtonTapped()
     func viewRequestForNewDate(month: Int, year: Int)
     func viewRequestForCellType(at index: IndexPath) -> WorkTimesListViewModel.CellType
     func configure(_ cell: WorkTimeTableViewCellable, for indexPath: IndexPath)
@@ -48,7 +50,7 @@ protocol WorkTimesListViewModelType: class {
     func viewRequestForProfileView()
 }
 
-typealias WorkTimesListApiClientType = (ApiClientWorkTimesType & ApiClientAccountingPeriodsType)
+typealias WorkTimesListApiClientType = (ApiClientWorkTimesType & ApiClientAccountingPeriodsType & ApiClientProjectsType)
 
 class WorkTimesListViewModel: KeyboardManagerObserverable {
     private weak var userInterface: WorkTimesListViewModelOutput?
@@ -59,11 +61,11 @@ class WorkTimesListViewModel: KeyboardManagerObserverable {
     private let messagePresenter: MessagePresenterType?
     private let keyboardManager: KeyboardManagerable
     
-    private var selectedMonth: MonthPeriod {
+    private var selectedMonth: MonthPeriod = MonthPeriod() {
         didSet {
             guard self.selectedMonth != oldValue else { return }
-            self.updateDateSelectorView(withCurrentMonth: self.selectedMonth)
-            self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
+            self.updateDateSelectorView()
+            self.fetchWorkTimesData()
         }
     }
     
@@ -75,7 +77,21 @@ class WorkTimesListViewModel: KeyboardManagerObserverable {
         }
     }
     
-    private var dailyWorkTimesArray: [DailyWorkTime] {
+    private var projects: [SimpleProjectRecordDecoder] = []
+    private var selectedProject: SimpleProjectRecordDecoder = .allProjects {
+        didSet {
+            self.filterWorkTimesBySelectedProject()
+            self.updateUI()
+        }
+    }
+    
+    private var allDailyWorkTimes: [DailyWorkTime] = [] {
+        didSet {
+            self.filterWorkTimesBySelectedProject()
+        }
+    }
+    
+    private var visibleDailyWorkTimes: [DailyWorkTime] = [] {
         didSet {
             guard self.didViewLayoutSubviews else { return }
             let (insertedSections, removedSections) = self.getSectionsDiff(oldValue: oldValue)
@@ -108,14 +124,17 @@ class WorkTimesListViewModel: KeyboardManagerObserverable {
         self.calendar = calendar
         self.messagePresenter = messagePresenter
         self.keyboardManager = keyboardManager
-        
-        self.dailyWorkTimesArray = []
-        self.selectedMonth = MonthPeriod()
     }
 }
 
 // MARK: - Structures
 extension WorkTimesListViewModel {
+    struct RequiredData {
+        let dailyWorkTimes: [DailyWorkTime]
+        let matchingFulltime: MatchingFullTimeDecoder
+        let simpleProjects: [SimpleProjectRecordDecoder]
+    }
+    
     enum CellType {
         case standard
         case taskURL
@@ -161,8 +180,8 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
             userInterface?.keyboardStateDidChange(to: state)
         }
         guard self.state == .none else { return }
-        self.updateDateSelectorView(withCurrentMonth: self.selectedMonth)
-        self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
+        self.updateUI()
+        self.fetchRequiredData()
     }
     
     func viewDidLayoutSubviews() {
@@ -175,20 +194,29 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     func numberOfSections() -> Int {
-        return self.dailyWorkTimesArray.count
+        self.visibleDailyWorkTimes.count
     }
     
     func numberOfRows(in section: Int) -> Int {
-        return self.dailyWorkTimesArray[safeIndex: section]?.workTimes.count ?? 0
+        self.visibleDailyWorkTimes[safeIndex: section]?.workTimes.count ?? 0
     }
     
     func configure(_ view: ErrorViewable) {
         let viewModel = ErrorViewModel(userInterface: view, localizedError: UIError.genericError) { [weak self] in
             guard let self = self else { return }
-            self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
+            self.fetchRequiredData()
         }
         view.configure(viewModel: viewModel)
         self.errorViewModel = viewModel
+    }
+    
+    func projectButtonTapped() {
+        guard !self.projects.isEmpty else { return }
+        let projects: [SimpleProjectRecordDecoder] = [.allProjects] + self.projects
+        self.coordinator?.workTimesRequestedForProjectPicker(projects: projects) { [weak self] selectedProject in
+            guard let selectedProject = selectedProject else { return }
+            self?.selectedProject = selectedProject
+        }
     }
     
     func viewRequestForNewDate(month: Int, year: Int) {
@@ -214,7 +242,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
         at section: Int,
         header: WorkTimesTableViewHeaderViewModelOutput
     ) -> WorkTimesTableViewHeaderViewModelType? {
-        guard let dailyWorkTime = self.dailyWorkTimesArray[safeIndex: section] else { return nil }
+        guard let dailyWorkTime = self.visibleDailyWorkTimes[safeIndex: section] else { return nil }
         return WorkTimesTableViewHeaderViewModel(userInterface: header, dailyWorkTime: dailyWorkTime)
     }
     
@@ -225,7 +253,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
             sourceView: sourceView,
             flowType: .duplicateEntry(duplicatedTask: task, lastTask: lastTask)) { [weak self] isTaskChanged in
                 guard let self = self, isTaskChanged else { return }
-                self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
+                self.fetchWorkTimesData()
             }
     }
     
@@ -270,7 +298,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
             sourceView: sourceView,
             flowType: .newEntry(lastTask: lastTask)) { [weak self] isTaskChanged in
                 guard let self = self, isTaskChanged else { return }
-                self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
+                self.fetchWorkTimesData()
         }
     }
     
@@ -280,7 +308,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
             sourceView: sourceView,
             flowType: .editEntry(editedTask: task)) { [weak self] isTaskChanged in
                 guard let self = self, isTaskChanged else { return }
-                self.fetchWorkTimesData(forCurrentMonth: self.selectedMonth)
+                self.fetchWorkTimesData()
         }
     }
     
@@ -289,11 +317,11 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
             self.errorHandler.stopInDebug()
             return
         }
-        self.contentProvider.fetchWorkTimesData(for: date) { [weak self] result in
+        self.contentProvider.fetchRequiredData(for: date) { [weak self] result in
             defer { completion() }
             switch result {
-            case let .success((dailyWorkTimes, matchingFullTime)):
-                self?.handleFetchSuccess(dailyWorkTimes: dailyWorkTimes, matchingFullTime: matchingFullTime)
+            case let .success(requiredData):
+                self?.handleFetchSuccess(requiredData: requiredData)
             case let .failure(error):
                 self?.handleFetch(error: error)
             }
@@ -337,26 +365,49 @@ extension WorkTimesListViewModel {
             completion(newDailyWorkTime.workTimes != dailyWorkTime.workTimes)
             guard let self = self else { return }
             newDailyWorkTime.workTimes.isEmpty
-                ? self.dailyWorkTimesArray.removeAll { $0 == dailyWorkTime }
-                : (self.dailyWorkTimesArray[safeIndex: indexPath.section] = newDailyWorkTime)
+                ? self.visibleDailyWorkTimes.removeAll { $0 == dailyWorkTime }
+                : (self.visibleDailyWorkTimes[safeIndex: indexPath.section] = newDailyWorkTime)
         }
     }
     
-    private func updateDateSelectorView(withCurrentMonth period: MonthPeriod) {
-        let currentDateString = self.string(for: period)
-        self.userInterface?.updateSelectedDate(currentDateString, date: (period.month, period.year))
+    private func filterWorkTimesBySelectedProject() {
+        self.visibleDailyWorkTimes = self.dailyWorkTimesFilteredBySelectedProject()
     }
     
-    private func fetchWorkTimesData(forCurrentMonth period: MonthPeriod) {
-        guard let date = period.date else {
+    private func dailyWorkTimesFilteredBySelectedProject() -> [DailyWorkTime] {
+        guard self.selectedProject != .allProjects else { return self.allDailyWorkTimes }
+        return self.allDailyWorkTimes.compactMap { [selectedProject] dailyWorkTime in
+            let workTimes = dailyWorkTime.workTimes.filter { $0.projectID == selectedProject.id }
+            guard !workTimes.isEmpty else { return nil }
+            return DailyWorkTime(day: dailyWorkTime.day, workTimes: workTimes)
+        }
+    }
+    
+    private func fetchRequiredData() {
+        guard let date = self.selectedMonth.date else {
             self.errorHandler.stopInDebug()
             return
         }
-        self.state = .fetching
         self.userInterface?.setActivityIndicator(isHidden: false)
-        self.dailyWorkTimesArray.removeAll()
-        self.userInterface?.updateHoursLabel(workedHours: "")
-        self.userInterface?.updateAccountingPeriodLabel(text: nil)
+        self.prepareForFethingWorkTimes()
+        self.contentProvider.fetchRequiredData(for: date) { [weak self] result in
+            self?.userInterface?.setActivityIndicator(isHidden: true)
+            switch result {
+            case let .success(requiredData):
+                self?.handleFetchSuccess(requiredData: requiredData)
+            case let .failure(error):
+                self?.handleFetch(error: error)
+            }
+        }
+    }
+    
+    private func fetchWorkTimesData() {
+        guard let date = self.selectedMonth.date else {
+            self.errorHandler.stopInDebug()
+            return
+        }
+        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.prepareForFethingWorkTimes()
         self.contentProvider.fetchWorkTimesData(for: date) { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
@@ -368,18 +419,24 @@ extension WorkTimesListViewModel {
         }
     }
     
-    private func handleFetchSuccess(dailyWorkTimes: [DailyWorkTime], matchingFullTime: MatchingFullTimeDecoder) {
-        self.dailyWorkTimesArray = dailyWorkTimes
-        self.state = .fetched
-        self.updateWorkedHoursLabel()
-        self.userInterface?.updateAccountingPeriodLabel(text: matchingFullTime.accountingPeriodText)
-        self.userInterface?.showTableView()
+    private func prepareForFethingWorkTimes() {
+        self.state = .fetching
+        self.visibleDailyWorkTimes.removeAll()
+        self.updateUI()
+        self.userInterface?.updateAccountingPeriodLabel(text: nil)
     }
     
-    private func updateWorkedHoursLabel() {
-        let duration = TimeInterval(self.dailyWorkTimesArray.flatMap(\.workTimes).map(\.duration).reduce(0, +))
-        let durationText = DateComponentsFormatter.timeAbbreviated.string(from: duration)
-        self.userInterface?.updateHoursLabel(workedHours: durationText)
+    private func handleFetchSuccess(requiredData: RequiredData) {
+        self.projects = requiredData.simpleProjects
+        self.handleFetchSuccess(dailyWorkTimes: requiredData.dailyWorkTimes, matchingFullTime: requiredData.matchingFulltime)
+    }
+    
+    private func handleFetchSuccess(dailyWorkTimes: [DailyWorkTime], matchingFullTime: MatchingFullTimeDecoder) {
+        self.allDailyWorkTimes = dailyWorkTimes
+        self.state = .fetched
+        self.updateUI()
+        self.userInterface?.updateAccountingPeriodLabel(text: matchingFullTime.accountingPeriodText)
+        self.userInterface?.showTableView()
     }
     
     private func handleFetch(error: Error) {
@@ -397,13 +454,41 @@ extension WorkTimesListViewModel {
         self.userInterface?.showErrorView()
     }
     
+    private func updateUI() {
+        self.updateWorkedHoursLabel()
+        self.updateDateSelectorView()
+        self.updateSelectedProjectView()
+    }
+    
+    private func updateWorkedHoursLabel() {
+        switch self.state {
+        case .fetching:
+            self.userInterface?.updateHoursLabel(workedHours: "")
+        default:
+            let duration = TimeInterval(self.visibleDailyWorkTimes.flatMap(\.workTimes).map(\.duration).reduce(0, +))
+            let durationText = DateComponentsFormatter.timeAbbreviated.string(from: duration)
+            self.userInterface?.updateHoursLabel(workedHours: durationText)
+        }
+    }
+    
+    private func updateDateSelectorView() {
+        let currentDateString = self.string(for: self.selectedMonth)
+        self.userInterface?.updateSelectedDate(currentDateString, date: (self.selectedMonth.month, self.selectedMonth.year))
+    }
+    
+    private func updateSelectedProjectView() {
+        self.userInterface?.updateSelectedProject(
+            title: self.selectedProject.name,
+            color: self.selectedProject.color)
+    }
+    
     private func string(for period: MonthPeriod) -> String {
         guard let monthSymbol = DateFormatter().standaloneMonthSymbols?[safeIndex: period.month - 1] else { return "" }
         return "\(monthSymbol.localizedCapitalized) \(period.year)"
     }
     
     private func getSectionsDiff(oldValue: [DailyWorkTime]) -> (insertions: IndexSet, removals: IndexSet) {
-        let diff = self.dailyWorkTimesArray.difference(from: oldValue)
+        let diff = self.visibleDailyWorkTimes.difference(from: oldValue)
         var insertions: IndexSet = IndexSet()
         var removals: IndexSet = IndexSet()
         diff.forEach { change in
@@ -421,7 +506,7 @@ extension WorkTimesListViewModel {
         var insertions: [IndexPath] = []
         var removals: [IndexPath] = []
         
-        self.dailyWorkTimesArray.enumerated().forEach { (newSection, dailyWorkTime) in
+        self.visibleDailyWorkTimes.enumerated().forEach { (newSection, dailyWorkTime) in
             guard let oldSection = oldValue.firstIndex(of: dailyWorkTime),
                 let oldDailyWorkTime = oldValue[safeIndex: oldSection] else { return }
             let diff = dailyWorkTime.workTimes.difference(from: oldDailyWorkTime.workTimes)
@@ -442,7 +527,7 @@ extension WorkTimesListViewModel {
     }
     
     private func dailyWorkTime(for indexPath: IndexPath) -> DailyWorkTime? {
-        return self.dailyWorkTimesArray[safeIndex: indexPath.section]
+        return self.visibleDailyWorkTimes[safeIndex: indexPath.section]
     }
 }
 // swiftlint:disable:this file_length

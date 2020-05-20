@@ -36,4 +36,26 @@ extension UITableView {
             self.deselectRow(at: $0, animated: animated)
         }
     }
+    
+    func updateHeaderViewHeight() {
+        guard let headerView = self.tableHeaderView else { return }
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let temporaryWidthConstraint = headerView.widthAnchor.constraint(equalToConstant: headerView.bounds.width)
+        headerView.addConstraint(temporaryWidthConstraint)
+        
+        headerView.setNeedsLayout()
+        headerView.layoutIfNeeded()
+        
+        let headerSize = headerView.systemLayoutSizeFitting(
+            CGSize(width: headerView.bounds.width, height: 0),
+            withHorizontalFittingPriority: .required,
+            verticalFittingPriority: .fittingSizeLevel)
+        headerView.frame.size.height = headerSize.height
+        
+        self.tableHeaderView = headerView
+        
+        headerView.removeConstraint(temporaryWidthConstraint)
+        headerView.translatesAutoresizingMaskIntoConstraints = true
+    }
 }

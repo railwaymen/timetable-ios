@@ -15,6 +15,9 @@ protocol WorkTimesListViewControllerType: class {
 }
 
 class WorkTimesListViewController: UIViewController {
+    @IBOutlet private var projectSelectionView: UIView!
+    @IBOutlet private var projectColorView: AttributedButton!
+    @IBOutlet private var projectNameLabel: UILabel!
     @IBOutlet private var monthSelectionTextField: UITextField!
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var errorView: ErrorView!
@@ -22,7 +25,7 @@ class WorkTimesListViewController: UIViewController {
     @IBOutlet private var accountingPeriodLabel: UILabel!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
-    @IBOutlet private var monthTextFieldHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private var textFieldHeightConstraints: [NSLayoutConstraint]!
     
     private var monthPicker: MonthYearPickerView?
 
@@ -52,6 +55,10 @@ class WorkTimesListViewController: UIViewController {
     }
     
     // MARK: - Actions
+    @IBAction private func projectButtonTapped() {
+        self.viewModel.projectButtonTapped()
+    }
+    
     @objc private func addNewRecordTapped(_ sender: UIBarButtonItem) {
         let sourceView = sender.view ?? self.navigationController?.navigationBar ?? UIView()
         self.viewModel.viewRequestForNewWorkTimeView(sourceView: sourceView)
@@ -142,6 +149,7 @@ extension WorkTimesListViewController: UITableViewDelegate {
 // MARK: - WorkTimesListViewModelOutput
 extension WorkTimesListViewController: WorkTimesListViewModelOutput {
     func setUpView() {
+        self.setUpProjectView()
         self.setUpMonthPicker()
         self.setUpTableView()
         self.setUpRefreshControl()
@@ -149,13 +157,20 @@ extension WorkTimesListViewController: WorkTimesListViewModelOutput {
         self.setUpBarButtons()
         self.setUpActivityIndicator()
         self.setUpConstraints()
-        self.viewModel.configure(errorView)
+        self.tableView.updateHeaderViewHeight()
+        self.viewModel.configure(self.errorView)
         self.tableView.set(isHidden: true)
         self.errorView.set(isHidden: true)
     }
     
     func reloadData() {
         self.tableView.reloadData()
+    }
+    
+    func updateSelectedProject(title: String, color: UIColor?) {
+        self.projectNameLabel.text = title
+        self.projectColorView.set(isHidden: color == nil)
+        self.projectColorView.backgroundColor = color
     }
     
     func updateSelectedDate(_ dateString: String, date: (month: Int, year: Int)) {
@@ -267,6 +282,10 @@ extension WorkTimesListViewController {
         return action
     }
     
+    private func setUpProjectView() {
+        self.projectSelectionView.setTextFieldAppearance()
+    }
+    
     private func setUpMonthPicker() {
         let picker = MonthYearPickerView()
         picker.onDateSelected = { [weak self] month, year in
@@ -313,6 +332,8 @@ extension WorkTimesListViewController {
     }
     
     private func setUpConstraints() {
-        self.monthTextFieldHeightConstraint.constant = Constants.defaultTextFieldHeight
+        self.textFieldHeightConstraints.forEach {
+            $0.constant = Constants.defaultTextFieldHeight
+        }
     }
 }

@@ -11,7 +11,8 @@ import Foundation
 
 class DispatchGroupFactoryMock {
     
-    var createDispatchGroupReturnValue: DispatchGroupType = DispatchGroupMock()
+    // MARK: - DispatchGroupFactoryType
+    private(set) var createDispatchGroupReturnedValues: [DispatchGroupMock] = []
     private(set) var createDispatchGroupParams: [CreateDispatchGroupParams] = []
     struct CreateDispatchGroupParams {}
 }
@@ -20,6 +21,8 @@ class DispatchGroupFactoryMock {
 extension DispatchGroupFactoryMock: DispatchGroupFactoryType {
     func createDispatchGroup() -> DispatchGroupType {
         self.createDispatchGroupParams.append(CreateDispatchGroupParams())
-        return self.createDispatchGroupReturnValue
+        let group = DispatchGroupMock()
+        self.createDispatchGroupReturnedValues.append(group)
+        return group
     }
 }

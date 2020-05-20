@@ -19,14 +19,116 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="chj-g6-Xkk">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="141.66666666666663"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="314"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Hvv-BL-lkM">
+                                            <rect key="frame" x="24" y="16" width="272" height="138"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="dul-Sf-Rlc">
+                                                    <rect key="frame" x="0.0" y="0.0" width="272" height="58.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Project" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="quy-jf-svn">
+                                                            <rect key="frame" x="0.0" y="0.0" width="272" height="19.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                            <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="timesheet_project"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </label>
+                                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dxo-Yt-BvP" customClass="AttributedView" customModule="TimeTable" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="23.5" width="272" height="35"/>
+                                                            <subviews>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="AIL-dO-ZtN">
+                                                                    <rect key="frame" x="104" y="0.0" width="64.5" height="35"/>
+                                                                    <subviews>
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kWy-Od-mJb" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
+                                                                            <rect key="frame" x="0.0" y="9.5" width="16" height="16"/>
+                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="16" id="Do4-Ke-4Ri"/>
+                                                                                <constraint firstAttribute="width" constant="16" id="xgb-lk-TGU"/>
+                                                                            </constraints>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                    <real key="value" value="4"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                            </userDefinedRuntimeAttributes>
+                                                                        </view>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BTo-h7-ci8">
+                                                                            <rect key="frame" x="24" y="8" width="40.5" height="19.5"/>
+                                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                    </subviews>
+                                                                </stackView>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wJ9-IV-KOq">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="272" height="35"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <state key="normal">
+                                                                        <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="projectButtonTapped" destination="rEk-z6-2rw" eventType="touchUpInside" id="v3A-dx-rKm"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstItem="AIL-dO-ZtN" firstAttribute="top" secondItem="Dxo-Yt-BvP" secondAttribute="top" id="Jtx-Vd-vHb"/>
+                                                                <constraint firstAttribute="bottom" secondItem="AIL-dO-ZtN" secondAttribute="bottom" id="Tnx-vO-r1X"/>
+                                                                <constraint firstItem="wJ9-IV-KOq" firstAttribute="leading" secondItem="Dxo-Yt-BvP" secondAttribute="leading" id="XDy-1e-iMw"/>
+                                                                <constraint firstAttribute="trailing" secondItem="wJ9-IV-KOq" secondAttribute="trailing" id="XhM-rn-NuR"/>
+                                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="AIL-dO-ZtN" secondAttribute="trailing" id="dJD-7S-IFZ"/>
+                                                                <constraint firstItem="AIL-dO-ZtN" firstAttribute="centerX" secondItem="Dxo-Yt-BvP" secondAttribute="centerX" id="eO0-lV-2Dh"/>
+                                                                <constraint firstAttribute="height" constant="35" id="mx5-Ac-NwX"/>
+                                                                <constraint firstItem="AIL-dO-ZtN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Dxo-Yt-BvP" secondAttribute="leading" id="qwm-XP-6F1"/>
+                                                                <constraint firstItem="wJ9-IV-KOq" firstAttribute="top" secondItem="Dxo-Yt-BvP" secondAttribute="top" id="xXh-pM-dDj"/>
+                                                                <constraint firstAttribute="bottom" secondItem="wJ9-IV-KOq" secondAttribute="bottom" id="zhF-BT-1T1"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                    <color key="value" cocoaTouchSystemColor="lightTextColor"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="K9D-iQ-Snf">
+                                                    <rect key="frame" x="0.0" y="74.5" width="272" height="63.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0hY-c3-ueh">
+                                                            <rect key="frame" x="0.0" y="0.0" width="272" height="19.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                            <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="timesheet_date"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </label>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="December 2019" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q1w-Mw-v9W" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="23.5" width="272" height="40"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="40" id="vuc-TU-kPy"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                            <textInputTraits key="textInputTraits"/>
+                                                        </textField>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aaq-iA-R1B">
-                                            <rect key="frame" x="16" y="80" width="288" height="45.5"/>
+                                            <rect key="frame" x="16" y="178" width="288" height="120"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Month total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFZ-05-2OL">
-                                                    <rect key="frame" x="0.0" y="0.0" width="95.5" height="16"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="95.5" height="90.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -35,7 +137,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="zXQ-Am-GFA">
-                                                    <rect key="frame" x="0.0" y="24" width="112" height="21.5"/>
+                                                    <rect key="frame" x="0.0" y="98.5" width="112" height="21.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lBK-2K-mAQ">
                                                             <rect key="frame" x="0.0" y="0.0" width="49" height="21.5"/>
@@ -54,23 +156,15 @@
                                             </subviews>
                                             <variation key="widthClass=regular" alignment="fill" axis="horizontal" spacing="16"/>
                                         </stackView>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="December 2019" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="thS-4w-N61" customClass="DatePickerTextField" customModule="TimeTable" customModuleProvider="target">
-                                            <rect key="frame" x="24" y="16" width="272" height="40"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="9Tf-jJ-wQ4"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                        </textField>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstItem="aaq-iA-R1B" firstAttribute="top" secondItem="thS-4w-N61" secondAttribute="bottom" constant="24" id="4OQ-Ci-ZoJ"/>
+                                        <constraint firstItem="Hvv-BL-lkM" firstAttribute="top" secondItem="chj-g6-Xkk" secondAttribute="top" constant="16" id="TtK-AN-D94"/>
+                                        <constraint firstAttribute="trailing" secondItem="Hvv-BL-lkM" secondAttribute="trailing" constant="24" id="WAW-Nb-yAe"/>
                                         <constraint firstAttribute="bottom" secondItem="aaq-iA-R1B" secondAttribute="bottom" constant="16" id="WO2-So-rKd"/>
+                                        <constraint firstItem="Hvv-BL-lkM" firstAttribute="leading" secondItem="chj-g6-Xkk" secondAttribute="leading" constant="24" id="Zvh-IL-4Bu"/>
                                         <constraint firstItem="aaq-iA-R1B" firstAttribute="leading" secondItem="chj-g6-Xkk" secondAttribute="leading" constant="16" id="jsY-M1-sjM"/>
-                                        <constraint firstItem="thS-4w-N61" firstAttribute="leading" secondItem="chj-g6-Xkk" secondAttribute="leading" constant="24" id="lB4-tW-Cvh"/>
-                                        <constraint firstAttribute="trailing" secondItem="thS-4w-N61" secondAttribute="trailing" constant="24" id="o70-Sx-0Fh"/>
-                                        <constraint firstItem="thS-4w-N61" firstAttribute="top" secondItem="chj-g6-Xkk" secondAttribute="top" constant="16" id="qoM-jR-3hp"/>
+                                        <constraint firstItem="aaq-iA-R1B" firstAttribute="top" secondItem="Hvv-BL-lkM" secondAttribute="bottom" constant="24" id="r3n-52-5nX"/>
                                         <constraint firstAttribute="trailing" secondItem="aaq-iA-R1B" secondAttribute="trailing" constant="16" id="vSA-fg-qG6"/>
                                     </constraints>
                                 </view>
@@ -107,10 +201,14 @@
                         <outlet property="accountingPeriodLabel" destination="YBd-4h-a3P" id="puT-X8-6cX"/>
                         <outlet property="activityIndicator" destination="1Mu-g3-i09" id="cv6-Ww-sXX"/>
                         <outlet property="errorView" destination="eBv-9n-dEF" id="anC-gi-dwo"/>
-                        <outlet property="monthSelectionTextField" destination="thS-4w-N61" id="Egm-tb-ko0"/>
-                        <outlet property="monthTextFieldHeightConstraint" destination="9Tf-jJ-wQ4" id="8sh-28-UGU"/>
+                        <outlet property="monthSelectionTextField" destination="q1w-Mw-v9W" id="b3R-fc-7oY"/>
+                        <outlet property="projectColorView" destination="kWy-Od-mJb" id="iFJ-v8-YjE"/>
+                        <outlet property="projectNameLabel" destination="BTo-h7-ci8" id="bmU-zv-O2g"/>
+                        <outlet property="projectSelectionView" destination="Dxo-Yt-BvP" id="kju-zp-938"/>
                         <outlet property="tableView" destination="SCa-Yp-ddD" id="XMe-dB-XMK"/>
                         <outlet property="workedHoursLabel" destination="lBK-2K-mAQ" id="q5g-sC-22l"/>
+                        <outletCollection property="textFieldHeightConstraints" destination="vuc-TU-kPy" collectionClass="NSMutableArray" id="00P-FI-McD"/>
+                        <outletCollection property="textFieldHeightConstraints" destination="mx5-Ac-NwX" collectionClass="NSMutableArray" id="5ME-no-0Zo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3xt-eO-P6i" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -120,7 +218,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="200.00000000000003" y="291.96428571428572"/>
+            <point key="canvasLocation" x="198.75" y="291.54929577464787"/>
         </scene>
     </scenes>
 </document>
