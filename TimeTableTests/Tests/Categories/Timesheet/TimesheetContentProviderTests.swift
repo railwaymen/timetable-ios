@@ -168,7 +168,7 @@ extension TimesheetContentProviderTests {
 
 }
 
-// MARK: - fetchWorkTimesData(for:completion:)
+// MARK: - fetchTimesheetData(for:completion:)
 extension TimesheetContentProviderTests {
     func testFetchWorkTimeData_makesRequest() {
         //Arrange
@@ -176,7 +176,7 @@ extension TimesheetContentProviderTests {
         self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
         var completionResult: TimesheetFetchResult?
         //Act
-        sut.fetchWorkTimesData(for: Date()) { result in
+        sut.fetchTimesheetData(for: Date()) { result in
             completionResult = result
         }
         //Assert
@@ -196,7 +196,7 @@ extension TimesheetContentProviderTests {
         self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
         var completionResult: TimesheetFetchResult?
         //Act
-        sut.fetchWorkTimesData(for: nil) { result in
+        sut.fetchTimesheetData(for: nil) { result in
             completionResult = result
         }
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
@@ -217,7 +217,7 @@ extension TimesheetContentProviderTests {
         self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
         var completionResult: TimesheetFetchResult?
         //Act
-        sut.fetchWorkTimesData(for: nil) { result in
+        sut.fetchTimesheetData(for: nil) { result in
             completionResult = result
         }
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
@@ -240,7 +240,7 @@ extension TimesheetContentProviderTests {
         self.accessServiceMock.getLastLoggedInUserIDReturnValue = 2
         var completionResult: TimesheetFetchResult?
         //Act
-        sut.fetchWorkTimesData(for: date) { result in
+        sut.fetchTimesheetData(for: date) { result in
             completionResult = result
         }
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
@@ -260,7 +260,7 @@ extension TimesheetContentProviderTests {
         self.accessServiceMock.getLastLoggedInUserIDReturnValue = 1
         var completionResult: TimesheetFetchResult?
         //Act
-        sut.fetchWorkTimesData(for: nil) { result in
+        sut.fetchTimesheetData(for: nil) { result in
             completionResult = result
         }
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.failure(error))
@@ -286,7 +286,7 @@ extension TimesheetContentProviderTests {
         let matchingFullTime = try self.buildMatchingFullTimeDecoder()
         var completionResult: TimesheetFetchResult?
         //Act
-        sut.fetchWorkTimesData(for: date) { result in
+        sut.fetchTimesheetData(for: date) { result in
             completionResult = result
         }
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.success(workTimes))

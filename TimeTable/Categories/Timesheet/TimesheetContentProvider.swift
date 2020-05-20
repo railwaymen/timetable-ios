@@ -20,7 +20,7 @@ typealias TimesheetFetchRequiredDataCompletion = (TimesheetFetchRequiredDataResu
 
 protocol TimesheetContentProviderType: class {
     func fetchRequiredData(for date: Date?, completion: @escaping TimesheetFetchRequiredDataCompletion)
-    func fetchWorkTimesData(for date: Date?, completion: @escaping TimesheetFetchCompletion)
+    func fetchTimesheetData(for date: Date?, completion: @escaping TimesheetFetchCompletion)
     func delete(workTime: WorkTimeDecoder, completion: @escaping TimesheetDeleteCompletion)
 }
 
@@ -73,7 +73,7 @@ extension TimesheetContentProvider: TimesheetContentProviderType {
         }
         
         group.enter()
-        self.fetchWorkTimesData(for: date) { result in
+        self.fetchTimesheetData(for: date) { result in
             switch result {
             case let .success(response):
                 dailyWorkTimes = response.0
@@ -99,7 +99,7 @@ extension TimesheetContentProvider: TimesheetContentProviderType {
         }
     }
     
-    func fetchWorkTimesData(for date: Date?, completion: @escaping TimesheetFetchCompletion) {
+    func fetchTimesheetData(for date: Date?, completion: @escaping TimesheetFetchCompletion) {
         var dailyWorkTimes: [DailyWorkTime] = []
         var matchingFullTime: MatchingFullTimeDecoder?
         var fetchError: Error?

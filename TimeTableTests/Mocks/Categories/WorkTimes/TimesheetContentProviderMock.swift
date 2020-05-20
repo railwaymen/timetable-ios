@@ -18,8 +18,8 @@ class TimesheetContentProviderMock {
         let completion: TimesheetFetchRequiredDataCompletion
     }
     
-    private(set) var fetchWorkTimesDataParams: [FetchWorkTimesDataParams] = []
-    struct FetchWorkTimesDataParams {
+    private(set) var fetchTimesheetDataParams: [FetchTimesheetDataParams] = []
+    struct FetchTimesheetDataParams {
         let date: Date?
         let completion: TimesheetFetchCompletion
     }
@@ -37,8 +37,8 @@ extension TimesheetContentProviderMock: TimesheetContentProviderType {
         self.fetchRequiredDataParams.append(FetchRequiredDataParams(date: date, completion: completion))
     }
     
-    func fetchWorkTimesData(for date: Date?, completion: @escaping TimesheetFetchCompletion) {
-        self.fetchWorkTimesDataParams.append(FetchWorkTimesDataParams(date: date, completion: completion))
+    func fetchTimesheetData(for date: Date?, completion: @escaping TimesheetFetchCompletion) {
+        self.fetchTimesheetDataParams.append(FetchTimesheetDataParams(date: date, completion: completion))
     }
     
     func delete(workTime: WorkTimeDecoder, completion: @escaping TimesheetDeleteCompletion) {

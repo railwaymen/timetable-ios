@@ -413,7 +413,7 @@ extension TimesheetViewModel {
         }
         self.userInterface?.setActivityIndicator(isHidden: false)
         self.prepareForFethingWorkTimes()
-        self.contentProvider.fetchWorkTimesData(for: date) { [weak self] result in
+        self.contentProvider.fetchTimesheetData(for: date) { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)
             switch result {
             case let .success((dailyWorkTimes, matchingFullTime)):
