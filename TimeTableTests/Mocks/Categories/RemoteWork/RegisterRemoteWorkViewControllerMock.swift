@@ -15,6 +15,11 @@ class RegisterRemoteWorkViewControllerMock: UIViewController {
     private(set) var setUpParams: [SetUpParams] = []
     struct SetUpParams {}
     
+    private(set) var setUpTitleParams: [SetUpTitleParams] = []
+    struct SetUpTitleParams {
+        let title: String
+    }
+    
     private(set) var updateColorsParams: [UpdateColorsParams] = []
     struct UpdateColorsParams {}
     
@@ -84,6 +89,10 @@ class RegisterRemoteWorkViewControllerMock: UIViewController {
 extension RegisterRemoteWorkViewControllerMock: RegisterRemoteWorkViewModelOutput {
     func setUp() {
         self.setUpParams.append(SetUpParams())
+    }
+    
+    func setUp(title: String) {
+        self.setUpTitleParams.append(SetUpTitleParams(title: title))
     }
     
     func updateColors() {
