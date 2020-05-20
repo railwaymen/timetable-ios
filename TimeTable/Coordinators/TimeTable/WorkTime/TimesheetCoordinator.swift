@@ -1,5 +1,5 @@
 //
-//  WorkTimesListCoordinator.swift
+//  TimesheetCoordinator.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 20/11/2018.
@@ -8,20 +8,20 @@
 
 import UIKit
 
-protocol WorkTimesListCoordinatorDelegate: class {
-    func workTimesRequestedForWorkTimeView(
+protocol TimesheetCoordinatorDelegate: class {
+    func timesheetRequestedForWorkTimeView(
         sourceView: UIView,
         flowType: WorkTimeViewModel.FlowType,
         finishHandler: @escaping (_ isTaskChanged: Bool) -> Void)
-    func workTimesRequestedForSafari(url: URL)
-    func workTimesRequestedForTaskHistory(taskForm: TaskForm)
-    func workTimesRequestedForProfileView()
-    func workTimesRequestedForProjectPicker(
+    func timesheetRequestedForSafari(url: URL)
+    func timesheetRequestedForTaskHistory(taskForm: TaskForm)
+    func timesheetRequestedForProfileView()
+    func timesheetRequestedForProjectPicker(
         projects: [SimpleProjectRecordDecoder],
         completion: @escaping (SimpleProjectRecordDecoder?) -> Void)
 }
 
-class WorkTimesListCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
+class TimesheetCoordinator: NavigationCoordinator, TabBarChildCoordinatorType {
     private let dependencyContainer: DependencyContainerType
     
     let tabBarItem: UITabBarItem
@@ -33,7 +33,6 @@ class WorkTimesListCoordinator: NavigationCoordinator, TabBarChildCoordinatorTyp
     // MARK: - Initialization
     init(dependencyContainer: DependencyContainerType) {
         self.dependencyContainer = dependencyContainer
-        
         self.tabBarItem = UITabBarItem(
             title: R.string.localizable.timesheet_title(),
             image: #imageLiteral(resourceName: "tab_bar_timesheet_icon"),
@@ -52,9 +51,9 @@ class WorkTimesListCoordinator: NavigationCoordinator, TabBarChildCoordinatorTyp
     }
 }
 
-// MARK: - WorkTimesListCoordinatorDelegate
-extension WorkTimesListCoordinator: WorkTimesListCoordinatorDelegate {
-    func workTimesRequestedForWorkTimeView(
+// MARK: - TimesheetCoordinatorDelegate
+extension TimesheetCoordinator: TimesheetCoordinatorDelegate {
+    func timesheetRequestedForWorkTimeView(
         sourceView: UIView,
         flowType: WorkTimeViewModel.FlowType,
         finishHandler: @escaping (_ isTaskChanged: Bool) -> Void
@@ -62,20 +61,20 @@ extension WorkTimesListCoordinator: WorkTimesListCoordinatorDelegate {
         self.runWorkTimeFlow(sourceView: sourceView, flowType: flowType, finishHandler: finishHandler)
     }
     
-    func workTimesRequestedForSafari(url: URL) {
+    func timesheetRequestedForSafari(url: URL) {
         self.dependencyContainer.application?.open(url)
     }
     
-    func workTimesRequestedForTaskHistory(taskForm: TaskForm) {
+    func timesheetRequestedForTaskHistory(taskForm: TaskForm) {
         self.runTaskHistoryFlow(taskForm: taskForm)
     }
     
-    func workTimesRequestedForProfileView() {
+    func timesheetRequestedForProfileView() {
         let parentViewController = self.navigationController.topViewController ?? self.navigationController
         self.dependencyContainer.parentCoordinator?.showProfile(parentViewController: parentViewController)
     }
     
-    func workTimesRequestedForProjectPicker(
+    func timesheetRequestedForProjectPicker(
         projects: [SimpleProjectRecordDecoder],
         completion: @escaping (SimpleProjectRecordDecoder?) -> Void
     ) {
@@ -84,19 +83,19 @@ extension WorkTimesListCoordinator: WorkTimesListCoordinatorDelegate {
 }
 
 // MARK: - Private
-extension WorkTimesListCoordinator {
+extension TimesheetCoordinator {
     private func runMainFlow() {
         guard let apiClient = self.dependencyContainer.apiClient else {
             self.dependencyContainer.errorHandler.stopInDebug("Api client is nil")
             return
         }
         do {
-            let controller = try self.dependencyContainer.viewControllerBuilder.workTimesList()
-            let contentProvider = WorkTimesListContentProvider(
+            let controller = try self.dependencyContainer.viewControllerBuilder.timesheet()
+            let contentProvider = TimesheetContentProvider(
                 apiClient: apiClient,
                 accessService: self.dependencyContainer.accessService,
                 dispatchGroupFactory: self.dependencyContainer.dispatchGroupFactory)
-            let viewModel = WorkTimesListViewModel(
+            let viewModel = TimesheetViewModel(
                 userInterface: controller,
                 coordinator: self,
                 contentProvider: contentProvider,

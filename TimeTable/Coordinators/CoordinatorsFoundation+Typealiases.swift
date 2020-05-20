@@ -13,7 +13,7 @@ enum CoordinatorType: String, CoordinatorTypable, Equatable {
     case serverConfiguration
     case login
     case projects
-    case workTimes
+    case timesheet
     case workTimeForm
     case simpleProjects
     case profile

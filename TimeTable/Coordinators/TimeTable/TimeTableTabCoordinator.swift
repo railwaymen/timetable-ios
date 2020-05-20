@@ -15,7 +15,7 @@ class TimeTableTabCoordinator: TabBarCoordinator {
         super.init(window: dependencyContainer.window)
         
         let projectsCoordinator = ProjectsCoordinator(dependencyContainer: dependencyContainer)
-        let workTimeCoordinator = WorkTimesListCoordinator(dependencyContainer: dependencyContainer)
+        let workTimeCoordinator = TimesheetCoordinator(dependencyContainer: dependencyContainer)
         let vacationCoordinator = VacationCoordinator(dependencyContainer: dependencyContainer)
         let remoteWorkCoordinator = RemoteWorkCoordinator(dependencyContainer: dependencyContainer)
         

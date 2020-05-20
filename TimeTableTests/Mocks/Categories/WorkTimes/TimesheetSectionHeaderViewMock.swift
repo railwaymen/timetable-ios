@@ -1,5 +1,5 @@
 //
-//  WorkTimesTableViewHeaderViewMock.swift
+//  TimesheetSectionHeaderViewMock.swift
 //  TimeTableTests
 //
 //  Created by Bartłomiej Świerad on 12/11/2019.
@@ -9,29 +9,32 @@
 import XCTest
 @testable import TimeTable
 
-class WorkTimesTableViewHeaderViewMock: UITableViewHeaderFooterView {
+class TimesheetSectionHeaderViewMock {
+    
+    // MARK: - TimesheetSectionHeaderViewModelOutput
     private(set) var updateViewParams: [UpdateViewParams] = []
     struct UpdateViewParams {
         var dayText: String?
         var durationText: String?
     }
     
+    // MARK: - TimesheetSectionHeaderViewType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
-        var viewModel: WorkTimesTableViewHeaderViewModelType
+        var viewModel: TimesheetSectionHeaderViewModelType
     }
 }
 
-// MARK: - WorkTimesTableViewHeaderViewModelOutput
-extension WorkTimesTableViewHeaderViewMock: WorkTimesTableViewHeaderViewModelOutput {
+// MARK: - TimesheetSectionHeaderViewModelOutput
+extension TimesheetSectionHeaderViewMock: TimesheetSectionHeaderViewModelOutput {
     func updateView(dayText: String?, durationText: String?) {
         self.updateViewParams.append(UpdateViewParams(dayText: dayText, durationText: durationText))
     }
 }
 
-// MARK: - WorkTimesTableViewHeaderType
-extension WorkTimesTableViewHeaderViewMock: WorkTimesTableViewHeaderType {
-    func configure(viewModel: WorkTimesTableViewHeaderViewModelType) {
+// MARK: - TimesheetSectionHeaderViewType
+extension TimesheetSectionHeaderViewMock: TimesheetSectionHeaderViewType {
+    func configure(viewModel: TimesheetSectionHeaderViewModelType) {
         self.configureParams.append(ConfigureParams(viewModel: viewModel))
     }
 }

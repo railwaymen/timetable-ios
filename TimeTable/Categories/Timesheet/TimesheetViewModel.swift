@@ -1,5 +1,5 @@
 //
-//  WorkTimesListViewModel.swift
+//  TimesheetViewModel.swift
 //  TimeTable
 //
 //  Created by Piotr Pawluś on 23/11/2018.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol WorkTimesListViewModelOutput: class {
+protocol TimesheetViewModelOutput: class {
     func setUpView()
     func updateColors()
     func reloadData()
@@ -27,7 +27,7 @@ protocol WorkTimesListViewModelOutput: class {
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState)
 }
 
-protocol WorkTimesListViewModelType: class {
+protocol TimesheetViewModelType: class {
     func viewDidLoad()
     func viewWillAppear()
     func viewDidLayoutSubviews()
@@ -38,11 +38,11 @@ protocol WorkTimesListViewModelType: class {
     func configure(_ view: ErrorViewable)
     func projectButtonTapped()
     func viewRequestForNewDate(month: Int, year: Int)
-    func viewRequestForCellType(at index: IndexPath) -> WorkTimesListViewModel.CellType
+    func viewRequestForCellType(at index: IndexPath) -> TimesheetViewModel.CellType
     func configure(_ cell: WorkTimeTableViewCellable, for indexPath: IndexPath)
     func viewRequestForHeaderModel(
         at section: Int,
-        header: WorkTimesTableViewHeaderViewModelOutput) -> WorkTimesTableViewHeaderViewModelType?
+        header: TimesheetSectionHeaderViewModelOutput) -> TimesheetSectionHeaderViewModelType?
     func viewRequestToDuplicate(sourceView: UITableViewCell, at indexPath: IndexPath)
     func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void)
     func viewRequestTaskHistory(indexPath: IndexPath)
@@ -52,10 +52,10 @@ protocol WorkTimesListViewModelType: class {
     func viewRequestForProfileView()
 }
 
-class WorkTimesListViewModel: KeyboardManagerObserverable {
-    private weak var userInterface: WorkTimesListViewModelOutput?
-    private weak var coordinator: WorkTimesListCoordinatorDelegate?
-    private let contentProvider: WorkTimesListContentProviderType
+class TimesheetViewModel: KeyboardManagerObserverable {
+    private weak var userInterface: TimesheetViewModelOutput?
+    private weak var coordinator: TimesheetCoordinatorDelegate?
+    private let contentProvider: TimesheetContentProviderType
     private let errorHandler: ErrorHandlerType
     private let calendar: CalendarType
     private let messagePresenter: MessagePresenterType?
@@ -109,9 +109,9 @@ class WorkTimesListViewModel: KeyboardManagerObserverable {
     
     // MARK: - Initialization
     init(
-        userInterface: WorkTimesListViewModelOutput,
-        coordinator: WorkTimesListCoordinatorDelegate?,
-        contentProvider: WorkTimesListContentProviderType,
+        userInterface: TimesheetViewModelOutput,
+        coordinator: TimesheetCoordinatorDelegate?,
+        contentProvider: TimesheetContentProviderType,
         errorHandler: ErrorHandlerType,
         calendar: CalendarType = Calendar.autoupdatingCurrent,
         messagePresenter: MessagePresenterType?,
@@ -128,7 +128,7 @@ class WorkTimesListViewModel: KeyboardManagerObserverable {
 }
 
 // MARK: - Structures
-extension WorkTimesListViewModel {
+extension TimesheetViewModel {
     struct RequiredData {
         let dailyWorkTimes: [DailyWorkTime]
         let matchingFulltime: MatchingFullTimeDecoder
@@ -169,8 +169,8 @@ extension WorkTimesListViewModel {
     }
 }
  
-// MARK: - WorkTimesListViewModelType
-extension WorkTimesListViewModel: WorkTimesListViewModelType {
+// MARK: - TimesheetViewModelType
+extension TimesheetViewModel: TimesheetViewModelType {
     func viewDidLoad() {
         self.userInterface?.setUpView()
     }
@@ -218,7 +218,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     func projectButtonTapped() {
         guard !self.projects.isEmpty else { return }
         let projects: [SimpleProjectRecordDecoder] = [.allProjects] + self.projects
-        self.coordinator?.workTimesRequestedForProjectPicker(projects: projects) { [weak self] selectedProject in
+        self.coordinator?.timesheetRequestedForProjectPicker(projects: projects) { [weak self] selectedProject in
             guard let selectedProject = selectedProject else { return }
             self?.selectedProject = selectedProject
         }
@@ -228,7 +228,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
         self.selectedMonth = MonthPeriod(month: month, year: year)
     }
     
-    func viewRequestForCellType(at index: IndexPath) -> WorkTimesListViewModel.CellType {
+    func viewRequestForCellType(at index: IndexPath) -> TimesheetViewModel.CellType {
         guard let workTime = self.workTime(for: index) else { return .standard }
         return workTime.taskPreview == nil ? .standard : .taskURL
     }
@@ -245,16 +245,16 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     
     func viewRequestForHeaderModel(
         at section: Int,
-        header: WorkTimesTableViewHeaderViewModelOutput
-    ) -> WorkTimesTableViewHeaderViewModelType? {
+        header: TimesheetSectionHeaderViewModelOutput
+    ) -> TimesheetSectionHeaderViewModelType? {
         guard let dailyWorkTime = self.visibleDailyWorkTimes[safeIndex: section] else { return nil }
-        return WorkTimesTableViewHeaderViewModel(userInterface: header, dailyWorkTime: dailyWorkTime)
+        return TimesheetSectionHeaderViewModel(userInterface: header, dailyWorkTime: dailyWorkTime)
     }
     
     func viewRequestToDuplicate(sourceView: UITableViewCell, at indexPath: IndexPath) {
         guard let task = self.createTaskForm(for: indexPath) else { return }
         let lastTask = self.createTaskForm(for: IndexPath(row: 0, section: 0))
-        self.coordinator?.workTimesRequestedForWorkTimeView(
+        self.coordinator?.timesheetRequestedForWorkTimeView(
             sourceView: sourceView,
             flowType: .duplicateEntry(duplicatedTask: task, lastTask: lastTask)) { [weak self] isTaskChanged in
                 guard let self = self, isTaskChanged else { return }
@@ -294,12 +294,12 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     
     func viewRequestTaskHistory(indexPath: IndexPath) {
         guard let taskForm = self.createTaskForm(for: indexPath) else { return }
-        self.coordinator?.workTimesRequestedForTaskHistory(taskForm: taskForm)
+        self.coordinator?.timesheetRequestedForTaskHistory(taskForm: taskForm)
     }
     
     func viewRequestForNewWorkTimeView(sourceView: UIView) {
         let lastTask = self.createTaskForm(for: IndexPath(row: 0, section: 0))
-        self.coordinator?.workTimesRequestedForWorkTimeView(
+        self.coordinator?.timesheetRequestedForWorkTimeView(
             sourceView: sourceView,
             flowType: .newEntry(lastTask: lastTask)) { [weak self] isTaskChanged in
                 guard let self = self, isTaskChanged else { return }
@@ -309,7 +309,7 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     
     func viewRequestedForEditEntry(sourceView: UITableViewCell, at indexPath: IndexPath) {
         guard let task = self.createTaskForm(for: indexPath) else { return }
-        self.coordinator?.workTimesRequestedForWorkTimeView(
+        self.coordinator?.timesheetRequestedForWorkTimeView(
             sourceView: sourceView,
             flowType: .editEntry(editedTask: task)) { [weak self] isTaskChanged in
                 guard let self = self, isTaskChanged else { return }
@@ -334,20 +334,20 @@ extension WorkTimesListViewModel: WorkTimesListViewModelType {
     }
     
     func viewRequestForProfileView() {
-        self.coordinator?.workTimesRequestedForProfileView()
+        self.coordinator?.timesheetRequestedForProfileView()
     }
 }
 
 // MARK: - WorkTimeTableViewCellViewModelParentType
-extension WorkTimesListViewModel: WorkTimeTableViewCellModelParentType {
+extension TimesheetViewModel: WorkTimeTableViewCellModelParentType {
     func openTask(for workTime: WorkTimeDisplayed) {
         guard let task = workTime.task, let url = URL(string: task) else { return }
-        self.coordinator?.workTimesRequestedForSafari(url: url)
+        self.coordinator?.timesheetRequestedForSafari(url: url)
     }
 }
 
 // MARK: - Private
-extension WorkTimesListViewModel {
+extension TimesheetViewModel {
     private func createTaskForm(for indexPath: IndexPath) -> TaskForm? {
         guard let dailyWorkTime = self.dailyWorkTime(for: indexPath) else { return nil }
         guard let workTime = self.workTime(for: indexPath) else { return nil }

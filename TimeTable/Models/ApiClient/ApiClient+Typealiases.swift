@@ -27,7 +27,7 @@ typealias WorkTimeApiClientType =
     ApiClientWorkTimesType
     & ApiClientProjectsType
 
-typealias WorkTimesListApiClientType =
+typealias TimesheetApiClientType =
     ApiClientWorkTimesType
     & ApiClientAccountingPeriodsType
     & ApiClientProjectsType

@@ -1,5 +1,5 @@
 //
-//  WorkTimesListViewControllerMock.swift
+//  TimesheetViewControllerMock.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 27/11/2018.
@@ -9,9 +9,9 @@
 import XCTest
 @testable import TimeTable
 
-class WorkTimesListViewControllerMock: UIViewController {
+class TimesheetViewControllerMock: UIViewController {
     
-    // MARK: - WorkTimesListViewModelOutput
+    // MARK: - TimesheetViewModelOutput
     private(set) var setUpViewParams: [SetUpViewParams] = []
     struct SetUpViewParams {}
     
@@ -79,15 +79,15 @@ class WorkTimesListViewControllerMock: UIViewController {
         let keyboardState: KeyboardManager.KeyboardState
     }
     
-    // MARK: - WorkTimesListViewControllerType
+    // MARK: - TimesheetViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
-        let viewModel: WorkTimesListViewModelType
+        let viewModel: TimesheetViewModelType
     }
 }
 
-// MARK: - WorkTimesListViewModelOutput
-extension WorkTimesListViewControllerMock: WorkTimesListViewModelOutput {
+// MARK: - TimesheetViewModelOutput
+extension TimesheetViewControllerMock: TimesheetViewModelOutput {
     func setUpView() {
         self.setUpViewParams.append(SetUpViewParams())
     }
@@ -149,9 +149,9 @@ extension WorkTimesListViewControllerMock: WorkTimesListViewModelOutput {
     }
 }
 
-// MARK: - WorkTimesListViewControllerType
-extension WorkTimesListViewControllerMock: WorkTimesListViewControllerType {
-    func configure(viewModel: WorkTimesListViewModelType) {
+// MARK: - TimesheetViewControllerType
+extension TimesheetViewControllerMock: TimesheetViewControllerType {
+    func configure(viewModel: TimesheetViewModelType) {
         self.configureParams.append(ConfigureParams(viewModel: viewModel))
     }
 }

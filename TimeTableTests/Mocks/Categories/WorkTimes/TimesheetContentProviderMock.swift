@@ -1,5 +1,5 @@
 //
-//  WorkTimesListContentProviderMock.swift
+//  TimesheetContentProviderMock.swift
 //  TimeTableTests
 //
 //  Created by Piotr Pawluś on 31/01/2019.
@@ -9,39 +9,39 @@
 import Foundation
 @testable import TimeTable
 
-class WorkTimesListContentProviderMock {
+class TimesheetContentProviderMock {
     
-    // MARK: - WorkTimesListContentProviderType
+    // MARK: - TimesheetContentProviderType
     private(set) var fetchRequiredDataParams: [FetchRequiredDataParams] = []
     struct FetchRequiredDataParams {
         let date: Date?
-        let completion: WorkTimesListFetchRequiredDataCompletion
+        let completion: TimesheetFetchRequiredDataCompletion
     }
     
     private(set) var fetchWorkTimesDataParams: [FetchWorkTimesDataParams] = []
     struct FetchWorkTimesDataParams {
         let date: Date?
-        let completion: WorkTimesListFetchCompletion
+        let completion: TimesheetFetchCompletion
     }
     
     private(set) var deleteWorkTimeParams: [DeleteWorkTimeParams] = []
     struct DeleteWorkTimeParams {
         let workTime: WorkTimeDecoder
-        let completion: WorkTimesListDeleteCompletion
+        let completion: TimesheetDeleteCompletion
     }
 }
 
-// MARK: - WorkTimesListContentProviderType
-extension WorkTimesListContentProviderMock: WorkTimesListContentProviderType {
-    func fetchRequiredData(for date: Date?, completion: @escaping WorkTimesListFetchRequiredDataCompletion) {
+// MARK: - TimesheetContentProviderType
+extension TimesheetContentProviderMock: TimesheetContentProviderType {
+    func fetchRequiredData(for date: Date?, completion: @escaping TimesheetFetchRequiredDataCompletion) {
         self.fetchRequiredDataParams.append(FetchRequiredDataParams(date: date, completion: completion))
     }
     
-    func fetchWorkTimesData(for date: Date?, completion: @escaping WorkTimesListFetchCompletion) {
+    func fetchWorkTimesData(for date: Date?, completion: @escaping TimesheetFetchCompletion) {
         self.fetchWorkTimesDataParams.append(FetchWorkTimesDataParams(date: date, completion: completion))
     }
     
-    func delete(workTime: WorkTimeDecoder, completion: @escaping WorkTimesListDeleteCompletion) {
+    func delete(workTime: WorkTimeDecoder, completion: @escaping TimesheetDeleteCompletion) {
         self.deleteWorkTimeParams.append(DeleteWorkTimeParams(workTime: workTime, completion: completion))
     }
 }
