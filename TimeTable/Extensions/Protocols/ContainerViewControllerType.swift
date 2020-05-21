@@ -22,6 +22,7 @@ extension ContainerViewControllerType {
             assertionFailure("View to show should exist in containedViews")
             return
         }
+        guard view.isHidden else { return }
         let options: UIView.AnimationOptions = [.showHideTransitionViews, .transitionCrossDissolve]
         if let previousView = self.currentlyVisibleView {
             UIView.transition(

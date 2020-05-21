@@ -35,6 +35,7 @@ class ProjectsViewModel {
     private var projects: [ProjectRecordDecoder]
     
     private var errorViewModel: ErrorViewModelParentType?
+    private var activityIndicatorTimer: Timer?
     
     // MARK: - Initialization
     init(
@@ -52,6 +53,11 @@ class ProjectsViewModel {
         self.projects = []
         
         self.setUpNotifications()
+    }
+    
+    deinit {
+        self.notificationCenter?.removeObserver(self)
+        self.activityIndicatorTimer?.invalidate()
     }
     
     // MARK: - Notifcations
@@ -111,9 +117,9 @@ extension ProjectsViewModel {
     }
     
     private func fetchProjects() {
-        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.showActivityIndicatorWithDelay()
         self.apiClient.fetchAllProjects { [weak self] result in
-            self?.userInterface?.setActivityIndicator(isHidden: true)
+            self?.hideActivityIndicator()
             switch result {
             case let .success(projectRecords):
                 self?.handleFetchSuccess(projectRecords: projectRecords)
@@ -141,5 +147,16 @@ extension ProjectsViewModel {
         self.projects = projectRecords
         self.userInterface?.updateView()
         self.userInterface?.showCollectionView()
+    }
+    
+    private func showActivityIndicatorWithDelay() {
+        self.activityIndicatorTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { [weak self] _ in
+            self?.userInterface?.setActivityIndicator(isHidden: false)
+        })
+    }
+    
+    private func hideActivityIndicator() {
+        self.activityIndicatorTimer?.invalidate()
+        self.userInterface?.setActivityIndicator(isHidden: true)
     }
 }

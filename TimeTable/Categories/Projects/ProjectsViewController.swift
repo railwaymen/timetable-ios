@@ -86,7 +86,6 @@ extension ProjectsViewController: ProjectsViewModelOutput {
     func setUpView() {
         self.title = R.string.localizable.projects_title()
         self.setUpCollectionView()
-        self.setUpActivityIndicator()
         self.setUpErrorView()
         self.setUpRefreshControl()
         self.setUpBarButtons()
@@ -139,12 +138,6 @@ extension ProjectsViewController {
     
     private func setUpErrorView() {
         self.viewModel.configure(self.errorView)
-    }
-    
-    private func setUpActivityIndicator() {
-        self.activityIndicator.style = .large
-        self.activityIndicator.hidesWhenStopped = true
-        self.setActivityIndicator(isHidden: true)
     }
     
     private func setUpRefreshControl() {
