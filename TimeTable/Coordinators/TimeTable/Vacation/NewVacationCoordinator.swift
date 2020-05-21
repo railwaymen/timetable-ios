@@ -69,10 +69,7 @@ extension NewVacationCoordinator: NewVacationCoordinatorDelegate {
 // MARK: - Private
 extension NewVacationCoordinator {
     private func runMainFlow(availableVacationDays: Int) {
-        guard let apiClient = self.dependencyContainer.apiClient else {
-            self.dependencyContainer.errorHandler.stopInDebug("Api client is nil")
-            return
-        }
+        guard let apiClient = self.dependencyContainer.requireApiClient() else { return }
         do {
             let controller = try self.dependencyContainer.viewControllerBuilder.newVacation()
             let viewModel = NewVacationViewModel(

@@ -29,6 +29,12 @@ protocol DependencyContainerType {
     var parentCoordinator: ParentCoordinator? { get set }
 }
 
+extension DependencyContainerType {
+    func requireApiClient() -> ApiClientType? {
+        self.apiClient.unwrapped(using: self.errorHandler)
+    }
+}
+
 struct DependencyContainer: DependencyContainerType {
     weak var application: UIApplicationType?
     weak var window: UIWindow?

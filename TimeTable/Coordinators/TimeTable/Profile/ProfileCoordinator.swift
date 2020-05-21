@@ -74,10 +74,7 @@ extension ProfileCoordinator: ProfileCoordinatorDelegate {
 // MARK: - Private
 extension ProfileCoordinator {
     private func runMainFlow() {
-        guard let apiClient = self.dependencyContainer.apiClient else {
-            self.dependencyContainer.errorHandler.stopInDebug("Api client is nil")
-            return
-        }
+        guard let apiClient = self.dependencyContainer.requireApiClient() else { return }
         do {
             let controller = try self.dependencyContainer.viewControllerBuilder.profile()
             let contentProvider = ProfileContentProvider(
