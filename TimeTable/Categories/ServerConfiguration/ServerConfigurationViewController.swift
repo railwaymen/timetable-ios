@@ -19,9 +19,8 @@ protocol ServerConfigurationViewControllerType: class {
 
 class ServerConfigurationViewController: UIViewController {
     @IBOutlet private var scrollView: UIScrollView!
-    @IBOutlet private var continueButton: UIButton!
+    @IBOutlet private var continueButton: LoadingButton!
     @IBOutlet private var serverAddressTextField: UITextField!
-    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet private var serverAddressTextFieldHeightConstraint: NSLayoutConstraint!
     @IBOutlet private var continueButtonHeightConstraint: NSLayoutConstraint!
@@ -89,14 +88,12 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
     func setUpView(serverAddress: String) {
         self.serverAddressTextField.text = serverAddress
         self.serverAddressTextField.setTextFieldAppearance()
-        self.continueButton.isEnabled = !serverAddress.isEmpty
-        self.setUpActivityIndicator()
+        self.setUpContinueButtonColors()
         self.setUpConstraints()
     }
     
     func continueButtonEnabledState(_ isEnabled: Bool) {
         self.continueButton.isEnabled = isEnabled
-        self.continueButton.backgroundColor = isEnabled ? .enabledButton : .disabledButton
     }
     
     func dismissKeyboard() {
@@ -104,7 +101,7 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
     }
     
     func setActivityIndicator(isHidden: Bool) {
-        self.activityIndicator.set(isAnimating: !isHidden)
+        self.continueButton.set(isLoading: !isHidden)
     }
     
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
@@ -120,21 +117,20 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
     
     func updateColors() {
         self.serverAddressTextField.setTextFieldAppearance()
-        self.continueButton.backgroundColor = self.continueButton.isEnabled ? .enabledButton : .disabledButton
+        self.setUpContinueButtonColors()
     }
 }
 
 // MARK: - Private
 extension ServerConfigurationViewController {
+    private func setUpContinueButtonColors() {
+        self.continueButton.setBackgroundColor(.enabledButton, forState: .normal)
+        self.continueButton.setBackgroundColor(.disabledButton, forState: .disabled)
+    }
+    
     private func updateScrollViewInsets(with height: CGFloat = 0) {
         self.scrollView.contentInset.bottom = height
         self.scrollView.verticalScrollIndicatorInsets.bottom = height
-    }
-    
-    private func setUpActivityIndicator() {
-        self.activityIndicator.style = .large
-        self.activityIndicator.hidesWhenStopped = true
-        self.setActivityIndicator(isHidden: true)
     }
     
     private func setUpConstraints() {

@@ -135,7 +135,7 @@
                                                             </label>
                                                         </subviews>
                                                     </stackView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i9V-Qh-o4R" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i9V-Qh-o4R" customClass="LoadingButton" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="258.5" width="354" height="40"/>
                                                         <color key="backgroundColor" red="0.80000000000000004" green="0.078431372550000003" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="loginButton"/>
@@ -152,6 +152,7 @@
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                 <real key="value" value="5"/>
                                                             </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="disablesOnLoading" value="YES"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="loginButtonTappedWithSender:" destination="prJ-rF-eRP" eventType="touchUpInside" id="90Y-kH-XMM"/>
@@ -179,21 +180,16 @@
                                     <constraint firstAttribute="bottom" secondItem="wbE-kq-85y" secondAttribute="bottom" id="t2e-Wi-P8n"/>
                                 </constraints>
                             </scrollView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ZeQ-6g-scw">
-                                <rect key="frame" x="197" y="443" width="20" height="20"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="Mja-sZ-MsA" firstAttribute="leading" secondItem="ajj-cK-AHp" secondAttribute="leading" id="2kK-U6-VP9"/>
                             <constraint firstItem="ajj-cK-AHp" firstAttribute="trailing" secondItem="Mja-sZ-MsA" secondAttribute="trailing" id="IH6-cT-NQ8"/>
-                            <constraint firstItem="ZeQ-6g-scw" firstAttribute="centerX" secondItem="ajj-cK-AHp" secondAttribute="centerX" id="R4g-Xn-oDq"/>
                             <constraint firstItem="8ok-jl-LPk" firstAttribute="top" secondItem="oPN-yH-xSv" secondAttribute="top" id="USH-Pc-NJA"/>
                             <constraint firstItem="rLK-5Q-lVE" firstAttribute="width" secondItem="oPN-yH-xSv" secondAttribute="width" multiplier="0.951691" id="dB7-Gd-fc1"/>
                             <constraint firstItem="Mja-sZ-MsA" firstAttribute="top" secondItem="oPN-yH-xSv" secondAttribute="top" id="doc-Vb-NMH"/>
                             <constraint firstAttribute="bottom" secondItem="Mja-sZ-MsA" secondAttribute="bottom" id="lTI-0O-vBO"/>
                             <constraint firstItem="8ok-jl-LPk" firstAttribute="leading" secondItem="ajj-cK-AHp" secondAttribute="leading" constant="-15" id="q9O-Ee-oIX"/>
-                            <constraint firstItem="ZeQ-6g-scw" firstAttribute="centerY" secondItem="ajj-cK-AHp" secondAttribute="centerY" id="v3B-IY-HLw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ajj-cK-AHp"/>
                         <connections>
@@ -201,7 +197,6 @@
                         </connections>
                     </view>
                     <connections>
-                        <outlet property="activityIndicator" destination="ZeQ-6g-scw" id="0gZ-8R-bVQ"/>
                         <outlet property="checkBoxButton" destination="7Hy-Wy-5Er" id="uwI-HS-1U7"/>
                         <outlet property="loginButton" destination="i9V-Qh-o4R" id="syc-04-fjs"/>
                         <outlet property="loginButtonHeightConstraint" destination="4Qg-ZN-nWs" id="7az-QY-wxs"/>

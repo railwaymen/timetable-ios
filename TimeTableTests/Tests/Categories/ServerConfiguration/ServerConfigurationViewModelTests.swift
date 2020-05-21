@@ -123,8 +123,7 @@ extension ServerConfigurationViewModelTests {
         XCTAssertEqual(self.coordinatorMock.serverConfigurationDidFinishParams.count, 0)
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
         XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-        XCTAssertEqual(self.userInterfaceMock.continueButtonEnabledStateParams.count, 2)
-        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.continueButtonEnabledStateParams.last).isEnabled)
+        XCTAssertEqual(self.userInterfaceMock.continueButtonEnabledStateParams.count, 1)
     }
     
     func testViewRequestedToContinueCreateCorrectServerConfigurationWithDefaultValues() throws {
@@ -140,8 +139,7 @@ extension ServerConfigurationViewModelTests {
         XCTAssertEqual(configuration.host, try XCTUnwrap(URL(string: hostString.apiSuffix().httpPrefix())))
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-        XCTAssertEqual(self.userInterfaceMock.continueButtonEnabledStateParams.count, 2)
-        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.continueButtonEnabledStateParams.last).isEnabled)
+        XCTAssertEqual(self.userInterfaceMock.continueButtonEnabledStateParams.count, 1)
     }
     
     func testViewRequestedToContinueWithCorrectServerConfigurationCallCoordinator() throws {
@@ -156,8 +154,7 @@ extension ServerConfigurationViewModelTests {
         XCTAssertEqual(self.coordinatorMock.serverConfigurationDidFinishParams.count, 1)
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-        XCTAssertEqual(self.userInterfaceMock.continueButtonEnabledStateParams.count, 2)
-        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.continueButtonEnabledStateParams.last).isEnabled)
+        XCTAssertEqual(self.userInterfaceMock.continueButtonEnabledStateParams.count, 1)
     }
     
     func testViewRequestedToContinueWithInvalidServerConfigurationGetsAnError() throws {
@@ -173,8 +170,7 @@ extension ServerConfigurationViewModelTests {
         XCTAssertEqual(self.errorHandlerMock.throwingParams.count, 1)
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-        XCTAssertEqual(self.userInterfaceMock.continueButtonEnabledStateParams.count, 3)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.continueButtonEnabledStateParams.last).isEnabled)
+        XCTAssertEqual(self.userInterfaceMock.continueButtonEnabledStateParams.count, 1)
     }
 }
 

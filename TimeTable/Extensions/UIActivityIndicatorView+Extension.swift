@@ -9,9 +9,13 @@
 import UIKit
 
 extension UIActivityIndicatorView {
-    func set(isAnimating: Bool) {
-        isAnimating
-            ? self.startAnimating()
-            : self.stopAnimating()
+    func set(isAnimating: Bool, animated: Bool = false) {
+        let closure = isAnimating
+            ? self.startAnimating
+            : self.stopAnimating
+        
+        animated
+            ? UIView.transition(with: self, duration: 0.2, options: .transitionCrossDissolve, animations: closure)
+            : closure()
     }
 }

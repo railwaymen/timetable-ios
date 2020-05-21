@@ -81,6 +81,7 @@
 		8A3F0C702429F04300564D6D /* MockResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3F0C6F2429F04300564D6D /* MockResponse.swift */; };
 		8A3F0C722429F08D00564D6D /* String+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3F0C712429F08D00564D6D /* String+Error.swift */; };
 		8A3FE1B123ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3FE1B023ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift */; };
+		8A4BACC12475400E0073551E /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4BACC02475400E0073551E /* LoadingButton.swift */; };
 		8A523C8E2395091900215C61 /* DateExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A523C8D2395091900215C61 /* DateExtensionTests.swift */; };
 		8A55BA772372D02D004FFA97 /* UIApplicationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */; };
 		8A56D18C242B7DC000A02682 /* XCUIElement+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A56D18B242B7DC000A02682 /* XCUIElement+Extension.swift */; };
@@ -778,6 +779,7 @@
 		8A3F0C6F2429F04300564D6D /* MockResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockResponse.swift; sourceTree = "<group>"; };
 		8A3F0C712429F08D00564D6D /* String+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Error.swift"; sourceTree = "<group>"; };
 		8A3FE1B023ABBDE500CC9CC9 /* WorkTimeViewModelFlowTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeViewModelFlowTypeTests.swift; sourceTree = "<group>"; };
+		8A4BACC02475400E0073551E /* LoadingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
 		8A523C8D2395091900215C61 /* DateExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensionTests.swift; sourceTree = "<group>"; };
 		8A55BA762372D02D004FFA97 /* UIApplicationMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationMock.swift; sourceTree = "<group>"; };
 		8A56D18B242B7DC000A02682 /* XCUIElement+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Extension.swift"; sourceTree = "<group>"; };
@@ -2746,6 +2748,7 @@
 				C153AC6821832073007A35BB /* AttributedView.swift */,
 				C125C4D62187086C00FBA0DD /* CheckBoxButton.swift */,
 				8A79A2FB2424BFF90048B44B /* DatePickerTextField.swift */,
+				8A4BACC02475400E0073551E /* LoadingButton.swift */,
 				8AFBC3582462981300032B96 /* MonthYearPickerView.swift */,
 				C1F187B121E37C760037B8C2 /* ProjectsCollectionViewLayout.swift */,
 				C10515D32456B2BC00413EDE /* YearPickerView.swift */,
@@ -4224,6 +4227,7 @@
 				C125F1BC21DCDA8800594CDE /* ProjectCollectionViewCell.swift in Sources */,
 				8A94E5FA24751041009ECCCA /* ApiClient+Typealiases.swift in Sources */,
 				8AA1D33A246E75E80037EB9C /* UIScrollView+Extension.swift in Sources */,
+				8A4BACC12475400E0073551E /* LoadingButton.swift in Sources */,
 				C12CA57B21A5900B0082FEB7 /* WorkTimeDecoder.swift in Sources */,
 				C1A47BE924596AD000FDA7F0 /* VacationType.swift in Sources */,
 				C172D13F246566A0005AC63B /* RegisterRemoteWorkValidationError.swift in Sources */,

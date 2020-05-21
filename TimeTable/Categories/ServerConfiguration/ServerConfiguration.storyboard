@@ -80,7 +80,7 @@
                                                     <outlet property="delegate" destination="keO-oL-LbZ" id="g8u-2e-xxT"/>
                                                 </connections>
                                             </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iZC-rm-3eU" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iZC-rm-3eU" customClass="LoadingButton" customModule="TimeTable" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="166.5" width="374" height="40"/>
                                                 <color key="backgroundColor" red="0.80000000000000004" green="0.078431372550000003" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="loginButton"/>
@@ -96,6 +96,7 @@
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="5"/>
                                                     </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="disablesOnLoading" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="continueButtonTapped:" destination="keO-oL-LbZ" eventType="touchUpInside" id="KxA-7S-3hL"/>
@@ -116,20 +117,15 @@
                                     <constraint firstItem="CIy-Y5-yj4" firstAttribute="top" secondItem="aDX-gO-HPG" secondAttribute="top" id="qL2-OZ-oC7"/>
                                 </constraints>
                             </scrollView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="vyY-Nf-RVa">
-                                <rect key="frame" x="197" y="443" width="20" height="20"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="vyY-Nf-RVa" firstAttribute="centerX" secondItem="sc3-FQ-clT" secondAttribute="centerX" id="0E6-0K-RAz"/>
                             <constraint firstItem="aDX-gO-HPG" firstAttribute="top" secondItem="jj8-cY-Ged" secondAttribute="top" id="4lu-Wd-aD9"/>
                             <constraint firstItem="aDX-gO-HPG" firstAttribute="leading" secondItem="sc3-FQ-clT" secondAttribute="leading" id="DaP-wB-3W8"/>
                             <constraint firstItem="CIy-Y5-yj4" firstAttribute="width" secondItem="jj8-cY-Ged" secondAttribute="width" id="Vm1-Bs-o2m"/>
                             <constraint firstItem="sc3-FQ-clT" firstAttribute="trailing" secondItem="CIy-Y5-yj4" secondAttribute="trailing" id="YSI-4R-n8a"/>
                             <constraint firstItem="sc3-FQ-clT" firstAttribute="trailing" secondItem="aDX-gO-HPG" secondAttribute="trailing" id="bnM-ic-ioS"/>
                             <constraint firstItem="CIy-Y5-yj4" firstAttribute="leading" secondItem="sc3-FQ-clT" secondAttribute="leading" id="hzw-IN-lDw"/>
-                            <constraint firstItem="vyY-Nf-RVa" firstAttribute="centerY" secondItem="sc3-FQ-clT" secondAttribute="centerY" id="oOv-dh-fxF"/>
                             <constraint firstItem="wJi-Ss-qx2" firstAttribute="leading" secondItem="sc3-FQ-clT" secondAttribute="leading" constant="-15" id="qdc-2i-2ux"/>
                             <constraint firstItem="wJi-Ss-qx2" firstAttribute="top" secondItem="jj8-cY-Ged" secondAttribute="top" id="uIK-dX-9YL"/>
                             <constraint firstItem="aDX-gO-HPG" firstAttribute="bottom" secondItem="jj8-cY-Ged" secondAttribute="bottom" id="zmC-Y7-ioM"/>
@@ -140,7 +136,6 @@
                         </connections>
                     </view>
                     <connections>
-                        <outlet property="activityIndicator" destination="vyY-Nf-RVa" id="vPa-M9-f3p"/>
                         <outlet property="continueButton" destination="iZC-rm-3eU" id="9ot-LR-o2f"/>
                         <outlet property="continueButtonHeightConstraint" destination="MAp-ID-HU3" id="8wt-GH-hfe"/>
                         <outlet property="scrollView" destination="aDX-gO-HPG" id="1Se-6a-pI6"/>
