@@ -13,7 +13,7 @@ protocol ProjectsViewModelOutput: class {
     func updateView()
     func showCollectionView()
     func showErrorView()
-    func setActivityIndicator(isHidden: Bool)
+    func setActivityIndicator(isAnimating: Bool)
     func screenOrientationDidChange()
 }
 
@@ -51,7 +51,7 @@ class ProjectsViewModel {
         self.errorHandler = errorHandler
         self.notificationCenter = notificationCenter
         self.smoothLoadingManager = SmoothLoadingManager { [weak userInterface] isAnimating in
-            userInterface?.setActivityIndicator(isHidden: !isAnimating)
+            userInterface?.setActivityIndicator(isAnimating: isAnimating)
         }
         
         self.setUpNotifications()
