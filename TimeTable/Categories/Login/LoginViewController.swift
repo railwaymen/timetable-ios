@@ -126,14 +126,6 @@ extension LoginViewController: LoginViewModelOutput {
         let verticalSpacing = self.loginButton.convert(self.loginButton.bounds, to: self.passwordTextField).minY
         self.updateScrollViewInsets(with: max(keyboardState.keyboardHeight + verticalSpacing + bottomPadding, 0))
     }
-    
-    func setLoginTextField(isHighlighted: Bool) {
-        self.set(self.loginTextField, isHighlighted: isHighlighted)
-    }
-    
-    func setPasswordTextField(isHighlighted: Bool) {
-        self.set(self.passwordTextField, isHighlighted: isHighlighted)
-    }
 }
 
 // MARK: - UITextFieldDelegate
@@ -184,11 +176,5 @@ extension LoginViewController {
             $0.constant = Constants.defaultTextFieldHeight
         }
         self.loginButtonHeightConstraint.constant = Constants.defaultButtonHeight
-    }
-    
-    private func set(_ view: UIView, isHighlighted: Bool) {
-        view.set(
-            borderColor: .textFieldBorderColor(isHighlighted: isHighlighted),
-            animatingWithDuration: 0.3)
     }
 }
