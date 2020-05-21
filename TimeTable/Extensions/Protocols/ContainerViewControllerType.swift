@@ -17,7 +17,7 @@ extension ContainerViewControllerType {
         self.containedViews.first { !$0.isHidden }
     }
     
-    func showWithAnimation(view: UIView, duration: TimeInterval = 0.3) {
+    func showWithAnimation(view: UIView, duration: TimeInterval) {
         guard self.containedViews.contains(view) else {
             assertionFailure("View to show should exist in containedViews")
             return

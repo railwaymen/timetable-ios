@@ -83,11 +83,11 @@ extension AccountingPeriodsViewController: AccountingPeriodsViewModelOutput {
     }
     
     func showList() {
-        self.showWithAnimation(view: self.tableView)
+        self.showWithAnimation(view: self.tableView, duration: Constants.defaultTrasitionDuration)
     }
     
     func showErrorView() {
-        self.showWithAnimation(view: self.errorView)
+        self.showWithAnimation(view: self.errorView, duration: Constants.defaultTrasitionDuration)
     }
     
     func reloadData() {

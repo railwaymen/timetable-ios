@@ -58,11 +58,11 @@ extension WorkTimeContainerViewController: WorkTimeContainerViewModelOutput {
     }
     
     func showForm() {
-        self.showWithAnimation(view: self.formView)
+        self.showWithAnimation(view: self.formView, duration: Constants.defaultTrasitionDuration)
     }
     
     func showError() {
-        self.showWithAnimation(view: self.errorView)
+        self.showWithAnimation(view: self.errorView, duration: Constants.defaultTrasitionDuration)
     }
     
     func hideAllContainerViews() {
