@@ -52,16 +52,6 @@ class LoginViewControllerMock: UIViewController {
         let keyboardState: KeyboardManager.KeyboardState
     }
     
-    private(set) var setLoginTextFieldParams: [SetLoginTextFieldParams] = []
-    struct SetLoginTextFieldParams {
-        let isHighlighted: Bool
-    }
-    
-    private(set) var setPasswordTextFieldParams: [SetPasswordTextFieldParams] = []
-    struct SetPasswordTextFieldParams {
-        let isHighlighted: Bool
-    }
-    
     // MARK: - LoginViewControllerType
     private(set) var configureParams: [ConfigureParams] = []
     struct ConfigureParams {
@@ -105,14 +95,6 @@ extension LoginViewControllerMock: LoginViewModelOutput {
     
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
         self.keyboardStateDidChangeParams.append(KeyboardStateDidChangeParams(keyboardState: keyboardState))
-    }
-    
-    func setLoginTextField(isHighlighted: Bool) {
-        self.setLoginTextFieldParams.append(SetLoginTextFieldParams(isHighlighted: isHighlighted))
-    }
-    
-    func setPasswordTextField(isHighlighted: Bool) {
-        self.setPasswordTextFieldParams.append(SetPasswordTextFieldParams(isHighlighted: isHighlighted))
     }
 }
 

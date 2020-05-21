@@ -18,8 +18,6 @@ protocol LoginViewModelOutput: class {
     func dismissKeyboard()
     func setActivityIndicator(isHidden: Bool)
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState)
-    func setLoginTextField(isHighlighted: Bool)
-    func setPasswordTextField(isHighlighted: Bool)
 }
 
 protocol LoginViewModelType: class {
@@ -47,7 +45,6 @@ class LoginViewModel: KeyboardManagerObserverable {
     private var loginForm: LoginFormType {
         didSet {
             self.updateLogInButton()
-            self.updateValidation()
         }
     }
     
@@ -131,7 +128,6 @@ extension LoginViewModel: LoginViewModelType {
             self.login(with: credentials)
         } catch {
             self.updateLogInButton()
-            self.updateValidation()
         }
     }
     
@@ -144,12 +140,6 @@ extension LoginViewModel: LoginViewModelType {
 extension LoginViewModel {
     private func updateLogInButton() {
         self.userInterface?.loginButtonEnabledState(self.loginForm.isValid)
-    }
-    
-    private func updateValidation() {
-        let errors = self.loginForm.validationErrors()
-        self.userInterface?.setLoginTextField(isHighlighted: errors.contains(.emailEmpty))
-        self.userInterface?.setPasswordTextField(isHighlighted: errors.contains(.passwordEmpty))
     }
     
     private func login(with credentials: LoginCredentials) {
