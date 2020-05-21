@@ -165,7 +165,6 @@ extension TimesheetViewController: TimesheetViewModelOutput {
         self.setUpRefreshControl()
         self.setUpNavigationItem()
         self.setUpBarButtons()
-        self.setUpActivityIndicator()
         self.setUpConstraints()
         self.tableView.updateHeaderViewHeight()
         self.viewModel.configure(self.errorView)
@@ -213,7 +212,6 @@ extension TimesheetViewController: TimesheetViewModelOutput {
     
     func setActivityIndicator(isHidden: Bool) {
         self.activityIndicator.set(isAnimating: !isHidden)
-        self.activityIndicator.set(isHidden: isHidden)
     }
     
     func insertSections(_ sections: IndexSet) {
@@ -330,11 +328,6 @@ extension TimesheetViewController {
         let addImageView = self.buildImageView(image: .plus, tapAction: #selector(self.addNewRecordTapped))
         let profileImageView = self.buildImageView(image: .profile, tapAction: #selector(self.profileButtonTapped))
         navigationBar.setLargeTitleRightViews([addImageView, profileImageView])
-    }
-    
-    private func setUpActivityIndicator() {
-        self.activityIndicator.style = .large
-        self.setActivityIndicator(isHidden: true)
     }
     
     private func setUpConstraints() {
