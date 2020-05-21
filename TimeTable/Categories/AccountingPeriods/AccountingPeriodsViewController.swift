@@ -65,29 +65,29 @@ extension AccountingPeriodsViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - ContainerViewControllerType
+extension AccountingPeriodsViewController: ContainerViewControllerType {
+    var containedViews: [UIView] {
+        [self.tableView, self.errorView].compactMap { $0 }
+    }
+}
+
 // MARK: - AccountingPeriodsViewModelOutput
 extension AccountingPeriodsViewController: AccountingPeriodsViewModelOutput {
     func setUp() {
         self.title = R.string.localizable.accountingperiods_title()
-        self.tableView.register(AccountingPeriodsCell.self)
-        self.tableView.registerHeaderFooterView(AccountingPeriodsHeaderView.self)
+        self.setUpTableView()
         self.viewModel.configure(self.errorView)
         self.setBottomContentInset(isHidden: false)
-        self.hideAllViews()
+        self.hideAllContainedViews()
     }
     
     func showList() {
-        UIView.transition(with: self.tableView, duration: 0.3, animations: { [weak self] in
-            self?.tableView.set(isHidden: false)
-            self?.errorView.set(isHidden: true)
-        })
+        self.showWithAnimation(view: self.tableView, duration: Constants.defaultTrasitionDuration)
     }
     
     func showErrorView() {
-        UIView.transition(with: self.errorView, duration: 0.3, animations: { [weak self] in
-            self?.tableView.set(isHidden: true)
-            self?.errorView.set(isHidden: false)
-        })
+        self.showWithAnimation(view: self.errorView, duration: Constants.defaultTrasitionDuration)
     }
     
     func reloadData() {
@@ -119,8 +119,8 @@ extension AccountingPeriodsViewController: AccountingPeriodsViewControllerType {
 
 // MARK: - Private
 extension AccountingPeriodsViewController {
-    private func hideAllViews() {
-        self.tableView.set(isHidden: true)
-        self.errorView.set(isHidden: true)
+    private func setUpTableView() {
+        self.tableView.register(AccountingPeriodsCell.self)
+        self.tableView.registerHeaderFooterView(AccountingPeriodsHeaderView.self)
     }
 }

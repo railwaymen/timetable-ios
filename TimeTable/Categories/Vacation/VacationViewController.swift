@@ -94,32 +94,31 @@ extension VacationViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - ContainerViewControllerType
+extension VacationViewController: ContainerViewControllerType {
+    var containedViews: [UIView] {
+        [self.tableView, self.errorView].compactMap { $0 }
+    }
+}
+
 // MARK: - VacationViewModelOutput
 extension VacationViewController: VacationViewModelOutput {
     func setUpView() {
-        self.tableView.set(isHidden: true)
-        self.errorView.set(isHidden: true)
         self.setUpNavigationItem()
-        self.setUpActivityIndicator()
         self.setUpBarButtons()
         self.setUpTableHeaderView()
         self.setUpTableView()
         self.setUpRefreshControl()
+        self.hideAllContainedViews()
         self.viewModel.configure(self.errorView)
     }
     
     func showTableView() {
-        UIView.transition(with: self.tableView, duration: 0.2, animations: { [weak self] in
-            self?.tableView.set(isHidden: false)
-            self?.errorView.set(isHidden: true)
-        })
+        self.showWithAnimation(view: self.tableView, duration: Constants.slowTransitionDuration)
     }
     
     func showErrorView() {
-        UIView.transition(with: errorView, duration: 0.2, animations: { [weak self] in
-            self?.tableView.set(isHidden: true)
-            self?.errorView.set(isHidden: false)
-        })
+        self.showWithAnimation(view: self.errorView, duration: Constants.slowTransitionDuration)
     }
     
     func setActivityIndicator(isHidden: Bool) {
@@ -160,12 +159,6 @@ extension VacationViewController {
         let addImageView = self.buildImageView(image: .plus, tapAction: #selector(self.addVacationButtonTapped))
         let profileImageView = self.buildImageView(image: .profile, tapAction: #selector(self.profileButtonTapped))
         navigationBar.setLargeTitleRightViews([addImageView, profileImageView])
-    }
-    
-    private func setUpActivityIndicator() {
-        self.activityIndicator.style = .large
-        self.activityIndicator.hidesWhenStopped = true
-        self.setActivityIndicator(isHidden: true)
     }
     
     private func setUpTableHeaderView() {

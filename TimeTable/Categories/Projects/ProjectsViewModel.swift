@@ -32,8 +32,9 @@ class ProjectsViewModel {
     private let apiClient: ApiClientProjectsType
     private let errorHandler: ErrorHandlerType
     private weak var notificationCenter: NotificationCenterType?
-    private var projects: [ProjectRecordDecoder]
+    private let smoothLoadingManager: SmoothLoadingManagerType
     
+    private var projects: [ProjectRecordDecoder] = []
     private var errorViewModel: ErrorViewModelParentType?
     
     // MARK: - Initialization
@@ -49,9 +50,15 @@ class ProjectsViewModel {
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.notificationCenter = notificationCenter
-        self.projects = []
+        self.smoothLoadingManager = SmoothLoadingManager { [weak userInterface] isAnimating in
+            userInterface?.setActivityIndicator(isHidden: !isAnimating)
+        }
         
         self.setUpNotifications()
+    }
+    
+    deinit {
+        self.notificationCenter?.removeObserver(self)
     }
     
     // MARK: - Notifcations
@@ -111,9 +118,9 @@ extension ProjectsViewModel {
     }
     
     private func fetchProjects() {
-        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.smoothLoadingManager.showActivityIndicatorWithDelay()
         self.apiClient.fetchAllProjects { [weak self] result in
-            self?.userInterface?.setActivityIndicator(isHidden: true)
+            self?.smoothLoadingManager.hideActivityIndicator()
             switch result {
             case let .success(projectRecords):
                 self?.handleFetchSuccess(projectRecords: projectRecords)

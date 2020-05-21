@@ -41,6 +41,7 @@ class VacationViewModel: KeyboardManagerObserverable {
     private let apiClient: ApiClientVacationType
     private let errorHandler: ErrorHandlerType
     private let keyboardManager: KeyboardManagerable
+    private let smoothLoadingManager: SmoothLoadingManagerType
     
     private var errorViewModel: ErrorViewModelParentType?
     private weak var headerViewModel: VacationTableHeaderViewModelable?
@@ -51,13 +52,13 @@ class VacationViewModel: KeyboardManagerObserverable {
         didSet {
             switch self.decisionState {
             case let .error(error):
-                self.userInterface?.setActivityIndicator(isHidden: true)
+                self.smoothLoadingManager.hideActivityIndicator()
                 self.handleFetch(error: error)
             case let .fetched(response):
-                self.userInterface?.setActivityIndicator(isHidden: true)
+                self.smoothLoadingManager.hideActivityIndicator()
                 self.handleFetch(response: response)
             case .fetching:
-                self.userInterface?.setActivityIndicator(isHidden: false)
+                self.smoothLoadingManager.showActivityIndicatorWithDelay()
             case .refresh:
                 break
             }
@@ -84,6 +85,9 @@ class VacationViewModel: KeyboardManagerObserverable {
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.keyboardManager = keyboardManager
+        self.smoothLoadingManager = SmoothLoadingManager { [weak userInterface] isAnimating in
+            userInterface?.setActivityIndicator(isHidden: !isAnimating)
+        }
         
         self.selectedYear = Calendar.autoupdatingCurrent.component(.year, from: Date())
     }
@@ -232,9 +236,9 @@ extension VacationViewModel {
     }
     
     private func handleFetch(response: VacationResponse) {
-        self.userInterface?.showTableView()
         self.userInterface?.updateView()
         self.headerViewModel?.availableVacationDays = response.availableVacationDays
+        self.userInterface?.showTableView()
     }
     
     private func handleFetch(error: Error) {

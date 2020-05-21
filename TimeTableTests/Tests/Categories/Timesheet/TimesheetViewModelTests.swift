@@ -92,15 +92,6 @@ extension TimesheetViewModelTests {
 
 // MARK: - viewWillAppear()
 extension TimesheetViewModelTests {
-    func testViewWillAppear_fetchRequiredData_beforeFetch_showsActivityIndicator() throws {
-        //Arrange
-        let sut = try self.buildSUT()
-        //Act
-        sut.viewWillAppear()
-        //Assert
-        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
-    }
-    
     // MARK: After Successful Fetch
     func testViewWillAppear_fetchRequiredData_success_hidesActivityIndicator() throws {
         //Arrange

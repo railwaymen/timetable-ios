@@ -149,6 +149,13 @@ extension TimesheetViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - ContainerViewControllerType
+extension TimesheetViewController: ContainerViewControllerType {
+    var containedViews: [UIView] {
+        [self.tableView, self.errorView].compactMap { $0 }
+    }
+}
+
 // MARK: - TimesheetViewModelOutput
 extension TimesheetViewController: TimesheetViewModelOutput {
     func setUpView() {
@@ -158,12 +165,10 @@ extension TimesheetViewController: TimesheetViewModelOutput {
         self.setUpRefreshControl()
         self.setUpNavigationItem()
         self.setUpBarButtons()
-        self.setUpActivityIndicator()
         self.setUpConstraints()
         self.tableView.updateHeaderViewHeight()
         self.viewModel.configure(self.errorView)
-        self.tableView.set(isHidden: true)
-        self.errorView.set(isHidden: true)
+        self.hideAllContainedViews()
     }
     
     func updateColors() {
@@ -198,22 +203,15 @@ extension TimesheetViewController: TimesheetViewModelOutput {
     }
     
     func showTableView() {
-        UIView.transition(with: self.tableView, duration: 0.2, animations: { [weak self] in
-            self?.tableView.set(isHidden: false)
-            self?.errorView.set(isHidden: true)
-        })
+        self.showWithAnimation(view: self.tableView, duration: Constants.slowTransitionDuration)
     }
     
     func showErrorView() {
-        UIView.transition(with: self.errorView, duration: 0.2, animations: { [weak self] in
-            self?.tableView.set(isHidden: true)
-            self?.errorView.set(isHidden: false)
-        })
+        self.showWithAnimation(view: self.errorView, duration: Constants.slowTransitionDuration)
     }
     
     func setActivityIndicator(isHidden: Bool) {
         self.activityIndicator.set(isAnimating: !isHidden)
-        self.activityIndicator.set(isHidden: isHidden)
     }
     
     func insertSections(_ sections: IndexSet) {
@@ -330,11 +328,6 @@ extension TimesheetViewController {
         let addImageView = self.buildImageView(image: .plus, tapAction: #selector(self.addNewRecordTapped))
         let profileImageView = self.buildImageView(image: .profile, tapAction: #selector(self.profileButtonTapped))
         navigationBar.setLargeTitleRightViews([addImageView, profileImageView])
-    }
-    
-    private func setUpActivityIndicator() {
-        self.activityIndicator.style = .large
-        self.setActivityIndicator(isHidden: true)
     }
     
     private func setUpConstraints() {

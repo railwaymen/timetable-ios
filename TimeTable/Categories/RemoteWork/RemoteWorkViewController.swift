@@ -84,31 +84,30 @@ extension RemoteWorkViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - ContainerViewControllerType
+extension RemoteWorkViewController: ContainerViewControllerType {
+    var containedViews: [UIView] {
+        [self.tableView, self.errorView].compactMap { $0 }
+    }
+}
+
 // MARK: - RemoteWorkViewModelOutput
 extension RemoteWorkViewController: RemoteWorkViewModelOutput {
     func setUp() {
         self.setUpTitle()
         self.setUpBarButtons()
-        self.setUpActivityIndicator()
         self.setUpTableView()
         self.setUpRefreshControl()
-        self.tableView.set(isHidden: true)
-        self.errorView.set(isHidden: true)
+        self.hideAllContainedViews()
         self.viewModel.configure(self.errorView)
     }
     
     func showTableView() {
-        UIView.transition(with: self.tableView, duration: 0.2, animations: { [weak self] in
-            self?.tableView.set(isHidden: false)
-            self?.errorView.set(isHidden: true)
-        })
+        self.showWithAnimation(view: self.tableView, duration: Constants.slowTransitionDuration)
     }
     
     func showErrorView() {
-        UIView.transition(with: self.errorView, duration: 0.2, animations: { [weak self] in
-            self?.tableView.set(isHidden: true)
-            self?.errorView.set(isHidden: false)
-        })
+        self.showWithAnimation(view: self.errorView, duration: Constants.slowTransitionDuration)
     }
     
     func setActivityIndicator(isHidden: Bool) {
@@ -157,12 +156,6 @@ extension RemoteWorkViewController {
         let addImageView = self.buildImageView(image: .plus, tapAction: #selector(self.addNewRecordTapped))
         let profileImageView = self.buildImageView(image: .profile, tapAction: #selector(self.profileButtonTapped))
         navigationBar.setLargeTitleRightViews([addImageView, profileImageView])
-    }
-    
-    private func setUpActivityIndicator() {
-        self.activityIndicator.style = .large
-        self.activityIndicator.hidesWhenStopped = true
-        self.setActivityIndicator(isHidden: true)
     }
     
     private func setUpTableView() {

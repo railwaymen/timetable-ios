@@ -60,6 +60,7 @@ class TimesheetViewModel: KeyboardManagerObserverable {
     private let calendar: CalendarType
     private let messagePresenter: MessagePresenterType?
     private let keyboardManager: KeyboardManagerable
+    private let smoothLoadingManager: SmoothLoadingManagerType
     
     private var selectedMonth: MonthPeriod = MonthPeriod() {
         didSet {
@@ -123,6 +124,9 @@ class TimesheetViewModel: KeyboardManagerObserverable {
         self.calendar = calendar
         self.messagePresenter = messagePresenter
         self.keyboardManager = keyboardManager
+        self.smoothLoadingManager = SmoothLoadingManager { [weak userInterface] isAnimating in
+            userInterface?.setActivityIndicator(isHidden: !isAnimating)
+        }
     }
 }
 
@@ -386,10 +390,10 @@ extension TimesheetViewModel {
     
     private func fetchRequiredData() {
         guard let date = self.selectedMonth.date.unwrapped(using: self.errorHandler) else { return }
-        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.smoothLoadingManager.showActivityIndicatorWithDelay()
         self.prepareForFethingWorkTimes()
         self.contentProvider.fetchRequiredData(for: date) { [weak self] result in
-            self?.userInterface?.setActivityIndicator(isHidden: true)
+            self?.smoothLoadingManager.hideActivityIndicator()
             switch result {
             case let .success(requiredData):
                 self?.handleFetchSuccess(requiredData: requiredData)

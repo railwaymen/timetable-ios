@@ -39,6 +39,7 @@ class RemoteWorkViewModel {
     private weak var coordinator: RemoteWorkCoordinatorType?
     private let apiClient: ApiClientRemoteWorkType
     private let errorHandler: ErrorHandlerType
+    private let smoothLoadingManager: SmoothLoadingManagerType
     
     private weak var errorViewModel: ErrorViewModelParentType?
     private let tableHeightsPerPage: Int = 4
@@ -75,6 +76,9 @@ class RemoteWorkViewModel {
         self.coordinator = coordinator
         self.apiClient = apiClient
         self.errorHandler = errorHandler
+        self.smoothLoadingManager = SmoothLoadingManager { [weak userInterface] isAnimating in
+            userInterface?.setActivityIndicator(isHidden: !isAnimating)
+        }
     }
 }
 
@@ -187,12 +191,12 @@ extension RemoteWorkViewModel {
         let parameters = self.parameters(forPage: pageNumber)
         self.state = .fetching(page: pageNumber)
         if showActivityIndicator {
-            self.userInterface?.setActivityIndicator(isHidden: false)
+            self.smoothLoadingManager.showActivityIndicatorWithDelay()
         }
         _ = self.apiClient.fetchRemoteWork(parameters: parameters) { [weak self] result in
             defer { completion?() }
             if showActivityIndicator {
-                self?.userInterface?.setActivityIndicator(isHidden: true)
+                self?.smoothLoadingManager.hideActivityIndicator()
             }
             switch result {
             case let .success(response):
