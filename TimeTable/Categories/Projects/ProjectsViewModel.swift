@@ -32,10 +32,10 @@ class ProjectsViewModel {
     private let apiClient: ApiClientProjectsType
     private let errorHandler: ErrorHandlerType
     private weak var notificationCenter: NotificationCenterType?
-    private var projects: [ProjectRecordDecoder]
+    private let smoothLoadingManager: SmoothLoadingManagerType
     
+    private var projects: [ProjectRecordDecoder] = []
     private var errorViewModel: ErrorViewModelParentType?
-    private var activityIndicatorTimer: Timer?
     
     // MARK: - Initialization
     init(
@@ -50,14 +50,15 @@ class ProjectsViewModel {
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.notificationCenter = notificationCenter
-        self.projects = []
+        self.smoothLoadingManager = SmoothLoadingManager { [weak userInterface] isAnimating in
+            userInterface?.setActivityIndicator(isHidden: !isAnimating)
+        }
         
         self.setUpNotifications()
     }
     
     deinit {
         self.notificationCenter?.removeObserver(self)
-        self.activityIndicatorTimer?.invalidate()
     }
     
     // MARK: - Notifcations
@@ -117,9 +118,9 @@ extension ProjectsViewModel {
     }
     
     private func fetchProjects() {
-        self.showActivityIndicatorWithDelay()
+        self.smoothLoadingManager.showActivityIndicatorWithDelay()
         self.apiClient.fetchAllProjects { [weak self] result in
-            self?.hideActivityIndicator()
+            self?.smoothLoadingManager.hideActivityIndicator()
             switch result {
             case let .success(projectRecords):
                 self?.handleFetchSuccess(projectRecords: projectRecords)
@@ -147,16 +148,5 @@ extension ProjectsViewModel {
         self.projects = projectRecords
         self.userInterface?.updateView()
         self.userInterface?.showCollectionView()
-    }
-    
-    private func showActivityIndicatorWithDelay() {
-        self.activityIndicatorTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { [weak self] _ in
-            self?.userInterface?.setActivityIndicator(isHidden: false)
-        })
-    }
-    
-    private func hideActivityIndicator() {
-        self.activityIndicatorTimer?.invalidate()
-        self.userInterface?.setActivityIndicator(isHidden: true)
     }
 }

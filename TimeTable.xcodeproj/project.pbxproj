@@ -289,6 +289,7 @@
 		8AFF1EC024765C890042F831 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFF1EBF24765C890042F831 /* UIFont+Extension.swift */; };
 		8AFF1EC22476657F0042F831 /* Optional+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFF1EC12476657E0042F831 /* Optional+Extension.swift */; };
 		8AFF1EC4247687B70042F831 /* ContainerViewControllerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFF1EC3247687B70042F831 /* ContainerViewControllerType.swift */; };
+		8AFF1EC62476940A0042F831 /* SmoothLoadingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFF1EC52476940A0042F831 /* SmoothLoadingManager.swift */; };
 		8AFFE5C224331BDB001D9E89 /* taskVersionNullPreviousTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */; };
 		8AFFE5C424331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */; };
 		8AFFE5C624331BFB001D9E89 /* taskVersionNullCurrentTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */; };
@@ -993,6 +994,7 @@
 		8AFF1EBF24765C890042F831 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		8AFF1EC12476657E0042F831 /* Optional+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Optional+Extension.swift"; sourceTree = "<group>"; };
 		8AFF1EC3247687B70042F831 /* ContainerViewControllerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewControllerType.swift; sourceTree = "<group>"; };
+		8AFF1EC52476940A0042F831 /* SmoothLoadingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothLoadingManager.swift; sourceTree = "<group>"; };
 		8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullPreviousTask.json; sourceTree = "<group>"; };
 		8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionMissingPreviousTaskKey.json; sourceTree = "<group>"; };
 		8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullCurrentTask.json; sourceTree = "<group>"; };
@@ -2277,6 +2279,7 @@
 				C130B138246BD333002D23AB /* LocalizedDescribable.swift */,
 				C175B56B227CAACA006D9944 /* MessagePresenter.swift */,
 				8A5EF31B23FE808800AE4309 /* ReusableCellType.swift */,
+				8AFF1EC52476940A0042F831 /* SmoothLoadingManager.swift */,
 				8AD14A6C245B054900BAE803 /* TimerFormatter.swift */,
 				8A9FB4092434CABF00805F4E /* ViewControllerBuilder.swift */,
 				C1E6B34A219EF02100019DC2 /* AccessService */,
@@ -4136,6 +4139,7 @@
 				8A5D48BE2369E18C0082C13D /* DispatchGroupFactory.swift in Sources */,
 				C1249C802181B4FC005DB2A5 /* ErrorHandler.swift in Sources */,
 				8AD14A6D245B054900BAE803 /* TimerFormatter.swift in Sources */,
+				8AFF1EC62476940A0042F831 /* SmoothLoadingManager.swift in Sources */,
 				8AF3073823688C5A00832FDD /* DependencyContainer.swift in Sources */,
 				C1AACFD821A4387F0023FD32 /* TimesheetCoordinator.swift in Sources */,
 				C1B8FA44218C929F009D10B4 /* SessionDecoder.swift in Sources */,
