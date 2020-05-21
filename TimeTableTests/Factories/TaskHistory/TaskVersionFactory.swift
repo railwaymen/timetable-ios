@@ -11,98 +11,53 @@ import JSONFactorable
 @testable import TimeTable
 
 class TaskVersionFactory: JSONFactorable {
-    // swiftlint:disable:next function_parameter_count
     func build(
+        workTime: WorkTimeDecoder,
         event: TaskVersion.Event?,
         updatedBy: String,
-        updatedAt: Date,
-        projectName: NilableDiffElement<String>,
-        body: NilableDiffElement<String>,
-        startsAt: NilableDiffElement<Date>,
-        endsAt: NilableDiffElement<Date>,
-        tag: NilableDiffElement<ProjectTag>,
-        duration: NilableDiffElement<Int64>,
-        task: NilableDiffElement<String>,
-        taskPreview: NilableDiffElement<String>
+        createdAt: Date,
+        changeset: Set<TaskVersion.Change>
     ) throws -> TaskVersion {
         let wrapper = Wrapper(
+            workTime: workTime,
             event: event,
             updatedBy: updatedBy,
-            updatedAt: updatedAt,
-            projectName: projectName,
-            body: body,
-            startsAt: startsAt,
-            endsAt: endsAt,
-            tag: tag,
-            duration: duration,
-            task: task,
-            taskPreview: taskPreview)
+            createdAt: createdAt,
+            changeset: changeset)
         return try self.buildObject(of: wrapper.jsonConvertible())
     }
 }
 
 extension TaskVersionFactory {
     struct Wrapper: TaskVersionFieldsProtocol {
+        let workTime: WorkTimeDecoder
         let event: TaskVersion.Event?
         let updatedBy: String
-        let updatedAt: Date
-        let projectName: NilableDiffElement<String>
-        let body: NilableDiffElement<String>
-        let startsAt: NilableDiffElement<Date>
-        let endsAt: NilableDiffElement<Date>
-        let tag: NilableDiffElement<ProjectTag>
-        let duration: NilableDiffElement<Int64>
-        let task: NilableDiffElement<String>
-        let taskPreview: NilableDiffElement<String>
+        let createdAt: Date
+        let changeset: Set<TaskVersion.Change>
         
         init(
+            workTime: WorkTimeDecoder,
             event: TaskVersion.Event?,
             updatedBy: String,
-            updatedAt: Date,
-            projectName: NilableDiffElement<String>,
-            body: NilableDiffElement<String>,
-            startsAt: NilableDiffElement<Date>,
-            endsAt: NilableDiffElement<Date>,
-            tag: NilableDiffElement<ProjectTag>,
-            duration: NilableDiffElement<Int64>,
-            task: NilableDiffElement<String>,
-            taskPreview: NilableDiffElement<String>
+            createdAt: Date,
+            changeset: Set<TaskVersion.Change>
         ) {
+            self.workTime = workTime
             self.event = event
             self.updatedBy = updatedBy
-            self.updatedAt = updatedAt
-            self.projectName = projectName
-            self.body = body
-            self.startsAt = startsAt
-            self.endsAt = endsAt
-            self.tag = tag
-            self.duration = duration
-            self.task = task
-            self.taskPreview = taskPreview
+            self.createdAt = createdAt
+            self.changeset = changeset
         }
         
-        func jsonConvertible() -> AnyJSONConvertible {
-            return [
-                "event": AnyJSONConvertible(self.event),
-                "updated_by": AnyJSONConvertible(self.updatedBy),
-                "created_at": AnyJSONConvertible(self.updatedAt),
-                "project_name_was": AnyJSONConvertible(self.projectName.previous),
-                "project_name": AnyJSONConvertible(self.projectName.current),
-                "body_was": AnyJSONConvertible(self.body.previous),
-                "body": AnyJSONConvertible(self.body.current),
-                "starts_at_was": AnyJSONConvertible(self.startsAt.previous),
-                "starts_at": AnyJSONConvertible(self.startsAt.current),
-                "ends_at_was": AnyJSONConvertible(self.endsAt.previous),
-                "ends_at": AnyJSONConvertible(self.endsAt.current),
-                "tag_was": AnyJSONConvertible(self.tag.previous),
-                "tag": AnyJSONConvertible(self.tag.current),
-                "duration_was": AnyJSONConvertible(self.duration.previous),
-                "duration": AnyJSONConvertible(self.duration.current),
-                "task_was": AnyJSONConvertible(self.task.previous),
-                "task": AnyJSONConvertible(self.task.current),
-                "task_preview_was": AnyJSONConvertible(self.taskPreview.previous),
-                "task_preview": AnyJSONConvertible(self.taskPreview.current)
-            ]
+        func jsonConvertible() throws -> AnyJSONConvertible {
+          let jsonConvertible: AnyJSONConvertible = [
+            "event": AnyJSONConvertible(self.event),
+            "updated_by": AnyJSONConvertible(self.updatedBy),
+            "created_at": AnyJSONConvertible(self.createdAt),
+            "changeset": AnyJSONConvertible(self.changeset)
+          ]
+          return try AnyJSONConvertible(self.workTime).merge(with: jsonConvertible)
         }
     }
 }
@@ -110,22 +65,22 @@ extension TaskVersionFactory {
 extension TaskVersion: JSONObjectType {
     public func jsonConvertible() throws -> JSONConvertible {
         let wrapper = TaskVersionFactory.Wrapper(
+            workTime: self.workTime,
             event: self.event,
             updatedBy: self.updatedBy,
-            updatedAt: self.updatedAt,
-            projectName: self.projectName,
-            body: self.body,
-            startsAt: self.startsAt,
-            endsAt: self.endsAt,
-            tag: self.tag,
-            duration: self.duration,
-            task: self.task,
-            taskPreview: self.taskPreview)
-        return wrapper.jsonConvertible()
+            createdAt: self.createdAt,
+            changeset: self.changeset)
+        return try wrapper.jsonConvertible()
     }
 }
 
 extension TaskVersion.Event: JSONObjectType {
+    public func jsonConvertible() throws -> JSONConvertible {
+        self.rawValue
+    }
+}
+
+extension TaskVersion.Change: JSONObjectType {
     public func jsonConvertible() throws -> JSONConvertible {
         self.rawValue
     }
