@@ -11,4 +11,5 @@ import UIKit
 struct Constants {
     static let defaultTextFieldHeight: CGFloat = 40
     static let defaultButtonHeight: CGFloat = 40
+    static let slowTransitionDuration: TimeInterval = 0.6
 }

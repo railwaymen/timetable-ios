@@ -74,6 +74,13 @@ extension ProjectsViewController: ProjectsCollectionViewLayoutDelegate {
     }
 }
 
+// MARK: - ContainerViewControllerType
+extension ProjectsViewController: ContainerViewControllerType {
+    var containedViews: [UIView] {
+        [self.collectionView, self.errorView].compactMap { $0 }
+    }
+}
+
 // MARK: - ProjectsViewModelOutput
 extension ProjectsViewController: ProjectsViewModelOutput {
     func setUpView() {
@@ -83,6 +90,7 @@ extension ProjectsViewController: ProjectsViewModelOutput {
         self.setUpErrorView()
         self.setUpRefreshControl()
         self.setUpBarButtons()
+        self.hideAllContainedViews()
     }
     
     func updateView() {
@@ -90,17 +98,11 @@ extension ProjectsViewController: ProjectsViewModelOutput {
     }
     
     func showCollectionView() {
-        UIView.transition(with: collectionView, duration: 0.2, animations: { [weak self] in
-            self?.collectionView.set(isHidden: false)
-            self?.errorView.set(isHidden: true)
-        })
+        self.showWithAnimation(view: self.collectionView, duration: Constants.slowTransitionDuration)
     }
     
     func showErrorView() {
-        UIView.transition(with: errorView, duration: 0.2, animations: { [weak self] in
-            self?.collectionView.set(isHidden: true)
-            self?.errorView.set(isHidden: false)
-        })
+        self.showWithAnimation(view: self.errorView, duration: Constants.slowTransitionDuration)
     }
     
     func setActivityIndicator(isHidden: Bool) {
@@ -133,11 +135,9 @@ extension ProjectsViewController {
         if let layout = self.collectionView.collectionViewLayout as? ProjectsCollectionViewLayout {
             layout.delegate = self
         }
-        self.collectionView.set(isHidden: true)
     }
     
     private func setUpErrorView() {
-        self.errorView.set(isHidden: true)
         self.viewModel.configure(self.errorView)
     }
     
