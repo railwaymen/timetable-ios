@@ -16,6 +16,7 @@ protocol LoginViewControllerType: class {
 
 class LoginViewController: UIViewController {
     @IBOutlet private var scrollView: UIScrollView!
+    @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var loginTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
     @IBOutlet private var checkBoxButton: CheckBoxButton!
@@ -74,6 +75,7 @@ class LoginViewController: UIViewController {
 extension LoginViewController: LoginViewModelOutput {
     func setUpView(checkBoxIsActive: Bool) {
         self.checkBoxButton.isActive = checkBoxIsActive
+        self.titleLabel.font = UIFont.preferredFont(forTextStyle: .largeTitle, compatibleWith: self.traitCollection).bold()
         self.setUpLoginTextField()
         self.setUpPasswordTextField()
         self.setUpLoginButtonColors()

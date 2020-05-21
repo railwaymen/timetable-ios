@@ -19,6 +19,7 @@ protocol ServerConfigurationViewControllerType: class {
 
 class ServerConfigurationViewController: UIViewController {
     @IBOutlet private var scrollView: UIScrollView!
+    @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var continueButton: LoadingButton!
     @IBOutlet private var serverAddressTextField: UITextField!
     
@@ -86,6 +87,7 @@ extension ServerConfigurationViewController: ServerConfigurationViewControllerTy
 // MARK: - ServerConfigurationViewModelOutput
 extension ServerConfigurationViewController: ServerConfigurationViewModelOutput {
     func setUpView(serverAddress: String) {
+        self.titleLabel.font = UIFont.preferredFont(forTextStyle: .largeTitle, compatibleWith: self.traitCollection).bold()
         self.serverAddressTextField.text = serverAddress
         self.serverAddressTextField.setTextFieldAppearance()
         self.setUpContinueButtonColors()

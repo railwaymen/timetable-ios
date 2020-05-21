@@ -286,7 +286,7 @@
 		8AFBC3642462F8ED00032B96 /* RegisterRemoteWorkViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC3632462F8ED00032B96 /* RegisterRemoteWorkViewControllerMock.swift */; };
 		8AFBC3662463DCBF00032B96 /* RemoteWorkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC3652463DCBF00032B96 /* RemoteWorkRequest.swift */; };
 		8AFBC3682463DD4700032B96 /* RemoteWorkRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC3672463DD4700032B96 /* RemoteWorkRequestTests.swift */; };
-		8AFF1EBE24764B5A0042F831 /* Optional+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFF1EBD24764B5A0042F831 /* Optional+Extension.swift */; };
+		8AFF1EC024765C890042F831 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFF1EBF24765C890042F831 /* UIFont+Extension.swift */; };
 		8AFFE5C224331BDB001D9E89 /* taskVersionNullPreviousTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */; };
 		8AFFE5C424331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */; };
 		8AFFE5C624331BFB001D9E89 /* taskVersionNullCurrentTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */; };
@@ -989,6 +989,7 @@
 		8AFBC3652463DCBF00032B96 /* RemoteWorkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkRequest.swift; sourceTree = "<group>"; };
 		8AFBC3672463DD4700032B96 /* RemoteWorkRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkRequestTests.swift; sourceTree = "<group>"; };
 		8AFF1EBD24764B5A0042F831 /* Optional+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Extension.swift"; sourceTree = "<group>"; };
+		8AFF1EBF24765C890042F831 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullPreviousTask.json; sourceTree = "<group>"; };
 		8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionMissingPreviousTaskKey.json; sourceTree = "<group>"; };
 		8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullCurrentTask.json; sourceTree = "<group>"; };
@@ -2709,6 +2710,7 @@
 				C122602021899F82007D64A3 /* URLSessionDataTask+Extension.swift */,
 				C1F7C2E121904E0900F4FAF0 /* UserDefaults+Extension.swift */,
 				C153AC4F2182EFB5007A35BB /* Protocols */,
+				8AFF1EBF24765C890042F831 /* UIFont+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -4149,6 +4151,7 @@
 				C1FE49E821AC458F00E37E28 /* TimesheetSectionHeaderView.swift in Sources */,
 				C1ECF0A52192C37E006038C6 /* CustomJSONSerialization.swift in Sources */,
 				C1A47BEF2459934800FDA7F0 /* VacationStatus.swift in Sources */,
+				8AFF1EC024765C890042F831 /* UIFont+Extension.swift in Sources */,
 				8A79A24B2420D6840048B44B /* TaskVersion.swift in Sources */,
 				C153AC6B218324DB007A35BB /* UIError.swift in Sources */,
 				8A5D48C02369E1A30082C13D /* DispatchGroup+Extension.swift in Sources */,
