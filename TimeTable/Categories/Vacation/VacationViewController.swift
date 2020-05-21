@@ -20,6 +20,7 @@ class VacationViewController: UIViewController {
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private let tableViewEstimatedRowHeight: CGFloat = 60
+    private let transitionDuration: TimeInterval = 0.6
     private var viewModel: VacationViewModelType!
 
     // MARK: - Overridden
@@ -94,32 +95,32 @@ extension VacationViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - ContainerViewControllerType
+extension VacationViewController: ContainerViewControllerType {
+    var containedViews: [UIView] {
+        [self.tableView, self.errorView].compactMap { $0 }
+    }
+}
+
 // MARK: - VacationViewModelOutput
 extension VacationViewController: VacationViewModelOutput {
     func setUpView() {
-        self.tableView.set(isHidden: true)
-        self.errorView.set(isHidden: true)
         self.setUpNavigationItem()
         self.setUpActivityIndicator()
         self.setUpBarButtons()
         self.setUpTableHeaderView()
         self.setUpTableView()
         self.setUpRefreshControl()
+        self.hideAllContainedViews()
         self.viewModel.configure(self.errorView)
     }
     
     func showTableView() {
-        UIView.transition(with: self.tableView, duration: 0.2, animations: { [weak self] in
-            self?.tableView.set(isHidden: false)
-            self?.errorView.set(isHidden: true)
-        })
+        self.showWithAnimation(view: self.tableView, duration: self.transitionDuration)
     }
     
     func showErrorView() {
-        UIView.transition(with: errorView, duration: 0.2, animations: { [weak self] in
-            self?.tableView.set(isHidden: true)
-            self?.errorView.set(isHidden: false)
-        })
+        self.showWithAnimation(view: self.errorView, duration: self.transitionDuration)
     }
     
     func setActivityIndicator(isHidden: Bool) {

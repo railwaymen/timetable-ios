@@ -288,6 +288,7 @@
 		8AFBC3682463DD4700032B96 /* RemoteWorkRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC3672463DD4700032B96 /* RemoteWorkRequestTests.swift */; };
 		8AFF1EC024765C890042F831 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFF1EBF24765C890042F831 /* UIFont+Extension.swift */; };
 		8AFF1EC22476657F0042F831 /* Optional+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFF1EC12476657E0042F831 /* Optional+Extension.swift */; };
+		8AFF1EC4247687B70042F831 /* ContainerViewControllerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFF1EC3247687B70042F831 /* ContainerViewControllerType.swift */; };
 		8AFFE5C224331BDB001D9E89 /* taskVersionNullPreviousTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */; };
 		8AFFE5C424331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */; };
 		8AFFE5C624331BFB001D9E89 /* taskVersionNullCurrentTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */; };
@@ -991,6 +992,7 @@
 		8AFBC3672463DD4700032B96 /* RemoteWorkRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkRequestTests.swift; sourceTree = "<group>"; };
 		8AFF1EBF24765C890042F831 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		8AFF1EC12476657E0042F831 /* Optional+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Optional+Extension.swift"; sourceTree = "<group>"; };
+		8AFF1EC3247687B70042F831 /* ContainerViewControllerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewControllerType.swift; sourceTree = "<group>"; };
 		8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullPreviousTask.json; sourceTree = "<group>"; };
 		8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionMissingPreviousTaskKey.json; sourceTree = "<group>"; };
 		8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullCurrentTask.json; sourceTree = "<group>"; };
@@ -2719,6 +2721,7 @@
 		C153AC4F2182EFB5007A35BB /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				8AFF1EC3247687B70042F831 /* ContainerViewControllerType.swift */,
 				C153AC4D2182EF82007A35BB /* UIElementLocalizedType.swift */,
 			);
 			path = Protocols;
@@ -4276,6 +4279,7 @@
 				C1ECF09D2192BB51006038C6 /* RequestEncoder.swift in Sources */,
 				C153AC512182EFEC007A35BB /* UIButton+Extension.swift in Sources */,
 				C1EF3A05219303A7000E3511 /* NSRegularExpression+Extension.swift in Sources */,
+				8AFF1EC4247687B70042F831 /* ContainerViewControllerType.swift in Sources */,
 				8AFBC3592462981300032B96 /* MonthYearPickerView.swift in Sources */,
 				C1249C742181A3D0005DB2A5 /* AppCoordinator.swift in Sources */,
 				C12CA56A21A57ADD0082FEB7 /* UIColor+Extension.swift in Sources */,

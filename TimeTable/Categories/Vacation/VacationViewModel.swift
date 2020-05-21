@@ -232,9 +232,9 @@ extension VacationViewModel {
     }
     
     private func handleFetch(response: VacationResponse) {
-        self.userInterface?.showTableView()
         self.userInterface?.updateView()
         self.headerViewModel?.availableVacationDays = response.availableVacationDays
+        self.userInterface?.showTableView()
     }
     
     private func handleFetch(error: Error) {
