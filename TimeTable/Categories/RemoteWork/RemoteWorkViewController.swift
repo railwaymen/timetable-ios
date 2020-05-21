@@ -22,6 +22,7 @@ class RemoteWorkViewController: UIViewController {
     private var viewModel: RemoteWorkViewModelType!
     
     private let minimumCellHeight: CGFloat = 74
+    private let transitionDuration: TimeInterval = 0.6
     
     // MARK: - Overridden
     override func loadView() {
@@ -84,6 +85,13 @@ extension RemoteWorkViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - ContainerViewControllerType
+extension RemoteWorkViewController: ContainerViewControllerType {
+    var containedViews: [UIView] {
+        [self.tableView, self.errorView].compactMap { $0 }
+    }
+}
+
 // MARK: - RemoteWorkViewModelOutput
 extension RemoteWorkViewController: RemoteWorkViewModelOutput {
     func setUp() {
@@ -92,23 +100,16 @@ extension RemoteWorkViewController: RemoteWorkViewModelOutput {
         self.setUpActivityIndicator()
         self.setUpTableView()
         self.setUpRefreshControl()
-        self.tableView.set(isHidden: true)
-        self.errorView.set(isHidden: true)
+        self.hideAllContainedViews()
         self.viewModel.configure(self.errorView)
     }
     
     func showTableView() {
-        UIView.transition(with: self.tableView, duration: 0.2, animations: { [weak self] in
-            self?.tableView.set(isHidden: false)
-            self?.errorView.set(isHidden: true)
-        })
+        self.showWithAnimation(view: self.tableView, duration: self.transitionDuration)
     }
     
     func showErrorView() {
-        UIView.transition(with: self.errorView, duration: 0.2, animations: { [weak self] in
-            self?.tableView.set(isHidden: true)
-            self?.errorView.set(isHidden: false)
-        })
+        self.showWithAnimation(view: self.errorView, duration: self.transitionDuration)
     }
     
     func setActivityIndicator(isHidden: Bool) {
