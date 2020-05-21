@@ -115,8 +115,8 @@ extension LoginViewController: LoginViewModelOutput {
         self.view.endEditing(true)
     }
     
-    func setActivityIndicator(isHidden: Bool) {
-        self.loginButton.set(isLoading: !isHidden)
+    func setActivityIndicator(isAnimating: Bool) {
+        self.loginButton.set(isLoading: isAnimating)
     }
     
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {

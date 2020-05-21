@@ -211,7 +211,7 @@ extension LoginViewModelTests {
         XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.count, 1)
         XCTAssertEqual(self.coordinatorMock.loginDidFinishParams.last?.state, .loggedInCorrectly)
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
-        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isAnimating))
     }
     
     func testViewRequestedToLogin_contentProviderReturnsTestError() throws {
@@ -227,7 +227,7 @@ extension LoginViewModelTests {
         let error = try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? TestError)
         XCTAssertEqual(error, expectedError)
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isAnimating))
     }
 }
 

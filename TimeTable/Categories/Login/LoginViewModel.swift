@@ -16,7 +16,7 @@ protocol LoginViewModelOutput: class {
     func focusOnPasswordTextField()
     func checkBoxIsActiveState(_ isActive: Bool)
     func dismissKeyboard()
-    func setActivityIndicator(isHidden: Bool)
+    func setActivityIndicator(isAnimating: Bool)
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState)
 }
 
@@ -143,7 +143,7 @@ extension LoginViewModel {
     }
     
     private func login(with credentials: LoginCredentials) {
-        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.userInterface?.setActivityIndicator(isAnimating: true)
         self.contentProvider.login(
             with: credentials,
             shouldSaveUser: self.loginForm.shouldRememberUser) { [weak self] result in
@@ -157,7 +157,7 @@ extension LoginViewModel {
     }
     
     private func handleLoginFailure(error: Error) {
-        self.userInterface?.setActivityIndicator(isHidden: true)
+        self.userInterface?.setActivityIndicator(isAnimating: false)
         self.errorHandler.throwing(error: error)
     }
 }
