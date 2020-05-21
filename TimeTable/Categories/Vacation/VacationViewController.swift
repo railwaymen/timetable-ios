@@ -20,7 +20,6 @@ class VacationViewController: UIViewController {
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private let tableViewEstimatedRowHeight: CGFloat = 60
-    private let transitionDuration: TimeInterval = 0.6
     private var viewModel: VacationViewModelType!
 
     // MARK: - Overridden
@@ -116,11 +115,11 @@ extension VacationViewController: VacationViewModelOutput {
     }
     
     func showTableView() {
-        self.showWithAnimation(view: self.tableView, duration: self.transitionDuration)
+        self.showWithAnimation(view: self.tableView, duration: Constants.slowTransitionDuration)
     }
     
     func showErrorView() {
-        self.showWithAnimation(view: self.errorView, duration: self.transitionDuration)
+        self.showWithAnimation(view: self.errorView, duration: Constants.slowTransitionDuration)
     }
     
     func setActivityIndicator(isHidden: Bool) {

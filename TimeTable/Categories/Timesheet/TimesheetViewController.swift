@@ -31,7 +31,6 @@ class TimesheetViewController: UIViewController {
 
     private let tableViewEstimatedRowHeight: CGFloat = 150
     private let heightForHeader: CGFloat = 50
-    private let transitionDuration: TimeInterval = 0.6
     private var viewModel: TimesheetViewModelType!
     
     // MARK: - Overridden
@@ -205,11 +204,11 @@ extension TimesheetViewController: TimesheetViewModelOutput {
     }
     
     func showTableView() {
-        self.showWithAnimation(view: self.tableView, duration: self.transitionDuration)
+        self.showWithAnimation(view: self.tableView, duration: Constants.slowTransitionDuration)
     }
     
     func showErrorView() {
-        self.showWithAnimation(view: self.errorView, duration: self.transitionDuration)
+        self.showWithAnimation(view: self.errorView, duration: Constants.slowTransitionDuration)
     }
     
     func setActivityIndicator(isHidden: Bool) {

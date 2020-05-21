@@ -22,7 +22,6 @@ class RemoteWorkViewController: UIViewController {
     private var viewModel: RemoteWorkViewModelType!
     
     private let minimumCellHeight: CGFloat = 74
-    private let transitionDuration: TimeInterval = 0.6
     
     // MARK: - Overridden
     override func loadView() {
@@ -105,11 +104,11 @@ extension RemoteWorkViewController: RemoteWorkViewModelOutput {
     }
     
     func showTableView() {
-        self.showWithAnimation(view: self.tableView, duration: self.transitionDuration)
+        self.showWithAnimation(view: self.tableView, duration: Constants.slowTransitionDuration)
     }
     
     func showErrorView() {
-        self.showWithAnimation(view: self.errorView, duration: self.transitionDuration)
+        self.showWithAnimation(view: self.errorView, duration: Constants.slowTransitionDuration)
     }
     
     func setActivityIndicator(isHidden: Bool) {
