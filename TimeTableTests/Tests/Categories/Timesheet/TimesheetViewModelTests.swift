@@ -101,7 +101,7 @@ extension TimesheetViewModelTests {
         sut.viewWillAppear()
         self.contentProvider.fetchRequiredDataParams.last?.completion(.success(requiredData))
         //Assert
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isAnimating))
     }
 
     func testViewWillAppear_fetchRequiredData_success_beforeUILayout_doesNotUpdateUI() throws {
@@ -149,7 +149,7 @@ extension TimesheetViewModelTests {
         sut.viewWillAppear()
         self.contentProvider.fetchRequiredDataParams.last?.completion(.failure(error))
         //Assert
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isAnimating))
     }
     
     func testViewWillAppear_fetchRequiredData_failure_showsErrorView() throws {
