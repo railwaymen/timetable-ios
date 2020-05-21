@@ -96,7 +96,6 @@ extension RemoteWorkViewController: RemoteWorkViewModelOutput {
     func setUp() {
         self.setUpTitle()
         self.setUpBarButtons()
-        self.setUpActivityIndicator()
         self.setUpTableView()
         self.setUpRefreshControl()
         self.hideAllContainedViews()
@@ -157,12 +156,6 @@ extension RemoteWorkViewController {
         let addImageView = self.buildImageView(image: .plus, tapAction: #selector(self.addNewRecordTapped))
         let profileImageView = self.buildImageView(image: .profile, tapAction: #selector(self.profileButtonTapped))
         navigationBar.setLargeTitleRightViews([addImageView, profileImageView])
-    }
-    
-    private func setUpActivityIndicator() {
-        self.activityIndicator.style = .large
-        self.activityIndicator.hidesWhenStopped = true
-        self.setActivityIndicator(isHidden: true)
     }
     
     private func setUpTableView() {
