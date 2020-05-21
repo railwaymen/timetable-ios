@@ -105,7 +105,6 @@ extension VacationViewController: ContainerViewControllerType {
 extension VacationViewController: VacationViewModelOutput {
     func setUpView() {
         self.setUpNavigationItem()
-        self.setUpActivityIndicator()
         self.setUpBarButtons()
         self.setUpTableHeaderView()
         self.setUpTableView()
@@ -160,12 +159,6 @@ extension VacationViewController {
         let addImageView = self.buildImageView(image: .plus, tapAction: #selector(self.addVacationButtonTapped))
         let profileImageView = self.buildImageView(image: .profile, tapAction: #selector(self.profileButtonTapped))
         navigationBar.setLargeTitleRightViews([addImageView, profileImageView])
-    }
-    
-    private func setUpActivityIndicator() {
-        self.activityIndicator.style = .large
-        self.activityIndicator.hidesWhenStopped = true
-        self.setActivityIndicator(isHidden: true)
     }
     
     private func setUpTableHeaderView() {
