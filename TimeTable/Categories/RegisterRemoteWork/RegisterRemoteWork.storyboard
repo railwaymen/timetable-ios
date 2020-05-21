@@ -153,7 +153,7 @@
                                     <constraint firstAttribute="bottom" secondItem="GRa-xb-hMH" secondAttribute="bottom" constant="16" id="xK1-AH-KwG"/>
                                 </constraints>
                             </scrollView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="xug-eL-lyb">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="xug-eL-lyb">
                                 <rect key="frame" x="150" y="362" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>

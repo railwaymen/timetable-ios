@@ -99,8 +99,8 @@ extension RegisterRemoteWorkViewControllerMock: RegisterRemoteWorkViewModelOutpu
         self.updateColorsParams.append(UpdateColorsParams())
     }
     
-    func setActivityIndicator(isHidden: Bool) {
-        self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isHidden))
+    func setActivityIndicator(isAnimating: Bool) {
+        self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isAnimating))
     }
     
     func setNote(text: String) {
