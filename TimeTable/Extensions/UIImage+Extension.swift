@@ -10,7 +10,7 @@ import UIKit
 
 extension UIImage {
     static let profile: UIImage = {
-        let image = UIImage(systemName: "person.crop.circle.fill")
+        let image = UIImage(systemName: "person.crop.circle")
         assert(image != nil)
         return image ?? #imageLiteral(resourceName: "profile_icon")
     }()
