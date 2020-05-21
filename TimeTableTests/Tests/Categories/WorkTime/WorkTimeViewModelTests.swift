@@ -338,7 +338,7 @@ extension WorkTimeViewModelTests {
         sut.viewRequestedToSave()
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
-        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isAnimating))
     }
     
     func testViewRequestedToSave_beforeRequest_callsContentProvider() {
@@ -358,7 +358,7 @@ extension WorkTimeViewModelTests {
         try XCTUnwrap(self.contentProviderMock.saveTaskParams.last).completion(.success(Void()))
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isAnimating))
     }
     
     func testViewRequestedToSave_resultSuccess_dismissesView() throws {
@@ -381,7 +381,7 @@ extension WorkTimeViewModelTests {
         try XCTUnwrap(self.contentProviderMock.saveTaskParams.last).completion(.failure(error))
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isAnimating))
     }
     
     func testViewRequestedToSave_resultFailure_doesNotDismissView() throws {
