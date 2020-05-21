@@ -16,18 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="time_table_background" translatesAutoresizingMaskIntoConstraints="NO" id="8ok-jl-LPk">
-                                <rect key="frame" x="-15" y="0.0" width="250" height="250"/>
-                                <color key="tintColor" name="Tint"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="250" id="CYg-em-sI3">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="400"/>
-                                    </constraint>
-                                    <constraint firstAttribute="width" constant="250" id="OnZ-vP-ba8">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="400"/>
-                                    </constraint>
-                                </constraints>
-                            </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="always" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="Mja-sZ-MsA">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
@@ -39,24 +27,24 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wbE-kq-85y">
-                                        <rect key="frame" x="20" y="120" width="354" height="298.5"/>
+                                        <rect key="frame" x="20" y="120" width="354" height="301"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="KzO-HO-fdV">
-                                                <rect key="frame" x="0.0" y="0.0" width="354" height="298.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="354" height="301"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="iWm-rG-Wk1">
-                                                        <rect key="frame" x="0.0" y="0.0" width="354" height="67.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="354" height="70"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RbS-IW-I5Q">
-                                                                <rect key="frame" x="0.0" y="0.0" width="354" height="33.5"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="354" height="36"/>
+                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                                                 <nil key="highlightedColor"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedStringKey" value="credential_title"/>
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Enter your TimeTable server URL." lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="OiT-o1-SxI">
-                                                                <rect key="frame" x="0.0" y="49.5" width="354" height="18"/>
+                                                                <rect key="frame" x="0.0" y="52" width="354" height="18"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <nil key="highlightedColor"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -66,7 +54,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z1B-zV-UZJ" customClass="AttributedTextField" customModule="TimeTable" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="91.5" width="354" height="35"/>
+                                                        <rect key="frame" x="0.0" y="94" width="354" height="35"/>
                                                         <color key="tintColor" name="Crimson"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="loginTextField"/>
                                                         <constraints>
@@ -83,7 +71,7 @@
                                                         </connections>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" textAlignment="justified" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zsz-ds-g8F" customClass="AttributedTextField" customModule="TimeTable" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="150.5" width="354" height="35"/>
+                                                        <rect key="frame" x="0.0" y="153" width="354" height="35"/>
                                                         <color key="tintColor" name="Crimson"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="passwordTextField"/>
                                                         <constraints>
@@ -100,7 +88,7 @@
                                                         </connections>
                                                     </textField>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="grs-fy-Sga">
-                                                        <rect key="frame" x="0.0" y="209.5" width="354" height="25"/>
+                                                        <rect key="frame" x="0.0" y="212" width="354" height="25"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Hy-Wy-5Er" customClass="CheckBoxButton" customModule="TimeTable" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
@@ -136,7 +124,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i9V-Qh-o4R" customClass="LoadingButton" customModule="TimeTable" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="258.5" width="354" height="40"/>
+                                                        <rect key="frame" x="0.0" y="261" width="354" height="40"/>
                                                         <color key="backgroundColor" red="0.80000000000000004" green="0.078431372550000003" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="loginButton"/>
                                                         <constraints>
@@ -185,11 +173,9 @@
                         <constraints>
                             <constraint firstItem="Mja-sZ-MsA" firstAttribute="leading" secondItem="ajj-cK-AHp" secondAttribute="leading" id="2kK-U6-VP9"/>
                             <constraint firstItem="ajj-cK-AHp" firstAttribute="trailing" secondItem="Mja-sZ-MsA" secondAttribute="trailing" id="IH6-cT-NQ8"/>
-                            <constraint firstItem="8ok-jl-LPk" firstAttribute="top" secondItem="oPN-yH-xSv" secondAttribute="top" id="USH-Pc-NJA"/>
                             <constraint firstItem="rLK-5Q-lVE" firstAttribute="width" secondItem="oPN-yH-xSv" secondAttribute="width" multiplier="0.951691" id="dB7-Gd-fc1"/>
                             <constraint firstItem="Mja-sZ-MsA" firstAttribute="top" secondItem="oPN-yH-xSv" secondAttribute="top" id="doc-Vb-NMH"/>
                             <constraint firstAttribute="bottom" secondItem="Mja-sZ-MsA" secondAttribute="bottom" id="lTI-0O-vBO"/>
-                            <constraint firstItem="8ok-jl-LPk" firstAttribute="leading" secondItem="ajj-cK-AHp" secondAttribute="leading" constant="-15" id="q9O-Ee-oIX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ajj-cK-AHp"/>
                         <connections>
@@ -203,6 +189,7 @@
                         <outlet property="loginTextField" destination="Z1B-zV-UZJ" id="YHF-sk-owN"/>
                         <outlet property="passwordTextField" destination="zsz-ds-g8F" id="cUw-dS-I6q"/>
                         <outlet property="scrollView" destination="Mja-sZ-MsA" id="vYM-GZ-mBV"/>
+                        <outlet property="titleLabel" destination="RbS-IW-I5Q" id="LB0-CL-Uvl"/>
                         <outletCollection property="textFieldHeightConstraints" destination="RuR-st-rhm" collectionClass="NSMutableArray" id="y9d-hP-z5H"/>
                         <outletCollection property="textFieldHeightConstraints" destination="W4a-KH-9gl" collectionClass="NSMutableArray" id="Bvh-2C-LEx"/>
                     </connections>
@@ -218,7 +205,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="time_table_background" width="584" height="585"/>
         <namedColor name="Crimson">
             <color red="0.79607843137254897" green="0.078431372549019607" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
