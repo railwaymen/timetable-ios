@@ -32,7 +32,7 @@ class ServerConfigurationViewControllerMock: UIViewController {
     
     private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
     struct SetActivityIndicatorParams {
-        let isHidden: Bool
+        let isAnimating: Bool
     }
     
     private(set) var keyboardStateDidChangeParams: [KeyboardStateDidChangeParams] = []
@@ -68,8 +68,8 @@ extension ServerConfigurationViewControllerMock: ServerConfigurationViewModelOut
         self.dismissKeyboardParams.append(DismissKeyboardParams())
     }
     
-    func setActivityIndicator(isHidden: Bool) {
-        self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isHidden))
+    func setActivityIndicator(isAnimating: Bool) {
+        self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isAnimating: isAnimating))
     }
     
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {

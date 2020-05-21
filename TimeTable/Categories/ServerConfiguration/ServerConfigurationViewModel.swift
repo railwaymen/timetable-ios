@@ -12,7 +12,7 @@ protocol ServerConfigurationViewModelOutput: class {
     func setUpView(serverAddress: String)
     func continueButtonEnabledState(_ isEnabled: Bool)
     func dismissKeyboard()
-    func setActivityIndicator(isHidden: Bool)
+    func setActivityIndicator(isAnimating: Bool)
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState)
     func updateColors()
 }
@@ -83,9 +83,9 @@ extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
             return
         }
         let configuration = ServerConfiguration(host: hostURL)
-        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.userInterface?.setActivityIndicator(isAnimating: true)
         self.serverConfigurationManager.verify(configuration: configuration) { [weak self] result in
-            self?.userInterface?.setActivityIndicator(isHidden: true)
+            self?.userInterface?.setActivityIndicator(isAnimating: false)
             switch result {
             case .success:
                 self?.coordinator?.serverConfigurationDidFinish(with: configuration)

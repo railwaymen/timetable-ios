@@ -102,8 +102,8 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
         self.view.endEditing(true)
     }
     
-    func setActivityIndicator(isHidden: Bool) {
-        self.continueButton.set(isLoading: !isHidden)
+    func setActivityIndicator(isAnimating: Bool) {
+        self.continueButton.set(isLoading: isAnimating)
     }
     
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {

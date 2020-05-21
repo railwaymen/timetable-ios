@@ -122,7 +122,7 @@ extension ServerConfigurationViewModelTests {
         //Assert
         XCTAssertEqual(self.coordinatorMock.serverConfigurationDidFinishParams.count, 0)
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
-        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isAnimating))
         XCTAssertEqual(self.userInterfaceMock.continueButtonEnabledStateParams.count, 1)
     }
     
@@ -138,7 +138,7 @@ extension ServerConfigurationViewModelTests {
         let configuration = try XCTUnwrap(self.coordinatorMock.serverConfigurationDidFinishParams.last?.serverConfiguration)
         XCTAssertEqual(configuration.host, try XCTUnwrap(URL(string: hostString.apiSuffix().httpPrefix())))
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isAnimating))
         XCTAssertEqual(self.userInterfaceMock.continueButtonEnabledStateParams.count, 1)
     }
     
@@ -153,7 +153,7 @@ extension ServerConfigurationViewModelTests {
         //Assert
         XCTAssertEqual(self.coordinatorMock.serverConfigurationDidFinishParams.count, 1)
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isAnimating))
         XCTAssertEqual(self.userInterfaceMock.continueButtonEnabledStateParams.count, 1)
     }
     
@@ -169,7 +169,7 @@ extension ServerConfigurationViewModelTests {
         //Assert
         XCTAssertEqual(self.errorHandlerMock.throwingParams.count, 1)
         XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isAnimating))
         XCTAssertEqual(self.userInterfaceMock.continueButtonEnabledStateParams.count, 1)
     }
 }
