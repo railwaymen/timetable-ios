@@ -119,7 +119,6 @@ extension NewVacationViewController: NewVacationViewModelOutput {
         self.setUpNoteTextView()
         self.setUpSaveButtonColors()
         self.setUpConstraints()
-        self.setUpActivityIndicator()
     }
     
     func updateColors() {
@@ -130,8 +129,8 @@ extension NewVacationViewController: NewVacationViewModelOutput {
         self.setUpSaveButtonColors()
     }
     
-    func setActivityIndicator(isHidden: Bool) {
-        self.activityIndicator.set(isAnimating: !isHidden)
+    func setActivityIndicator(isAnimating: Bool) {
+        self.activityIndicator.set(isAnimating: !isAnimating)
     }
     
     func setNote(text: String) {
@@ -232,12 +231,6 @@ extension NewVacationViewController {
             $0.constant = Constants.defaultTextFieldHeight
         }
         self.saveButtonHeightConstraint.constant = Constants.defaultButtonHeight
-    }
-    
-    private func setUpActivityIndicator() {
-        self.activityIndicator.style = .large
-        self.activityIndicator.hidesWhenStopped = true
-        self.setActivityIndicator(isHidden: true)
     }
     
     private func setUpTimePicker(_ picker: inout UIDatePicker?, selector: Selector) {

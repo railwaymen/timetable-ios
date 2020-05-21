@@ -27,7 +27,7 @@ protocol NewVacationViewModelType: class {
 protocol NewVacationViewModelOutput: class {
     func setUp(availableVacationDays: String)
     func updateColors()
-    func setActivityIndicator(isHidden: Bool)
+    func setActivityIndicator(isAnimating: Bool)
     func setNote(text: String)
     func setMinimumDateForStartDate(minDate: Date)
     func setMinimumDateForEndDate(minDate: Date)
@@ -61,12 +61,12 @@ class NewVacationViewModel: KeyboardManagerObserverable {
         didSet {
             switch self.decisionState {
             case .request:
-                self.userInterface?.setActivityIndicator(isHidden: false)
+                self.userInterface?.setActivityIndicator(isAnimating: true)
             case let .done(response):
-                self.userInterface?.setActivityIndicator(isHidden: true)
+                self.userInterface?.setActivityIndicator(isAnimating: false)
                 self.coordinator?.finishFlow(response: response)
             case let .error(error):
-                self.userInterface?.setActivityIndicator(isHidden: true)
+                self.userInterface?.setActivityIndicator(isAnimating: false)
                 self.handleResponse(error: error)
             case .none: break
             }
