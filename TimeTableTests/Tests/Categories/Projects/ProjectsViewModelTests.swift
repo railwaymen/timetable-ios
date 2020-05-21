@@ -59,8 +59,6 @@ extension ProjectsViewModelTests {
         sut.viewDidLoad()
         //Assert
         XCTAssertEqual(self.userInterfaceMock.setUpViewParams.count, 1)
-        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 1)
-        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
     }
     
     func testViewDidLoad_fetchProjects_testError() throws {
@@ -72,7 +70,6 @@ extension ProjectsViewModelTests {
         self.apiClientMock.fetchAllProjectsParams.last?.completion(.failure(error))
         //Assert
         XCTAssertEqual(try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? TestError), error)
-        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
         XCTAssertEqual(self.userInterfaceMock.showErrorViewParams.count, 1)
     }
@@ -86,7 +83,6 @@ extension ProjectsViewModelTests {
         self.apiClientMock.fetchAllProjectsParams.last?.completion(.failure(error))
         //Assert
         XCTAssertEqual(self.errorHandlerMock.throwingParams.count, 0)
-        XCTAssertEqual(self.userInterfaceMock.setActivityIndicatorParams.count, 2)
         XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
         XCTAssertEqual(self.userInterfaceMock.showErrorViewParams.count, 1)
     }
