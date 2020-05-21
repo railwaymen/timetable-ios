@@ -12,7 +12,7 @@ protocol VacationViewModelOutput: class {
     func setUpView()
     func showTableView()
     func showErrorView()
-    func setActivityIndicator(isHidden: Bool)
+    func setActivityIndicator(isAnimating: Bool)
     func updateView()
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState)
     func dismissKeyboard()
@@ -86,7 +86,7 @@ class VacationViewModel: KeyboardManagerObserverable {
         self.errorHandler = errorHandler
         self.keyboardManager = keyboardManager
         self.smoothLoadingManager = SmoothLoadingManager { [weak userInterface] isAnimating in
-            userInterface?.setActivityIndicator(isHidden: !isAnimating)
+            userInterface?.setActivityIndicator(isAnimating: isAnimating)
         }
         
         self.selectedYear = Calendar.autoupdatingCurrent.component(.year, from: Date())
@@ -151,10 +151,10 @@ extension VacationViewModel: VacationViewModelType {
     
     func viewRequestToDeclineVacation(at index: IndexPath, completion: @escaping (Bool) -> Void) {
         guard let vacation = self.item(at: index) else { return completion(false) }
-        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.userInterface?.setActivityIndicator(isAnimating: true)
         _ = self.apiClient.declineVacation(vacation) { [weak self] result in
             guard let self = self else { return completion(false) }
-            self.userInterface?.setActivityIndicator(isHidden: true)
+            self.userInterface?.setActivityIndicator(isAnimating: false)
             switch result {
             case .success:
                 self.fetchVacation()

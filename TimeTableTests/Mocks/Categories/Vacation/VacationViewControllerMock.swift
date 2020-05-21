@@ -26,7 +26,7 @@ class VacationViewControllerMock: UIViewController {
     
     private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
     struct SetActivityIndicatorParams {
-        let isHidden: Bool
+        let isAnimating: Bool
     }
     
     private(set) var updateViewParams: [UpdateViewParams] = []
@@ -65,8 +65,8 @@ extension VacationViewControllerMock: VacationViewModelOutput {
         self.setUpTableHeaderViewParams.append(SetUpTableHeaderViewParams())
     }
     
-    func setActivityIndicator(isHidden: Bool) {
-        self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isHidden))
+    func setActivityIndicator(isAnimating: Bool) {
+        self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isAnimating: isAnimating))
     }
     
     func updateView() {

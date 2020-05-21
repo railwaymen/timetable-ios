@@ -77,7 +77,7 @@ class RemoteWorkViewModel {
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.smoothLoadingManager = SmoothLoadingManager { [weak userInterface] isAnimating in
-            userInterface?.setActivityIndicator(isAnimating: !isAnimating)
+            userInterface?.setActivityIndicator(isAnimating: isAnimating)
         }
     }
 }
