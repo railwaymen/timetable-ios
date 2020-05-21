@@ -10,10 +10,13 @@ import UIKit
 
 @IBDesignable class LoadingButton: AttributedButton {
     
-    @IBInspectable let activityIndicatorColor: UIColor = .white
+    /// This property should be set before showing an activity indicator because it is initialized only once
+    @IBInspectable var activityIndicatorColor: UIColor = .white
     @IBInspectable var disablesOnLoading: Bool = false
     
-    private(set) var isLoading: Bool = false
+    var isLoading: Bool {
+        self.activityIndicator.isAnimating
+    }
     
     private var originalButtonText: String?
     private lazy var activityIndicator: UIActivityIndicatorView = self.createActivityIndicator()
@@ -25,7 +28,6 @@ import UIKit
     
     func showLoading(animated: Bool) {
         guard !self.isLoading else { return }
-        self.isLoading = true
         self.originalButtonText = self.titleLabel?.text
         self.setTitle("", for: .normal)
         self.setTitle("", for: .disabled)
@@ -34,7 +36,6 @@ import UIKit
     
     func hideLoading(animated: Bool) {
         guard self.isLoading else { return }
-        defer { self.isLoading = false }
         self.setTitle(self.originalButtonText, for: .normal)
         self.setTitle(self.originalButtonText, for: .disabled)
         self.activityIndicator.set(isAnimating: false, animated: animated)
@@ -53,15 +54,14 @@ extension LoadingButton {
     }
     
     private func showSpinning(animated: Bool) {
-        if !self.contains(self.activityIndicator) {
-            self.addActivityIndicatorToTheView()
-        }
+        self.addActivityIndicatorToTheViewIfNeeded()
         self.activityIndicator.set(isAnimating: true, animated: animated)
         guard self.disablesOnLoading else { return }
         self.setWithAnimation(isEnabled: false, duration: 0.2)
     }
     
-    private func addActivityIndicatorToTheView() {
+    private func addActivityIndicatorToTheViewIfNeeded() {
+        guard !self.contains(self.activityIndicator) else { return }
         self.activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(self.activityIndicator)
         self.centerActivityIndicatorInButton()
