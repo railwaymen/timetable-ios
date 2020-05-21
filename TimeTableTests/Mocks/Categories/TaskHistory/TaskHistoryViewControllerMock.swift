@@ -20,7 +20,7 @@ class TaskHistoryViewControllerMock: UIViewController {
     
     private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
     struct SetActivityIndicatorParams {
-        let isHidden: Bool
+        let isAnimating: Bool
     }
     
     // MARK: - TaskHistoryViewControllerType
@@ -40,8 +40,8 @@ extension TaskHistoryViewControllerMock: TaskHistoryViewModelOutput {
         self.reloadDataParams.append(ReloadDataParams())
     }
     
-    func setActivityIndicator(isHidden: Bool) {
-        self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isHidden))
+    func setActivityIndicator(isAnimating: Bool) {
+        self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isAnimating: isAnimating))
     }
 }
 

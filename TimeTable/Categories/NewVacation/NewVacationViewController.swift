@@ -130,7 +130,7 @@ extension NewVacationViewController: NewVacationViewModelOutput {
     }
     
     func setActivityIndicator(isAnimating: Bool) {
-        self.activityIndicator.set(isAnimating: !isAnimating)
+        self.activityIndicator.set(isAnimating: isAnimating)
     }
     
     func setNote(text: String) {

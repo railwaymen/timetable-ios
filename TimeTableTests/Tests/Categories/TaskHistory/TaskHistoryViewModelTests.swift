@@ -55,7 +55,7 @@ extension TaskHistoryViewModelTests {
         sut.viewDidLoad()
         //Assert
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 1)
-        XCTAssertFalse(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertTrue(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isAnimating))
     }
     
     func testViewDidLoad_fetchWorkTimeDetails_before_requestsAPIClientForData() {
@@ -76,7 +76,7 @@ extension TaskHistoryViewModelTests {
         try XCTUnwrap(self.apiClient.fetchWorkTimeDetailsParams.last).completion(.success(workTime))
         //Assert
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertFalse(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isAnimating))
     }
     
     func testViewDidLoad_fetchWorkTimeDetails_success_reloadsData() throws {
@@ -99,7 +99,7 @@ extension TaskHistoryViewModelTests {
         try XCTUnwrap(self.apiClient.fetchWorkTimeDetailsParams.last).completion(.failure(error))
         //Assert
         XCTAssertEqual(self.userInterface.setActivityIndicatorParams.count, 2)
-        XCTAssertTrue(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertFalse(try XCTUnwrap(self.userInterface.setActivityIndicatorParams.last?.isAnimating))
     }
     
     func testViewDidLoad_fetchWorkTimeDetails_failure_passesErrorToErrorHandler() throws {
