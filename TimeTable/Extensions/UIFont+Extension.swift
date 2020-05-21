@@ -10,8 +10,12 @@ import UIKit
 
 extension UIFont {
     func bold() -> UIFont {
-        UIFont(
-            descriptor: self.fontDescriptor.withSymbolicTraits(.traitBold)!,
+        guard let descriptor = self.fontDescriptor.withSymbolicTraits(.traitBold) else {
+            assertionFailure()
+            return self
+        }
+        return UIFont(
+            descriptor: descriptor,
             size: self.pointSize)
     }
 }
