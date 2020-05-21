@@ -100,7 +100,7 @@ extension WorkTimeContentProvider: WorkTimeContainerContentProviderType {
                 completion(.failure(error))
             } else {
                 errorHandler.stopInDebug("Expected response from both requests.")
-                completion(.failure(UIError.genericError))
+                completion(.failure(ApiClientError(type: .invalidResponse)))
             }
         }
     }

@@ -26,10 +26,7 @@ class WorkTimeCoordinator: NavigationCoordinator {
     private var customFinishHandler: ((_ isTaskChanged: Bool) -> Void)?
     
     private var contentProvider: WorkTimeContentProviderable? {
-        guard let apiClient = self.dependencyContainer.apiClient else {
-            self.dependencyContainer.errorHandler.stopInDebug("API client is nil")
-            return nil
-        }
+        guard let apiClient = self.dependencyContainer.requireApiClient() else { return nil }
         return WorkTimeContentProvider(
             apiClient: apiClient,
             calendar: Calendar.autoupdatingCurrent,

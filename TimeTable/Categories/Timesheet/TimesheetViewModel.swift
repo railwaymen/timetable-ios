@@ -317,10 +317,7 @@ extension TimesheetViewModel: TimesheetViewModelType {
     }
     
     func viewRequestToRefresh(completion: @escaping () -> Void) {
-        guard let date = self.selectedMonth.date else {
-            self.errorHandler.stopInDebug()
-            return
-        }
+        guard let date = self.selectedMonth.date.unwrapped(using: self.errorHandler) else { return }
         self.contentProvider.fetchRequiredData(for: date) { [weak self] result in
             defer { completion() }
             switch result {
@@ -388,10 +385,7 @@ extension TimesheetViewModel {
     }
     
     private func fetchRequiredData() {
-        guard let date = self.selectedMonth.date else {
-            self.errorHandler.stopInDebug()
-            return
-        }
+        guard let date = self.selectedMonth.date.unwrapped(using: self.errorHandler) else { return }
         self.userInterface?.setActivityIndicator(isHidden: false)
         self.prepareForFethingWorkTimes()
         self.contentProvider.fetchRequiredData(for: date) { [weak self] result in
@@ -406,10 +400,7 @@ extension TimesheetViewModel {
     }
     
     private func fetchWorkTimesData() {
-        guard let date = self.selectedMonth.date else {
-            self.errorHandler.stopInDebug()
-            return
-        }
+        guard let date = self.selectedMonth.date.unwrapped(using: self.errorHandler) else { return }
         self.userInterface?.setActivityIndicator(isHidden: false)
         self.prepareForFethingWorkTimes()
         self.contentProvider.fetchTimesheetData(for: date) { [weak self] result in

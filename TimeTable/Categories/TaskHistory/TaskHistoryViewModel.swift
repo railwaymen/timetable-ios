@@ -82,10 +82,7 @@ extension TaskHistoryViewModel: TaskHistoryViewModelType {
 // MARK: - Private
 extension TaskHistoryViewModel {
     private func fetchTaskHistory() {
-        guard let id = self.taskForm.workTimeID else {
-            self.errorHandler.stopInDebug("There's no workTimeID to fetch data.")
-            return
-        }
+        guard let id = self.taskForm.workTimeID.unwrapped(using: self.errorHandler) else { return }
         self.userInterface?.setActivityIndicator(isHidden: false)
         self.fetchTask = self.apiClient.fetchWorkTimeDetails(id: id) { [weak self] result in
             self?.userInterface?.setActivityIndicator(isHidden: true)

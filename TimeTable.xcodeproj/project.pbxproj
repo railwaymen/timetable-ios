@@ -286,6 +286,7 @@
 		8AFBC3642462F8ED00032B96 /* RegisterRemoteWorkViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC3632462F8ED00032B96 /* RegisterRemoteWorkViewControllerMock.swift */; };
 		8AFBC3662463DCBF00032B96 /* RemoteWorkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC3652463DCBF00032B96 /* RemoteWorkRequest.swift */; };
 		8AFBC3682463DD4700032B96 /* RemoteWorkRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFBC3672463DD4700032B96 /* RemoteWorkRequestTests.swift */; };
+		8AFF1EBE24764B5A0042F831 /* Optional+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFF1EBD24764B5A0042F831 /* Optional+Extension.swift */; };
 		8AFFE5C224331BDB001D9E89 /* taskVersionNullPreviousTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */; };
 		8AFFE5C424331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */; };
 		8AFFE5C624331BFB001D9E89 /* taskVersionNullCurrentTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */; };
@@ -987,6 +988,7 @@
 		8AFBC3632462F8ED00032B96 /* RegisterRemoteWorkViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRemoteWorkViewControllerMock.swift; sourceTree = "<group>"; };
 		8AFBC3652463DCBF00032B96 /* RemoteWorkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkRequest.swift; sourceTree = "<group>"; };
 		8AFBC3672463DD4700032B96 /* RemoteWorkRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWorkRequestTests.swift; sourceTree = "<group>"; };
+		8AFF1EBD24764B5A0042F831 /* Optional+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Extension.swift"; sourceTree = "<group>"; };
 		8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullPreviousTask.json; sourceTree = "<group>"; };
 		8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionMissingPreviousTaskKey.json; sourceTree = "<group>"; };
 		8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullCurrentTask.json; sourceTree = "<group>"; };
@@ -2684,6 +2686,7 @@
 				C153AC6521831499007A35BB /* NotificationCenter+Extenison.swift */,
 				C1E1F04321AD2952007F9228 /* NSObject+Extension.swift */,
 				C1EF3A04219303A7000E3511 /* NSRegularExpression+Extension.swift */,
+				8AFF1EBD24764B5A0042F831 /* Optional+Extension.swift */,
 				C153AC4B2182EF40007A35BB /* String+Extension.swift */,
 				8A31A85F238E927E008DCC08 /* TimeInterval+Extension.swift */,
 				8A79A2CC242231890048B44B /* UIActivityIndicatorView+Extension.swift */,
@@ -4168,6 +4171,7 @@
 				C134296721A6951C00F4EA42 /* ApiClient+WorkTimes.swift in Sources */,
 				8AFBC3662463DCBF00032B96 /* RemoteWorkRequest.swift in Sources */,
 				C125C4DB21871C7A00FBA0DD /* ServerConfiguration.swift in Sources */,
+				8AFF1EBE24764B5A0042F831 /* Optional+Extension.swift in Sources */,
 				C14EB0272372E113007F07D0 /* ErrorView.swift in Sources */,
 				8A81E873246003A40091846D /* LoginForm.swift in Sources */,
 				8A5EF31823FE7D0800AE4309 /* UITableView+Extension.swift in Sources */,
