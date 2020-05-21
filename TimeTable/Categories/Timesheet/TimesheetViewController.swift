@@ -31,6 +31,7 @@ class TimesheetViewController: UIViewController {
 
     private let tableViewEstimatedRowHeight: CGFloat = 150
     private let heightForHeader: CGFloat = 50
+    private let transitionDuration: TimeInterval = 0.6
     private var viewModel: TimesheetViewModelType!
     
     // MARK: - Overridden
@@ -149,6 +150,13 @@ extension TimesheetViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - ContainerViewControllerType
+extension TimesheetViewController: ContainerViewControllerType {
+    var containedViews: [UIView] {
+        [self.tableView, self.errorView].compactMap { $0 }
+    }
+}
+
 // MARK: - TimesheetViewModelOutput
 extension TimesheetViewController: TimesheetViewModelOutput {
     func setUpView() {
@@ -162,8 +170,7 @@ extension TimesheetViewController: TimesheetViewModelOutput {
         self.setUpConstraints()
         self.tableView.updateHeaderViewHeight()
         self.viewModel.configure(self.errorView)
-        self.tableView.set(isHidden: true)
-        self.errorView.set(isHidden: true)
+        self.hideAllContainedViews()
     }
     
     func updateColors() {
@@ -198,17 +205,11 @@ extension TimesheetViewController: TimesheetViewModelOutput {
     }
     
     func showTableView() {
-        UIView.transition(with: self.tableView, duration: 0.2, animations: { [weak self] in
-            self?.tableView.set(isHidden: false)
-            self?.errorView.set(isHidden: true)
-        })
+        self.showWithAnimation(view: self.tableView, duration: self.transitionDuration)
     }
     
     func showErrorView() {
-        UIView.transition(with: self.errorView, duration: 0.2, animations: { [weak self] in
-            self?.tableView.set(isHidden: true)
-            self?.errorView.set(isHidden: false)
-        })
+        self.showWithAnimation(view: self.errorView, duration: self.transitionDuration)
     }
     
     func setActivityIndicator(isHidden: Bool) {
