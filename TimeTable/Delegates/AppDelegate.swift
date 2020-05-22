@@ -86,7 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
         
         #if DEBUG
-            LayoutInspector.shared.setAutoTrigger(.shake)
+        LayoutInspector.shared.setAutoTrigger(.shake)
         #endif
         return true
     }

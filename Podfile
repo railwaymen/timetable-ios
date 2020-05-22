@@ -29,3 +29,11 @@ target 'TimeTableUITests' do
   pod 'Swifter', '~> 1.4.7'
   universal_pods
 end
+
+post_install do |installer|
+    installer.pods_project.build_configurations.each do |config|
+        if config.name == 'Stage'
+            config.build_settings['SWIFT_ACTIVE_COMPILATION_CONDITIONS'] ||= ['DEBUG']
+        end
+    end
+end
