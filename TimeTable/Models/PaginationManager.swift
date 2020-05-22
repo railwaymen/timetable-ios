@@ -35,10 +35,17 @@ final class PaginationManager {
 // MARK: - PaginationManagerType
 extension PaginationManager: PaginationManagerType {
     func tableViewWillDisplayCell(index: Int, allCellsCount: Int) {
-        let tableHeightsToEndToStartFetchingNextPage = 1
-        let cellsToEndToStartFetchingNextPage = self.cellsPerTableHeight * tableHeightsToEndToStartFetchingNextPage
-        let cellToBeginFetching = allCellsCount - cellsToEndToStartFetchingNextPage
-        guard cellToBeginFetching <= index else { return }
+        guard self.shouldFetchNextPage(cellIndex: index, allCellsCount: allCellsCount) else { return }
         self.fetchNextPageHandler()
+    }
+}
+
+// MARK: - Private
+extension PaginationManager {
+    private func shouldFetchNextPage(cellIndex: Int, allCellsCount: Int) -> Bool {
+        let maxTableHeightsCountFromEnd = 1
+        let maxCellsCountFromEnd = self.cellsPerTableHeight * maxTableHeightsCountFromEnd
+        let minIndex = allCellsCount - maxCellsCountFromEnd
+        return cellIndex >= minIndex
     }
 }
