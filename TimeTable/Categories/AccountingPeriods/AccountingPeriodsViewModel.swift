@@ -15,7 +15,7 @@ protocol AccountingPeriodsViewModelOutput: class {
     func reloadData()
     func setActivityIndicator(isAnimating: Bool)
     func setBottomContentInset(isHidden: Bool)
-    func getMaxCellsPerPage() -> Int
+    func getMaxCellsCountPerTableHeight() -> Int
 }
 
 protocol AccountingPeriodsViewModelType: class {
@@ -34,8 +34,8 @@ class AccountingPeriodsViewModel {
     private let errorHandler: ErrorHandlerType
     
     private let dateFormatter: DateFormatterType = DateFormatter.shortDate
-    private var recordsPerPage: Int = 24
     private weak var errorViewModel: ErrorViewModelParentType?
+    private var paginationManager: PaginationManagerType?
     private var totalPages: Int?
     private var state: State?
     private var records: [AccountingPeriod] = [] {
@@ -75,7 +75,7 @@ extension AccountingPeriodsViewModel: AccountingPeriodsViewModelType {
     
     func viewWillAppear() {
         guard self.state == nil else { return }
-        self.setUpRecordsNumberPerPage()
+        self.setUpPaginationManager()
         self.fetchFirstPage()
     }
     
@@ -104,24 +104,30 @@ extension AccountingPeriodsViewModel: AccountingPeriodsViewModelType {
     }
     
     func viewWillDisplayCell(at indexPath: IndexPath) {
-        let cellsToTheEndToBeginFetchingOfTheNextPage: Int = 6
-        let cellToBeginFetching = self.records.count - cellsToTheEndToBeginFetchingOfTheNextPage
-        guard cellToBeginFetching <= indexPath.row else { return }
-        self.fetchNextPage()
+        guard let paginationManager = self.paginationManager.unwrapped(using: self.errorHandler) else { return }
+        paginationManager.tableViewWillDisplayCell(index: indexPath.row, allCellsCount: self.records.count)
     }
 }
 
 // MARK: - Private
 extension AccountingPeriodsViewModel {
-    private func setUpRecordsNumberPerPage() {
-        guard let cellsPerPage = self.userInterface?.getMaxCellsPerPage() else { return }
-        self.recordsPerPage = cellsPerPage * 2
+    private func setUpPaginationManager() {
+        guard let cellsPerPage = self.userInterface?.getMaxCellsCountPerTableHeight() else { return }
+        guard cellsPerPage != 0 else {
+            self.errorHandler.stopInDebug()
+            return
+        }
+        self.paginationManager = PaginationManager(cellsPerTableHeight: cellsPerPage, fetchNextPageHandler: {
+            [weak self] in
+            self?.fetchNextPage()
+        })
     }
     
     private func fetchFirstPage() {
         guard self.state == nil || self.state == .failedFetchingFirstPage else { return }
-        self.state = .fetching(page: 1)
-        let params = self.parameters(page: 1)
+        let pageNumber = 1
+        guard let params = self.parameters(page: pageNumber) else { return }
+        self.state = .fetching(page: pageNumber)
         self.userInterface?.setActivityIndicator(isAnimating: true)
         self.apiClient.fetchAccountingPeriods(parameters: params) { [weak self] result in
             self?.userInterface?.setActivityIndicator(isAnimating: false)
@@ -157,8 +163,8 @@ extension AccountingPeriodsViewModel {
         guard let totalPages = self.totalPages,
             lastFetchedPage < totalPages else { return }
         let nextPage = lastFetchedPage + 1
+        guard let parameters = self.parameters(page: nextPage) else { return }
         self.state = .fetching(page: nextPage)
-        let parameters = self.parameters(page: nextPage)
         self.apiClient.fetchAccountingPeriods(parameters: parameters) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -175,8 +181,9 @@ extension AccountingPeriodsViewModel {
         }
     }
     
-    private func parameters(page: Int) -> AccountingPeriodsParameters {
-        AccountingPeriodsParameters(page: page, recordsPerPage: self.recordsPerPage)
+    private func parameters(page: Int) -> AccountingPeriodsParameters? {
+        guard let paginationManager = self.paginationManager.unwrapped(using: self.errorHandler) else { return nil }
+        return AccountingPeriodsParameters(page: page, recordsPerPage: paginationManager.recordsPerPage)
     }
     
     private func record(at indexPath: IndexPath) -> AccountingPeriod? {
