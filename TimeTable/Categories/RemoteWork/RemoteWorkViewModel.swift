@@ -26,7 +26,7 @@ protocol RemoteWorkViewModelOutput: class {
     func setUp()
     func showTableView()
     func showErrorView()
-    func setActivityIndicator(isHidden: Bool)
+    func setActivityIndicator(isAnimating: Bool)
     func setBottomContentInset(isHidden: Bool)
     func updateView()
     func removeRows(at indexPaths: [IndexPath])
@@ -77,7 +77,7 @@ class RemoteWorkViewModel {
         self.apiClient = apiClient
         self.errorHandler = errorHandler
         self.smoothLoadingManager = SmoothLoadingManager { [weak userInterface] isAnimating in
-            userInterface?.setActivityIndicator(isHidden: !isAnimating)
+            userInterface?.setActivityIndicator(isAnimating: isAnimating)
         }
     }
 }
@@ -152,10 +152,10 @@ extension RemoteWorkViewModel: RemoteWorkViewModelType {
     
     func viewRequestToDelete(at index: IndexPath, completion: @escaping (Bool) -> Void) {
         guard let remoteWork = self.item(for: index) else { return completion(false) }
-        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.userInterface?.setActivityIndicator(isAnimating: true)
         _ = self.apiClient.deleteRemoteWork(remoteWork) { [weak self] result in
             guard let self = self else { return completion(false) }
-            self.userInterface?.setActivityIndicator(isHidden: true)
+            self.userInterface?.setActivityIndicator(isAnimating: false)
             switch result {
             case .success:
                 self.remove(remoteWork: remoteWork, completion: completion)

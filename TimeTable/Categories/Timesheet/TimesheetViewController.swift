@@ -210,8 +210,8 @@ extension TimesheetViewController: TimesheetViewModelOutput {
         self.showWithAnimation(view: self.errorView, duration: Constants.slowTransitionDuration)
     }
     
-    func setActivityIndicator(isHidden: Bool) {
-        self.activityIndicator.set(isAnimating: !isHidden)
+    func setActivityIndicator(isAnimating: Bool) {
+        self.activityIndicator.set(isAnimating: isAnimating)
     }
     
     func insertSections(_ sections: IndexSet) {

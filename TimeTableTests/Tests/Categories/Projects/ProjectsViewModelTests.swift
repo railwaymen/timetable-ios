@@ -70,7 +70,7 @@ extension ProjectsViewModelTests {
         self.apiClientMock.fetchAllProjectsParams.last?.completion(.failure(error))
         //Assert
         XCTAssertEqual(try XCTUnwrap(self.errorHandlerMock.throwingParams.last?.error as? TestError), error)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isAnimating))
         XCTAssertEqual(self.userInterfaceMock.showErrorViewParams.count, 1)
     }
     
@@ -83,7 +83,7 @@ extension ProjectsViewModelTests {
         self.apiClientMock.fetchAllProjectsParams.last?.completion(.failure(error))
         //Assert
         XCTAssertEqual(self.errorHandlerMock.throwingParams.count, 0)
-        XCTAssertTrue(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isHidden))
+        XCTAssertFalse(try XCTUnwrap(self.userInterfaceMock.setActivityIndicatorParams.last?.isAnimating))
         XCTAssertEqual(self.userInterfaceMock.showErrorViewParams.count, 1)
     }
 }

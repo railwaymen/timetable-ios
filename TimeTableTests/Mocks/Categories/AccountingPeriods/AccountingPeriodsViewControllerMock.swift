@@ -26,7 +26,7 @@ class AccountingPeriodsViewControllerMock: UIViewController {
     
     private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
     struct SetActivityIndicatorParams {
-        let isHidden: Bool
+        let isAnimating: Bool
     }
     
     private(set) var setBottomContentInsetParams: [SetBottomContentInsetParams] = []
@@ -63,8 +63,8 @@ extension AccountingPeriodsViewControllerMock: AccountingPeriodsViewModelOutput 
         self.reloadDataParams.append(ReloadDataParams())
     }
     
-    func setActivityIndicator(isHidden: Bool) {
-        self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isHidden))
+    func setActivityIndicator(isAnimating: Bool) {
+        self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isAnimating: isAnimating))
     }
     
     func setBottomContentInset(isHidden: Bool) {

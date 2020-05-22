@@ -45,7 +45,7 @@ class TimesheetViewControllerMock: UIViewController {
     
     private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
     struct SetActivityIndicatorParams {
-        let isHidden: Bool
+        let isAnimating: Bool
     }
     
     private(set) var showTableViewParams: [ShowTableViewParams] = []
@@ -116,8 +116,8 @@ extension TimesheetViewControllerMock: TimesheetViewModelOutput {
         self.updateAccountingPeriodLabelParams.append(UpdateAccountingPeriodLabelParams(text: text))
     }
     
-    func setActivityIndicator(isHidden: Bool) {
-        self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isHidden))
+    func setActivityIndicator(isAnimating: Bool) {
+        self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isAnimating: isAnimating))
     }
     
     func showTableView() {

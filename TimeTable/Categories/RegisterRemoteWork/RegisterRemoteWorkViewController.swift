@@ -112,7 +112,6 @@ extension RegisterRemoteWorkViewController: RegisterRemoteWorkViewModelOutput {
         self.setUpEndDayPickerView()
         self.setUpNoteTextView()
         self.setUpSaveButtonColors()
-        self.setUpActivityIndicator()
         self.setUpConstraints()
     }
     
@@ -127,8 +126,8 @@ extension RegisterRemoteWorkViewController: RegisterRemoteWorkViewModelOutput {
         self.setUpSaveButtonColors()
     }
     
-    func setActivityIndicator(isHidden: Bool) {
-        self.activityIndicator.set(isAnimating: !isHidden)
+    func setActivityIndicator(isAnimating: Bool) {
+        self.activityIndicator.set(isAnimating: isAnimating)
     }
     
     func setNote(text: String) {
@@ -211,12 +210,6 @@ extension RegisterRemoteWorkViewController {
     private func setUpSaveButtonColors() {
         self.saveButton.setBackgroundColor(.enabledButton, forState: .normal)
         self.saveButton.setBackgroundColor(.disabledButton, forState: .disabled)
-    }
-    
-    private func setUpActivityIndicator() {
-        self.activityIndicator.style = .large
-        self.activityIndicator.hidesWhenStopped = true
-        self.setActivityIndicator(isHidden: true)
     }
     
     private func setUpConstraints() {

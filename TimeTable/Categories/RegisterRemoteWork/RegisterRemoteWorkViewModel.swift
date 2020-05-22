@@ -12,7 +12,7 @@ protocol RegisterRemoteWorkViewModelOutput: class {
     func setUp()
     func setUp(title: String)
     func updateColors()
-    func setActivityIndicator(isHidden: Bool)
+    func setActivityIndicator(isAnimating: Bool)
     func setNote(text: String)
     func setMinimumDateForEndDate(minDate: Date)
     func updateStartDate(with date: Date, dateString: String)
@@ -55,12 +55,12 @@ class RegisterRemoteWorkViewModel: KeyboardManagerObserverable {
         didSet {
             switch self.decisionState {
             case .request:
-                self.userInterface?.setActivityIndicator(isHidden: false)
+                self.userInterface?.setActivityIndicator(isAnimating: true)
             case let .done(response):
-                self.userInterface?.setActivityIndicator(isHidden: true)
+                self.userInterface?.setActivityIndicator(isAnimating: false)
                 self.coordinator?.registerRemoteWorkDidFinish(response: response)
             case let .error(error):
-                self.userInterface?.setActivityIndicator(isHidden: true)
+                self.userInterface?.setActivityIndicator(isAnimating: false)
                 self.handleResponse(error: error)
             case .none: break
             }

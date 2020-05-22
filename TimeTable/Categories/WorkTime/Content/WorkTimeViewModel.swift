@@ -25,7 +25,7 @@ protocol WorkTimeViewModelOutput: class {
     func updateStartAtDate(with date: Date, dateString: String)
     func updateEndAtDate(with date: Date, dateString: String)
     func updateProject(name: String, color: UIColor)
-    func setActivityIndicator(isHidden: Bool)
+    func setActivityIndicator(isAnimating: Bool)
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState)
     func setTagsCollectionView(isHidden: Bool)
     
@@ -302,7 +302,7 @@ extension WorkTimeViewModel {
     private func saveTask() {
         let completion: WorkTimeSaveTaskCompletion = self.getSaveCompletion()
         self.userInterface?.setSaveButton(isEnabled: false)
-        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.userInterface?.setActivityIndicator(isAnimating: true)
         self.taskForm.saveWithFilling
             ? self.contentProvider.saveWithFilling(taskForm: self.taskForm, completion: completion)
             : self.contentProvider.save(taskForm: self.taskForm, completion: completion)
@@ -310,7 +310,7 @@ extension WorkTimeViewModel {
     
     private func getSaveCompletion() -> WorkTimeSaveTaskCompletion {
         return { [weak self] result in
-            self?.userInterface?.setActivityIndicator(isHidden: true)
+            self?.userInterface?.setActivityIndicator(isAnimating: false)
             switch result {
             case .success:
                 self?.coordinator?.dismissView(isTaskChanged: true)

@@ -17,7 +17,7 @@ protocol WorkTimeContainerViewModelOutput: class {
     func showForm()
     func showError()
     func hideAllContainerViews()
-    func setActivityIndicator(isHidden: Bool)
+    func setActivityIndicator(isAnimating: Bool)
 }
 
 protocol WorkTimeContainerViewModelType: class {
@@ -79,9 +79,9 @@ extension WorkTimeContainerViewModel: WorkTimeContainerViewModelType {
 // MARK: - Private
 extension WorkTimeContainerViewModel {
     private func fetchData() {
-        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.userInterface?.setActivityIndicator(isAnimating: true)
         self.contentProvider.fetchData { [weak self] result in
-            self?.userInterface?.setActivityIndicator(isHidden: true)
+            self?.userInterface?.setActivityIndicator(isAnimating: false)
             switch result {
             case let .success((projects, tags)):
                 self?.contentDelegate?.containerDidUpdate(

@@ -172,7 +172,6 @@ extension WorkTimeViewController: UITextFieldDelegate {
 extension WorkTimeViewController: WorkTimeViewModelOutput {
     func setUp() {
         self.setUpTagsCollectionView()
-        self.setUpActivityIndicator()
         self.setUpSaveButtonColors()
         self.setUpConstraints()
         self.setUpProjectButton()
@@ -256,8 +255,8 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         self.projectColorView.backgroundColor = color
     }
     
-    func setActivityIndicator(isHidden: Bool) {
-        self.activityIndicator.set(isAnimating: !isHidden)
+    func setActivityIndicator(isAnimating: Bool) {
+        self.activityIndicator.set(isAnimating: isAnimating)
     }
     
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
@@ -307,12 +306,6 @@ extension WorkTimeViewController: WorkTimeViewControllerType {
 
 // MARK: - Private
 extension WorkTimeViewController {
-    private func setUpActivityIndicator() {
-        self.activityIndicator.style = .large
-        self.activityIndicator.hidesWhenStopped = true
-        self.setActivityIndicator(isHidden: true)
-    }
-    
     private func setUpProjectButton() {
         self.projectView.setTextFieldAppearance()
     }

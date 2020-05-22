@@ -17,7 +17,7 @@ protocol TimesheetViewModelOutput: class {
     func updateSelectedDate(_ dateString: String, date: (month: Int, year: Int))
     func updateHoursLabel(workedHours: String?)
     func updateAccountingPeriodLabel(text: String?)
-    func setActivityIndicator(isHidden: Bool)
+    func setActivityIndicator(isAnimating: Bool)
     func showTableView()
     func showErrorView()
     func insertSections(_ sections: IndexSet)
@@ -125,7 +125,7 @@ class TimesheetViewModel: KeyboardManagerObserverable {
         self.messagePresenter = messagePresenter
         self.keyboardManager = keyboardManager
         self.smoothLoadingManager = SmoothLoadingManager { [weak userInterface] isAnimating in
-            userInterface?.setActivityIndicator(isHidden: !isAnimating)
+            userInterface?.setActivityIndicator(isAnimating: isAnimating)
         }
     }
 }
@@ -405,10 +405,10 @@ extension TimesheetViewModel {
     
     private func fetchWorkTimesData() {
         guard let date = self.selectedMonth.date.unwrapped(using: self.errorHandler) else { return }
-        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.userInterface?.setActivityIndicator(isAnimating: true)
         self.prepareForFethingWorkTimes()
         self.contentProvider.fetchTimesheetData(for: date) { [weak self] result in
-            self?.userInterface?.setActivityIndicator(isHidden: true)
+            self?.userInterface?.setActivityIndicator(isAnimating: false)
             switch result {
             case let .success((dailyWorkTimes, matchingFullTime)):
                 self?.handleFetchSuccess(dailyWorkTimes: dailyWorkTimes, matchingFullTime: matchingFullTime)

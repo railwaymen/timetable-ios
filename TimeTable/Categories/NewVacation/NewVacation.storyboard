@@ -211,7 +211,7 @@
                                     <constraint firstItem="sT2-Qh-sRx" firstAttribute="leading" secondItem="u79-Nk-NpM" secondAttribute="leading" id="o63-5X-xSm"/>
                                 </constraints>
                             </scrollView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="WSi-Ma-hHX">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="WSi-Ma-hHX">
                                 <rect key="frame" x="150" y="362" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>

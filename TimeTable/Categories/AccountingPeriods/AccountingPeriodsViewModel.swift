@@ -13,7 +13,7 @@ protocol AccountingPeriodsViewModelOutput: class {
     func showList()
     func showErrorView()
     func reloadData()
-    func setActivityIndicator(isHidden: Bool)
+    func setActivityIndicator(isAnimating: Bool)
     func setBottomContentInset(isHidden: Bool)
     func getMaxCellsPerPage() -> Int
 }
@@ -122,9 +122,9 @@ extension AccountingPeriodsViewModel {
         guard self.state == nil || self.state == .failedFetchingFirstPage else { return }
         self.state = .fetching(page: 1)
         let params = self.parameters(page: 1)
-        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.userInterface?.setActivityIndicator(isAnimating: true)
         self.apiClient.fetchAccountingPeriods(parameters: params) { [weak self] result in
-            self?.userInterface?.setActivityIndicator(isHidden: true)
+            self?.userInterface?.setActivityIndicator(isAnimating: false)
             switch result {
             case let .success(response):
                 self?.handleFirstFetchSuccess(response: response)

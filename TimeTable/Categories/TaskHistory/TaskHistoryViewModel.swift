@@ -12,7 +12,7 @@ import Restler
 protocol TaskHistoryViewModelOutput: class {
     func setUp()
     func reloadData()
-    func setActivityIndicator(isHidden: Bool)
+    func setActivityIndicator(isAnimating: Bool)
 }
 
 protocol TaskHistoryViewModelType: class {
@@ -83,9 +83,9 @@ extension TaskHistoryViewModel: TaskHistoryViewModelType {
 extension TaskHistoryViewModel {
     private func fetchTaskHistory() {
         guard let id = self.taskForm.workTimeID.unwrapped(using: self.errorHandler) else { return }
-        self.userInterface?.setActivityIndicator(isHidden: false)
+        self.userInterface?.setActivityIndicator(isAnimating: true)
         self.fetchTask = self.apiClient.fetchWorkTimeDetails(id: id) { [weak self] result in
-            self?.userInterface?.setActivityIndicator(isHidden: true)
+            self?.userInterface?.setActivityIndicator(isAnimating: false)
             switch result {
             case let .success(decoder):
                 self?.workTime = decoder

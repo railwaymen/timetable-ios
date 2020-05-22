@@ -22,7 +22,7 @@ class NewVacationViewControllerMock: UIViewController {
     
     private(set) var setActivityIndicatorParams: [SetActivityIndicatorParams] = []
     struct SetActivityIndicatorParams {
-        let isHidden: Bool
+        let isAnimating: Bool
     }
     
     private(set) var setNoteParams: [SetNoteParams] = []
@@ -97,8 +97,8 @@ extension NewVacationViewControllerMock: NewVacationViewModelOutput {
         self.updateColorsParams.append(UpdateColorsParams())
     }
     
-    func setActivityIndicator(isHidden: Bool) {
-        self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isHidden: isHidden))
+    func setActivityIndicator(isAnimating: Bool) {
+        self.setActivityIndicatorParams.append(SetActivityIndicatorParams(isAnimating: isAnimating))
     }
     
     func setNote(text: String) {

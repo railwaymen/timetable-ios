@@ -56,7 +56,6 @@ extension TaskHistoryViewController: TaskHistoryViewModelOutput {
     func setUp() {
         self.setUpCloseButton()
         self.setUpTitle()
-        self.setUpActivityIndicator()
         self.setUpTableView()
     }
     
@@ -64,10 +63,9 @@ extension TaskHistoryViewController: TaskHistoryViewModelOutput {
         self.tableView.reloadData()
     }
     
-    func setActivityIndicator(isHidden: Bool) {
-        self.activityIndicator.set(isHidden: isHidden)
-        self.activityIndicator.set(isAnimating: !isHidden)
-        self.activityIndicator.frame.size.height = isHidden ? 0 : 120
+    func setActivityIndicator(isAnimating: Bool) {
+        self.activityIndicator.set(isAnimating: isAnimating)
+        self.activityIndicator.frame.size.height = isAnimating ? 120 : 0
         self.activityIndicator.layoutIfNeeded()
     }
 }
@@ -81,10 +79,6 @@ extension TaskHistoryViewController: TaskHistoryViewControllerType {
 
 // MARK: - Private
 extension TaskHistoryViewController {
-    private func setUpActivityIndicator() {
-        self.activityIndicator.style = .medium
-    }
-    
     private func setUpTableView() {
         self.tableView.register(WorkTimeTableViewCell.self)
         self.tableView.dataSource = self

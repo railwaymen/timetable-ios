@@ -54,7 +54,6 @@ extension WorkTimeContainerViewController: WorkTimeContainerViewModelOutput {
     func setUp(withTitle title: String) {
         self.viewModel.configure(self.errorView)
         self.setUpNavigationBarItems(title: title)
-        self.setUpActivityIndicator()
     }
     
     func showForm() {
@@ -69,8 +68,8 @@ extension WorkTimeContainerViewController: WorkTimeContainerViewModelOutput {
         self.hideAllContainedViews()
     }
     
-    func setActivityIndicator(isHidden: Bool) {
-        self.activityIndicator.set(isAnimating: !isHidden)
+    func setActivityIndicator(isAnimating: Bool) {
+        self.activityIndicator.set(isAnimating: isAnimating)
     }
 }
 
@@ -83,12 +82,6 @@ extension WorkTimeContainerViewController: WorkTimeContainerViewControllerType {
 
 // MARK: - Private
 extension WorkTimeContainerViewController {
-    private func setUpActivityIndicator() {
-        self.activityIndicator.style = .medium
-        self.activityIndicator.hidesWhenStopped = true
-        self.setActivityIndicator(isHidden: true)
-    }
-    
     private func setUpNavigationBarItems(title: String) {
         self.title = title
         let closeButton = UIBarButtonItem(
