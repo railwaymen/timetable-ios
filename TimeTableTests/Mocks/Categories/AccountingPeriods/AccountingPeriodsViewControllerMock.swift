@@ -71,7 +71,7 @@ extension AccountingPeriodsViewControllerMock: AccountingPeriodsViewModelOutput 
         self.setBottomContentInsetParams.append(SetBottomContentInsetParams(isHidden: isHidden))
     }
     
-    func getMaxCellsPerPage() -> Int {
+    func getMaxCellsCountPerTableHeight() -> Int {
         self.getMaxCellsPerPageParams.append(GetMaxCellsPerPageParams())
         return self.getMaxCellsPerPageReturnValue
     }

@@ -127,10 +127,7 @@ extension RemoteWorkViewController: RemoteWorkViewModelOutput {
     }
     
     func getMaxCellsPerTableHeight() -> Int {
-        self.tableView.layoutIfNeeded()
-        let verticalInsets = self.tableView.safeAreaInsets.top + self.tableView.safeAreaInsets.bottom
-        let visibleContentHeight = self.tableView.frame.height - verticalInsets
-        return Int((visibleContentHeight / self.minimumCellHeight).rounded(.up))
+        self.tableView.getMaxCellsCountPerTableHeight(minimumCellHeight: self.minimumCellHeight)
     }
     
     func deselectAllRows() {

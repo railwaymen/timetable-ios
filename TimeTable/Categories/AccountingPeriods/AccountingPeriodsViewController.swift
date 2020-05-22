@@ -102,11 +102,8 @@ extension AccountingPeriodsViewController: AccountingPeriodsViewModelOutput {
         self.tableView.contentInset.bottom = isHidden ? 0 : self.minimumCellHeight
     }
     
-    func getMaxCellsPerPage() -> Int {
-        self.tableView.layoutIfNeeded()
-        let verticalInsets = self.tableView.safeAreaInsets.top + self.tableView.safeAreaInsets.bottom
-        let visibleContentHeight = self.tableView.frame.height - verticalInsets
-        return Int((visibleContentHeight / self.minimumCellHeight).rounded(.up))
+    func getMaxCellsCountPerTableHeight() -> Int {
+        self.tableView.getMaxCellsCountPerTableHeight(minimumCellHeight: self.minimumCellHeight)
     }
 }
 

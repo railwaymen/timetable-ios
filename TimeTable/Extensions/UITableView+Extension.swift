@@ -37,6 +37,12 @@ extension UITableView {
         }
     }
     
+    func getMaxCellsCountPerTableHeight(minimumCellHeight: CGFloat) -> Int {
+        self.layoutIfNeeded()
+        let visibleContentHeight = self.frame.height - self.safeAreaInsets.vertical
+        return Int((visibleContentHeight / minimumCellHeight).rounded(.up))
+    }
+    
     func updateHeaderViewHeight() {
         guard let headerView = self.tableHeaderView else { return }
         headerView.translatesAutoresizingMaskIntoConstraints = false

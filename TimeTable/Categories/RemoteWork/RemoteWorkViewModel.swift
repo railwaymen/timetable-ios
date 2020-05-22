@@ -42,9 +42,8 @@ class RemoteWorkViewModel {
     private let smoothLoadingManager: SmoothLoadingManagerType
     
     private weak var errorViewModel: ErrorViewModelParentType?
-    private let tableHeightsPerPage: Int = 4
-    private var cellsPerTableHeight: Int = 6
     private var records: [RemoteWork] = []
+    private var paginationManager: PaginationManagerType?
     
     private var state: State? {
         didSet {
@@ -59,10 +58,6 @@ class RemoteWorkViewModel {
                 self.errorViewModel?.setRefreshButton(isEnabled: true)
             }
         }
-    }
-    
-    private var recordsPerPage: Int {
-        self.cellsPerTableHeight * self.tableHeightsPerPage
     }
     
     // MARK: - Initialization
@@ -99,7 +94,7 @@ extension RemoteWorkViewModel: RemoteWorkViewModelType {
     
     func viewDidLayoutSubviews() {
         guard self.state == .none else { return }
-        self.setUpRecordsNumberPerPage()
+        self.setUpPaginationManager()
         self.fetchFirstPage()
     }
     
@@ -132,11 +127,9 @@ extension RemoteWorkViewModel: RemoteWorkViewModelType {
     }
     
     func viewWillDisplayCell(at indexPath: IndexPath) {
-        let tableHeightsToEndToStartFetchingNextPage = 1
-        let cellsToEndToStartFetchingNextPage = self.cellsPerTableHeight * tableHeightsToEndToStartFetchingNextPage
-        let cellToBeginFetching = self.records.count - cellsToEndToStartFetchingNextPage
-        guard cellToBeginFetching <= indexPath.row else { return }
-        self.fetchNextPage()
+        self.paginationManager.unwrapped(using: self.errorHandler)?.tableViewWillDisplayCell(
+            index: indexPath.row,
+            allCellsCount: self.records.count)
     }
     
     func viewDidSelectCell(at indexPath: IndexPath) {
@@ -173,13 +166,16 @@ extension RemoteWorkViewModel: RemoteWorkViewModelType {
 
 // MARK: - Private
 extension RemoteWorkViewModel {
-    private func setUpRecordsNumberPerPage() {
+    private func setUpPaginationManager() {
         guard let cellsPerTableHeight = self.userInterface?.getMaxCellsPerTableHeight() else { return }
         guard cellsPerTableHeight != 0 else {
             self.errorHandler.stopInDebug()
             return
         }
-        self.cellsPerTableHeight = cellsPerTableHeight
+        self.paginationManager = PaginationManager(cellsPerTableHeight: cellsPerTableHeight, fetchNextPageHandler: {
+            [weak self] in
+            self?.fetchNextPage()
+        })
     }
     
     private func item(for index: IndexPath) -> RemoteWork? {
@@ -188,7 +184,7 @@ extension RemoteWorkViewModel {
     
     private func fetchFirstPage(showActivityIndicator: Bool = true, completion: (() -> Void)? = nil) {
         let pageNumber = 1
-        let parameters = self.parameters(forPage: pageNumber)
+        guard let parameters = self.parameters(forPage: pageNumber) else { return }
         self.state = .fetching(page: pageNumber)
         if showActivityIndicator {
             self.smoothLoadingManager.showActivityIndicatorWithDelay()
@@ -225,7 +221,7 @@ extension RemoteWorkViewModel {
         guard case let .fetched(lastFetchedPage, totalPages) = self.state else { return }
         guard lastFetchedPage < totalPages else { return }
         let nextPage = lastFetchedPage + 1
-        let parameters = self.parameters(forPage: nextPage)
+        guard let parameters = self.parameters(forPage: nextPage) else { return }
         self.state = .fetching(page: nextPage)
         _ = self.apiClient.fetchRemoteWork(parameters: parameters) { [weak self] result in
             switch result {
@@ -251,8 +247,9 @@ extension RemoteWorkViewModel {
         self.errorHandler.throwing(error: error)
     }
     
-    private func parameters(forPage page: Int) -> RemoteWorkParameters {
-        RemoteWorkParameters(page: page, perPage: self.recordsPerPage)
+    private func parameters(forPage page: Int) -> RemoteWorkParameters? {
+        guard let paginationManager = self.paginationManager.unwrapped(using: self.errorHandler) else { return nil }
+        return RemoteWorkParameters(page: page, perPage: paginationManager.recordsPerPage)
     }
     
     private func remove(remoteWork: RemoteWork, completion: @escaping (Bool) -> Void) {

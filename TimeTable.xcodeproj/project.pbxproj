@@ -224,6 +224,7 @@
 		8A9369B4237AA293005F8199 /* WorkTimeCellViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */; };
 		8A9369B6237AA348005F8199 /* TimesheetSectionHeaderViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9369B5237AA348005F8199 /* TimesheetSectionHeaderViewMock.swift */; };
 		8A94E5FA24751041009ECCCA /* ApiClient+Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A94E5F924751041009ECCCA /* ApiClient+Typealiases.swift */; };
+		8A981FA42477A7EF009BF418 /* PaginationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A981FA32477A7EF009BF418 /* PaginationManager.swift */; };
 		8A9832BA243AFFF7005245A8 /* ServerErrorJSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9832B9243AFFF7005245A8 /* ServerErrorJSONResource.swift */; };
 		8A9832BD243B0023005245A8 /* serverErrorFullModel.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A9832BC243B0023005245A8 /* serverErrorFullModel.json */; };
 		8A9987CE23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A9987CD23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json */; };
@@ -926,6 +927,7 @@
 		8A9369B3237AA293005F8199 /* WorkTimeCellViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCellViewMock.swift; sourceTree = "<group>"; };
 		8A9369B5237AA348005F8199 /* TimesheetSectionHeaderViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesheetSectionHeaderViewMock.swift; sourceTree = "<group>"; };
 		8A94E5F924751041009ECCCA /* ApiClient+Typealiases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiClient+Typealiases.swift"; sourceTree = "<group>"; };
+		8A981FA32477A7EF009BF418 /* PaginationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationManager.swift; sourceTree = "<group>"; };
 		8A9832B9243AFFF7005245A8 /* ServerErrorJSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerErrorJSONResource.swift; sourceTree = "<group>"; };
 		8A9832BC243B0023005245A8 /* serverErrorFullModel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = serverErrorFullModel.json; sourceTree = "<group>"; };
 		8A9987CD23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpleProjectWithIsTaggableTrueResponse.json; sourceTree = "<group>"; };
@@ -2278,6 +2280,7 @@
 				8A2FB101242E32B500DDBCB0 /* LabelTextParameters.swift */,
 				C130B138246BD333002D23AB /* LocalizedDescribable.swift */,
 				C175B56B227CAACA006D9944 /* MessagePresenter.swift */,
+				8A981FA32477A7EF009BF418 /* PaginationManager.swift */,
 				8A5EF31B23FE808800AE4309 /* ReusableCellType.swift */,
 				8AFF1EC52476940A0042F831 /* SmoothLoadingManager.swift */,
 				8AD14A6C245B054900BAE803 /* TimerFormatter.swift */,
@@ -4307,6 +4310,7 @@
 				8AB8AFC5244EF45400A0D3D3 /* UINavigationBar+Extension.swift in Sources */,
 				C153AC4C2182EF40007A35BB /* String+Extension.swift in Sources */,
 				C13C88E621E5EA8F00F68C6E /* WorkTimeViewController.swift in Sources */,
+				8A981FA42477A7EF009BF418 /* PaginationManager.swift in Sources */,
 				C1B5136D21772D1200C3727C /* AppDelegate.swift in Sources */,
 				8A5D48C62369ED990082C13D /* UIImage+Extension.swift in Sources */,
 				C10FD88121F1F15100A233C5 /* UserDecoder.swift in Sources */,
