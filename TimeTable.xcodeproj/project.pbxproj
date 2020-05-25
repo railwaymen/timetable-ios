@@ -41,22 +41,11 @@
 		8A18F7BB242B625700D06059 /* ServerConfigurationUIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A18F7BA242B625700D06059 /* ServerConfigurationUIElements.swift */; };
 		8A18F7BD242B6A4D00D06059 /* ScreenToTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A18F7BC242B6A4D00D06059 /* ScreenToTest.swift */; };
 		8A21A0422435BF2200EE4A79 /* ViewControllerBuilderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A21A0412435BF2200EE4A79 /* ViewControllerBuilderMock.swift */; };
-		8A21A0442435D71700EE4A79 /* taskVersionNullPreviousTaskPreview.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A21A0432435D71700EE4A79 /* taskVersionNullPreviousTaskPreview.json */; };
-		8A21A0462435D72E00EE4A79 /* taskVersionMissingPreviousTaskPreviewKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A21A0452435D72E00EE4A79 /* taskVersionMissingPreviousTaskPreviewKey.json */; };
-		8A21A0482435D74C00EE4A79 /* taskVersionNullCurrentTaskPreview.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A21A0472435D74C00EE4A79 /* taskVersionNullCurrentTaskPreview.json */; };
-		8A21A04A2435D75900EE4A79 /* taskVersionMissingCurrentTaskPreviewKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A21A0492435D75900EE4A79 /* taskVersionMissingCurrentTaskPreviewKey.json */; };
-		8A21A04C2435D7FE00EE4A79 /* taskChangedTaskPreviewResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A21A04B2435D7FE00EE4A79 /* taskChangedTaskPreviewResponse.json */; };
+		8A21A04A2435D75900EE4A79 /* taskVersionChangesetDateChanged.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A21A0492435D75900EE4A79 /* taskVersionChangesetDateChanged.json */; };
 		8A21A04E2436134000EE4A79 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A21A04D2436134000EE4A79 /* SessionManager.swift */; };
 		8A21A0502436136B00EE4A79 /* TemporarySessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A21A04F2436136B00EE4A79 /* TemporarySessionManager.swift */; };
 		8A21A052243614D900EE4A79 /* KeychainBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A21A051243614D900EE4A79 /* KeychainBuilder.swift */; };
 		8A281B6E2460166A00A9564C /* LoginFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A281B6D2460166A00A9564C /* LoginFormTests.swift */; };
-		8A2FB0F4242E274700DDBCB0 /* taskChangedProjectResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A2FB0F3242E274700DDBCB0 /* taskChangedProjectResponse.json */; };
-		8A2FB0F6242E278C00DDBCB0 /* taskUnchangedResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A2FB0F5242E278C00DDBCB0 /* taskUnchangedResponse.json */; };
-		8A2FB0F8242E27DF00DDBCB0 /* taskChangedBodyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A2FB0F7242E27DF00DDBCB0 /* taskChangedBodyResponse.json */; };
-		8A2FB0FA242E27FF00DDBCB0 /* taskChangedStartsAtResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A2FB0F9242E27FF00DDBCB0 /* taskChangedStartsAtResponse.json */; };
-		8A2FB0FC242E282900DDBCB0 /* taskChangedEndsAtResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A2FB0FB242E282900DDBCB0 /* taskChangedEndsAtResponse.json */; };
-		8A2FB0FE242E284900DDBCB0 /* taskChangedTagResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A2FB0FD242E284900DDBCB0 /* taskChangedTagResponse.json */; };
-		8A2FB100242E286C00DDBCB0 /* taskChangedDurationResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A2FB0FF242E286C00DDBCB0 /* taskChangedDurationResponse.json */; };
 		8A2FB102242E32B500DDBCB0 /* LabelTextParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2FB101242E32B500DDBCB0 /* LabelTextParameters.swift */; };
 		8A31A85E238E902B008DCC08 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31A85D238E902B008DCC08 /* Date+Extension.swift */; };
 		8A31A860238E927E008DCC08 /* TimeInterval+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A31A85F238E927E008DCC08 /* TimeInterval+Extension.swift */; };
@@ -135,37 +124,17 @@
 		8A79A24B2420D6840048B44B /* TaskVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A24A2420D6840048B44B /* TaskVersion.swift */; };
 		8A79A2502420DE4C0048B44B /* TaskVersionJSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A24F2420DE4C0048B44B /* TaskVersionJSONResource.swift */; };
 		8A79A2532420DEEB0048B44B /* taskVersionFullModel.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2522420DEEB0048B44B /* taskVersionFullModel.json */; };
-		8A79A2552420E5600048B44B /* NilableDiffElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2542420E5600048B44B /* NilableDiffElement.swift */; };
-		8A79A2682420EBD90048B44B /* taskVersionMissingCurrentProjectNameKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2642420EBD80048B44B /* taskVersionMissingCurrentProjectNameKey.json */; };
-		8A79A2712420EF2F0048B44B /* taskVersionMissingCurrentBodyKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2702420EF2F0048B44B /* taskVersionMissingCurrentBodyKey.json */; };
-		8A79A2792420EFBC0048B44B /* taskVersionMissingCurrentStartsAtKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2782420EFBC0048B44B /* taskVersionMissingCurrentStartsAtKey.json */; };
-		8A79A2812420F01A0048B44B /* taskVersionMissingCurrentEndsAtKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2802420F01A0048B44B /* taskVersionMissingCurrentEndsAtKey.json */; };
-		8A79A2912420F0DE0048B44B /* taskVersionMissingCurrentDurationKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2902420F0DE0048B44B /* taskVersionMissingCurrentDurationKey.json */; };
+		8A79A2712420EF2F0048B44B /* taskVersionChangesetStartsAtChanged.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2702420EF2F0048B44B /* taskVersionChangesetStartsAtChanged.json */; };
+		8A79A2792420EFBC0048B44B /* taskVersionChangesetBodyChanged.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2782420EFBC0048B44B /* taskVersionChangesetBodyChanged.json */; };
+		8A79A2812420F01A0048B44B /* taskVersionChangesetDurationChanged.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2802420F01A0048B44B /* taskVersionChangesetDurationChanged.json */; };
+		8A79A2912420F0DE0048B44B /* taskVersionChangesetEndsAtChanged.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2902420F0DE0048B44B /* taskVersionChangesetEndsAtChanged.json */; };
 		8A79A2932420F58A0048B44B /* TaskVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2922420F58A0048B44B /* TaskVersionTests.swift */; };
 		8A79A2AC2420F73C0048B44B /* taskVersionUnknownEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2942420F73B0048B44B /* taskVersionUnknownEvent.json */; };
-		8A79A2AD2420F73C0048B44B /* taskVersionNullPreviousEndsAt.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2952420F73B0048B44B /* taskVersionNullPreviousEndsAt.json */; };
-		8A79A2AE2420F73C0048B44B /* taskVersionNullPreviousTag.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2962420F73B0048B44B /* taskVersionNullPreviousTag.json */; };
-		8A79A2AF2420F73C0048B44B /* taskVersionMissingPreviousEndsAtKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2972420F73B0048B44B /* taskVersionMissingPreviousEndsAtKey.json */; };
-		8A79A2B02420F73C0048B44B /* taskVersionNullPreviousDuration.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2982420F73B0048B44B /* taskVersionNullPreviousDuration.json */; };
-		8A79A2B12420F73C0048B44B /* taskVersionMissingPreviousProjectNameKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2992420F73B0048B44B /* taskVersionMissingPreviousProjectNameKey.json */; };
-		8A79A2B22420F73C0048B44B /* taskVersionNullCurrentStartsAt.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A29A2420F73B0048B44B /* taskVersionNullCurrentStartsAt.json */; };
-		8A79A2B32420F73C0048B44B /* taskVersionMissingCurrentTagKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A29B2420F73B0048B44B /* taskVersionMissingCurrentTagKey.json */; };
-		8A79A2B42420F73C0048B44B /* taskVersionNullCurrentBody.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A29C2420F73B0048B44B /* taskVersionNullCurrentBody.json */; };
-		8A79A2B52420F73C0048B44B /* taskVersionNullPreviousProjectName.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A29D2420F73B0048B44B /* taskVersionNullPreviousProjectName.json */; };
-		8A79A2B62420F73C0048B44B /* taskVersionNullCurrentProjectName.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A29E2420F73B0048B44B /* taskVersionNullCurrentProjectName.json */; };
-		8A79A2B72420F73C0048B44B /* taskVersionNullPreviousBody.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A29F2420F73C0048B44B /* taskVersionNullPreviousBody.json */; };
+		8A79A2B32420F73C0048B44B /* taskVersionChangesetTaskChanged.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A29B2420F73B0048B44B /* taskVersionChangesetTaskChanged.json */; };
+		8A79A2B52420F73C0048B44B /* taskVersionChangesetProjectChanged.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A29D2420F73B0048B44B /* taskVersionChangesetProjectChanged.json */; };
 		8A79A2B82420F73C0048B44B /* taskVersionMissingEventKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2A02420F73C0048B44B /* taskVersionMissingEventKey.json */; };
-		8A79A2B92420F73C0048B44B /* taskVersionMissingPreviousTagKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2A12420F73C0048B44B /* taskVersionMissingPreviousTagKey.json */; };
-		8A79A2BA2420F73C0048B44B /* taskVersionNullCurrentEndsAt.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2A22420F73C0048B44B /* taskVersionNullCurrentEndsAt.json */; };
 		8A79A2BB2420F73C0048B44B /* taskVersionNullEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2A32420F73C0048B44B /* taskVersionNullEvent.json */; };
-		8A79A2BC2420F73C0048B44B /* taskVersionMissingPreviousStartsAtKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2A42420F73C0048B44B /* taskVersionMissingPreviousStartsAtKey.json */; };
-		8A79A2BD2420F73C0048B44B /* taskVersionNullPreviousStartsAt.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2A52420F73C0048B44B /* taskVersionNullPreviousStartsAt.json */; };
-		8A79A2BE2420F73C0048B44B /* taskVersionMissingProjectNameKeys.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2A62420F73C0048B44B /* taskVersionMissingProjectNameKeys.json */; };
-		8A79A2BF2420F73C0048B44B /* taskVersionNullProjectName.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2A72420F73C0048B44B /* taskVersionNullProjectName.json */; };
-		8A79A2C02420F73C0048B44B /* taskVersionNullCurrentTag.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2A82420F73C0048B44B /* taskVersionNullCurrentTag.json */; };
-		8A79A2C12420F73C0048B44B /* taskVersionMissingPreviousDurationKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2A92420F73C0048B44B /* taskVersionMissingPreviousDurationKey.json */; };
-		8A79A2C22420F73C0048B44B /* taskVersionMissingPreviousBodyKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2AA2420F73C0048B44B /* taskVersionMissingPreviousBodyKey.json */; };
-		8A79A2C32420F73C0048B44B /* taskVersionNullCurrentDuration.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2AB2420F73C0048B44B /* taskVersionNullCurrentDuration.json */; };
+		8A79A2C22420F73C0048B44B /* taskVersionChangesetTagChanged.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A79A2AA2420F73C0048B44B /* taskVersionChangesetTagChanged.json */; };
 		8A79A2C524210AAC0048B44B /* WorkTimeDisplayed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2C424210AAC0048B44B /* WorkTimeDisplayed.swift */; };
 		8A79A2C724220BB20048B44B /* DateFormatterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2C624220BB20048B44B /* DateFormatterBuilder.swift */; };
 		8A79A2C92422103A0048B44B /* DateFormatterBuilderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A79A2C82422103A0048B44B /* DateFormatterBuilderMock.swift */; };
@@ -202,8 +171,6 @@
 		8A8E8435242D054800003AB1 /* DefaultUITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E8434242D054800003AB1 /* DefaultUITestCase.swift */; };
 		8A8EE1AB23F4455100416D31 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A8EE1AA23F4455100416D31 /* GoogleService-Info.plist */; };
 		8A8EE1AD23F4455900416D31 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A8EE1AC23F4455900416D31 /* GoogleService-Info.plist */; };
-		8A912D80246BC69900D88DA8 /* taskChangedDayResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A912D7F246BC69900D88DA8 /* taskChangedDayResponse.json */; };
-		8A912D82246BC7AC00D88DA8 /* taskChangedDayAndTimeResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A912D81246BC7AC00D88DA8 /* taskChangedDayAndTimeResponse.json */; };
 		8A912D84246BDEE200D88DA8 /* ButtonTitleParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A912D83246BDEE200D88DA8 /* ButtonTitleParameters.swift */; };
 		8A912D86246D545600D88DA8 /* UpdateRemoteWorkValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A912D85246D545600D88DA8 /* UpdateRemoteWorkValidationError.swift */; };
 		8A912D89246D5A6600D88DA8 /* UpdateRemoteWorkValidationErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A912D88246D5A6600D88DA8 /* UpdateRemoteWorkValidationErrorTests.swift */; };
@@ -291,11 +258,7 @@
 		8AFF1EC22476657F0042F831 /* Optional+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFF1EC12476657E0042F831 /* Optional+Extension.swift */; };
 		8AFF1EC4247687B70042F831 /* ContainerViewControllerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFF1EC3247687B70042F831 /* ContainerViewControllerType.swift */; };
 		8AFF1EC62476940A0042F831 /* SmoothLoadingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFF1EC52476940A0042F831 /* SmoothLoadingManager.swift */; };
-		8AFFE5C224331BDB001D9E89 /* taskVersionNullPreviousTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */; };
-		8AFFE5C424331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */; };
-		8AFFE5C624331BFB001D9E89 /* taskVersionNullCurrentTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */; };
-		8AFFE5C824331C0B001D9E89 /* taskVersionMissingCurrentTaskKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C724331C0B001D9E89 /* taskVersionMissingCurrentTaskKey.json */; };
-		8AFFE5CA24331F77001D9E89 /* taskChangedTaskResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C924331F77001D9E89 /* taskChangedTaskResponse.json */; };
+		8AFFE5C824331C0B001D9E89 /* taskVersionChangesetTaskPreviewChanged.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AFFE5C724331C0B001D9E89 /* taskVersionChangesetTaskPreviewChanged.json */; };
 		8AFFE5CC24334A56001D9E89 /* RestlerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFE5CB24334A56001D9E89 /* RestlerFactory.swift */; };
 		8AFFE5CE24334AAC001D9E89 /* RestlerFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFE5CD24334AAC001D9E89 /* RestlerFactoryMock.swift */; };
 		8AFFE5D024336333001D9E89 /* TaskFormFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFE5CF24336333001D9E89 /* TaskFormFactoryMock.swift */; };
@@ -473,6 +436,10 @@
 		C153AC6D21833BDC007A35BB /* AttributedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6C21833BDC007A35BB /* AttributedButton.swift */; };
 		C153AC6F218342F6007A35BB /* UIErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC6E218342F6007A35BB /* UIErrorTests.swift */; };
 		C153AC7321834F22007A35BB /* ServerConfigurationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153AC7221834F22007A35BB /* ServerConfigurationViewModelTests.swift */; };
+		C16257072476C7450009C48C /* taskVersionChangesetEmpty.json in Resources */ = {isa = PBXBuildFile; fileRef = C16257062476C7450009C48C /* taskVersionChangesetEmpty.json */; };
+		C16257092476C74E0009C48C /* taskVersionChangesetUnknownValue.json in Resources */ = {isa = PBXBuildFile; fileRef = C16257082476C74E0009C48C /* taskVersionChangesetUnknownValue.json */; };
+		C162570B2476C85B0009C48C /* taskVersionUpdateEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = C162570A2476C85B0009C48C /* taskVersionUpdateEvent.json */; };
+		C162570D2476C8630009C48C /* taskVersionCreateEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = C162570C2476C8630009C48C /* taskVersionCreateEvent.json */; };
 		C163BF2B244F496000E87F4A /* TaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C163BF2A244F496000E87F4A /* TaskTests.swift */; };
 		C16B05D021F2140200BB63E6 /* ProfileCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16B05CF21F2140200BB63E6 /* ProfileCoordinatorTests.swift */; };
 		C16B3A75229E6A0700B6E9E6 /* ProjectTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16B3A74229E6A0700B6E9E6 /* ProjectTag.swift */; };
@@ -743,22 +710,11 @@
 		8A18F7BA242B625700D06059 /* ServerConfigurationUIElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationUIElements.swift; sourceTree = "<group>"; };
 		8A18F7BC242B6A4D00D06059 /* ScreenToTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenToTest.swift; sourceTree = "<group>"; };
 		8A21A0412435BF2200EE4A79 /* ViewControllerBuilderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerBuilderMock.swift; sourceTree = "<group>"; };
-		8A21A0432435D71700EE4A79 /* taskVersionNullPreviousTaskPreview.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullPreviousTaskPreview.json; sourceTree = "<group>"; };
-		8A21A0452435D72E00EE4A79 /* taskVersionMissingPreviousTaskPreviewKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionMissingPreviousTaskPreviewKey.json; sourceTree = "<group>"; };
-		8A21A0472435D74C00EE4A79 /* taskVersionNullCurrentTaskPreview.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullCurrentTaskPreview.json; sourceTree = "<group>"; };
-		8A21A0492435D75900EE4A79 /* taskVersionMissingCurrentTaskPreviewKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionMissingCurrentTaskPreviewKey.json; sourceTree = "<group>"; };
-		8A21A04B2435D7FE00EE4A79 /* taskChangedTaskPreviewResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedTaskPreviewResponse.json; sourceTree = "<group>"; };
+		8A21A0492435D75900EE4A79 /* taskVersionChangesetDateChanged.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionChangesetDateChanged.json; sourceTree = "<group>"; };
 		8A21A04D2436134000EE4A79 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		8A21A04F2436136B00EE4A79 /* TemporarySessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporarySessionManager.swift; sourceTree = "<group>"; };
 		8A21A051243614D900EE4A79 /* KeychainBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainBuilder.swift; sourceTree = "<group>"; };
 		8A281B6D2460166A00A9564C /* LoginFormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormTests.swift; sourceTree = "<group>"; };
-		8A2FB0F3242E274700DDBCB0 /* taskChangedProjectResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedProjectResponse.json; sourceTree = "<group>"; };
-		8A2FB0F5242E278C00DDBCB0 /* taskUnchangedResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskUnchangedResponse.json; sourceTree = "<group>"; };
-		8A2FB0F7242E27DF00DDBCB0 /* taskChangedBodyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedBodyResponse.json; sourceTree = "<group>"; };
-		8A2FB0F9242E27FF00DDBCB0 /* taskChangedStartsAtResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedStartsAtResponse.json; sourceTree = "<group>"; };
-		8A2FB0FB242E282900DDBCB0 /* taskChangedEndsAtResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedEndsAtResponse.json; sourceTree = "<group>"; };
-		8A2FB0FD242E284900DDBCB0 /* taskChangedTagResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedTagResponse.json; sourceTree = "<group>"; };
-		8A2FB0FF242E286C00DDBCB0 /* taskChangedDurationResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedDurationResponse.json; sourceTree = "<group>"; };
 		8A2FB101242E32B500DDBCB0 /* LabelTextParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTextParameters.swift; sourceTree = "<group>"; };
 		8A31A85D238E902B008DCC08 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		8A31A85F238E927E008DCC08 /* TimeInterval+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extension.swift"; sourceTree = "<group>"; };
@@ -839,37 +795,17 @@
 		8A79A24A2420D6840048B44B /* TaskVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskVersion.swift; sourceTree = "<group>"; };
 		8A79A24F2420DE4C0048B44B /* TaskVersionJSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskVersionJSONResource.swift; sourceTree = "<group>"; };
 		8A79A2522420DEEB0048B44B /* taskVersionFullModel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionFullModel.json; sourceTree = "<group>"; };
-		8A79A2542420E5600048B44B /* NilableDiffElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NilableDiffElement.swift; sourceTree = "<group>"; };
-		8A79A2642420EBD80048B44B /* taskVersionMissingCurrentProjectNameKey.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionMissingCurrentProjectNameKey.json; sourceTree = "<group>"; };
-		8A79A2702420EF2F0048B44B /* taskVersionMissingCurrentBodyKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionMissingCurrentBodyKey.json; sourceTree = "<group>"; };
-		8A79A2782420EFBC0048B44B /* taskVersionMissingCurrentStartsAtKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionMissingCurrentStartsAtKey.json; sourceTree = "<group>"; };
-		8A79A2802420F01A0048B44B /* taskVersionMissingCurrentEndsAtKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionMissingCurrentEndsAtKey.json; sourceTree = "<group>"; };
-		8A79A2902420F0DE0048B44B /* taskVersionMissingCurrentDurationKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionMissingCurrentDurationKey.json; sourceTree = "<group>"; };
+		8A79A2702420EF2F0048B44B /* taskVersionChangesetStartsAtChanged.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionChangesetStartsAtChanged.json; sourceTree = "<group>"; };
+		8A79A2782420EFBC0048B44B /* taskVersionChangesetBodyChanged.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionChangesetBodyChanged.json; sourceTree = "<group>"; };
+		8A79A2802420F01A0048B44B /* taskVersionChangesetDurationChanged.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionChangesetDurationChanged.json; sourceTree = "<group>"; };
+		8A79A2902420F0DE0048B44B /* taskVersionChangesetEndsAtChanged.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionChangesetEndsAtChanged.json; sourceTree = "<group>"; };
 		8A79A2922420F58A0048B44B /* TaskVersionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskVersionTests.swift; sourceTree = "<group>"; };
 		8A79A2942420F73B0048B44B /* taskVersionUnknownEvent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionUnknownEvent.json; sourceTree = "<group>"; };
-		8A79A2952420F73B0048B44B /* taskVersionNullPreviousEndsAt.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionNullPreviousEndsAt.json; sourceTree = "<group>"; };
-		8A79A2962420F73B0048B44B /* taskVersionNullPreviousTag.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionNullPreviousTag.json; sourceTree = "<group>"; };
-		8A79A2972420F73B0048B44B /* taskVersionMissingPreviousEndsAtKey.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionMissingPreviousEndsAtKey.json; sourceTree = "<group>"; };
-		8A79A2982420F73B0048B44B /* taskVersionNullPreviousDuration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionNullPreviousDuration.json; sourceTree = "<group>"; };
-		8A79A2992420F73B0048B44B /* taskVersionMissingPreviousProjectNameKey.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionMissingPreviousProjectNameKey.json; sourceTree = "<group>"; };
-		8A79A29A2420F73B0048B44B /* taskVersionNullCurrentStartsAt.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionNullCurrentStartsAt.json; sourceTree = "<group>"; };
-		8A79A29B2420F73B0048B44B /* taskVersionMissingCurrentTagKey.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionMissingCurrentTagKey.json; sourceTree = "<group>"; };
-		8A79A29C2420F73B0048B44B /* taskVersionNullCurrentBody.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionNullCurrentBody.json; sourceTree = "<group>"; };
-		8A79A29D2420F73B0048B44B /* taskVersionNullPreviousProjectName.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionNullPreviousProjectName.json; sourceTree = "<group>"; };
-		8A79A29E2420F73B0048B44B /* taskVersionNullCurrentProjectName.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionNullCurrentProjectName.json; sourceTree = "<group>"; };
-		8A79A29F2420F73C0048B44B /* taskVersionNullPreviousBody.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionNullPreviousBody.json; sourceTree = "<group>"; };
+		8A79A29B2420F73B0048B44B /* taskVersionChangesetTaskChanged.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionChangesetTaskChanged.json; sourceTree = "<group>"; };
+		8A79A29D2420F73B0048B44B /* taskVersionChangesetProjectChanged.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionChangesetProjectChanged.json; sourceTree = "<group>"; };
 		8A79A2A02420F73C0048B44B /* taskVersionMissingEventKey.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionMissingEventKey.json; sourceTree = "<group>"; };
-		8A79A2A12420F73C0048B44B /* taskVersionMissingPreviousTagKey.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionMissingPreviousTagKey.json; sourceTree = "<group>"; };
-		8A79A2A22420F73C0048B44B /* taskVersionNullCurrentEndsAt.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionNullCurrentEndsAt.json; sourceTree = "<group>"; };
 		8A79A2A32420F73C0048B44B /* taskVersionNullEvent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionNullEvent.json; sourceTree = "<group>"; };
-		8A79A2A42420F73C0048B44B /* taskVersionMissingPreviousStartsAtKey.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionMissingPreviousStartsAtKey.json; sourceTree = "<group>"; };
-		8A79A2A52420F73C0048B44B /* taskVersionNullPreviousStartsAt.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionNullPreviousStartsAt.json; sourceTree = "<group>"; };
-		8A79A2A62420F73C0048B44B /* taskVersionMissingProjectNameKeys.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionMissingProjectNameKeys.json; sourceTree = "<group>"; };
-		8A79A2A72420F73C0048B44B /* taskVersionNullProjectName.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionNullProjectName.json; sourceTree = "<group>"; };
-		8A79A2A82420F73C0048B44B /* taskVersionNullCurrentTag.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionNullCurrentTag.json; sourceTree = "<group>"; };
-		8A79A2A92420F73C0048B44B /* taskVersionMissingPreviousDurationKey.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionMissingPreviousDurationKey.json; sourceTree = "<group>"; };
-		8A79A2AA2420F73C0048B44B /* taskVersionMissingPreviousBodyKey.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionMissingPreviousBodyKey.json; sourceTree = "<group>"; };
-		8A79A2AB2420F73C0048B44B /* taskVersionNullCurrentDuration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionNullCurrentDuration.json; sourceTree = "<group>"; };
+		8A79A2AA2420F73C0048B44B /* taskVersionChangesetTagChanged.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskVersionChangesetTagChanged.json; sourceTree = "<group>"; };
 		8A79A2C424210AAC0048B44B /* WorkTimeDisplayed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeDisplayed.swift; sourceTree = "<group>"; };
 		8A79A2C624220BB20048B44B /* DateFormatterBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterBuilder.swift; sourceTree = "<group>"; };
 		8A79A2C82422103A0048B44B /* DateFormatterBuilderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterBuilderMock.swift; sourceTree = "<group>"; };
@@ -906,8 +842,6 @@
 		8A8E8434242D054800003AB1 /* DefaultUITestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUITestCase.swift; sourceTree = "<group>"; };
 		8A8EE1AA23F4455100416D31 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8A8EE1AC23F4455900416D31 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		8A912D7F246BC69900D88DA8 /* taskChangedDayResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedDayResponse.json; sourceTree = "<group>"; };
-		8A912D81246BC7AC00D88DA8 /* taskChangedDayAndTimeResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedDayAndTimeResponse.json; sourceTree = "<group>"; };
 		8A912D83246BDEE200D88DA8 /* ButtonTitleParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTitleParameters.swift; sourceTree = "<group>"; };
 		8A912D85246D545600D88DA8 /* UpdateRemoteWorkValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRemoteWorkValidationError.swift; sourceTree = "<group>"; };
 		8A912D88246D5A6600D88DA8 /* UpdateRemoteWorkValidationErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRemoteWorkValidationErrorTests.swift; sourceTree = "<group>"; };
@@ -998,11 +932,7 @@
 		8AFF1EC12476657E0042F831 /* Optional+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Optional+Extension.swift"; sourceTree = "<group>"; };
 		8AFF1EC3247687B70042F831 /* ContainerViewControllerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewControllerType.swift; sourceTree = "<group>"; };
 		8AFF1EC52476940A0042F831 /* SmoothLoadingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothLoadingManager.swift; sourceTree = "<group>"; };
-		8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullPreviousTask.json; sourceTree = "<group>"; };
-		8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionMissingPreviousTaskKey.json; sourceTree = "<group>"; };
-		8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionNullCurrentTask.json; sourceTree = "<group>"; };
-		8AFFE5C724331C0B001D9E89 /* taskVersionMissingCurrentTaskKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionMissingCurrentTaskKey.json; sourceTree = "<group>"; };
-		8AFFE5C924331F77001D9E89 /* taskChangedTaskResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskChangedTaskResponse.json; sourceTree = "<group>"; };
+		8AFFE5C724331C0B001D9E89 /* taskVersionChangesetTaskPreviewChanged.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionChangesetTaskPreviewChanged.json; sourceTree = "<group>"; };
 		8AFFE5CB24334A56001D9E89 /* RestlerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestlerFactory.swift; sourceTree = "<group>"; };
 		8AFFE5CD24334AAC001D9E89 /* RestlerFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestlerFactoryMock.swift; sourceTree = "<group>"; };
 		8AFFE5CF24336333001D9E89 /* TaskFormFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormFactoryMock.swift; sourceTree = "<group>"; };
@@ -1183,6 +1113,10 @@
 		C153AC6C21833BDC007A35BB /* AttributedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedButton.swift; sourceTree = "<group>"; };
 		C153AC6E218342F6007A35BB /* UIErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIErrorTests.swift; sourceTree = "<group>"; };
 		C153AC7221834F22007A35BB /* ServerConfigurationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationViewModelTests.swift; sourceTree = "<group>"; };
+		C16257062476C7450009C48C /* taskVersionChangesetEmpty.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionChangesetEmpty.json; sourceTree = "<group>"; };
+		C16257082476C74E0009C48C /* taskVersionChangesetUnknownValue.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionChangesetUnknownValue.json; sourceTree = "<group>"; };
+		C162570A2476C85B0009C48C /* taskVersionUpdateEvent.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionUpdateEvent.json; sourceTree = "<group>"; };
+		C162570C2476C8630009C48C /* taskVersionCreateEvent.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taskVersionCreateEvent.json; sourceTree = "<group>"; };
 		C163BF2A244F496000E87F4A /* TaskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTests.swift; sourceTree = "<group>"; };
 		C16B05CF21F2140200BB63E6 /* ProfileCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinatorTests.swift; sourceTree = "<group>"; };
 		C16B3A74229E6A0700B6E9E6 /* ProjectTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTag.swift; sourceTree = "<group>"; };
@@ -1837,7 +1771,6 @@
 		8A79A2492420D6600048B44B /* TaskHistory */ = {
 			isa = PBXGroup;
 			children = (
-				8A79A2542420E5600048B44B /* NilableDiffElement.swift */,
 				8A79A24A2420D6840048B44B /* TaskVersion.swift */,
 			);
 			path = TaskHistory;
@@ -1854,55 +1787,23 @@
 		8A79A2512420DED60048B44B /* TaskHistory */ = {
 			isa = PBXGroup;
 			children = (
-				8A2FB0F7242E27DF00DDBCB0 /* taskChangedBodyResponse.json */,
-				8A912D81246BC7AC00D88DA8 /* taskChangedDayAndTimeResponse.json */,
-				8A912D7F246BC69900D88DA8 /* taskChangedDayResponse.json */,
-				8A2FB0FF242E286C00DDBCB0 /* taskChangedDurationResponse.json */,
-				8A2FB0FB242E282900DDBCB0 /* taskChangedEndsAtResponse.json */,
-				8A2FB0F3242E274700DDBCB0 /* taskChangedProjectResponse.json */,
-				8A2FB0F9242E27FF00DDBCB0 /* taskChangedStartsAtResponse.json */,
-				8A2FB0FD242E284900DDBCB0 /* taskChangedTagResponse.json */,
-				8A21A04B2435D7FE00EE4A79 /* taskChangedTaskPreviewResponse.json */,
-				8AFFE5C924331F77001D9E89 /* taskChangedTaskResponse.json */,
-				8A2FB0F5242E278C00DDBCB0 /* taskUnchangedResponse.json */,
+				8A79A2782420EFBC0048B44B /* taskVersionChangesetBodyChanged.json */,
+				8A21A0492435D75900EE4A79 /* taskVersionChangesetDateChanged.json */,
+				8A79A2802420F01A0048B44B /* taskVersionChangesetDurationChanged.json */,
+				C16257062476C7450009C48C /* taskVersionChangesetEmpty.json */,
+				8A79A2902420F0DE0048B44B /* taskVersionChangesetEndsAtChanged.json */,
+				8A79A29D2420F73B0048B44B /* taskVersionChangesetProjectChanged.json */,
+				8A79A2702420EF2F0048B44B /* taskVersionChangesetStartsAtChanged.json */,
+				8A79A2AA2420F73C0048B44B /* taskVersionChangesetTagChanged.json */,
+				8A79A29B2420F73B0048B44B /* taskVersionChangesetTaskChanged.json */,
+				8AFFE5C724331C0B001D9E89 /* taskVersionChangesetTaskPreviewChanged.json */,
+				C16257082476C74E0009C48C /* taskVersionChangesetUnknownValue.json */,
+				C162570C2476C8630009C48C /* taskVersionCreateEvent.json */,
 				8A79A2522420DEEB0048B44B /* taskVersionFullModel.json */,
-				8A79A2702420EF2F0048B44B /* taskVersionMissingCurrentBodyKey.json */,
-				8A79A2902420F0DE0048B44B /* taskVersionMissingCurrentDurationKey.json */,
-				8A79A2802420F01A0048B44B /* taskVersionMissingCurrentEndsAtKey.json */,
-				8A79A2642420EBD80048B44B /* taskVersionMissingCurrentProjectNameKey.json */,
-				8A79A2782420EFBC0048B44B /* taskVersionMissingCurrentStartsAtKey.json */,
-				8A79A29B2420F73B0048B44B /* taskVersionMissingCurrentTagKey.json */,
-				8AFFE5C724331C0B001D9E89 /* taskVersionMissingCurrentTaskKey.json */,
-				8A21A0492435D75900EE4A79 /* taskVersionMissingCurrentTaskPreviewKey.json */,
 				8A79A2A02420F73C0048B44B /* taskVersionMissingEventKey.json */,
-				8A79A2AA2420F73C0048B44B /* taskVersionMissingPreviousBodyKey.json */,
-				8A79A2A92420F73C0048B44B /* taskVersionMissingPreviousDurationKey.json */,
-				8A79A2972420F73B0048B44B /* taskVersionMissingPreviousEndsAtKey.json */,
-				8A79A2992420F73B0048B44B /* taskVersionMissingPreviousProjectNameKey.json */,
-				8A79A2A42420F73C0048B44B /* taskVersionMissingPreviousStartsAtKey.json */,
-				8A79A2A12420F73C0048B44B /* taskVersionMissingPreviousTagKey.json */,
-				8AFFE5C324331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json */,
-				8A21A0452435D72E00EE4A79 /* taskVersionMissingPreviousTaskPreviewKey.json */,
-				8A79A2A62420F73C0048B44B /* taskVersionMissingProjectNameKeys.json */,
-				8A79A29C2420F73B0048B44B /* taskVersionNullCurrentBody.json */,
-				8A79A2AB2420F73C0048B44B /* taskVersionNullCurrentDuration.json */,
-				8A79A2A22420F73C0048B44B /* taskVersionNullCurrentEndsAt.json */,
-				8A79A29E2420F73B0048B44B /* taskVersionNullCurrentProjectName.json */,
-				8A79A29A2420F73B0048B44B /* taskVersionNullCurrentStartsAt.json */,
-				8A79A2A82420F73C0048B44B /* taskVersionNullCurrentTag.json */,
-				8AFFE5C524331BFB001D9E89 /* taskVersionNullCurrentTask.json */,
-				8A21A0472435D74C00EE4A79 /* taskVersionNullCurrentTaskPreview.json */,
 				8A79A2A32420F73C0048B44B /* taskVersionNullEvent.json */,
-				8A79A29F2420F73C0048B44B /* taskVersionNullPreviousBody.json */,
-				8A79A2982420F73B0048B44B /* taskVersionNullPreviousDuration.json */,
-				8A79A2952420F73B0048B44B /* taskVersionNullPreviousEndsAt.json */,
-				8A79A29D2420F73B0048B44B /* taskVersionNullPreviousProjectName.json */,
-				8A79A2A52420F73C0048B44B /* taskVersionNullPreviousStartsAt.json */,
-				8A79A2962420F73B0048B44B /* taskVersionNullPreviousTag.json */,
-				8AFFE5C124331BDB001D9E89 /* taskVersionNullPreviousTask.json */,
-				8A21A0432435D71700EE4A79 /* taskVersionNullPreviousTaskPreview.json */,
-				8A79A2A72420F73C0048B44B /* taskVersionNullProjectName.json */,
 				8A79A2942420F73B0048B44B /* taskVersionUnknownEvent.json */,
+				C162570A2476C85B0009C48C /* taskVersionUpdateEvent.json */,
 			);
 			path = TaskHistory;
 			sourceTree = "<group>";
@@ -3740,29 +3641,24 @@
 				8A912D9A246D5B3700D88DA8 /* updateRemoteStartsAtTooOldResponse.json in Resources */,
 				C130B14F246BE8F8002D23AB /* signInValidationErrorBaseInactive.json in Resources */,
 				C130B13B246BDA1C002D23AB /* registerRemoteStartsAtOverlapResponse.json in Resources */,
-				8A2FB100242E286C00DDBCB0 /* taskChangedDurationResponse.json in Resources */,
 				C1F62B5D24697CE300AB8C00 /* newVacationValidationErrorVacationTypeInclusion.json in Resources */,
 				C1B771ED21EF1EC300EFE06F /* simpleProjectNullWorkTimesAllowsTaskResponse.json in Resources */,
 				8A6A4FBB2456F241004B4CF2 /* accountingPeriodEndsAtNullValue.json in Resources */,
-				8A79A2792420EFBC0048B44B /* taskVersionMissingCurrentStartsAtKey.json in Resources */,
+				8A79A2792420EFBC0048B44B /* taskVersionChangesetBodyChanged.json in Resources */,
 				C1B771DD21EF1E2800EFE06F /* simpleProjectNullInternalResponse.json in Resources */,
 				C1B771DB21EF1E1400EFE06F /* simpleProjectMissingAutofillKeyResponse.json in Resources */,
 				C1F62B5924697CCC00AB8C00 /* newVacationValidationErrorEndDateBlank.json in Resources */,
-				8AFFE5C824331C0B001D9E89 /* taskVersionMissingCurrentTaskKey.json in Resources */,
-				8A79A2AF2420F73C0048B44B /* taskVersionMissingPreviousEndsAtKey.json in Resources */,
-				8A79A2C22420F73C0048B44B /* taskVersionMissingPreviousBodyKey.json in Resources */,
+				8AFFE5C824331C0B001D9E89 /* taskVersionChangesetTaskPreviewChanged.json in Resources */,
+				8A79A2C22420F73C0048B44B /* taskVersionChangesetTagChanged.json in Resources */,
 				C1FB400B245176CA008266C4 /* vacationUnconfirmedStatusResponse.json in Resources */,
 				C130B141246BDB3B002D23AB /* registerRemoteStartsAtIncorrectHoursResponse.json in Resources */,
 				8A912D96246D5B3700D88DA8 /* updateRemoteFullModelResponse.json in Resources */,
-				8A79A2AD2420F73C0048B44B /* taskVersionNullPreviousEndsAt.json in Resources */,
 				C1FB40162451878B008266C4 /* vacationResponseTypeResponse.json in Resources */,
 				C1F62B2E24693BFB00AB8C00 /* registerRemoteFullModelResponse.json in Resources */,
 				C1FB4009245176BF008266C4 /* vacationOthersTypeResponse.json in Resources */,
 				8A912D97246D5B3700D88DA8 /* updateRemoteStartsAtIncorrectHoursResponse.json in Resources */,
 				C11F51F121A59DF300FD626A /* workTimeResponse.json in Resources */,
-				8A2FB0FA242E27FF00DDBCB0 /* taskChangedStartsAtResponse.json in Resources */,
-				8A79A2C12420F73C0048B44B /* taskVersionMissingPreviousDurationKey.json in Resources */,
-				8A21A04A2435D75900EE4A79 /* taskVersionMissingCurrentTaskPreviewKey.json in Resources */,
+				8A21A04A2435D75900EE4A79 /* taskVersionChangesetDateChanged.json in Resources */,
 				8A79A2BB2420F73C0048B44B /* taskVersionNullEvent.json in Resources */,
 				C1F62B422469512500AB8C00 /* validationErrorEmptyValidationErrorResponse.json in Resources */,
 				C1055A6F246D1EFA00EF64ED /* workTimeValidationErrorDurationGreaterThan.json in Resources */,
@@ -3770,29 +3666,20 @@
 				8A912D99246D5B3700D88DA8 /* updateRemoteStartsAtOverlapResponse.json in Resources */,
 				C1B771D921EF1DFF00EFE06F /* simpleProjectNullAutofillResponse.json in Resources */,
 				C1860DD62462F12C00C33C94 /* remoteWorkResponseFullModel.json in Resources */,
-				8A21A0462435D72E00EE4A79 /* taskVersionMissingPreviousTaskPreviewKey.json in Resources */,
-				8AFFE5CA24331F77001D9E89 /* taskChangedTaskResponse.json in Resources */,
 				C1B771D721EF1DE100EFE06F /* simpleProjectMissingColorKeyResponse.json in Resources */,
 				C1055A6A246D1EFA00EF64ED /* workTimeValidationErrorStartsAtNoGapsToFill.json in Resources */,
 				8A6A4FC12456F279004B4CF2 /* accountingPeriodMissingCountedDurationKey.json in Resources */,
-				8A912D80246BC69900D88DA8 /* taskChangedDayResponse.json in Resources */,
 				C1F62B51246975CE00AB8C00 /* newVacationValidationErrorBase.json in Resources */,
 				8A6A4FBD2456F252004B4CF2 /* accountingPeriodMissingEndsAtKey.json in Resources */,
-				8A21A0442435D71700EE4A79 /* taskVersionNullPreviousTaskPreview.json in Resources */,
 				8A9832BD243B0023005245A8 /* serverErrorFullModel.json in Resources */,
-				8A21A0482435D74C00EE4A79 /* taskVersionNullCurrentTaskPreview.json in Resources */,
-				8A79A2C02420F73C0048B44B /* taskVersionNullCurrentTag.json in Resources */,
 				C1055A68246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlapMidnight.json in Resources */,
 				C1055A66246D1EFA00EF64ED /* workTimeValidationErrorProjectIDBlank.json in Resources */,
 				C1FB400F245176DB008266C4 /* vacationApprovedStatusResponse.json in Resources */,
-				8A79A2AE2420F73C0048B44B /* taskVersionNullPreviousTag.json in Resources */,
 				C1FB400D245176D3008266C4 /* vacationDeclinedStatusResponse.json in Resources */,
 				C134299D21A6DC6B00F4EA42 /* workTimeNullTask.json in Resources */,
 				C1B771D521EF1DD200EFE06F /* simpleProjectNullColorResponse.json in Resources */,
 				8A79A2F1242369E00048B44B /* projectRecordMissingUsersKeyResponse.json in Resources */,
 				C12CA57221A58D020082FEB7 /* workTimesProjectResponse.json in Resources */,
-				8AFFE5C224331BDB001D9E89 /* taskVersionNullPreviousTask.json in Resources */,
-				8A2FB0FE242E284900DDBCB0 /* taskChangedTagResponse.json in Resources */,
 				C1B771E321EF1E6800EFE06F /* simpleProjectMissingCountDurationKeyResponse.json in Resources */,
 				8A79A2AC2420F73C0048B44B /* taskVersionUnknownEvent.json in Resources */,
 				C1055A69246D1EFA00EF64ED /* workTimeValidationErrorBodyOrTaskBlank.json in Resources */,
@@ -3800,25 +3687,22 @@
 				C1B771EB21EF1EB100EFE06F /* simpleProjectMissingLunchKeyResponse.json in Resources */,
 				8A79A2FA242384560048B44B /* projectRecordUserFullResponse.json in Resources */,
 				8A79A2E9242369870048B44B /* projectRecordMissingLeaderFirstNameKeyResponse.json in Resources */,
-				8A79A2BF2420F73C0048B44B /* taskVersionNullProjectName.json in Resources */,
 				C12CA57621A58D2E0082FEB7 /* workTimesProjectMissingColorKeyResponse.json in Resources */,
 				C1FB4011245176E6008266C4 /* vacationAcceptedStatusResponse.json in Resources */,
-				8A79A2B32420F73C0048B44B /* taskVersionMissingCurrentTagKey.json in Resources */,
+				8A79A2B32420F73C0048B44B /* taskVersionChangesetTaskChanged.json in Resources */,
 				C1B771E521EF1E7800EFE06F /* simpleProjectNullActiveResponse.json in Resources */,
 				C1B771F321EF2A2A00EFE06F /* simpleProjectArrayResponse.json in Resources */,
+				C16257092476C74E0009C48C /* taskVersionChangesetUnknownValue.json in Resources */,
 				8A79A2532420DEEB0048B44B /* taskVersionFullModel.json in Resources */,
 				C1055A6B246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidExternal.json in Resources */,
-				8A79A2912420F0DE0048B44B /* taskVersionMissingCurrentDurationKey.json in Resources */,
+				8A79A2912420F0DE0048B44B /* taskVersionChangesetEndsAtChanged.json in Resources */,
 				C1055A67246D1EFA00EF64ED /* workTimeValidationErrorStartsAtOverlap.json in Resources */,
 				C1FB40032451768D008266C4 /* vacationPlannedTypeResponse.json in Resources */,
 				8A912D9B246D5B3700D88DA8 /* updateRemoteEndsAtFullModelResponse.json in Resources */,
 				8A79A2E72423696B0048B44B /* projectRecordNullLeaderFirstNameResponse.json in Resources */,
-				8A79A2B92420F73C0048B44B /* taskVersionMissingPreviousTagKey.json in Resources */,
-				8A79A2BC2420F73C0048B44B /* taskVersionMissingPreviousStartsAtKey.json in Resources */,
+				C162570D2476C8630009C48C /* taskVersionCreateEvent.json in Resources */,
 				C1B771E921EF1EA200EFE06F /* simpleProjectNullLunchResponse.json in Resources */,
-				8A79A2BE2420F73C0048B44B /* taskVersionMissingProjectNameKeys.json in Resources */,
 				C10FD88721F1F30E00A233C5 /* userFullResponse.json in Resources */,
-				8AFFE5C624331BFB001D9E89 /* taskVersionNullCurrentTask.json in Resources */,
 				C1B771E721EF1E9000EFE06F /* simpleProjectMissingActiveKeyResponse.json in Resources */,
 				C11D0CFD2208240600066CA9 /* matchingFullTimeNullPeriod.json in Resources */,
 				8A6A4FC32456F289004B4CF2 /* accountingPeriodNoteNullValue.json in Resources */,
@@ -3831,7 +3715,6 @@
 				8A6A4FC7245818DF004B4CF2 /* accountingPeriodsResponseFullResponse.json in Resources */,
 				C1B8FA51218C9A86009D10B4 /* signInRequest.json in Resources */,
 				C1F69B2C21902FA5005D9114 /* signInResponse.json in Resources */,
-				8A79A2B72420F73C0048B44B /* taskVersionNullPreviousBody.json in Resources */,
 				C1B771E121EF1E5100EFE06F /* simpleProjectNullCountDurationResponse.json in Resources */,
 				8A79A3072424EAE60048B44B /* projectTagsMissingResponse.json in Resources */,
 				C11F51F321A5AB9C00FD626A /* workTimeInvalidDateFormatResponse.json in Resources */,
@@ -3841,44 +3724,35 @@
 				8A8EE1AD23F4455900416D31 /* GoogleService-Info.plist in Resources */,
 				8A6A4FBF2456F264004B4CF2 /* accountingPeriodCountedDurationNullValue.json in Resources */,
 				8A79A2ED242369AD0048B44B /* projectRecordMissingLeaderLastNameKeyResponse.json in Resources */,
-				8A79A2712420EF2F0048B44B /* taskVersionMissingCurrentBodyKey.json in Resources */,
+				8A79A2712420EF2F0048B44B /* taskVersionChangesetStartsAtChanged.json in Resources */,
 				C1B771DF21EF1E3E00EFE06F /* simpleProjectMissingInternalKeyResponse.json in Resources */,
 				8A79A3052424E9460048B44B /* projectTagsResponse.json in Resources */,
 				C1F62B5724697CC400AB8C00 /* newVacationValidationErrorStartDateGreaterThanEndDate.json in Resources */,
 				C130B14B246BE8E2002D23AB /* signInValidationErrorEmptyBase.json in Resources */,
 				C1860DD42462F12000C33C94 /* remoteWorkResponseRecordsEmptyArray.json in Resources */,
 				8A9987CE23951D5B008324A5 /* simpleProjectWithIsTaggableTrueResponse.json in Resources */,
-				8A912D82246BC7AC00D88DA8 /* taskChangedDayAndTimeResponse.json in Resources */,
 				C1F62B4024694D6900AB8C00 /* validationErrorFullModelResponse.json in Resources */,
-				8AFFE5C424331BEF001D9E89 /* taskVersionMissingPreviousTaskKey.json in Resources */,
 				C13429A321A6DCA300F4EA42 /* workTimeMissingTaskPreviewKey.json in Resources */,
-				8A79A2C32420F73C0048B44B /* taskVersionNullCurrentDuration.json in Resources */,
 				C1FB4007245176B1008266C4 /* vacationCompassionateTypeResponse.json in Resources */,
 				8A912D98246D5B3700D88DA8 /* updateRemoteEmptyStartsAtAndEndsAtResponse.json in Resources */,
-				8A79A2B42420F73C0048B44B /* taskVersionNullCurrentBody.json in Resources */,
-				8A79A2B62420F73C0048B44B /* taskVersionNullCurrentProjectName.json in Resources */,
 				C1F62B2824693B8600AB8C00 /* registerRemoteStartsAtFullModelResponse.json in Resources */,
-				8A79A2B02420F73C0048B44B /* taskVersionNullPreviousDuration.json in Resources */,
 				C19D88A8220300AA007CC867 /* matchingFullTimeFullResponse.json in Resources */,
 				C12CA57421A58D150082FEB7 /* workTimesProjectNullColorResponse.json in Resources */,
 				8A6A4FB92456F231004B4CF2 /* accountingPeriodMissingStartsAtKey.json in Resources */,
-				8A21A04C2435D7FE00EE4A79 /* taskChangedTaskPreviewResponse.json in Resources */,
 				C1B771D321EF1CB100EFE06F /* simpleProjectFullResponse.json in Resources */,
 				8A6A4FC52456F299004B4CF2 /* accountingPeriodMissingNoteKey.json in Resources */,
-				8A79A2B12420F73C0048B44B /* taskVersionMissingPreviousProjectNameKey.json in Resources */,
 				C1FB401C24518875008266C4 /* usedVacationDaysResponse.json in Resources */,
-				8A2FB0FC242E282900DDBCB0 /* taskChangedEndsAtResponse.json in Resources */,
 				C13429A121A6DC9900F4EA42 /* workTimeNullTaskPreview.json in Resources */,
 				C1FB40052451769A008266C4 /* vacationRequestedTypeResponse.json in Resources */,
-				8A79A2812420F01A0048B44B /* taskVersionMissingCurrentEndsAtKey.json in Resources */,
-				8A79A2B22420F73C0048B44B /* taskVersionNullCurrentStartsAt.json in Resources */,
+				8A79A2812420F01A0048B44B /* taskVersionChangesetDurationChanged.json in Resources */,
 				C1F62B5524697CBA00AB8C00 /* newVacationValidationErrorStartDateBlank.json in Resources */,
 				C13429A521A6DF1400F4EA42 /* workTimesResponse.json in Resources */,
+				C162570B2476C85B0009C48C /* taskVersionUpdateEvent.json in Resources */,
 				C12BD9A921E49C4600A6EAF0 /* projectRecordResponse.json in Resources */,
-				8A2FB0F8242E27DF00DDBCB0 /* taskChangedBodyResponse.json in Resources */,
 				C1B771EF21EF1EE000EFE06F /* simpleProjectMissingWorkTimesAllowsTaskKeyResponse.json in Resources */,
 				8A912D9C246D5B3700D88DA8 /* updateRemoteStartsAtEmptyResponse.json in Resources */,
 				C1F62B232469364000AB8C00 /* registerRemoteEmptyStartsAtAndEndsAtResponse.json in Resources */,
+				C16257072476C7450009C48C /* taskVersionChangesetEmpty.json in Resources */,
 				C1055A70246D1EFA00EF64ED /* workTimeValidationErrorStartsAtTooOld.json in Resources */,
 				C1055A6C246D1EFA00EF64ED /* workTimeValidationErrorTaskInvalidURI.json in Resources */,
 				C1F62B5B24697CD800AB8C00 /* newVacationValidationErrorVacationTypeBlank.json in Resources */,
@@ -3887,26 +3761,21 @@
 				C134299F21A6DC7600F4EA42 /* workTimeMissingTaskKey.json in Resources */,
 				C1055A6E246D1EFA00EF64ED /* workTimeValidationErrorEmptyResponse.json in Resources */,
 				C172089E2463F7FC0010ED38 /* remoteWorkNullNote.json in Resources */,
-				8A79A2682420EBD90048B44B /* taskVersionMissingCurrentProjectNameKey.json in Resources */,
 				C130B13F246BDAA3002D23AB /* registerRemoteStartsAtEmptyResponse.json in Resources */,
 				8A79A2EF242369BC0048B44B /* projectRecordNullUsersResponse.json in Resources */,
-				8A2FB0F6242E278C00DDBCB0 /* taskUnchangedResponse.json in Resources */,
 				8A79A2EB242369970048B44B /* projectRecordNullLeaderLastNameResponse.json in Resources */,
 				8A9987D023951D6C008324A5 /* simpleProjectWithIsTaggableFalseResponse.json in Resources */,
 				C130B151246BE901002D23AB /* signInValidationErrorFullModel.json in Resources */,
-				8A2FB0F4242E274700DDBCB0 /* taskChangedProjectResponse.json in Resources */,
 				C130B13D246BDA45002D23AB /* registerRemoteStartsAtTooOldResponse.json in Resources */,
 				C18A189E21EF82BD00CB6E32 /* simpleProjectWithALunchTrueResponse.json in Resources */,
-				8A79A2B52420F73C0048B44B /* taskVersionNullPreviousProjectName.json in Resources */,
+				8A79A2B52420F73C0048B44B /* taskVersionChangesetProjectChanged.json in Resources */,
 				C11D0D012208243C00066CA9 /* matchingFullTimeMissingShouldWorkedKey.json in Resources */,
 				C1055A6D246D1EFA00EF64ED /* workTimeValidationErrorFullModel.json in Resources */,
-				8A79A2BA2420F73C0048B44B /* taskVersionNullCurrentEndsAt.json in Resources */,
 				8A79A2B82420F73C0048B44B /* taskVersionMissingEventKey.json in Resources */,
 				C1860DD02462EE3F00C33C94 /* remoteWorkFullModel.json in Resources */,
 				C13429B821A8308600F4EA42 /* workTimeBodyNull.json in Resources */,
 				C11D0CFF2208241C00066CA9 /* matchingFullTimeMissingPeriodKey.json in Resources */,
 				C12BD9AD21E49CAA00A6EAF0 /* projectRecordMissingColorKeyResponse.json in Resources */,
-				8A79A2BD2420F73C0048B44B /* taskVersionNullPreviousStartsAt.json in Resources */,
 				C11D0D032208244E00066CA9 /* matchingFullTimeNullShouldWorked.json in Resources */,
 				C1F62B3924694A6500AB8C00 /* basicErrorResponse.json in Resources */,
 				C12BD9B921E4B20400A6EAF0 /* projectsRecordsResponse.json in Resources */,
@@ -4232,7 +4101,6 @@
 				8A31CD8423742B34008E590D /* Array+Extension.swift in Sources */,
 				C122601F21899F44007D64A3 /* URLSession+Extension.swift in Sources */,
 				8AD1345A2396B60B00572632 /* AttributedTextView.swift in Sources */,
-				8A79A2552420E5600048B44B /* NilableDiffElement.swift in Sources */,
 				8A79A2C524210AAC0048B44B /* WorkTimeDisplayed.swift in Sources */,
 				C1860DB62462E34200C33C94 /* RemoteWorkViewModel.swift in Sources */,
 				C1F7C2ED2191897A00F4FAF0 /* ApiClientError.swift in Sources */,

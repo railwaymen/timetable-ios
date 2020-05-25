@@ -23,15 +23,5 @@
     "event": "update",
     "updated_by": "Some Developer",
     "created_at": "2020-05-21T12:24:00.000Z",
-    "changeset": [
-        "project_id",
-        "starts_at",
-        "ends_at",
-        "duration",
-        "body",
-        "task",
-        "task_preview",
-        "date",
-        "tag"
-    ]
+    "changeset": []
 }

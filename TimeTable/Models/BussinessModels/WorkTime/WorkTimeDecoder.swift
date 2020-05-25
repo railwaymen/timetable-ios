@@ -62,7 +62,7 @@ struct WorkTimeDecoder: Decodable, WorkTimeDecoderFieldsProtocol {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(Int64.self, forKey: .id)
-        self.updatedByAdmin = try container.decode(Bool.self, forKey: .updatedByAdmin)
+        self.updatedByAdmin = (try? container.decode(Bool.self, forKey: .updatedByAdmin)) ?? false
         self.projectID = try container.decode(Int.self, forKey: .projectID)
         self.startsAt = try container.decode(Date.self, forKey: .startsAt)
         self.endsAt = try container.decode(Date.self, forKey: .endsAt)

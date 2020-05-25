@@ -85,13 +85,13 @@ extension WorkTimeTableViewCellModel {
         case task
         case day
         
-        var taskVersionField: TaskVersion.Field {
+        var taskVersionField: TaskVersion.Change {
             switch self {
             case .duration: return .duration
             case .body: return .body
-            case .projectName: return .projectName
+            case .projectName: return .projectID
             case .task: return .task
-            case .day: return .day
+            case .day: return .date
             }
         }
     }
@@ -195,17 +195,7 @@ extension WorkTimeTableViewCellModel {
         }
     }
     
-    private func getColor(for field: TaskVersion.Field) -> UIColor? {
-        let defaultColor: UIColor
-        switch field {
-        case .body, .projectName:
-            defaultColor = .defaultLabel
-        case .duration, .startsAt, .endsAt, .task, .day:
-            defaultColor = .defaultSecondaryLabel
-        case .tag:
-            self.errorHandler.stopInDebug("There's no default color for tag and it's not expected to be needed.")
-            return nil
-        }
-        return self.workTime.changedFields.contains(field) ? .diffChanged : defaultColor
+    private func getColor(for field: TaskVersion.Change) -> UIColor? {
+        self.workTime.event == .update && self.workTime.changedFields.contains(field) ? .diffChanged : field.defaultColor
     }
 }

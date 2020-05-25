@@ -34,6 +34,7 @@ extension WorkTimeDisplayedTests {
         XCTAssertNil(sut.updatedAt)
         XCTAssertNil(sut.updatedBy)
         XCTAssert(sut.changedFields.isEmpty)
+        XCTAssertEqual(sut.event, .create)
     }
 }
 
@@ -47,18 +48,19 @@ extension WorkTimeDisplayedTests {
         let sut = WorkTimeDisplayed(workTime: workTime, version: version)
         //Assert
         XCTAssertEqual(sut.id, 1)
-        XCTAssertEqual(sut.body, version.body.newest)
-        XCTAssertEqual(sut.task, version.task.newest)
-        XCTAssertEqual(sut.taskPreview, version.taskPreview.newest)
-        XCTAssertEqual(sut.projectName, version.projectName.newest)
-        XCTAssertNil(sut.projectColor)
-        XCTAssertEqual(sut.tag, .internalMeeting)
-        XCTAssertEqual(sut.startsAt, version.startsAt.newest)
-        XCTAssertEqual(sut.endsAt, version.endsAt.newest)
-        XCTAssertEqual(sut.duration, TimeInterval(try XCTUnwrap(version.duration.newest)))
-        XCTAssertEqual(sut.updatedAt, version.updatedAt)
+        XCTAssertEqual(sut.body, version.workTime.body)
+        XCTAssertEqual(sut.task, version.workTime.task)
+        XCTAssertEqual(sut.taskPreview, version.workTime.taskPreview)
+        XCTAssertEqual(sut.projectName, version.workTime.project.name)
+        XCTAssertEqual(sut.projectColor, version.workTime.project.color)
+        XCTAssertEqual(sut.tag, .development)
+        XCTAssertEqual(sut.startsAt, version.workTime.startsAt)
+        XCTAssertEqual(sut.endsAt, version.workTime.endsAt)
+        XCTAssertEqual(sut.duration, TimeInterval(version.workTime.duration))
+        XCTAssertEqual(sut.updatedAt, version.createdAt)
         XCTAssertEqual(sut.updatedBy, version.updatedBy)
-        XCTAssertEqual(sut.changedFields, version.changes)
+        XCTAssertEqual(sut.changedFields, version.changeset)
+        XCTAssertEqual(sut.event, version.event)
     }
 }
 

@@ -11,6 +11,8 @@ import Foundation
 enum WorkTimesJSONResource: String, JSONFileResource {
     case workTimeResponse
     case workTimeInvalidDateFormatResponse
+    case workTimeNullUpdatedByAdmin
+    case workTimeMissingKeyUpdatedByAdmin
     case workTimeBodyNull
     case workTimeMissingBodyKey
     case workTimeNullTask

@@ -21,7 +21,8 @@ struct WorkTimeDisplayed {
     let duration: TimeInterval
     let updatedAt: Date?
     let updatedBy: String?
-    let changedFields: [TaskVersion.Field]
+    let changedFields: Set<TaskVersion.Change>
+    let event: TaskVersion.Event
     
     // MARK: - Initialization
     init(
@@ -37,7 +38,8 @@ struct WorkTimeDisplayed {
         duration: TimeInterval,
         updatedAt: Date?,
         updatedBy: String?,
-        changedFields: [TaskVersion.Field]
+        changedFields: Set<TaskVersion.Change>,
+        event: TaskVersion.Event
     ) {
         self.id = id
         self.body = body
@@ -52,6 +54,7 @@ struct WorkTimeDisplayed {
         self.updatedAt = updatedAt
         self.updatedBy = updatedBy
         self.changedFields = changedFields
+        self.event = event
     }
     
     init(workTime: WorkTimeDecoder) {
@@ -68,22 +71,24 @@ struct WorkTimeDisplayed {
         self.updatedAt = nil
         self.updatedBy = nil
         self.changedFields = []
+        self.event = .create
     }
     
     init(workTime: WorkTimeDecoder, version: TaskVersion) {
         self.id = workTime.id
-        self.body = version.body.newest
-        self.task = version.task.newest
-        self.taskPreview = version.taskPreview.newest
-        self.projectName = version.projectName.newest ?? workTime.project.name
-        self.projectColor = nil
-        self.tag = version.tag.newest ?? .default
-        self.startsAt = version.startsAt.newest ?? workTime.startsAt
-        self.endsAt = version.endsAt.newest ?? workTime.endsAt
-        self.duration = TimeInterval(version.duration.newest ?? workTime.duration)
-        self.updatedAt = version.updatedAt
+        self.body = version.workTime.body
+        self.task = version.workTime.task
+        self.taskPreview = version.workTime.taskPreview
+        self.projectName = version.workTime.project.name
+        self.projectColor = version.workTime.project.color
+        self.tag = version.workTime.tag
+        self.startsAt = version.workTime.startsAt
+        self.endsAt = version.workTime.endsAt
+        self.duration = TimeInterval(version.workTime.duration)
+        self.updatedAt = version.createdAt
         self.updatedBy = version.updatedBy
-        self.changedFields = version.changes
+        self.changedFields = version.changeset
+        self.event = version.event ?? .create
     }
 }
 

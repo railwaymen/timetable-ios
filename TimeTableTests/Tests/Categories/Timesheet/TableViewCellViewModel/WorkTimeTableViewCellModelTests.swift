@@ -161,7 +161,7 @@ extension WorkTimeTableViewCellModelTests {
     private func buildWorkTime(
         updatedAt: Date? = nil,
         updatedBy: String? = nil,
-        changedFields: [TaskVersion.Field] = []
+        changedFields: Set<TaskVersion.Change> = []
     ) throws -> WorkTimeDisplayed {
         let startsAt = try self.startsAt()
         let endsAt = try self.endsAt()
@@ -178,7 +178,8 @@ extension WorkTimeTableViewCellModelTests {
             duration: 3600,
             updatedAt: updatedAt,
             updatedBy: updatedBy,
-            changedFields: changedFields)
+            changedFields: changedFields,
+            event: .create)
     }
     
     private func buildWorkTimesDecoder(id: Int64) throws -> WorkTimeDecoder {
