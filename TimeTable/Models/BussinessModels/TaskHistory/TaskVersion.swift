@@ -6,7 +6,7 @@
 //  Copyright © 2020 Railwaymen. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol TaskVersionFieldsProtocol {
     var workTime: WorkTimeDecoder { get }
@@ -59,5 +59,17 @@ extension TaskVersion {
         case taskPreview = "task_preview"
         case date
         case tag
+        
+        var defaultColor: UIColor {
+            switch self {
+            case .body, .projectID:
+                return .defaultLabel
+            case .date, .duration, .endsAt, .startsAt, .task, .taskPreview:
+                return .defaultSecondaryLabel
+            case .tag:
+                assertionFailure("There's no default color for tag and it's not expected to be needed.")
+                return .defaultLabel
+            }
+        }
     }
 }

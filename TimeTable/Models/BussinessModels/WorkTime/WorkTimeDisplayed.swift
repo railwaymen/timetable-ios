@@ -22,6 +22,7 @@ struct WorkTimeDisplayed {
     let updatedAt: Date?
     let updatedBy: String?
     let changedFields: Set<TaskVersion.Change>
+    let event: TaskVersion.Event
     
     // MARK: - Initialization
     init(
@@ -37,7 +38,8 @@ struct WorkTimeDisplayed {
         duration: TimeInterval,
         updatedAt: Date?,
         updatedBy: String?,
-        changedFields: Set<TaskVersion.Change>
+        changedFields: Set<TaskVersion.Change>,
+        event: TaskVersion.Event
     ) {
         self.id = id
         self.body = body
@@ -52,6 +54,7 @@ struct WorkTimeDisplayed {
         self.updatedAt = updatedAt
         self.updatedBy = updatedBy
         self.changedFields = changedFields
+        self.event = event
     }
     
     init(workTime: WorkTimeDecoder) {
@@ -68,6 +71,7 @@ struct WorkTimeDisplayed {
         self.updatedAt = nil
         self.updatedBy = nil
         self.changedFields = []
+        self.event = .create
     }
     
     init(workTime: WorkTimeDecoder, version: TaskVersion) {
@@ -84,6 +88,7 @@ struct WorkTimeDisplayed {
         self.updatedAt = version.createdAt
         self.updatedBy = version.updatedBy
         self.changedFields = version.changeset
+        self.event = version.event ?? .create
     }
 }
 
