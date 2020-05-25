@@ -102,6 +102,16 @@ class WorkTimeViewController: UIViewController {
     }
 }
 
+// MARK: - UIGestureRecognizerDelegate
+extension WorkTimeViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        guard let view = touch.view else { return true }
+        return [self.saveButton, self.saveWithFillingCheckbox, self.tagsCollectionView].allSatisfy {
+            !view.isDescendant(of: $0)
+        }
+    }
+}
+
 // MARK: - UICollectionViewDelegate
 extension WorkTimeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
