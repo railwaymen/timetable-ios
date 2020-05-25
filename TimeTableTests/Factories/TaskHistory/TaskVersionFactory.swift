@@ -51,13 +51,13 @@ extension TaskVersionFactory {
         }
         
         func jsonConvertible() throws -> AnyJSONConvertible {
-          let jsonConvertible: AnyJSONConvertible = [
-            "event": AnyJSONConvertible(self.event),
-            "updated_by": AnyJSONConvertible(self.updatedBy),
-            "created_at": AnyJSONConvertible(self.createdAt),
-            "changeset": AnyJSONConvertible(self.changeset)
-          ]
-          return try AnyJSONConvertible(self.workTime).merge(with: jsonConvertible)
+            let jsonConvertible: AnyJSONConvertible = [
+                "event": AnyJSONConvertible(self.event),
+                "updated_by": AnyJSONConvertible(self.updatedBy),
+                "created_at": AnyJSONConvertible(self.createdAt),
+                "changeset": AnyJSONConvertible(self.changeset)
+            ]
+            return try AnyJSONConvertible(self.workTime).merge(with: jsonConvertible)
         }
     }
 }

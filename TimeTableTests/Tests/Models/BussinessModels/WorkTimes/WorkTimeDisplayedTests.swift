@@ -34,6 +34,7 @@ extension WorkTimeDisplayedTests {
         XCTAssertNil(sut.updatedAt)
         XCTAssertNil(sut.updatedBy)
         XCTAssert(sut.changedFields.isEmpty)
+        XCTAssertEqual(sut.event, .create)
     }
 }
 
@@ -46,7 +47,6 @@ extension WorkTimeDisplayedTests {
         //Act
         let sut = WorkTimeDisplayed(workTime: workTime, version: version)
         //Assert
-        
         XCTAssertEqual(sut.id, 1)
         XCTAssertEqual(sut.body, version.workTime.body)
         XCTAssertEqual(sut.task, version.workTime.task)
@@ -60,6 +60,7 @@ extension WorkTimeDisplayedTests {
         XCTAssertEqual(sut.updatedAt, version.createdAt)
         XCTAssertEqual(sut.updatedBy, version.updatedBy)
         XCTAssertEqual(sut.changedFields, version.changeset)
+        XCTAssertEqual(sut.event, version.event)
     }
 }
 

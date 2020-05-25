@@ -79,7 +79,7 @@ extension TaskVersionTests {
         XCTAssert(sut.changeset.contains(.tag))
         XCTAssertEqual(sut.workTime, try self.buildWorkTime())
     }
-
+    
     func testDecoding_createEvent() throws {
         //Arrange
         let data = try self.json(from: TaskVersionJSONResource.taskVersionCreateEvent)
@@ -101,7 +101,7 @@ extension TaskVersionTests {
         XCTAssert(sut.changeset.contains(.tag))
         XCTAssertEqual(sut.workTime, try self.buildWorkTime())
     }
-
+    
     func testDecoding_nullEvent() throws {
         //Arrange
         let data = try self.json(from: TaskVersionJSONResource.taskVersionNullEvent)
@@ -123,7 +123,7 @@ extension TaskVersionTests {
         XCTAssert(sut.changeset.contains(.tag))
         XCTAssertEqual(sut.workTime, try self.buildWorkTime())
     }
-
+    
     func testDecoding_missingEventKey() throws {
         //Arrange
         let data = try self.json(from: TaskVersionJSONResource.taskVersionMissingEventKey)
@@ -145,7 +145,7 @@ extension TaskVersionTests {
         XCTAssert(sut.changeset.contains(.tag))
         XCTAssertEqual(sut.workTime, try self.buildWorkTime())
     }
-
+    
     // MARK: Changeset
     func testDecoding_changesetProjectChanged() throws {
         //Arrange
@@ -230,7 +230,7 @@ extension TaskVersionTests {
         XCTAssert(sut.changeset.contains(.task))
         XCTAssertEqual(sut.workTime, try self.buildWorkTime())
     }
-
+    
     func testDecoding_changesetTaskPreviewChanged() throws {
         //Arrange
         let data = try self.json(from: TaskVersionJSONResource.taskVersionChangesetTaskPreviewChanged)

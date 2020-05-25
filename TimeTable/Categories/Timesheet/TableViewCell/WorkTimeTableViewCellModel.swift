@@ -196,12 +196,6 @@ extension WorkTimeTableViewCellModel {
     }
     
     private func getColor(for field: TaskVersion.Change) -> UIColor? {
-        guard self.workTime.event == .update else { return field.defaultColor }
-        switch field {
-        case .startsAt, .endsAt:
-             return self.workTime.changedFields.contains(.date) ? field.defaultColor : .diffChanged
-        default:
-            return self.workTime.changedFields.contains(field) ? .diffChanged : field.defaultColor
-        }
+        self.workTime.event == .update && self.workTime.changedFields.contains(field) ? .diffChanged : field.defaultColor
     }
 }
