@@ -8,7 +8,6 @@
 
 import UIKit
 
-// swiftlint:disable file_length
 typealias WorkTimeViewControllerable = (UIViewController & WorkTimeViewControllerType & WorkTimeViewModelOutput)
 
 protocol WorkTimeViewControllerType: class {
@@ -37,22 +36,14 @@ class WorkTimeViewController: UIViewController {
     @IBOutlet private var saveButtonHeightConstraint: NSLayoutConstraint!
     
     private let bottomPadding: CGFloat = 16
+    private var contentOffsetManager: ScrollViewContentOffsetManager?
     private var dayPicker: UIDatePicker!
     private var startAtDatePicker: UIDatePicker!
     private var endAtDatePicker: UIDatePicker!
     private var viewModel: WorkTimeViewModelType!
-    private var focusedView: UIView? {
-        didSet {
-            self.setContentOffset(animated: true)
-        }
-    }
     
     private var viewsOrder: [UIView] {
-        [
-            self.bodyTextView,
-            self.taskURLTextField,
-            self.saveButton
-        ]
+        [self.bodyTextView, self.taskURLTextField, self.saveButton]
     }
     
     // MARK: - Overridden
@@ -137,11 +128,11 @@ extension WorkTimeViewController: UICollectionViewDataSource {
 extension WorkTimeViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         self.viewModel.taskNameDidChange(value: textView.text)
-        self.setContentOffset(animated: false)
+        self.contentOffsetManager?.setContentOffset(animated: false)
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        self.focusedView = textView
+        self.contentOffsetManager?.focusedView = textView
         return true
     }
 }
@@ -164,7 +155,7 @@ extension WorkTimeViewController: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.focusedView = textField
+        self.contentOffsetManager?.focusedView = textField
     }
 }
 
@@ -183,6 +174,11 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
         self.setUpEndAtTextField()
         self.setUpBodyTextView()
         self.setUpTaskTextField()
+        
+        self.contentOffsetManager = ScrollViewContentOffsetManager(
+            scrollView: self.scrollView,
+            viewsOrder: self.viewsOrder,
+            bottomPadding: self.bottomPadding)
     }
     
     func updateColors() {
@@ -262,10 +258,10 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
         guard self.isViewLoaded else { return }
         if keyboardState == .hidden {
-            self.focusedView = nil
+            self.contentOffsetManager?.focusedView = nil
         }
         self.setBottomContentInset(keyboardHeight: keyboardState.keyboardHeight)
-        self.setContentOffset(animated: true)
+        self.contentOffsetManager?.setContentOffset(animated: true)
     }
     
     func setTagsCollectionView(isHidden: Bool) {
@@ -386,33 +382,5 @@ extension WorkTimeViewController {
         let bottomInset = max(0, keyboardHeight - self.view.safeAreaInsets.bottom)
         self.scrollView.contentInset.bottom = bottomInset
         self.scrollView.verticalScrollIndicatorInsets.bottom = bottomInset
-    }
-    
-    private func setContentOffset(animated: Bool) {
-        guard let currentView = self.focusedView else { return }
-        guard let nextView = self.getViewUnderFocusedView() else { return }
-        DispatchQueue.main.async {
-            self.scrollView.layoutIfNeeded()
-            if let textView = currentView as? UITextView,
-                let selectedRange = textView.selectedTextRange {
-                let cursorYPosition = min(textView.firstRect(for: selectedRange).minY, textView.bounds.maxY)
-                let action = self.scrollView.buildScrollAction()
-                    .scroll(to: .top, of: currentView, addingOffset: -32)
-                    .scroll(to: .bottom, of: nextView, addingOffset: self.bottomPadding)
-                    .scroll(to: .top, of: currentView, addingOffset: cursorYPosition - self.bottomPadding)
-                action.perform(animated: animated)
-            } else {
-                self.scrollView.buildScrollAction()
-                    .scroll(to: .bottom, of: nextView, addingOffset: self.bottomPadding)
-                    .scroll(to: .top, of: currentView, addingOffset: -32)
-                    .perform(animated: animated)
-            }
-        }
-    }
-    
-    private func getViewUnderFocusedView() -> UIView? {
-        guard let focusedView = self.focusedView else { return nil }
-        guard let focusedViewIndex = self.viewsOrder.firstIndex(of: focusedView) else { return nil }
-        return viewsOrder[safeIndex: focusedViewIndex + 1]
     }
 }
