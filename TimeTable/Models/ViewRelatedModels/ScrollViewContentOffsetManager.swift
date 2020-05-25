@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ScrollViewContentOffsetManager {
+final class ScrollViewContentOffsetManager {
     var scrollView: UIScrollView
     var viewsOrder: [UIView]
     var focusedView: UIView? {
@@ -41,11 +41,11 @@ class ScrollViewContentOffsetManager {
             if let textView = currentView as? UITextView,
                 let selectedRange = textView.selectedTextRange {
                 let cursorYPosition = min(textView.firstRect(for: selectedRange).minY, textView.bounds.maxY)
-                let action = self.scrollView.buildScrollAction()
+                self.scrollView.buildScrollAction()
                     .scroll(to: .top, of: currentView, addingOffset: -32)
                     .scroll(to: .bottom, of: nextView, addingOffset: self.bottomPadding)
                     .scroll(to: .top, of: currentView, addingOffset: cursorYPosition - self.bottomPadding)
-                action.perform(animated: animated)
+                    .perform(animated: animated)
             } else {
                 self.scrollView.buildScrollAction()
                     .scroll(to: .bottom, of: nextView, addingOffset: self.bottomPadding)
