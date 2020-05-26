@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="o9l-3b-Gnf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="o9l-3b-Gnf">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -110,6 +110,9 @@
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <action selector="textFieldEditingDidBegin:" destination="o9l-3b-Gnf" eventType="editingDidBegin" id="hrw-vy-TzE"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
@@ -206,7 +209,7 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="sT2-Qh-sRx" secondAttribute="trailing" id="Az9-yT-d72"/>
                                     <constraint firstItem="sT2-Qh-sRx" firstAttribute="top" secondItem="u79-Nk-NpM" secondAttribute="top" constant="16" id="dxp-d0-Mff"/>
-                                    <constraint firstAttribute="bottom" secondItem="sT2-Qh-sRx" secondAttribute="bottom" constant="8" id="gSb-lG-T6s"/>
+                                    <constraint firstAttribute="bottom" secondItem="sT2-Qh-sRx" secondAttribute="bottom" constant="16" id="gSb-lG-T6s"/>
                                     <constraint firstItem="sT2-Qh-sRx" firstAttribute="leading" secondItem="u79-Nk-NpM" secondAttribute="leading" id="o63-5X-xSm"/>
                                 </constraints>
                             </scrollView>
@@ -248,7 +251,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7pk-BR-jVY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer cancelsTouchesInView="NO" id="4MM-3k-zbT">
+                <tapGestureRecognizer id="4MM-3k-zbT">
                     <connections>
                         <action selector="viewTapped:" destination="o9l-3b-Gnf" id="Rp2-X8-6rJ"/>
                     </connections>

@@ -28,11 +28,20 @@ class NewVacationViewController: UIViewController {
     @IBOutlet private var textFieldsHeightConstraints: [NSLayoutConstraint]!
     @IBOutlet private var saveButtonHeightConstraint: NSLayoutConstraint!
     
+    private var contentOffsetManager: ScrollViewContentOffsetManager?
     private var startDatePicker: UIDatePicker!
     private var endDatePicker: UIDatePicker!
     private var typePicker: UIPickerView!
     
     private var viewModel: NewVacationViewModelType!
+    
+    private var viewsOrder: [UIView] {
+        [
+            self.typeTextField,
+            self.noteTextView,
+            self.saveButton
+        ]
+    }
 
     // MARK: - Overridden
     override func loadView() {
@@ -67,6 +76,10 @@ class NewVacationViewController: UIViewController {
     
     @objc private func endDateTextFieldChanged(_ sender: UIDatePicker) {
         self.viewModel.viewChanged(endAtDate: sender.date)
+    }
+    
+    @IBAction private func textFieldEditingDidBegin(_ sender: UITextField) {
+        self.contentOffsetManager?.focusedView = sender
     }
     
     @IBAction private func saveButtonTapped() {
@@ -104,6 +117,12 @@ extension NewVacationViewController: UIPickerViewDelegate {
 extension NewVacationViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         self.viewModel.noteTextViewDidChange(text: textView.text)
+        self.contentOffsetManager?.setContentOffset(animated: false)
+    }
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        self.contentOffsetManager?.focusedView = textView
+        return true
     }
 }
 
@@ -119,6 +138,11 @@ extension NewVacationViewController: NewVacationViewModelOutput {
         self.setUpNoteTextView()
         self.setUpSaveButtonColors()
         self.setUpConstraints()
+        
+        self.contentOffsetManager = ScrollViewContentOffsetManager(
+            scrollView: self.scrollView,
+            viewsOrder: self.viewsOrder,
+            bottomPadding: 16)
     }
     
     func updateColors() {
@@ -165,9 +189,11 @@ extension NewVacationViewController: NewVacationViewModelOutput {
     
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
         guard self.isViewLoaded else { return }
-        let bottomInset = max(0, keyboardState.keyboardHeight - self.scrollView.safeAreaInsets.bottom)
-        self.scrollView.contentInset.bottom = bottomInset
-        self.scrollView.verticalScrollIndicatorInsets.bottom = bottomInset
+        if keyboardState == .hidden {
+            self.contentOffsetManager?.focusedView = nil
+        }
+        self.updateContentInset(keyboardHeight: keyboardState.keyboardHeight)
+        self.contentOffsetManager?.setContentOffset(animated: true)
     }
     
     func setNote(isHighlighted: Bool) {
@@ -243,5 +269,11 @@ extension NewVacationViewController {
         view.set(
             borderColor: .textFieldBorderColor(isHighlighted: isHighlighted),
             animatingWithDuration: 0.3)
+    }
+    
+    private func updateContentInset(keyboardHeight: CGFloat) {
+        let bottomInset = max(0, keyboardHeight - self.scrollView.safeAreaInsets.bottom)
+        self.scrollView.contentInset.bottom = bottomInset
+        self.scrollView.verticalScrollIndicatorInsets.bottom = bottomInset
     }
 }
