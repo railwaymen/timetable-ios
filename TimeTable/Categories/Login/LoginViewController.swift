@@ -25,8 +25,24 @@ class LoginViewController: UIViewController {
     @IBOutlet private var textFieldHeightConstraints: [NSLayoutConstraint]!
     @IBOutlet private var loginButtonHeightConstraint: NSLayoutConstraint!
     
-    private var contentInsetManager: ScrollViewContentInsetManager!
+    private lazy var contentInsetManager: ScrollViewContentInsetManager = .init(
+        view: self.view,
+        scrollView: self.scrollView)
+    
+    private lazy var contentOffsetManager: ScrollViewContentOffsetManager = .init(
+        scrollView: self.scrollView,
+        viewsOrder: self.viewsOrder,
+        bottomPadding: 16)
+    
     private var viewModel: LoginViewModelType!
+    
+    private var viewsOrder: [UIView] {
+        [
+            self.loginTextField,
+            self.passwordTextField,
+            self.loginButton
+        ]
+    }
     
     // MARK: - Overridden
     override func viewDidLoad() {
@@ -79,6 +95,10 @@ class LoginViewController: UIViewController {
 
 // MARK: - UITextFieldDelegate
 extension LoginViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.contentOffsetManager.focusedView = textField
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
         case self.loginTextField:
@@ -100,10 +120,6 @@ extension LoginViewController: LoginViewModelOutput {
         self.setUpPasswordTextField()
         self.setUpLoginButtonColors()
         self.setUpConstraints()
-        
-        self.contentInsetManager = ScrollViewContentInsetManager(
-            view: self.view,
-            scrollView: self.scrollView)
     }
     
     func updateColors() {
@@ -146,8 +162,12 @@ extension LoginViewController: LoginViewModelOutput {
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
         guard self.isViewLoaded else { return }
         self.view.layoutIfNeeded()
+        if keyboardState == .hidden {
+            self.contentOffsetManager.focusedView = nil
+        }
         self.contentInsetManager.updateBottomInset(keyboardState: keyboardState)
         self.contentInsetManager.updateTopInset(keyboardState: keyboardState)
+        self.contentOffsetManager.setContentOffset(animated: true)
     }
 }
 
