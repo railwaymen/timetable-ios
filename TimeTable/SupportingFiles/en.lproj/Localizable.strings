@@ -115,6 +115,7 @@
 
 // MARK: - RemoteWork
 "remotework_title" = "Remote work";
+"deleteremotework_error_startsAt_tooOld" = "Unable to delete record.";
 
 // MARK: - Register Remote Work
 "registerremotework_create_title" = "Register remote work";

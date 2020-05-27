@@ -62,6 +62,7 @@ extension ApiClient: ApiClientRemoteWorkType {
     func deleteRemoteWork(_ remoteWork: RemoteWork, completion: @escaping VoidCompletion) -> RestlerTaskType? {
         self.restler
             .delete(Endpoint.remoteWork(remoteWork.id))
+            .failureDecode(ValidationError<DeleteRemoteWorkValidationError>.self)
             .decode(Void.self)
             .onCompletion(completion)
             .start()
