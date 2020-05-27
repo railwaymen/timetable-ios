@@ -50,6 +50,7 @@ protocol WorkTimeViewModelType: class {
     func isTagSelected(at index: IndexPath) -> Bool
     func taskNameDidChange(value: String?)
     func taskURLDidChange(value: String?)
+    func taskURLIsHidden() -> Bool
     func viewChanged(startAtDate date: Date)
     func viewChanged(day: Date)
     func viewChanged(endAtDate date: Date)
@@ -168,15 +169,15 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     }
     
     func viewRequestedForNumberOfTags() -> Int {
-        return self.tags.count
+        self.tags.count
     }
     
     func viewRequestedForTag(at index: IndexPath) -> ProjectTag? {
-        return self.tags[safeIndex: index.row]
+        self.tags[safeIndex: index.row]
     }
     
     func isTagSelected(at index: IndexPath) -> Bool {
-        return self.tags[safeIndex: index.row] == self.taskForm.tag
+        self.tags[safeIndex: index.row] == self.taskForm.tag
     }
     
     func viewSelectedTag(at index: IndexPath) {
@@ -191,6 +192,10 @@ extension WorkTimeViewModel: WorkTimeViewModelType {
     
     func taskURLDidChange(value: String?) {
         self.taskForm.urlString = value ?? ""
+    }
+    
+    func taskURLIsHidden() -> Bool {
+        self.taskForm.isTaskURLHidden
     }
     
     func viewChanged(day: Date) {
@@ -266,9 +271,9 @@ extension WorkTimeViewModel {
             lastTask: self.lastTask)
         self.taskForm.startsAt = startDate
         self.taskForm.endsAt = endDate
-        let isLunch = self.taskForm.project?.isLunch ?? false
-        self.userInterface?.setBodyView(isHidden: isLunch)
-        self.userInterface?.setTaskURLView(isHidden: !self.taskForm.allowsTask || isLunch)
+        
+        self.userInterface?.setBodyView(isHidden: self.taskForm.isLunch)
+        self.userInterface?.setTaskURLView(isHidden: self.taskForm.isTaskURLHidden)
         self.userInterface?.setBody(text: self.taskForm.body)
         self.userInterface?.setTask(urlString: self.taskForm.urlString)
         self.userInterface?.setTagsCollectionView(isHidden: !self.taskForm.isProjectTaggable)

@@ -74,6 +74,10 @@ class TaskFormMock {
     
     var projectTypeReturnValue: TaskForm.ProjectType?
     
+    var isLunchReturnValue: Bool = false
+    
+    var isTaskURLHiddenReturnValue: Bool = false
+    
     var generateEncodableRepresentationThrownError: Error?
     var generateEncodableRepresentationReturnValue: Task!
     private(set) var generateEncodableRepresentationParams: [GenerateEncodableRepresentationParams] = []
@@ -181,6 +185,14 @@ extension TaskFormMock: TaskFormType {
     
     var projectType: TaskForm.ProjectType? {
         self.projectTypeReturnValue
+    }
+    
+    var isLunch: Bool {
+        self.isLunchReturnValue
+    }
+    
+    var isTaskURLHidden: Bool {
+        self.isTaskURLHiddenReturnValue
     }
     
     func generateEncodableRepresentation() throws -> Task {

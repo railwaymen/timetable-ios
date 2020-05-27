@@ -43,7 +43,9 @@ class WorkTimeViewController: UIViewController {
     private var viewModel: WorkTimeViewModelType!
     
     private var viewsOrder: [UIView] {
-        [self.bodyTextView, self.taskURLTextField, self.saveButton]
+        self.viewModel.taskURLIsHidden()
+            ? [self.bodyTextView, self.saveButton]
+            : [self.bodyTextView, self.taskURLTextField, self.saveButton]
     }
     
     // MARK: - Overridden
@@ -130,7 +132,7 @@ extension WorkTimeViewController: UICollectionViewDelegate {
 // MARK: - UICollectionViewDataSource
 extension WorkTimeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel.viewRequestedForNumberOfTags()
+        self.viewModel.viewRequestedForNumberOfTags()
     }
 }
 
@@ -154,9 +156,7 @@ extension WorkTimeViewController: UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
-        return !(textField === self.dayTextField
-            || textField === self.startAtDateTextField
-            || textField === self.endAtDateTextField)
+        [self.dayTextField, self.startAtDateTextField, self.endAtDateTextField].allSatisfy { $0 !== textField }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -207,6 +207,7 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     
     func setTaskURLView(isHidden: Bool) {
         self.taskURLView.set(isHidden: isHidden)
+        self.contentOffsetManager?.viewsOrder = self.viewsOrder
     }
     
     func setBody(text: String) {
