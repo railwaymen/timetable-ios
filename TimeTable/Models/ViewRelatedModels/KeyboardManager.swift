@@ -17,6 +17,7 @@ extension KeyboardManagerObserverable {
 }
 
 protocol KeyboardManagerable: class {
+    var currentState: KeyboardManager.KeyboardState { get }
     func setKeyboardStateChangeHandler(
         for observer: KeyboardManagerObserverable,
         handler: @escaping KeyboardManager.StateChangeHandler)
@@ -29,7 +30,7 @@ class KeyboardManager {
     private weak var notificationCenter: NotificationCenterType?
     private var handlers: [String: StateChangeHandler] = [:]
     private var currentStateForHandler: [String: KeyboardState] = [:]
-    private var currentState: KeyboardState = .hidden {
+    private(set) var currentState: KeyboardState = .hidden {
         didSet {
             self.notifyObservers(state: self.currentState)
         }

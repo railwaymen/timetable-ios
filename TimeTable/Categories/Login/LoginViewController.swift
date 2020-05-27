@@ -25,6 +25,7 @@ class LoginViewController: UIViewController {
     @IBOutlet private var textFieldHeightConstraints: [NSLayoutConstraint]!
     @IBOutlet private var loginButtonHeightConstraint: NSLayoutConstraint!
     
+    private var contentInsetManager: ScrollViewContentInsetManager!
     private var viewModel: LoginViewModelType!
     
     // MARK: - Overridden
@@ -36,6 +37,11 @@ class LoginViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.viewModel.viewWillAppear()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.contentInsetManager.updateTopInset(keyboardState: self.viewModel.getCurrentKeyboardState())
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -71,6 +77,20 @@ class LoginViewController: UIViewController {
     }
 }
 
+// MARK: - UITextFieldDelegate
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case self.loginTextField:
+            return self.viewModel.loginTextFieldDidRequestForReturn()
+        case self.passwordTextField:
+            return self.viewModel.passwordTextFieldDidRequestForReturn()
+        default:
+            return true
+        }
+    }
+}
+
 // MARK: - LoginViewModelOutput
 extension LoginViewController: LoginViewModelOutput {
     func setUpView(checkBoxIsActive: Bool) {
@@ -80,6 +100,10 @@ extension LoginViewController: LoginViewModelOutput {
         self.setUpPasswordTextField()
         self.setUpLoginButtonColors()
         self.setUpConstraints()
+        
+        self.contentInsetManager = ScrollViewContentInsetManager(
+            view: self.view,
+            scrollView: self.scrollView)
     }
     
     func updateColors() {
@@ -122,23 +146,8 @@ extension LoginViewController: LoginViewModelOutput {
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
         guard self.isViewLoaded else { return }
         self.view.layoutIfNeeded()
-        let bottomPadding: CGFloat = 16
-        let verticalSpacing = self.loginButton.convert(self.loginButton.bounds, to: self.passwordTextField).minY
-        self.updateScrollViewInsets(with: max(keyboardState.keyboardHeight + verticalSpacing + bottomPadding, 0))
-    }
-}
-
-// MARK: - UITextFieldDelegate
-extension LoginViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        switch textField {
-        case self.loginTextField:
-            return self.viewModel.loginTextFieldDidRequestForReturn()
-        case self.passwordTextField:
-            return self.viewModel.passwordTextFieldDidRequestForReturn()
-        default:
-            return true
-        }
+        self.contentInsetManager.updateBottomInset(keyboardState: keyboardState)
+        self.contentInsetManager.updateTopInset(keyboardState: keyboardState)
     }
 }
 
@@ -151,11 +160,6 @@ extension LoginViewController: LoginViewControllerType {
 
 // MARK: - Private
 extension LoginViewController {
-    private func updateScrollViewInsets(with height: CGFloat = 0) {
-        self.scrollView.contentInset.bottom = height
-        self.scrollView.verticalScrollIndicatorInsets.bottom = height
-    }
-    
     private func setUpLoginTextField() {
         self.loginTextField.delegate = self
         self.loginTextField.setTextFieldAppearance()
