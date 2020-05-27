@@ -43,7 +43,7 @@ class WorkTimeViewController: UIViewController {
     private var viewModel: WorkTimeViewModelType!
     
     private var viewsOrder: [UIView] {
-        self.taskURLView.isHidden
+        self.viewModel.taskURLIsHidden()
             ? [self.bodyTextView, self.saveButton]
             : [self.bodyTextView, self.taskURLTextField, self.saveButton]
     }
@@ -156,7 +156,7 @@ extension WorkTimeViewController: UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
-        !(textField === self.dayTextField || textField === self.startAtDateTextField || textField === self.endAtDateTextField)
+        [self.dayTextField, self.startAtDateTextField, self.endAtDateTextField].allSatisfy { $0 !== textField }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

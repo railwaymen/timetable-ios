@@ -17,6 +17,10 @@ extension TimeInterval {
     static func quarter(of interval: TimeInterval) -> TimeInterval {
         0.25 * interval
     }
+    
+    static func half(of interval: TimeInterval) -> TimeInterval {
+        0.5 * interval
+    }
 }
 
 // MARK: - Internal

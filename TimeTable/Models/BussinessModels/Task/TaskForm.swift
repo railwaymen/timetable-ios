@@ -23,6 +23,8 @@ protocol TaskFormType {
     var allowsTask: Bool { get }
     var isProjectTaggable: Bool { get }
     var projectType: TaskForm.ProjectType? { get }
+    var isLunch: Bool { get }
+    var isTaskURLHidden: Bool { get }
     
     func generateEncodableRepresentation() throws -> Task
     func validationErrors() -> [TaskForm.ValidationError]
@@ -51,7 +53,7 @@ struct TaskForm: TaskFormType {
     }
     
     var isProjectTaggable: Bool {
-        return self.project?.isTaggable ?? false
+        self.project?.isTaggable ?? false
     }
     
     var projectType: ProjectType? {
@@ -64,8 +66,16 @@ struct TaskForm: TaskFormType {
         return .standard
     }
     
+    var isLunch: Bool {
+        self.project?.isLunch ?? false
+    }
+    
+    var isTaskURLHidden: Bool {
+        !self.allowsTask || self.isLunch
+    }
+    
     var url: URL? {
-        return URL(string: self.urlString)
+        URL(string: self.urlString)
     }
     
     private var isURLValid: Bool {
@@ -193,11 +203,11 @@ extension TaskForm {
     
     private struct AutofillHours {
         static var lunchTimeInterval: TimeInterval {
-            return 30 * .minute
+            TimeInterval.half(of: .hour)
         }
         
         static var autofillTimeInterval: TimeInterval {
-            return 8 * .hour
+            8 * .hour
         }
     }
 }

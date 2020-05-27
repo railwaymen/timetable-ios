@@ -50,6 +50,46 @@ extension TimeIntervalExtensionTests {
     }
 }
 
+// MARK: - half(of interval: TimeInterval)
+extension TimeIntervalExtensionTests {
+    func testHalf_zero() {
+        //Arrange
+        let sut: TimeInterval = 0
+        //Act
+        let result = TimeInterval.half(of: sut)
+        //Assert
+        XCTAssertEqual(result, 0)
+    }
+    
+    func testHalf_minute() {
+        //Arrange
+        let sut: TimeInterval = .minute
+        //Act
+        let result = TimeInterval.half(of: sut)
+        //Assert
+        XCTAssertEqual(result, 30)
+    }
+    
+    func testHalf_hour() {
+        //Arrange
+        let sut: TimeInterval = .hour
+        //Act
+        let result = TimeInterval.half(of: sut)
+        //Assert
+        XCTAssertEqual(result, 1_800)
+    }
+    
+    func testHalf_day() {
+        //Arrange
+        let sut: TimeInterval = .day
+        //Act
+        let result = TimeInterval.half(of: sut)
+        //Assert
+        XCTAssertEqual(result, 43_200)
+    }
+}
+
+
 // MARK: - timerBigComponents
 extension TimeIntervalExtensionTests {
     func testTimerBigComponents_lessThanMinute() {
