@@ -114,6 +114,7 @@
 		8A6A4FD524584A18004B4CF2 /* IntExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6A4FD424584A18004B4CF2 /* IntExtensionTests.swift */; };
 		8A6A4FD724584DAB004B4CF2 /* TimeIntervalExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6A4FD624584DAB004B4CF2 /* TimeIntervalExtensionTests.swift */; };
 		8A6B6D81237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B6D80237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift */; };
+		8A6F8BCB247E4C79000BC5BA /* ScrollViewContentInsetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6F8BCA247E4C79000BC5BA /* ScrollViewContentInsetManager.swift */; };
 		8A798745237D4DC6003DC028 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A798742237D4DC6003DC028 /* Profile.storyboard */; };
 		8A798746237D4DC6003DC028 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A798743237D4DC6003DC028 /* ProfileViewController.swift */; };
 		8A798747237D4DC6003DC028 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A798744237D4DC6003DC028 /* ProfileViewModel.swift */; };
@@ -785,6 +786,7 @@
 		8A6A4FD424584A18004B4CF2 /* IntExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensionTests.swift; sourceTree = "<group>"; };
 		8A6A4FD624584DAB004B4CF2 /* TimeIntervalExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalExtensionTests.swift; sourceTree = "<group>"; };
 		8A6B6D80237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCellViewModelParentMock.swift; sourceTree = "<group>"; };
+		8A6F8BCA247E4C79000BC5BA /* ScrollViewContentInsetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewContentInsetManager.swift; sourceTree = "<group>"; };
 		8A798742237D4DC6003DC028 /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		8A798743237D4DC6003DC028 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		8A798744237D4DC6003DC028 /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -2917,6 +2919,7 @@
 				C130B138246BD333002D23AB /* LocalizedDescribable.swift */,
 				8A981FA32477A7EF009BF418 /* PaginationManager.swift */,
 				8A5EF31B23FE808800AE4309 /* ReusableCellType.swift */,
+				8A6F8BCA247E4C79000BC5BA /* ScrollViewContentInsetManager.swift */,
 				C1975386247BB7DB006A71D2 /* ScrollViewContentOffsetManager.swift */,
 				8AFF1EC52476940A0042F831 /* SmoothLoadingManager.swift */,
 				8A9FB4092434CABF00805F4E /* ViewControllerBuilder.swift */,
@@ -4043,6 +4046,7 @@
 				C1ECF0A52192C37E006038C6 /* CustomJSONSerialization.swift in Sources */,
 				C1A47BEF2459934800FDA7F0 /* VacationStatus.swift in Sources */,
 				8AFF1EC024765C890042F831 /* UIFont+Extension.swift in Sources */,
+				8A6F8BCB247E4C79000BC5BA /* ScrollViewContentInsetManager.swift in Sources */,
 				8A79A24B2420D6840048B44B /* TaskVersion.swift in Sources */,
 				C153AC6B218324DB007A35BB /* UIError.swift in Sources */,
 				8A5D48C02369E1A30082C13D /* DispatchGroup+Extension.swift in Sources */,

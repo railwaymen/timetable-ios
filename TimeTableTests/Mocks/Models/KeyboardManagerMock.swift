@@ -12,6 +12,8 @@ import XCTest
 class KeyboardManagerMock {
     
     // MARK: - KeyboardManagerable
+    var currentStateReturnValue: KeyboardManager.KeyboardState = .hidden
+    
     private(set) var setKeyboardHeightChangeHandlerParams: [SetKeyboardHeightChangeHandlerParams] = []
     struct SetKeyboardHeightChangeHandlerParams {
         let observer: KeyboardManagerObserverable
@@ -26,6 +28,10 @@ class KeyboardManagerMock {
 
 // MARK: - KeyboardManagerable
 extension KeyboardManagerMock: KeyboardManagerable {
+    var currentState: KeyboardManager.KeyboardState {
+        self.currentStateReturnValue
+    }
+    
     func setKeyboardStateChangeHandler(
         for observer: KeyboardManagerObserverable,
         handler: @escaping KeyboardManager.StateChangeHandler

@@ -22,6 +22,7 @@ protocol ServerConfigurationViewModelType: class {
     func viewWillAppear()
     func viewDidDisappear()
     func viewColorsShouldUpdate()
+    func getCurrentKeyboardState() -> KeyboardManager.KeyboardState
     func continueButtonTapped()
     func serverAddressDidChange(text: String?)
     func serverAddressTextFieldDidRequestForReturn() -> Bool
@@ -33,7 +34,7 @@ class ServerConfigurationViewModel: KeyboardManagerObserverable {
     private weak var coordinator: ServerConfigurationCoordinatorDelegate?
     private let serverConfigurationManager: ServerConfigurationManagerType
     private let errorHandler: ErrorHandlerType
-    private let keyboardManager: KeyboardManagerable?
+    private let keyboardManager: KeyboardManagerable
     
     private var serverAddress: String?
     
@@ -62,18 +63,22 @@ extension ServerConfigurationViewModel: ServerConfigurationViewModelType {
     }
     
     func viewWillAppear() {
-        self.keyboardManager?.setKeyboardStateChangeHandler(for: self) { [weak userInterface] state in
+        self.keyboardManager.setKeyboardStateChangeHandler(for: self) { [weak userInterface] state in
             userInterface?.keyboardStateDidChange(to: state)
         }
         self.updateContinueButton()
     }
     
     func viewDidDisappear() {
-        self.keyboardManager?.removeHandler(for: self)
+        self.keyboardManager.removeHandler(for: self)
     }
     
     func viewColorsShouldUpdate() {
         self.userInterface?.updateColors()
+    }
+    
+    func getCurrentKeyboardState() -> KeyboardManager.KeyboardState {
+        self.keyboardManager.currentState
     }
     
     func continueButtonTapped() {

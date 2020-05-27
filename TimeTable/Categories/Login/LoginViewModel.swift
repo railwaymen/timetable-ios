@@ -25,6 +25,7 @@ protocol LoginViewModelType: class {
     func viewWillAppear()
     func viewDidDisappear()
     func viewShouldUpdateColors()
+    func getCurrentKeyboardState() -> KeyboardManager.KeyboardState
     func loginInputValueDidChange(value: String?)
     func loginTextFieldDidRequestForReturn() -> Bool
     func passwordInputValueDidChange(value: String?)
@@ -40,7 +41,7 @@ class LoginViewModel: KeyboardManagerObserverable {
     private weak var coordinator: LoginCoordinatorDelegate?
     private let contentProvider: LoginContentProviderType
     private let errorHandler: ErrorHandlerType
-    private let keyboardManager: KeyboardManagerable?
+    private let keyboardManager: KeyboardManagerable
     
     private var loginForm: LoginFormType {
         didSet {
@@ -76,17 +77,21 @@ extension LoginViewModel: LoginViewModelType {
     }
     
     func viewWillAppear() {
-        self.keyboardManager?.setKeyboardStateChangeHandler(for: self) { [weak userInterface] state in
+        self.keyboardManager.setKeyboardStateChangeHandler(for: self) { [weak userInterface] state in
             userInterface?.keyboardStateDidChange(to: state)
         }
     }
     
     func viewDidDisappear() {
-        self.keyboardManager?.removeHandler(for: self)
+        self.keyboardManager.removeHandler(for: self)
     }
     
     func viewShouldUpdateColors() {
         self.userInterface?.updateColors()
+    }
+    
+    func getCurrentKeyboardState() -> KeyboardManager.KeyboardState {
+        self.keyboardManager.currentState
     }
     
     func loginInputValueDidChange(value: String?) {

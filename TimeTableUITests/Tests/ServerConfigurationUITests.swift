@@ -26,7 +26,7 @@ extension ServerConfigurationUITests {
         self.elements.serverURLTextField.tap()
         guard self.elements.keyboard.waitForExistence(timeout: self.defaultTimeout) else { return XCTFail() }
         //Act
-        self.elements.scrollView.tap()
+        self.elements.scrollView.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0.5)).tap()
         //Assert
         XCTAssertTrue(self.elements.keyboard.waitToDisappear(timeout: self.defaultTimeout))
     }
