@@ -50,7 +50,7 @@ extension TimeIntervalExtensionTests {
     }
 }
 
-// MARK: - half(of interval: TimeInterval)
+// MARK: - half(of:)
 extension TimeIntervalExtensionTests {
     func testHalf_zero() {
         //Arrange
@@ -88,7 +88,6 @@ extension TimeIntervalExtensionTests {
         XCTAssertEqual(result, 43_200)
     }
 }
-
 
 // MARK: - timerBigComponents
 extension TimeIntervalExtensionTests {

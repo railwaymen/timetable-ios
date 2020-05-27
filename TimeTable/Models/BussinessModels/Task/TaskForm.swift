@@ -203,7 +203,7 @@ extension TaskForm {
     
     private struct AutofillHours {
         static var lunchTimeInterval: TimeInterval {
-            TimeInterval.half(of: .hour)
+            .half(of: .hour)
         }
         
         static var autofillTimeInterval: TimeInterval {
