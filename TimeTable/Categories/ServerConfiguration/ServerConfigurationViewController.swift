@@ -27,6 +27,9 @@ class ServerConfigurationViewController: UIViewController {
     @IBOutlet private var continueButtonHeightConstraint: NSLayoutConstraint!
     
     private var viewModel: ServerConfigurationViewModelType!
+    private lazy var contentInsetManager: ScrollViewContentInsetManager = .init(
+        view: self.view,
+        scrollView: self.scrollView)
     
     // MARK: - Overridden
     override func viewDidLoad() {
@@ -37,6 +40,11 @@ class ServerConfigurationViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.viewModel.viewWillAppear()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.contentInsetManager.updateTopInset(keyboardState: self.viewModel.getCurrentKeyboardState())
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -77,13 +85,6 @@ extension ServerConfigurationViewController: UITextFieldDelegate {
     }
 }
 
-// MARK: - ServerConfigurationViewControllerType
-extension ServerConfigurationViewController: ServerConfigurationViewControllerType {
-    func configure(viewModel: ServerConfigurationViewModelType) {
-        self.viewModel = viewModel
-    }
-}
-
 // MARK: - ServerConfigurationViewModelOutput
 extension ServerConfigurationViewController: ServerConfigurationViewModelOutput {
     func setUpView(serverAddress: String) {
@@ -108,13 +109,8 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
     
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
         guard self.isViewLoaded else { return }
-        self.view.layoutIfNeeded()
-        let bottomPadding: CGFloat = 16
-        let verticalSpacing = self.continueButton.convert(self.continueButton.bounds, to: self.serverAddressTextField).minY
-            -  self.serverAddressTextField.frame.height
-        let continueButtonHeight = self.continueButton.frame.height
-        let preferredBottomInset = keyboardState.keyboardHeight + verticalSpacing + bottomPadding + continueButtonHeight
-        self.updateScrollViewInsets(with: max(preferredBottomInset, 0))
+        self.contentInsetManager.updateBottomInset(keyboardState: keyboardState)
+        self.contentInsetManager.updateTopInset(keyboardState: keyboardState)
     }
     
     func updateColors() {
@@ -123,16 +119,18 @@ extension ServerConfigurationViewController: ServerConfigurationViewModelOutput 
     }
 }
 
+// MARK: - ServerConfigurationViewControllerType
+extension ServerConfigurationViewController: ServerConfigurationViewControllerType {
+    func configure(viewModel: ServerConfigurationViewModelType) {
+        self.viewModel = viewModel
+    }
+}
+
 // MARK: - Private
 extension ServerConfigurationViewController {
     private func setUpContinueButtonColors() {
         self.continueButton.setBackgroundColor(.enabledButton, forState: .normal)
         self.continueButton.setBackgroundColor(.disabledButton, forState: .disabled)
-    }
-    
-    private func updateScrollViewInsets(with height: CGFloat = 0) {
-        self.scrollView.contentInset.bottom = height
-        self.scrollView.verticalScrollIndicatorInsets.bottom = height
     }
     
     private func setUpConstraints() {

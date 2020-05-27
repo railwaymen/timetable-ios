@@ -18,7 +18,7 @@ LAST_QA_DEPLOYED_COMMIT = ENV["CI_COMMIT_BEFORE_SHA"]
 platform :ios do
 
   before_all do
-    xcversion(version: "11.4.1")
+    xcversion(version: "11.5")
     if ENV['CI_PIPELINE_ID']
       increment_build_number(build_number: "#{ENV['CI_PIPELINE_ID']}")
     end

@@ -25,16 +25,15 @@ class LoginViewController: UIViewController {
     @IBOutlet private var textFieldHeightConstraints: [NSLayoutConstraint]!
     @IBOutlet private var loginButtonHeightConstraint: NSLayoutConstraint!
     
+    private var viewModel: LoginViewModelType!
+    
     private lazy var contentInsetManager: ScrollViewContentInsetManager = .init(
         view: self.view,
         scrollView: self.scrollView)
-    
     private lazy var contentOffsetManager: ScrollViewContentOffsetManager = .init(
         scrollView: self.scrollView,
         viewsOrder: self.viewsOrder,
         bottomPadding: 16)
-    
-    private var viewModel: LoginViewModelType!
     
     private var viewsOrder: [UIView] {
         [
@@ -161,7 +160,6 @@ extension LoginViewController: LoginViewModelOutput {
     
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
         guard self.isViewLoaded else { return }
-        self.view.layoutIfNeeded()
         if keyboardState == .hidden {
             self.contentOffsetManager.focusedView = nil
         }
