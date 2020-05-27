@@ -39,7 +39,7 @@ extension RegisterRemoteWorkValidationError {
         case blank
         case incorrectHours = "incorrect_hours"
     }
-
+    
     enum EndsAtErrorKey: String, Decodable {
         case blank
     }
