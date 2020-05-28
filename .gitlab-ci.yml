@@ -119,7 +119,6 @@ deploy_stage:
   when: on_success
   only:
     - develop
-    - /release/v[\d\.]*/
   tags:
     - ios
 
@@ -141,6 +140,5 @@ deploy_testflight:
   when: on_success
   only:
     - /v[\d\.]*\-rc\d+/
-    - UAT
   tags:
     - ios
