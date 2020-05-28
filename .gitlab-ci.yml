@@ -1,5 +1,6 @@
 stages:
   - prepare
+  - lint
   - build
   - deploy
 
@@ -15,15 +16,16 @@ cache:
   - Pods
 
 .setup: &setup
-  - export
-  - rvm --create use ruby-2.6.3@timetable-ios
-  - gem install bundler:2.1.4
-  - bundle config set path 'vendor/bundle'
+  - rvm --create use $(cat .ruby-version)@${CI_PROJECT_NAME}
+  - bundle config
   - bundle install
   - bundle exec pod cache clean --all
   - bundle exec pod install || bundle exec pod install --repo-update
 
-prepare_proj:
+.rvmuse: &rvmuse
+  - rvm use $(cat .ruby-version)@${CI_PROJECT_NAME}
+
+prepare_project:
   stage: prepare
   script:
     - mkdir -p Configuration
@@ -44,31 +46,71 @@ prepare_proj:
   tags:
     - ios
 
+lint:
+  stage: lint
+  before_script:
+    *rvmuse
+  script:
+    - bundle exec fastlane check_style
+  dependencies:
+    - prepare_project
+  artifacts:
+    name: "Lint_${CI_BUILD_NAME}_${CI_BUILD_REF_NAME}_${CI_BUILD_ID}"
+    expire_in: 1 week
+    paths:
+    - output/lint/*
+  tags:
+    - ios
+
 test_project:
   stage: build
   before_script:
-    *setup
+    *rvmuse
   script:
     - bundle exec fastlane test
   after_script:
     - killall "Simulator" || true
+  dependencies:
+    - prepare_project
   artifacts:
     name: "Tests_${CI_BUILD_NAME}_${CI_BUILD_REF_NAME}_${CI_BUILD_ID}"
     expire_in: 1 week
     paths:
     - output/tests/*
-    - output/lint/*
   when: on_success
   tags:
     - ios_simulator
   coverage: '/Test\ Coverage:\ \D*([\d\.]*)\%/'
 
+build:
+  stage: build
+  environment:
+    name: Release
+  before_script:
+    *rvmuse
+  script:
+    - bundle exec fastlane build_ipa
+  after_script:
+    - killall "Simulator" || true
+  dependencies:
+    - prepare_project
+  artifacts:
+    name: "Build_${CI_BUILD_NAME}_${CI_BUILD_REF_NAME}_${CI_BUILD_ID}"
+    expire_in: 1 week
+    paths:
+    - output/${CI_PROJECT_NAME}/prod/*
+  when: on_success
+  tags:
+    - ios
+
 deploy_stage:
   stage: deploy
   before_script:
-    *setup
+    *rvmuse
   script:
     - bundle exec fastlane deploy_stage
+  dependencies:
+    - prepare_project
   artifacts:
     name: "QA_${CI_PROJECT_NAME}_${CI_BUILD_NAME}_${CI_BUILD_REF_NAME}_${CI_BUILD_ID}"
     expire_in: 1 week
@@ -77,6 +119,26 @@ deploy_stage:
   when: on_success
   only:
     - develop
-    - /release/v[\d\.]*/
+  tags:
+    - ios
+
+deploy_testflight:
+  stage: deploy
+  environment:
+    name: Release
+  before_script:
+    *rvmuse
+  script:
+    - bundle exec fastlane deploy_testflight
+  dependencies:
+    - build
+  artifacts:
+    name: "${CI_PROJECT_NAME}_Prod_${CI_BUILD_NAME}_${CI_BUILD_REF_NAME}_${CI_BUILD_ID}"
+    expire_in: 1 week
+    paths:
+      - output/${CI_PROJECT_NAME}/prod/*
+  when: on_success
+  only:
+    - /v[\d\.]*\-rc\d+/
   tags:
     - ios

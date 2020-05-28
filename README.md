@@ -54,3 +54,17 @@ Simple time tracking iOS application. Check out our [TimeTable Ruby on Rails pro
 - [Slather](https://github.com/SlatherOrg/slather) 2.4.9
 - [xcode-install](https://github.com/xcpretty/xcode-install) 2.6.4
 - [xcov](https://github.com/nakiostudio/xcov) 1.7.3
+
+## Deployment
+
+### Beta version
+To release Application for beta testing on Firebase:
+
+- automatic beta release is done on `develop` branch
+
+### Release
+
+Release to AppStore is available **only** by **GitLabCI**. To release:
+
+- create tag vX.Y.Z-rcW (where X.Y.Z is semantic version and W is Release Candidate Index, counted from 0), e.g. `git tag v1.0-rc0`
+- push git tag to origin, e.g. `git push origin v1.0-rc0`
