@@ -16,16 +16,31 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## iOS
+### ios check_style
+```
+fastlane ios check_style
+```
+Check style
 ### ios test
 ```
 fastlane ios test
 ```
 Run tests
+### ios build_ipa
+```
+fastlane ios build_ipa
+```
+Build release ipa.
 ### ios deploy_stage
 ```
 fastlane ios deploy_stage
 ```
-TimeTable - Submit to Crashlytics stage version.
+Submit to Crashlytics stage version.
+### ios deploy_testflight
+```
+fastlane ios deploy_testflight
+```
+Submit to Test Flight production version.
 
 ----
 

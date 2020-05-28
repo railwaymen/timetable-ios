@@ -6,12 +6,19 @@ PROJECT = "TimeTable.xcodeproj"
 
 TEST_SCHEME = "TimeTable-Tests"
 
-STAGE_TEAM_ID = ENV["STAGE_TEAM_ID"]
+CI_PROJECT_NAME = ENV["CI_PROJECT_NAME"]
+
+DEVELOPMENT_TEAM_ID = ENV["DEVELOPMENT_TEAM_ID"]
+DEVELOPMENT_ORGANIZATION_NAME = ENV["DEVELOPMENT_ORGANIZATION_NAME"]
+
 STAGE_APP_BUNDLE_ID = ENV["STAGE_APP_BUNDLE_ID"]
 STAGE_TESTERS_EMAILS = ENV["STAGE_TESTERS_EMAILS"]
 STAGE_FIREBASE_APP_ID = ENV["STAGE_FIREBASE_APP_ID"]
 
-STAGE_DIR_PATH = "output/TimeTable/stage"
+RELEASE_APP_BUNDLE_ID = ENV["RELEASE_APP_BUNDLE_ID"]
+
+STAGE_DIR_PATH = "output/#{CI_PROJECT_NAME}/stage"
+RELEASE_DIR_PATH = "output/#{CI_PROJECT_NAME}/prod"
 
 LAST_QA_DEPLOYED_COMMIT = ENV["CI_COMMIT_BEFORE_SHA"]
 
@@ -57,7 +64,25 @@ platform :ios do
       ignore: "Pods/**/*")
   end
 
-  desc "TimeTable - Submit to Crashlytics stage version."
+  desc "Build release ipa."
+  lane :build_ipa do
+    output_name = "TimeTable"
+    sigh(
+      development: false,
+      provisioning_name: "TimeTableDistribution",
+      team_id: DEVELOPMENT_TEAM_ID,
+      team_name: DEVELOPMENT_ORGANIZATION_NAME,
+      app_identifier: RELEASE_APP_BUNDLE_ID,
+      output_path: RELEASE_DIR_PATH,
+      filename: "Distribution.mobileprovision")
+    gym(
+      scheme: SCHEME,
+      output_directory: RELEASE_DIR_PATH,
+      output_name: output_name
+    )
+  end
+
+  desc "Submit to Crashlytics stage version."
   lane :deploy_stage do
     info_plist_path = "#{STAGE_DIR_PATH}/TimeTable_Stage.ipa"
     build_stage_ipa
@@ -77,6 +102,16 @@ platform :ios do
     )
   end
 
+  desc "Submit to Test Flight production version."
+  lane :deploy_testflight do
+    dSYM_path = "#{RELEASE_DIR_PATH}/prod/TimeTable.app.dSYM.zip"
+    pilot(
+      ipa: "#{RELEASE_DIR_PATH}/TimeTable.ipa",
+      team_name: DEVELOPMENT_ORGANIZATION_NAME,
+      skip_waiting_for_build_processing: true
+    )
+  end
+
   #PRIVATE LANES
   desc "TimeTable - Build stage ipa."
   private_lane :build_stage_ipa do
@@ -84,7 +119,7 @@ platform :ios do
       development: true,
       provisioning_name: "TimeTableStageDevelopment",
       app_identifier: STAGE_APP_BUNDLE_ID,
-      team_id: STAGE_TEAM_ID,
+      team_id: DEVELOPMENT_TEAM_ID,
       output_path: STAGE_DIR_PATH,
       filename: "Development.mobileprovision"
     )

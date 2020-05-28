@@ -82,6 +82,27 @@ test_project:
     - ios_simulator
   coverage: '/Test\ Coverage:\ \D*([\d\.]*)\%/'
 
+build:
+  stage: build
+  environment:
+    name: Release
+  before_script:
+    *rvmuse
+  script:
+    - bundle exec fastlane build_ipa
+  after_script:
+    - killall "Simulator" || true
+  dependencies:
+    - prepare_project
+  artifacts:
+    name: "Build_${CI_BUILD_NAME}_${CI_BUILD_REF_NAME}_${CI_BUILD_ID}"
+    expire_in: 1 week
+    paths:
+    - output/${CI_PROJECT_NAME}/prod/*
+  when: on_success
+  tags:
+    - ios
+
 deploy_stage:
   stage: deploy
   before_script:
@@ -99,5 +120,27 @@ deploy_stage:
   only:
     - develop
     - /release/v[\d\.]*/
+  tags:
+    - ios
+
+deploy_testflight:
+  stage: deploy
+  environment:
+    name: Release
+  before_script:
+    *rvmuse
+  script:
+    - bundle exec fastlane deploy_testflight
+  dependencies:
+    - build
+  artifacts:
+    name: "${CI_PROJECT_NAME}_Prod_${CI_BUILD_NAME}_${CI_BUILD_REF_NAME}_${CI_BUILD_ID}"
+    expire_in: 1 week
+    paths:
+      - output/${CI_PROJECT_NAME}/prod/*
+  when: on_success
+  only:
+    - /v[\d\.]*\-rc\d+/
+    - UAT
   tags:
     - ios
