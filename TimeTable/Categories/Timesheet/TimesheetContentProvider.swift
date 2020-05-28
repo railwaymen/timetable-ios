@@ -56,7 +56,6 @@ extension TimesheetContentProvider: TimesheetContentProviderType {
         let group = self.dispatchGroupFactory.createDispatchGroup()
         
         var projects: [SimpleProjectRecordDecoder] = []
-        var projectsError: Error?
         var dailyWorkTimes: [DailyWorkTime] = []
         var matchingFullTime: MatchingFullTimeDecoder?
         var workTimesFetchError: Error?
@@ -66,8 +65,8 @@ extension TimesheetContentProvider: TimesheetContentProviderType {
             switch result {
             case let .success(response):
                 projects = response
-            case let .failure(error):
-                projectsError = error
+            case .failure:
+                projects = []
             }
             group.leave()
         }
@@ -85,7 +84,7 @@ extension TimesheetContentProvider: TimesheetContentProviderType {
         }
         
         group.notify(qos: .userInteractive, queue: .main) {
-            if let error = projectsError ?? workTimesFetchError {
+            if let error = workTimesFetchError {
                 completion(.failure(error))
             } else if let matchingFullTime = matchingFullTime {
                 let requiredData = TimesheetViewModel.RequiredData(

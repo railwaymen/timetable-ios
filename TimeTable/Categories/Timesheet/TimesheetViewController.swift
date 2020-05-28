@@ -18,6 +18,7 @@ class TimesheetViewController: UIViewController {
     @IBOutlet private var projectSelectionView: UIView!
     @IBOutlet private var projectColorView: AttributedButton!
     @IBOutlet private var projectNameLabel: UILabel!
+    @IBOutlet private var projectButton: UIButton!
     @IBOutlet private var monthSelectionTextField: UITextField!
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var errorView: ErrorView!
@@ -180,8 +181,10 @@ extension TimesheetViewController: TimesheetViewModelOutput {
         self.tableView.reloadData()
     }
     
-    func updateSelectedProject(title: String, color: UIColor?) {
+    func updateSelectedProject(title: String, color: UIColor?, isEnabled: Bool) {
+        self.projectButton.isEnabled = isEnabled
         self.projectNameLabel.text = title
+        self.projectNameLabel.textColor = isEnabled ? .defaultLabel : .disabledButton
         self.projectColorView.set(isHidden: color == nil)
         self.projectColorView.backgroundColor = color
     }
