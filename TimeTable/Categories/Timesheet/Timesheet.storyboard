@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rEk-z6-2rw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rEk-z6-2rw">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -202,6 +202,7 @@
                         <outlet property="activityIndicator" destination="1Mu-g3-i09" id="cv6-Ww-sXX"/>
                         <outlet property="errorView" destination="eBv-9n-dEF" id="anC-gi-dwo"/>
                         <outlet property="monthSelectionTextField" destination="q1w-Mw-v9W" id="b3R-fc-7oY"/>
+                        <outlet property="projectButton" destination="wJ9-IV-KOq" id="iLv-b3-iUL"/>
                         <outlet property="projectColorView" destination="kWy-Od-mJb" id="iFJ-v8-YjE"/>
                         <outlet property="projectNameLabel" destination="BTo-h7-ci8" id="bmU-zv-O2g"/>
                         <outlet property="projectSelectionView" destination="Dxo-Yt-BvP" id="kju-zp-938"/>

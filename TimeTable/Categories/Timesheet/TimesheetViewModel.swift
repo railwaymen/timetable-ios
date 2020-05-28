@@ -13,7 +13,7 @@ protocol TimesheetViewModelOutput: class {
     func setUpView()
     func updateColors()
     func reloadData()
-    func updateSelectedProject(title: String, color: UIColor?)
+    func updateSelectedProject(title: String, color: UIColor?, isEnabled: Bool)
     func updateSelectedDate(_ dateString: String, date: (month: Int, year: Int))
     func updateHoursLabel(workedHours: String?)
     func updateAccountingPeriodLabel(text: String?)
@@ -478,7 +478,8 @@ extension TimesheetViewModel {
     private func updateSelectedProjectView() {
         self.userInterface?.updateSelectedProject(
             title: self.selectedProject.name,
-            color: self.selectedProject.color)
+            color: self.selectedProject.color,
+            isEnabled: self.projects.count > 0)
     }
     
     private func string(for period: MonthPeriod) -> String {

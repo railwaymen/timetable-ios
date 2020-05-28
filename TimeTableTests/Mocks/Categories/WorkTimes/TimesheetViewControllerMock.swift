@@ -25,6 +25,7 @@ class TimesheetViewControllerMock: UIViewController {
     struct UpdateSelectedProjectParams {
         let title: String
         let color: UIColor?
+        let isEnabled: Bool
     }
     
     private(set) var updateSelectedDateParams: [UpdateSelectedDateParams] = []
@@ -100,8 +101,8 @@ extension TimesheetViewControllerMock: TimesheetViewModelOutput {
         self.reloadDataParams.append(ReloadDataParams())
     }
     
-    func updateSelectedProject(title: String, color: UIColor?) {
-        self.updateSelectedProjectParams.append(UpdateSelectedProjectParams(title: title, color: color))
+    func updateSelectedProject(title: String, color: UIColor?, isEnabled: Bool) {
+        self.updateSelectedProjectParams.append(UpdateSelectedProjectParams(title: title, color: color, isEnabled: isEnabled))
     }
     
     func updateSelectedDate(_ dateString: String, date: (month: Int, year: Int)) {

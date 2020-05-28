@@ -71,7 +71,10 @@ extension TimesheetContentProviderTests {
         self.apiClientMock.fetchWorkTimesParams.last?.completion(.success(workTimes))
         self.apiClientMock.fetchMatchingFullTimeParams.last?.completion(.success(matchingFullTime))
         //Assert
-        AssertResult(try XCTUnwrap(completionResult), errorIsEqualTo: error)
+        let data = try XCTUnwrap(completionResult).get()
+        XCTAssert(data.simpleProjects.isEmpty)
+        XCTAssertEqual(data.dailyWorkTimes.count, 1)
+        XCTAssertEqual(data.matchingFulltime, matchingFullTime)
         XCTAssertEqual(self.dispatchGroupFactoryMock.createDispatchGroupParams.count, 2)
         let dispatchGroups = self.dispatchGroupFactoryMock.createDispatchGroupReturnedValues
         XCTAssertEqual(dispatchGroups[safeIndex: 0]?.enterParams.count, 2)
