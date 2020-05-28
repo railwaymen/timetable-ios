@@ -31,6 +31,16 @@ platform :ios do
   end
 
   #PUBLIC LANES
+  desc "Check style"
+  lane :check_style do
+		output_path="output/lint"
+		output_file="#{output_path}/swiftlint.txt"
+
+		sh("cd .. && mkdir -p #{output_path}")
+		ENV["PATH"] = ["Pods/SwiftLint", ENV["PATH"]].join(":")
+		swiftlint(output_file: output_file, reporter: "emoji")
+	end
+
   desc "Run tests"
   lane :test do
     check_style
@@ -68,15 +78,6 @@ platform :ios do
   end
 
   #PRIVATE LANES
-  private_lane :check_style do
-		output_path="output/lint"
-		output_file="#{output_path}/swiftlint.txt"
-
-		sh("cd .. && mkdir -p #{output_path}")
-		ENV["PATH"] = ["Pods/SwiftLint", ENV["PATH"]].join(":")
-		swiftlint(output_file: output_file, reporter: "emoji")
-	end
-
   desc "TimeTable - Build stage ipa."
   private_lane :build_stage_ipa do
     sigh(
