@@ -3578,7 +3578,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1110;
-				ORGANIZATIONNAME = Railwaymen;
+				ORGANIZATIONNAME = "$(TT_ORGANIZATION_NAME)";
 				TargetAttributes = {
 					8A3F0C5D2429E38600564D6D = {
 						CreatedOnToolsVersion = 11.3.1;
@@ -4531,7 +4531,7 @@
 			baseConfigurationReference = 03EE2BC72EEA83D017109E6A /* Pods-TimeTableUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 78CQWFZKPC;
+				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
 				INFOPLIST_FILE = TimeTableUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4539,7 +4539,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.railwaymen.TimeTableUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(TT_UI_TEST_BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4552,7 +4552,7 @@
 			baseConfigurationReference = 41EB0ACBD37ED79EDA634042 /* Pods-TimeTableUITests.stage.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 78CQWFZKPC;
+				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
 				INFOPLIST_FILE = TimeTableUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4560,7 +4560,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.railwaymen.TimeTableUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(TT_UI_TEST_BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4573,7 +4573,7 @@
 			baseConfigurationReference = 4671CF0DA7477F407EBCFD2C /* Pods-TimeTableUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 78CQWFZKPC;
+				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
 				INFOPLIST_FILE = TimeTableUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4581,7 +4581,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.railwaymen.TimeTableUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(TT_UI_TEST_BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4706,7 +4706,7 @@
 			baseConfigurationReference = 501149BFA72ED611A4EF76AB /* Pods-TimeTableUITests.test.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 78CQWFZKPC;
+				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
 				INFOPLIST_FILE = TimeTableUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4714,7 +4714,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.railwaymen.TimeTableUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(TT_UI_TEST_BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4983,7 +4983,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 78CQWFZKPC;
+				DEVELOPMENT_TEAM = "$(TT_DEVELOPMENT_TEAM_ID)";
 				INFOPLIST_FILE = TimeTable/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
