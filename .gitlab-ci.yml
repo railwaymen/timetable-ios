@@ -15,25 +15,35 @@ cache:
   - vendor
   - Pods
 
+.setup_gemset: &setup_gemset |
+  rvm --create use $(cat .ruby-version)@${CI_PROJECT_NAME}
+
+.setup_bundler: &setup_bundler |
+  gem install bundler
+  bundle config
+  bundle install
+
+.setup_cocoapods: &setup_cocoapods |
+  bundle exec pod cache clean --all
+  bundle exec pod install || bundle exec pod install --repo-update
+
 .setup: &setup
-  - rvm --create use $(cat .ruby-version)@${CI_PROJECT_NAME}
-  - bundle config
-  - bundle install
-  - bundle exec pod cache clean --all
-  - bundle exec pod install || bundle exec pod install --repo-update
+  - *setup_gemset
+  - *setup_bundler
+  - *setup_cocoapods
 
 .rvmuse: &rvmuse
   - rvm use $(cat .ruby-version)@${CI_PROJECT_NAME}
 
 prepare_project:
   stage: prepare
+  before_script:
+    *setup
   script:
     - mkdir -p Configuration
     - envsubst < Configuration/env_debug.xcconfig.tpl > Configuration/Debug.xcconfig
     - envsubst < Configuration/env_stage.xcconfig.tpl > Configuration/Stage.xcconfig
     - envsubst < Configuration/env_release.xcconfig.tpl > Configuration/Release.xcconfig
-  after_script:
-    *setup
   artifacts:
     name: "Bundle_${CI_BUILD_NAME}_${CI_BUILD_REF_NAME}_${CI_BUILD_ID}"
     expire_in: 1 day
