@@ -29,8 +29,7 @@ class WorkTimeViewController: UIViewController {
     @IBOutlet private var taskURLTextField: UITextField!
     @IBOutlet private var saveWithFillingView: UIStackView!
     @IBOutlet private var saveWithFillingCheckbox: CheckBoxButton!
-    @IBOutlet private var saveButton: AttributedButton!
-    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private var saveButton: LoadingButton!
     
     @IBOutlet private var textFieldsHeightConstraints: [NSLayoutConstraint]!
     @IBOutlet private var saveButtonHeightConstraint: NSLayoutConstraint!
@@ -263,7 +262,7 @@ extension WorkTimeViewController: WorkTimeViewModelOutput {
     }
     
     func setActivityIndicator(isAnimating: Bool) {
-        self.activityIndicator.set(isAnimating: isAnimating)
+        self.saveButton.set(isLoading: isAnimating)
     }
     
     func keyboardStateDidChange(to keyboardState: KeyboardManager.KeyboardState) {
