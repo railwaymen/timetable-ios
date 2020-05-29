@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fKC-JE-EtX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fKC-JE-EtX">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -111,7 +111,7 @@
                                                     </textView>
                                                 </subviews>
                                             </stackView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Au-ax-INQ" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Au-ax-INQ" customClass="LoadingButton" customModule="TimeTable" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="328" width="288" height="40"/>
                                                 <color key="backgroundColor" name="Enabled Button"/>
                                                 <constraints>
@@ -153,9 +153,6 @@
                                     <constraint firstAttribute="bottom" secondItem="GRa-xb-hMH" secondAttribute="bottom" constant="16" id="xK1-AH-KwG"/>
                                 </constraints>
                             </scrollView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="xug-eL-lyb">
-                                <rect key="frame" x="150" y="362" width="20" height="20"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -163,8 +160,6 @@
                             <constraint firstAttribute="bottom" secondItem="IPj-OB-wEg" secondAttribute="bottom" id="8d2-PN-dsO"/>
                             <constraint firstItem="FrU-ZK-tA2" firstAttribute="trailing" secondItem="GRa-xb-hMH" secondAttribute="trailing" id="DX0-IA-Kcr"/>
                             <constraint firstItem="IPj-OB-wEg" firstAttribute="top" secondItem="tZT-eN-S55" secondAttribute="top" id="M9m-dZ-VJo"/>
-                            <constraint firstItem="xug-eL-lyb" firstAttribute="centerX" secondItem="FrU-ZK-tA2" secondAttribute="centerX" id="OGk-Wa-OOS"/>
-                            <constraint firstItem="xug-eL-lyb" firstAttribute="centerY" secondItem="FrU-ZK-tA2" secondAttribute="centerY" id="Z5O-ib-nLP"/>
                             <constraint firstAttribute="trailing" secondItem="IPj-OB-wEg" secondAttribute="trailing" id="air-hP-k3l"/>
                             <constraint firstItem="GRa-xb-hMH" firstAttribute="leading" secondItem="FrU-ZK-tA2" secondAttribute="leading" id="pGk-FZ-uSP"/>
                         </constraints>
@@ -175,7 +170,6 @@
                     </view>
                     <size key="freeformSize" width="320" height="700"/>
                     <connections>
-                        <outlet property="activityIndicator" destination="xug-eL-lyb" id="aho-L3-bdf"/>
                         <outlet property="endDayTextField" destination="GcS-bc-oay" id="CTn-rW-F8Y"/>
                         <outlet property="noteTextView" destination="UAz-mx-avy" id="JsO-zj-FXt"/>
                         <outlet property="saveButton" destination="6Au-ax-INQ" id="xhM-T6-Rd7"/>

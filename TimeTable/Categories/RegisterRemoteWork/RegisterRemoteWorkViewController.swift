@@ -19,11 +19,10 @@ protocol RegisterRemoteWorkViewControllerType: class {
 
 class RegisterRemoteWorkViewController: UIViewController {
     @IBOutlet private var scrollView: UIScrollView!
-    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private var startDayTextField: UITextField!
     @IBOutlet private var endDayTextField: UITextField!
     @IBOutlet private var noteTextView: AttributedTextView!
-    @IBOutlet private var saveButton: AttributedButton!
+    @IBOutlet private var saveButton: LoadingButton!
     
     @IBOutlet private var textFieldsHeightConstraints: [NSLayoutConstraint]!
     @IBOutlet private var saveButtonHeightConstraint: NSLayoutConstraint!
@@ -128,7 +127,7 @@ extension RegisterRemoteWorkViewController: RegisterRemoteWorkViewModelOutput {
     }
     
     func setActivityIndicator(isAnimating: Bool) {
-        self.activityIndicator.set(isAnimating: isAnimating)
+        self.saveButton.set(isLoading: isAnimating)
     }
     
     func setNote(text: String) {
