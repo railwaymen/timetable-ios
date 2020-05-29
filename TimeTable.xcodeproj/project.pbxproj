@@ -115,6 +115,8 @@
 		8A6A4FD724584DAB004B4CF2 /* TimeIntervalExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6A4FD624584DAB004B4CF2 /* TimeIntervalExtensionTests.swift */; };
 		8A6B6D81237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B6D80237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift */; };
 		8A6F8BCB247E4C79000BC5BA /* ScrollViewContentInsetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6F8BCA247E4C79000BC5BA /* ScrollViewContentInsetManager.swift */; };
+		8A6F8BCD2484F2ED000BC5BA /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6F8BCC2484F2ED000BC5BA /* Double+Extension.swift */; };
+		8A6F8BCF2484F330000BC5BA /* DispatchTimeInterval+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6F8BCE2484F330000BC5BA /* DispatchTimeInterval+Extension.swift */; };
 		8A798745237D4DC6003DC028 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A798742237D4DC6003DC028 /* Profile.storyboard */; };
 		8A798746237D4DC6003DC028 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A798743237D4DC6003DC028 /* ProfileViewController.swift */; };
 		8A798747237D4DC6003DC028 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A798744237D4DC6003DC028 /* ProfileViewModel.swift */; };
@@ -792,6 +794,8 @@
 		8A6A4FD624584DAB004B4CF2 /* TimeIntervalExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalExtensionTests.swift; sourceTree = "<group>"; };
 		8A6B6D80237AAAE2007D8D93 /* WorkTimeCellViewModelParentMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeCellViewModelParentMock.swift; sourceTree = "<group>"; };
 		8A6F8BCA247E4C79000BC5BA /* ScrollViewContentInsetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewContentInsetManager.swift; sourceTree = "<group>"; };
+		8A6F8BCC2484F2ED000BC5BA /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
+		8A6F8BCE2484F330000BC5BA /* DispatchTimeInterval+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchTimeInterval+Extension.swift"; sourceTree = "<group>"; };
 		8A798742237D4DC6003DC028 /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		8A798743237D4DC6003DC028 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		8A798744237D4DC6003DC028 /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -2597,6 +2601,8 @@
 				C172089F246401DB0010ED38 /* DateComponentsFormatter+Extension.swift */,
 				C12CA57C21A593F20082FEB7 /* DateFormatter+Extension.swift */,
 				8A09DCB923673E74003FC2A6 /* DispatchQueue+Extension.swift */,
+				8A6F8BCE2484F330000BC5BA /* DispatchTimeInterval+Extension.swift */,
+				8A6F8BCC2484F2ED000BC5BA /* Double+Extension.swift */,
 				8A6A4FD224584398004B4CF2 /* Int+Extension.swift */,
 				C1ECF09E2192C1AB006038C6 /* JSONDecoder+Extension.swift */,
 				C1ECF0A12192C337006038C6 /* JSONEncoder+Extension.swift */,
@@ -4134,6 +4140,7 @@
 				8A5EF31C23FE808800AE4309 /* ReusableCellType.swift in Sources */,
 				C1E908D2245841F3003E0368 /* UsedVacationCellViewModel.swift in Sources */,
 				C1AFFFE321A2D16F00A7A632 /* TimeTableTabCoordinator.swift in Sources */,
+				8A6F8BCF2484F330000BC5BA /* DispatchTimeInterval+Extension.swift in Sources */,
 				C134296921A6964B00F4EA42 /* WorkTimesParameters.swift in Sources */,
 				C101603422003D4000DCE817 /* MatchingFullTimeEncoder.swift in Sources */,
 				8A31CD8423742B34008E590D /* Array+Extension.swift in Sources */,
@@ -4166,6 +4173,7 @@
 				8A4BACC12475400E0073551E /* LoadingButton.swift in Sources */,
 				C12CA57B21A5900B0082FEB7 /* WorkTimeDecoder.swift in Sources */,
 				C1A47BE924596AD000FDA7F0 /* VacationType.swift in Sources */,
+				8A6F8BCD2484F2ED000BC5BA /* Double+Extension.swift in Sources */,
 				C172D13F246566A0005AC63B /* RegisterRemoteWorkValidationError.swift in Sources */,
 				8A79A2442420C40F0048B44B /* TaskHistoryViewController.swift in Sources */,
 				C1F187B021E34A7C0037B8C2 /* ProjectUserViewTableViewCell.swift in Sources */,

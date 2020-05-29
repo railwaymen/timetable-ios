@@ -27,7 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 accessService: self.accessService,
                 encoder: self.encoder,
                 decoder: self.decoder,
-                taskFormFactory: TaskFormFactory(calendar: Calendar.autoupdatingCurrent)))
+                taskFormFactory: TaskFormFactory(calendar: Calendar.autoupdatingCurrent),
+                keyboardManager: KeyboardManager(dispatchQueueManager: DispatchQueueManager())))
     }()
     
     private lazy var encoder: JSONEncoderType = {

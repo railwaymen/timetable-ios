@@ -36,22 +36,26 @@ final class ScrollViewContentOffsetManager {
     func setContentOffset(animated: Bool) {
         guard let currentView = self.focusedView else { return }
         guard let nextView = self.getViewUnderFocusedView() else { return }
-        DispatchQueue.main.async {
+        if let textView = currentView as? UITextView {
             self.scrollView.layoutIfNeeded()
-            if let textView = currentView as? UITextView,
-                let selectedRange = textView.selectedTextRange {
-                let cursorYPosition = min(textView.firstRect(for: selectedRange).minY, textView.bounds.maxY)
-                self.scrollView.buildScrollAction()
-                    .scroll(to: .top, of: currentView, addingOffset: -32)
-                    .scroll(to: .bottom, of: nextView, addingOffset: self.bottomPadding)
-                    .scroll(to: .top, of: currentView, addingOffset: cursorYPosition - self.bottomPadding)
-                    .perform(animated: animated)
+            guard let selectedRange = textView.selectedTextRange else { return }
+            let cursorYPosition = min(textView.firstRect(for: selectedRange).minY, textView.bounds.maxY)
+            let scrollAction = self.scrollView.buildScrollAction()
+                .scroll(to: .top, of: currentView, addingOffset: -32)
+                .scroll(to: .bottom, of: nextView, addingOffset: self.bottomPadding)
+                .scroll(to: .top, of: currentView, addingOffset: cursorYPosition - self.bottomPadding)
+            if animated {
+                UIViewPropertyAnimator(duration: 0.2, curve: .keyboard) {
+                    scrollAction.perform(animated: false)
+                }.startAnimation()
             } else {
-                self.scrollView.buildScrollAction()
-                    .scroll(to: .bottom, of: nextView, addingOffset: self.bottomPadding)
-                    .scroll(to: .top, of: currentView, addingOffset: -32)
-                    .perform(animated: animated)
+                scrollAction.perform(animated: false)
             }
+        } else {
+            self.scrollView.buildScrollAction()
+                .scroll(to: .bottom, of: nextView, addingOffset: self.bottomPadding)
+                .scroll(to: .top, of: currentView, addingOffset: -32)
+                .perform(animated: animated)
         }
     }
 }

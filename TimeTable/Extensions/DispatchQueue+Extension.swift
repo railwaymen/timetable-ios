@@ -23,4 +23,8 @@ extension DispatchQueue {
             }
         }
     }
+    
+    static func performOnMainThreadAsyncAfter(deadline: DispatchTime, _ task: @escaping () -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: deadline, execute: task)
+    }
 }

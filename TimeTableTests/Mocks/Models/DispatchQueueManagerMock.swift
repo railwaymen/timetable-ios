@@ -13,8 +13,14 @@ class DispatchQueueManagerMock {
     
     private(set) var performOnMainThreadParams: [PerformOnMainThreadParams] = []
     struct PerformOnMainThreadParams {
-        var taskType: DispatchQueueTaskType
-        var task: () -> Void
+        let taskType: DispatchQueueTaskType
+        let task: () -> Void
+    }
+    
+    private(set) var performOnMainThreadAsyncAfterParams: [PerformOnMainThreadAsyncAfterParams] = []
+    struct PerformOnMainThreadAsyncAfterParams {
+        let deadline: DispatchTime
+        let task: () -> Void
     }
     
     // MARK: - Initialization
@@ -39,6 +45,15 @@ extension DispatchQueueManagerMock: DispatchQueueManagerType {
         
         switch self.taskType {
         case .performOnOriginalThread: DispatchQueue.performOnMainThread(taskType: .sync, task)
+        case .performOnCurrentThread: task()
+        }
+    }
+    
+    func performOnMainThreadAsyncAfter(deadline: DispatchTime, _ task: @escaping () -> Void) {
+        self.performOnMainThreadAsyncAfterParams.append(PerformOnMainThreadAsyncAfterParams(deadline: deadline, task: task))
+        
+        switch self.taskType {
+        case .performOnOriginalThread: DispatchQueue.performOnMainThreadAsyncAfter(deadline: deadline, task)
         case .performOnCurrentThread: task()
         }
     }

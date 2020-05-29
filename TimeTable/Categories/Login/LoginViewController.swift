@@ -165,7 +165,7 @@ extension LoginViewController: LoginViewModelOutput {
         }
         self.contentInsetManager.updateBottomInset(keyboardState: keyboardState)
         self.contentInsetManager.updateTopInset(keyboardState: keyboardState)
-        self.contentOffsetManager.setContentOffset(animated: true)
+        self.contentOffsetManager.setContentOffset(animated: false)
     }
 }
 

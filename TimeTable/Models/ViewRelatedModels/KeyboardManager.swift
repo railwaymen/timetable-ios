@@ -27,18 +27,41 @@ protocol KeyboardManagerable: class {
 class KeyboardManager {
     typealias StateChangeHandler = (KeyboardState) -> Void
     
+    private let dispatchQueueManager: DispatchQueueManagerType
     private weak var notificationCenter: NotificationCenterType?
     private var handlers: [String: StateChangeHandler] = [:]
     private var currentStateForHandler: [String: KeyboardState] = [:]
-    private(set) var currentState: KeyboardState = .hidden {
+    
+    private var lastKeyboardChangeInfo: KeyboardChangeInformation {
         didSet {
-            self.notifyObservers(state: self.currentState)
+            let info = self.lastKeyboardChangeInfo
+            let delay: TimeInterval = 0.05
+            let dispatchDelay = DispatchTimeInterval(delay)
+            self.dispatchQueueManager.performOnMainThreadAsyncAfter(deadline: .now() + dispatchDelay) { [weak self] in
+                guard let self = self else { return }
+                guard info == self.lastKeyboardChangeInfo else { return }
+                let duration = info.animationDuration - delay
+                let curve = info.animationCurve
+                let animator = UIViewPropertyAnimator(duration: duration, curve: curve) {
+                    self.notifyObservers(state: info.state)
+                }
+                animator.startAnimation()
+            }
         }
     }
     
+    var currentState: KeyboardState {
+        self.lastKeyboardChangeInfo.state
+    }
+    
     // MARK: - Initialization
-    init(notificationCenter: NotificationCenterType = NotificationCenter.default) {
+    init(
+        dispatchQueueManager: DispatchQueueManagerType,
+        notificationCenter: NotificationCenterType = NotificationCenter.default
+    ) {
+        self.dispatchQueueManager = dispatchQueueManager
         self.notificationCenter = notificationCenter
+        self.lastKeyboardChangeInfo = KeyboardChangeInformation()
         
         self.setUpNotifications()
     }
@@ -49,21 +72,19 @@ class KeyboardManager {
     
     // MARK: - Notifications
     @objc func keyboardWillChangeFrame(notification: Notification) {
-        guard let keyboardState = self.getKeyboardState(from: notification) else { return }
-        self.currentState = keyboardState
+        self.lastKeyboardChangeInfo = KeyboardChangeInformation(notification: notification)
     }
     
     @objc func keyboardDidShow(notification: Notification) {
-        guard let keyboardState = self.getKeyboardState(from: notification) else { return }
-        self.currentState = keyboardState
+        self.lastKeyboardChangeInfo = KeyboardChangeInformation(notification: notification)
     }
     
-    @objc func keyboardWillHide() {
-        self.currentState = .hidden
+    @objc func keyboardWillHide(notification: Notification) {
+        self.lastKeyboardChangeInfo = KeyboardChangeInformation(notification: notification, state: .hidden)
     }
     
-    @objc func keyboardDidHide() {
-        self.currentState = .hidden
+    @objc func keyboardDidHide(notification: Notification) {
+        self.lastKeyboardChangeInfo = KeyboardChangeInformation(notification: notification, state: .hidden)
     }
 }
 
@@ -84,6 +105,41 @@ extension KeyboardManager {
             case let .shown(height):
                 return height
             }
+        }
+    }
+    
+    private struct KeyboardChangeInformation: Equatable {
+        private static let defaultState: KeyboardState = .hidden
+        private static let defaultAnimationDuration: TimeInterval = 0
+        private static let defaultAnimationCurve: UIView.AnimationCurve = .keyboard
+        
+        private static func getKeyboardState(userInfo: [AnyHashable: Any]?) -> KeyboardState? {
+            let endFrame = userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
+            guard let height = endFrame?.cgRectValue.size.height else { return nil }
+            return KeyboardState(height: height)
+        }
+        
+        private static func getKeyboardAnimationCurve(userInfo: [AnyHashable: Any]?) -> UIView.AnimationCurve? {
+            guard let index = (userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber)?.intValue else {
+                return nil
+            }
+            return UIView.AnimationCurve(rawValue: index)
+        }
+        
+        private static func getKeyboardAnimationDuration(userInfo: [AnyHashable: Any]?) -> TimeInterval? {
+            (userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue
+        }
+        
+        // MARK: - Instance
+        var state: KeyboardState
+        var animationDuration: TimeInterval
+        var animationCurve: UIView.AnimationCurve
+        
+        init(notification: Notification? = nil, state: KeyboardState? = nil) {
+            let userInfo = notification?.userInfo
+            self.state = state ?? Self.getKeyboardState(userInfo: userInfo) ?? Self.defaultState
+            self.animationDuration = Self.getKeyboardAnimationDuration(userInfo: userInfo) ?? Self.defaultAnimationDuration
+            self.animationCurve = Self.getKeyboardAnimationCurve(userInfo: userInfo) ?? Self.defaultAnimationCurve
         }
     }
     
@@ -125,12 +181,6 @@ extension KeyboardManager {
                 name: config.name,
                 object: nil)
         }
-    }
-    
-    private func getKeyboardState(from notification: Notification) -> KeyboardState? {
-        let userInfo = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
-        guard let height = userInfo?.cgRectValue.size.height else { return nil }
-        return KeyboardState(height: height)
     }
     
     private func notifyObservers(state: KeyboardState) {
