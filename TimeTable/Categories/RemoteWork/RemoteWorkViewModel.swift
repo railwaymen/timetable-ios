@@ -208,6 +208,7 @@ extension RemoteWorkViewModel {
         self.state = .fetched(page: 1, totalPages: response.totalPages)
         self.userInterface?.showTableView()
         self.userInterface?.updateView()
+        self.updateBottomInset(pageFetched: 1, totalPages: response.totalPages)
     }
     
     private func handleFirstPageFetchFailure(error: Error) {
@@ -237,8 +238,7 @@ extension RemoteWorkViewModel {
         self.records.append(contentsOf: response.records)
         self.state = .fetched(page: pageFetched, totalPages: response.totalPages)
         self.userInterface?.updateView()
-        guard pageFetched == response.totalPages else { return }
-        self.userInterface?.setBottomContentInset(isHidden: true)
+        self.updateBottomInset(pageFetched: pageFetched, totalPages: response.totalPages)
     }
     
     private func handleNextPageFetchFailure(error: Error, previousState: State) {
@@ -271,5 +271,10 @@ extension RemoteWorkViewModel {
             return newItem ?? record
         }
         self.userInterface?.updateView()
+    }
+    
+    private func updateBottomInset(pageFetched: Int, totalPages: Int) {
+        guard pageFetched == totalPages else { return }
+        self.userInterface?.setBottomContentInset(isHidden: true)
     }
 }
