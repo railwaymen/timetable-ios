@@ -37,7 +37,14 @@ class AccountingPeriodsViewModel {
     private weak var errorViewModel: ErrorViewModelParentType?
     private var paginationManager: PaginationManagerType?
     private var totalPages: Int?
-    private var state: State?
+    private var state: State? {
+        didSet {
+            guard case let .fetched(page) = self.state else { return }
+            guard page == self.totalPages else { return }
+            self.userInterface?.setBottomContentInset(isHidden: true)
+        }
+    }
+    
     private var records: [AccountingPeriod] = [] {
         didSet {
             self.userInterface?.reloadData()
@@ -171,8 +178,6 @@ extension AccountingPeriodsViewModel {
             case let .success(response):
                 self.records += response.records
                 self.state = .fetched(page: nextPage)
-                guard nextPage == totalPages else { break }
-                self.userInterface?.setBottomContentInset(isHidden: true)
             case let .failure(error):
                 self.state = .fetched(page: lastFetchedPage)
                 guard !(error is ApiClientError) else { break }
