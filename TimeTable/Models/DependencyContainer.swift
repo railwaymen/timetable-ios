@@ -68,7 +68,7 @@ struct DependencyContainer: DependencyContainerType {
         notificationCenter: NotificationCenterType = NotificationCenter.default,
         taskFormFactory: TaskFormFactoryType,
         viewControllerBuilder: ViewControllerBuilderType = ViewControllerBuilder(),
-        keyboardManager: KeyboardManagerable = KeyboardManager()
+        keyboardManager: KeyboardManagerable
     ) {
         self.application = application
         self.window = window

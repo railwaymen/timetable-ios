@@ -41,3 +41,9 @@ extension UIView {
         self.layer.add(animation, forKey: "borderColor")
     }
 }
+
+extension UIView.AnimationCurve {
+    static var keyboard: UIView.AnimationCurve {
+        return UIView.AnimationCurve.init(rawValue: 7) ?? .easeInOut
+    }
+}
