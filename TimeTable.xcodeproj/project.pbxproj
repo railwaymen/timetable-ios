@@ -3578,7 +3578,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1110;
-				ORGANIZATIONNAME = "$(TT_ORGANIZATION_NAME)";
+				ORGANIZATIONNAME = Railwaymen;
 				TargetAttributes = {
 					8A3F0C5D2429E38600564D6D = {
 						CreatedOnToolsVersion = 11.3.1;
