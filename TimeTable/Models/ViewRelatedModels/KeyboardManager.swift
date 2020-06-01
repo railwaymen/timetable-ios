@@ -94,10 +94,6 @@ extension KeyboardManager {
         case shown(height: CGFloat)
         case hidden
         
-        init(height: CGFloat) {
-            self = height == 0 ? .hidden : .shown(height: height)
-        }
-        
         var keyboardHeight: CGFloat {
             switch self {
             case .hidden:
@@ -106,8 +102,20 @@ extension KeyboardManager {
                 return height
             }
         }
+        
+        // MARK: - Initialization
+        init(height: CGFloat) {
+            self = height == 0 ? .hidden : .shown(height: height)
+        }
     }
     
+    // MARK: -
+    private struct NotificationSetup {
+        let selector: Selector
+        let name: NSNotification.Name
+    }
+    
+    // MARK: - 
     private struct KeyboardChangeInformation: Equatable {
         private static let defaultState: KeyboardState = .hidden
         private static let defaultAnimationDuration: TimeInterval = 0
@@ -135,17 +143,13 @@ extension KeyboardManager {
         var animationDuration: TimeInterval
         var animationCurve: UIView.AnimationCurve
         
+        // MARK: - Initialization
         init(notification: Notification? = nil, state: KeyboardState? = nil) {
             let userInfo = notification?.userInfo
             self.state = state ?? Self.getKeyboardState(userInfo: userInfo) ?? Self.defaultState
             self.animationDuration = Self.getKeyboardAnimationDuration(userInfo: userInfo) ?? Self.defaultAnimationDuration
             self.animationCurve = Self.getKeyboardAnimationCurve(userInfo: userInfo) ?? Self.defaultAnimationCurve
         }
-    }
-    
-    private struct NotificationSetup {
-        let selector: Selector
-        let name: NSNotification.Name
     }
 }
 

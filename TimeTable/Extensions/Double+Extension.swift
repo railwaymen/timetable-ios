@@ -3,7 +3,7 @@
 //  TimeTable
 //
 //  Created by Bartłomiej Świerad on 01/06/2020.
-//  Copyright © 2020 $(TT_ORGANIZATION_NAME). All rights reserved.
+//  Copyright © 2020 Railwaymen. All rights reserved.
 //
 
 import Foundation
