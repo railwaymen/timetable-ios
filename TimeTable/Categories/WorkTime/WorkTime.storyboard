@@ -255,7 +255,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="dbl-sc-bxX">
                                                 <rect key="frame" x="16" y="549.5" width="382" height="40"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TSS-Hb-MVA" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TSS-Hb-MVA" customClass="LoadingButton" customModule="TimeTable" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="382" height="40"/>
                                                         <color key="backgroundColor" name="Enabled Button"/>
                                                         <constraints>
@@ -307,17 +307,12 @@
                                     <constraint firstAttribute="bottom" secondItem="Sc1-v6-mIx" secondAttribute="bottom" constant="8" id="uqg-9O-bhl"/>
                                 </constraints>
                             </scrollView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="yy6-It-HYM">
-                                <rect key="frame" x="197" y="443" width="20" height="20"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="bjN-hl-pu3" firstAttribute="top" secondItem="gUE-HS-Xzx" secondAttribute="top" id="2PV-JH-HFM"/>
                             <constraint firstAttribute="trailing" secondItem="bjN-hl-pu3" secondAttribute="trailing" id="AmW-Dy-Gnv"/>
-                            <constraint firstItem="yy6-It-HYM" firstAttribute="centerY" secondItem="HZr-24-I0m" secondAttribute="centerY" id="Dzb-aK-Bui"/>
                             <constraint firstItem="Sc1-v6-mIx" firstAttribute="leading" secondItem="HZr-24-I0m" secondAttribute="leading" id="GxM-2a-GiP"/>
-                            <constraint firstItem="yy6-It-HYM" firstAttribute="centerX" secondItem="HZr-24-I0m" secondAttribute="centerX" id="IbP-bV-ZKi"/>
                             <constraint firstItem="bjN-hl-pu3" firstAttribute="leading" secondItem="gUE-HS-Xzx" secondAttribute="leading" id="eaw-xq-gLv"/>
                             <constraint firstItem="HZr-24-I0m" firstAttribute="trailing" secondItem="Sc1-v6-mIx" secondAttribute="trailing" id="qeS-EK-Ruv"/>
                             <constraint firstAttribute="bottom" secondItem="bjN-hl-pu3" secondAttribute="bottom" id="yAb-L6-2pI"/>
@@ -328,7 +323,6 @@
                         </connections>
                     </view>
                     <connections>
-                        <outlet property="activityIndicator" destination="yy6-It-HYM" id="9g2-Gd-3mm"/>
                         <outlet property="bodyTextView" destination="5pA-GP-fz3" id="zKQ-FQ-1HC"/>
                         <outlet property="bodyView" destination="AqR-op-JKn" id="hPj-dB-fn9"/>
                         <outlet property="dayTextField" destination="s85-fU-VBR" id="F63-Zq-OUV"/>

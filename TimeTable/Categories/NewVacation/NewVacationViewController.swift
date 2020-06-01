@@ -16,14 +16,13 @@ protocol NewVacationViewControllerType: class {
 
 class NewVacationViewController: UIViewController {
     @IBOutlet private var scrollView: UIScrollView!
-    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private var daysLabel: UILabel!
     @IBOutlet private var startDayTextField: UITextField!
     @IBOutlet private var endDayTextField: UITextField!
     @IBOutlet private var typeTextField: UITextField!
     @IBOutlet private var optionalStaticLabel: UILabel!
     @IBOutlet private var noteTextView: AttributedTextView!
-    @IBOutlet private var saveButton: AttributedButton!
+    @IBOutlet private var saveButton: LoadingButton!
     
     @IBOutlet private var textFieldsHeightConstraints: [NSLayoutConstraint]!
     @IBOutlet private var saveButtonHeightConstraint: NSLayoutConstraint!
@@ -154,7 +153,7 @@ extension NewVacationViewController: NewVacationViewModelOutput {
     }
     
     func setActivityIndicator(isAnimating: Bool) {
-        self.activityIndicator.set(isAnimating: isAnimating)
+        self.saveButton.set(isLoading: isAnimating)
     }
     
     func setNote(text: String) {

@@ -12,7 +12,7 @@ import UIKit
     
     /// This property should be set before showing an activity indicator because it is initialized only once
     @IBInspectable var activityIndicatorColor: UIColor = .white
-    @IBInspectable var disablesOnLoading: Bool = false
+    @IBInspectable var disablesOnLoading: Bool = true
     
     var isLoading: Bool {
         self.activityIndicator.isAnimating

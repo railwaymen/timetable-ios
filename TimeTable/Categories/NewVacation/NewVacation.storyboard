@@ -169,7 +169,7 @@
                                                     </textView>
                                                 </subviews>
                                             </stackView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NH4-wE-geL" customClass="AttributedButton" customModule="TimeTable" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NH4-wE-geL" customClass="LoadingButton" customModule="TimeTable" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="373.5" width="288" height="40"/>
                                                 <color key="backgroundColor" name="Enabled Button"/>
                                                 <constraints>
@@ -213,20 +213,15 @@
                                     <constraint firstItem="sT2-Qh-sRx" firstAttribute="leading" secondItem="u79-Nk-NpM" secondAttribute="leading" id="o63-5X-xSm"/>
                                 </constraints>
                             </scrollView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="WSi-Ma-hHX">
-                                <rect key="frame" x="150" y="362" width="20" height="20"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="WSi-Ma-hHX" firstAttribute="centerY" secondItem="gBU-Py-swc" secondAttribute="centerY" id="3Cu-Mf-fec"/>
                             <constraint firstItem="u79-Nk-NpM" firstAttribute="top" secondItem="eMV-o0-hiq" secondAttribute="top" id="7iY-FE-SYq"/>
                             <constraint firstItem="u79-Nk-NpM" firstAttribute="leading" secondItem="eMV-o0-hiq" secondAttribute="leading" id="Dwc-Z2-heY"/>
                             <constraint firstAttribute="trailing" secondItem="u79-Nk-NpM" secondAttribute="trailing" id="N5w-XS-ptS"/>
                             <constraint firstItem="sT2-Qh-sRx" firstAttribute="leading" secondItem="gBU-Py-swc" secondAttribute="leading" id="RKf-QG-y8F"/>
                             <constraint firstItem="gBU-Py-swc" firstAttribute="trailing" secondItem="sT2-Qh-sRx" secondAttribute="trailing" id="fib-XG-glq"/>
                             <constraint firstAttribute="bottom" secondItem="u79-Nk-NpM" secondAttribute="bottom" id="rwv-i6-RJA"/>
-                            <constraint firstItem="WSi-Ma-hHX" firstAttribute="centerX" secondItem="gBU-Py-swc" secondAttribute="centerX" id="tWt-YD-4hP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gBU-Py-swc"/>
                         <connections>
@@ -235,7 +230,6 @@
                     </view>
                     <size key="freeformSize" width="320" height="700"/>
                     <connections>
-                        <outlet property="activityIndicator" destination="WSi-Ma-hHX" id="KdD-79-VbY"/>
                         <outlet property="daysLabel" destination="EPk-rq-91c" id="Pzr-XO-iIq"/>
                         <outlet property="endDayTextField" destination="Zdw-xi-1yV" id="gkf-6a-l7Z"/>
                         <outlet property="noteTextView" destination="GoS-hI-TQJ" id="TK7-fH-5pA"/>
