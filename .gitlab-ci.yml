@@ -25,7 +25,7 @@ cache:
 
 .setup_cocoapods: &setup_cocoapods |
   bundle exec pod cache clean --all
-  bundle exec pod install || bundle exec pod install --repo-update
+  (bundle exec pod install || bundle exec pod install --repo-update)
 
 .setup: &setup
   - *setup_gemset
